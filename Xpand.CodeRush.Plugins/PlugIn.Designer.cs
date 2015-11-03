@@ -44,7 +44,6 @@ namespace Xpand.CodeRush.Plugins {
             this._actionHint = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
             this.RunEasyTest = new DevExpress.CodeRush.Core.Action(this.components);
             this.DebugEasyTest = new DevExpress.CodeRush.Core.Action(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
@@ -58,7 +57,7 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // convertProject
             // 
-            this.convertProject.ActionName = "convertProject";
+            this.convertProject.ActionName = "ConvertProject";
             this.convertProject.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.convertProject.Image = ((System.Drawing.Bitmap)(resources.GetObject("convertProject.Image")));
             this.convertProject.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
@@ -70,7 +69,7 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // collapseAllItemsInSolutionExplorer
             // 
-            this.collapseAllItemsInSolutionExplorer.ActionName = "collapseAllItemsInSolutionExplorer";
+            this.collapseAllItemsInSolutionExplorer.ActionName = "CollapseAllItemsInSolutionExplorer";
             this.collapseAllItemsInSolutionExplorer.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.collapseAllItemsInSolutionExplorer.Image = ((System.Drawing.Bitmap)(resources.GetObject("collapseAllItemsInSolutionExplorer.Image")));
             this.collapseAllItemsInSolutionExplorer.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(254)))), ((int)(((byte)(0)))));
@@ -88,7 +87,7 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // loadProjectFromReferenceItem
             // 
-            this.loadProjectFromReferenceItem.ActionName = "loadProjectFromReferenceItem";
+            this.loadProjectFromReferenceItem.ActionName = "LoadProjectFromReferenceItem";
             this.loadProjectFromReferenceItem.ButtonText = "Load Project/s";
             this.loadProjectFromReferenceItem.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.loadProjectFromReferenceItem.ImageBackColor = System.Drawing.Color.Empty;
@@ -99,6 +98,7 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // dropDataBase
             // 
+            this.dropDataBase.ActionName = "DropDatabase";
             this.dropDataBase.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.dropDataBase.ImageBackColor = System.Drawing.Color.Empty;
             this.dropDataBase.ToolbarItem.ButtonIsPressed = false;
@@ -108,6 +108,7 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // exploreXafErrors
             // 
+            this.exploreXafErrors.ActionName = "ExploreXafErrors";
             this.exploreXafErrors.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.exploreXafErrors.ImageBackColor = System.Drawing.Color.Empty;
             this.exploreXafErrors.ToolbarItem.ButtonIsPressed = false;
@@ -125,6 +126,7 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // RunEasyTest
             // 
+            this.RunEasyTest.ActionName = "RunEasyTest";
             this.RunEasyTest.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.RunEasyTest.ImageBackColor = System.Drawing.Color.Empty;
             this.RunEasyTest.ToolbarItem.ButtonIsPressed = false;
@@ -134,6 +136,7 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // DebugEasyTest
             // 
+            this.DebugEasyTest.ActionName = "DebugEasyTest";
             this.DebugEasyTest.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.DebugEasyTest.ImageBackColor = System.Drawing.Color.Empty;
             this.DebugEasyTest.RegisterInVS = true;
@@ -148,7 +151,6 @@ namespace Xpand.CodeRush.Plugins {
             // PlugIn
             // 
             this.DocumentActivated += new DevExpress.CodeRush.Core.DocumentEventHandler(this.PlugIn_DocumentActivated);
-            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();

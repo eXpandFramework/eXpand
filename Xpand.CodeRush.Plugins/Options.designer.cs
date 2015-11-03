@@ -80,7 +80,6 @@ namespace Xpand.CodeRush.Plugins
             this.modelEditorPathButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
             this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl11 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             this.General.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
@@ -167,9 +166,9 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelControl13.Location = new System.Drawing.Point(3, 63);
             this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(365, 13);
+            this.labelControl13.Size = new System.Drawing.Size(366, 13);
             this.labelControl13.TabIndex = 34;
-            this.labelControl13.Text = "Assign a keyboard shortcut to the <b>collapseAllItemsInSolutionExplorer</b>";
+            this.labelControl13.Text = "Assign a keyboard shortcut to the <b>CollapseAllItemsInSolutionExplorer</b>";
             // 
             // labelControl14
             // 
@@ -180,8 +179,8 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl14.Name = "labelControl14";
             this.labelControl14.Size = new System.Drawing.Size(516, 26);
             this.labelControl14.TabIndex = 35;
-            this.labelControl14.Text = "Assign a keyboard shortcut to the <b>collapseAllItemsInSolutionExplorer</b> to li" +
-    "nk the XAF log with R# explore stack trace feature";
+            this.labelControl14.Text = "Assign a keyboard shortcut to the <b>ExploreXafErrors</b> to link the XAF log wit" +
+    "h R# explore stack trace feature";
             // 
             // EasyTests
             // 
@@ -392,7 +391,7 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl7.Name = "labelControl7";
             this.labelControl7.Size = new System.Drawing.Size(516, 13);
             this.labelControl7.TabIndex = 21;
-            this.labelControl7.Text = "Available command: <b>Dropdatabase</b>";
+            this.labelControl7.Text = "Available command: <b>DropDatabase</b>";
             // 
             // LoadProject
             // 
@@ -506,7 +505,7 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl4.Name = "labelControl4";
             this.labelControl4.Size = new System.Drawing.Size(516, 26);
             this.labelControl4.TabIndex = 20;
-            this.labelControl4.Text = "You can assign a keyboard shortcut to the <b>loadProjectFromReferenceItem</b> com" +
+            this.labelControl4.Text = "You can assign a keyboard shortcut to the <b>LoadProjectFromReferenceItem</b> com" +
     "mand or use the context memu of the referenced to project assemblies ";
             // 
             // tabControl1
@@ -634,7 +633,6 @@ namespace Xpand.CodeRush.Plugins
             this.Name = "Options";
             this.Size = new System.Drawing.Size(530, 488);
             this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.Options_CommitChanges);
-            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             this.General.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
