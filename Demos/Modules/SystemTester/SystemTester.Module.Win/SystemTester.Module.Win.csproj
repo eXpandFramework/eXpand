@@ -168,6 +168,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
+    <Content Include="FunctionalTests\FolderBrowseEditor\Config.xml" />
+    <Content Include="FunctionalTests\FolderBrowseEditor\Init.inc" />
     <Content Include="FunctionalTests\GridView\GridViewOptions.inc" />
     <Content Include="FunctionalTests\GridView\Images\GridViewOptions.win.png" />
     <Content Include="FunctionalTests\LayoutControlGroup\Config.xml" />
@@ -181,6 +183,8 @@
     <Content Include="FunctionalTests\ViewEditMode.Win\ViewMode.Win\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="FunctionalTests\FolderBrowseEditor\FolderBrowserEditor.xafml" />
+    <None Include="FunctionalTests\FolderBrowseEditor\FolderBrowseEditor.ets" />
     <None Include="FunctionalTests\DetailViewCaching\TabbedMDI.xafml">
       <SubType>Designer</SubType>
     </None>
@@ -209,6 +213,7 @@
     <Content Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\New objects.inc" />
     <Compile Include="FunctionalTests\FilterEditor\FilterEditorObject.cs" />
+    <Compile Include="FunctionalTests\FolderBrowseEditor\FolderBrowseEditorObject.cs" />
     <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -238,6 +243,7 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>

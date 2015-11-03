@@ -40,7 +40,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         private void FolderPathEditValueChanged(object sender, EventArgs e) {
             PropertyValue = _folderPath.Text;
-            OnControlValueChanged();
+            if (!inReadValue)
+                OnControlValueChanged();
         }
 
         protected override object CreateControlCore() {
@@ -57,8 +58,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             _openFolderButton.Visible = Directory.Exists(_folderPath.Text);
         }
 
-        protected override void ReadValueCore() {
-            _folderPath.Text = Convert.ToString(PropertyValue);
+        protected override void ReadValueCore(){
+            var text = Convert.ToString(PropertyValue);
+            _folderPath.Text = text;
         }
 
         protected override void Dispose(bool disposing) {
