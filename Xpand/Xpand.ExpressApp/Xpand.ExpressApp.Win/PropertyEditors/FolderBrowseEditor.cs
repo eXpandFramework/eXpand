@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Editors;
@@ -46,8 +47,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected override object CreateControlCore() {
             _folderPath = new ButtonEdit();
-            _openFolderButton = new EditorButton(ButtonPredefines.Right) { Visible = false };
-            _folderPath.Properties.Buttons.Add(_openFolderButton);
+            _openFolderButton = new EditorButton(ButtonPredefines.Right) { Visible = false ,Caption = "Browse"};
+            var editorButtonCollection = _folderPath.Properties.Buttons;
+            var editorButton = editorButtonCollection.OfType<EditorButton>().First(button => button.IsDefaultButton);
+            editorButton.Caption = "Dialog";
+            editorButtonCollection.Add(_openFolderButton);
             _folderPath.TextChanged += FolderPathOnTextChanged;
             _folderPath.ButtonClick += FolderPathButtonClick;
             _folderPath.EditValueChanged += FolderPathEditValueChanged;
