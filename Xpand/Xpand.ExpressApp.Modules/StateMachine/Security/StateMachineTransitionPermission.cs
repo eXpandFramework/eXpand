@@ -5,10 +5,6 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.StateMachine.Security {
-    public enum StateMachineTransitionModifier {
-        Allow,
-        Deny
-    }
 
     [NonPersistent]
     public class StateMachineTransitionPermission : PermissionBase, INotifyPropertyChanged, IStateMachineTransitionPermission {
@@ -21,7 +17,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
         }
 
         public override IPermission Copy() {
-            return new StateMachineTransitionPermission(StateCaption, StateMachineName){Modifier = Modifier};
+            return new StateMachineTransitionPermission(StateCaption, StateMachineName);
         }
 
         public StateMachineTransitionPermission() {
@@ -40,7 +36,6 @@ namespace Xpand.ExpressApp.StateMachine.Security {
             return false;
         }
 
-        public StateMachineTransitionModifier Modifier { get; set; }
         string _stateMachineName;
 
         [ImmediatePostData]

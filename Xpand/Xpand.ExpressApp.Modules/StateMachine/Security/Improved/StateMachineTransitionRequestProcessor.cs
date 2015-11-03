@@ -11,11 +11,11 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
 
         public override bool IsGranted(StateMachineTransitionOperationRequest permissionRequest){
             var permissions = _permissions.GetPermissions<StateMachineTransitionPermission>().ToArray();
-            return (!permissions.Any() || permissions.Any(permission => TransitionMatch(permission, permissionRequest)));
+            return (permissions.Any(permission => TransitionMatch(permission, permissionRequest)));
         }
 
         bool TransitionMatch(StateMachineTransitionPermission permission, StateMachineTransitionOperationRequest permissionRequest) {
-            return permissionRequest.Modifier==permission.Modifier&&permissionRequest.Hide==permission.Hide&& permissionRequest.StateCaption == permission.StateCaption &&
+            return permissionRequest.Hide==permission.Hide&& permissionRequest.StateCaption == permission.StateCaption &&
                    permissionRequest.StateMachineName == permission.StateMachineName;
         }
     }

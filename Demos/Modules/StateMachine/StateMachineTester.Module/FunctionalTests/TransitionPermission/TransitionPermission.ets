@@ -8,7 +8,6 @@
 *Action Permissions.New(StateMachineTransition)
 *XpandFillForm
  State Machine Name = Payment
- Modifier = Deny
 *SaveAndClose
 *Action Permissions
 *XpandProcessRecord Permissions

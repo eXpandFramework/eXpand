@@ -6,13 +6,11 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
     public class StateMachineTransitionOperationRequest : OperationPermissionRequestBase, IStateMachineTransitionPermission {
         public StateMachineTransitionOperationRequest(IStateMachineTransitionPermission permission)
             : base(StateMachineTransitionPermission.OperationName) {
-            Modifier = permission.Modifier;
             StateCaption = permission.StateCaption;
             StateMachineName = permission.StateMachineName;
             Hide = permission.Hide;
         }
 
-        public StateMachineTransitionModifier Modifier { get; set; }
         public string StateMachineName { get; set; }
         public string StateCaption { get; set; }
         public override object GetHashObject() {

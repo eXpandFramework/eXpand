@@ -5,10 +5,12 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
+    public enum StateMachineTransitionModifier{
+        Deny
+    }
     [System.ComponentModel.DisplayName("StateMachineTransition")]
     public class StateMachineTransitionOperationPermissionData : XpandPermissionData, IStateMachineTransitionPermission {
         bool _hide;
-        StateMachineTransitionModifier _modifier;
 
         string _stateCaption;
 
@@ -20,8 +22,7 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
         }
 
         public StateMachineTransitionModifier Modifier {
-            get { return _modifier; }
-            set { SetPropertyValue("Modifier", ref _modifier, value); }
+            get { return StateMachineTransitionModifier.Deny; }
         }
 
         [ImmediatePostData]
