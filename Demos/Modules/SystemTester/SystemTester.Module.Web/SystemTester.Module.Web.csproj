@@ -203,6 +203,7 @@
   <ItemGroup>
     <Content Include="FunctionalTests\LayoutStyle\Config.xml" />
     <Content Include="FunctionalTests\WarnForUnsavedChanges\Cancel Action.inc" />
+    <Content Include="FunctionalTests\WarnForUnsavedChanges\CommitChanges.inc" />
     <Content Include="FunctionalTests\WarnForUnsavedChanges\Config.xml" />
     <Content Include="FunctionalTests\WarnForUnsavedChanges\Delete Action.inc" />
     <Content Include="FunctionalTests\WarnForUnsavedChanges\New Action.inc" />

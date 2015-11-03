@@ -24,24 +24,24 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     }
     [DesignerCategory("Code")]
     public class UnsavedObjectController : ViewController<DetailView>,IModelExtender {
-        private Boolean _canExitEditMode;
         private Boolean _cancelActionTriggered;
         private Boolean _exitEditModeByCancel;
         private Boolean _isWarningShown;
         private bool _isObjectSpaceModified;
+        private bool _isDeleting;
 
         protected override void OnActivated() {
             base.OnActivated();
             if (((IModelDetailViewWarnForUnsavedChanges) View.Model).WarnForUnsavedChanges) {
+                ObjectSpace.Committed+=ObjectSpaceOnCommitted;
                 View.ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
-                _canExitEditMode = false;
                 _cancelActionTriggered = false;
                 _exitEditModeByCancel = false;
                 _isWarningShown = false;
                 _isObjectSpaceModified = false;
 
                 AdjustUIForMode(View.ViewEditMode);
-
+                ObjectSpace.CustomDeleteObjects+=ObjectSpaceOnCustomDeleteObjects;
                 View.ViewEditModeChanged += View_ViewEditModeChanged;
                 View.QueryCanClose += View_QueryCanClose;
                 View.ObjectSpace.Refreshing+=ObjectSpaceOnRefreshing;
@@ -50,13 +50,25 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override void OnDeactivated() {
             if (((IModelDetailViewWarnForUnsavedChanges)View.Model).WarnForUnsavedChanges) {
+                ObjectSpace.Committed-=ObjectSpaceOnCommitted;
+                ObjectSpace.CustomDeleteObjects-=ObjectSpaceOnCustomDeleteObjects;
                 View.QueryCanClose -= View_QueryCanClose;
                 View.ViewEditModeChanged -= View_ViewEditModeChanged;
                 View.ObjectSpace.Refreshing-=ObjectSpaceOnRefreshing;
-                View.ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
+                View.ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
                 AdjustUIForMode(ViewEditMode.View);
             }
             base.OnDeactivated();
+        }
+
+        private void ObjectSpaceOnCustomDeleteObjects(object sender, CustomDeleteObjectsEventArgs e){
+            e.Handled = !IsExitEditModeAllowed();
+            _isDeleting = e.Handled;
+        }
+
+        private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs){
+            if (!_isDeleting)
+                _isObjectSpaceModified = false;
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e){
@@ -73,24 +85,24 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         void View_QueryCanClose(object sender, CancelEventArgs e) {
             e.Cancel = !IsExitEditModeAllowed();
+            if (_isDeleting)
+                _isDeleting = false;
         }
 
         void HandleWebModificationActions(object sender, CancelEventArgs e) {
             var anAction = ((ActionBase)sender);
             if (anAction.Id == Frame.GetController<WebModificationsController>().CancelAction.Id) {
                 _cancelActionTriggered = !_cancelActionTriggered;
-                _canExitEditMode = !_cancelActionTriggered;
                 _exitEditModeByCancel = true;
                 e.Cancel = !IsExitEditModeAllowed();
             } else {
                 _cancelActionTriggered = false;
-                _canExitEditMode = true;
                 _exitEditModeByCancel = false;
             }
         }
 
         protected Boolean IsExitEditModeAllowed() {
-            if ((View.ViewEditMode == ViewEditMode.Edit) && !_canExitEditMode && _isObjectSpaceModified && !(_isWarningShown && _exitEditModeByCancel)) {
+            if ((View.ViewEditMode == ViewEditMode.Edit) && _isObjectSpaceModified && !(_isWarningShown && _exitEditModeByCancel)) {
                 var unsavedObjectWarning = CaptionHelper.GetLocalizedText(XpandSystemAspNetModule.XpandWeb, _exitEditModeByCancel ? "CancelAgain" : "UnSavedChanges");
                 ErrorHandling.Instance.SetPageError(new UserFriendlyException(unsavedObjectWarning));
                 _isWarningShown = true;

@@ -20,6 +20,10 @@ namespace Xpand.Persistent.Base.General.Controllers{
             get { return _loadModelAction; }
         }
 
+        public ParametrizedAction ParametrizedAction{
+            get { return _parametrizedAction; }
+        }
+
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
             if (e.SelectedChoiceActionItem.Caption == "LoadModel"){
                 var modelApplicationBase = ((ModelApplicationBase)Application.Model);

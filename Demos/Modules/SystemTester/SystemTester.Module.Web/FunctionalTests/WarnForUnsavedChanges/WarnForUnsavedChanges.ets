@@ -6,5 +6,6 @@
 #IncludeFile .\Refresh Action.inc
 #IncludeFile .\Previous Record Action.inc
 #IncludeFile .\UnmodifiedObject.inc
+#IncludeFile .\CommitChanges.inc
 
 
