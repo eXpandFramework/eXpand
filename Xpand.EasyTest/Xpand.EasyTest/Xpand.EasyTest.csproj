@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="ButtonLocalizations.cs" />
     <Compile Include="Commands\ChangeUserPasswordCommand.cs" />
+    <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\CreatePermissionCommand.cs" />
     <Compile Include="Commands\FieldIsVisibleCommand.cs" />
     <Compile Include="Commands\FocusControlCommand.cs" />

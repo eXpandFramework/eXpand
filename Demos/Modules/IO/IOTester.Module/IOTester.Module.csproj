@@ -92,8 +92,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FunctionalTests\ExportAggregatedObject.cs" />
-    <Compile Include="FunctionalTests\IOObject.cs" />
+    <Compile Include="FunctionalTests\TypeAsSerializationKey\TypeAsSerializationKey.cs" />
+    <Compile Include="FunctionalTests\SimpleIO\SimpleIO.cs" />
     <Compile Include="FunctionalTests\NorthWind\WorldCreatorUpdater.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -122,21 +122,21 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\IO.ets" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="FunctionalTests\Init.inc" />
-    <None Include="FunctionalTests\ExportObjectWithChildren.inc" />
     <None Include="FunctionalTests\NorthWind\NorthWind.ets" />
-    <None Include="FunctionalTests\SimpleIO.inc" />
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Config.xml">
+    <Content Include="FunctionalTests\TypeAsSerializationKey\Config.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="FunctionalTests\export.inc" />
+    <None Include="FunctionalTests\TypeAsSerializationKey\TypeAsSerializationKey.ets" />
+    <None Include="FunctionalTests\TypeAsSerializationKey\Init.inc" />
+    <Content Include="FunctionalTests\SimpleIO\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="FunctionalTests\SimpleIO\SimpleIO.ets" />
+    <None Include="FunctionalTests\SimpleIO\Init.inc" />
     <Content Include="FunctionalTests\NorthWind\Config.xml">
       <SubType>Designer</SubType>
     </Content>

@@ -24,7 +24,7 @@ using Fasterflect;
 namespace Xpand.ExpressApp.IO.Core {
 
     public class ImportEngine {
-        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
+        readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> _importedObjecs = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
         UnitOfWork _unitOfWork;
         readonly ErrorHandling _errorHandling;
 
@@ -82,8 +82,8 @@ namespace Xpand.ExpressApp.IO.Core {
         XPBaseObject CreateObject(XElement element, UnitOfWork unitOfWork, ITypeInfo typeInfo, CriteriaOperator objectKeyCriteria) {
             XPBaseObject xpBaseObject = GetObject(typeInfo, objectKeyCriteria);
             var keyValuePair = new KeyValuePair<ITypeInfo, CriteriaOperator>(typeInfo, objectKeyCriteria);
-            if (!importedObjecs.ContainsKey(keyValuePair)) {
-                importedObjecs.Add(keyValuePair, null);
+            if (!_importedObjecs.ContainsKey(keyValuePair)) {
+                _importedObjecs.Add(keyValuePair, null);
                 ImportProperties(unitOfWork, xpBaseObject, element);
             }
             return xpBaseObject;
@@ -151,7 +151,7 @@ namespace Xpand.ExpressApp.IO.Core {
             }
             if (_errorHandling == ErrorHandling.CreateErrorObjects) {
                 var errorInfoObject =
-                    (IIOError)XafTypesInfo.Instance.FindBussinessObjectType<IIOError>().CreateInstance(new object[] { _unitOfWork });
+                    (IIOError)XafTypesInfo.Instance.FindBussinessObjectType<IIOError>().CreateInstance(_unitOfWork);
                 errorInfoObject.Reason = failReason;
                 errorInfoObject.ElementXml = elementXml;
                 errorInfoObject.InnerXml = innerXml;
@@ -219,15 +219,30 @@ namespace Xpand.ExpressApp.IO.Core {
             return null;
         }
 
-        CriteriaOperator GetObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements) {
-            string criteria = "";
-            var parameters = new List<object>();
+        CriteriaOperator GetObjectKeyCriteria(ITypeInfo typeInfo, IEnumerable<XElement> xElements, string prefix = "") {
+            CriteriaOperator op = CriteriaOperator.Parse("");
             foreach (var xElement in xElements) {
-                var name = xElement.GetAttributeValue("name");
-                parameters.Add(XpandReflectionHelper.ChangeType(xElement.Value, typeInfo.FindMember(name).MemberType));
-                criteria += name + "=? AND ";
+                var propertyName = xElement.GetAttributeValue("name");
+                var iMemberInfo = typeInfo.FindMember(propertyName);
+
+                if (iMemberInfo != null) {
+                    var memberType = iMemberInfo.MemberTypeInfo;
+
+                    if (typeof(XPBaseObject).IsAssignableFrom(memberType.Type))
+                        op &= GetObjectKeyCriteria(memberType, xElement.Elements().First().Elements(), prefix + propertyName + ".");
+                    else if (iMemberInfo.MemberType == typeof(Type)) {
+                        var typeName = (string)GetValue(typeof(string), xElement);
+                        var type = XafTypesInfo.Instance.FindTypeInfo(typeName).Type;
+                        op &= CriteriaOperator.Parse(prefix + propertyName + "=?", type);
+                    }
+                    else {
+                        op &= CriteriaOperator.Parse(prefix + propertyName + "=?", XpandReflectionHelper.ChangeType(GetValue(iMemberInfo.MemberType, xElement), memberType.Type));
+                    }
+                }
+                else
+                    HandleError(xElement, FailReason.PropertyNotFound);
             }
-            return CriteriaOperator.Parse(criteria.TrimEnd("AND ".ToCharArray()), parameters.ToArray());
+            return op;
         }
 
         public void ImportObjects(UnitOfWork unitOfWork, string fileName) {
