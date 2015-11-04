@@ -8,7 +8,7 @@ namespace Xpand.EasyTest.Commands{
             xpandFillFormCommand.Parameters.Add(new Parameter("File name:", Parameters.MainParameter.Value, true, EndPosition));
             xpandFillFormCommand.Execute(adapter);
             var handleDialogCommand = new XpandHandleDialogCommand();
-            handleDialogCommand.Parameters.Add(new Parameter("Respond", "Open", true, EndPosition));
+            handleDialogCommand.Parameters.Add(new Parameter("Respond", ButtonLocalizations.GetLocalizedButtonCaption("Open"), true, EndPosition));
             handleDialogCommand.Execute(adapter);
         }
     }

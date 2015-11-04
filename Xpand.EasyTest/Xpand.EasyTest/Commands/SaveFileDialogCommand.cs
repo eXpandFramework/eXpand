@@ -16,7 +16,7 @@ namespace Xpand.EasyTest.Commands{
             fillFormCommand.Parameters.Add(new Parameter("File name:",Path.Combine(binPath,Parameters.MainParameter.Value),true,EndPosition));
             fillFormCommand.Execute(adapter);
             var handleDialogCommand = new XpandHandleDialogCommand();
-            handleDialogCommand.Parameters.Add(new Parameter("Respond","Save",true,EndPosition));
+            handleDialogCommand.Parameters.Add(new Parameter("Respond", ButtonLocalizations.GetLocalizedButtonCaption("Save"), true, EndPosition));
             handleDialogCommand.Execute(adapter);
             var sleepCommand = new SleepCommand();
             sleepCommand.Parameters.MainParameter = new MainParameter("1000");
