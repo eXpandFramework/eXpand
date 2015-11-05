@@ -75,8 +75,12 @@ namespace Xpand.Persistent.Base.General {
         private ModuleType _moduleType;
         private List<KeyValuePair<string, ModelDifferenceStore>> _extraDiffStores;
         private bool _loggedOn;
-
+        private static readonly TypesInfo _additionalTypesTypesInfo;
         public event EventHandler ApplicationModulesManagerSetup;
+
+        static XpandModuleBase(){
+            _additionalTypesTypesInfo=new TypesInfo();
+        }
 
         protected virtual void OnApplicationModulesManagerSetup(EventArgs e) {
             EventHandler handler = ApplicationModulesManagerSetup;
@@ -483,8 +487,15 @@ namespace Xpand.Persistent.Base.General {
         }
 
         protected void AddToAdditionalExportedTypes(string nameSpaceName, Assembly assembly) {
-            var types = assembly.GetTypes().Where(type1 => String.Join("", type1.Namespace).StartsWith(nameSpaceName));
-            AdditionalExportedTypes.AddRange(types);
+            var types = GetTypeInfos(assembly).Where(type1 => String.Join("", type1.Type.Namespace).StartsWith(nameSpaceName));
+            AdditionalExportedTypes.AddRange(types.Select(info => info.Type));
+        }
+
+        private IEnumerable<ITypeInfo> GetTypeInfos(Assembly assembly) {
+            var assemblyInfo = _additionalTypesTypesInfo.FindAssemblyInfo(assembly);
+            if (!assemblyInfo.AllTypesLoaded)
+                assemblyInfo.LoadTypes();
+            return assemblyInfo.Types;
         }
 
         protected void AddToAdditionalExportedTypes(string nameSpaceName) {
