@@ -9,7 +9,10 @@
     </Class>
   </BOModel>
   <SchemaModules>
-    <SchemaModule Name="MapViewModule" Version="13.1.8.2" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="MapViewModule" Version="15.1.7.2" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="15.1.7.0" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <ListView Id="Customer_ListView" MasterDetailMode="ListViewAndDetailView" />
+  </Views>
 </Application>

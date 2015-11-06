@@ -126,11 +126,28 @@ namespace Xpand.ExpressApp.Web.Layout {
             adapter.Control = control;
             return adapter;
         }
-        private static void SetSplitterInitClientEvent(ASPxSplitter splitter, bool isRoot) {
-            splitter.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
-                "function (s,e) {{ {0}  s.AdjustControl(); s.GetMainElement().ClientControl = s;}}", isRoot ? "window.MasterDetailSplitter = s;" : string.Empty);
-        }
+        private static void SetSplitterInitClientEvent(ASPxSplitter splitter, bool isRoot)
+        {
 
+
+            if (WebApplicationStyleManager.IsNewStyle)
+            {
+                splitter.ClientSideEvents.Init = @"function(s,e) { 
+                    window.xafHeightAdjuster = { 
+                        splitter: s,
+                        oldAdjuster: window.xafHeightAdjuster,
+                        Adjust: function () {this.oldAdjuster.Adjust(); s.SetHeight(parseInt(document.getElementById('mainDiv').style['min-height']));} }
+                
+                window.RefreshUI(); }";
+            }
+            else
+            {
+                // 
+                splitter.ClientSideEvents.Init = string.Format(CultureInfo.InvariantCulture,
+                    "function (s,e) {{ {0}  s.AdjustControl(); s.GetMainElement().ClientControl = s;}}", isRoot ? "window.MasterDetailSplitter = s;" : string.Empty);
+            }
+
+        }
         private void RaiseMasterDetailLayout(MasterDetailLayoutEventArgs args) {
             if (MasterDetailLayout != null) {
                 MasterDetailLayout(this, args);
@@ -171,7 +188,6 @@ namespace Xpand.ExpressApp.Web.Layout {
             SplitterPane detailPane = splitter.Panes.Add();
             detailPane.ScrollBars = ScrollBars.Auto;
             var updatePanel = new ASPxCallbackPanel { ID = "DetailUpdatePanel", ClientInstanceName = "DetailUpdatePanel" };
-
             if (!(WebWindow.CurrentRequestWindow is PopupWindow))
                 updatePanel.ClientSideEvents.Init = GetAdjustSizeScript();
 
@@ -255,6 +271,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                         : Orientation.Vertical,
                 ShowCollapseBackwardButton = true,
                 ShowCollapseForwardButton = true
+                
             };
 
             splitter.CustomJSProperties += (s, e) => e.Properties[IsMasterDetailSplitterPropertyName] = true;

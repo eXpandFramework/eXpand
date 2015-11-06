@@ -15,6 +15,7 @@ namespace Xpand.ExpressApp.MapView.Web
     public class MapControl : ASPxWebControl
     {
         private const int infoWidthDefaultValue = 300;
+        private const string callAdjustSizeScript = "if (window.AdjustSize) window.AdjustSize(); else div.style.height = document.getElementById('mainDiv').style['min-height'];";
         private HtmlGenericControl div;
         private int infoWindowWidth = infoWidthDefaultValue;
         public event EventHandler FocusedIndexChanged;
@@ -101,13 +102,14 @@ namespace Xpand.ExpressApp.MapView.Web
             sb.AppendLine(@"
                         var geoCodeQueue = new Array();
                         var createMarkersWithGeoCode = function() {
-                                if (geoCodeQueue.length == 0) {
+                                if (geoCodeQueue.length == 0) {");
+            sb.AppendLine(callAdjustSizeScript);
+            sb.AppendLine(@"
                                     google.maps.event.trigger(map, 'resize');
-                                    window.AdjustSize();
                                     map.fitBounds(bounds);
                                     return;
                                 }
-
+                               
                                 var info = geoCodeQueue.pop();
                                 geocoder.geocode( { 'address': info.address}, function(results, status) {
                                     if (status == google.maps.GeocoderStatus.OK) {
@@ -188,7 +190,7 @@ namespace Xpand.ExpressApp.MapView.Web
             }
             else
             {
-                sb.AppendLine("window.AdjustSize();");
+                sb.AppendLine(callAdjustSizeScript);
                 sb.AppendLine("google.maps.event.trigger(map, 'resize');");
             }
 
@@ -205,12 +207,12 @@ namespace Xpand.ExpressApp.MapView.Web
             string html = mapViewInfo.InfoWindowText;
             if (string.IsNullOrEmpty(html)) return string.Empty;
 
-            
+
             if (!AllowHtmlInInfoText) {
                 const string lineBreak = "<br/>";
                 html = System.Web.HttpUtility.HtmlEncode(mapViewInfo.InfoWindowText)
                     .Replace("\r\n", lineBreak)
-                    .Replace("\n\r",lineBreak)
+                    .Replace("\n\r", lineBreak)
                     .Replace("\n", lineBreak)
                     .Replace("\r", lineBreak);
             }
