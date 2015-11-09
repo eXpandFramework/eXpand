@@ -113,6 +113,7 @@
     <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath)" />
     <CallTarget Targets="BuildNH"/>
+     <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
@@ -134,6 +135,7 @@
     <MSBuild Projects="$(VSAddons)" Targets="Clean" Properties="Configuration=$(Configuration)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="$(ModuleProjects)" Targets="Clean" Properties="Configuration=$(RecompiledDXSources)" />
     <MSBuild Projects="@(NHProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
+    <MSBuild Projects="@(EFProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration);DefineConstants=CodeFirst;" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
