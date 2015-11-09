@@ -21,7 +21,7 @@ namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator>{
         public static bool Disable;
         public override void UpdateNode(ModelNode node){
-            if (Disable)
+            if (Disable||ModelUpdating())
                 return;
             var modulesDifferences = node.Application.GetModuleDifferences();
             var mergingEnabled = MergingEnabled(modulesDifferences);
@@ -34,6 +34,10 @@ namespace Xpand.Persistent.Base.General {
             CloneMergedView(mergedDifferenceInfos, modelViews, modulesDifferences);
             
             AddDifferenceLayers(node, mergedDifferenceInfos, modulesDifferences);
+        }
+
+        private bool ModelUpdating(){
+            return DesignerOnlyCalculator.IsRunFromDesigner&&Environment.StackTrace.Split(Environment.NewLine.ToCharArray()).Any(s => s.Contains("DevExpress.ExpressApp.Design.ModelUpdater.UpdateModel"));
         }
 
         private bool MergingEnabled(IEnumerable<ModelApplicationBase> modelApplicationBases){
