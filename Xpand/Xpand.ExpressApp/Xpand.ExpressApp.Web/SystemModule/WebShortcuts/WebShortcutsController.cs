@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
+using System.Text;
 
 namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
     public interface IModelOptionsWebShortcut {
@@ -64,9 +65,13 @@ namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
         }
 
         string GetScript() {
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("if (!window.AttachedShortcuts) window.AttachedShortcuts = { }");
             var actions = Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).Where(@base => @base.Enabled && @base.Active && !string.IsNullOrEmpty(@base.Shortcut));
             var script = actions.Select(ReplaceUnsupportedShortcuts).Select(GetScriptCore);
-            return string.Join(Environment.NewLine, script);
+            sb.AppendLine(string.Join(Environment.NewLine, script));
+            return sb.ToString();
         }
 
         Keys ShortcutToKeys(string str) {
@@ -100,7 +105,12 @@ namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
         string GetScriptCore(KeyValuePair<ActionBase, string> keyValuePair) {
             var xafCallbackManager = ((ICallbackManagerHolder)Frame.Template).CallbackManager;
             var script = xafCallbackManager.GetScript(KeybShortCutsScriptName, "'" + keyValuePair.Key.Id + "'");
-            var scriptCore = string.Format(@"jwerty.key({0}, {1});", "'" + keyValuePair.Value + "'", "function () { " + script + ";return false; }");
+            var scriptCore = string.Format(
+                @"if (!window.AttachedShortcuts['{0}']) {{
+                    jwerty.key('{0}', {1});
+                    window.AttachedShortcuts['{0}'] = true;
+                }}", 
+                keyValuePair.Value, "function () { " + script + ";return false; }");
             return scriptCore;
         }
 
