@@ -19,6 +19,5 @@ namespace Xpand.Persistent.Base.ExceptionHandling {
         byte[] Screenshot { get; set; }
         IExceptionObject ParentExceptionObject { get; set; }
         IList<IExceptionObject> InnerExceptionObjects { get; }
-    
     }
 }

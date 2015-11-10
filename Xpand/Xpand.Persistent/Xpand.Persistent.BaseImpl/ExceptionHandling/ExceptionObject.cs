@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
@@ -26,7 +25,7 @@ namespace Xpand.Persistent.BaseImpl.ExceptionHandling {
         string _message;
         string _threadId;
         TimeSpan _time;
-        Guid _userId;
+        string _userId;
         string _windowsId;
         #endregion
         #region Constructor
@@ -50,12 +49,12 @@ namespace Xpand.Persistent.BaseImpl.ExceptionHandling {
             get { return _time; }
             set { SetPropertyValue("Time", ref _time, value); }
         }
-        public Guid UserId {
+        public string UserId {
             get { return _userId; }
             set { SetPropertyValue("UserId", ref _userId, value); }
         }
 
-        Guid IExceptionObject.UserId {
+        string IExceptionObject.UserId {
             get { return UserId; }
             set { UserId = value; }
         }
@@ -100,8 +99,8 @@ namespace Xpand.Persistent.BaseImpl.ExceptionHandling {
         }
 
         [Size(SizeAttribute.Unlimited), Delayed, ValueConverter(typeof(ImageCompressionValueConverter))]
-        public Image Screenshot {
-            get { return GetDelayedPropertyValue<Image>("Screenshot"); }
+        public byte[] Screenshot {
+            get { return GetDelayedPropertyValue<byte[]>("Screenshot"); }
             set { SetDelayedPropertyValue("Screenshot", value); }
         }
 
