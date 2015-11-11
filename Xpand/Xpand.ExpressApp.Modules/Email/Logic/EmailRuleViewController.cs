@@ -55,7 +55,8 @@ namespace Xpand.ExpressApp.Email.Logic {
         protected virtual MailMessage CreateEmail(LogicRuleInfo logicRuleInfo, EmailRule emailRule, IModelSmtpClientContext modelSmtpClientContext, IEmailTemplate emailTemplateObject, IModelApplicationEmail modelApplicationEmail){
             var body = RazorEngineService.RunCompile(emailTemplateObject.Body, Guid.NewGuid().ToString(),null, logicRuleInfo.Object);
             var email = new MailMessage{
-                Subject = emailTemplateObject.Subject,
+                IsBodyHtml = true,
+                Subject = RazorEngineService.RunCompile(emailTemplateObject.Subject, Guid.NewGuid().ToString(), null, logicRuleInfo.Object),
                 Body = body
             };
             if (emailRule.CurrentObjectEmailMember != null){
