@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Xpand.ExpressApp.NH.BaseImpl
 {
-    [DataContract]
+    [DataContract, Serializable]
     public class User : ISecurityUser, ISecurityUserWithRoles, IAuthenticationStandardUser, IOperationPermissionProvider
     {
 

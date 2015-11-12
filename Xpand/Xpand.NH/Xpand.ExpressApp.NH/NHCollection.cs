@@ -52,7 +52,7 @@ using DevExpress.ExpressApp;
 
 namespace Xpand.ExpressApp.NH
 {
-    public class NHCollection : ICancelAddNew, IBindingList, IList, ICollection, IEnumerable, ITypedList, IDisposable
+    public class NHCollection : ICancelAddNew, IBindingList, IList, ICollection, IEnumerable, ITypedList, IDisposable, INHCollection
     {
         private NHObjectSpace objectSpace;
         private Type objectType;
@@ -76,6 +76,7 @@ namespace Xpand.ExpressApp.NH
                 objects.Clear();
             }
             objects = null;
+            calculatedObjectsCount = null;
         }
         private void RemoveObject(Object obj, Int32 index)
         {
@@ -97,17 +98,18 @@ namespace Xpand.ExpressApp.NH
                 }
             }
         }
+
+        private bool AreObjectsInitialized { get { return objects != null; } }
         protected void InitObjects()
         {
-            if (objects == null)
+            if (!AreObjectsInitialized)
             {
                 objects = new List<Object>();
                 if (topReturnedObjectsCount == 0)
                 {
                     topReturnedObjectsCount = Int32.MaxValue;
                 }
-                IList<String> memberNames = propertyDescriptorCollection.DisplayableMembers.Split(new String[] { ";" }, StringSplitOptions.RemoveEmptyEntries);
-                IEnumerable queryable = objectSpace.GetObjects(objectType, memberNames, criteria, sorting, topReturnedObjectsCount);
+                IEnumerable queryable = objectSpace.GetObjects(objectType, null, criteria, sorting, topReturnedObjectsCount);
                 try
                 {
                     foreach (Object obj in queryable)
@@ -417,7 +419,7 @@ namespace Xpand.ExpressApp.NH
         {
             if (!allowRemove)
             {
-                throw new Exception("Remove is not allowed.");
+                throw new InvalidOperationException("Remove is not allowed.");
             }
             ClearObjects();
             RaiseListChangedEvent(new ListChangedEventArgs(ListChangedType.Reset, 0));
@@ -464,6 +466,8 @@ namespace Xpand.ExpressApp.NH
             InitObjects();
             ((IList)objects).CopyTo(array, index);
         }
+
+        private int? calculatedObjectsCount;
         public Int32 Count
         {
             get
@@ -474,8 +478,15 @@ namespace Xpand.ExpressApp.NH
                 }
                 else
                 {
-                    InitObjects();
-                    return objects.Count;
+                    if (AreObjectsInitialized)
+                        return objects.Count;
+                    else
+                    {
+                        if (!calculatedObjectsCount.HasValue)
+                            calculatedObjectsCount = objectSpace.GetObjectsCount(objectType, Criteria);
+
+                        return calculatedObjectsCount.Value;
+                    }
                 }
             }
         }
@@ -507,5 +518,6 @@ namespace Xpand.ExpressApp.NH
         {
             return "";
         }
+
     }
 }

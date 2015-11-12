@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.Data.Filtering;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using Xpand.ExpressApp.NH.Core;
@@ -9,9 +10,9 @@ namespace Xpand.ExpressApp.NH.Service
     [XpandDataContractSerializer(true)]
     public class PersistenceManagerService : IPersistenceManagerService
     {
-        private PersistenceManager persistenceManager;
+        private NHPersistenceManager persistenceManager;
 
-        private PersistenceManager PersistenceManager
+        private NHPersistenceManager PersistenceManager
         {
             get
             {
@@ -29,9 +30,9 @@ namespace Xpand.ExpressApp.NH.Service
             }
         }
 
-        protected virtual PersistenceManager CreatePersistenceManager()
+        protected virtual NHPersistenceManager CreatePersistenceManager()
         {
-            return new PersistenceManager(ConnectionString);
+            return new NHPersistenceManager(ConnectionString);
         }
 
         protected string ConnectionString
@@ -44,7 +45,7 @@ namespace Xpand.ExpressApp.NH.Service
         {
             get { return "ConnectionString"; }
         }
-        public System.Collections.IList UpdateObjects(System.Collections.IList updateList, System.Collections.IList deleteList)
+        public virtual System.Collections.IList UpdateObjects(System.Collections.IList updateList, System.Collections.IList deleteList)
         {
             return PersistenceManager.UpdateObjects(updateList, deleteList);
         }
@@ -59,14 +60,20 @@ namespace Xpand.ExpressApp.NH.Service
             return PersistenceManager.GetMetadata();
         }
 
-        public virtual System.Collections.IList GetObjects(string typeName, string criteria, IList<ISortPropertyInfo> sorting, int topReturnedObjectsCount)
+        public virtual System.Collections.IList GetObjects(string typeName, IList<CriteriaOperator> members, string criteria, IList<ISortPropertyInfo> sorting, int topReturnedObjectsCount)
         {
-            return PersistenceManager.GetObjects(typeName, criteria, sorting, topReturnedObjectsCount);
+            return PersistenceManager.GetObjects(typeName, members, criteria, sorting, topReturnedObjectsCount);
         }
 
-        public int GetObjectsCount(string typeName, string criteria)
+        public virtual int GetObjectsCount(string typeName, string criteria)
         {
             return PersistenceManager.GetObjectsCount(typeName, criteria);
+        }
+
+
+        public object ExecuteExpression(Serialize.Linq.Nodes.ExpressionNode expressionNode)
+        {
+            return PersistenceManager.ExecuteExpression(expressionNode);
         }
     }
 }

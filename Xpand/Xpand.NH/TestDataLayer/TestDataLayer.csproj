@@ -15,7 +15,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -187,6 +187,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Maps\ObjectPermissionMap.cs" />
+    <Compile Include="Maps\PersonMap.cs" />
+    <Compile Include="Maps\PhoneNumberMap.cs" />
+    <Compile Include="Maps\RoleMap.cs" />
+    <Compile Include="Maps\TypePermissionMap.cs" />
     <Compile Include="Maps\UserMap.cs">
       <SubType>Code</SubType>
     </Compile>

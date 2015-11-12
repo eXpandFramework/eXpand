@@ -62,4 +62,4 @@ log.txt
 *.avi
 **/Images/ScreenCapture/*.*
 *.mask.png
-.vs/
+.vs

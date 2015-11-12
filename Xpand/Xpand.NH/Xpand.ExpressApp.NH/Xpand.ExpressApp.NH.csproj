@@ -168,6 +168,10 @@
     <Reference Include="DevExpress.XtraWizard.v15.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Serialize.Linq, Version=1.2.3.0, Culture=neutral, PublicKeyToken=25bcc11ba213b377, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Serialize.Linq.1.2.3\lib\net40\Serialize.Linq.dll</HintPath>
+      <Private>True</Private>
+	</Reference>	
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -184,16 +188,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindingFactory.cs" />
+    <Compile Include="CriteriaObjectReplacer.cs" />
+    <Compile Include="CriteriaToNHConverterHelper.cs" />
+    <Compile Include="CriteriaToNHExpressionConverter.cs" />
+    <Compile Include="CriteriaToStringWrapperSubstituteProcessor.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="INHCollection.cs" />
     <Compile Include="InstanceState.cs" />
     <Compile Include="NHCollectionT.cs" />
+    <Compile Include="NHDataView.cs" />
+    <Compile Include="NHDataViewRecord.cs" />
     <Compile Include="NHEntityStore.cs" />
     <Compile Include="NHCollection.cs" />
     <Compile Include="NHNestedObjectSpace.cs" />
     <Compile Include="NHObjectSpace.cs" />
     <Compile Include="NHObjectSpaceProvider.cs" />
     <Compile Include="NHPropertyCollectionSource.cs" />
+    <Compile Include="NHServerCollection.cs" />
+    <Compile Include="NHServerModeSourceAdderRemover.cs" />
+    <Compile Include="ObjectMemberValueCriteriaProcessor.cs" />
     <Compile Include="ObjectSpaceInstanceInfo.cs" />
+    <Compile Include="ParseCriteriaScope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemotePersistenceManagerProxy.cs" />
   </ItemGroup>

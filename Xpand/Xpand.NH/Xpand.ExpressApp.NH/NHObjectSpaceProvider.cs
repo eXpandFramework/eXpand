@@ -22,6 +22,7 @@ namespace Xpand.ExpressApp.NH
             this.typesInfo = typesInfo;
             this.persistenceManager = persistenceManager;
             this.selectDataProvider = selectDataProvider;
+            ParseCriteriaScope.Init(typesInfo);
         }
 
         public NHObjectSpaceProvider(ITypesInfo typesInfo, IPersistenceManager persistenceManager) :

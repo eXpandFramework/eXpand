@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Xpand.ExpressApp.NH.DataLayer
 {
-    class NHWhereGenerator : BaseWhereGenerator, ICriteriaVisitor<string>
+    public class NHWhereGenerator : BaseWhereGenerator, ICriteriaVisitor<string>
     {
         const string nullString = "null";
 
@@ -99,6 +99,7 @@ namespace Xpand.ExpressApp.NH.DataLayer
             string right = Process(theOperator.RightOperand);
             return MsSqlFormatterHelper.FormatBinary(theOperator.OperatorType, left, right);
         }
+
         protected override string VisitInternal(FunctionOperator theOperator)
         {
             

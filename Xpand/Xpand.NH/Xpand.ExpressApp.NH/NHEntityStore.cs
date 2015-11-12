@@ -7,6 +7,7 @@ using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.NH.Core;
 using System.ComponentModel;
 using System.Globalization;
+using System.Collections.Concurrent;
 
 namespace Xpand.ExpressApp.NH
 {
@@ -16,6 +17,7 @@ namespace Xpand.ExpressApp.NH
         private readonly ITypesInfo typesInfo;
         private readonly IPersistenceManager persistenceManager;
         private IList<ITypeMetadata> metadata;
+        private static readonly ConcurrentBag<Type> ignoredTypes = new ConcurrentBag<Type>();
 
         public NHEntityStore(ITypesInfo typesInfo, IPersistenceManager persistenceManager)
         {
@@ -29,7 +31,10 @@ namespace Xpand.ExpressApp.NH
         public new void EnumMembers(TypeInfo info, EnumMembersHandler handler)
         {
             foreach (var property in GetPropertyDescriptors(info.Type))
-                handler(property, property.Name);
+            {
+                if (CanRegister(property.PropertyType))
+                    handler(property, property.Name);
+            }
         }
 
 
@@ -46,19 +51,30 @@ namespace Xpand.ExpressApp.NH
             }
         }
 
-        public bool CanRegister(Type type)
+
+        public static void AddIgnoredType(Type type)
         {
-            return true;
+            if (!ignoredTypes.Contains(type))
+                ignoredTypes.Add(type);
         }
 
+        public bool CanRegister(Type type)
+        {
+            return !ignoredTypes.Contains(type);
+        }
+
+
+        private bool IsTypePersistent(Type type)
+        {
+            return Metadata.Any(tm => tm.Type == type);
+        }
 
         public void RegisterEntity(Type type)
         {
             types.Add(type);
             TypeInfo typeInfo = (TypeInfo)typesInfo.FindTypeInfo(type);
             typeInfo.Source = this;
-            typeInfo.IsPersistent = Metadata.Any(tm => tm.Type == type);
-
+            typeInfo.IsPersistent = IsTypePersistent(type);
             typeInfo.Refresh();
             typeInfo.RefreshMembers();
         }
@@ -72,13 +88,13 @@ namespace Xpand.ExpressApp.NH
         public override void InitTypeInfo(TypeInfo info)
         {
             base.InitTypeInfo(info);
+            info.IsDomainComponent = IsTypePersistent(info.Type);
         }
 
         public override void InitMemberInfo(object member, XafMemberInfo memberInfo)
         {
             base.InitMemberInfo(member, memberInfo);
             if (memberInfo.Owner.IsInterface) return;
-
             var typeMetadata = Metadata.FirstOrDefault(tm => memberInfo.Owner.Type.IsAssignableFrom(tm.Type));
 
             PropertyDescriptor descriptor = member as PropertyDescriptor;
@@ -109,7 +125,6 @@ namespace Xpand.ExpressApp.NH
                             InitializeManyToMany(memberInfo);
                             break;
                         case RelationType.Reference:
-                            memberInfo.IsAssociation = true;
                             break;
                     }
 
@@ -117,6 +132,7 @@ namespace Xpand.ExpressApp.NH
                 }
             }
         }
+
 
         private void InitializeOneToMany(XafMemberInfo memberInfo)
         {
@@ -139,7 +155,7 @@ namespace Xpand.ExpressApp.NH
 
         private bool IsListOfType(Type listType, Type elementType)
         {
-            if (listType.HasElementType) 
+            if (listType.HasElementType)
                 return listType.GetElementType() == elementType;
 
             return typeof(IEnumerable<>).MakeGenericType(elementType).IsAssignableFrom(listType);
@@ -161,9 +177,7 @@ namespace Xpand.ExpressApp.NH
                 memberInfo.AssociatedMemberInfo.AssociatedMemberInfo = memberInfo;
                 memberInfo.IsAggregated = false;
             }
-            else
-                throw new InvalidOperationException(string.Format(CultureInfo.InvariantCulture,
-                    "No owner reference found for the collection {0}", memberInfo.Name));
+         
         }
         private static void InitializeKeyProperty(XafMemberInfo memberInfo)
         {

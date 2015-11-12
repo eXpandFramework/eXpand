@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Xpand.ExpressApp.NH.Core
 {
-    [DataContract]
+    [DataContract, Serializable]
     public class PropertyMetadata : IPropertyMetadata
     {
         [DataMember]
