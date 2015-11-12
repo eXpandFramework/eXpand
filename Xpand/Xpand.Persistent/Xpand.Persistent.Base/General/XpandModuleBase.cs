@@ -332,6 +332,14 @@ namespace Xpand.Persistent.Base.General {
         [SecuritySafeCritical]
         void LoadBaseImplAssembly() {
             _assemblyString = String.Format("Xpand.Persistent.BaseImpl, Version={0}, Culture=neutral, PublicKeyToken={1}", XpandAssemblyInfo.FileVersion, XpandAssemblyInfo.Token);
+
+            string _baseImplAssemblyName = ConfigurationManager.AppSettings["BaseImplAssembly"];
+            if (!String.IsNullOrEmpty(_assemblyString)) {
+                _assemblyString = String.Format("{0}, Version={1}, Culture=neutral, PublicKeyToken={2}",
+                                                    (!String.IsNullOrEmpty(_baseImplAssemblyName) ? _baseImplAssemblyName : "Xpand.Persistent.BaseImpl"),
+                                                    XpandAssemblyInfo.FileVersion,
+                                                    XpandAssemblyInfo.Token);
+            }
             string baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
             if (!String.IsNullOrEmpty(baseImplName)) {
                 _assemblyString = baseImplName;
