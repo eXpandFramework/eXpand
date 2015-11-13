@@ -10,12 +10,13 @@
     <AssemblyName>TestDataLayer</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -23,7 +24,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -187,11 +188,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Maps\ObjectPermissionMap.cs" />
-    <Compile Include="Maps\PersonMap.cs" />
-    <Compile Include="Maps\PhoneNumberMap.cs" />
-    <Compile Include="Maps\RoleMap.cs" />
-    <Compile Include="Maps\TypePermissionMap.cs" />
     <Compile Include="Maps\UserMap.cs">
       <SubType>Code</SubType>
     </Compile>

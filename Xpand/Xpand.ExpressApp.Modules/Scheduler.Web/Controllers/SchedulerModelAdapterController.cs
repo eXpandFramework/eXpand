@@ -78,11 +78,11 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
             }).ToArray();
         }
 
-        protected override AppointmentStatusBaseCollection Statuses() {
+        protected override IAppointmentStatusStorage Statuses() {
             return SchedulerListEditor.SchedulerControl.Storage.Appointments.Statuses;
         }
 
-        protected override AppointmentLabelBaseCollection Labels() {
+        protected override IAppointmentLabelStorage Labels() {
             return SchedulerListEditor.SchedulerControl.Storage.Appointments.Labels;
         }
 

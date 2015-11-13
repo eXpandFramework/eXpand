@@ -153,8 +153,8 @@ namespace Xpand.Utils.Helpers{
                     rectangle2 = mask.Resize(image2.Width, image2.Height).CalculateRectangle(brightness);
 
                 var image1Crop = image1.Crop(rectangle1);
-                for (int i = 0; i < 10; i++){
-                    for (int j = 0; j < 10; j++) {
+                for (int i = 0; i < 30; i++){
+                    for (int j = 0; j < 30; j++) {
                         var y = rectangle2.Y - j;
                         var x = rectangle2.X - i;
                         var rectangle = new Rectangle(x, y, rectangle2.Width, rectangle2.Height);

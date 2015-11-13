@@ -9,7 +9,6 @@ using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
@@ -18,20 +17,8 @@ using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;
 using Fasterflect;
-using ModelSynchronizerList = Xpand.Persistent.Base.ModelAdapter.ModelSynchronizerList;
 
 namespace Xpand.Persistent.Base.General {
-    public static class CustomModelSynchronizerHelper {
-        public static void Assign(CreateCustomModelSynchronizerEventArgs e, IModelSynchronizable modelSynchronizer) {
-            var modelSynchronizerList = e.ModelSynchronizer as ModelSynchronizerList;
-            if (modelSynchronizerList == null) {
-                e.ModelSynchronizer = new ModelSynchronizerList();
-            }
-            var synchronizerList = ((ModelSynchronizerList)e.ModelSynchronizer);
-            synchronizerList.Add(modelSynchronizer);
-        }
-    }
-
     public static class ModelNodeExtensions {
         public static void ClearValue<TNode>(this TNode node,Expression<Func<TNode, object>> expression) where TNode:IModelNode{
             node.ClearValue(node.GetPropertyName(expression));
@@ -80,8 +67,9 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static TNode GetParent<TNode>(this IModelNode modelNode) where TNode : class, IModelNode{
-            if (modelNode is TNode)
-                return (TNode) modelNode;
+            var node = modelNode as TNode;
+            if (node != null)
+                return node;
             var parent = modelNode.Parent;
             while (!(parent is TNode)) {
                 parent = parent.Parent;

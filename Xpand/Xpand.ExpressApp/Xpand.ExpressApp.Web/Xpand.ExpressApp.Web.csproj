@@ -36,6 +36,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -141,9 +142,7 @@
     <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.designer.cs">
       <DependentUpon>TwoDimensionEditorViewItemController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionListEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionListEditor.cs" />
     <Compile Include="ListEditors\WebControlAppearanceAdapter.cs" />
     <Compile Include="Model\QueryStringParameter.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
@@ -157,9 +156,7 @@
     <Compile Include="SystemModule\MasterDetail\RegisterCallbackPanelScriptsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\UnsavedObjectController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\UnsavedObjectController.cs" />
     <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -176,9 +173,7 @@
     <Compile Include="Templates\ASPxMenuNavicationControl.cs" />
     <Compile Include="Templates\ASPxMenuNavigationActionContainer.cs" />
     <Compile Include="XpandHttpRequestManager.cs" />
-    <Compile Include="FriendlyUrl\Model.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FriendlyUrl\Model.cs" />
     <Compile Include="Layout\GridViewListAdapter.cs" />
     <Compile Include="Layout\IListControlAdapter.cs" />
     <Compile Include="Layout\ListControlAdapterBase.cs" />
@@ -209,12 +204,8 @@
     <Compile Include="PropertyEditors\StringLookupPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditor.cs" />
     <Compile Include="PropertyEditors\UriEditor.cs" />
-    <Compile Include="SystemModule\NullTextController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\PreviewRowDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\NullTextController.cs" />
+    <Compile Include="SystemModule\PreviewRowDetailViewController.cs" />
     <Compile Include="SystemModule\UnboundColumnController.cs">
       <SubType>Component</SubType>
     </Compile>

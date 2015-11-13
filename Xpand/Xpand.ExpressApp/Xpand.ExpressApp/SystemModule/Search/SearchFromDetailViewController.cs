@@ -59,7 +59,9 @@ namespace Xpand.ExpressApp.SystemModule.Search {
                 var value = memberInfo.GetValue(View.CurrentObject);
                 if (value is string)
                     value = "%" + value + "%";
-                groupOperator.Operands.Add(new BinaryOperator(memberInfo.Name, value, value is string ? BinaryOperatorType.Like : BinaryOperatorType.Equal));
+                groupOperator.Operands.Add(value is string
+                    ? (CriteriaOperator)new FunctionOperator(FunctionOperatorType.Contains, memberInfo.Name, value.ToString())
+                    : new BinaryOperator(memberInfo.Name, value, BinaryOperatorType.Equal));
             }
             return groupOperator;
         }

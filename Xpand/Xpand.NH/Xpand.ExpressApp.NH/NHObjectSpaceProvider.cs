@@ -14,6 +14,8 @@ namespace Xpand.ExpressApp.NH
         private readonly ITypesInfo typesInfo;
         private readonly IPersistenceManager persistenceManager;
         private readonly ISelectDataSecurityProvider selectDataProvider;
+        private SchemaUpdateMode _schemaUpdateMode;
+        private CheckCompatibilityType? _checkCompatibilityType;
 
         public NHObjectSpaceProvider(ITypesInfo typesInfo, IPersistenceManager persistenceManager, ISelectDataSecurityProvider selectDataProvider)
         {
@@ -22,7 +24,6 @@ namespace Xpand.ExpressApp.NH
             this.typesInfo = typesInfo;
             this.persistenceManager = persistenceManager;
             this.selectDataProvider = selectDataProvider;
-            ParseCriteriaScope.Init(typesInfo);
         }
 
         public NHObjectSpaceProvider(ITypesInfo typesInfo, IPersistenceManager persistenceManager) :
@@ -55,6 +56,18 @@ namespace Xpand.ExpressApp.NH
         public Type ModuleInfoType
         {
             get { return null; }
+        }
+
+        public SchemaUpdateMode SchemaUpdateMode
+        {
+            get { return _schemaUpdateMode; }
+            set { _schemaUpdateMode = value; }
+        }
+
+        public CheckCompatibilityType? CheckCompatibilityType
+        {
+            get { return _checkCompatibilityType; }
+            set { _checkCompatibilityType = value; }
         }
 
         public DevExpress.ExpressApp.DC.ITypesInfo TypesInfo

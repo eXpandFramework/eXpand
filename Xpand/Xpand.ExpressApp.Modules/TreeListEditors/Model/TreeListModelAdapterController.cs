@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.Reflection;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.TreeListEditors.Model {
@@ -14,25 +12,30 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             var listView = View as ListView;
-            if (listView != null)
-                listView.Editor.CreateCustomModelSynchronizer -= GridListEditorOnCreateCustomModelSynchronizer;
+            if (listView != null){
+                listView.Editor.ModelApplied -= EditorOnModelApplied;
+                listView.Editor.ModelSaved -= EditorOnModelSaved;
+            }
         }
-
-        void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e){
-            var modelSynchronizer = ModelSynchronizer();
-            if (modelSynchronizer!=null)
-                CustomModelSynchronizerHelper.Assign(e, modelSynchronizer);
-        }
-
-        protected abstract ModelSynchronizer ModelSynchronizer();
 
         protected override void OnActivated() {
             base.OnActivated();
             var listView = View as ListView;
             if (listView != null && listView.Editor != null && GetValidEditor()) {
-                listView.Editor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
+                listView.Editor.ModelApplied+=EditorOnModelApplied;
+                listView.Editor.ModelSaved+=EditorOnModelSaved;
             }
         }
+
+        private void EditorOnModelSaved(object sender, EventArgs eventArgs){
+            ModelSynchronizer().SynchronizeModel();
+        }
+
+        private void EditorOnModelApplied(object sender, EventArgs eventArgs){
+            ModelSynchronizer().ApplyModel();
+        }
+
+        protected abstract ModelSynchronizer ModelSynchronizer();
 
         protected abstract bool GetValidEditor();
 

@@ -5,7 +5,7 @@
 *Action New(Grid View Object)
 *SaveAndClose
 *Navigate GridView.ImmediateRefresh
-*FocusWindow
+;*FocusWindow
 *Mouse LeftButtonClick
  MoveMouseTo = 450x350
 *SendKeys 2

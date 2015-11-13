@@ -107,7 +107,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         TableCell ContainerCell(WebPropertyEditor item) {
-            var tableEx = ((TableEx)item.Control);
+            var tableEx = (item.Control as TableEx);
             if (tableEx == null) return null;
             return ((TableRow)tableEx.Controls[0]).Cells[1];
         }

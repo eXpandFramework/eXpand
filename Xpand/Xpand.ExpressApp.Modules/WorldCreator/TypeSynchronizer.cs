@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                     int[] oid = { 0 };
                     sqlDataStoreProxy.DataStoreUpdateSchema += EnsureIsNotIdentity(xpoObjectHacker);
                     sqlDataStoreProxy.DataStoreModifyData += (sender, args) => {
-                        var insertStatement = args.ModificationStatements.OfType<InsertStatement>().SingleOrDefault(statement => statement.TableName == typeof(XPObjectType).Name);
+                        var insertStatement = args.ModificationStatements.OfType<InsertStatement>().SingleOrDefault(statement => statement.Table.Name == typeof(XPObjectType).Name);
                         if (insertStatement != null && !sync) {
                             sync = true;
                             xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, simpleDataLayer, oid[0]);

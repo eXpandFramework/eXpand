@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.SystemModule.Filtering{
         }
 
         [CriteriaOptions("ObjectType")]
-        [Size(SizeAttribute.Unlimited), ObjectValidatorIgnoreIssue(typeof (ObjectValidatorLargeNonDelayedMember))]
+        [Size(SizeAttribute.Unlimited)]
         [ModelDefault("RowCount", "0")]
         [VisibleInListView(true)]
         [VisibleInDetailView(false)]
@@ -74,7 +74,7 @@ namespace Xpand.ExpressApp.SystemModule.Filtering{
         }
 
         [CriteriaOptions("ObjectType")]
-        [Size(SizeAttribute.Unlimited), ObjectValidatorIgnoreIssue(typeof (ObjectValidatorLargeNonDelayedMember))]
+        [Size(SizeAttribute.Unlimited)]
         [ModelDefault("RowCount", "0")]
         [VisibleInListView(false)]
         [VisibleInDetailView(true)]

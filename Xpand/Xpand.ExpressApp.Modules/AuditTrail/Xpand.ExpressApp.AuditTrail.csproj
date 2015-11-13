@@ -95,6 +95,9 @@
     <Reference Include="DevExpress.Persistent.Base.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Xpo.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -147,9 +150,7 @@
     <Compile Include="Model\IModelApplicationAudiTrail.cs" />
     <Compile Include="Model\IModelAuditTrailRule.cs" />
     <Compile Include="Model\IModelLogicAuditTrail.cs" />
-    <Compile Include="AuditPendingController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="AuditPendingController.cs" />
     <Compile Include="Security\AuditTrailOperationPermissionData.cs" />
     <Compile Include="Logic\AuditTrailRule.cs" />
     <Compile Include="Logic\AuditTrailRuleAttribute.cs" />

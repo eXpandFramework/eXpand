@@ -67,7 +67,6 @@ namespace FeatureCenter.Win {
             this.additionalViewControlsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule();
             this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
             
-            this.memberLevelSecurityModule1 = new Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule();
             this.reportsModule1 = new DevExpress.ExpressApp.Reports.ReportsModule();
             this.modelDifferenceWindowsFormsModule1 = new Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule();
             this.xpandTreeListEditorsWinModule1 = new Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule();
@@ -81,7 +80,6 @@ namespace FeatureCenter.Win {
             
             this.masterDetailWindowsModule1 = new Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule();
             this.scriptRecorderWindowsFormsModule1 = new DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule();
-            this.memberLevelSecurityModuleWin1 = new Xpand.ExpressApp.MemberLevelSecurity.Win.MemberLevelSecurityModuleWin();
             
             this.xpandTreeListEditorsModule1 = new Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule();
             this.conditionalAppearanceModule1 = new DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule();
@@ -192,7 +190,6 @@ namespace FeatureCenter.Win {
             this.Modules.Add(this.additionalViewControlsModule1);
             this.Modules.Add(this.scriptRecorderModuleBase1);
             
-            this.Modules.Add(this.memberLevelSecurityModule1);
             
             this.Modules.Add(this.kpiModule1);
             this.Modules.Add(this.importWizardModule1);
@@ -225,7 +222,6 @@ namespace FeatureCenter.Win {
             
             this.Modules.Add(this.masterDetailWindowsModule1);
             this.Modules.Add(this.scriptRecorderWindowsFormsModule1);
-            this.Modules.Add(this.memberLevelSecurityModuleWin1);
             this.Modules.Add(this.importWizardWindowsFormsModule1);
             this.Modules.Add(this.workflowWindowsFormsModule1);
             this.Modules.Add(this.xpandValidationWinModule1);
@@ -293,7 +289,6 @@ namespace FeatureCenter.Win {
         private Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule additionalViewControlsModule1;
         private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
         
-        private Xpand.ExpressApp.MemberLevelSecurity.MemberLevelSecurityModule memberLevelSecurityModule1;
         private DevExpress.ExpressApp.Reports.ReportsModule reportsModule1;
         private Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule modelDifferenceWindowsFormsModule1;
         private Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule xpandTreeListEditorsWinModule1;
@@ -308,7 +303,6 @@ namespace FeatureCenter.Win {
         
         private Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule masterDetailWindowsModule1;
         private DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule scriptRecorderWindowsFormsModule1;
-        private Xpand.ExpressApp.MemberLevelSecurity.Win.MemberLevelSecurityModuleWin memberLevelSecurityModuleWin1;
         private Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule xpandTreeListEditorsModule1;
         private DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule conditionalAppearanceModule1;
         private DevExpress.ExpressApp.Kpi.KpiModule kpiModule1;

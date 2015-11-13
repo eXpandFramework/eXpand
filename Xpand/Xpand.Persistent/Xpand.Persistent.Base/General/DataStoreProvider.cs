@@ -21,14 +21,15 @@ namespace Xpand.Persistent.Base.General {
                 _connectionString = connectionProviderSql.ConnectionString;
         }
 
+        public IDataStore CreateSchemaCheckingStore(out IDisposable[] disposableObjects){
+            throw new NotImplementedException();
+        }
+
         public string ConnectionString {
             get { return _connectionString; }
             set { _connectionString = value; }
         }
-        public virtual IDataStore CreateUpdatingStore(out IDisposable[] disposableObjects) {
-            disposableObjects = null;
-            return new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema));
-        }
+
         public IDataStore CreateWorkingStore(out IDisposable[] disposableObjects) {
             disposableObjects = null;
             if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
@@ -41,6 +42,12 @@ namespace Xpand.Persistent.Base.General {
             }
             return Proxy;
         }
+
+        public virtual IDataStore CreateUpdatingStore(bool allowUpdateSchema, out IDisposable[] disposableObjects){
+            disposableObjects = null;
+            return new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema));
+        }
+
         public XPDictionary XPDictionary {
             get { return null; }
         }

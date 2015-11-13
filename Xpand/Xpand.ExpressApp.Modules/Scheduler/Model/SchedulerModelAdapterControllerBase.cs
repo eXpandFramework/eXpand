@@ -54,9 +54,9 @@ namespace Xpand.ExpressApp.Scheduler.Model {
             }	
         }
 
-        protected abstract AppointmentStatusBaseCollection Statuses();
+        protected abstract IAppointmentStatusStorage Statuses();
 
-        protected abstract AppointmentLabelBaseCollection Labels();
+        protected abstract IAppointmentLabelStorage Labels();
 
         protected abstract IInnerSchedulerControlOwner SchedulerControl();
 

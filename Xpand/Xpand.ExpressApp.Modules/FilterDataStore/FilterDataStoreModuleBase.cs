@@ -119,12 +119,12 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public void UpdateData(IEnumerable<UpdateStatement> statements) {
             foreach (UpdateStatement statement in statements) {
-                if (!IsSystemTable(statement.TableName)) {
+                if (!IsSystemTable(statement.Table.Name)) {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
                     for (int i = 0; i < operands.Count(); i++) {
                         int index = i;
-                        FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(statement.TableName, operands[index].ColumnName, StatementContext.Update);
-                        if (providerBase != null && !FilterIsShared(statement.TableName, providerBase.Name))
+                        FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(statement.Table.Name, operands[index].ColumnName, StatementContext.Update);
+                        if (providerBase != null && !FilterIsShared(statement.Table.Name, providerBase.Name))
                             statement.Parameters[i].Value = GetModifyFilterValue(providerBase);
                     }
                 }
@@ -141,11 +141,11 @@ namespace Xpand.ExpressApp.FilterDataStore {
 
         public void InsertData(IList<InsertStatement> statements) {
             foreach (InsertStatement statement in statements) {
-                if (!IsSystemTable(statement.TableName)) {
+                if (!IsSystemTable(statement.Table.Name)) {
                     List<QueryOperand> operands = statement.Operands.OfType<QueryOperand>().ToList();
                     for (int i = 0; i < operands.Count(); i++) {
                         FilterProviderBase providerBase =
-                            FilterProviderManager.GetFilterProvider(statement.TableName, operands[i].ColumnName, StatementContext.Insert);
+                            FilterProviderManager.GetFilterProvider(statement.Table.Name, operands[i].ColumnName, StatementContext.Insert);
                         if (providerBase != null && !FilterIsShared(statements, providerBase))
                             statement.Parameters[i].Value = GetModifyFilterValue(providerBase);
                     }
@@ -155,12 +155,12 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         bool FilterIsShared(IEnumerable<InsertStatement> statements, FilterProviderBase providerBase) {
-            return statements.Aggregate(false, (current, insertStatement) => current & FilterIsShared(insertStatement.TableName, providerBase.Name));
+            return statements.Aggregate(false, (current, insertStatement) => current & FilterIsShared(insertStatement.Table.Name, providerBase.Name));
         }
 
 
         public SelectStatement[] FilterData(SelectStatement[] statements) {
-            return statements.Where(statement => !IsSystemTable(statement.TableName)).Select(ApplyCondition).ToArray();
+            return statements.Where(statement => !IsSystemTable(statement.Table.Name)).Select(ApplyCondition).ToArray();
         }
 
         public SelectStatement ApplyCondition(SelectStatement statement) {
@@ -168,10 +168,10 @@ namespace Xpand.ExpressApp.FilterDataStore {
             extractor.Extract(statement.Condition);
 
             foreach (FilterProviderBase provider in FilterProviderManager.Providers) {
-                FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(statement.TableName, provider.FilterMemberName, StatementContext.Select);
+                FilterProviderBase providerBase = FilterProviderManager.GetFilterProvider(statement.Table.Name, provider.FilterMemberName, StatementContext.Select);
                 if (providerBase != null) {
                     IEnumerable<BinaryOperator> binaryOperators = GetBinaryOperators(extractor, providerBase);
-                    if (!FilterIsShared(statement.TableName, providerBase.Name) && !binaryOperators.Any()) {
+                    if (!FilterIsShared(statement.Table.Name, providerBase.Name) && !binaryOperators.Any()) {
                         string nodeAlias = GetNodeAlias(statement, providerBase);
                         ApplyCondition(statement, providerBase, nodeAlias);
                     }
@@ -205,15 +205,15 @@ namespace Xpand.ExpressApp.FilterDataStore {
         }
 
         string GetNodeAlias(SelectStatement statement, string filterMemberName) {
-            if (!TablesDictionary.ContainsKey(statement.TableName)) {
-                var classInfo = Application.Model.BOModel.Select(mclass => Dictiorary.QueryClassInfo(mclass.TypeInfo.Type)).FirstOrDefault(info => info != null && info.TableName == statement.TableName);
+            if (!TablesDictionary.ContainsKey(statement.Table.Name)) {
+                var classInfo = Application.Model.BOModel.Select(mclass => Dictiorary.QueryClassInfo(mclass.TypeInfo.Type)).FirstOrDefault(info => info != null && info.TableName == statement.Table.Name);
                 if (classInfo != null && !TablesDictionary.ContainsKey(classInfo.TableName))
                     TablesDictionary.Add(classInfo.TableName, classInfo.ClassType);
                 else
-                    throw new ArgumentException(statement.TableName);
+                    throw new ArgumentException(statement.Table.Name);
             }
 
-            var fullName = TablesDictionary[statement.TableName].FullName;
+            var fullName = TablesDictionary[statement.Table.Name].FullName;
             if (XafTypesInfo.Instance.FindTypeInfo(fullName).OwnMembers.FirstOrDefault(member => member.Name == filterMemberName) == null && statement.SubNodes.Any()) {
                 return statement.SubNodes[0].Alias;
             }

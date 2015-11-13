@@ -65,10 +65,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
         public GridListEditorDynamicModelSynchronizer(DevExpress.XtraGrid.Views.Grid.GridView gridView, IModelListViewOptionsGridView modelListView, bool overrideViewDesignMode)
             : base(gridView, modelListView) {
             if (!modelListView.BandsLayout.Enable){
-                var adapters =  modelListView.GridViewModelAdapters.SelectMany(adapter => adapter.ModelAdapters);
+                var adapters =  modelListView.GridViewModelAdapters.Select(adapter => adapter.ModelAdapter);
                 foreach (var adapter in adapters){
-                    if (modelListView.GridViewModelAdapters.Any(modelAdapter => modelAdapter.ModelAdapter==adapter))
-                        ModelSynchronizerList.Add(new GridListEditorViewOptionsSynchronizer(gridView, adapter, overrideViewDesignMode));    
+                    ModelSynchronizerList.Add(new GridListEditorViewOptionsSynchronizer(gridView, adapter, overrideViewDesignMode));    
                 }
             }
             ModelSynchronizerList.Add(new GridViewListEditorDynamicModelSynchronizer(gridView, modelListView,overrideViewDesignMode));
@@ -102,10 +101,6 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
 
         public GridListEditorColumnOptionsSynchroniser(DevExpress.XtraGrid.Views.Grid.GridView gridView, IModelListViewOptionsGridView modelNode) : this(new GridListEditor(modelNode)) {
             _gridView= gridView;
-        }
-
-        protected override void ApplyModelCore(){
-            base.ApplyModelCore();
         }
 
         protected override DevExpress.XtraGrid.Views.Base.ColumnView GetColumnView() {

@@ -69,19 +69,17 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             ResetMasterDetailModes();
         }
 
-        private void ListViewSelectionChangedHandler(object sender, EventArgs e)
-        {
-            if (View != null)
-            {
+        private void ListViewSelectionChangedHandler(object sender, EventArgs e){
+            if (View != null){
                 var viewItem = View.Items
                     .OfType<DashboardViewItem>()
                     .FirstOrDefault(v => v.Frame != null && v.Frame.View == sender);
 
                 if (viewItem != null)
-                    OnSelectionChanged(new SelectionChangedArgs((ListView)sender, viewItem));
+                    OnSelectionChanged(new SelectionChangedArgs((ListView) sender, viewItem));
             }
-
         }
+
         void AssignMasterDetailModes(IModelDashboardViewItemEx modelDashboardViewItem) {
             if (modelDashboardViewItem.MasterDetailMode.HasValue) {
                 var modelListView = modelDashboardViewItem.View as IModelListView;
@@ -131,7 +129,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         void NotifyControllers(ListView listView) {
             if (View != null) {
-                var selectionChangeds = View.Items.OfType<DashboardViewItem>().SelectMany(Controllers);
+                IEnumerable<IDataSourceSelectionChanged> selectionChangeds = View.Items.OfType<DashboardViewItem>().SelectMany(Controllers);
                 foreach (var selectionChanged in selectionChangeds) {
                     selectionChanged.SelectedObjects = listView.SelectedObjects;
                 }
@@ -163,7 +161,8 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             var filteredColumn = modelDashboardViewItemFiltered.Filter.FilteredColumn;
             var filteredListView = ((ListView)dashboardViewItem.Frame.View);
             var collectionSourceBase = filteredListView.CollectionSource;
-            collectionSourceBase.Criteria[modelDashboardViewItemFiltered.Filter.DataSourceView.Id] = CriteriaSelectionOperator(listView, filteredColumn);
+            var criteriaSelectionOperator = CriteriaSelectionOperator(listView, filteredColumn);
+            collectionSourceBase.SetCriteria(modelDashboardViewItemFiltered.Filter.DataSourceView.Id , criteriaSelectionOperator.ToString());
             return filteredListView;
         }
 

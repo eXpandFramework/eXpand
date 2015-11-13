@@ -172,7 +172,7 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed("GetDeclaredWinControllerTypes", ModuleType.Win))
                 declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(NavigationContainerWinController) });
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
-                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(NavigationContainerWebController), typeof(CollectionsEditModeController), typeof(ActionsClientScriptController) });
+                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(NavigationContainerWebController), typeof(ActionsClientScriptController) });
 
             return declaredControllerTypes;
         }
@@ -206,7 +206,7 @@ namespace Xpand.Persistent.Base.General {
             return !ExecutionConditions<T>() || ExecutedCore(name, typeof(T));
         }
 
-        private bool ExecutedCore(string name, Type value = null) {
+        private bool ExecutedCore(string name, object value = null) {
             value = value ?? typeof(object);
             var keyValuePair = new KeyValuePair<string, ApplicationModulesManager>(name, ModuleManager);
             if (CallMonitor.ContainsKey(keyValuePair)) {
@@ -226,18 +226,14 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public bool Executed(string name, ModuleType moduleType) {
-            if (RuntimeMode) {
-                var type = Application.IsHosted() ? ModuleType.Web : ModuleType.Win;
-                if (type == moduleType && ModuleType == ModuleType.Agnostic && !NonAgnosticExists(type))
-                    return ExecutedCore(name);
+            if (RuntimeMode){
+                var isHosted = Application.IsHosted();
+                if ((moduleType == ModuleType.Web&&isHosted) || (moduleType == ModuleType.Win&&!isHosted))
+                    return ExecutedCore(name, moduleType);
             }
-            return (ModuleType != moduleType) || ExecutedCore(name);
+            return (ModuleType != moduleType) || ExecutedCore(name,moduleType);
         }
 
-        private bool NonAgnosticExists(ModuleType moduleType) {
-            return Application.Modules.OfType<XpandModuleBase>().Where(@base => @base.ModuleType == moduleType).SelectMany(@base
-                => @base.RequiredModuleTypes).Any(type => type == GetType());
-        }
 
         public ModuleType ModuleType {
             get {
@@ -263,28 +259,31 @@ namespace Xpand.Persistent.Base.General {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             OnExtendingModelInterfaces(new ExtendingModelInterfacesArgs(extenders));
+            
             if (!Executed<IColumnCellFilterUser>("ExtendModelInterfaces")) {
                 extenders.Add<IModelMember, IModelMemberCellFilter>();
                 extenders.Add<IModelColumn, IModelColumnCellFilter>();
             }
 
-            if (Executed("ExtendModelInterfaces"))
-                return;
+            if (!Executed("ExtendModelInterfaces")){
+                extenders.Add<IModelNode, IModelNodePath>();
+                extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
+                extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
+                extenders.Add<IModelClass, IModelClassEx>();
+                extenders.Add<IModelClass, IModelClassDefaultCriteria>();
+                extenders.Add<IModelColumn, IModelColumnDetailViews>();
+                extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
+                extenders.Add<IModelApplication, IModelApplicationModule>();
+                extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
+                extenders.Add<IModelApplication, IModelApplicationViews>();
+                extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
+                extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
+                extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();
+            }
 
-            extenders.Add<IModelNode, IModelNodePath>();
-            extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
-            extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
-            extenders.Add<IModelClass, IModelClassEx>();
-            extenders.Add<IModelClass, IModelClassDefaultCriteria>();
-            extenders.Add<IModelColumn, IModelColumnDetailViews>();
-            extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
-            extenders.Add<IModelApplication, IModelApplicationModule>();
-            extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
-            extenders.Add<IModelApplication, IModelApplicationViews>();
-            extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
-            extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
-            extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();
-
+            if (!Executed("ExtendModelInterfaces", ModuleType.Web)) {
+                extenders.Add<IModelOptions, IModelOptionsCollectionEditMode>();
+            }
         }
         public static Type UserType { get; set; }
 

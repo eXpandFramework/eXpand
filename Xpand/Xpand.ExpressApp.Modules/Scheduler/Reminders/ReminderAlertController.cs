@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraScheduler;
-using DevExpress.XtraScheduler.Native;
 using DevExpress.XtraScheduler.Xml;
 
 namespace Xpand.ExpressApp.Scheduler.Reminders {
@@ -95,7 +94,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             if (eventBO != null){
                 var reminderInfo = eventBO.GetReminderInfoMemberValue();
                 reminderInfo.HasReminder = appointment.HasReminder;
-                reminderInfo.Info = !reminderInfo.HasReminder ? null : new ReminderXmlPersistenceHelper(appointment.Reminder, new TimeZoneEngine()).ToXml();
+                reminderInfo.Info = !reminderInfo.HasReminder ? null : new ReminderXmlPersistenceHelper(appointment.Reminder).ToXml();
                 objectSpace.CommitChanges();
             }
         }

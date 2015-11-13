@@ -36,6 +36,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -74,6 +75,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Printing.v15.2.Core">
@@ -149,12 +153,8 @@
     <Compile Include="EditModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Editors\XpandFilterControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Editors\EnumEdit.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Editors\XpandFilterControl.cs" />
+    <Compile Include="Editors\EnumEdit.cs" />
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -265,9 +265,7 @@
     <Compile Include="ListEditors\GridListEditors\GridView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\XpandGridListEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\GridView\XpandGridListEditor.cs" />
     <Compile Include="ListEditors\GridListEditors\LayoutView\Design\LayoutViewDesigner.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -277,9 +275,7 @@
     <Compile Include="ListEditors\GridListEditors\LayoutView\Design\LayoutViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\LayoutView\LayoutViewListEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\LayoutView\LayoutViewListEditor.cs" />
     <Compile Include="ListEditors\GridListEditors\LayoutView\LayoutViewListEditorBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -310,9 +306,7 @@
     <Compile Include="PropertyEditors\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\FilterableEnumPropertyEditor.cs" />
     <Compile Include="PropertyEditors\FolderBrowseEditor.cs" />
-    <Compile Include="PropertyEditors\FastSearchPropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\FastSearchPropertyEditor.cs" />
     <Compile Include="PropertyEditors\DurationPropertyEditor.cs" />
     <Compile Include="PropertyEditors\EnumPropertyEditor.cs" />
     <Compile Include="PropertyEditors\HyperLinkPropertyEditor.cs">
@@ -325,9 +319,7 @@
     <Compile Include="PropertyEditors\NullAble\DatePropertyEditor\XpandDatePropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\DoublePropertyEditor\XpandDoublePropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\IntegerPropertyEditor\XpandIntegerPropertyEditor.cs" />
-    <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs" />
     <Compile Include="PropertyEditors\RichEdit\FullWinRichtEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -340,13 +332,9 @@
     <Compile Include="PropertyEditors\RichEdit\RichEditContainer.Designer.cs">
       <DependentUpon>RichEditContainer.cs</DependentUpon>
     </Compile>
-    <Compile Include="PropertyEditors\RichEdit\RichEditWinPropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\RichEditWinPropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditor.cs" />
-    <Compile Include="PropertyEditors\StringPropertyEditors\LabelControlPropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\StringPropertyEditors\LabelControlPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\MemoPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringLookupPropertyEditor.cs" />
@@ -373,18 +361,14 @@
     <Compile Include="SystemModule\FilterByColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\DetailViewCachingController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\DetailViewCachingController.cs" />
     <Compile Include="SystemModule\FullTextAutoFilterRowController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridListEditorEventController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs" />
     <Compile Include="SystemModule\ImmediatePostDataController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -420,9 +404,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\IModelRootNavigationItemsAutoSelectedGroupItem.cs" />
-    <Compile Include="SystemModule\CriteriaPropertyEditorViewModeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\CriteriaPropertyEditorViewModeController.cs" />
     <Compile Include="SystemModule\PreventDataLoadingGridViewController.cs">
       <SubType>Component</SubType>
     </Compile>

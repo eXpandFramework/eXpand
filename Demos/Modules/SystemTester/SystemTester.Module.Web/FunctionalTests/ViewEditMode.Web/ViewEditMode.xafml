@@ -1,4 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="SystemTester" Logo="ExpressAppLogo">
-  <Options CollectionsEditMode="Edit" />
-</Application>
+<Application Title="SystemTester" Logo="ExpressAppLogo" />

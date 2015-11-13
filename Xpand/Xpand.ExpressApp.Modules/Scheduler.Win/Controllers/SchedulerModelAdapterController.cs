@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -78,6 +79,7 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
             base.OnViewControlsCreated();
             if (SchedulerListEditor != null) {
                 SchedulerListEditor.SchedulerControl.PopupMenuShowing += SchedulerControlOnPopupMenuShowing;
+                ((ListView)View).CollectionSource.Criteria["ActiveViewFilter"] = CriteriaOperator.Parse("1=1");
             }
         }
 
@@ -100,20 +102,20 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
             }).ToArray();
         }
 
-        protected override AppointmentStatusBaseCollection Statuses() {
+        protected override IAppointmentStatusStorage Statuses() {
             if (SchedulerListEditor != null) return SchedulerListEditor.SchedulerControl.Storage.Appointments.Statuses;
             var schedulerStorage = SchedulerStorage();
             return schedulerStorage != null ? schedulerStorage.Appointments.Statuses : new AppointmentStatusCollection();
         }
 
-        protected override AppointmentLabelBaseCollection Labels() {
+        protected override IAppointmentLabelStorage Labels() {
             if (SchedulerListEditor != null) 
                 return SchedulerListEditor.SchedulerControl.Storage.Appointments.Labels;
             var schedulerStorage = SchedulerStorage();
             return schedulerStorage != null ? schedulerStorage.Appointments.Labels : new AppointmentLabelCollection();
         }
 
-        SchedulerStorage SchedulerStorage() {
+        ISchedulerStorage SchedulerStorage() {
             var schedulerLabelPropertyEditor = ((DetailView) View).GetItems<SchedulerLabelPropertyEditor>().FirstOrDefault();
             return schedulerLabelPropertyEditor != null ? ((AppointmentLabelEdit) schedulerLabelPropertyEditor.Control).Storage : null;
         }

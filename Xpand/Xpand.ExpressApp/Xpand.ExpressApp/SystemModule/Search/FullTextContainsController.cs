@@ -62,9 +62,9 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         }
 
         private void ProxyOnDataStoreSelectData(object sender, DataStoreSelectDataEventArgs dataStoreSelectDataEventArgs){
-            var selectStatements = dataStoreSelectDataEventArgs.SelectStatements.Where(statement => _dictionary.ContainsKey(statement.TableName));
+            var selectStatements = dataStoreSelectDataEventArgs.SelectStatements.Where(statement => _dictionary.ContainsKey(statement.Table.Name));
             foreach (var selectStatement in selectStatements){
-                FullTextOperatorProcessor.Process(selectStatement.Condition, _dictionary[selectStatement.TableName]);
+                FullTextOperatorProcessor.Process(selectStatement.Condition, _dictionary[selectStatement.Table.Name]);
             }
         }
 

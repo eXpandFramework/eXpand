@@ -112,7 +112,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 if (winWindow != null) {
                     if (winWindow.View.ObjectSpace.IsNewObject(winWindow.View.CurrentObject))
                         winWindow.View.ObjectSpace.RollbackSilent();
-                    winWindow.View.SetPropertyValue("KeyMemberValueForPendingLoading", null);
+                    winWindow.View.SetFieldValue("keyMemberValueForPendingLoading", null);
                     var currentObject = GetCurrentObject(e, winWindow);
                     winWindow.View.CurrentObject = currentObject;
                 }
@@ -127,9 +127,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             public override void CopyMemberValue(XPMemberInfo memberInfo, IXPSimpleObject sourceObject, IXPSimpleObject targetObject){
                 CheckMemberInObjects(memberInfo, sourceObject, targetObject);
                 object memberValue = this.CallMethod("GetSourceMemberValue",memberInfo, sourceObject);
-                if (memberValue is IXPSimpleObject) {
+                var o = memberValue as IXPSimpleObject;
+                if (o != null) {
                     this.CallMethod("ClearTargetObjectProperty",memberInfo, targetObject, memberInfo.IsAggregated);
-                    var clonedObjectReference = (IXPSimpleObject) this.CallMethod("CloneReferenceMemberValue",targetObject, memberInfo, (IXPSimpleObject)memberValue, memberValue.GetType(), memberInfo.IsAggregated);
+                    var clonedObjectReference = (IXPSimpleObject) this.CallMethod("CloneReferenceMemberValue",targetObject, memberInfo, o, o.GetType(), memberInfo.IsAggregated);
                     if (!clonedObjectReference.IsNewObject())
                         clonedObjectReference = targetObject.XPObjectSpace().GetObject(clonedObjectReference);
                     memberInfo.SetValue(targetObject, clonedObjectReference);

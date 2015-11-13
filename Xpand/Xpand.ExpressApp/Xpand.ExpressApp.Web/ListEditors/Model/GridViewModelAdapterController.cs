@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -16,21 +14,28 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (ASPxGridListEditor != null)
-                ASPxGridListEditor.CreateCustomModelSynchronizer -= GridListEditorOnCreateCustomModelSynchronizer;
-        }
-
-        void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs e) {
-            CustomModelSynchronizerHelper.Assign(e, new GridViewListEditorModelSynchronizer(ASPxGridListEditor));
+            if (ASPxGridListEditor != null){
+                ASPxGridListEditor.ModelApplied-=ASPxGridListEditorOnModelApplied;
+                ASPxGridListEditor.ModelSaved-=ASPxGridListEditorOnModelSaved;
+            }
         }
 
         protected override void OnActivated() {
             base.OnActivated();
             var listView = View as ListView;
-            if (listView != null && listView.Editor != null && listView.Editor is ASPxGridListEditor) {
+            if (listView != null && listView.Editor is ASPxGridListEditor) {
                 ASPxGridListEditor = (ASPxGridListEditor)listView.Editor;
-                ASPxGridListEditor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
+                ASPxGridListEditor.ModelApplied += ASPxGridListEditorOnModelApplied;
+                ASPxGridListEditor.ModelSaved += ASPxGridListEditorOnModelSaved;
             }
+        }
+
+        private void ASPxGridListEditorOnModelSaved(object sender, EventArgs eventArgs){
+            new GridViewListEditorModelSynchronizer(ASPxGridListEditor).SynchronizeModel();
+        }
+
+        private void ASPxGridListEditorOnModelApplied(object sender, EventArgs eventArgs){
+            new GridViewListEditorModelSynchronizer(ASPxGridListEditor).ApplyModel();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

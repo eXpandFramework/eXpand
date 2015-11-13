@@ -654,7 +654,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         protected virtual void ProcessEditorKeyDown(KeyEventArgs e) {
             if (e.KeyCode == Keys.Enter) {
-                SubmitActiveEditorChanges();
+                if ((ColumnView.ActiveEditor != null) && ColumnView.ActiveEditor.IsModified) {
+                    ColumnView.PostEditor();
+                    ColumnView.UpdateCurrentRow();
+                }
             }
         }
 

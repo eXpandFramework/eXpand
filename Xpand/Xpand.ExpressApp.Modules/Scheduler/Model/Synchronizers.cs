@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 using DevExpress.XtraScheduler;
 using System.Linq;
 using DevExpress.XtraScheduler.Native;
@@ -8,7 +7,7 @@ using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Scheduler.Model {
     public class AppoitmentSynchronizer:ModelListSynchronizer {
-        public AppoitmentSynchronizer(AppointmentLabelBaseCollection labels, AppointmentStatusBaseCollection statuses, IModelListViewOptionsScheduler modelListViewOptionsScheduler) : base(null,modelListViewOptionsScheduler ) {
+        public AppoitmentSynchronizer(IAppointmentLabelStorage labels, IAppointmentStatusStorage statuses, IModelListViewOptionsScheduler modelListViewOptionsScheduler) : base(null,modelListViewOptionsScheduler ) {
             var appointmentsModel = modelListViewOptionsScheduler.OptionsScheduler.GetNode("Storage").GetNode("Appointments");
             ModelSynchronizerList.Add(new AppoitmentLabelsSynchronizer(labels, (IModelAppoitmentLabels)appointmentsModel.GetNode("Labels")));
             ModelSynchronizerList.Add(new AppoitmentStatusSynchronizer(statuses, (IModelAppoitmentStatuses)appointmentsModel.GetNode("Statuses")));
@@ -16,7 +15,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
     }
 
     public class SchedulerListEditorModelSynchronizer : ModelListSynchronizer {
-        public SchedulerListEditorModelSynchronizer(IInnerSchedulerControlOwner control, IModelListViewOptionsScheduler model, AppointmentLabelBaseCollection labels, AppointmentStatusBaseCollection statuses)
+        public SchedulerListEditorModelSynchronizer(IInnerSchedulerControlOwner control, IModelListViewOptionsScheduler model, IAppointmentLabelStorage labels, IAppointmentStatusStorage statuses)
             : base(control, model) {
             ModelSynchronizerList.Add(new SchedulerControlSynchronizer(control,model));
 
@@ -34,21 +33,21 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         }
     }
 
-    public class AppoitmentLabelsSynchronizer : ModelSynchronizer<AppointmentLabelBaseCollection, IModelAppoitmentLabels> {
-        public AppoitmentLabelsSynchronizer(AppointmentLabelBaseCollection component, IModelAppoitmentLabels modelNode)
+    public class AppoitmentLabelsSynchronizer : ModelSynchronizer<IAppointmentLabelStorage, IModelAppoitmentLabels> {
+        public AppoitmentLabelsSynchronizer(IAppointmentLabelStorage component, IModelAppoitmentLabels modelNode)
             : base(component, modelNode) {
         }
+
         #region Overrides of ModelSynchronizer
         protected override void ApplyModelCore() {
             if (Model.Any(label => label.NodeEnabled)) {
                 Control.Clear();
-                foreach (IModelAppoitmentLabel modelAppoitmentLabel in Model.Where(label => label.NodeEnabled)) {
-                    Control.Add(modelAppoitmentLabel.GetValue<Color>("Color"),
-                                modelAppoitmentLabel.GetValue<string>("DisplayName"),
-                                modelAppoitmentLabel.GetValue<string>("MenuCaption"));
+                foreach (IModelAppoitmentLabel modelAppoitmentLabel in Model) {
+                    var appointmentLabel = Control.CreateNewLabel(null);
+                    Control.Add(appointmentLabel);
+                    ApplyModel(modelAppoitmentLabel, appointmentLabel, ApplyValues);
                 }
             }
-
         }
 
         public override void SynchronizeModel() {
@@ -57,9 +56,9 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         #endregion
     }
 
-    public class AppoitmentStatusSynchronizer : ModelSynchronizer<AppointmentStatusBaseCollection, IModelAppoitmentStatuses> {
+    public class AppoitmentStatusSynchronizer : ModelSynchronizer<IAppointmentStatusStorage, IModelAppoitmentStatuses> {
         #region Overrides of ModelSynchronizer
-        public AppoitmentStatusSynchronizer(AppointmentStatusBaseCollection component, IModelAppoitmentStatuses modelNode)
+        public AppoitmentStatusSynchronizer(IAppointmentStatusStorage component, IModelAppoitmentStatuses modelNode)
             : base(component, modelNode) {
 
         }
@@ -68,9 +67,9 @@ namespace Xpand.ExpressApp.Scheduler.Model {
             if (Model.Any(label => label.NodeEnabled)) {
                 Control.Clear();
                 foreach (var modelAppoitmentStatus in Model) {
-                    Control.Add(modelAppoitmentStatus.GetValue<Color>("Color"),
-                                modelAppoitmentStatus.GetValue<string>("DisplayName"),
-                                modelAppoitmentStatus.GetValue<string>("MenuCaption"));
+                    var appointmentLabel = Control.CreateNewStatus(null);
+                    Control.Add(appointmentLabel);
+                    ApplyModel(modelAppoitmentStatus, appointmentLabel, ApplyValues);
                 }
             }
 

@@ -6,7 +6,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraScheduler;
-using DevExpress.XtraScheduler.Native;
+using DevExpress.XtraScheduler.Internal.Implementations;
 using DevExpress.XtraScheduler.Xml;
 
 namespace Xpand.ExpressApp.Scheduler.Reminders{
@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders{
 
         private void SetupAppointment(Appointment appointment, IEvent iEvent) {
             appointment.Subject = iEvent.Subject;
-            appointment.StatusId = iEvent.Status;
+            appointment.StatusKey = iEvent.Status;
             appointment.Start = iEvent.StartOn;
             appointment.End = iEvent.EndOn;
         }
@@ -77,12 +77,12 @@ namespace Xpand.ExpressApp.Scheduler.Reminders{
             SchedulerStorage.Instance.EnableReminders = false;
             foreach (var iEvent in iEvents) {
                 var reminderInfo = iEvent.GetReminderInfoMemberValue();
-                var appointment = new Appointment(AppointmentType.Normal, iEvent.StartOn, iEvent.EndOn - iEvent.StartOn, iEvent.Subject, iEvent.AppointmentId);
+                var appointment = new AppointmentInstance() {Start = iEvent.StartOn,End = iEvent.EndOn,Duration = iEvent.EndOn-iEvent.StartOn,Subject = iEvent.Subject};
                 SetupAppointment(appointment, iEvent);
                 var reminder = CreateReminder(iEvent, appointment);
                 appointment.Reminders.RemoveAt(0);
                 appointment.Reminders.Add(reminder);
-                var helper = new ReminderXmlPersistenceHelper(reminder, new TimeZoneEngine());
+                var helper = new ReminderXmlPersistenceHelper(reminder);
                 reminderInfo.Info = helper.ToXml();
                 appointments.Add(iEvent, appointment);
                 SchedulerStorage.Instance.Appointments.Add(appointment);

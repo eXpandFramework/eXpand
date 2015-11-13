@@ -159,17 +159,13 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DashboardInteractionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="DashboardInteractionController.cs" />
     <Compile Include="Model\Interfaces.cs" />
     <Compile Include="Model\PivotGridModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\Synchronizers.cs" />
-    <Compile Include="NetIncome\NetIncomeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="NetIncome\NetIncomeController.cs" />
     <Compile Include="NetIncome\NetIncomeGaugeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

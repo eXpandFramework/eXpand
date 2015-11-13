@@ -27,7 +27,6 @@ namespace Xpand.Persistent.Base.Validation.FromIPropertyValueValidator {
 
             set {
                 if (_defaultMessageTemplateInvalidPropertyValue == null)
-
                     _defaultMessageTemplateInvalidPropertyValue = new SimpleValueManager<string>();
 
                 _defaultMessageTemplateInvalidPropertyValue.Value = value;

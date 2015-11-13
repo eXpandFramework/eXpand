@@ -35,6 +35,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,6 +71,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Printing.v15.2.Core">
@@ -150,10 +154,8 @@
     <Compile Include="General\ApplicationBuilder.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
     <Compile Include="General\AttributeRegistrator.cs" />
+    <Compile Include="General\Controllers\CollectionsEditModeController.cs" />
     <Compile Include="General\Controllers\Actions\ActionsClientScriptController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="General\Controllers\CollectionsEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\EasyTestController.cs">
@@ -167,24 +169,18 @@
     <Compile Include="General\Model\VisibilityCalculators\RibbonFormStyleVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\StandardFormStyleVisibilityCalculator.cs" />
     <Compile Include="General\XpandNavigationItem.cs" />
-    <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs" />
     <Compile Include="General\Controllers\Actions\ActionItemsFromModelController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\Actions\ActionModelChoiceItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Actions\ModelConfigurationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\Actions\ModelConfigurationController.cs" />
     <Compile Include="General\Controllers\ModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs" />
     <Compile Include="General\Controllers\Actions\ResetViewModelController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -200,12 +196,8 @@
     <Compile Include="General\Controllers\NavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\NotifyMembersController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\NotifyMembersController.cs" />
+    <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs" />
     <Compile Include="General\CustomFunctions\ModelValueOperator.cs" />
     <Compile Include="General\FastReflectPropertyDescriptor.cs" />
     <Compile Include="General\MemberInfoExtensions.cs" />
@@ -244,12 +236,8 @@
     <Compile Include="General\Controllers\MasterObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\CreatableItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="General\Controllers\PessimisticLockingViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\CreatableItemController.cs" />
+    <Compile Include="General\Controllers\PessimisticLockingViewController.cs" />
     <Compile Include="General\Controllers\PopulateController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -394,9 +382,7 @@
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
     <Compile Include="ModelAdapter\InterfaceBuilder.cs" />
     <Compile Include="ModelAdapter\Interfaces.cs" />
-    <Compile Include="ModelAdapter\ModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ModelAdapter\ModelAdapterController.cs" />
     <Compile Include="ModelAdapter\ModelSynchronizerList.cs" />
     <Compile Include="ModelAdapter\Synchronizers.cs" />
     <Compile Include="ModelDifference\ApplicationModulesManager.cs" />
@@ -509,9 +495,7 @@
     <Compile Include="General\Controllers\XpandLinkToListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs" />
     <Compile Include="Xpo\PatchXpoSpecificFieldNameProcessor.cs" />
   </ItemGroup>
   <ItemGroup>

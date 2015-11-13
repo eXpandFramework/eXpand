@@ -1,11 +1,10 @@
 ﻿using System;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
 
 namespace Xpand.ExpressApp.Scheduler.Web.Reminders {
     
-    public class ReminderFormViewItem:ControlDetailItem {
+    public class ReminderFormViewItem: ControlViewItem {
         protected internal ReminderFormViewItem(string controlTypeName, string id, string caption, Type objectType) : base(controlTypeName, id, caption, objectType) {
         }
 

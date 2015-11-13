@@ -124,7 +124,7 @@ namespace Xpand.Persistent.Base.General {
                 string classDeclaration = CreateClassDeclaration();
                 var classConstructor = CreateClassConstructor();
                 string properties = CreateProperties();
-                var source = string.Join(Environment.NewLine, new[] { classDeclaration, classConstructor, properties, "}" });
+                var source = string.Join(Environment.NewLine, classDeclaration, classConstructor, properties, "}");
                 _referencesCollector.Add(_usingTypes);
                 string[] references = _referencesCollector.References.ToArray();
                 return new CodeInfo(typeInfo, source, references.ToList(), _viewName);
@@ -224,7 +224,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public override SelectedData SelectData(params SelectStatement[] selects) {
-            var selectStatement = selects.FirstOrDefault(statement => statement.TableName == ObjectClassInfo.TableName);
+            var selectStatement = selects.FirstOrDefault(statement => statement.Table.Name == ObjectClassInfo.TableName);
             if (selectStatement != null) {
                 var systemMembers = new[] { GCRecordField.StaticName, ObjectClassInfo.OptimisticLockFieldName, ObjectClassInfo.OptimisticLockFieldInDataLayerName };
                 var memberInfos = DynamicTypeInfo.OwnMembers.Where(info => info.IsPublic && !systemMembers.Contains(info.Name));
@@ -253,7 +253,7 @@ namespace Xpand.Persistent.Base.General {
             if (referenceInfoAttribute != null) {
                 var joinNode =
                     selectStatement.SubNodes.GetItems<JoinNode>(node => node.SubNodes).FirstOrDefault(
-                        node => node.TableName == referenceInfoAttribute.TableName);
+                        node => node.Table.Name == referenceInfoAttribute.TableName);
                 if (joinNode != null) {
                     return joinNode.Alias;
                 }
@@ -262,7 +262,7 @@ namespace Xpand.Persistent.Base.General {
         }
     }
 
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class ReferenceInfoAttribute : Attribute {
         readonly string _tableName;
         readonly ITypeInfo _typeInfo;

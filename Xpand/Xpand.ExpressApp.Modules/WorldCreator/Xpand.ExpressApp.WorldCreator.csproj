@@ -162,9 +162,7 @@
     <Compile Include="Core\ExistentTypesMemberCreator.cs" />
     <Compile Include="Core\PersistentClassInfoExtensions.cs" />
     <Compile Include="Core\TypeInfoExtensions.cs" />
-    <Compile Include="Controllers\PopulateInterfacesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\PopulateInterfacesController.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentAssemblyBuilder.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentClassInfoQuery.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentAttributeInfoQuery.cs" />

@@ -1,15 +1,13 @@
-﻿using System.Collections.Specialized;
+﻿using System;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Web;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
+using Fasterflect;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Model;
-using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.Security;
-using Fasterflect;
 
 namespace Xpand.ExpressApp.Web {
     public sealed class XpandHttpRequestManager : DefaultHttpRequestManager, IHttpRequestManager {
@@ -27,7 +25,7 @@ namespace Xpand.ExpressApp.Web {
         public override string GetQueryString(ViewShortcut viewShortcut) {
             var queryString = base.GetQueryString(viewShortcut);
             if (WebApplication.Instance.SupportsQueryStringParameter()) {
-                var startIndex = queryString.IndexOf("#", System.StringComparison.Ordinal) + 1;
+                var startIndex = queryString.IndexOf("#", StringComparison.Ordinal) + 1;
                 var substring = queryString.Substring(startIndex);
                 var nameValueCollection = HttpUtility.ParseQueryString(substring);
                 var queryStringParameters = ((IModelOptionsQueryStringParameter) WebApplication.Instance.Model.Options).QueryStringParameters;
@@ -44,33 +42,6 @@ namespace Xpand.ExpressApp.Web {
             var array = (nvc.AllKeys.SelectMany(nvc.GetValues,(key, value) =>string.Format("{0}={1}", HttpUtility.UrlEncode(key),HttpUtility.UrlEncode(value)))).ToArray();
             return string.Join("&", array);
         }
-
-        public override ViewShortcut GetViewShortcut() {
-            if (WebApplication.Instance.SupportsUserActivation()) {
-                var ua = Request.QueryString[Ua];
-                if (!string.IsNullOrEmpty(ua)) {
-                    using (var objectSpace = WebApplication.Instance.CreateObjectSpace()) {
-                        var registrationActivation = ((IModelRegistrationActivation) ((IModelOptionsRegistration) WebApplication.Instance.Model.Options).Registration);
-                        var name = registrationActivation.ActivationIdMember.Name;
-                        var findObject = objectSpace.FindObject(XpandModuleBase.UserType, CriteriaOperator.Parse(name + "='" + ua+"'"));
-                        objectSpace.TypesInfo.FindTypeInfo(XpandModuleBase.UserType).FindMember("IsActive").SetValue(findObject,true);
-                        objectSpace.CommitChanges();
-                        HttpContext.Current.Response.Write(registrationActivation.SuccessFulActivationOutput);
-                        if (!string.IsNullOrEmpty(registrationActivation.SuccessFulActivationReturnUrl)){
-                            HttpContext.Current.Response.RedirectLocation = registrationActivation.SuccessFulActivationReturnUrl;
-                        }
-                        else
-                            HttpContext.Current.Response.End();
-                    }
-                }
-            }
-            return base.GetViewShortcut();
-        }
-        public override void WriteShortcutTo(ViewShortcut currentShortcut, NameValueCollection queryString) {
-            base.WriteShortcutTo(currentShortcut, queryString);
-            _friendlyUrlHelper.WriteShortcutTo(currentShortcut, queryString);
-        }
-
         
     }
 }

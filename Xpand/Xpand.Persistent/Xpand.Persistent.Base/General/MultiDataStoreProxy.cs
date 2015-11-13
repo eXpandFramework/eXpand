@@ -45,12 +45,12 @@ namespace Xpand.Persistent.Base.General {
             var dataStoreModifyDataEventArgs = new DataStoreModifyDataEventArgs(dmlStatements);
             OnDataStoreModifyData(dataStoreModifyDataEventArgs);
             var name = typeof(XPObjectType).Name;
-            var insertStatement = dataStoreModifyDataEventArgs.ModificationStatements.OfType<InsertStatement>().FirstOrDefault(statement => statement.TableName == name);
+            var insertStatement = dataStoreModifyDataEventArgs.ModificationStatements.OfType<InsertStatement>().FirstOrDefault(statement => statement.Table.Name == name);
             var modificationResult = new ModificationResult();
             if (insertStatement != null) {
                 modificationResult = ModifyXPObjectTable(dmlStatements, insertStatement, modificationResult);
             } else {
-                var key = _dataStoreManager.GetKey(dmlStatements[0].TableName);
+                var key = _dataStoreManager.GetKey(dmlStatements[0].Table.Name);
                 modificationResult = _dataStoreManager.GetDataLayer(key,DataStore).ModifyData(dmlStatements);
             }
             if (modificationResult != null) return modificationResult;
@@ -92,7 +92,7 @@ namespace Xpand.Persistent.Base.General {
             var resultSet = new List<SelectStatementResult>();
             List<SelectedData> selectedDatas = selects.Select(stm => {
                 OnDataStoreSelectData(new DataStoreSelectDataEventArgs(new[] { stm }));
-                var simpleDataLayer = _dataStoreManager.GetDataLayer(_dataStoreManager.GetKey(stm.TableName),DataStore);
+                var simpleDataLayer = _dataStoreManager.GetDataLayer(_dataStoreManager.GetKey(stm.Table.Name),DataStore);
                 return simpleDataLayer.SelectData(stm);
             }).ToList();
             foreach (SelectedData selectedData in selectedDatas.Where(

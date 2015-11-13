@@ -5,26 +5,23 @@ using System.IO;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 
-namespace Xpand.Persistent.Base.General.ValueConverters
-{
-    public class ImageCompressionValueConverter : ValueConverter
-    {
+namespace Xpand.Persistent.Base.General.ValueConverters{
+    public class ImageCompressionValueConverter : ValueConverter{
         #region Properties
 
-
-        public override Type StorageType
-        {
-            get { return typeof(byte[]); }
+        public override Type StorageType{
+            get { return typeof (byte[]); }
         }
 
         #endregion
-        public override object ConvertToStorageType(object value) {
-            if (value != null && !(value is Image)) {
+
+        public override object ConvertToStorageType(object value){
+            if (value != null && !(value is Image)){
                 throw new ArgumentException();
             }
 
-            if (value == null) {
-                return value;
+            if (value == null){
+                return null;
             }
 
             var ms = new MemoryStream();
@@ -33,12 +30,12 @@ namespace Xpand.Persistent.Base.General.ValueConverters
             return CompressionUtils.Compress(ms).ToArray();
         }
 
-        public override object ConvertFromStorageType(object value) {
-            if (value != null && !(value is byte[])) {
+        public override object ConvertFromStorageType(object value){
+            if (value != null && !(value is byte[])){
                 throw new ArgumentException();
             }
 
-            if (value == null || ((byte[]) value).Length == 0) {
+            if (value == null || ((byte[]) value).Length == 0){
                 return value;
             }
 

@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
         private void AppearanceControllerOnCustomGetIsRulePropertiesEmpty(object sender, CustomGetIsRulePropertiesEmptyEventArgs e){
             var appearanceRuleProperties = e.RuleProperties as CachedAppearanceRuleProperties;
             if (appearanceRuleProperties != null)
-                e.IsEmpty = !appearanceRuleProperties.Properties.HasValue(new[] { typeof(IModelAppearanceFont) });
+                e.IsEmpty = !appearanceRuleProperties.Properties.HasValue(typeof(IModelAppearanceFont));
         }
 
         private void AppearanceControllerOnCustomCreateAppearanceRule(object sender, CustomCreateAppearanceRuleEventArgs e){
@@ -70,12 +70,12 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
             _properties = properties;
         }
 
-        public CachedAppearanceRuleProperties Properties {
+        public new CachedAppearanceRuleProperties Properties {
             get { return _properties; }
         }
 
         internal IList<IConditionalAppearanceItem> Validate(object[] contextObjects, EvaluatorContextDescriptor evaluatorContextDescriptor) {
-            var ruleValid = (bool)this.CallMethod("GetRuleValid", new[] { typeof(object[]), typeof(EvaluatorContextDescriptor) }, new object[] { contextObjects, evaluatorContextDescriptor });
+            var ruleValid = (bool)this.CallMethod("GetRuleValid", new[] { typeof(object[]), typeof(EvaluatorContextDescriptor) }, contextObjects, evaluatorContextDescriptor);
             var result = new List<IConditionalAppearanceItem>();
             AppearanceState state = ruleValid ? AppearanceState.CustomValue : AppearanceState.ResetValue;
             if (Properties.Properties.HasValue(typeof(IModelAppearanceFont))) {

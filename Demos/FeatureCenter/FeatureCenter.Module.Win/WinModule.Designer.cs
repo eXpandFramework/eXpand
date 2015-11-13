@@ -1,6 +1,6 @@
 using DevExpress.ExpressApp.ScriptRecorder.Win;
 using Xpand.ExpressApp.ImportWizard.Win;
-using Xpand.ExpressApp.MemberLevelSecurity.Win;
+
 
 namespace FeatureCenter.Module.Win {
     partial class FeatureCenterWindowsFormsModule {

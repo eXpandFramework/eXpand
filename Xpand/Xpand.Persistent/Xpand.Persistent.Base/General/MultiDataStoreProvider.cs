@@ -15,7 +15,7 @@ namespace Xpand.Persistent.Base.General {
             : base(connectionString) {
         }
 
-        public override IDataStore CreateUpdatingStore(out IDisposable[] disposableObjects){
+        public override IDataStore CreateUpdatingStore(bool allowUpdateSchema, out IDisposable[] disposableObjects){
             disposableObjects = new IDisposable[]{};
             return new MultiDataStoreProxy(XpoDefault.GetConnectionProvider(ConnectionString,AutoCreateOption.DatabaseAndSchema), ConnectionString);
         }

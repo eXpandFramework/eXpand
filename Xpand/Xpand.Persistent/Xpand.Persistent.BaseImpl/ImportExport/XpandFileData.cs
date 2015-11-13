@@ -12,18 +12,18 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
     [DefaultProperty("FileName")]
     public class XpandFileData : XpandBaseCustomObject, IFileData, IEmptyCheckable {
 #if MediumTrust
-		private int size;
+		private int _size;
 		private string fileName = "";
 		public int Size {
-			get { return size; }
-			set { size = value; }
+			get { return _size; }
+			set { _size = value; }
 		}
 #else
         [Persistent]
-        private int size;
+        private int _size;
         private string _fileName = "";
         public int Size {
-            get { return size; }
+            get { return _size; }
         }
 #endif
         public XpandFileData(Session session) : base(session) { }
@@ -63,10 +63,10 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         public byte[] Content {
             get { return GetDelayedPropertyValue<byte[]>("Content"); }
             set {
-                int oldSize = size;
-                size = value != null ? value.Length : 0;
+                int oldSize = _size;
+                _size = value != null ? value.Length : 0;
                 SetDelayedPropertyValue("Content", value);
-                OnChanged("Size", oldSize, size);
+                OnChanged("Size", oldSize, _size);
             }
         }
         #region IEmptyCheckable Members

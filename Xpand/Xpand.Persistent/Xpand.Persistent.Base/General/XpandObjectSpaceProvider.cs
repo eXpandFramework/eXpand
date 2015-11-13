@@ -27,7 +27,7 @@ namespace Xpand.Persistent.Base.General {
             Tracing.Tracer.LogVerboseValue(GetType().FullName,Environment.StackTrace);
         }
 
-        public new IDataLayer WorkingDataLayer {
+        public IDataLayer WorkingDataLayer {
             get { return _dataLayer; }
         }
 
@@ -52,7 +52,7 @@ namespace Xpand.Persistent.Base.General {
 
         IObjectSpace IObjectSpaceProvider.CreateUpdatingObjectSpace(Boolean allowUpdateSchema){
             IDisposable[] disposableObjects;
-            var dataStore = allowUpdateSchema ? DataStoreProvider.CreateUpdatingStore(out disposableObjects) : DataStoreProvider.CreateWorkingStore(out disposableObjects);
+            var dataStore = allowUpdateSchema ? DataStoreProvider.CreateUpdatingStore(true, out disposableObjects) : DataStoreProvider.CreateWorkingStore(out disposableObjects);
             return new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, () => CreateUnitOfWork(dataStore, disposableObjects));
         }
 
