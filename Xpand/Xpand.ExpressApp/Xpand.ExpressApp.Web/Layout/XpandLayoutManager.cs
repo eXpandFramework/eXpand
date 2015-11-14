@@ -136,7 +136,9 @@ namespace Xpand.ExpressApp.Web.Layout {
                     window.xafHeightAdjuster = { 
                         splitter: s,
                         oldAdjuster: window.xafHeightAdjuster,
-                        Adjust: function () {this.oldAdjuster.Adjust(); s.SetHeight(parseInt(document.getElementById('mainDiv').style['min-height']));} }
+                        Adjust: function () {
+                            this.oldAdjuster.Adjust(); 
+                            if (s.GetMainElement()) s.SetHeight(parseInt(document.getElementById('mainDiv').style['min-height']));} }
                 
                 window.RefreshUI(); }";
             }
