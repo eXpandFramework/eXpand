@@ -1,6 +1,6 @@
 @echo off
 set configuration=Debug
-set vsver=vs2013
+set vsver=vs2015
 rem uncomment the line bellow if you not use vs2010
 rem set vsver=vs2008
 rem uncomment the line bellow if you not use vs2012
@@ -18,7 +18,10 @@ if '%vsver%'=='vs2013' goto vs2013
 if '%vsver%'=='vs2015' goto vs2015
 
 :vs2015
-set msbuild="%ProgramFiles%\MSBuild\14.0\Bin\MSBuild.exe"
+set msbuild="%ProgramFiles%\MSBuild\12.0\Bin\MSBuild.exe"
+IF NOT EXIST "%msbuild%"
+	goto VS2013Tools
+
 set sn="%ProgramFiles%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\sn.exe"
 set gacutil="%ProgramFiles%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\gacutil.exe"
 set csharptemplates="%ProgramFiles%\Microsoft Visual Studio 14.0\Common7\IDE\ProjectTemplates\CSharp\DevExpress XAF\"
@@ -64,4 +67,8 @@ set vbtemplates="%ProgramFiles%\Microsoft Visual Studio 10.0\Common7\IDE\Project
 set devenv="%ProgramFiles%\Microsoft Visual Studio 10.0\Common7\IDE\"
 goto end
 
+:VS2013Tools
+echo "You need to download Build Tools 2013 http://www.microsoft.com/en-us/download/details.aspx?id=40760"
+pause
+exit
 :end
