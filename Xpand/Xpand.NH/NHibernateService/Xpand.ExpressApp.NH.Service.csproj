@@ -38,9 +38,9 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v15.1, Version=15.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.Data.v15.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\DevExpress.Data.v15.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\FluentNHibernate.1.4.0.0\lib\net35\FluentNHibernate.dll</HintPath>
@@ -73,6 +73,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.DataLayer.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.NH.BaseImpl">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.NH.BaseImpl.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IPersistenceManagerService.cs" />
@@ -87,12 +91,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Xpand.ExpressApp.NH.BaseImpl\Xpand.ExpressApp.NH.BaseImpl.csproj">
-      <Project>{1d957b2a-fe7a-4ba8-bdc2-3d8aa7770e18}</Project>
-      <Name>Xpand.ExpressApp.NH.BaseImpl</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

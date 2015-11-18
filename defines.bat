@@ -19,8 +19,8 @@ if '%vsver%'=='vs2015' goto vs2015
 
 :vs2015
 set msbuild="%ProgramFiles%\MSBuild\12.0\Bin\MSBuild.exe"
-IF NOT EXIST "%msbuild%"
-	goto VS2013Tools
+
+IF NOT EXIST %msbuild% goto VS2013Tools
 
 set sn="%ProgramFiles%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\sn.exe"
 set gacutil="%ProgramFiles%\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\gacutil.exe"

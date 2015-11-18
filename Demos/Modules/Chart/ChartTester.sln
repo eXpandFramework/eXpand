@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
@@ -33,11 +33,11 @@ Global
 		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0FE761EE-4BDF-477B-AE80-5FBAF3C0F405}.Release|Any CPU.Build.0 = Release|Any CPU
 		{560F01E0-F5F8-4261-93A8-A00082204536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{560F01E0-F5F8-4261-93A8-A00082204536}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{560F01E0-F5F8-4261-93A8-A00082204536}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{560F01E0-F5F8-4261-93A8-A00082204536}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{560F01E0-F5F8-4261-93A8-A00082204536}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

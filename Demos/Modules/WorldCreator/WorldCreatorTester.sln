@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
@@ -212,7 +212,7 @@ Global
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
-		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Release|Any CPU.ActiveCfg = Release|Any CPU

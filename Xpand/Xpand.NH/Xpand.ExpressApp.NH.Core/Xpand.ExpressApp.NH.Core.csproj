@@ -35,7 +35,7 @@
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v15.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <Private>True<	/Private>
+      <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.CodeParser.v15.1">
       <SpecificVersion>False</SpecificVersion>
