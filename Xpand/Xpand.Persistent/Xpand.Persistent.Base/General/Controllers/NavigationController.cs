@@ -14,19 +14,23 @@ using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers {
     public interface IModelOptionsNavigationContainer{
-        [Category(AttributeCategoryNameProvider.Xpand)]
-        bool HideNavigationOnStartup { get; set; }
+        [Category(AttributeCategoryNameProvider.XpandNavigation)]
+        [Description("Overrides NavigationAlwaysVisibleOnStartup")]
+        bool? HideNavigationOnStartup { get; set; }
+        [Category(AttributeCategoryNameProvider.XpandNavigation)]
+        [DefaultValue(true)]
+        bool NavigationAlwaysVisibleOnStartup { get; set; }
     }
 
     public class NavigationContainerController:ViewController,IModelExtender {
-        public const string ToggleNavigationId = "ToggleNavigation";
         private readonly SimpleAction _toggleNavigation;
+        public const string ToggleNavigationId = "ToggleNavigation";
 
         public NavigationContainerController() {
             _toggleNavigation = new SimpleAction(this, ToggleNavigationId, "Hidden");
         }
 
-        public SimpleAction ToggleNavigation{
+        public SimpleAction ToggleNavigation        {
             get { return _toggleNavigation; }
         }
 
@@ -51,7 +55,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
+            if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup.HasValue)
                 Application.CustomizeTemplate += Application_CustomizeTemplate;
         }
 
@@ -66,8 +70,10 @@ namespace Xpand.Persistent.Base.General.Controllers {
                 Application.CustomizeTemplate -= Application_CustomizeTemplate;
                 var dockManagerHolder = ((IDockManagerHolder)e.Template);
                 var dockPanel = GetNavigationPanel(dockManagerHolder);
-                if (dockPanel != null) 
-                    dockPanel.Visibility = DockVisibility.AutoHide;
+                if (dockPanel != null){
+                    var hideNavigationOnStartup = ((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup;
+                    dockPanel.Visibility = hideNavigationOnStartup != null && hideNavigationOnStartup.Value?DockVisibility.AutoHide:DockVisibility.Visible;
+                }
             }
         }
 
@@ -82,25 +88,54 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup)
-                WebWindow.CurrentRequestPage.PreRender+=CurrentRequestPageOnInit;
+            Frame.Disposing+=FrameOnDisposing;
+            if (WebWindow.CurrentRequestPage != null)
+                WebWindow.CurrentRequestPage.PreRender+=CurrentRequestPageOnPreRender;
         }
 
-        private void CurrentRequestPageOnInit(object sender, EventArgs eventArgs){
-            const string script = @"window.onload = function () {
-                                        var displayChanged;
-                                        var cellElement = document.getElementById('LPcell');
-                                        var interval = setInterval(function () {
-                                            if (cellElement.style.display != 'none') {
-                                                if (displayChanged)
-                                                    clearInterval(interval);
-                                                displayChanged = true;
-                                            }
-                                            OnClick('LPcell', 'separatorImage', true);
-                                        }, 10);
-                                    }";
-            WebWindow.CurrentRequestWindow.RegisterStartupScript(GetType().Name, script);
+        private void FrameOnDisposing(object sender, EventArgs eventArgs){
+            Frame.Disposing-=FrameOnDisposing;
+            if (WebWindow.CurrentRequestPage != null)
+                WebWindow.CurrentRequestPage.PreRender -= CurrentRequestPageOnPreRender;
         }
+
+        private void CurrentRequestPageOnPreRender(object sender, EventArgs eventArgs){
+            var options = ((IModelOptionsNavigationContainer)Application.Model.Options);
+            string script = null;
+            if (options.NavigationAlwaysVisibleOnStartup){
+                var localScript = @" function EnsureNavIsVisibleOnStartUp(){
+                                var cellElement = document.getElementById('LPcell');
+                                var visible=!cellElement.style.display || cellElement.style.display == tableCellDefaultDisplay
+                                if (!visible){
+                                    OnClick('LPcell', 'separatorImage', true);
+                                }
+                            }";
+                WebWindow.CurrentRequestWindow.RegisterStartupScript("EnsureNavIsVisibleOnStartUp", localScript);
+                script = "EnsureNavIsVisibleOnStartUp();"+Environment.NewLine;
+            }
+
+            var hideNavigationOnStartup = options.HideNavigationOnStartup;
+            if (hideNavigationOnStartup.HasValue && hideNavigationOnStartup.Value){
+                var localScript = @"function HideNavOnStartup(){
+                                var displayChanged=false;
+                                var hide=" + options.HideNavigationOnStartup.ToString().ToLower() + @";
+                                var cellElement = document.getElementById('LPcell');
+                                var visible=!cellElement.style.display || cellElement.style.display == tableCellDefaultDisplay
+                                if ((hide&&visible)||(!visible&&!hide)){
+                                    OnClick('LPcell', 'separatorImage', true);
+                                }
+                            }";
+                WebWindow.CurrentRequestWindow.RegisterStartupScript("HideNavigationOnStartup", localScript);
+                script += "HideNavOnStartup();";
+            }
+            
+            if (!string.IsNullOrEmpty(script)){
+                script = @"window.onload = function () {" + script +"}";
+                WebWindow.CurrentRequestWindow.RegisterStartupScript(GetType().Name, script);
+            }
+        }
+
     }
 }
+
 

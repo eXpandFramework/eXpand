@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module</RootNamespace>
     <AssemblyName>SystemTester.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>0d93d223</NuGetPackageImportStamp>
@@ -125,6 +127,7 @@
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
     <Compile Include="FunctionalTests\ConditionalAppearence\ConditionalAppearenceObject.cs" />
+    <Compile Include="FunctionalTests\HideNavigationOnStartup\HideNavigationOnStartupObject.cs" />
     <Compile Include="FunctionalTests\PositionInListView\PositionInListViewObject.cs" />
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
@@ -189,6 +192,15 @@
     </None>
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.ets" />
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.xafml" />
+    <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.web.mask.png" />
+    <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.web.png" />
+    <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.win.mask.png" />
+    <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.win.png" />
+    <Content Include="FunctionalTests\HideNavigationOnStartup\Init.inc" />
+    <None Include="FunctionalTests\HideNavigationOnStartup\HideNavigationOnStartup.ets" />
+    <EmbeddedResource Include="FunctionalTests\HideNavigationOnStartup\HideNavigationOnStartup.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="FunctionalTests\PositionInListView\PositionInListView.ets" />
     <None Include="FunctionalTests\PositionInListView\PositionInListView.xafml">
       <SubType>Designer</SubType>
@@ -239,6 +251,7 @@
     <Content Include="FunctionalTests\Actions\Init.inc" />
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
     <Content Include="FunctionalTests\EndUserAppearanceRule\Config.xml" />
+    <Content Include="FunctionalTests\HideNavigationOnStartup\Config.xml" />
     <Content Include="FunctionalTests\PositionInListView\Config.xml" />
     <Content Include="FunctionalTests\MySql\Config.xml">
       <SubType>Designer</SubType>
@@ -305,7 +318,8 @@
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml">
-      <SubType></SubType>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
