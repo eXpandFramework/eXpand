@@ -9,6 +9,12 @@
       </AppearanceRules>
     </Class>
   </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SystemModule" Version="15.1.8.0" IsNewNode="True" />
+    <SchemaModule Name="WorldCreatorModule" Version="15.1.8.1" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="15.1.8.1" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="15.1.8.1" IsNewNode="True" />
+  </SchemaModules>
   <Views>
     <DetailView Id="PersistentAssemblyInfo_DetailView">
       <Layout>
@@ -109,21 +115,22 @@
       <Layout>
         <LayoutGroup Id="Main">
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="General" Direction="Horizontal">
-              <LayoutGroup Id="Auto415ce04e-80e5-4aac-82f9-e294c82be6ff" ShowCaption="False" Caption="" Index="0" RelativeSize="49.952061361457332" IsNewNode="True">
-                <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
-                <LayoutItem Id="CollectionType" ViewItem="CollectionType" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutGroup Id="Autob564ca11-e35c-4e9d-883c-9729c2318df9" ShowCaption="False" Caption="" Index="1" RelativeSize="50.047938638542668" IsNewNode="True">
-                <LayoutItem Id="RelationType" ViewItem="RelationType" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
-                <LayoutItem Id="CollectionClassInfo" ViewItem="CollectionClassInfo" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutItem Id="Name" ViewItem="Name" Index="1" RelativeSize="25.023969319271334" Removed="True" />
+            <LayoutGroup Id="General">
+              <LayoutItem Id="Name" TextAlignMode="AutoSize" RelativeSize="7.2727272727272725" />
+              <LayoutItem Id="CollectionType" ViewItem="CollectionType" Index="1" RelativeSize="5.4545454545454541" IsNewNode="True" />
+              <LayoutItem Id="RelationType" ViewItem="RelationType" Index="2" RelativeSize="87.272727272727266" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
             </LayoutGroup>
             <LayoutGroup Id="Code">
-              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)">
-                <LayoutItem Id="GeneratedCode" RelativeSize="49.856184084372" ViewItem="GeneratedCode" />
-                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.143815915628" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="7.2727272727272725" />
+              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" RelativeSize="92.727272727272734">
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.738903394255871" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.261096605744129" />
               </LayoutGroup>
             </LayoutGroup>
           </TabbedGroup>
@@ -137,13 +144,21 @@
       <Layout>
         <LayoutGroup Id="Main">
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="General">
-              <LayoutItem Id="DataType" ViewItem="DataType" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
+            <LayoutGroup Id="General" Direction="Horizontal">
+              <LayoutItem Id="Name" TextAlignMode="AutoSize" RelativeSize="50" />
+              <LayoutItem Id="DataType" ViewItem="DataType" Index="1" RelativeSize="50" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
             </LayoutGroup>
             <LayoutGroup Id="Code">
-              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)">
-                <LayoutItem Id="GeneratedCode" RelativeSize="49.856184084372" ViewItem="GeneratedCode" />
-                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.143815915628" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="4.5454545454545459" />
+              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" RelativeSize="95.454545454545453">
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.738903394255871" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.261096605744129" />
               </LayoutGroup>
             </LayoutGroup>
           </TabbedGroup>
@@ -158,7 +173,7 @@
         <LayoutGroup Id="Main" RelativeSize="100">
           <TabbedGroup Id="Tabs" RelativeSize="100" Index="0">
             <LayoutGroup Id="General" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" Caption="General" RelativeSize="100" IsNewNode="True">
-              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
+              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="TypeAttributes" RelativeSize="100" Index="1">
               <LayoutItem Id="TypeAttributes" RelativeSize="100" ViewItem="TypeAttributes" />
@@ -167,10 +182,10 @@
               <LayoutItem Id="TemplateInfos" RelativeSize="100" ViewItem="TemplateInfos" />
             </LayoutGroup>
             <LayoutGroup Id="Code" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="3" Caption="Code" RelativeSize="100" IsNewNode="True">
-              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" ViewItem="CodeTemplateInfo.CodeTemplate" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
-              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="95.355587808418" IsNewNode="True">
-                <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Index="0" RelativeSize="49.952061361457332" IsNewNode="True" />
-                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" Index="1" RelativeSize="50.047938638542668" IsNewNode="True" />
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" ViewItem="CodeTemplateInfo.CodeTemplate" Index="0" RelativeSize="4.5584045584045585" IsNewNode="True" />
+              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" ShowCaption="False" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)" Direction="Horizontal" Index="1" RelativeSize="95.441595441595439" IsNewNode="True">
+                <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Index="0" RelativeSize="49.86187845303867" CaptionLocation="Top" IsNewNode="True" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" Index="1" RelativeSize="50.13812154696133" CaptionLocation="Top" IsNewNode="True" />
               </LayoutGroup>
             </LayoutGroup>
           </TabbedGroup>
@@ -189,21 +204,23 @@
       <Layout>
         <LayoutGroup Id="Main">
           <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="General" Direction="Horizontal">
-              <LayoutGroup Id="Autob96980f9-4950-4457-8d55-d822facccec3" ShowCaption="False" Caption="" Index="0" RelativeSize="45.349952061361456" IsNewNode="True">
-                <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
-                <LayoutItem Id="ReferenceType" ViewItem="ReferenceType" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
-              </LayoutGroup>
-              <LayoutItem Id="Name" Index="0" RelativeSize="45.349952061361456" ViewItem="Name" Removed="True" />
-              <LayoutGroup Id="Auto85d48ab0-f352-4291-b013-0c0362c918c4" ShowCaption="False" Caption="" Index="1" RelativeSize="54.650047938638544" IsNewNode="True">
-                <LayoutItem Id="AutoGenerateOtherPartMember" ViewItem="AutoGenerateOtherPartMember" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
-                <LayoutItem Id="ReferenceClassInfo" ViewItem="ReferenceClassInfo" Index="1" RelativeSize="95.355587808418" IsNewNode="True" />
-              </LayoutGroup>
+            <LayoutGroup Id="General">
+              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="7.2727272727272725" IsNewNode="True" Removed="True" />
+              <LayoutItem Id="ReferenceType" ViewItem="ReferenceType" Index="1" RelativeSize="5.4545454545454541" IsNewNode="True" />
+              <LayoutItem Id="ReferenceClassInfo" ViewItem="ReferenceClassInfo" Index="2" RelativeSize="5.4545454545454541" IsNewNode="True" />
+              <LayoutItem Id="AutoGenerateOtherPartMember" ViewItem="AutoGenerateOtherPartMember" Index="3" RelativeSize="81.818181818181813" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
             </LayoutGroup>
             <LayoutGroup Id="Code">
-              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)">
-                <LayoutItem Id="GeneratedCode" RelativeSize="49.856184084372" ViewItem="GeneratedCode" />
-                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.143815915628" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="2.9545454545454546" />
+              <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" RelativeSize="97.045454545454547">
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.608355091383814" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.391644908616186" />
               </LayoutGroup>
             </LayoutGroup>
           </TabbedGroup>
