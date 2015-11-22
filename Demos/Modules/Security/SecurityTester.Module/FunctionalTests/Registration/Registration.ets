@@ -1,5 +1,9 @@
 ﻿#IncludeFile .\Init.inc
 *Action Register User
+#IfDef SecurityTester.Web
+*Action Cancel
+*Action Register User
+#EndIf
 *FillForm
  User Name = NewUser
  Email = newuser@mail.com

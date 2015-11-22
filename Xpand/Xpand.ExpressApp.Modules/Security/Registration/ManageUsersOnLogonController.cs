@@ -91,7 +91,14 @@ namespace Xpand.ExpressApp.Security.Registration {
             dialogController.AcceptAction.ToolTip = e.Action.ToolTip;
             dialogController.AcceptAction.Executing+=AcceptActionOnExecuting;
             dialogController.CancelAction.Executing+=CancelActionOnExecuting;
-            
+            dialogController.CancelAction.Active.Changed += (sender, args) => {
+                if (dialogController.CancelAction.Active.Contains("Web application logon")&& !dialogController.CancelAction.Active["Web application logon"]){
+                    dialogController.CancelAction.Active.BeginUpdate();
+                    dialogController.CancelAction.Active.SetItemValue("Web application logon", true);
+                    dialogController.CancelAction.Active.EndUpdate();
+                }
+            };
+
         }
 
         class ActionDataHolder:Controller{
