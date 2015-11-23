@@ -94,7 +94,7 @@ namespace Xpand.ExpressApp.Security.Registration {
         public void Process(XafApplication application,IObjectSpace objectSpace) {
             var user = objectSpace.FindObject(XpandModuleBase.UserType, CriteriaOperator.Parse("Email = ?", Email)) as IAuthenticationStandardUser;
             if (user == null)
-                throw new ArgumentException("Cannot find registered users by the provided email address!");
+                throw new UserFriendlyException("Cannot find registered users by the provided email address!");
             User = user;
             var randomBytes = new byte[6];
             new RNGCryptoServiceProvider().GetBytes(randomBytes);

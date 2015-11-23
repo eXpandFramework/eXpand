@@ -131,6 +131,11 @@
     <EmbeddedResource Include="FunctionalTests\Registration\Registration.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="FunctionalTests\PasswordForgotten\Init.inc" />
+    <None Include="FunctionalTests\PasswordForgotten\PasswordForgotten.ets" />
+    <EmbeddedResource Include="FunctionalTests\PasswordForgotten\PasswordForgotten.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="FunctionalTests\Registration\Init.inc" />
     <None Include="FunctionalTests\Registration\Registration.ets" />
     <None Include="FunctionalTests\RememberMe\RememberMe.ets" />
@@ -147,6 +152,7 @@
     <Content Include="FunctionalTests\ChooseDatabaseAtLogon\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="FunctionalTests\PasswordForgotten\Config.xml" />
     <Content Include="FunctionalTests\Registration\Config.xml" />
     <Content Include="FunctionalTests\RememberMe\RememberMeNotActive\Config.xml" />
     <Content Include="FunctionalTests\RememberMe\RememberMe_Appearance\Config.xml" />

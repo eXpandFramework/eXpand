@@ -17,9 +17,9 @@ namespace SecurityTester.Module.DatabaseUpdate {
             adminRole.GetUser("Admin");
 
             var userRole = ObjectSpace.GetRole("User");
-            var user = (SecuritySystemUser)userRole.GetUser("user");
+            var user = (XpandUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
-
+            user.Email = "user@mail.com";
         }
     }
 }
