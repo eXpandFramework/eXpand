@@ -1,75 +1,41 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Web;
-using System.Web.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Web.Controllers {
+    public class AnonymousLogonParamsController : ObjectViewController<DetailView, AnonymousLogonParameters> {
+        protected override void OnActivated(){
+            base.OnActivated();
+            var cancelAction = Frame.GetController<WebLogonController>().CancelAction;
+            cancelAction.ActivateKey("Web application logon");
+            cancelAction.Execute+=CancelActionOnExecute;
+        }
+
+        private void CancelActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
+            ((SimpleAction) sender).Execute-=CancelActionOnExecute;
+            Application.LogOff();
+        }
+    }
+
     public class AnonymousLogonController : Security.Controllers.AnonymousLogonController {
-        string _userName;
-        int _loginAttempts;
-
         public AnonymousLogonController() {
-            var popupWindowShowAction = new PopupWindowShowAction(this, "LogonAnonymous", "Security") { Caption = "Login" };
+            var popupWindowShowAction = new SimpleAction(this, "LogonAnonymous", "Security") { Caption = "Login" };
             popupWindowShowAction.Execute+=PopupWindowShowActionOnExecute;
-            popupWindowShowAction.CustomizePopupWindowParams+=PopupWindowShowActionOnCustomizePopupWindowParams;
         }
 
-        void PopupWindowShowActionOnExecute(object sender, PopupWindowShowActionExecuteEventArgs e) {
-            var anonymousLogonParameters = e.PopupWindow.View.CurrentObject as AnonymousLogonParameters;
-            if (anonymousLogonParameters!=null&&HttpContext.Current != null && !(_loginAttempts >= 3)) {
-                _loginAttempts++;
-                try {
-                    ((SecurityStrategyBase) Application.Security).Authentication.Authenticate(e.PopupWindow.View.ObjectSpace);
-                }
-                catch (AuthenticationException) {
-                    if (_loginAttempts >= 3) {
-                        anonymousLogonParameters.UserName = _userName;
-                        e.PopupWindow.SetView(LogonAttemptsAmountedToLimitDetailView());
-                        e.CanCloseWindow = false;
-                        return;
-                    }
-                    throw;
-                }
-                LoginAnonymously(anonymousLogonParameters);
-            }
-
-        }
-
-        DetailView LogonAttemptsAmountedToLimitDetailView() {
-            return Application.CreateDetailView(new NonPersistentObjectSpace(Application.TypesInfo),ModelNodeIdHelper.GetDetailViewId(typeof (LogonAttemptsAmountedToLimit)), true);
-        }
-
-        void LoginAnonymously(AnonymousLogonParameters anonymousLogonParameters) {
+        private void PopupWindowShowActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
+            var anonymousLogonParameters = (AnonymousLogonParameters)SecuritySystem.LogonParameters;
             anonymousLogonParameters.AnonymousLogin = false;
             ObjectSerializer.WriteObjectPropertyValues(null, anonymousLogonParameters.Storage, anonymousLogonParameters);
-            SecuritySystem.Instance.Logoff();
-            FormsAuthentication.SignOut();
-            HttpContext.Current.Session.Abandon();
-        }
-
-        void PopupWindowShowActionOnCustomizePopupWindowParams(object sender, CustomizePopupWindowParamsEventArgs args) {
-            var objectSpace = Application.CreateObjectSpace();
-            var anonymousLogonParameters = ((AnonymousLogonParameters) Application.Security.LogonParameters);
-            _userName = anonymousLogonParameters.UserName;
-            anonymousLogonParameters.UserName = null;
-            var detailView = Application.CreateDetailView(objectSpace, anonymousLogonParameters);
-            detailView.ViewEditMode = ViewEditMode.Edit;
-            args.View=_loginAttempts>=3?LogonAttemptsAmountedToLimitDetailView():detailView;
-            var registrationControllers = XpandSecurityModuleBase.CreateRegistrationControllers(Application);
-            args.DialogController.Controllers.AddRange(registrationControllers);
-            args.DialogController.SaveOnAccept = false;
-            args.DialogController.Activated+=DialogControllerOnActivated;
+            Application.LogOff();            
         }
 
         void DialogControllerOnActivated(object sender, EventArgs eventArgs) {
@@ -88,7 +54,6 @@ namespace Xpand.ExpressApp.Security.Web.Controllers {
             dialogController.Deactivated -= DialogControllerOnDeactivated;
             var manageUsersOnLogonController = dialogController.Frame.GetController<ManageUsersOnLogonController>();
             manageUsersOnLogonController.CustomActiveKey -= OnCustomActiveKey;
-            manageUsersOnLogonController.CustomProccessedLogonParameter -= ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
             manageUsersOnLogonController.CustomProccessedLogonParameter -= ManageUsersOnLogonControllerOnCustomProccessedLogonParameter;
             manageUsersOnLogonController.CustomCancelLogonParameter -= ManageUsersOnLogonControllerOnCustomCancelLogonParameter;
         }

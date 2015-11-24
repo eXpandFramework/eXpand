@@ -30,10 +30,12 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
         void ICustomObjectSerialize.ReadPropertyValues(SettingsStorage storage) {
             ReadPropertyValuesCore(storage);
             AnonymousLogin = ReadBoolOption("AnonymousLogin", true);
-            if (AnonymousLogin&&!CanReadSecuredLogonParameters()) {
+            if (AnonymousLogin&&!CanReadSecuredLogonParameters()){
                 UserName = AnonymousUserName;
                 Password = null;
-            } else {
+            } else if(UserName == AnonymousUserName){
+                if (!AnonymousLogin)
+                    UserName = null;
                 AnonymousLogin = true;
             }
         }

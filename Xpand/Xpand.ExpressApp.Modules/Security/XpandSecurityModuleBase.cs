@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Security {
             e.Controllers.AddRange(controllers.Select(pair => pair.Value));
         }
 
-        private void AddControllers(Dictionary<Type, Controller> controllers, IEnumerable<Controller> controllersToAdd){
+        protected void AddControllers(Dictionary<Type, Controller> controllers, IEnumerable<Controller> controllersToAdd){
             foreach (var controller in controllersToAdd) {
                 if (!controllers.ContainsKey(controller.GetType())){
                     controllers.Add(controller.GetType(),controller);

@@ -1,14 +1,12 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
-using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
+using Xpand.ExpressApp.Security.Web.Controllers;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Web {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
@@ -21,12 +19,6 @@ namespace Xpand.ExpressApp.Security.Web {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
         }
 
-        protected override void AddRegistrationControllers(XafApplication xafApplication, Dictionary<Type, Controller> controllers) {
-            if (!((IModelOptionsAuthentication) Application.Model.Options).Athentication.AnonymousAuthentication.Enabled&&
-                ((IModelOptionsRegistration) Application.Model.Options).Registration.Enabled)
-                base.AddRegistrationControllers(xafApplication, controllers);
-        }
-
         protected override Type[] ApplicationTypes() {
             return new[] { typeof (IWriteSecuredLogonParameters) };
         }
@@ -36,7 +28,12 @@ namespace Xpand.ExpressApp.Security.Web {
             if (RuntimeMode){
                 _authentication = new Authentication();
                 _authentication.Attach(this);
+                Application.CreateCustomLogonWindowControllers += application_CreateCustomLogonWindowControllers;
             }
+        }
+
+        private void application_CreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e){
+            e.Controllers.Add(new AnonymousLogonParamsController());
         }
     }
 }

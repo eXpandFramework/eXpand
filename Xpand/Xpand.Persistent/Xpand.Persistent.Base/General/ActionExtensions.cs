@@ -5,6 +5,15 @@ using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public static class ActionExtensions {
+        public static void ActivateKey(this ActionBase action, string key) {
+            action.Active.Changed += (sender, args) =>{
+                if (action.Active.Contains(key) && !action.Active[key]) {
+                    action.Active.BeginUpdate();
+                    action.Active.SetItemValue(key, true);
+                    action.Active.EndUpdate();
+                }
+            };
+        }
 
         public static IModelBaseChoiceActionItem Model(this ChoiceActionItem choiceActionItem){
             var modelAction = ((SingleChoiceAction) choiceActionItem.GetPropertyValue("Owner")).Model;

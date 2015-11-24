@@ -4,5 +4,6 @@
     <Athentication>
       <AnonymousAuthentication Enabled="True" />
     </Athentication>
+    <Registration Enabled="True" />
   </Options>
 </Application>

@@ -46,6 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -134,9 +135,7 @@
     <Compile Include="AuthenticationProviders\AutoAuthenticationStandard.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AuthenticationProviders\AuthenticationCombined.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="AuthenticationProviders\AuthenticationCombined.cs" />
     <Compile Include="AuthenticationProviders\XpandLogonParameters.cs" />
     <Compile Include="AuthenticationProviders\XpandAuthenticationStandard.cs">
       <SubType>Component</SubType>

@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Persistent.Validation;
 using Fasterflect;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Registration {
@@ -90,15 +91,9 @@ namespace Xpand.ExpressApp.Security.Registration {
             dialogController.AcceptAction.Caption = e.Action.Caption;
             dialogController.AcceptAction.ToolTip = e.Action.ToolTip;
             dialogController.AcceptAction.Executing+=AcceptActionOnExecuting;
-            dialogController.CancelAction.Executing+=CancelActionOnExecuting;
-            dialogController.CancelAction.Active.Changed += (sender, args) => {
-                if (dialogController.CancelAction.Active.Contains("Web application logon")&& !dialogController.CancelAction.Active["Web application logon"]){
-                    dialogController.CancelAction.Active.BeginUpdate();
-                    dialogController.CancelAction.Active.SetItemValue("Web application logon", true);
-                    dialogController.CancelAction.Active.EndUpdate();
-                }
-            };
-
+            var cancelAction = dialogController.CancelAction;
+            cancelAction.Executing+=CancelActionOnExecuting;
+            cancelAction.ActivateKey("Web application logon");
         }
 
         class ActionDataHolder:Controller{
