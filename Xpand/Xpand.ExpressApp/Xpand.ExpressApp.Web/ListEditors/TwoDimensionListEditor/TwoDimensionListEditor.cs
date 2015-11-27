@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor {
     [ListEditor(typeof(ITwoDimensionItem), true)]
     public class TwoDimensionListEditor : ListEditor, IComplexListEditor, IProcessCallbackComplete, IXafCallbackHandler,
         ISupportAppearanceCustomization {
-        private readonly string _uniqueId = "TimeTableListEditor_CallbackHandlerId";
+        private readonly string _uniqueId;
         private readonly Dictionary<ASPxEditBase, string> _buttonConfirmations = new Dictionary<ASPxEditBase, string>();
         private readonly Dictionary<ASPxEditBase, string> _buttonScripts = new Dictionary<ASPxEditBase, string>();
         private readonly Dictionary<ASPxCheckBox, object> _checkboxObjectIds = new Dictionary<ASPxCheckBox, object>();
@@ -304,11 +304,13 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor {
 
                 var action = actionToBeExecuted as PopupWindowShowAction;
                 if (action != null) {
-                    WebApplication.Instance.PopupWindowManager.RegisterStartupPopupWindowShowActionScript(
-                        (WebControl)Control, action);
+                    WebApplication.Instance.PopupWindowManager.ShowPopup(action, ((WebControl) Control).ClientID);
                 }
-                else if (actionToBeExecuted is SimpleAction) {
-                    (actionToBeExecuted as SimpleAction).DoExecute();
+                else{
+                    var executed = actionToBeExecuted as SimpleAction;
+                    if (executed != null) {
+                        executed.DoExecute();
+                    }
                 }
             }
             finally {
@@ -775,8 +777,9 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor {
         private string GetCaption(IComparable item, bool isHorizontalDimension) {
             if (item == null)
                 return "";
-            if (item is XPBaseObject) {
-                var obj = (item as XPBaseObject);
+            var o = item as XPBaseObject;
+            if (o != null) {
+                var obj = o;
 
                 ITypeInfo relativeItemInfo = XafTypesInfo.Instance.FindTypeInfo(obj.GetType());
                 return relativeItemInfo.DefaultMember == null
@@ -798,8 +801,9 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor {
         private string GetIdentifier(IComparable item) {
             if (item == null)
                 return "";
-            if (item is XPBaseObject) {
-                var obj = (item as XPBaseObject);
+            var o = item as XPBaseObject;
+            if (o != null) {
+                var obj = o;
 
                 ITypeInfo relativeItemInfo = XafTypesInfo.Instance.FindTypeInfo(obj.GetType());
                 return obj.GetMemberValue(relativeItemInfo.KeyMember.Name).ToString();
@@ -972,9 +976,8 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor {
         protected override void OnActivated() {
             _editors = new List<TwoDimensionListEditor>();
             foreach (ListPropertyEditor item in View.GetItems<ListPropertyEditor>()) {
-                if (item != null && item.ListView != null && item.ListView.Editor != null &&
-                    item.ListView.Editor is TwoDimensionListEditor) {
-                    var listeditor = item.ListView.Editor as TwoDimensionListEditor;
+                if (item != null && item.ListView != null && item.ListView.Editor is TwoDimensionListEditor) {
+                    var listeditor = (TwoDimensionListEditor) item.ListView.Editor;
                     if (!_editors.Contains(listeditor))
                         _editors.Add(listeditor);
                     SetViewMode(listeditor);

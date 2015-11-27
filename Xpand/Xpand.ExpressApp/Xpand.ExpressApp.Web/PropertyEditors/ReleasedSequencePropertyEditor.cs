@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp;
@@ -80,7 +81,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             string resultFunc = GetClientScript(editor);
             editor.Page.ClientScript.RegisterClientScriptBlock(GetType(), "ButtonEditScript" + editor.ClientID, resultFunc, true);
             string handler = string.Format("function Add_{0}_ButtonClickHandler(sender, e)", MemberInfo.Name.Replace(".", ""));
-            handler += "{" + application.PopupWindowManager.GenerateModalOpeningScript(editor, _objectWindowAction, ASPxLookupPropertyEditor.WindowWidth, ASPxLookupPropertyEditor.WindowHeight, false, GetButtonEditProcessResultFunction()) + "; }";
+
+            var callBackFuncName = HttpUtility.JavaScriptStringEncode(GetButtonEditProcessResultFunction());
+            var script = application.PopupWindowManager.GetShowPopupWindowScript(_objectWindowAction, callBackFuncName, editor.ClientID, false, _objectWindowAction.IsSizeable);
+            handler += "{" + script + "; }";
             editor.ClientSideEvents.ButtonClick = handler;
         }
         private string GetButtonEditProcessResultFunction() {

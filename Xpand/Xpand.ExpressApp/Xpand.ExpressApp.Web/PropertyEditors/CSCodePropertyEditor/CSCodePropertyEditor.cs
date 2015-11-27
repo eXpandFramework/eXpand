@@ -11,8 +11,10 @@ using DevExpress.CodeParser.JavaScript;
 using DevExpress.CodeParser.VB;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.Web;
 using DevExpress.Web.Internal;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
+using TokenCollection = DevExpress.CodeParser.TokenCollection;
 
 
 namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
@@ -35,10 +37,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
             ((LabelControl)InplaceViewModeEditor).Text = CodeFormatter.GetFormattedCode(TokenLanguage.CSharp, (string)PropertyValue);
         }
         protected override System.Web.UI.WebControls.WebControl CreateEditModeControlCore() {
-            return new LabelControl();
+            return new LabelControl(new ASPxLabel());
         }
         protected override System.Web.UI.WebControls.WebControl CreateViewModeControlCore() {
-            return new LabelControl();
+            return new LabelControl(new ASPxLabel());
         }
     }
     public static class CodeFormatter {

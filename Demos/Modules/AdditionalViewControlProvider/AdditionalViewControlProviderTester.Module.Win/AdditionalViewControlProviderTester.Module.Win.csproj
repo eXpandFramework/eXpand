@@ -11,6 +11,7 @@
     <RootNamespace>AdditionalViewControlProviderTester.Module.Win</RootNamespace>
     <AssemblyName>AdditionalViewControlProviderTester.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

@@ -149,9 +149,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                 }
                 UpdateDropDownLookupControlAddButton(supportNewObjectCreating);
                 if (_application != null){
-                    var script=application.PopupWindowManager.GetShowPopupWindowScript(_newObjectWindowAction,
-                        HttpUtility.JavaScriptStringEncode(supportNewObjectCreating.GetProcessNewObjFunction()), editor.ClientID, false,
-                        _newObjectWindowAction.IsSizeable);
+                    var callBackFuncName = HttpUtility.JavaScriptStringEncode(supportNewObjectCreating.GetProcessNewObjFunction());
+                    var script=application.PopupWindowManager.GetShowPopupWindowScript(_newObjectWindowAction,callBackFuncName, editor.ClientID, false,_newObjectWindowAction.IsSizeable);
                     supportNewObjectCreating.SetClientNewButtonScript(script);
                 }
             }
