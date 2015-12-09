@@ -37,12 +37,13 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
         }
 
         void GridControlOnHandleCreated(object sender, EventArgs eventArgs) {
-            if (!string.IsNullOrEmpty(Model.SelectedRows)) {
+            var selectedRows = Model.SelectedRows;
+            if (!string.IsNullOrEmpty(selectedRows)) {
                 var columnView = (DevExpress.XtraGrid.Views.Grid.GridView)((GridControl)(View.Editor.Control)).FocusedView;
                 columnView.ClearSelection();
                 columnView.OptionsSelection.MultiSelect = true;
                 columnView.OptionsSelection.MultiSelectMode = GridMultiSelectMode.RowSelect;
-                foreach (var row in Model.SelectedRows.Split(',')) {
+                foreach (var row in selectedRows.Split(',')) {
                     var rowHandle = Convert.ToInt32(row);
                     columnView.SelectRow(rowHandle);
                 }
