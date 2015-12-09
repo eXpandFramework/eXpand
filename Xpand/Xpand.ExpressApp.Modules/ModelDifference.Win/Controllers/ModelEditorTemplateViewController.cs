@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             if (modelEditorPropertyEditor != null){
                 var controller = modelEditorPropertyEditor.ModelEditorViewModelEditorViewController;
                 var mainBarActions = (Dictionary<ActionBase, string>) controller.GetFieldValue("mainBarActions");
-                var actionBases = mainBarActions.Select(pair => pair.Key).ToArray().Where(@base => @base.Id!="Save").ToArray();
+                var actionBases = mainBarActions.Select(pair => pair.Key).ToArray().Where(@base => !new [] {"Open","Save"}.Contains(@base.Id)).ToArray();
                 foreach (var actionBase in actionBases){
                     actionBase.Category = "Unspecified";
                 }
