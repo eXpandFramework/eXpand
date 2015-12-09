@@ -88,9 +88,11 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            Frame.Disposing+=FrameOnDisposing;
-            if (WebWindow.CurrentRequestPage != null)
-                WebWindow.CurrentRequestPage.PreRender+=CurrentRequestPageOnPreRender;
+            if (!WebApplicationStyleManager.IsNewStyle) {
+                Frame.Disposing += FrameOnDisposing;
+                if (WebWindow.CurrentRequestPage != null)
+                    WebWindow.CurrentRequestPage.PreRender += CurrentRequestPageOnPreRender;
+            }
         }
 
         private void FrameOnDisposing(object sender, EventArgs eventArgs){

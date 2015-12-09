@@ -226,7 +226,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         LayoutGroupTemplateContainer LayoutGroupTemplateContainer(WebControl containerControl, int cellIndex) {
             var tableRow = containerControl.Controls[0] as TableRow;
-            return tableRow != null ? tableRow.Cells[cellIndex].Controls[0] as LayoutGroupTemplateContainer : null;
+            return tableRow != null && tableRow.Cells[cellIndex].Controls.Cast<object>().Any() ? tableRow.Cells[cellIndex].Controls[0] as LayoutGroupTemplateContainer : null;
         }
 
         public void ApplyControlStyle(WebControl webControl, ILayoutStyle layoutStyle) {
