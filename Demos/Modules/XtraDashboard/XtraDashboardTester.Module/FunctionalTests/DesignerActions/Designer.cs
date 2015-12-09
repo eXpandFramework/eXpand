@@ -41,8 +41,11 @@ namespace XtraDashboardTester.Module.FunctionalTests.DesignerActions {
 
         private void XMLPropertyEditorOnValueRead(object sender, EventArgs eventArgs){
             _xmlPropertyEditor.ValueRead-=XMLPropertyEditorOnValueRead;
-            string xml = ((DashboardDefinition) View.CurrentObject).Xml+"";
-            _invalidNewDashboardXml.Active["xml"] = !(xml.Contains("Customer") && xml.Contains("Person") && xml.Contains("Chart"));
+            var dashboardDefinition = (DashboardDefinition) View.CurrentObject;
+            if (dashboardDefinition != null){
+                string xml = dashboardDefinition.Xml+"";
+                _invalidNewDashboardXml.Active["xml"] = !(xml.Contains("Customer") && xml.Contains("Person") && xml.Contains("Chart"));
+            }
         }
 
         private void DashboardTypesEditorOnValueRead(object sender, EventArgs eventArgs){

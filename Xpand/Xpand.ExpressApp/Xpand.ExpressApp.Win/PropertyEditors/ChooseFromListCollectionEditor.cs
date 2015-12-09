@@ -39,6 +39,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             var destinationList = PropertyValue as IEnumerable;
             if (destinationList != null) {
                 _comboControl.EditValueChanged -= ComboControlEditValueChanged;
+                PopulateCheckComboBox();
                 SetCheckedItems(destinationList);
                 _comboControl.EditValueChanged += ComboControlEditValueChanged;
             }
@@ -95,7 +96,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         protected override void OnControlCreated() {
             base.OnControlCreated();
             _comboControl.CustomDisplayText += ComboControlCustomDisplayText;
-            PopulateCheckComboBox();
         }
         #endregion
 
@@ -105,7 +105,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         void IPropertyEditor.SetValue(string value){
             foreach (var val in value.Split(Convert.ToChar(";"))){
-                _comboControl.Properties.Items.Cast<CheckedListBoxItem>().First(item => (string) item.Value == val).CheckState =
+                _comboControl.Properties.Items.First(item => (string) item.Value == val).CheckState =
                     CheckState.Checked;
             }
         }
