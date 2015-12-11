@@ -177,6 +177,7 @@ namespace Xpand.ExpressApp.Web.Templates{
         private readonly Dictionary<MenuItem, ASPxMenuItemChoiceActionItem> MenuItemToWrapperMap;
         private ChoiceActionItemCollection ActionItems;
         internal SingleChoiceAction SingleChoiceAction;
+        private string _clientUpdateSelectionScript;
 
         public ASPxMenuNavigationControl(){
             ASPxMenuControl = RenderHelper.CreateASPxMenu();
@@ -376,6 +377,11 @@ namespace Xpand.ExpressApp.Web.Templates{
 
         public Control TestControl{
             get { return ASPxMenuControl; }
+        }
+
+        public string ClientUpdateSelectionScript
+        {
+            get { return _clientUpdateSelectionScript; }
         }
 
         #endregion
