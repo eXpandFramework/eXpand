@@ -4,6 +4,7 @@ using System.IO;
 using System.Web;
 using SystemTester.Module;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Web;
 
 namespace SystemTester.Web {
