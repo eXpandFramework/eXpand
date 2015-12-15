@@ -52,6 +52,7 @@
     <Reference Include="DevExpress.ExpressApp.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Workflow.v15.2, Version=15.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Persistent.Base.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -80,10 +81,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\DemoTask.cs" />
+    <None Include="FunctionalTests\WorldCreatorWorkflow\WorldCreatorWorkflow.ets" />
     <None Include="FunctionalTests\ObjectChangedWorkflow\ObjectChangedWorkflow.ets" />
-    <Compile Include="FunctionalTests\ObjectChangedWorkflow\ObjectChangedWorkflow.cs">
+    <Compile Include="FunctionalTests\AssignXmlController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FunctionalTests\WorldCreatorWorkflow\WorldCreatorWorkflowObject.cs" />
     <Compile Include="FunctionalTests\ObjectChangedWorkflow\ObjectChangedWorkflowObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -120,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
+    <Content Include="FunctionalTests\WorldCreatorWorkflow\Config.xml" />
     <Content Include="FunctionalTests\ObjectChangedWorkflow\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

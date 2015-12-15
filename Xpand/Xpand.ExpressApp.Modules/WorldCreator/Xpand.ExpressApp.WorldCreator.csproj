@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.WorldCreator</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.WorldCreator</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -126,6 +128,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\DataStoreLogonDatabasesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\NeedCompilationController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\PersistentReferenceMemberInfoController.cs">

@@ -23,6 +23,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [InterfaceRegistrator(typeof(IPersistentAssemblyInfo))]
     [DefaultProperty("Name")]
     public class PersistentAssemblyInfo : XpandBaseCustomObject, IPersistentAssemblyInfo {
+        private bool? _needCompilation;
         CodeDomProvider _codeDomProvider;
         string _compileErrors;
         int _compileOrder;
@@ -32,10 +33,14 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         StrongKeyFile _strongKeyFile;
 
-
-
         public PersistentAssemblyInfo(Session session)
             : base(session) {
+        }
+
+        [Browsable(false)]
+        public bool? NeedCompilation{
+            get { return _needCompilation; }
+            set { SetPropertyValue("NeedCompilation", ref _needCompilation, value); }
         }
 
         public override void AfterConstruction() {

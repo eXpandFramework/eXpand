@@ -14,7 +14,7 @@
  Execution Domain = Client
  Property Name = PropertyName
  Is Active = True
-*Action Assign Xaml
+*Action Assign Xaml (ObjectChangedWorkflow)
 
 *Action Save and Close
 

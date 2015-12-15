@@ -45,17 +45,17 @@ namespace Xpand.Xpo.DB {
         readonly Dictionary<string, DataStoreManagerSimpleDataLayer> _simpleDataLayers = new Dictionary<string, DataStoreManagerSimpleDataLayer>();
         readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
         readonly string _connectionString;
-        readonly IList<DataStoreAttribute> _dataStoreAttributes;
+        readonly DataStoreAttribute[] _dataStoreAttributes;
         private bool _dataLayersCreated;
 
         public DataStoreManager(string connectionString) {
             _connectionString = connectionString;
-            _dataStoreAttributes = GetDataStoreAttributes().ToList();
+            _dataStoreAttributes = GetDataStoreAttributes().ToArray();
         }
 
         public KeyInfo GetKeyInfo(Type type) {
             var nameSpace = (type.Namespace + "");
-            var dataStoreAttribute = _dataStoreAttributes.SingleOrDefault(attribute => nameSpace.StartsWith(attribute.NameSpace));
+            var dataStoreAttribute = _dataStoreAttributes.FirstOrDefault(attribute => nameSpace.StartsWith(attribute.NameSpace));
             return dataStoreAttribute == null ? new KeyInfo(false, StrDefault) : new KeyInfo(dataStoreAttribute.IsLegacy, (dataStoreAttribute.DataStoreName ?? dataStoreAttribute.ConnectionString));
         }
 
@@ -81,7 +81,7 @@ namespace Xpand.Xpo.DB {
 
         XPClassInfo GetXPClassInfo(Type type) {
             var xpClassInfos = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>());
-            return xpClassInfos.Single(info => info.ClassType == type);
+            return xpClassInfos.First(info => info.ClassType == type);
         }
 
         public ReflectionDictionary GetDictionary(XPClassInfo xpClassInfo) {
@@ -205,7 +205,7 @@ namespace Xpand.Xpo.DB {
 
         public Type GetType(string typeName) {
             var types = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>()).Select(classInfo => classInfo.ClassType);
-            return types.SingleOrDefault(type => type.Name == typeName);
+            return types.FirstOrDefault(type => type.Name == typeName);
         }
 
     }

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model.Core;
@@ -16,12 +18,13 @@ using Xpand.ExpressApp.WorldCreator.Core;
 using Xpand.ExpressApp.WorldCreator.NodeUpdaters;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Utils.Helpers;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
         public const string WCAssembliesPath = "WCAssembliesPath";
-        List<Type> _dynamicModuleTypes = new List<Type>();
+        readonly List<Type> _dynamicModuleTypes = new List<Type>();
 
         public static event EventHandler<CollectTypesEventArgs> AddAdditionalReflectionDictionaryTypes;
 
@@ -57,7 +60,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             else {
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(CompileEngine.XpandExtension));
                 foreach (var assembly1 in assemblies) {
-                    moduleManager.AddModule(assembly1.GetTypes().Single(type => typeof(ModuleBase).IsAssignableFrom(type)));
+                    moduleManager.AddModule(assembly1.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
             Application.LoggedOn += ApplicationOnLoggedOn;
@@ -120,17 +123,39 @@ namespace Xpand.ExpressApp.WorldCreator {
         void AddDynamicModules(ApplicationModulesManager moduleManager, UnitOfWork unitOfWork) {
             unitOfWork.LockingOption = LockingOption.None;
             Type assemblyInfoType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
-            List<IPersistentAssemblyInfo> persistentAssemblyInfos =
-                new XPCollection(unitOfWork, assemblyInfoType).OfType<IPersistentAssemblyInfo>().Where(IsValidAssemblyInfo(moduleManager)).ToList();
-            _dynamicModuleTypes = new CompileEngine().CompileModules(persistentAssemblyInfos, GetPath());
-            foreach (var moduleType in _dynamicModuleTypes) {
-                moduleManager.AddModule(Application, (ModuleBase)moduleType.CreateInstance());
-            }
+            var persistentAssemblyInfos = new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().ToArray().Where(IsValidAssemblyInfo(moduleManager)).ToArray();
+            persistentAssemblyInfos.Where(info => !NeedsCompilation(info)).Each(LoadCompiledInfos);
+            persistentAssemblyInfos.Where(NeedsCompilation).Each(Compile);
             unitOfWork.CommitChanges();
         }
 
+        private bool NeedsCompilation(IPersistentAssemblyInfo info){
+            return !info.NeedCompilation.HasValue || info.NeedCompilation.Value;
+        }
+
+        private void Compile(IPersistentAssemblyInfo obj){
+            var item = new CompileEngine().CompileModules(new[] { obj }, GetPath()).FirstOrDefault();
+            obj.NeedCompilation = false;
+            if (item!=null){
+                LoadCompiledInfos(obj);
+            }
+        }
+
+        public void LoadCompiledInfos(IPersistentAssemblyInfo assemblyInfo){
+            var assemblyFile = Path.Combine(GetPath(), assemblyInfo.Name + CompileEngine.XpandExtension);
+            var assembly = Assembly.LoadFrom(assemblyFile);
+            var moduleType = assembly.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type));
+            if (ModuleManager.Modules.All(@base => @base.GetType() != moduleType)){
+                _dynamicModuleTypes.Add(moduleType);
+                ModuleManager.AddModule(Application, (ModuleBase)moduleType.CreateInstance());
+            }
+        }
+
         Func<IPersistentAssemblyInfo, bool> IsValidAssemblyInfo(ApplicationModulesManager moduleManager) {
-            return info => !info.DoNotCompile && moduleManager.Modules.FirstOrDefault(@base => @base.Name == "Dynamic" + info.Name + "Module") == null;
+            return info =>{
+                var isLoaded = moduleManager.Modules.Any(@base => @base.Name == "Dynamic" + info.Name + "Module");
+                return !info.DoNotCompile && !isLoaded;
+            };
         }
 
         protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors){

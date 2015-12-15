@@ -214,15 +214,17 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var generatedUsings = new StringBuilder();
             foreach (var persistentClassInfo in persistentAssemblyInfo.PersistentClassInfos) {
                 string code = GenerateCode(persistentClassInfo);
-                string usingsString = GetUsingsString(persistentAssemblyInfo, code);
-                code = code.Replace(usingsString, "");
-                code = code.Replace("\n", "\r\n");
-                if (!(usingsDictionary.ContainsKey(usingsString))) {
-                    usingsDictionary.Add(usingsString, null);
-                    usingsString = usingsString.Replace("\n", "\r\n");
-                    generatedUsings.Append(usingsString);
+                if (code!=null){
+                    string usingsString = GetUsingsString(persistentAssemblyInfo, code);
+                    code = code.Replace(usingsString, "");
+                    code = code.Replace("\n", "\r\n");
+                    if (!(usingsDictionary.ContainsKey(usingsString))){
+                        usingsDictionary.Add(usingsString, null);
+                        usingsString = usingsString.Replace("\n", "\r\n");
+                        generatedUsings.Append(usingsString);
+                    }
+                    generatedClassCode.Append(code);
                 }
-                generatedClassCode.Append(code);
             }
             return generatedUsings + generateAssemblyCode + generatedClassCode;
         }

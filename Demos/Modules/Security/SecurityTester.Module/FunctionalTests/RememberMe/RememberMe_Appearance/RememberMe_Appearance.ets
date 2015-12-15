@@ -11,5 +11,4 @@
  AdditionalCommands = False
  WebMaskRectangle = 268x120;505x183
  WinMaskRectangle = 18x36;399x155
- ValidDiffPercentage = 3
 

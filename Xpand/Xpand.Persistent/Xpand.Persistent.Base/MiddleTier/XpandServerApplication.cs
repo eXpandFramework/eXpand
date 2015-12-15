@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.MiddleTier {
@@ -23,7 +22,7 @@ namespace Xpand.Persistent.Base.MiddleTier {
             var userDiff = modelApplicationBase.CreatorInstance.CreateModelApplication();
             userDiff.Id = "UserDiff";
             ModelApplicationHelper.AddLayer(modelApplicationBase, userDiff);
-            base.LoadUserDifferences();
+            LoadUserDifferences();
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
@@ -33,6 +32,10 @@ namespace Xpand.Persistent.Base.MiddleTier {
         protected override void OnDatabaseVersionMismatch(DatabaseVersionMismatchEventArgs args) {
             args.Updater.Update();
             args.Handled = true;
+        }
+
+        public void Logon() {
+            base.Logon(null);    
         }
 
         void IXafApplication.WriteLastLogonParameters(DetailView view, object logonObject) {

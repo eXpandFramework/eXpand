@@ -192,7 +192,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
         }
 
 
-        public List<Type> CompileModules(IList<IPersistentAssemblyInfo> persistentAssemblyInfos, string path) {
+        public List<Type> CompileModules(IEnumerable<IPersistentAssemblyInfo> persistentAssemblyInfos, string path) {
 
             var definedModules = new List<Type>();
 

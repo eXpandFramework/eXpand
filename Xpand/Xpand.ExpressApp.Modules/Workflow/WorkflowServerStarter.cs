@@ -11,7 +11,7 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.Workflow{
     public  abstract class WorkflowServerStarter : MarshalByRefObject {
-        private class ServerApplication : XafApplication {
+        public class ServerApplication : XafApplication {
             protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
                 args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
             }
@@ -33,9 +33,10 @@ namespace Xpand.ExpressApp.Workflow{
         private void Start_<TWorkflowDefinition, TUserActivityVersion,TModulesProvider>(string connectionString, string applicationName, string url)
             where TWorkflowDefinition : IWorkflowDefinitionSettings
             where TUserActivityVersion : IUserActivityVersionBase where TModulesProvider:ModuleBase{
-            ServerApplication serverApplication = new ServerApplication{ApplicationName = applicationName};
+            var serverApplication = GetServerApplication();
             serverApplication.Modules.Add(Activator.CreateInstance<TModulesProvider>());
-            
+            serverApplication.ApplicationName = applicationName;
+
             serverApplication.ConnectionString = connectionString;
             serverApplication.Setup();
             serverApplication.Logon();
@@ -73,6 +74,11 @@ namespace Xpand.ExpressApp.Workflow{
             };
             _server.Start();
         }
+
+        protected virtual ServerApplication GetServerApplication(){
+            return new ServerApplication();
+        }
+
         private void Stop_() {
             _server.Stop();
         }

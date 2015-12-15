@@ -10,9 +10,10 @@ namespace WorkflowTester.Module {
         public WorkflowTesterModule() {
             InitializeComponent();
         }
+
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
             ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);
-            return new ModuleUpdater[] { updater };
+            return new[] { updater };
         }
     }
 }

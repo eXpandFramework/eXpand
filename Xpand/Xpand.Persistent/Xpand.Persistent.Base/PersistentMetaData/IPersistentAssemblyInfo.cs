@@ -18,6 +18,7 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
         IList<IPersistentAssemblyAttributeInfo> Attributes { get; }
         bool IsLegacy { get; set; }
         bool ValidateModelOnCompile { get; set; }
+        bool? NeedCompilation { get; set; }
     }
     public enum CodeDomProvider {
         CSharp,

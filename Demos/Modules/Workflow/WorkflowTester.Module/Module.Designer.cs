@@ -28,6 +28,8 @@ namespace WorkflowTester.Module {
             // 
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Workflow.XpandWorkFlowModule));
+//            this.RequiredModuleTypes.Add(typeof(DynAssembly1.DynamicDynAssembly1Module));
+//            this.RequiredModuleTypes.Add(typeof(DynAssembly2.DynamicDynAssembly2Module));
         }
 
         #endregion
