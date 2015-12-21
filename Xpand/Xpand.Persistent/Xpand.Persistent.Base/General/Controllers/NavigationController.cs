@@ -132,7 +132,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
             }
             
             if (!string.IsNullOrEmpty(script)){
-                script = @"window.onload = function () {" + script +"}";
+                script = @"window.onload = function () {" + script +"};";
                 WebWindow.CurrentRequestWindow.RegisterStartupScript(GetType().Name, script);
             }
         }
