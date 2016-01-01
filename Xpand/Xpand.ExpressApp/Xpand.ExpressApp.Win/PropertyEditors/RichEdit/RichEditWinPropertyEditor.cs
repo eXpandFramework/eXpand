@@ -128,11 +128,13 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public static bool Get_ShowToolBars(IModelRichEdit modelRichEdit) {
-            return (bool) GetValue(modelRichEdit, attribute => attribute.ShowToolBars);
+            var value = GetValue(modelRichEdit, attribute => attribute.ShowToolBars);
+            return value != null && (bool)value;
         }
 
         public static bool Get_PrintXML(IModelRichEdit modelRichEdit){
-            return (bool)GetValue(modelRichEdit, attribute => attribute.PrintXML);
+            var value = GetValue(modelRichEdit, attribute => attribute.PrintXML);
+            return value != null && (bool) value;
         }
 
         public static string Get_HighLightExtension(IModelRichEdit modelRichEdit){
@@ -140,13 +142,17 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         private static object GetValue(IModelRichEdit modelRichEdit,Func<RichEditPropertyEditorAttribute,object> func ){
-            var editorType = ((IModelMemberViewItemRichEdit) modelRichEdit.Parent).PropertyEditorType;
-            if (typeof (RichEditWinPropertyEditor).IsAssignableFrom(editorType)){
-                var editorAttribute =editorType.GetCustomAttributes(typeof (RichEditPropertyEditorAttribute), false)
+            var richEdit =  modelRichEdit.Parent as IModelMemberViewItemRichEdit;
+            if (richEdit != null){
+                var editorType = richEdit.PropertyEditorType;
+                if (typeof (RichEditWinPropertyEditor).IsAssignableFrom(editorType)){
+                    var editorAttribute =editorType.GetCustomAttributes(typeof (RichEditPropertyEditorAttribute), false)
                         .Cast<RichEditPropertyEditorAttribute>().First();
-                return func(editorAttribute);
+                    return func(editorAttribute);
+                }
+                return "rtf";
             }
-            return "rtf";
+            return null;
         }
     }
 
