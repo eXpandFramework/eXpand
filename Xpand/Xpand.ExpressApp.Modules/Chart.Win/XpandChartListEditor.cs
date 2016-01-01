@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Chart.Win;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Chart.Win {
+    [ListEditor(typeof(object), false)]
     public class XpandChartListEditor : ChartListEditor, ISelectionCriteria {
         readonly List<object> _selectedObjects = new List<object>();
 
