@@ -102,9 +102,9 @@ namespace Xpand.ExpressApp.Email.Logic {
         private  SmtpClient CreateSmtpClient(IModelSmtpClientContext modelSmtpClientContext) {
             var smtpClient = new SmtpClient {
                 DeliveryMethod = modelSmtpClientContext.DeliveryMethod,
-                PickupDirectoryLocation = Path.GetFullPath(modelSmtpClientContext.PickupDirectoryLocation),
             };
-            
+            if (!string.IsNullOrEmpty(modelSmtpClientContext.PickupDirectoryLocation))
+                smtpClient.PickupDirectoryLocation = Path.GetFullPath(modelSmtpClientContext.PickupDirectoryLocation);
             if (smtpClient.DeliveryMethod == SmtpDeliveryMethod.Network){
                 smtpClient.Host = modelSmtpClientContext.Host;
                 smtpClient.Port = modelSmtpClientContext.Port;
