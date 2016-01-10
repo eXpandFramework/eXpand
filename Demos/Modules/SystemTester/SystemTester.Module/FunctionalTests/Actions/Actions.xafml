@@ -30,6 +30,7 @@
           <ChoiceActionItem Id="ModelItem" Active="False" IsNewNode="True" />
         </ChoiceActionItems>
       </Action>
+      <Action Id="HiddenSimpleAction" Active="False" />
       <Action Id="ItemsFromModelAction" ItemsFromModel="True">
         <ChoiceActionItems>
           <ChoiceActionItem Id="@79d3b3b7-9e31-4693-9f10-5edaa0850974" IsNewNode="True">

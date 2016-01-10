@@ -75,6 +75,7 @@ namespace SystemTester.Module.FunctionalTests.Actions {
             };
             hiddenAction.Items.Add(new ChoiceActionItem("CodeItem", null));
             hiddenAction.Execute += SingleChoiceActionOnExecute;
+            new SimpleAction(this,"HiddenSimpleAction",PredefinedCategory.View);
         }
 
         private void ChangeModelAction(){

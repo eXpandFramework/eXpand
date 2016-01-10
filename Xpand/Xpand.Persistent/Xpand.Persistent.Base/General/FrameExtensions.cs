@@ -31,9 +31,14 @@ namespace Xpand.Persistent.Base.General {
 
         public static IEnumerable<T> GetControllers<T>(this Frame frame) where T:Controller {
             foreach (var controller in frame.Controllers){
-                if (controller is T)
-                    yield return (T) controller;
+                var controllers = controller as T;
+                if (controllers != null)
+                    yield return controllers;
             }
+        }
+
+        public static Controller GetController(this Frame frame, string controllerType){
+            return frame.Controllers.Cast<Controller>().FirstOrDefault(controller => controller.GetType().FullName==controllerType);
         }
 
         public static Controller GetController(this Frame frame, Type controllerType){

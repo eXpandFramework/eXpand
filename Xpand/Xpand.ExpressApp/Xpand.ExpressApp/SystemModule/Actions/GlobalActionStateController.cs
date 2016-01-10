@@ -18,8 +18,7 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
             base.OnFrameAssigned();
             var modelActionStates = Application.Model.ActionDesign.Actions.Cast<IModelActionState>();
             foreach (var modelActionState in modelActionStates.Where(state => !state.Active)) {
-                var controllerType = Application.TypesInfo.FindTypeInfo(modelActionState.Controller.Name).Type;
-                var actionBase = Frame.GetController(controllerType).Actions[modelActionState.Id];
+                var actionBase = Frame.GetController(modelActionState.Controller.Name).Actions[modelActionState.Id];
                 actionBase.Active.BeginUpdate();
                 actionBase.Active[ModelActiveAttribute] = false;
                 actionBase.Active.EndUpdate();

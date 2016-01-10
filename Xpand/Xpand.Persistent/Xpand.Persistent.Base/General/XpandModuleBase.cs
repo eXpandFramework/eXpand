@@ -332,10 +332,10 @@ namespace Xpand.Persistent.Base.General {
         void LoadBaseImplAssembly() {
             _assemblyString = String.Format("Xpand.Persistent.BaseImpl, Version={0}, Culture=neutral, PublicKeyToken={1}", XpandAssemblyInfo.FileVersion, XpandAssemblyInfo.Token);
 
-            string _baseImplAssemblyName = ConfigurationManager.AppSettings["BaseImplAssembly"];
+            string baseImplAssemblyName = ConfigurationManager.AppSettings["BaseImplAssembly"];
             if (!String.IsNullOrEmpty(_assemblyString)) {
                 _assemblyString = String.Format("{0}, Version={1}, Culture=neutral, PublicKeyToken={2}",
-                                                    (!String.IsNullOrEmpty(_baseImplAssemblyName) ? _baseImplAssemblyName : "Xpand.Persistent.BaseImpl"),
+                                                    (!String.IsNullOrEmpty(baseImplAssemblyName) ? baseImplAssemblyName : "Xpand.Persistent.BaseImpl"),
                                                     XpandAssemblyInfo.FileVersion,
                                                     XpandAssemblyInfo.Token);
             }
@@ -635,24 +635,8 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-
-        //        public override bool IsExportedType(Type type) {
-        //            var isExportedType = base.IsExportedType(type);
-        //            if (isExportedType) {
-        //                var boTypes = new[] { typeof(ISecurityUser), typeof(ISecurityRole), typeof(ISecurityRelated) };
-        //                if (boTypes.Any(type1 => type1.IsAssignableFrom(type)))
-        //                    return SecuritySystem.Instance != null && SecuritySystem.Instance.UserType != null;
-        //            }
-        //            return isExportedType;
-        //        }
-
         void ApplicationOnSettingUp(object sender, SetupEventArgs e) {
             AssignSecurityEntities();
-            //            var domainComponents = new List<Type>(e.SetupParameters.DomainComponents);
-            //            var types = Application.TypesInfo.FindTypeInfo(typeof(ISecurityRelated)).Implementors.Where(info => info.IsPersistent).Select(info => info.Type).ToArray();
-            //            if (Application.Security==null||Application.Security.UserType==null)
-            //                domainComponents.RemoveAll(type => types.Contains(type));
-            //            e.SetupParameters.DomainComponents=domainComponents;
         }
 
         protected virtual Type[] ApplicationTypes() {
