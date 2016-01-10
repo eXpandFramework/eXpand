@@ -317,11 +317,13 @@ namespace Xpand.Persistent.Base.General {
         private DBTable GetDbTable(string name) {
             var xpObjectSpace = ObjectSpace as XPObjectSpace;
             var dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(xpObjectSpace);
-            return dataStoreSchemaExplorer.GetStorageTablesList(false).Where(s => s.ToLowerInvariant() == name.ToLowerInvariant()).Select(s => {
-                var dbTable = new DBTable(s);
-                ((ConnectionProviderSql)dataStoreSchemaExplorer).GetTableSchema(dbTable, true, true);
-                return dbTable;
-            }).FirstOrDefault(table => table.PrimaryKey != null);
+            if (dataStoreSchemaExplorer != null)
+                return dataStoreSchemaExplorer.GetStorageTablesList(false).Where(s => s.ToLowerInvariant() == name.ToLowerInvariant()).Select(s => {
+                    var dbTable = new DBTable(s);
+                    ((ConnectionProviderSql)dataStoreSchemaExplorer).GetTableSchema(dbTable, true, true);
+                    return dbTable;
+                }).FirstOrDefault(table => table.PrimaryKey != null);
+            return null;
         }
 
         private ISequenceObject GetSequenceObject() {
