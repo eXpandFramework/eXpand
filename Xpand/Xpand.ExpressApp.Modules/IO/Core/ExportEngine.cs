@@ -178,7 +178,7 @@ namespace Xpand.ExpressApp.IO.Core {
             foreach (char c in xml.Where(c => IsLegalXmlChar(c))) {
                 buffer.Append(c);
             }
-            return buffer.ToString().Trim();
+            return buffer.ToString();
         }
         public static bool IsLegalXmlChar(int character) {
             return (
