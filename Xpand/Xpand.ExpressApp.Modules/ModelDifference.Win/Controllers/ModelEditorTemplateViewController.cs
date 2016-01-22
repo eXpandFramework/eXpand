@@ -4,6 +4,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Templates.ActionControls.Binding;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Controls;
@@ -78,30 +79,42 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var template = Frame.Template as XtraFormTemplateBase;
-            if (template != null) {
-                SetTemplate();
-            }
-            else{
-                var editorPropertyEditor = View.GetItems<ModelEditorPropertyEditor>().FirstOrDefault();
-                if (editorPropertyEditor != null){
-                    var controller = editorPropertyEditor.ModelEditorViewModelEditorViewController;
-                    controller.SetControl(editorPropertyEditor.Control);
+            var modelEditorPropertyEditor = View.GetItems<ModelEditorPropertyEditor>().FirstOrDefault();
+            if (modelEditorPropertyEditor!=null) {
+                if (template != null){
+                    SetTemplate(modelEditorPropertyEditor);
+                }
+                else{
+                    var controller = modelEditorPropertyEditor.ModelEditorViewModelEditorViewController;
+                    controller.SetControl(modelEditorPropertyEditor.Control);
+                    SetTemplateNew(modelEditorPropertyEditor);
                     controller.LoadSettings();
                 }
             }
         }
 
-        private void SetTemplate() {
-            var editorPropertyEditor = View.GetItems<ModelEditorPropertyEditor>().FirstOrDefault();
-            if (editorPropertyEditor!=null) {
-                var controller = editorPropertyEditor.ModelEditorViewModelEditorViewController;
-                var caption = Guid.NewGuid().ToString();
-                controller.SaveAction.Caption = caption;
-                controller.SetTemplate(Frame.Template);
-                var barManagerHolder = ((IBarManagerHolder)Frame.Template);
-                var barButtonItems = barManagerHolder.BarManager.Items.OfType<BarButtonItem>().ToArray();
-                barButtonItems.First(item => item.Caption.IndexOf(caption, StringComparison.Ordinal) > -1).Visibility = BarItemVisibility.Never;
+        private void SetTemplateNew(ModelEditorPropertyEditor modelEditorPropertyEditor){
+            var barManagerHolder = ((IBarManagerHolder) Frame.Template);
+            var modelEditorControl = modelEditorPropertyEditor.Control;
+            modelEditorControl.PopupContainer.Manager = barManagerHolder.BarManager;
+            modelEditorControl.PopupContainer.BeginUpdate();
+            foreach (ActionBase action in (IEnumerable<ActionBase>) modelEditorPropertyEditor.ModelEditorViewModelEditorViewController.GetFieldValue("popupMenuActions")) {
+                modelEditorControl.PopupContainer.Register(action);
             }
+            modelEditorControl.PopupContainer.EndUpdate();
+            modelEditorControl.PopupMenu.CreateActionItems(barManagerHolder, modelEditorControl, new IActionContainer[] { modelEditorControl.PopupContainer });
+        }
+
+        private void SetTemplate(ModelEditorPropertyEditor modelEditorPropertyEditor) {
+            var controller = modelEditorPropertyEditor.ModelEditorViewModelEditorViewController;
+            var caption = Guid.NewGuid().ToString();
+            controller.SaveAction.Caption = caption;
+            controller.SetControl(modelEditorPropertyEditor.Control);
+            controller.SetTemplate(Frame.Template);
+            var barManagerHolder = ((IBarManagerHolder)Frame.Template);
+            var barButtonItems = barManagerHolder.BarManager.Items.OfType<BarButtonItem>().ToArray();
+            barButtonItems.First(item => item.Caption.IndexOf(caption, StringComparison.Ordinal) > -1).Visibility = BarItemVisibility.Never;
+
         }
     }
 }
