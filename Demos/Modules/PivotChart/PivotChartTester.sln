@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PivotChartTester.Module", "PivotChartTester.Module\PivotChartTester.Module.csproj", "{650097DC-5C89-4A87-9F08-69E08CFF3D37}"
 EndProject
@@ -22,6 +21,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.PivotChart.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\PivotChart.Web\Xpand.ExpressApp.PivotChart.Web.csproj", "{0D81BAF7-CC13-411C-BC50-8788755EBA4F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{3015C01B-0B3B-4646-B127-05B763C21B7A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{BDDE5AB4-B31C-4024-9DC9-F36442BD2627}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.EasyTest", "..\..\..\Xpand.EasyTest\Xpand.EasyTest\Xpand.EasyTest.csproj", "{80DC8CB8-C285-4953-871F-E49002FA10E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -76,14 +79,20 @@ Global
 		{0D81BAF7-CC13-411C-BC50-8788755EBA4F}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D81BAF7-CC13-411C-BC50-8788755EBA4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D81BAF7-CC13-411C-BC50-8788755EBA4F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2626A753-BFA4-4616-BF32-00D7D7AC4174} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
 		{C044D0A5-B0E1-48D4-B55B-E992DC062A9B} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
 		{0D81BAF7-CC13-411C-BC50-8788755EBA4F} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
-		{2626A753-BFA4-4616-BF32-00D7D7AC4174} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
+		{BDDE5AB4-B31C-4024-9DC9-F36442BD2627} = {3015C01B-0B3B-4646-B127-05B763C21B7A}
+		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {BDDE5AB4-B31C-4024-9DC9-F36442BD2627}
 	EndGlobalSection
 EndGlobal

@@ -2,7 +2,7 @@
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Web.ASPxPivotGrid;
 using Xpand.ExpressApp.PivotChart.InPlaceEdit;
-using Xpand.ExpressApp.PivotChart.Web.Editors;
+using AnalysisControlWeb = DevExpress.ExpressApp.PivotChart.Web.AnalysisControlWeb;
 
 namespace Xpand.ExpressApp.PivotChart.Web.InPlaceEdit {
     public class PivotGridInplaceEditorsController : PivotGridInplaceEditorsControllerBase {

@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.PivotChart;
+using DevExpress.ExpressApp.PivotChart.Web;
 using DevExpress.Web.ASPxPivotGrid;
 using Xpand.ExpressApp.PivotChart.PivotedProperty;
-using Xpand.ExpressApp.PivotChart.Web.Editors;
 
 namespace Xpand.ExpressApp.PivotChart.Web.PivotedProperty {
     public class PivotCustomSortController : PivotChart.PivotedProperty.PivotCustomSortController{

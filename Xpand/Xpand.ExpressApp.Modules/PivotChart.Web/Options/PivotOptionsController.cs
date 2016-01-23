@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.Web.ASPxPivotGrid;
 using DevExpress.Xpo.Metadata;
-using Xpand.ExpressApp.PivotChart.Web.Editors;
+using AnalysisControlWeb = DevExpress.ExpressApp.PivotChart.Web.AnalysisControlWeb;
 
 namespace Xpand.ExpressApp.PivotChart.Web.Options {
     public class PivotOptionsController : PivotChart.PivotOptionsController {
