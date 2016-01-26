@@ -68,7 +68,7 @@ namespace Xpand.Persistent.Base.General {
             if (objectType == null)
                 throw new ArgumentException("Add a business object that implements " +
                                                 typeof(T).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
-            if (implementors.Count() > 1) {
+            if (implementors.Length > 1) {
                 var typeInfos = implementors.Where(implementor =>implementor.Base!=null&& !(typeof(T).IsAssignableFrom(implementor.Base.Type)));
                 foreach (ITypeInfo implementor in typeInfos) {
                     return implementor.Type;
