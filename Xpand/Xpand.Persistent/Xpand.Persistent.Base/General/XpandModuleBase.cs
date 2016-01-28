@@ -182,14 +182,15 @@ namespace Xpand.Persistent.Base.General {
             if (handler != null) handler(this, e);
         }
 
-        public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator) {
+        public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator){
             base.AddModelNodeUpdaters(updaterRegistrator);
             updaterRegistrator.AddUpdater(this);
         }
 
-        public static XPDictionary Dictiorary {
-            get {
-                return XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
+        public static XPDictionary Dictiorary{
+            get{
+                return XafTypesInfo.Instance.GetType() == typeof (TypesInfo)? XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary
+                    : ((TypesInfoBuilder.TypesInfo) XafTypesInfo.Instance).Source.XPDictionary;
             }
         }
 

@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelDifferenceTester.Module", "ModelDifferenceTester.Module\ModelDifferenceTester.Module.csproj", "{C7BC3285-7F52-461A-B9B2-F99EF12068BF}"
 EndProject
@@ -124,7 +123,6 @@ Global
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
