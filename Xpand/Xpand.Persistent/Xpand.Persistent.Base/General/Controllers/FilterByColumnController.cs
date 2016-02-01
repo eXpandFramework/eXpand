@@ -23,9 +23,35 @@ namespace Xpand.Persistent.Base.General.Controllers {
             _cellFilterAction.Active[_actionActiveContext] = cellFilter;
         }
 
+        class CriteriaContainsProcessor: CriteriaProcessorBase {
+            private readonly CriteriaOperator _criteria;
+            private bool _match;
+
+            public CriteriaContainsProcessor(CriteriaOperator criteria){
+                _criteria = criteria;
+            }
+
+            public bool Contains(CriteriaOperator criteriaOperator) {
+                Process(criteriaOperator);
+                return _match;
+            }
+
+            protected override void Process(BinaryOperator theOperator){
+                if (!ReferenceEquals(_criteria, null) && !ReferenceEquals(theOperator, null) &&
+                    (_criteria.ToString() == theOperator.ToString()))
+                    _match = true;
+                base.Process(theOperator);
+            }
+        }
         public CriteriaOperator GetCriteria(IModelColumn modelColumn, object parameters, CriteriaOperator activeFilterCriteria) {
-            var criteriaOperator = CriteriaOperator.Parse(modelColumn.PropertyName + "=?", parameters);
-            return new GroupOperator(GroupOperatorType.And, criteriaOperator, activeFilterCriteria);
+            var binaryOperator = new BinaryOperator(modelColumn.PropertyName,parameters);
+            var criteriaProcessor = new CriteriaContainsProcessor(activeFilterCriteria);
+            if (!criteriaProcessor.Contains(binaryOperator)){
+                if (ReferenceEquals(activeFilterCriteria,null))
+                    return binaryOperator;
+                return new GroupOperator(GroupOperatorType.And,activeFilterCriteria,binaryOperator);
+            }
+            return activeFilterCriteria;
         }
     }
 }

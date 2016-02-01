@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module.Win</RootNamespace>
     <AssemblyName>SystemTester.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -167,6 +169,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
+    <Content Include="FunctionalTests\FilterByColumn\Config.xml" />
+    <Content Include="FunctionalTests\FilterByColumn\Images\FilterEditorTop.win.png" />
     <Content Include="FunctionalTests\FolderBrowseEditor\Config.xml" />
     <Content Include="FunctionalTests\FolderBrowseEditor\Init.inc" />
     <Content Include="FunctionalTests\GridView\GridViewOptions.inc" />
@@ -182,6 +186,11 @@
     <Content Include="FunctionalTests\ViewEditMode.Win\ViewMode.Win\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="FunctionalTests\FilterByColumn\FilterByColumn.ets" />
+    <None Include="FunctionalTests\FilterByColumn\FilterByColumn.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="FunctionalTests\FilterByColumn\Init.inc" />
     <None Include="FunctionalTests\FolderBrowseEditor\FolderBrowserEditor.xafml" />
     <None Include="FunctionalTests\FolderBrowseEditor\FolderBrowseEditor.ets" />
     <None Include="FunctionalTests\DetailViewCaching\TabbedMDI.xafml">
@@ -211,6 +220,7 @@
     <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Init.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\New objects.inc" />
+    <Compile Include="FunctionalTests\FilterByColumn\FilterByColumnObject.cs" />
     <Compile Include="FunctionalTests\FilterEditor\FilterEditorObject.cs" />
     <Compile Include="FunctionalTests\FolderBrowseEditor\FolderBrowseEditorObject.cs" />
     <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">

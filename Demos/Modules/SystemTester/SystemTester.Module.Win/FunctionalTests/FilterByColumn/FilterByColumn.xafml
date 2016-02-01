@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <ListView Id="FilterByColumnObject_ListView">
+      <Columns>
+        <ColumnInfo Id="@f4fe02ec-48c6-4fc4-8708-d693ce327ec5" PropertyName="&lt;FilterByColumnObjectDerived&gt;DerivedProperty" CellFilter="True" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
