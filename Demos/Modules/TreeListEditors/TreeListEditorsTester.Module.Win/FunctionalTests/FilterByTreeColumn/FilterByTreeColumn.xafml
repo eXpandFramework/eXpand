@@ -1,0 +1,9 @@
+﻿<Application>
+  <Views>
+    <ListView Id="FilterByTreeColumnObject_ListView">
+      <Columns>
+        <ColumnInfo Id="@b35b030f-1320-446b-9e3a-dcd98e192e3f" PropertyName="&lt;FilterByTreeColumnObjectDerived&gt;DerivedProperty" CellFilter="True" IsNewNode="True" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

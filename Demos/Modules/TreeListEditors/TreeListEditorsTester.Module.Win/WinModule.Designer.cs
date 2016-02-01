@@ -29,6 +29,7 @@ namespace TreeListEditorsTester.Module.Win {
             this.RequiredModuleTypes.Add(typeof(TreeListEditorsTester.Module.TreeListEditorsTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Win.ScriptRecorderWindowsFormsModule));
 
         }
 

@@ -11,7 +11,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (TreeList != null) {
+            if (TreeList != null){
                 _filterByColumnController = Frame.GetController<FilterByColumnController>();
                 _filterByColumnController.CellFilterAction.Execute += CellFilterActionOnExecute;
                 TreeList.FocusedColumnChanged += ObjectTreeListOnFocusedColumnChanged;
@@ -21,18 +21,20 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         void ObjectTreeListOnFocusedColumnChanged(object sender, FocusedColumnChangedEventArgs focusedColumnChangedEventArgs) {
             var treeListColumn = focusedColumnChangedEventArgs.Column;
             if (treeListColumn != null && View != null) {
-                var modelColumn = ((IModelColumnCellFilter) View.Model.Columns[treeListColumn.Name]);
+                var modelColumn = (IModelColumnCellFilter)((TreeListColumnTag)treeListColumn.Tag).Model;
                 _filterByColumnController.UpdateAction(modelColumn.CellFilter);
             }
         }
 
         void CellFilterActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             if (TreeList!=null) {
-                var modelColumn = View.Model.Columns[TreeList.FocusedColumn.Name];
+                var modelColumn = ((TreeListColumnTag)TreeList.FocusedColumn.Tag).Model;
                 var parameters = TreeList.FocusedNode[TreeList.FocusedColumn.Name];
                 var activeFilterCriteria = _filterByColumnController.GetCriteria(modelColumn,parameters,TreeList.ActiveFilterCriteria);
-                TreeList.ActiveFilterCriteria = activeFilterCriteria;
+                TreeList.OptionsBehavior.EnableFiltering = true;
+                TreeList.OptionsFilter.AllowFilterEditor = true;
                 TreeList.ActiveFilterEnabled = true;
+                TreeList.ActiveFilterCriteria = activeFilterCriteria;
             }
         }
 
