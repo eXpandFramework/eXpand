@@ -1,16 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
+﻿using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Windows.Forms;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.ExpressApp.EasyTest.WebAdapter;
 using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
-using Fasterflect;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
@@ -22,7 +16,6 @@ using SetWebMaxWaitTimeOutCommand = Xpand.ExpressApp.EasyTest.WebAdapter.Command
 
 namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     public class XpandTestWebAdapter : DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter, IXpandTestAdapter{
-        private Process _process;
         private XpandWebCommandAdapter _webCommandAdapter;
 
         public override void RunApplication(TestApplication testApplication){
@@ -31,7 +24,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             testApplication.DeleteUserModel();
             testApplication.CopyModel();
             ConfigApplicationModel(testApplication);
-            RunApplicationCore(testApplication);
+            base.RunApplication(testApplication);
         }
 
         private void ConfigApplicationModel(TestApplication testApplication){
@@ -51,25 +44,6 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             }
         }
 
-        private void RunApplicationCore(TestApplication testApplication){
-            var defaultWindowSize = testApplication.ParameterValue<string>(ApplicationParams.DefaultWindowSize);
-            if (defaultWindowSize != null){
-                WebBrowserCollection.DefaultFormSize = GetWindowSize(defaultWindowSize);
-            }
-            if (!testApplication.ParameterValue<bool>(ApplicationParams.UseIISExpress)){
-                RunApplicationBase(testApplication);
-            }
-            else{
-                var url = testApplication.ParameterValue<string>(ApplicationParams.Url);
-                var uri = new Uri(url);
-                webBrowsers = CreateWebBrowsers(testApplication);
-                if (!WebDevWebServerHelper.IsWebDevServerStarted(uri)){
-                    _process = IISExpressServerHelper.Run(testApplication, uri);
-                }
-                this.CreateBrowser(url);
-            }
-        }
-
         public override ICommandAdapter CreateCommandAdapter(){
             FileDownloadDialogHelper.SaveDialogOpened = false;
             _webCommandAdapter = new XpandWebCommandAdapter(this);
@@ -78,75 +52,11 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             return _webCommandAdapter;
         }
 
-        private void RunApplicationBase(TestApplication testApplication){
-            var url = testApplication.ParameterValue<string>(ApplicationParams.Url);
-            var uri = new Uri(url);
-            
-            webBrowsers=CreateWebBrowsers(testApplication);
-            var physicalPath = testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
-            if (string.IsNullOrEmpty(physicalPath) && !testApplication.ParameterValue<bool>(ApplicationParams.DontRestartIIS)) {
-                RestartIIS();
-            }
-            else {
-                if (!testApplication.ParameterValue<bool>(ApplicationParams.DontRunWebDev) && !string.IsNullOrEmpty(physicalPath)) {
-                    typeof(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter).CallMethod("LoadFileInfo",Path.GetFullPath(physicalPath));
-                    if (testApplication.ParameterValue<string>(ApplicationParams.SingleWebDev) == null) {
-                        if (WebDevWebServerHelper.IsWebDevServerStarted(uri)) {
-                            WebDevWebServerHelper.KillWebDevWebServer();
-                        }
-                        WebDevWebServerHelper.RunWebDevWebServer(Path.GetFullPath(physicalPath), uri.Port.ToString(CultureInfo.InvariantCulture));
-                    }
-                    else {
-                        if (!WebDevWebServerHelper.IsWebDevServerStarted(uri)) {
-                            WebDevWebServerHelper.RunWebDevWebServer(Path.GetFullPath(physicalPath), uri.Port.ToString(CultureInfo.InvariantCulture));
-                        }
-                    }
-                }
-            }
-            var defaultWindowSize = testApplication.ParameterValue<string>(ApplicationParams.DefaultWindowSize);
-            if (defaultWindowSize != null) {
-                WebBrowserCollection.DefaultFormSize = GetWindowSize(defaultWindowSize);
-            }
-            var waitDebuggerAttached = testApplication.ParameterValue<bool>(ApplicationParams.WaitDebuggerAttached);
-            if (waitDebuggerAttached) {
-                Thread.Sleep(8000);
-                if (Debugger.IsAttached) {
-                    MessageBox.Show("Start web application?", "Warning", MessageBoxButtons.OK);
-                }
-            }
-            DateTime current = DateTime.Now;
-            while (!WebDevWebServerHelper.IsWebDevServerStarted(uri) && DateTime.Now.Subtract(current).TotalSeconds < 60) {
-                Thread.Sleep(200);
-            }
-            this.CreateBrowser(url);
-        }
-
-        private IWebBrowserCollection CreateWebBrowsers(TestApplication testApplication){
-            var webBrowserType = testApplication.ParameterValue<string>(ApplicationParams.WebBrowserType);
-            if (string.IsNullOrEmpty(webBrowserType)) {
-                webBrowserType = "Default";
-            }
-            return webBrowserType == "Default"
-                ? (IWebBrowserCollection) new WebBrowserCollection()
-                : new StandaloneWebBrowserCollection();
-        }
-
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
             testApplication.ClearModel();
             testApplication.DeleteParametersFile();
             ScreenCaptureCommand.Stop();
-            webBrowsers.KillAllWebBrowsers();
-            var isSingleWebDev = testApplication.ParameterValue<bool>(ApplicationParams.SingleWebDev);
-            if (!testApplication.ParameterValue<bool>(ApplicationParams.DontKillWebDev)&&_process!=null) {
-                if (isSingleWebDev) {
-                    if (context != KillApplicationConext.TestNormalEnded) {
-                        IISExpressServerHelper.Stop(_process);
-                    }
-                }
-                else {
-                    IISExpressServerHelper.Stop(_process);
-                }
-            }
+            base.KillApplication(testApplication, context);
         }
 
         public override void RegisterCommands(IRegisterCommand registrator){
@@ -192,33 +102,4 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         
     }
 
-
-    public class IISExpressServerHelper{
-        public static void Stop(Process process) {
-            process.Kill();
-        }
-
-        public static Process Run(TestApplication testApplication, Uri uri) {
-            string physicalPath = Path.GetFullPath(testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath));
-            string arguments = String.Format(@"/path:""{0}"" /port:{1}", physicalPath, uri.Port);
-            EasyTestTracer.Tracer.InProcedure(String.Format("RunIISExpressServer({0})", arguments));
-            try{
-                string serverPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), @"IIS Express\iisexpress.exe");
-                EasyTestTracer.Tracer.InProcedure(String.Format("IISExpressServerPath= {0}", serverPath));
-                var serverProcess = new Process{
-                    StartInfo ={
-                        FileName = serverPath,
-                        Arguments = arguments,
-                        UseShellExecute = true,
-                        WindowStyle = ProcessWindowStyle.Hidden
-                    }
-                };
-                serverProcess.Start();
-                return serverProcess;
-            }
-            finally{
-                EasyTestTracer.Tracer.OutProcedure(String.Format("RunWebDevWebServer({0})", arguments));
-            }
-        }
-    }
 }

@@ -182,6 +182,11 @@ namespace Xpand.ExpressApp.NH
         {
             return listServer.FindIncremental(expression, value, startIndex, searchUp, ignoreStartRow, allowLoop);
         }
+
+        public int LocateByExpression(CriteriaOperator expression, int startIndex, bool searchUp){
+            return listServer.LocateByExpression(expression, startIndex, searchUp);
+        }
+
         public IList GetAllFilteredAndSortedRows()
         {
             List<Object> list = new List<Object>(listServer.GetAllFilteredAndSortedRows().OfType<Object>());

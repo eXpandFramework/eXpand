@@ -19,7 +19,7 @@ namespace Xpand.Persistent.Base.Validation.FromIPropertyValueValidator {
             get {
                 if (_defaultMessageTemplateInvalidPropertyValue == null)
 
-                    _defaultMessageTemplateInvalidPropertyValue = new SimpleValueManager<string>(typeof(RuleFromIPropertyValueValidator).Name);
+                    _defaultMessageTemplateInvalidPropertyValue = ValueManager.GetValueManager<string>(typeof(RuleFromIPropertyValueValidator).Name); 
 
                 return _defaultMessageTemplateInvalidPropertyValue.Value ??
                        (_defaultMessageTemplateInvalidPropertyValue.Value = "Invalid {TargetPropertyName}");
@@ -27,7 +27,7 @@ namespace Xpand.Persistent.Base.Validation.FromIPropertyValueValidator {
 
             set {
                 if (_defaultMessageTemplateInvalidPropertyValue == null)
-                    _defaultMessageTemplateInvalidPropertyValue = new SimpleValueManager<string>(typeof(RuleFromIPropertyValueValidator).Name);
+                    _defaultMessageTemplateInvalidPropertyValue = ValueManager.GetValueManager<string>(typeof(RuleFromIPropertyValueValidator).Name);
 
                 _defaultMessageTemplateInvalidPropertyValue.Value = value;
             }
