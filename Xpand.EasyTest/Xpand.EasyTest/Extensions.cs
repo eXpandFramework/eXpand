@@ -24,7 +24,10 @@ namespace Xpand.EasyTest {
         DontRestartIIS,
         WebBrowserType,
         FileName,
-        Model
+        Model,
+        UseIIS,
+        DontRunIISExpress,
+        UserName
     }
 
     public interface IXpandTestWinAdapter : IXpandTestAdapter {
@@ -135,6 +138,10 @@ namespace Xpand.EasyTest {
             foreach (var file in Directory.GetFiles(directoryName, "Model.user*.xafml").ToArray()) {
                 File.Delete(file);
             }
+        }
+
+        public static void SetParameterValue(this TestApplication application, ApplicationParams applicationParams, string value){
+            application.AddParam(applicationParams.ToString(),value);
         }
 
         public static T ParameterValue<T>(this TestApplication application, ApplicationParams applicationParams) {

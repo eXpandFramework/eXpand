@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.ExpressApp.EasyTest.WebAdapter;
@@ -8,9 +9,6 @@ using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
-using HideScrollBarCommand = Xpand.ExpressApp.EasyTest.WebAdapter.Commands.HideScrollBarCommand;
-using MethodInvoker = System.Windows.Forms.MethodInvoker;
-using SetWebMaxWaitTimeOutCommand = Xpand.ExpressApp.EasyTest.WebAdapter.Commands.SetWebMaxWaitTimeOutCommand;
 
 [assembly: Adapter(typeof (XpandTestWebAdapter))]
 
@@ -24,8 +22,12 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             testApplication.DeleteUserModel();
             testApplication.CopyModel();
             ConfigApplicationModel(testApplication);
+            if (testApplication.ParameterValue<bool>(ApplicationParams.UseIIS)) {
+                IISHelper.Configure(testApplication);
+            }  
             base.RunApplication(testApplication);
         }
+
 
         private void ConfigApplicationModel(TestApplication testApplication){
             var physicalPath = testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
@@ -53,17 +55,19 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
+            WebBrowsers.KillAllWebBrowsers();
             testApplication.ClearModel();
             testApplication.DeleteParametersFile();
             ScreenCaptureCommand.Stop();
-            base.KillApplication(testApplication, context);
+            if (testApplication.ParameterValue<bool>(ApplicationParams.UseIIS))
+                IISHelper.StopAplicationPool(testApplication);
         }
 
         public override void RegisterCommands(IRegisterCommand registrator){
             base.RegisterCommands(registrator);
             registrator.RegisterCommands(this);
-            registrator.RegisterCommand(Xpand.EasyTest.Commands.HideScrollBarCommand.Name, typeof (HideScrollBarCommand));
-            registrator.RegisterCommand(Xpand.EasyTest.Commands.SetWebMaxWaitTimeOutCommand.Name, typeof(SetWebMaxWaitTimeOutCommand));
+            registrator.RegisterCommand(HideScrollBarCommand.Name, typeof (Commands.HideScrollBarCommand));
+            registrator.RegisterCommand(SetWebMaxWaitTimeOutCommand.Name, typeof(Commands.SetWebMaxWaitTimeOutCommand));
         }
 
     }
