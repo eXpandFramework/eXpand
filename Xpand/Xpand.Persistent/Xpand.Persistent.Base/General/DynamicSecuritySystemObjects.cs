@@ -4,6 +4,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -35,9 +36,17 @@ namespace Xpand.Persistent.Base.General {
             return xpCustomMemberInfos;
         }
 
-        bool IsValidType(Type typeToCreateOn) {
-            var isValidDataLayer = _application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().Any(provider => !(provider.DataLayer is ThreadSafeDataLayer));
+        bool IsValidType(Type typeToCreateOn){
+            var isValidDataLayer = IsValidDataLayer();
             return isValidDataLayer && IsXpoType(typeToCreateOn);
+        }
+
+        private bool IsValidDataLayer(){
+            if (_application.ObjectSpaceProviders.OfType<DataServerObjectSpaceProvider>().Any())
+                return true;
+            var isValidDataLayer =_application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>()
+                    .Any(provider => !(provider.DataLayer is ThreadSafeDataLayer));
+            return isValidDataLayer;
         }
 
         bool IsXpoType(Type typeToCreateOn) {

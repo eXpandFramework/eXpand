@@ -135,14 +135,14 @@ namespace Xpand.Persistent.Base.General {
             XPMemberInfo member = null;
             if (TypeIsRegister(typeInfo, typeToCreateOn)) {
                 XPClassInfo xpClassInfo = dictionary.GetClassInfo(typeToCreateOn);
-                member = xpClassInfo.FindMember(collectionName);
-                if (member == null) {
-                    member = xpClassInfo.CreateMember(collectionName, typeof(XPCollection), true);
-                    member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection) { UseAssociationNameAsIntermediateTableName = isManyToMany });
-
-                    if (refreshTypesInfo)
-                        typeInfo.RefreshInfo(typeToCreateOn);
-                }
+                member = xpClassInfo.FindMember(collectionName) ??
+                         xpClassInfo.CreateMember(collectionName, typeof(XPCollection), true);
+                if (member.FindAttributeInfo(typeof(AssociationAttribute))==null)
+                    member.AddAttribute(new AssociationAttribute(associationName, typeOfCollection){
+                        UseAssociationNameAsIntermediateTableName = isManyToMany
+                    });
+                if (refreshTypesInfo)
+                    typeInfo.RefreshInfo(typeToCreateOn);
             }
             return member;
 
