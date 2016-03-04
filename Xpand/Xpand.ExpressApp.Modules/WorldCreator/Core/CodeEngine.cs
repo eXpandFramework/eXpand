@@ -164,8 +164,9 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             string assemblyDecleration = null;
             if (persistentAttributeCreator is IPersistentAssemblyAttributeInfo) {
                 assemblyDecleration = "assembly: ";
-                if (persistentAttributeCreator is IPersistentAssemblyVersionAttributeInfo) {
-                    ////args = CalculateVersion(args);
+                var attributeInfo = persistentAttributeCreator as IPersistentAssemblyVersionAttributeInfo;
+                if (attributeInfo!=null) {
+                    args = @""""+attributeInfo.Owner.CalculateVersion()+ @"""";
                 }
             }
             string properties = GetPropertiesCode(attributeInfoAttribute);

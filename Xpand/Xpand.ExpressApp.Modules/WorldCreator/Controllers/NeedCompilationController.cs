@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
             var persistentAssemblyInfo = View.CurrentObject as IPersistentAssemblyInfo;
-            if (persistentAssemblyInfo != null) persistentAssemblyInfo.NeedCompilation = true;
+            if (persistentAssemblyInfo != null) persistentAssemblyInfo.Revision ++;
         }
     }
 }

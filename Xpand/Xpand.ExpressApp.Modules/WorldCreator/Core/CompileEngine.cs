@@ -11,9 +11,12 @@ using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.Persistent.Base;
 using Microsoft.CSharp;
 using Microsoft.VisualBasic;
+using Mono.Cecil;
 using Xpand.ExpressApp.WorldCreator.PersistentTypesHelpers;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Utils.Helpers;
 using CodeDomProvider = Xpand.Persistent.Base.PersistentMetaData.CodeDomProvider;
 
 namespace Xpand.ExpressApp.WorldCreator.Core {
@@ -43,7 +46,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             if (action != null)
                 action.Invoke(compilerParams);
 
-            if (File.Exists(compilerParams.OutputAssembly))
+            if (File.Exists(compilerParams.OutputAssembly)&&!new FileInfo(compilerParams.OutputAssembly).IsFileLocked())
                 File.Delete(compilerParams.OutputAssembly);
             return CompileCore(persistentAssemblyInfo, generateCode, compilerParams, codeProvider);
 
@@ -215,6 +218,11 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             return definedModules;
         }
 
+        public static bool NeedsCompilation(IPersistentAssemblyInfo info, string path){
+            var assemblyFile = Path.Combine(path, info.Name + XpandExtension);
+            return !File.Exists(assemblyFile) ||
+                   info.CalculateVersion() > AssemblyDefinition.ReadAssembly(assemblyFile).Name.Version;
+        }
     }
 
 }

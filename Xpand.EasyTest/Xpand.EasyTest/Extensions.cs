@@ -261,6 +261,7 @@ namespace Xpand.EasyTest {
                 {typeof (MouseDragDropCommand), MouseDragDropCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
+                {typeof (ProcessCommand), ProcessCommand.Name},
                 {typeof (XpandHandleDialogCommand), XpandHandleDialogCommand.Name},
                 {typeof (XpandFillFormCommand), XpandFillFormCommand.Name},
                 {typeof (FocusControlCommand), FocusControlCommand.Name},

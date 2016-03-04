@@ -3,8 +3,8 @@ using System.IO;
 using System.Reflection;
 
 namespace Xpand.Utils.Helpers {
+    
     public static class StreamExtensions {
-
         public static void SaveToFile(this Stream stream, string filePath) {
             var directory = Path.GetDirectoryName(filePath) + "";
             if (!Directory.Exists(directory)) {
