@@ -186,6 +186,9 @@
     <Reference Include="DevExpress.Sparkline.v15.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.CodeParser.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraReports.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
