@@ -12,7 +12,7 @@
 			Name="SecurityTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]" Model="RememberMe"
+      AdapterFileName="[WebAdapterFileName]" Model="RememberMe" DontUseIIS="True"
 />
     <!-- For IIS -->
     <!--Application
