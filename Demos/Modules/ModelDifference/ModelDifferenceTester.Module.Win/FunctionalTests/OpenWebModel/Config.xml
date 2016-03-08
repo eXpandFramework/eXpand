@@ -6,13 +6,13 @@
 			Name="ModelDifferenceTester.Win"
 			FileName="[WinAppBin]\ModelDifferenceTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100" Ignored="1"/>
+			CommunicationPort="4100" />
     <!-- Web -->
     <Application
 			Name="ModelDifferenceTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]" Ignored="1"
+      AdapterFileName="[WebAdapterFileName]" 
 />
     <!-- For IIS -->
     <!--Application
