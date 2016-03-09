@@ -9,6 +9,9 @@ namespace Xpand.EasyTest.Commands{
             actionCommand.Parameters.MainParameter = new MainParameter("Log Off");
             actionCommand.Parameters.ExtraParameter = new MainParameter();
             actionCommand.Execute(adapter);
+            var sleepCommand = new SleepCommand();
+            sleepCommand.Parameters.MainParameter = new MainParameter("2000");
+            sleepCommand.Execute(adapter);
         }
     }
 }

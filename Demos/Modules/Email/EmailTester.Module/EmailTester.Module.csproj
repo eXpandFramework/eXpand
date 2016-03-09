@@ -148,7 +148,6 @@
     <Content Include="FunctionalTests\Registration\Config.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="FunctionalTests\Registration\Init.inc" />
     <Content Include="FunctionalTests\ObjectCreation\Config.xml">
       <SubType>Designer</SubType>
     </Content>

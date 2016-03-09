@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.Email.Logic {
                     @group => @group.GetValue<string>("Id") == emailRule.EmailReceipientsContext);
             foreach (var modelEmailReceipient in emailReceipientGroup) {
                 var criteriaOperator = GetCriteriaOperator(modelEmailReceipient,currentObject);
-                var objects = ObjectSpace.GetObjects(modelEmailReceipient.EmailReceipient.TypeInfo.Type,                                                     criteriaOperator);
+                var objects = ObjectSpace.GetObjects(modelEmailReceipient.EmailReceipient.TypeInfo.Type,criteriaOperator);
                 var sendToCollection = GetSendToCollection(email, modelEmailReceipient);
                 foreach (var obj in objects){
                     var item = modelEmailReceipient.EmailMember.MemberInfo.GetValue(obj) as string;
@@ -87,7 +87,7 @@ namespace Xpand.ExpressApp.Email.Logic {
 
         protected virtual CriteriaOperator GetCriteriaOperator(IModelEmailReceipient modelEmailReceipient, object o) {
             var keyValue = ObjectSpace.GetKeyValue(o);
-            modelEmailReceipient.Criteria = modelEmailReceipient.Criteria.Replace(RuleObjectKeyValue, keyValue.ToString());
+            modelEmailReceipient.Criteria = modelEmailReceipient.Criteria.Replace(RuleObjectKeyValue, keyValue+"");
             var criteriaOperator = CriteriaOperator.Parse(modelEmailReceipient.Criteria);
             return criteriaOperator;
         }
