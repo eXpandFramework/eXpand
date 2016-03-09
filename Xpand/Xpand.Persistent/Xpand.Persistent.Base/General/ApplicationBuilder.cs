@@ -66,7 +66,6 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public XafApplication Build() {
-
             try {
                 var typesInfo = _buildTypesInfoSystem.Invoke(_moduleName);
                 ReflectionHelper.AddResolvePath(_assemblyPath);
@@ -78,7 +77,7 @@ namespace Xpand.Persistent.Base.General {
                 var instance = SecuritySystem.Instance;
                 var info = XafTypesInfo.Instance;
                 typesInfo.AssignAsInstance();
-                var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance(new object[0]));
+                var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance());
                 SecuritySystem.SetInstance(instance);
                 SetConnectionString(xafApplication);
                 if (!_withOutObjectSpaceProvider) {

@@ -174,6 +174,8 @@ namespace Xpand.Persistent.Base.ModelDifference {
         }
 
         public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo,Action<ITypesInfo> action=null) {
+            if (!File.Exists(_moduleName))
+                throw new UserFriendlyException(_moduleName+" not found in path");
             ModelApplicationBase masterModel=null;
             Retry.Do(() =>{
                 _typesInfo = TypesInfoBuilder.Create()
