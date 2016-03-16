@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
             if (SecuritySystem.Instance is ISecurityComplex) {
                 bool isGranted = true;
                 foreach (object selectedObject in View.SelectedObjects) {
-                    var clientPermissionRequest = new PermissionRequest(ObjectSpace, typeof(IDashboardDefinition), "Xml", ObjectSpace.GetObjectHandle(selectedObject), SecurityOperations.Write);
+                    var clientPermissionRequest = new PermissionRequest(ObjectSpace, typeof(IDashboardDefinition), SecurityOperations.Write,selectedObject, "Xml");
                     isGranted = SecuritySystem.IsGranted(clientPermissionRequest);
                 }
                 _dashboardEdit.Active["SecurityIsGranted"] = isGranted;
