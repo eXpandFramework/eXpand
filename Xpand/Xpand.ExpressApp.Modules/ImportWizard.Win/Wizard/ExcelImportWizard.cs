@@ -18,6 +18,7 @@ using DevExpress.XtraGrid.Views.BandedGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraWizard;
+using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using Xpand.ExpressApp.ImportWizard.Core;
 using Xpand.ExpressApp.ImportWizard.Settings;
@@ -26,8 +27,8 @@ using Xpand.ExpressApp.ImportWizard.Win.Properties;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
     public delegate void ExcelImportWizardStringToPropertyMap(XPObjectSpace objectSpace, XPMemberInfo prop, string value, ref IXPSimpleObject newObj);
-    public partial class ExcelImportWizard : XtraForm {
-
+    public partial class ExcelImportWizard : XtraForm{
+        public event EventHandler<CustomSelectSheetPropertiesArgs> CustomSelectSheetProperties;
         readonly XafApplication _application;
         readonly ExcelImportWizardStringToPropertyMap _propertyValueMapper;
 
@@ -316,21 +317,17 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// Moves corresponding columns to corresponding bands
         /// </summary>
         private void Initialize_GridControl2_AfterDataSourceChanged() {
-            //Banded Grid Control that prepared data for mapping
-
             var bands = ((BandedGridView)MappingGrid.MainView).Bands;
-            var bandedGridView = MappingGrid.MainView as BandedGridView;
+            var bandedGridView = (BandedGridView) MappingGrid.MainView;
 
             if (bandedGridView == null) return;
             var cols = bandedGridView.Columns;
 
             foreach (BandedGridColumn col in cols) {
                 if (col.AbsoluteIndex != 0 && col.AbsoluteIndex != cols.Count - 1) {
-                    //move value columns to Values band
                     col.OwnerBand = bands[@"Values"];
                 }
                 if (col.AbsoluteIndex == cols.Count - 1) {
-                    //Moves the LAST !!! column to Mapping band
                     col.OwnerBand = bands[@"MapTo"];
                     col.ColumnEdit = repositoryItemGridLookUpEdit;
                     col.Width = 100;
@@ -374,10 +371,12 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 try {
                     ExcelDocument = SpreadsheetDocument.Open(edit.Text, false);
 
-                    var sheets = ExcelDocument.Sheets()
+                    List<StringValue> sheets = ExcelDocument.Sheets()
                         .Select(p => p.OXmlSheet.Name)
                         .ToList();
-                    SheetSelectEdit.Properties.DataSource = sheets;
+                    var args = new CustomSelectSheetPropertiesArgs(sheets);
+                    OnCustomSelectSheetProperties(args);
+                    SheetSelectEdit.Properties.DataSource = args.Sheets;
                     if (sheets.Count == 1)
                         SheetSelectEdit.EditValue = sheets.FirstOrDefault();
 
@@ -692,8 +691,21 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         #endregion
 
+        protected virtual void OnCustomSelectSheetProperties(CustomSelectSheetPropertiesArgs e){
+            EventHandler<CustomSelectSheetPropertiesArgs> handler = CustomSelectSheetProperties;
+            if (handler != null) handler(this, e);
+        }
     }
 
+    public class CustomSelectSheetPropertiesArgs:EventArgs{
+        private readonly List<StringValue> _sheets;
 
+        public CustomSelectSheetPropertiesArgs(List<StringValue> sheets){
+            _sheets = sheets;
+        }
 
+        public List<StringValue> Sheets{
+            get { return _sheets; }
+        }
+    }
 }
