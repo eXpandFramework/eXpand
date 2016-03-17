@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.Workflow {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo){
             base.CustomizeTypesInfo(typesInfo);
             var typeInfo = typesInfo.FindTypeInfo<ObjectChangedWorkflow>();
-            if (Application != null && Application.ObjectSpaceProviders.FindProvider(typeInfo.Type).GetProviderType() ==
+            if (RuntimeMode&&Application != null && Application.ObjectSpaceProviders.FindProvider(typeInfo.Type).GetProviderType() ==
                 ConnectionProviderType.Oracle){
                 var memberInfo = (XafMemberInfo)typeInfo.FindMember<ObjectChangedWorkflow>(o => o.TargetObjectType);
                 memberInfo.RemoveAttributes<SizeAttribute>();
