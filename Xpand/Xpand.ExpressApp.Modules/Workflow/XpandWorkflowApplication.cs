@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.Workflow {
         protected override LayoutManager CreateLayoutManagerCore(bool simple) {
             throw new NotImplementedException();
         }
-        public void Logon() {
+        public new void Logon() {
             base.Logon(null);
         }
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
