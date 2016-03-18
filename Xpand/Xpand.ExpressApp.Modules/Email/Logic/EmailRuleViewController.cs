@@ -23,7 +23,6 @@ namespace Xpand.ExpressApp.Email.Logic {
             Frame.Disposing += FrameOnDisposing;
             _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
             _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleExecutorOnLogicRuleExecute;
-            
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
@@ -34,7 +33,7 @@ namespace Xpand.ExpressApp.Email.Logic {
         void LogicRuleExecutorOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
             var logicRuleInfo = logicRuleExecuteEventArgs.LogicRuleInfo;
             var emailRule = logicRuleInfo.Rule as EmailRule;
-            if (emailRule != null && !logicRuleInfo.InvertCustomization) {
+            if (emailRule != null && !logicRuleInfo.InvertCustomization&&logicRuleInfo.Active) {
                 var modelApplicationEmail = (IModelApplicationEmail) Application.Model;
                 var emailTemplateObject = EmailTemplateObject(modelApplicationEmail, emailRule, ObjectSpace);
                 var modelSmtpClientContext = modelApplicationEmail.Email.SmtpClientContexts.First(emailTemplate => emailTemplate.GetValue<string>("Id") == emailRule.SmtpClientContext);
@@ -125,11 +124,13 @@ namespace Xpand.ExpressApp.Email.Logic {
         }
 
         IEmailTemplate EmailTemplateObject(IModelApplicationEmail modelApplication, EmailRule emailRule,
-                                                  IObjectSpace objectSpace) {
-            var modelEmailTemplate =modelApplication.Email.EmailTemplateContexts.First(
+                                                  IObjectSpace objectSpace){
+            var modelEmailTemplate =modelApplication.Email.EmailTemplateContexts.FirstOrDefault(
                     emailTemplate => emailTemplate.GetValue<string>("Id") == emailRule.TemplateContext);
-            return (IEmailTemplate)objectSpace.FindObject(modelEmailTemplate.EmailTemplate.TypeInfo.Type,
-                                       CriteriaOperator.Parse(modelEmailTemplate.Criteria));
+            if (modelEmailTemplate != null)
+                return (IEmailTemplate)objectSpace.FindObject(modelEmailTemplate.EmailTemplate.TypeInfo.Type,
+                    CriteriaOperator.Parse(modelEmailTemplate.Criteria));
+            throw new NullReferenceException("TemplateContext "+ emailRule.TemplateContext);
         }
     }
 
