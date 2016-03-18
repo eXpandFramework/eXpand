@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="EmailTester" Logo="ExpressAppLogo">
   <Email>
+    <EmailTemplateContexts>
+      <EmailTemplate Id="TaskStatusChanged" Criteria="[Name] = 'TaskStatusChanged'" IsNewNode="True" />
+    </EmailTemplateContexts>
     <ExecutionContextsGroup>
       <ExecutionContexts Id="ObjectSpaceObjectChanged" IsNewNode="True">
         <ExecutionContext Name="ObjectSpaceObjectChanged" IsNewNode="True" />
@@ -11,11 +14,9 @@
         <ObjectChangedExecutionContext Id="properies" PropertyNames="Status" IsNewNode="True" />
       </ObjectChangedExecutionContexts>
     </ObjectChangedExecutionContextGroup>
-    <EmailTemplateContexts>
-      <EmailTemplate Id="TaskStatusChanged" Criteria="[Name] = 'TaskStatusChanged'" IsNewNode="True" />
-    </EmailTemplateContexts>
     <Rules>
       <EmailRule Id="Task state changed" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="TaskStatusChanged" TypeInfo="EmailTester.Module.BusinessObjects.EmailTask" EmailReceipientsContext="Send to Admins" ObjectChangedExecutionContextGroup="Task monitor" ExecutionContextGroup="ObjectSpaceObjectChanged" IsNewNode="True" />
+      <EmailRule Id="Task state changed_Filtered" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="TaskStatusChanged" TypeInfo="EmailTester.Module.BusinessObjects.EmailTask" EmailReceipientsContext="Send to Admins" ObjectChangedExecutionContextGroup="Task monitor" ExecutionContextGroup="ObjectSpaceObjectChanged" NormalCriteria="[Status] &lt;&gt; ##Enum#DevExpress.Persistent.Base.General.TaskStatus,InProgress#" IsNewNode="True" />
     </Rules>
   </Email>
 </Application>

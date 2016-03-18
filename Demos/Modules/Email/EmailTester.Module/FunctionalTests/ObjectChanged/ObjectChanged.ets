@@ -11,6 +11,8 @@
 *SaveAndClose
 
 *Navigate Email Object
+*CheckTable 
+ RowCount = 1 
 *XpandProcessRecord
  Subject = TaskStatusChanged
 *XpandCheckFieldValues
