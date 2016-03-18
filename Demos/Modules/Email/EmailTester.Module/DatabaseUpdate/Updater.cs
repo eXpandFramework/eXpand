@@ -30,6 +30,10 @@ namespace EmailTester.Module.DatabaseUpdate {
                 emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
                 emailTemplate.Subject = "TaskStatusChanged";
                 emailTemplate.Body = "The Status of (@Model.Subject) changed to (@Model.Status)";
+
+                emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
+                emailTemplate.Subject = "email from action";
+                emailTemplate.Body = "Email send for the task with subject (@Model.Subject)";
             }
             var adminRole = ObjectSpace.GetAdminRole("Admin");
             var adminUser = (XpandUser) adminRole.GetUser("Admin");

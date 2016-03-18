@@ -38,26 +38,28 @@ namespace EmailTester.Module.FunctionalTests{
 
         private void CreateEmailObject(){
             var path = Path.Combine(Path.GetFullPath("."), "Emails");
-            var eml = Directory.GetFiles(path, "*.eml").OrderByDescending(s => new FileInfo(s).CreationTime).First();
-            var emailObject = ObjectSpace.CreateObject<EmailObject>();
-            foreach (var line in File.ReadAllLines(eml)){
-                var strings = line.Split(':');
-                if (strings.Length == 2){
-                    if (strings[0] == "From")
-                        emailObject.From = strings[1].Trim();
-                    else if (strings[0] == "To")
-                        emailObject.To = string.Join(", ", strings[1].Trim().Split(',').Select(s => s.Trim()).OrderBy(s => s)).Trim();
-                    else if (strings[0] == "Reply-To")
-                        emailObject.ReplyTo = strings[1].Trim();
-                    else if (strings[0] == "Subject")
-                        emailObject.Subject = strings[1].Trim();
+            var emlFiles = Directory.GetFiles(path, "*.eml").OrderByDescending(s => new FileInfo(s).CreationTime);
+            foreach (var emlFile in emlFiles){
+                var emailObject = ObjectSpace.CreateObject<EmailObject>();
+                foreach (var line in File.ReadAllLines(emlFile)) {
+                    var strings = line.Split(':');
+                    if (strings.Length == 2) {
+                        if (strings[0] == "From")
+                            emailObject.From = strings[1].Trim();
+                        else if (strings[0] == "To")
+                            emailObject.To = string.Join(", ", strings[1].Trim().Split(',').Select(s => s.Trim()).OrderBy(s => s)).Trim();
+                        else if (strings[0] == "Reply-To")
+                            emailObject.ReplyTo = strings[1].Trim();
+                        else if (strings[0] == "Subject")
+                            emailObject.Subject = strings[1].Trim();
+                    }
+                    else {
+                        if (line == string.Empty)
+                            emailObject.Body = new Regex(@"Content-Transfer-Encoding: quoted-printable\r\n\r\n(.*)", RegexOptions.Singleline).Match(File.ReadAllText(emlFile)).Groups[1].Value;
+                    }
                 }
-                else{
-                    if (line==string.Empty)
-                        emailObject.Body = new Regex(@"Content-Transfer-Encoding: quoted-printable\r\n\r\n(.*)", RegexOptions.Singleline).Match(File.ReadAllText(eml)).Groups[1].Value;
-                }
+                File.Delete(emlFile);
             }
-            File.Delete(eml);
             ObjectSpace.CommitChanges();
         }
     }

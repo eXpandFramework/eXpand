@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
@@ -61,10 +62,17 @@ namespace Xpand.ExpressApp.Logic {
                 supportViewChanged.ViewChanged += (o, args) => _logicRuleExecutor.Execute(ExecutionContext.ViewChanged, args,View);
         }
 
+        protected override void OnViewControllersActivated(){
+            base.OnViewControllersActivated();
+            if (LogicRuleManager.HasActionContextRules(View.ObjectTypeInfo))
+                SubscribeToActionEvents();
+        }
+
         protected override void OnActivated() {
             base.OnActivated();
+            
             if (LogicRuleManager.HasRules(View.ObjectTypeInfo)) {
-                SubscribeToActionEvents();
+                
                 View.SelectionChanged += ViewOnSelectionChanged;
                 View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
                 View.QueryCanChangeCurrentObject += ViewOnQueryCanChangeCurrentObject;
@@ -119,7 +127,7 @@ namespace Xpand.ExpressApp.Logic {
             return actionExecutionContextGroups.SelectMany(@group => @group, (@group, executionContext)
                 => executionContext.Name).Aggregate(actionBases, (current, actionContexts)
                 => current.Union(Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).Where(@base
-                    => actionContexts.Contains(@base.Id))));
+                    => actionContexts.Contains(@base.Id)&&@base.Active&&@base.Enabled)));
         }
 
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
@@ -145,9 +153,10 @@ namespace Xpand.ExpressApp.Logic {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
+            if (LogicRuleManager.HasActionContextRules(View.ObjectTypeInfo))
+                UnsubscribeFromActionEvents();
             if (LogicRuleManager.HasRules(View.ObjectTypeInfo)) {
                 _logicRuleExecutor.Execute(ExecutionContext.ControllerDeActivated,EventArgs.Empty,View);
-                UnsubscribeFromActionEvents();
                 View.SelectionChanged -= ViewOnSelectionChanged;
                 View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
                 View.QueryCanChangeCurrentObject -= ViewOnQueryCanChangeCurrentObject;
@@ -223,7 +232,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs args) {
-            if (!String.IsNullOrEmpty(args.PropertyName) && View != null)
+            if (!String.IsNullOrEmpty(args.PropertyName) && View != null&&args.MemberInfo==null)
                 _logicRuleExecutor.Execute(ExecutionContext.ObjectSpaceObjectChanged, args,View);
         }        
     }

@@ -7,6 +7,7 @@ using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.Persistent.Base.Logic {
     public interface ILogicRuleObject:ILogicRule {
+        string ActionExecutionContextGroup { get; set; }
         ExecutionContext ExecutionContext { get; set; }
         FrameTemplateContext FrameTemplateContext { get; set; }
         HashSet<string> Views { get; }
@@ -30,7 +31,10 @@ namespace Xpand.Persistent.Base.Logic {
             NormalCriteria=logicRule.NormalCriteria;
             EmptyCriteria=logicRule.EmptyCriteria;
             IsNew = logicRule.IsNew;
+            ActionExecutionContextGroup = logicRule.ActionExecutionContextGroup;
         }
+
+        public string ActionExecutionContextGroup { get; set; }
 
         public string ID { get; set; }
         #region ILogicRule Members

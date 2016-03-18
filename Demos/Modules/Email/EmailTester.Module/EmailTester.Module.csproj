@@ -85,6 +85,9 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="BusinessObjects\Project.cs" />
+    <Compile Include="FunctionalTests\EmailFromAction\EmailFromAction.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\EmailObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -123,6 +126,11 @@
     <EmbeddedResource Include="FunctionalTests\CommonReceipient.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="FunctionalTests\EmailFromAction\Init.inc" />
+    <None Include="FunctionalTests\EmailFromAction\EmailFromAction.ets" />
+    <None Include="FunctionalTests\EmailFromAction\EmailFromAction.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ObjectChanged\ObjectChanged.ets" />
     <None Include="FunctionalTests\ObjectChanged\ObjectChanged.xafml">
       <SubType>Designer</SubType>
@@ -141,6 +149,9 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FunctionalTests\EmailFromAction\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\ObjectChanged\Config.xml">
       <SubType>Designer</SubType>
     </Content>

@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="EmailTester" Logo="ExpressAppLogo">
+  <Email>
+    <ActionExecutionContextGroup>
+      <ActionExecutionContexts Id="SendMailActions" IsNewNode="True">
+        <ActionExecutionContext Name="SendEmail" IsNewNode="True" />
+      </ActionExecutionContexts>
+    </ActionExecutionContextGroup>
+    <EmailTemplateContexts>
+      <EmailTemplate Id="EmailFromAction" Criteria="[Name] = 'email from action'" IsNewNode="True" />
+    </EmailTemplateContexts>
+    <Rules>
+      <EmailRule Id="Email From Action" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="EmailFromAction" TypeInfo="EmailTester.Module.BusinessObjects.EmailTask" EmailReceipientsContext="Send to Admins" ObjectChangedExecutionContextGroup="" ExecutionContextGroup="" ActionExecutionContextGroup="SendMailActions" IsNewNode="True" />
+    </Rules>
+  </Email>
+</Application>

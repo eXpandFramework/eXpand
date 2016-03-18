@@ -45,6 +45,13 @@ namespace Xpand.ExpressApp.Logic {
             }
         }
 
+        public static bool HasActionContextRules(ITypeInfo typeInfo){
+            var logicInstallers = LogicInstallerManager.Instance.LogicInstallers;
+            var executionContexts =logicInstallers.SelectMany(installer => installer.ValidExecutionContexts)
+                    .Concat(new[]{ExecutionContext.None});
+            return executionContexts.Any(context => Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, context)].Any(o => o.ActionExecutionContextGroup!=null));
+        }
+
         public static bool HasRules(ITypeInfo typeInfo) {
             var executionContexts = LogicInstallerManager.Instance.LogicInstallers.SelectMany(installer => installer.ValidExecutionContexts);
             return executionContexts.Any(context => Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, context)].Any());
@@ -89,7 +96,9 @@ namespace Xpand.ExpressApp.Logic {
             var tuple = new Tuple<ITypeInfo, ExecutionContext>(typeInfo, executionContext);
             if (!Instance._rules.ContainsKey(tuple))
                 Instance._rules.Add(tuple, new List<ILogicRuleObject>());
-            Instance._rules[tuple].Add(logicRuleObject);
+            var logicRuleObjects = Instance._rules[tuple];
+            if (logicRuleObjects.All(o => o.Id != logicRuleObject.Id))
+                logicRuleObjects.Add(logicRuleObject);
         }
     }
 }
