@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.Email.Logic {
             };
             if (emailRule.CurrentObjectEmailMember != null){
                 var toEmail = emailRule.CurrentObjectEmailMember.MemberInfo.GetValue(logicRuleInfo.Object) as string;
-                if (toEmail != null) email.To.Add(toEmail);
+                if (toEmail != null) toEmail.Split(';').Each(s => email.To.Add(s));
             }
             if (!string.IsNullOrEmpty(emailRule.EmailReceipientsContext)) {
                 AddReceipients(emailRule, modelApplicationEmail, email,logicRuleInfo.Object);
@@ -79,7 +79,7 @@ namespace Xpand.ExpressApp.Email.Logic {
                 var sendToCollection = GetSendToCollection(email, modelEmailReceipient);
                 foreach (var obj in objects){
                     var item = modelEmailReceipient.EmailMember.MemberInfo.GetValue(obj) as string;
-                    if (item != null) sendToCollection.Add(item);
+                    if (item != null) item.Split(';').Each(s => sendToCollection.Add(s));
                 }
             }
         }

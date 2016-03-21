@@ -29,7 +29,7 @@
 *SaveAndClose
 *Action Members.New
 *XpandFillForm
- Email = m2@mail.com
+ Email = m2@mail.com;m3@mail.com
 *SaveAndClose
 *SaveAndClose
 
@@ -39,6 +39,6 @@
 
 *XpandCheckFieldValues
  From = sender@mail.com
- To =  m1@mail.com, m2@mail.com
+ To =  m1@mail.com, m2@mail.com, m3@mail.com
  Reply To = mymail@mail.com
  Body = We created a new project (test)*
