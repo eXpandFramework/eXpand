@@ -57,9 +57,10 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         protected override void OnActivated() {
             base.OnActivated();
 
-            if (Frame.Template is WizardDetailViewForm) {
+            var wizardDetailViewForm = Frame.Template as WizardDetailViewForm;
+            if (wizardDetailViewForm != null) {
                 var modelWizard = (IModelDetailViewWizard)((DetailView)View).Model;
-                _wizardForm = Frame.Template as WizardDetailViewForm;
+                _wizardForm = wizardDetailViewForm;
 
                 _wizardForm.WizardControl.CancelClick += WizardControl_CancelClick;
                 _wizardForm.WizardControl.FinishClick += WizardControl_FinishClick;
@@ -156,9 +157,10 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// Sets the current view and updates the viewsitepanel
         /// </summary>
         /// <param name="page">current WizardPage</param>
-        private void UpdateCurrentView(BaseWizardPage page) {
-            if (page is XafWizardPage) {
-                var wizardPage = page as XafWizardPage;
+        private void UpdateCurrentView(BaseWizardPage page){
+            var xafWizardPage = page as XafWizardPage;
+            if (xafWizardPage != null) {
+                var wizardPage = xafWizardPage;
                 if (wizardPage.View != null) {
                     wizardPage.View.SaveModel();
                     var detailView = wizardPage.View;
@@ -225,7 +227,6 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                     string reason;
                     if (ruleInUse && RuleSet.NeedToValidateRule(ObjectSpace, rule, obj, out reason)) {
                         RuleValidationResult result = rule.Validate(obj);
-
                         if (result.State == ValidationState.Invalid) {
                             validationResults.AddResult(new RuleSetValidationResultItem(obj, ContextIdentifier.Save, rule, result));
                         }
@@ -309,10 +310,11 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// </summary>
         /// <param name="view">current View</param>
         private void UpdateControllers(DevExpress.ExpressApp.View view) {
-            foreach (Controller controller in Frame.Controllers) {
-                if (controller is ViewController && !controller.Equals(this)) {
-                    ((ViewController)controller).SetView(null);
-                    ((ViewController)controller).SetView(view);
+            foreach (Controller controller in Frame.Controllers){
+                var viewController = controller as ViewController;
+                if (viewController != null && !viewController.Equals(this)) {
+                    viewController.SetView(null);
+                    viewController.SetView(view);
                 }
             }
         }
