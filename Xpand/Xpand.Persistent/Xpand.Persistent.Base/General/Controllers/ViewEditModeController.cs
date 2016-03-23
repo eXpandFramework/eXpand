@@ -17,7 +17,6 @@ namespace Xpand.Persistent.Base.General.Controllers {
     public class ViewEditModeController : WindowController, IModelExtender {
         public const string ViewActiveKey = "ViewEditMode";
         private void FrameOnDisposing(object sender, EventArgs eventArgs) {
-//            Application.DetailViewCreated -= ApplicationOnDetailViewCreated;
             Frame.ViewChanging-=FrameOnViewChanging;
             Frame.Disposing -= FrameOnDisposing;
             foreach (var action in Frame.Actions()) {
@@ -28,7 +27,6 @@ namespace Xpand.Persistent.Base.General.Controllers {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.ViewChanging+=FrameOnViewChanging;
-//            Application.DetailViewCreated += ApplicationOnDetailViewCreated;
             Frame.Disposing += FrameOnDisposing;
             foreach (var action in Frame.Actions()) {
                 action.Executed += ActionOnExecuted;
@@ -39,7 +37,8 @@ namespace Xpand.Persistent.Base.General.Controllers {
             var detailView = e.View as DetailView;
             if (detailView != null){
                 detailView.ControlsCreated += ViewOnControlsCreated;
-                detailView.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(detailView);
+                if (!Application.IsHosted())
+                    detailView.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(detailView);
             }
         }
 
@@ -47,9 +46,10 @@ namespace Xpand.Persistent.Base.General.Controllers {
             var view = ((View)sender);
             view.ControlsCreated -= ViewOnControlsCreated;
             UpdateView((DetailView)view);
-            if (!Application.IsHosted())
+            if (!Application.IsHosted()){
                 UpdateEditableActions(view);
-            view.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(view);
+                view.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(view);
+            }
         }
 
         private void ActionOnExecuted(object sender, ActionBaseEventArgs e) {
