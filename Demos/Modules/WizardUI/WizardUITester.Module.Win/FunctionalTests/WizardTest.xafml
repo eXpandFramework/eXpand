@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="WizardUITester" Logo="ExpressAppLogo">
+  <Views>
+    <DetailView Id="WizardObject_DetailView">
+      <Wizard ShowInWizard="True">
+        <WizardPage Id="Page1" ViewID="WizardObject_Page1_DetailView" Caption="Page 1" IsNewNode="True" />
+        <WizardPage Id="Page2" ViewID="WizardObject_Page2_DetailView" IsNewNode="True" />
+      </Wizard>
+    </DetailView>
+    <DetailView Id="WizardObject_Page1_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="WizardObject" Caption="WizardObject" RelativeSize="100">
+              <LayoutItem Id="Page1" RelativeSize="100" ViewItem="Page1" />
+              <LayoutItem Id="Page2" ViewItem="Page2" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="WizardObject_Page2_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="100">
+            <LayoutGroup Id="WizardObject" Caption="WizardObject" RelativeSize="100">
+              <LayoutItem Id="Page2" Index="0" RelativeSize="100" ViewItem="Page2" />
+              <LayoutItem Id="Page1" ViewItem="Page1" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

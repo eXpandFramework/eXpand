@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using Xpand.ExpressApp.Security.Core;
 
 namespace WizardUITester.Win {
     static class Program {
@@ -29,6 +30,7 @@ namespace WizardUITester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
+                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

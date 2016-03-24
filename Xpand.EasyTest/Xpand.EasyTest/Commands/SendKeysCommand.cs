@@ -35,7 +35,7 @@ namespace Xpand.EasyTest.Commands{
         }
 
         private static Win32Constants.VirtualKeys GetVirtualKey(string key){
-            return (Win32Constants.VirtualKeys) Enum.Parse(typeof (Win32Constants.VirtualKeys), key);
+            return (Win32Constants.VirtualKeys) Enum.Parse(typeof (Win32Constants.VirtualKeys), key,true);
         }
     }
 }

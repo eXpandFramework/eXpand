@@ -28,5 +28,7 @@
     <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\WizardUITester.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\WizardUITester.Web" />
+    <Alias Name="Page1UpArrow" Value="984x127" />
+    <Alias Name="Page2Field" Value="282x127" />
   </Aliases>
 </Options>

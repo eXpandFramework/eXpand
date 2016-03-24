@@ -1,22 +1,22 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Windows.Forms;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.Persistent.Validation;
+using DevExpress.XtraWizard;
 using Fasterflect;
+using Xpand.ExpressApp.WizardUI.Win.Templates;
+using View = DevExpress.ExpressApp.View;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Linq;
-    using System.Windows.Forms;
-    using DevExpress.ExpressApp;
-    using DevExpress.ExpressApp.Editors;
-    using DevExpress.ExpressApp.SystemModule;
-    using DevExpress.ExpressApp.Templates;
-    using DevExpress.ExpressApp.Validation;
-    using DevExpress.ExpressApp.Win.SystemModule;
-    using DevExpress.Persistent.Validation;
-    using DevExpress.XtraWizard;
-    using Templates;
-
     /// <summary>
     /// Controller handles Page generation and View Management
     /// </summary>
@@ -226,6 +226,8 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                     bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.FirstOrDefault(p => p.EndsWith(String.Format(".{0}", property)))));
                     string reason;
                     if (ruleInUse && RuleSet.NeedToValidateRule(ObjectSpace, rule, obj, out reason)) {
+                        var objectSpaceLink = rule as IObjectSpaceLink;
+                        if (objectSpaceLink != null) objectSpaceLink.ObjectSpace=ObjectSpace;
                         RuleValidationResult result = rule.Validate(obj);
                         if (result.State == ValidationState.Invalid) {
                             validationResults.AddResult(new RuleSetValidationResultItem(obj, ContextIdentifier.Save, rule, result));
@@ -309,7 +311,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// Sets the current View for all Controllers in the Frame
         /// </summary>
         /// <param name="view">current View</param>
-        private void UpdateControllers(DevExpress.ExpressApp.View view) {
+        private void UpdateControllers(View view) {
             foreach (Controller controller in Frame.Controllers){
                 var viewController = controller as ViewController;
                 if (viewController != null && !viewController.Equals(this)) {

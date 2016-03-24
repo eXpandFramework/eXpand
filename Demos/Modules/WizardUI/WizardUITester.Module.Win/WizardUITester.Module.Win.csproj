@@ -39,12 +39,18 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Win.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v15.2, Version=15.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -59,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\WizardObject.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -87,12 +94,20 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\WizardTest.ets" />
+    <EmbeddedResource Include="FunctionalTests\WizardTest.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Images\ReadMe.txt" />
     <EmbeddedResource Include="Model.DesignedDiffs.Localization.de.xafml">
       <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FunctionalTests\Config.xml" />
+    <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

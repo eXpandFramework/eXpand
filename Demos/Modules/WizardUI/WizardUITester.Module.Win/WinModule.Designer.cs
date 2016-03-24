@@ -29,6 +29,7 @@ namespace WizardUITester.Module.Win {
             this.RequiredModuleTypes.Add(typeof(WizardUITester.Module.WizardUITesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule));
 
         }
 
