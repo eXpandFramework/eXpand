@@ -29,7 +29,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
 
         private bool _doNotCompile;
         private string _name;
-        private int _Revision;
+        private int _revision;
 
         private StrongKeyFile _strongKeyFile;
 
@@ -48,7 +48,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         [Index(6)]
         [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
-        [EditorAlias(EditorAliases.CSCodePropertyEditor)]
+        [XpandEditorAlias(EditorAliases.CSCodePropertyEditor)]
         public string GeneratedCode{
             get { return CodeEngine.GenerateCode(this); }
         }
@@ -92,8 +92,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         }
 
         public int Revision{
-            get { return _Revision; }
-            set { SetPropertyValue("Revision", ref _Revision, value); }
+            get { return _revision; }
+            set { SetPropertyValue("Revision", ref _revision, value); }
         }
 
         [Index(1)]

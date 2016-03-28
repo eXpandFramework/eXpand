@@ -9,7 +9,8 @@
  ToggleNavigation = false
 
 *KillWindow Filter Editor
-*Action Log Off
+*LogOff
+*Sleep 1000
 *LogOn
 *Action Navigation(Default.Full Text Contains Object)
 
