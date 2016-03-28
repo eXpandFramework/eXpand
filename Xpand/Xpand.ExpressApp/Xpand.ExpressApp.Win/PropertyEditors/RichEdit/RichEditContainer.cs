@@ -27,12 +27,5 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             get { return RichEditControl.RtfText; }
             set { RichEditControl.RtfText = value; }
         }
-
-        private void btnFullSizeEditor_ItemClick(object sender, ItemClickEventArgs e) {
-            var fullEditor = new FullWinRichtEdit { RtfText = RtfText, Text = ControlText };
-            fullEditor.ShowDialog();
-            RtfText = fullEditor.RtfText;
-            ControlText = fullEditor.Text;
-        }
     }
 }

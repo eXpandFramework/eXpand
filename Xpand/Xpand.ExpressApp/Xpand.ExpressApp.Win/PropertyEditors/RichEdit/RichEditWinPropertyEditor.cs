@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 using DevExpress.CodeParser;
 using DevExpress.Data.Filtering;
@@ -28,60 +29,37 @@ using Attribute = System.Attribute;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
-    public class RichEditControlSynchronizer : Persistent.Base.ModelAdapter.ModelSynchronizer<RichEditControl, IModelRichEditControl> {
-        public RichEditControlSynchronizer(RichEditControl component, IModelRichEditControl modelNode)
-            : base(component, modelNode) {
+
+    public class RichEditModelAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorRichEdit, IModelRichEdit,RichEditWinPropertyEditor> {
+
+        protected override object GetPropertyEditorControl(RichEditWinPropertyEditor richEditWinPropertyEditor){
+            return richEditWinPropertyEditor.Control.RichEditControl;
         }
 
-        protected override void ApplyModelCore() {
-            ApplyModel(Model, Control, ApplyValues);
+        protected override Expression<Func<IModelPropertyEditorRichEdit, IModelModelAdapter>> GetControlModel(IModelPropertyEditorRichEdit modelPropertyEditorFilterControl){
+            return edit => edit.RichEdit;
         }
 
-        public override void SynchronizeModel() {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class RichEditModelAdapterController : ModelAdapterController, IModelExtender {
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            var detailView = View as DetailView;
-            if (detailView != null)
-                foreach (var item in detailView.GetItems<RichEditWinPropertyEditor>()){
-                    item.ControlCreated+=ItemOnControlCreated;
-                }
-        }
-
-        private void ItemOnControlCreated(object sender, EventArgs eventArgs) {
-            var item = ((RichEditWinPropertyEditor) sender);
-            var richEdit = ((IModelMemberViewItemRichEdit)item.Model).RichEdit;
-            foreach (var modelAdapter in richEdit.ModelAdapters) {
-                new RichEditControlSynchronizer(item.Control.RichEditControl, modelAdapter.ModelAdapter.Control).ApplyModel();
-            }
-            new RichEditControlSynchronizer(item.Control.RichEditControl, richEdit.Control).ApplyModel();
-        }
-
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelMemberViewItem, IModelMemberViewItemRichEdit>();
-            var builder = new InterfaceBuilder(extenders);
-            var assembly = builder.Build(CreateBuilderData(), GetPath(typeof(RichEditControl).Name));
-            builder.ExtendInteface<IModelRichEditControl, RichEditControl>(assembly);
-        }
-
-        IEnumerable<InterfaceBuilderData> CreateBuilderData() {
+        protected override IEnumerable<InterfaceBuilderData> CreateBuilderData(){
             var interfaceBuilderData = new InterfaceBuilderData(typeof(RichEditControl)) {
                 Act = info => info.Name != "Undo" && info.DXFilter()
             };
             interfaceBuilderData.ReferenceTypes.AddRange(new[] { typeof(CriteriaOperator), typeof(DocumentCapability) });
             yield return interfaceBuilderData;
         }
+
+        protected override Type GetControlType(){
+            return typeof (RichEditControl);
+        }
     }
+
 
     public interface IModelRichEditControl : IModelNode {
 
     }
 
-    public interface IModelMemberViewItemRichEdit : IModelMemberViewItem {
+    [ModelAbstractClass]
+    public interface IModelPropertyEditorRichEdit : IModelPropertyEditor {
         [ModelBrowsable(typeof(ModelMemberViewItemRichEditVisibilityCalculator))]
         IModelRichEdit RichEdit { get; }
     }
@@ -142,7 +120,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         private static object GetValue(IModelRichEdit modelRichEdit,Func<RichEditPropertyEditorAttribute,object> func ){
-            var richEdit =  modelRichEdit.Parent as IModelMemberViewItemRichEdit;
+            var richEdit =  modelRichEdit.Parent as IModelPropertyEditorRichEdit;
             if (richEdit != null){
                 var editorType = richEdit.PropertyEditorType;
                 if (typeof (RichEditWinPropertyEditor).IsAssignableFrom(editorType)){
@@ -195,12 +173,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     }
 
     [PropertyEditor(typeof(string),EditorAliases.RichEditRftPropertyEditor, false)]
-    [RichEditPropertyEditorAttribute("rtf",true,false,"RtfText")]
-    public class RichEditWinPropertyEditor : WinPropertyEditor, IInplaceEditSupport, IComplexViewItem,IPropertyEditor {
+    [RichEditPropertyEditor("rtf",true,false,"RtfText")]
+    public class RichEditWinPropertyEditor : WinPropertyEditor, IInplaceEditSupport, IComplexViewItem, IPropertyEditor{
 
         public RichEditWinPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
-            ControlBindingProperty = ((IModelMemberViewItemRichEdit) model).RichEdit.ControlBindingProperty;
+            ControlBindingProperty = ((IModelPropertyEditorRichEdit) model).RichEdit.ControlBindingProperty;
         }
 
         public new RichEditContainer Control {
@@ -239,27 +217,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
         protected override object CreateControlCore() {
             var richEditContainer = new RichEditContainer();
-            if (!((IModelMemberViewItemRichEdit)Model).RichEdit.ShowToolBars)
+            if (!((IModelPropertyEditorRichEdit)Model).RichEdit.ShowToolBars)
                 richEditContainer.HideToolBars();
             richEditContainer.RichEditControl.ActiveViewType = RichEditViewType.Draft;
-            richEditContainer.RichEditControl.Options.AutoCorrect.DetectUrls = false;
-            richEditContainer.RichEditControl.Options.AutoCorrect.ReplaceTextAsYouType = false;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.Bookmarks = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.CharacterStyle = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.HeadersFooters = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.Hyperlinks = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.InlinePictures = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.Numbering.Bulleted = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.Numbering.MultiLevel = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.Numbering.Simple = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.ParagraphFormatting = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.Paragraphs = DocumentCapability.Enabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.ParagraphStyle = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.Sections = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.Tables = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.DocumentCapabilities.TableStyle = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.HorizontalRuler.Visibility = RichEditRulerVisibility.Hidden;
-            richEditContainer.RichEditControl.Views.DraftView.AllowDisplayLineNumbers = true;
             richEditContainer.RichEditControl.Views.DraftView.Padding = new Padding(70, 4, 0, 0);
             richEditContainer.RichEditControl.InitializeDocument += richEditControl_InitializeDocument;
             richEditContainer.RichEditControl.TextChanged += Editor_RtfTextChanged;
@@ -299,7 +259,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public virtual string GetRichEditHighLightExtension() {
-            return ((IModelMemberViewItemRichEdit)Model).RichEdit.HighLightExtension;
+            return ((IModelPropertyEditorRichEdit)Model).RichEdit.HighLightExtension;
         }
 
         public void Setup(IObjectSpace objectSpace, XafApplication application) {
@@ -307,7 +267,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            if ((((IModelMemberViewItemRichEdit)Model).RichEdit.PrintXML && !string.IsNullOrEmpty((string)PropertyValue)))
+            if ((((IModelPropertyEditorRichEdit)Model).RichEdit.PrintXML && !string.IsNullOrEmpty((string)PropertyValue)))
                 PropertyValue = PropertyValue.ToString().XMLPrint();
         }
 

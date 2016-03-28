@@ -495,7 +495,6 @@
             this.btnFullSizeEditor.Caption = "Full Size-Editor";
             this.btnFullSizeEditor.Id = 105;
             this.btnFullSizeEditor.Name = "btnFullSizeEditor";
-            this.btnFullSizeEditor.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnFullSizeEditor_ItemClick);
             // 
             // paragraphBar1
             // 

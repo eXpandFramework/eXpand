@@ -183,6 +183,7 @@
     <Content Include="FunctionalTests\LayoutViewListEditor\Images\Layout.win.png" />
     <Content Include="FunctionalTests\LayoutViewListEditor\Init.inc" />
     <Content Include="FunctionalTests\LayoutViewListEditor\Layout.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\RichEdit\Config.xml" />
     <Content Include="FunctionalTests\ViewEditMode.Win\ViewMode.Win\Config.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -205,6 +206,10 @@
     </None>
     <None Include="FunctionalTests\LayoutViewListEditor\LayoutViewListEditor.ets" />
     <None Include="FunctionalTests\LayoutViewListEditor\LayoutViewListEditor.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\PropertyEditors\RichEdit\RichEdit.ets" />
+    <None Include="FunctionalTests\PropertyEditors\RichEdit\RichEdit.xafml">
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Default.inc" />
@@ -236,6 +241,7 @@
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="FunctionalTests\PropertyEditors\RichEdit\RichEditObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\StringLookupPropertyEditorObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>

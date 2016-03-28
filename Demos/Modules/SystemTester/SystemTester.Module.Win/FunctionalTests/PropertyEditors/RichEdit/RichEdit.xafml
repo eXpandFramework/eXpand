@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="RichEditObject_DetailView">
+      <Items>
+        <PropertyEditor Id="Text" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor">
+          <RichEdit>
+            <Options>
+              <DocumentCapabilities Hyperlinks="Disabled" />
+            </Options>
+          </RichEdit>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+  </Views>
+</Application>
