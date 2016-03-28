@@ -1,7 +1,6 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XtraDashboardTester.Module.Web", "XtraDashboardTester.Module.Web\XtraDashboardTester.Module.Web.csproj", "{CA92AF75-2B4D-413F-90B2-79821F59576A}"
 EndProject
@@ -85,8 +84,8 @@ Global
 		{2CFA4450-5217-425F-9562-8ABAB431B7CB}.Test|Any CPU.Build.0 = EasyTest|Any CPU
 		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.EasyTest|Any CPU.Build.0 = Release|Any CPU
+		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}.Test|Any CPU.ActiveCfg = Release|Any CPU

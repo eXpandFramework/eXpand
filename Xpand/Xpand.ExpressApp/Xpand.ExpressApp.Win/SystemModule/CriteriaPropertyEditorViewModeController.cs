@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
@@ -45,10 +46,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
     }
 
-    public class CriteriaPropertyEditorControlAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorFilterControl, IModelFilterControl> {
-        protected override IModelFilterControl[] GetControlModelNodes(IModelPropertyEditorFilterControl modelPropertyEditorFilterControl){
-            var modelFilterControls = modelPropertyEditorFilterControl.FilterControl.ModelAdapters.Select(adapter => adapter.ModelAdapter);
-            return modelFilterControls.Concat(new[] { modelPropertyEditorFilterControl.FilterControl }).ToArray();
+    public class CriteriaPropertyEditorControlAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorFilterControl, IModelFilterControl,CriteriaPropertyEditor> {
+
+        protected override Expression<Func<IModelPropertyEditorFilterControl, IModelModelAdapter>> GetControlModel(IModelPropertyEditorFilterControl modelPropertyEditorFilterControl){
+            return control => control.FilterControl;
         }
 
         protected override Type GetControlType(){

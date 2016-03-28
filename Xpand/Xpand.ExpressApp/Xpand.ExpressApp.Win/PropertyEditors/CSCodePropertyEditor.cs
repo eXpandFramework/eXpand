@@ -7,10 +7,16 @@ using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     [PropertyEditor(typeof (string), EditorAliases.CSCodePropertyEditor, false)]
-    [RichEditPropertyEditorAttribute("cs", false, false,"ControlText")]
+    [RichEditPropertyEditor("cs", false, false,"ControlText")]
     public class CSCodePropertyEditor : RichEditWinPropertyEditor {
         public CSCodePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
+        }
+
+        protected override object CreateControlCore(){
+            var controlCore = base.CreateControlCore();
+            ApplyMinimalConfiiguration((RichEditContainer) controlCore);
+            return controlCore;
         }
     }
     

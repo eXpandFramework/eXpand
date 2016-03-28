@@ -113,7 +113,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [VisibleInListView(false)]
         [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
-        [EditorAlias(EditorAliases.CSCodePropertyEditor)]
+        [XpandEditorAlias(EditorAliases.CSCodePropertyEditor)]
         public string GeneratedCode {
             get { return CodeEngine.GenerateCode(this); }
         }

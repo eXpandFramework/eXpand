@@ -168,6 +168,7 @@
     <Compile Include="General\Model\VisibilityCalculators\ActionVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\RibbonFormStyleVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\StandardFormStyleVisibilityCalculator.cs" />
+    <Compile Include="General\XpandEditorAliasAttribute.cs" />
     <Compile Include="General\XpandNavigationItem.cs" />
     <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs" />
     <Compile Include="General\Controllers\Actions\ActionItemsFromModelController.cs">

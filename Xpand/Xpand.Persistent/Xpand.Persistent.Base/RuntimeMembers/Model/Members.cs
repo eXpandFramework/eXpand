@@ -54,7 +54,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         new bool IsCalculated { get; set; }
     }
 
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
     public sealed class ModelMemberExMemberInfoAttribute : Attribute {
     }
 

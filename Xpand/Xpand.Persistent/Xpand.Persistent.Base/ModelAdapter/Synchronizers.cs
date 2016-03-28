@@ -37,6 +37,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     }
 
     public abstract class ModelSynchronizer<TComponent, TModelNode> : DevExpress.ExpressApp.Model.ModelSynchronizer<TComponent, TModelNode> where TModelNode : IModelNode {
+        // ReSharper disable once StaticMemberInGenericType
         public static readonly HashSet<string> ExcludedNodeMembers =
             new HashSet<string>(new[] { "Id", "Index", "Removed", "IsNewNode", "IsRemovedNode" });
         protected ModelSynchronizer(TComponent component, TModelNode modelNode)

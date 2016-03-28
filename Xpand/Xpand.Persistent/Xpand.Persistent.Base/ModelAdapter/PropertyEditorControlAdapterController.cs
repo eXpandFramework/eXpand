@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Fasterflect;
 using Xpand.Persistent.Base.General;
+using Xpand.Utils.Helpers;
 using Xpand.Utils.Web;
 
 namespace Xpand.Persistent.Base.ModelAdapter{
-    public abstract class PropertyEditorControlAdapterController<TModelPropertyEditorControl, TModelControl> : ModelAdapterController, IModelExtender
+    public abstract class PropertyEditorControlAdapterController<TModelPropertyEditorControl, TModelControl, TPropertyEditor> : ModelAdapterController, IModelExtender
         where TModelPropertyEditorControl : IModelPropertyEditor
-        where TModelControl : IModelModelAdapter {
+        where TModelControl : IModelModelAdapter{
         protected PropertyEditorControlAdapterController() {
             TargetViewType = ViewType.DetailView;
         }
@@ -20,28 +23,38 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         protected override void OnActivated() {
             base.OnActivated();
             var detailView = ((DetailView)View);
-            foreach (var item in detailView.GetItems<PropertyEditor>().Where(editor => editor is IModelPropertyEditorControlAdapter)) {
+            foreach (var item in detailView.GetItems<PropertyEditor>().OfType<TPropertyEditor>().Cast<PropertyEditor>()) {
                 item.ControlCreated += ItemOnControlCreated;
             }
         }
 
         private void ItemOnControlCreated(object sender, EventArgs eventArgs){
-            var item = (PropertyEditor)sender;
-            var modelPropertyEditorLabelControl = (TModelPropertyEditorControl)item.Model;
+            var item = (TPropertyEditor)sender;
+            var modelPropertyEditorLabelControl = (TModelPropertyEditorControl) (item).GetPropertyValue("Model");
             var propertyEditorControl = GetPropertyEditorControl(item);
             if (propertyEditorControl != null){
-                var modelControls = GetControlModelNodes(modelPropertyEditorLabelControl);
-                foreach (var modelControl in modelControls){
-                    new ObjectModelSynchronizer(propertyEditorControl, modelControl).ApplyModel();   
-                }                
+                var modelNodes = GetControlModelNodes(modelPropertyEditorLabelControl);
+                foreach (var node in modelNodes) {
+                    new ObjectModelSynchronizer(propertyEditorControl, node).ApplyModel();   
+                }
             }
         }
 
-        protected virtual object GetPropertyEditorControl(PropertyEditor item){
-            return Application.IsHosted() ? ((Control) item.Control).FindNestedControls(GetControlType()).FirstOrDefault() : item.Control;
+        protected virtual IEnumerable<TModelControl> GetControlModelNodes(TModelPropertyEditorControl modelPropertyEditorLabelControl){
+            var modelControl = GetControlModel(modelPropertyEditorLabelControl);
+            var modelModelAdapter =
+                (IModelModelAdapter) modelPropertyEditorLabelControl.GetPropertyValue(modelControl.GetMemberInfo().Name);
+            var modelAdapters = ((IEnumerable<IModelNode>) modelModelAdapter.GetNode("ModelAdapters")).Select(node => node.GetValue("ModelAdapter"));
+            return modelAdapters.Concat(new[]{modelModelAdapter}).Cast<TModelControl>();
         }
 
-        protected abstract TModelControl[] GetControlModelNodes(TModelPropertyEditorControl modelPropertyEditorFilterControl);
+        protected virtual object GetPropertyEditorControl(TPropertyEditor item){
+            object control = item.GetPropertyValue("Control",Flags.AllMembers|Flags.TrimExplicitlyImplemented);
+            return !Application.IsHosted() ? control
+                : ((Control) control).FindNestedControls(GetControlType()).FirstOrDefault();
+        }
+
+        protected abstract Expression<Func<TModelPropertyEditorControl, IModelModelAdapter>> GetControlModel(TModelPropertyEditorControl modelPropertyEditorFilterControl);
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelPropertyEditor, TModelPropertyEditorControl>();
@@ -57,15 +70,11 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         }
 
-        IEnumerable<InterfaceBuilderData> CreateBuilderData() {
+        protected virtual IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(GetControlType()) {
                 Act = info => (info.DXFilter())
             };
         }
 
-    }
-
-    public interface IModelPropertyEditorControlAdapter {
-         
     }
 }

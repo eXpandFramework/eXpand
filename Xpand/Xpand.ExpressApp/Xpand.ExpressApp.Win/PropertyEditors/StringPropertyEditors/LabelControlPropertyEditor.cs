@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -43,7 +44,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
         }
     }
 
-    public class LabelControlModelAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorLabelControl,IModelLabelControl> {
+    public class LabelControlModelAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorLabelControl,IModelLabelControl,LabelControlPropertyEditor> {
+        protected override Expression<Func<IModelPropertyEditorLabelControl, IModelModelAdapter>> GetControlModel(IModelPropertyEditorLabelControl modelPropertyEditorFilterControl){
+            return control => control.LabelControl;
+        }
+
         protected override Type GetControlType(){
             return typeof (LabelControl);
         }
@@ -53,14 +58,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             extenders.Add(calcType, typeof(IModelAppearanceFont));
         }
 
-        protected override IModelLabelControl[] GetControlModelNodes(IModelPropertyEditorLabelControl modelPropertyEditorFilterControl){
-            var modelLabelControls = modelPropertyEditorFilterControl.LabelControl.ModelAdapters.Select(adapter => adapter.ModelAdapter);
-            return modelLabelControls.Concat(new[] { modelPropertyEditorFilterControl.LabelControl }).ToArray();
-        }
     }
 
     [PropertyEditor(typeof(string),false)]
-    public class LabelControlPropertyEditor : WinPropertyEditor, IModelPropertyEditorControlAdapter {
+    public class LabelControlPropertyEditor : WinPropertyEditor, IPropertyEditor{
         public LabelControlPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
             ControlBindingProperty = "Text";
         }
@@ -74,5 +75,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
             return labelControl;
         }
 
+        void IPropertyEditor.SetValue(string value){
+            Control.Text = value;
+        }
     }
 }

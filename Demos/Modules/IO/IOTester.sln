@@ -34,8 +34,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Xpo", "..\..\..\Xpand\Xpand.Xpo\Xpand.Xpo.csproj", "{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.WorldCreator", "..\..\..\Xpand\Xpand.ExpressApp.Modules\WorldCreator\Xpand.ExpressApp.WorldCreator.csproj", "{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -196,16 +194,6 @@ Global
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Test|Any CPU.Build.0 = Test|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.Test|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
-		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.Test|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

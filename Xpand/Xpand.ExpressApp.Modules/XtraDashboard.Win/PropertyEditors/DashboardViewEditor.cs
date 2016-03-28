@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -9,9 +10,11 @@ using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.Dashboard.PropertyEditors;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
     public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
+
         protected override Type GetControlType(){
             return typeof (DashboardViewer);
         }

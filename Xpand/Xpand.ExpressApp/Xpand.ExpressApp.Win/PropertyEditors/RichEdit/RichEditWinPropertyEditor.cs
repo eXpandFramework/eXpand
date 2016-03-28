@@ -207,6 +207,27 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             get { return ((RichEditContainer)base.Control); }
         }
 
+        protected void ApplyMinimalConfiiguration(RichEditContainer richEditContainer) {
+            richEditContainer.RichEditControl.Options.AutoCorrect.DetectUrls = false;
+            richEditContainer.RichEditControl.Options.AutoCorrect.ReplaceTextAsYouType = false;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.Bookmarks = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.CharacterStyle = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.HeadersFooters = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.Hyperlinks = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.InlinePictures = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.Numbering.Bulleted = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.Numbering.MultiLevel = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.Numbering.Simple = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.ParagraphFormatting = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.Paragraphs = DocumentCapability.Enabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.ParagraphStyle = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.Sections = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.Tables = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.DocumentCapabilities.TableStyle = DocumentCapability.Disabled;
+            richEditContainer.RichEditControl.Options.HorizontalRuler.Visibility = RichEditRulerVisibility.Hidden;
+            richEditContainer.RichEditControl.Views.DraftView.AllowDisplayLineNumbers = true;
+        }
+
         protected override void OnAllowEditChanged() {
             base.OnAllowEditChanged();
             if (Control != null) Control.RichEditControl.ReadOnly = !AllowEdit;

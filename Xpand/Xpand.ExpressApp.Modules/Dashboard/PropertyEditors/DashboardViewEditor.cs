@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq.Expressions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
@@ -8,19 +9,19 @@ namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
 
     [ModelAbstractClass]
     public interface IModelPropertyEditorDashboardViewer : IModelPropertyEditor{
-        [ModelBrowsable(typeof(DashboardViewerEditorVisibilityCalculator))]
-        IModelDashboardViewEditor DashboardViewEditor { get; }
+        [ModelBrowsable(typeof(DashboardViewerVisibilityCalculator))]
+        IModelDashboardViewer DashboardViewr { get; }
     }
 
-    public class DashboardViewerEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IDashboardViewEditor,IModelPropertyEditor> {
+    public class DashboardViewerVisibilityCalculator : EditorTypeVisibilityCalculator<IDashboardViewEditor,IModelPropertyEditor> {
     }
 
-    public interface IDashboardViewEditor : IModelPropertyEditorControlAdapter {
+    public interface IDashboardViewEditor  {
     }
 
-    public interface IModelDashboardViewEditor : IModelNode {
+    public interface IModelDashboardViewEditor : IModelModelAdapter {
         IModelDashboardViewer DashboardViewer { get; }
-        IModelDashboardViewerModelAdapters ModelAdapters { get; }
+        
     }
 
     [ModelNodesGenerator(typeof(ModelDashboardViewerAdaptersNodeGenerator))]
@@ -43,13 +44,12 @@ namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
     }
 
     public interface IModelDashboardViewer : IModelModelAdapter {
-
+        IModelDashboardViewerModelAdapters ModelAdapters { get; }
     }
 
-    public abstract class DashboardViewerModelAdapter : PropertyEditorControlAdapterController<IModelPropertyEditorDashboardViewer, IModelDashboardViewer> {
-        protected override IModelDashboardViewer[] GetControlModelNodes(IModelPropertyEditorDashboardViewer modelPropertyEditorLabelControl){
-            var modelDashboardViewers = modelPropertyEditorLabelControl.DashboardViewEditor.ModelAdapters.Select(adapter => adapter.ModelAdapter);
-            return modelDashboardViewers.Concat(new[] { modelPropertyEditorLabelControl.DashboardViewEditor.DashboardViewer }).ToArray();
+    public abstract class DashboardViewerModelAdapter : PropertyEditorControlAdapterController<IModelPropertyEditorDashboardViewer, IModelDashboardViewer, IDashboardViewEditor> {
+        protected override Expression<Func<IModelPropertyEditorDashboardViewer, IModelModelAdapter>> GetControlModel(IModelPropertyEditorDashboardViewer modelPropertyEditorFilterControl){
+            return viewer => viewer.DashboardViewr;
         }
     }
 }
