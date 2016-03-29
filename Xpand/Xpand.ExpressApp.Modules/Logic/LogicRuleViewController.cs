@@ -6,7 +6,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {

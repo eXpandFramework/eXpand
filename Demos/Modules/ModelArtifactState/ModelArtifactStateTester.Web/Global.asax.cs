@@ -12,6 +12,7 @@ namespace ModelArtifactStateTester.Web {
             InitializeComponent();
         }
         protected void Application_Start(Object sender, EventArgs e) {
+            
             ASPxWebControl.CallbackError += Application_Error;
 
 #if EASYTEST

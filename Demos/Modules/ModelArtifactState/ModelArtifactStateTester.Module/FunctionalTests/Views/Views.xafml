@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="ModelArtifactStateTester" Logo="ExpressAppLogo">
+  <ConditionalObjectView>
+    <ExecutionContextsGroup>
+      <ExecutionContexts Id="CurrentObjectChanged" IsNewNode="True">
+        <ExecutionContext Name="CurrentObjectChanged" IsNewNode="True" />
+      </ExecutionContexts>
+      <ExecutionContexts Id="CustomProcessSelectedItem" IsNewNode="True">
+        <ExecutionContext Name="CustomProcessSelectedItem" IsNewNode="True" />
+      </ExecutionContexts>
+    </ExecutionContextsGroup>
+    <Rules>
+      <ObjectViewRule Id="CurrentObjectChanged" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Views.ViewsObject" NormalCriteria="[Name] = 'CurrentObjectChanged'" ActionExecutionContextGroup="" ExecutionContextGroup="CurrentObjectChanged" ObjectView="ViewsObject_CurrentObjectChanged_DetailView" IsNewNode="True" />
+      <ObjectViewRule Id="CustomProcessSelectedItem" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Views.ViewsObject" NormalCriteria="[Name] = 'CustomProcessSelectedItem'" ObjectView="ViewsObject_CustomProcessSelectedItem_DetailView" ActionExecutionContextGroup="" ExecutionContextGroup="CustomProcessSelectedItem" IsNewNode="True" />
+      <ObjectViewRule Id="New action" ExecutionContextGroup="" TypeInfo="ModelArtifactStateTester.Module.FunctionalTests.Views.ViewsObject" ObjectView="ViewsObject_New_DetailView" IsNewNode="True" />
+    </Rules>
+  </ConditionalObjectView>
+  <Views>
+    <DetailView Id="ViewsObject_CurrentObjectChanged_DetailView" Caption="CurrentObjectChangedView" />
+    <DetailView Id="ViewsObject_CustomProcessSelectedItem_DetailView" Caption="CustomProcessSelectedItemView" />
+    <DetailView Id="ViewsObject_DetailView" Caption="DefaultView" />
+    <DetailView Id="ViewsObject_New_DetailView" Caption="NewView" />
+  </Views>
+</Application>

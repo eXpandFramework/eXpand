@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews {
 
         public override List<ExecutionContext> ExecutionContexts {
             get { return new List<ExecutionContext>{
-                    ExecutionContext.CustomizeShowViewParameters , ExecutionContext.CurrentObjectChanged ,
+                    ExecutionContext.CurrentObjectChanged ,
                     ExecutionContext.CustomProcessSelectedItem
                 };
             }

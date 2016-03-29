@@ -12,7 +12,7 @@ namespace ModelArtifactStateTester.Module.FunctionalTests.Controllers{
 
         public ControllersObject Controllers {
             get { return _actionsObject; }
-            set { SetPropertyValue("Controllers", ref _actionsObject, value); }
+            set { SetPropertyValue("Views", ref _actionsObject, value); }
         }
     }
 }

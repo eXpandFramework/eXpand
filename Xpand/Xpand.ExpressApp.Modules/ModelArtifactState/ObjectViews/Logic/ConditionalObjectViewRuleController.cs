@@ -4,13 +4,12 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Logic;
-using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
     public class ConditionalObjectViewRuleController : ViewController {
         LogicRuleViewController _logicRuleViewController;
-        IModelView _defaultObjectView;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -51,20 +50,16 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
                         }
                         break;
                     case ExecutionContext.CustomProcessSelectedItem:
-                        if (info.Active && objectViewRule.ObjectView is IModelListView) {
+                        if (info.Active) {
                             CustomProcessSelectedItem(info, objectViewRule);
-                        }
-                        break;
-                    case ExecutionContext.CustomizeShowViewParameters:
-                        if (info.Active&&objectViewRule.ObjectView is IModelDetailView) {
-                            CustomizeShowViewParameters(info, objectViewRule);
                         }
                         break;
                     case ExecutionContext.CurrentObjectChanged:
                         if (View.Model.AsObjectView is IModelDetailView && objectViewRule.ObjectView is IModelDetailView&&View.ObjectTypeInfo!=null) {
-                            var modelView = info.Active ? objectViewRule.ObjectView : GetDefaultObjectView();
+                            var modelView = info.Active ? objectViewRule.ObjectView : Application.Model.BOModel.GetClass(View.ObjectTypeInfo.Type).DefaultDetailView;
                             if (modelView!=null){
-                                Frame.GetController<ModelController>().SetView();
+                                var shortcut = new ViewShortcut(modelView.Id,View.ObjectTypeInfo.KeyMember.GetValue(View.CurrentObject).ToString());
+                                Frame.SetView(Application.ProcessShortcut(shortcut));
                             }
                         }
                         break;
@@ -81,28 +76,11 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
 
         void CustomProcessSelectedItem(LogicRuleInfo info, IObjectViewRule objectViewRule) {
             var customProcessListViewSelectedItemEventArgs = ((CustomProcessListViewSelectedItemEventArgs) info.EventArgs);
-            var type = objectViewRule.ObjectView.ModelClass.TypeInfo.Type;
-            var collectionSource = Application.CreateCollectionSource(Application.CreateObjectSpace(type), type,objectViewRule.ObjectView.Id);
             var showViewParameters = customProcessListViewSelectedItemEventArgs.InnerArgs.ShowViewParameters;
-            showViewParameters.CreatedView = Application.CreateListView((IModelListView) objectViewRule.ObjectView,collectionSource, true);
+            showViewParameters.CreatedView = Application.CreateView(objectViewRule.ObjectView);
+            if (showViewParameters.CreatedView is DetailView)
+                showViewParameters.CreatedView.CurrentObject = showViewParameters.CreatedView.ObjectSpace.GetObject(View.CurrentObject);
             customProcessListViewSelectedItemEventArgs.Handled = true;
-        }
-
-        void CustomizeShowViewParameters(LogicRuleInfo info, IObjectViewRule objectViewRule) {
-            var customizeShowViewParametersEventArgs = ((CustomizeShowViewParametersEventArgs) info.EventArgs);
-            var createdView = customizeShowViewParametersEventArgs.ShowViewParameters.CreatedView;
-            if (createdView is DetailView) {
-                _defaultObjectView = createdView.Model;
-                customizeShowViewParametersEventArgs.ShowViewParameters.Controllers.Add(new InfoController(true){
-                    Model = _defaultObjectView
-                });
-                createdView.SetModel(objectViewRule.ObjectView);
-            }
-        }
-
-
-        IModelView GetDefaultObjectView() {
-            return _defaultObjectView??Frame.GetController<InfoController>().Model;
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.Logic {
             var logicInstallers = LogicInstallerManager.Instance.LogicInstallers;
             var executionContexts =logicInstallers.SelectMany(installer => installer.ValidExecutionContexts)
                     .Concat(new[]{ExecutionContext.None});
-            return executionContexts.Any(context => Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, context)].Any(o => o.ActionExecutionContextGroup!=null));
+            return executionContexts.Any(context => Instance[new Tuple<ITypeInfo, ExecutionContext>(typeInfo, context)].Any(o => !string.IsNullOrWhiteSpace(o.ActionExecutionContextGroup)));
         }
 
         public static bool HasRules(ITypeInfo typeInfo) {

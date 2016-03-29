@@ -79,15 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessObjects\Country.cs" />
-    <Compile Include="BusinessObjects\Customer.cs" />
-    <Compile Include="Controllers\TestController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="FunctionalTests\Actions\Actions.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\Actions\ActionsObject.cs" />
+    <Compile Include="FunctionalTests\Views\Views.cs" />
+    <Compile Include="FunctionalTests\Views\ViewsObject.cs" />
     <Compile Include="FunctionalTests\Controllers\ControllersObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
@@ -125,7 +122,12 @@
     <None Include="FunctionalTests\Actions\Disable_From_ModulesRule.inc" />
     <None Include="FunctionalTests\Actions\Disable_in_lookup.inc" />
     <None Include="FunctionalTests\Actions\Disable_With_Criteria_Rule.inc" />
-    <None Include="FunctionalTests\AutoTest.ets" />
+    <None Include="FunctionalTests\Views\CustomProcessSelectedItem.inc" />
+    <None Include="FunctionalTests\Views\Views.ets" />
+    <None Include="FunctionalTests\Views\Views.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\Views\Init.inc" />
     <None Include="FunctionalTests\Controllers\Controllers.ets" />
     <None Include="FunctionalTests\Controllers\Controllers.xafml">
       <SubType>Designer</SubType>
@@ -135,7 +137,6 @@
     <None Include="FunctionalTests\Controllers\Disable_in_lookup.inc" />
     <None Include="FunctionalTests\Controllers\Disable_With_Criteria_Rule.inc" />
     <None Include="FunctionalTests\Controllers\Init.inc" />
-    <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\ReadMe.txt" />
@@ -143,9 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Actions\Config.xml" />
+    <Content Include="FunctionalTests\Views\Config.xml" />
     <Content Include="FunctionalTests\Controllers\Config.xml" />
     <None Include="FunctionalTests\Actions\Init.inc" />
-    <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
