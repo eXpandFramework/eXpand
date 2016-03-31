@@ -244,7 +244,7 @@ namespace Xpand.CodeRush.Plugins {
                 var processes =Process.GetProcesses().Where(process => process.ProcessName.StartsWith("Xpand.ExpressApp.ModelEditor")).ToArray();
                 if (processes.Any()){
                     var dialogResult =MessageBox.Show(
-                            "The build will probably fail because " + processes.Count() +
+                            "The build will probably fail because " + processes.Length +
                             " ModelEditor instance/s is locking the assemblies. Do you want to kill all ModelEditor instances?",
                             "ModelEditor is running", MessageBoxButtons.YesNo);
                     if (dialogResult == DialogResult.Yes){

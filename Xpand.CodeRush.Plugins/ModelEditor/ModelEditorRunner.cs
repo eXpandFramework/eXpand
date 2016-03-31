@@ -32,7 +32,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             
                 var destFileName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(path) + ""));
                 KillProcess(destFileName);
-                if (path!=destFileName){
+                if (path.ToLower()!=destFileName.ToLower()){
                     File.Copy(path, destFileName,true);
                     var configPath = Path.Combine(Path.GetDirectoryName(path)+"",Path.GetFileName(path)+".config");
                     if (File.Exists(configPath))

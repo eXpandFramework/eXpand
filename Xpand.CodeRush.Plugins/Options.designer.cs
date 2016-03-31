@@ -78,7 +78,7 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl1 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.checkEditDebugME = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
             this.modelEditorPathButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
-            this.labelControl15 = new DevExpress.XtraEditors.LabelControl();
+            this.labelControl15 = new LabelControl();
             this.labelControl11 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.General.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -604,7 +604,7 @@ namespace Xpand.CodeRush.Plugins
             // 
             // labelControl15
             // 
-            this.labelControl15.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl15.AutoSizeMode = LabelAutoSizeMode.Vertical;
             this.labelControl15.Location = new System.Drawing.Point(125, 57);
             this.labelControl15.Name = "labelControl15";
             this.labelControl15.Size = new System.Drawing.Size(394, 26);
@@ -751,6 +751,6 @@ namespace Xpand.CodeRush.Plugins
         private LabelControl labelControl13;
         private LabelControl labelControl14;
         private CheckEdit checkEditKillModelEditor;
-        private DevExpress.XtraEditors.LabelControl labelControl15;
+        private LabelControl labelControl15;
     }
 }
