@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.StateMachine {
             }
 
             if (!RuntimeMode) {
-                CreateDesignTimeCollection(typesInfo, stateMachineType, AdminRoles);
+                CreateWeaklyTypedCollection(typesInfo, stateMachineType, AdminRoles);
             }
             else if (Application.CanBuildSecurityObjects()) {
                 BuildSecuritySystemObjects();

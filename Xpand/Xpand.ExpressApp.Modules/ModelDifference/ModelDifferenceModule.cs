@@ -36,8 +36,8 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (!RuntimeMode) {
-                CreateDesignTimeCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
-                CreateDesignTimeCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
+                CreateWeaklyTypedCollection(typesInfo, typeof(UserModelDifferenceObject), "Users");
+                CreateWeaklyTypedCollection(typesInfo, typeof(RoleModelDifferenceObject), "Roles");
             } else if (Application.CanBuildSecurityObjects()) {
                 BuildSecuritySystemObjects();
             }

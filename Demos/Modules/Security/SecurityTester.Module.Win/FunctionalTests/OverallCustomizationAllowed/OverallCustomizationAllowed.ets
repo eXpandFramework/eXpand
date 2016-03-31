@@ -4,6 +4,7 @@
 *Action Navigation(Default.Role)
 *XpandProcessRecord 
  Name = User
+*Action Extras
 *XpandFillForm
  Modify Layout = True
 *SaveAndClose

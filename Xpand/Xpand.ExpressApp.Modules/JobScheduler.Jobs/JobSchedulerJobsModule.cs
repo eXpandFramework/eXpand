@@ -29,8 +29,8 @@ namespace Xpand.ExpressApp.JobScheduler.Jobs {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (!RuntimeMode) {
-                CreateDesignTimeCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Users");
-                CreateDesignTimeCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Roles");
+                CreateWeaklyTypedCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Users");
+                CreateWeaklyTypedCollection(typesInfo, typeof(SendEmailJobDetailDataMap), "Roles");
             } else if ((Application.CanBuildSecurityObjects())) {
                 BuildSecuritySystemObjects();
             }

@@ -9,7 +9,8 @@
 *XpandProcessRecord
  Name = User
  Action = Edit
-*FillForm
+*Action Extras
+*XpandFillForm
  Hidden Navigation Items = NavigationItemPermissionObject_ListView_Hidden
 *SaveAndClose
 
