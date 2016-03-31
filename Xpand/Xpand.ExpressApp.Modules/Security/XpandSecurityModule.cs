@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
@@ -66,15 +67,11 @@ namespace Xpand.ExpressApp.Security {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             CurrentUserNameOperator.Register();
-            if (Application != null) {
-                var roleTypeProvider = Application.Security as IRoleTypeProvider;
-                if (roleTypeProvider != null) {
-                    foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
-                        CreateMember(typesInfo, roleTypeProvider, attribute);
-                    }
-                }
-                AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(ModifierPermission), typeof(ModifierPermissionData) });
+            var typeInfos = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo<SecuritySystemRole>()).Where(info => !info.IsAbstract).ToArray();
+            foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
+                CreateMember(typeInfos, attribute, typesInfo);
             }
+            AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(ModifierPermission), typeof(ModifierPermissionData) });
         }
 
         void AddNewObjectCreateGroup(ITypesInfo typesInfo, IEnumerable<Type> types) {
@@ -85,10 +82,14 @@ namespace Xpand.ExpressApp.Security {
                 }
             }
         }
-        void CreateMember(ITypesInfo typesInfo, IRoleTypeProvider roleTypeProvider, SecurityOperationsAttribute attribute) {
-            var roleTypeInfo = typesInfo.FindTypeInfo(roleTypeProvider.RoleType);
-            if (roleTypeInfo.FindMember(attribute.OperationProviderProperty) == null) {
-                roleTypeInfo.CreateMember(attribute.OperationProviderProperty, typeof(SecurityOperationsEnum));
+
+        void CreateMember(IEnumerable<ITypeInfo> typeInfos, SecurityOperationsAttribute attribute, ITypesInfo typesInfo) {
+            foreach (var typeInfo in typeInfos){
+                if (!RuntimeMode)
+                    CreateWeaklyTypedCollection(typesInfo, typeInfo.Type,attribute.CollectionName);
+                if (typeInfo.FindMember(attribute.OperationProviderProperty) == null) {
+                    typeInfo.CreateMember(attribute.OperationProviderProperty, typeof(SecurityOperationsEnum));
+                }
             }
         }
 

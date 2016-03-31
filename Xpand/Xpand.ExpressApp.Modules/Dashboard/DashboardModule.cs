@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using System.Linq;
+using DevExpress.ExpressApp.Security.Strategy;
 using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
@@ -31,7 +32,7 @@ namespace Xpand.ExpressApp.Dashboard {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (!RuntimeMode) {
-                CreateDesignTimeCollection(typesInfo, typeof(DashboardDefinition), "Roles");
+                CreateWeaklyTypedCollection(typesInfo, typeof(DashboardDefinition), "Roles");
             } else if (Application.CanBuildSecurityObjects()) {
                 BuildSecuritySystemObjects();
             }

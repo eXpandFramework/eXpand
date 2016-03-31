@@ -56,6 +56,25 @@
             </LayoutGroup>
           </TabbedGroup>
           <LayoutGroup Id="DashboardTypes_Group" Removed="True" />
+    <DetailView Id="XpandRole_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="9.13978494623656">
+            <LayoutGroup Id="SecuritySystemRoleBase" RelativeSize="100">
+              <LayoutItem Id="Name" RelativeSize="47.058823529411768" />
+              <LayoutGroup Id="Autoa4a6d10d-db72-4464-8c5c-7d28161d12e7" Caption="Autoa4a6d10d-db72-4464-8c5c-7d28161d12e7(5)" RelativeSize="52.941176470588232" />
+            </LayoutGroup>
+            <LayoutGroup Id="XpandRole" Caption="Dashboard Operation" Direction="Horizontal" Index="1" RelativeSize="89.324960753532181" Removed="True">
+              <LayoutItem Id="DashboardOperation" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="90.86021505376344">
+            <LayoutGroup Id="DashboardDefinitions" RelativeSize="100" Caption="Dashboard Definitions">
+              <LayoutItem Id="DashboardOperation" ViewItem="DashboardOperation" Index="0" RelativeSize="5.0552922590837284" IsNewNode="True" />
+              <LayoutItem Id="DashboardDefinitions" Index="1" RelativeSize="94.944707740916272" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypePermissions" Index="6" />
+          </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>

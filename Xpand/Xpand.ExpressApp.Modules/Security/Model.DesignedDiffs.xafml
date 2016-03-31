@@ -3,8 +3,8 @@
   <BOModel>
     <Class Name="Xpand.ExpressApp.Security.AuthenticationProviders.XpandLogonParameters">
       <AppearanceRules>
-        <AppearanceRule Id="Show_RememberMe_When_AutoAthentication" Criteria="AutoAuthentication=false" Visibility="Hide" TargetItems="RememberMe" IsNewNode="True" />
         <AppearanceRule Id="Show_DBServer_When_ChooseDatabaseAtLogon" TargetItems="DBServer" Visibility="Hide" Criteria="ChooseDatabaseAtLogon=false" IsNewNode="True" />
+        <AppearanceRule Id="Show_RememberMe_When_AutoAthentication" Criteria="AutoAuthentication=false" Visibility="Hide" TargetItems="RememberMe" IsNewNode="True" />
       </AppearanceRules>
     </Class>
   </BOModel>
@@ -102,5 +102,45 @@
         <ColumnInfo Id="UserName" AllowEdit="False" />
       </Columns>
     </ListView>
+    <DetailView Id="XpandRole_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="8.3333333333333339">
+            <LayoutGroup Id="SecuritySystemRoleBase" Index="0" RelativeSize="100" Caption="SecuritySystemRoleBase">
+              <LayoutItem Id="Name" RelativeSize="51.612903225806448" />
+              <LayoutGroup Id="Autoa4a6d10d-db72-4464-8c5c-7d28161d12e7" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="48.387096774193552" IsNewNode="True">
+                <LayoutItem Id="IsAdministrative" ViewItem="IsAdministrative" Index="0" RelativeSize="50" IsNewNode="True" />
+                <LayoutItem Id="CanEditModel" ViewItem="CanEditModel" Index="1" RelativeSize="50" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="CanEditModel" RelativeSize="34.883720930232556" Removed="True" />
+              <LayoutItem Id="IsAdministrative" RelativeSize="27.906976744186046" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="91.666666666666671" Index="1">
+            <LayoutGroup Id="Permissions" RelativeSize="100">
+              <LayoutItem Id="Permissions" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Users" RelativeSize="100">
+              <LayoutItem Id="Users" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ChildRoles" RelativeSize="100">
+              <LayoutItem Id="ChildRoles" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="ParentRoles" RelativeSize="100">
+              <LayoutItem Id="ParentRoles" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypePermissions" RelativeSize="100">
+              <LayoutItem Id="TypePermissions" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="5" Caption="Extras" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="HiddenNavigationItems" ViewItem="HiddenNavigationItems" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="79.435483870967744" Caption="Hidden Navigation Items" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="HiddenNavigationItems" RelativeSize="100" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
   </Views>
 </Application>

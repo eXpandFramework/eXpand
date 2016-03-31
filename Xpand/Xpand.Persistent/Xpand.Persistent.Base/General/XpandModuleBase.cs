@@ -511,7 +511,7 @@ namespace Xpand.Persistent.Base.General {
             AddToAdditionalExportedTypes(nameSpaceName, BaseImplAssembly);
         }
 
-        protected void CreateDesignTimeCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
+        protected void CreateWeaklyTypedCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
             XPClassInfo info = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.GetClassInfo(classType);
             if (info.FindMember(propertyName) == null) {
                 info.CreateMember(propertyName, typeof(XPCollection), true);
