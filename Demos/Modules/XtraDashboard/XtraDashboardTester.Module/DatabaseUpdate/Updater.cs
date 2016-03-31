@@ -25,7 +25,6 @@ namespace XtraDashboardTester.Module.DatabaseUpdate {
 
             var userRole = ObjectSpace.GetRole("User");
             userRole.CanEditModel = true;
-            userRole.SetTypePermissionsRecursively<object>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
 
             var user = (SecuritySystemUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);

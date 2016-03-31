@@ -5,19 +5,14 @@ namespace Xpand.EasyTest.Commands {
     public class SaveAndCloseCommand : Command {
         public const string Name = "SaveAndClose";
         protected override void InternalExecute(ICommandAdapter adapter) {
-            if (adapter.IsWinAdapter()) {
+            if (SaveAndCloseActionAvailable(adapter)) {
                 SaveAndCloseAction(adapter);
             }
             else {
-                if (SaveAndCloseActionAvailable(adapter)) {
-                    SaveAndCloseAction(adapter);
-                }
-                else {
-                    var actionCommand = new ActionCommand();
-                    actionCommand.Parameters.MainParameter = new MainParameter("OK");
-                    actionCommand.Parameters.ExtraParameter = new MainParameter();
-                    actionCommand.Execute(adapter);
-                }
+                var actionCommand = new ActionCommand();
+                actionCommand.Parameters.MainParameter = new MainParameter("OK");
+                actionCommand.Parameters.ExtraParameter = new MainParameter();
+                actionCommand.Execute(adapter);
             }
         }
 
