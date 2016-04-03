@@ -163,8 +163,6 @@
             this.richEditControl1.Location = new System.Drawing.Point(0, 62);
             this.richEditControl1.MenuManager = this.barManager1;
             this.richEditControl1.Name = "richEditControl1";
-            this.richEditControl1.Options.Fields.UseCurrentCultureDateTimeFormat = false;
-            this.richEditControl1.Options.MailMerge.KeepLastParagraph = false;
             this.richEditControl1.Size = new System.Drawing.Size(1280, 392);
             this.richEditControl1.TabIndex = 0;
             this.richEditControl1.Text = "richEditControl1";
@@ -361,8 +359,7 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.fontSizeIncreaseItem1),
             new DevExpress.XtraBars.LinkPersistInfo(this.fontSizeDecreaseItem1),
             new DevExpress.XtraBars.LinkPersistInfo(this.clearFormattingItem1),
-            new DevExpress.XtraBars.LinkPersistInfo(this.showFontFormItem1),
-            new DevExpress.XtraBars.LinkPersistInfo(this.btnFullSizeEditor, true)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.showFontFormItem1)});
             this.fontBar1.Offset = 3;
             // 
             // changeFontNameItem1
@@ -875,6 +872,7 @@
             borderInfo1.Style = DevExpress.XtraRichEdit.Model.BorderLineStyle.Single;
             borderInfo1.Width = 10;
             this.changeTableBorderLineStyleItem1.EditValue = borderInfo1;
+            this.changeTableBorderLineStyleItem1.EditWidth = 130;
             this.changeTableBorderLineStyleItem1.Id = 60;
             this.changeTableBorderLineStyleItem1.Name = "changeTableBorderLineStyleItem1";
             // 
@@ -890,6 +888,7 @@
             // 
             this.changeTableBorderLineWeightItem1.Edit = this.repositoryItemBorderLineWeight1;
             this.changeTableBorderLineWeightItem1.EditValue = 20;
+            this.changeTableBorderLineWeightItem1.EditWidth = 130;
             this.changeTableBorderLineWeightItem1.Id = 61;
             this.changeTableBorderLineWeightItem1.Name = "changeTableBorderLineWeightItem1";
             // 
@@ -1315,6 +1314,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemBorderLineWeight1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.richEditBarController1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

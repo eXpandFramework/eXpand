@@ -13,7 +13,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Office.Internal;
-using DevExpress.Office.Utils;
 using DevExpress.Utils;
 using DevExpress.XtraRichEdit;
 using DevExpress.XtraRichEdit.API.Native;
@@ -202,8 +201,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             richEditContainer.RichEditControl.Options.DocumentCapabilities.Sections = DocumentCapability.Disabled;
             richEditContainer.RichEditControl.Options.DocumentCapabilities.Tables = DocumentCapability.Disabled;
             richEditContainer.RichEditControl.Options.DocumentCapabilities.TableStyle = DocumentCapability.Disabled;
-            richEditContainer.RichEditControl.Options.HorizontalRuler.Visibility = RichEditRulerVisibility.Hidden;
-            richEditContainer.RichEditControl.Views.DraftView.AllowDisplayLineNumbers = true;
+            richEditContainer.RichEditControl.Views.SimpleView.AllowDisplayLineNumbers = true;
         }
 
         protected override void OnAllowEditChanged() {
@@ -219,9 +217,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             var richEditContainer = new RichEditContainer();
             if (!((IModelPropertyEditorRichEdit)Model).RichEdit.ShowToolBars)
                 richEditContainer.HideToolBars();
-            richEditContainer.RichEditControl.ActiveViewType = RichEditViewType.Draft;
-            richEditContainer.RichEditControl.Views.DraftView.Padding = new Padding(70, 4, 0, 0);
-            richEditContainer.RichEditControl.InitializeDocument += richEditControl_InitializeDocument;
+            richEditContainer.Dock=DockStyle.Fill;
             richEditContainer.RichEditControl.TextChanged += Editor_RtfTextChanged;
             richEditContainer.RichEditControl.AddService(typeof(ISyntaxHighlightService), new SyntaxHighlightService(this));
             return richEditContainer;
@@ -230,31 +226,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         private void Editor_RtfTextChanged(object sender, EventArgs e) {
             if (!inReadValue && (Control.DataBindings.Count > 0)) {
                 OnControlValueChanged();
-            }
-        }
-
-        void richEditControl_InitializeDocument(object sender, EventArgs e) {
-            var document = Control.RichEditControl.Document;
-            document.BeginUpdate();
-            try {
-                document.DefaultCharacterProperties.FontName = "Courier New";
-                document.DefaultCharacterProperties.FontSize = 10;
-                document.Sections[0].Page.Width = Units.InchesToDocumentsF(100);
-
-                SizeF tabSize = Control.RichEditControl.MeasureSingleLineString("    ", document.DefaultCharacterProperties);
-                TabInfoCollection tabs = document.Paragraphs[0].BeginUpdateTabs(true);
-                try {
-                    for (int i = 1; i <= 30; i++) {
-                        var tab = new TabInfo { Position = i * tabSize.Width };
-                        tabs.Add(tab);
-                    }
-                }
-                finally {
-                    document.Paragraphs[0].EndUpdateTabs(tabs);
-                }
-            }
-            finally {
-                document.EndUpdate();
             }
         }
 
