@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win {
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelMemberViewItem, IModelPropertyEditorRichEdit>();
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemRichEdit>();
         }
     }
 }

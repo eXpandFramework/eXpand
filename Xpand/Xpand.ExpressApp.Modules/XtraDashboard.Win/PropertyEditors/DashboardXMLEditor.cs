@@ -12,9 +12,9 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors{
         }
 
         protected override object CreateControlCore(){
-            var richEditContainer = (RichEditContainer) base.CreateControlCore();
-            ApplyMinimalConfiiguration(richEditContainer);
-            return richEditContainer;
+            var controlCore = base.CreateControlCore();
+            ApplyMinimalConfiiguration((RichEditContainerBase) controlCore);
+            return controlCore;
         }
     }
 }

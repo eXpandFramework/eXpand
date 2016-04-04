@@ -4,16 +4,13 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Reports;
-using DevExpress.ExpressApp.Win;
-using DevExpress.ExpressApp.Win.Templates;
-using DevExpress.ExpressApp.Win.Templates.ActionContainers;
-using DevExpress.ExpressApp.Win.Templates.Ribbon;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraPrinting.Preview;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
+using Xpand.Persistent.Base.General.Win;
 
 namespace Xpand.ExpressApp.Reports.Win.Dashboard {
     public interface IModelDashboardReportViewItem : IModelDashboardReportViewItemBase {
@@ -65,15 +62,7 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
                 control.Parent.ParentChanged += OnControlParentChanged;
             }
             else{
-                if (((WinApplication)_application).UseOldTemplates){
-                    ((XtraFormTemplateBase) form).RibbonTransformer.Transformed += (o, args) =>{
-                        var ribbon = ((ClassicToRibbonTransformer) o).Ribbon;
-                        InitializePrintController(ribbon);
-                    };
-                }
-                else{
-                    InitializePrintController(((DetailRibbonFormV2)form).Ribbon);
-                }
+                control.Execute(InitializePrintController);
             }
         }
 

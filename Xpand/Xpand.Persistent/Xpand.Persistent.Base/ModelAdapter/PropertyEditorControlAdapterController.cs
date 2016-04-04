@@ -13,8 +13,8 @@ using Xpand.Utils.Helpers;
 using Xpand.Utils.Web;
 
 namespace Xpand.Persistent.Base.ModelAdapter{
-    public abstract class PropertyEditorControlAdapterController<TModelPropertyEditorControl, TModelControl, TPropertyEditor> : ModelAdapterController, IModelExtender
-        where TModelPropertyEditorControl : IModelPropertyEditor
+    public abstract class PropertyEditorControlAdapterController<TModelMemberViewItem, TModelControl, TPropertyEditor> : ModelAdapterController, IModelExtender
+        where TModelMemberViewItem : IModelMemberViewItem
         where TModelControl : IModelModelAdapter{
         protected PropertyEditorControlAdapterController() {
             TargetViewType = ViewType.DetailView;
@@ -30,7 +30,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         private void ItemOnControlCreated(object sender, EventArgs eventArgs){
             var item = (TPropertyEditor)sender;
-            var modelPropertyEditorLabelControl = (TModelPropertyEditorControl) (item).GetPropertyValue("Model");
+            var modelPropertyEditorLabelControl = (TModelMemberViewItem) (item).GetPropertyValue("Model");
             var propertyEditorControl = GetPropertyEditorControl(item);
             if (propertyEditorControl != null){
                 var modelNodes = GetControlModelNodes(modelPropertyEditorLabelControl);
@@ -40,7 +40,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             }
         }
 
-        protected virtual IEnumerable<TModelControl> GetControlModelNodes(TModelPropertyEditorControl modelPropertyEditorLabelControl){
+        protected virtual IEnumerable<TModelControl> GetControlModelNodes(TModelMemberViewItem modelPropertyEditorLabelControl){
             var modelControl = GetControlModel(modelPropertyEditorLabelControl);
             var modelModelAdapter =
                 (IModelModelAdapter) modelPropertyEditorLabelControl.GetPropertyValue(modelControl.GetMemberInfo().Name);
@@ -54,10 +54,10 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 : ((Control) control).FindNestedControls(GetControlType()).FirstOrDefault();
         }
 
-        protected abstract Expression<Func<TModelPropertyEditorControl, IModelModelAdapter>> GetControlModel(TModelPropertyEditorControl modelPropertyEditorFilterControl);
+        protected abstract Expression<Func<TModelMemberViewItem, IModelModelAdapter>> GetControlModel(TModelMemberViewItem modelPropertyEditorFilterControl);
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelPropertyEditor, TModelPropertyEditorControl>();
+            extenders.Add<IModelMemberViewItem, TModelMemberViewItem>();
             var builder = new InterfaceBuilder(extenders);
             var assembly = builder.Build(CreateBuilderData(), GetPath(GetControlType().Name));
             builder.ExtendInteface(typeof(TModelControl),GetControlType(),assembly);

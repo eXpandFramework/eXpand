@@ -6,7 +6,7 @@
         <PropertyEditor Id="Text" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor">
           <RichEdit>
             <Options>
-              <DocumentCapabilities Hyperlinks="Disabled" />
+              <DocumentCapabilities Bookmarks="Disabled" />
             </Options>
           </RichEdit>
         </PropertyEditor>

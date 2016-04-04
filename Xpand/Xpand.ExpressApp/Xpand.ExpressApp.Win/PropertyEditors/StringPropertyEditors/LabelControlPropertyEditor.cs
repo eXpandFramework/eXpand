@@ -13,12 +13,12 @@ using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
     [ModelAbstractClass]
-    public interface IModelPropertyEditorLabelControl:IModelPropertyEditor{
-        [ModelBrowsable(typeof(LabelPropertyEditorVisibilityCalculator))]
+    public interface IModelMemberViewItemLabelControl:IModelMemberViewItem{
+        [ModelBrowsable(typeof(LabelMemberViewItemVisibilityCalculator))]
         IModelLabelControl LabelControl { get; }
     }
 
-    public class LabelPropertyEditorVisibilityCalculator:EditorTypeVisibilityCalculator<LabelControlPropertyEditor,IModelPropertyEditor>{
+    public class LabelMemberViewItemVisibilityCalculator:EditorTypeVisibilityCalculator<LabelControlPropertyEditor,IModelMemberViewItem>{
     }
 
     public interface IModelLabelControl : IModelModelAdapter {
@@ -44,8 +44,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
         }
     }
 
-    public class LabelControlModelAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorLabelControl,IModelLabelControl,LabelControlPropertyEditor> {
-        protected override Expression<Func<IModelPropertyEditorLabelControl, IModelModelAdapter>> GetControlModel(IModelPropertyEditorLabelControl modelPropertyEditorFilterControl){
+    public class LabelControlModelAdapterController : PropertyEditorControlAdapterController<IModelMemberViewItemLabelControl,IModelLabelControl,LabelControlPropertyEditor> {
+        protected override Expression<Func<IModelMemberViewItemLabelControl, IModelModelAdapter>> GetControlModel(IModelMemberViewItemLabelControl modelMemberViewItemFilterControl){
             return control => control.LabelControl;
         }
 

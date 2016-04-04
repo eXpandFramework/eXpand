@@ -1,31 +1,99 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AutoMapper;
+using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.XtraBars;
 using DevExpress.XtraRichEdit;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
-    public partial class RichEditContainer : DevExpress.XtraEditors.XtraUserControl {
+    public partial class RichEditContainer : RichEditContainerBase {
+        private List<string> _mergedBarNames;
+
         public RichEditContainer() {
             InitializeComponent();
+            Load+=OnLoad;
+        }
+        protected override void OnHandleDestroyed(EventArgs e){
+            base.OnHandleDestroyed(e);
+            BarManagerAction(DestroyBars);
         }
 
-        public RichEditControl RichEditControl{
+        private void DestroyBars(BarManager manager){
+            foreach (var barName in _mergedBarNames) {
+                DestroyBar(manager, barName);
+            }
+        }
+
+        private void DestroyBar(BarManager manager, string barName){
+            for (int i = 0; i < manager.Bars.Count; i++){
+                var destBar = manager.Bars[i];
+                if (destBar.BarName == barName){
+                    manager.Bars.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+
+        private void OnLoad(object sender, EventArgs eventArgs){
+            BarManagerAction(CreateBars);
+        }
+
+        private void CreateBars(BarManager parentBarManager){
+            _mergedBarNames = new List<string>();
+
+            var bars = barManager1.Bars.Cast<Bar>().OrderBy(bar => bar.DockRow).ThenBy(bar => bar.DockCol);
+            foreach (var editorBar in bars){
+                var parentBar = parentBarManager.Bars[editorBar.BarName];
+                if (parentBar == null){
+                    if (editorBar.ItemLinks.Any(link => link.Visible)){
+                        parentBar = CopyBar(editorBar, parentBarManager);
+                        parentBar.Merge(editorBar);
+                        _mergedBarNames.Add(editorBar.BarName);
+                    }
+                    editorBar.Visible = false;
+                }
+            }
+            foreach (var bar in bars){
+                var parentBar = parentBarManager.Bars[bar.BarName];
+                if (parentBar != null){
+                    parentBar.DockRow++;
+                    parentBar.ApplyDockRowCol();
+                }
+            }
+        }
+
+        private void BarManagerAction(Action<BarManager> action){
+            var barManagerHolder = (IBarManagerHolder)FindForm();
+            if (barManagerHolder != null){
+                var barManager = barManagerHolder.BarManager;
+                if (barManager != null){
+                    barManager.BeginUpdate();
+                    action(barManager);
+                    barManager.EndUpdate();
+                }
+            }
+        }
+
+        private Bar CopyBar(Bar bar, BarManager barManager){
+            Bar res = new Bar(barManager);
+            var barMappingExpression = Mapper.CreateMap<Bar, Bar>();
+            barMappingExpression.IgnoreAllPropertiesWithAnInaccessibleSetter();
+            Mapper.Map(bar, res);
+            var barOptionsMappingExpression = Mapper.CreateMap<BarOptions, BarOptions>();
+            barOptionsMappingExpression.IgnoreAllPropertiesWithAnInaccessibleSetter();
+            Mapper.Map(bar.OptionsBar, res.OptionsBar);
+            return res;
+        }
+
+        public override RichEditControl RichEditControl{
             get { return richEditControl1; }
         }
 
-        public void HideToolBars(){
+        public override void HideToolBars(){
             foreach (Bar bar in barManager1.Bars){
                 bar.Visible = false;
             }    
-        }
-        [Bindable(true)]
-        public string ControlText{
-            get { return richEditControl1.Text; }
-            set { richEditControl1.Text = value; }
-        }
-        [Bindable(true)]
-        public string RtfText{
-            get { return RichEditControl.RtfText; }
-            set { RichEditControl.RtfText = value; }
         }
     }
 }

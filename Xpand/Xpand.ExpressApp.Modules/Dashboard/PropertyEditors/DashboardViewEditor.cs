@@ -8,12 +8,12 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
 
     [ModelAbstractClass]
-    public interface IModelPropertyEditorDashboardViewer : IModelPropertyEditor{
+    public interface IModelMemberViewItemDashboardViewer : IModelMemberViewItem{
         [ModelBrowsable(typeof(DashboardViewerVisibilityCalculator))]
         IModelDashboardViewer DashboardViewr { get; }
     }
 
-    public class DashboardViewerVisibilityCalculator : EditorTypeVisibilityCalculator<IDashboardViewEditor,IModelPropertyEditor> {
+    public class DashboardViewerVisibilityCalculator : EditorTypeVisibilityCalculator<IDashboardViewEditor,IModelMemberViewItem> {
     }
 
     public interface IDashboardViewEditor  {
@@ -47,8 +47,8 @@ namespace Xpand.ExpressApp.Dashboard.PropertyEditors{
         IModelDashboardViewerModelAdapters ModelAdapters { get; }
     }
 
-    public abstract class DashboardViewerModelAdapter : PropertyEditorControlAdapterController<IModelPropertyEditorDashboardViewer, IModelDashboardViewer, IDashboardViewEditor> {
-        protected override Expression<Func<IModelPropertyEditorDashboardViewer, IModelModelAdapter>> GetControlModel(IModelPropertyEditorDashboardViewer modelPropertyEditorFilterControl){
+    public abstract class DashboardViewerModelAdapter : PropertyEditorControlAdapterController<IModelMemberViewItemDashboardViewer, IModelDashboardViewer, IDashboardViewEditor> {
+        protected override Expression<Func<IModelMemberViewItemDashboardViewer, IModelModelAdapter>> GetControlModel(IModelMemberViewItemDashboardViewer modelMemberViewItemFilterControl){
             return viewer => viewer.DashboardViewr;
         }
     }

@@ -28,7 +28,7 @@
     <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\..\SystemTester.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\..\SystemTester.Web" />
-    <Alias Name="HyperlinkCommand" Value="752x129" />
-    <Alias Name="TableCommand" Value="686x129" />
+    <Alias Name="BookmarkCommand" Value="454x91" />
+    <Alias Name="TableCommand" Value="174x91" />
   </Aliases>
 </Options>

@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected override object CreateControlCore(){
             var controlCore = base.CreateControlCore();
-            ApplyMinimalConfiiguration((RichEditContainer) controlCore);
+            ApplyMinimalConfiiguration((RichEditContainerBase) controlCore);
             return controlCore;
         }
     }

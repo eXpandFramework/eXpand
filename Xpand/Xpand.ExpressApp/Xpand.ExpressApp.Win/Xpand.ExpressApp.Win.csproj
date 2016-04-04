@@ -22,6 +22,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
+    <LangVersion>4</LangVersion>
     <PublishUrl>http://localhost/Xpand.ExpressApp.Win/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -36,7 +37,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +59,14 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.CodeParser.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -320,6 +328,15 @@
     <Compile Include="PropertyEditors\NullAble\DoublePropertyEditor\XpandDoublePropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\IntegerPropertyEditor\XpandIntegerPropertyEditor.cs" />
     <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\RichEdit\RichEditContainerBase.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\RichEditContainerRibbon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\RichEditContainerRibbon.Designer.cs">
+      <DependentUpon>RichEditContainerRibbon.cs</DependentUpon>
+    </Compile>
     <Compile Include="PropertyEditors\RichEdit\RichEditContainer.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -489,6 +506,9 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="PropertyEditors\RichEdit\RichEditContainerRibbon.resx">
+      <DependentUpon>RichEditContainerRibbon.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="PropertyEditors\RichEdit\RichEditContainer.resx">
       <DependentUpon>RichEditContainer.cs</DependentUpon>
     </EmbeddedResource>
@@ -529,9 +549,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PropertyEditors\RichEdit\Resources\fit_to_size.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -552,4 +569,5 @@
     </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
 </Project>

@@ -16,9 +16,9 @@
 
 ;------Check that hypelinks are disable as per model-----
 *Mouse LeftButtonClick
- MoveMouseTo = [HyperlinkCommand]
+ MoveMouseTo = [BookmarkCommand]
 *Sleep 1000
 !HandleDialog
- Caption = Insert Hyperlink
+ Caption = Bookmark
 *HandleDialog
  Caption = Rich Edit Object - SystemTester

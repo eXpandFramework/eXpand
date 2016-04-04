@@ -11,12 +11,12 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.ExpressApp.Win.SystemModule {
 
      [ModelAbstractClass]
-    public interface IModelPropertyEditorFilterControl:IModelPropertyEditor{
-        [ModelBrowsable(typeof(CriteriaPropertyEditorVisibilityCalculator))]
+    public interface IModelMemberViewItemFilterControl: IModelMemberViewItem {
+        [ModelBrowsable(typeof(CriteriaMemberViewItemVisibilityCalculator))]
         IModelFilterControl FilterControl { get; }
     }
 
-    public class CriteriaPropertyEditorVisibilityCalculator:EditorTypeVisibilityCalculator<IModelPropertyEditor>{
+    public class CriteriaMemberViewItemVisibilityCalculator:EditorTypeVisibilityCalculator<IModelMemberViewItem>{
         public override bool IsVisible(IModelNode node, string propertyName){
             var types = new[]{typeof(CriteriaPropertyEditor),typeof (PopupCriteriaPropertyEditor)};
             return types.Any(type => type.IsAssignableFrom(EditorType(node)));
@@ -46,9 +46,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
     }
 
-    public class CriteriaPropertyEditorControlAdapterController : PropertyEditorControlAdapterController<IModelPropertyEditorFilterControl, IModelFilterControl,CriteriaPropertyEditor> {
+    public class CriteriaPropertyEditorControlAdapterController : PropertyEditorControlAdapterController<IModelMemberViewItemFilterControl, IModelFilterControl,CriteriaPropertyEditor> {
 
-        protected override Expression<Func<IModelPropertyEditorFilterControl, IModelModelAdapter>> GetControlModel(IModelPropertyEditorFilterControl modelPropertyEditorFilterControl){
+        protected override Expression<Func<IModelMemberViewItemFilterControl, IModelModelAdapter>> GetControlModel(IModelMemberViewItemFilterControl modelMemberViewItemFilterControl){
             return control => control.FilterControl;
         }
 

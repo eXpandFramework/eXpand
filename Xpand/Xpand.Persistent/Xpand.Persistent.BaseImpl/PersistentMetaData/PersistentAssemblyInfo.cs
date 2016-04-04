@@ -48,7 +48,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         [Index(6)]
         [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
-        [XpandEditorAlias(EditorAliases.CSCodePropertyEditor)]
+        [EditorAlias(EditorAliases.CSCodePropertyEditor)]
         public string GeneratedCode{
             get { return CodeEngine.GenerateCode(this); }
         }
