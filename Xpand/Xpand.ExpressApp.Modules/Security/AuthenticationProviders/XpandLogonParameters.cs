@@ -21,6 +21,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
 
         [ValueConverter(typeof(StringObjectToStringConverter))]
         [DataSourceProperty("DBServers")]
+        [RuleRequiredField(TargetContextIDs = ChooseDatabaseAtLogonController.DBServer)]
         public StringObject DBServer {
             get{
                 return !string.IsNullOrEmpty(((IDBServerParameter) this).DBServer)
@@ -41,8 +42,6 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
             }
         }
 
-        [RuleRequiredField]
-        [EditorAlias("DBServerPropertyEditor")]
         string IDBServerParameter.DBServer {
             get { return _dbServer; }
             set {

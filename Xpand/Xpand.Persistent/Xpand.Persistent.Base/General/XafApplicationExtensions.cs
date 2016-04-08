@@ -87,11 +87,11 @@ namespace Xpand.Persistent.Base.General {
 
         public static void WriteLastLogonParameters(this XafApplication application,DetailView detailView=null){
             var parameterTypes = new[] { typeof(DetailView), typeof(object) };
-            application.CallMethod("WriteLastLogonParameters", parameterTypes, new[] { detailView, SecuritySystem.LogonParameters });
+            application.CallMethod("WriteLastLogonParameters", parameterTypes, detailView, SecuritySystem.LogonParameters);
         }
 
         public static void ReadLastLogonParameters(this XafApplication application) {
-            application.CallMethod("ReadLastLogonParameters", new[] { SecuritySystem.LogonParameters });
+            application.CallMethod("ReadLastLogonParameters", SecuritySystem.LogonParameters);
         }
 
         public static ReadOnlyCollection<Controller> ActualControllers(this ControllersManager controllersManager){

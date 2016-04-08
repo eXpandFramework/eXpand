@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
@@ -26,6 +27,7 @@ namespace Xpand.ExpressApp.Security {
         public XpandSecurityModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+            RequiredModuleTypes.Add(typeof(ValidationModule));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

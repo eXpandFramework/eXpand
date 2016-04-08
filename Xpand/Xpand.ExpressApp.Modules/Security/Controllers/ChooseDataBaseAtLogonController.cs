@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Validation;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Controllers {
@@ -18,6 +19,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
     }
 
     public class ChooseDatabaseAtLogonController : ObjectViewController<DetailView, IDBServerParameter>, IModelExtender {
+        public const string DBServer = "DBServer";
         private static readonly string[] _dbServers;
         private const string LogonDBServer = "LogonDBServer";
 
@@ -56,6 +58,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
         private void ApplicationOnLoggingOn(object sender, LogonEventArgs logonEventArgs) {
             var parameter = logonEventArgs.LogonParameters as IDBServerParameter;
             if (parameter != null) {
+                Validator.RuleSet.Validate(ObjectSpace, logonEventArgs.LogonParameters, DBServer);
                 var connectionString = GetConnectionStringSettings().First(settings
                     => GetDbServerName(settings) == parameter.DBServer).ConnectionString;
                 Application.ConnectionString = connectionString;

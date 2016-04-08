@@ -3,6 +3,18 @@
 #Application SecurityTester.Win
 #Application SecurityTester.Web
 
+*LogOn
+#IfDef SecurityTester.Win
+*XpandHandleDialog
+ Message = '*"DBServer" must not be empty*'
+ Respond = OK
+#EndIf
+#IfDef SecurityTester.Web
+*CheckValidationResult
+ Info = '*"DBServer" must not be empty*'
+#EndIf
+ 
+
 !XpandFillForm 
  DBServer = NonExistentServer
 

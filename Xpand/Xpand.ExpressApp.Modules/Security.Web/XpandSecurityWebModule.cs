@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Validation.Web;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security.Web.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Web.Controllers;
@@ -17,6 +18,7 @@ namespace Xpand.ExpressApp.Security.Web {
 
         public XpandSecurityWebModule() {
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
+            RequiredModuleTypes.Add(typeof(ValidationAspNetModule));
         }
 
         protected override Type[] ApplicationTypes() {
