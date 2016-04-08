@@ -219,7 +219,7 @@
     <Content Include="FunctionalTests\MasterDetail\Images\MasterDetail.web.png" />
     <Content Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Config.xml" />
     <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Init.inc" />
-    <Content Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Lookup.Inc" />
+    <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Lookup.inc" />
     <Content Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Actions.inc" />
     <Content Include="FunctionalTests\CollectionEditMode\Config.xml" />
     <None Include="FunctionalTests\CollectionEditMode\Init.inc" />

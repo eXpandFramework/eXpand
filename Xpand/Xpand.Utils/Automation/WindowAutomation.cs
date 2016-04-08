@@ -86,8 +86,8 @@ namespace Xpand.Utils.Automation {
             if (Win32Declares.WindowFocus.GetForegroundWindow() == windowHandle)
                 return true;
             HelperAutomation.AttachedThreadInputAction(
-                () => {
-                    
+                () =>{
+                    Win32Declares.WindowFocus.SetForegroundWindow(windowHandle);
                     Win32Declares.WindowFocus.BringWindowToTop(windowHandle);
                     var showWindowEnum = Win32Declares.Window.IsIconic(windowHandle)? Win32Declares.Window.ShowWindowEnum.SW_RESTORE: Win32Declares.Window.ShowWindowEnum.SW_SHOW;
                     Win32Declares.Window.ShowWindow(windowHandle, showWindowEnum);
@@ -160,25 +160,6 @@ namespace Xpand.Utils.Automation {
             Win32Declares.Message.SendMessage(focusControlHandle,
                 Win32Constants.Focus.WM_KILLFOCUS, IntPtr.Zero, IntPtr.Zero);
             return helperAutomation.GetFocusControlHandle()!=focusControlHandle;
-        }
-
-        public static IntPtr GetRootWindow(this IntPtr hWnd) {
-            int hWnd1 = hWnd.ToInt32();
-            int num = hWnd1;
-            do {
-                hWnd1 = Win32Declares.WindowHandles.GetParent(hWnd1);
-                if (hWnd1 != 0)
-                    num = hWnd1;
-            }
-            while (hWnd1 != 0);
-            return new IntPtr(num);
-        }
-
-        public static bool MakeTopMostWindow(IntPtr intPtr){
-            intPtr = GetRootWindow(intPtr);
-            Win32Declares.WindowFocus.SetForegroundWindow(intPtr);
-            Win32Declares.Window.SetWindowPos(intPtr, new IntPtr((int) Win32Constants.HWNDEnum.HWND_TOPMOST), 0, 0, 0, 0, Win32Constants.SetWindowPosEnum.SWP_NOMOVE | Win32Constants.SetWindowPosEnum.SWP_NOSIZE);
-            return Win32Declares.WindowFocus.GetForegroundWindow() == intPtr;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿;#IncludeFile .\Init.inc
 *Action New(Hyper Link Object)
 *Action Toggle Navigation
-*FocusWindow
+*XpandActivateApplicationWindowCommand
 *XpandFillForm
  Url = aaaa
  SendKeys = True

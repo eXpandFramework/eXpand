@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using DevExpress.EasyTest.Framework;
+using DevExpress.EasyTest.Framework.Commands;
 using Xpand.Utils.Automation.InputSimulator;
 using Xpand.Utils.Win32;
 
@@ -11,11 +12,25 @@ namespace Xpand.EasyTest.Commands{
 
 
         protected override void InternalExecute(ICommandAdapter adapter){
-            var focusWindowCommand = new FocusWindowCommand();
-            focusWindowCommand.Execute(adapter);
+            var sleepCommand = new SleepCommand();
+            sleepCommand.Parameters.MainParameter = new MainParameter("300");
+            sleepCommand.Execute(adapter);
             var simulator=new InputSimulator();
             if (!string.IsNullOrEmpty(Parameters.MainParameter.Value))
                 simulator.Keyboard.TextEntry(Parameters.MainParameter.Value);
+            var field = this.ParameterValue("Field","");
+
+            if (!string.IsNullOrEmpty(field)){
+                var fillFieldCommand = new FillFieldCommand();
+                fillFieldCommand.Parameters.Add(new Parameter(field,"",true,EndPosition));
+                fillFieldCommand.Execute(adapter);
+            }
+
+            Execute(simulator); ;
+            
+        }
+
+        private void Execute(InputSimulator simulator){
             var keysParameter = Parameters["Keys"];
             var modifiers = Parameters["Modifiers"];
             if (modifiers != null){
@@ -29,7 +44,6 @@ namespace Xpand.EasyTest.Commands{
                     Thread.Sleep(300);
                 }
             }
-            
         }
 
         private static Win32Constants.VirtualKeys GetVirtualKey(string key){

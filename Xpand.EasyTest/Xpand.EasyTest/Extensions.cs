@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.EasyTest.Commands;
 using Xpand.Utils.Helpers;
+using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest {
     public enum ApplicationParams {
@@ -34,12 +37,24 @@ namespace Xpand.EasyTest {
          
     }
 
-    public interface IXpandTestAdapter {
-
+    public interface IXpandTestAdapter: IApplicationAdapter, ICommandsRegistrator {
+        
     }
 
     public static class Extensions {
         private static readonly string[] _navigationControlPossibleNames = { "ViewsNavigation.Navigation", "Navigation" };
+
+        public static IntPtr GetApplicationWindowHandle(this ICommandAdapter adapter) {
+            ITestControl testControl = adapter.CreateTestControl(TestControlType.Dialog, "");
+            if (testControl == null)
+                throw new InvalidOperationException("activeWindowControl is null");
+            ITestWindow @interface = testControl.GetInterface<ITestWindow>();
+            var caption = @interface.Caption;
+            if (!adapter.IsWinAdapter())
+                caption += " - Internet Explorer";
+            var intPtr = Win32Declares.WindowHandles.FindWindowByCaption(IntPtr.Zero, caption);
+            return intPtr;
+        }
 
         public static ITestControl GetNavigationTestControl(this ICommandAdapter adapter) {
             string controlNames = "";
@@ -142,6 +157,20 @@ namespace Xpand.EasyTest {
 
         public static void SetParameterValue(this TestApplication application, ApplicationParams applicationParams, string value){
             application.AddParam(applicationParams.ToString(),value);
+        }
+
+        public static bool IsUriAvailable(this TestApplication testApplication, Uri uri) {
+            using (Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp)) {
+                IPHostEntry ipHostEntry = Dns.GetHostEntry(uri.DnsSafeHost);
+                foreach (IPAddress ipAddress in ipHostEntry.AddressList) {
+                    try {
+                        socket.Connect(ipAddress, uri.Port);
+                        return true;
+                    }
+                    catch { }
+                }
+            }
+            return false;
         }
 
         public static T ParameterValue<T>(this TestApplication application, ApplicationParams applicationParams) {
@@ -257,6 +286,7 @@ namespace Xpand.EasyTest {
                 {typeof (SqlCommand), SqlCommand.Name},
                 {typeof (SqlDropDatabaseCommand), SqlDropDatabaseCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
+                {typeof (XpandActivateApplicationWindowCommand), XpandActivateApplicationWindowCommand.Name},
                 {typeof (MouseCommand), MouseCommand.Name},
                 {typeof (MouseDragDropCommand), MouseDragDropCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},
@@ -274,7 +304,6 @@ namespace Xpand.EasyTest {
                 {typeof (LogOffCommand), LogOffCommand.Name},
                 {typeof (XpandCheckFileExistsCommand), XpandCheckFileExistsCommand.Name},
                 {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
-                {typeof (FocusWindowCommand), FocusWindowCommand.Name},
                 {typeof (ScreenCaptureCommand), ScreenCaptureCommand.Name},
                 {typeof (StopCommand), StopCommand.Name},
                 {typeof (ToggleNavigationCommand), ToggleNavigationCommand.Name},
