@@ -54,7 +54,7 @@
     </Reference>
     <Reference Include="DevExpress.Xpo.v15.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\DevExpress 15.2\Components\Bin\Framework\DevExpress.Xpo.v15.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
