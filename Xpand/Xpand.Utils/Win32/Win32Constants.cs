@@ -389,6 +389,8 @@ namespace Xpand.Utils.Win32 {
         }
         #endregion
         #region SetWindowPosEnum enum
+
+        [Flags]
         public enum SetWindowPosEnum : uint {
             /// <summary>
             /// If the calling thread and the thread that owns the window are attached to different input queues; the system posts the request to the thread that owns the window. This prevents the calling thread from blocking its execution while other threads process the request. 

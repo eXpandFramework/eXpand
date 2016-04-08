@@ -583,6 +583,8 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class WindowHandles {
+            [DllImport("USER32.DLL")]
+            public static extern int GetParent(int hWnd);
             [DllImport("user32.dll", EntryPoint = "FindWindow", SetLastError = true)]
             public static extern IntPtr FindWindowByCaption(IntPtr zeroOnly, string lpWindowName);
             /// <summary>
@@ -614,6 +616,7 @@ namespace Xpand.Utils.Win32 {
 
             [DllImport("user32.dll")]
             public static extern IntPtr GetWindowDC(IntPtr hWnd);
+
         }
 
         public class WindowFocus {

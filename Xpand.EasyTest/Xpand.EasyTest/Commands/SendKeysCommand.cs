@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading;
 using DevExpress.EasyTest.Framework;
-using DevExpress.EasyTest.Framework.Commands;
 using Xpand.Utils.Automation.InputSimulator;
 using Xpand.Utils.Win32;
 
@@ -12,9 +11,8 @@ namespace Xpand.EasyTest.Commands{
 
 
         protected override void InternalExecute(ICommandAdapter adapter){
-            var sleepCommand = new SleepCommand();
-            sleepCommand.Parameters.MainParameter = new MainParameter("300");
-            sleepCommand.Execute(adapter);
+            var focusWindowCommand = new FocusWindowCommand();
+            focusWindowCommand.Execute(adapter);
             var simulator=new InputSimulator();
             if (!string.IsNullOrEmpty(Parameters.MainParameter.Value))
                 simulator.Keyboard.TextEntry(Parameters.MainParameter.Value);
