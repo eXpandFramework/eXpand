@@ -23,6 +23,7 @@
  To = admin@mail.com, user1@mail.com
  Reply To = mymail@mail.com
  Body = A new user user1 has been created. To activate the account please*
+*SaveAndClose
 
 ;----------Forgot passs------------------
 *LogOff
