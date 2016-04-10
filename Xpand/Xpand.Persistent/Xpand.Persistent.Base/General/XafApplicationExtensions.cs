@@ -34,11 +34,23 @@ namespace Xpand.Persistent.Base.General {
         }
 
         internal static bool AreHosted(this IEnumerable<ModuleBase> moduleBases) {
-            return moduleBases.Any(@base => {
+            var modules = moduleBases as ModuleBase[] ?? moduleBases.ToArray();
+            var hosted = modules.Any(@base =>{
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(@base.GetType());
                 var attribute = typeInfo.FindAttribute<ToolboxItemFilterAttribute>();
                 return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
             });
+            if (hosted){
+                if (!modules.Any(@base =>{
+                    var typeInfo = XafTypesInfo.Instance.FindTypeInfo(@base.GetType());
+                    var attribute = typeInfo.FindAttribute<ToolboxItemFilterAttribute>();
+                    return attribute != null && attribute.FilterString == "Xaf.Platform.Win";
+                })){
+                    return true;
+                }
+                throw new NotSupportedException("Cannot load modules from different platforms");
+            }
+            return false;
         }
 
         public static string GetStorageFolder(this XafApplication app,string folderName){
