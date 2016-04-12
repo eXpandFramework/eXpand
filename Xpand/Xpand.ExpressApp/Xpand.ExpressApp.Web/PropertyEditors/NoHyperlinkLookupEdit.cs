@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         protected override WebControl CreateViewModeControlCore() {
-            var result = new Label {CssClass = ViewModeControlCssClass, ID = Guid.NewGuid().ToString()};
+            var result = new Label {ID = Guid.NewGuid().ToString()};
             return result;
         }
 

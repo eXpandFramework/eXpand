@@ -12,12 +12,9 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Utils;
-using DevExpress.Web.ASPxCallback;
-using DevExpress.Web.ASPxClasses;
-using DevExpress.Web.ASPxEditors;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using DevExpress.Xpo;
-using CallbackEventArgs = DevExpress.Web.ASPxCallback.CallbackEventArgs;
+using CallbackEventArgs = DevExpress.Web.CallbackEventArgs;
 
 namespace Xpand.ExpressApp.Web.ListEditors{
     [ListEditor(typeof (object), false)]

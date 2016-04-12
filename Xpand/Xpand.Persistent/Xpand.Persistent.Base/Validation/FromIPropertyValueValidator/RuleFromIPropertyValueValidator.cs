@@ -6,7 +6,7 @@ namespace Xpand.Persistent.Base.Validation.FromIPropertyValueValidator {
     public class RuleFromIPropertyValueValidator : RulePropertyValue {
         public const string PropertiesMessageTemplateInvalidPropertyValue = "MessageTemplateInvalidPropertyValue";
 
-        static IValueManager<string> defaultMessageTemplateInvalidPropertyValue;
+        static IValueManager<string> _defaultMessageTemplateInvalidPropertyValue;
 
 
         public RuleFromIPropertyValueValidator() {
@@ -17,20 +17,20 @@ namespace Xpand.Persistent.Base.Validation.FromIPropertyValueValidator {
 
         public static string DefaultMessageTemplateInvalidPropertyValue {
             get {
-                if (defaultMessageTemplateInvalidPropertyValue == null)
+                if (_defaultMessageTemplateInvalidPropertyValue == null)
 
-                    defaultMessageTemplateInvalidPropertyValue = new SimpleValueManager<string>();
+                    _defaultMessageTemplateInvalidPropertyValue = new SimpleValueManager<string>();
 
-                return defaultMessageTemplateInvalidPropertyValue.Value ??
-                       (defaultMessageTemplateInvalidPropertyValue.Value = "Invalid {TargetPropertyName}");
+                return _defaultMessageTemplateInvalidPropertyValue.Value ??
+                       (_defaultMessageTemplateInvalidPropertyValue.Value = "Invalid {TargetPropertyName}");
             }
 
             set {
-                if (defaultMessageTemplateInvalidPropertyValue == null)
+                if (_defaultMessageTemplateInvalidPropertyValue == null)
 
-                    defaultMessageTemplateInvalidPropertyValue = new SimpleValueManager<string>();
+                    _defaultMessageTemplateInvalidPropertyValue = new SimpleValueManager<string>();
 
-                defaultMessageTemplateInvalidPropertyValue.Value = value;
+                _defaultMessageTemplateInvalidPropertyValue.Value = value;
             }
         }
 

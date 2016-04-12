@@ -53,7 +53,8 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
                 var modelApplicationBase = ((ModelApplicationBase)Application.Model).LastLayer;
                 foreach (var aspectObject in userModelDifferenceObject.AspectObjects){
                     var name = aspectObject.Name == CaptionHelper.DefaultLanguage ? "" : aspectObject.Name;
-                    new ModelXmlReader().ReadFromString(modelApplicationBase, name, aspectObject.Xml);
+                    if (!string.IsNullOrEmpty(aspectObject.Xml))
+                        new ModelXmlReader().ReadFromString(modelApplicationBase, name, aspectObject.Xml);
                 }
             }
         }

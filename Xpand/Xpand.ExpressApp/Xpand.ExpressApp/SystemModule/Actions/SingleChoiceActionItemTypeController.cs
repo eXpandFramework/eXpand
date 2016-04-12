@@ -5,11 +5,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.SystemModule.Actions {
     [ModelAbstractClass]
     public interface IModelActionSingleChoiceActionItemType : IModelAction {
         [Category(AttributeCategoryNameProvider.Xpand)]
+        [ModelBrowsable(typeof(ActionVisibilityCalculator<SingleChoiceAction>))]
         SingleChoiceActionItemType? ItemType { get; set; }
     }
 

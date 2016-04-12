@@ -5,8 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxClasses;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -35,8 +34,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelColumn, IModelColumnOptionsGridViewBand>();
-            extenders.Add<IModelOptionsGridView, IModelGridViewOptionsBands>();
+
             extenders.Add<IModelListView, IModelListViewOptionsGridView>();
             extenders.Add<IModelColumn, IModelColumnOptionsGridView>();
 
@@ -46,7 +44,6 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
             builder.ExtendInteface<IModelOptionsGridView, ASPxGridView>(assembly);
             builder.ExtendInteface<IModelOptionsColumnGridView, GridViewColumn>(assembly);
-            builder.ExtendInteface<IModelGridViewBand, GridViewBandColumn>(assembly);
         }
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {

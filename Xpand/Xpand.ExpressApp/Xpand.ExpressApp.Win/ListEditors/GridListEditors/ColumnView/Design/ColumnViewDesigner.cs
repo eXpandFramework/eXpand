@@ -1,10 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.Utils.Controls;
 using DevExpress.Utils.Design;
@@ -16,23 +13,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         bool OverrideViewDesignMode { get; set; }
-        GridControl Grid { get; }
-        object DataSource { get; set; }
-        IModelListView Model { get; }
-        DevExpress.XtraGrid.Views.Base.ColumnView ColumnView { get; }
-        CollectionSourceBase CollectionSource { get; }
-        RepositoryEditorsFactory RepositoryFactory { get; set; }
-        void SaveModel();
-        void Setup(CollectionSourceBase collectionSource, XafApplication xafApplication);
-        event EventHandler<CreateCustomModelSynchronizerEventArgs> CreateCustomModelSynchronizer;
-        event EventHandler<ColumnCreatedEventArgs> ColumnCreated;
         event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
-        object CreateControls();
-        bool IsAsyncServerMode();
-        ColumnWrapper AddColumn(IModelColumn columnInfo);
-        void RemoveColumn(ColumnWrapper xafGridColumnWrapper);
-        event EventHandler GridDataSourceChanging;
     }
+
     public class CustomGridViewCreateEventArgs : HandledEventArgs {
         public CustomGridViewCreateEventArgs(GridControl gridControl) {
             GridControl = gridControl;
@@ -44,17 +27,17 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
 
     public abstract class ColumnViewDesigner : BaseDesigner {
         [ThreadStatic]
-        static ImageCollection largeImages;
+        static ImageCollection _largeImages;
         [ThreadStatic]
-        static ImageCollection smallImages;
+        static ImageCollection _smallImages;
         static ImageCollection LargeImages {
             get {
-                return largeImages ?? (largeImages = ImageHelper.CreateImageCollectionFromResources("DevExpress.XtraGrid.Images.icons32x32.png", typeof(BaseGridDesigner).Assembly, new Size(32, 32)));
+                return _largeImages ?? (_largeImages = ImageHelper.CreateImageCollectionFromResources("DevExpress.XtraGrid.Images.icons32x32.png", typeof(BaseGridDesigner).Assembly, new Size(32, 32)));
             }
         }
         static ImageCollection SmallImages {
             get {
-                return smallImages ?? (smallImages = ImageHelper.CreateImageCollectionFromResources("DevExpress.XtraGrid.Images.icons16x16.png", typeof(BaseGridDesigner).Assembly, new Size(16, 16)));
+                return _smallImages ?? (_smallImages = ImageHelper.CreateImageCollectionFromResources("DevExpress.XtraGrid.Images.icons16x16.png", typeof(BaseGridDesigner).Assembly, new Size(16, 16)));
             }
         }
         protected override object LargeImageList { get { return LargeImages; } }

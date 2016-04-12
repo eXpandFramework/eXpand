@@ -16,8 +16,10 @@ using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Persistent.Base;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
+using CallbackEventArgs = DevExpress.ExpressApp.Web.Editors.ASPx.CallbackEventArgs;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
+using PopupWindow = DevExpress.ExpressApp.Web.PopupWindow;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(object), EditorAliases.ASPxSearchLookupPropertyEditor, false)]

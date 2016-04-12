@@ -20,6 +20,7 @@ using DevExpress.XtraRichEdit.Commands;
 using DevExpress.XtraRichEdit.Export;
 using DevExpress.XtraRichEdit.Import;
 using DevExpress.XtraRichEdit.Services;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
 using Attribute = System.Attribute;
@@ -46,12 +47,17 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             var detailView = View as DetailView;
             if (detailView != null)
                 foreach (var item in detailView.GetItems<RichEditWinPropertyEditor>()){
-                    var richEdit = ((IModelMemberViewItemRichEdit)item.Model).RichEdit;
-                    foreach (var modelAdapter in richEdit.ModelAdapters){
-                        new RichEditControlSynchronizer(item.Control.RichEditControl, modelAdapter.ModelAdapter.Control).ApplyModel();
-                    }
-                    new RichEditControlSynchronizer(item.Control.RichEditControl, richEdit.Control).ApplyModel();
+                    item.ControlCreated+=ItemOnControlCreated;
                 }
+        }
+
+        private void ItemOnControlCreated(object sender, EventArgs eventArgs) {
+            var item = ((RichEditWinPropertyEditor) sender);
+            var richEdit = ((IModelMemberViewItemRichEdit)item.Model).RichEdit;
+            foreach (var modelAdapter in richEdit.ModelAdapters) {
+                new RichEditControlSynchronizer(item.Control.RichEditControl, modelAdapter.ModelAdapter.Control).ApplyModel();
+            }
+            new RichEditControlSynchronizer(item.Control.RichEditControl, richEdit.Control).ApplyModel();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
@@ -178,7 +184,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
     [PropertyEditor(typeof(string),EditorAliases.RichEditRftPropertyEditor, false)]
     [RichEditPropertyEditorAttribute("rtf",true,false,"RtfText")]
-    public class RichEditWinPropertyEditor : WinPropertyEditor, IInplaceEditSupport, IComplexViewItem {
+    public class RichEditWinPropertyEditor : WinPropertyEditor, IInplaceEditSupport, IComplexViewItem,IPropertyEditor {
 
         public RichEditWinPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
@@ -270,6 +276,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
             if ((((IModelMemberViewItemRichEdit)Model).RichEdit.PrintXML && !string.IsNullOrEmpty((string)PropertyValue)))
                 PropertyValue = PropertyValue.ToString().XMLPrint();
+        }
+
+        void IPropertyEditor.SetValue(string value){
+            Control.Text = value;
         }
     }
 

@@ -2,7 +2,7 @@
 using System.Web.UI;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Model;
 using Xpand.Persistent.Base.Security;

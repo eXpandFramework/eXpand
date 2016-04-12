@@ -2,13 +2,14 @@ using System;
 using System.ComponentModel;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
@@ -28,7 +29,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            var columnsListEditor = View.Editor as ColumnsListEditor;
+            var columnsListEditor = View.Editor as WinColumnsListEditor;
             if (columnsListEditor != null) {
                 _gridView = columnsListEditor.GridView();
                 View.Editor.SelectionChanged += Editor_SelectionChanged;
@@ -72,7 +73,11 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         private bool SelectedItemSumEnabled(){
-            return _gridView.FocusedColumn != null && ((IModelColumnSelectedItemSum)_gridView.FocusedColumn.Model()).SelectedItemSum;
+            if (_gridView.FocusedColumn != null){
+                var modelColumnSelectedItemSum = (IModelColumnSelectedItemSum)_gridView.FocusedColumn.Model();
+                return modelColumnSelectedItemSum != null && modelColumnSelectedItemSum.SelectedItemSum;
+            }
+            return false;
         }
 
         private Type GetColumnType() {

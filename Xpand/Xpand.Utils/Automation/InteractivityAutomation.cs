@@ -54,37 +54,7 @@ namespace Xpand.Utils.Automation {
             ClickMenu(windowHandle, menuPos);
         }
         #endregion
-        #region mouse
-        public static void MoveMouse(Point point, MouseMovementEnum mouseMovementEnum) {
-            Cursor.Position = point;
-            Application.DoEvents();
-        }
-
-        public static void ClickMouse(MouseButtons mouseButtons, Point point) {
-            if (mouseButtons != MouseButtons.Left)
-                throw new NotImplementedException();
-            MoveMouse(point, MouseMovementEnum.RelativeToScreen);
-            var input = new Win32Types.INPUT {
-                Type = Win32Types.INPUTTYPE.INPUT_MOUSE,
-                mi = {
-                    dwFlags = Win32Constants.MouseEvent.MOUSEEVENTF_LEFTDOWN,
-                    mouseData = 0,
-                    time = 0,
-                    dwExtraInfo = IntPtr.Zero
-                }
-            };
-
-            Win32Declares.KeyBoard.SendInput(1, new[] { input }, Win32Types.MOUSEINPUT.cbSize);
-            input.mi.dwFlags = Win32Constants.MouseEvent.MOUSEEVENTF_LEFTUP;
-            Win32Declares.KeyBoard.SendInput(1, new[] { input }, Win32Types.MOUSEINPUT.cbSize);
-            Application.DoEvents();
-        }
-        #endregion
         #region SetText
-        /// <summary>
-        /// finds the focused control and sets its text
-        /// </summary>
-        /// <param name="text"></param>
         public static void SetText(string text) {
             var automation = new HelperAutomation();
             IntPtr focusControlHandle = automation.GetFocusControlHandle();
@@ -110,8 +80,7 @@ namespace Xpand.Utils.Automation {
             var stringBuilder = new StringBuilder(windowTextLenght + 100);
             Win32Declares.Message.SendMessage(handle, Win32Constants.Standard.WM_GETTEXT,
                                               (IntPtr)stringBuilder.Capacity, stringBuilder);
-            string s = stringBuilder.ToString();
-            return s;
+            return stringBuilder.ToString();
         }
 
         public static string GetText(Point point) {
@@ -135,75 +104,6 @@ namespace Xpand.Utils.Automation {
                 listBoxItems[i] = stringBuilder.ToString();
             }
             return listBoxItems;
-        }
-        #endregion
-        #region SendKeys
-        public static void SendKeys(Keys keys) {
-            var keyEventArgs = new KeyEventArgs(keys);
-            SendKeys(keyEventArgs.Control, keyEventArgs.Alt, keyEventArgs.Shift,(Win32Constants.VirtualKeys)keyEventArgs.KeyValue);
-        }
-
-        public static void SendKeys(string s) {
-            var regex = new Regex(@"\{(.*)\}",RegexOptions.IgnoreCase);
-            var match = regex.Match(s);
-            if (match.Success){
-                var virtualKeys = (Win32Constants.VirtualKeys) Enum.Parse(typeof (Win32Constants.VirtualKeys), match.Groups[1].Value);
-                SendKeys(false, false, false, virtualKeys);
-                return;
-            }
-            s = s.ToUpper();
-            for (int i = 0; i < s.Length; i++) {
-                var substring = s.Substring(i, 1);
-                var parse =(Win32Constants.VirtualKeys)Enum.Parse(typeof(Win32Constants.VirtualKeys), substring);
-                SendKeys(false, false, false, parse);
-            }
-        }
-
-        public static void SendKeys(bool control, bool alt, bool shift, Win32Constants.VirtualKeys keys) {
-            if (control)
-                PressKey(Win32Constants.VirtualKeys.ControlLeft);
-            if (alt)
-                PressKey(Win32Constants.VirtualKeys.Menu);
-            if (shift)
-                PressKey(Win32Constants.VirtualKeys.ShiftLeft);
-
-            SendKey(keys);
-
-            if (control)
-                ReleaseKey(Win32Constants.VirtualKeys.ControlLeft);
-            if (alt)
-                ReleaseKey(Win32Constants.VirtualKeys.Menu);
-            if (shift)
-                ReleaseKey(Win32Constants.VirtualKeys.ShiftLeft);
-
-            Application.DoEvents();
-        }
-
-        private static void SendKey(Win32Constants.VirtualKeys keys) {
-            PressKey(keys);
-            ReleaseKey(keys);
-        }
-
-        private static void ReleaseKey(Win32Constants.VirtualKeys keys) {
-            var input = new Win32Types.INPUT {
-                Type = Win32Types.INPUTTYPE.INPUT_KEYBOARD,
-                ki = {
-                    wVk = keys,
-                    dwFlags = Win32Constants.KeyboardEvent.KEYEVENTF_KEYUP
-                }
-            };
-            Win32Declares.KeyBoard.SendInput(1, new[] { input }, Win32Types.KEYBDINPUT.cbSize);
-        }
-
-        private static void PressKey(Win32Constants.VirtualKeys keys) {
-            var input = new Win32Types.INPUT {
-                Type = Win32Types.INPUTTYPE.INPUT_KEYBOARD,
-                ki = {
-                    wVk = keys,
-                    dwFlags = Win32Constants.KeyboardEvent.KEYEVENTF_EXTENDEDKEY
-                }
-            };
-            Win32Declares.KeyBoard.SendInput(1, new[] { input }, Win32Types.KEYBDINPUT.cbSize);
         }
         #endregion
         #region printer methods

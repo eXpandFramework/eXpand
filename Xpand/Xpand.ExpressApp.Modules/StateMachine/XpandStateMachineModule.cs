@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security;
@@ -43,12 +42,14 @@ namespace Xpand.ExpressApp.StateMachine {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            var typeInfo = typesInfo.FindTypeInfo<XpoStateMachine>();
+	        var stateMachineType = StateMachineType;
+            var typeInfo = typesInfo.FindTypeInfo(stateMachineType);
             if (typeInfo.FindMember(EnableFilteredPropety) == null) {
                 typeInfo.CreateMember(EnableFilteredPropety, typeof(bool));
             }
+
             if (!RuntimeMode) {
-                CreateDesignTimeCollection(typesInfo, typeof(XpoStateMachine), AdminRoles);
+                CreateDesignTimeCollection(typesInfo, stateMachineType, AdminRoles);
             }
             else if (Application.CanBuildSecurityObjects()) {
                 BuildSecuritySystemObjects();
@@ -59,9 +60,14 @@ namespace Xpand.ExpressApp.StateMachine {
             BuildSecuritySystemObjects();
         }
 
-        void BuildSecuritySystemObjects() {
+        private Type StateMachineType{
+            get { return ModuleManager.Modules.FindModule<StateMachineModule>().StateMachineStorageType; }
+        }
+
+
+	    void BuildSecuritySystemObjects() {
             var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
-            var xpMemberInfos = dynamicSecuritySystemObjects.BuildRole(typeof(XpoStateMachine), "StateMachineRoles", "XpoStateMachines", AdminRoles);
+            var xpMemberInfos = dynamicSecuritySystemObjects.BuildRole(StateMachineType, "StateMachineRoles", "XpoStateMachines", AdminRoles);
             dynamicSecuritySystemObjects.HideInDetailView(xpMemberInfos, "XpoStateMachines");
         }
 

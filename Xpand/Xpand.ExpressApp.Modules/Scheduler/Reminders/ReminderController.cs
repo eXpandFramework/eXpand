@@ -6,6 +6,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraScheduler;
+using DevExpress.XtraScheduler.Native;
 using DevExpress.XtraScheduler.Xml;
 
 namespace Xpand.ExpressApp.Scheduler.Reminders{
@@ -81,7 +82,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders{
                 var reminder = CreateReminder(iEvent, appointment);
                 appointment.Reminders.RemoveAt(0);
                 appointment.Reminders.Add(reminder);
-                var helper = new ReminderXmlPersistenceHelper(reminder, DateSavingType.LocalTime);
+                var helper = new ReminderXmlPersistenceHelper(reminder, new TimeZoneEngine());
                 reminderInfo.Info = helper.ToXml();
                 appointments.Add(iEvent, appointment);
                 SchedulerStorage.Instance.Appointments.Add(appointment);

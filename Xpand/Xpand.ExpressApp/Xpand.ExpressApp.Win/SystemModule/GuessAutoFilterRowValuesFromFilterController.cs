@@ -2,8 +2,9 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.XtraGrid.Views.Grid;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
@@ -27,7 +28,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated() {
             var modelListViewGridViewOptions = ((IModelListViewGuessAutoFilterRowValuesFromFilter)View.Model);
             if (modelListViewGridViewOptions.GuessAutoFilterRowValuesFromFilter) {
-                var mainView = ((ColumnsListEditor)View.Editor).GridView();
+                var mainView = ((GridView) ((WinColumnsListEditor)View.Editor).ColumnView);
                 mainView.GuessAutoFilterRowValuesFromFilter();
             }
         }

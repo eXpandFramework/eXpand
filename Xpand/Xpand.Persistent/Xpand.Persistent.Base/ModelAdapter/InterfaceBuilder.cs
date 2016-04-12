@@ -101,9 +101,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         public static bool SkipAssemblyCleanup { get; set; }
 
-        public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath = null) {
-            if (string.IsNullOrEmpty(assemblyFilePath))
-                assemblyFilePath = AssemblyFilePath();
+        public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath) {
             var isAttached = Debugger.IsAttached;
 
             if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)) && !VersionMatch(assemblyFilePath)) {
@@ -197,16 +195,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return string.Format(@"[assembly: {1}(""{0}"")]", assemblyVersion, TypeToString(typeof(AssemblyVersionAttribute)));
         }
 
-        string AssemblyFilePath() {
-            var path = Path.GetDirectoryName(GetType().Assembly.Location) + "";
-            if (!RuntimeMode) {
-                path=GetTempDirectory();
-            }
-            return Path.Combine(path, GetType().Name + "_" + ".dll");
-        }
-
         public static string GetTempDirectory() {
-            var directory = Path.Combine(Environment.GetEnvironmentVariable("temp", EnvironmentVariableTarget.Machine) + "",XpandAssemblyInfo.Version);
+            var directory = Path.Combine(Environment.GetEnvironmentVariable("temp") + "",XpandAssemblyInfo.Version);
             if (!Directory.Exists(directory))
                 Directory.CreateDirectory(directory);
             return directory;
@@ -679,19 +669,6 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         public static void CreateValueCalculator(this DynamicModelPropertyInfo info, string expressionPath = null) {
             info.AddAttribute(new BrowsableAttribute(false));
-//            return;
-//            CreateValueCalculatorCore(info);
-//            ModelValueCalculatorAttribute modelValueCalculatorAttribute;
-//            if (expressionPath != null) {
-//                modelValueCalculatorAttribute = new ModelValueCalculatorAttribute(expressionPath);
-//                info.AddAttribute(new ModelValueCalculatorWrapperAttribute(modelValueCalculatorAttribute, null));
-//            } else {
-//                info.RemoveAttributes(typeof(ReadOnlyAttribute));
-//                var type = typeof(MapModelValueCalculator);
-//                modelValueCalculatorAttribute = new ModelValueCalculatorAttribute(type);
-//                info.AddAttribute(new ModelValueCalculatorWrapperAttribute(modelValueCalculatorAttribute, type));
-//                info.AddAttribute(new ModelReadOnlyAttribute(typeof(MapModelReadOnlyCalculator)));
-//            }
         }
 
         static void CreateValueCalculatorCore(DynamicModelPropertyInfo info) {

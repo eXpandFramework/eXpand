@@ -12,7 +12,29 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Win", "Xpa
 		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78} = {A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F8B14F27-B81B-43D8-BF91-46BC8C8E3A93}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://qne.dyndns.org:8080/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = Xpand.ExpressApp.Win\\Xpand.ExpressApp.Win.csproj
+		SccProjectName1 = Xpand.ExpressApp.Win
+		SccLocalPath1 = Xpand.ExpressApp.Win
+		SccProjectUniqueName2 = Xpand.ExpressApp.Web\\Xpand.ExpressApp.Web.csproj
+		SccProjectName2 = Xpand.ExpressApp.Web
+		SccLocalPath2 = Xpand.ExpressApp.Web
+		SccProjectUniqueName3 = Xpand.ExpressApp\\Xpand.ExpressApp.csproj
+		SccProjectName3 = Xpand.ExpressApp
+		SccLocalPath3 = Xpand.ExpressApp
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

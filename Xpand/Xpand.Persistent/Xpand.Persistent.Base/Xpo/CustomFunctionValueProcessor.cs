@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using DevExpress.Data.Filtering;
-using DevExpress.Persistent.Base;
+using Xpand.Xpo.Filtering;
 
 namespace Xpand.Persistent.Base.Xpo{
-    public class CustomFunctionValueProcessor:CriteriaProcessorBase, ICriteriaVisitor{
-        object ICriteriaVisitor.Visit(BetweenOperator theOperator){
+    public class CustomFunctionValueProcessor:XpandCriteriaProcessorBase, ICriteriaVisitor<object>{
+        object ICriteriaVisitor<object>.Visit(BetweenOperator theOperator){
             Process(theOperator);
             var leftOperandValue = GetCustomFunctionOperandValue(theOperator.BeginExpression);
             if (!ReferenceEquals(leftOperandValue,null))
@@ -15,7 +15,7 @@ namespace Xpand.Persistent.Base.Xpo{
             return theOperator;
         }
 
-        object ICriteriaVisitor.Visit(BinaryOperator theOperator) {
+        object ICriteriaVisitor<object>.Visit(BinaryOperator theOperator) {
             Process(theOperator);
             var leftOperandValue = GetCustomFunctionOperandValue(theOperator.LeftOperand);
             if (!ReferenceEquals(leftOperandValue,null))
@@ -32,7 +32,7 @@ namespace Xpand.Persistent.Base.Xpo{
                     ? new OperandValue(theOperator.Accept(this)): null): null;
         }
 
-        object ICriteriaVisitor.Visit(FunctionOperator theOperator){
+        object ICriteriaVisitor<object>.Visit(FunctionOperator theOperator){
             Process(theOperator);
             if (theOperator.OperatorType == FunctionOperatorType.Custom){
                 var customFunctionOperator =CriteriaOperator.GetCustomFunction(((OperandValue)theOperator.Operands.First()).Value.ToString());

@@ -121,7 +121,7 @@ namespace Xpand.ExpressApp.Chart.Win.Model {
         IModelOptionsChart OptionsChart { get; }
     }
 
-    public class ChartEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
+    public class ChartEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IModelListView> {
         #region Overrides of EditorTypeVisibilityCalculator
         public override bool IsVisible(IModelNode node, string propertyName) {
             Type editorType = EditorType(node);

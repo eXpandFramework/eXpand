@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -14,12 +19,70 @@ using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+
+        public static bool IsHosted(this XafApplication application){
+            return application.Modules.AreHosted();
+        }
+
+        internal static bool AreHosted(this IEnumerable<ModuleBase> moduleBases) {
+            return moduleBases.Any(@base => {
+                var typeInfo = XafTypesInfo.Instance.FindTypeInfo(@base.GetType());
+                var attribute = typeInfo.FindAttribute<ToolboxItemFilterAttribute>();
+                return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
+            });
+        }
+
+        public static string GetStorageFolder(this XafApplication app,string folderName){
+            var fileLocation = GetFileLocation(FileLocation.ApplicationFolder,folderName);
+            switch (fileLocation){
+                case FileLocation.CurrentUserApplicationDataFolder:
+                    return System.Windows.Forms.Application.UserAppDataPath;
+                default:
+                    return PathHelper.GetApplicationFolder();
+            }            
+        }
+
+        static T GetFileLocation<T>(T defaultValue, string keyName) {
+            T result = defaultValue;
+            string value = ConfigurationManager.AppSettings[keyName];
+            if (!string.IsNullOrEmpty(value)) {
+                result = (T)Enum.Parse(typeof(T), value, true);
+            }
+            return result;
+        }
+
+        public static bool GetEasyTestParameter(this XafApplication app,string parameter){
+            var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");
+            return File.Exists(paramFile) && File.ReadAllLines(paramFile).Any(s => s == parameter);
+        }
+
+        public static IEnumerable<Controller> CreateValidationControllers(this XafApplication app){
+            yield return app.CreateController<ActionValidationController>();
+            yield return app.CreateController<PersistenceValidationController>();
+            yield return app.CreateController<ResultsHighlightController>();
+            yield return app.CreateController<RuleSetInitializationController>();
+        }
+
+        public static IEnumerable<Controller> CreateAppearenceControllers(this XafApplication app){
+            yield return app.CreateController<ActionAppearanceController>();
+            yield return app.CreateController<AppearanceController>();
+            yield return app.CreateController<DetailViewItemAppearanceController>();
+            yield return app.CreateController<DetailViewLayoutItemAppearanceController>();
+            yield return app.CreateController<RefreshAppearanceController>();
+            yield return app.CreateController<AppearanceCustomizationListenerController>();
+        }
+
+        public static bool IsLoggedIn(this XafApplication application){
+            return SecuritySystem.CurrentUser != null;
         }
 
         public static void WriteLastLogonParameters(this XafApplication application,DetailView detailView=null){
@@ -166,7 +229,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static IObjectSpaceProvider ObjectSpaceProvider(XafApplication xafApplication,  string connectionString) {
-            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security,XpandModuleBase.IsHosted);
+            return new XpandObjectSpaceProvider(new MultiDataStoreProvider(connectionString), xafApplication.Security,xafApplication.IsHosted());
         }
 
         static string GetConnectionStringWithOutThreadSafeDataLayerInitialization(CreateCustomObjectSpaceProviderEventArgs args) {

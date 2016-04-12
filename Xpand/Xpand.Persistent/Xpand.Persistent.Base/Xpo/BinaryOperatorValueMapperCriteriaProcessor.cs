@@ -10,12 +10,11 @@ namespace Xpand.Persistent.Base.Xpo{
             _dictionary = dictionary;
         }
 
-        object ICriteriaVisitor.Visit(BinaryOperator theOperator){
+        void ICriteriaVisitor.Visit(BinaryOperator theOperator){
             var propertyName = ((OperandProperty) theOperator.LeftOperand).PropertyName;
             if (_dictionary.ContainsKey(propertyName)){
                 ((OperandValue) theOperator.RightOperand).Value = _dictionary[propertyName];
             }
-            return theOperator;
         }
     }
 }

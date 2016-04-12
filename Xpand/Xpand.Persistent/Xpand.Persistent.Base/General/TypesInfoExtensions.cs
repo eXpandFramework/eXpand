@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
@@ -17,7 +18,9 @@ using Xpand.Utils.Helpers;
 namespace Xpand.Persistent.Base.General {
 
     public static class TypesInfoExtensions {
-        private const string PersistentEntityStore = "persistentEntityStore";
+        public static void ModifySequenceObjectWhenMySqlDatalayer(this ITypesInfo typesInfo) {
+            SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
+        }
 
         public static bool IsDomainComponent(this Type type){
             return type.Attribute<DomainComponentAttribute>() != null ||new ReflectionDictionary().QueryClassInfo(type) != null;
@@ -39,11 +42,13 @@ namespace Xpand.Persistent.Base.General {
             return xpClassInfo ?? new XPDataObjectClassInfo(xpDictionary, className);
         }
 
+        static readonly MemberSetter _xpoTypeInfoSourceSetter = typeof(XpoTypesInfoHelper).DelegateForSetFieldValue("xpoTypeInfoSource");
         public static void AssignAsPersistentEntityStore(this XpoTypeInfoSource xpoTypeInfoSource){
             var entityStores = (List<IEntityStore>) XafTypesInfo.Instance.GetFieldValue("entityStores");
             entityStores.RemoveAll(store => store is XpoTypeInfoSource);
             XafTypesInfo.Instance.SetFieldValue("dcEntityStore", null);
             ((TypesInfo) XafTypesInfo.Instance).AddEntityStore(xpoTypeInfoSource);
+            _xpoTypeInfoSourceSetter(null, xpoTypeInfoSource);
         }
 
         public static void AssignAsInstance(this ITypesInfo typesInfo) {
@@ -51,16 +56,13 @@ namespace Xpand.Persistent.Base.General {
             var type = typeof (XafTypesInfo);
             if (type.GetFieldValue("instance")!=typesInfo){
                 type.SetFieldValue("instance", typesInfo);
-                var xpoTypeInfoSource = ((TypesInfo) typesInfo).EntityStores.OfType<XpoTypeInfoSource>().First();
-                xpoTypeInfoSource.AssignAsPersistentEntityStore();
-                type.SetFieldValue(PersistentEntityStore, xpoTypeInfoSource);
             }
         }
 
         public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
             if (!(typeof(T).IsInterface))
                 throw new ArgumentException(typeof(T).FullName + " should be an interface");
-            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors;
+            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.ToArray();
             var objectType = implementors.FirstOrDefault();
             if (objectType == null)
                 throw new ArgumentException("Add a business object that implements " +

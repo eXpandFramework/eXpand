@@ -1,8 +1,8 @@
 ﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using Xpand.ExpressApp.StateMachine.Security;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
 using StateMachineTransitionPermission = Xpand.ExpressApp.StateMachine.Security.Improved.StateMachineTransitionPermission;
+using DevExpress.ExpressApp.StateMachine;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class PermissionTransitionStateController:ViewController<ObjectView> {
@@ -19,11 +19,11 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             _changeStateActionController.RequestActiveState-=RequestActiveState;
         }
 
-        bool IsActive(XpoTransition xpoTransition) {
+        protected virtual bool IsActive(ITransition iTransition) {
             var permission = new StateMachineTransitionPermission {
                 Modifier = StateMachineTransitionModifier.Allow,
-                StateCaption = xpoTransition.TargetState.Caption,
-                StateMachineName = xpoTransition.SourceState.StateMachine.Name,
+                StateCaption = iTransition.TargetState.Caption,
+                StateMachineName = iTransition.TargetState.StateMachine.Name,
                 Hide = false
             };
             return SecuritySystem.IsGranted(new StateMachineTransitionOperationRequest(permission));

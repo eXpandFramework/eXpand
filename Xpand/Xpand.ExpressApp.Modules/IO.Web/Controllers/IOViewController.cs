@@ -3,7 +3,7 @@ using System.Web;
 using System.Xml.Linq;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.SystemModule;
-using DevExpress.Web.ASPxClasses.Internal;
+using DevExpress.Web.Internal;
 using Xpand.ExpressApp.IO.Controllers;
 
 namespace Xpand.ExpressApp.IO.Web.Controllers {

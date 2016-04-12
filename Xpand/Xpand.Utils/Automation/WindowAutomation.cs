@@ -1,11 +1,66 @@
 using System;
 using System.Drawing;
+using System.Security;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using Xpand.Utils.Win32;
 
 namespace Xpand.Utils.Automation {
-    public class WindowAutomation {
+    public static class WindowAutomation {
+        static readonly IntPtr _desktopHandle = Win32Declares.WindowHandles.GetDesktopWindow();
+        [SecurityCritical]
+        public static Image GetScreenshot(this IntPtr handle) {
+            Image result;
+            if (handle != IntPtr.Zero) {
+
+                if (handle != _desktopHandle) {
+                    Win32Declares.WindowFocus.SetForegroundWindow(handle);
+                    Thread.Sleep(1000);
+                }
+                var hdcSrc = Win32Declares.WindowHandles.GetWindowDC(_desktopHandle);
+
+                Win32Types.RECT windowRect;
+                Win32Declares.Rect.GetWindowRect(handle, out windowRect);
+
+                var width = windowRect.Right - windowRect.Left;
+                var height = windowRect.Bottom - windowRect.Top;
+
+                if (handle != _desktopHandle) {
+                    Win32Declares.Window.SetWindowPos(handle, IntPtr.Zero, 0, 0, width, height, 0);
+                }
+
+                
+                Win32Declares.Rect.GetWindowRect(handle, out windowRect);
+
+                width = windowRect.Right - windowRect.Left;
+                height = windowRect.Bottom - windowRect.Top;
+                
+                
+                var hdcDest = Win32Declares.GDI32.CreateCompatibleDC(hdcSrc);
+                var hBitmap = Win32Declares.GDI32.CreateCompatibleBitmap(hdcSrc, width, height);
+                var hOld = Win32Declares.GDI32.SelectObject(hdcDest, hBitmap);
+                Win32Declares.GDI32.BitBlt(hdcDest, -windowRect.Left, -windowRect.Top, windowRect.Right, windowRect.Bottom,
+                    hdcSrc, 0, 0, Win32Constants.TernaryRasterOperations.SRCCOPY);
+                Win32Declares.GDI32.SelectObject(hdcDest, hOld);
+                Win32Declares.GDI32.DeleteDC(hdcDest);
+                Win32Declares.GDI32.ReleaseDC(_desktopHandle, hdcSrc);
+                result = Image.FromHbitmap(hBitmap);
+                Win32Declares.GDI32.DeleteObject(hBitmap);
+            }
+            else {
+                result = GetScreenshot(_desktopHandle);
+            }
+            return result;
+        }
+
+        public static string WindowText(this IntPtr intPtr) {
+            int length = Win32Declares.Window.GetWindowTextLength(intPtr);
+            var sb = new StringBuilder(length + 1);
+            Win32Declares.Window.GetWindowText(intPtr, sb, sb.Capacity);
+            return sb.ToString();
+        }
+
         public static string FocusedWindowCaption {
             get {
                 IntPtr foregroundWindow = Win32Declares.WindowFocus.GetForegroundWindow();

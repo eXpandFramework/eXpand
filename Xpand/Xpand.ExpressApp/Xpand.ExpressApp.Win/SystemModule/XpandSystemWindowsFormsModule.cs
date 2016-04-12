@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Win;
@@ -10,6 +11,7 @@ using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.Model;
+using Xpand.ExpressApp.Win.Model.NodeUpdaters;
 using Xpand.ExpressApp.Win.PropertyEditors;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.Persistent.Base.General;
@@ -34,11 +36,18 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemFastSearch>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemRichEdit>();
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemDuration>();
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>();
         }
+
+        public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator){
+            base.AddModelNodeUpdaters(updaterRegistrator);
+            updaterRegistrator.AddUpdater(new ModelOptionsAdvBandedViewUpdater());
+        }
+
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
             ConvertXml(parameters);
             if (parameters.XmlNodeName == "GridColumnOptions")

@@ -27,20 +27,27 @@ namespace Xpand.ExpressApp.Security.ClientServer{
 
         public XpandSecuredDataServer(string connectionString, XPDictionary dictionary, QueryRequestSecurityStrategyHandler securityEnvironmentProvider, ILogger logger, EventHandler<DataServiceOperationEventArgs> committingDelegate)
             : base(connectionString, dictionary, securityEnvironmentProvider, logger, committingDelegate) {
+            _connectionstring = connectionString;
         }
+
 
         public XpandSecuredDataServer(string connectionString, XPDictionary dictionary, QueryRequestSecurityStrategyHandler securityEnvironmentProvider, ILogger logger)
             : base(connectionString, dictionary, securityEnvironmentProvider, logger) {
+            _connectionstring = connectionString;
         }
 
         public XpandSecuredDataServer(string connectionString, XPDictionary dictionary, QueryRequestSecurityStrategyHandler securityEnvironmentProvider)
             : base(connectionString, dictionary, securityEnvironmentProvider) {
+            _connectionstring = connectionString;
         }
 
+        private readonly string _connectionstring;
+
         protected override ISecuredSerializableObjectLayer CreateDefaultSecuredSerializableObjectLayer(IDataLayer dataLayer,
-            RequestSecurityStrategyProvider securityStrategyProvider, EventHandler<DataServiceOperationEventArgs> committingDelegate,
-            bool allowICommandChannelDoWithSecurityContext) {
-            string connectionString = ((ConnectionProviderSql)((BaseDataLayer)dataLayer).ConnectionProvider).ConnectionString;
+        RequestSecurityStrategyProvider securityStrategyProvider, EventHandler<DataServiceOperationEventArgs> committingDelegate,
+        bool allowICommandChannelDoWithSecurityContext) {
+            string connectionString = String.IsNullOrEmpty(_connectionstring) ? ((ConnectionProviderSql)((BaseDataLayer)dataLayer).ConnectionProvider).ConnectionString : _connectionstring;
+
             var threadSafeDataLayer = new ThreadSafeDataLayer(dataLayer.Dictionary, new MultiDataStoreProxy(connectionString));
             return new SecuredSerializableObjectLayer(threadSafeDataLayer, securityStrategyProvider, allowICommandChannelDoWithSecurityContext);
         }

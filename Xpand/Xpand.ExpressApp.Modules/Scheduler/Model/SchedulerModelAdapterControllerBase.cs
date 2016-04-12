@@ -94,14 +94,15 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         protected abstract SchedulerStorageBase Storage();
 
         protected void SynchMenu(object menu) {
-            var popupMenus = ((IModelListViewOptionsScheduler) View.Model).OptionsScheduler.PopupMenus;
-            var schedulerMenuItemIds =popupMenus.Select(popupMenu =>new{ModelMenu = popupMenu,
-                MenuId = (SchedulerMenuItemId) Enum.Parse(typeof (SchedulerMenuItemId), popupMenu.MenuId)});
-
-            var menus = schedulerMenuItemIds.Select(arg => new{arg.ModelMenu, Menu = menu});
-            foreach (var popupMenu in menus) {
-                new SchedulerPopupMenuModelSynchronizer(popupMenu.Menu, popupMenu.ModelMenu).ApplyModel();
+            var popupMenus = ((IModelListViewOptionsScheduler) View.Model).OptionsScheduler.PopupMenuItems;
+            foreach (var popupMenu in popupMenus){
+                var component = GetMenu(menu,popupMenu);
+                if (component != null) new SchedulerPopupMenuModelSynchronizer(component, popupMenu).ApplyModel();
             }
+        }
+
+        protected virtual object GetMenu(object popupMenu, IModelSchedulerPopupMenuItem modelMenu){
+            return popupMenu;
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

@@ -43,13 +43,13 @@ namespace Xpand.ExpressApp {
                 xpandEditor.NotifyViewControlsCreated(this);
         }
 
-        public override IList SelectedObjects {
-            get{
-                if (Editor != null) {
-                    return new List<Object>(Editor.GetSelectedObjects().OfType<object>()).Where(t => ObjectTypeInfo.Type.IsInstanceOfType(t)).ToArray();
-                }
-                return new ReadOnlyCollection<object>(new object[] { });
-            }
-        }
+        //public override IList SelectedObjects {
+        //    get{
+        //        if (Editor != null) {
+        //            return new List<Object>(Editor.GetSelectedObjects().OfType<object>()).Where(t => ObjectTypeInfo.Type.IsInstanceOfType(t)).ToArray();
+        //        }
+        //        return new ReadOnlyCollection<object>(new object[] { });
+        //    }
+        //}
     }
 }

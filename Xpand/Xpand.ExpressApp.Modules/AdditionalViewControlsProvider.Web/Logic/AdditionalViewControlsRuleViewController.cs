@@ -2,8 +2,7 @@
 using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web.Layout;
-using DevExpress.Web.ASPxCallbackPanel;
-using DevExpress.Web.ASPxGlobalEvents;
+using DevExpress.Web;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic;
 

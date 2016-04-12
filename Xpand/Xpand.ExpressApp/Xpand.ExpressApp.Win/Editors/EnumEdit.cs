@@ -134,7 +134,7 @@ namespace Xpand.ExpressApp.Win.Editors {
     [ToolboxItem(false)]
     public class XafEnumEdit : ImageComboBoxEdit, IGridInplaceEdit {
         static PropertyDescriptorCollection _imageComboBoxItemProperties;
-        IObjectSpace _objectSpace;
+        private object _editValue;
 
         static XafEnumEdit() {
             RepositoryItemXafEnumEdit.Register();
@@ -165,16 +165,17 @@ namespace Xpand.ExpressApp.Win.Editors {
             get { return (RepositoryItemXafEnumEdit)base.Properties; }
         }
 
-        public object GridEditingObject { get; set; }
-
-        public IObjectSpace ObjectSpace {
-            get { return _objectSpace; }
-            set {
-                if (_objectSpace != null) _objectSpace.ObjectChanged -= ObjectSpaceObjectChanged;
-                _objectSpace = value;
-                if (_objectSpace != null) _objectSpace.ObjectChanged += ObjectSpaceObjectChanged;
+        public override object EditValue{
+            get { return _editValue; }
+            set{
+                if (value == null || GetDataSource(EditingObject).Contains(value))
+                    _editValue = value;
             }
         }
+
+        public object GridEditingObject { get; set; }
+
+        public IObjectSpace ObjectSpace { get; set; }
 
         public new XafEnumEditPopupForm PopupForm {
             get { return (XafEnumEditPopupForm)base.PopupForm; }
@@ -212,12 +213,6 @@ namespace Xpand.ExpressApp.Win.Editors {
                     dataSource.Add(item);
             }
             return dataSource;
-        }
-
-        void ObjectSpaceObjectChanged(object sender, ObjectChangedEventArgs e) {
-            if (e.Object == GridEditingObject && (String.IsNullOrEmpty(e.PropertyName) || (Properties.DataSourceMemberInfo != null && Properties.DataSourceMemberInfo.Name.Equals(e.PropertyName)))) {
-
-            }
         }
 
         protected override void OnKeyDown(KeyEventArgs e) {

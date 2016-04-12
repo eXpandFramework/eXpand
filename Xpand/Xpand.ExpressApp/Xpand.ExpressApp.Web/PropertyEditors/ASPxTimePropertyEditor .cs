@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.TestScripts;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(DateTime),EditorAliases.TimeSpanPropertyEditor,false)]

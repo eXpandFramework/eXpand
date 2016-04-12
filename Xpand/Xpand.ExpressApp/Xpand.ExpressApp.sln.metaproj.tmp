@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" InitialTargets="ValidateSolutionConfiguration;ValidateToolsVersions;ValidateProjects">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportBefore\*" Condition="'$(ImportByWildcardBeforeSolution)' != 'false' and exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportBefore')" />
+  <Import Project="C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\before.Xpand.ExpressApp.sln.targets" Condition="exists('C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\before.Xpand.ExpressApp.sln.targets')" />
+  <PropertyGroup Condition=" '$(Configuration)' == '' ">
+    <Configuration>Debug</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == '' ">
+    <Platform>Any CPU</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(AspNetConfiguration)' == '') ">
+    <AspNetConfiguration>$(Configuration)</AspNetConfiguration>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SolutionDir>C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\</SolutionDir>
+    <SolutionExt>.sln</SolutionExt>
+    <SolutionFileName>Xpand.ExpressApp.sln</SolutionFileName>
+    <SolutionName>Xpand.ExpressApp</SolutionName>
+    <SolutionPath>C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.sln</SolutionPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '2.0'">v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and ('$(MSBuildToolsVersion)' == '3.5' or '$(MSBuildToolsVersion)' == '3.0')">v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '4.0'">v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'Any CPU') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}" AbsolutePath="C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj" BuildProjectInSolution="True">Debug|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}" AbsolutePath="C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj" BuildProjectInSolution="True">Debug|AnyCPU<ProjectDependency Project="{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}" AbsolutePath="C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj" BuildProjectInSolution="True">Debug|AnyCPU<ProjectDependency Project="{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}" /></ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'Any CPU') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}" AbsolutePath="C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj" BuildProjectInSolution="True">Release|AnyCPU</ProjectConfiguration>
+  <ProjectConfiguration Project="{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}" AbsolutePath="C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj" BuildProjectInSolution="True">Release|AnyCPU<ProjectDependency Project="{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}" AbsolutePath="C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj" BuildProjectInSolution="True">Release|AnyCPU<ProjectDependency Project="{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}" /></ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportAfter\*" Condition="'$(ImportByWildcardBeforeSolution)' != 'false' and exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportAfter')" />
+  <Import Project="C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\after.Xpand.ExpressApp.sln.targets" Condition="exists('C:\BuildAgent\work\f1c5528bb7b7ccd2\Xpand\Xpand.ExpressApp\after.Xpand.ExpressApp.sln.targets')" />
+  <Target Name="Build" />
+  <Target Name="Rebuild" />
+  <Target Name="Clean" />
+  <Target Name="Publish" />
+</Project>

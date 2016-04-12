@@ -10,15 +10,16 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
     public class ControllerStateRuleController : ViewController {
         LogicRuleViewController _logicRuleViewController;
         public const string ActiveObjectTypeHasControllerRules="ActiveObjectTypeHasControllerRules";
-        protected void ChangeState(IControllerStateRule rule) {
+        protected void ChangeState(LogicRuleInfo info) {
+            var rule = ((IControllerStateRule)info.Rule);
             Controller controller = Frame.GetController(rule.ControllerType);
             if (rule.ControllerState == ControllerState.Register) {
                 if (!controller.Active) {
                     Frame.RegisterController(controller);
                 }
             }
-            else {
-                controller.Active[ActiveObjectTypeHasControllerRules] = rule.ControllerState == ControllerState.Enabled;
+            else{
+                controller.Active[ActiveObjectTypeHasControllerRules] = info.InvertCustomization || ((IControllerStateRule)info.Rule).ControllerState == ControllerState.Enabled;
             }
         }
 
@@ -58,8 +59,8 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
                 if (!string.IsNullOrEmpty(controllerStateRule.Module)) {
                     ChangeStateOnModules(info);
                 }
-                else
-                    ChangeState(controllerStateRule);
+                else if (info.Active)
+                    ChangeState(info);
             }
         }
 

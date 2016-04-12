@@ -9,15 +9,20 @@ using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 
-namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
-    public class QueryRoleModelDifferenceObject : QueryDifferenceObject<RoleModelDifferenceObject> {
+namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries
+{
+    public class QueryRoleModelDifferenceObject : QueryDifferenceObject<RoleModelDifferenceObject>
+    {
         public QueryRoleModelDifferenceObject(Session session)
-            : base(session) {
+            : base(session)
+        {
         }
-        public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name) {
+        public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name)
+        {
             var userWithRoles = SecuritySystem.CurrentUser as IUserWithRoles;
             var collection = Collection(userWithRoles);
-            if (collection != null) {
+            if (collection != null)
+            {
                 Type roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
                 ITypeInfo roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.Single(info => info.Type == roleType);
                 var criteria = new ContainsOperator("Roles", new InOperator(roleTypeInfo.KeyMember.Name, collection.ToList()));
@@ -28,14 +33,18 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
             return base.GetActiveModelDifferences(applicationName, name).OfType<RoleModelDifferenceObject>().AsQueryable();
         }
 
-        static IEnumerable<object> Collection(IUserWithRoles userWithRoles) {
+        static IEnumerable<object> Collection(IUserWithRoles userWithRoles)
+        {
             IEnumerable<object> collection = null;
-            if (userWithRoles != null) {
+            if (userWithRoles != null)
+            {
                 collection = userWithRoles.Roles.OfType<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
             }
-            if (collection == null) {
+            if (collection == null)
+            {
                 var securityUserWithRoles = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
-                if (securityUserWithRoles != null) {
+                if (securityUserWithRoles != null)
+                {
                     collection =
                         securityUserWithRoles.Roles.OfType<XPBaseObject>()
                                              .Select(role => role.ClassInfo.KeyProperty.GetValue(role));

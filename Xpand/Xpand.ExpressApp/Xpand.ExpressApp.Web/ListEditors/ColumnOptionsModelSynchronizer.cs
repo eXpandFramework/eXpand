@@ -2,7 +2,7 @@
 using DevExpress.Data;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxGridView;
+using DevExpress.Web;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.SystemModule;

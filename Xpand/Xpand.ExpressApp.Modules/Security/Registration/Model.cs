@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Security.Registration {
 
         [CriteriaOptions("RoleModelClass.TypeInfo")]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
-        [DefaultValue("[Name] = 'user'")]
+        [DefaultValue("[Name] = 'user' Or [Name] = 'default'")]
         [Category("Role")]
         string RoleCriteria { get; set; }
 

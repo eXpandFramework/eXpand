@@ -1,7 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
     
@@ -10,7 +9,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
             Type editorType = EditorType(node);
             if (editorType == typeof(GridListEditor))
                 return true;
-            if (typeof(XpandGridListEditor).IsAssignableFrom(editorType) && !typeof(AdvBandedListEditor).IsAssignableFrom(editorType))
+            if (typeof(XpandGridListEditor).IsAssignableFrom(editorType) )
                 return true;
             return false;
         }

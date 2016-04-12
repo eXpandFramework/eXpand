@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
@@ -49,8 +50,12 @@ namespace Xpand.Persistent.Base.General {
             return modelnode.Application.ActionDesign.Actions.Where(action => action.ChoiceActionItems != null && action.ChoiceActionItems.Any()).SelectMany(action => action.ChoiceActionItems);
         }
 
+        public static ActionBase ToAction(this IModelAction modelAction) {
+            return modelAction.GetValue<ActionBase>(ModelActionsNodesGenerator.ActionPropertyName);
+        }
+
         public static ActionBase ToAction(this IModelAction modelAction, Frame frame){
-            return frame.Actions().First(@base => @base.Model == modelAction);
+            return frame.Actions().First(@base => @base.Model.Id == modelAction.Id);
         }
 
         private static ExpressionEvaluator GetExpressionEvaluator(IModelNode dataSourceNode, CriteriaOperator criteriaOperator) {
@@ -190,7 +195,14 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModelApplicationBaseExtensions {
-        
+        public static bool IsHosted(this IModelApplication application){
+            return ((IModelSources) application).Modules.AreHosted();
+        }
+
+        public static bool IsHosted(this ModelApplicationBase applicationBase){
+            return ((IModelApplication) applicationBase).IsHosted();
+        }
+
         static ModelApplicationBase _strategiesModel;
         public static ModelApplicationBase StrategiesModel(this IModelApplication application, IEnumerable<ModelApplicationBase> modelApplicationBases) {
             if (_strategiesModel == null) {
@@ -241,10 +253,6 @@ namespace Xpand.Persistent.Base.General {
 
         public static void RemoveLayer(this ModelApplicationBase application, string id) {
             RefreshLayers(application, @base => @base.Id == id ? null : @base);
-        }
-
-        public static ITypesInfo GetTypesInfo(this IModelApplication application) {
-            return ((IModelTypesInfoProvider) application).TypesInfo;
         }
 
         public static void ReplaceLayer(this ModelApplicationBase application, ModelApplicationBase layer) {

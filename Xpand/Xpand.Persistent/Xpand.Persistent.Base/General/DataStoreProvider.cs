@@ -9,7 +9,7 @@ using Xpand.Xpo.DB;
 namespace Xpand.Persistent.Base.General {
     public class DataStoreProvider : IXpoDataStoreProxy {
         private DataStoreProxy _proxy;
-        private readonly string _connectionString;
+        private string _connectionString;
         public DataStoreProvider(string connectionString) {
             _connectionString = connectionString;
         }
@@ -23,6 +23,7 @@ namespace Xpand.Persistent.Base.General {
 
         public string ConnectionString {
             get { return _connectionString; }
+            set { _connectionString = value; }
         }
         public virtual IDataStore CreateUpdatingStore(out IDisposable[] disposableObjects) {
             disposableObjects = null;

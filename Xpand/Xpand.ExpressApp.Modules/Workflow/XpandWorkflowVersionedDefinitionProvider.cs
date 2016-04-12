@@ -7,9 +7,9 @@ using DevExpress.ExpressApp.Workflow.CommonServices;
 using DevExpress.ExpressApp.Workflow.Versioning;
 
 namespace Xpand.ExpressApp.Workflow {
-    public class XpandWorkflowVersionedDefinitionProvider<T, U> : WorkflowVersionedDefinitionProvider<T, U>
-        where U : IUserActivityVersion
-        where T : IWorkflowDefinition {
+    public class XpandWorkflowVersionedDefinitionProvider<TDefinition, TUserActivityVersion> : WorkflowVersionedDefinitionProvider<TDefinition, TUserActivityVersion>
+        where TUserActivityVersion : IUserActivityVersionBase
+        where TDefinition : IWorkflowDefinition {
         readonly List<Type> _types;
 
         public XpandWorkflowVersionedDefinitionProvider(List<Type> types) {
