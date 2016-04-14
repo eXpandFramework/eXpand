@@ -6,8 +6,8 @@ using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     public interface ITypeWrapper {
-        string Caption { get; }
         Type Type { get; }
+        string GetDefaultCaption(ModelApplicationBase modelApplicationBase);
         string GetDefaultCaption();
     }
 
@@ -20,21 +20,25 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
 
         public Type Type { get; private set; }
 
+        public string GetDefaultCaption(ModelApplicationBase modelApplicationBase){
+            if (modelApplicationBase != null){
+                var currentAspect = modelApplicationBase.CurrentAspect;
+                modelApplicationBase.SetCurrentAspect("");
+                var caption = modelApplicationBase.Application.BOModel[Type.FullName].Caption;
+                modelApplicationBase.SetCurrentAspect(currentAspect);
+                return caption;
+            }
+            return Type.FullName;
+        }
+
         public string GetDefaultCaption() {
             var modelApplicationBase = ((ModelApplicationBase)CaptionHelper.ApplicationModel);
-            var currentAspect = modelApplicationBase.CurrentAspect;
-            modelApplicationBase.SetCurrentAspect("");
-            var caption = Caption;
-            modelApplicationBase.SetCurrentAspect(currentAspect);
-            return caption;
+            return GetDefaultCaption(modelApplicationBase);
         }
 
-        public String Caption {
-            get { return CaptionHelper.GetClassCaption(Type.FullName); }
-        }
 
         public override string ToString() {
-            return Caption;
+            return GetDefaultCaption();
         }
     }
 }

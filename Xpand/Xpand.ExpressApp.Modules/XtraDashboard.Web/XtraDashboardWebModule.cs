@@ -13,6 +13,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web {
             RequiredModuleTypes.Add(typeof(DashboardModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             RequiredModuleTypes.Add(typeof(Security.Web.XpandSecurityWebModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.Web.ValidationAspNetModule));
         }
     }
 }

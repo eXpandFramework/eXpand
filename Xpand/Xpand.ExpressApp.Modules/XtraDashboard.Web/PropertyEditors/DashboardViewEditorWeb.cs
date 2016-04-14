@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         void DashboardLoading(object sender, DashboardLoadingEventArgs e) {
-            e.DashboardXml = Definition.GetXml(FilterEnabled.Runtime,Application.CreateDashboardDataSource);
+            e.DashboardXml = Definition.GetXml(FilterEnabled.Runtime,_objectSpace.CreateDashboardDataSource, _application);
         }
 
         void DataLoading(object sender, DataLoadingWebEventArgs e) {
@@ -71,7 +71,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
                 var typeWrapper = Definition.DashboardTypes.FirstOrDefault(t => t.GetDefaultCaption() == e.DataSourceName);
                 if (typeWrapper != null){
                     var dsType = typeWrapper.Type;
-                    e.Data = Application.CreateDashboardDataSource(dsType);
+                    e.Data = _objectSpace.CreateDashboardDataSource(dsType);
                 }
             }
         }

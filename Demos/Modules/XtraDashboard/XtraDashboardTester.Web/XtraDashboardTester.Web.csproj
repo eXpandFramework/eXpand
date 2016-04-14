@@ -12,9 +12,11 @@
     <RootNamespace>XtraDashboardTester.Web</RootNamespace>
     <AssemblyName>XtraDashboardTester.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkProfile />
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -22,6 +24,7 @@
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
     <LangVersion>4</LangVersion>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,6 +53,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Dashboard.v15.2.Web, Version=15.2.9.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Security.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -220,6 +224,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Xpand\Xpand.ExpressApp.Modules\XtraDashboard.Web\Xpand.ExpressApp.XtraDashboard.Web.csproj">
+      <Project>{5A5436AD-B334-466C-89C5-2D866450C809}</Project>
+      <Name>Xpand.ExpressApp.XtraDashboard.Web</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XtraDashboardTester.Module.Web\XtraDashboardTester.Module.Web.csproj">
       <Project>{ca92af75-2b4d-413f-90b2-79821f59576a}</Project>
       <Name>XtraDashboardTester.Module.Web</Name>
@@ -245,7 +253,8 @@
           <IISUrl>http://localhost:63783/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl></CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

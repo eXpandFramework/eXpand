@@ -72,6 +72,9 @@
     <Reference Include="DevExpress.DataAccess.v15.2.UI">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.RichEdit.v15.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -179,10 +182,6 @@
     <Compile Include="Controllers\DashboardDesignerController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\DashboardDesignerController.Designer.cs">
-      <DependentUpon>DashboardDesignerController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controllers\DashboardDesignerOpeningEventArgs.cs" />
     <Compile Include="Controllers\WinDashboardNavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -260,10 +259,6 @@
     <Content Include="DatabaseUpdate\ReadMe.txt" />
     <EmbeddedResource Include="Templates\MenuBar_SaveAndClose_32x32.png" />
     <EmbeddedResource Include="Templates\MenuBar_Save_32x32.png" />
-    <EmbeddedResource Include="Images\BO_DashboardDefinition_Export.png" />
-    <EmbeddedResource Include="Images\BO_DashboardDefinition_Export_32x32.png" />
-    <EmbeddedResource Include="Images\BO_DashboardDefinition_Import.png" />
-    <EmbeddedResource Include="Images\BO_DashboardDefinition_Import_32x32.png" />
     <EmbeddedResource Include="Images\MenuBar_DashboardTemplateEdit.png" />
     <None Include="packages.config" />
     <None Include="Resources\MenuBar_Close_32x32.png" />

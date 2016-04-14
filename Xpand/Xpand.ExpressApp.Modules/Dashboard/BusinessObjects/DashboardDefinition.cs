@@ -7,6 +7,7 @@ using System.Xml;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Security.Core;
@@ -29,8 +30,11 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [DefaultClassOptions]
     [SecurityOperations("DashboardDefinitions", "DashboardOperation")]
     [NavigationItem("Reports")]
-    [CloneView(CloneViewType.DetailView, "DashboardViewer_DetailView")]
-    public class DashboardDefinition : XpandCustomObject, IDashboardDefinition {
+    [CloneView(CloneViewType.DetailView, DashboardViewerDetailView)]
+    [CloneView(CloneViewType.DetailView, DashboardDesignerDetailView)]
+    public class DashboardDefinition : XpandCustomObject, IDashboardDefinition{
+        public const string DashboardViewerDetailView = "DashboardViewer_DetailView";
+        public const string DashboardDesignerDetailView = "DashboardDesigner_DetailView";
         bool _active;
         BindingList<ITypeWrapper> _dashboardTypes;
         int _index;
@@ -52,7 +56,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
                 return _types ?? (_types = XafTypesInfo.Instance.PersistentTypes
                                                        .Where(info => (info.IsVisible && info.IsPersistent) && (info.Type != null))
                                                        .Select(info => new TypeWrapper(info.Type))
-                                                       .OrderBy(info => info.Caption)
+                                                       .OrderBy(info => info.GetDefaultCaption())
                                                        .ToList());
             }
         }
@@ -62,6 +66,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
             set { SetPropertyValue("Index", ref _index, value); }
         }
         [Index(0)]
+        [RuleRequiredField]
         public string Name {
             get { return _name; }
             set { SetPropertyValue("Name", ref _name, value); }
@@ -77,7 +82,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         [VisibleInDetailView(false)]
         [EditorAlias(EditorAliases.DashboardXMLEditor)]
         public string Xml {
-            get { return GetDelayedPropertyValue<String>("Xml"); }
+            get{ return GetDelayedPropertyValue<String>("Xml");}
             set { SetDelayedPropertyValue("Xml", value); }
         }
 

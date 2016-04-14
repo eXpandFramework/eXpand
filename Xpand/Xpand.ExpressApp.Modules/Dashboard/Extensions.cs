@@ -1,12 +1,27 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 
 namespace Xpand.ExpressApp.Dashboard {
     public static class Extensions {
-        public static object CreateDashboardDataSource(this XafApplication application, Type objectType) {
-            var space = application.CreateObjectSpace(objectType);
-            var proxyCollection = new ProxyCollection(space, space.TypesInfo.FindTypeInfo(objectType), space.GetObjects(objectType));
+        public static string GetDashboardXml(this DevExpress.DashboardCommon.Dashboard dashboard){
+            string xml;
+            using (var ms = new MemoryStream()) {
+                dashboard.SaveToXml(ms);
+                ms.Position = 0;
+                using (var sr = new StreamReader(ms)) {
+                    xml = sr.ReadToEnd();
+                    sr.Close();
+                }
+                ms.Close();
+            }
+            return xml;
+
+        }
+
+        public static ProxyCollection CreateDashboardDataSource(this IObjectSpace objectSpace, Type objectType) {
+            var proxyCollection = new ProxyCollection(objectSpace, objectSpace.TypesInfo.FindTypeInfo(objectType), objectSpace.GetObjects(objectType));
             proxyCollection.DisplayableMembers = string.Join(";", proxyCollection.DisplayableMembers.Split(';').Where(s => !s.EndsWith("!")));
             return proxyCollection;
         }

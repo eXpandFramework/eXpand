@@ -34,8 +34,8 @@ namespace XtraDashboardTester.Module.FunctionalTests.DesignerActions {
             if(View.ViewEditMode==ViewEditMode.Edit){
                 _dashboardTypesEditor = View.GetItems<IPropertyEditor>().First(editor => editor.MemberInfo.Name=="DashboardTypes");
                 _dashboardTypesEditor.ValueRead+=DashboardTypesEditorOnValueRead;
-                _xmlPropertyEditor = View.GetItems<IPropertyEditor>().First(editor => editor.MemberInfo.Name=="Xml");
-                _xmlPropertyEditor.ValueRead += XMLPropertyEditorOnValueRead;
+                _xmlPropertyEditor = View.GetItems<IPropertyEditor>().FirstOrDefault(editor => editor.MemberInfo.Name=="Xml");
+                if (_xmlPropertyEditor != null) _xmlPropertyEditor.ValueRead += XMLPropertyEditorOnValueRead;
             }
         }
 

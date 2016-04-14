@@ -14,6 +14,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win {
         public DashboardWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(DashboardModule));
             RequiredModuleTypes.Add(typeof(Security.Win.XpandSecurityWinModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule));
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);

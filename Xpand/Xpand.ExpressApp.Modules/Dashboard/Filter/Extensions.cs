@@ -6,36 +6,39 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using DevExpress.DashboardCommon;
 using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Dashboard.Filter {
     public static class Extensions {
-        public static void SaveDashboard(this DevExpress.DashboardCommon.Dashboard dashboard, IDashboardDefinition template, MemoryStream memoryStream) {
-            dashboard.SynchronizeModel(template);
+        public static void SaveDashboard(this DevExpress.DashboardCommon.Dashboard dashboard, IDashboardDefinition template, MemoryStream memoryStream,XafApplication application) {
+            dashboard.SynchronizeModel(template,application);
             dashboard.SaveToXml(memoryStream);
-            dashboard.ApplyModel(FilterEnabled.Always, template);
+            dashboard.ApplyModel(FilterEnabled.Always, template,application.Model);
         }
 
-        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, FilterEnabled filterEnabled, Func<Type, object> dashboardDatasource) {
-            var dashBoard = CreateDashBoard(template,dashboardDatasource);
+        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, FilterEnabled filterEnabled, Func<Type, object> dashboardDatasource, XafApplication application) {
+            var dashBoard = CreateDashBoard(template,dashboardDatasource, application);
             if (dashBoard != null){
-                dashBoard.ApplyModel(filterEnabled, template);
+                dashBoard.ApplyModel(filterEnabled, template,application.Model);
             }
             return dashBoard;
         }
 
-        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template,Func<Type,object> dashboardDatasource) {
+        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, Func<Type, object> dashboardDatasource, XafApplication xafApplication) {
             var dashboard = new DevExpress.DashboardCommon.Dashboard();
             try {
                 if (!string.IsNullOrEmpty(template.Xml)) {
                     dashboard = LoadFromXml(template);
                 }
-                foreach (var typeWrapper in template.DashboardTypes.Select(wrapper => new { wrapper.Type, Caption = wrapper.GetDefaultCaption() })) {
+                foreach (var typeWrapper in template.DashboardTypes.Select(wrapper 
+                    => new { wrapper.Type, Caption = wrapper.GetDefaultCaption((ModelApplicationBase)xafApplication.Model) })) {
                     var wrapper = typeWrapper;
                     var dsource = dashboard.DataSources.FirstOrDefault(source => source.Name.Equals(wrapper.Caption));
                     object objects = dashboardDatasource(typeWrapper.Type);
@@ -68,8 +71,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             return dashboard;
         }
 
-        public static void SynchronizeModel(this DevExpress.DashboardCommon.Dashboard dashboard,  IDashboardDefinition template) {
-            var dataSources = GetDataSources(dashboard, FilterEnabled.Always, template);
+        public static void SynchronizeModel(this DevExpress.DashboardCommon.Dashboard dashboard,  IDashboardDefinition template,XafApplication application) {
+            var dataSources = GetDataSources(dashboard, FilterEnabled.Always, template,application.Model);
             foreach (var dataSource in dataSources){
                 var filter = dataSource.ModelDataSource as IModelDashboardDataSourceFilter;
                 if (filter != null)
@@ -77,13 +80,13 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             }
         }
 
-        public static string GetXml(this IDashboardDefinition template, FilterEnabled filterEnabled, Func<Type, object> dashboardDatasource) {
-            var dashBoard = template.CreateDashBoard( filterEnabled,dashboardDatasource);
+        public static string GetXml(this IDashboardDefinition template, FilterEnabled filterEnabled, Func<Type, object> dashboardDatasource, XafApplication xafApplication) {
+            var dashBoard = template.CreateDashBoard( filterEnabled,dashboardDatasource, xafApplication);
             using (var memoryStream = new MemoryStream()) {
                 dashBoard.SaveToXml(memoryStream);
                 memoryStream.Position = 0;
                 var document = XDocument.Load(memoryStream);
-                var dataSourceAdapters = GetDataSources(dashBoard, filterEnabled, template);
+                var dataSourceAdapters = GetDataSources(dashBoard, filterEnabled, template,xafApplication.Model);
                 foreach (var dataSourceAdapter in dataSourceAdapters){
                     if (document.Root != null){
                         DataSourceAdapter adapter = dataSourceAdapter;
@@ -97,8 +100,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             }
         }
 
-        public static void ApplyModel(this DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template) {
-            var dataSources = GetDataSources(dashboard, filterEnabled, template);
+        public static void ApplyModel(this DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IModelApplication model) {
+            var dataSources = GetDataSources(dashboard, filterEnabled, template,model);
             foreach (var adapter in dataSources) {
                 var filter = adapter.ModelDataSource as  IModelDashboardDataSourceFilter;
                 if (filter != null) adapter.DataSource.Filter = filter.ApplyFilter(adapter.DataSource.Filter);
@@ -107,9 +110,9 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             }
         }
 
-        static IEnumerable<DataSourceAdapter> GetDataSources(DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template) {
+        static IEnumerable<DataSourceAdapter> GetDataSources(DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IModelApplication model) {
             var modelDashboardModule =
-                ((IModelApplicationDashboardModule)ApplicationHelper.Instance.Application.Model).DashboardModule;
+                ((IModelApplicationDashboardModule)model).DashboardModule;
             return modelDashboardModule.DataSources.Where(source => source.NodeEnabled && CanApply(source, filterEnabled, template)).Select(modelDataSource => {
                 var dataSource = dashboard.DataSources.FirstOrDefault(source =>
                     String.Equals(source.Name.Trim(), modelDataSource.DataSourceName.Trim(), StringComparison.CurrentCultureIgnoreCase));

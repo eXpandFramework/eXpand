@@ -63,6 +63,12 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Validation.Web.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Sparkline.v15.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -96,6 +102,9 @@
     <Reference Include="DevExpress.Web.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Xpo.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -106,6 +115,8 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
@@ -113,6 +124,10 @@
     <Reference Include="Xpand.ExpressApp.Dashboard">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FileAttachment.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FileAttachment.Web.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
@@ -134,8 +149,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.Xpo">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\DashboardFileData.cs" />
+    <Compile Include="Controllers\DashboarDesignerController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PropertyEditors\DashboardDesignerEditor.cs" />
     <Compile Include="PropertyEditors\DashboardTypesEditor.cs" />
     <Compile Include="PropertyEditors\DashboardViewEditorWeb.cs">
       <SubType>Component</SubType>
@@ -168,6 +192,7 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

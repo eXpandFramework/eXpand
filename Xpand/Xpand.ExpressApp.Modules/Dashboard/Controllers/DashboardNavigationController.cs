@@ -126,7 +126,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                 var action = new ChoiceActionItem(
                     template.Oid.ToString(),
                     template.Name,
-                    new ViewShortcut(typeof(DashboardDefinition), template.Oid.ToString(), "DashboardViewer_DetailView")) {
+                    new ViewShortcut(typeof(DashboardDefinition), template.Oid.ToString(), DashboardDefinition.DashboardViewerDetailView)) {
                         ImageName = "BO_DashboardDefinition"
                     };
                 action.Model.Index = template.Index;

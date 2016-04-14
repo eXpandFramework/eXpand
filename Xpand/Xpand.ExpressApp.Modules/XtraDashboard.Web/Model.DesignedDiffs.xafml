@@ -9,15 +9,46 @@
   <Views>
     <DetailView Id="DashboardDefinition_DetailView">
       <Items>
-        <PropertyEditor Id="Xml" RowCount="20" />
+        <PropertyEditor Id="Xml" RowCount="20">
+          <SyntaxHighlight Language="XML" Mode="xml" />
+        </PropertyEditor>
       </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="12.5">
+            <LayoutGroup Id="DashboardDefinition">
+              <LayoutItem Id="Name" RelativeSize="34.782608695652172" />
+              <LayoutGroup Id="Autoc52d0b65-6717-4709-b6dc-8f988fc795e6" Caption="Autoc52d0b65-6717-4709-b6dc-8f988fc795e6(5)" RelativeSize="65.217391304347828">
+                <LayoutGroup Id="Auto60194fe5-5873-4875-9e50-3d4beb2eb430" Caption="Auto60194fe5-5873-4875-9e50-3d4beb2eb430(6)" RelativeSize="49.825783972125436">
+                  <LayoutItem Id="Index" RelativeSize="50" />
+                  <LayoutItem Id="Icon" RelativeSize="50" />
+                </LayoutGroup>
+                <LayoutGroup Id="Autoef7c89cc-c3b5-4fca-91d6-e0f9056a0b85" Caption="Autoef7c89cc-c3b5-4fca-91d6-e0f9056a0b85(9)" RelativeSize="50.174216027874564">
+                  <LayoutItem Id="Active" RelativeSize="50" />
+                  <LayoutItem Id="DashboardTypes" RelativeSize="50" />
+                </LayoutGroup>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="87.5">
+            <LayoutGroup Id="DashboardTypes">
+              <LayoutItem Id="@69b82b68-b530-49b8-b573-f8581b107905" ViewItem="@69b82b68-b530-49b8-b573-f8581b107905" Index="0" RelativeSize="5.298013245033113" IsNewNode="True" />
+              <LayoutItem Id="Xml" Index="1" RelativeSize="94.701986754966882" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
       <PopupControl Maximized="True" ShowFooter="False" ShowHeader="False" />
     </DetailView>
     <ListView Id="DashboardDefinition_ListView">
-      <PopupControl ShowFooter="False" ShowHeader="False" Maximized="True" />
+      <PopupControl Maximized="True" ShowFooter="False" ShowHeader="False" />
     </ListView>
+    <DetailView Id="DashboardDesigner_DetailView" Caption="Dashboard Designer">
+      <Items>
+        <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors.DashboardDesignerEditor" />
+      </Items>
     </DetailView>
-    <DetailView Id="DashboardViewer_DetailView">
+    <DetailView Id="DashboardViewer_DetailView" AllowEdit="False">
       <Items>
         <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors.DashboardViewEditorWeb" />
       </Items>

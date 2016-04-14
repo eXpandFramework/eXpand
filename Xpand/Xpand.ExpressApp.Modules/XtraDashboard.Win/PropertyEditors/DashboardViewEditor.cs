@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq.Expressions;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -10,7 +9,6 @@ using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.Dashboard.PropertyEditors;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
     public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
@@ -58,7 +56,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
             var template = CurrentObject as IDashboardDefinition;
             if (template != null) {
                 Control.HandleCreated -= ControlOnHandleCreated;
-                Control.BeginInvoke(new Action(() => DashboardViewer.Dashboard = template.CreateDashBoard(FilterEnabled.Runtime,type => Application.CreateDashboardDataSource(type))));
+                Control.BeginInvoke(new Action(() =>DashboardViewer.Dashboard =template.CreateDashBoard(FilterEnabled.Runtime,
+                                    type => ObjectSpace.CreateDashboardDataSource(type),_application)));
             }
         }
     }

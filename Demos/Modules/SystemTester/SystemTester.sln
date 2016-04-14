@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemTester.Module", "SystemTester.Module\SystemTester.Module.csproj", "{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}"
 EndProject
@@ -35,6 +35,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Web", "..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj", "{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj", "{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.ExpressApp.EasyTest.WinAdapter", "..\..\..\..\..\DevExpress 15.2\Components\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.EasyTest.WinAdapter\DevExpress.ExpressApp.EasyTest.WinAdapter.csproj", "{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -227,6 +229,19 @@ Global
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Test|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.TestingDebug|Any CPU.ActiveCfg = Debug|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.TestingDebug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Test|Any CPU.Build.0 = Release|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.TestingDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.TestingDebug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.DashboardWin;
@@ -68,18 +67,9 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             UpdateActionState();
         }
 
-        void UpdateTemplateXml() {
-            using (var ms = new MemoryStream()) {
-                Designer.Dashboard.SaveToXml(ms);
-                ms.Position = 0;
-                using (var sr = new StreamReader(ms)) {
-                    string xml = sr.ReadToEnd();
-                    Template.Xml = xml;
-                    sr.Close();
-                }
-                ms.Close();
-                _editHistory.IsModified = false;
-            }
+        void UpdateTemplateXml(){
+            Template.Xml = Designer.Dashboard.GetDashboardXml();
+            _editHistory.IsModified = false;
         }
 
         void UpdateActionState() {
@@ -95,7 +85,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         public void LoadTemplate(IDashboardDefinition dashboardDefinition,XafApplication application) {
             _template = dashboardDefinition;
-            Designer.Dashboard = _template.CreateDashBoard(FilterEnabled.DesignTime,application.CreateDashboardDataSource );
+            Designer.Dashboard = _template.CreateDashBoard(FilterEnabled.DesignTime,ObjectSpace.CreateDashboardDataSource, application);
             _editHistory.Changed += _EditHistory_Changed;
         }
 

@@ -1,6 +1,6 @@
 using DevExpress.ExpressApp.Actions;
 
-namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
+namespace Xpand.ExpressApp.Dashboard.Controllers {
     partial class DashboardDesignerController {
         /// <summary>
         /// Required designer variable.
@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
             this._dashboardEdit.TargetViewId = null;
             this._dashboardEdit.ToolTip = null;
             this._dashboardEdit.TypeOfView = null;
-            this._dashboardEdit.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.dashboardEdit_Execute);
+            this._dashboardEdit.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.DashboardEditExecute);
             // 
             // _dashboardExportXml
             // 
@@ -58,7 +58,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
             this._dashboardExportXml.TargetViewId = null;
             this._dashboardExportXml.ToolTip = null;
             this._dashboardExportXml.TypeOfView = null;
-            this._dashboardExportXml.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.dashbardExportXML_Execute);
+            this._dashboardExportXml.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.DashbardExportXMLExecute);
             // 
             // _dashboardImportXml
             // 
@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
             this._dashboardImportXml.TargetViewId = null;
             this._dashboardImportXml.ToolTip = null;
             this._dashboardImportXml.TypeOfView = null;
-            this._dashboardImportXml.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.dashboardImportXML_Execute);
+            this._dashboardImportXml.Execute += new DevExpress.ExpressApp.Actions.SimpleActionExecuteEventHandler(this.DashboardImportXMLExecute);
 
         }
 

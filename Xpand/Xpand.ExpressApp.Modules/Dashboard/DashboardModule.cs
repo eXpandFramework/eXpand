@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using System.Linq;
-using DevExpress.ExpressApp.Security.Strategy;
 using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
@@ -22,6 +21,7 @@ namespace Xpand.ExpressApp.Dashboard {
     public sealed class DashboardModule : XpandModuleBase,IDashboardInteractionUser {
         public DashboardModule(){
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
