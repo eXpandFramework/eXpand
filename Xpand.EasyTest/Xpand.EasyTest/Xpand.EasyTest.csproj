@@ -87,6 +87,7 @@
     <Compile Include="Commands\HideScrollBarCommand.cs" />
     <Compile Include="Commands\LogOffCommand.cs" />
     <Compile Include="Commands\LogonCommand.cs" />
+    <Compile Include="Commands\MinimizeApplicationWindowCommand.cs" />
     <Compile Include="Commands\MouseCommand.cs" />
     <Compile Include="Commands\MouseDragDropCommand.cs" />
     <Compile Include="Commands\MultiLineComparisionHelper.cs" />

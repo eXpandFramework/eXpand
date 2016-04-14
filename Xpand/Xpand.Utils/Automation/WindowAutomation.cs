@@ -82,7 +82,7 @@ namespace Xpand.Utils.Automation {
         }
 
 
-        public static bool ForceWindowToForeground(IntPtr windowHandle){
+        public static bool ForceWindowToForeground(this IntPtr windowHandle){
             if (Win32Declares.WindowFocus.GetForegroundWindow() == windowHandle)
                 return true;
             HelperAutomation.AttachedThreadInputAction(
@@ -135,7 +135,7 @@ namespace Xpand.Utils.Automation {
             return MoveWindow(findWindow, newLocation);
         }
 
-        public static void MinimizeWindow(IntPtr handle) {
+        public static void MinimizeWindow(this IntPtr handle) {
             Win32Declares.Window.ShowWindow(handle, Win32Declares.Window.ShowWindowEnum.SW_MINIMIZE);
         }
 

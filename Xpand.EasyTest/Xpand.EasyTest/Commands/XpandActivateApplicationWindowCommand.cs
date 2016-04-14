@@ -6,8 +6,8 @@ namespace Xpand.EasyTest.Commands{
     public class XpandActivateApplicationWindowCommand : Command{
         public const string Name = "XpandActivateApplicationWindowCommand";
         protected override void InternalExecute(ICommandAdapter adapter) {
-            var intPtr = adapter.GetApplicationWindowHandle();
-            WindowAutomation.ForceWindowToForeground(intPtr);
+            var mainWindowHandle = adapter.GetMainWindowHandle();
+            mainWindowHandle.ForceWindowToForeground();
             Thread.Sleep(3000);
         }
 

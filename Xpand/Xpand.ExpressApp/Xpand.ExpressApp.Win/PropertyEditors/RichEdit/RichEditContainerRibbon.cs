@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using DevExpress.XtraBars;
-using DevExpress.XtraRichEdit;
+﻿using DevExpress.XtraRichEdit;
 using Xpand.Persistent.Base.General.Win;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
@@ -9,17 +6,30 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
         public RichEditContainerRibbon() {
             InitializeComponent();
-            Load += OnLoad;
+            ribbonControl1.Visible = false;
         }
 
-        private void OnLoad(object sender, EventArgs e) {
-            this.Execute(control => control.MergeRibbon(ribbonControl1));
+        public override void DestroyToolBar(){
+            if (!ToolBarsAreHidden) {
+                this.Execute(control => {
+                    control.UnMergeRibbon();
+                    ribbonControl1.Visible = false;
+                });
+            }
+        }
+
+        public override void CreateToolBars(){
+            if (!ToolBarsAreHidden) {
+                this.Execute(control => {
+                    ribbonControl1.Visible = true;
+                    control.MergeRibbon(ribbonControl1);
+                });
+            }
         }
 
         public override void HideToolBars(){
-            foreach (var bar in ribbonControl1.Categories.Cast<BarManagerCategory>()){
-                bar.Visible = false;
-            }    
+            base.HideToolBars();
+            ribbonControl1.Visible = false;
         }
 
         public override RichEditControl RichEditControl{

@@ -8,21 +8,28 @@ using DevExpress.XtraRichEdit;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     public partial class RichEditContainer : RichEditContainerBase {
-        private List<string> _mergedBarNames;
+        private readonly List<string> _mergedBarNames=new List<string>();
 
-        public RichEditContainer() {
+        public RichEditContainer(){
             InitializeComponent();
-            Load+=OnLoad;
+            foreach (var bar in barManager1.Bars.Cast<Bar>()){
+                bar.Visible = false;
+            }
         }
-        protected override void OnHandleDestroyed(EventArgs e){
-            base.OnHandleDestroyed(e);
+
+        public override void DestroyToolBar(){
             BarManagerAction(DestroyBars);
+        }
+
+        public override void CreateToolBars(){
+            BarManagerAction(CreateBarsCore);
         }
 
         private void DestroyBars(BarManager manager){
             foreach (var barName in _mergedBarNames) {
                 DestroyBar(manager, barName);
             }
+            _mergedBarNames.Clear();
         }
 
         private void DestroyBar(BarManager manager, string barName){
@@ -35,13 +42,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             }
         }
 
-        private void OnLoad(object sender, EventArgs eventArgs){
-            BarManagerAction(CreateBars);
-        }
-
-        private void CreateBars(BarManager parentBarManager){
-            _mergedBarNames = new List<string>();
-
+        private void CreateBarsCore(BarManager parentBarManager){
+            if (ToolBarsAreHidden)
+                return;
             var bars = barManager1.Bars.Cast<Bar>().OrderBy(bar => bar.DockRow).ThenBy(bar => bar.DockCol);
             foreach (var editorBar in bars){
                 var parentBar = parentBarManager.Bars[editorBar.BarName];
@@ -49,9 +52,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
                     if (editorBar.ItemLinks.Any(link => link.Visible)){
                         parentBar = CopyBar(editorBar, parentBarManager);
                         parentBar.Merge(editorBar);
+                        parentBar.Visible = true;
                         _mergedBarNames.Add(editorBar.BarName);
                     }
-                    editorBar.Visible = false;
                 }
             }
             foreach (var bar in bars){
@@ -91,6 +94,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public override void HideToolBars(){
+            base.HideToolBars();
             foreach (Bar bar in barManager1.Bars){
                 bar.Visible = false;
             }    

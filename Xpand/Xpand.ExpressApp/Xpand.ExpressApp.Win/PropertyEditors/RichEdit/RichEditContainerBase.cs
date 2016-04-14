@@ -7,8 +7,22 @@ using DevExpress.XtraRichEdit;
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit{
     public class RichEditContainerBase:XtraUserControl{
         private XafApplication _application;
+        private bool _toolBarsAreHidden;
+
         public virtual RichEditControl RichEditControl{
             get { throw new System.NotImplementedException(); }
+        }
+
+        public virtual void DestroyToolBar(){
+            throw new System.NotImplementedException();
+        }
+
+        public virtual void CreateToolBars(){
+            throw new System.NotImplementedException();
+        }
+
+        public bool ToolBarsAreHidden{
+            get { return _toolBarsAreHidden; }
         }
 
         public XafApplication Application{
@@ -34,7 +48,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit{
         }
 
         public virtual void HideToolBars(){
-            throw new System.NotImplementedException();
+            _toolBarsAreHidden = true;
         }
     }
 }

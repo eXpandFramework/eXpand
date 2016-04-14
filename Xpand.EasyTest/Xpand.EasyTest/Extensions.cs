@@ -287,6 +287,7 @@ namespace Xpand.EasyTest {
                 {typeof (SqlDropDatabaseCommand), SqlDropDatabaseCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
                 {typeof (XpandActivateApplicationWindowCommand), XpandActivateApplicationWindowCommand.Name},
+                {typeof (MinimizeApplicationWindowCommand), MinimizeApplicationWindowCommand.Name},
                 {typeof (MouseCommand), MouseCommand.Name},
                 {typeof (MouseDragDropCommand), MouseDragDropCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},

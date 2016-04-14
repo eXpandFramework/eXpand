@@ -30,5 +30,6 @@
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\..\SystemTester.Web" />
     <Alias Name="BookmarkCommand" Value="438x91" />
     <Alias Name="TableCommand" Value="152x91" />
+    <Alias Name="TextField" Value="509x397" />
   </Aliases>
 </Options>
