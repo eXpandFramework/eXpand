@@ -161,6 +161,9 @@
     <Compile Include="General\Controllers\Actions\ActionsClientScriptController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\CustomizeASPxPopupController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Controllers\EasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>

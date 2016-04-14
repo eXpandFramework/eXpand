@@ -11,6 +11,11 @@
       <Items>
         <PropertyEditor Id="Xml" RowCount="20" />
       </Items>
+      <PopupControl Maximized="True" ShowFooter="False" ShowHeader="False" />
+    </DetailView>
+    <ListView Id="DashboardDefinition_ListView">
+      <PopupControl ShowFooter="False" ShowHeader="False" Maximized="True" />
+    </ListView>
     </DetailView>
     <DetailView Id="DashboardViewer_DetailView">
       <Items>

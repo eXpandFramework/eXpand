@@ -119,7 +119,9 @@ namespace Xpand.ExpressApp.Scheduler.Model {
 
         protected virtual IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(SchedulerControlType()) {
-                Act = info => {
+                Act = info =>{
+                    if (info.Name == "Item"&&!info.PropertyType.BehaveLikeValueType())
+                        return false;
                     info.RemoveInvalidTypeConverterAttributes("DevExpress.XtraScheduler.Design");
                     return info.DXFilter(BaseSchedulerControlTypes(), typeof(object));
                 }

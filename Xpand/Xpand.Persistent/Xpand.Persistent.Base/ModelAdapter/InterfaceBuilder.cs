@@ -17,6 +17,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Utils.Controls;
 using DevExpress.Utils.Serializing;
+using DevExpress.Web;
 using DevExpress.Xpo;
 using Xpand.Utils.Helpers;
 using Fasterflect;
@@ -563,7 +564,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return info.DXFilter(info.DeclaringType, attributes);
         }
 
-        public static readonly IList<Type> BaseTypes = new List<Type> { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions), typeof(BaseAppearanceCollection) };
+        public static readonly IList<Type> BaseTypes = new List<Type> { typeof(BaseOptions), typeof(FormatInfo), typeof(AppearanceObject), typeof(TextOptions), typeof(BaseAppearanceCollection),typeof(PropertiesBase) };
         public static readonly HashSet<string> ExcludedReservedNames = new HashSet<string> { "IsReadOnly" };
         public static bool DXFilter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] attributes = null) {
             return DXFilter(info, BaseTypes, componentBaseType, attributes);
