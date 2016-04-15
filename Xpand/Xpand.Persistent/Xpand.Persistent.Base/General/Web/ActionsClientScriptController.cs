@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Web.Templates.ActionContainers;
 using DevExpress.ExpressApp.Web.Templates.ActionContainers.Menu;
 using Xpand.Persistent.Base.General.Model;
 
-namespace Xpand.Persistent.Base.General.Controllers.Actions {
+namespace Xpand.Persistent.Base.General.Web {
     public interface IModelActionClientScript{
         [Category(AttributeCategoryNameProvider.Xpand)]
         string ClientScript { get; set; }

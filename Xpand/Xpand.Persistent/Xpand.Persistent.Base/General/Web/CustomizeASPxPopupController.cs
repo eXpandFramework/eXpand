@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Web.Templates;
 using DevExpress.Web;
 using Xpand.Persistent.Base.ModelAdapter;
 
-namespace Xpand.Persistent.Base.General.Controllers{
+namespace Xpand.Persistent.Base.General.Web{
     public interface IModelViewPopup {
 
         [Description("Allows you to customize the view popupcontrol")]

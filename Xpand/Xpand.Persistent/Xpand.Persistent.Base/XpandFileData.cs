@@ -5,9 +5,8 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.Persistent.Base;
 
-namespace Xpand.Persistent.BaseImpl.ImportExport {
+namespace Xpand.Persistent.Base {
     [Persistent]
     [DefaultProperty("FileName")]
     public class XpandFileData : XpandBaseCustomObject, IFileData, IEmptyCheckable {

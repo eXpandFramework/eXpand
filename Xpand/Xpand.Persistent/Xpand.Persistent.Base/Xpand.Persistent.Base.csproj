@@ -157,11 +157,17 @@
     <Compile Include="General\ApplicationBuilder.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
     <Compile Include="General\AttributeRegistrator.cs" />
-    <Compile Include="General\Controllers\CollectionsEditModeController.cs" />
-    <Compile Include="General\Controllers\Actions\ActionsClientScriptController.cs">
+    <Compile Include="General\Controllers\DisableDialogController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\CustomizeASPxPopupController.cs">
+    <Compile Include="General\Controllers\CollectionsEditModeController.cs" />
+    <Compile Include="General\Web\NavigationContainerWebController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Web\ActionsClientScriptController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Web\CustomizeASPxPopupController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\EasyTestController.cs">
@@ -174,6 +180,9 @@
     <Compile Include="General\Model\VisibilityCalculators\ActionVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\RibbonFormStyleVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\StandardFormStyleVisibilityCalculator.cs" />
+    <Compile Include="General\Web\SyntaxHighLightController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Win\RibbonExtensions.cs" />
     <Compile Include="General\XpandNavigationItem.cs" />
     <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs" />
@@ -220,6 +229,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentModelDefaultAttribute.cs" />
     <Compile Include="Security\EncryptedSettingsStorage.cs" />
     <Compile Include="Security\ISecurityRelated.cs" />
+    <Compile Include="XpandFileData.cs" />
     <Compile Include="Xpo\BinaryOperatorValueMapperCriteriaProcessor.cs" />
     <Compile Include="General\Model\DefaultMember.cs" />
     <Compile Include="General\Model\RequiredCalculators\NotRequiredCalculator.cs" />
