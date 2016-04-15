@@ -807,7 +807,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
         private void FillEditorValues(object currentSelectedObject, ASPxComboBox control, WebLookupEditorHelper helper,
             object currentObject, IModelMember member){
             control.Items.Clear();
-            control.Items.Add(WebPropertyEditor.EmptyValue, null);
+            control.Items.Add(CaptionHelper.NullValueText, null);
             control.SelectedIndex = 0;
             if (currentObject != null){
                 CollectionSourceBase dataSource = helper.CreateCollectionSource(currentObject);
@@ -826,7 +826,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
                 else{
                     if (currentSelectedObject != null){
                         control.Items.Add(
-                            helper.GetEscapedDisplayText(currentSelectedObject, WebPropertyEditor.EmptyValue,
+                            helper.GetEscapedDisplayText(currentSelectedObject, CaptionHelper.NullValueText,
                                 member.DisplayFormat), -1);
                         control.SelectedIndex = 1;
                     }
@@ -835,10 +835,10 @@ namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
                 if (currentSelectedObject != null && (list.IndexOf(currentSelectedObject) == -1)){
                     list.Add(currentSelectedObject);
                 }
-                list.Sort(new DisplayValueComparer(helper, WebPropertyEditor.EmptyValue));
+                list.Sort(new DisplayValueComparer(helper, CaptionHelper.NullValueText));
                 foreach (object obj in list){
                     control.Items.Add(
-                        helper.GetEscapedDisplayText(obj, WebPropertyEditor.EmptyValue, member.DisplayFormat),
+                        helper.GetEscapedDisplayText(obj, CaptionHelper.NullValueText, member.DisplayFormat),
                         ((XPBaseObject) obj).GetMemberValue(helper.LookupObjectTypeInfo.KeyMember.Name));
                         // helper.GetObjectKey(obj));
                     if (currentSelectedObject == obj){
@@ -867,7 +867,8 @@ namespace Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor{
         }
 
         private void SetMemberValueOfItem(XPBaseObject item, IModelColumn column, ASPxEdit cellControl){
-            if (cellControl is ASPxSpinEdit && ((ASPxSpinEdit) cellControl).NumberType == SpinEditNumberType.Integer)
+            var edit = cellControl as ASPxSpinEdit;
+            if (edit != null && edit.NumberType == SpinEditNumberType.Integer)
                 item.SetMemberValue(column.PropertyName,
                     column.ModelMember.MemberInfo.MemberType == typeof (int)
                         ? Convert.ToInt32(cellControl.Value)

@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.TestScripts;
@@ -147,7 +148,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             _control.Value = GetPropertyDisplayValue();
         }
         protected override string GetPropertyDisplayValue() {
-            return _helper.GetDisplayText(MemberInfo.GetValue(CurrentObject), EmptyValue, DisplayFormat);
+            return _helper.GetDisplayText(MemberInfo.GetValue(CurrentObject), CaptionHelper.NullValueText, DisplayFormat);
         }
         public ReleasedSequencePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {

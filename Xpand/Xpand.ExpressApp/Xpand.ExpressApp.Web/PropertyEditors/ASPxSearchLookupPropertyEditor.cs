@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
@@ -127,7 +128,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         ASPxSearchDropDownEdit CreateSearchDropDownEditControl() {
-            var result = new ASPxSearchDropDownEdit(_helper, EmptyValue, DisplayFormat) { Width = Unit.Percentage(100) };
+            var result = new ASPxSearchDropDownEdit(_helper, CaptionHelper.NullValueText, DisplayFormat) { Width = Unit.Percentage(100) };
             result.DropDown.SelectedIndexChanged += dropDownLookup_SelectedIndexChanged;
             result.Init += dropDownLookup_Init;
             result.PreRender += dropDownLookup_PreRender;
@@ -249,7 +250,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         protected override object GetControlValueCore() {
             if (ViewEditMode == ViewEditMode.Edit && Editor != null) {
                 ASPxComboBox dropDownControl = _searchDropDownEdit.DropDown;
-                if (dropDownControl.Value != null && dropDownControl.Value.ToString() != EmptyValue) {
+                if (dropDownControl.Value != null && dropDownControl.Value.ToString() != CaptionHelper.NullValueText) {
                     string objectKey = String.Format("{0}({1})", Helper.LookupObjectTypeInfo, dropDownControl.Value);
                     return GetObjectByKey(objectKey);
                 }
@@ -267,7 +268,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         protected override string GetPropertyDisplayValue() {
-            return _helper.GetDisplayText(MemberInfo.GetValue(CurrentObject), EmptyValue, DisplayFormat);
+            return _helper.GetDisplayText(MemberInfo.GetValue(CurrentObject), CaptionHelper.NullValueText, DisplayFormat);
         }
 
         void FillSearchDropDownValues(object item) {
@@ -376,7 +377,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         public void SetControlValue(object val) {
             object selectedObject = GetControlValueCore();
             if (((selectedObject == null && val == null) || (selectedObject != val)) && (CurrentObject != null)) {
-                OnValueStoring(_helper.GetDisplayText(val, EmptyValue, DisplayFormat));
+                OnValueStoring(_helper.GetDisplayText(val, CaptionHelper.NullValueText, DisplayFormat));
                 MemberInfo.SetValue(CurrentObject, _helper.ObjectSpace.GetObject(val));
                 OnValueStored();
                 ReadValue();
