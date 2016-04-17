@@ -63,19 +63,19 @@ namespace Xpand.Utils.Helpers {
             return false;
         }
         
-        public static T Change<T>(object value) {
+        public static T Change<T>(this object value) {
             return Change<T>(value, _defaultCultureInfo);
         }
 
-        public static T Change<T>(object value, CultureInfo culture) {
+        public static T Change<T>(this object value, CultureInfo culture) {
             return Change<T>(value, culture, DefaultConversion);
         }
 
-        public static T Change<T>(object value, Conversion options) {
+        public static T Change<T>(this object value, Conversion options) {
             return Change<T>(value, _defaultCultureInfo, options);
         }
 
-        public static T Change<T>(object value, CultureInfo culture, Conversion options) {
+        public static T Change<T>(this object value, CultureInfo culture, Conversion options) {
             return (T)Change(value, typeof(T), culture, options);
         }
 

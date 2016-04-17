@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Web.UI.WebControls;
 using DevExpress.CodeParser;
 using DevExpress.CodeParser.CSharp;
 using DevExpress.CodeParser.Css;
@@ -10,6 +11,7 @@ using DevExpress.CodeParser.Html;
 using DevExpress.CodeParser.JavaScript;
 using DevExpress.CodeParser.VB;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
 using DevExpress.Web.Internal;
@@ -20,7 +22,7 @@ using TokenCollection = DevExpress.CodeParser.TokenCollection;
 namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
     [PropertyEditor(typeof(string), EditorAliases.CSCodePropertyEditor, false)]
     public class CSCodePropertyEditor : ASPxPropertyEditor {
-        public CSCodePropertyEditor(Type objectType, DevExpress.ExpressApp.Model.IModelMemberViewItem model)
+        public CSCodePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
         }
         protected override void SetImmediatePostDataScript(string script) {
@@ -36,10 +38,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
         protected override void ReadViewModeValueCore() {
             ((LabelControl)InplaceViewModeEditor).Text = CodeFormatter.GetFormattedCode(TokenLanguage.CSharp, (string)PropertyValue);
         }
-        protected override System.Web.UI.WebControls.WebControl CreateEditModeControlCore() {
+        protected override WebControl CreateEditModeControlCore() {
             return new LabelControl(new ASPxLabel());
         }
-        protected override System.Web.UI.WebControls.WebControl CreateViewModeControlCore() {
+        protected override WebControl CreateViewModeControlCore() {
             return new LabelControl(new ASPxLabel());
         }
     }

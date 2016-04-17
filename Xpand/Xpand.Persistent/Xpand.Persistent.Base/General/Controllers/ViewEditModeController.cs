@@ -74,7 +74,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         protected virtual void UpdateViewAllowEditState(DetailView view) {
-            if (!ApplicationHelper.Instance.Application.IsHosted()) {
+            if (!Application.IsHosted()) {
                 view.AllowEdit[ViewActiveKey] = view.ViewEditMode == ViewEditMode.Edit;
             }
         }

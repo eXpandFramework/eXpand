@@ -6,7 +6,7 @@
 			Name="XtraDashboardTester.Win"
 			FileName="[WinAppBin]\XtraDashboardTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100" Ignored="0"/>
+			CommunicationPort="4100" Ignored="1"/>
     <!-- Web -->
     <Application
 			Name="XtraDashboardTester.Web"
