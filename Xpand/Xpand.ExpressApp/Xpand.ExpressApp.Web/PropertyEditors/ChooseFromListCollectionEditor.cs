@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.Editors;
@@ -29,14 +28,20 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             }
         }
 
+        protected override string GetPropertyDisplayValue(){
+            var values = ((IEnumerable<object>)PropertyValue).Select(wrapper => wrapper.ToString()).ToArray();
+            return string.Join(ListBoxTemplate.SeparatorChar + " ", values);
+        }
+
         protected override WebControl CreateEditModeControlCore() {
             var editModeControlCore = base.CreateEditModeControlCore();
             ListBoxTemplate.PostValue = false;
-            var values = ((IEnumerable<object>)PropertyValue).Select(wrapper => wrapper.ToString()).ToArray();
-            var value = string.Join(ListBoxTemplate.SeparatorChar+" ", values);
+            var value = GetPropertyDisplayValue();
             ListBoxTemplate.SetValue(value);
-            foreach (var value1 in values) {
-                ListBoxTemplate.Items.FindByText(value1).Selected = true;
+            if (!string.IsNullOrEmpty(value)){
+                foreach (var value1 in ((IEnumerable<object>)PropertyValue).Select(wrapper => wrapper.ToString()).ToArray()) {
+                    ListBoxTemplate.Items.FindByText(value1).Selected = true;
+                }
             }
             Control.Value = value;
             return editModeControlCore;
