@@ -10,23 +10,30 @@ using Xpand.Utils.Helpers;
 
 namespace XtraDashboardTester.Module.FunctionalTests.DesignerActions {
     public class Designer:ObjectViewController<DetailView,DashboardDefinition> {
-        private readonly SimpleAction _invalidNewDashboardTypes;
+        private const string InvalidNewDashboardXml = "InvalidNewDashboardXml";
+        private const string InvalidNewDashboardTypes = "InvalidNewDashboardTypes";
+        private const string SetNewDashboardFields = "SetNewDashboardFields";
+
         private IPropertyEditor _dashboardTypesEditor;
         private IPropertyEditor _xmlPropertyEditor;
-        private readonly SimpleAction _invalidNewDashboardXml;
+        private readonly SingleChoiceAction _designerAction;
 
         public Designer(){
-            _invalidNewDashboardTypes = new SimpleAction(this,"InvalidNewDashboardTypes",PredefinedCategory.View);
-            _invalidNewDashboardXml = new SimpleAction(this,"InvalidNewDashboardXml",PredefinedCategory.View);
-            var simpleAction = new SimpleAction(this,"SetNewDashboardFields" ,PredefinedCategory.View);
-            simpleAction.Execute+=SimpleActionOnExecute;
+            _designerAction = new SingleChoiceAction(this,"Designer",PredefinedCategory.View);
+            _designerAction.Items.Add(new ChoiceActionItem(SetNewDashboardFields, null));
+            _designerAction.Items.Add(new ChoiceActionItem(InvalidNewDashboardTypes, InvalidNewDashboardTypes));
+            _designerAction.Items.Add(new ChoiceActionItem(InvalidNewDashboardXml, InvalidNewDashboardXml));
+            _designerAction.Execute += _designerAction_Execute;
         }
 
-        private void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
-            var dashboardDefinition = ((DashboardDefinition) View.CurrentObject);
-            _dashboardTypesEditor.SetValue("Customer;Person");
-            if (Application.IsHosted())
-                dashboardDefinition.Xml = GetType().GetResourceString("NewDashboard.xml");
+        private void _designerAction_Execute(object sender, SingleChoiceActionExecuteEventArgs e){
+            var selectedChoiceActionItem = e.SelectedChoiceActionItem;
+            if (selectedChoiceActionItem.Caption == SetNewDashboardFields){
+                var dashboardDefinition = ((DashboardDefinition)View.CurrentObject);
+                _dashboardTypesEditor.SetValue("Customer;Person");
+                if (Application.IsHosted())
+                    dashboardDefinition.Xml = GetType().GetResourceString("NewDashboard.xml");
+            }
         }
 
         protected override void OnActivated(){
@@ -44,13 +51,13 @@ namespace XtraDashboardTester.Module.FunctionalTests.DesignerActions {
             var dashboardDefinition = (DashboardDefinition) View.CurrentObject;
             if (dashboardDefinition != null){
                 string xml = dashboardDefinition.Xml+"";
-                _invalidNewDashboardXml.Active["xml"] = !(xml.Contains("Customer") && xml.Contains("Person") && xml.Contains("Chart"));
+                _designerAction.Items.Find(InvalidNewDashboardXml).Active["xml"] = !(xml.Contains("Customer") && xml.Contains("Person") && xml.Contains("Chart"));
             }
         }
 
         private void DashboardTypesEditorOnValueRead(object sender, EventArgs eventArgs){
             _dashboardTypesEditor.ValueRead-=DashboardTypesEditorOnValueRead;
-            _invalidNewDashboardTypes.Active["dashboradtypes"] = (string)_dashboardTypesEditor.ControlValue != "Customer, Person";
+            _designerAction.Items.Find(InvalidNewDashboardTypes).Active["dashboradtypes"] = (string)_dashboardTypesEditor.ControlValue != "Customer, Person";
         }
     }
 }

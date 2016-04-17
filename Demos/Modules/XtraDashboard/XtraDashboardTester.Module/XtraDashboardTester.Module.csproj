@@ -186,12 +186,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DatabaseUpdate\FilterDashboard.xml" />
+    <Content Include="FunctionalTests\DesignerActions\Images\DashboardViewer.web.png" />
     <Content Include="FunctionalTests\Permissions\Config.xml" />
     <Content Include="FunctionalTests\DesignerActions\Config.xml" />
     <Content Include="FunctionalTests\DesignerActions\DesignDashboard.inc" />
     <None Include="FunctionalTests\DesignerActions\CreateNew.inc" />
     <Content Include="FunctionalTests\DesignerActions\EditExisting.inc" />
-    <Content Include="FunctionalTests\DesignerActions\Images\DashboardViewer.web.png" />
     <Content Include="FunctionalTests\DesignerActions\Images\DashboardViewer.win.png" />
     <Content Include="FunctionalTests\DesignerActions\Init.inc" />
     <EmbeddedResource Include="FunctionalTests\DesignerActions\NewDashboard.xml" />

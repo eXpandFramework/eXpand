@@ -30,6 +30,7 @@ namespace XtraDashboardTester.Module.Web {
             // 
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Web.XtraDashboardWebModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
+            this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule));
             this.RequiredModuleTypes.Add(typeof(XtraDashboardTester.Module.ModuleModule));
 
         }

@@ -6,13 +6,13 @@
 			Name="XtraDashboardTester.Win"
 			FileName="[WinAppBin]\XtraDashboardTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100"/>
+			CommunicationPort="4100" Ignored="0"/>
     <!-- Web -->
     <Application
 			Name="XtraDashboardTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]"
+      AdapterFileName="[WebAdapterFileName]" Ignored="0"
 />
     <!-- For IIS -->
     <!--Application
@@ -28,5 +28,12 @@
     <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\XtraDashboardTester.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\XtraDashboardTester.Web" />
+    <Alias Name="ChartRibbonButton" Value="300x96" />
+    <Alias Name="FirstNameProperty" Value="76x330" />
+    <Alias Name="DataItem1" Value="270x236" />
+    <Alias Name="SaveAndCloseRibbonButton" Value="62x121" />
+    <Alias Name="WebMenu" Value="109x109" />
+    <Alias Name="WebSave" Value="107x163" />
+    <Alias Name="WebChartButton" Value="88x219" />
   </Aliases>
 </Options>

@@ -1,48 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Dashboard CurrencyCulture="el-GR">
+<Dashboard CurrencyCulture="en-US">
   <Title Text="Dashboard" />
-  <DataConnections>
-    <DataConnection Name=".\LocalDB_XtraDashboardTesterConnection" ProviderKey="MSSqlServer">
-      <Parameters>
-        <Parameter Name="server" Value="(localdb)\MSSQLLocalDB" />
-        <Parameter Name="database" Value="XtraDashboardTester" />
-        <Parameter Name="useIntegratedSecurity" Value="True" />
-        <Parameter Name="read only" Value="1" />
-        <Parameter Name="generateConnectionHelper" Value="false" />
-      </Parameters>
-    </DataConnection>
-  </DataConnections>
   <DataSources>
-    <DataSource ComponentName="dataSource1" Name="FilteredDataSource">
-      <DataProvider DataConnection=".\LocalDB_XtraDashboardTesterConnection" SupportSql="true">
-        <Selection>
-          <Table Name="Customer" />
-          <Table Name="Person">
-            <References>
-              <Reference Key="Oid" ParentKey="Oid" ParentTable="Customer" />
-            </References>
-            <Columns>
-              <Column Name="FirstName" Alias="FirstName" />
-              <Column Name="LastName" Alias="LastName" />
-            </Columns>
-          </Table>
-          <Table Name="SecuritySystemUser">
-            <References>
-              <Reference Key="Oid" ParentKey="User" ParentTable="Customer" />
-            </References>
-          </Table>
-          <Filters>
-            <Filter TableName="Customer" FilterString="" />
-          </Filters>
-        </Selection>
-      </DataProvider>
-    </DataSource>
+    <SqlDataSource ComponentName="dashboardSqlDataSource1">
+      <Name>SQL Data Source 1</Name>
+      <Connection Name="(localdb)\MSSQLLocalDB_XtraDashboardTesterEasyTest_Connection" ProviderKey="MSSqlServer">
+        <Parameters>
+          <Parameter Name="server" Value="(localdb)\MSSQLLocalDB" />
+          <Parameter Name="database" Value="XtraDashboardTesterEasyTest" />
+          <Parameter Name="useIntegratedSecurity" Value="True" />
+          <Parameter Name="read only" Value="1" />
+          <Parameter Name="generateConnectionHelper" Value="false" />
+          <Parameter Name="userid" Value="" />
+          <Parameter Name="password" Value="" />
+        </Parameters>
+      </Connection>
+      <Query Type="TableQuery" Name="Customer">
+        <Table Name="Customer" />
+        <Table Name="Person">
+          <Column Name="FirstName" />
+          <Column Name="LastName" />
+        </Table>
+        <Relation Type="Inner" Parent="Customer" Nested="Person">
+          <KeyColumn Parent="Oid" Nested="Oid" />
+        </Relation>
+      </Query>
+      <ResultSchema>
+        <DataSet Name="SQL Data Source 1">
+          <View Name="Customer">
+            <Field Name="FirstName" Type="String" />
+            <Field Name="LastName" Type="String" />
+          </View>
+        </DataSet>
+      </ResultSchema>
+    </SqlDataSource>
   </DataSources>
   <Parameters>
     <Parameter Name="Parameter1" Value="Admin" />
   </Parameters>
   <Items>
-    <Grid ComponentName="gridDashboardItem1" Name="Grid 1" DataSource="dataSource1">
+    <Grid ComponentName="gridDashboardItem1" Name="Grid 1" DataSource="dashboardSqlDataSource1" DataMember="Customer">
       <DataItems>
         <Dimension DataMember="FirstName" UniqueName="DataItem0" />
         <Dimension DataMember="LastName" UniqueName="DataItem1" />

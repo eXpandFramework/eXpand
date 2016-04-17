@@ -33,6 +33,11 @@ namespace Xpand.EasyTest {
         UserName
     }
 
+    public interface IXpandEasyTestCommandAdapter {
+        IXpandTestAdapter Adapter { get; }
+        IntPtr MainWindowHandle { get; }
+    }
+
     public interface IXpandTestWinAdapter : IXpandTestAdapter {
          
     }
@@ -43,6 +48,10 @@ namespace Xpand.EasyTest {
 
     public static class Extensions {
         private static readonly string[] _navigationControlPossibleNames = { "ViewsNavigation.Navigation", "Navigation" };
+
+        public static IntPtr GetMainWindowHandle(this ICommandAdapter adapter){
+            return ((IXpandEasyTestCommandAdapter) adapter).MainWindowHandle;
+        }
 
         public static IntPtr GetApplicationWindowHandle(this ICommandAdapter adapter) {
             ITestControl testControl = adapter.CreateTestControl(TestControlType.Dialog, "");
