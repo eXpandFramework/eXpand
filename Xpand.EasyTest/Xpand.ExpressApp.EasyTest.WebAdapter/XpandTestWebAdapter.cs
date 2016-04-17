@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -93,17 +94,17 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
     }
 
-    public class XpandWebCommandAdapter : WebCommandAdapter{
-        private readonly IApplicationAdapter _adapter;
-
+    public class XpandWebCommandAdapter : WebCommandAdapter,IXpandEasyTestCommandAdapter{
         public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
-            _adapter = adapter;
         }
 
-        public IApplicationAdapter Adapter {
-            get { return _adapter; }
+        public IntPtr MainWindowHandle{
+            get { return new IntPtr(WebAdapter.WebBrowsers[0].BrowserWindowHandle); }
         }
-        
+
+        public IXpandTestAdapter Adapter{
+            get { return (IXpandTestAdapter) WebAdapter; }
+        }
     }
 
 }

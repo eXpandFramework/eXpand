@@ -10,12 +10,14 @@ namespace Xpand.EasyTest.Commands{
     public class SendKeysCommand : Command{
         public const string Name = "SendKeys";
 
-
         protected override void InternalExecute(ICommandAdapter adapter){
             var sleepCommand = new SleepCommand();
             sleepCommand.Parameters.MainParameter = new MainParameter("300");
             sleepCommand.Execute(adapter);
-            var simulator=new InputSimulator();
+            var activateApplicationWindowCommand = new XpandActivateApplicationWindowCommand();
+            activateApplicationWindowCommand.Execute(adapter);
+
+            var simulator = new InputSimulator();
             if (!string.IsNullOrEmpty(Parameters.MainParameter.Value))
                 simulator.Keyboard.TextEntry(Parameters.MainParameter.Value);
             var field = this.ParameterValue("Field","");
@@ -26,8 +28,7 @@ namespace Xpand.EasyTest.Commands{
                 fillFieldCommand.Execute(adapter);
             }
 
-            Execute(simulator); ;
-            
+            Execute(simulator);
         }
 
         private void Execute(InputSimulator simulator){

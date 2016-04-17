@@ -141,12 +141,19 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
         }
     }
 
-    public class XpandEasyTestCommandAdapter : WinEasyTestCommandAdapter {
+
+    public class XpandEasyTestCommandAdapter : WinEasyTestCommandAdapter, IXpandEasyTestCommandAdapter{
         public XpandEasyTestCommandAdapter() {
             TestControlFactoryWin.SetInstance(new XpandCustomTestControlFactory());
         }
 
-        public IApplicationAdapter Adapter { get; internal set; }
+        private IntPtr _mainWindowHandle;
+
+        public IntPtr MainWindowHandle{
+            get { return _mainWindowHandle; }
+        }
+
+        public IXpandTestAdapter Adapter { get; internal set; }
     }
 
     public class XpandCustomTestControlFactory : TestControlFactoryWin {
