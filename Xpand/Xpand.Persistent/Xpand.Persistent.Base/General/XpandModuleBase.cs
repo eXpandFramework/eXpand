@@ -37,6 +37,8 @@ using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
+using Xpand.Persistent.Base.General.Web;
+using Xpand.Persistent.Base.General.Web.SyntaxHighlight;
 using Xpand.Persistent.Base.Security;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.MetaData;
@@ -174,7 +176,7 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
                 declaredControllerTypes =declaredControllerTypes.Union(new[]{
                         typeof (NavigationContainerWebController), typeof (ActionsClientScriptController),
-                        typeof (CustomizeASPxPopupController)
+                        typeof (CustomizeASPxPopupController),typeof(SyntaxHighlightController)
                     });
 
             return declaredControllerTypes;

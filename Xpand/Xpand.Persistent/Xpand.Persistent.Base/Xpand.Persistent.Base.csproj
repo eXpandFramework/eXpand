@@ -180,7 +180,9 @@
     <Compile Include="General\Model\VisibilityCalculators\ActionVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\RibbonFormStyleVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\StandardFormStyleVisibilityCalculator.cs" />
-    <Compile Include="General\Web\SyntaxHighLightController.cs">
+    <Compile Include="General\Web\SyntaxHighlight\Model.cs" />
+    <Compile Include="General\Web\SyntaxHighlight\Services.cs" />
+    <Compile Include="General\Web\SyntaxHighlight\SyntaxHighLightController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Win\RibbonExtensions.cs" />
