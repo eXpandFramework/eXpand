@@ -60,9 +60,9 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
+        public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo){
             if (!(typeof(T).IsInterface))
-                throw new ArgumentException(typeof(T).FullName + " should be an interface");
+                return typeof(T);
             var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.ToArray();
             var objectType = implementors.FirstOrDefault();
             if (objectType == null)

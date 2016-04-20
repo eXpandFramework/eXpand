@@ -156,9 +156,9 @@ namespace Xpand.ExpressApp.WorldCreator {
             };
         }
 
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors){
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), false)));
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory){
+            base.RegisterEditorDescriptors(editorDescriptorsFactory);
+            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), false)));
         }
 
         public abstract string GetPath();

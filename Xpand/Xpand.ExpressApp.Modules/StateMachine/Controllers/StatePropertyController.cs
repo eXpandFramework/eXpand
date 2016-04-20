@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.StateMachine;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.Xpo;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
@@ -114,23 +113,32 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             }
         }
 
-        private bool IsValid(ChoiceActionItem item){
+        private bool IsAvailable(ChoiceActionItem item){
             return item.Active && item.Enabled;
         }
 
         private ChoiceActionItem GetStateMachineChoiceActionItem(IStateMachine stateMachine){
             return _stateMachineController.ChangeStateAction.Items.GetItems<ChoiceActionItem>(item => item.Items).FirstOrDefault(
-                item => IsValid(item) && item.Data == stateMachine);
+                item => IsAvailable(item)&&IsValid(stateMachine,item));
+        }
+
+        private bool IsValid(IStateMachine stateMachine, ChoiceActionItem item){
+            return _stateMachineController.ChangeStateActionItemsMode==ChangeStateActionItemsMode.GroupByStateMachine? item.Data == stateMachine
+                : ((ITransition) item.Data).TargetState.StateMachine == stateMachine;
         }
 
         public IEnumerable<object> GetMarkers(IStateMachine stateMachine){
-            var choiceActionItem = GetStateMachineChoiceActionItem(stateMachine);
-            if (choiceActionItem != null){
-                var markers =choiceActionItem.Items.Select(actionItem => ((XpoTransition) actionItem.Data).TargetState.Marker.Marker);
-                return markers.Concat(choiceActionItem.Items.Where(IsValid).Select(actionItem
-                    => ((XpoTransition) actionItem.Data).SourceState.Marker.Marker));
+            if (_stateMachineController.ChangeStateActionItemsMode == ChangeStateActionItemsMode.GroupByStateMachine) {
+                var choiceActionItem = GetStateMachineChoiceActionItem(stateMachine);
+                if (choiceActionItem != null){
+                    var markers =choiceActionItem.Items.Select(actionItem => ((ITransition) actionItem.Data).TargetState.Marker);
+                    return markers.Concat(choiceActionItem.Items.Where(IsAvailable).Select(actionItem
+                        => ((ITransition) actionItem.Data).GetSourceState().Marker));
+                }
+                return new[] { stateMachine.FindCurrentState(View.CurrentObject).Marker };
             }
-            return new[]{stateMachine.FindCurrentState(View.CurrentObject).Marker};
+            return _stateMachineController.ChangeStateAction.Items.Where(IsAvailable).Select(item =>
+                ((ITransition) item.Data).TargetState.Marker).Concat(new[] { stateMachine.FindCurrentState(View.CurrentObject).Marker });
         }
 
         void ItemOnControlCreated(object sender, EventArgs eventArgs) {

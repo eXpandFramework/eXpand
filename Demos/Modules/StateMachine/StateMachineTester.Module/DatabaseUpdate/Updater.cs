@@ -49,7 +49,7 @@ namespace StateMachineTester.Module.DatabaseUpdate {
         }
 
         private void CreateStateMachines(){
-            if (ObjectSpace.FindObject<XpoStateMachine>(machine => machine.Name=="Payment")==null){
+            if (ObjectSpace.QueryObject<XpoStateMachine>(machine => machine.Name=="Payment")==null){
                 var stateMachine = ObjectSpace.CreateObject<XpoStateMachine>();
                 stateMachine.Name = "Payment";
                 stateMachine.Active = true;
@@ -86,13 +86,13 @@ namespace StateMachineTester.Module.DatabaseUpdate {
 
         private List<XpoState> CreatePaymentStatusStates(){
             var states = new List<XpoState>();
-            var canceled = CreateState("Canceled", ObjectSpace.FindObject<Status>(status => status.Caption == "Canceled"));
+            var canceled = CreateState("Canceled", ObjectSpace.QueryObject<Status>(status => status.Caption == "Canceled"));
             states.Add(canceled);
-            var pending = CreateState("Pending", ObjectSpace.FindObject<Status>(status => status.Caption == "Pending"));
+            var pending = CreateState("Pending", ObjectSpace.QueryObject<Status>(status => status.Caption == "Pending"));
             states.Add(pending);
-            var paid = CreateState("Paid", ObjectSpace.FindObject<Status>(status => status.Caption == "Paid"));
+            var paid = CreateState("Paid", ObjectSpace.QueryObject<Status>(status => status.Caption == "Paid"));
             states.Add(paid);
-            var newState = CreateState("New", ObjectSpace.FindObject<Status>(status => status.Caption == "New"));
+            var newState = CreateState("New", ObjectSpace.QueryObject<Status>(status => status.Caption == "New"));
             states.Add(newState);
 
             newState.AddTransition(canceled);

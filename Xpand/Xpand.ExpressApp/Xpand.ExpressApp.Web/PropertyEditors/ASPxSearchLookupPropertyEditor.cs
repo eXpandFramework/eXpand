@@ -549,7 +549,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (!ReadOnly) {
                 _clearButtonScript =
                     @"var processOnServer = false;
-						var dropDownControl = aspxGetControlCollection().Get('" +
+						var dropDownControl = ASPxClientControl.GetControlCollection().GetByName('" +
                     _dropDown.ClientID +
                     @"');
 						if(dropDownControl) {

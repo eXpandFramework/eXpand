@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -13,18 +14,32 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
     public class PivotGridModelAdapterController : ModelAdapterController, IModelExtender {
         PivotGridListEditor _pivotGridListEditor;
 
+        protected override void OnDeactivated(){
+            base.OnDeactivated();
+            if (_pivotGridListEditor != null){
+                _pivotGridListEditor.ModelApplied -= PivotGridListEditorOnModelApplied;
+                _pivotGridListEditor.ModelSaved -= PivotGridListEditorOnModelSaved;
+            }
+        }
+
         protected override void OnActivated() {
             base.OnActivated();
             var listView = View as ListView;
             if (listView != null && listView.Editor != null && listView.Editor.GetType() == typeof(PivotGridListEditor)) {
                 _pivotGridListEditor = (PivotGridListEditor)listView.Editor;
-                _pivotGridListEditor.CreateCustomModelSynchronizer += PivotGridListEditorOnControlsCreated;
+                _pivotGridListEditor.ModelApplied+=PivotGridListEditorOnModelApplied;
+                _pivotGridListEditor.ModelSaved+=PivotGridListEditorOnModelSaved;
             }
         }
 
-        void PivotGridListEditorOnControlsCreated(object sender, EventArgs eventArgs) {
+        private void PivotGridListEditorOnModelSaved(object sender, EventArgs eventArgs){
+            new PivotGridListEditorModelSynchronizer(_pivotGridListEditor).SynchronizeModel();
+        }
+
+        private void PivotGridListEditorOnModelApplied(object sender, EventArgs eventArgs){
             new PivotGridListEditorModelSynchronizer(_pivotGridListEditor).ApplyModel();
         }
+
 
         #region Implementation of IModelExtender
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

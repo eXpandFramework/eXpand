@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.NH
         public const Int32 UnableToOpenDatabaseErrorNumber = 4060;
 
         private readonly IPersistenceManager persistenceManager;
-        private readonly IEntityStore entityStore;
+        private readonly IEntityStore _entityStore;
         private readonly Dictionary<object, ObjectSpaceInstanceInfo> instances;
         private readonly ISelectDataSecurity selectDataSecurity;
 
@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.NH
             Guard.ArgumentNotNull(persistenceManager, "persistenceManager");
             Guard.ArgumentNotNull(entityStore, "entityStore");
             this.persistenceManager = persistenceManager;
-            this.entityStore = entityStore;
+            this._entityStore = entityStore;
             this.instances = instances;
             this.selectDataSecurity = selectDataSecurity;
         }
@@ -55,13 +55,13 @@ namespace Xpand.ExpressApp.NH
         public NHObjectSpace(ITypesInfo typesInfo, IEntityStore entityStore, IPersistenceManager persistenceManager, ISelectDataSecurity selectDataSecurity) :
             this(typesInfo, entityStore, persistenceManager, new Dictionary<object, ObjectSpaceInstanceInfo>(), selectDataSecurity) { }
 
-        public void ApplyCriteria(object collection, DevExpress.Data.Filtering.CriteriaOperator criteria)
+        public override void ApplyCriteria(object collection, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {
             DoIfINHCollection(collection, nhc => nhc.Criteria = criteria);
 
         }
 
-        public void ApplyFilter(object collection, DevExpress.Data.Filtering.CriteriaOperator filter)
+        public override void ApplyFilter(object collection, DevExpress.Data.Filtering.CriteriaOperator filter)
         {
             throw new NotImplementedException();
         }
@@ -73,22 +73,22 @@ namespace Xpand.ExpressApp.NH
                 return false;
             }
         }
-        public bool CanApplyCriteria(Type collectionType)
+        public override bool CanApplyCriteria(Type collectionType)
         {
             return typeof(NHCollection).IsAssignableFrom(collectionType);
         }
 
-        public bool CanApplyFilter(object collection)
+        public override bool CanApplyFilter(object collection)
         {
             return collection is NHCollection;
         }
 
-        public bool CanInstantiate(Type type)
+        public override bool CanInstantiate(Type type)
         {
-            return entityStore.RegisteredEntities.Contains(type);
+            return _entityStore.RegisteredEntities.Contains(type);
         }
 
-        public bool Contains(object obj)
+        public override bool Contains(object obj)
         {
             if (obj == null)
                 return false;
@@ -101,37 +101,37 @@ namespace Xpand.ExpressApp.NH
 
         }
 
-        public IObjectSpace CreateNestedObjectSpace()
+        public override IObjectSpace CreateNestedObjectSpace()
         {
-            return new NHNestedObjectSpace(typesInfo, entityStore, persistenceManager, instances, this);
+            return new NHNestedObjectSpace(typesInfo, _entityStore, persistenceManager, instances, this);
         }
 
-        public IDisposable CreateParseCriteriaScope()
+        public override IDisposable CreateParseCriteriaScope()
         {
             return new ParseCriteriaScope(this);
         }
 
-        public object CreateServerCollection(Type objectType, DevExpress.Data.Filtering.CriteriaOperator criteria)
+        public override object CreateServerCollection(Type objectType, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {
             return new NHServerCollection(this, objectType, criteria, null);
         }
 
-        public string Database
+        public override string Database
         {
             get { throw new NotImplementedException(); }
         }
 
-        public void EnableObjectDeletionOnRemove(object collection, bool enable)
+        public override void EnableObjectDeletionOnRemove(object collection, bool enable)
         {
             DoIfNHCollection(collection, nhc => nhc.DeleteObjectOnRemove = enable);
         }
 
-        public IList<DevExpress.Xpo.SortProperty> GetCollectionSorting(object collection)
+        public override IList<DevExpress.Xpo.SortProperty> GetCollectionSorting(object collection)
         {
             throw new NotImplementedException();
         }
 
-        public CriteriaOperator GetCriteria(object collection)
+        public override CriteriaOperator GetCriteria(object collection)
         {
             CriteriaOperator result = null;
             DoIfNHCollection(collection, nhc => result = nhc.Criteria);
@@ -139,12 +139,12 @@ namespace Xpand.ExpressApp.NH
         }
 
 
-        public DevExpress.Data.Filtering.CriteriaOperator GetFilter(object collection)
+        public override DevExpress.Data.Filtering.CriteriaOperator GetFilter(object collection)
         {
             throw new NotImplementedException();
         }
 
-        public string GetKeyPropertyName(Type type)
+        public override string GetKeyPropertyName(Type type)
         {
             return GetKeyMemberProperty(type, mi => mi.Name);
         }
@@ -161,7 +161,7 @@ namespace Xpand.ExpressApp.NH
                 .WhenNotNull(ti => func(ti.KeyMember));
         }
 
-        public Type GetKeyPropertyType(Type type)
+        public override Type GetKeyPropertyType(Type type)
         {
             return GetKeyMemberProperty(type, mi => mi.MemberType);
         }
@@ -172,7 +172,7 @@ namespace Xpand.ExpressApp.NH
             CriteriaToStringWrapperSubstituteProcessor processor = new CriteriaToStringWrapperSubstituteProcessor();
             return processor.ConvertToString(criteria);
         }
-        public int GetObjectsCount(Type objectType, DevExpress.Data.Filtering.CriteriaOperator criteria)
+        public override int GetObjectsCount(Type objectType, DevExpress.Data.Filtering.CriteriaOperator criteria)
         {
             Guard.ArgumentNotNull(objectType, "objectType");
 
@@ -185,43 +185,43 @@ namespace Xpand.ExpressApp.NH
             return instances.Values.Where(v => states.Contains(v.State)).Select(v => v.Instance).ToArray();
         }
 
-        public System.Collections.ICollection GetObjectsToDelete(bool includeParent)
+        public override System.Collections.ICollection GetObjectsToDelete(bool includeParent)
         {
 
             return GetObjectsByState(InstanceState.Deleted);
         }
 
-        public System.Collections.ICollection GetObjectsToSave(bool includeParent)
+        public override System.Collections.ICollection GetObjectsToSave(bool includeParent)
         {
             return GetObjectsByState(InstanceState.Changed, InstanceState.New);
         }
 
-        public int GetTopReturnedObjectsCount(object collection)
+        public override int GetTopReturnedObjectsCount(object collection)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsCollectionLoaded(object collection)
+        public override bool IsCollectionLoaded(object collection)
         {
             return true;
         }
 
-        public bool IsConnected
+        public override bool IsConnected
         {
             get { return true; }
         }
 
-        public bool IsDeletedObject(object obj)
+        public override bool IsDeletedObject(object obj)
         {
             return IsObjectStateEquals(obj, InstanceState.Deleted);
         }
 
-        public bool IsDeletionDeferredType(Type type)
+        public override bool IsDeletionDeferredType(Type type)
         {
             return false;
         }
 
-        public bool IsDisposedObject(object obj)
+        public override bool IsDisposedObject(object obj)
         {
             IDisposableExt disposable = obj as IDisposableExt;
             return disposable != null && disposable.IsDisposed;
@@ -251,27 +251,27 @@ namespace Xpand.ExpressApp.NH
         {
             return GetInstanceInfoSafe(obj).State;
         }
-        public bool IsNewObject(object obj)
+        public override bool IsNewObject(object obj)
         {
             return IsObjectStateEquals(obj, InstanceState.New);
         }
 
-        public bool IsObjectDeletionOnRemoveEnabled(object collection)
+        public override bool IsObjectDeletionOnRemoveEnabled(object collection)
         {
             throw new NotImplementedException();
         }
 
-        public bool IsObjectToDelete(object obj)
+        public override bool IsObjectToDelete(object obj)
         {
             return IsObjectStateEquals(obj, InstanceState.Deleted);
         }
 
-        public bool IsObjectToSave(object obj)
+        public override bool IsObjectToSave(object obj)
         {
             return IsObjectStateEquals(obj, InstanceState.Changed) || IsObjectStateEquals(obj, InstanceState.New);
         }
 
-        public System.Collections.IList ModifiedObjects
+        public override System.Collections.IList ModifiedObjects
         {
             get
             {
@@ -282,7 +282,7 @@ namespace Xpand.ExpressApp.NH
             }
         }
 
-        public DevExpress.Data.Filtering.CriteriaOperator ParseCriteria(string criteria)
+        public override DevExpress.Data.Filtering.CriteriaOperator ParseCriteria(string criteria)
         {
             using (var scope = CreateParseCriteriaScope())
             {
@@ -290,12 +290,12 @@ namespace Xpand.ExpressApp.NH
             }
         }
 
-        public void ReloadCollection(object collection)
+        public override void ReloadCollection(object collection)
         {
             throw new NotImplementedException();
         }
 
-        public virtual object ReloadObject(object obj)
+        public override object ReloadObject(object obj)
         {
             Guard.ArgumentNotNull(obj, "obj");
 
@@ -305,7 +305,7 @@ namespace Xpand.ExpressApp.NH
             return obj;
         }
 
-        public void RemoveFromModifiedObjects(object obj)
+        public override void RemoveFromModifiedObjects(object obj)
         {
             throw new NotImplementedException();
         }
@@ -326,16 +326,16 @@ namespace Xpand.ExpressApp.NH
                 action(nhCollection);
             }
         }
-        public void SetCollectionSorting(object collection, IList<DevExpress.Xpo.SortProperty> sorting)
+        public override void SetCollectionSorting(object collection, IList<DevExpress.Xpo.SortProperty> sorting)
         {
             DoIfNHCollection(collection, nhc => nhc.Sorting = sorting);
         }
 
-        public void SetDisplayableProperties(object collection, string displayableProperties)
+        public override void SetDisplayableProperties(object collection, string displayableProperties)
         {
         }
 
-        public void SetTopReturnedObjectsCount(object collection, int topReturnedObjects)
+        public override void SetTopReturnedObjectsCount(object collection, int topReturnedObjects)
         {
             DoIfNHCollection(collection, nhc => nhc.TopReturnedObjectsCount = topReturnedObjects);
         }
@@ -855,7 +855,7 @@ namespace Xpand.ExpressApp.NH
             return result;
         }
 
-        internal static string GetKeyValueAsString(ITypesInfo typesInfo, object obj)
+        internal new static string GetKeyValueAsString(ITypesInfo typesInfo, object obj)
         {
             Object keyValue = BaseObjectSpace.GetKeyValue(typesInfo, obj);
             if (keyValue != null)

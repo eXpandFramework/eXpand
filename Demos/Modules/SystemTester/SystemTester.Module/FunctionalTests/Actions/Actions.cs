@@ -18,7 +18,7 @@ namespace SystemTester.Module.FunctionalTests.Actions {
         }
 
         private void FrameOnViewChanged(object sender, ViewChangedEventArgs viewChangedEventArgs){
-            _parametrizedAction.Active[""] = Frame.View.ObjectTypeInfo.Type == typeof (ActionsObject);
+            _parametrizedAction.Active[""] = Frame.View is ObjectView&&Frame.View.ObjectTypeInfo.Type == typeof (ActionsObject);
         }
     }
     public class Actions:ObjectViewController<ObjectView,ActionsObject> {

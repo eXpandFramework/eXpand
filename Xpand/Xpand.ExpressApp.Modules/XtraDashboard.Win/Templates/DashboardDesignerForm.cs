@@ -31,12 +31,19 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         public DashboardDesignerForm() {
             InitializeComponent();
             _dashboardDesigner = new DashboardDesigner();
+            KeyUp+=OnKeyUp;
             Controls.Add(_dashboardDesigner);
             _dashboardDesigner.Dock = DockStyle.Fill;
             _dashboardDesigner.CreateRibbon();
             _dashboardDesigner.ActionOnClose = DashboardActionOnClose.Discard;
             _editHistory = (History)Designer.GetPropertyValue("History");
         }
+
+        private void OnKeyUp(object sender, KeyEventArgs keyEventArgs){
+            if (keyEventArgs.Control&&keyEventArgs.KeyCode==Keys.Return)
+                _barButtonItemSaveAndClose.PerformClick();
+        }
+
 
         public DashboardDesigner Designer {
             get { return _dashboardDesigner; }
@@ -107,9 +114,9 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         void DashboardDesignerForm_Load(object sender, EventArgs e) {
             HideButtons();
-            _barButtonItemSave = AddButton("Save", "MenuBar_Save_32x32.png");
+            _barButtonItemSave = AddButton("Save", "MenuBar_Save_32x32.png",Keys.Control|Keys.S);
             _barButtonItemSave.ItemClick += BarButtonItemSaveOnItemClick;
-            _barButtonItemSaveAndClose = AddButton("Save & Close", "MenuBar_SaveAndClose_32x32.png");
+            _barButtonItemSaveAndClose = AddButton("Save & Close", "MenuBar_SaveAndClose_32x32.png", Keys.ControlKey|Keys.Return);
             _barButtonItemSaveAndClose.ItemClick += SaveAndClose;
         }
 
@@ -126,12 +133,12 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             GetBarItem<FileOpenBarItem>().Visibility = BarItemVisibility.Never;
         }
 
-        private BarButtonItem AddButton(string button, string glyph) {
+        private BarButtonItem AddButton(string button, string glyph,Keys keys) {
             var ribbonControl = ((RibbonControl)_dashboardDesigner.MenuManager);
             var ribbonPage = ribbonControl.Pages.Cast<RibbonPage>().First();
             var barButtonItem = new BarButtonItem(ribbonControl.Manager, button) {
                 Enabled = false,
-                Glyph = GetImage(glyph)
+                Glyph = GetImage(glyph),ItemShortcut = new BarShortcut(keys)
             };
             ribbonPage.Groups[0].ItemLinks.Add(barButtonItem);
             return barButtonItem;

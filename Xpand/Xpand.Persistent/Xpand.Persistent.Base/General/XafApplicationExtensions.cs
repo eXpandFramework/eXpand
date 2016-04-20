@@ -19,8 +19,8 @@ using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
-using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Xpo.DB;
+using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
 
 namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {

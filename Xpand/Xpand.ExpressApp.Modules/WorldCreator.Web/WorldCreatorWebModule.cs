@@ -30,10 +30,11 @@ namespace Xpand.ExpressApp.WorldCreator.Web {
             return base.GetDeclaredControllerTypes().Concat(new[] { typeof(RegisterScriptsController) });
         }
 
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.CSCodePropertyEditor,typeof(string),typeof(CSCodePropertyEditor),false)));
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory){
+            base.RegisterEditorDescriptors(editorDescriptorsFactory);
+            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), typeof(CSCodePropertyEditor), false)));
         }
+
 
         public override string GetPath() {
             if (HttpContext.Current != null){

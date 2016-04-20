@@ -148,7 +148,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionHandling\ExceptionObject.cs" />
     <Compile Include="ImportExport\ClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\IOError.cs" />
     <Compile Include="ImportExport\SerializationConfiguration.cs" />

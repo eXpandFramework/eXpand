@@ -144,8 +144,6 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                     return "DateTime";
                 case DBColumnType.Guid:
                     return "Guid";
-                case DBColumnType.TimeSpan:
-                    return "TimeSpan";
                 case DBColumnType.ByteArray:
                     return "byte[]";
                 default:

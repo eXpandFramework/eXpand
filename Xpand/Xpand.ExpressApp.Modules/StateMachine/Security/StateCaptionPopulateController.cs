@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.StateMachine.Xpo;
+using DevExpress.ExpressApp.StateMachine;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Utils.Helpers;
@@ -16,9 +15,9 @@ namespace Xpand.ExpressApp.StateMachine.Security{
             return string.Join(";", GetStateCaptions(stateMachineTransitionPermission.StateMachineName));
         }
 
-        ReadOnlyCollection<string> GetStateCaptions(string stateMachineName) {
-            return ObjectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == stateMachineName).Select(
-                state => state.Caption).ToList().AsReadOnly();
+        IEnumerable<string> GetStateCaptions(string stateMachineName) {
+            return ObjectSpace.QueryObjects<IState>(state => state.StateMachine.Name == stateMachineName).Select(
+                state => state.Caption);
         }
 
         protected override IEnumerable<string> RefreshingProperties(){

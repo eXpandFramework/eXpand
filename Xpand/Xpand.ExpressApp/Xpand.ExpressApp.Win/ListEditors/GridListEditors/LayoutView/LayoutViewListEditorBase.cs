@@ -10,7 +10,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Editors;
@@ -36,7 +35,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     public class XafLayoutView : DevExpress.XtraGrid.Views.Layout.LayoutView, IModelSynchronizersHolder {
-        public Dictionary<Component, IModelSynchronizer> columnsInfoCache = new Dictionary<Component, IModelSynchronizer>();
+        public Dictionary<Component, IModelSynchronizer> ColumnsInfoCache = new Dictionary<Component, IModelSynchronizer>();
         protected override void AssignColumns(DevExpress.XtraGrid.Views.Base.ColumnView cv, bool synchronize) {
             base.AssignColumns(cv, synchronize);
             if (!synchronize) {
@@ -50,21 +49,21 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             if (component != null) {
                 result = OnCustomModelSynchronizer(component);
                 if (result == null) {
-                    columnsInfoCache.TryGetValue(component, out result);
+                    ColumnsInfoCache.TryGetValue(component, out result);
                 }
             }
             return result;
         }
         void IModelSynchronizersHolder.RegisterSynchronizer(Component component, IModelSynchronizer modelSynchronizer) {
-            columnsInfoCache.Add(component, modelSynchronizer);
+            ColumnsInfoCache.Add(component, modelSynchronizer);
         }
         void IModelSynchronizersHolder.RemoveSynchronizer(Component component) {
-            if (component != null && columnsInfoCache.ContainsKey(component)) {
-                columnsInfoCache.Remove(component);
+            if (component != null && ColumnsInfoCache.ContainsKey(component)) {
+                ColumnsInfoCache.Remove(component);
             }
         }
         void IModelSynchronizersHolder.AssignSynchronizers(DevExpress.XtraGrid.Views.Base.ColumnView sourceView) {
-            IModelSynchronizersHolder current = (IModelSynchronizersHolder)this;
+            IModelSynchronizersHolder current = this;
             IModelSynchronizersHolder sourceInfoProvider = (IModelSynchronizersHolder)sourceView;
             for (int n = 0; n < sourceView.Columns.Count; n++) {
                 IGridColumnModelSynchronizer info = sourceInfoProvider.GetSynchronizer(sourceView.Columns[n]) as IGridColumnModelSynchronizer;
@@ -88,22 +87,22 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         #endregion
 
-        private ErrorMessages errorMessages;
-        private BaseGridController gridController;
-        private Boolean skipMakeRowVisible;
+        private ErrorMessages _errorMessages;
+        private BaseGridController _gridController;
+        private Boolean _skipMakeRowVisible;
         public XafLayoutView() { }
         public XafLayoutView(GridControl ownerGrid)
             : base(ownerGrid) { }
         internal void SuppressInvalidCastException() {
             foreach (GridColumn column in Columns) {
-                if (column.ColumnEdit != null && column.ColumnEdit is RepositoryItemLookupEdit) {
+                if (column.ColumnEdit is RepositoryItemLookupEdit) {
                     //((RepositoryItemLookupEdit)column.ColumnEdit).ThrowInvalidCastException = false;
                 }
             }
         }
         internal void CancelSuppressInvalidCastException() {
             foreach (GridColumn column in Columns) {
-                if (column.ColumnEdit != null && column.ColumnEdit is RepositoryItemLookupEdit) {
+                if (column.ColumnEdit is RepositoryItemLookupEdit) {
                     //((RepositoryItemLookupEdit)column.ColumnEdit).ThrowInvalidCastException = true;
                 }
             }
@@ -127,9 +126,9 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         protected override string GetColumnError(int rowHandle, GridColumn column) {
             string result = null;
-            if (errorMessages != null) {
+            if (_errorMessages != null) {
                 object listItem = GetRow(rowHandle);
-                ErrorMessage message = column == null ? errorMessages.GetMessages(listItem) : errorMessages.GetMessage(column.FieldName, listItem);
+                ErrorMessage message = column == null ? _errorMessages.GetMessages(listItem) : _errorMessages.GetMessage(column.FieldName, listItem);
                 if (message != null) result = message.Message;
             }
             else {
@@ -185,8 +184,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             }
         }
         protected override BaseGridController CreateDataController() {
-            gridController = base.CreateDataController();
-            return gridController;
+            _gridController = base.CreateDataController();
+            return _gridController;
         }
         protected override FilterCustomDialog CreateCustomFilterDialog(GridColumn column) {
             if (!OptionsFilter.UseNewCustomFilterDialog) {
@@ -195,19 +194,19 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             return new FilterCustomDialog2(column, Columns);
         }
         protected internal void CancelCurrentRowEdit() {
-            if ((gridController != null) && !gridController.IsDisposed
-                && (ActiveEditor != null) && (gridController.IsCurrentRowEditing || gridController.IsCurrentRowModified)) {
-                gridController.CancelCurrentRowEdit();
+            if ((_gridController != null) && !_gridController.IsDisposed
+                && (ActiveEditor != null) && (_gridController.IsCurrentRowEditing || _gridController.IsCurrentRowModified)) {
+                _gridController.CancelCurrentRowEdit();
             }
         }
         protected override void MakeRowVisibleCore(int rowHandle, bool invalidate) {
-            if (!skipMakeRowVisible) {
+            if (!_skipMakeRowVisible) {
                 base.MakeRowVisibleCore(rowHandle, invalidate);
             }
         }
         protected internal Boolean SkipMakeRowVisible {
-            get { return skipMakeRowVisible; }
-            set { skipMakeRowVisible = value; }
+            get { return _skipMakeRowVisible; }
+            set { _skipMakeRowVisible = value; }
         }
         public override void ShowFilterEditor(GridColumn defaultColumn) {
             RaiseFilterEditorPopup();
@@ -232,8 +231,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             }
         }
         public ErrorMessages ErrorMessages {
-            get { return errorMessages; }
-            set { errorMessages = value; }
+            get { return _errorMessages; }
+            set { _errorMessages = value; }
         }
         public event EventHandler FilterEditorPopup;
         public event EventHandler FilterEditorClosed;
@@ -249,23 +248,23 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         public override string SummaryFormat {
             get { return ""; }
-            set { ; }
+            set {  }
         }
         public override int GroupIndex {
             get { return -1; }
-            set { ; }
+            set {  }
         }
         public override DateTimeGroupInterval GroupInterval {
             get { return DateTimeGroupInterval.None; }
-            set { ; }
+            set {  }
         }
         public override bool AllowGroupingChange {
             get { return false; }
-            set { ; }
+            set {  }
         }
         public override bool AllowSummaryChange {
             get { return false; }
-            set { ; }
+            set {  }
         }
         public override bool Visible {
             get {
@@ -283,10 +282,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     }
     //TODO Crimp see GridViewModelSynchronizer
     public class LayoutViewModelSynchronizer : ModelSynchronizer<DevExpress.XtraGrid.Views.Layout.LayoutView, IModelListView> {
-        private readonly LayoutViewListEditorBase listEditor;
         public LayoutViewModelSynchronizer(LayoutViewListEditorBase listEditor, IModelListView modelNode)
             : base(listEditor.XafLayoutView, modelNode) {
-            this.listEditor = listEditor;
         }
         protected override void ApplyModelCore() {
             var modelListViewShowFindPanel = Model as IModelListViewShowFindPanel;
@@ -319,15 +316,15 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     }
     public class LayoutViewListEditorSynchronizer : ListEditorModelSynchronizer {
         public LayoutViewListEditorSynchronizer(LayoutViewListEditorBase editor)
-            : base(editor, new List<DevExpress.ExpressApp.Model.IModelSynchronizable>()) {
+            : base(editor, new List<IModelSynchronizable>()) {
             ModelSynchronizerList.Add(new GridViewColumnsModelSynchronizer(editor, editor.Model));
             ModelSynchronizerList.Add(new LayoutViewModelSynchronizer(editor, editor.Model));
         }
     }
     internal class CancelEventArgsAppearanceAdapter : IAppearanceEnabled {
-        private readonly CancelEventArgs cancelEdit;
+        private readonly CancelEventArgs _cancelEdit;
         public CancelEventArgsAppearanceAdapter(CancelEventArgs cancelEdit) {
-            this.cancelEdit = cancelEdit;
+            _cancelEdit = cancelEdit;
         }
         #region IAppearanceEnabled Members
         public void ResetEnabled() {
@@ -335,140 +332,143 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
 
         public bool Enabled {
-            get { return !cancelEdit.Cancel; }
-            set { cancelEdit.Cancel = !value; }
+            get { return !_cancelEdit.Cancel; }
+            set { _cancelEdit.Cancel = !value; }
         }
         #endregion
         #region IAppearanceItem Members
         public object Data {
-            get { return cancelEdit; }
+            get { return _cancelEdit; }
         }
         #endregion
     }
     internal class AppearanceObjectAdapterWithReset : AppearanceObjectAdapter {
-        private readonly AppearanceObject appearanceObject;
+        private readonly AppearanceObject _appearanceObject;
         public AppearanceObjectAdapterWithReset(AppearanceObject appearanceObject)
             : base(appearanceObject) {
-            this.appearanceObject = appearanceObject;
+            _appearanceObject = appearanceObject;
         }
         public void ResetAppearance() {
-            appearanceObject.Reset();
+            _appearanceObject.Reset();
         }
     }
     public class LayoutViewAutoScrollHelper {
         public LayoutViewAutoScrollHelper(DevExpress.XtraGrid.Views.Layout.LayoutView view) {
-            fGrid = view.GridControl;
-            fView = view;
-            fScrollInfo = new ScrollInfo(this, view);
+            _fGrid = view.GridControl;
+            _fView = view;
+            _fScrollInfo = new ScrollInfo(this, view);
         }
 
-        readonly GridControl fGrid;
-        readonly DevExpress.XtraGrid.Views.Layout.LayoutView fView;
-        readonly ScrollInfo fScrollInfo;
+        private readonly GridControl _fGrid;
+        private readonly DevExpress.XtraGrid.Views.Layout.LayoutView _fView;
+        private readonly ScrollInfo _fScrollInfo;
         public int ThresholdInner = 20;
         public int ThresholdOutter = 100;
         public int HorizontalScrollStep = 10;
         public int ScrollTimerInterval {
             get {
-                return fScrollInfo.scrollTimer.Interval;
+                return _fScrollInfo.ScrollTimer.Interval;
             }
             set {
-                fScrollInfo.scrollTimer.Interval = value;
+                _fScrollInfo.ScrollTimer.Interval = value;
             }
         }
 
         public void ScrollIfNeeded() {
-            Point pt = fGrid.PointToClient(Control.MousePosition);
-            var viewInfo = ((LayoutViewInfo)fView.GetViewInfo());
+            Point pt = _fGrid.PointToClient(Control.MousePosition);
+            var viewInfo = ((LayoutViewInfo)_fView.GetViewInfo());
             Rectangle rect = viewInfo.ViewRects.CardsRect;
-            fScrollInfo.GoLeft = (pt.X > rect.Left - ThresholdOutter) && (pt.X < rect.Left + ThresholdInner);
-            fScrollInfo.GoRight = (pt.X > rect.Right - ThresholdInner) && (pt.X < rect.Right + ThresholdOutter);
-            fScrollInfo.GoUp = (pt.Y < rect.Top + ThresholdInner) && (pt.Y > rect.Top - ThresholdOutter);
-            fScrollInfo.GoDown = (pt.Y > rect.Bottom - ThresholdInner) && (pt.Y < rect.Bottom + ThresholdOutter);
+            _fScrollInfo.GoLeft = (pt.X > rect.Left - ThresholdOutter) && (pt.X < rect.Left + ThresholdInner);
+            _fScrollInfo.GoRight = (pt.X > rect.Right - ThresholdInner) && (pt.X < rect.Right + ThresholdOutter);
+            _fScrollInfo.GoUp = (pt.Y < rect.Top + ThresholdInner) && (pt.Y > rect.Top - ThresholdOutter);
+            _fScrollInfo.GoDown = (pt.Y > rect.Bottom - ThresholdInner) && (pt.Y < rect.Bottom + ThresholdOutter);
         }
 
         internal class ScrollInfo {
-            internal Timer scrollTimer;
-            readonly DevExpress.XtraGrid.Views.Layout.LayoutView view;
-            bool left, right, up, down;
+            internal Timer ScrollTimer;
+            private readonly DevExpress.XtraGrid.Views.Layout.LayoutView _view;
+            private bool _left;
+            private bool _right;
+            private bool _up;
+            private bool _down;
 
-            readonly LayoutViewAutoScrollHelper owner;
+            private readonly LayoutViewAutoScrollHelper _owner;
             public ScrollInfo(LayoutViewAutoScrollHelper owner, DevExpress.XtraGrid.Views.Layout.LayoutView view) {
-                this.owner = owner;
-                this.view = view;
-                scrollTimer = new Timer { Interval = 500 };
-                scrollTimer.Tick += scrollTimer_Tick;
+                _owner = owner;
+                _view = view;
+                ScrollTimer = new Timer { Interval = 500 };
+                ScrollTimer.Tick += scrollTimer_Tick;
             }
             public bool GoLeft {
-                get { return left; }
+                get { return _left; }
                 set {
-                    if (left != value) {
-                        left = value;
+                    if (_left != value) {
+                        _left = value;
                         CalcInfo();
                     }
                 }
             }
             public bool GoRight {
-                get { return right; }
+                get { return _right; }
                 set {
-                    if (right != value) {
-                        right = value;
+                    if (_right != value) {
+                        _right = value;
                         CalcInfo();
                     }
                 }
             }
             public bool GoUp {
-                get { return up; }
+                get { return _up; }
                 set {
-                    if (up != value) {
-                        up = value;
+                    if (_up != value) {
+                        _up = value;
                         CalcInfo();
                     }
                 }
             }
             public bool GoDown {
-                get { return down; }
+                get { return _down; }
                 set {
-                    if (down != value) {
-                        down = value;
+                    if (_down != value) {
+                        _down = value;
                         CalcInfo();
                     }
                 }
             }
             private void scrollTimer_Tick(object sender, EventArgs e) {
-                owner.ScrollIfNeeded();
+                _owner.ScrollIfNeeded();
 
                 if (GoDown)
-                    view.VisibleRecordIndex++;
+                    _view.VisibleRecordIndex++;
                 if (GoUp)
-                    view.VisibleRecordIndex--;
+                    _view.VisibleRecordIndex--;
                 if (GoLeft)
-                    view.VisibleRecordIndex--;
+                    _view.VisibleRecordIndex--;
                 if (GoRight)
-                    view.VisibleRecordIndex++;
+                    _view.VisibleRecordIndex++;
 
-                if (view.VisibleRecordIndex == 0 || view.VisibleRecordIndex == view.RowCount - 1)
-                    scrollTimer.Stop();
+                if (_view.VisibleRecordIndex == 0 || _view.VisibleRecordIndex == _view.RowCount - 1)
+                    ScrollTimer.Stop();
             }
             void CalcInfo() {
                 if (!(GoDown && GoLeft && GoRight && GoUp))
-                    scrollTimer.Stop();
+                    ScrollTimer.Stop();
 
                 if (GoDown || GoLeft || GoRight || GoUp)
-                    scrollTimer.Start();
+                    ScrollTimer.Start();
             }
         }
     }
 
-    public abstract class LayoutViewListEditorBase : WinColumnsListEditor, IExportable, ILookupListEditor, IHtmlFormattingSupport, ILookupEditProvider, ISupportAppearanceCustomization {
-        private int mouseDownTime;
-        private int mouseUpTime;
-        private bool activatedByMouse;
-        private RepositoryItem activeEditor;
-        private Boolean processSelectedItemBySingleClick;
-        private Boolean trackMousePosition;
-        private bool selectedItemExecuting;
-        private LayoutViewAutoScrollHelper autoScrollHelper;
+    public abstract class LayoutViewListEditorBase : WinColumnsListEditor, ILookupListEditor, ILookupEditProvider {
+        private int _mouseDownTime;
+        private int _mouseUpTime;
+        private bool _activatedByMouse;
+        private RepositoryItem _activeEditor;
+        private Boolean _processSelectedItemBySingleClick;
+        private Boolean _trackMousePosition;
+        private bool _selectedItemExecuting;
+        private LayoutViewAutoScrollHelper _autoScrollHelper;
 
         internal LayoutViewListEditorBase(IModelListView model)
             : base(model) {
@@ -484,8 +484,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             e.Image = ImageLoader.Instance.GetImageInfo(ViewImageNameHelper.GetImageName(Model)).Image;
         }
         private void layoutView_MouseMove(object sender, MouseEventArgs e) {
-            if (trackMousePosition)
-                autoScrollHelper.ScrollIfNeeded();
+            if (_trackMousePosition)
+                _autoScrollHelper.ScrollIfNeeded();
         }
         private void layoutView_CustomRowCellEdit(object sender, CustomRowCellEditEventArgs e) {
             if (e.RowHandle == GridControl.AutoFilterRowHandle && e.Column.OptionsFilter.FilterBySortField != DefaultBoolean.False && !String.IsNullOrEmpty(e.Column.FieldNameSortGroup) && e.Column.FieldName != e.Column.FieldNameSortGroup) {
@@ -528,7 +528,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         protected override void SetupGridView() {
             base.SetupGridView();
-            autoScrollHelper = new LayoutViewAutoScrollHelper(XafLayoutView);
+            _autoScrollHelper = new LayoutViewAutoScrollHelper(XafLayoutView);
             XafLayoutView.TemplateCard = new LayoutViewCard();
             XafLayoutView.CardMinSize = new Size(400, 200);
             XafLayoutView.ErrorMessages = ErrorMessages;
@@ -564,12 +564,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             ProcessMouseClick(e);
         }
         private void layoutView_Click(object sender, EventArgs e) {
-            if (processSelectedItemBySingleClick) {
+            if (_processSelectedItemBySingleClick) {
                 ProcessMouseClick(e);
             }
         }
         private void layoutView_EditorShowing(object sender, CancelEventArgs e) {
-            activeEditor = null;
+            _activeEditor = null;
             string propertyName = ColumnView.FocusedColumn.FieldName;
             RepositoryItem edit = ColumnView.FocusedColumn.ColumnEdit;
             OnCustomizeAppearance(propertyName, new CancelEventArgsAppearanceAdapter(e), ColumnView.FocusedRowHandle);
@@ -587,7 +587,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
                         spinEdit.Spin += SpinEdit_Spin;
                     }
                     edit.KeyDown += Editor_KeyDown;
-                    activeEditor = edit;
+                    _activeEditor = edit;
                 }
             }
         }
@@ -596,10 +596,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
                 PopupMenu.ResetPopupContextMenuSite();
             }
             var popupEdit = ColumnView.ActiveEditor as PopupBaseEdit;
-            if (popupEdit != null && activatedByMouse && popupEdit.Properties.ShowDropDown != ShowDropDown.Never) {
+            if (popupEdit != null && _activatedByMouse && popupEdit.Properties.ShowDropDown != ShowDropDown.Never) {
                 popupEdit.ShowPopup();
             }
-            activatedByMouse = false;
+            _activatedByMouse = false;
             var editor = ColumnView.ActiveEditor as LookupEdit;
             if (editor != null) {
                 OnLookupEditCreated(editor);
@@ -613,41 +613,41 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             if (editor != null) {
                 OnLookupEditHide(editor);
             }
-            if (activeEditor != null) {
-                activeEditor.KeyDown -= Editor_KeyDown;
-                activeEditor.MouseDown -= Editor_MouseDown;
-                activeEditor.MouseUp -= Editor_MouseUp;
-                var buttonEdit = activeEditor as RepositoryItemButtonEdit;
+            if (_activeEditor != null) {
+                _activeEditor.KeyDown -= Editor_KeyDown;
+                _activeEditor.MouseDown -= Editor_MouseDown;
+                _activeEditor.MouseUp -= Editor_MouseUp;
+                var buttonEdit = _activeEditor as RepositoryItemButtonEdit;
                 if (buttonEdit != null) {
                     buttonEdit.ButtonPressed -= ButtonEdit_ButtonPressed;
                 }
-                var spinEdit = activeEditor as RepositoryItemBaseSpinEdit;
+                var spinEdit = _activeEditor as RepositoryItemBaseSpinEdit;
                 if (spinEdit != null) {
                     spinEdit.Spin -= SpinEdit_Spin;
                 }
-                activeEditor = null;
+                _activeEditor = null;
             }
         }
         private void layoutView_MouseDown(object sender, MouseEventArgs e) {
             var view = (DevExpress.XtraGrid.Views.Layout.LayoutView)sender;
             LayoutViewHitInfo hi = view.CalcHitInfo(new Point(e.X, e.Y));
-            mouseDownTime = hi.RowHandle >= 0 ? Environment.TickCount : 0;
-            activatedByMouse = true;
+            _mouseDownTime = hi.RowHandle >= 0 ? Environment.TickCount : 0;
+            _activatedByMouse = true;
         }
         private void layoutView_MouseUp(object sender, MouseEventArgs e) {
-            mouseUpTime = Environment.TickCount;
+            _mouseUpTime = Environment.TickCount;
         }
         private void Editor_MouseDown(object sender, MouseEventArgs e) {
             if (e.Button == MouseButtons.Left) {
                 Int32 currentTime = Environment.TickCount;
-                if ((mouseDownTime <= mouseUpTime) && (mouseUpTime <= currentTime) && (currentTime - mouseDownTime < SystemInformation.DoubleClickTime)) {
+                if ((_mouseDownTime <= _mouseUpTime) && (_mouseUpTime <= currentTime) && (currentTime - _mouseDownTime < SystemInformation.DoubleClickTime)) {
                     OnProcessSelectedItem();
-                    mouseDownTime = 0;
+                    _mouseDownTime = 0;
                 }
             }
         }
         private void Editor_MouseUp(object sender, MouseEventArgs e) {
-            mouseUpTime = Environment.TickCount;
+            _mouseUpTime = Environment.TickCount;
         }
         private void Editor_KeyDown(object sender, KeyEventArgs e) {
             ProcessEditorKeyDown(e);
@@ -662,16 +662,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
 
         private void SpinEdit_Spin(object sender, SpinEventArgs e) {
-            mouseDownTime = 0;
+            _mouseDownTime = 0;
         }
         private void ButtonEdit_ButtonPressed(object sender, ButtonPressedEventArgs e) {
-            mouseDownTime = 0;
+            _mouseDownTime = 0;
         }
-        private IMemberInfo FindMemberInfoForColumn(IModelColumn columnInfo) {
-            return ObjectTypeInfo.FindMember(columnInfo.PropertyName);
-        }
+
         protected virtual void ProcessMouseClick(EventArgs e) {
-            if (!selectedItemExecuting) {
+            if (!_selectedItemExecuting) {
                 if (ColumnView.FocusedRowHandle >= 0) {
                     DXMouseEventArgs args = DXMouseEventArgs.GetMouseArgs(Grid, e);
                     LayoutViewHitInfo hitInfo = XafLayoutView.CalcHitInfo(args.Location);
@@ -697,7 +695,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             Grid.DoubleClick -= grid_DoubleClick;
         }
         protected override void OnProcessSelectedItem() {
-            selectedItemExecuting = true;
+            _selectedItemExecuting = true;
             try {
                 if ((ColumnView != null) && (ColumnView.ActiveEditor != null)) {
                     BindingHelper.EndCurrentEdit(Grid);
@@ -705,7 +703,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
                 base.OnProcessSelectedItem();
             }
             finally {
-                selectedItemExecuting = false;
+                _selectedItemExecuting = false;
             }
         }
         protected override void OnCreateCustomColumn(object sender, CreateCustomColumnEventArgs e) {
@@ -758,12 +756,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         #region ILookupListEditor Members
         public Boolean ProcessSelectedItemBySingleClick {
-            get { return processSelectedItemBySingleClick; }
-            set { processSelectedItemBySingleClick = value; }
+            get { return _processSelectedItemBySingleClick; }
+            set { _processSelectedItemBySingleClick = value; }
         }
         public Boolean TrackMousePosition {
-            get { return trackMousePosition; }
-            set { trackMousePosition = value; }
+            get { return _trackMousePosition; }
+            set { _trackMousePosition = value; }
         }
         public event EventHandler BeginCustomization;
         public event EventHandler EndCustomization;
@@ -773,25 +771,25 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             XafLayoutView.Appearance.HeaderPanel.TextOptions.WordWrap = htmlFormattingEnabled ? WordWrap.Wrap : WordWrap.Default;
         }
         #region ILookupEditProvider Members
-        private event EventHandler<LookupEditProviderEventArgs> lookupEditCreated;
-        private event EventHandler<LookupEditProviderEventArgs> lookupEditHide;
+        private event EventHandler<LookupEditProviderEventArgs> LookupEditCreated;
+        private event EventHandler<LookupEditProviderEventArgs> LookupEditHide;
         protected void OnLookupEditCreated(LookupEdit control) {
-            if (lookupEditCreated != null) {
-                lookupEditCreated(this, new LookupEditProviderEventArgs(control));
+            if (LookupEditCreated != null) {
+                LookupEditCreated(this, new LookupEditProviderEventArgs(control));
             }
         }
         protected void OnLookupEditHide(LookupEdit control) {
-            if (lookupEditHide != null) {
-                lookupEditHide(this, new LookupEditProviderEventArgs(control));
+            if (LookupEditHide != null) {
+                LookupEditHide(this, new LookupEditProviderEventArgs(control));
             }
         }
         event EventHandler<LookupEditProviderEventArgs> ILookupEditProvider.ControlCreated {
-            add { lookupEditCreated += value; }
-            remove { lookupEditCreated -= value; }
+            add { LookupEditCreated += value; }
+            remove { LookupEditCreated -= value; }
         }
         event EventHandler<LookupEditProviderEventArgs> ILookupEditProvider.HideControl {
-            add { lookupEditHide += value; }
-            remove { lookupEditHide -= value; }
+            add { LookupEditHide += value; }
+            remove { LookupEditHide -= value; }
         }
         #endregion
     }
@@ -810,22 +808,22 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         public FilterColumnCollection FilterColumnCollection { get; set; }
     }
     public class LayoutViewColumnChooserController : ColumnChooserControllerBase {
-        private LayoutViewField selectedColumn;
-        private DevExpress.XtraGrid.Views.Layout.LayoutView layoutView;
-        private LayoutControl layoutControl;
-        private LayoutViewCustomizationForm customizationFormCore;
+        private LayoutViewField _selectedColumn;
+        private DevExpress.XtraGrid.Views.Layout.LayoutView _layoutView;
+        private LayoutControl _layoutControl;
+        private LayoutViewCustomizationForm _customizationFormCore;
         private LayoutViewListEditorBase ListEditor {
             get { return ((DevExpress.ExpressApp.ListView)View).Editor as LayoutViewListEditorBase; }
         }
         private void columnChooser_SelectedColumnChanged(object sender, EventArgs e) {
-            if (selectedColumn != null) {
-                selectedColumn.ImageIndex = -1;
+            if (_selectedColumn != null) {
+                _selectedColumn.ImageIndex = -1;
             }
-            selectedColumn = ((ListBoxControl)ActiveListBox).SelectedItem as LayoutViewField;
-            if (selectedColumn != null) {
-                selectedColumn.ImageIndex = GridPainter.IndicatorFocused;
+            _selectedColumn = ((ListBoxControl)ActiveListBox).SelectedItem as LayoutViewField;
+            if (_selectedColumn != null) {
+                _selectedColumn.ImageIndex = GridPainter.IndicatorFocused;
             }
-            RemoveButton.Enabled = selectedColumn != null;
+            RemoveButton.Enabled = _selectedColumn != null;
         }
         private void layoutView_ShowCustomization(object sender, EventArgs e) {
             CustomizationForm.VisibleChanged += CustomizationForm_VisibleChanged;
@@ -833,27 +831,27 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         private void CustomizationForm_VisibleChanged(object sender, EventArgs e) {
             ((Control)sender).VisibleChanged -= CustomizationForm_VisibleChanged;
             if (((Control)sender).Visible) {
-                layoutControl = new List<LayoutControl>(FindNestedControls<LayoutControl>(CustomizationForm))[3];
+                _layoutControl = new List<LayoutControl>(FindNestedControls<LayoutControl>(CustomizationForm))[3];
                 InsertButtons();
                 AddButton.Text += " (TODO)";
-                selectedColumn = null;
+                _selectedColumn = null;
                 ((ListBoxControl)ActiveListBox).SelectedItem = null;
                 ActiveListBox.KeyDown += ActiveListBox_KeyDown;
                 ((ListBoxControl)ActiveListBox).SelectedValueChanged += columnChooser_SelectedColumnChanged;
-                layoutView.Images = GridPainter.Indicator;
+                _layoutView.Images = GridPainter.Indicator;
             }
         }
         private void layoutView_HideCustomization(object sender, EventArgs e) {
             DeleteButtons();
-            if (selectedColumn != null) {
-                selectedColumn.ImageIndex = -1;
+            if (_selectedColumn != null) {
+                _selectedColumn.ImageIndex = -1;
             }
-            layoutView.Images = null;
+            _layoutView.Images = null;
             ((ListBoxControl)ActiveListBox).SelectedValueChanged += columnChooser_SelectedColumnChanged;
             ActiveListBox.KeyDown += ActiveListBox_KeyDown;
-            layoutControl = null;
-            customizationFormCore = null;
-            selectedColumn = null;
+            _layoutControl = null;
+            _customizationFormCore = null;
+            _selectedColumn = null;
         }
         private void ActiveListBox_KeyDown(object sender, KeyEventArgs e) {
             if (e.KeyCode == Keys.Delete) {
@@ -862,25 +860,26 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         protected LayoutViewCustomizationForm CustomizationForm {
             get {
-                return customizationFormCore ??
-                       (customizationFormCore =
+                return _customizationFormCore ??
+                       (_customizationFormCore =
                         typeof(DevExpress.XtraGrid.Views.Layout.LayoutView).GetProperty("CustomizationForm",
                                                        System.Reflection.BindingFlags.Instance |
-                                                       System.Reflection.BindingFlags.NonPublic).GetValue(layoutView,
+                                                       System.Reflection.BindingFlags.NonPublic).GetValue(_layoutView,
                                                                                                           null) as
                         LayoutViewCustomizationForm);
             }
         }
         protected override Control ActiveListBox {
             get {
-                return layoutControl.Controls[4];
+                return _layoutControl.Controls[4];
             }
         }
         private static IEnumerable<T> FindNestedControls<T>(Control container) where T : Control {
             //            if (container.Controls != null)
             foreach (Control item in container.Controls) {
-                if (item is T)
-                    yield return (T)item;
+                var controls = item as T;
+                if (controls != null)
+                    yield return controls;
                 foreach (T child in FindNestedControls<T>(item))
                     yield return child;
             }
@@ -901,7 +900,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
                 columnInfo.PropertyName = propertyName;
                 columnInfo.Index = -1;
                 var wrapper = ListEditor.AddColumn(columnInfo) as XafGridColumnWrapper;
-                if (wrapper != null && wrapper.Column != null && wrapper.Column is LayoutViewColumn && ((LayoutViewColumn)wrapper.Column).LayoutViewField != null) {
+                if (wrapper != null && wrapper.Column is LayoutViewColumn && ((LayoutViewColumn)wrapper.Column).LayoutViewField != null) {
                     ((ListBoxControl)ActiveListBox).Items.Add(((LayoutViewColumn)wrapper.Column).LayoutViewField);
                 }
             }
@@ -922,7 +921,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         protected override void RemoveSelectedColumn() {
             var field = ((ListBoxControl)ActiveListBox).SelectedItem as LayoutViewField;
             if (field != null) {
-                LayoutViewColumnWrapper columnInfo = (from LayoutViewColumn item in layoutView.Columns where item.FieldName == field.FieldName select ListEditor.FindColumn(GetColumnInfo((GridColumn)item, layoutView).PropertyName) as LayoutViewColumnWrapper).FirstOrDefault();
+                LayoutViewColumnWrapper columnInfo = (from LayoutViewColumn item in _layoutView.Columns where item.FieldName == field.FieldName select ListEditor.FindColumn(GetColumnInfo(item, _layoutView).PropertyName) as LayoutViewColumnWrapper).FirstOrDefault();
                 if (columnInfo != null)
                     ListEditor.RemoveColumn(columnInfo);
                 ((ListBoxControl)ActiveListBox).Items.Remove(field);
@@ -930,16 +929,17 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         private IGridColumnModelSynchronizer GetColumnInfo(GridColumn column, DevExpress.XtraGrid.Views.Base.ColumnView view) {
             IGridColumnModelSynchronizer result = null;
-            if (view is IModelSynchronizersHolder) {
-                result = ((IModelSynchronizersHolder)view).GetSynchronizer(column) as IGridColumnModelSynchronizer;
+            var holder = view as IModelSynchronizersHolder;
+            if (holder != null) {
+                result = holder.GetSynchronizer(column) as IGridColumnModelSynchronizer;
             }
             return result;
         }
         protected override void AddButtonsToCustomizationForm() {
-            layoutControl.Controls.Add(RemoveButton);
-            layoutControl.Controls.Add(AddButton);
+            _layoutControl.Controls.Add(RemoveButton);
+            _layoutControl.Controls.Add(AddButton);
 
-            var hiddenItemsGroup = ((LayoutControlGroup)layoutControl.Items[0]);
+            var hiddenItemsGroup = ((LayoutControlGroup)_layoutControl.Items[0]);
             LayoutControlItem addButtonLayoutItem = hiddenItemsGroup.AddItem();
             addButtonLayoutItem.Control = AddButton;
             addButtonLayoutItem.Padding = new DevExpress.XtraLayout.Utils.Padding(5, 5, 0, 0);
@@ -956,21 +956,21 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
         private void SubscribeLayoutViewEvents() {
             if (ListEditor != null) {
-                layoutView = (DevExpress.XtraGrid.Views.Layout.LayoutView)ListEditor.ColumnView;
-                layoutView.ShowCustomization += layoutView_ShowCustomization;
-                layoutView.HideCustomization += layoutView_HideCustomization;
+                _layoutView = (DevExpress.XtraGrid.Views.Layout.LayoutView)ListEditor.ColumnView;
+                _layoutView.ShowCustomization += layoutView_ShowCustomization;
+                _layoutView.HideCustomization += layoutView_HideCustomization;
             }
         }
         protected override void OnDeactivated() {
             UnsubscribeLayoutViewEvents();
-            selectedColumn = null;
+            _selectedColumn = null;
             base.OnDeactivated();
         }
         private void UnsubscribeLayoutViewEvents() {
-            if (layoutView != null) {
-                layoutView.ShowCustomization -= layoutView_ShowCustomization;
-                layoutView.HideCustomization -= layoutView_HideCustomization;
-                layoutView = null;
+            if (_layoutView != null) {
+                _layoutView.ShowCustomization -= layoutView_ShowCustomization;
+                _layoutView.HideCustomization -= layoutView_HideCustomization;
+                _layoutView = null;
             }
         }
         public LayoutViewColumnChooserController() {

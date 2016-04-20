@@ -5802,7 +5802,7 @@ using System.Linq;
     <Property type="simple" name="GCRecord" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="DataType" isKey="false">18</Property>
+    <Property type="simple" name="DataType" isKey="false">17</Property>
     <Property type="simple" name="Oid" isKey="true">3792cae8-e0d5-45fe-8b59-bc8ce89f20e5</Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="Name" isKey="false"><![CDATA[Picture]]></Property>
@@ -8107,7 +8107,8 @@ using System.Linq;
     <Property type="simple" name="GCRecord" isKey="false"></Property>
     <Property type="simple" name="UserFilter" isKey="false"></Property>
     <Property type="simple" name="City" isKey="false"></Property>
-    <Property type="simple" name="DataType" isKey="false">18</Property>
+    <Property type="simple" name="DataType" isKey="false">17
+    </Property>
     <Property type="simple" name="Oid" isKey="true">6bac83af-a586-4250-a570-03861f9bb39c</Property>
     <Property type="simple" name="Skin" isKey="false"></Property>
     <Property type="simple" name="Name" isKey="false"><![CDATA[Photo]]></Property>

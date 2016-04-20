@@ -36,9 +36,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             return new List<Type>();
         }
 
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), typeof(ASPxTimePropertyEditor), false)));
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory) {
+            base.RegisterEditorDescriptors(editorDescriptorsFactory);
+            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), typeof(ASPxTimePropertyEditor), false)));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

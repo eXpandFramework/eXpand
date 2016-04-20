@@ -40,10 +40,10 @@
 
 *XpandFillForm
  Payment Status = Pending
-*ActionAvailable Change State (Payment.Canceled)
-*ActionAvailable Change State (Payment.Paid)
-!ActionAvailable Change State (Payment.New)
-!ActionAvailable Change State (Payment.Pending)
+*ActionAvailable Change State (Canceled)
+*ActionAvailable Change State (Paid)
+!ActionAvailable Change State (New)
+!ActionAvailable Change State (Pending)
 !XpandFillForm
  Payment Status = New
 *XpandFillForm
@@ -57,4 +57,7 @@
  Payment Status = New
 *XpandFillForm
  Payment Status = Canceled
-!ActionAvailable Change State Payment
+!ActionAvailable Change State (Canceled)
+!ActionAvailable Change State (Paid)
+!ActionAvailable Change State (New)
+!ActionAvailable Change State (Pending)

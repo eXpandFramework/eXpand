@@ -64,8 +64,7 @@ namespace Xpand.ExpressApp.StateMachine {
             get { return ModuleManager.Modules.FindModule<StateMachineModule>().StateMachineStorageType; }
         }
 
-
-	    void BuildSecuritySystemObjects() {
+        void BuildSecuritySystemObjects() {
             var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
             var xpMemberInfos = dynamicSecuritySystemObjects.BuildRole(StateMachineType, "StateMachineRoles", "XpoStateMachines", AdminRoles);
             dynamicSecuritySystemObjects.HideInDetailView(xpMemberInfos, "XpoStateMachines");

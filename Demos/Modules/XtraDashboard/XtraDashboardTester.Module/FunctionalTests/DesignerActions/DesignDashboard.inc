@@ -36,7 +36,7 @@
 *MouseDragDrop 
  Start = [FirstNameProperty]
  End = [DataItem1]
-*Sleep 1000
+*Sleep 2000
 #EndIf
   
 ;----------------------SaveAndClose--------------

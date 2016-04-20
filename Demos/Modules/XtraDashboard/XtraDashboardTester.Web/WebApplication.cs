@@ -25,6 +25,13 @@ namespace XtraDashboardTester.Web{
         private XtraDashboardTesterAspNetModule _module4;
         private SecurityStrategyComplex _securityStrategyComplex1;
         private AuthenticationStandard _authenticationStandard1;
+        private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
+        private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
+        private DevExpress.ExpressApp.Validation.Web.ValidationAspNetModule validationAspNetModule1;
+        private Xpand.ExpressApp.XtraDashboard.Web.XtraDashboardWebModule xtraDashboardWebModule1;
+        private DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase scriptRecorderModuleBase1;
+        private DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule scriptRecorderAspNetModule1;
+        private Module.ModuleModule moduleModule1;
         private SqlConnection _sqlConnection1;
 
         public XtraDashboardTesterAspNetApplication(){
@@ -92,40 +99,59 @@ namespace XtraDashboardTester.Web{
         }
 
         private void InitializeComponent(){
-            _module1 = new SystemModule();
-            _module2 = new SystemAspNetModule();
-            _securityStrategyComplex1 = new SecurityStrategyComplex();
-            _authenticationStandard1 = new AuthenticationStandard();
-
-            _module4 = new XtraDashboardTesterAspNetModule();
-            _sqlConnection1 = new SqlConnection();
-            ((ISupportInitialize) (this)).BeginInit();
+            this._module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+            this._module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
+            this._securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+            this._authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
+            this._module4 = new XtraDashboardTester.Module.Web.XtraDashboardTesterAspNetModule();
+            this._sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
+            this.dashboardModule1 = new Xpand.ExpressApp.Dashboard.DashboardModule();
+            this.validationAspNetModule1 = new DevExpress.ExpressApp.Validation.Web.ValidationAspNetModule();
+            this.xtraDashboardWebModule1 = new Xpand.ExpressApp.XtraDashboard.Web.XtraDashboardWebModule();
+            this.scriptRecorderModuleBase1 = new DevExpress.ExpressApp.ScriptRecorder.ScriptRecorderModuleBase();
+            this.scriptRecorderAspNetModule1 = new DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule();
+            this.moduleModule1 = new XtraDashboardTester.Module.ModuleModule();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
-            // sqlConnection1
+            // _securityStrategyComplex1
             // 
-            _sqlConnection1.ConnectionString =
-                @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=XtraDashboardTester";
-            _sqlConnection1.FireInfoMessageEventOnUserErrors = false;
-            _securityStrategyComplex1.Authentication = _authenticationStandard1;
-            _securityStrategyComplex1.RoleType = typeof (XpandRole);
-            _securityStrategyComplex1.UserType = typeof (SecuritySystemUser);
+            this._securityStrategyComplex1.Authentication = this._authenticationStandard1;
+            this._securityStrategyComplex1.RoleType = typeof(Xpand.ExpressApp.Security.Core.XpandRole);
+            this._securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
             // 
-            // authenticationStandard1
+            // _authenticationStandard1
             // 
-            _authenticationStandard1.LogonParametersType = typeof (AuthenticationStandardLogonParameters);
+            this._authenticationStandard1.LogonParametersType = typeof(DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters);
+            // 
+            // _sqlConnection1
+            // 
+            this._sqlConnection1.ConnectionString = "Integrated Security=SSPI;Pooling=false;Data Source=.\\SQLEXPRESS;Initial Catalog=X" +
+    "traDashboardTester";
+            this._sqlConnection1.FireInfoMessageEventOnUserErrors = false;
+            // 
+            // validationModule1
+            // 
+            this.validationModule1.AllowValidationDetailsAccess = true;
+            this.validationModule1.IgnoreWarningAndInformationRules = false;
             // 
             // XtraDashboardTesterAspNetApplication
             // 
-            ApplicationName = "XtraDashboardTester";
-            Connection = _sqlConnection1;
-            Modules.Add(_module1);
-            Modules.Add(_module2);
+            this.ApplicationName = "XtraDashboardTester";
+            this.Connection = this._sqlConnection1;
+            this.Modules.Add(this._module1);
+            this.Modules.Add(this._module2);
+            this.Modules.Add(this.validationModule1);
+            this.Modules.Add(this.dashboardModule1);
+            this.Modules.Add(this.validationAspNetModule1);
+            this.Modules.Add(this.xtraDashboardWebModule1);
+            this.Modules.Add(this.scriptRecorderModuleBase1);
+            this.Modules.Add(this.scriptRecorderAspNetModule1);
+            this.Modules.Add(this.moduleModule1);
+            this.Modules.Add(this._module4);
+            this.Security = this._securityStrategyComplex1;
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
-            Modules.Add(_module4);
-            Security = _securityStrategyComplex1;
-
-            DatabaseVersionMismatch += XtraDashboardTesterAspNetApplication_DatabaseVersionMismatch;
-            ((ISupportInitialize) (this)).EndInit();
         }
     }
 }

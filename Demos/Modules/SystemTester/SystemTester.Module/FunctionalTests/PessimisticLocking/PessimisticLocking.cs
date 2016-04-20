@@ -15,7 +15,7 @@ namespace SystemTester.Module.FunctionalTests.PessimisticLocking {
         private void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
             var selectedObject = View.SelectedObjects[0];
             var member = View.ObjectTypeInfo.FindMember(PessimisticLockingViewController.LockedUser);
-            member.SetValue(selectedObject,ObjectSpace.FindObject<XpandUser>(user => user.UserName=="User"));
+            member.SetValue(selectedObject,ObjectSpace.QueryObject<XpandUser>(user => user.UserName=="User"));
             ObjectSpace.CommitChanges();
         }
     }

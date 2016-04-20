@@ -41,15 +41,15 @@
 
 *XpandFillForm
  Status = In progress
-*ActionAvailable Change State(Payment.Canceled)
-*ActionAvailable Change State(Payment.Pending)
-!ActionAvailable Change State(Payment.Paid)
+*ActionAvailable Change State(Canceled)
+*ActionAvailable Change State(Pending)
+!ActionAvailable Change State(Paid)
 
 *XpandFillForm
  Status = Completed
-!ActionAvailable Change State(Payment.Canceled)
-!ActionAvailable Change State(Payment.Pending)
-*ActionAvailable Change State(Payment.Paid)
+!ActionAvailable Change State(Canceled)
+!ActionAvailable Change State(Pending)
+*ActionAvailable Change State(Paid)
 
 
 

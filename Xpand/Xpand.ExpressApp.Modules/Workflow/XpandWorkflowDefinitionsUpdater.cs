@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Workflow {
             : base(objectSpace, currentDBVersion) {
         }
 
-        void UpdateVersionInXaml(ITypeInfo objectsTypeInfo, Version oldVersion, Version newVersion) {
+        void UpdateVersionInXaml(ITypeInfo objectsTypeInfo, Version newVersion) {
             if (objectsTypeInfo != null && objectsTypeInfo.IsPersistent) {
                 IMemberInfo xamlMemberInfo = objectsTypeInfo.FindMember(XamlPropertyName);
                 if (xamlMemberInfo == null) {
@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.Workflow {
                 }
                 foreach (object objectToUpdate in ObjectSpace.GetObjects(objectsTypeInfo.Type)) {
                     var currentXaml = xamlMemberInfo.GetValue(objectToUpdate) as string;
-                    string updatedXaml = WorkflowDefinitionsUpdater.UpdateDxAssembliesVersions(currentXaml, oldVersion, newVersion);
+                    string updatedXaml = WorkflowDefinitionsUpdater.UpdateDxAssembliesVersions(currentXaml, newVersion);
                     xamlMemberInfo.SetValue(objectToUpdate, updatedXaml);
                     ObjectSpace.SetModified(objectToUpdate);
                 }
@@ -44,10 +44,8 @@ namespace Xpand.ExpressApp.Workflow {
                 if (dbModuleVersion < currentModuleVersion) {
                     if (dbModuleVersion.Major != currentModuleVersion.Major ||
                         dbModuleVersion.Minor != currentModuleVersion.Minor) {
-                        UpdateVersionInXaml(XafTypesInfo.Instance.FindTypeInfo(typeof(ScheduledWorkflow)),
-                                            dbModuleVersion, currentModuleVersion);
-                        UpdateVersionInXaml(XafTypesInfo.Instance.FindTypeInfo(typeof(ObjectChangedWorkflow)),
-                                            dbModuleVersion, currentModuleVersion);
+                        UpdateVersionInXaml(XafTypesInfo.Instance.FindTypeInfo(typeof(ScheduledWorkflow)), currentModuleVersion);
+                        UpdateVersionInXaml(XafTypesInfo.Instance.FindTypeInfo(typeof(ObjectChangedWorkflow)), currentModuleVersion);
                     }
                 }
             }

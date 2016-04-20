@@ -157,7 +157,6 @@
     <Compile Include="SystemModule\MasterDetail\RegisterCallbackPanelScriptsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\UnsavedObjectController.cs" />
     <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>

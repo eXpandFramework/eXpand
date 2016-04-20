@@ -3,9 +3,12 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.ModelDifference.Win {
     [ToolboxBitmap(typeof(ModelDifferenceWindowsFormsModule))]
@@ -25,6 +28,12 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
                 Application.LoggedOff += Application_LoggedOff;
                 Application.Disposed += Application_Disposed;
             }
+        }
+
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory) {
+            base.RegisterEditorDescriptors(editorDescriptorsFactory);
+            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.RichEditRftPropertyEditor, typeof(string), false)));
+            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.RichEditRftPropertyEditor, typeof(string), typeof(RichEditWinPropertyEditor), false)));
         }
 
         void Application_Disposed(object sender, EventArgs e) {

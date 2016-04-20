@@ -2,11 +2,12 @@
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Windows.Forms;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.ExpressApp.EasyTest.WebAdapter;
 using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
+using DevExpress.ExpressApp.EasyTest.WebAdapter.WebServerManagers;
+using Fasterflect;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
@@ -16,6 +17,7 @@ using Xpand.ExpressApp.EasyTest.WebAdapter;
 namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     public class XpandTestWebAdapter : DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter, IXpandTestAdapter{
         private XpandWebCommandAdapter _webCommandAdapter;
+        private IWebServerManager _serverManager;
 
         public override void RunApplication(TestApplication testApplication){
             testApplication.Assign();
@@ -50,18 +52,28 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         public override ICommandAdapter CreateCommandAdapter(){
             FileDownloadDialogHelper.SaveDialogOpened = false;
             _webCommandAdapter = new XpandWebCommandAdapter(this);
-            _webCommandAdapter.WaitForBrowserResponse(false);
+            _webCommandAdapter.WaitForBrowserResponse();
             Win32Helper.MoveMousePointTo(new Point(0, 0));
             return _webCommandAdapter;
         }
 
+        protected override IWebServerManager CreateWebServerManager(Uri url, TestApplication testApplication){
+            _serverManager = base.CreateWebServerManager(url, testApplication);
+            return _serverManager;
+        }
+
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
-            WebBrowsers.KillAllWebBrowsers();
+            KillApplicationBase(context);
             testApplication.ClearModel();
             testApplication.DeleteParametersFile();
             ScreenCaptureCommand.Stop();
             if (testApplication.ParameterValue<bool>(ApplicationParams.UseIIS))
                 IISHelper.StopAplicationPool(testApplication);
+        }
+
+        private void KillApplicationBase(KillApplicationConext context){
+            this.CallMethod("CloseWebBrowser");
+            _serverManager.ProcessKillApplication(context);
         }
 
         public override void RegisterCommands(IRegisterCommand registrator){
@@ -73,33 +85,12 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
 
     }
 
-
-    public class StandaloneWebBrowserCollection : DevExpress.ExpressApp.EasyTest.WebAdapter.StandaloneWebBrowserCollection,IWebBrowserCollection {
-        public const string EasyTestBrowser = "EasyTest Browser";
-        IEasyTestWebBrowser IWebBrowserCollection.CreateWebBrowser() {
-            var webBrowser = CreateWebBrowser();
-            var standaloneWebBrowser = ((XAFStandaloneWebBrowser)webBrowser);
-            var browserControl = ((StandaloneWebBrowserControl) standaloneWebBrowser.WebBrowser);
-            browserControl.ScrollBarsEnabled = false;
-            var form = browserControl.Parent;
-            form.Invoke(new MethodInvoker(delegate{
-                form.Location = new Point(0, 0);
-                form.Text = EasyTestBrowser;
-                if (WebBrowserCollection.DefaultFormSize!=new Size()){
-                    form.Width = WebBrowserCollection.DefaultFormSize.Width;
-                    form.Height = WebBrowserCollection.DefaultFormSize.Height;
-                }
-            }));
-            return webBrowser;
-        }
-    }
-
     public class XpandWebCommandAdapter : WebCommandAdapter,IXpandEasyTestCommandAdapter{
         public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
         }
 
         public IntPtr MainWindowHandle{
-            get { return new IntPtr(WebAdapter.WebBrowsers[0].BrowserWindowHandle); }
+            get { return WebAdapter.WebBrowser.BrowserWindowHandle; }
             set {  }
         }
 

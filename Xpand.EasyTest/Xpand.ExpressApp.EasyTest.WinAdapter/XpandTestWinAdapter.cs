@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls.Xaf;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WinAdapter;
+using Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.Xpand;
 
 [assembly: Adapter(typeof(XpandTestWinAdapter))]
 
@@ -25,6 +26,10 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
     public class XpandTestWinAdapter : DevExpress.ExpressApp.EasyTest.WinAdapter.WinAdapter, IXpandTestWinAdapter {
         private XpandWinCommandAdapter _winEasyTestCommandAdapter;
         private static List<Process> _additionalProcesses;
+
+        public Process MainProcess{
+            get { return mainProcess; }
+        }
 
         public override void RegisterCommands(IRegisterCommand registrator) {
             base.RegisterCommands(registrator);
@@ -158,6 +163,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
 
             UnRegisterInterface<LookupObjectListViewEditControl>();
             RegisterInterface<TestControls.DevExpressControls.LookupObjectListViewEditControl>();
+            RegisterInterface<RichEditContainer>();
         }
     }
 

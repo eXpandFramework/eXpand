@@ -1,3 +1,5 @@
+
+using DevExpress.ExpressApp.StateMachine.Xpo;
 using Xpand.ExpressApp.Security.Core;
 
 namespace StateMachineTester.Win {
@@ -48,7 +50,7 @@ namespace StateMachineTester.Win {
             // 
             // stateMachineModule1
             // 
-            this.stateMachineModule1.StateMachineStorageType = typeof(DevExpress.ExpressApp.StateMachine.Xpo.XpoStateMachine);
+            this.stateMachineModule1.StateMachineStorageType = typeof(XpoStateMachine);
             // 
             // securityStrategyComplex1
             // 

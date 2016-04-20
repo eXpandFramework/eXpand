@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using DevExpress.Web.Internal;
 using System.Text;
 using System.Linq;
+using DevExpress.ExpressApp.Web.Templates.ActionContainers;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
@@ -30,9 +31,6 @@ namespace Xpand.ExpressApp.Web.Layout {
 
     public class XpandLayoutManager : WebLayoutManager, ILayoutManager, IWebLayoutManager {
         public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
-
-        public XpandLayoutManager(){
-        }
 
         public const string IsMasterDetailSplitterPropertyName = "cpIsMasterDetailSplitter";
         private static readonly List<Tuple<Type, Type>> _listControlAdapters = new List<Tuple<Type, Type>>();
@@ -229,9 +227,8 @@ namespace Xpand.ExpressApp.Web.Layout {
 
         private bool ContainsActions(Control control) {
             return
-                control != null && (
-                control is DevExpress.ExpressApp.Web.Templates.ActionContainers.ActionContainerHolder ||
-                control is DevExpress.ExpressApp.Templates.IActionContainer ||
+                control != null && !(control is NavigationActionContainer) &&(
+                control is ActionContainerHolder || control is DevExpress.ExpressApp.Templates.IActionContainer ||
                 control.Controls.Cast<Control>().Any(ContainsActions));
 
         }
@@ -250,7 +247,6 @@ namespace Xpand.ExpressApp.Web.Layout {
                 }
             }
         }
-
 
         SplitterPane CreateSplitterListPane(ASPxSplitter splitter) {
             SplitterPane listPane = splitter.Panes.Add();

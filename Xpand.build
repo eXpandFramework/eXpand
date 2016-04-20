@@ -117,8 +117,8 @@
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" Condition="$(RecompiledDXSources) == $(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
-    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
-    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
+    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath)" />
+    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath)" />
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
@@ -271,7 +271,7 @@
     <AutoTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\AutoTest*.ets"/>
     <EasyTests Include="$(MSBuildProjectDirectory)\$(EasyTestFilter)**\*.ets"/>
   </ItemGroup>
-  <Target Name="BuildEasyTest" Condition="('@(EasyTests->Count())'!='1' And $(EasyTestFilter)=='Demos\')">
+  <Target Name="BuildEasyTest" Condition="('@(EasyTests->Count())'!='1')">
 	<!---->
 	<MSBuild Projects="@(EasyProjects)" Targets="Build" Properties="Configuration=EasyTest" />
     <CallTarget Targets="FCWebDbUpdater" Condition="'$(FCWebDbUpdater)'==''" />

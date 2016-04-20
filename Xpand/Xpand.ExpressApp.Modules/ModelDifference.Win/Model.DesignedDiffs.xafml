@@ -1,10 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="13.1.8.0" IsNewNode="True" />
-    <SchemaModule Name="ModelDifferenceModule" Version="13.1.8.11" IsNewNode="True" />
-    <SchemaModule Name="ModelDifferenceWindowsFormsModule" Version="13.1.8.11" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="13.1.8.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSecurityModule" Version="13.1.8.11" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="16.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="ModelDifferenceModule" Version="16.1.1.1" IsNewNode="True" />
+    <SchemaModule Name="ModelDifferenceWindowsFormsModule" Version="16.1.1.1" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="16.1.1.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="16.1.1.1" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <DetailView Id="MDO_DetailView">
+      <Items>
+        <PropertyEditor Id="XmlContent" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor">
+          <RichEdit HighLightExtension="xml" ControlBindingProperty="ControlText" />
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+  </Views>
 </Application>

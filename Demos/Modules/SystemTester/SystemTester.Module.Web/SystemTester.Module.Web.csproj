@@ -126,10 +126,6 @@
     </Compile>
     <Compile Include="FunctionalTests\MasterDetail\MasterDetailObjects.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditorObject.cs" />
-    <Compile Include="FunctionalTests\WarnForUnsavedChanges\WarnForUnsavedChanges.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\WarnForUnsavedChanges\WarnForUnsavedChangesObject.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -176,10 +172,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\CollectionEditMode\CollectionEditMode.ets" />
-    <None Include="FunctionalTests\WarnForUnsavedChanges\WarnForUnsavedChanges.ets" />
-    <None Include="FunctionalTests\WarnForUnsavedChanges\WarnForUnsavedChanges.xafml">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
@@ -203,15 +195,6 @@
   <ItemGroup />
   <ItemGroup>
     <Content Include="FunctionalTests\LayoutStyle\Config.xml" />
-    <Content Include="FunctionalTests\WarnForUnsavedChanges\Cancel Action.inc" />
-    <Content Include="FunctionalTests\WarnForUnsavedChanges\CommitChanges.inc" />
-    <Content Include="FunctionalTests\WarnForUnsavedChanges\Config.xml" />
-    <Content Include="FunctionalTests\WarnForUnsavedChanges\Delete Action.inc" />
-    <Content Include="FunctionalTests\WarnForUnsavedChanges\New Action.inc" />
-    <Content Include="FunctionalTests\WarnForUnsavedChanges\Previous Record Action.inc" />
-    <Content Include="FunctionalTests\WarnForUnsavedChanges\Refresh Action.inc" />
-    <Content Include="FunctionalTests\WarnForUnsavedChanges\UnmodifiedObject.inc" />
-    <None Include="FunctionalTests\WarnForUnsavedChanges\Init.inc" />
     <None Include="FunctionalTests\LayoutStyle\Init.inc" />
     <Content Include="FunctionalTests\LayoutStyle\Images\LayoutStyle.web.png" />
     <Content Include="FunctionalTests\MasterDetail\Config.xml" />

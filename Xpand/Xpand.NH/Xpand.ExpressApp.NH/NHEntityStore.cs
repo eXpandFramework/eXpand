@@ -19,8 +19,7 @@ namespace Xpand.ExpressApp.NH
         private IList<ITypeMetadata> metadata;
         private static readonly ConcurrentBag<Type> ignoredTypes = new ConcurrentBag<Type>();
 
-        public NHEntityStore(ITypesInfo typesInfo, IPersistenceManager persistenceManager)
-        {
+        public NHEntityStore(ITypesInfo typesInfo, IPersistenceManager persistenceManager) : base(typesInfo){
             Guard.ArgumentNotNull(typesInfo, "typesInfo");
             Guard.ArgumentNotNull(persistenceManager, "persistenceManager");
 
@@ -194,7 +193,7 @@ namespace Xpand.ExpressApp.NH
             get { return types.AsReadOnly(); }
         }
 
-        public void Reset()
+        public override void Reset()
         {
             types.Clear();
         }

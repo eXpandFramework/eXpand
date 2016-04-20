@@ -4,19 +4,20 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 
 namespace Xpand.ExpressApp.TreeListEditors.Model {
-    public abstract class TreeNavigationOptionsController<NavigationActionContainer, TreeList> : WindowController
-        where NavigationActionContainer : class, IActionContainer
-        where TreeList : class {
+    public abstract class TreeNavigationOptionsController<TNavigationActionContainer, TTReeList> : WindowController
+        where TNavigationActionContainer : class, IActionContainer
+        where TTReeList : class {
         protected TreeNavigationOptionsController() {
             TargetWindowType = WindowType.Main;
         }
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            Frame.ProcessActionContainer += FrameOnProcessActionContainer;
+            if (Frame.Context==TemplateContext.ApplicationWindow)
+                Frame.ProcessActionContainer += FrameOnProcessActionContainer;
         }
 
-        void FrameOnProcessActionContainer(object sender, ProcessActionContainerEventArgs e) {
-            var container = e.ActionContainer as NavigationActionContainer;
+        protected void FrameOnProcessActionContainer(object sender, ProcessActionContainerEventArgs e) {
+            var container = e.ActionContainer as TNavigationActionContainer;
             if (container != null) {
                 var navigationActionContainer = container;
                 var treeList = GetTreeList(navigationActionContainer);
@@ -28,8 +29,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
             }
         }
 
-        protected abstract ModelSynchronizer TreeListOptionsModelSynchronizer(TreeList treeList, IModelOptionsTreeList modelOptionsTreeList);
+        protected abstract ModelSynchronizer TreeListOptionsModelSynchronizer(TTReeList treeList, IModelOptionsTreeList modelOptionsTreeList);
 
-        protected abstract TreeList GetTreeList(NavigationActionContainer navigationActionContainer);
+        protected abstract TTReeList GetTreeList(TNavigationActionContainer navigationActionContainer);
     }
 }

@@ -145,7 +145,7 @@ namespace Xpand.ExpressApp.Web.Templates{
             private readonly Control _control;
 
             public ASPxMenuCustomGroupControlTemplate(Control control){
-                this._control = control;
+                _control = control;
             }
 
             #region ITemplate Members
@@ -170,35 +170,34 @@ namespace Xpand.ExpressApp.Web.Templates{
 
     public class ASPxMenuNavigationControl : IWebNavigationControl, INavigationControlTestable, IDisposable,
         ISupportCallbackStartupScriptRegistering, IXafCallbackHandler /*, ISupportAdditionalParametersTestControl*/{
-        private readonly ASPxMenu ASPxMenuControl;
-        private readonly LightDictionary<ChoiceActionItem, MenuItem> ActionItemToMenuGroupMap;
-        private readonly Dictionary<ChoiceActionItem, MenuItem> ActionItemToMenuItemMap;
-        private readonly List<ASPxMenuGroupChoiceActionItem> GroupWrappers;
-        private readonly Dictionary<MenuItem, ASPxMenuItemChoiceActionItem> MenuItemToWrapperMap;
-        private ChoiceActionItemCollection ActionItems;
+        private readonly ASPxMenu _asPxMenuControl;
+        private readonly LightDictionary<ChoiceActionItem, MenuItem> _actionItemToMenuGroupMap;
+        private readonly Dictionary<ChoiceActionItem, MenuItem> _actionItemToMenuItemMap;
+        private readonly List<ASPxMenuGroupChoiceActionItem> _groupWrappers;
+        private readonly Dictionary<MenuItem, ASPxMenuItemChoiceActionItem> _menuItemToWrapperMap;
+        private ChoiceActionItemCollection _actionItems;
         internal SingleChoiceAction SingleChoiceAction;
-        private string _clientUpdateSelectionScript;
 
         public ASPxMenuNavigationControl(){
-            ASPxMenuControl = RenderHelper.CreateASPxMenu();
-            ASPxMenuControl.AllowSelectItem = true;
-            ASPxMenuControl.Border.BorderStyle = BorderStyle.None;
-            ASPxMenuControl.ID = "NB";
-            ASPxMenuControl.ItemClick += ASPxMenuControl_ItemClick;
-            ASPxMenuControl.Load += ASPxMenuControl_Load;
-            ActionItemToMenuItemMap = new Dictionary<ChoiceActionItem, MenuItem>();
-            ActionItemToMenuGroupMap = new LightDictionary<ChoiceActionItem, MenuItem>();
-            MenuItemToWrapperMap = new Dictionary<MenuItem, ASPxMenuItemChoiceActionItem>();
-            GroupWrappers = new List<ASPxMenuGroupChoiceActionItem>();
+            _asPxMenuControl = RenderHelper.CreateASPxMenu();
+            _asPxMenuControl.AllowSelectItem = true;
+            _asPxMenuControl.Border.BorderStyle = BorderStyle.None;
+            _asPxMenuControl.ID = "NB";
+            _asPxMenuControl.ItemClick += ASPxMenuControl_ItemClick;
+            _asPxMenuControl.Load += ASPxMenuControl_Load;
+            _actionItemToMenuItemMap = new Dictionary<ChoiceActionItem, MenuItem>();
+            _actionItemToMenuGroupMap = new LightDictionary<ChoiceActionItem, MenuItem>();
+            _menuItemToWrapperMap = new Dictionary<MenuItem, ASPxMenuItemChoiceActionItem>();
+            _groupWrappers = new List<ASPxMenuGroupChoiceActionItem>();
         }
 
         private void BuildControl(){
-            ActionItemToMenuItemMap.Clear();
-            ActionItemToMenuGroupMap.Clear();
+            _actionItemToMenuItemMap.Clear();
+            _actionItemToMenuGroupMap.Clear();
             ClearItemWrappers();
-            ASPxMenuControl.Items.Clear();
-            if (ActionItems.Count > 0){
-                FillMenuContents(ASPxMenuControl.Items, ActionItems);
+            _asPxMenuControl.Items.Clear();
+            if (_actionItems.Count > 0){
+                FillMenuContents(_asPxMenuControl.Items, _actionItems);
             }
             UpdateSelection();
         }
@@ -213,23 +212,24 @@ namespace Xpand.ExpressApp.Web.Templates{
                 if (groupValue.Items.Count == 0){
                     var itemWrapper = new ASPxMenuItemChoiceActionItem(SingleChoiceAction,
                         groupValue);
-                    MenuItemToWrapperMap.Add(itemWrapper.CurrentMenuItem, itemWrapper);
+                    _menuItemToWrapperMap.Add(itemWrapper.CurrentMenuItem, itemWrapper);
                     holderMenuItems.Add(itemWrapper.CurrentMenuItem);
-                    ActionItemToMenuItemMap.Add(groupValue, itemWrapper.CurrentMenuItem);
+                    _actionItemToMenuItemMap.Add(groupValue, itemWrapper.CurrentMenuItem);
                 }
                 else{
                     var groupItem = new ASPxMenuGroupChoiceActionItem(SingleChoiceAction,
                         groupValue);
-                    GroupWrappers.Add(groupItem);
+                    _groupWrappers.Add(groupItem);
                     MenuItem group = groupItem.MenuGroup;
-                    ActionItemToMenuGroupMap.Add(groupValue, group);
+                    _actionItemToMenuGroupMap.Add(groupValue, group);
                     holderMenuItems.Add(group);
                     var itemsDisplayStyle = ItemsDisplayStyle.LargeIcons;
                     if (groupValue.Model != null){
                         itemsDisplayStyle = ItemsDisplayStyle.List;
-                        if (groupValue.Model is IModelChoiceActionItemChildItemsDisplayStyle){
+                        var style = groupValue.Model as IModelChoiceActionItemChildItemsDisplayStyle;
+                        if (style != null){
                             itemsDisplayStyle =
-                                ((IModelChoiceActionItemChildItemsDisplayStyle) groupValue.Model).ChildItemsDisplayStyle;
+                                style.ChildItemsDisplayStyle;
                         }
                     }
                     var args = new CreateCustomGroupControlEventArgs(groupValue);
@@ -262,9 +262,9 @@ namespace Xpand.ExpressApp.Web.Templates{
                     continue;
                 }
                 var itemWrapper = new ASPxMenuItemChoiceActionItem(SingleChoiceAction, itemValue);
-                MenuItemToWrapperMap.Add(itemWrapper.CurrentMenuItem, itemWrapper);
+                _menuItemToWrapperMap.Add(itemWrapper.CurrentMenuItem, itemWrapper);
                 group.Items.Add(itemWrapper.CurrentMenuItem);
-                ActionItemToMenuItemMap.Add(itemValue, itemWrapper.CurrentMenuItem);
+                _actionItemToMenuItemMap.Add(itemValue, itemWrapper.CurrentMenuItem);
             }
         }
 
@@ -274,12 +274,12 @@ namespace Xpand.ExpressApp.Web.Templates{
         }
 
         private void UpdateSelection(){
-            ASPxMenuControl.SelectedItem = null;
+            _asPxMenuControl.SelectedItem = null;
             if (SingleChoiceAction != null && SingleChoiceAction.SelectedItem != null){
                 ChoiceActionItem actionItem = SingleChoiceAction.SelectedItem;
-                if (ActionItemToMenuItemMap.ContainsKey(actionItem)){
-                    MenuItem itemLink = ActionItemToMenuItemMap[actionItem];
-                    ASPxMenuControl.SelectedItem = itemLink;
+                if (_actionItemToMenuItemMap.ContainsKey(actionItem)){
+                    MenuItem itemLink = _actionItemToMenuItemMap[actionItem];
+                    _asPxMenuControl.SelectedItem = itemLink;
                 }
             }
         }
@@ -303,26 +303,26 @@ namespace Xpand.ExpressApp.Web.Templates{
         private void UnsubscribeAll(){
             UnsubscribeFromAction();
             SingleChoiceAction = null;
-            ActionItemToMenuItemMap.Clear();
-            ActionItemToMenuGroupMap.Clear();
+            _actionItemToMenuItemMap.Clear();
+            _actionItemToMenuGroupMap.Clear();
         }
 
         private MenuItem FindMenuGroupControl(ChoiceActionItem item){
-            if (item != null && ActionItemToMenuGroupMap.ContainsKey(item)){
-                return ActionItemToMenuGroupMap[item];
+            if (item != null && _actionItemToMenuGroupMap.ContainsKey(item)){
+                return _actionItemToMenuGroupMap[item];
             }
             return null;
         }
 
         private void ClearItemWrappers(){
-            foreach (ASPxMenuItemChoiceActionItem itemWrapper in MenuItemToWrapperMap.Values){
+            foreach (ASPxMenuItemChoiceActionItem itemWrapper in _menuItemToWrapperMap.Values){
                 itemWrapper.Dispose();
             }
-            MenuItemToWrapperMap.Clear();
-            foreach (ASPxMenuGroupChoiceActionItem groupWrapper in GroupWrappers){
+            _menuItemToWrapperMap.Clear();
+            foreach (ASPxMenuGroupChoiceActionItem groupWrapper in _groupWrappers){
                 groupWrapper.Dispose();
             }
-            GroupWrappers.Clear();
+            _groupWrappers.Clear();
         }
 
         protected virtual void OnCreateCustomGroupControl(CreateCustomGroupControlEventArgs args){
@@ -339,18 +339,18 @@ namespace Xpand.ExpressApp.Web.Templates{
 
 
         private void ASPxMenuControl_ItemClick(object source, MenuItemEventArgs e){
-            if (e.Item != null && MenuItemToWrapperMap.ContainsKey(e.Item)){
-                MenuItemToWrapperMap[e.Item].ExecuteAction();
+            if (e.Item != null && _menuItemToWrapperMap.ContainsKey(e.Item)){
+                _menuItemToWrapperMap[e.Item].ExecuteAction();
             }
         }
 
         private void ASPxMenuControl_Load(object sender, EventArgs e){
-            var holder = ASPxMenuControl.Page as ICallbackManagerHolder;
+            var holder = _asPxMenuControl.Page as ICallbackManagerHolder;
             if (holder != null){
-                holder.CallbackManager.RegisterHandler(ASPxMenuControl, this);
-                ASPxMenuControl.ClientSideEvents.ItemClick = @"function(s,e) {
+                holder.CallbackManager.RegisterHandler(_asPxMenuControl, this);
+                _asPxMenuControl.ClientSideEvents.ItemClick = @"function(s,e) {
 					e.processOnServer = false;" +
-                                                             holder.CallbackManager.GetScript(ASPxMenuControl.UniqueID,
+                                                             holder.CallbackManager.GetScript(_asPxMenuControl.UniqueID,
                                                                  "e.item.name", String.Empty,
                                                                  SingleChoiceAction.Model.GetValue<bool>(
                                                                      "IsPostBackRequired")) +
@@ -365,23 +365,18 @@ namespace Xpand.ExpressApp.Web.Templates{
         public void SetNavigationActionItems(ChoiceActionItemCollection actionItems, SingleChoiceAction action){
             Guard.ArgumentNotNull(action, "action");
             UnsubscribeFromAction();
-            ActionItems = actionItems;
+            _actionItems = actionItems;
             SingleChoiceAction = action;
             BuildControl();
             SubscribeToAction();
         }
 
         public Control Control{
-            get { return ASPxMenuControl; }
+            get { return _asPxMenuControl; }
         }
 
         public Control TestControl{
-            get { return ASPxMenuControl; }
-        }
-
-        public string ClientUpdateSelectionScript
-        {
-            get { return _clientUpdateSelectionScript; }
+            get { return _asPxMenuControl; }
         }
 
         #endregion
@@ -390,61 +385,61 @@ namespace Xpand.ExpressApp.Web.Templates{
 
         public bool IsItemControlVisible(ChoiceActionItem item){
             bool result = false;
-            if (ActionItemToMenuGroupMap[item] != null){
-                result = ActionItemToMenuGroupMap[item].Visible;
+            if (_actionItemToMenuGroupMap[item] != null){
+                result = _actionItemToMenuGroupMap[item].Visible;
             }
             return result;
         }
 
         public int GetGroupCount(){
-            return ASPxMenuControl.Items.Count;
+            return _asPxMenuControl.Items.Count;
         }
 
         public string GetGroupControlCaption(ChoiceActionItem item){
-            if (ActionItemToMenuGroupMap[item] != null){
-                return ActionItemToMenuGroupMap[item].Text;
+            if (_actionItemToMenuGroupMap[item] != null){
+                return _actionItemToMenuGroupMap[item].Text;
             }
             throw new ArgumentOutOfRangeException();
         }
 
         public int GetGroupChildControlCount(ChoiceActionItem item){
-            if (ActionItemToMenuGroupMap[item] != null){
-                return ActionItemToMenuGroupMap[item].Items.Count;
+            if (_actionItemToMenuGroupMap[item] != null){
+                return _actionItemToMenuGroupMap[item].Items.Count;
             }
             throw new ArgumentOutOfRangeException();
         }
 
         public string GetChildControlCaption(ChoiceActionItem item){
-            if (ActionItemToMenuItemMap[item] != null){
-                return ActionItemToMenuItemMap[item].Text;
+            if (_actionItemToMenuItemMap[item] != null){
+                return _actionItemToMenuItemMap[item].Text;
             }
             throw new ArgumentOutOfRangeException();
         }
 
         public bool GetChildControlEnabled(ChoiceActionItem item){
-            if (ActionItemToMenuItemMap[item] != null){
-                return ActionItemToMenuItemMap[item].ClientEnabled;
+            if (_actionItemToMenuItemMap[item] != null){
+                return _actionItemToMenuItemMap[item].ClientEnabled;
             }
             throw new ArgumentOutOfRangeException();
         }
 
         public bool GetChildControlVisible(ChoiceActionItem item){
-            if (ActionItemToMenuItemMap[item] != null){
-                return ActionItemToMenuItemMap[item].Visible;
+            if (_actionItemToMenuItemMap[item] != null){
+                return _actionItemToMenuItemMap[item].Visible;
             }
             throw new ArgumentOutOfRangeException();
         }
 
         public bool IsGroupExpanded(ChoiceActionItem item){
-            if (ActionItemToMenuGroupMap[item] != null){
+            if (_actionItemToMenuGroupMap[item] != null){
                 return false;
             }
             throw new ArgumentOutOfRangeException();
         }
 
         public string GetSelectedItemCaption(){
-            if (ASPxMenuControl.SelectedItem != null){
-                return ASPxMenuControl.SelectedItem.Text;
+            if (_asPxMenuControl.SelectedItem != null){
+                return _asPxMenuControl.SelectedItem.Text;
             }
             return string.Empty;
         }
@@ -458,65 +453,65 @@ namespace Xpand.ExpressApp.Web.Templates{
         #region INavigationControlTestable Members
 
         bool INavigationControlTestable.IsItemEnabled(ChoiceActionItem item){
-            if (ActionItemToMenuItemMap.ContainsKey(item)){
-                return ActionItemToMenuItemMap[item].Enabled;
+            if (_actionItemToMenuItemMap.ContainsKey(item)){
+                return _actionItemToMenuItemMap[item].Enabled;
             }
 
-            if (ActionItemToMenuGroupMap.ContainsKey(item)){
-                return ActionItemToMenuGroupMap[item].Visible;
+            if (_actionItemToMenuGroupMap.ContainsKey(item)){
+                return _actionItemToMenuGroupMap[item].Visible;
             }
             return false;
         }
 
         bool INavigationControlTestable.IsItemVisible(ChoiceActionItem item){
-            if (ActionItemToMenuItemMap.ContainsKey(item)){
-                return ActionItemToMenuItemMap[item].Visible;
+            if (_actionItemToMenuItemMap.ContainsKey(item)){
+                return _actionItemToMenuItemMap[item].Visible;
             }
 
-            if (ActionItemToMenuGroupMap.ContainsKey(item)){
-                return ActionItemToMenuGroupMap[item].Visible;
+            if (_actionItemToMenuGroupMap.ContainsKey(item)){
+                return _actionItemToMenuGroupMap[item].Visible;
             }
             return false;
         }
 
         int INavigationControlTestable.GetSubItemsCount(ChoiceActionItem item){
-            if (ActionItemToMenuItemMap.ContainsKey(item)){
+            if (_actionItemToMenuItemMap.ContainsKey(item)){
                 return 0;
             }
 
-            if (ActionItemToMenuGroupMap.ContainsKey(item)){
-                MenuItem menuGroup = ActionItemToMenuGroupMap[item];
+            if (_actionItemToMenuGroupMap.ContainsKey(item)){
+                MenuItem menuGroup = _actionItemToMenuGroupMap[item];
                 if (menuGroup.Items.Count > 0){
                     return menuGroup.Items[0].Items.Count;
                 }
-                return ActionItemToMenuGroupMap[item].Items.Count;
+                return _actionItemToMenuGroupMap[item].Items.Count;
             }
             return 0;
         }
 
         string INavigationControlTestable.GetItemCaption(ChoiceActionItem item){
-            if (ActionItemToMenuItemMap.ContainsKey(item)){
-                return ActionItemToMenuItemMap[item].Text;
+            if (_actionItemToMenuItemMap.ContainsKey(item)){
+                return _actionItemToMenuItemMap[item].Text;
             }
 
-            if (ActionItemToMenuGroupMap.ContainsKey(item)){
-                return ActionItemToMenuGroupMap[item].Text;
+            if (_actionItemToMenuGroupMap.ContainsKey(item)){
+                return _actionItemToMenuGroupMap[item].Text;
             }
             return string.Empty;
         }
 
         string INavigationControlTestable.GetItemToolTip(ChoiceActionItem item){
-            if (ActionItemToMenuItemMap.ContainsKey(item)){
-                return ActionItemToMenuItemMap[item].ToolTip;
+            if (_actionItemToMenuItemMap.ContainsKey(item)){
+                return _actionItemToMenuItemMap[item].ToolTip;
             }
-            if (ActionItemToMenuGroupMap.ContainsKey(item)){
-                return ActionItemToMenuGroupMap[item].ToolTip;
+            if (_actionItemToMenuGroupMap.ContainsKey(item)){
+                return _actionItemToMenuGroupMap[item].ToolTip;
             }
             return string.Empty;
         }
 
         int INavigationControlTestable.GetGroupCount(){
-            return ASPxMenuControl.Items.Count;
+            return _asPxMenuControl.Items.Count;
         }
 
         int INavigationControlTestable.GetSubGroupCount(ChoiceActionItem item){
@@ -529,15 +524,15 @@ namespace Xpand.ExpressApp.Web.Templates{
         }
 
         bool INavigationControlTestable.IsGroupExpanded(ChoiceActionItem item){
-            if (ActionItemToMenuGroupMap.ContainsKey(item)){
+            if (_actionItemToMenuGroupMap.ContainsKey(item)){
                 return false;
             }
             return false;
         }
 
         string INavigationControlTestable.GetSelectedItemCaption(){
-            if (ASPxMenuControl.SelectedItem != null){
-                return ASPxMenuControl.SelectedItem.Text;
+            if (_asPxMenuControl.SelectedItem != null){
+                return _asPxMenuControl.SelectedItem.Text;
             }
 
             return string.Empty;
@@ -548,18 +543,20 @@ namespace Xpand.ExpressApp.Web.Templates{
         #region IDisposable Members
 
         public void Dispose(){
-            ASPxMenuControl.ItemClick -= ASPxMenuControl_ItemClick;
-            ASPxMenuControl.Load -= ASPxMenuControl_Load;
+            _asPxMenuControl.ItemClick -= ASPxMenuControl_ItemClick;
+            _asPxMenuControl.Load -= ASPxMenuControl_Load;
             ClearItemWrappers();
             UnsubscribeAll();
-            foreach (MenuItem group in ASPxMenuControl.Items){
+            foreach (MenuItem group in _asPxMenuControl.Items){
                 foreach (MenuItem item in group.Items){
-                    if (item is IDisposable){
-                        ((IDisposable) item).Dispose();
+                    var disposable = item as IDisposable;
+                    if (disposable != null){
+                        disposable.Dispose();
                     }
                 }
-                if (group is IDisposable){
-                    ((IDisposable) group).Dispose();
+                var @groupDispoable = @group as IDisposable;
+                if (@groupDispoable != null){
+                    @groupDispoable.Dispose();
                 }
             }
             RegisterCallbackStartupScript = null;

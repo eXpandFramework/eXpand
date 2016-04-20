@@ -5,14 +5,14 @@
 		<Application
 			Name="FilterDataStoreTester.Win"
 			FileName="[WinAppBin]\FilterDataStoreTester.Win.exe"
-			AdapterAssemblyName="[WinAdapterAssemblyName]"
+			AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100"/>
 		<!-- Web -->
 		<Application
 			Name="FilterDataStoreTester.Web"
 			Url="http://localhost:5009"
 			PhysicalPath="[WebAppBin]"
-			AdapterAssemblyName="[WebAdapterAssemblyName]"  />
+			AdapterFileName="[WebAdapterFileName]"  />
 		<!-- For IIS -->
 		<!--Application
 			Name="FilterDataStoreTester.Web"
@@ -25,8 +25,8 @@
 
 	<Aliases>
 		
-		<Alias Name="WinAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WinAdapter, Version=16.1.1.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
-		<Alias Name="WebAdapterAssemblyName" Value="Xpand.ExpressApp.EasyTest.WebAdapter, Version=16.1.1.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+		<Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
 		<Alias Name="WinAppBin" Value="[ConfigPath]\..\..\FilterDataStoreTester.Win\Bin\EasyTest" />
 		<Alias Name="WebAppBin" Value="[ConfigPath]\..\..\FilterDataStoreTester.Web" />
 	</Aliases>

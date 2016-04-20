@@ -1,13 +1,13 @@
 ﻿;#IncludeFile .\Init.inc
 *Navigate ASPx Search Lookup Property Editor Object
 *Action New
+*ToggleNavigation
 *Mouse LeftButtonClick
  MoveMouseTo = [NewAction]
- ToggleNavigation = True
-
 *XpandFillForm
  Name = Bekiaris
 *SaveAndClose
+*ToggleNavigation
 *SaveAndClose
 *XpandProcessRecord
  ASPx Search Lookup Property Editor Lookup = Bekiaris

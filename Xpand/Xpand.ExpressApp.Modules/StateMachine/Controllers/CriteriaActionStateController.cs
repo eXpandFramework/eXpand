@@ -1,6 +1,5 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.StateMachine;
-using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
@@ -19,7 +18,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            var typeInfo = typesInfo.FindTypeInfo(typeof(XpoState));
+            var typeInfo = typesInfo.GetStateTypeInfo();
             if (typeInfo != null && typeInfo.FindMember(HideIfCriteriaDoNotFit) == null) {
                 typeInfo.CreateMember(HideIfCriteriaDoNotFit, typeof(bool));
             }

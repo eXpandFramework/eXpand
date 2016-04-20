@@ -17,34 +17,38 @@
 ;----------------------check that all transitions can transit---------------------
 *XpandFillForm
  Bill Status = In dispute
-!ActionAvailable Change State (Bill.Active)
-!ActionAvailable Change State (Bill.InDispute)
-*ActionAvailable Change State (Bill.Overdue)
+!ActionAvailable Change State (Active)
+!ActionAvailable Change State (InDispute)
+*ActionAvailable Change State (Overdue)
 
 *XpandFillForm
  Bill Status = Active
-!ActionAvailable Change State (Bill.Active)
-*ActionAvailable Change State (Bill.InDispute)
-!ActionAvailable Change State (Bill.Overdue)
+!ActionAvailable Change State (Active)
+*ActionAvailable Change State (InDispute)
+!ActionAvailable Change State (Overdue)
 
 *XpandFillForm
  Bill Status = Overdue
-!ActionAvailable Change State (Bill)
+!ActionAvailable Change State (Active)
+!ActionAvailable Change State (InDispute)
+!ActionAvailable Change State (Overdue)
 
 *XpandFillForm
  Bill Status = Active
-!ActionAvailable Change State (Bill.Active)
-*ActionAvailable Change State (Bill.InDispute)
-!ActionAvailable Change State (Bill.Overdue)
+!ActionAvailable Change State (Active)
+*ActionAvailable Change State (InDispute)
+!ActionAvailable Change State (Overdue)
 
 *XpandFillForm
  Bill Status = Overdue
-!ActionAvailable Change State (Bill)
+!ActionAvailable Change State (Active)
+!ActionAvailable Change State (InDispute)
+!ActionAvailable Change State (Overdue)
 
 *XpandFillForm
  Bill Status = In dispute
-!ActionAvailable Change State (Bill.Active)
-!ActionAvailable Change State (Bill.InDispute)
-*ActionAvailable Change State (Bill.Overdue)
+!ActionAvailable Change State (Active)
+!ActionAvailable Change State (InDispute)
+*ActionAvailable Change State (Overdue)
 
 *SaveAndClose

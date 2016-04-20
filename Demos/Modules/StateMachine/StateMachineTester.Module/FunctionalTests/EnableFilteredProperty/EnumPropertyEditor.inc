@@ -17,16 +17,18 @@
  Bill Status = Active
 *XpandFillForm
  Bill Status = In dispute
-*ActionAvailable Change State(Bill.Overdue)
-!ActionAvailable Change State(Bill.InDispute)
-!ActionAvailable Change State(Bill.Active)
+*ActionAvailable Change State(Overdue)
+!ActionAvailable Change State(InDispute)
+!ActionAvailable Change State(Active)
 *Action Save
 
 !XpandFillForm
  Bill Status = Active
 *XpandFillForm
  Bill Status = Overdue
-!ActionAvailable Change State(Bill)
+!ActionAvailable Change State(Overdue)
+!ActionAvailable Change State(InDispute)
+!ActionAvailable Change State(Active)
 
 !XpandFillForm
  Bill Status = Active

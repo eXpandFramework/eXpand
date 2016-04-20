@@ -1,4 +1,5 @@
-﻿using DevExpress.EasyTest.Framework;
+﻿using System.Threading;
+using DevExpress.EasyTest.Framework;
 using Fasterflect;
 using Xpand.EasyTest.Commands.Window;
 using Point = System.Drawing.Point;
@@ -12,6 +13,7 @@ namespace Xpand.EasyTest.Commands.InputSimulator{
             var toggleNavigationCommand = new ToggleNavigationCommand();
             if (toggleNavigation){
                 toggleNavigationCommand.Execute(adapter);
+                Thread.Sleep(500);
             }
             try{
                 var activateApplicationWindowCommand = new ActivateWindowCommand();
@@ -27,6 +29,7 @@ namespace Xpand.EasyTest.Commands.InputSimulator{
             finally{
                 if (toggleNavigation) {
                     toggleNavigationCommand.Execute(adapter);
+                    Thread.Sleep(500);
                 }    
             }
         }

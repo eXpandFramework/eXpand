@@ -139,7 +139,7 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
                 var instance = XafTypesInfo.Instance;
                 try {
                     var typesInfo = new TypesInfoBuilder.TypesInfo();
-                    typesInfo.AddEntityStore(new NonPersistentEntityStore(typesInfo));
+                    typesInfo.AddEntityStore(new NonPersistentTypeInfoSource(typesInfo));
                     typesInfo.AddEntityStore(new XpoTypeInfoSource(typesInfo));
 
                     typesInfo.AssignAsInstance();

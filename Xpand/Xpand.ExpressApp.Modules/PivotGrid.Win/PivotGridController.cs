@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.PivotGrid;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.ExpressApp.Win.Layout;
@@ -33,7 +32,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             base.OnActivated();
             Active["ListEditorType"] = IsActive();
             if (Active && PivotGridListEditor != null) {
-                PivotGridListEditor.CreateCustomModelSynchronizer += PivotGridListEditorOnCreateCustomModelSynchronizer;
+                PivotGridListEditor.ModelApplied+=PivotGridListEditorOnModelApplied;
             }
         }
 
@@ -41,16 +40,17 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             return PivotGridListEditor != null;
         }
 
-        void PivotGridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
-            AttachToControlEvents();
-        }
-
         protected override void OnDeactivated() {
             base.OnDeactivated();
             if (PivotGridListEditor != null) {
-                PivotGridListEditor.CreateCustomModelSynchronizer -= PivotGridListEditorOnCreateCustomModelSynchronizer;
+                PivotGridListEditor.ModelApplied -= PivotGridListEditorOnModelApplied;
             }
         }
+
+        private void PivotGridListEditorOnModelApplied(object sender, EventArgs eventArgs){
+            AttachToControlEvents();
+        }
+
         protected abstract void AttachToControlEvents();
 
         protected LayoutControlItem PivotLayoutControlItem {
@@ -75,7 +75,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         protected override void AttachToControlEvents() {
             var pivotGridControl = PivotGridListEditor.PivotGridControl;
             foreach (var toolTipRule in _ruleCollector.ToolTipRules()) {
-                var objectToolTipController = (IObjectToolTipController)toolTipRule.ToolTipController.CreateInstance(new object[] { pivotGridControl });
+                var objectToolTipController = (IObjectToolTipController)toolTipRule.ToolTipController.CreateInstance(pivotGridControl);
                 _toolTipControllers.Add(toolTipRule.GetValue<string>("Id"), objectToolTipController);
             }
             pivotGridControl.CustomSummary += PivotGridControlOnCustomSummary;
@@ -296,7 +296,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
 
         void PivotGridControlOnCustomCellEditForEditing(object sender, PivotCustomCellEditEventArgs e) {
             var focusedCell = ((PivotGridControl)sender).Cells.FocusedCell;
-            var modelRepositoryItemSpinEdits = _ruleCollector.RepositoryItems(focusedCell);
+            var modelRepositoryItemSpinEdits = _ruleCollector.RepositoryItems(focusedCell).ToArray();
             if (modelRepositoryItemSpinEdits.Any()) {
                 var repositoryItemSpinEdit = new RepositoryItemSpinEdit();
                 e.RepositoryItem = repositoryItemSpinEdit;

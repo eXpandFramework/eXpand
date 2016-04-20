@@ -9,7 +9,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Web.Model {
             return new TreeListViewOptionsSynchronizer(list, modelOptionsTreeList);
         }
 
-        protected override ASPxTreeList GetTreeList(NavigationActionContainer navigationActionContainer) {
+        protected override ASPxTreeList GetTreeList(NavigationActionContainer navigationActionContainer){
+            Frame.ProcessActionContainer-=FrameOnProcessActionContainer;
             return navigationActionContainer.NavigationControl as ASPxTreeList;
         }
     }

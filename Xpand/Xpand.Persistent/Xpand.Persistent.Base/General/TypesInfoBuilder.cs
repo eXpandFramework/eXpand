@@ -27,7 +27,7 @@ namespace Xpand.Persistent.Base.General {
 
         TypesInfo GetTypesInfo() {
             var typesInfo = new TypesInfo();
-            typesInfo.AddEntityStore(new NonPersistentEntityStore(typesInfo));
+            typesInfo.AddEntityStore(new NonPersistentTypeInfoSource(typesInfo));
             var xpoSource = new XpoTypeInfoSource(typesInfo);
             typesInfo.Source = xpoSource;
             typesInfo.AddEntityStore(xpoSource);

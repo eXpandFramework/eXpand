@@ -1,4 +1,5 @@
-﻿using DevExpress.EasyTest.Framework;
+﻿using System.Threading;
+using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 
 namespace Xpand.EasyTest.Commands {
@@ -15,6 +16,7 @@ namespace Xpand.EasyTest.Commands {
             actionCommand.Parameters.MainParameter = new MainParameter("Toggle Navigation");
             actionCommand.Parameters.ExtraParameter = new MainParameter("");
             actionCommand.Execute(adapter);
+            Thread.Sleep(500);
             _isToggled = !_isToggled;
         }
 
