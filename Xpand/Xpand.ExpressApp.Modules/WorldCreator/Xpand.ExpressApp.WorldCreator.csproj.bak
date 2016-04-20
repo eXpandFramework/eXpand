@@ -35,6 +35,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -65,30 +66,46 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v14.1">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.1">
+    <Reference Include="DevExpress.Data.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v14.1">
+    <Reference Include="DevExpress.ExpressApp.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v14.1">
+    <Reference Include="DevExpress.Persistent.Base.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v14.1">
+    <Reference Include="DevExpress.Xpo.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Cecil">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.1\lib\net40\Mono.Cecil.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Mdb">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.1\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.1\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.1\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
@@ -129,6 +146,9 @@
     <Compile Include="Controllers\DataStoreLogonDatabasesController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\NeedCompilationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\PersistentReferenceMemberInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -163,9 +183,7 @@
     <Compile Include="Core\ExistentTypesMemberCreator.cs" />
     <Compile Include="Core\PersistentClassInfoExtensions.cs" />
     <Compile Include="Core\TypeInfoExtensions.cs" />
-    <Compile Include="Controllers\PopulateInterfacesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\PopulateInterfacesController.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentAssemblyBuilder.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentClassInfoQuery.cs" />
     <Compile Include="PersistentTypesHelpers\PersistentAttributeInfoQuery.cs" />

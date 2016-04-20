@@ -123,28 +123,28 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Web.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v15.2">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v15.2">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v15.2">
+    <Reference Include="DevExpress.ExpressApp.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v15.2.Core">
+    <Reference Include="DevExpress.Office.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v15.2.Core">
+    <Reference Include="DevExpress.RichEdit.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v15.2">
+    <Reference Include="DevExpress.Web.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">

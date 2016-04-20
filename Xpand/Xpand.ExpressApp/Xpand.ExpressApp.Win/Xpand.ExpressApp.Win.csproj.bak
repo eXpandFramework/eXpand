@@ -22,6 +22,7 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
+    <LangVersion>4</LangVersion>
     <PublishUrl>http://localhost/Xpand.ExpressApp.Win/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -58,61 +59,72 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.CodeParser.v14.1">
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.CodeParser.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.1">
+    <Reference Include="DevExpress.Data.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v14.1">
+    <Reference Include="DevExpress.ExpressApp.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v14.1">
+    <Reference Include="DevExpress.Persistent.Base.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v14.1.Core">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v14.1.Core">
+    <Reference Include="DevExpress.Printing.v15.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v14.1.Core">
+    <Reference Include="DevExpress.Office.v15.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v14.1">
+    <Reference Include="DevExpress.RichEdit.v15.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v14.1">
+    <Reference Include="DevExpress.Utils.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v14.1">
+    <Reference Include="DevExpress.Xpo.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v14.1">
+    <Reference Include="DevExpress.XtraBars.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v14.1">
+    <Reference Include="DevExpress.XtraEditors.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v14.1">
+    <Reference Include="DevExpress.XtraPrinting.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v14.1">
+    <Reference Include="DevExpress.XtraGrid.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v14.1">
+    <Reference Include="DevExpress.XtraLayout.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v14.1">
+    <Reference Include="DevExpress.XtraNavBar.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v14.1.Extensions">
+    <Reference Include="DevExpress.XtraRichEdit.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraRichEdit.v15.2.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -149,41 +161,13 @@
     <Compile Include="EditModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Editors\XpandFilterControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Editors\EnumEdit.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\AdvBandedListEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewDesigner.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Design\AdvBandedViewPropertyEditor.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Editors\XpandFilterControl.cs" />
+    <Compile Include="Editors\EnumEdit.cs" />
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Interfaces.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\Synchronizers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorColumnChooserController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\ColumnViewEditorPreviewRowController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesigner.cs">
       <SubType>Code</SubType>
@@ -194,12 +178,7 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\Design\ColumnViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\EditorExtensions.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\GridViewKeyboardController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\Extensions.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -208,12 +187,6 @@
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\NewItemRowDataSourcePropertyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\ColumnView\OpenObjectController.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="ListEditors\GridListEditors\ColumnView\RememberGridSelectionController.cs">
       <SubType>Component</SubType>
@@ -276,7 +249,6 @@
     <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\GridListEditorBase.cs" />
     <Compile Include="ListEditors\GridListEditors\GridView\MasterDetail\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -301,15 +273,7 @@
     <Compile Include="ListEditors\GridListEditors\GridView\Model\Synchronizers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\XpandGridListEditor.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\XpandGridView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ListEditors\GridListEditors\GridView\XpandXafGridColumn.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\GridView\XpandGridListEditor.cs" />
     <Compile Include="ListEditors\GridListEditors\LayoutView\Design\LayoutViewDesigner.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -319,9 +283,7 @@
     <Compile Include="ListEditors\GridListEditors\LayoutView\Design\LayoutViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ListEditors\GridListEditors\LayoutView\LayoutViewListEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\GridListEditors\LayoutView\LayoutViewListEditor.cs" />
     <Compile Include="ListEditors\GridListEditors\LayoutView\LayoutViewListEditorBase.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -341,6 +303,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ModelEditorViewController.cs" />
+    <Compile Include="Model\NodeUpdaters\ModelOptionsAdvBandedViewUpdater.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -351,9 +314,7 @@
     <Compile Include="PropertyEditors\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\FilterableEnumPropertyEditor.cs" />
     <Compile Include="PropertyEditors\FolderBrowseEditor.cs" />
-    <Compile Include="PropertyEditors\FastSearchPropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\FastSearchPropertyEditor.cs" />
     <Compile Include="PropertyEditors\DurationPropertyEditor.cs" />
     <Compile Include="PropertyEditors\EnumPropertyEditor.cs" />
     <Compile Include="PropertyEditors\HyperLinkPropertyEditor.cs">
@@ -366,14 +327,15 @@
     <Compile Include="PropertyEditors\NullAble\DatePropertyEditor\XpandDatePropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\DoublePropertyEditor\XpandDoublePropertyEditor.cs" />
     <Compile Include="PropertyEditors\NullAble\IntegerPropertyEditor\XpandIntegerPropertyEditor.cs" />
-    <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs">
-      <SubType>Component</SubType>
+    <Compile Include="PropertyEditors\ReleasedSequencePropertyEditor.cs" />
+    <Compile Include="PropertyEditors\RichEdit\RichEditContainerBase.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PropertyEditors\RichEdit\FullWinRichtEdit.cs">
-      <SubType>Form</SubType>
+    <Compile Include="PropertyEditors\RichEdit\RichEditContainerRibbon.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PropertyEditors\RichEdit\FullWinRichtEdit.Designer.cs">
-      <DependentUpon>FullWinRichtEdit.cs</DependentUpon>
+    <Compile Include="PropertyEditors\RichEdit\RichEditContainerRibbon.Designer.cs">
+      <DependentUpon>RichEditContainerRibbon.cs</DependentUpon>
     </Compile>
     <Compile Include="PropertyEditors\RichEdit\RichEditContainer.cs">
       <SubType>UserControl</SubType>
@@ -381,13 +343,14 @@
     <Compile Include="PropertyEditors\RichEdit\RichEditContainer.Designer.cs">
       <DependentUpon>RichEditContainer.cs</DependentUpon>
     </Compile>
+    <Compile Include="PropertyEditors\RichEdit\RichEditToolbarController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PropertyEditors\RichEdit\RichEditWinPropertyEditor.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditor.cs" />
-    <Compile Include="PropertyEditors\StringPropertyEditors\LabelControlPropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\StringPropertyEditors\LabelControlPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\MemoPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringLookupPropertyEditor.cs" />
@@ -408,22 +371,24 @@
     <Compile Include="SystemModule\ApplicationExitController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\LayoutControlGroupModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\FilterByColumnController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\DetailViewCachingController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\DetailViewCachingController.cs" />
     <Compile Include="SystemModule\FullTextAutoFilterRowController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\GridListEditorEventController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs">
+    <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs" />
+    <Compile Include="SystemModule\ImmediatePostDataController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ImmediatePostDataController.cs">
+    <Compile Include="SystemModule\OpenWithController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SelectedItemSumController.cs">
@@ -455,9 +420,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\IModelRootNavigationItemsAutoSelectedGroupItem.cs" />
-    <Compile Include="SystemModule\CriteriaPropertyEditorViewModeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\CriteriaPropertyEditorViewModeController.cs" />
     <Compile Include="SystemModule\PreventDataLoadingGridViewController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -546,8 +509,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="PropertyEditors\RichEdit\FullWinRichtEdit.resx">
-      <DependentUpon>FullWinRichtEdit.cs</DependentUpon>
+    <EmbeddedResource Include="PropertyEditors\RichEdit\RichEditContainerRibbon.resx">
+      <DependentUpon>RichEditContainerRibbon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PropertyEditors\RichEdit\RichEditContainer.resx">
       <DependentUpon>RichEditContainer.cs</DependentUpon>
@@ -589,9 +552,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PropertyEditors\RichEdit\Resources\fit_to_size.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -612,4 +572,5 @@
     </PreBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
 </Project>

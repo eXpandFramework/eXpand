@@ -35,6 +35,7 @@
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -66,46 +67,58 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Security.v14.1">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v14.1">
+    <Reference Include="DevExpress.Printing.v15.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v14.1">
+    <Reference Include="DevExpress.Data.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Web.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v14.1.Core">
+    <Reference Include="DevExpress.ExpressApp.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v14.1.Core">
+    <Reference Include="DevExpress.Persistent.Base.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v14.1">
+    <Reference Include="DevExpress.Utils.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v14.1">
+    <Reference Include="DevExpress.Office.v15.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v14.1">
+    <Reference Include="DevExpress.RichEdit.v15.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Web.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v15.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -144,39 +157,52 @@
     <Compile Include="General\ApplicationBuilder.cs" />
     <Compile Include="General\ApplicationHelper.cs" />
     <Compile Include="General\AttributeRegistrator.cs" />
-    <Compile Include="General\Controllers\CollectionsEditModeController.cs">
+    <Compile Include="General\Controllers\DisableDialogController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Controllers\CollectionsEditModeController.cs" />
+    <Compile Include="General\Web\NavigationContainerWebController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Web\ActionsClientScriptController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Web\CustomizeASPxPopupController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\EasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\ListViewExtensions.cs" />
-    <Compile Include="General\XpandNavigationItem.cs" />
-    <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs">
+    <Compile Include="General\Controllers\ViewEditModeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\ListViewExtensions.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\ActionVisibilityCalculator.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\RibbonFormStyleVisibilityCalculator.cs" />
+    <Compile Include="General\Model\VisibilityCalculators\StandardFormStyleVisibilityCalculator.cs" />
+    <Compile Include="General\Web\SyntaxHighlight\Model.cs" />
+    <Compile Include="General\Web\SyntaxHighlight\Services.cs" />
+    <Compile Include="General\Web\SyntaxHighlight\SyntaxHighLightController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="General\Win\RibbonExtensions.cs" />
+    <Compile Include="General\XpandNavigationItem.cs" />
+    <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs" />
     <Compile Include="General\Controllers\Actions\ActionItemsFromModelController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\Actions\ActionModelChoiceItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Actions\ModelConfigurationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\Actions\ModelConfigurationController.cs" />
     <Compile Include="General\Controllers\ModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs" />
     <Compile Include="General\Controllers\Actions\ResetViewModelController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\CustomAttibutesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="General\Controllers\InvalidEditorAction.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\ModelViewSavingController.cs">
@@ -188,24 +214,24 @@
     <Compile Include="General\Controllers\NavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\NotifyMembersController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\NotifyMembersController.cs" />
+    <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs" />
     <Compile Include="General\CustomFunctions\ModelValueOperator.cs" />
     <Compile Include="General\FastReflectPropertyDescriptor.cs" />
     <Compile Include="General\MemberInfoExtensions.cs" />
     <Compile Include="General\Model\ModelNodePath.cs" />
     <Compile Include="General\ModuleUpdaterExtensions.cs" />
     <Compile Include="General\XpandCollectionSource.cs" />
+    <Compile Include="General\ApplicationModulesManagerExtensions.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAttributeInfoExtensions.cs" />
     <Compile Include="Security\SecurityExtensions.cs" />
     <Compile Include="General\XpandDefaultPropertyAttribute.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
     <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentModelDefaultAttribute.cs" />
     <Compile Include="Security\EncryptedSettingsStorage.cs" />
+    <Compile Include="Security\ISecurityRelated.cs" />
+    <Compile Include="XpandFileData.cs" />
     <Compile Include="Xpo\BinaryOperatorValueMapperCriteriaProcessor.cs" />
     <Compile Include="General\Model\DefaultMember.cs" />
     <Compile Include="General\Model\RequiredCalculators\NotRequiredCalculator.cs" />
@@ -230,12 +256,8 @@
     <Compile Include="General\Controllers\MasterObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\CreatableItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="General\Controllers\PessimisticLockingViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="General\Controllers\CreatableItemController.cs" />
+    <Compile Include="General\Controllers\PessimisticLockingViewController.cs" />
     <Compile Include="General\Controllers\PopulateController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -380,14 +402,11 @@
     <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
     <Compile Include="ModelAdapter\InterfaceBuilder.cs" />
     <Compile Include="ModelAdapter\Interfaces.cs" />
-    <Compile Include="ModelAdapter\ModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ModelAdapter\ModelAdapterController.cs" />
     <Compile Include="ModelAdapter\ModelSynchronizerList.cs" />
     <Compile Include="ModelAdapter\Synchronizers.cs" />
     <Compile Include="ModelDifference\ApplicationModulesManager.cs" />
     <Compile Include="ModelDifference\AspectInfo.cs" />
-    <Compile Include="General\ITypesInfoProvider.cs" />
     <Compile Include="ModelDifference\ModelApplicationFromStreamStoreBase.cs" />
     <Compile Include="ModelDifference\ModelLoader.cs" />
     <Compile Include="ModelDifference\ResourceInfo.cs" />
@@ -496,9 +515,7 @@
     <Compile Include="General\Controllers\XpandLinkToListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs" />
     <Compile Include="Xpo\PatchXpoSpecificFieldNameProcessor.cs" />
   </ItemGroup>
   <ItemGroup>

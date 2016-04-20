@@ -33,6 +33,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,16 +64,16 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v14.1">
+    <Reference Include="DevExpress.Data.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v14.1">
+    <Reference Include="DevExpress.ExpressApp.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v14.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v14.1">
+    <Reference Include="DevExpress.Persistent.Base.v15.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
@@ -95,17 +96,15 @@
     <Compile Include="Controllers\ActionExecuteValidationController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\ObjectSpaceObjectChangedValidationContextController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\PasswordScoreController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\PermissionValidationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuleType\RuleTypeAttribute.cs" />
-    <Compile Include="RuleType\RuleTypeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="RuleType\RuleTypeGeneratorUpdater.cs" />
     <Compile Include="XpandValidationModule.cs">
       <SubType>Component</SubType>
     </Compile>
