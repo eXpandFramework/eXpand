@@ -44,15 +44,15 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
             var optionsLayoutGrid = new OptionsLayoutGrid();
 
             optionsLayoutGrid.Columns.StoreLayout = true;
-            optionsLayoutGrid.Columns.StoreAppearance = false;
+            optionsLayoutGrid.Columns.StoreAppearance = true;
             optionsLayoutGrid.Columns.RemoveOldColumns = false;
             optionsLayoutGrid.Columns.AddNewColumns = false;
 
-            optionsLayoutGrid.StoreVisualOptions = false;
+            optionsLayoutGrid.StoreVisualOptions = true;
             optionsLayoutGrid.StoreDataSettings = false;
-            optionsLayoutGrid.StoreAppearance = false;
+            optionsLayoutGrid.StoreAppearance = true;
 
-            optionsLayoutGrid.StoreAllOptions = false;
+            optionsLayoutGrid.StoreAllOptions = true;
             return optionsLayoutGrid;
         }
         void SaveToLayoutStore(BaseView baseView) {
