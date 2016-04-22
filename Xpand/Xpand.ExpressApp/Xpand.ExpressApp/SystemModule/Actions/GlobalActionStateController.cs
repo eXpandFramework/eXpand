@@ -16,9 +16,13 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
         public const string ModelActiveAttribute = "ModelActiveAttribute";
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
+            foreach (var variable in Application.Modules.SelectMany(m=>m.GetControllerTypes())){
+                Application.TypesInfo.RegisterEntity(variable);
+            }
+            
             var modelActionStates = Application.Model.ActionDesign.Actions.Cast<IModelActionState>();
             foreach (var modelActionState in modelActionStates.Where(state => !state.Active)) {
-                var actionBase = Frame.GetController(modelActionState.Controller.Name).Actions[modelActionState.Id];
+                var actionBase = Frame.Actions().First(a => a.Id==modelActionState.Id);
                 actionBase.Active.BeginUpdate();
                 actionBase.Active[ModelActiveAttribute] = false;
                 actionBase.Active.EndUpdate();

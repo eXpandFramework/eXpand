@@ -185,7 +185,7 @@
     <Compile Include="General\Web\SyntaxHighlight\SyntaxHighLightController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Win\RibbonExtensions.cs" />
+    <Compile Include="General\Win\ToolbarExtensions.cs" />
     <Compile Include="General\XpandNavigationItem.cs" />
     <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs" />
     <Compile Include="General\Controllers\Actions\ActionItemsFromModelController.cs">

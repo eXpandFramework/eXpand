@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.XtraBars;
 using DevExpress.XtraRichEdit;
+using Xpand.Persistent.Base.General.Win;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     public partial class RichEditContainer : RichEditContainerBase {
@@ -18,11 +17,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public override void DestroyToolBar(){
-            BarManagerAction(DestroyBars);
+            this.Execute(DestroyBars);
         }
 
         public override void CreateToolBars(){
-            BarManagerAction(CreateBarsCore);
+            this.Execute(CreateBarsCore);
         }
 
         private void DestroyBars(BarManager manager){
@@ -62,18 +61,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
                 if (parentBar != null){
                     parentBar.DockRow++;
                     parentBar.ApplyDockRowCol();
-                }
-            }
-        }
-
-        private void BarManagerAction(Action<BarManager> action){
-            var barManagerHolder = (IBarManagerHolder)FindForm();
-            if (barManagerHolder != null){
-                var barManager = barManagerHolder.BarManager;
-                if (barManager != null){
-                    barManager.BeginUpdate();
-                    action(barManager);
-                    barManager.EndUpdate();
                 }
             }
         }

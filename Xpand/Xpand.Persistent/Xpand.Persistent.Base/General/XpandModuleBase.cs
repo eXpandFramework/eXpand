@@ -896,7 +896,7 @@ namespace Xpand.Persistent.Base.General {
         }
     }
 
-    public class EasyTestModule : ModuleBase {
+    public abstract class EasyTestModule : ModuleBase {
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
             var declaredControllerTypes = base.GetDeclaredControllerTypes();
             return declaredControllerTypes.Concat(new[] { typeof(EasyTestController) });

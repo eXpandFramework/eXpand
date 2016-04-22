@@ -1,8 +1,9 @@
 ﻿#DropDB SystemTesterEasyTest
 #Application SystemTester.Win
-*UseModel
+*UseModel ..\RichEdit
 *LogOn
 *ScreenCapture
+
 *Action Navigation(PropertyEditors.RichEdit)
 *Action New (Rich Edit Object)
 
@@ -68,4 +69,17 @@
 *HandleDialog
  Caption = Insert Table
  Respond = Cancel
+
+;------Check HideToolBarsAttribute--------
+*Action Tab3
+*Mouse LeftButtonClick
+ MoveMouseTo = [TextField]
+*Mouse LeftButtonClick
+ MoveMouseTo = [TableCommand]
+*Sleep 1000
+!HandleDialog
+ Caption = Insert Table
+
+*SaveAndClose
+
 

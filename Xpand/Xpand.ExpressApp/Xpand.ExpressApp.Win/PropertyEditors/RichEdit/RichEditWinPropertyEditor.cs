@@ -22,6 +22,7 @@ using DevExpress.XtraRichEdit.Export;
 using DevExpress.XtraRichEdit.Import;
 using DevExpress.XtraRichEdit.Services;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
@@ -42,7 +43,13 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
         protected override IEnumerable<InterfaceBuilderData> CreateBuilderData(){
             var interfaceBuilderData = new InterfaceBuilderData(typeof(RichEditControl)) {
-                Act = info => info.Name != "Undo" && info.DXFilter()
+                Act = info => {
+                    if (info.PropertyType==typeof(RichEditRulerVisibility))
+                        info.AddAttribute(new DefaultValueAttribute(RichEditRulerVisibility.Hidden));
+                    else if (info.PropertyType==typeof(RichEditViewType))
+                        info.AddAttribute(new DefaultValueAttribute(RichEditViewType.Simple));
+                    return info.Name != "Undo" && info.DXFilter();
+                }
             };
             interfaceBuilderData.ReferenceTypes.AddRange(new[] { typeof(CriteriaOperator), typeof(DocumentCapability) });
             yield return interfaceBuilderData;
@@ -54,10 +61,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     }
 
 
-    public interface IModelRichEditControl : IModelNode {
-
-    }
-
     [ModelAbstractClass]
     public interface IModelMemberViewItemRichEdit : IModelMemberViewItem {
         [ModelBrowsable(typeof(ModelMemberViewItemRichEditVisibilityCalculator))]
@@ -67,12 +70,15 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     [ModuleUser(typeof(IRichEditUser))]
     public interface IModelRichEdit : IModelModelAdapter {
         [DefaultValue("rtf")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         string HighLightExtension { get; set; }
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool PrintXML { get; set; }
-        IModelRichEditControl Control { get; }
         [DefaultValue(true)]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool ShowToolBars { get; set; }
         [DefaultValue("Text")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         string ControlBindingProperty { get; set; }
         IModelRichEditModelAdapters ModelAdapters { get; }
     }

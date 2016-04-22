@@ -36,8 +36,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Web", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj", "{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevExpress.ExpressApp.EasyTest.WinAdapter", "..\..\..\..\..\DevExpress 15.2\Components\Sources\DevExpress.ExpressApp.Modules\DevExpress.ExpressApp.EasyTest.WinAdapter\DevExpress.ExpressApp.EasyTest.WinAdapter.csproj", "{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -229,19 +227,6 @@ Global
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Test|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.TestingDebug|Any CPU.ActiveCfg = Debug|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.TestingDebug|Any CPU.Build.0 = Debug|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Test|Any CPU.ActiveCfg = Release|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.Test|Any CPU.Build.0 = Release|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.TestingDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A1C2FBA7-B74E-43AE-BB92-BCBEDDDA4B1E}.TestingDebug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

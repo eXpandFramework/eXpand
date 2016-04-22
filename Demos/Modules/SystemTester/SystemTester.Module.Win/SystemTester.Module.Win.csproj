@@ -183,7 +183,12 @@
     <Content Include="FunctionalTests\LayoutViewListEditor\Images\Layout.win.png" />
     <Content Include="FunctionalTests\LayoutViewListEditor\Init.inc" />
     <Content Include="FunctionalTests\LayoutViewListEditor\Layout.inc" />
-    <Content Include="FunctionalTests\PropertyEditors\RichEdit\Config.xml" />
+    <Content Include="FunctionalTests\PropertyEditors\RichEdit\CheckToolBarIsNotVisible.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\RichEdit\CheckToolBarIsVisible.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\RichEdit\RibbonTabbedMDI\Config.xml" />
+    <Content Include="FunctionalTests\PropertyEditors\RichEdit\Ribbon.inc" />
+    <Content Include="FunctionalTests\PropertyEditors\RichEdit\RibbonSDI\Config.xml" />
+    <Content Include="FunctionalTests\PropertyEditors\RichEdit\Standard\Config.xml" />
     <Content Include="FunctionalTests\ViewEditMode.Win\ViewMode.Win\Config.xml">
       <SubType>Designer</SubType>
     </Content>
@@ -208,7 +213,15 @@
     <None Include="FunctionalTests\LayoutViewListEditor\LayoutViewListEditor.xafml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="FunctionalTests\PropertyEditors\RichEdit\RichEdit.ets" />
+    <None Include="FunctionalTests\PropertyEditors\RichEdit\RibbonTabbedMDI\RichEditRibbonTabbedMDI.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\PropertyEditors\RichEdit\RibbonTabbedMDI\RichEditRibbonTabbedMDI.ets" />
+    <None Include="FunctionalTests\PropertyEditors\RichEdit\RibbonSDI\RichEditRibbonSDI.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\PropertyEditors\RichEdit\RibbonSDI\RichEditRibbonSDI.ets" />
+    <None Include="FunctionalTests\PropertyEditors\RichEdit\Standard\RichEditStandard.ets" />
     <None Include="FunctionalTests\PropertyEditors\RichEdit\RichEdit.xafml">
       <SubType>Designer</SubType>
     </None>
@@ -239,6 +252,9 @@
     <Compile Include="FunctionalTests\LayoutControlGroup\LayoutControlGroup.cs" />
     <Compile Include="FunctionalTests\LayoutViewListEditor\LayoutViewListEditorObject.cs" />
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\PropertyEditors\RichEdit\RichEdit.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\PropertyEditors\RichEdit\RichEditObject.cs" />

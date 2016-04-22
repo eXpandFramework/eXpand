@@ -1,9 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="NavigateBack" Active="False" />
+      <Action Id="NavigateForward" Active="False" />
+    </Actions>
+  </ActionDesign>
   <Views>
     <DetailView Id="RichEditObject_DetailView">
       <Items>
         <PropertyEditor Id="Field2" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor" />
+        <PropertyEditor Id="Field3" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor">
+          <RichEdit ShowToolBars="False" />
+        </PropertyEditor>
         <PropertyEditor Id="Text" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor">
           <RichEdit>
             <Options>
@@ -18,15 +27,17 @@
             <LayoutGroup Id="RichEditObject" RelativeSize="100" Caption="Field">
               <TabbedGroup Id="Item2" CaptionLocation="Top" Index="0" RelativeSize="100" IsNewNode="True">
                 <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Index="0" RelativeSize="100" Caption="Tab1" IsNewNode="True">
-                  <LayoutItem Id="Text" ViewItem="Text" Index="0" RelativeSize="4.5584045584045585" IsNewNode="True" />
-                  <LayoutItem Id="Field" ViewItem="Field" Index="1" RelativeSize="95.441595441595439" IsNewNode="True" />
+                  <LayoutItem Id="Text" ViewItem="Text" Index="0" RelativeSize="4.6511627906976747" IsNewNode="True" />
+                  <LayoutItem Id="Field" ViewItem="Field" Index="1" RelativeSize="95.348837209302332" IsNewNode="True" />
                 </LayoutGroup>
                 <LayoutGroup Id="Item3" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="1" RelativeSize="100" Caption="Tab2" IsNewNode="True">
                   <LayoutItem Id="Field2" ViewItem="Field2" Index="0" RelativeSize="100" TextAlignMode="AutoSize" IsNewNode="True" />
                 </LayoutGroup>
+                <LayoutGroup Id="Item4" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" Caption="Tab3" RelativeSize="100" IsNewNode="True">
+                  <LayoutItem Id="Field3" ViewItem="Field3" Index="0" RelativeSize="100" IsNewNode="True" />
+                </LayoutGroup>
               </TabbedGroup>
               <LayoutItem Id="Field" Index="1" RelativeSize="95.652173913043484" ViewItem="Field" Removed="True" />
-              <LayoutItem Id="Field2" RelativeSize="86.13333333333334" ViewItem="Field2" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="SizeableEditors" Caption="Text" Direction="Horizontal" RelativeSize="91.576086956521735" Removed="True">

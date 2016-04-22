@@ -23,10 +23,13 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
         private void Item_ControlCreated(object sender, EventArgs e){
             var richEditWinPropertyEditor = sender as RichEditWinPropertyEditor;
-            if (richEditWinPropertyEditor != null)
-                richEditWinPropertyEditor.Control.RichEditControl.GotFocus += RichEditControl_GotFocus;
+            if (richEditWinPropertyEditor != null){
+                var richEditControl = richEditWinPropertyEditor.Control.RichEditControl;
+                richEditControl.GotFocus += RichEditControl_GotFocus;
+            }
             var propertyEditor = ((PropertyEditor) sender) ;
-            ((Control)propertyEditor.Control).GotFocus += OnGotFocus;
+            var control = ((Control)propertyEditor.Control);
+            control.GotFocus += OnGotFocus;
         }
 
         private void RichEditControl_GotFocus(object sender, EventArgs e) {

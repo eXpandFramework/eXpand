@@ -113,6 +113,10 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             base.RunApplication(testApplication);
         }
 
+        public Process MainProcess{
+            get { return mainProcess; }
+        }
+
         private void RunAdditionalApps(TestApplication testApplication) {
             _additionalProcesses = new List<Process>();
             var additionalApps = testApplication.ParameterValue<string>("AdditionalApplications");
@@ -147,10 +151,8 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             TestControlFactoryWin.SetInstance(new XpandCustomTestControlFactory());
         }
 
-        private IntPtr _mainWindowHandle;
-
         public IntPtr MainWindowHandle{
-            get { return _mainWindowHandle; }
+            get { return ((XpandTestWinAdapter) Adapter).MainProcess.MainWindowHandle; }
         }
 
         public IXpandTestAdapter Adapter { get; internal set; }
@@ -160,6 +162,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
         public XpandCustomTestControlFactory(){
             UnRegisterInterface<GridTestControl>();
             RegisterInterface<TestControls.DevExpressControls.GridTestControl>();
+
             UnRegisterInterface<LookupObjectListViewEditControl>();
             RegisterInterface<TestControls.DevExpressControls.LookupObjectListViewEditControl>();
         }

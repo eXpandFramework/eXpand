@@ -13,7 +13,7 @@ namespace Xpand.Persistent.Base.General {
             if (choiceActions.Any())
                 return items.GroupBy(model => model.GetParent<IModelAction>())
                     .Where(nodes => choiceActions.Select(action => action.Id).Any(s => s == nodes.Key.Id))
-                    .Select(@group => choiceActions.First(action => action.Id == @group.Key.Id)).Distinct();
+                    .Select(group => choiceActions.First(action => action.Id == group.Key.Id)).Distinct();
             return Enumerable.Empty<TAction>();
         }
 
@@ -35,10 +35,6 @@ namespace Xpand.Persistent.Base.General {
                 if (controllers != null)
                     yield return controllers;
             }
-        }
-
-        public static Controller GetController(this Frame frame, string controllerType){
-            return frame.Controllers.Cast<Controller>().FirstOrDefault(controller => controller.GetType().FullName==controllerType);
         }
 
         public static Controller GetController(this Frame frame, Type controllerType){
