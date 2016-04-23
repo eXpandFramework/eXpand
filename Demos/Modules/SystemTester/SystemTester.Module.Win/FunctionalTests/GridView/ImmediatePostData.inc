@@ -1,6 +1,6 @@
 ﻿;#IncludeFile .\Init.inc
 *UseModel ImmediatePostData
- IsExternalModel = True
+ Operation = LoadModel
 *Navigate GridView.ImmediateRefresh
 *Action New(Grid View Object)
 *SaveAndClose

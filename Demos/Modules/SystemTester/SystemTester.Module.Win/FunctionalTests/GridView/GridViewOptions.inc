@@ -1,6 +1,6 @@
 ﻿;#IncludeFile .\Init.inc
 *UseModel GridViewOptions
- IsExternalModel = True
+ Operation = LoadModel
 *Navigate GridView.Options
 *XpandCompareScreenshot GridViewOptions.png
  MaskRectangle = 18x92;479x26

@@ -5,8 +5,13 @@ using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 
 namespace Xpand.EasyTest.Commands{
+    public enum ModelOperation{
+        None,
+        LoadModel,
+        MergeModel
+    }
     public class UseModelCommand:Command{
-        private const string IsExternalModel = "IsExternalModel";
+        private const string Operation = "Operation";
         private TestParameters _testParameters;
         public const string Name = "UseModel";
 
@@ -32,7 +37,7 @@ namespace Xpand.EasyTest.Commands{
         }
 
         private string GetUserXafml(string model, int i = 0){
-            if (this.ParameterValue<bool>(IsExternalModel))
+            if (this.ParameterValue<ModelOperation>(Operation)!=ModelOperation.None)
                 return Path.GetFileName(model);
             string userXafml = "Model.User.xafml";
             if (i > 0)
@@ -47,15 +52,10 @@ namespace Xpand.EasyTest.Commands{
             deleteFileCommand.Parameters.MainParameter = new MainParameter(destinationFile);
             deleteFileCommand.Execute(adapter);
             copyFileCommand.Execute(adapter, _testParameters, modelFile, destinationFile);
-            if (this.ParameterValue<bool>(IsExternalModel)){
+            if (this.ParameterValue<ModelOperation>(Operation)!=ModelOperation.None){
                 var actionCommand = new ActionCommand();
-                actionCommand.Parameters.MainParameter = new MainParameter("Parameter");
-                actionCommand.Parameters.ExtraParameter = new MainParameter(Path.GetFileNameWithoutExtension(model));
-                actionCommand.Execute(adapter);
-                actionCommand = new ActionCommand();
-                actionCommand.Parameters.MainParameter = new MainParameter("Action");
-                actionCommand.Parameters.ExtraParameter=new MainParameter("LoadModel");
-                actionCommand.Execute(adapter);
+                actionCommand.DoAction(adapter, "Parameter", Path.GetFileNameWithoutExtension(model));
+                actionCommand.DoAction(adapter, "EasyTestAction", this.ParameterValue<ModelOperation>(Operation).ToString());
             }
         }
 
