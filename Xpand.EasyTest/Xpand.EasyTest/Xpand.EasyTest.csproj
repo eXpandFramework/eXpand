@@ -85,11 +85,14 @@
     <Compile Include="Commands\FieldIsVisibleCommand.cs" />
     <Compile Include="Commands\FocusControlCommand.cs" />
     <Compile Include="Commands\HideScrollBarCommand.cs" />
+    <Compile Include="Commands\InputSimulator\LClickCommand.cs" />
+    <Compile Include="Commands\InputSimulator\MouseClickCommand.cs" />
+    <Compile Include="Commands\InputSimulator\RClickCommand.cs" />
     <Compile Include="Commands\LogOffCommand.cs" />
     <Compile Include="Commands\LogonCommand.cs" />
     <Compile Include="Commands\MinimizeApplicationWindowCommand.cs" />
-    <Compile Include="Commands\MouseCommand.cs" />
-    <Compile Include="Commands\MouseDragDropCommand.cs" />
+    <Compile Include="Commands\InputSimulator\MouseCommand.cs" />
+    <Compile Include="Commands\InputSimulator\MouseDragDropCommand.cs" />
     <Compile Include="Commands\MultiLineComparisionHelper.cs" />
     <Compile Include="Commands\NavigateCommand.cs" />
     <Compile Include="Commands\OpenFileDialogCommand.cs" />
@@ -109,7 +112,7 @@
     <Compile Include="Commands\KillFocusCommand.cs" />
     <Compile Include="Commands\HideCursorCommand.cs" />
     <Compile Include="Commands\KillWindowCommand.cs" />
-    <Compile Include="Commands\SendKeysCommand.cs" />
+    <Compile Include="Commands\InputSimulator\SendKeysCommand.cs" />
     <Compile Include="Commands\SetEnvironmentVariableCommand.cs" />
     <Compile Include="Commands\XpandCheckFieldValuesCommand.cs" />
     <Compile Include="Commands\XpandCheckFileExistsCommand.cs" />

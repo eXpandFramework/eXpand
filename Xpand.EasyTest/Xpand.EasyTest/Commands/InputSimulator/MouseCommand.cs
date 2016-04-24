@@ -1,12 +1,10 @@
 ﻿using DevExpress.EasyTest.Framework;
-using DevExpress.EasyTest.Framework.Commands;
 using Fasterflect;
-using Xpand.Utils.Automation.InputSimulator;
 using Point = System.Drawing.Point;
 
-namespace Xpand.EasyTest.Commands{
+namespace Xpand.EasyTest.Commands.InputSimulator{
     public class MouseCommand:Command{
-        private static readonly InputSimulator _simulator=new InputSimulator();
+        private static readonly Utils.Automation.InputSimulator.InputSimulator _simulator=new Utils.Automation.InputSimulator.InputSimulator();
         public const string Name = "Mouse";
         protected override void InternalExecute(ICommandAdapter adapter){
             var toggleNavigation = this.ParameterValue<bool>(ToggleNavigationCommand.Name);

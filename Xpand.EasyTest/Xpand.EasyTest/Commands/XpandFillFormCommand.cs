@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
+using Xpand.EasyTest.Commands.InputSimulator;
 
 namespace Xpand.EasyTest.Commands{
     public class XpandFillFormCommand : Command{

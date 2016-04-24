@@ -3,10 +3,9 @@ using System.Linq;
 using System.Threading;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
-using Xpand.Utils.Automation.InputSimulator;
 using Xpand.Utils.Win32;
 
-namespace Xpand.EasyTest.Commands{
+namespace Xpand.EasyTest.Commands.InputSimulator{
     public class SendKeysCommand : Command{
         public const string Name = "SendKeys";
 
@@ -17,7 +16,7 @@ namespace Xpand.EasyTest.Commands{
             var activateApplicationWindowCommand = new XpandActivateApplicationWindowCommand();
             activateApplicationWindowCommand.Execute(adapter);
 
-            var simulator = new InputSimulator();
+            var simulator = new Utils.Automation.InputSimulator.InputSimulator();
             if (!string.IsNullOrEmpty(Parameters.MainParameter.Value))
                 simulator.Keyboard.TextEntry(Parameters.MainParameter.Value);
             var field = this.ParameterValue("Field","");
@@ -31,7 +30,7 @@ namespace Xpand.EasyTest.Commands{
             Execute(simulator);
         }
 
-        private void Execute(InputSimulator simulator){
+        private void Execute(Utils.Automation.InputSimulator.InputSimulator simulator){
             var keysParameter = Parameters["Keys"];
             var modifiers = Parameters["Modifiers"];
             if (modifiers != null){
