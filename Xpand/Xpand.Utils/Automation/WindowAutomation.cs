@@ -1,5 +1,7 @@
 using System;
+using System.ComponentModel;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Threading;
@@ -108,17 +110,36 @@ namespace Xpand.Utils.Automation {
             var position = new Point(rectangle.X, rectangle.Y);
             return position;
         }
-
-        public static bool ResizeWindow(IntPtr window, Size newSize){
-            Win32Types.RECT lpRect;
-            Win32Declares.Rect.GetWindowRect(window, out lpRect);
-            Rectangle rectangle = lpRect.ToRectangle();
-            if (newSize.Width!=rectangle.Width||newSize.Height!=rectangle.Height){
-                bool moveWindow = Win32Declares.Window.MoveWindow(window, rectangle.X, rectangle.Y, newSize.Width, newSize.Height, true);
-                Application.DoEvents();
-                return moveWindow;
+        public static IntPtr RootWindow(this IntPtr hWnd) {
+            int hWnd1 = (int) hWnd;
+            int num = hWnd1;
+            do{
+                hWnd1 = Win32Declares.Window.GetParent(hWnd1);
+                if (hWnd1 != 0)
+                    num = hWnd1;
             }
-            return true;
+            while (hWnd1 != 0);
+            return new IntPtr(num);
+        }
+
+        public static void MoveWindow(this IntPtr window, Rectangle rectangle){
+            bool moveWindow = Win32Declares.Window.MoveWindow(window, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height, true);
+            if (!moveWindow) {
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+            }
+        }
+
+        public static void ResizeWindow(this IntPtr window, Size newSize){
+            Win32Types.RECT lpRect;
+            if (!Win32Declares.Rect.GetWindowRect(window, out lpRect)){
+                var win32Error = Marshal.GetLastWin32Error();
+                throw new Win32Exception(win32Error);
+            }
+            Rectangle rectangle = lpRect.ToRectangle();
+            bool moveWindow = Win32Declares.Window.MoveWindow(window, rectangle.X, rectangle.Y, newSize.Width, newSize.Height, true);
+            if (!moveWindow) {
+                throw new Win32Exception(Marshal.GetLastWin32Error());
+            }
         }
 
         public static bool MoveWindow(IntPtr window, Point newLocation){

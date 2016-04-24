@@ -100,6 +100,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
 
         public IntPtr MainWindowHandle{
             get { return new IntPtr(WebAdapter.WebBrowsers[0].BrowserWindowHandle); }
+            set {  }
         }
 
         public IXpandTestAdapter Adapter{

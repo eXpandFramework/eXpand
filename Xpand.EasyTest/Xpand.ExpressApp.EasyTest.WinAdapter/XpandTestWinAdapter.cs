@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
         public string Name { get; set; }
     }
     public class XpandTestWinAdapter : DevExpress.ExpressApp.EasyTest.WinAdapter.WinAdapter, IXpandTestWinAdapter {
-        private WinEasyTestCommandAdapter _winEasyTestCommandAdapter;
+        private XpandWinCommandAdapter _winEasyTestCommandAdapter;
         private static List<Process> _additionalProcesses;
 
         public override void RegisterCommands(IRegisterCommand registrator) {
@@ -111,10 +111,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             DeleteLogonParametersFile(testApplication);
             RunAdditionalApps(testApplication);
             base.RunApplication(testApplication);
-        }
-
-        public Process MainProcess{
-            get { return mainProcess; }
+            _winEasyTestCommandAdapter.MainWindowHandle=new IntPtr(mainProcess.Id);
         }
 
         private void RunAdditionalApps(TestApplication testApplication) {
@@ -140,22 +137,18 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
 
 
         protected override WinEasyTestCommandAdapter InternalCreateCommandAdapter(int communicationPort, Type adapterType) {
-            _winEasyTestCommandAdapter = base.InternalCreateCommandAdapter(communicationPort, typeof(XpandEasyTestCommandAdapter));
+            _winEasyTestCommandAdapter = (XpandWinCommandAdapter) base.InternalCreateCommandAdapter(communicationPort, typeof(XpandWinCommandAdapter));
             return _winEasyTestCommandAdapter;
         }
     }
 
 
-    public class XpandEasyTestCommandAdapter : WinEasyTestCommandAdapter, IXpandEasyTestCommandAdapter{
-        public XpandEasyTestCommandAdapter() {
+    public class XpandWinCommandAdapter : WinEasyTestCommandAdapter, IXpandEasyTestCommandAdapter{
+        public XpandWinCommandAdapter() {
             TestControlFactoryWin.SetInstance(new XpandCustomTestControlFactory());
         }
 
-        public IntPtr MainWindowHandle{
-            get { return ((XpandTestWinAdapter) Adapter).MainProcess.MainWindowHandle; }
-        }
-
-        public IXpandTestAdapter Adapter { get; internal set; }
+        public IntPtr MainWindowHandle { get; set; }
     }
 
     public class XpandCustomTestControlFactory : TestControlFactoryWin {

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,6 +11,7 @@ using DevExpress.EasyTest.Framework.Commands;
 using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.EasyTest.Commands;
+using Xpand.EasyTest.Commands.InputSimulator;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Win32;
 
@@ -34,8 +36,7 @@ namespace Xpand.EasyTest {
     }
 
     public interface IXpandEasyTestCommandAdapter {
-        IXpandTestAdapter Adapter { get; }
-        IntPtr MainWindowHandle { get; }
+        IntPtr MainWindowHandle { get; set; }
     }
 
     public interface IXpandTestWinAdapter : IXpandTestAdapter {
@@ -50,19 +51,21 @@ namespace Xpand.EasyTest {
         private static readonly string[] _navigationControlPossibleNames = { "ViewsNavigation.Navigation", "Navigation" };
 
         public static IntPtr GetMainWindowHandle(this ICommandAdapter adapter){
-            return ((IXpandEasyTestCommandAdapter) adapter).MainWindowHandle;
+            var mainWindowHandle = ((IXpandEasyTestCommandAdapter)adapter).MainWindowHandle;
+            return adapter.IsWinAdapter() ? Process.GetProcessById(mainWindowHandle.ToInt32()).MainWindowHandle : mainWindowHandle;
         }
 
         public static IntPtr GetApplicationWindowHandle(this ICommandAdapter adapter) {
             ITestControl testControl = adapter.CreateTestControl(TestControlType.Dialog, "");
             if (testControl == null)
                 throw new InvalidOperationException("activeWindowControl is null");
-            ITestWindow @interface = testControl.GetInterface<ITestWindow>();
-            var caption = @interface.Caption;
-            if (!adapter.IsWinAdapter())
+            ITestWindow testWindow = testControl.GetInterface<ITestWindow>();
+            var caption = testWindow.Caption;
+            if (!adapter.IsWinAdapter()){
                 caption += " - Internet Explorer";
-            var intPtr = Win32Declares.WindowHandles.FindWindowByCaption(IntPtr.Zero, caption);
-            return intPtr;
+                return Win32Declares.WindowHandles.FindWindowByCaption(IntPtr.Zero, caption);
+            }
+            return testWindow.GetActiveWindowHandle();
         }
 
         public static ITestControl GetNavigationTestControl(this ICommandAdapter adapter) {
@@ -131,7 +134,7 @@ namespace Xpand.EasyTest {
 
         public static TestAlias GetAlias(string scriptsPath, string name) {
             var options = LoadOptions(scriptsPath);
-            return options.Aliases.Cast<TestAlias>().First(@alias => alias.Name == name);
+            return options.Aliases.Cast<TestAlias>().First(alias => alias.Name == name);
         }
 
         public static Options LoadOptions(string scriptsPath) {
@@ -248,6 +251,21 @@ namespace Xpand.EasyTest {
             return result;
         }
 
+        public static T ParameterValue<T>(this Command command) {
+            return command.ParameterValue(default(T));
+        }
+
+        public static T ParameterValue<T>(this Command command, T defaultValue) {
+            T result = defaultValue;
+            var parameter = command.Parameters.MainParameter;
+            if (parameter != null) {
+                if (!XpandConvert.TryToChange(parameter.Value, out result)) {
+                    throw new CommandException("\'MainParameter\' value is incorrect", command.StartPosition);
+                }
+            }
+            return !result.Equals(default(T)) ? result : defaultValue;
+        }
+
         public static T ParameterValue<T>(this Command command, string parameterName){
             return command.ParameterValue(parameterName, default(T));
         }
@@ -298,6 +316,8 @@ namespace Xpand.EasyTest {
                 {typeof (XpandActivateApplicationWindowCommand), XpandActivateApplicationWindowCommand.Name},
                 {typeof (MinimizeApplicationWindowCommand), MinimizeApplicationWindowCommand.Name},
                 {typeof (MouseCommand), MouseCommand.Name},
+                {typeof (LClickCommand), LClickCommand.Name},
+                {typeof (RClickCommand), RClickCommand.Name},
                 {typeof (MouseDragDropCommand), MouseDragDropCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
@@ -313,7 +333,7 @@ namespace Xpand.EasyTest {
                 {typeof (LogonCommand), LogonCommand.Name},
                 {typeof (LogOffCommand), LogOffCommand.Name},
                 {typeof (XpandCheckFileExistsCommand), XpandCheckFileExistsCommand.Name},
-                {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
+                {typeof (MoveWindowCommand), MoveWindowCommand.Name},
                 {typeof (ScreenCaptureCommand), ScreenCaptureCommand.Name},
                 {typeof (StopCommand), StopCommand.Name},
                 {typeof (ToggleNavigationCommand), ToggleNavigationCommand.Name},

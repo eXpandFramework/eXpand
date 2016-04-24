@@ -350,6 +350,8 @@ namespace Xpand.Utils.Win32 {
         }
 
         public class Window{
+            [DllImport("USER32.DLL")]
+            public static extern int GetParent(int hWnd);
             public enum ShowScrollBarEnum{
                 SB_HORZ = 0,
                 SB_VERT = 1,
@@ -708,7 +710,7 @@ namespace Xpand.Utils.Win32 {
             /// <param name="hWnd">[in] Handle to the window.</param>
             /// <param name="lpRect">[out] Pointer to a structure that receives the screen coordinates of the upper-left and lower-right corners of the window. </param>
             /// <returns>If the function succeeds, the return value is nonzero.If the function fails, the return value is zero.</returns>
-            [DllImport("user32.dll")]
+            [DllImport("user32.dll",SetLastError = true)]
             public static extern bool GetWindowRect(IntPtr hWnd, out Win32Types.RECT lpRect);
         }
 
