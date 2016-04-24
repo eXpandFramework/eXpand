@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
+using Xpand.EasyTest.Commands.Window;
 using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest.Commands.InputSimulator{
@@ -10,11 +11,11 @@ namespace Xpand.EasyTest.Commands.InputSimulator{
         public const string Name = "SendKeys";
 
         protected override void InternalExecute(ICommandAdapter adapter){
-            var sleepCommand = new SleepCommand();
-            sleepCommand.Parameters.MainParameter = new MainParameter("300");
-            sleepCommand.Execute(adapter);
-            var activateApplicationWindowCommand = new XpandActivateApplicationWindowCommand();
+            
+            var activateApplicationWindowCommand = new ActivateWindowCommand();
+            activateApplicationWindowCommand.SynchWith(this);
             activateApplicationWindowCommand.Execute(adapter);
+            
 
             var simulator = new Utils.Automation.InputSimulator.InputSimulator();
             if (!string.IsNullOrEmpty(Parameters.MainParameter.Value))

@@ -8,6 +8,7 @@ using System.Linq;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using Xpand.EasyTest.Commands.InputSimulator;
+using Xpand.EasyTest.Commands.Window;
 using Xpand.Utils.Automation;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Win32;
@@ -184,9 +185,9 @@ namespace Xpand.EasyTest.Commands {
                 toggleNavigationCommand.Execute(adapter);
             }
             var activeWindowSize = this.ParameterValue("ActiveWindowSize", _defaultWindowSize);
-            var activeWindowSizeCommand = new MoveWindowCommand();
-            activeWindowSizeCommand.Parameters.MainParameter = new MainParameter(String.Format("{0}x{1}", activeWindowSize.Width, activeWindowSize.Height));
-            activeWindowSizeCommand.Execute(adapter);
+            var resizeWindowCommand = new ResizeWindowCommand();
+            resizeWindowCommand.Parameters.MainParameter = new MainParameter(String.Format("{0}x{1}", activeWindowSize.Width, activeWindowSize.Height));
+            resizeWindowCommand.Execute(adapter);
 
             if (this.ParameterValue(HideCursorCommand.Name, true)) {
                 var hideCaretCommand = new HideCursorCommand();

@@ -164,7 +164,7 @@ namespace Xpand.Utils.Automation {
             Win32Declares.Window.ShowWindow(handle, Win32Declares.Window.ShowWindowEnum.SW_SHOWMAXIMIZED);
         }
         #region CloseWindow
-        public static void CloseWindow(IntPtr windowHandle){
+        public static void CloseWindow(this IntPtr windowHandle){
             Win32Declares.Message.SendMessage(windowHandle, (uint) Win32Constants.Standard.WM_SYSCOMMAND,
                 (int) Win32Constants.Standard.SC_CLOSE, 0);
         }

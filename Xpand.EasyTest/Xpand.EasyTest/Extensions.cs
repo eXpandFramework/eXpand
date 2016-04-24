@@ -12,6 +12,7 @@ using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.EasyTest.Commands;
 using Xpand.EasyTest.Commands.InputSimulator;
+using Xpand.EasyTest.Commands.Window;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Win32;
 
@@ -313,7 +314,7 @@ namespace Xpand.EasyTest {
                 {typeof (SqlCommand), SqlCommand.Name},
                 {typeof (SqlDropDatabaseCommand), SqlDropDatabaseCommand.Name},
                 {typeof (SendKeysCommand), SendKeysCommand.Name},
-                {typeof (XpandActivateApplicationWindowCommand), XpandActivateApplicationWindowCommand.Name},
+                {typeof (ActivateWindowCommand), ActivateWindowCommand.Name},
                 {typeof (MinimizeApplicationWindowCommand), MinimizeApplicationWindowCommand.Name},
                 {typeof (MouseCommand), MouseCommand.Name},
                 {typeof (LClickCommand), LClickCommand.Name},
@@ -334,6 +335,7 @@ namespace Xpand.EasyTest {
                 {typeof (LogOffCommand), LogOffCommand.Name},
                 {typeof (XpandCheckFileExistsCommand), XpandCheckFileExistsCommand.Name},
                 {typeof (MoveWindowCommand), MoveWindowCommand.Name},
+                {typeof (ResizeWindowCommand), ResizeWindowCommand.Name},
                 {typeof (ScreenCaptureCommand), ScreenCaptureCommand.Name},
                 {typeof (StopCommand), StopCommand.Name},
                 {typeof (ToggleNavigationCommand), ToggleNavigationCommand.Name},

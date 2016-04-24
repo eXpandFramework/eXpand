@@ -23,7 +23,7 @@
  Respond = Cancel
 ;---------Check that toolbar is visible when form loses focus------
 *MinimizeApplicationWindow
-*XpandActivateApplicationWindow
+*ActivateWindow
 *Mouse LeftButtonClick
  MoveMouseTo = [TableCommand]
 *Sleep 1000

@@ -1,4 +1,5 @@
 using DevExpress.EasyTest.Framework;
+using Xpand.EasyTest.Commands.Window;
 
 namespace Xpand.EasyTest.Commands{
     public class OpenFileDialogCommand:Command {

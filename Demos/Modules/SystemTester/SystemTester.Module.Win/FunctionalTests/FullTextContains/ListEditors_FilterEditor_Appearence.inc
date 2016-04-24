@@ -8,7 +8,8 @@
  WindowTitle = Full Text Contains Object
  ToggleNavigation = false
 
-*KillWindow Filter Editor
+*KillWindow 
+ WindowCaption = Filter Editor
 *LogOff
 *Sleep 1000
 *LogOn

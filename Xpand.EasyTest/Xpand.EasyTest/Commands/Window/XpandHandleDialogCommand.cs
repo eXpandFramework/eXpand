@@ -1,7 +1,7 @@
 ﻿using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 
-namespace Xpand.EasyTest.Commands{
+namespace Xpand.EasyTest.Commands.Window{
     public class XpandHandleDialogCommand : Command{
         public const string Name = "XpandHandleDialog";
 

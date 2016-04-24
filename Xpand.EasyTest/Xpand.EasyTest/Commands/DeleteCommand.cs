@@ -1,5 +1,6 @@
 ﻿using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
+using Xpand.EasyTest.Commands.Window;
 
 namespace Xpand.EasyTest.Commands {
     public class DeleteCommand : ExecuteTableActionCommand {

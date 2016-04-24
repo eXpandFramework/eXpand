@@ -1,5 +1,6 @@
 ﻿using DevExpress.EasyTest.Framework;
 using Fasterflect;
+using Xpand.EasyTest.Commands.Window;
 using Point = System.Drawing.Point;
 
 namespace Xpand.EasyTest.Commands.InputSimulator{
@@ -13,7 +14,7 @@ namespace Xpand.EasyTest.Commands.InputSimulator{
                 toggleNavigationCommand.Execute(adapter);
             }
             try{
-                var activateApplicationWindowCommand = new XpandActivateApplicationWindowCommand();
+                var activateApplicationWindowCommand = new ActivateWindowCommand();
                 activateApplicationWindowCommand.Execute(adapter);
                 if (Parameters["MoveMouseTo"]!=null){
                     var point = this.ParameterValue<Point>("MoveMouseTo");
