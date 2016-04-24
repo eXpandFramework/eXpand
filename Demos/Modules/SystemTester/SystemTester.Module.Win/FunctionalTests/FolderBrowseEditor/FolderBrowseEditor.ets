@@ -6,6 +6,7 @@
 *Sleep 1000
 *SendKeys
  Keys = Return
+ WindowCaption = Browse For Folder
 *Sleep 1000
 *XpandCheckFieldValues
  Path = C:\Users\[UserName]\Desktop

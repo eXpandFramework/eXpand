@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application Title="SystemTester">
   <Views>
-    <ListView Id="PositionInListViewObject_ListView" PositionColumn="Position" />
+    <ListView Id="PositionInListViewObject_ListView" PositionColumn="Position">
+      <Columns>
+        <ColumnInfo Id="Position" SortIndex="0" SortOrder="Ascending" Index="-1" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

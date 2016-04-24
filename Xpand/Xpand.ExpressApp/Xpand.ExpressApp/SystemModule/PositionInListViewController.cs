@@ -97,10 +97,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         private bool IsOtherObject(bool down, int currentPosition, object o){
             var otherObjectPosition = (int)_memberInfo.GetValue(o);
-            if (down) 
-                return otherObjectPosition > currentPosition;
-            else 
-                return otherObjectPosition < currentPosition;
+            return down ? otherObjectPosition > currentPosition : otherObjectPosition < currentPosition;
         }
 
         private void PositionUpActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
