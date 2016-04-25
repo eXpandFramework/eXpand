@@ -124,8 +124,10 @@ namespace Xpand.ExpressApp.WorldCreator {
             unitOfWork.LockingOption = LockingOption.None;
             Type assemblyInfoType = WCTypesInfo.Instance.FindBussinessObjectType<IPersistentAssemblyInfo>();
             var persistentAssemblyInfos = new XPCollection(unitOfWork, assemblyInfoType).Cast<IPersistentAssemblyInfo>().ToArray().Where(IsValidAssemblyInfo(moduleManager)).ToArray();
-            persistentAssemblyInfos.Where(info => !CompileEngine.NeedsCompilation(info,GetPath())).Each(LoadCompiledInfos);
-            persistentAssemblyInfos.Where(info => CompileEngine.NeedsCompilation(info,GetPath())).Each(Compile);
+            var compiledAssemblies = persistentAssemblyInfos.Where(info => !CompileEngine.NeedsCompilation(info,GetPath()));
+            compiledAssemblies.Each(LoadCompiledInfos);
+            var assemblyInfosToCompile = persistentAssemblyInfos.Where(info => CompileEngine.NeedsCompilation(info,GetPath()));
+            assemblyInfosToCompile.Each(Compile);
             unitOfWork.CommitChanges();
         }
 

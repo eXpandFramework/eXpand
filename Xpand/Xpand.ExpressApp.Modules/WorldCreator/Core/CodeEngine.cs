@@ -155,18 +155,15 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         public static string GenerateCode(IPersistentAttributeCreator persistentAttributeCreator) {
             AttributeInfoAttribute attributeInfoAttribute = persistentAttributeCreator.Create();
-            var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfoAttribute.Constructor.DeclaringType, attributeInfoAttribute.InitializedArgumentValues);
-            Func<object, object> argSelector = GetArgumentCode;
-            string args = attributeInfoAttribute.InitializedArgumentValues.Length > 0
-                              ? attributeInfoAttribute.InitializedArgumentValues.Select(argSelector).Aggregate
-                              <object, string>(null, (current, o) => current + (o + ",")).TrimEnd(',')
-                              : null;
+            var argumentValues = attributeInfoAttribute.InitializedArgumentValues;
+            var attribute = (Attribute)ReflectionHelper.CreateObject(attributeInfoAttribute.Constructor.DeclaringType, argumentValues);
+            var args = argumentValues.Length > 0? string.Join(",", argumentValues.Select(GetArgumentCode)) : null;
             string assemblyDecleration = null;
             if (persistentAttributeCreator is IPersistentAssemblyAttributeInfo) {
                 assemblyDecleration = "assembly: ";
                 var attributeInfo = persistentAttributeCreator as IPersistentAssemblyVersionAttributeInfo;
                 if (attributeInfo!=null) {
-                    args = @""""+attributeInfo.Owner.CalculateVersion()+ @"""";
+                    args = @""""+attributeInfo.Owner.Version()+ @"""";
                 }
             }
             string properties = GetPropertiesCode(attributeInfoAttribute);
@@ -179,30 +176,33 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
             var typeInfo = XafTypesInfo.CastTypeToTypeInfo(attributeInfoAttribute.Instance.GetType());
             var memberInfos = typeInfo.Members.Where(info => info.FindAttribute<AttributeInfoAttribute>() != null);
             Func<string, IMemberInfo, string> func = (current, memberInfo)
-                => current + (memberInfo.Name + "=" + GetArgumentCodeCore(memberInfo.MemberType, memberInfo.GetValue(attributeInfoAttribute.Instance)) + ",");
+                => current + (memberInfo.Name + "=" + GetArgumentCodeCore(memberInfo.GetValue(attributeInfoAttribute.Instance)) + ",");
             string code = memberInfos.Aggregate(null, func).TrimEnd(',');
             return string.IsNullOrEmpty(code) ? null : string.Format(",{0}", code);
         }
 
-        private static object GetArgumentCodeCore(Type type, object argumentValue) {
+        private static object GetArgumentCodeCore(object argumentValue) {
+            if (argumentValue == null)
+                return "null";
+            var type = argumentValue.GetType();
             if (type == typeof(string))
                 return @"@""" + argumentValue + @"""";
             if (typeof(Type).IsAssignableFrom(type))
                 return "typeof(" + ((Type)argumentValue).FullName + ")";
             if (typeof(Enum).IsAssignableFrom(type))
-                return argumentValue.GetType().FullName + "." + argumentValue;
+                return type.FullName + "." + argumentValue;
             if (type == typeof(bool))
                 return argumentValue.ToString().ToLower();
+            
             return argumentValue;
         }
 
         static object GetArgumentCode(object argumentValue) {
-            return argumentValue != null ? GetArgumentCodeCore(argumentValue.GetType(), argumentValue) : null;
+            return GetArgumentCodeCore(argumentValue);
         }
 
         static string GetAssemblyAttributesCode(IPersistentAssemblyInfo persistentAssemblyInfo) {
-            string code = persistentAssemblyInfo.Attributes.Aggregate("", (current, assemblyAttributeInfo) => current + (GenerateCode(assemblyAttributeInfo) + Environment.NewLine));
-            return code.TrimEnd(Environment.NewLine.ToCharArray());
+            return string.Join(Environment.NewLine , persistentAssemblyInfo.Attributes.Select(GenerateCode));
         }
 
         public static string GenerateCode(IPersistentAssemblyInfo persistentAssemblyInfo){

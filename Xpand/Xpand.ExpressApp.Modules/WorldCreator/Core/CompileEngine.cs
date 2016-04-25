@@ -220,8 +220,11 @@ namespace Xpand.ExpressApp.WorldCreator.Core {
 
         public static bool NeedsCompilation(IPersistentAssemblyInfo info, string path){
             var assemblyFile = Path.Combine(path, info.Name + XpandExtension);
-            return !File.Exists(assemblyFile) ||
-                   info.CalculateVersion() > AssemblyDefinition.ReadAssembly(assemblyFile).Name.Version;
+            if (!File.Exists(assemblyFile))
+                return true;
+            var fileVersion = AssemblyDefinition.ReadAssembly(assemblyFile).Name.Version;
+            var infoVersion= info.Version();
+            return (infoVersion > fileVersion) || infoVersion.Revision == 0;
         }
     }
 
