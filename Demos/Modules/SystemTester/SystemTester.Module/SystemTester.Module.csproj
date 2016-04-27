@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="FunctionalTests\NavigationItems\NavigationItemsObject.cs" />
     <Compile Include="FunctionalTests\Actions\Actions.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -183,6 +184,10 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\NavigationItems\NavigationItems.ets" />
+    <None Include="FunctionalTests\NavigationItems\NavigationItems.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\Actions\Actions.ets" />
     <None Include="FunctionalTests\Actions\Actions.xafml">
       <SubType>Designer</SubType>
@@ -193,6 +198,9 @@
     </None>
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.ets" />
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.xafml" />
+    <Content Include="FunctionalTests\NavigationItems\Config.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.web.mask.png" />
     <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.web.png" />
     <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.win.mask.png" />
@@ -253,6 +261,7 @@
     <Content Include="FunctionalTests\Actions\Use a new action item to modify model .inc" />
     <Content Include="FunctionalTests\EndUserAppearanceRule\Config.xml" />
     <Content Include="FunctionalTests\HideNavigationOnStartup\Config.xml" />
+    <Content Include="FunctionalTests\NavigationItems\Init.inc" />
     <Content Include="FunctionalTests\PositionInListView\Config.xml" />
     <Content Include="FunctionalTests\MySql\Config.xml">
       <SubType>Designer</SubType>

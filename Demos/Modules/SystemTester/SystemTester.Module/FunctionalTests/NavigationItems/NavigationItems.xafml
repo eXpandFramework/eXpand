@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="SystemTester" Logo="ExpressAppLogo">
+  <NavigationItems>
+    <Items>
+      <Item Id="NavigationItems">
+        <Items>
+          <Item Id="Group" DatasourceListView="NavigationItemsObject_NavItemsDataSource_ListView" ImageName="BO_Folder" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <ListView Id="NavigationItemsObject_NavItemsDataSource_ListView" Criteria="StartsWith([Name], 'Visible')" ImageName="Action_Navigation_Next_Object">
+      <Sorting>
+        <SortProperty Id="Name" PropertyName="Name" IsNewNode="True" />
+      </Sorting>
+    </ListView>
+  </Views>
+</Application>

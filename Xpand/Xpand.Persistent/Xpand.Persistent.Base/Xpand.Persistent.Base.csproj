@@ -161,6 +161,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Controllers\CollectionsEditModeController.cs" />
+    <Compile Include="General\Controllers\NavigationItemsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\Web\NavigationContainerWebController.cs">
       <SubType>Component</SubType>
     </Compile>

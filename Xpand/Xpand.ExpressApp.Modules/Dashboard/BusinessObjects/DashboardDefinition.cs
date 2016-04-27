@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Xml;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
@@ -19,7 +16,6 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     public interface IDashboardDefinition {
         int Index { get; set; }
         string Name { get; set; }
-        Image Icon { get; set; }
         bool Active { get; set; }
         string Xml { get; set; }
         IList<ITypeWrapper> DashboardTypes { get; }
@@ -86,18 +82,9 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
             set { SetDelayedPropertyValue("Xml", value); }
         }
 
-        [ModelDefault("DetailViewImageEditorFixedHeight", "32"), ModelDefault("DetailViewImageEditorFixedWidth", "32"),
-         ModelDefault("ListViewImageEditorCustomHeight", "32")]
-        [ImmediatePostData, ValueConverter(typeof(ImageValueConverter))]
-        [Size(SizeAttribute.Unlimited), Delayed(true)]
-        [Index(3)]
-        public Image Icon {
-            get { return GetDelayedPropertyValue<Image>("Icon"); }
-            set { SetDelayedPropertyValue("Icon", value); }
-        }
-
         [DataSourceProperty("Types")]
         [ImmediatePostData]
+        [VisibleInDetailView(false)]
         public IList<ITypeWrapper> DashboardTypes {
             get { return GetBindingList(); }
         }

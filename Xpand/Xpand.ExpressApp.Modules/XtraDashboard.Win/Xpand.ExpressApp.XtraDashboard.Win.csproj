@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.XtraDashboard.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.XtraDashboard.Win</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -182,12 +184,6 @@
     <Compile Include="Controllers\DashboardDesignerController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\WinDashboardNavigationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\WinDashboardNavigationController.designer.cs">
-      <DependentUpon>WinDashboardNavigationController.cs</DependentUpon>
-    </Compile>
     <Compile Include="DashboardWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -240,9 +236,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Controllers\DashboardDesignerController.resx">
       <DependentUpon>DashboardDesignerController.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controllers\WinDashboardNavigationController.resx">
-      <DependentUpon>WinDashboardNavigationController.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>

@@ -168,7 +168,8 @@ namespace Xpand.Persistent.Base.General {
                     typeof (CustomAttibutesController), typeof (NotifyMembersController),
                     typeof (XpandModelMemberInfoController), typeof (XpandLinkToListViewController),
                     typeof(ModifyObjectSpaceController),typeof (ActionItemsFromModelController),typeof(ActionModelChoiceItemController),
-                    typeof (ModelViewSavingController),typeof (NavigationContainerController),typeof(ModelController),typeof(ViewEditModeController)
+                    typeof(ModelViewSavingController), typeof(NavigationContainerController), typeof(ModelController),
+                    typeof(ViewEditModeController),typeof(NavigationItemsController)
                 });
             }
             if (!Executed("GetDeclaredWinControllerTypes", ModuleType.Win))

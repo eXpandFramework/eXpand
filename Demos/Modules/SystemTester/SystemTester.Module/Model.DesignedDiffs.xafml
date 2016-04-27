@@ -7,12 +7,4 @@
       </ActionContainer>
     </ActionToContainerMapping>
   </ActionDesign>
-  <NavigationItems NavigationStyle="TreeList" />
-  <Views>
-    <ListView Id="PositionInListViewObject_ListView" PositionColumn="Position">
-      <Columns>
-        <ColumnInfo Id="Position" SortIndex="0" SortOrder="Ascending" Index="-1" />
-      </Columns>
-    </ListView>
-  </Views>
 </Application>

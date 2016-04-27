@@ -4,9 +4,6 @@ using Xpand.Persistent.Base.General.Controllers;
 
 namespace Xpand.Persistent.Base.General.Web{
     public class NavigationContainerWebController : NavigationContainerController {
-        public NavigationContainerWebController(){
-        }
-
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (!WebApplicationStyleManager.IsNewStyle) {

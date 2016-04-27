@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
     public partial class DashboardNavigationController : WindowController, IModelExtender {
@@ -17,7 +18,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             TargetWindowType = WindowType.Main;
         }
 
-        protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions {
+        protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions
+        {
             get { return _dashboardActions ?? (_dashboardActions = new Dictionary<ChoiceActionItem, DashboardDefinition>()); }
         }
 
@@ -63,7 +65,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                             ImageName = "BO_DashboardDefinition"
                         };
                         if (!string.IsNullOrEmpty(dashboardOptions.DashboardsParentItem)) {
-                            var parent = ((ShowNavigationItemController)sender).ShowNavigationItemAction.Items.FirstOrDefault(c => c.Id == dashboardOptions.DashboardsParentItem);
+                            var itemCollection = ((ShowNavigationItemController)sender).ShowNavigationItemAction.Items.GetItems<ChoiceActionItem>(item => item.Items);
+                            var parent = itemCollection.FirstOrDefault(c => c.Id == dashboardOptions.DashboardsParentItem);
                             if (parent != null)
                                 parent.Items.Add(dashboardGroup);
                         }
@@ -92,7 +95,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                 throw new ArgumentException(string.Format("Cannot find the '{0}' view specified by the shortcut: {1}",
                                                           data.ViewId, data));
             }
-            Type type = (view is IModelObjectView) ? ((IModelObjectView)view).ModelClass.TypeInfo.Type : null;
+            var objectView = view as IModelObjectView;
+            Type type = (objectView != null) ? objectView.ModelClass.TypeInfo.Type : null;
             if (type != null) {
                 if (!string.IsNullOrEmpty(data.ObjectKey) && !data.ObjectKey.StartsWith("@")) {
                     try {
@@ -121,14 +125,14 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         void ReloadDashboardActions() {
             DashboardActions.Clear();
             var objectSpace = Application.CreateObjectSpace(typeof(DashboardDefinition));
-            var templates =objectSpace.GetObjects<DashboardDefinition>().Where(t => t.Active).OrderBy(i => i.Index);
+            var templates = objectSpace.GetObjects<DashboardDefinition>().Where(t => t.Active).OrderBy(i => i.Index);
             foreach (DashboardDefinition template in templates) {
                 var action = new ChoiceActionItem(
                     template.Oid.ToString(),
                     template.Name,
                     new ViewShortcut(typeof(DashboardDefinition), template.Oid.ToString(), DashboardDefinition.DashboardViewerDetailView)) {
-                        ImageName = "BO_DashboardDefinition"
-                    };
+                    ImageName = "BO_DashboardDefinition"
+                };
                 action.Model.Index = template.Index;
                 DashboardActions.Add(action, template);
             }

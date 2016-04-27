@@ -76,7 +76,7 @@ namespace Xpand.Persistent.Base.General {
                 if (parent == null)
                     break;
             }
-            return parent != null ? (TNode)parent : default(TNode);
+            return (TNode) parent;
         }
 
         public static void Undo(this IModelNode modelNode){
@@ -237,6 +237,10 @@ namespace Xpand.Persistent.Base.General {
                 return !modelNode1.IsNewNode;
             }
             return false;
+        }
+
+        public static void RemoveLayer(this ModelApplicationBase application){
+            ModelApplicationHelper.RemoveLayer(application);
         }
 
         public static void RemoveLayer(this ModelApplicationBase application, string id) {

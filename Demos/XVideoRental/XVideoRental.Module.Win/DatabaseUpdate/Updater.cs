@@ -65,7 +65,6 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 dashboard = ObjectSpace.CreateObject<DashboardDefinition>();
                 dashboard.Name = dashboardName;
                 dashboard.Xml = GetDashboardLayout(dashboardName).XMLPrint();
-                dashboard.Icon = icon;
                 dashboard.Index = index;
                 dashboard.Active = true;
                 foreach (var type in types)
