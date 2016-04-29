@@ -184,6 +184,9 @@
     <Compile Include="Controllers\DashboardDesignerController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\DashboardDesignerModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DashboardWindowsFormsModule.cs">
       <SubType>Component</SubType>
     </Compile>
