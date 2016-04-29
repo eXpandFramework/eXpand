@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -16,12 +17,14 @@ namespace Xpand.Persistent.Base.ModelAdapter{
     public abstract class PropertyEditorControlAdapterController<TModelMemberViewItem, TModelControl, TPropertyEditor> : ModelAdapterController, IModelExtender
         where TModelMemberViewItem : IModelMemberViewItem
         where TModelControl : IModelModelAdapter{
+        List<ObjectModelSynchronizer> _objectModelSynchronizers;
         protected PropertyEditorControlAdapterController() {
             TargetViewType = ViewType.DetailView;
         }
 
         protected override void OnActivated() {
             base.OnActivated();
+            _objectModelSynchronizers=new List<ObjectModelSynchronizer>();
             var detailView = ((DetailView)View);
             foreach (var item in detailView.GetItems<PropertyEditor>().OfType<TPropertyEditor>().Cast<PropertyEditor>()) {
                 item.ControlCreated += ItemOnControlCreated;
@@ -33,10 +36,21 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             var modelPropertyEditorLabelControl = (TModelMemberViewItem) (item).GetPropertyValue("Model");
             var propertyEditorControl = GetPropertyEditorControl(item);
             if (propertyEditorControl != null){
+                ((IComponent) propertyEditorControl).Disposed+=OnDisposed;
                 var modelNodes = GetControlModelNodes(modelPropertyEditorLabelControl);
-                foreach (var node in modelNodes) {
-                    new ObjectModelSynchronizer(propertyEditorControl, node).ApplyModel();   
+                foreach (var node in modelNodes){
+                    var objectModelSynchronizer = new ObjectModelSynchronizer(propertyEditorControl, node);
+                    _objectModelSynchronizers.Add(objectModelSynchronizer);
+                    objectModelSynchronizer.ApplyModel();
                 }
+            }
+        }
+
+        private void OnDisposed(object sender, EventArgs eventArgs){
+            ((IComponent) sender).Disposed-=OnDisposed;
+            foreach (var objectModelSynchronizer in _objectModelSynchronizers){
+                objectModelSynchronizer.SynchronizeModel();
+                objectModelSynchronizer.Dispose();
             }
         }
 

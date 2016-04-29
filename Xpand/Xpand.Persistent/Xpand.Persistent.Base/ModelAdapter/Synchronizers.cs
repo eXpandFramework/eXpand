@@ -16,23 +16,27 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             : base(component, modelNode) {
         }
 
-        protected override void ApplyModelCore() {
+        protected override void ApplyModelCore(){
+            ApplyModel(ApplyValues);
+        }
+
+        private void ApplyModel(Action<ModelNode, object, PropertyDescriptorCollection> action) {
             var modelModelAdapter = Model as IModelModelAdapter;
             if (modelModelAdapter != null){
                 foreach (var modelAdapter in modelModelAdapter.GetContextAdapters()){
-                    ApplyModel(modelAdapter,Control,ApplyValues);
+                    ApplyModel(modelAdapter, Control, action);
                 }
-                ApplyModel(Model, Control, ApplyValues);
+                ApplyModel(Model, Control, action);
             }
             var modelAdapterLink = Model as IModelModelAdapterLink;
             if (modelAdapterLink != null && modelAdapterLink.ModelAdapter != null)
-                ApplyModel(modelAdapterLink.ModelAdapter, Control, ApplyValues);
+                ApplyModel(modelAdapterLink.ModelAdapter, Control, action);
             else
-                ApplyModel(Model, Control, ApplyValues);
+                ApplyModel(Model, Control, action);
         }
 
         public override void SynchronizeModel() {
-            throw new NotImplementedException();
+            ApplyModel(SynchronizeValues);
         }
     }
 
@@ -59,7 +63,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         protected virtual object GetSynchronizeValuesNodeValue(ModelNode modelNode, ModelValueInfo valueInfo, PropertyDescriptor propertyDescriptor, bool isNullableType, object component) {
-            return !isNullableType ? GetNodeValueCore(modelNode, valueInfo) : null;
+            return  GetNodeValueCore(modelNode, valueInfo);
         }
 
         protected virtual object GetPropertyValue(object component, PropertyDescriptor propertyDescriptor, ModelValueInfo valueInfo, ModelNode modelNode) {
