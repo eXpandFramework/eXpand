@@ -20,6 +20,17 @@ using Fasterflect;
 
 namespace Xpand.Persistent.Base.General {
     public static class ModelNodeExtensions {
+        public static void UpdateValue<T>(this T targetNode,IModelNode sourceNode, params Expression<Func<T, object>>[] expressions) where T:IModelNode {
+            foreach (var expression in expressions){
+                var attributeName = targetNode.GetPropertyName(expression);
+                if (sourceNode.HasValue(attributeName)) {
+                    var value = sourceNode.GetValue<T>(attributeName);
+                    sourceNode.ClearValue(attributeName);
+                    targetNode.SetValue(attributeName, value);
+                }
+            }
+        }
+
         public static void ClearValue<TNode>(this TNode node,Expression<Func<TNode, object>> expression) where TNode:IModelNode{
             node.ClearValue(node.GetPropertyName(expression));
         }

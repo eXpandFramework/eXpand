@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
@@ -18,13 +19,12 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             TargetWindowType = WindowType.Main;
         }
 
-        protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions
-        {
+        protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions{
             get { return _dashboardActions ?? (_dashboardActions = new Dictionary<ChoiceActionItem, DashboardDefinition>()); }
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelOptionsDashboard, IModelOptionsDashboardNavigation>();
+            extenders.Add<IModelDashboardModule, IModelDashboardModuleNavigation>();
         }
 
         protected override void OnDeactivated() {
@@ -52,9 +52,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         void _NavigationController_ItemsInitialized(object sender, EventArgs e) {
-            IModelView view = Application.FindModelView(Application.FindListViewId(typeof(DashboardDefinition)));
-            var options = ((IModelOptionsDashboards)Application.Model.Options);
-            var dashboardOptions = ((IModelOptionsDashboardNavigation)options.Dashboards);
+            var view = Application.FindModelView(Application.FindListViewId(typeof(DashboardDefinition)));
+            var dashboardOptions = ((IModelDashboardModuleNavigation) ( ((IModelApplicationDashboardModule) Application.Model)).DashboardModule);
             if (dashboardOptions.DashboardsInGroup) {
                 ReloadDashboardActions();
                 var actions = new List<ChoiceActionItem>();
@@ -147,7 +146,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
     }
 
-    public interface IModelOptionsDashboardNavigation : IModelNode {
+    public interface IModelDashboardModuleNavigation : IModelNode {
         [Category("Navigation")]
         [DefaultValue("Dashboards")]
         String DashboardGroupCaption { get; set; }

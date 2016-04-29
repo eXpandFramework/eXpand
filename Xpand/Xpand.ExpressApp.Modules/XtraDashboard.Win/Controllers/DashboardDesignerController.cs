@@ -8,10 +8,6 @@ using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
     public class DashboardDesignerController : Dashboard.Controllers.DashboardDesignerController {
-        public DashboardDesignerController() {
-
-        }
-
         protected override void DashboardEditExecute(object sender, SimpleActionExecuteEventArgs e){
             base.DashboardEditExecute(sender, e);
             using (var form = new DashboardDesignerForm { ObjectSpace = ObjectSpace }) {

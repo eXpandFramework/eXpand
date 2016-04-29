@@ -20,10 +20,12 @@ namespace Xpand.ExpressApp.Dashboard.Filter{
     }
 
     public interface IModelDashboardModule:IModelNode{
-        IModelDashboarDataSources DataSources { get; }
+        IModelDashboardDataSources DataSources { get; }
     }
+
+
     [ModelNodesGenerator(typeof(DashboarDataSourcesNodesGenerator))]
-    public interface IModelDashboarDataSources : IModelNode, IModelList<IModelDashboardDataSource> {
+    public interface IModelDashboardDataSources : IModelNode, IModelList<IModelDashboardDataSource> {
 
     }
 
