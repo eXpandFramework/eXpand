@@ -145,6 +145,7 @@
     <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionListEditor.cs" />
     <Compile Include="ListEditors\WebControlAppearanceAdapter.cs" />
     <Compile Include="Model\QueryStringParameter.cs" />
+    <Compile Include="PropertyEditors\ASPxLookupPropertyEditorWithEdit.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
     <Compile Include="SystemModule\MasterDetail\NestedListViewAutoCommitController.cs">
