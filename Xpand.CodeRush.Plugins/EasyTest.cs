@@ -4,8 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using DevExpress.CodeRush.Diagnostics.Commands;
 using DevExpress.CodeRush.Menus;
 using EnvDTE;
+using Microsoft.Win32;
 using Xpand.CodeRush.Plugins.Extensions;
 using Process = System.Diagnostics.Process;
 
@@ -46,10 +48,12 @@ namespace Xpand.CodeRush.Plugins{
                     else{
                         dte.WriteToOutput("EasyTesting "+activeFileName);
                     }
-                    var testExecutorPath = Options.ReadString(Options.TestExecutorPath);
+
+                    var testExecutorPath = GetTestExecutorPath();
+                    Log.Send("TestExecutorpath", testExecutorPath);
                     if (!File.Exists(testExecutorPath))
                         throw new FileNotFoundException(
-                            "Use plugin options to assign a valid path for the standalond TestExecutor");
+                            "Use plugin options to assign a valid path for the standalond TestExecutor. Or leave it blank for auto detection.");
                     var processStartInfo = new ProcessStartInfo(testExecutorPath){
                         Arguments = string.Format(@"""{0}""{1}", activeFileName, debugSwitch),
                         UseShellExecute = debug,
@@ -81,6 +85,17 @@ namespace Xpand.CodeRush.Plugins{
                 _lockButtonEnableState = false;
                 ChangeButtonsEnableState(true);
             }
+        }
+
+        private string GetTestExecutorPath(){
+            var testExecutorPath = Options.ReadString(Options.TestExecutorPath);
+            if (string.IsNullOrWhiteSpace(testExecutorPath)){
+                var version = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXVersion();
+                var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\WOW6432node\DevExpress\Components\"+version);
+                if (registryKey != null)
+                    return Path.Combine(registryKey.GetValue("RootDirectory")+ @"\Tools\eXpressAppFramework\EasyTest", "TestExecutor." +version+ ".exe");
+            }
+            return testExecutorPath;
         }
 
         public void CreateButtons(){

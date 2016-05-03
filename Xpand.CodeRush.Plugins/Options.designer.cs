@@ -78,8 +78,9 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl1 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.checkEditDebugME = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
             this.modelEditorPathButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
-            this.labelControl15 = new LabelControl();
+            this.labelControl15 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.labelControl11 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             this.General.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
@@ -239,7 +240,8 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl10.Size = new System.Drawing.Size(522, 36);
             this.labelControl10.TabIndex = 32;
             this.labelControl10.Text = "You can assign a keyboard shortcut to the <b>RunEasyTest, DebugEasyTest</b> comma" +
-    "nds and configure the path of the standalone TestExecutor";
+    "nds and configure the path of the standalone TestExecutor. Leave the path blank " +
+    "to auto detect it.";
             // 
             // ProjectConverter
             // 
@@ -604,7 +606,7 @@ namespace Xpand.CodeRush.Plugins
             // 
             // labelControl15
             // 
-            this.labelControl15.AutoSizeMode = LabelAutoSizeMode.Vertical;
+            this.labelControl15.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
             this.labelControl15.Location = new System.Drawing.Point(125, 57);
             this.labelControl15.Name = "labelControl15";
             this.labelControl15.Size = new System.Drawing.Size(394, 26);
@@ -633,6 +635,7 @@ namespace Xpand.CodeRush.Plugins
             this.Name = "Options";
             this.Size = new System.Drawing.Size(530, 488);
             this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.Options_CommitChanges);
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             this.General.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
