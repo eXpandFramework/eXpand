@@ -17,6 +17,7 @@ using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Xpo;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
@@ -68,7 +69,7 @@ namespace Xpand.ExpressApp.Security {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            CurrentUserNameOperator.Register();
+            CurrentUserNameOperator.Instance.Register();
             var typeInfos = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo<SecuritySystemRole>()).Where(info => !info.IsAbstract).ToArray();
             foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
                 CreateMember(typeInfos, attribute, typesInfo);

@@ -1,7 +1,6 @@
 ﻿using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.Security.Core{
     public class CurrentUserNameOperator : ICustomFunctionOperator{
@@ -15,8 +14,8 @@ namespace Xpand.ExpressApp.Security.Core{
             get { return "CurrentUserName"; }
         }
 
-        public static void Register(){
-            CustomFunctionOperatorHelper.Register(_instance);
+        public static CurrentUserNameOperator Instance{
+            get { return _instance; }
         }
 
         public object Evaluate(params object[] operands){

@@ -4,6 +4,12 @@ using DevExpress.Xpo.DB;
 
 namespace Xpand.Xpo.CustomFunctions{
     public class FullTextContainsFunction : ICustomFunctionOperatorFormattable {
+        static readonly FullTextContainsFunction _instance=new FullTextContainsFunction();
+
+        public static ICustomFunctionOperator Instance{
+            get { return _instance; }
+        }
+
         public const string FunctionName = "HasText";
         #region ICustomFunctionOperator Members
         public object Evaluate(params object[] operands){
@@ -26,5 +32,6 @@ namespace Xpand.Xpo.CustomFunctions{
                 providerType.Name));
         }
         #endregion
+
     }
 }

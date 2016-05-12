@@ -72,7 +72,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            new FullTextContainsFunction().Register();
+            FullTextContainsFunction.Instance.Register();
             if (Application != null && Application.Security != null) {
                 CreatePessimisticLockingField(typesInfo);
             }

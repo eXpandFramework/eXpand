@@ -40,6 +40,7 @@ using Fasterflect;
 using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.General.Web.SyntaxHighlight;
 using Xpand.Persistent.Base.Security;
+using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.MetaData;
 using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttribute;
@@ -679,7 +680,7 @@ namespace Xpand.Persistent.Base.General {
                     }
                 }
                 CreateXpandDefaultProperty(typesInfo);
-                ModelValueOperator.Register();
+                ModelValueOperator.Instance.Register();
                 ConvertInvisibleInAllViewsAttrbiute(typesInfo);
 
                 AssignSecurityEntities();
