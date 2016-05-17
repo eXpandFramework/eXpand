@@ -4,6 +4,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Web.SystemModule.CallbackHandlers;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
 
@@ -53,6 +54,12 @@ namespace Xpand.ExpressApp.Web {
                        : new XpandWebWindow(this, context, controllers, isMain, activateControllersImmediatelly);
         }
         protected override Window CreatePopupWindowCore(TemplateContext context, ICollection<Controller> controllers) {
+            if (ListViewFastCallbackHandlerController.UseFastCallbackHandler || PopupWindowManager.AllowFastProcessPopupWindow || ActionsFastCallbackHandlerController.UseFastCallbackHandler) {
+                if (!ClientServerInfo.IsEmpty && !ClientServerInfo.GetValue<bool>(DevExpress.ExpressApp.Web.Controls.ViewSiteControl.DontLockUpdateViewSiteOnCallback)) {
+                    ClientServerInfo.SetValue(DevExpress.ExpressApp.Web.Controls.ViewSiteControl.LockUpdateViewSiteOnCallback, true, true);
+                }
+                ClientServerInfo.Remove(DevExpress.ExpressApp.Web.Controls.ViewSiteControl.DontLockUpdateViewSiteOnCallback);
+            }
             return new XpandPopupWindow(this, context, controllers);
         }
 

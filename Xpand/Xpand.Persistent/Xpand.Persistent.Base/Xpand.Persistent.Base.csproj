@@ -182,6 +182,7 @@
     <Compile Include="General\Model\VisibilityCalculators\ActionVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\RibbonFormStyleVisibilityCalculator.cs" />
     <Compile Include="General\Model\VisibilityCalculators\StandardFormStyleVisibilityCalculator.cs" />
+    <Compile Include="General\Web\SyntaxHighlight\AceEditor.cs" />
     <Compile Include="General\Web\SyntaxHighlight\Model.cs" />
     <Compile Include="General\Web\SyntaxHighlight\Services.cs" />
     <Compile Include="General\Web\SyntaxHighlight\SyntaxHighLightController.cs">

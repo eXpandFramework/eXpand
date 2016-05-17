@@ -88,6 +88,9 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight {
         [Category("Renderer")]
         int MinLines { get; set; }
         [Category("Renderer")]
+        [DefaultValue(100)]
+        int MaxLines { get; set; }
+        [Category("Renderer")]
         [TypeConverter(typeof(SyntaxHighLightThemesProvider))]
         string Theme { get; set; }
         [Category("Mouse")]
@@ -114,6 +117,7 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight {
         [Category("Session")]
         bool NewLineMode { get; set; }
         [Category("Session")]
+        [DefaultValue(true)]
         bool UseWorker { get; set; }
         [Category("Session")]
         bool UseSoftTabs { get; set; }

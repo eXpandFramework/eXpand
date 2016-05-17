@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             if (modelDifferenceObject != null) {
                 modelDifferenceObject.DateCreated = DateTime.Now;
                 modelDifferenceObject.Disabled = true;
-                modelDifferenceObject.Name = modelDifferenceObject.Name + " Cloned";
+                modelDifferenceObject.Name = modelDifferenceObject.Name + " "+DateTime.Now;
                 modelDifferenceObject.PersistentApplication = (PersistentApplication)modelDifferenceObject.Session.GetObject(((ModelDifferenceObject)View.CurrentObject).PersistentApplication);
 
             }

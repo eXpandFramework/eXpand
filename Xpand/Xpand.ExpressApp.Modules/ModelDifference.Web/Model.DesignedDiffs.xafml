@@ -39,12 +39,14 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="RDO_DetailView">
+    <DetailView Id="ModelDifferenceObject_DetailView">
       <Items>
         <PropertyEditor Id="XmlContent">
           <SyntaxHighlight Mode="xml" />
         </PropertyEditor>
       </Items>
+    </DetailView>
+    <DetailView Id="RDO_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
           <TabbedGroup Id="TabContainer" RelativeSize="99.86666666666666">
@@ -70,11 +72,6 @@
       </Layout>
     </DetailView>
     <DetailView Id="UDO_DetailView">
-      <Items>
-        <PropertyEditor Id="XmlContent">
-          <SyntaxHighlight Mode="xml" />
-        </PropertyEditor>
-      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <TabbedGroup Id="TabContainer" RelativeSize="99.86666666666666">
