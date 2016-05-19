@@ -16,23 +16,24 @@ namespace Xpand.CodeRush.Plugins{
         public bool Successed { get; set; }
     }
     class EasyTest{
+        private readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
         private IMenuButton[] _menuButtons;
         private bool _lockButtonEnableState;
         public event EventHandler<LastBuildStatusArgs> QueryLastBuildStatus;
         public void RunTest(bool debug){
+            _dte.InitOutputCalls("RunTest");
             Task.Factory.StartNew(() => RunTestCore(debug));
         }
 
         private void RunTestCore(bool debug){
             var lastBuildStatusArgs = new LastBuildStatusArgs();
             OnQueryLastBuildStatus(lastBuildStatusArgs);
-            DTE dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
             try{
                 ChangeButtonsEnableState(false);
                 _lockButtonEnableState = true;
                 var uniqueName =
                     DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Solution.FindStartUpProject().UniqueName;
-                dte.WriteToOutput("Building EasyTest/Debug Configuration");
+                _dte.WriteToOutput("Building EasyTest/Debug Configuration");
                 DevExpress.CodeRush.Core.CodeRush.Solution.Active.SolutionBuild.BuildProject("EasyTest", uniqueName,
                     true);
                 if (lastBuildStatusArgs.Successed){
@@ -43,10 +44,10 @@ namespace Xpand.CodeRush.Plugins{
                     string debugSwitch = null;
                     if (debug){
                         debugSwitch = " -d:" + DevExpress.CodeRush.Core.CodeRush.Caret.Line;
-                        dte.WriteToOutput("Debug will start at line " + DevExpress.CodeRush.Core.CodeRush.Caret.Line);
+                        _dte.WriteToOutput("Debug will start at line " + DevExpress.CodeRush.Core.CodeRush.Caret.Line);
                     }
                     else{
-                        dte.WriteToOutput("EasyTesting "+activeFileName);
+                        _dte.WriteToOutput("EasyTesting "+activeFileName);
                     }
 
                     var testExecutorPath = GetTestExecutorPath();
@@ -69,17 +70,17 @@ namespace Xpand.CodeRush.Plugins{
                         document.Descendants().FirstOrDefault(element => element.Name.LocalName == "Error");
                     if (errorElement != null){
                         var messageElement = errorElement.Descendants("Message").First();
-                        dte.WriteToOutput(messageElement.Value);
+                        _dte.WriteToOutput(messageElement.Value);
                     }
                     else
-                        dte.WriteToOutput("EasyTest Passed!");
+                        _dte.WriteToOutput("EasyTest Passed!");
                 }
                 else{
-                    dte.WriteToOutput("EasyTest build failed");
+                    _dte.WriteToOutput("EasyTest build failed");
                 }
             }
             catch (Exception e){
-                dte.WriteToOutput(e.ToString());
+                _dte.WriteToOutput(e.ToString());
             }
             finally{
                 _lockButtonEnableState = false;

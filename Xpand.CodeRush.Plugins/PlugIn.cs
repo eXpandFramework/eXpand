@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,10 +9,7 @@ using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.CodeRush.StructuralParser;
-using DevExpress.DXCore.Controls.Xpo.DB.Exceptions;
 using DevExpress.DXCore.Controls.Xpo.DB.Helpers;
-using DevExpress.Xpo;
-using DevExpress.Xpo.DB;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
 using Xpand.CodeRush.Plugins.Extensions;
@@ -30,11 +25,12 @@ using VSProject = VSLangProj.VSProject;
 
 namespace Xpand.CodeRush.Plugins {
     public partial class PlugIn : StandardPlugIn {
+        private readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
         private bool _lastBuildSucceeded;
         readonly EasyTest _easyTest=new EasyTest();
         public PlugIn(){
             InitializeComponent();
-        }
+        }pick 4f6227f Xpand.CodeRush.Plugins - Version agnostic + improved notification through output window
 
         public override void InitializePlugIn(){
             base.InitializePlugIn();
@@ -47,10 +43,7 @@ namespace Xpand.CodeRush.Plugins {
             string token = Options.ReadString(Options.Token);
             if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(token)) {
                 var directoryName = Path.GetDirectoryName(DevExpress.CodeRush.Core.CodeRush.Solution.Active.FileName);
-                _actionHint.Text = "Project Converter Started !!!";
-                var position = Cursor.Position;
-                Rectangle rectangle = Screen.FromPoint(position).Bounds;
-                _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
+                _dte.WriteToOutput("Project Converter Started !!!");
                 var userName = string.Format("/sc /k:{0} \"{1}\"", token, directoryName);
                 Process.Start(path, userName);
             }
@@ -95,22 +88,33 @@ namespace Xpand.CodeRush.Plugins {
             return startUpProject.ProjectItems.OfType<ProjectItem>().Any(item => item.Name.ToLower() == "web.config");
         }
 
-        private void DropDataBase_Execute(ExecuteEventArgs ea) {
-            IEnumerable<ProjectItem> enumerable = DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Solution.FindStartUpProject().ProjectItems.Cast<ProjectItem>();
-            Trace.Listeners.Add(new DefaultTraceListener { LogFileName = "log.txt" });
-            foreach (ProjectItem item in enumerable) {
-                if (item.Name.ToLower() == "app.config" || item.Name.ToLower() == "web.config") {
-                    foreach (var connectionString in Options.GetConnectionStrings()) {
-                        if (!string.IsNullOrEmpty(connectionString.Name)) {
-                            ConnectionStringSettings connectionStringSettings = GetConnectionStringSettings(item, connectionString.Name);
-                            if (connectionStringSettings != null) {
-                                DropDatabase(connectionStringSettings.ConnectionString, connectionString.Name);
+        private void DropDataBase_Execute(ExecuteEventArgs ea){
+            Task.Factory.StartNew(() =>{
+            
+                var startUpProject = _dte.Solution.FindStartUpProject();
+                var configItem = startUpProject.ProjectItems.Cast<ProjectItem>()
+                    .FirstOrDefault(item => new[] { "app.config", "web.config" }.Contains(item.Name.ToLower()));
+                if (configItem==null){
+                    _dte.WriteToOutput("Startup project "+startUpProject.Name+" does not contain a config file");
+                    return;
+                }
+                foreach (Options.ConnectionString optionsConnectionString in Options.GetConnectionStrings()) {
+                    if (!string.IsNullOrEmpty(optionsConnectionString.Name)) {
+                        var connectionStringSettings = GetConnectionStringSettings(configItem,optionsConnectionString.Name);
+                        if (connectionStringSettings != null) {
+                            try {
+                                if (DbExist(connectionStringSettings)) {
+                                    DropSqlServerDatabase(connectionStringSettings);
+                                }
+                            }
+                            catch (Exception e) {
+                                _dte.WriteToOutput(connectionStringSettings.ConnectionString + Environment.NewLine + e);
                             }
                         }
                     }
-
                 }
-            }
+
+            });
         }
 
         private ConnectionStringSettings GetConnectionStringSettings(ProjectItem item, string name) {
@@ -121,84 +125,68 @@ namespace Xpand.CodeRush.Plugins {
             return strings.ConnectionStrings[name];
         }
 
-        private void DropDatabase(string connectionString, string name) {
-            string error = null;
-            string database = name;
-            try {
-                var provider = XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
-                var sqlConnectionProvider = provider as MSSqlConnectionProvider;
-                if (sqlConnectionProvider != null) {
-                    DropSqlServerDatabase(connectionString);
-                    database = sqlConnectionProvider.Connection.Database;
-                }
-                else {
-                    var connectionProvider = provider as AccessConnectionProvider;
-                    if (connectionProvider != null) {
-                        database = connectionProvider.Connection.Database;
-                        File.Delete(database);
-                    }
-                    else {
-                        throw new NotImplementedException(provider.GetType().FullName);
-                    }
-                }
-            }
-            catch (UnableToOpenDatabaseException) {
-                error = "UnableToOpenDatabase " + database;
-            }
-            catch (Exception e) {
-                Trace.WriteLine(e.ToString());
-                error = database + " Error check log";
-            }
-            _actionHint.Text = error ?? database + " DataBase Dropped !!!";
-            Rectangle rectangle = Screen.PrimaryScreen.Bounds;
-            _actionHint.PointTo(new Point(rectangle.Width / 2, rectangle.Height / 2));
-        }
-
-        private static void DropSqlServerDatabase(string connectionString) {
-            var connectionProvider = (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
-            using (var dbConnection = connectionProvider.Connection) {
-                using (var sqlConnection = (SqlConnection)DataStore(connectionString).Connection) {
-                    SqlCommand sqlCommand = sqlConnection.CreateCommand();
-                    sqlCommand.CommandText = string.Format("ALTER DATABASE {0} SET SINGLE_USER WITH ROLLBACK IMMEDIATE", dbConnection.Database);
+        private void DropSqlServerDatabase(ConnectionStringSettings connectionStringSettings) {
+            _dte.WriteToOutput("Attempting connection with "+connectionStringSettings.ConnectionString);
+            var parser = new ConnectionStringParser(connectionStringSettings.ConnectionString.ToLower());
+            parser.RemovePartByName("xpoprovider");
+            var database = parser.GetPartByName("initial catalog");
+            parser.RemovePartByName("initial catalog");
+            using (var connection = new SqlConnection(parser.GetConnectionString())){
+                connection.Open();
+                using (SqlCommand sqlCommand = connection.CreateCommand()){
+                    sqlCommand.CommandText = string.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE",database);
                     sqlCommand.ExecuteNonQuery();
-                    sqlCommand.CommandText = string.Format("DROP DATABASE {0}", dbConnection.Database);
+                    sqlCommand.CommandText = string.Format("DROP DATABASE [{0}]", database);
                     sqlCommand.ExecuteNonQuery();
+                    _dte.WriteToOutput(database + " dropped successfully");
                 }
             }
         }
-        static MSSqlConnectionProvider DataStore(string connectionString) {
-            var connectionStringParser = new ConnectionStringParser(connectionString);
-            var userid = connectionStringParser.GetPartByName("UserId");
-            var password = connectionStringParser.GetPartByName("password");
-            string connectionStr;
-            if (!string.IsNullOrEmpty(userid) && !string.IsNullOrEmpty(password))
-                connectionStr = MSSqlConnectionProvider.GetConnectionString(connectionStringParser.GetPartByName("Data Source"), userid, password, "master");
-            else {
-                connectionStr = MSSqlConnectionProvider.GetConnectionString(connectionStringParser.GetPartByName("Data Source"), "master");
+
+        private  bool DbExist(ConnectionStringSettings connectionStringSettings){
+            var parser = new ConnectionStringParser(connectionStringSettings.ConnectionString.ToLower());
+            var database = parser.GetPartByName("initial catalog");
+            parser.RemovePartByName("initial catalog");
+            parser.RemovePartByName("xpoprovider");
+            _dte.WriteToOutput("Attempting connection with data source " + parser.GetPartByName("data source"));
+            using (var connection = new SqlConnection(parser.GetConnectionString())){
+                connection.Open();
+                object result;
+                using (var sqlCommand = connection.CreateCommand()) {
+                    sqlCommand.CommandText = string.Format("SELECT database_id FROM sys.databases WHERE Name = '{0}'", database);
+                    result = sqlCommand.ExecuteScalar();
+                }
+                var exists = result != null && int.Parse(result + "") > 0;
+                string doesNot = exists ? null : " does not";
+                _dte.WriteToOutput(database+doesNot+" exists");
+                return exists;
             }
-            return (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionStr, AutoCreateOption.None);
         }
 
         private void loadProjects_Execute(ExecuteEventArgs ea) {
-            var dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
-            var uihSolutionExplorer = dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
+            var uihSolutionExplorer = _dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
             if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
                 return;
-
             string constants = Constants.vsext_wk_SProjectWindow;
             if (ea.Action.ParentMenu == "Object Browser Objects Pane")
                 constants = Constants.vsWindowKindObjectBrowser;
+            Task.Factory.StartNew(() => LoadProjects(uihSolutionExplorer, constants));
+        }
+
+        private void LoadProjects(UIHierarchy uihSolutionExplorer, string constants){
             var hierarchyItem = ((UIHierarchyItem[]) uihSolutionExplorer.SelectedItems)[0];
             Project dteProject = ((Reference) hierarchyItem.Object).ContainingProject;
             ProjectElement activeProject = DevExpress.CodeRush.Core.CodeRush.Language.LoadProject(dteProject);
-            if (activeProject != null) {
+            if (activeProject != null){
                 var projectLoader = new ProjectLoader();
                 var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants).ToList();
+                _dte.WriteToOutput("Attempting load of " + selectedAssemblyReferences.Count + " selected assemblies from " +
+                                   activeProject.Name);
                 if (projectLoader.Load(selectedAssemblyReferences)){
-                    DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Solution.CollapseAllFolders();
+                    _dte.WriteToOutput("All projects loaded");
                 }
             }
-            else {
+            else{
                 throw new NotImplementedException();
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Linq;
 using EnvDTE;
+using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
 using Project = EnvDTE.Project;
 

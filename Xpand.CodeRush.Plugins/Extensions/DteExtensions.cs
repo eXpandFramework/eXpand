@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.CodeRush.StructuralParser;
@@ -8,12 +9,16 @@ namespace Xpand.CodeRush.Plugins.Extensions {
     public static class DteExtensions {
         private static OutputWindowPane _outputWindowPane;
 
+        public static void InitOutputCalls(this DTE dte, string text){
+            dte.WriteToOutput(Environment.NewLine+"------------------"+text+ "------------------" + Environment.NewLine);
+        }
+
         public static void WriteToOutput(this DTE dte, string text) {
-            ClearOutputWindow();
+            InitializeVsPaneIfNeeded();
             if (_outputWindowPane == null || string.IsNullOrEmpty(text))
                 return;
             ActivatePane();
-            _outputWindowPane.OutputString(text);
+            _outputWindowPane.OutputString(text+Environment.NewLine);
         }
 
         private static void ActivatePane(){
@@ -21,7 +26,7 @@ namespace Xpand.CodeRush.Plugins.Extensions {
             _outputWindowPane.Activate();
         }
 
-        static void ClearOutputWindow() {
+        public static void ClearOutputWindow() {
             InitializeVsPaneIfNeeded();
             if (_outputWindowPane == null)
                 return;

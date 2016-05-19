@@ -10,7 +10,6 @@ namespace Xpand.CodeRush.Plugins {
         private DevExpress.CodeRush.Core.Action loadProjectFromReferenceItem;
         private DevExpress.CodeRush.Core.Action dropDataBase;
         private DevExpress.CodeRush.Core.Action exploreXafErrors;
-        private DevExpress.CodeRush.PlugInCore.ActionHint _actionHint;
         private DevExpress.CodeRush.Core.Action RunEasyTest;
         private DevExpress.CodeRush.Core.Action DebugEasyTest;
 
@@ -41,7 +40,7 @@ namespace Xpand.CodeRush.Plugins {
             this.loadProjectFromReferenceItem = new DevExpress.CodeRush.Core.Action(this.components);
             this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
             this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
-            this._actionHint = new DevExpress.CodeRush.PlugInCore.ActionHint(this.components);
+            
             this.RunEasyTest = new DevExpress.CodeRush.Core.Action(this.components);
             this.DebugEasyTest = new DevExpress.CodeRush.Core.Action(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
@@ -50,7 +49,6 @@ namespace Xpand.CodeRush.Plugins {
             ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromReferenceItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this._actionHint)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RunEasyTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DebugEasyTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -118,11 +116,6 @@ namespace Xpand.CodeRush.Plugins {
             // 
             // _actionHint
             // 
-            this._actionHint.Color = System.Drawing.Color.DarkGray;
-            this._actionHint.Feature = null;
-            this._actionHint.OptionsPath = null;
-            this._actionHint.ResetDisplayCountOnStartup = false;
-            this._actionHint.Text = null;
             // 
             // RunEasyTest
             // 
@@ -157,7 +150,6 @@ namespace Xpand.CodeRush.Plugins {
             ((System.ComponentModel.ISupportInitialize)(this.loadProjectFromReferenceItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dropDataBase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this._actionHint)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RunEasyTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DebugEasyTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();

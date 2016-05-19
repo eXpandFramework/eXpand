@@ -5,16 +5,18 @@ using System.Linq;
 using DevExpress.CodeRush.Diagnostics.General;
 using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
+using Xpand.CodeRush.Plugins.Extensions;
 
 namespace Xpand.CodeRush.Plugins.ModelEditor {
     public class ProjectLoader {
-        bool IsProjectLoaded(string fileName) {
+        private readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
+        bool IsProjectLoaded(string fileName){
             fileName = Path.GetFileNameWithoutExtension(fileName);
             return DevExpress.CodeRush.Core.CodeRush.Solution.Active.Projects.OfType<Project>().FirstOrDefault(project => project.Name == fileName)!=null;
         }
 
         void GetSolutionContext(string projectFileName, Action<SolutionContext> contextAction) {
-            SolutionContexts solutionContexts = DevExpress.CodeRush.Core.CodeRush.Solution.Active.DTE.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts;
+            var solutionContexts = _dte.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts;
             for (int i = 0; i < solutionContexts.Count+1; i++) {
                 SolutionContext solutionContext = GetSolutionContext(i, solutionContexts);
                 if (solutionContext != null && Path.GetFileName(projectFileName) == Path.GetFileName(solutionContext.ProjectName)) {
@@ -34,11 +36,10 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
         }
 
         public bool Load(IList<AssemblyReference> assemblyReferences ) {
-            Log.Send("References Count:"+assemblyReferences.Count());
             var sourceCodeInfos = Options.GetSourceCodeInfos();
             bool[] failLoads=new bool[sourceCodeInfos.Count];
             for (int i = 0; i < sourceCodeInfos.Count; i++) {
-                Log.Send("SourceCodeInfo:"+sourceCodeInfos[i]);
+                _dte.WriteToOutput("SourceCodeInfo:"+sourceCodeInfos[i]);
                 failLoads[i]=LoadProject(sourceCodeInfos[i], assemblyReferences, i);
             }
             return failLoads.Any(b => !b);
@@ -47,28 +48,32 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
         public bool LoadProject(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1){
             var assemblyReference = GetAssemblyReference(sourceCodeInfo, assemblyReferences, i1);
             if (assemblyReference.Key!=null) {
-                if (!IsProjectLoaded(assemblyReference.Value)) {
+                if (!IsProjectLoaded(assemblyReference.Value)){
                     try{
+                        var fileName = Path.GetFileName(assemblyReference.Value);
+                        _dte.WriteToOutput("Loading " +fileName);
                         DevExpress.CodeRush.Core.CodeRush.Solution.Active.AddFromFile(assemblyReference.Value);
                         GetSolutionContext(assemblyReference.Value, context => {
                             context.ShouldBuild = false;
                         });
+                        _dte.WriteToOutput(fileName + " loaded!");
+                        return true;
                     }
                     catch (Exception e){
-                        Log.SendException(e);
+                        _dte.WriteToOutput(e.ToString());
+                        return false;
                     }
                 }
-                return true;
             }
             return false;
         }
 
         private KeyValuePair<AssemblyReference,string> GetAssemblyReference(Options.SourceCodeInfo sourceCodeInfo, IList<AssemblyReference> assemblyReferences, int i1){
             string key = String.Format("{0}_{1}", i1, sourceCodeInfo.ProjectRegex);
-            var readStrings = Options.Storage.ReadStrings(Options.ProjectPaths, key);
-            Log.Send("ProjectsCount:" + readStrings.Count());
-            for (int i = 0; i < readStrings.Count(); i++) {
-                var strings = readStrings[i].Split('|');
+            var projectPaths = Options.Storage.ReadStrings(Options.ProjectPaths, key);
+            Log.Send("ProjectsCount:" + projectPaths.Length);
+            foreach (string projectPath in projectPaths){
+                var strings = projectPath.Split('|');
                 var assemblyPath = strings[1].ToLower();
                 var assemblyReference = GetAssemblyReferenceCore(assemblyReferences, assemblyPath);
                 if (assemblyReference != null) {
