@@ -55,14 +55,14 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl2 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.labelControl9 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.DropDatabase = new System.Windows.Forms.TabPage();
-            this.gridControl1 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
+            this.gridControlConnectionStrings = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
             this.gridColumnName = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             this.labelControl8 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.labelControl7 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.LoadProject = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
-            this.gridControl2 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
+            this.gridControlReferencedAssemblies = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
             this.gridColumnDirectory = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             this.gridColumnPrefix = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
@@ -73,14 +73,16 @@ namespace Xpand.CodeRush.Plugins
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.ModelEditor = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.gridControlME = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
+            this.gridView3 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
+            this.gridColumn2 = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
+            this.repositoryItemCheckEdit2 = new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.checkEditKillModelEditor = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
             this.labelControl12 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.checkEditDebugME = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
-            this.modelEditorPathButtonEdit = new DevExpress.DXCore.Controls.XtraEditors.ButtonEdit();
             this.labelControl15 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.labelControl11 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             this.General.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
@@ -93,18 +95,20 @@ namespace Xpand.CodeRush.Plugins
             ((System.ComponentModel.ISupportInitialize)(this.publicTokenTextEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectConverterPathButtonEdit.Properties)).BeginInit();
             this.DropDatabase.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlConnectionStrings)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.LoadProject.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlReferencedAssemblies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.ModelEditor.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlME)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditKillModelEditor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditDebugME.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modelEditorPathButtonEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -322,7 +326,7 @@ namespace Xpand.CodeRush.Plugins
             // 
             // DropDatabase
             // 
-            this.DropDatabase.Controls.Add(this.gridControl1);
+            this.DropDatabase.Controls.Add(this.gridControlConnectionStrings);
             this.DropDatabase.Controls.Add(this.labelControl8);
             this.DropDatabase.Controls.Add(this.labelControl7);
             this.DropDatabase.Location = new System.Drawing.Point(4, 22);
@@ -333,22 +337,22 @@ namespace Xpand.CodeRush.Plugins
             this.DropDatabase.Text = "Drop Database";
             this.DropDatabase.UseVisualStyleBackColor = true;
             // 
-            // gridControl1
+            // gridControlConnectionStrings
             // 
-            this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(3, 57);
-            this.gridControl1.MainView = this.gridView1;
-            this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(516, 402);
-            this.gridControl1.TabIndex = 13;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
+            this.gridControlConnectionStrings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlConnectionStrings.Location = new System.Drawing.Point(3, 57);
+            this.gridControlConnectionStrings.MainView = this.gridView1;
+            this.gridControlConnectionStrings.Name = "gridControlConnectionStrings";
+            this.gridControlConnectionStrings.Size = new System.Drawing.Size(516, 402);
+            this.gridControlConnectionStrings.TabIndex = 13;
+            this.gridControlConnectionStrings.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
             // 
             // gridView1
             // 
             this.gridView1.Columns.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn[] {
             this.gridColumnName});
-            this.gridView1.GridControl = this.gridControl1;
+            this.gridView1.GridControl = this.gridControlConnectionStrings;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsCustomization.AllowColumnMoving = false;
             this.gridView1.OptionsCustomization.AllowColumnResizing = false;
@@ -398,7 +402,7 @@ namespace Xpand.CodeRush.Plugins
             // LoadProject
             // 
             this.LoadProject.Controls.Add(this.button1);
-            this.LoadProject.Controls.Add(this.gridControl2);
+            this.LoadProject.Controls.Add(this.gridControlReferencedAssemblies);
             this.LoadProject.Controls.Add(this.labelControl5);
             this.LoadProject.Controls.Add(this.labelControl4);
             this.LoadProject.Location = new System.Drawing.Point(4, 22);
@@ -420,17 +424,17 @@ namespace Xpand.CodeRush.Plugins
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // gridControl2
+            // gridControlReferencedAssemblies
             // 
-            this.gridControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl2.Location = new System.Drawing.Point(3, 65);
-            this.gridControl2.MainView = this.gridView2;
-            this.gridControl2.Name = "gridControl2";
-            this.gridControl2.RepositoryItems.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItem[] {
+            this.gridControlReferencedAssemblies.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlReferencedAssemblies.Location = new System.Drawing.Point(3, 65);
+            this.gridControlReferencedAssemblies.MainView = this.gridView2;
+            this.gridControlReferencedAssemblies.Name = "gridControlReferencedAssemblies";
+            this.gridControlReferencedAssemblies.RepositoryItems.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1});
-            this.gridControl2.Size = new System.Drawing.Size(516, 394);
-            this.gridControl2.TabIndex = 17;
-            this.gridControl2.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
+            this.gridControlReferencedAssemblies.Size = new System.Drawing.Size(516, 394);
+            this.gridControlReferencedAssemblies.TabIndex = 17;
+            this.gridControlReferencedAssemblies.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
             // 
             // gridView2
@@ -439,7 +443,7 @@ namespace Xpand.CodeRush.Plugins
             this.gridColumnDirectory,
             this.gridColumnPrefix,
             this.gridColumn1});
-            this.gridView2.GridControl = this.gridControl2;
+            this.gridView2.GridControl = this.gridControlReferencedAssemblies;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsCustomization.AllowColumnMoving = false;
             this.gridView2.OptionsCustomization.AllowColumnResizing = false;
@@ -541,25 +545,71 @@ namespace Xpand.CodeRush.Plugins
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 23.37165F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 76.62835F));
+            this.tableLayoutPanel3.Controls.Add(this.gridControlME, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.checkEditKillModelEditor, 0, 2);
             this.tableLayoutPanel3.Controls.Add(this.labelControl12, 1, 1);
             this.tableLayoutPanel3.Controls.Add(this.labelControl1, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.checkEditDebugME, 0, 1);
-            this.tableLayoutPanel3.Controls.Add(this.modelEditorPathButtonEdit, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.labelControl15, 1, 2);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 36);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 3;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 81.21828F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 18.78173F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(522, 88);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(522, 232);
             this.tableLayoutPanel3.TabIndex = 34;
+            // 
+            // gridControlME
+            // 
+            this.gridControlME.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlME.Location = new System.Drawing.Point(125, 3);
+            this.gridControlME.MainView = this.gridView3;
+            this.gridControlME.Name = "gridControlME";
+            this.gridControlME.RepositoryItems.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemCheckEdit2});
+            this.gridControlME.Size = new System.Drawing.Size(394, 154);
+            this.gridControlME.TabIndex = 40;
+            this.gridControlME.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
+            this.gridView3});
+            // 
+            // gridView3
+            // 
+            this.gridView3.Columns.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn2});
+            this.gridView3.GridControl = this.gridControlME;
+            this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsCustomization.AllowColumnMoving = false;
+            this.gridView3.OptionsCustomization.AllowColumnResizing = false;
+            this.gridView3.OptionsCustomization.AllowGroup = false;
+            this.gridView3.OptionsFilter.AllowColumnMRUFilterList = false;
+            this.gridView3.OptionsFilter.AllowFilterEditor = false;
+            this.gridView3.OptionsFilter.AllowMRUFilterList = false;
+            this.gridView3.OptionsMenu.EnableColumnMenu = false;
+            this.gridView3.OptionsMenu.EnableFooterMenu = false;
+            this.gridView3.OptionsMenu.EnableGroupPanelMenu = false;
+            this.gridView3.OptionsView.NewItemRowPosition = DevExpress.DXCore.Controls.XtraGrid.Views.Grid.NewItemRowPosition.Top;
+            this.gridView3.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "Model Editor Path";
+            this.gridColumn2.FieldName = "Path";
+            this.gridColumn2.Name = "gridColumn2";
+            this.gridColumn2.OptionsFilter.AutoFilterCondition = DevExpress.DXCore.Controls.XtraGrid.Columns.AutoFilterCondition.Contains;
+            this.gridColumn2.Visible = true;
+            this.gridColumn2.VisibleIndex = 0;
+            // 
+            // repositoryItemCheckEdit2
+            // 
+            this.repositoryItemCheckEdit2.AutoHeight = false;
+            this.repositoryItemCheckEdit2.Name = "repositoryItemCheckEdit2";
             // 
             // checkEditKillModelEditor
             // 
-            this.checkEditKillModelEditor.Location = new System.Drawing.Point(3, 57);
+            this.checkEditKillModelEditor.Location = new System.Drawing.Point(3, 200);
             this.checkEditKillModelEditor.Name = "checkEditKillModelEditor";
             this.checkEditKillModelEditor.Properties.Caption = "Kill b4 build";
             this.checkEditKillModelEditor.Size = new System.Drawing.Size(88, 19);
@@ -570,7 +620,7 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl12.AllowHtmlString = true;
             this.labelControl12.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
             this.labelControl12.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelControl12.Location = new System.Drawing.Point(125, 30);
+            this.labelControl12.Location = new System.Drawing.Point(125, 163);
             this.labelControl12.Name = "labelControl12";
             this.labelControl12.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
             this.labelControl12.Size = new System.Drawing.Size(394, 23);
@@ -587,27 +637,16 @@ namespace Xpand.CodeRush.Plugins
             // 
             // checkEditDebugME
             // 
-            this.checkEditDebugME.Location = new System.Drawing.Point(3, 30);
+            this.checkEditDebugME.Location = new System.Drawing.Point(3, 163);
             this.checkEditDebugME.Name = "checkEditDebugME";
             this.checkEditDebugME.Properties.Caption = "Debug";
             this.checkEditDebugME.Size = new System.Drawing.Size(53, 19);
             this.checkEditDebugME.TabIndex = 33;
             // 
-            // modelEditorPathButtonEdit
-            // 
-            this.modelEditorPathButtonEdit.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.modelEditorPathButtonEdit.Location = new System.Drawing.Point(125, 3);
-            this.modelEditorPathButtonEdit.Name = "modelEditorPathButtonEdit";
-            this.modelEditorPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton()});
-            this.modelEditorPathButtonEdit.Size = new System.Drawing.Size(394, 20);
-            this.modelEditorPathButtonEdit.TabIndex = 32;
-            this.modelEditorPathButtonEdit.ButtonClick += new DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPressedEventHandler(this.modelEditorPathButtonEdit_ButtonClick);
-            // 
             // labelControl15
             // 
             this.labelControl15.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl15.Location = new System.Drawing.Point(125, 57);
+            this.labelControl15.Location = new System.Drawing.Point(125, 200);
             this.labelControl15.Name = "labelControl15";
             this.labelControl15.Size = new System.Drawing.Size(394, 26);
             this.labelControl15.TabIndex = 38;
@@ -635,7 +674,6 @@ namespace Xpand.CodeRush.Plugins
             this.Name = "Options";
             this.Size = new System.Drawing.Size(530, 488);
             this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.Options_CommitChanges);
-            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             this.General.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
@@ -651,19 +689,21 @@ namespace Xpand.CodeRush.Plugins
             ((System.ComponentModel.ISupportInitialize)(this.publicTokenTextEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectConverterPathButtonEdit.Properties)).EndInit();
             this.DropDatabase.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlConnectionStrings)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.LoadProject.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlReferencedAssemblies)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit1)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.ModelEditor.ResumeLayout(false);
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlME)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditKillModelEditor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditDebugME.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.modelEditorPathButtonEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -719,12 +759,12 @@ namespace Xpand.CodeRush.Plugins
         private LabelControl labelControl2;
         private ButtonEdit publicTokenTextEdit;
         private System.Windows.Forms.TabPage DropDatabase;
-        private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControl1;
+        private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControlConnectionStrings;
         private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnName;
         private System.Windows.Forms.TabPage LoadProject;
         private System.Windows.Forms.Button button1;
-        private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControl2;
+        private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControlReferencedAssemblies;
         private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnDirectory;
         private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnPrefix;
@@ -737,7 +777,6 @@ namespace Xpand.CodeRush.Plugins
         private LabelControl labelControl6;
         private System.Windows.Forms.TabPage ModelEditor;
         private CheckEdit checkEditDebugME;
-        private ButtonEdit modelEditorPathButtonEdit;
         private LabelControl labelControl1;
         private LabelControl labelControl5;
         private LabelControl labelControl4;
@@ -755,5 +794,9 @@ namespace Xpand.CodeRush.Plugins
         private LabelControl labelControl14;
         private CheckEdit checkEditKillModelEditor;
         private LabelControl labelControl15;
+        private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControlME;
+        private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView3;
+        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit2;
     }
 }

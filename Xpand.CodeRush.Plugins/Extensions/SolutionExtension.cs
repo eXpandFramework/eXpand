@@ -1,6 +1,5 @@
 using System.Linq;
 using System.Text.RegularExpressions;
-using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
@@ -10,12 +9,9 @@ using Property = EnvDTE.Property;
 namespace Xpand.CodeRush.Plugins.Extensions {
     public static class SolutionExtension {
         public static string GetDXVersion(this Solution solution){
-            return GetDXVersion(DevExpress.CodeRush.Core.CodeRush.Documents);
-        }
-
-        private static string GetDXVersion(DocumentServices documents){
-            return documents.Active != null && documents.Active.ProjectElement != null
-                ? GetDXVersion(documents.Active.ProjectElement.AssemblyReferences): null;
+            return solution.DTE.Solution.Projects.Cast<Project>()
+                    .Select(project =>GetDXVersion(DevExpress.CodeRush.Core.CodeRush.Language.LoadProject(project).AssemblyReferences))
+                    .FirstOrDefault(s => s != null);
         }
 
         private static string GetDXVersion(NodeList assemblyReferences){

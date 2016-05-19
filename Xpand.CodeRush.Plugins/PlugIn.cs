@@ -30,7 +30,12 @@ namespace Xpand.CodeRush.Plugins {
         readonly EasyTest _easyTest=new EasyTest();
         public PlugIn(){
             InitializeComponent();
-        }pick 4f6227f Xpand.CodeRush.Plugins - Version agnostic + improved notification through output window
+            EventNexus.DXCoreLoaded += EventNexusOnDXCoreLoaded;
+
+        }
+
+        private void EventNexusOnDXCoreLoaded(DXCoreLoadedEventArgs ea){
+            DevExpress.CodeRush.Core.CodeRush.ToolWindows.Show<METoolWindow>();
 
         public override void InitializePlugIn(){
             base.InitializePlugIn();
@@ -39,6 +44,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void convertProject_Execute(ExecuteEventArgs ea) {
+            _dte.InitOutputCalls("ConvertProject");
             string path = Options.ReadString(Options.ProjectConverterPath);
             string token = Options.ReadString(Options.Token);
             if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(token)) {
@@ -89,6 +95,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void DropDataBase_Execute(ExecuteEventArgs ea){
+            _dte.InitOutputCalls("Dropdatabase");
             Task.Factory.StartNew(() =>{
             
                 var startUpProject = _dte.Solution.FindStartUpProject();
@@ -164,6 +171,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void loadProjects_Execute(ExecuteEventArgs ea) {
+            _dte.InitOutputCalls("LoadProjects");
             var uihSolutionExplorer = _dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
             if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
                 return;

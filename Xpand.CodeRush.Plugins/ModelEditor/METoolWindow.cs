@@ -5,13 +5,17 @@ using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.DXCore.Controls.XtraGrid;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
+using DevExpress.DXCore.Interop;
 using EnvDTE;
+using Microsoft.VisualStudio.Shell.Interop;
+using Xpand.CodeRush.Plugins.Extensions;
 using Xpand.CodeRush.Plugins.ModelEditor.Plugin;
 
 namespace Xpand.CodeRush.Plugins.ModelEditor {
     [Title("Xaf Models")]
     [ToolboxItem(false)]
     public partial class METoolWindow : ToolWindowPlugIn {
+        private readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
         string _buildingProject;
         bool? _atLeastOneFail;
 
@@ -44,7 +48,13 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
         
         #endregion
         private void OpenModelEditor(ProjectWrapper projectWrapper) {
-            new ModelEditorRunner().Start(projectWrapper);
+            _dte.InitOutputCalls("OpenModelEditor");
+            try{
+                new ModelEditorRunner().Start(projectWrapper);
+            }
+            catch (Exception e){
+                _dte.WriteToOutput(e.ToString());
+            }
         }
 
         private void gridView1_KeyUp(object sender, KeyEventArgs e) {
@@ -68,6 +78,28 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
 
         private void openModelEditorAction_Execute(ExecuteEventArgs ea) {
             Show();
+        }
+
+        static IVsWindowFrame GetWindowFrameFromGuid(Guid guid) {
+            Guid lSlot = guid;
+            IVsWindowFrame lFrame;
+            VisualStudioServices.VsUIShell.FindToolWindow((uint)__VSFINDTOOLWIN.FTW_fFrameOnly, ref lSlot, out lFrame);
+            return lFrame;
+        }
+        static IVsWindowFrame GetWindowFrameFromWindow(Window window){
+            return window == null
+                ? null
+                : (string.IsNullOrEmpty(window.ObjectKind) ? null : GetWindowFrameFromGuid(new Guid(window.ObjectKind)));
+        }
+
+        public static void ShowWindowDocked() {
+            var window = DevExpress.CodeRush.Core.CodeRush.ToolWindows.Show<METoolWindow>();
+            if (window != null) {
+                IVsWindowFrame frame = GetWindowFrameFromWindow(window);
+                if (frame != null) {
+                    frame.SetProperty((int)__VSFPROPID.VSFPROPID_FrameMode, VSFRAMEMODE.VSFM_MdiChild);
+                }
+            }
         }
 
 

@@ -50,6 +50,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor
             this.textEdit1 = new DevExpress.DXCore.Controls.XtraEditors.TextEdit();
             this.openModelEditorAction = new DevExpress.CodeRush.Core.Action(this.components);
             this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
@@ -61,7 +62,6 @@ namespace Xpand.CodeRush.Plugins.ModelEditor
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.EmbeddedNavigator.Name = "";
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
@@ -102,7 +102,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor
             // 
             this.textEdit1.Location = new System.Drawing.Point(309, 282);
             this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Size = new System.Drawing.Size(100, 22);
+            this.textEdit1.Size = new System.Drawing.Size(100, 20);
             this.textEdit1.TabIndex = 1;
             // 
             // openModelEditorAction
@@ -114,6 +114,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor
             this.openModelEditorAction.RegisterInVS = true;
             this.openModelEditorAction.ToolbarItem.ButtonIsPressed = false;
             this.openModelEditorAction.ToolbarItem.Caption = null;
+            this.openModelEditorAction.ToolbarItem.Enabled = true;
             this.openModelEditorAction.ToolbarItem.Image = null;
             this.openModelEditorAction.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.openModelEditorAction_Execute);
             // 
@@ -137,6 +138,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor
             this.ImageBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Name = "METoolWindow";
             this.Size = new System.Drawing.Size(709, 398);
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();

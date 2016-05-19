@@ -1,26 +1,53 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Reflection;
 using System.Windows.Forms;
+using EnvDTE;
+using Xpand.CodeRush.Plugins.Extensions;
+using Process = System.Diagnostics.Process;
 
 namespace Xpand.CodeRush.Plugins.ModelEditor {
     public class ModelEditorRunner {
+        private readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
         public void Start(ProjectWrapper projectWrapper) {
             string outputFileName = projectWrapper.OutPutFileName;
             if (outputFileName.ToLower().EndsWith(".exe"))
                 outputFileName += ".config";
             
-            string path = Options.ReadString(Options.ModelEditorPath);
-            if (!String.IsNullOrEmpty(path)) {
-                StartMEProcess(projectWrapper, outputFileName, path);
-                return;
-            }
-            const string modeleditorpathPathIsEmpty = "ModelEditorPath path is empty";
-            MessageBox.Show(modeleditorpathPathIsEmpty);
-            
+            string path = GetPath();
+            if (path != null) StartMEProcess(projectWrapper, outputFileName, path);
         }
+
+        private string GetPath(){
+            var dxVersion = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXVersion();
+            var mePaths = Options.GetMEPaths();
+            foreach (var me in mePaths.Where(me => File.Exists(me.Path))){
+                var assembly = Assembly.ReflectionOnlyLoadFrom(me.Path);
+                if (assembly.GetReferencedAssemblies().Any(name => name.Name.StartsWith("DevExpress") && name.Name.Contains(dxVersion)))
+                    return me.Path;
+            }
+            
+            if (!mePaths.Any()){
+                _dte.WriteToOutput("Use setting to add at least one model editor path ");
+                return null;
+            }
+            
+
+            var versionMissMatchPaths = mePaths.Where(me => File.Exists(me.Path)).Select(me => me.Path).ToArray();
+            var versionMissMatchMessage = versionMissMatchPaths.Any()
+                ? "Version missmatch for:" + Environment.NewLine +
+                  string.Join(Environment.NewLine, versionMissMatchPaths) + Environment.NewLine
+                : null;
+            var fileNotFoundPaths = mePaths.Where(me => !File.Exists(me.Path)).Select(me => me.Path).ToArray();
+            var fileNotFoundMessage = fileNotFoundPaths.Any()
+                ? "File not found:" + Environment.NewLine + string.Join(Environment.NewLine, fileNotFoundPaths)
+                : null;
+            _dte.WriteToOutput(versionMissMatchMessage + fileNotFoundMessage);
+            return null;
+        }
+
         void StartMEProcess(ProjectWrapper projectWrapper, string outputFileName, string path) {
             try{
                 var fullPath = projectWrapper.FullPath;

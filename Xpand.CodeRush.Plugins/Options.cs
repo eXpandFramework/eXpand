@@ -18,11 +18,13 @@ namespace Xpand.CodeRush.Plugins {
         public const string SpecificVersion = "SpecificVersion";
         public const string DebugME = "DebugME";
         public const string KillModelEditor = "KillModelEditor";
-        public const string ModelEditorPath = "modelEditorPath";
         public const string ProjectConverterPath = "projectConverterPath";
         public const string TestExecutorPath = "testExecutorPath";
         public const string Token = "token";
-        
+        private const string ConnectionStringsKey = "ConnectionStrings";
+        private const string SourceCodeInfosKey = "SourceCodeInfos";
+        private const string MEKey = "ME";
+
         // DXCore-generated code...
 
         #region Initialize
@@ -38,7 +40,6 @@ namespace Xpand.CodeRush.Plugins {
 
         private void OnPreparePage(object sender, OptionsPageStorageEventArgs ea){
             DecoupledStorage storage = GetStorage();
-            modelEditorPathButtonEdit.Text = storage.ReadString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
             projectConverterPathButtonEdit.Text = storage.ReadString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
             testExecutorButtonEdit.Text = storage.ReadString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
             publicTokenTextEdit.Text = storage.ReadString(PageName, Token, publicTokenTextEdit.Text);
@@ -47,16 +48,25 @@ namespace Xpand.CodeRush.Plugins {
             checkEditDebugME.Checked = storage.ReadBoolean(PageName, DebugME, checkEditDebugME.Checked);
             checkEditKillModelEditor.Checked = storage.ReadBoolean(PageName, KillModelEditor, true);
 
-            gridControl1.DataSource = GetConnectionStrings();
-            gridControl2.DataSource = GetSourceCodeInfos();
+            gridControlConnectionStrings.DataSource = GetConnectionStrings();
+            gridControlReferencedAssemblies.DataSource = GetSourceCodeInfos();
+            gridControlME.DataSource = GetMEPaths();
         }
 
+
         public static BindingList<SourceCodeInfo> GetSourceCodeInfos() {
-            return GetDataSource(CreateSourceCodeInfo(), "SourceCodeInfos");
+            return GetDataSource(CreateSourceCodeInfo(), SourceCodeInfosKey);
         }
 
         public static BindingList<ConnectionString> GetConnectionStrings() {
-            return GetDataSource(CreateConnectionString(), "ConnectionStrings");
+            return GetDataSource(CreateConnectionString(), ConnectionStringsKey);
+        }
+        public static BindingList<ME> GetMEPaths() {
+            return GetDataSource(CreateME(), MEKey);
+        }
+
+        private static Func<string, ME> CreateME(){
+            return s => new ME() {Path = s};
         }
 
         static Func<string, SourceCodeInfo> CreateSourceCodeInfo() {
@@ -91,6 +101,11 @@ namespace Xpand.CodeRush.Plugins {
                 return "RootPath:" + RootPath + " ProjectRegex=" + ProjectRegex + " Count=" + Count;
             }
         }
+
+        public class ME{
+            public string Path { get; set; }
+        }
+
         public class ConnectionString {
             public string Name { get; set; }
         }
@@ -116,23 +131,25 @@ namespace Xpand.CodeRush.Plugins {
             else if (Equals(openFileDialog1.Tag, ProjectConverterPath)) {
                 projectConverterPathButtonEdit.Text = openFileDialog1.FileName;
             }
-            else if (Equals(openFileDialog1.Tag, ModelEditorPath))
-                modelEditorPathButtonEdit.Text = openFileDialog1.FileName;
         }
 
         private void Options_CommitChanges(object sender, CommitChangesEventArgs ea) {
             var decoupledStorage = ea.Storage;
             decoupledStorage.WriteString(PageName, Token, publicTokenTextEdit.Text);
-            decoupledStorage.WriteString(PageName, ModelEditorPath, modelEditorPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
             decoupledStorage.WriteString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
             decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
             decoupledStorage.WriteBoolean(PageName, SpecificVersion, specificVersionCheckEdit.Checked);
             decoupledStorage.WriteBoolean(PageName, DebugME, checkEditDebugME.Checked);
             decoupledStorage.WriteBoolean(PageName, KillModelEditor, checkEditKillModelEditor.Checked);
-            decoupledStorage.WriteString(PageName, "SourceCodeInfos", "");
-            SaveDataSource(SerializeConnectionString, "ConnectionStrings", decoupledStorage, (BindingList<ConnectionString>)gridControl1.DataSource);
-            SaveDataSource(SerializeSourceCodeInfo, "SourceCodeInfos", decoupledStorage, (BindingList<SourceCodeInfo>)gridControl2.DataSource);
+            decoupledStorage.WriteString(PageName, SourceCodeInfosKey, "");
+            SaveDataSource(SerializeConnectionString, ConnectionStringsKey, decoupledStorage, (BindingList<ConnectionString>)gridControlConnectionStrings.DataSource);
+            SaveDataSource(SerializeSourceCodeInfo, SourceCodeInfosKey, decoupledStorage, (BindingList<SourceCodeInfo>)gridControlReferencedAssemblies.DataSource);
+            SaveDataSource(SerializeMe, MEKey, decoupledStorage, (BindingList<ME>)gridControlME.DataSource);
+        }
+
+        private string SerializeMe(ME me){
+            return me.Path + ";";
         }
 
         string SerializeSourceCodeInfo(SourceCodeInfo sourceCodeInfo) {
@@ -152,12 +169,12 @@ namespace Xpand.CodeRush.Plugins {
 
         private void button1_Click(object sender, EventArgs e) {
             button1.Enabled = false;
-            var gridView = ((GridView)gridControl2.MainView);
+            var gridView = ((GridView)gridControlReferencedAssemblies.MainView);
             for (int i = 0; i < gridView.RowCount; i++) {
                 var codeInfo = (SourceCodeInfo)gridView.GetRow(i);
                 StoreProjectPaths(codeInfo, i);
             }
-            gridControl2.RefreshDataSource();
+            gridControlReferencedAssemblies.RefreshDataSource();
             button1.Enabled = true;
         }
 
@@ -169,7 +186,7 @@ namespace Xpand.CodeRush.Plugins {
                         .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", sourceCodeInfo.ProjectRegex));
                 IEnumerable<string> paths = projectPaths.Select(s1 => s1 + "|" + GetOutPutPath(s1));
                 enumerable = paths as string[] ?? paths.ToArray();
-                sourceCodeInfo.Count = enumerable.Count();
+                sourceCodeInfo.Count = enumerable.Length;
             }
             Storage.WriteStrings(ProjectPaths, index + "_" + sourceCodeInfo.ProjectRegex, enumerable.ToArray());
         }
@@ -191,18 +208,15 @@ namespace Xpand.CodeRush.Plugins {
             return matchResults.Success ? matchResults.Groups[1].Value : null;
         }
 
-        private void modelEditorPathButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
-            ShowDialog(ModelEditorPath);
-        }
 
-        void ShowDialog(string modelEditorPath) {
-            openFileDialog1.FileName = Storage.ReadString(PageName, modelEditorPath, modelEditorPathButtonEdit.Text);
+        void ShowDialog(string modelEditorPath, string fileName) {
+            openFileDialog1.FileName = fileName;
             openFileDialog1.Tag = modelEditorPath;
             openFileDialog1.ShowDialog();
         }
 
         private void projectConverterPathButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
-            ShowDialog(ProjectConverterPath);
+            ShowDialog(ProjectConverterPath, Storage.ReadString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text));
         }
 
         public static bool ReadBool(string key){
@@ -213,7 +227,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void testExecutorButtonEdit_ButtonClick_1(object sender, ButtonPressedEventArgs e) {
-            ShowDialog(TestExecutorPath);
+            ShowDialog(TestExecutorPath, Storage.ReadString(PageName, TestExecutorPath, testExecutorButtonEdit.Text));
         }
 
     }
