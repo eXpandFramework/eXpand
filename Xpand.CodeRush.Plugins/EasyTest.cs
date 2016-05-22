@@ -22,7 +22,7 @@ namespace Xpand.CodeRush.Plugins{
         public event EventHandler<LastBuildStatusArgs> QueryLastBuildStatus;
         public void RunTest(bool debug){
             _dte.InitOutputCalls("RunTest");
-            Task.Factory.StartNew(() => RunTestCore(debug));
+            Task.Factory.StartNewNow(() => RunTestCore(debug));
         }
 
         private void RunTestCore(bool debug){

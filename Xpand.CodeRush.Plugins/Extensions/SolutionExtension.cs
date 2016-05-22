@@ -1,24 +1,29 @@
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
-using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
+using VSLangProj;
 using Xpand.CodeRush.Plugins.Enums;
 using Project = EnvDTE.Project;
 using Property = EnvDTE.Property;
 
 namespace Xpand.CodeRush.Plugins.Extensions {
     public static class SolutionExtension {
-        public static string GetDXVersion(this Solution solution){
-            return solution.DTE.Solution.Projects.Cast<Project>()
-                    .Select(project =>GetDXVersion(DevExpress.CodeRush.Core.CodeRush.Language.LoadProject(project).AssemblyReferences))
-                    .FirstOrDefault(s => s != null);
+        public static bool VersionMatch(this Assembly assembly) {
+            var dxVersion = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXVersion();
+            var referencedAssemblies = assembly.GetReferencedAssemblies();
+            var dxAssemblies = referencedAssemblies.Where(name => name.Name.StartsWith("DevExpress")).ToArray();
+            return !dxAssemblies.Any() || dxAssemblies.Any(name => name.Name.Contains(dxVersion));
         }
 
-        private static string GetDXVersion(NodeList assemblyReferences){
-            return assemblyReferences.OfType<AssemblyReference>().Select(reference =>{
-                var matchResults = Regex.Match(reference.Name, @"DevExpress(.*)(v[^.]*\.[.\d])");
-                return matchResults.Success ? matchResults.Groups[2].Value : null;
-            }).FirstOrDefault(s => s != null);
+        public static string GetDXVersion(this Solution solution){
+            return solution.DTE.Solution.Projects.Cast<Project>()
+                .Select(project => project.Object)
+                .Cast<VSProject>()
+                .SelectMany(project => project.References.Cast<Reference>()).Select(reference =>{
+                    var matchResults = Regex.Match(reference.Name, @"DevExpress(.*)(v[^.]*\.[.\d])");
+                    return matchResults.Success ? matchResults.Groups[2].Value : null;
+                }).FirstOrDefault(version => version!=null);
         }
 
         public static Project FindProjectFromUniqueName(this Solution solution, string projectName) {
@@ -39,23 +44,23 @@ namespace Xpand.CodeRush.Plugins.Extensions {
             var uihSolutionExplorer = dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
             if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
                 return;
-            UIHierarchyItem rootItem = uihSolutionExplorer.UIHierarchyItems.Item(1);
-            rootItem.DTE.SuppressUI = true;
-            Collapse(rootItem);
-            rootItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
-            rootItem.DTE.SuppressUI = false;
+            UIHierarchyItem hierarchyItem = uihSolutionExplorer.UIHierarchyItems.Item(1);
+            hierarchyItem.DTE.SuppressUI = true;
+            hierarchyItem.Expand(false);
+            hierarchyItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
+            hierarchyItem.DTE.SuppressUI = false;
         }
         public static Project FindStartUpProject(this Solution solution) {
             Property startUpProperty = solution.GetProperty(SolutionProperty.StartupProject);
             return solution.Projects.Cast<Project>().FirstOrDefault(project => project.Name == (string) startUpProperty.Value);
         }
 
-        private static void Collapse(UIHierarchyItem item) {
+        public static void Expand(this UIHierarchyItem item,bool expand) {
             foreach (UIHierarchyItem hierarchyItem in item.UIHierarchyItems) {
                 if (hierarchyItem.UIHierarchyItems.Count > 0) {
-                    Collapse(hierarchyItem);
+                    Expand(hierarchyItem,expand);
                     if (hierarchyItem.UIHierarchyItems.Expanded)
-                        hierarchyItem.UIHierarchyItems.Expanded = false;
+                        hierarchyItem.UIHierarchyItems.Expanded = expand;
                 }
             }
         }

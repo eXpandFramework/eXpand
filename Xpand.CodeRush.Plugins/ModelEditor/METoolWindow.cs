@@ -62,7 +62,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             if (gridView.FocusedRowHandle == 0 && e.KeyCode == Keys.Up)
                 gridView.FocusedRowHandle = GridControl.AutoFilterRowHandle;
             if (e.KeyCode == Keys.Return) {
-                if (GridControl.AutoFilterRowHandle != gridView.FocusedRowHandle) {
+                if (GridControl.AutoFilterRowHandle != gridView.FocusedRowHandle&& GridControl.InvalidRowHandle != gridView.FocusedRowHandle) {
                     var projectWrapper = (ProjectWrapper)gridView.GetRow(gridView.FocusedRowHandle);
                     if (e.Control) {
                         Solution solution = DevExpress.CodeRush.Core.CodeRush.Solution.Active;

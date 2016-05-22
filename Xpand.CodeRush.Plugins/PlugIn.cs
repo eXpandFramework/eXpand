@@ -4,11 +4,11 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
-using DevExpress.CodeRush.StructuralParser;
 using DevExpress.DXCore.Controls.Xpo.DB.Helpers;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
@@ -96,7 +96,7 @@ namespace Xpand.CodeRush.Plugins {
 
         private void DropDataBase_Execute(ExecuteEventArgs ea){
             _dte.InitOutputCalls("Dropdatabase");
-            Task.Factory.StartNew(() =>{
+            Task.Factory.StartNewNow(() =>{
             
                 var startUpProject = _dte.Solution.FindStartUpProject();
                 var configItem = startUpProject.ProjectItems.Cast<ProjectItem>()
@@ -155,7 +155,7 @@ namespace Xpand.CodeRush.Plugins {
             var database = parser.GetPartByName("initial catalog");
             parser.RemovePartByName("initial catalog");
             parser.RemovePartByName("xpoprovider");
-            _dte.WriteToOutput("Attempting connection with data source " + parser.GetPartByName("data source"));
+            _dte.WriteToOutput("ConnectionString name:" +connectionStringSettings.Name+ " data source: " + parser.GetPartByName("data source"));
             using (var connection = new SqlConnection(parser.GetConnectionString())){
                 connection.Open();
                 object result;
@@ -165,7 +165,7 @@ namespace Xpand.CodeRush.Plugins {
                 }
                 var exists = result != null && int.Parse(result + "") > 0;
                 string doesNot = exists ? null : " does not";
-                _dte.WriteToOutput(database+doesNot+" exists");
+                _dte.WriteToOutput("Database "+database+doesNot+" exists");
                 return exists;
             }
         }
@@ -178,18 +178,16 @@ namespace Xpand.CodeRush.Plugins {
             string constants = Constants.vsext_wk_SProjectWindow;
             if (ea.Action.ParentMenu == "Object Browser Objects Pane")
                 constants = Constants.vsWindowKindObjectBrowser;
-            Task.Factory.StartNew(() => LoadProjects(uihSolutionExplorer, constants));
+            Task.Factory.StartNewNow(() => LoadProjects(uihSolutionExplorer, constants));
         }
 
         private void LoadProjects(UIHierarchy uihSolutionExplorer, string constants){
             var hierarchyItem = ((UIHierarchyItem[]) uihSolutionExplorer.SelectedItems)[0];
-            Project dteProject = ((Reference) hierarchyItem.Object).ContainingProject;
-            ProjectElement activeProject = DevExpress.CodeRush.Core.CodeRush.Language.LoadProject(dteProject);
-            if (activeProject != null){
+            var containingProject = ((Reference) hierarchyItem.Object).ContainingProject.ToProjectElement();
+            if (containingProject != null){
                 var projectLoader = new ProjectLoader();
-                var selectedAssemblyReferences = activeProject.GetSelectedAssemblyReferences(constants).ToList();
-                _dte.WriteToOutput("Attempting load of " + selectedAssemblyReferences.Count + " selected assemblies from " +
-                                   activeProject.Name);
+                var selectedAssemblyReferences = containingProject.GetSelectedAssemblyReferences(constants).ToList();
+                _dte.WriteToOutput("Attempting load of " + selectedAssemblyReferences.Count + " selected assemblies from " +containingProject.Name);
                 if (projectLoader.Load(selectedAssemblyReferences)){
                     _dte.WriteToOutput("All projects loaded");
                 }
@@ -211,7 +209,7 @@ namespace Xpand.CodeRush.Plugins {
             if (Options.ReadBool(Options.SpecificVersion)) {
                 var dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
                 IEnumerable<IFullReference> fullReferences = null;
-                Task.Factory.StartNew(() => {
+                Task.Factory.StartNewNow(() => {
                     fullReferences = GetReferences(dte);
                 }).ContinueWith(task => {
                     foreach (var fullReference in fullReferences) {
@@ -250,6 +248,73 @@ namespace Xpand.CodeRush.Plugins {
                     }
                 }
             }
+        }
+
+        private void replaceReferencePath_Execute(ExecuteEventArgs ea) {
+            _dte.InitOutputCalls("Replace Reference Paths");
+            Task.Factory.StartNewNow(() => ModifyReferences(reference => true));
+        }
+
+        private IEnumerable<string> LocateAssemblyInFolders(string name){
+            var referencedAssembliesFolders = Options.GetReferencedAssembliesFolders();
+            foreach (var referencedAssembliesFolder in referencedAssembliesFolders){
+                var path = Directory.GetFiles(referencedAssembliesFolder.Folder,"*.dll").FirstOrDefault(s => Path.GetFileNameWithoutExtension(s)==name);
+                if (path != null){
+                    yield return path;
+                }
+            }
+        }
+
+        private void ModifyReferences(Func<Reference,bool> isFiltered){
+            try{
+                var referencedAssembliesFolders = Options.GetReferencedAssembliesFolders();
+                if (referencedAssembliesFolders.Count == 0)
+                    throw new Exception("Use options to add assmbly lookup folders");
+                var uihSolutionExplorer = _dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
+                if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
+                    throw new Exception("Nothing found");
+                var uiHierarchyItems = ((UIHierarchyItem[])uihSolutionExplorer.SelectedItems);
+                var references = GetReferences(isFiltered, uiHierarchyItems);
+                var vsProject = ((VSProject)references.First().ContainingProject.Object);
+                _dte.WriteToOutput(references.Length + " references detected");
+                foreach (Reference reference in references) {
+                    var referenceName = reference.Name;
+                    _dte.WriteToOutput("Locating "+referenceName);
+                    var assemblyPath =LocateAssemblyInFolders(referenceName).FirstOrDefault(path => Assembly.ReflectionOnlyLoadFrom(path).VersionMatch());
+                    if (assemblyPath != null){
+                        vsProject.References.Cast<Reference>().First(reference1 => reference1.Name==reference.Name).Remove();
+                        vsProject.References.Add(assemblyPath);
+                        _dte.WriteToOutput(referenceName + " replaced from " + Path.GetDirectoryName(assemblyPath));
+                    }
+                    else
+                        _dte.WriteToOutput(referenceName + " replacement not found");
+                }
+            }
+            catch (Exception e){
+                _dte.WriteToOutput(e.ToString());
+            }
+        }
+
+        private Reference[] GetReferences(Func<Reference, bool> isFiltered, UIHierarchyItem[] uiHierarchyItems){
+            _dte.SuppressUI = true;
+            var references = uiHierarchyItems.GetItems<UIHierarchyItem>(item =>{
+                if (!(item.Object is Reference)){
+                    item.UIHierarchyItems.Expanded = true;
+                }
+                return item.UIHierarchyItems.Cast<UIHierarchyItem>();
+            }).Select(item => item.Object).OfType<Reference>().Where(isFiltered).ToArray();
+            _dte.SuppressUI = false;
+            return references;
+        }
+
+        private void MissingReferences_Execute(ExecuteEventArgs ea) {
+            _dte.InitOutputCalls("Fix missing Paths or dx version missmatch");
+            Task.Factory.StartNewNow(
+                () => ModifyReferences(reference => !File.Exists(reference.Path) || VersionMissMatch(reference.Path)));
+        }
+
+        private bool VersionMissMatch(string path){
+            return !(Path.GetFileName(path) + "").StartsWith("DevExpress")&&!Assembly.ReflectionOnlyLoadFrom(path).VersionMatch();
         }
     }
 }

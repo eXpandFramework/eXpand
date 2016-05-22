@@ -118,6 +118,9 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <metadata name="openFileDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>140, 17</value>
+    <value>17, 56</value>
   </metadata>
+  <data name="labelControl16.Text" xml:space="preserve">
+    <value>Add the assembly lookup folders. You can assign a keyboard shortcut to the &lt;b&gt;AssemblyReferences&lt;/b&gt; command or use the context menu on the Project or the References Root to replace assmblies with invalid path. If used on a references selection it will replace valid paths as well.</value>
+  </data>
 </root>

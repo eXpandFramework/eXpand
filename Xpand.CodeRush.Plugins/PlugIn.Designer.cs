@@ -40,9 +40,13 @@ namespace Xpand.CodeRush.Plugins {
             this.loadProjectFromReferenceItem = new DevExpress.CodeRush.Core.Action(this.components);
             this.dropDataBase = new DevExpress.CodeRush.Core.Action(this.components);
             this.exploreXafErrors = new DevExpress.CodeRush.Core.Action(this.components);
-            
             this.RunEasyTest = new DevExpress.CodeRush.Core.Action(this.components);
             this.DebugEasyTest = new DevExpress.CodeRush.Core.Action(this.components);
+            this.ReplaceReferencesFromFolders = new DevExpress.CodeRush.Core.Action(this.components);
+            this.MissingReferencesRoot = new DevExpress.CodeRush.Core.Action(this.components);
+            this.MissingReferencesProject = new DevExpress.CodeRush.Core.Action(this.components);
+            this.MissingReferences = new DevExpress.CodeRush.Core.Action(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).BeginInit();
@@ -51,6 +55,10 @@ namespace Xpand.CodeRush.Plugins {
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RunEasyTest)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DebugEasyTest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReplaceReferencesFromFolders)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MissingReferencesRoot)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MissingReferencesProject)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MissingReferences)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // convertProject
@@ -89,6 +97,7 @@ namespace Xpand.CodeRush.Plugins {
             this.loadProjectFromReferenceItem.ButtonText = "Load Project/s";
             this.loadProjectFromReferenceItem.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
             this.loadProjectFromReferenceItem.ImageBackColor = System.Drawing.Color.Empty;
+            this.loadProjectFromReferenceItem.ParentMenu = "Reference Item";
             this.loadProjectFromReferenceItem.ToolbarItem.ButtonIsPressed = false;
             this.loadProjectFromReferenceItem.ToolbarItem.Enabled = true;
             this.loadProjectFromReferenceItem.ToolbarItem.Image = null;
@@ -114,9 +123,6 @@ namespace Xpand.CodeRush.Plugins {
             this.exploreXafErrors.ToolbarItem.Image = null;
             this.exploreXafErrors.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.exploreXafErrors_Execute);
             // 
-            // _actionHint
-            // 
-            // 
             // RunEasyTest
             // 
             this.RunEasyTest.ActionName = "RunEasyTest";
@@ -141,9 +147,64 @@ namespace Xpand.CodeRush.Plugins {
             this.DebugEasyTest.ToolbarItem.ToolbarName = "Xpand";
             this.DebugEasyTest.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.DebugEasyTest_Execute);
             // 
+            // ReplaceReferencesFromFolders
+            // 
+            this.ReplaceReferencesFromFolders.ActionName = "ReplaceReferencesFromFolders";
+            this.ReplaceReferencesFromFolders.ButtonText = "Replace selected";
+            this.ReplaceReferencesFromFolders.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.ReplaceReferencesFromFolders.ImageBackColor = System.Drawing.Color.Empty;
+            this.ReplaceReferencesFromFolders.ParentMenu = "Reference Item";
+            this.ReplaceReferencesFromFolders.ToolbarItem.ButtonIsPressed = false;
+            this.ReplaceReferencesFromFolders.ToolbarItem.Caption = null;
+            this.ReplaceReferencesFromFolders.ToolbarItem.Enabled = true;
+            this.ReplaceReferencesFromFolders.ToolbarItem.Image = null;
+            this.ReplaceReferencesFromFolders.ToolbarItem.ToolbarName = null;
+            this.ReplaceReferencesFromFolders.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.replaceReferencePath_Execute);
+            // 
+            // MissingReferencesRoot
+            // 
+            this.MissingReferencesRoot.ActionName = "MissingReferencesRoot";
+            this.MissingReferencesRoot.ButtonText = "Locate missing";
+            this.MissingReferencesRoot.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.MissingReferencesRoot.ImageBackColor = System.Drawing.Color.Empty;
+            this.MissingReferencesRoot.ParentMenu = "Reference Root";
+            this.MissingReferencesRoot.ToolbarItem.ButtonIsPressed = false;
+            this.MissingReferencesRoot.ToolbarItem.Caption = null;
+            this.MissingReferencesRoot.ToolbarItem.Enabled = true;
+            this.MissingReferencesRoot.ToolbarItem.Image = null;
+            this.MissingReferencesRoot.ToolbarItem.ToolbarName = null;
+            this.MissingReferencesRoot.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MissingReferences_Execute);
+            // 
+            // MissingReferencesProject
+            // 
+            this.MissingReferencesProject.ActionName = "MissingReferencesProject";
+            this.MissingReferencesProject.ButtonText = "Locate missing references";
+            this.MissingReferencesProject.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.MissingReferencesProject.ImageBackColor = System.Drawing.Color.Empty;
+            this.MissingReferencesProject.ParentMenu = "Project";
+            this.MissingReferencesProject.ToolbarItem.ButtonIsPressed = false;
+            this.MissingReferencesProject.ToolbarItem.Caption = null;
+            this.MissingReferencesProject.ToolbarItem.Enabled = true;
+            this.MissingReferencesProject.ToolbarItem.Image = null;
+            this.MissingReferencesProject.ToolbarItem.ToolbarName = null;
+            this.MissingReferencesProject.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MissingReferences_Execute);
+            // 
+            // MissingReferences
+            // 
+            this.MissingReferences.ActionName = "MissingReferences";
+            this.MissingReferences.CommonMenu = DevExpress.CodeRush.Menus.VsCommonBar.None;
+            this.MissingReferences.ImageBackColor = System.Drawing.Color.Empty;
+            this.MissingReferences.ToolbarItem.ButtonIsPressed = false;
+            this.MissingReferences.ToolbarItem.Caption = null;
+            this.MissingReferences.ToolbarItem.Enabled = true;
+            this.MissingReferences.ToolbarItem.Image = null;
+            this.MissingReferences.ToolbarItem.ToolbarName = null;
+            this.MissingReferences.Execute += new DevExpress.CodeRush.Core.CommandExecuteEventHandler(this.MissingReferences_Execute);
+            // 
             // PlugIn
             // 
             this.DocumentActivated += new DevExpress.CodeRush.Core.DocumentEventHandler(this.PlugIn_DocumentActivated);
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.convertProject)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.collapseAllItemsInSolutionExplorer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.events)).EndInit();
@@ -152,10 +213,19 @@ namespace Xpand.CodeRush.Plugins {
             ((System.ComponentModel.ISupportInitialize)(this.exploreXafErrors)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RunEasyTest)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DebugEasyTest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ReplaceReferencesFromFolders)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MissingReferencesRoot)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MissingReferencesProject)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MissingReferences)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }
 
         #endregion
+
+        private DevExpress.CodeRush.Core.Action ReplaceReferencesFromFolders;
+        private DevExpress.CodeRush.Core.Action MissingReferencesRoot;
+        private DevExpress.CodeRush.Core.Action MissingReferencesProject;
+        private DevExpress.CodeRush.Core.Action MissingReferences;
     }
 }

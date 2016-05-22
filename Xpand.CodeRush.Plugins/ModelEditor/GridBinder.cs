@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevExpress.DXCore.Controls.XtraGrid;
 using DevExpress.DXCore.PlugInCore;
 using EnvDTE;
+using Xpand.CodeRush.Plugins.Extensions;
 
 namespace Xpand.CodeRush.Plugins.ModelEditor.Plugin {
     public class GridBinder {
@@ -53,7 +54,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor.Plugin {
         private void SetGridDataSource(){
             List<ProjectWrapper> projectWrappers = null;
             var context = TaskScheduler.FromCurrentSynchronizationContext();
-            Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectWrappers().ToList())
+            Task.Factory.StartNewNow(() => projectWrappers = ProjectWrapperBuilder.GetProjectWrappers().ToList())
                 .ContinueWith(task1 => { _gridControl.DataSource = new BindingList<ProjectWrapper>(projectWrappers); }, context);
         }
 

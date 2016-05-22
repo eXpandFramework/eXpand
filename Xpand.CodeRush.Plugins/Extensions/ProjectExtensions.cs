@@ -1,12 +1,17 @@
 ﻿using System.IO;
 using System.Linq;
-using EnvDTE;
+using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
 using Project = EnvDTE.Project;
+using Property = EnvDTE.Property;
 
 namespace Xpand.CodeRush.Plugins.Extensions {
     public static class ProjectExtensions {
+        public static ProjectElement ToProjectElement(this Project project){
+            return DevExpress.CodeRush.Core.CodeRush.Source.ActiveSolution.ProjectElements.Cast<ProjectElement>().First(element => element.Name == project.Name);
+        }
+
         public static string FindOutputPath(this Project project) {
             var path2 = project.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value+"";
             if (!Path.IsPathRooted(path2)) {

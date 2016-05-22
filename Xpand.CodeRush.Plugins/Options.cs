@@ -23,6 +23,7 @@ namespace Xpand.CodeRush.Plugins {
         public const string Token = "token";
         private const string ConnectionStringsKey = "ConnectionStrings";
         private const string SourceCodeInfosKey = "SourceCodeInfos";
+        private const string ReferencedAssembliesFolderKey = "ReferencedAssembliesFolder";
         private const string MEKey = "ME";
 
         // DXCore-generated code...
@@ -49,8 +50,13 @@ namespace Xpand.CodeRush.Plugins {
             checkEditKillModelEditor.Checked = storage.ReadBoolean(PageName, KillModelEditor, true);
 
             gridControlConnectionStrings.DataSource = GetConnectionStrings();
-            gridControlReferencedAssemblies.DataSource = GetSourceCodeInfos();
+            gridControlLoadProjectFromReferenceItem.DataSource = GetSourceCodeInfos();
             gridControlME.DataSource = GetMEPaths();
+            gridControlAssemblyFolders.DataSource = GetReferencedAssembliesFolders();
+        }
+
+        public static BindingList<ReferencedAssembliesFolder> GetReferencedAssembliesFolders(){
+            return GetDataSource(CreateReferencedAssembliesFolder(), ReferencedAssembliesFolderKey);
         }
 
 
@@ -61,12 +67,17 @@ namespace Xpand.CodeRush.Plugins {
         public static BindingList<ConnectionString> GetConnectionStrings() {
             return GetDataSource(CreateConnectionString(), ConnectionStringsKey);
         }
+
         public static BindingList<ME> GetMEPaths() {
             return GetDataSource(CreateME(), MEKey);
         }
 
         private static Func<string, ME> CreateME(){
             return s => new ME() {Path = s};
+        }
+
+        private static Func<string, ReferencedAssembliesFolder> CreateReferencedAssembliesFolder(){
+            return s => new ReferencedAssembliesFolder() {Folder = s};
         }
 
         static Func<string, SourceCodeInfo> CreateSourceCodeInfo() {
@@ -91,6 +102,11 @@ namespace Xpand.CodeRush.Plugins {
                 var gridView = ((GridView)sender);
                 ((IList)gridView.DataSource).Remove(gridView.GetRow(gridView.FocusedRowHandle));
             }
+        }
+
+        public class ReferencedAssembliesFolder{
+
+            public string Folder { get; set; }
         }
 
         public class SourceCodeInfo {
@@ -143,9 +159,17 @@ namespace Xpand.CodeRush.Plugins {
             decoupledStorage.WriteBoolean(PageName, DebugME, checkEditDebugME.Checked);
             decoupledStorage.WriteBoolean(PageName, KillModelEditor, checkEditKillModelEditor.Checked);
             decoupledStorage.WriteString(PageName, SourceCodeInfosKey, "");
-            SaveDataSource(SerializeConnectionString, ConnectionStringsKey, decoupledStorage, (BindingList<ConnectionString>)gridControlConnectionStrings.DataSource);
-            SaveDataSource(SerializeSourceCodeInfo, SourceCodeInfosKey, decoupledStorage, (BindingList<SourceCodeInfo>)gridControlReferencedAssemblies.DataSource);
-            SaveDataSource(SerializeMe, MEKey, decoupledStorage, (BindingList<ME>)gridControlME.DataSource);
+            SaveDataSource(SerializeConnectionString, ConnectionStringsKey, decoupledStorage,
+                (BindingList<ConnectionString>) gridControlConnectionStrings.DataSource);
+            SaveDataSource(SerializeSourceCodeInfo, SourceCodeInfosKey, decoupledStorage,
+                (BindingList<SourceCodeInfo>) gridControlLoadProjectFromReferenceItem.DataSource);
+            SaveDataSource(SerializeMe, MEKey, decoupledStorage, (BindingList<ME>) gridControlME.DataSource);
+            SaveDataSource(SerializeReferencedAssembliesFolder, ReferencedAssembliesFolderKey, decoupledStorage,
+                (BindingList<ReferencedAssembliesFolder>) gridControlAssemblyFolders.DataSource);
+        }
+
+        private string SerializeReferencedAssembliesFolder(ReferencedAssembliesFolder referencedAssembliesFolder){
+            return referencedAssembliesFolder.Folder+";";
         }
 
         private string SerializeMe(ME me){
@@ -160,21 +184,19 @@ namespace Xpand.CodeRush.Plugins {
             return arg.Name + ";";
         }
 
-
         void SaveDataSource<T>(Func<T, string> func, string key, DecoupledStorage storage, IEnumerable<T> dataSource) {
             string connectionStrings = dataSource.Aggregate<T, string>(null, (current, connectionString) => current + func.Invoke(connectionString));
             storage.WriteString(PageName, key, connectionStrings);
         }
 
-
         private void button1_Click(object sender, EventArgs e) {
             button1.Enabled = false;
-            var gridView = ((GridView)gridControlReferencedAssemblies.MainView);
+            var gridView = ((GridView)gridControlLoadProjectFromReferenceItem.MainView);
             for (int i = 0; i < gridView.RowCount; i++) {
                 var codeInfo = (SourceCodeInfo)gridView.GetRow(i);
                 StoreProjectPaths(codeInfo, i);
             }
-            gridControlReferencedAssemblies.RefreshDataSource();
+            gridControlLoadProjectFromReferenceItem.RefreshDataSource();
             button1.Enabled = true;
         }
 

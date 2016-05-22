@@ -21,11 +21,10 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
         }
 
         private string GetPath(){
-            var dxVersion = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXVersion();
             var mePaths = Options.GetMEPaths();
             foreach (var me in mePaths.Where(me => File.Exists(me.Path))){
                 var assembly = Assembly.ReflectionOnlyLoadFrom(me.Path);
-                if (assembly.GetReferencedAssemblies().Any(name => name.Name.StartsWith("DevExpress") && name.Name.Contains(dxVersion)))
+                if (assembly.VersionMatch())
                     return me.Path;
             }
             
