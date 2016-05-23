@@ -101,6 +101,9 @@
     <Reference Include="DevExpress.XtraBars.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraGrid.v16.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraScheduler.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

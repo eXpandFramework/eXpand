@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.CodeRush.Plugins</RootNamespace>
     <AssemblyName>Xpand.CodeRush.Plugins</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <LangVersion>4</LangVersion>
@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Printing.v16.1.Core">
@@ -177,11 +179,14 @@
     <DXCorePluginsFolder>$(Registry:HKEY_CURRENT_USER\Software\Developer Express\CodeRush For VS@UserStorageFolder)\Plugins</DXCorePluginsFolder>
   </PropertyGroup>
   <Target Name="AfterBuild">
-    <Message Text="$(OutputPath)$(AssemblyName).dll"></Message>
-    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll;$(OutputPath)$(AssemblyName).pdb" DestinationFolder="$(DXCorePluginsFolder)" ContinueOnError="true"></Copy>
+    <Message Text="$(OutputPath)$(AssemblyName).dll">
+    </Message>
+    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll;$(OutputPath)$(AssemblyName).pdb" DestinationFolder="$(DXCorePluginsFolder)" ContinueOnError="true">
+    </Copy>
   </Target>
   <Import Project="..\Support\Build\Nuget.Targets" />
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

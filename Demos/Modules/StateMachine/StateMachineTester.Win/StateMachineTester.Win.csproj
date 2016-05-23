@@ -67,9 +67,6 @@
     <Reference Include="DevExpress.Persistent.Base.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v15.2">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

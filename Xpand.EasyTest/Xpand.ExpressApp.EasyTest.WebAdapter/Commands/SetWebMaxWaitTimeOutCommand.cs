@@ -7,10 +7,6 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter.Commands {
             var webMaxWaitTimeCommand = new SetMaxWaitTimeoutTimeCommand();
             webMaxWaitTimeCommand.Parameters.Add(new Parameter("Timeout",Parameters.MainParameter.Value,true,StartPosition));
             webMaxWaitTimeCommand.Execute(adapter);
-
-            var setMaxWaitCallbackTimeCommand = new SetMaxWaitCallbackTimeCommand();
-            setMaxWaitCallbackTimeCommand.Parameters.Add(new Parameter("Timeout", Parameters.MainParameter.Value, true, StartPosition));
-            setMaxWaitCallbackTimeCommand.Execute(adapter);
         }
     }
 }

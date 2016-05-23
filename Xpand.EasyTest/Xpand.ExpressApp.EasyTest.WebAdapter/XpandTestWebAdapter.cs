@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
 
         public override ICommandAdapter CreateCommandAdapter(){
             FileDownloadDialogHelper.SaveDialogOpened = false;
-            _webCommandAdapter = new XpandWebCommandAdapter(this);
+            _webCommandAdapter = new XpandWebCommandAdapter(WebBrowser);
             _webCommandAdapter.WaitForBrowserResponse();
             Win32Helper.MoveMousePointTo(new Point(0, 0));
             return _webCommandAdapter;
@@ -86,17 +86,14 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     }
 
     public class XpandWebCommandAdapter : WebCommandAdapter,IXpandEasyTestCommandAdapter{
-        public XpandWebCommandAdapter(DevExpress.ExpressApp.EasyTest.WebAdapter.WebAdapter adapter) : base(adapter){
+
+        public XpandWebCommandAdapter(IEasyTestWebBrowser webBrowser) : base(webBrowser){
         }
 
         public IntPtr MainWindowHandle{
-            get { return WebAdapter.WebBrowser.BrowserWindowHandle; }
-            set {  }
+            get { return WebBrowser.Browser.Document; }
         }
 
-        public IXpandTestAdapter Adapter{
-            get { return (IXpandTestAdapter) WebAdapter; }
-        }
     }
 
 }

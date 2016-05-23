@@ -51,6 +51,12 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Sparkline.v16.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v16.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Dashboard.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

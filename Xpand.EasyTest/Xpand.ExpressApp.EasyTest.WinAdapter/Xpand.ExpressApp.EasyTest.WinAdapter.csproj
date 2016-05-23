@@ -49,6 +49,9 @@
     <Reference Include="DevExpress.ExpressApp.Win.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Office.v16.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.RichEdit.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>

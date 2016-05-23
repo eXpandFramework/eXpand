@@ -44,6 +44,12 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors{
             return args.DashboardInfos;
         }
 
+        public IEnumerable<DashboardInfo> GetAvailableDashboardsInfo(){
+            var args = new RequestDashboardInfosArgs();
+            OnRequestDashboardInfos(args);
+            return args.DashboardInfos;
+        }
+
         public XDocument LoadDashboard(string id) {
             var args = new RequestDashboardXmlArgs();
             OnRequestDashboarXml(args);

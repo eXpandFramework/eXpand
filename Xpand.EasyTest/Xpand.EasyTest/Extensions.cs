@@ -37,7 +37,7 @@ namespace Xpand.EasyTest {
     }
 
     public interface IXpandEasyTestCommandAdapter {
-        IntPtr MainWindowHandle { get; set; }
+        IntPtr MainWindowHandle { get;  }
     }
 
     public interface IXpandTestWinAdapter : IXpandTestAdapter {
