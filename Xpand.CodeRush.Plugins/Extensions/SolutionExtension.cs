@@ -1,8 +1,8 @@
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using Microsoft.Win32;
+using Mono.Cecil;
 using VSLangProj;
 using Xpand.CodeRush.Plugins.Enums;
 using Project = EnvDTE.Project;
@@ -10,10 +10,9 @@ using Property = EnvDTE.Property;
 
 namespace Xpand.CodeRush.Plugins.Extensions {
     public static class SolutionExtension {
-        public static bool VersionMatch(this Assembly assembly) {
+        public static bool VersionMatch(this AssemblyDefinition assemblyDefinition) {
             var dxVersion = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXVersion();
-            var referencedAssemblies = assembly.GetReferencedAssemblies();
-            var dxAssemblies = referencedAssemblies.Where(name => name.Name.StartsWith("DevExpress")).ToArray();
+            var dxAssemblies = assemblyDefinition.MainModule.AssemblyReferences.Where(name => name.Name.StartsWith("DevExpress")).ToArray();
             return !dxAssemblies.Any() || dxAssemblies.Any(name => name.Name.Contains(dxVersion));
         }
 

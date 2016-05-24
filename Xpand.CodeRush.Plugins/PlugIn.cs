@@ -4,13 +4,13 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.DXCore.Controls.Xpo.DB.Helpers;
 using EnvDTE;
+using Mono.Cecil;
 using Xpand.CodeRush.Plugins.Enums;
 using Xpand.CodeRush.Plugins.Extensions;
 using Xpand.CodeRush.Plugins.ModelEditor;
@@ -36,6 +36,7 @@ namespace Xpand.CodeRush.Plugins {
 
         private void EventNexusOnDXCoreLoaded(DXCoreLoadedEventArgs ea){
             DevExpress.CodeRush.Core.CodeRush.ToolWindows.Show<METoolWindow>();
+        }
 
         public override void InitializePlugIn(){
             base.InitializePlugIn();
@@ -181,28 +182,35 @@ namespace Xpand.CodeRush.Plugins {
 
         private void loadProjects_Execute(ExecuteEventArgs ea) {
             _dte.InitOutputCalls("LoadProjects");
-            var uihSolutionExplorer = _dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
-            if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
-                return;
-            string constants = Constants.vsext_wk_SProjectWindow;
-            if (ea.Action.ParentMenu == "Object Browser Objects Pane")
-                constants = Constants.vsWindowKindObjectBrowser;
-            Task.Factory.StartNewNow(() => LoadProjects(uihSolutionExplorer, constants));
+            Task.Factory.StartNewNow(LoadProjects);
         }
 
-        private void LoadProjects(UIHierarchy uihSolutionExplorer, string constants){
-            var hierarchyItem = ((UIHierarchyItem[]) uihSolutionExplorer.SelectedItems)[0];
-            var containingProject = ((Reference) hierarchyItem.Object).ContainingProject.ToProjectElement();
-            if (containingProject != null){
-                var projectLoader = new ProjectLoader();
-                var selectedAssemblyReferences = containingProject.GetSelectedAssemblyReferences(constants).ToList();
-                _dte.WriteToOutput("Attempting load of " + selectedAssemblyReferences.Count + " selected assemblies from " +containingProject.Name);
-                if (projectLoader.Load(selectedAssemblyReferences)){
-                    _dte.WriteToOutput("All projects loaded");
+        private void LoadProjects(){
+            try{
+                var uihSolutionExplorer = _dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
+                if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
+                    throw new Exception("Nothing selected");
+                var references = GetReferences(reference => true, (UIHierarchyItem[])uihSolutionExplorer.SelectedItems);
+                foreach (var reference in references){
+                    var projectInfo = OptionClass.Instance.SourceCodeInfos.SelectMany(info => info.ProjectPaths)
+                        .FirstOrDefault(info =>info.OutputPath.ToLower() == reference.Path.ToLower() &&AssemblyDefinition.ReadAssembly(info.OutputPath).VersionMatch());
+                    if (projectInfo!=null){
+                        _dte.WriteToOutput(reference.Name + " found at "+projectInfo.OutputPath);
+                        DevExpress.CodeRush.Core.CodeRush.Solution.Active.AddFromFile(projectInfo.Path);
+                        var solutionContexts =_dte.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts.Cast<SolutionContext>()
+                                .Where(context =>Path.GetFileName(context.ProjectName) == Path.GetFileName(projectInfo.Path)).ToArray();
+                        foreach (var solutionContext in solutionContexts){
+                            solutionContext.ShouldBuild = false;
+                            solutionContext.ConfigurationName = _dte.Solution.SolutionBuild.ActiveConfiguration.Name;
+                        }
+                    }
+                    else {
+                        _dte.WriteToOutput(reference.Name + " not found " );
+                    }
                 }
             }
-            else{
-                throw new NotImplementedException();
+            catch (Exception e){
+                _dte.WriteToOutput(e.ToString());
             }
         }
 
@@ -219,18 +227,13 @@ namespace Xpand.CodeRush.Plugins {
                 var dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
                 IEnumerable<IFullReference> fullReferences = null;
                 Task.Factory.StartNewNow(() => {
-                    fullReferences = GetReferences(dte);
+                    fullReferences = dte.GetReferences();
                 }).ContinueWith(task => {
                     foreach (var fullReference in fullReferences) {
                         fullReference.SpecificVersion = false;
                     }
                 });
             }
-        }
-
-        private static IEnumerable<IFullReference> GetReferences(DTE dte) {
-            return dte.Solution.Projects.OfType<Project>().SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
-                reference.SpecificVersion && (reference.Identity.StartsWith("Xpand") || reference.Identity.StartsWith("DevExpress"))).ToArray();
         }
 
         private void DebugEasyTest_Execute(ExecuteEventArgs ea) {
@@ -288,7 +291,7 @@ namespace Xpand.CodeRush.Plugins {
                 foreach (Reference reference in references) {
                     var referenceName = reference.Name;
                     _dte.WriteToOutput("Locating "+referenceName);
-                    var assemblyPath =LocateAssemblyInFolders(referenceName,referencedAssembliesFolders).FirstOrDefault(path => Assembly.ReflectionOnlyLoadFrom(path).VersionMatch());
+                    var assemblyPath =LocateAssemblyInFolders(referenceName,referencedAssembliesFolders).FirstOrDefault(path => AssemblyDefinition.ReadAssembly(path).VersionMatch());
                     if (assemblyPath != null){
                         vsProject.References.Cast<Reference>().First(reference1 => reference1.Name==reference.Name).Remove();
                         vsProject.References.Add(assemblyPath);
@@ -322,7 +325,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private bool VersionMissMatch(string path){
-            return !(Path.GetFileName(path) + "").StartsWith("DevExpress")&&!Assembly.ReflectionOnlyLoadFrom(path).VersionMatch();
+            return !(Path.GetFileName(path) + "").StartsWith("DevExpress")&&!AssemblyDefinition.ReadAssembly(path).VersionMatch();
         }
     }
 }

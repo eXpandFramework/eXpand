@@ -23,7 +23,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
         private string GetPath(){
             var mePaths = OptionClass.Instance.MEs;
             foreach (var me in mePaths.Where(me => File.Exists(me.Path))){
-                var assembly = Assembly.ReflectionOnlyLoadFrom(me.Path);
+                var assembly = Mono.Cecil.AssemblyDefinition.ReadAssembly(me.Path);
                 if (assembly.VersionMatch())
                     return me.Path;
             }

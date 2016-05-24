@@ -4,10 +4,16 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.CodeRush.StructuralParser;
 using EnvDTE;
+using VSLangProj;
 
 namespace Xpand.CodeRush.Plugins.Extensions {
     public static class DteExtensions {
         private static OutputWindowPane _outputWindowPane;
+
+        public static IEnumerable<IFullReference> GetReferences(this DTE dte) {
+            return dte.Solution.Projects.OfType<Project>().SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
+                reference.SpecificVersion && (reference.Identity.StartsWith("Xpand") || reference.Identity.StartsWith("DevExpress"))).ToArray();
+        }
 
         public static void InitOutputCalls(this DTE dte, string text){
             dte.WriteToOutput(Environment.NewLine+"------------------"+text+ "------------------" + Environment.NewLine);
