@@ -7,7 +7,7 @@ using DevExpress.DXCore.PlugInCore;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Extensions;
 
-namespace Xpand.CodeRush.Plugins.ModelEditor.Plugin {
+namespace Xpand.CodeRush.Plugins.ModelEditor {
     public class GridBinder {
         readonly GridControl _gridControl;
 

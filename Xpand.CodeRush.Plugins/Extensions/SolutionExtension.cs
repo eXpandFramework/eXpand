@@ -2,6 +2,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using EnvDTE;
+using Microsoft.Win32;
 using VSLangProj;
 using Xpand.CodeRush.Plugins.Enums;
 using Project = EnvDTE.Project;
@@ -14,6 +15,11 @@ namespace Xpand.CodeRush.Plugins.Extensions {
             var referencedAssemblies = assembly.GetReferencedAssemblies();
             var dxAssemblies = referencedAssemblies.Where(name => name.Name.StartsWith("DevExpress")).ToArray();
             return !dxAssemblies.Any() || dxAssemblies.Any(name => name.Name.Contains(dxVersion));
+        }
+
+        public static string GetDXRootDirectory(this Solution solution){
+            var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\WOW6432node\DevExpress\Components\" + solution.GetDXVersion());
+            return registryKey != null ? (string) registryKey.GetValue("RootDirectory") : null;
         }
 
         public static string GetDXVersion(this Solution solution){

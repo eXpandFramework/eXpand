@@ -9,7 +9,6 @@ using DevExpress.DXCore.Interop;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell.Interop;
 using Xpand.CodeRush.Plugins.Extensions;
-using Xpand.CodeRush.Plugins.ModelEditor.Plugin;
 
 namespace Xpand.CodeRush.Plugins.ModelEditor {
     [Title("Xaf Models")]
@@ -36,7 +35,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                 var dialogResult = DialogResult.Yes;
                 if (_atLeastOneFail.HasValue && _atLeastOneFail.Value) {
                     _atLeastOneFail = null;
-                    dialogResult = MessageBox.Show(@"Build fail!!! Continue opening the ME?", null, MessageBoxButtons.YesNo);
+                    dialogResult = MessageBox.Show(@"Build fail!!! Continue opening the MEs?", null, MessageBoxButtons.YesNo);
                 }
                 if (dialogResult == DialogResult.Yes) {
                     var projectWrapper = (ProjectWrapper)gridView1.GetRow(gridView1.FocusedRowHandle);

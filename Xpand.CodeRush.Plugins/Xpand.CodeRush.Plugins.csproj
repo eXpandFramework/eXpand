@@ -159,10 +159,6 @@
     <Compile Include="Extensions\ProjectExtensions.cs" />
     <Compile Include="Extensions\ProjectItemExtensions.cs" />
     <Compile Include="Extensions\Extensions.cs" />
-    <Compile Include="FormatOnSave\DocumentEventArgs.cs" />
-    <Compile Include="FormatOnSave\DocumentLanguages.cs" />
-    <Compile Include="FormatOnSave\RunningDocumentTableConnectionPoint.cs" />
-    <Compile Include="FormatOnSave\RunningDocumentTableEventProvider.cs" />
     <Compile Include="ModelEditor\GridBinder.cs" />
     <Compile Include="ModelEditor\METoolWindow.cs">
       <SubType>UserControl</SubType>

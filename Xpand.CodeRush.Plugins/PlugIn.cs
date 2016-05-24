@@ -45,14 +45,23 @@ namespace Xpand.CodeRush.Plugins {
 
         private void convertProject_Execute(ExecuteEventArgs ea) {
             _dte.InitOutputCalls("ConvertProject");
-            string path = Options.ReadString(Options.ProjectConverterPath);
-            string token = Options.ReadString(Options.Token);
+            string path = GetProjectConverterPath();
+            string token = OptionClass.Instance.Token;
             if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(token)) {
                 var directoryName = Path.GetDirectoryName(DevExpress.CodeRush.Core.CodeRush.Solution.Active.FileName);
                 _dte.WriteToOutput("Project Converter Started !!!");
                 var userName = string.Format("/sc /k:{0} \"{1}\"", token, directoryName);
                 Process.Start(path, userName);
             }
+        }
+
+        private static string GetProjectConverterPath(){
+            if (string.IsNullOrWhiteSpace(OptionClass.Instance.ProjectConverterPath)){
+                var version = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXVersion();
+                var dxRootDirectory = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXRootDirectory();
+                return Path.Combine(dxRootDirectory + @"\Tools\Components", "TestExecutor." + version + ".exe");
+            }
+            return OptionClass.Instance.ProjectConverterPath;
         }
 
         private void collapseAllItemsInSolutionExplorer_Execute(ExecuteEventArgs ea) {
@@ -105,7 +114,7 @@ namespace Xpand.CodeRush.Plugins {
                     _dte.WriteToOutput("Startup project "+startUpProject.Name+" does not contain a config file");
                     return;
                 }
-                foreach (Options.ConnectionString optionsConnectionString in Options.GetConnectionStrings()) {
+                foreach (ConnectionString optionsConnectionString in OptionClass.Instance.ConnectionStrings) {
                     if (!string.IsNullOrEmpty(optionsConnectionString.Name)) {
                         var connectionStringSettings = GetConnectionStringSettings(configItem,optionsConnectionString.Name);
                         if (connectionStringSettings != null) {
@@ -155,7 +164,7 @@ namespace Xpand.CodeRush.Plugins {
             var database = parser.GetPartByName("initial catalog");
             parser.RemovePartByName("initial catalog");
             parser.RemovePartByName("xpoprovider");
-            _dte.WriteToOutput("ConnectionString name:" +connectionStringSettings.Name+ " data source: " + parser.GetPartByName("data source"));
+            _dte.WriteToOutput("ConnectionStrings name:" +connectionStringSettings.Name+ " data source: " + parser.GetPartByName("data source"));
             using (var connection = new SqlConnection(parser.GetConnectionString())){
                 connection.Open();
                 object result;
@@ -206,7 +215,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void events_SolutionOpened() {
-            if (Options.ReadBool(Options.SpecificVersion)) {
+            if (OptionClass.Instance.SpecificVersion) {
                 var dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
                 IEnumerable<IFullReference> fullReferences = null;
                 Task.Factory.StartNewNow(() => {
@@ -234,7 +243,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void events_ProjectBuildBegin(string project, string projectConfiguration, string platform, string solutionConfiguration){
-            if (Options.ReadBool(Options.KillModelEditor)) {
+            if (OptionClass.Instance.KillModelEditor) {
                 var processes =Process.GetProcesses().Where(process => process.ProcessName.StartsWith("Xpand.ExpressApp.ModelEditor")).ToArray();
                 if (processes.Any()){
                     var dialogResult =MessageBox.Show(
@@ -255,8 +264,7 @@ namespace Xpand.CodeRush.Plugins {
             Task.Factory.StartNewNow(() => ModifyReferences(reference => true));
         }
 
-        private IEnumerable<string> LocateAssemblyInFolders(string name){
-            var referencedAssembliesFolders = Options.GetReferencedAssembliesFolders();
+        private IEnumerable<string> LocateAssemblyInFolders(string name, IEnumerable<ReferencedAssembliesFolder> referencedAssembliesFolders){
             foreach (var referencedAssembliesFolder in referencedAssembliesFolders){
                 var path = Directory.GetFiles(referencedAssembliesFolder.Folder,"*.dll").FirstOrDefault(s => Path.GetFileNameWithoutExtension(s)==name);
                 if (path != null){
@@ -267,7 +275,7 @@ namespace Xpand.CodeRush.Plugins {
 
         private void ModifyReferences(Func<Reference,bool> isFiltered){
             try{
-                var referencedAssembliesFolders = Options.GetReferencedAssembliesFolders();
+                var referencedAssembliesFolders = OptionClass.Instance.ReferencedAssembliesFolders;
                 if (referencedAssembliesFolders.Count == 0)
                     throw new Exception("Use options to add assmbly lookup folders");
                 var uihSolutionExplorer = _dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
@@ -280,7 +288,7 @@ namespace Xpand.CodeRush.Plugins {
                 foreach (Reference reference in references) {
                     var referenceName = reference.Name;
                     _dte.WriteToOutput("Locating "+referenceName);
-                    var assemblyPath =LocateAssemblyInFolders(referenceName).FirstOrDefault(path => Assembly.ReflectionOnlyLoadFrom(path).VersionMatch());
+                    var assemblyPath =LocateAssemblyInFolders(referenceName,referencedAssembliesFolders).FirstOrDefault(path => Assembly.ReflectionOnlyLoadFrom(path).VersionMatch());
                     if (assemblyPath != null){
                         vsProject.References.Cast<Reference>().First(reference1 => reference1.Name==reference.Name).Remove();
                         vsProject.References.Add(assemblyPath);

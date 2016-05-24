@@ -89,12 +89,11 @@ namespace Xpand.CodeRush.Plugins{
         }
 
         private string GetTestExecutorPath(){
-            var testExecutorPath = Options.ReadString(Options.TestExecutorPath);
+            var testExecutorPath = OptionClass.Instance.TestExecutorPath;
             if (string.IsNullOrWhiteSpace(testExecutorPath)){
                 var version = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXVersion();
-                var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\WOW6432node\DevExpress\Components\"+version);
-                if (registryKey != null)
-                    return Path.Combine(registryKey.GetValue("RootDirectory")+ @"\Tools\eXpressAppFramework\EasyTest", "TestExecutor." +version+ ".exe");
+                var dxRootDirectory = DevExpress.CodeRush.Core.CodeRush.Solution.Active.GetDXRootDirectory();
+                return Path.Combine(dxRootDirectory + @"\Tools\eXpressAppFramework\EasyTest", "TestExecutor." +version+ ".exe");
             }
             return testExecutorPath;
         }

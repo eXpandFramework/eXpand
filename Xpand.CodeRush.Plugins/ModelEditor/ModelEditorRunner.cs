@@ -21,7 +21,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
         }
 
         private string GetPath(){
-            var mePaths = Options.GetMEPaths();
+            var mePaths = OptionClass.Instance.MEs;
             foreach (var me in mePaths.Where(me => File.Exists(me.Path))){
                 var assembly = Assembly.ReflectionOnlyLoadFrom(me.Path);
                 if (assembly.VersionMatch())
@@ -64,7 +64,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                     if (File.Exists(configPath))
                         File.Copy(configPath,Path.Combine(Path.GetDirectoryName(destFileName)+"",Path.GetFileName(configPath)),true);
                 }
-                string debugMe = Options.ReadBool(Options.DebugME)?"d":null;
+                string debugMe = OptionClass.Instance.DebugME ? "d":null;
                 string arguments = String.Format("{0} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
                 if (File.Exists(destFileName))
                     Process.Start(destFileName, arguments);

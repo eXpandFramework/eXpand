@@ -4,127 +4,60 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Xml;
+using System.Xml.Serialization;
 using DevExpress.CodeRush.Core;
 using DevExpress.DXCore.Controls.XtraEditors.Controls;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
+using EnvDTE;
+using Xpand.CodeRush.Plugins.Extensions;
 
 namespace Xpand.CodeRush.Plugins {
     [UserLevel(UserLevel.NewUser)]
     public partial class Options : OptionsPage {
-        public const string ProjectPaths = "ProjectPaths";
-        public const string FormatOnSave = "FormatOnSave";
-        public const string SpecificVersion = "SpecificVersion";
-        public const string DebugME = "DebugME";
-        public const string KillModelEditor = "KillModelEditor";
-        public const string ProjectConverterPath = "projectConverterPath";
-        public const string TestExecutorPath = "testExecutorPath";
-        public const string Token = "token";
-        private const string ConnectionStringsKey = "ConnectionStrings";
-        private const string SourceCodeInfosKey = "SourceCodeInfos";
-        private const string ReferencedAssembliesFolderKey = "ReferencedAssembliesFolder";
-        private const string MEKey = "ME";
+        
 
         // DXCore-generated code...
 
         #region Initialize
         protected override void Initialize() {
             base.Initialize();
-
+            
+            gridView1.KeyDown+=GridViewOnKeyDown;
+            gridView2.KeyDown+=GridViewOnKeyDown;
+            gridView3.KeyDown+=GridViewOnKeyDown;
+            gridView4.KeyDown+=GridViewOnKeyDown;
             
             PreparePage+=OnPreparePage;
-            gridView1.KeyDown += GridView1OnKeyDown;
-            gridView2.KeyDown += GridView1OnKeyDown;
-
         }
+
 
         private void OnPreparePage(object sender, OptionsPageStorageEventArgs ea){
-            DecoupledStorage storage = GetStorage();
-            projectConverterPathButtonEdit.Text = storage.ReadString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
-            testExecutorButtonEdit.Text = storage.ReadString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
-            publicTokenTextEdit.Text = storage.ReadString(PageName, Token, publicTokenTextEdit.Text);
-            formatOnSaveCheckEdit.Checked = storage.ReadBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
-            specificVersionCheckEdit.Checked = storage.ReadBoolean(PageName, SpecificVersion, true);
-            checkEditDebugME.Checked = storage.ReadBoolean(PageName, DebugME, checkEditDebugME.Checked);
-            checkEditKillModelEditor.Checked = storage.ReadBoolean(PageName, KillModelEditor, true);
+            projectConverterPathButtonEdit.Text = OptionClass.Instance.ProjectConverterPath;
+            testExecutorButtonEdit.Text = OptionClass.Instance.TestExecutorPath;
+            publicTokenTextEdit.Text = OptionClass.Instance.Token;
+            specificVersionCheckEdit.Checked = OptionClass.Instance.SpecificVersion;
+            checkEditDebugME.Checked = OptionClass.Instance.DebugME;
+            checkEditKillModelEditor.Checked = OptionClass.Instance.KillModelEditor;
 
-            gridControlConnectionStrings.DataSource = GetConnectionStrings();
-            gridControlLoadProjectFromReferenceItem.DataSource = GetSourceCodeInfos();
-            gridControlME.DataSource = GetMEPaths();
-            gridControlAssemblyFolders.DataSource = GetReferencedAssembliesFolders();
-        }
-
-        public static BindingList<ReferencedAssembliesFolder> GetReferencedAssembliesFolders(){
-            return GetDataSource(CreateReferencedAssembliesFolder(), ReferencedAssembliesFolderKey);
+            gridControlConnectionStrings.DataSource = OptionClass.Instance.ConnectionStrings;
+            gridControlLoadProjectFromReferenceItem.DataSource = OptionClass.Instance.SourceCodeInfos;
+            gridControlME.DataSource = OptionClass.Instance.MEs;
+            gridControlAssemblyFolders.DataSource = OptionClass.Instance.ReferencedAssembliesFolders;
         }
 
 
-        public static BindingList<SourceCodeInfo> GetSourceCodeInfos() {
-            return GetDataSource(CreateSourceCodeInfo(), SourceCodeInfosKey);
-        }
 
-        public static BindingList<ConnectionString> GetConnectionStrings() {
-            return GetDataSource(CreateConnectionString(), ConnectionStringsKey);
-        }
-
-        public static BindingList<ME> GetMEPaths() {
-            return GetDataSource(CreateME(), MEKey);
-        }
-
-        private static Func<string, ME> CreateME(){
-            return s => new ME() {Path = s};
-        }
-
-        private static Func<string, ReferencedAssembliesFolder> CreateReferencedAssembliesFolder(){
-            return s => new ReferencedAssembliesFolder() {Folder = s};
-        }
-
-        static Func<string, SourceCodeInfo> CreateSourceCodeInfo() {
-            return s => {
-                string[] strings = s.Split('|');
-                var strings1 = strings[1].Split('+');
-                return new SourceCodeInfo { RootPath = strings[0], ProjectRegex = strings1[0], Count = Convert.ToInt32(strings1[1]) };
-            };
-        }
-
-        static Func<string, ConnectionString> CreateConnectionString() {
-            return s => new ConnectionString { Name = s };
-        }
-
-        static BindingList<T> GetDataSource<T>(Func<string, T> selector, string key) {
-            string readString = Storage.ReadString(GetPageName(), key, "");
-            return new BindingList<T>(readString.Split(';').Where(s => !(string.IsNullOrEmpty(s))).Select(selector).ToList());
-        }
-
-        private void GridView1OnKeyDown(object sender, KeyEventArgs args) {
+        private void GridViewOnKeyDown(object sender, KeyEventArgs args) {
             if (args.KeyCode == Keys.Delete) {
                 var gridView = ((GridView)sender);
                 ((IList)gridView.DataSource).Remove(gridView.GetRow(gridView.FocusedRowHandle));
             }
         }
 
-        public class ReferencedAssembliesFolder{
-
-            public string Folder { get; set; }
-        }
-
-        public class SourceCodeInfo {
-            public string RootPath { get; set; }
-            public string ProjectRegex { get; set; }
-            public int Count { get; set; }
-            public override string ToString() {
-                return "RootPath:" + RootPath + " ProjectRegex=" + ProjectRegex + " Count=" + Count;
-            }
-        }
-
-        public class ME{
-            public string Path { get; set; }
-        }
-
-        public class ConnectionString {
-            public string Name { get; set; }
-        }
         #endregion
 
         #region GetCategory
@@ -139,78 +72,46 @@ namespace Xpand.CodeRush.Plugins {
         #endregion
 
 
-
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e) {
-            if (Equals(openFileDialog1.Tag, TestExecutorPath)) {
+            if (Equals(openFileDialog1.Tag, "TestExecutorPath")) {
                 testExecutorButtonEdit.Text = openFileDialog1.FileName;
             }
-            else if (Equals(openFileDialog1.Tag, ProjectConverterPath)) {
+            else if (Equals(openFileDialog1.Tag, "ProjectConverterPath")) {
                 projectConverterPathButtonEdit.Text = openFileDialog1.FileName;
             }
         }
 
-        private void Options_CommitChanges(object sender, CommitChangesEventArgs ea) {
-            var decoupledStorage = ea.Storage;
-            decoupledStorage.WriteString(PageName, Token, publicTokenTextEdit.Text);
-            decoupledStorage.WriteString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text);
-            decoupledStorage.WriteString(PageName, TestExecutorPath, testExecutorButtonEdit.Text);
-            decoupledStorage.WriteBoolean(PageName, FormatOnSave, formatOnSaveCheckEdit.Checked);
-            decoupledStorage.WriteBoolean(PageName, SpecificVersion, specificVersionCheckEdit.Checked);
-            decoupledStorage.WriteBoolean(PageName, DebugME, checkEditDebugME.Checked);
-            decoupledStorage.WriteBoolean(PageName, KillModelEditor, checkEditKillModelEditor.Checked);
-            decoupledStorage.WriteString(PageName, SourceCodeInfosKey, "");
-            SaveDataSource(SerializeConnectionString, ConnectionStringsKey, decoupledStorage,
-                (BindingList<ConnectionString>) gridControlConnectionStrings.DataSource);
-            SaveDataSource(SerializeSourceCodeInfo, SourceCodeInfosKey, decoupledStorage,
-                (BindingList<SourceCodeInfo>) gridControlLoadProjectFromReferenceItem.DataSource);
-            SaveDataSource(SerializeMe, MEKey, decoupledStorage, (BindingList<ME>) gridControlME.DataSource);
-            SaveDataSource(SerializeReferencedAssembliesFolder, ReferencedAssembliesFolderKey, decoupledStorage,
-                (BindingList<ReferencedAssembliesFolder>) gridControlAssemblyFolders.DataSource);
+        private void Options_CommitChanges(object sender, CommitChangesEventArgs ea){
+            var instance = OptionClass.Instance;
+            instance.ProjectConverterPath = projectConverterPathButtonEdit.Text;
+            instance.TestExecutorPath = testExecutorButtonEdit.Text;
+            instance.Token = publicTokenTextEdit.Text;
+            instance.SpecificVersion = specificVersionCheckEdit.Checked;
+            instance.DebugME = checkEditDebugME.Checked;
+            instance.KillModelEditor = checkEditKillModelEditor.Checked;
+            instance.Save();
         }
 
-        private string SerializeReferencedAssembliesFolder(ReferencedAssembliesFolder referencedAssembliesFolder){
-            return referencedAssembliesFolder.Folder+";";
-        }
-
-        private string SerializeMe(ME me){
-            return me.Path + ";";
-        }
-
-        string SerializeSourceCodeInfo(SourceCodeInfo sourceCodeInfo) {
-            return sourceCodeInfo.RootPath + "|" + sourceCodeInfo.ProjectRegex + "+" + sourceCodeInfo.Count + ";";
-        }
-
-        string SerializeConnectionString(ConnectionString arg) {
-            return arg.Name + ";";
-        }
-
-        void SaveDataSource<T>(Func<T, string> func, string key, DecoupledStorage storage, IEnumerable<T> dataSource) {
-            string connectionStrings = dataSource.Aggregate<T, string>(null, (current, connectionString) => current + func.Invoke(connectionString));
-            storage.WriteString(PageName, key, connectionStrings);
-        }
 
         private void button1_Click(object sender, EventArgs e) {
             button1.Enabled = false;
             var gridView = ((GridView)gridControlLoadProjectFromReferenceItem.MainView);
             for (int i = 0; i < gridView.RowCount; i++) {
                 var codeInfo = (SourceCodeInfo)gridView.GetRow(i);
-                StoreProjectPaths(codeInfo, i);
+                StoreProjectPaths(codeInfo);
             }
             gridControlLoadProjectFromReferenceItem.RefreshDataSource();
             button1.Enabled = true;
         }
 
-        void StoreProjectPaths(SourceCodeInfo sourceCodeInfo, int index) {
-            var enumerable=new string[0];
+        void StoreProjectPaths(SourceCodeInfo sourceCodeInfo) {
             if (Directory.Exists(sourceCodeInfo.RootPath)){
-                var projectPaths =
-                    Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories)
+                var projectPaths = Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories)
                         .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", sourceCodeInfo.ProjectRegex));
-                IEnumerable<string> paths = projectPaths.Select(s1 => s1 + "|" + GetOutPutPath(s1));
-                enumerable = paths as string[] ?? paths.ToArray();
-                sourceCodeInfo.Count = enumerable.Length;
+                var paths = projectPaths.Select(path => new ProjectInfo() {Path = path,OutputPath = GetOutPutPath(path)}).ToArray();
+                sourceCodeInfo.ProjectPaths.Clear();
+                sourceCodeInfo.ProjectPaths.AddRange(paths);
             }
-            Storage.WriteStrings(ProjectPaths, index + "_" + sourceCodeInfo.ProjectRegex, enumerable.ToArray());
         }
 
         string GetOutPutPath(string projectPath) {
@@ -238,7 +139,7 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void projectConverterPathButtonEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
-            ShowDialog(ProjectConverterPath, Storage.ReadString(PageName, ProjectConverterPath, projectConverterPathButtonEdit.Text));
+            ShowDialog("ProjectConverterPath", OptionClass.Instance.ProjectConverterPath);
         }
 
         public static bool ReadBool(string key){
@@ -249,8 +150,128 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         private void testExecutorButtonEdit_ButtonClick_1(object sender, ButtonPressedEventArgs e) {
-            ShowDialog(TestExecutorPath, Storage.ReadString(PageName, TestExecutorPath, testExecutorButtonEdit.Text));
+            ShowDialog("TestExecutorPath", OptionClass.Instance.TestExecutorPath);
         }
 
+    }
+
+    public class OptionClass{
+        private static readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
+        private readonly BindingList<ConnectionString> _connectionStrings=new BindingList<ConnectionString>();
+        private readonly BindingList<ReferencedAssembliesFolder> _referencedAssembliesFolders=new BindingList<ReferencedAssembliesFolder>();
+        private readonly BindingList<ME> _mEs=new BindingList<ME>();
+        private readonly BindingList<SourceCodeInfo> _sourceCodeInfos=new BindingList<SourceCodeInfo>();
+        private static readonly OptionClass _instance;
+        private static readonly string _path;
+
+        static OptionClass(){
+            var storage = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(typeof(Options));
+            _path = Path.Combine(Path.GetDirectoryName(storage.FileName) + "", Path.GetFileNameWithoutExtension(storage.FileName) + "-Options.xml");
+            _instance = GetOptionClass();
+        }
+
+        public static OptionClass Instance{
+            get { return _instance; }
+        }
+
+        public bool KillModelEditor { get; set; }
+
+
+        public bool DebugME { get; set; }
+
+
+        public bool SpecificVersion { get; set; }
+
+
+        public string Token { get; set; }
+
+        public string TestExecutorPath { get; set; }
+
+
+        public string ProjectConverterPath { get; set; }
+
+        private static OptionClass GetOptionClass() {
+            var optionClass = new OptionClass();
+            try {
+                var xmlSerializer = new XmlSerializer(typeof(OptionClass));
+
+                var allText = File.ReadAllText(_path);
+                if (!string.IsNullOrWhiteSpace(allText)){
+                    var xmlReader = XmlReader.Create(new StringReader(allText));
+                    if (xmlSerializer.CanDeserialize(xmlReader)){
+                        optionClass = (OptionClass) xmlSerializer.Deserialize(xmlReader);
+                    }
+                }
+            }
+            catch (Exception e) {
+                _dte.WriteToOutput(e.ToString());
+            }
+            return optionClass;
+
+        }
+
+        [XmlArray]
+        public BindingList<ConnectionString> ConnectionStrings{
+            get { return _connectionStrings; }
+        }
+        [XmlArray]
+        public BindingList<ReferencedAssembliesFolder> ReferencedAssembliesFolders{
+            get { return _referencedAssembliesFolders; }
+        }
+
+        [XmlArray]
+        public BindingList<ME> MEs{
+            get { return _mEs; }
+        }
+        [XmlArray]
+        public BindingList<SourceCodeInfo> SourceCodeInfos{
+            get { return _sourceCodeInfos; }
+        }
+
+        public void Save(){
+            var stringBuilder = new StringBuilder();
+            new XmlSerializer(typeof(OptionClass)).Serialize(XmlWriter.Create(stringBuilder),Instance );
+            File.WriteAllText(_path,stringBuilder.ToString());
+        }
+    }
+    public class ConnectionString :OptionClassBase{
+        public string Name { get; set; }
+    }
+
+    public class ReferencedAssembliesFolder:OptionClassBase{
+
+        public string Folder { get; set; }
+    }
+
+    public class ME:OptionClassBase{
+        public string Path { get; set; }
+    }
+
+
+    public class SourceCodeInfo:OptionClassBase {
+        private readonly List<ProjectInfo> _projectPaths=new List<ProjectInfo>();
+        public string RootPath { get; set; }
+        public string ProjectRegex { get; set; }
+
+        public int Count{
+            get { return ProjectPaths.Count; }
+        }
+
+        [XmlArray]
+        public List<ProjectInfo> ProjectPaths{
+            get { return _projectPaths; }
+        }
+
+        public override string ToString() {
+            return "RootPath:" + RootPath + " ProjectRegex=" + ProjectRegex + " Count=" + Count;
+        }
+    }
+
+    public class ProjectInfo{
+        public string Path { get; set; }
+        public string OutputPath { get; set; }
+    }
+
+    public class OptionClassBase{
     }
 }

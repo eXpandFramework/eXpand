@@ -40,7 +40,6 @@ namespace Xpand.CodeRush.Plugins
             this.General = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.specificVersionCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
-            this.formatOnSaveCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
             this.labelControl13 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.labelControl14 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.EasyTests = new System.Windows.Forms.TabPage();
@@ -91,10 +90,10 @@ namespace Xpand.CodeRush.Plugins
             this.gridColumn3 = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             this.repositoryItemCheckEdit3 = new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.labelControl16 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).BeginInit();
             this.General.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).BeginInit();
             this.EasyTests.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).BeginInit();
@@ -145,7 +144,6 @@ namespace Xpand.CodeRush.Plugins
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.specificVersionCheckEdit, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.formatOnSaveCheckEdit, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.labelControl13, 0, 2);
             this.tableLayoutPanel4.Controls.Add(this.labelControl14, 0, 3);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -168,15 +166,6 @@ namespace Xpand.CodeRush.Plugins
             this.specificVersionCheckEdit.Properties.Caption = "When a new assembly is referenced use False Specific Version";
             this.specificVersionCheckEdit.Size = new System.Drawing.Size(670, 19);
             this.specificVersionCheckEdit.TabIndex = 33;
-            // 
-            // formatOnSaveCheckEdit
-            // 
-            this.formatOnSaveCheckEdit.AutoSizeInLayoutControl = true;
-            this.formatOnSaveCheckEdit.Location = new System.Drawing.Point(3, 33);
-            this.formatOnSaveCheckEdit.Name = "formatOnSaveCheckEdit";
-            this.formatOnSaveCheckEdit.Properties.Caption = "Format On Save";
-            this.formatOnSaveCheckEdit.Size = new System.Drawing.Size(105, 19);
-            this.formatOnSaveCheckEdit.TabIndex = 32;
             // 
             // labelControl13
             // 
@@ -335,7 +324,8 @@ namespace Xpand.CodeRush.Plugins
             this.labelControl9.Size = new System.Drawing.Size(676, 36);
             this.labelControl9.TabIndex = 22;
             this.labelControl9.Text = "You can assign a keyboard shortcut to the <b>ProjectConverter</b> command and pro" +
-    "vide values to configure how the projectconverter will be executed. ";
+    "vide values to configure how the projectconverter will be executed.  Leave blank" +
+    " for auto detection";
             // 
             // DropDatabase
             // 
@@ -769,11 +759,11 @@ namespace Xpand.CodeRush.Plugins
             this.Name = "Options";
             this.Size = new System.Drawing.Size(684, 494);
             this.CommitChanges += new DevExpress.CodeRush.Core.OptionsPage.CommitChangesEventHandler(this.Options_CommitChanges);
+            ((System.ComponentModel.ISupportInitialize)(this.Images16x16)).EndInit();
             this.General.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.formatOnSaveCheckEdit.Properties)).EndInit();
             this.EasyTests.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -872,7 +862,6 @@ namespace Xpand.CodeRush.Plugins
         private DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit1;
         private System.Windows.Forms.TabControl tabControl1;
         private CheckEdit specificVersionCheckEdit;
-        private CheckEdit formatOnSaveCheckEdit;
         private ButtonEdit testExecutorButtonEdit;
         private LabelControl labelControl6;
         private System.Windows.Forms.TabPage ModelEditor;
