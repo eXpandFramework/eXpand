@@ -2,31 +2,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.PersistentTypesHelpers;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
-using Fasterflect;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.IO.Core {
     public class SerializeClassInfoGraphNodesCalculator {
         readonly ISerializationConfigurationGroup _serializationConfigurationGroup;
+        private readonly IObjectSpace _objectSpace;
 
-        public SerializeClassInfoGraphNodesCalculator(ISerializationConfigurationGroup serializationConfigurationGroup) {
+        public SerializeClassInfoGraphNodesCalculator(ISerializationConfigurationGroup serializationConfigurationGroup, IObjectSpace objectSpace){
             _serializationConfigurationGroup = serializationConfigurationGroup;
+            _objectSpace = objectSpace;
         }
 
-        ISerializationConfiguration GetConfiguration(Session session, Type type) {
-            var serializationConfigurationType = TypesInfo.Instance.SerializationConfigurationType;
-            ISerializationConfiguration configuration;
-            var findObject = session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, serializationConfigurationType,
-                                                SerializationConfigurationQuery.GetCriteria(type, _serializationConfigurationGroup));
-            if (findObject != null)
-                configuration = (ISerializationConfiguration)findObject;
-            else {
-                configuration =
-                    (ISerializationConfiguration)serializationConfigurationType.CreateInstance(session);
+        ISerializationConfiguration GetConfiguration(Type type) {
+            
+            var configuration = _objectSpace.QueryObject<ISerializationConfiguration>(
+                serializationConfiguration =>
+                    serializationConfiguration.SerializationConfigurationGroup == _serializationConfigurationGroup &&
+                    serializationConfiguration.TypeToSerialize == type);
+
+            if (configuration == null){
+                configuration = _objectSpace.Create<ISerializationConfiguration>();
                 configuration.SerializationConfigurationGroup = _serializationConfigurationGroup;
                 configuration.TypeToSerialize = type;
                 new ClassInfoGraphNodeBuilder().Generate(configuration);
@@ -34,14 +36,14 @@ namespace Xpand.ExpressApp.IO.Core {
             return configuration;
         }
 
-        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(XPBaseObject theObject, string typeName) {
+        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes( object theObject, string typeName) {
             var type = ReflectionHelper.GetType(typeName);
-            ISerializationConfiguration configuration = GetConfiguration(theObject.Session, type);
+            ISerializationConfiguration configuration = GetConfiguration(type);
             return GetSerializedClassInfoGraphNodes(configuration);
         }
 
-        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(XPBaseObject baseObject) {
-            var configuration = GetConfiguration(baseObject.Session, baseObject.GetType());
+        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(object baseObject) {
+            var configuration = GetConfiguration(baseObject.GetType());
             return GetSerializedClassInfoGraphNodes(configuration);
         }
 

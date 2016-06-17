@@ -24,9 +24,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
             _generateGraphAction.Execute+=GenerateGraphActionOnExecute;
         }
 
-        public SimpleAction GenerateGraphAction{
-            get { return _generateGraphAction; }
-        }
+        public SimpleAction GenerateGraphAction => _generateGraphAction;
 
         private void GenerateGraphActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
             var serializationConfiguration = ((ISerializationConfiguration)View.CurrentObject);

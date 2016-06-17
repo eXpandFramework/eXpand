@@ -6,18 +6,16 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Xpo;
-using TypesInfo = Xpand.ExpressApp.IO.Core.TypesInfo;
 
 namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
     public class ClassInfoGraphNodeBuilder {
         string[] _excludedMembers;
         ISerializationConfigurationGroup _serializationConfigurationGroup;
 
-        public string[] ExcludedMembers {
-            get { return _excludedMembers; }
-        }
+        public string[] ExcludedMembers => _excludedMembers;
 
         public void Generate(ISerializationConfiguration serializationConfiguration) {
             var typeToSerialize = serializationConfiguration.TypeToSerialize;
@@ -71,10 +69,10 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         void Generate(IObjectSpace objectSpace, Type typeToSerialize) {
-            if (!SerializationConfigurationQuery.ConfigurationExists(((XPObjectSpace)objectSpace).Session, typeToSerialize, _serializationConfigurationGroup)) {
-                var serializationConfiguration =
-                    (ISerializationConfiguration)
-                    objectSpace.CreateObject(TypesInfo.Instance.SerializationConfigurationType);
+            var configuration = objectSpace.QueryObject<ISerializationConfiguration>(serializationConfiguration => serializationConfiguration.SerializationConfigurationGroup == _serializationConfigurationGroup &&
+                                                                                                    serializationConfiguration.TypeToSerialize == typeToSerialize);
+            if (configuration==null) {
+                var serializationConfiguration = objectSpace.Create<ISerializationConfiguration>();
                 serializationConfiguration.SerializationConfigurationGroup = _serializationConfigurationGroup;
                 serializationConfiguration.TypeToSerialize = typeToSerialize;
                 Generate(serializationConfiguration);
@@ -93,7 +91,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
 
 
         IClassInfoGraphNode CreateClassInfoGraphNode(IObjectSpace objectSpace, IMemberInfo memberInfo, NodeType nodeType) {
-            var classInfoGraphNode = (IClassInfoGraphNode)objectSpace.CreateObject(TypesInfo.Instance.ClassInfoGraphNodeType);
+            var classInfoGraphNode = objectSpace.Create<IClassInfoGraphNode>();
             classInfoGraphNode.Name = memberInfo.Name;
             classInfoGraphNode.SerializationStrategy = GetSerializationStrategy(memberInfo, classInfoGraphNode.SerializationStrategy);
             classInfoGraphNode.TypeName = GetSerializedType(memberInfo).Name;
@@ -110,7 +108,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
                 }
             }
             var serializationStrategyAttribute = memberInfo.FindAttribute<SerializationStrategyAttribute>();
-            return serializationStrategyAttribute != null ? serializationStrategyAttribute.SerializationStrategy : serializationStrategy;
+            return serializationStrategyAttribute?.SerializationStrategy ?? serializationStrategy;
         }
 
         IEnumerable<IMemberInfo> GetMemberInfos(ITypeInfo typeInfo) {
