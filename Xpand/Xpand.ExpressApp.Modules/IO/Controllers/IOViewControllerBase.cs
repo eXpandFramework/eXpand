@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
@@ -11,15 +12,14 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Xpo;
 
 namespace Xpand.ExpressApp.IO.Controllers {
     public abstract class IOViewControllerBase : ViewController {
 
         readonly SingleChoiceAction _ioAction;
 
-        public SingleChoiceAction IOAction {
-            get { return _ioAction; }
-        }
+        public SingleChoiceAction IOAction => _ioAction;
 
         protected IOViewControllerBase() {
             _ioAction = new SingleChoiceAction(this, "IO", PredefinedCategory.Export) { ItemType = SingleChoiceActionItemType.ItemIsOperation };
@@ -38,20 +38,17 @@ namespace Xpand.ExpressApp.IO.Controllers {
         }
 
         void ShowSerializationView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            var groupObjectType = XafTypesInfo.Instance.FindBussinessObjectType<ISerializationConfigurationGroup>();
             var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
             
             showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             View view;
-            if (ObjectSpace.FindObject(groupObjectType, null) == null) {
-                IObjectSpace objectSpace = Application.CreateObjectSpace(XafTypesInfo.Instance.FindBussinessObjectType<ISerializationConfigurationGroup>()) ;                
-                var objectFromInterface = objectSpace.CreateObjectFromInterface<ISerializationConfigurationGroup>();
-                view = Application.CreateDetailView(objectSpace, objectFromInterface);
-                
+            var objectSpace = Application.CreateObjectSpace<ISerializationConfigurationGroup>();
+            if (!objectSpace.QueryObjects<ISerializationConfigurationGroup>().Any()) {                
+                var serializationConfigurationGroup = objectSpace.Create<ISerializationConfigurationGroup>();
+                view = Application.CreateDetailView(objectSpace, serializationConfigurationGroup);
             }
             else {
-                IObjectSpace objectSpace = Application.CreateObjectSpace(groupObjectType);
-                view = Application.CreateListView(objectSpace, groupObjectType, true);
+                view = Application.CreateListView<ISerializationConfigurationGroup>(objectSpace);
             }
             showViewParameters.CreatedView = view;
             AddDialogController(showViewParameters);
@@ -72,16 +69,16 @@ namespace Xpand.ExpressApp.IO.Controllers {
         }
 
         public virtual void Export(object selectedObject) {
-            var exportEngine = new ExportEngine();
-            var document = exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), ObjectSpace.GetObject((ISerializationConfigurationGroup)selectedObject));
+            var exportEngine = new ExportEngine(selectedObject.XPObjectSpace());
+            var document = exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), (ISerializationConfigurationGroup) selectedObject);
             Save(document);
         }
 
         protected abstract void Save(XDocument document);
 
         protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            var objectSpace = ((XPObjectSpace)Application.CreateObjectSpace(TypesInfo.Instance.XmlFileChooserType));
-            object o = objectSpace.CreateObject(TypesInfo.Instance.XmlFileChooserType);
+            var objectSpace = (XPObjectSpace)Application.CreateObjectSpace<IXmlFileChooser>();
+            object o = objectSpace.Create<IXmlFileChooser>();
             var detailView = Application.CreateDetailView(objectSpace, o);
             detailView.ViewEditMode=ViewEditMode.Edit;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = detailView;
@@ -90,12 +87,15 @@ namespace Xpand.ExpressApp.IO.Controllers {
                 var memoryStream = new MemoryStream();
                 var xmlFileChooser = ((IXmlFileChooser)args.CurrentObject);
                 xmlFileChooser.FileData.SaveToStream(memoryStream);
-                new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, new UnitOfWork(objectSpace.Session.DataLayer));
+                new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, CreateObjectSpace);
             };
-
-
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
+        }
+
+        private IObjectSpace CreateObjectSpace(ITypeInfo typeInfo){
+            return Application.ObjectSpaceProviders.First(
+                    provider => provider.EntityStore.RegisteredEntities.Contains(typeInfo.Type)).CreateObjectSpace();
         }
     }
 }
