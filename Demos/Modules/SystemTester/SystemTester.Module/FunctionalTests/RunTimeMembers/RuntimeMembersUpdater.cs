@@ -20,6 +20,7 @@ namespace SystemTester.Module.FunctionalTests.RuntimeMembers {
                 var address = ObjectSpace.CreateObject<Address>();
                 address.Country = ObjectSpace.CreateObject<Country>();
                 address.Country.Name = "Greece";
+
             }
 
         }

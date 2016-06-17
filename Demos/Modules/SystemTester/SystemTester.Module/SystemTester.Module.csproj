@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module</RootNamespace>
     <AssemblyName>SystemTester.Module</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>0d93d223</NuGetPackageImportStamp>
@@ -238,9 +240,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="FunctionalTests\RunTimeMembers\ModelDifference\RunTimeMembersModelDifference.ets" />
-    <None Include="FunctionalTests\RunTimeMembers\ModelDifference\RunTimeMembersModelDifference.xafml">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="FunctionalTests\RunTimeMembers\RunTimeMembers.ets" />
     <None Include="FunctionalTests\RunTimeMembers\RunTimeMembers.xafml">
       <SubType>Designer</SubType>
@@ -338,7 +337,8 @@
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml">
-      <SubType></SubType>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />
