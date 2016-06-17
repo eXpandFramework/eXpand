@@ -11,7 +11,8 @@ namespace Xpand.EasyTest.Commands.InputSimulator{
         public const string Name = "SendKeys";
 
         protected override void InternalExecute(ICommandAdapter adapter){
-            
+            if (Parameters.MainParameter==null)
+                Parameters.MainParameter=new MainParameter();
             var activateApplicationWindowCommand = new ActivateWindowCommand();
             activateApplicationWindowCommand.SynchWith(this);
             activateApplicationWindowCommand.Execute(adapter);
@@ -38,17 +39,24 @@ namespace Xpand.EasyTest.Commands.InputSimulator{
                 simulator.Keyboard.ModifiedKeyStroke((modifiers.Value).Split(';').Select(GetVirtualKey),
                     keysParameter.Value.Split(';').Select(GetVirtualKey));
             }
-            if (keysParameter != null){
+            else if (keysParameter != null){
                 foreach (var key in keysParameter.Value.Split(';')){
                     var keyCode = GetVirtualKey(key);
                     simulator.Keyboard.KeyPress(keyCode);
+                    simulator.Keyboard.KeyUp(keyCode);
                     Thread.Sleep(300);
                 }
             }
         }
 
         private static Win32Constants.VirtualKeys GetVirtualKey(string key){
-            return (Win32Constants.VirtualKeys) Enum.Parse(typeof (Win32Constants.VirtualKeys), key,true);
+
+            try{
+                return (Win32Constants.VirtualKeys) Enum.Parse(typeof (Win32Constants.VirtualKeys), key,true);
+            }
+            catch (Exception e){
+                throw new Exception(key,e);
+            }
         }
     }
 }

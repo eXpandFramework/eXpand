@@ -4,7 +4,9 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+using ModelDifferenceTester.Module.FunctionalTests.ApplicationModel;
 using ModelDifferenceTester.Module.FunctionalTests.RoleModel;
+using ModelDifferenceTester.Module.FunctionalTests.UserModel;
 using Xpand.ExpressApp.ModelDifference.Security;
 using Xpand.ExpressApp.Security.Core;
 
@@ -21,7 +23,12 @@ namespace ModelDifferenceTester.Module.DatabaseUpdate {
             var userRole = ObjectSpace.GetRole("User");
             var user = (SecuritySystemUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
+            user = (SecuritySystemUser)userRole.GetUser("user2");
+            user.Roles.Add(defaultRole);
             userRole.EnsureTypePermissions<RoleModelObject>(SecurityOperations.FullAccess);
+            userRole.EnsureTypePermissions<UserModelObject>(SecurityOperations.FullAccess);
+            userRole.EnsureTypePermissions<ApplicationModelObject>(SecurityOperations.FullAccess);
+
 
             var modelRole = (SecuritySystemRole)ObjectSpace.GetDefaultModelRole("ModelRole");
             user.Roles.Add(modelRole);
