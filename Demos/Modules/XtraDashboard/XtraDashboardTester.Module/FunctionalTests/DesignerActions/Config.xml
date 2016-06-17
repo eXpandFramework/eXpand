@@ -3,7 +3,7 @@
   <Applications>
     <!-- Win -->
     <Application
-			Name="XtraDashboardTester.Win"
+			Name="XtraDashboardTester.Win" Ignored="0"
 			FileName="[WinAppBin]\XtraDashboardTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100" Ignored="0"/>

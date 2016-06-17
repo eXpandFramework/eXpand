@@ -33,7 +33,6 @@ namespace Xpand.Docs.Module.Web {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.HtmlPropertyEditor.Web.XpandHtmlPropertyEditorAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AdditionalViewControlsProvider.Web.AdditionalViewControlsProviderAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FileAttachment.Web.XpandFileAttachmentsWebModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.FilterDataStore.Web.FilterDataStoreAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.IO.Web.IOAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.NCarousel.Web.NCarouselWebModule));

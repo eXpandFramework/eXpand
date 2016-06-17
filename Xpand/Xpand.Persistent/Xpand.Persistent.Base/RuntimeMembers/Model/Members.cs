@@ -13,6 +13,7 @@ using Xpand.Persistent.Base.General.Model.RequiredCalculators;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.RuntimeMembers.Model.Collections;
+using Xpand.Xpo;
 using Xpand.Xpo.MetaData;
 
 namespace Xpand.Persistent.Base.RuntimeMembers.Model {
@@ -47,7 +48,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
         [ModelBrowsable(typeof(NotVisibileCalculator))]
         [Required(typeof(NotRequiredCalculator))]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ExpressionModelEditorControl, DevExpress.ExpressApp.Win.v13.2, Version=13.2.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a", typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ExpressionModelEditorControl, DevExpress.ExpressApp.Win"+ XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
         new string Expression { get; set; }
         
         [DefaultValue(false)]
@@ -61,6 +62,15 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
     [ModelDisplayName("NonPersistent")]
     [ModelPersistentName("RuntimeNonPersistentMember")]
     public interface IModelMemberNonPersistent : IModelMemberEx {
+    }
+
+    [DomainLogic(typeof(IModelMemberNonPersistent))]
+    public class ModelMemberNonPersistentDomainLogic : ModelMemberExDomainLogicBase<IModelMemberNonPersistent> {
+        public static IMemberInfo Get_MemberInfo(IModelMemberNonPersistent modelRuntimeMember) {
+            return GetMemberInfo(modelRuntimeMember,
+                (persistent, info) => info.CreateCustomMember(persistent.Name, persistent.Type, true),
+                persistent => true);
+        }
     }
 
     public class XpandStringToTypeConverterExtended : StringToTypeConverterExtended {

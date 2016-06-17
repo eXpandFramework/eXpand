@@ -20,6 +20,8 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight {
                 propertyEditor.ControlCreated+=ControlCreated;
             }
             View.ViewEditModeChanged+=ViewOnViewEditModeChanged;
+            if (WebWindow.CurrentRequestWindow != null)
+                WebWindow.CurrentRequestWindow.PagePreRender -= CurrentRequestWindowOnPagePreRender;
         }
 
         private void ViewOnViewEditModeChanged(object sender, EventArgs eventArgs){
