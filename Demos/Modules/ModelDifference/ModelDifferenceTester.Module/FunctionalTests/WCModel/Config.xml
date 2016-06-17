@@ -5,14 +5,14 @@
     <Application
 			Name="ModelDifferenceTester.Win"
 			FileName="[WinAppBin]\ModelDifferenceTester.Win.exe"
-      AdapterFileName="[WinAdapterFileName]"
+      AdapterFileName="[WinAdapterFileName]" Parameter="WCModel"
 			CommunicationPort="4100" />
     <!-- Web -->
     <Application
 			Name="ModelDifferenceTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]" 
+      AdapterFileName="[WebAdapterFileName]" Parameter="WCModel"
 />
     <!-- For IIS -->
     <!--Application
@@ -21,7 +21,7 @@
 			 AdapterFileName="[WebAdapterFileName]"/-->
   </Applications>
   <TestDatabases>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="ModelDifferenceTesterEasyTest" />
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="ModelDifferenceWorldCreatorTester" />
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

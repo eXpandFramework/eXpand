@@ -1,11 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.Xpo.DB;
-using Xpand.ExpressApp.WorldCreator.Core;
-using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.PersistentMetaData;
-using Xpand.Persistent.BaseImpl.PersistentMetaData;
 
 namespace ModelDifferenceTester.Module.FunctionalTests.WCModel {
     public class WCModelUpdater:ModuleUpdater {
