@@ -196,13 +196,10 @@ namespace Xpand.CodeRush.Plugins {
                         .FirstOrDefault(info =>info.OutputPath.ToLower() == reference.Path.ToLower() &&AssemblyDefinition.ReadAssembly(info.OutputPath).VersionMatch());
                     if (projectInfo!=null){
                         _dte.WriteToOutput(reference.Name + " found at "+projectInfo.OutputPath);
-                        DevExpress.CodeRush.Core.CodeRush.Solution.Active.AddFromFile(projectInfo.Path);
-                        var solutionContexts =_dte.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts.Cast<SolutionContext>()
-                                .Where(context =>Path.GetFileName(context.ProjectName) == Path.GetFileName(projectInfo.Path)).ToArray();
-                        foreach (var solutionContext in solutionContexts){
-                            solutionContext.ShouldBuild = false;
-                            solutionContext.ConfigurationName = _dte.Solution.SolutionBuild.ActiveConfiguration.Name;
-                        }
+                        var project = DevExpress.CodeRush.Core.CodeRush.Solution.Active.AddFromFile(projectInfo.Path);
+                        SkipBuild( project);
+                        ChangeActiveConfiguration(project);
+                        
                     }
                     else {
                         _dte.WriteToOutput(reference.Name + " not found " );
@@ -212,6 +209,29 @@ namespace Xpand.CodeRush.Plugins {
             catch (Exception e){
                 _dte.WriteToOutput(e.ToString());
             }
+        }
+
+        private void ChangeActiveConfiguration(Project project){
+            var solutionConfigurationNames = _dte.Solution.SolutionBuild.SolutionConfigurations.Cast<SolutionConfiguration>()
+                            .OrderByDescending(solutionConfiguration => solutionConfiguration == _dte.Solution.SolutionBuild.ActiveConfiguration).
+                            ThenByDescending(solutionConfiguration => solutionConfiguration.Name.ToLower() == "debug").
+                            Select(configuration => configuration.Name).ToArray();
+            var configurationName = solutionConfigurationNames.First(solutionConfigurationName =>project.ConfigurationManager.Cast<EnvDTE.Configuration>()
+                        .Any(configuration => configuration.ConfigurationName == solutionConfigurationName));
+            var solutionContext = _dte.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts.Cast<SolutionContext>().First(context => Path.GetFileNameWithoutExtension(context.ProjectName) ==project.Name);
+            solutionContext.ConfigurationName = configurationName;
+            _dte.WriteToOutput(solutionContext.ConfigurationName+" configuration activated");
+        }
+
+        private  void SkipBuild(Project project){
+            var solutionConfigurations = _dte.Solution.SolutionBuild.SolutionConfigurations.Cast<SolutionConfiguration>();
+            var solutionContexts = solutionConfigurations.SelectMany(
+                solutionConfiguration => solutionConfiguration.SolutionContexts.Cast<SolutionContext>())
+                .Where(context => Path.GetFileNameWithoutExtension(context.ProjectName) == project.Name).ToArray();
+            foreach (var solutionContext in solutionContexts){
+                solutionContext.ShouldBuild = false;
+            }
+            
         }
 
         private void events_ProjectBuildDone(string project, string projectConfiguration, string platform, string solutionConfiguration, bool succeeded) {
@@ -291,7 +311,7 @@ namespace Xpand.CodeRush.Plugins {
                 foreach (Reference reference in references) {
                     var referenceName = reference.Name;
                     _dte.WriteToOutput("Locating "+referenceName);
-                    var assemblyPath =LocateAssemblyInFolders(referenceName,referencedAssembliesFolders).FirstOrDefault(path => AssemblyDefinition.ReadAssembly(path).VersionMatch());
+                    var assemblyPath =LocateAssemblyInFolders(referenceName,referencedAssembliesFolders).FirstOrDefault(path =>path!=reference.Path&& AssemblyDefinition.ReadAssembly(path).VersionMatch());
                     if (assemblyPath != null){
                         vsProject.References.Cast<Reference>().First(reference1 => reference1.Name==reference.Name).Remove();
                         vsProject.References.Add(assemblyPath);
