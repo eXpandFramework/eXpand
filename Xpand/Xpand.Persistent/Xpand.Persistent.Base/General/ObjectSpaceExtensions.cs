@@ -150,12 +150,16 @@ namespace Xpand.Persistent.Base.General {
             return objectSpace.GetObjectsToSave(true).OfType<TClassType>().Where(type => !objectSpace.IsNewObject(type));
         }
 
-        public static IEnumerable<TClassType> QueryObjects<TClassType>(this IObjectSpace objectSpace,PersistentCriteriaEvaluationBehavior behavior = PersistentCriteriaEvaluationBehavior.InTransaction){
+        public static IEnumerable<TClassType> QueryObjects<TClassType>(this IObjectSpace objectSpace){
+            return objectSpace.QueryObjects<TClassType>(PersistentCriteriaEvaluationBehavior.InTransaction);
+        }
+
+        public static IEnumerable<TClassType> QueryObjects<TClassType>(this IObjectSpace objectSpace,PersistentCriteriaEvaluationBehavior behavior){
             return objectSpace.QueryObjects<TClassType>(null, behavior);
         }
 
         public static IEnumerable<TClassType> QueryObjects<TClassType>(this IObjectSpace objectSpace, Expression<Func<TClassType, bool>> expression,PersistentCriteriaEvaluationBehavior behavior=PersistentCriteriaEvaluationBehavior.InTransaction){
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<TClassType>();
+            var objectType = objectSpace.TypesInfo.FindBussinessObjectType<TClassType>();
             var criteriaOperator = objectSpace.GetCriteriaOperator(expression);
             return objectSpace.GetObjects(objectType,criteriaOperator,behavior==PersistentCriteriaEvaluationBehavior.InTransaction).Cast<TClassType>();
         }
@@ -195,14 +199,20 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static T QueryObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,bool intransaction=true){
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
+            var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
             var criteriaOperator = objectSpace.GetCriteriaOperator(expression);
             return (T)objectSpace.FindObject(objectType, criteriaOperator, intransaction);
         }
 
+        public static T Create<T>(this IObjectSpace objectSpace){
+            return typeof(T).IsInterface
+                ? (T) objectSpace.CreateObject(objectSpace.TypesInfo.FindBussinessObjectType<T>())
+                : objectSpace.CreateObject<T>();
+        }
+
         public static CriteriaOperator GetCriteriaOperator<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression){
             if (expression!=null){
-                var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
+                var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
                 if (typeof(T).IsInterface){
                     var tranform = ExpressionConverter.Tranform(expression, objectType);
                     var genericType = typeof(XPQuery<>).MakeGenericType(objectType);
@@ -214,9 +224,5 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
 
-        public static T CreateObjectFromInterface<T>(this IObjectSpace objectSpace) {
-            var findBussinessObjectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
-            return (T)objectSpace.CreateObject(findBussinessObjectType);
-        }
     }
 }
