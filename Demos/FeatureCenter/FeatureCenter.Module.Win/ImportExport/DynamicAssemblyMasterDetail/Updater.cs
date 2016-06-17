@@ -1,7 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.BaseImpl.ImportExport;
 using Xpand.Xpo;
@@ -15,11 +14,11 @@ namespace FeatureCenter.Module.Win.ImportExport.DynamicAssemblyMasterDetail {
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
             var session = ((XPObjectSpace)ObjectSpace).Session;
-            if (session.FindObject<SerializationConfigurationGroup>(@group => @group.Name == "Dynamic Assembly Master Detail") == null) {
+            if (session.FindObject<SerializationConfigurationGroup>(group => group.Name == "Dynamic Assembly Master Detail") == null) {
                 var importEngine = new ImportEngine();
-                importEngine.ImportObjects(new UnitOfWork(session.DataLayer), GetType(), "DynamicAssemblyMasterDetailGroup.xml");
-                importEngine.ImportObjects(new UnitOfWork(session.DataLayer), GetType(), "DynamicAssemblyMasterDetailModel.xml");
-                importEngine.ImportObjects(new UnitOfWork(session.DataLayer), GetType(), "DynamicAssemblyMasterDetailModelGroup.xml");
+                importEngine.ImportObjects(info => ObjectSpace, GetType(), "DynamicAssemblyMasterDetailGroup.xml");
+                importEngine.ImportObjects(info => ObjectSpace, GetType(), "DynamicAssemblyMasterDetailModel.xml");
+                importEngine.ImportObjects(info => ObjectSpace, GetType(), "DynamicAssemblyMasterDetailModelGroup.xml");
             }
         }
     }

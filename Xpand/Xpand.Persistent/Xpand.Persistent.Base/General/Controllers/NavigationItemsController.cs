@@ -79,23 +79,28 @@ namespace Xpand.Persistent.Base.General.Controllers {
             modelApplicationBase.AddLayer(modelApplication);
 
             var navigationItems = NavigationItemDataSources;
-            using (var objectSpace = Application.CreateObjectSpace()){
-                modelApplication.Id = GetType().FullName;
-                foreach (var navigationItem in navigationItems){
-                    navigationItem.View = null;
-                    var datasourceListView = navigationItem.DatasourceListView;
-                    var typeInfo = datasourceListView.ModelClass.TypeInfo;
-                    var collectionSourceBase = Application.CreateCollectionSource(objectSpace, typeInfo.Type,datasourceListView.Id);
-                    Application.CreateListView(datasourceListView, collectionSourceBase, true);
-                    var proxyCollection = ((ProxyCollection) collectionSourceBase.Collection);
-                    for (int index = 0; index < (proxyCollection).Count; index++){
-                        var obj = (proxyCollection)[index];
-                        var caption = datasourceListView.Columns.First().ModelMember.MemberInfo.GetValue(obj) + "";
-                        var id = datasourceListView.ModelClass.TypeInfo.KeyMember.GetValue(obj)+"";
-                        CreateChildNavigationItem(navigationItem,  index, caption, id);
+
+            modelApplication.Id = GetType().FullName;
+            foreach (var navigationItemGroup in navigationItems.GroupBy(source => source.DatasourceListView)){
+                using (var objectSpace = Application.CreateObjectSpace(navigationItemGroup.Key.ModelClass.TypeInfo.Type)){
+                    foreach (var navigationItem in navigationItemGroup){
+                        navigationItem.View = null;
+                        var datasourceListView = navigationItem.DatasourceListView;
+                        var typeInfo = datasourceListView.ModelClass.TypeInfo;
+                        var collectionSourceBase = Application.CreateCollectionSource(objectSpace, typeInfo.Type,
+                            datasourceListView.Id);
+                        Application.CreateListView(datasourceListView, collectionSourceBase, true);
+                        var proxyCollection = (ProxyCollection)collectionSourceBase.Collection;
+                        for (var index = 0; index < proxyCollection.Count; index++) {
+                            var obj = proxyCollection[index];
+                            var caption = datasourceListView.Columns.First().ModelMember.MemberInfo.GetValue(obj) + "";
+                            var id = datasourceListView.ModelClass.TypeInfo.KeyMember.GetValue(obj) + "";
+                            CreateChildNavigationItem(navigationItem, index, caption, id);
+                        }
                     }
                 }
             }
+            
         }
 
         private IEnumerable<IModelNavigationItemDataSource> NavigationItemDataSources{

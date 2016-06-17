@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers {
 
         private void CreatedViewOnClosed(object sender, EventArgs eventArgs){
             ((View) sender).Closed-=CreatedViewOnClosed;
-            ObjectSpace.ReloadObject(View.CurrentObject);
+            ObjectSpace.Refresh();
         }
 
         protected override void DashbardExportXMLExecute(object sender, SimpleActionExecuteEventArgs e){
@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers {
         protected override void DashboardImportXMLExecute(object sender, SimpleActionExecuteEventArgs e){
             base.DashboardImportXMLExecute(sender, e);
             var showViewParameters = e.ShowViewParameters;
-            var objectSpace = Application.CreateObjectSpace();
+            var objectSpace = Application.CreateObjectSpace(typeof(DashboardFileData));
             var fileData = objectSpace.CreateObject<DashboardFileData>();
             showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, fileData);
             showViewParameters.TargetWindow=TargetWindow.NewModalWindow;

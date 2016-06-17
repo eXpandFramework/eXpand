@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module.Web", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Web", "FeatureCenter.Web\FeatureCenter.Web.csproj", "{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Web", "..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj", "{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,13 @@ Global
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Test|Any CPU.Build.0 = EasyTest|Any CPU
+		{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81F08473-8A32-4AE1-82D1-576CBC0CA5D8}.Test|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

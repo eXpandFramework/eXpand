@@ -1,12 +1,16 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.BaseImpl;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
 using Xpand.ExpressApp.ModelDifference;
+using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
@@ -47,6 +51,9 @@ namespace FeatureCenter.Module {
                 modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
         }
 
+        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
+            return base.GetModuleUpdaters(objectSpace, versionFromDB).Where(updater => !(updater is WorldCreatorModuleUpdater));
+        }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);

@@ -12,7 +12,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model.Collections {
     public interface IModelMemberOrphanedColection :  IModelMemberColection {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
         [CriteriaOptions("CollectionType.TypeInfo")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(System.Drawing.Design.UITypeEditor))]
         string Criteria { get; set; }
     }
     [DomainLogic(typeof(IModelMemberOrphanedColection))]

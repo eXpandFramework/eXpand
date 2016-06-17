@@ -12,7 +12,8 @@
     <AssemblyName>FeatureCenter.Win</AssemblyName>
     <ApplicationIcon>XpandWinSolution.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OutputPath>bin\Debug\</OutputPath>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
@@ -422,7 +423,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FeatureCenter.Module.Win\FeatureCenter.Module.Win.csproj">
-      <Project>{A75E4F29-14BF-4291-89CF-F80DEB2B5F43}</Project>
+      <Project>{a75e4f29-14bf-4291-89cf-f80deb2b5f43}</Project>
       <Name>FeatureCenter.Module.Win</Name>
     </ProjectReference>
     <ProjectReference Include="..\FeatureCenter.Module\FeatureCenter.Module.csproj">

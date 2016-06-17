@@ -17,6 +17,11 @@ namespace Xpand.Persistent.Base.Validation {
     }
 
     public static class Extensions {
+        public static RuleSetValidationResult NewRuleSetValidationMessageResult(this RuleSet ruleSet,
+            IObjectSpace objectSpace, string messageTemplate, object objectTarget){
+            return ruleSet.NewRuleSetValidationMessageResult(objectSpace, messageTemplate, ContextIdentifier.Save,objectTarget, objectTarget.GetType());
+        }
+
         public static RuleSetValidationResult NewRuleSetValidationMessageResult(this RuleSet ruleSet, IObjectSpace objectSpace, string messageTemplate, ContextIdentifier contextIdentifier, object objectTarget, Type targeObjecttType) {
             var rule = new RuleMessage(contextIdentifier, targeObjecttType);
             rule.Properties.SkipNullOrEmptyValues = false;

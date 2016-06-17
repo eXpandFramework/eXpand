@@ -20,15 +20,6 @@ namespace Xpand.ExpressApp.Win {
         public XpandWinApplication() {
         }
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args, null);
-        }
-
-        protected override void OnSetupComplete() {
-            this.SetClientSideSecurity();
-            base.OnSetupComplete();
-        }
-
         protected override Form CreateModelEditorForm() {
             return ModelEditorViewController.CreateModelEditorForm(this);
         }

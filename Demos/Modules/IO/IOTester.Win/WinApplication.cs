@@ -2,7 +2,8 @@ using System.ComponentModel;
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
-using IOTester.Module;
+using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
 
 namespace IOTester.Win {
@@ -39,7 +40,10 @@ namespace IOTester.Win {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
-            args.ObjectSpaceProvider = this.GetObjectSpaceProvider(args.ConnectionString);
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
+            if (this.GetEasyTestParameter("NorthWind"))
+                args.ObjectSpaceProviders.Add(new WorldCreatorObjectSpaceProvider());
         }
         private void IOTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST

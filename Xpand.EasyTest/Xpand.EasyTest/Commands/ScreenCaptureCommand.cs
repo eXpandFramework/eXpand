@@ -10,6 +10,7 @@ using ScreenCaptureStream = Xpand.Utils.Helpers.ScreenCaptureStream;
 namespace Xpand.EasyTest.Commands{
     public class ScreenCaptureCommand:FilesCommand{
         public const string Name = "ScreenCapture";
+        private const string ImagesPath = @"\Images\ScreenCapture";
         private string _fileName;
         private Size _size;
         private static ScreenCaptureStream _screenCaptureStream;
@@ -21,7 +22,7 @@ namespace Xpand.EasyTest.Commands{
             base.ParseCommand(commandCreationParam);
             _size = this.ParameterValue("Size", new Size(1024, 768));
             _topLeft = this.ParameterValue("TopLeft", new Point(0, 0));
-            var videoDir = ScriptsPath + @"\Images\ScreenCapture";
+            var videoDir = ScriptsPath + ImagesPath;
             var testName = Logger.Instance.GetLogger<FileLogger>().CurrentTestLog.Name;
             _fileName = Path.Combine(videoDir, testName);
             _platformSuffix = this.IsWinCommand() ? ".Win" : ".Web";
@@ -36,7 +37,7 @@ namespace Xpand.EasyTest.Commands{
         }
 
         protected override void InternalExecute(ICommandAdapter adapter){
-            var frameInterval = this.ParameterValue("FrameInterval",100);
+            var frameInterval = this.ParameterValue("FrameInterval",1000);
             _screenCaptureStream = new ScreenCaptureStream(new Rectangle(_topLeft, _size), frameInterval);
             _screenCaptureStream.NewFrame+=ScreenCaptureStreamOnNewFrame;
             _screenCaptureStream.Start();
@@ -49,9 +50,14 @@ namespace Xpand.EasyTest.Commands{
             _index++;
         }
 
-        public static void Stop(){
+        public static void Stop(bool isWinApp){
             if (_screenCaptureStream != null){
                 _screenCaptureStream.Stop();
+                var logger = Logger.Instance.GetLogger<FileLogger>();
+                if (logger.CurrentTestLog.Result != "Failed")
+                    foreach (var file in Directory.GetFiles(logger.LogPath+ ImagesPath, "*.win.png")){
+                        File.Delete(file);
+                    }
             }
         }
     }

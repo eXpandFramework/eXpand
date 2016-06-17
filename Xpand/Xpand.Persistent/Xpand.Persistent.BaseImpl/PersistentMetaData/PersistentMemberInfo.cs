@@ -2,7 +2,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.ExpressApp.WorldCreator.CodeProvider;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
@@ -18,16 +18,13 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [VisibleInDetailView(false)]
         [VisibleInListView(true)]
         [ModelDefault("GroupIndex", "0")]
-        public string TypeInfoName {
-            get { return GetType().Name.Replace("Persistent", ""); }
-        }
+        public string TypeInfoName => GetType().Name.Replace("Persistent", "");
+
         [VisibleInListView(false)]
         [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         [EditorAlias(EditorAliases.CSCodePropertyEditor)]
-        public string GeneratedCode {
-            get { return CodeEngine.GenerateCode(this); }
-        }
+        public string GeneratedCode => this.GenerateCode();
 
         [Association("PersistentClassInfo-OwnMembers")]
         [VisibleInListView(false)]

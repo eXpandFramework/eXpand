@@ -11,12 +11,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.WorldCreator.DBMapper</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.WorldCreator.DBMapper</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <TargetFrameworkProfile />
@@ -34,7 +36,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <LangVersion>4</LangVersion>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,6 +48,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -54,6 +59,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
     <OutputPath>bin\RecompiledDxSources\</OutputPath>
@@ -63,6 +70,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v16.1">
@@ -79,6 +88,11 @@
     </Reference>
     <Reference Include="DevExpress.Xpo.v16.1">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="Xpand.ExpressApp.WorldCreator">
@@ -114,16 +128,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyGenerator.cs" />
-    <Compile Include="ClassAtrributeGenerator.cs" />
-    <Compile Include="ClassGenerator.cs" />
-    <Compile Include="LogonObject.cs" />
-    <Compile Include="MapperLogonController.cs">
+    <Compile Include="AssemblyGenerator\AssemblyGenerator.cs" />
+    <Compile Include="BusinessObjects\DBObject.cs" />
+    <Compile Include="AssemblyGenerator\ClassAtrributeGenerator.cs" />
+    <Compile Include="AssemblyGenerator\ClassGenerator.cs" />
+    <Compile Include="BusinessObjects\DBLogonObject.cs" />
+    <Compile Include="Controllers\ChooseDBObjectsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MemberAttributeGenerator.cs" />
-    <Compile Include="MemberGenerator.cs" />
-    <Compile Include="WorldCreatorDBMapperModule.cs">
+    <Compile Include="Controllers\MapDBController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AssemblyGenerator\MemberAttributeGenerator.cs" />
+    <Compile Include="AssemblyGenerator\MemberGenerator.cs" />
+    <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +184,9 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -177,6 +198,8 @@
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

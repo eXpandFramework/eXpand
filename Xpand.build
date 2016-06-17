@@ -289,7 +289,7 @@
     <WriteLinesToFile File="$(XpandDLLPath)\easytests.txt" Lines="@(EasyTests)" Overwrite="true"></WriteLinesToFile>
     <Exec Command="$(XpandDLLPath)\XpandTestExecutor.Win.exe easytests.txt" WorkingDirectory="$(XpandDLLPath)" />
 	<Delete Files="%(EasyTestReqsToDelete.CopiedToDir)%(EasyTestReqsToDelete.Filename)%(EasyTestReqsToDelete.Extension)"/>
-    <!--<CallTarget Targets="CreateEasyTestVideos"></CallTarget>-->
+    <CallTarget Targets="CreateEasyTestVideos"></CallTarget>
     <CallTarget Targets='PrintEasyTestLogs' ></CallTarget>
   </Target>
   <Target Name="CreateEasyTestVideos">

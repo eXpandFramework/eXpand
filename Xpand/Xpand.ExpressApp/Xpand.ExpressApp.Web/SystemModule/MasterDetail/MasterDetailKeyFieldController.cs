@@ -26,8 +26,8 @@ namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
         private void ASPxGridListEditorOnCustomCreateWebDataSource(object sender, CustomCreateWebDataSourceEventArgs e){
             if (e.Collection == null){
                 e.Handled = true;
-                var objectSpace = Application.CreateObjectSpace();
                 var modelListView = ((ListEditor) sender).Model;
+                var objectSpace = Application.CreateObjectSpace(modelListView.ModelClass.TypeInfo.Type);
                 e.Collection = new ProxyCollection(objectSpace, modelListView.ModelClass.TypeInfo, new object[0]);
             }
         }

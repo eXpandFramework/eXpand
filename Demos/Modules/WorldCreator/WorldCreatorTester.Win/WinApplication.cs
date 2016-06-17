@@ -1,7 +1,7 @@
 using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
-using Xpand.Persistent.Base.General;
+using DevExpress.ExpressApp.Xpo;
 
 namespace WorldCreatorTester.Win {
     public partial class WorldCreatorTesterWindowsFormsApplication : WinApplication {
@@ -17,8 +17,9 @@ namespace WorldCreatorTester.Win {
             }
         }
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
-            this.CreateCustomObjectSpaceprovider(args,null);
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs e){
+            e.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(e.ConnectionString));
+            e.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
 
 #if EASYTEST
@@ -28,15 +29,8 @@ namespace WorldCreatorTester.Win {
 #endif
         void WorldCreatorTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender,
                                                                                DatabaseVersionMismatchEventArgs e) {
-#if EASYTEST
-			e.Updater.Update();
-			e.Handled = true;
-#else
-                                                                                   if (true) {
                 e.Updater.Update();
                 e.Handled = true;
-            }
-#endif
         }
 
         void WorldCreatorTesterWindowsFormsApplication_CustomizeLanguagesList(object sender,

@@ -9,6 +9,7 @@ using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
@@ -70,11 +71,12 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static XPClassInfo QueryXPClassInfo(this IModelClass modelClass){
-            return XpandModuleBase.Dictiorary.QueryClassInfo(modelClass.TypeInfo.Type);
+            return modelClass.TypeInfo.QueryXPClassInfo();
         }
 
         public static XPMemberInfo GetXpmemberInfo(this IModelMember modelMember){
-            return XpandModuleBase.Dictiorary.GetClassInfo(modelMember.ModelClass.TypeInfo.Type).FindMember(modelMember.Name);
+            return ((XpoTypeInfoSource) ((TypeInfo) modelMember.ModelClass.TypeInfo).Source).XPDictionary.GetClassInfo(
+                    modelMember.ModelClass.TypeInfo.Type).FindMember(modelMember.Name);
         }
 
         public static TNode GetParent<TNode>(this IModelNode modelNode) where TNode : class, IModelNode{
@@ -184,9 +186,7 @@ namespace Xpand.Persistent.Base.General {
             _modelNode = modelNode;
         }
 
-        public ModelNode ModelNode {
-            get { return _modelNode; }
-        }
+        public ModelNode ModelNode => _modelNode;
 
         public override string ToString() {
             return _modelNode.Id;
@@ -206,7 +206,7 @@ namespace Xpand.Persistent.Base.General {
         public static ModelApplicationBase StrategiesModel(this IModelApplication application, IEnumerable<ModelApplicationBase> modelApplicationBases) {
             if (_strategiesModel == null) {
                 var strategies = ((IModelOptionsMergedDifferenceStrategy)application.Application.Options).MergedDifferenceStrategies;
-                var xml = string.Format("<Application><Options>{0}</Options></Application>", ((ModelNode)strategies).Xml);
+                var xml = $"<Application><Options>{((ModelNode) strategies).Xml}</Options></Application>";
                 var modelApplicationBase = ((ModelApplicationBase) application).CreatorInstance.CreateModelApplication();
                 new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
                 ReadFromOtherLayers(modelApplicationBases, modelApplicationBase);
@@ -219,12 +219,10 @@ namespace Xpand.Persistent.Base.General {
         static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases,ModelApplicationBase modelApplicationBase) {
             foreach (var applicationBase in modelApplicationBases.Cast<IModelApplication>()){
                 var mergedDifferenceStrategy = ((IModelOptionsMergedDifferenceStrategy) applicationBase.Options);
-                if (mergedDifferenceStrategy != null){
-                    var xml = mergedDifferenceStrategy.Xml();
-                    if (!string.IsNullOrEmpty(xml)){
-                        xml = string.Format("<Application>{0}</Application>", xml);
-                        new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-                    }
+                var xml = mergedDifferenceStrategy?.Xml();
+                if (!string.IsNullOrEmpty(xml)){
+                    xml = $"<Application>{xml}</Application>";
+                    new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
                 }
             }
         }
@@ -302,7 +300,7 @@ namespace Xpand.Persistent.Base.General {
 
         public static ModelApplicationBase GetLayer(this ModelApplicationBase modelApplicationBase, string id){
             var modelNodeWrapper = modelApplicationBase.GetLayers().FirstOrDefault(wrapper => wrapper.ModelNode.Id==id);
-            return modelNodeWrapper != null ? (ModelApplicationBase) modelNodeWrapper.ModelNode : null;
+            return (ModelApplicationBase) modelNodeWrapper?.ModelNode;
         }
 
         public static ModelApplicationBase GetLayer(this ModelApplicationBase modelApplicationBase, int index) {

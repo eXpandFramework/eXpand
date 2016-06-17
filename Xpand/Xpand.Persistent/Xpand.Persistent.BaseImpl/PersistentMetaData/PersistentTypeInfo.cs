@@ -17,7 +17,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         public void InvokeAfterConstructed(ObjectCreatedEventArgs e) {
             EventHandler<ObjectCreatedEventArgs> handler = AfterConstructed;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         string _name;
@@ -32,18 +32,13 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         [Association("TypeAttributes")]
         [Aggregated]
-        public XPCollection<PersistentAttributeInfo> TypeAttributes {
-            get { return GetCollection<PersistentAttributeInfo>("TypeAttributes"); }
-        }
+        public XPCollection<PersistentAttributeInfo> TypeAttributes => GetCollection<PersistentAttributeInfo>("TypeAttributes");
 
-        IList<ITemplateInfo> IPersistentTypeInfo.TemplateInfos {
-            get { return new ListConverter<ITemplateInfo, TemplateInfo>(TemplateInfos); }
-        }
+        IList<ITemplateInfo> IPersistentTypeInfo.TemplateInfos => new ListConverter<ITemplateInfo, TemplateInfo>(TemplateInfos);
 
         [Association("PersistentTypeInfo-TemplateInfos")]
-        public XPCollection<TemplateInfo> TemplateInfos {
-            get { return GetCollection<TemplateInfo>("TemplateInfos"); }
-        }
+        public XPCollection<TemplateInfo> TemplateInfos => GetCollection<TemplateInfo>("TemplateInfos");
+
         #region IPersistentTypeInfo Members
 
         [RuleRequiredField(null, DefaultContexts.Save)]
@@ -51,11 +46,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             get { return _name; }
             set { SetPropertyValue("Name", ref _name, value); }
         }
-
-        IList<IPersistentAttributeInfo> IPersistentTypeInfo.TypeAttributes {
-            get { return new ListConverter<IPersistentAttributeInfo, PersistentAttributeInfo>(TypeAttributes); }
-        }
-
+        
+        IList<IPersistentAttributeInfo> IPersistentTypeInfo.TypeAttributes => new ListConverter<IPersistentAttributeInfo, PersistentAttributeInfo>(TypeAttributes);
 
         #endregion
     }

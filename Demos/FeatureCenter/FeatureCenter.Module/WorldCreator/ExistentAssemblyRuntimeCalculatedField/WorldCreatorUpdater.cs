@@ -1,27 +1,34 @@
-﻿using DevExpress.Xpo;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.Xpo.DB;
+using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-using Xpand.Xpo;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyRuntimeCalculatedField {
-    public class WorldCreatorUpdater : Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater {
+    public class WorldCreatorUpdater : WorldCreatorModuleUpdater {
 
         private const string MinOfOrderTotals = "MinOfOrderTotals";
-        public WorldCreatorUpdater(Session session)
-            : base(session) {
+        public WorldCreatorUpdater(IObjectSpace objectSpace, Version version)
+            : base(objectSpace,version) {
         }
-        public override void Update() {
-            if (Session.FindObject<ExtendedCoreTypeMemberInfo>(info => info.Name == MinOfOrderTotals) != null) return;
-            var extendedCoreTypeMemberInfo = new ExtendedCoreTypeMemberInfo(Session);
-            extendedCoreTypeMemberInfo.TypeAttributes.Add(new PersistentPersistentAliasAttribute(Session) { AliasExpression = "Orders.Min(Total)" });
-            extendedCoreTypeMemberInfo.TypeAttributes.Add(new PersistentVisibleInDetailViewAttribute(Session));
-            extendedCoreTypeMemberInfo.TypeAttributes.Add(new PersistentVisibleInListViewAttribute(Session));
-            extendedCoreTypeMemberInfo.TypeAttributes.Add(new PersistentVisibleInLookupListViewAttribute(Session));
+
+        public override void UpdateDatabaseAfterUpdateSchema(){
+            base.UpdateDatabaseAfterUpdateSchema();
+            if (ObjectSpace.QueryObject<ExtendedCoreTypeMemberInfo>(info => info.Name == MinOfOrderTotals) != null) return;
+            var extendedCoreTypeMemberInfo = ObjectSpace.CreateObject<ExtendedCoreTypeMemberInfo>();
+            var persistentPersistentAliasAttribute = ObjectSpace.CreateObject<PersistentPersistentAliasAttribute>();
+            persistentPersistentAliasAttribute.AliasExpression = "Orders.Min(Total)";
+            extendedCoreTypeMemberInfo.TypeAttributes.Add(persistentPersistentAliasAttribute);
+            extendedCoreTypeMemberInfo.TypeAttributes.Add(ObjectSpace.CreateObject<PersistentVisibleInDetailViewAttribute>());
+            extendedCoreTypeMemberInfo.TypeAttributes.Add(ObjectSpace.CreateObject<PersistentVisibleInListViewAttribute>());
+            extendedCoreTypeMemberInfo.TypeAttributes.Add(ObjectSpace.CreateObject<PersistentVisibleInLookupListViewAttribute>());
             extendedCoreTypeMemberInfo.Owner = typeof(Customer);
             extendedCoreTypeMemberInfo.DataType = DBColumnType.Decimal;
             extendedCoreTypeMemberInfo.Name = MinOfOrderTotals;
             extendedCoreTypeMemberInfo.Save();
+
         }
     }
 }

@@ -30,7 +30,6 @@ namespace ModelDifferenceTester.Module.Web {
             this.RequiredModuleTypes.Add(typeof(ModelDifferenceTester.Module.ModelDifferenceTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.Web.WorldCreatorWebModule));
 
         }
 

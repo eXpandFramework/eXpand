@@ -1,3 +1,5 @@
+using DevExpress.ExpressApp;
+
 namespace WorldCreatorTester.Win {
     partial class WorldCreatorTesterWindowsFormsApplication {
         /// <summary> 
@@ -38,6 +40,7 @@ namespace WorldCreatorTester.Win {
             // 
             // WorldCreatorTesterWindowsFormsApplication
             // 
+            this.CheckCompatibilityType=CheckCompatibilityType.DatabaseSchema;
             this.ApplicationName = "WorldCreatorTester";
             this.Connection = this.sqlConnection1;
             this.Modules.Add(this.module1);

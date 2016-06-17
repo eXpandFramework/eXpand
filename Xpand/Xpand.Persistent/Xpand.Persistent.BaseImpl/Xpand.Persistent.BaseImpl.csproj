@@ -165,6 +165,7 @@
     <Compile Include="JobScheduler\Triggers\JobTriggerTriggerListenerTriggerLink.cs" />
     <Compile Include="JobScheduler\Triggers\TriggerListenerTrigger.cs" />
     <Compile Include="JobScheduler\XpandDataMap.cs" />
+    <Compile Include="PersistentMetaData\PersistentClassesModuleInfo.cs" />
     <Compile Include="XpandDateRange.cs" />
     <Compile Include="JobScheduler\Calendars\XpandAnnualCalendar.cs" />
     <Compile Include="JobScheduler\Calendars\XpandCronCalendar.cs" />

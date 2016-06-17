@@ -6,7 +6,7 @@ namespace Xpand.EasyTest.Commands{
         protected override void InternalExecute(ICommandAdapter adapter){
             var value = Parameters.MainParameter.Value;
             if (value == ScreenCaptureCommand.Name){
-                ScreenCaptureCommand.Stop();
+                ScreenCaptureCommand.Stop(adapter.IsWinAdapter());
             }
         }
     }

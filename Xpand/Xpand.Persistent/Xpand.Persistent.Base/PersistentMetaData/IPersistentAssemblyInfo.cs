@@ -9,19 +9,16 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
         Guid Oid { get; set; }
         string Name { get; set; }
         IList<IPersistentClassInfo> PersistentClassInfos { get; }
-        string CompileErrors { get; set; }
+        string Errors { get; set; }
         bool DoNotCompile { get; set; }
         CodeDomProvider CodeDomProvider { get; }
         Session Session { get; }
-        IFileData FileData { get; set; }
+        IFileData StrongKeyFileData { get; set; }
         int CompileOrder { get; set; }
         IList<IPersistentAssemblyAttributeInfo> Attributes { get; }
-        bool IsLegacy { get; set; }
-        bool ValidateModelOnCompile { get; set; }
         int Revision { get; set; }
     }
     public enum CodeDomProvider {
-        CSharp,
-        VB
+        CSharp
     }
 }

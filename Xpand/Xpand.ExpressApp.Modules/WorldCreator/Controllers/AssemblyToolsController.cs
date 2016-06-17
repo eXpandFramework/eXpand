@@ -5,8 +5,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.WorldCreator.Core;
+using DevExpress.Persistent.Validation;
+using Xpand.ExpressApp.WorldCreator.CodeProvider.Validation;
+using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.PersistentMetaData;
+using Xpand.Persistent.Base.Validation;
 
 namespace Xpand.ExpressApp.WorldCreator.Controllers {
     public interface IModelOptionsWorldCreator{
@@ -16,40 +19,58 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
     }
 
     public class AssemblyToolsController : ViewController<DetailView>,IModelExtender {
+        private const string ValidateAssemblyKey = "Validate code";
         readonly SingleChoiceAction _singleChoiceAction;
+        private bool _validating;
+
         public AssemblyToolsController() {
             TargetObjectType = typeof(IPersistentAssemblyInfo);
             _singleChoiceAction = new SingleChoiceAction(this, "Tools", PredefinedCategory.ObjectsCreation);
-            _singleChoiceAction.Items.Add(new ChoiceActionItem("Validate Assembly", "Validate"));
+            _singleChoiceAction.Items.Add(new ChoiceActionItem(ValidateAssemblyKey, ValidateAssemblyKey));
             _singleChoiceAction.Execute += SingleChoiceActionOnExecute;
             _singleChoiceAction.ItemType = SingleChoiceActionItemType.ItemIsOperation;
         }
 
         protected override void OnActivated(){
             base.OnActivated();
-            ObjectSpace.Committing+=ObjectSpaceOnCommitting;
+            ObjectSpace.Committed+=ObjectSpaceOnCommitted;
         }
 
-        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
-            if (((IModelOptionsWorldCreator) Application.Model.Options).ValidateAssemblyOnSave)
-                Validate((IPersistentAssemblyInfo) View.CurrentObject);
+        protected override void OnDeactivated(){
+            base.OnDeactivated();
+            ObjectSpace.Committed-=ObjectSpaceOnCommitted;
         }
 
-        void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, "Validate")) {
-                var persistentAssemblyInfo = ((IPersistentAssemblyInfo)singleChoiceActionExecuteEventArgs.CurrentObject);
-                Validate(persistentAssemblyInfo);
+        private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs){
+            if (((IModelOptionsWorldCreator) Application.Model.Options).ValidateAssemblyOnSave){
+                ValidateAssembly((IPersistentAssemblyInfo) View.CurrentObject);
             }
         }
 
-        public Type Validate(IPersistentAssemblyInfo persistentAssemblyInfo) {
-            var worldCreatorModuleBase = Application.Modules.OfType<WorldCreatorModuleBase>().Single();
-            return persistentAssemblyInfo.Validate(worldCreatorModuleBase.GetPath());
+        void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
+            if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, ValidateAssemblyKey)) {
+                var persistentAssemblyInfo = ((IPersistentAssemblyInfo)singleChoiceActionExecuteEventArgs.CurrentObject);
+                ValidateAssembly(persistentAssemblyInfo);
+            }
         }
 
-        public SingleChoiceAction SingleChoiceAction {
-            get { return _singleChoiceAction; }
+        private void ValidateAssembly(IPersistentAssemblyInfo persistentAssemblyInfo) {
+            if(!_validating){
+                _validating = true;
+                var worldCreatorModuleBase = Application.Modules.OfType<WorldCreatorModuleBase>().First();
+                var validatorResult = persistentAssemblyInfo.Validate(worldCreatorModuleBase.GetPath());
+                persistentAssemblyInfo.Errors=validatorResult.Message;
+                ObjectSpace.CommitChanges();
+                _validating = false;
+                if (!validatorResult.Valid){
+                    var messageResult = Validator.RuleSet.NewRuleSetValidationMessageResult(ObjectSpace,
+                        "Validation error! check Compile Errors Tab.", View.CurrentObject);
+                    throw new ValidationException(messageResult);
+                }
+            }
         }
+
+        public SingleChoiceAction SingleChoiceAction => _singleChoiceAction;
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             extenders.Add<IModelOptions,IModelOptionsWorldCreator>();

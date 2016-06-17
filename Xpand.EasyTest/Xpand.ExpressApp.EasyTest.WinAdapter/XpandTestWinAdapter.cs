@@ -13,6 +13,7 @@ using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WinAdapter;
 using Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.Xpand;
+using RichEditContainer = Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.Xpand.RichEditContainer;
 
 [assembly: Adapter(typeof(XpandTestWinAdapter))]
 
@@ -36,6 +37,8 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             registrator.RegisterCommands(this);
             registrator.RegisterCommand(HideScrollBarCommand.Name, typeof(Commands.HideScrollBarCommand));
             registrator.RegisterCommand(SetWebMaxWaitTimeOutCommand.Name, typeof(Commands.SetWebMaxWaitTimeOutCommand));
+            registrator.RegisterCommand(XpandCheckValidationResultCommand.Name, typeof(Commands.XpandCheckValidationResultCommand));
+            registrator.RegisterCommand(LogonCommand.Name, typeof(Commands.LogonCommand));
         }
 
         void CloseApplication(IEnumerable<Process> appProcesses, bool force) {
@@ -99,7 +102,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
         }
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context) {
-            ScreenCaptureCommand.Stop();
+            ScreenCaptureCommand.Stop(true);
             _winEasyTestCommandAdapter?.Disconnect();
             testApplication.DeleteParametersFile();
             testApplication.ClearModel();

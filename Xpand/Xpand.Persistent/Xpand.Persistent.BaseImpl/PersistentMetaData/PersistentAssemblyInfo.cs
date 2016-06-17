@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
 using Xpand.ExpressApp.Enums;
-using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.ExpressApp.WorldCreator.CodeProvider;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -60,7 +59,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         public override void AfterConstruction(){
             base.AfterConstruction();
             Attributes.Add(new PersistentAssemblyVersionAttributeInfo(Session));
-            _validateModelOnCompile = true;
         }
 
         #region IPersistentAssemblyInfo Members
@@ -68,34 +66,23 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         [RuleRequiredField(null, DefaultContexts.Save)]
         [RuleUniqueValue(null, DefaultContexts.Save)]
         [Index(0)]
+//        [RuleValidFileName]
         public string Name{
             get { return _name; }
             set { SetPropertyValue("Name", ref _name, value); }
         }
-
-        private bool _isLegacy;
         
-
-        [Appearance("IsLegacy_assembly", AppearanceItemType.ViewItem, "IsNewObject=false", Enabled = false)]
-        public bool IsLegacy{
-            get { return _isLegacy; }
-            set { SetPropertyValue("IsLegacy", ref _isLegacy, value); }
-        }
 
         [VisibleInDetailView(false)]
         [PersistentAlias("_revision")]
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
         public int Revision => _revision;
 
-        public bool ValidateModelOnCompile{
-            get { return _validateModelOnCompile; }
-            set { SetPropertyValue("ValidateModelOnCompile", ref _validateModelOnCompile, value); }
+        int IPersistentAssemblyInfo.Revision{
+            get { return _revision; }
+            set { _revision = value; }
         }
 
-        public int Revision{
-            get { return _revision; }
-            set { SetPropertyValue("Revision", ref _revision, value); }
-        }
 
         [Index(1)]
         public int CompileOrder{
@@ -122,7 +109,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
             set { SetPropertyValue("DoNotCompile", ref _doNotCompile, value); }
         }
 
-        IFileData IPersistentAssemblyInfo.FileData{
+        IFileData IPersistentAssemblyInfo.StrongKeyFileData{
             get { return StrongKeyFile; }
             set { StrongKeyFile = value as StrongKeyFile; }
         }
@@ -130,9 +117,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         [Index(7)]
         [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
-        public string CompileErrors{
-            get { return _compileErrors; }
-            set { SetPropertyValue("CompileErrors", ref _compileErrors, value); }
+        public string Errors{
+            get { return _errors; }
+            set { SetPropertyValue("Errors", ref _errors, value); }
         }
 
         IList<IPersistentClassInfo> IPersistentAssemblyInfo.PersistentClassInfos => new ListConverter<IPersistentClassInfo, PersistentClassInfo>(PersistentClassInfos);

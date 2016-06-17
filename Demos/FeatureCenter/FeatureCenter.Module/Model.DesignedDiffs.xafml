@@ -42,28 +42,5 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="XpandLogonParameters_DetailView">
-      <Items>
-        <StaticText Id="CredentialsText" Text="User :Admin , Pass:Admin" IsNewNode="True" />
-      </Items>
-      <Layout>
-        <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-          <LayoutGroup Id="RootGroup" Caption="RootGroup" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default">
-            <LayoutGroup Id="ImageGroup" RelativeSize="11" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical">
-              <LayoutItem Id="LogonImage" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" ViewItem="LogonImage" />
-            </LayoutGroup>
-            <LayoutGroup Id="EditorsGroup" RelativeSize="88" Caption="EditorsGroup" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical">
-              <LayoutGroup Id="Text" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" Direction="Vertical" RelativeSize="3" />
-              <LayoutGroup Id="Editors" RelativeSize="96" ImageName="">
-                <LayoutItem Id="CredentialsText" ShowCaption="False" ViewItem="CredentialsText" Index="0" RelativeSize="3" IsNewNode="True" />
-                <LayoutItem Id="UserName" Index="1" RelativeSize="2" ViewItem="UserName" />
-                <LayoutItem Id="Password" Index="2" RelativeSize="2" ViewItem="Password" />
-                <LayoutItem Id="RememberMe" Index="4" RelativeSize="88" ViewItem="RememberMe" />
-              </LayoutGroup>
-            </LayoutGroup>
-          </LayoutGroup>
-        </LayoutGroup>
-      </Layout>
-    </DetailView>
   </Views>
 </Application>

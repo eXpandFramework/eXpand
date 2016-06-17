@@ -1,20 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
-using FeatureCenter.Module.LowLevelFilterDataStore;
 using FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication;
 using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyCalculatedField;
 using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
-using Xpand.ExpressApp.FilterDataStore.Core;
-using Xpand.ExpressApp.FilterDataStore.Win.Providers;
+
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.ModelDifference;
+using Xpand.ExpressApp.WorldCreator.System;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
 namespace FeatureCenter.Module.Win {
@@ -31,12 +30,6 @@ namespace FeatureCenter.Module.Win {
                 modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
         }
 
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
-            base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new DisableFiltersNodeUpdater());
-            
-        }
-
         protected override void AdditionalViewControlsModuleOnRulesCollected(object sender, EventArgs e) {
             foreach (var typeInfo in XafTypesInfo.Instance.PersistentTypes) {
                 var additionalViewControlsRules = LogicRuleManager.Instance[typeInfo].OfType<IAdditionalViewControlsRule>();
@@ -49,13 +42,14 @@ namespace FeatureCenter.Module.Win {
             }
         }
 
+        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
+            return base.GetModuleUpdaters(objectSpace, versionFromDB).Where(updater => !(updater is WorldCreatorModuleUpdater));
+        }
+
         void ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs e) {
 
             e.AddExtraDiffStore(new WCCalculatedFieldModelStore());
             e.AddExtraDiffStore(new WC3LevelMasterDetailModelStore());
-            SkinFilterProvider skinFilterProvider = FilterProviderManager.Providers.OfType<SkinFilterProvider>().FirstOrDefault();
-            if (skinFilterProvider != null)
-                skinFilterProvider.FilterValue = ((IModelApplicationOptionsSkin)Application.Model.Options).Skin;
         }
 
     }

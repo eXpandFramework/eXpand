@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
-using DevExpress.DashboardCommon;
-using DevExpress.DashboardWeb;
+using System.Xml.Linq;
+using DevExpress.DashboardCommon.Native.DashboardRestfulService;
+using DevExpress.DashboardWeb.Designer;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -13,6 +15,64 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Dashboard.Filter;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
+    public class DatabaseDashboardStorage : IDashboardStorage{
+        public event EventHandler<RequestObjectSpaceArgs> RequestObjectSpace;
+        public event EventHandler<RequestDashboardXmlArgs> RequestDashboardXml;
+        public event EventHandler<RequestDashboardIdsArgs> RequestDashboardIds;
+        public string CreateNewDashboard() {
+            throw new NotImplementedException();
+        }
+
+        public XDocument GetDashboard(string id) {
+            var args = new RequestDashboardXmlArgs();
+            OnRequestDashboarXml(args);
+            return XDocument.Parse(args.Xml);
+        }
+
+        public IEnumerable<string> GetDashboardIDs(){
+            var args = new RequestDashboardIdsArgs();
+            OnRequestDashboardIds(args);
+            return args.Ids;
+        }
+
+        public void UpdateDashboard(string id, XDocument document) {
+            var args = new RequestObjectSpaceArgs();
+            OnRequestObjectSpace(args);
+            using (var objectSpace = args.ObjectSpace){
+                var dashboard = objectSpace.GetObjectsQuery<DashboardDefinition>().First(definition => definition.Name == id);
+                dashboard.Xml = document.ToString();
+                objectSpace.CommitChanges();
+            }
+        }
+
+        protected virtual void OnRequestDashboarXml(RequestDashboardXmlArgs e){
+            var handler = RequestDashboardXml;
+            if (handler != null) handler(this, e);
+        }
+
+        protected virtual void OnRequestDashboardIds(RequestDashboardIdsArgs e){
+            EventHandler<RequestDashboardIdsArgs> handler = RequestDashboardIds;
+            if (handler != null) handler(this, e);
+        }
+
+        protected virtual void OnRequestObjectSpace(RequestObjectSpaceArgs e){
+            var handler = RequestObjectSpace;
+            if (handler != null) handler(this, e);
+        }
+    }
+
+    public class RequestObjectSpaceArgs : EventArgs{
+        public IObjectSpace ObjectSpace { get; set; }
+    }
+
+    public class RequestDashboardIdsArgs : EventArgs{
+        public string[] Ids { get; set; }
+    }
+
+    public class RequestDashboardXmlArgs : EventArgs{
+        public string Xml { get; set; }
+    }
+
     [PropertyEditor(typeof(String), false)]
     public class DashboardDesignerEditor:WebPropertyEditor,IComplexViewItem {
         private IObjectSpace _objectSpace;
@@ -20,7 +80,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         private ASPxDashboardDesigner _dashboardDesigner;
 
         static DashboardDesignerEditor(){
-            DashboardService.SetDashboardStorage(new DatabaseDashboardStorage());
+            ASPxDashboardDesigner.Storage.SetDashboardStorage(new DatabaseDashboardStorage());
         }
         public DashboardDesignerEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
         }
@@ -46,22 +106,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
             };
 
             UnSubscribe();
-            var dashboardDesignerStorage = DashboardService.DashboardStorage;
-            DashboardService.DataApi.DataLoading += DashboardDesignerStorageOnDataLoading;
-            var databaseDashboardStorage = ((DatabaseDashboardStorage)dashboardDesignerStorage);
+            var dashboardDesignerStorage = ASPxDashboardDesigner.Storage;
+            dashboardDesignerStorage.DataLoading += DashboardDesignerStorageOnDataLoading;
+            var databaseDashboardStorage = ((DatabaseDashboardStorage) dashboardDesignerStorage.DashboardStorage);
             databaseDashboardStorage.RequestDashboardXml+=OnRequestDashboardXml;
             databaseDashboardStorage.RequestObjectSpace+=DatabaseDashboardStorageOnRequestObjectSpace;
-            databaseDashboardStorage.RequestDashboardInfos+=DatabaseDashboardStorageOnRequestDashboardInfos;
+            databaseDashboardStorage.RequestDashboardIds+=DatabaseDashboardStorageOnRequestDashboardIds;
             return _dashboardDesigner;
-        }
-
-        private void DashboardDesignerStorageOnDataLoading(object sender, ServiceDataLoadingEventArgs e){
-            var modelApplication = (ModelApplicationBase)_application.Model;
-            var typeWrapper = Definition.DashboardTypes.FirstOrDefault(t => t.GetDefaultCaption(modelApplication) == e.DataSourceName);
-            if (typeWrapper != null) {
-                var dsType = typeWrapper.Type;
-                e.Data = _objectSpace.CreateDashboardDataSource(dsType);
-            }
         }
 
         private string GetDashboardId(){
@@ -69,11 +120,11 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         private void UnSubscribe(){
-            DashboardService.DataApi.DataLoading -= DashboardDesignerStorageOnDataLoading;
-            var databaseDashboardStorage = ((DatabaseDashboardStorage)DashboardService.DashboardStorage);
+            ASPxDashboardDesigner.Storage.DataLoading -= DashboardDesignerStorageOnDataLoading;
+            var databaseDashboardStorage = ((DatabaseDashboardStorage) ASPxDashboardDesigner.Storage.DashboardStorage);
             databaseDashboardStorage.RequestDashboardXml -= OnRequestDashboardXml;
             databaseDashboardStorage.RequestObjectSpace -= DatabaseDashboardStorageOnRequestObjectSpace;
-            databaseDashboardStorage.RequestDashboardInfos -= DatabaseDashboardStorageOnRequestDashboardInfos;
+            databaseDashboardStorage.RequestDashboardIds -= DatabaseDashboardStorageOnRequestDashboardIds;
         }
 
         public override void BreakLinksToControl(bool unwireEventsOnly){
@@ -83,20 +134,26 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
             base.BreakLinksToControl(unwireEventsOnly);
         }
 
-        private void DatabaseDashboardStorageOnRequestDashboardInfos(object sender, RequestDashboardInfosArgs e){
-            DashboardInfo[] dashboardInfos;
-            using (var objectSpace = _application.CreateObjectSpace()){
-                dashboardInfos =objectSpace.GetObjectsQuery<DashboardDefinition>()
-                        .Select(definition => new DashboardInfo{ID = definition.Oid.ToString(), Name = definition.Name})
-                        .ToArray();
+        private void DatabaseDashboardStorageOnRequestDashboardIds(object sender, RequestDashboardIdsArgs e){
+            string[] strings;
+            using (var objectSpace = _application.CreateObjectSpace(typeof(DashboardDefinition))){
+                strings = objectSpace.GetObjectsQuery<DashboardDefinition>().Select(definition => definition.Name).ToArray();
             }
-            e.DashboardInfos = dashboardInfos;
+            e.Ids = strings;
         }
 
         private void DatabaseDashboardStorageOnRequestObjectSpace(object sender, RequestObjectSpaceArgs e){
-            e.ObjectSpace = _application.CreateObjectSpace();
+            e.ObjectSpace = _application.CreateObjectSpace(typeof(DashboardDefinition));
         }
 
+        private void DashboardDesignerStorageOnDataLoading(object sender, ConfigureServiceDataLoadingEventArgs e){
+            var modelApplication = (ModelApplicationBase)_application.Model;
+            var typeWrapper = Definition.DashboardTypes.FirstOrDefault(t => t.GetDefaultCaption(modelApplication) == e.DataSourceName);
+            if (typeWrapper != null) {
+                var dsType = typeWrapper.Type;
+                e.Data = _objectSpace.CreateDashboardDataSource(dsType);
+            }
+        }
 
 
         private void OnRequestDashboardXml(object sender, RequestDashboardXmlArgs requestDashboardXmlArgs){
