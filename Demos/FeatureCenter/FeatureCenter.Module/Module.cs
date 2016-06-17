@@ -5,8 +5,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.BaseImpl;
 using FeatureCenter.Module.ListViewControl.PropertyPathFilters;
-using FeatureCenter.Module.LowLevelFilterDataStore;
-using FeatureCenter.Module.WorldCreator;
 using FeatureCenter.Module.WorldCreator.ExistentAssemblyMasterDetail;
 using Xpand.ExpressApp.ModelDifference;
 using Xpand.Persistent.Base.General;
@@ -53,8 +51,7 @@ namespace FeatureCenter.Module {
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new PropertyPathFiltersNodeUpdater(Application));
-            updaters.Add(new DisableFiltersNodeUpdater());
-            updaters.Add(new ModelSystemTablesUpdater());
+
         }
     }
 }
