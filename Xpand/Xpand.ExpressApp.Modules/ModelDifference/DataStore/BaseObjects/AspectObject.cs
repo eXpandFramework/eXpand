@@ -26,7 +26,10 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [Size(SizeAttribute.Unlimited)]
         public string Xml {
             get { return _xml; }
-            set { SetPropertyValue("Xml", ref _xml, value); }
+            set{
+                SetPropertyValue("Xml", ref _xml, value);
+                ModelDifferenceObject?.NotifyXmlContent();
+            }
         }
     }
 }
