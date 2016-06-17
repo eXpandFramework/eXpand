@@ -106,10 +106,9 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
 
         static void CreateForeignKey(IModelMemberOneToManyCollection modelMemberOneToManyCollection, XPObjectSpace objectSpace,  XpandCustomMemberInfo customMemberInfo) {
             if (CanCreateForeignKey(modelMemberOneToManyCollection, objectSpace)) {
-                var throwUnableToCreateDbObjectException = ((IModelOptionMemberPersistent) modelMemberOneToManyCollection.Application.Options).ThrowUnableToCreateDbObjectException;
                 var xpCustomMemberInfo = customMemberInfo.GetAssociatedMember() as XPCustomMemberInfo;
                 if (xpCustomMemberInfo == null) throw new NullReferenceException("xpCustomMemberInfo");
-                objectSpace.CreateForeignKey(xpCustomMemberInfo,throwUnableToCreateDbObjectException);
+                objectSpace.CreateForeignKey(xpCustomMemberInfo);
                 modelMemberOneToManyCollection.AssociatedMember.DataStoreForeignKeyCreated = true;
                 modelMemberOneToManyCollection.DataStoreForeignKeyCreated = true;
             }
@@ -122,7 +121,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         static void CreateColumn(IModelMemberPersistent modelMemberPersistent, XPObjectSpace objectSpace, 
                                  XpandCustomMemberInfo customMemberInfo) {
             if (CanCreateColumn(modelMemberPersistent, objectSpace)) {
-                objectSpace.CreateColumn(customMemberInfo, ((IModelOptionMemberPersistent)modelMemberPersistent.Application.Options).ThrowUnableToCreateDbObjectException);
+                objectSpace.CreateColumn(customMemberInfo);
                 modelMemberPersistent.DataStoreColumnCreated = true;
                 modelMemberPersistent.DataStoreForeignKeyCreated = customMemberInfo.HasAttribute(typeof(AssociationAttribute));
             }
@@ -177,14 +176,10 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
     }
 
     public class CustomCreateMemberArgs : HandledEventArgs {
-        readonly IModelMemberEx _modelMemberEx;
-
         public CustomCreateMemberArgs(IModelMemberEx modelMemberEx) {
-            _modelMemberEx = modelMemberEx;
+            ModelMemberEx = modelMemberEx;
         }
 
-        public IModelMemberEx ModelMemberEx {
-            get { return _modelMemberEx; }
-        }
+        public IModelMemberEx ModelMemberEx { get; }
     }
 }

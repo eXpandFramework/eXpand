@@ -14,12 +14,6 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         
     }
 
-    public interface IModelOptionMemberPersistent {
-        [Category(ModelMemberExDomainLogic.AttributesCategory)]
-        [Description("If set when creating Runtime members it will throw any SqlExecutionErrorException/ConstrainsVionationException")]
-        bool ThrowUnableToCreateDbObjectException { get; set; }
-    }
-
     [DomainLogic(typeof(IModelMemberPersistent))]
     public class ModelMemberPersistentDomainLogic : ModelMemberExDomainLogicBase<IModelMemberPersistent> {
         public static IMemberInfo Get_MemberInfo(IModelMemberPersistent modelRuntimeMember){
