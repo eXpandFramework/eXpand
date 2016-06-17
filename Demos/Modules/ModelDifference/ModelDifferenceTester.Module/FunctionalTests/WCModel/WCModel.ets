@@ -1,5 +1,7 @@
-﻿#Application ModelDifferenceTester.Web
+﻿#DropDB ModelDifferenceWorldCreatorTester
+#Application ModelDifferenceTester.Web
 #Application ModelDifferenceTester.Win
+*SetWebMaxWaitTimeOut 60000
 #IfDef ModelDifferenceTester.Web
 *SqlDropDB 
  DBName = ModelDifferenceTesterEasyTest
