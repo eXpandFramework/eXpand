@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="ModelDifferenceTester" Logo="ExpressAppLogo">
+  <BOModel>
+    <Class Name="ModelDifferenceTester.Module.FunctionalTests.RuntimeMembers.RuntimeMembersObject">
+      <OwnMembers>
+        <RuntimeMember Name="Runtime" IsCustom="True" Type="System.Boolean" CreatedAtDesignTime="False" IsNewNode="True" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <Views>
+    <ListView Id="MDO_ListView">
+      <Columns>
+        <ColumnInfo Id="DifferenceType" GroupIndex="-1" />
+      </Columns>
+    </ListView>
+  </Views>
+</Application>
