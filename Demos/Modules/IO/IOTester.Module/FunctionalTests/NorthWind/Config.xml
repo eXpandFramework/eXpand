@@ -2,7 +2,7 @@
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
   <Applications>
     <!-- Win -->
-    <Application
+    <Application Ignored="0"
 			Name="IOTester.Win"
 			FileName="[WinAppBin]\IOTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
@@ -23,6 +23,7 @@
   <TestDatabases>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="IOTesterEasyTest" />
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="NorthWind" />
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="IOWorldCreatorTester" />
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

@@ -63,7 +63,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         string ModelNodePath { get; set; }
 
         [DefaultValue("(AsObjectView Is Not Null)")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + AssemblyInfo.VSuffix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
         [CriteriaOptions("EvaluatorTypeInfo")]
         string Criteria { get; set; }
     }

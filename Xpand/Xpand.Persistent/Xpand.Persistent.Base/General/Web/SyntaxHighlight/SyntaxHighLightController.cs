@@ -23,7 +23,8 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight {
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            WebWindow.CurrentRequestWindow.PagePreRender -= CurrentRequestWindowOnPagePreRender;
+            if (WebWindow.CurrentRequestWindow != null)
+                WebWindow.CurrentRequestWindow.PagePreRender -= CurrentRequestWindowOnPagePreRender;
         }
 
         private void CurrentRequestWindowOnPagePreRender(object sender, EventArgs eventArgs){

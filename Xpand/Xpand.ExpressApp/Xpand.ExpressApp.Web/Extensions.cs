@@ -3,6 +3,7 @@ using System.Web.UI;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
+using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Model;
 using Xpand.Persistent.Base.Security;
@@ -11,7 +12,9 @@ namespace Xpand.ExpressApp.Web {
 
     public static class Extensions {
         public static IModelMemberViewItem Model(this GridViewDataColumn column,IModelListView modelListView){
-            return modelListView.Columns.FirstOrDefault(modelColumn => modelColumn.FieldName == column.FieldName);
+            return !string.IsNullOrEmpty(column.UnboundExpression)? modelListView.Columns.OfType<IModelColumnUnbound>()
+                    .FirstOrDefault(modelColumn => modelColumn.UnboundExpression == column.UnboundExpression)
+                : modelListView.Columns.FirstOrDefault(modelColumn => modelColumn.FieldName == column.FieldName);
         }
 
         public static DefaultHttpRequestManager NewHttpRequestManager(this WebApplication application) {

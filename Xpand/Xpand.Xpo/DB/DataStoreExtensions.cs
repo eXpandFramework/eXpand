@@ -7,7 +7,7 @@ using DevExpress.Xpo.Metadata;
 using Fasterflect;
 
 namespace Xpand.Xpo.DB {
-    public static class IDataStoreExtensions {
+    public static class DataStoreExtensions {
         public static ConnectionProviderSql ConnectionProviderSql(this IDataStore dataStore) {
             var dataStoreProxy = dataStore as DataStoreProxy;
             return dataStoreProxy ?? (ConnectionProviderSql)dataStore;
