@@ -44,6 +44,7 @@ using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.MetaData;
 using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttribute;
+using TypeInfo = DevExpress.ExpressApp.DC.TypeInfo;
 
 namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {
@@ -271,7 +272,6 @@ namespace Xpand.Persistent.Base.General {
 
             if (!Executed("ExtendModelInterfaces")){
                 extenders.Add<IModelNode, IModelNodePath>();
-                extenders.Add<IModelOptions, IModelOptionMemberPersistent>();
                 extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
                 extenders.Add<IModelClass, IModelClassEx>();
                 extenders.Add<IModelClass, IModelClassDefaultCriteria>();
