@@ -1,3 +1,5 @@
+using DevExpress.Persistent.BaseImpl;
+
 namespace SystemTester.Module {
     partial class SystemTesterModule {
         /// <summary> 
@@ -26,6 +28,7 @@ namespace SystemTester.Module {
             // 
             // SystemTesterModule
             // 
+            this.AdditionalExportedTypes.Add(typeof(ModelDifference));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.SystemModule.XpandSystemModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));

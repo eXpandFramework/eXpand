@@ -11,11 +11,20 @@
         <RuntimeMember Name="Address" IsCustom="False" Type="DevExpress.Persistent.BaseImpl.Address" CreatedAtDesignTime="False" DataStoreColumnCreated="False" IsNewNode="True" />
         <RuntimeOrphanedColection Name="AllBekiaris" IsCustom="True" CollectionType="SystemTester.Module.FunctionalTests.RunTimeMembers.RunTimeMembersObject" Criteria="[LastName] = 'Bekiaris'" CreatedAtDesignTime="False" IsNewNode="True" />
         <RuntimeCalculatedMember Name="FullName" IsCustom="False" Type="System.String" AliasExpression="FirstName +' ' +LastName" CreatedAtDesignTime="False" IsNewNode="True" />
-        <MemberNonPersistent Name="NonPersistent" IsCustom="False" Type="System.Boolean" IsNewNode="True" />
-        <RuntimeNonPersistentMember Name="Countries" IsCustom="True" CollectionType="DevExpress.Persistent.BaseImpl.Country" AssociationName="sss" AssociatedMember="RunTimeMembersObject" Tag="" CreatedAtDesignTime="False" IsNewNode="True" />
+        <RuntimeNonPersistentMember Name="NonPersistent" IsCustom="False" Type="System.Boolean" IsNewNode="True" />
+        <MemberOneToManyCollection Name="Countries" IsCustom="True" CollectionType="DevExpress.Persistent.BaseImpl.Country" AssociationName="sss" AssociatedMember="RunTimeMembersObject" CreatedAtDesignTime="False" IsNewNode="True" />
       </OwnMembers>
     </Class>
   </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="@0f1314de-80ea-44a6-976a-2cac02074bb1" ViewId="ModelDifference_ListView" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <Views>
     <DetailView Id="RunTimeMembersObject_DetailView">
       <Items>

@@ -1,5 +1,5 @@
 ﻿;#IncludeFile .\Init.inc
-*Navigate Run Time Members Object
+*Navigate RuntimeMembers.RunTimeMembers
 *XpandProcessRecord
  Full Name = Apostolis Bekiaris
  Action = Edit
