@@ -65,15 +65,17 @@ namespace Xpand.CodeRush.Plugins{
                     var process = Process.Start(processStartInfo);
                     Debug.Assert(process != null, "process != null");
                     process.WaitForExit();
-                    var document = XDocument.Load(File.OpenRead(testLogPath));
-                    var errorElement =
-                        document.Descendants().FirstOrDefault(element => element.Name.LocalName == "Error");
-                    if (errorElement != null){
-                        var messageElement = errorElement.Descendants("Message").First();
-                        _dte.WriteToOutput(messageElement.Value);
+                    if (File.Exists(testLogPath)){
+                        var document = XDocument.Load(File.OpenRead(testLogPath));
+                        var errorElement =
+                            document.Descendants().FirstOrDefault(element => element.Name.LocalName == "Error");
+                        if (errorElement != null){
+                            var messageElement = errorElement.Descendants("Message").First();
+                            _dte.WriteToOutput(messageElement.Value);
+                        }
+                        else
+                            _dte.WriteToOutput("EasyTest Passed!");
                     }
-                    else
-                        _dte.WriteToOutput("EasyTest Passed!");
                 }
                 else{
                     _dte.WriteToOutput("EasyTest build failed");
@@ -123,7 +125,7 @@ namespace Xpand.CodeRush.Plugins{
 
         protected virtual void OnQueryLastBuildStatus(LastBuildStatusArgs e){
             var handler = QueryLastBuildStatus;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public void ChangeButtonsEnableState(bool enabled){
