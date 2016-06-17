@@ -19,6 +19,7 @@ namespace WorldCreatorTester.Module.DatabaseUpdate {
                 var userRole = ObjectSpace.GetRole("User");
                 var user = (SecuritySystemUser)userRole.GetUser("user");
                 user.Roles.Add(defaultRole);
+                ObjectSpace.CommitChanges();
             }
         }
     }

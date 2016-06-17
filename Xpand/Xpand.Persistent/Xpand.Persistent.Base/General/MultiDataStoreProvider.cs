@@ -17,15 +17,14 @@ namespace Xpand.Persistent.Base.General {
 
         public override IDataStore CreateUpdatingStore(bool allowUpdateSchema, out IDisposable[] disposableObjects){
             disposableObjects = new IDisposable[]{};
-            return new MultiDataStoreProxy(XpoDefault.GetConnectionProvider(ConnectionString,AutoCreateOption.DatabaseAndSchema), ConnectionString);
+            return new MultiDataStoreProxy(XpoDefault.GetConnectionProvider(ConnectionString,allowUpdateSchema? AutoCreateOption.DatabaseAndSchema:AutoCreateOption.None), ConnectionString);
         }
 
-        public override DataStoreProxy Proxy {
-            get {
-                return ConnectionString != null
-                           ? (_multiDataStoreProxy ?? (_multiDataStoreProxy = new MultiDataStoreProxy(XpoDefault.GetConnectionProvider(ConnectionString,AutoCreateOption.None), ConnectionString)))
-                           : base.Proxy;
-            }
-        }
+        public override DataStoreProxy Proxy => ConnectionString != null
+            ? (_multiDataStoreProxy ??
+               (_multiDataStoreProxy =
+                   new MultiDataStoreProxy(XpoDefault.GetConnectionProvider(ConnectionString, AutoCreateOption.None),
+                       ConnectionString)))
+            : base.Proxy;
     }
 }

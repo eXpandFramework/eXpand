@@ -21,8 +21,9 @@ namespace WorldCreatorTester.Web {
         }
         protected void Session_Start(Object sender, EventArgs e) {
             WebApplication.SetInstance(Session, new WorldCreatorTesterAspNetApplication());
+//            WebApplication.Instance.SwitchToNewStyle();
 #if EASYTEST
-			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
+            if (ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #else

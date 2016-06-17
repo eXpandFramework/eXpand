@@ -1,7 +1,8 @@
 #DropDB IOTesterEasyTest
 #DropDB NorthWind
+#DropDB IOWorldCreatorTester
 #Application IOTester.Win
-;#Application IOTester.Web
+#Application IOTester.Web
 *ScreenCapture
 *LogOn
 

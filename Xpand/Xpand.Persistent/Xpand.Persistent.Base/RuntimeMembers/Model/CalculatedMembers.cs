@@ -14,7 +14,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
         [Description("Using an expression here it will force the creation of a calculated property insted of a normal one")]
         [CriteriaOptions("ModelClass.TypeInfo")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ExpressionModelEditorControl, DevExpress.ExpressApp.Win" +XafApplication.CurrentVersion+AssemblyInfo.FullAssemblyVersionExtension , typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ExpressionModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
         string AliasExpression { get; set; }
     }
 

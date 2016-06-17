@@ -1,5 +1,6 @@
 using DevExpress.ExpressApp;
-using Xpand.ExpressApp.WorldCreator.Core;
+using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.ExpressApp.WorldCreator.Controllers{
@@ -12,7 +13,7 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers{
             base.OnViewControlsCreated();
             if (ObjectSpace.IsNewObject(View.CurrentObject))
                 ((IPersistentTemplatedTypeInfo) View.CurrentObject).Init(
-                    WCTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>());
+                    XafTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>());
         }
     }
 }

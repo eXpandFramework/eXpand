@@ -171,6 +171,7 @@
     <Compile Include="General\Controllers\NavigationItemsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\FileDataExtensions.cs" />
     <Compile Include="General\Web\NavigationContainerWebController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -233,7 +234,11 @@
     <Compile Include="General\ModuleUpdaterExtensions.cs" />
     <Compile Include="General\XpandCollectionSource.cs" />
     <Compile Include="General\ApplicationModulesManagerExtensions.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\PersistentAttributeInfoExtensions.cs" />
+    <Compile Include="PersistentMetaData\ISupportWorldCreatorTypeInfoStore.cs" />
+    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentMapInheritanceAttribute.cs" />
+    <Compile Include="RuntimeMembers\RuntimeMemberModelDifferenceController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Security\SecurityExtensions.cs" />
     <Compile Include="General\XpandDefaultPropertyAttribute.cs" />
     <Compile Include="MessageBox\GenericMessageBox.cs" />
@@ -241,7 +246,9 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentModelDefaultAttribute.cs" />
     <Compile Include="Security\EncryptedSettingsStorage.cs" />
     <Compile Include="Security\ISecurityRelated.cs" />
+    <Compile Include="Validation\RuleIsValidFileName.cs" />
     <Compile Include="XpandFileData.cs" />
+    <Compile Include="Xpo\AssemblyXpoTypeInfoSource.cs" />
     <Compile Include="Xpo\BinaryOperatorValueMapperCriteriaProcessor.cs" />
     <Compile Include="General\Model\DefaultMember.cs" />
     <Compile Include="General\Model\RequiredCalculators\NotRequiredCalculator.cs" />
@@ -360,7 +367,7 @@
     <Compile Include="General\TypesInfoExtensions.cs" />
     <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
     <Compile Include="General\SessionLessPersistentAttribute.cs" />
-    <Compile Include="General\XpandXpoTypeInfoSource.cs" />
+    <Compile Include="Xpo\XpandXpoTypeInfoSource.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\FailReason.cs" />
     <Compile Include="ImportExport\IIOError.cs" />
@@ -415,7 +422,7 @@
     <Compile Include="ModelAdapter\ModelAdapterController.cs" />
     <Compile Include="ModelAdapter\ModelSynchronizerList.cs" />
     <Compile Include="ModelAdapter\Synchronizers.cs" />
-    <Compile Include="ModelDifference\ApplicationModulesManager.cs" />
+    <Compile Include="ModelDifference\XpandApplicationModulesManager.cs" />
     <Compile Include="ModelDifference\AspectInfo.cs" />
     <Compile Include="ModelDifference\ModelApplicationFromStreamStoreBase.cs" />
     <Compile Include="ModelDifference\ModelLoader.cs" />
@@ -577,6 +584,8 @@
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

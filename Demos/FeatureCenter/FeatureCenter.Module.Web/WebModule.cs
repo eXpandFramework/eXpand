@@ -1,16 +1,23 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic;
 using System.Linq;
+using DevExpress.ExpressApp.Updating;
+using Xpand.ExpressApp.WorldCreator.System;
 
 namespace FeatureCenter.Module.Web {
     [ToolboxItemFilter("Xaf.Platform.Web")]
     public sealed partial class FeatureCenterAspNetModule : FeatureCenterModuleBase {
         public FeatureCenterAspNetModule() {
             InitializeComponent();
+        }
+
+        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
+            return base.GetModuleUpdaters(objectSpace, versionFromDB).Where(updater => !(updater is WorldCreatorModuleUpdater));
         }
 
 

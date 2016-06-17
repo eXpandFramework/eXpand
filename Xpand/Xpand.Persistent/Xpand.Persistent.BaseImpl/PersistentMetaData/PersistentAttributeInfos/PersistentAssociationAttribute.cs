@@ -4,6 +4,7 @@ using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -16,6 +17,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
     [CreateableItem(typeof(IPersistentMemberInfo))]
     [CreateableItem(typeof(IExtendedMemberInfo))]
     public class PersistentAssociationAttribute : PersistentAttributeInfo, IPersistentAssociationAttribute {
+        private RelationType _relationType;
         string _associationName;
         PersistentClassInfo _elementClassInfo;
         Type _elementType;
@@ -26,6 +28,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             : base(session) {
         }
 
+        public RelationType RelationType{
+            get { return _relationType; }
+            set { SetPropertyValue("RelationType", ref _relationType, value); }
+        }
 
         [VisibleInListView(true)]
         [RuleRequiredField(null, DefaultContexts.Save)]

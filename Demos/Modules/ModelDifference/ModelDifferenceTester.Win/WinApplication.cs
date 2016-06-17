@@ -1,13 +1,24 @@
+using System.ComponentModel;
 using System.Threading;
 using DevExpress.ExpressApp;
-using Xpand.ExpressApp.Win;
+using DevExpress.ExpressApp.Win;
+using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.General;
 
 namespace ModelDifferenceTester.Win {
-    public partial class ModelDifferenceTesterWindowsFormsApplication : XpandWinApplication {
+    public partial class ModelDifferenceTesterWindowsFormsApplication : WinApplication {
         public ModelDifferenceTesterWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
             LastLogonParametersReading += OnLastLogonParametersReading;
+        }
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
+            if (this.GetEasyTestParameter("WCModel"))
+                args.ObjectSpaceProviders.Add(new WorldCreatorObjectSpaceProvider());
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
@@ -43,7 +54,5 @@ namespace ModelDifferenceTester.Win {
             }
         }
 
-
-        
     }
 }

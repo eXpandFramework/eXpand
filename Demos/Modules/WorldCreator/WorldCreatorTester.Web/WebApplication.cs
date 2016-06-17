@@ -8,6 +8,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using WorldCreatorTester.Module;
 using WorldCreatorTester.Module.Web;
 using Xpand.Persistent.Base.General;
@@ -36,8 +37,9 @@ namespace WorldCreatorTester.Web {
             return "en-US";
         }
 #endif
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args, null);
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs e) {
+            e.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(e.ConnectionString));
+            e.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
 
         void WorldCreatorTesterAspNetApplication_DatabaseVersionMismatch(object sender,
@@ -88,6 +90,7 @@ namespace WorldCreatorTester.Web {
             // WorldCreatorTesterAspNetApplication
             // 
             ApplicationName = "WorldCreatorTester";
+            CheckCompatibilityType=CheckCompatibilityType.DatabaseSchema;
             Connection = _sqlConnection1;
             Modules.Add(_module1);
             Modules.Add(_module2);
@@ -109,7 +112,7 @@ namespace WorldCreatorTester.Web {
 
         protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
             var handler = CustomWriteSecuredLogonParameters;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Xpand.Persistent.Base.General;
 #endif
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Win;
 
 
@@ -12,6 +13,11 @@ namespace FeatureCenter.Win {
     public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication {
         public FeatureCenterWindowsFormsApplication() {
             InitializeComponent();
+        }
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
         }
 
         //        protected override ShowViewStrategyBase CreateShowViewStrategy() {

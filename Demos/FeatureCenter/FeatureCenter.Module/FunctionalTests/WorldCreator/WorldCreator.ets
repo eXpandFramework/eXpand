@@ -1,28 +1,25 @@
 #Timeout 160
 #DropDB XpandFeatureCenterEasyTest
 #DropDB NorthWind
-#DropDB XpandFeatureCenterExceptionHandling
-#DropDB XpandFeatureCenterMultipleDataStore
 #DropDB XpandFeatureCenterWorldCreator
 #Application FeatureCenter.Win
-;#Application FeatureCenter.Web
+#Application FeatureCenter.Web
  
 *ScreenCapture
-*FillForm
- User Name = Admin
- Password = Admin
-*Action Log On
+*LogOn
 
+#IfDef FeatureCenter.Win
 *Action Navigation(WorldCreator.Persistent Assembly Info)
-*ProcessRecord 
+*XpandProcessRecord 
  Name = MasterDetailDynamicAssembly
 !FieldIsVisible
- Fields = Compile Errors 
+ Fields = Errors 
 *SaveAndClose
+#EndIf
 
 *ProcessRecord 
- Name = [PersistentAssemblyInfo]
+ Name = [MappedDBName]
 !FieldIsVisible
- Fields = Compile Errors 
+ Fields = Errors 
 *SaveAndClose
 

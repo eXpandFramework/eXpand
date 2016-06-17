@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Xpo;
@@ -58,7 +57,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
                 var showViewParameters = e.ShowViewParameters;
                 var modelDetailView = ((IModelViewConfigurationView)View.Model).ConfigurationView;
                 if (modelDetailView!=null){
-                    var objectSpace = Application.CreateObjectSpace();
+                    var objectSpace = Application.CreateObjectSpace(modelDetailView.ModelClass.TypeInfo.Type);
                     var changeViewModel = objectSpace.CreateObject<ModelConfiguration>();
                     showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, modelDetailView, true,
                         changeViewModel);

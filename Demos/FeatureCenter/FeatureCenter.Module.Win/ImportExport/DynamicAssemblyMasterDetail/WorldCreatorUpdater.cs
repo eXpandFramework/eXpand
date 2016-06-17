@@ -1,10 +1,12 @@
-﻿using DevExpress.Xpo;
+﻿using System;
+using DevExpress.ExpressApp;
 using Xpand.ExpressApp.IO.Core;
+using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.PersistentMetaData;
-using Xpand.Xpo;
 
 namespace FeatureCenter.Module.Win.ImportExport.DynamicAssemblyMasterDetail {
-    public class WorldCreatorUpdater : Xpand.ExpressApp.WorldCreator.WorldCreatorUpdater {
+    public class WorldCreatorUpdater : WorldCreatorModuleUpdater {
         public const string MasterDetailDynamicAssembly = "IOMasterDetailDynamicAssembly";
 
         public const string DMDCustomer = "IODMDCustomer";
@@ -12,23 +14,19 @@ namespace FeatureCenter.Module.Win.ImportExport.DynamicAssemblyMasterDetail {
 
         public const string DMDOrderLine = "IODMDOrderLine";
 
-        public WorldCreatorUpdater(Session session)
-            : base(session) {
+        public WorldCreatorUpdater(IObjectSpace objectSpace, Version version)
+            : base(objectSpace,version) {
         }
 
 
-        public override void Update() {
-            if (Session.FindObject<PersistentAssemblyInfo>(info => info.Name == MasterDetailDynamicAssembly) == null) {
+        public override void UpdateDatabaseAfterUpdateSchema(){
+            base.UpdateDatabaseAfterUpdateSchema();
+
+            if (ObjectSpace.QueryObject<PersistentAssemblyInfo>(info => info.Name == MasterDetailDynamicAssembly) == null) {
                 var importEngine = new ImportEngine();
-                importEngine.ImportObjects(new UnitOfWork(Session.DataLayer), GetType(), "DynamicAssemblyMasterDetail.xml");
+                importEngine.ImportObjects(info => ObjectSpace, GetType(), "DynamicAssemblyMasterDetail.xml");
             }
+
         }
-
-
-
-
-
-
-
     }
 }

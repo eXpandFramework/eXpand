@@ -21,7 +21,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             if (PersistentClassInfo.PersistentAssemblyInfo != null)
                 initializedArgumentValues = PersistentClassInfo.PersistentAssemblyInfo.Name + "." + PersistentClassInfo.Name;
             Guard.ArgumentNotNull(ConnectionString, "ConnectionString");
-            return new AttributeInfoAttribute(constructorInfo, _connectionString, initializedArgumentValues, IsLegacy);
+            return new AttributeInfoAttribute(constructorInfo, _connectionString, initializedArgumentValues);
         }
 
         IPersistentClassInfo IPersistentAssemblyDataStoreAttribute.PersistentClassInfo {
@@ -29,15 +29,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             set { PersistentClassInfo = value as PersistentClassInfo; }
         }
 
-        private bool _isLegacy;
-        public bool IsLegacy {
-            get {
-                return _isLegacy;
-            }
-            set {
-                SetPropertyValue("IsLegacy", ref _isLegacy, value);
-            }
-        }
 
         private string _connectionString;
         [Size(SizeAttribute.Unlimited)]

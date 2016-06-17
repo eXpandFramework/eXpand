@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             showViewStrategyBase.ShowStartupWindow();
 
             var xafApplication = ApplicationHelper.Instance.Application;
-            var objectSpace = xafApplication.CreateObjectSpace();
+            var objectSpace = xafApplication.CreateObjectSpace(modelDetailView.ModelClass.TypeInfo.Type);
             var objectByKey = objectSpace.GetObjectByKey(objectType,keyValue);
             showViewStrategyBase = (WinShowViewStrategyBase)xafApplication.ShowViewStrategy;
             

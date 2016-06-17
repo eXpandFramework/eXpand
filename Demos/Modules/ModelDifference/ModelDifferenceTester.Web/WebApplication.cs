@@ -8,16 +8,19 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using ModelDifferenceTester.Module;
 using ModelDifferenceTester.Module.Web;
 using Xpand.ExpressApp.ModelDifference;
 using Xpand.ExpressApp.ModelDifference.Web;
 using Xpand.ExpressApp.Security;
-using Xpand.ExpressApp.Web;
+using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.General;
 
 namespace ModelDifferenceTester.Web {
-    public class ModelDifferenceTesterAspNetApplication : XpandWebApplication {
+    public class ModelDifferenceTesterAspNetApplication : WebApplication,IWriteSecuredLogonParameters {
         
         
         CloneObjectModule _cloneObjectModule1;
@@ -36,6 +39,13 @@ namespace ModelDifferenceTester.Web {
             InitializeComponent();
             DatabaseVersionMismatch += ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch;
             LastLogonParametersReading += OnLastLogonParametersReading;
+        }
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
+            if (this.GetEasyTestParameter("WCModel"))
+                args.ObjectSpaceProviders.Add(new WorldCreatorObjectSpaceProvider());
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
@@ -128,6 +138,17 @@ namespace ModelDifferenceTester.Web {
             ((ISupportInitialize) (this)).EndInit();
         }
 
-        
+
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
+        protected override void WriteSecuredLogonParameters() {
+            var handledEventArgs = new HandledEventArgs();
+            OnCustomWriteSecuredLogonParameters(handledEventArgs);
+            if (!handledEventArgs.Handled)
+                base.WriteSecuredLogonParameters();
+        }
+
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e){
+            CustomWriteSecuredLogonParameters?.Invoke(this, e);
+        }
     }
 }

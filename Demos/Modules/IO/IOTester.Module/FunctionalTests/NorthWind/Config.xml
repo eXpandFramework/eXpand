@@ -8,7 +8,7 @@
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100" Parameter="NorthWind"/>
     <!-- Web -->
-    <Application
+    <Application Ignored="0"
 			Name="IOTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"

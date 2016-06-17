@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             WebBrowsers.KillAllWebBrowsers();
             testApplication.ClearModel();
             testApplication.DeleteParametersFile();
-            ScreenCaptureCommand.Stop();
+            ScreenCaptureCommand.Stop(false);
             if (testApplication.ParameterValue<bool>(ApplicationParams.UseIIS))
                 IISHelper.StopAplicationPool(testApplication);
         }
@@ -69,6 +69,8 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             registrator.RegisterCommands(this);
             registrator.RegisterCommand(HideScrollBarCommand.Name, typeof (Commands.HideScrollBarCommand));
             registrator.RegisterCommand(SetWebMaxWaitTimeOutCommand.Name, typeof(Commands.SetWebMaxWaitTimeOutCommand));
+            registrator.RegisterCommand(XpandCheckValidationResultCommand.Name, typeof(Commands.XpandCheckValidationResultCommand));
+            registrator.RegisterCommand(LogonCommand.Name, typeof(Commands.LogonCommand));
         }
 
     }
@@ -103,9 +105,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             set {  }
         }
 
-        public IXpandTestAdapter Adapter{
-            get { return (IXpandTestAdapter) WebAdapter; }
-        }
+        public IXpandTestAdapter Adapter => (IXpandTestAdapter) WebAdapter;
     }
 
 }

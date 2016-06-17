@@ -35,7 +35,6 @@ namespace Xpand.Docs.Module {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.StateMachine.XpandStateMachineModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ViewVariants.XpandViewVariantsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Workflow.XpandWorkFlowModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.WorldCreator.DBMapper.WorldCreatorDBMapperModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule));
         }
 

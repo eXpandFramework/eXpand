@@ -28,6 +28,19 @@ namespace Xpand.Persistent.Base.General {
             DisableObjectSpaceProderCreation = true;
         }
 
+        public static ListView CreateListView<T>(this XafApplication application, IObjectSpace objectSpace,bool isRoot=true){
+            var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
+            return application.CreateListView(objectSpace, objectType, isRoot);
+        }
+
+        public static void AddObjectSpaceProvider(this XafApplication application, IObjectSpaceProvider objectSpaceProvider){
+            var objectSpaceProviders = ((List<IObjectSpaceProvider>)application.GetFieldValue("objectSpaceProviders"));
+            objectSpaceProviders.Add(objectSpaceProvider);
+        }
+
+        public static IObjectSpace CreateObjectSpace<T>(this XafApplication application){
+            return application.CreateObjectSpace(application.TypesInfo.FindBussinessObjectType<T>());
+        }
 
         public static bool IsHosted(this XafApplication application){
             return application.Modules.AreHosted();

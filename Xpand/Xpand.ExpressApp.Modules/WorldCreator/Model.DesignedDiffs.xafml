@@ -3,10 +3,15 @@
   <BOModel>
     <Class Name="Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAssemblyInfo">
       <AppearanceRules>
-        <AppearanceRule Id="Hide Compile Errors" TargetItems="CompileErrors" Context="DetailView" Criteria="IsNullOrEmpty([CompileErrors])" Visibility="Hide" IsNewNode="True" />
-        <AppearanceRule Id="ListView with compile Errors" TargetItems="*" Context="ListView" Criteria="Not IsNullOrEmpty([CompileErrors]) And [DoNotCompile] &lt;&gt; True" FontColor="Red" IsNewNode="True" />
-        <AppearanceRule Id="ListView without compile errors" FontColor="Green" Context="ListView" TargetItems="*" Criteria="IsNullOrEmpty([CompileErrors]) And [DoNotCompile] &lt;&gt; True" IsNewNode="True" />
+        <AppearanceRule Id="Hide Errors" TargetItems="Errors" Context="DetailView" Criteria="IsNullOrEmpty([Errors])" Visibility="Hide" IsNewNode="True" />
+        <AppearanceRule Id="ListView with Errors" TargetItems="*" Context="ListView" Criteria="Not IsNullOrEmpty([Errors]) And [DoNotCompile] &lt;&gt; True" FontColor="Red" IsNewNode="True" />
+        <AppearanceRule Id="ListView without errors" FontColor="Green" Context="ListView" TargetItems="*" Criteria="IsNullOrEmpty([Errors]) And [DoNotCompile] &lt;&gt; True" IsNewNode="True" />
       </AppearanceRules>
+    </Class>
+    <Class Name="Xpand.Persistent.BaseImpl.PersistentMetaData.TemplateInfo">
+      <OwnMembers>
+        <Member Name="TemplateCode" RowCount="30" />
+      </OwnMembers>
     </Class>
   </BOModel>
   <Views>
@@ -24,8 +29,6 @@
                 </LayoutGroup>
                 <LayoutGroup Id="PersistentAssemblyInfo_col2" ShowCaption="False" Index="1" RelativeSize="50.619637750238326" IsNewNode="True">
                   <LayoutItem Id="DoNotCompile" ViewItem="DoNotCompile" Index="0" RelativeSize="4.6444121915820027" IsNewNode="True" />
-                  <LayoutItem Id="IsLegacy" ViewItem="IsLegacy" Index="1" RelativeSize="3.483309143686502" IsNewNode="True" />
-                  <LayoutItem Id="ValidateModelOnCompile" ViewItem="ValidateModelOnCompile" Index="2" RelativeSize="91.8722786647315" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="1" Caption="Persistent Class Infos" RelativeSize="100" IsNewNode="True">
@@ -38,13 +41,13 @@
                 <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
               </LayoutGroup>
               <LayoutGroup Id="Item5" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="4" Caption="Compile Errors" RelativeSize="100" IsNewNode="True">
-                <LayoutItem Id="CompileErrors" ViewItem="CompileErrors" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+                <LayoutItem Id="Errors" ViewItem="Errors" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
               </LayoutGroup>
             </TabbedGroup>
             <LayoutGroup Id="PersistentAssemblyInfo" Removed="True" />
           </LayoutGroup>
           <LayoutGroup Id="SizeableEditors" RelativeSize="78.561736770692" Direction="Horizontal" Removed="True">
-            <LayoutItem Id="CompileErrors" ViewItem="CompileErrors" Removed="True" />
+            <LayoutItem Id="Errors" ViewItem="Errors" Removed="True" />
             <LayoutItem Id="GeneratedCode" ViewItem="GeneratedCode" Removed="True" />
           </LayoutGroup>
           <TabbedGroup Id="Tabs" RelativeSize="74.084124830393492" Removed="True">
@@ -110,22 +113,22 @@
         <LayoutGroup Id="Main">
           <TabbedGroup Id="Tabs">
             <LayoutGroup Id="General">
-              <LayoutItem Id="Name" TextAlignMode="AutoSize" RelativeSize="7.2727272727272725" />
+              <LayoutItem Id="Name" TextAlignMode="AutoSize" RelativeSize="7.2727272727272725" ViewItem="Name" />
               <LayoutItem Id="CollectionClassInfo" ViewItem="CollectionClassInfo" Index="1" RelativeSize="5.4545454545454541" IsNewNode="True" />
               <LayoutItem Id="CollectionType" ViewItem="CollectionType" Index="2" RelativeSize="5.4545454545454541" IsNewNode="True" />
               <LayoutItem Id="RelationType" ViewItem="RelationType" Index="3" RelativeSize="81.818181818181813" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" ViewItem="TypeAttributes" />
             </LayoutGroup>
             <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" ViewItem="TemplateInfos" />
             </LayoutGroup>
             <LayoutGroup Id="Code">
-              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="4.5454545454545459" />
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="4.5454545454545459" ViewItem="CodeTemplateInfo.CodeTemplate" />
               <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)" RelativeSize="95.454545454545453">
-                <LayoutItem Id="GeneratedCode" RelativeSize="49.869451697127936" />
-                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.130548302872064" />
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.869451697127936" ViewItem="GeneratedCode" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.130548302872064" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
               </LayoutGroup>
             </LayoutGroup>
           </TabbedGroup>
@@ -140,20 +143,20 @@
         <LayoutGroup Id="Main">
           <TabbedGroup Id="Tabs">
             <LayoutGroup Id="General" Direction="Horizontal">
-              <LayoutItem Id="Name" TextAlignMode="AutoSize" RelativeSize="50" />
+              <LayoutItem Id="Name" TextAlignMode="AutoSize" RelativeSize="50" ViewItem="Name" />
               <LayoutItem Id="DataType" ViewItem="DataType" Index="1" RelativeSize="50" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" ViewItem="TypeAttributes" />
             </LayoutGroup>
             <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" ViewItem="TemplateInfos" />
             </LayoutGroup>
             <LayoutGroup Id="Code">
-              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="4.5454545454545459" />
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="4.5454545454545459" ViewItem="CodeTemplateInfo.CodeTemplate" />
               <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)" RelativeSize="95.454545454545453">
-                <LayoutItem Id="GeneratedCode" RelativeSize="49.869451697127936" />
-                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.130548302872064" />
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.869451697127936" ViewItem="GeneratedCode" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.130548302872064" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
               </LayoutGroup>
             </LayoutGroup>
           </TabbedGroup>
@@ -200,22 +203,22 @@
         <LayoutGroup Id="Main">
           <TabbedGroup Id="Tabs">
             <LayoutGroup Id="General">
-              <LayoutItem Id="Name" TextAlignMode="AutoSize" RelativeSize="7.2727272727272725" />
+              <LayoutItem Id="Name" TextAlignMode="AutoSize" RelativeSize="7.2727272727272725" ViewItem="Name" />
               <LayoutItem Id="ReferenceClassInfo" ViewItem="ReferenceClassInfo" Index="1" RelativeSize="5.4545454545454541" IsNewNode="True" />
               <LayoutItem Id="ReferenceType" ViewItem="ReferenceType" Index="2" RelativeSize="5.4545454545454541" IsNewNode="True" />
               <LayoutItem Id="AutoGenerateOtherPartMember" ViewItem="AutoGenerateOtherPartMember" Index="3" RelativeSize="81.818181818181813" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" ViewItem="TypeAttributes" />
             </LayoutGroup>
             <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" ViewItem="TemplateInfos" />
             </LayoutGroup>
             <LayoutGroup Id="Code">
-              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="4.5454545454545459" />
+              <LayoutItem Id="CodeTemplateInfo.CodeTemplate" RelativeSize="4.5454545454545459" ViewItem="CodeTemplateInfo.CodeTemplate" />
               <LayoutGroup Id="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c" Caption="Auto3ecef732-1ead-4624-bf7c-b99abcb2885c(11)" RelativeSize="95.454545454545453">
-                <LayoutItem Id="GeneratedCode" RelativeSize="49.869451697127936" />
-                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.130548302872064" />
+                <LayoutItem Id="GeneratedCode" RelativeSize="49.869451697127936" ViewItem="GeneratedCode" />
+                <LayoutItem Id="CodeTemplateInfo.TemplateInfo.TemplateCode" RelativeSize="50.130548302872064" ViewItem="CodeTemplateInfo.TemplateInfo.TemplateCode" />
               </LayoutGroup>
             </LayoutGroup>
           </TabbedGroup>

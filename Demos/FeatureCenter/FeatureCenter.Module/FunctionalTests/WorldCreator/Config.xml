@@ -2,13 +2,13 @@
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" DefaultTimeout="50" >
   <Applications>
     <!-- Win -->
-    <Application
+    <Application Ignored="0"
 			Name="FeatureCenter.Win"
 			FileName="[WinAppBin]\FeatureCenter.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100"/>
     <!-- Web -->
-    <Application
+    <Application Ignored="1"
 			Name="FeatureCenter.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
@@ -23,8 +23,6 @@
   <TestDatabases>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterEasyTest"/>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="NorthWind"/>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterExceptionHandling"/>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterMultipleDataStore"/>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterWorldCreator"/>
   </TestDatabases>
   <Aliases>
@@ -32,6 +30,8 @@
     <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\FeatureCenter.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\FeatureCenter.Web" />
-	<Alias Name="PersistentAssemblyInfo" Value="NorthWind" />
+    <Alias Name="MappedDBName" Value="NorthWind" />
+    
+	
   </Aliases>
 </Options>

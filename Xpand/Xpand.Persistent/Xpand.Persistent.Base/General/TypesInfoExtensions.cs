@@ -14,6 +14,7 @@ using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
+using TypeInfo = DevExpress.ExpressApp.DC.TypeInfo;
 
 namespace Xpand.Persistent.Base.General {
 
@@ -30,16 +31,20 @@ namespace Xpand.Persistent.Base.General {
             return CaptionHelper.ApplicationModel.BOModel.GetClass(typeInfo.Type);
         }
 
-        public static XPClassInfo FindDCXPClassInfo(this TypeInfo typeInfo) {
-            var xpoTypeInfoSource = XpandModuleBase.XpoTypeInfoSource;
-            var xpDictionary = xpoTypeInfoSource.XPDictionary;
+        public static XPClassInfo QueryXPClassInfo(this ITypeInfo typeInfo){
+            var typeInfoSource = ((TypeInfo)typeInfo).Source as XpoTypeInfoSource;
+            return typeInfoSource?.XPDictionary.QueryClassInfo(typeInfo.Type);
+        }
+
+        public static XPClassInfo FindDCXPClassInfo(this ITypeInfo typeInfo) {
+            var xpoTypeInfoSource = ((XpoTypeInfoSource) ((TypeInfo) typeInfo).Source);
             if (InterfaceBuilder.RuntimeMode) {
                 var generatedEntityType = xpoTypeInfoSource.GetGeneratedEntityType(typeInfo.Type);
-                return generatedEntityType == null ? null : xpDictionary.GetClassInfo(generatedEntityType);
+                return generatedEntityType == null ? null : xpoTypeInfoSource.XPDictionary.GetClassInfo(generatedEntityType);
             }
             var className = typeInfo.Name + "BaseDCDesignTimeClass";
-            var xpClassInfo = xpDictionary.QueryClassInfo("", className);
-            return xpClassInfo ?? new XPDataObjectClassInfo(xpDictionary, className);
+            var xpClassInfo = xpoTypeInfoSource.XPDictionary.QueryClassInfo("", className);
+            return xpClassInfo ?? new XPDataObjectClassInfo(xpoTypeInfoSource.XPDictionary, className);
         }
 
         static readonly MemberSetter _xpoTypeInfoSourceSetter = typeof(XpoTypesInfoHelper).DelegateForSetFieldValue("xpoTypeInfoSource");
@@ -60,23 +65,28 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo) {
-            if (!(typeof(T).IsInterface))
-                throw new ArgumentException(typeof(T).FullName + " should be an interface");
-            var implementors = typesInfo.FindTypeInfo(typeof(T)).Implementors.ToArray();
+        public static Type FindBussinessObjectType(this ITypesInfo typesInfo,Type type){
+            if (!(type.IsInterface))
+                return type;
+            var implementors = typesInfo.FindTypeInfo(type).Implementors.ToArray();
             var objectType = implementors.FirstOrDefault();
             if (objectType == null)
                 throw new ArgumentException("Add a business object that implements " +
-                                                typeof(T).FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
+                                                type.FullName + " at your AdditionalBusinessClasses (module.designer.cs)");
             if (implementors.Length > 1) {
-                var typeInfos = implementors.Where(implementor =>implementor.Base!=null&& !(typeof(T).IsAssignableFrom(implementor.Base.Type)));
+                var typeInfos = implementors.Where(implementor => implementor.Base != null && !(type.IsAssignableFrom(implementor.Base.Type)));
                 foreach (ITypeInfo implementor in typeInfos) {
                     return implementor.Type;
                 }
 
-                throw new ArgumentNullException("More than 1 objects implement " + typeof(T).FullName);
+                throw new ArgumentNullException("More than 1 objects implement " + type.FullName);
             }
             return objectType.Type;
+
+        }
+
+        public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo){
+            return typesInfo.FindBussinessObjectType(typeof(T));
         }
 
         public static XPMemberInfo CreateMember(this ITypesInfo typesInfo, Type typeToCreateOn, Type typeOfMember, string associationName, XPDictionary dictionary) {

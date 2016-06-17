@@ -136,14 +136,14 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
 
         private void DatabaseDashboardStorageOnRequestDashboardIds(object sender, RequestDashboardIdsArgs e){
             string[] strings;
-            using (var objectSpace = _application.CreateObjectSpace()){
+            using (var objectSpace = _application.CreateObjectSpace(typeof(DashboardDefinition))){
                 strings = objectSpace.GetObjectsQuery<DashboardDefinition>().Select(definition => definition.Name).ToArray();
             }
             e.Ids = strings;
         }
 
         private void DatabaseDashboardStorageOnRequestObjectSpace(object sender, RequestObjectSpaceArgs e){
-            e.ObjectSpace = _application.CreateObjectSpace();
+            e.ObjectSpace = _application.CreateObjectSpace(typeof(DashboardDefinition));
         }
 
         private void DashboardDesignerStorageOnDataLoading(object sender, ConfigureServiceDataLoadingEventArgs e){

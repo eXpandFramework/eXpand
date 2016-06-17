@@ -3,9 +3,9 @@ using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.Controllers;
-using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.Controllers{
     public class PopulateModelDefaultAttributePropertyNamesController :PopulateController<IPersistentModelDefaultAttribute>{
