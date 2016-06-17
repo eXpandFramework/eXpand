@@ -24,7 +24,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
 
         static void OnCustomCreateMember(CustomCreateMemberArgs e) {
             EventHandler<CustomCreateMemberArgs> handler = CustomCreateMember;
-            if (handler != null) handler(null, e);
+            handler?.Invoke(null, e);
         }
 
         

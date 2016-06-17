@@ -51,7 +51,7 @@ namespace Xpand.CodeRush.Plugins {
             if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(token)) {
                 var directoryName = Path.GetDirectoryName(DevExpress.CodeRush.Core.CodeRush.Solution.Active.FileName);
                 _dte.WriteToOutput("Project Converter Started !!!");
-                var userName = string.Format("/sc /k:{0} \"{1}\"", token, directoryName);
+                var userName = $"/sc /k:{token} \"{directoryName}\"";
                 Process.Start(path, userName);
             }
         }

@@ -9,9 +9,9 @@ namespace Xpand.Utils.Helpers {
     public static class EnviromentEx {
         [StructLayout(LayoutKind.Sequential)]
         internal struct WTS_SESSION_INFO {
-            public Int32 SessionID;
+            public long SessionID;
             [MarshalAs(UnmanagedType.LPStr)]
-            public String pWinStationName;
+            public string pWinStationName;
             public WTS_CONNECTSTATE_CLASS State;
         }
 
@@ -126,7 +126,7 @@ namespace Xpand.Utils.Helpers {
             }
         }
 
-        private static Dictionary<string, int> GetUserSessionDictionary(IntPtr server, IEnumerable<int> sessions) {
+        private static Dictionary<string, int> GetUserSessionDictionary(IntPtr server, IEnumerable<long> sessions) {
             var userSession = new Dictionary<string, int>();
 
             foreach (int sessionId in sessions) {
@@ -139,7 +139,7 @@ namespace Xpand.Utils.Helpers {
 
         private static bool LogOffUser(string userName, IntPtr server) {
             userName = userName.Trim().ToUpper();
-            IEnumerable<int> sessions = GetSessionIDs(server);
+            var sessions = GetSessionIDs(server);
             Dictionary<string, int> userSessionDictionary = GetUserSessionDictionary(server, sessions);
             if (userSessionDictionary.ContainsKey(userName))
                 return WTSLogoffSession(server, userSessionDictionary[userName], true);
@@ -157,13 +157,13 @@ namespace Xpand.Utils.Helpers {
             }
         }
 
-        private static IEnumerable<int> GetSessionIDs(IntPtr server) {
-            var sessionIds = new List<int>();
+        private static IEnumerable<long> GetSessionIDs(IntPtr server) {
+            var sessionIds = new List<long>();
             IntPtr buffer = IntPtr.Zero;
             int count = 0;
             int retval = WTSEnumerateSessions(server, 0, 1, ref buffer, ref count);
             int dataSize = Marshal.SizeOf(typeof(WTS_SESSION_INFO));
-            Int64 current = (int)buffer;
+            var current = (long)buffer;
 
             if (retval != 0) {
                 for (int i = 0; i < count; i++) {

@@ -56,7 +56,7 @@ namespace Xpand.CodeRush.Plugins{
                         throw new FileNotFoundException(
                             "Use plugin options to assign a valid path for the standalond TestExecutor. Or leave it blank for auto detection.");
                     var processStartInfo = new ProcessStartInfo(testExecutorPath){
-                        Arguments = string.Format(@"""{0}""{1}", activeFileName, debugSwitch),
+                        Arguments = $@"""{activeFileName}""{debugSwitch}",
                         UseShellExecute = debug,
                         RedirectStandardOutput = !debug,
                         CreateNoWindow = !debug

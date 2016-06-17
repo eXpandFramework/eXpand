@@ -142,34 +142,20 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
     [AttributeUsage(AttributeTargets.Class,Inherited = false)]
     public sealed class RichEditPropertyEditorAttribute:Attribute{
-        private readonly string _highLightExtension;
-        private readonly string _controlBindingProperty;
-        private readonly bool _showToolBars;
-        private readonly bool _printXML;
-
         public RichEditPropertyEditorAttribute(string highLightExtension, bool showToolBars, bool printXML, string controlBindingProperty){
-            _highLightExtension = highLightExtension;
-            _showToolBars = showToolBars;
-            _printXML = printXML;
-            _controlBindingProperty = controlBindingProperty;
+            HighLightExtension = highLightExtension;
+            ShowToolBars = showToolBars;
+            PrintXML = printXML;
+            ControlBindingProperty = controlBindingProperty;
         }
 
-        public bool PrintXML{
-            get { return _printXML; }
-        }
+        public bool PrintXML { get; }
 
-        public string ControlBindingProperty{
-            get { return _controlBindingProperty; }
-        }
+        public string ControlBindingProperty { get; }
 
-        public string HighLightExtension{
-            get { return _highLightExtension; }
-            
-        }
+        public string HighLightExtension { get; }
 
-        public bool ShowToolBars{
-            get { return _showToolBars; }
-        }
+        public bool ShowToolBars { get; }
     }
 
     public class ModelMemberViewItemRichEditVisibilityCalculator : IModelIsVisible {
@@ -188,9 +174,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             ControlBindingProperty = ((IModelMemberViewItemRichEdit) model).RichEdit.ControlBindingProperty;
         }
 
-        public new RichEditContainerBase Control {
-            get { return ((RichEditContainerBase)base.Control); }
-        }
+        public new RichEditContainerBase Control => ((RichEditContainerBase)base.Control);
 
         protected void ApplyMinimalConfiiguration(RichEditContainerBase richEditContainer) {
             richEditContainer.RichEditControl.Options.AutoCorrect.DetectUrls = false;
@@ -403,11 +387,11 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     }
     public class SourcesCodeDocumentImporter : PlainTextDocumentImporter {
         internal static readonly FileDialogFilter DialogFilter = new FileDialogFilter("Source Files", new[] { "cs", "vb", "html", "htm", "js", "xml", "css" });
-        public override FileDialogFilter Filter { get { return DialogFilter; } }
-        public override DocumentFormat Format { get { return SourceCodeDocumentFormat.Id; } }
+        public override FileDialogFilter Filter => DialogFilter;
+        public override DocumentFormat Format => SourceCodeDocumentFormat.Id;
     }
     public class SourcesCodeDocumentExporter : PlainTextDocumentExporter {
-        public override FileDialogFilter Filter { get { return SourcesCodeDocumentImporter.DialogFilter; } }
-        public override DocumentFormat Format { get { return SourceCodeDocumentFormat.Id; } }
+        public override FileDialogFilter Filter => SourcesCodeDocumentImporter.DialogFilter;
+        public override DocumentFormat Format => SourceCodeDocumentFormat.Id;
     }
 }
