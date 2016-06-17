@@ -38,8 +38,7 @@ namespace DCSecurityDemo.Web {
         private Xpand.ExpressApp.ModelDifference.ModelDifferenceModule modelDifferenceModule1;
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.Web.AdditionalViewControlsProviderAspNetModule additionalViewControlsProviderAspNetModule1;
-        private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
-        private Xpand.ExpressApp.FilterDataStore.Web.FilterDataStoreAspNetModule filterDataStoreAspNetModule1;
+        
         private Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule modelDifferenceAspNetModule1;
         private Xpand.ExpressApp.NCarousel.Web.NCarouselWebModule nCarouselWebModule1;
         private DevExpress.ExpressApp.PivotChart.PivotChartModuleBase pivotChartModuleBase1;
@@ -111,8 +110,7 @@ namespace DCSecurityDemo.Web {
             this.modelDifferenceModule1 = new Xpand.ExpressApp.ModelDifference.ModelDifferenceModule();
             this.treeListEditorsModuleBase1 = new DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase();
             this.additionalViewControlsProviderAspNetModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.Web.AdditionalViewControlsProviderAspNetModule();
-            this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
-            this.filterDataStoreAspNetModule1 = new Xpand.ExpressApp.FilterDataStore.Web.FilterDataStoreAspNetModule();
+            
             this.modelDifferenceAspNetModule1 = new Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule();
             this.nCarouselWebModule1 = new Xpand.ExpressApp.NCarousel.Web.NCarouselWebModule();
             this.pivotChartModuleBase1 = new DevExpress.ExpressApp.PivotChart.PivotChartModuleBase();
@@ -199,8 +197,7 @@ namespace DCSecurityDemo.Web {
             this.Modules.Add(this.treeListEditorsModuleBase1);
             this.Modules.Add(this.module8);
             this.Modules.Add(this.additionalViewControlsProviderAspNetModule1);
-            this.Modules.Add(this.filterDataStoreModule1);
-            this.Modules.Add(this.filterDataStoreAspNetModule1);
+            
             this.Modules.Add(this.modelDifferenceAspNetModule1);
             this.Modules.Add(this.nCarouselWebModule1);
             this.Modules.Add(this.pivotChartModuleBase1);

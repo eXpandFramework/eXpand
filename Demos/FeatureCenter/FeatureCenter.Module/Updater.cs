@@ -2,13 +2,11 @@ using System;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using FeatureCenter.Base;
-using Xpand.ExpressApp.FilterDataStore.Providers;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.ModelDifference.Security;
 
@@ -49,10 +47,10 @@ namespace FeatureCenter.Module {
             var administratorRole = objectSpace.GetAdminRole("Administrator");
             var modelRole = objectSpace.GetDefaultModelRole("ModelDifference");
 
-            var user = objectSpace.GetUser("Admin", "Admin", administratorRole);
-            UserFilterProvider.UpdaterUserKey = ((SecuritySystemUser)user).Oid;
-            user = objectSpace.GetUser("User", "", defaultRole, modelRole);
-            UserFilterProvider.UpdaterUserKey = ((SecuritySystemUser)user).Oid;
+            objectSpace.GetUser("Admin", null, administratorRole);
+            
+            objectSpace.GetUser("User", "", defaultRole, modelRole);
+            
 
             objectSpace.CommitChanges();
         }

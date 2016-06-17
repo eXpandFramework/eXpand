@@ -58,8 +58,7 @@ namespace DCSecurityDemo.Win {
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
             this.additionalViewControlsProviderWindowsFormsModule1 = new Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule();
-            this.filterDataStoreModule1 = new Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule();
-            this.filterDataStoreWindowsFormsModule1 = new Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule();
+            
             this.importWizardModule1 = new Xpand.ExpressApp.ImportWizard.ImportWizardModule();
             this.importWizardWindowsFormsModule1 = new Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule();
             this.ioModule1 = new Xpand.ExpressApp.IO.IOModule();
@@ -156,8 +155,7 @@ namespace DCSecurityDemo.Win {
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
             this.Modules.Add(this.additionalViewControlsProviderWindowsFormsModule1);
-            this.Modules.Add(this.filterDataStoreModule1);
-            this.Modules.Add(this.filterDataStoreWindowsFormsModule1);
+            
             this.Modules.Add(this.importWizardModule1);
             this.Modules.Add(this.importWizardWindowsFormsModule1);
             this.Modules.Add(this.ioModule1);
@@ -220,8 +218,8 @@ namespace DCSecurityDemo.Win {
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
         private Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule additionalViewControlsProviderWindowsFormsModule1;
-        private Xpand.ExpressApp.FilterDataStore.FilterDataStoreModule filterDataStoreModule1;
-        private Xpand.ExpressApp.FilterDataStore.Win.FilterDataStoreWindowsFormsModule filterDataStoreWindowsFormsModule1;
+        
+        
         private Xpand.ExpressApp.ImportWizard.ImportWizardModule importWizardModule1;
         private Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule importWizardWindowsFormsModule1;
         private Xpand.ExpressApp.IO.IOModule ioModule1;
