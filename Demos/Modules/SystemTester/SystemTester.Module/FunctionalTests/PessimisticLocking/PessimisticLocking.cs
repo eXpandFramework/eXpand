@@ -1,8 +1,8 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
 
 namespace SystemTester.Module.FunctionalTests.PessimisticLocking {
@@ -15,7 +15,7 @@ namespace SystemTester.Module.FunctionalTests.PessimisticLocking {
         private void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
             var selectedObject = View.SelectedObjects[0];
             var member = View.ObjectTypeInfo.FindMember(PessimisticLockingViewController.LockedUser);
-            member.SetValue(selectedObject,ObjectSpace.FindObject<XpandUser>(user => user.UserName=="User"));
+            member.SetValue(selectedObject,ObjectSpace.GetObjectsQuery<XpandUser>().FirstOrDefault(user => user.UserName == "User"));
             ObjectSpace.CommitChanges();
         }
     }

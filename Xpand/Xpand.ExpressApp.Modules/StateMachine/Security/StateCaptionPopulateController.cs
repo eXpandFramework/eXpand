@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.StateMachine.Security{
         }
 
         ReadOnlyCollection<string> GetStateCaptions(string stateMachineName) {
-            return ObjectSpace.GetObjects<XpoState>(state => state.StateMachine.Name == stateMachineName).Select(
+            return ObjectSpace.QueryObjects<XpoState>(state => state.StateMachine.Name == stateMachineName).Select(
                 state => state.Caption).ToList().AsReadOnly();
         }
 

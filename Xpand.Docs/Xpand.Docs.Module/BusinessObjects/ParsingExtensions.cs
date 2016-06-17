@@ -88,7 +88,7 @@ namespace Xpand.Docs.Module.BusinessObjects {
 
         public static ModuleArtifact CreateArtifact(IObjectSpace objectSpace, Type artifactType){
             var assemblyName = artifactType.Assembly.GetName().Name;
-            var moduleChild = objectSpace.FindObject<ModuleChild>(child => child.AssemblyName == assemblyName);
+            var moduleChild = objectSpace.QueryObject<ModuleChild>(child => child.AssemblyName == assemblyName);
             var moduleArtifactType = GetModuleArtifactType(artifactType);
             return CreateArtifact(moduleChild, moduleArtifactType,objectSpace,  artifactType);
         }
