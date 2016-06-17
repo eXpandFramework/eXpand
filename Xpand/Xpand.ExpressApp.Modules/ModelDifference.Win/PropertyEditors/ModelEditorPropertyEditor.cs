@@ -13,55 +13,65 @@ using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers;
-using Xpand.Persistent.Base.General;
+using PropertyChangingEventArgs = DevExpress.ExpressApp.Win.Core.ModelEditor.PropertyChangingEventArgs;
 
-namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
+namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
     [PropertyEditor(typeof(ModelApplicationBase), true)]
-    public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexViewItem {
-        static readonly LightDictionary<ModelApplicationBase, ITypesInfo> _modelApplicationBases;
-        static readonly ITypesInfo _typeInfo  ;
-        static ModelEditorPropertyEditor () {
+    public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexViewItem{
+        private static readonly LightDictionary<ModelApplicationBase, ITypesInfo> _modelApplicationBases;
+        private static readonly ITypesInfo _typeInfo;
+
+        static ModelEditorPropertyEditor(){
             _typeInfo = XafTypesInfo.Instance;
-            _modelApplicationBases=new LightDictionary<ModelApplicationBase, ITypesInfo>();
+            _modelApplicationBases = new LightDictionary<ModelApplicationBase, ITypesInfo>();
         }
-        #region Members
-        private ModelEditorViewController _modelEditorViewController;
-        ModelLoader _modelLoader;
-        ModelApplicationBase _masterModel;
-        ModelApplicationBase _currentObjectModel;
-        IObjectSpace _objectSpace;
-        Form _form;
-        #endregion
 
         #region Constructor
 
         public ModelEditorPropertyEditor(Type objectType, IModelMemberViewItem model)
-            : base(objectType, model) {
+            : base(objectType, model){
         }
 
         #endregion
 
+        #region Eventhandler
 
-        #region Properties
-        public ModelApplicationBase MasterModel {
-            get { return _masterModel; }
+        private void Model_Modifying(object sender, CancelEventArgs e){
+            View.ObjectSpace.SetModified(CurrentObject);
         }
 
-        public new ModelDifferenceObject CurrentObject {
+        #endregion
+
+        #region Members
+
+        private ModelEditorViewController _modelEditorViewController;
+        private ModelLoader _modelLoader;
+        private ModelApplicationBase _currentObjectModel;
+        private IObjectSpace _objectSpace;
+        private Form _form;
+        private bool _xmlContentChanged;
+
+        #endregion
+
+        #region Properties
+
+        public ModelApplicationBase MasterModel { get; private set; }
+
+        public new ModelDifferenceObject CurrentObject{
             get { return base.CurrentObject as ModelDifferenceObject; }
             set { base.CurrentObject = value; }
         }
 
-        public new ModelEditorControl Control {
-            get { return (ModelEditorControl)base.Control; }
-        }
+        public new ModelEditorControl Control => (ModelEditorControl) base.Control;
 
 
-        public ModelEditorViewController ModelEditorViewModelEditorViewController {
-            get {
+        public ModelEditorViewController ModelEditorViewModelEditorViewController{
+            get{
                 if (_modelEditorViewController == null)
                     CreateModelEditorController();
 
@@ -69,95 +79,117 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             }
         }
 
-
         #endregion
 
         #region Overrides
 
-        protected override void OnCurrentObjectChanged() {
+        protected override void OnCurrentObjectChanged(){
             _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName, XafTypesInfo.Instance);
-            _masterModel = GetMasterModel(false);
+            MasterModel = GetMasterModel(false);
             base.OnCurrentObjectChanged();
         }
 
-        ModelApplicationBase GetMasterModel(bool recreate) {
+        private ModelApplicationBase GetMasterModel(bool recreate){
             var modelApplicationBase = GetMasterModelCore(recreate);
             _modelApplicationBases.Add(modelApplicationBase, XafTypesInfo.Instance);
             _typeInfo.AssignAsInstance();
             return modelApplicationBase;
         }
 
-        ModelApplicationBase GetMasterModelCore(bool recreate) {
+        private ModelApplicationBase GetMasterModelCore(bool recreate){
             InterfaceBuilder.SkipAssemblyCleanup = true;
             var masterModel = !recreate ? _modelLoader.GetMasterModel(true) : _modelLoader.ReCreate();
             InterfaceBuilder.SkipAssemblyCleanup = false;
             return masterModel;
         }
 
-        protected override object CreateControlCore() {
+        protected override object CreateControlCore(){
             CurrentObject.Changed += CurrentObjectOnChanged;
             _objectSpace.Committing += ObjectSpaceOnCommitting;
-            var modelEditorControl = new ModelEditorControl(new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
+            var modelEditorControl =
+                new ModelEditorControl(
+                    new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
             modelEditorControl.OnDisposing += modelEditorControl_OnDisposing;
-            modelEditorControl.GotFocus+=ModelEditorControlOnGotFocus;
+            modelEditorControl.GotFocus += ModelEditorControlOnGotFocus;
+            modelEditorControl.Enter+=ModelEditorLoadXml;
             return modelEditorControl;
         }
 
-        void ModelEditorControlOnGotFocus(object sender, EventArgs eventArgs) {
-            ((ModelEditorControl)sender).GotFocus-=ModelEditorControlOnGotFocus;
-            _form = ((ModelEditorControl)sender).FindForm();
+        private void ModelEditorLoadXml(object sender, EventArgs eventArgs){
+            if (_xmlContentChanged){
+                _xmlContentChanged = false;
+                MergeXmlWithModel();
+            }
+        }
+
+        public void MergeXmlWithModel(){
+            var aspect = MasterModel.CurrentAspect;
+            InterfaceBuilder.SkipAssemblyCleanup = true;
+            MasterModel = GetMasterModel(false);
+            InterfaceBuilder.SkipAssemblyCleanup = false;
+            CreateModelEditorController(aspect);
+        }
+
+        private void ModelEditorControlOnGotFocus(object sender, EventArgs eventArgs){
+            ((ModelEditorControl) sender).GotFocus -= ModelEditorControlOnGotFocus;
+            _form = ((ModelEditorControl) sender).FindForm();
             if (_form != null){
                 _form.Deactivate += FormOnDeactivate;
                 _form.Activated += FormOnActivated;
             }
+            
         }
 
-        void FormOnActivated(object sender, EventArgs eventArgs) {
-            ITypesInfo typesInfo = _modelApplicationBases[_masterModel];
+        private void FormOnActivated(object sender, EventArgs eventArgs){
+            var typesInfo = _modelApplicationBases[MasterModel];
             typesInfo.AssignAsInstance();
         }
 
-        void FormOnDeactivate(object sender, EventArgs eventArgs) {
+        private void FormOnDeactivate(object sender, EventArgs eventArgs){
             _typeInfo.AssignAsInstance();
         }
 
-        private void modelEditorControl_OnDisposing(object sender, EventArgs e) {
-            _form.Deactivate-=FormOnDeactivate;
-            _form.Activated-=FormOnActivated;
-            _modelApplicationBases.Remove(_masterModel);
+        private void modelEditorControl_OnDisposing(object sender, EventArgs e){
+            if (_form != null){
+                _form.Deactivate -= FormOnDeactivate;
+                _form.Activated -= FormOnActivated;
+            }
+            _modelApplicationBases.Remove(MasterModel);
             Control.OnDisposing -= modelEditorControl_OnDisposing;
 
             DisposeController();
         }
 
-        protected override void Dispose(bool disposing) {
-            try {
+        protected override void Dispose(bool disposing){
+            try{
                 if (CurrentObject != null)
                     CurrentObject.Changed -= CurrentObjectOnChanged;
 
-                if (_objectSpace != null) {
+                if (_objectSpace != null){
                     _objectSpace.Committing -= ObjectSpaceOnCommitting;
                     _objectSpace = null;
                 }
-            } finally {
+            }
+            finally{
                 base.Dispose(disposing);
                 _typeInfo.AssignAsInstance();
             }
         }
 
-        private void DisposeController() {
-            if (_modelEditorViewController != null) {
+        private void DisposeController(){
+            if (_modelEditorViewController != null){
                 _modelEditorViewController.CurrentAspectChanged -= ModelEditorViewControllerOnCurrentAspectChanged;
                 _modelEditorViewController.Modifying -= Model_Modifying;
                 _modelEditorViewController.ChangeAspectAction.ExecuteCompleted -= ChangeAspectActionOnExecuteCompleted;
-                if (_modelEditorViewController.ModelEditorControl!=null)
+                _modelEditorViewController.ModelAttributesPropertyEditorController.PropertyChanged -= ModelAttributesPropertyEditorControllerOnPropertyChanged;
+                if (_modelEditorViewController.ModelEditorControl != null)
                     _modelEditorViewController.SaveSettings();
                 _modelEditorViewController.SelectedNodes.Clear();
                 _modelEditorViewController = null;
             }
         }
 
-        void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
+        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
             new ModelValidator(new FastModelEditorHelper()).ValidateNode(_currentObjectModel);
             if (ModelEditorViewModelEditorViewController.SaveAction.Enabled)
                 ModelEditorViewModelEditorViewController.SaveAction.DoExecute();
@@ -165,66 +197,63 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
         }
 
 
-        void CurrentObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs) {
-            if (objectChangeEventArgs.PropertyName == "XmlContent") {
-                var aspect = _masterModel.CurrentAspect;
-                InterfaceBuilder.SkipAssemblyCleanup = true;
-                _masterModel = GetMasterModel(false);
-                InterfaceBuilder.SkipAssemblyCleanup = false;
-                CreateModelEditorController(aspect);
+        private void CurrentObjectOnChanged(object sender, ObjectChangeEventArgs objectChangeEventArgs){
+            if (objectChangeEventArgs.PropertyName == nameof(IXpoModelDifference.XmlContent)){
+                _xmlContentChanged = true;
             }
-        }
-        #endregion
-
-        #region Eventhandler
-
-        private void Model_Modifying(object sender, CancelEventArgs e) {
-            View.ObjectSpace.SetModified(CurrentObject);
         }
 
         #endregion
 
         #region Methods
 
-        public void Setup(IObjectSpace objectSpace, XafApplication application) {
+        public void Setup(IObjectSpace objectSpace, XafApplication application){
             _objectSpace = objectSpace;
         }
 
-        private void CreateModelEditorController() {
+        private void CreateModelEditorController(){
             const string defaultLanguage = CaptionHelper.DefaultLanguage;
             CreateModelEditorController(defaultLanguage);
         }
 
-        private void CreateModelEditorController(string aspect) {
-            var allLayers = CurrentObject.GetAllLayers(_masterModel).ToList();
+        private void CreateModelEditorController(string aspect){
+            var allLayers = CurrentObject.GetAllLayers(MasterModel).ToList();
             _currentObjectModel = allLayers.Single(@base => @base.Id == CurrentObject.Name);
-            _masterModel = GetMasterModel(true);
-            foreach (var layer in allLayers) {
-                ModelApplicationHelper.AddLayer(_masterModel, layer);
+            MasterModel = GetMasterModel(true);
+            foreach (var layer in allLayers){
+                ModelApplicationHelper.AddLayer(MasterModel, layer);
             }
-            _modelApplicationBases[_masterModel].AssignAsInstance();
-            RuntimeMemberBuilder.CreateRuntimeMembers((IModelApplication)_masterModel);
+            _modelApplicationBases[MasterModel].AssignAsInstance();
+            RuntimeMemberBuilder.CreateRuntimeMembers((IModelApplication) MasterModel);
             _typeInfo.AssignAsInstance();
 
             DisposeController();
 
-            _modelEditorViewController = new ExpressApp.Win.ModelEditorViewController((IModelApplication)_masterModel, null);
-            if (Control!=null){
+            _modelEditorViewController = new ExpressApp.Win.ModelEditorViewController((IModelApplication) MasterModel,
+                null);
+            if (Control != null){
                 _modelEditorViewController.SetControl(Control);
                 _modelEditorViewController.LoadSettings();
             }
 
             if (aspect != CaptionHelper.DefaultLanguage)
-                _masterModel.CurrentAspectProvider.CurrentAspect = aspect;
+                MasterModel.CurrentAspectProvider.CurrentAspect = aspect;
 
             _modelEditorViewController.CurrentAspectChanged += ModelEditorViewControllerOnCurrentAspectChanged;
             _modelEditorViewController.Modifying += Model_Modifying;
             _modelEditorViewController.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
+            _modelEditorViewController.ModelAttributesPropertyEditorController.PropertyChanged += ModelAttributesPropertyEditorControllerOnPropertyChanged;
         }
 
-        void ModelEditorViewControllerOnCurrentAspectChanged(object sender, EventArgs eventArgs) {
-            var modelDifferenceObject = ((ModelDifferenceObject)View.CurrentObject);
-            if (modelDifferenceObject.AspectObjects.FirstOrDefault(o => o.Name == ModelEditorViewModelEditorViewController.CurrentAspect) == null) {
+        private void ModelAttributesPropertyEditorControllerOnPropertyChanged(object sender, PropertyChangingEventArgs propertyChangingEventArgs) {
+            CurrentObject.CreateAspectsCore(_currentObjectModel);
+        }
+
+        private void ModelEditorViewControllerOnCurrentAspectChanged(object sender, EventArgs eventArgs){
+            var modelDifferenceObject = (ModelDifferenceObject) View.CurrentObject;
+            if (
+                modelDifferenceObject.AspectObjects.FirstOrDefault(
+                    o => o.Name == ModelEditorViewModelEditorViewController.CurrentAspect) == null){
                 modelDifferenceObject.Model.AddAspect(ModelEditorViewModelEditorViewController.CurrentAspect);
                 var aspectObject = _objectSpace.CreateObject<AspectObject>();
                 aspectObject.Name = ModelEditorViewModelEditorViewController.CurrentAspect;
@@ -232,9 +261,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors {
             }
         }
 
-        void ChangeAspectActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+        private void ChangeAspectActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs){
             View.Refresh();
         }
+
         #endregion
     }
 }

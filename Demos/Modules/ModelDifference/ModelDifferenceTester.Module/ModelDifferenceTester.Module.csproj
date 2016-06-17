@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,8 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ModelDifferenceTester.Module</RootNamespace>
     <AssemblyName>ModelDifferenceTester.Module</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <LangVersion>4</LangVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <LangVersion>6</LangVersion>
+    <TargetFrameworkProfile />
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +23,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +33,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,6 +43,8 @@
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v16.1">
@@ -95,7 +103,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\RuntimeMembers\RuntimeMembersObject.cs" />
     <Compile Include="FunctionalTests\RoleModel\RoleModelObject.cs" />
+    <Compile Include="FunctionalTests\ApplicationModel\ApplicationModelObject.cs" />
     <Compile Include="FunctionalTests\UserModel\UserModelObject.cs" />
     <Compile Include="FunctionalTests\WCModel\WCModelUpdater.cs" />
     <Compile Include="Module.cs">
@@ -125,7 +135,13 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FunctionalTests\RoleModel\RoleModel.xafml" />
+    <None Include="FunctionalTests\RuntimeMembers\RuntimeMembers.ets" />
+    <EmbeddedResource Include="FunctionalTests\RuntimeMembers\RuntimeMembers.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="FunctionalTests\RoleModel\RoleModel.ets" />
+    <None Include="FunctionalTests\ApplicationModel\ApplicationModel.ets" />
+    <None Include="FunctionalTests\XmlContentValidation\XmlContentValidation.ets" />
     <None Include="FunctionalTests\UserModel\UserModel.ets" />
   </ItemGroup>
   <ItemGroup>
@@ -134,7 +150,10 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FunctionalTests\RuntimeMembers\Config.xml" />
     <Content Include="FunctionalTests\RoleModel\Config.xml" />
+    <Content Include="FunctionalTests\ApplicationModel\Config.xml" />
+    <Content Include="FunctionalTests\XmlContentValidation\Config.xml" />
     <Content Include="FunctionalTests\UserModel\Config.xml" />
     <Content Include="FunctionalTests\WCModel\Config.xml" />
     <Content Include="FunctionalTests\WCModel\CreateWCAssembly.inc" />
