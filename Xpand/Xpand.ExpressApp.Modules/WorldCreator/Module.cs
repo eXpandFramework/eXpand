@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
@@ -32,12 +31,10 @@ namespace Xpand.ExpressApp.WorldCreator {
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleValidCodeIdentifier), typeof(IRuleBaseProperties));
         }
 
-
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), false)));
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory){
+            base.RegisterEditorDescriptors(editorDescriptorsFactory);
+            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), false)));
         }
-
         
     }
 }

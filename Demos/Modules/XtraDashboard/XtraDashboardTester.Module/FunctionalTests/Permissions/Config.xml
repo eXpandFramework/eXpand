@@ -2,7 +2,7 @@
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
   <Applications>
     <!-- Win -->
-    <Application
+    <Application Ignored="0"
 			Name="XtraDashboardTester.Win"
 			FileName="[WinAppBin]\XtraDashboardTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"

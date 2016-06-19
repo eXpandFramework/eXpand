@@ -12,7 +12,6 @@ using DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls.Xaf;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WinAdapter;
-using Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.Xpand;
 using RichEditContainer = Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.Xpand.RichEditContainer;
 
 [assembly: Adapter(typeof(XpandTestWinAdapter))]
@@ -28,9 +27,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
         private XpandWinCommandAdapter _winEasyTestCommandAdapter;
         private static List<Process> _additionalProcesses;
 
-        public Process MainProcess{
-            get { return mainProcess; }
-        }
+        public Process MainProcess => mainProcess;
 
         public override void RegisterCommands(IRegisterCommand registrator) {
             base.RegisterCommands(registrator);

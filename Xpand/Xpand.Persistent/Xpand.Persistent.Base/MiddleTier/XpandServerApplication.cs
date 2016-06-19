@@ -34,10 +34,6 @@ namespace Xpand.Persistent.Base.MiddleTier {
             args.Handled = true;
         }
 
-        public void Logon() {
-            base.Logon(null);    
-        }
-
         void IXafApplication.WriteLastLogonParameters(DetailView view, object logonObject) {
             throw new NotImplementedException();
         }
@@ -47,15 +43,13 @@ namespace Xpand.Persistent.Base.MiddleTier {
             remove { throw new NotImplementedException(); }
         }
 
-        string IXafApplication.ModelAssemblyFilePath {
-            get { return GetModelAssemblyFilePath(); }
-        }
+        string IXafApplication.ModelAssemblyFilePath => GetModelAssemblyFilePath();
 
         public event EventHandler<WindowCreatingEventArgs> WindowCreating;
 
         protected virtual void OnWindowCreating(WindowCreatingEventArgs e) {
             EventHandler<WindowCreatingEventArgs> handler = WindowCreating;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 }

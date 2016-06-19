@@ -11,6 +11,7 @@ using Fasterflect;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
+using Xpand.Utils.Automation;
 
 [assembly: Adapter(typeof (XpandTestWebAdapter))]
 
@@ -29,6 +30,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                 IISHelper.Configure(testApplication);
             }  
             base.RunApplication(testApplication);
+            WebBrowser.BrowserWindowHandle.MoveWindow(new Rectangle(0,0,1024,768));
         }
 
 
@@ -50,9 +52,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         }
 
         public override ICommandAdapter CreateCommandAdapter(){
-            FileDownloadDialogHelper.SaveDialogOpened = false;
             _webCommandAdapter = new XpandWebCommandAdapter(WebBrowser);
-            _webCommandAdapter.WaitForBrowserResponse();
             Win32Helper.MoveMousePointTo(new Point(0, 0));
             return _webCommandAdapter;
         }
@@ -92,11 +92,9 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         public XpandWebCommandAdapter(IEasyTestWebBrowser webBrowser) : base(webBrowser){
         }
 
-        public IntPtr MainWindowHandle{
-            get { return WebBrowser.Browser.Document; }
-        }
+        public IntPtr MainWindowHandle => WebBrowser.BrowserWindowHandle;
 
-        public IXpandTestAdapter Adapter => (IXpandTestAdapter) WebAdapter;
+        
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿#DropDB WorkflowTesterEasyTest
+#DropDB WorkflowWCTester
 #Application WorkflowTester.Win
 *ScreenCapture
 

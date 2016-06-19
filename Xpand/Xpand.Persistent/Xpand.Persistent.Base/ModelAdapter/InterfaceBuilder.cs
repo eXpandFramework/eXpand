@@ -98,7 +98,8 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
             if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)) &&
                 (!VersionMatch(assemblyFilePath) || IsDevMachine)){
-                File.Delete(assemblyFilePath);
+                if (!new FileInfo(assemblyFilePath).IsFileLocked())
+                    File.Delete(assemblyFilePath);
             }
             _fileExistInPath = File.Exists(assemblyFilePath);
             if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)){

@@ -18,19 +18,11 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight {
             _propertyEditors = View.GetItems<WebPropertyEditor>().Where(SyntaxHighlightEnabled).ToArray();
             foreach (var propertyEditor in _propertyEditors){
                 propertyEditor.ControlCreated+=ControlCreated;
-            }
-            View.ViewEditModeChanged+=ViewOnViewEditModeChanged;
-            if (WebWindow.CurrentRequestWindow != null)
-                WebWindow.CurrentRequestWindow.PagePreRender -= CurrentRequestWindowOnPagePreRender;
-        }
-
-        private void ViewOnViewEditModeChanged(object sender, EventArgs eventArgs){
-            
+            }   
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            View.ViewEditModeChanged -= ViewOnViewEditModeChanged;
             foreach (var propertyEditor in _propertyEditors) {
                 propertyEditor.ControlCreated -= ControlCreated;
             }

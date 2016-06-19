@@ -32,10 +32,11 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
             return base.GetRegularTypes().Concat(richEditTypes);
         }
 
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
-            base.RegisterEditorDescriptors(editorDescriptors);
-            editorDescriptors.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), typeof(CSCodePropertyEditor), false)));
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory){
+            base.RegisterEditorDescriptors(editorDescriptorsFactory);
+            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new EditorTypeRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), typeof(CSCodePropertyEditor), false)));
         }
+
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
             return base.GetDeclaredControllerTypes().Concat(new[] { typeof(RichEditModelAdapterController) });

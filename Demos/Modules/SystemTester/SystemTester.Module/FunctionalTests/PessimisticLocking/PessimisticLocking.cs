@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
 
 namespace SystemTester.Module.FunctionalTests.PessimisticLocking {

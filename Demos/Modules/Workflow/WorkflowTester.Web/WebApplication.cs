@@ -23,7 +23,8 @@ namespace WorkflowTester.Web {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString, args.Connection));
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
         }
 #if EASYTEST
         protected override string GetUserCultureName() {
@@ -51,7 +52,7 @@ namespace WorkflowTester.Web {
                     "'Database Security References' at http://www.devexpress.com/Help/?document=ExpressApp/CustomDocument3237.htm\r\n" +
                     "If this doesn't help, please contact our Support Team at http://www.devexpress.com/Support/Center/";
 
-                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
+                if (e.CompatibilityError?.Exception != null) {
                     message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
                 }
                 throw new InvalidOperationException(message);

@@ -1,7 +1,6 @@
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.Persistent.Base.General;
 
 namespace WorkflowTester.Win {
     public partial class WorkflowTesterWindowsFormsApplication : WinApplication {
@@ -15,11 +14,8 @@ namespace WorkflowTester.Win {
         }
 #endif
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            if (this.GetEasyTestParameter("WorldCreator"))
-                this.CreateCustomObjectSpaceprovider(args, null);
-            else{
-                args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
-            }
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString, args.Connection));
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
         }
 
         private void WorkflowTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {

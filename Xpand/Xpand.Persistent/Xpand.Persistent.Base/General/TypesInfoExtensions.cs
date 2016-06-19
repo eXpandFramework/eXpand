@@ -65,7 +65,6 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static Type FindBussinessObjectType<T>(this ITypesInfo typesInfo){
         public static Type FindBussinessObjectType(this ITypesInfo typesInfo,Type type){
             if (!(type.IsInterface))
                 return type;

@@ -20,20 +20,31 @@ using ResourcesModelStore = DevExpress.ExpressApp.ResourcesModelStore;
 namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator>{
         public static bool Disable;
-        public override void UpdateNode(ModelNode node){
-            if (Disable||ModelUpdating())
+        public override void UpdateCachedNode(ModelNode node){
+            UpdateNodeCore(node);
+        }
+
+        private void UpdateNodeCore(ModelNode node){
+            if (Disable || ModelUpdating())
                 return;
             var modulesDifferences = node.Application.GetModuleDifferences();
             var mergingEnabled = MergingEnabled(modulesDifferences);
             if (!mergingEnabled)
                 return;
-            var modelViews = ((IModelViews)node);
-            
-            var mergedDifferenceInfos = modelViews.GetMergedDifferenceInfos(modulesDifferences).Concat(modelViews.GenerateModelMergedDifferenceInfos()).ToList();
+            var modelViews = ((IModelViews) node);
+
+            var mergedDifferenceInfos =
+                modelViews.GetMergedDifferenceInfos(modulesDifferences)
+                    .Concat(modelViews.GenerateModelMergedDifferenceInfos())
+                    .ToList();
 
             CloneMergedView(mergedDifferenceInfos, modelViews, modulesDifferences);
-            
+
             AddDifferenceLayers(node, mergedDifferenceInfos, modulesDifferences);
+        }
+
+        public override void UpdateNode(ModelNode node){
+            UpdateNodeCore(node);
         }
 
         private bool ModelUpdating(){
@@ -58,7 +69,7 @@ namespace Xpand.Persistent.Base.General {
                     ModelEditorHelper.AddCloneNode((ModelNode)modelViews, (ModelNode)objectView, objectView.Id);
                 }
                 catch (Exception ex) {
-                    throw new Exception(string.Format("Exception while cloning objectView.Id={0}", objectView.Id), ex);
+                    throw new Exception($"Exception while cloning objectView.Id={objectView.Id}", ex);
                 }
                 yield return modelViews[objectView.Id].AsObjectView;
             }
@@ -301,7 +312,7 @@ namespace Xpand.Persistent.Base.General {
                 var id = modelMergedDifference.Parent.Parent.Id();
                 var mergeDifferences = modelApplicationBases.Cast<IModelApplication>().Select(application =>
                     application.Views[id]).OfType<IModelObjectViewMergedDifferences>().Where(view =>
-                        view != null && view.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences).ToArray();
+                        view?.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences).ToArray();
                 viewId = mergeDifferences.Select(GetViewIdCore).First(value => !string.IsNullOrEmpty(value));
             }
             return viewId;
@@ -399,7 +410,7 @@ namespace Xpand.Persistent.Base.General {
 
         static bool IsDifferenceValid(ModelMergedDifferenceInfo difference, IModelViews views) {
             var modelView = views[difference.MergedViewId] as IModelObjectView;
-            return modelView != null && modelView.ModelClass != null;
+            return modelView?.ModelClass != null;
         }
 
         static IEnumerable<ModelMergedDifferenceInfo> GetModelObjectViewMergedDifferenceses(IModelViews modelViews, IModelApplication modelApplication, IEnumerable<ModelApplicationBase> modulesDifferences) {
@@ -446,48 +457,37 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     public class ModelMergedDifferencesAttribute : Attribute {
-        private readonly CloneViewType _cloneViewType;
-
         public ModelMergedDifferencesAttribute(CloneViewType cloneViewType) {
-            _cloneViewType = cloneViewType;
+            CloneViewType = cloneViewType;
             Strategy = MergedDifferencesStrategiesGenerator.EverythingButLayout;
         }
 
-        public CloneViewType CloneViewType {
-            get { return _cloneViewType; }
-        }
+        public CloneViewType CloneViewType { get; }
 
         public string Strategy { get; set; }
     }
 
     class ModelMergedDifferenceInfo {
         readonly IModelMergedDifference _modelMergedDifference;
-        readonly string _mergedViewId;
         readonly IModelNode _targetView;
 
         public ModelMergedDifferenceInfo(IModelMergedDifference modelMergedDifference, string mergedViewId) {
             _modelMergedDifference = modelMergedDifference;
-            _mergedViewId = mergedViewId;
+            MergedViewId = mergedViewId;
             _targetView = modelMergedDifference.Parent.Parent;
         }
 
-        public IModelNode TargetView {
-            get { return _targetView; }
-        }
+        public IModelNode TargetView => _targetView;
 
-        public IModelMergedDifference ModelMergedDifference {
-            get { return _modelMergedDifference; }
-        }
+        public IModelMergedDifference ModelMergedDifference => _modelMergedDifference;
 
         public override string ToString() {
             return _modelMergedDifference != null
-                       ? String.Format("{0}-{1}-{2}", _targetView.Id(), _modelMergedDifference.Id(), MergedViewId)
-                       : base.ToString();
+                       ? $"{_targetView.Id()}-{_modelMergedDifference.Id()}-{MergedViewId}"
+                : base.ToString();
         }
 
-        public string MergedViewId {
-            get { return _mergedViewId; }
-        }
+        public string MergedViewId { get; }
     }
     [ModelAbstractClass]
     public interface IModelObjectViewMergedDifferences : IModelView {
@@ -567,8 +567,7 @@ namespace Xpand.Persistent.Base.General {
             if (func != null)
                 RemoveNodes(modelMergedDifferenceStrategyNodePaths, func);
             var mergedDifferencesPath = modelMergedDifferenceStrategyNodePaths.FirstOrDefault(path => path.Id() == "MergedDifferences");
-            if (mergedDifferencesPath != null)
-                mergedDifferencesPath.Remove();
+            mergedDifferencesPath?.Remove();
         }
 
         void RemoveNodes(IModelMergedDifferenceStrategyIncludedNodePaths nodePaths, Func<HashSet<string>, string, bool> func) {
@@ -673,9 +672,8 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static HashSet<string> InvalidValueInfoNames {
-            get { return _invalidValueInfoNames; }
-        }
+        public static HashSet<string> InvalidValueInfoNames => _invalidValueInfoNames;
+
         protected override void GenerateNodesCore(ModelNode node) {
             var modelViewValueInfos = ((IModelViewValueInfos)node);
             var modelValueInfos = GetModelValueInfos(modelViewValueInfos, IsValid).OrderBy(info => info.Name).Select(info => info.Name);

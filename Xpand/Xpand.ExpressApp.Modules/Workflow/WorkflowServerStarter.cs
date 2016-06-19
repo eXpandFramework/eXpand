@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Workflow.Server;
 using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.Workflow{
     public  abstract class WorkflowServerStarter : MarshalByRefObject {
@@ -17,9 +18,6 @@ namespace Xpand.ExpressApp.Workflow{
             }
             protected override LayoutManager CreateLayoutManagerCore(bool simple) {
                 throw new NotImplementedException();
-            }
-            public void Logon() {
-                base.Logon(null);
             }
         }
         private static WorkflowServerStarter _starter;

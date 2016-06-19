@@ -22,6 +22,7 @@
   </Applications>
   <TestDatabases>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="WorkflowTesterEasyTest" />
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="WorkflowWCTester" />
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

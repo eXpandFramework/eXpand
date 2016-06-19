@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
-using Xpand.ExpressApp.ModelDifference.Controllers;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Validation;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
@@ -30,7 +29,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
-            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
+            RequiredModuleTypes.Add(typeof(ValidationModule));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){

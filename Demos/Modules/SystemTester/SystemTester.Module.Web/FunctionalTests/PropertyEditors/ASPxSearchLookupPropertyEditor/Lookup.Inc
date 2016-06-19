@@ -2,10 +2,10 @@
 
 
 *Navigate ASPx Search Lookup Property Editor Object
+*ToggleNavigation = True
 *Action New
-*Mouse LeftButtonClick
- MoveMouseTo = [NewAction]
- ToggleNavigation = True
+*LClick [NewAction]
+*ToggleNavigation = False
 
 *XpandFillForm
  Name = Tolis

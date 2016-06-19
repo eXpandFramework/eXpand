@@ -1,8 +1,6 @@
 using System;
 using System.Configuration;
-using System.IO;
 using System.Windows.Forms;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Workflow.Xpo;
@@ -16,17 +14,18 @@ namespace WorkflowTester.Win {
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main() {
-            var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");
-            File.WriteAllText(paramFile,"WorldCreator");
+        static void Main(){
+            
 
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
             var winApplication = new WorkflowTesterWindowsFormsApplication();
+            var easyTestParameter = winApplication.GetEasyTestParameter("WorldCreator");
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
@@ -57,32 +56,16 @@ namespace WorkflowTester.Win {
             } catch (Exception e) {
                 winApplication.HandleException(e);
             }
-            workflowServerStarter.Stop();
+            workflowServerStarter?.Stop();
         }
     }
 
     public class WorkflowServerStarter : Xpand.ExpressApp.Workflow.WorkflowServerStarter {
-
-        public WorkflowServerStarter(){
-        }
-
         protected override ServerApplication GetServerApplication(){
             return new ServerApp();
         }
 
         class ServerApp:ServerApplication{
-            
-
-            public ServerApp(){
-            }
-
-            protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
-                if (ApplicationHelper.Instance.Application.GetEasyTestParameter("WorldCreator"))
-                    this.CreateCustomObjectSpaceprovider(args, null);
-                else{
-                    base.CreateDefaultObjectSpaceProvider(args);
-                }
-            }
         }
     }
 }
