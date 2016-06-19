@@ -11,7 +11,8 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         public static void Configure(TestApplication testApplication){
             using (var server = new ServerManager()){
                 var applicationName = GetApplicationName(testApplication);
-                var applicationPool = server.ApplicationPools.FirstOrDefault(pool => pool.Name == applicationName) ?? server.ApplicationPools.Add(applicationName);
+                ApplicationPool applicationPool = server.ApplicationPools.FirstOrDefault(pool => pool.Name == applicationName) ?? server.ApplicationPools.Add(applicationName);
+                applicationPool.ProcessModel.IdentityType = ProcessModelIdentityType.LocalService;
                 var webSite = server.Sites.First(site => site.Name == "Default Web Site");
                 var url = GetUrl(webSite,applicationName);
                 ConfigureTestApplication(testApplication, url);
