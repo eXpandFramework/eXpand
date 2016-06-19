@@ -40,25 +40,25 @@
       <HintPath>..\..\Support\_third_party_assemblies\Packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v15.2">
+    <Reference Include="DevExpress.Data.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v15.2">
+    <Reference Include="DevExpress.ExpressApp.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v15.2">
+    <Reference Include="DevExpress.Persistent.Base.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v15.2">
+    <Reference Include="DevExpress.Xpo.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="FluentAssertions">
