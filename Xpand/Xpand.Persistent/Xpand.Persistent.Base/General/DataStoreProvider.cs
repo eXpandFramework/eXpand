@@ -22,7 +22,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public IDataStore CreateSchemaCheckingStore(out IDisposable[] disposableObjects){
-            throw new NotImplementedException();
+            disposableObjects = null;
+            return XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.None);
         }
 
         public string ConnectionString {
@@ -48,13 +49,8 @@ namespace Xpand.Persistent.Base.General {
             return new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema));
         }
 
-        public XPDictionary XPDictionary {
-            get { return null; }
-        }
-        public virtual DataStoreProxy Proxy {
-            get {
-                return _proxy ??(_proxy =new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.None)));
-            }
-        }
+        public XPDictionary XPDictionary => null;
+
+        public virtual DataStoreProxy Proxy => _proxy ??(_proxy =new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.None)));
     }
 }

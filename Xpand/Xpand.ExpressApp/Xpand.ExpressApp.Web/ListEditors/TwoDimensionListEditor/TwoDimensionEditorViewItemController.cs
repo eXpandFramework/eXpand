@@ -16,14 +16,18 @@ namespace Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor{
         }
 
         private void TwoDimensionViewItem_Execute(object sender, SimpleActionExecuteEventArgs e){
-            ShowViewParameters svp = e.ShowViewParameters;
+            
             var cbal = e.SelectedObjects[0] as ITwoDimensionItem;
-            IObjectSpace ospace = Application.CreateObjectSpace();
-            DetailView view = Application.CreateDetailView(ospace, ospace.GetObject(cbal), true);
-            view.ViewEditMode = ViewEditMode.View;
-            svp.CreatedView = view;
-            svp.TargetWindow = TargetWindow.NewModalWindow;
-            svp.Context = TemplateContext.PopupWindow;
+            if (cbal != null){
+                ShowViewParameters svp = e.ShowViewParameters;
+                IObjectSpace ospace = Application.CreateObjectSpace(cbal.GetType());
+                DetailView view = Application.CreateDetailView(ospace, ospace.GetObject(cbal), true);
+                view.ViewEditMode = ViewEditMode.View;
+                svp.CreatedView = view;
+                svp.TargetWindow = TargetWindow.NewModalWindow;
+                svp.Context = TemplateContext.PopupWindow;
+            }
+            
         }
     }
 }

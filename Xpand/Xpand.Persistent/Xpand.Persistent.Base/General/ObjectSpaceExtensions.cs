@@ -39,8 +39,8 @@ namespace Xpand.Persistent.Base.General {
         public static IObjectSpaceProvider FindProvider(this IList<IObjectSpaceProvider> providers,Type type){
             return (providers.Select(objectSpaceProvider
                 => new { objectSpaceProvider, originalObjectType = objectSpaceProvider.EntityStore.GetOriginalType(type) })
-                .Where(@t => (@t.originalObjectType != null) && @t.objectSpaceProvider.EntityStore.RegisteredEntities.Contains(@t.originalObjectType))
-                .Select(@t => @t.objectSpaceProvider)).FirstOrDefault();
+                .Where(t => (t.originalObjectType != null) && t.objectSpaceProvider.EntityStore.RegisteredEntities.Contains(t.originalObjectType))
+                .Select(t => t.objectSpaceProvider)).FirstOrDefault();
         }
 
 

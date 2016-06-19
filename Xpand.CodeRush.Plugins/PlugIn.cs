@@ -151,9 +151,9 @@ namespace Xpand.CodeRush.Plugins {
             using (var connection = new SqlConnection(parser.GetConnectionString())){
                 connection.Open();
                 using (SqlCommand sqlCommand = connection.CreateCommand()){
-                    sqlCommand.CommandText = string.Format("ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE",database);
+                    sqlCommand.CommandText = $"ALTER DATABASE [{database}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
                     sqlCommand.ExecuteNonQuery();
-                    sqlCommand.CommandText = string.Format("DROP DATABASE [{0}]", database);
+                    sqlCommand.CommandText = $"DROP DATABASE [{database}]";
                     sqlCommand.ExecuteNonQuery();
                     _dte.WriteToOutput(database + " dropped successfully");
                 }
@@ -170,7 +170,7 @@ namespace Xpand.CodeRush.Plugins {
                 connection.Open();
                 object result;
                 using (var sqlCommand = connection.CreateCommand()) {
-                    sqlCommand.CommandText = string.Format("SELECT database_id FROM sys.databases WHERE Name = '{0}'", database);
+                    sqlCommand.CommandText = $"SELECT database_id FROM sys.databases WHERE Name = '{database}'";
                     result = sqlCommand.ExecuteScalar();
                 }
                 var exists = result != null && int.Parse(result + "") > 0;

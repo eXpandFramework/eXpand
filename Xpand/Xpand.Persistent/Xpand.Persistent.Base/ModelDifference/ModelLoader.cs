@@ -63,11 +63,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
                 config = WebConfigurationManager.OpenMappedWebConfiguration(mapping, "/Dummy");
             }
 
-            if (config.AppSettings.Settings["Modules"] != null) {
-                return config.AppSettings.Settings["Modules"].Value.Split(';');
-            }
-
-            return null;
+            return config.AppSettings.Settings["Modules"]?.Value.Split(';');
         }
 
 
@@ -169,7 +165,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
             _xafApplication=xafApplication;
             _typesInfo=_xafApplication.TypesInfo;
             var modelApplicationBase = GetMasterModelCore(false);
-            if (action != null) action.Invoke(_instance);
+            action?.Invoke(_instance);
             return modelApplicationBase;
         }
 

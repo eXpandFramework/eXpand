@@ -10,9 +10,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FeatureCenter.Module</RootNamespace>
     <AssemblyName>FeatureCenter.Module</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <OutputPath>bin\Debug\</OutputPath>
@@ -31,7 +32,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <LangVersion>4</LangVersion>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,6 +44,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,6 +55,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,6 +66,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Kpi.v15.2">
@@ -115,11 +123,6 @@
     <Reference Include="Xpand.ExpressApp.FileAttachment">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FileAttachment.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.FilterDataStore">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FilterDataStore.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ImportWizard">
       <SpecificVersion>False</SpecificVersion>
@@ -225,7 +228,6 @@
     <Compile Include="DisplayFeatureModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LowLevelFilterDataStore\DisableFiltersNodeUpdater.cs" />
     <Compile Include="MessageBox\AttributeRegistrator.cs" />
     <Compile Include="MessageBox\ShowMessageBoxController.cs">
       <SubType>Component</SubType>
@@ -279,17 +281,6 @@
     <Compile Include="ApplicationDifferences\Updater.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="LowLevelFilterDataStore\ContinentFilter\ContinentController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LowLevelFilterDataStore\ContinentFilter\ContinentFilterProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LowLevelFilterDataStore\ContinentFilter\FDSCCustomer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="LowLevelFilterDataStore\UserFilter\FDSUCustomer.cs" />
-    <Compile Include="LowLevelFilterDataStore\UserFilter\Updater.cs" />
     <Compile Include="Navigation\HideFromNewMenuObject.cs" />
     <Compile Include="Miscellaneous\MultipleDataStore\MDSCustomer.cs" />
     <Compile Include="Miscellaneous\MultipleDataStore\MDSOrder.cs" />
@@ -312,16 +303,13 @@
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\UnboundColumn\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs"></Compile>
-    <Compile Include="DisplayUpdateStatementController.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs">
     </Compile>
     <Compile Include="Updater.cs" />
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
     <Compile Include="WorldCreator\Quartz\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\Quartz\WorldCreatorUpdater.cs" />
-    <Compile Include="WorldCreator\ModelSystemTablesUpdater.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\AttributeRegistrator.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeOrphanedCollection\WorldCreatorUpdater.cs" />
     <Compile Include="WorldCreator\ExistentAssemblyRuntimeCalculatedField\AttributeRegistrator.cs" />
@@ -345,9 +333,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ControllingSearch\DetailView\MDO_ControllingDetailViewSearch.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LowLevelFilterDataStore\ContinentFilter\MDO_ContinentFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="FunctionalTests\Config.xml">
@@ -394,9 +379,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\ForeignKeyViolation\MDO_ForeignKeyViolation.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LowLevelFilterDataStore\UserFilter\MDO_UserFilter.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ApplicationDifferences\RoleDifference\RDO_Administrator_RoleDifference.xafml">
@@ -538,6 +520,8 @@
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

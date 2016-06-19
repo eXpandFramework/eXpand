@@ -72,9 +72,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static Type SequenceObjectType {
-            get { return _sequenceObjectType; }
-        }
+        public static Type SequenceObjectType => _sequenceObjectType;
 
         public void Accept() {
             _explicitUnitOfWork.CommitChanges();
@@ -96,7 +94,7 @@ namespace Xpand.Persistent.Base.General {
 
         public long GetNextSequence(ITypeInfo typeInfo, string prefix) {
             if (typeInfo == null)
-                throw new ArgumentNullException("typeInfo");
+                throw new ArgumentNullException(nameof(typeInfo));
             return GetNextSequence(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.GetClassInfo(typeInfo.Type), prefix);
         }
 
@@ -106,7 +104,7 @@ namespace Xpand.Persistent.Base.General {
 
         long GetNextSequence(XPClassInfo classInfo, string preFix) {
             if (classInfo == null)
-                throw new ArgumentNullException("classInfo");
+                throw new ArgumentNullException(nameof(classInfo));
             _sequence = GetNowSequence(classInfo, preFix, _explicitUnitOfWork);
             long nextId = _sequence.NextSequence;
             _sequence.NextSequence++;
@@ -144,9 +142,8 @@ namespace Xpand.Persistent.Base.General {
             return GetNextSequence(classInfo, null);
         }
 
-        public void Close() {
-            if (_explicitUnitOfWork != null)
-                _explicitUnitOfWork.Dispose();
+        public void Close(){
+            _explicitUnitOfWork?.Dispose();
         }
 
         public void Dispose() {
@@ -278,7 +275,7 @@ namespace Xpand.Persistent.Base.General {
             var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType, supportSequenceObject.Prefix +
                                                                                  ((XPBaseObject)supportSequenceObject).ClassInfo.FullName) as ISequenceObject;
             if (sequenceObject != null) {
-                var objectFromInterface = objectSpace.CreateObjectFromInterface<ISequenceReleasedObject>();
+                var objectFromInterface = objectSpace.Create<ISequenceReleasedObject>();
                 objectFromInterface.Sequence = supportSequenceObject.Sequence;
                 objectFromInterface.SequenceObject = sequenceObject;
             }
@@ -317,13 +314,11 @@ namespace Xpand.Persistent.Base.General {
         private DBTable GetDbTable(string name) {
             var xpObjectSpace = ObjectSpace as XPObjectSpace;
             var dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(xpObjectSpace);
-            if (dataStoreSchemaExplorer != null)
-                return dataStoreSchemaExplorer.GetStorageTablesList(false).Where(s => s.ToLowerInvariant() == name.ToLowerInvariant()).Select(s => {
-                    var dbTable = new DBTable(s);
-                    ((ConnectionProviderSql)dataStoreSchemaExplorer).GetTableSchema(dbTable, true, true);
-                    return dbTable;
-                }).FirstOrDefault(table => table.PrimaryKey != null);
-            return null;
+            return dataStoreSchemaExplorer?.GetStorageTablesList(false).Where(s => s.ToLowerInvariant() == name.ToLowerInvariant()).Select(s => {
+                var dbTable = new DBTable(s);
+                ((ConnectionProviderSql)dataStoreSchemaExplorer).GetTableSchema(dbTable, true, true);
+                return dbTable;
+            }).FirstOrDefault(table => table.PrimaryKey != null);
         }
 
         private ISequenceObject GetSequenceObject() {
@@ -343,9 +338,7 @@ namespace Xpand.Persistent.Base.General {
         private const string SequenceGeneratorHelperName = "SequenceGeneratorHelper";
         XpandModuleBase _xpandModuleBase;
 
-        public XafApplication Application {
-            get { return _xpandModuleBase.Application; }
-        }
+        public XafApplication Application => _xpandModuleBase.Application;
 
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -364,11 +357,9 @@ namespace Xpand.Persistent.Base.General {
                     return;
                 if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
-                if (Application != null ) {
-                    var xpObjectSpaceProvider = Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().FirstOrDefault();
-                    if (xpObjectSpaceProvider!=null)
-                        SequenceGenerator.Initialize(XpandModuleBase.ConnectionString, SequenceObjectType);
-                }
+                var xpObjectSpaceProvider = Application?.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().FirstOrDefault();
+                if (xpObjectSpaceProvider != null)
+                    SequenceGenerator.Initialize(XpandModuleBase.ConnectionString, SequenceObjectType);
             }
             catch (Exception e) {
                 if (e.InnerException != null)

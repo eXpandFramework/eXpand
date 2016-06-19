@@ -40,13 +40,9 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         [Association("XpandRole-XpandPermissionDatas")]
-        public XPCollection<XpandPermissionData> Permissions{
-            get { return GetCollection<XpandPermissionData>("Permissions"); }
-        }
+        public XPCollection<XpandPermissionData> Permissions => GetCollection<XpandPermissionData>("Permissions");
 
-        IList<IOperationPermissionProvider> IXpandRoleCustomPermissions.Permissions{
-            get { return new ListConverter<IOperationPermissionProvider,XpandPermissionData>(Permissions); }
-        }
+        IList<IOperationPermissionProvider> IXpandRoleCustomPermissions.Permissions => new ListConverter<IOperationPermissionProvider,XpandPermissionData>(Permissions);
 
         protected override IEnumerable<IOperationPermission> GetPermissionsCore(){
             var customPermissions = this.GetCustomPermissions(base.GetPermissionsCore());

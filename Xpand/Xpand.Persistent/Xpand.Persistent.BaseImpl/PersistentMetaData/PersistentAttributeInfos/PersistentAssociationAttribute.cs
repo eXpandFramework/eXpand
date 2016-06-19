@@ -54,7 +54,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
             get { return _elementClassInfo; }
             set {
                 SetPropertyValue("ElementClassInfo", ref _elementClassInfo, value);
-                if (_elementClassInfo != null && _elementClassInfo.PersistentAssemblyInfo != null) {
+                if (_elementClassInfo?.PersistentAssemblyInfo != null) {
                     _elementTypeFullName = _elementClassInfo.PersistentAssemblyInfo.Name + "." + _elementClassInfo.Name;
                 } else if (_elementClassInfo == null && _elementType == null)
                     _elementTypeFullName = null;

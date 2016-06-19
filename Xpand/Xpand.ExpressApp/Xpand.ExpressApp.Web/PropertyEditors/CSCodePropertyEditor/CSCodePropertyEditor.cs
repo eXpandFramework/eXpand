@@ -15,7 +15,10 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
 using DevExpress.Web.Internal;
+using Fasterflect;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
+using PopupWindow = DevExpress.ExpressApp.Web.PopupWindow;
+using RenderHelper = DevExpress.ExpressApp.Web.RenderHelper;
 using TokenCollection = DevExpress.CodeParser.TokenCollection;
 
 
@@ -25,29 +28,46 @@ namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
         public CSCodePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
         }
-        protected override void SetImmediatePostDataScript(string script) {
+        protected override void ReadEditModeValueCore(){
+            var label = Editor as LabelControl;
+            if (label != null)
+                label.Text = CodeFormatter.GetFormattedCode(TokenLanguage.CSharp, (string)PropertyValue);
+            else
+                ((ASPxMemo) Editor).Text= (string) PropertyValue;
         }
-        protected override void SetImmediatePostDataCompanionScript(string script) {
-        }
-        public override bool IsCaptionVisible {
-            get { return false; }
-        }
-        protected override void ReadEditModeValueCore() {
-            ((LabelControl)Editor).Text = CodeFormatter.GetFormattedCode(TokenLanguage.CSharp, (string)PropertyValue);
-        }
+
         protected override void ReadViewModeValueCore() {
             ((LabelControl)InplaceViewModeEditor).Text = CodeFormatter.GetFormattedCode(TokenLanguage.CSharp, (string)PropertyValue);
         }
         protected override WebControl CreateEditModeControlCore() {
-            return new LabelControl(new ASPxLabel());
+            if (!AllowEdit)
+                return new LabelControl(new ASPxLabel());
+            ASPxMemo memo = RenderHelper.CreateASPxMemo();
+            memo.Rows = Model.RowCount;
+            memo.MaxLength = MaxLength;
+            memo.TextChanged+=MemoOnTextChanged;
+            return memo;
         }
+
+        private void MemoOnTextChanged(object sender, EventArgs eventArgs){
+            try{
+                this.SetFieldValue("editValueChangedHandling", true);
+                if (AllowEdit && !(bool)typeof(PopupWindow).GetPropertyValue("IsRefreshOnCallback")) {
+                    OnControlValueChanged();
+                    WriteValue();
+                }
+            }
+            finally {
+                this.SetFieldValue("editValueChangedHandling", false);
+            }
+
+        }
+
         protected override WebControl CreateViewModeControlCore() {
             return new LabelControl(new ASPxLabel());
         }
     }
     public static class CodeFormatter {
-        static readonly Dictionary<TokenCategory, TokenCategoryClassProvider> _cssClasses = new Dictionary<TokenCategory, TokenCategoryClassProvider>();
-
         static CodeFormatter() {
             CssClasses.Add(TokenCategory.Text, new TokenCategoryClassProvider("cr-text", new KeyValuePair<TokenLanguage, string>(TokenLanguage.Html, "cr-text-html")));
             CssClasses.Add(TokenCategory.Keyword, new TokenCategoryClassProvider("cr-keyword", new KeyValuePair<TokenLanguage, string>(TokenLanguage.Html, "cr-keyword-html"), new KeyValuePair<TokenLanguage, string>(TokenLanguage.Css, "cr-keyword-css")));
@@ -76,9 +96,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
             CssClasses.Add(TokenCategory.HtmlTagDelimiter, new TokenCategoryClassProvider("cr-htmltagdelimiter"));
         }
 
-        public static Dictionary<TokenCategory, TokenCategoryClassProvider> CssClasses {
-            get { return _cssClasses; }
-        }
+        public static Dictionary<TokenCategory, TokenCategoryClassProvider> CssClasses { get; } = new Dictionary<TokenCategory, TokenCategoryClassProvider>();
 
         public static TokenLanguage ParseLanguage(string lang) {
             return (TokenLanguage)Enum.Parse(typeof(TokenLanguage), lang, true);
@@ -128,7 +146,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
             public int Indent;
             public string Html = "";
 
-            public bool IsEmpty { get { return Html.Trim().Length < 1; } }
+            public bool IsEmpty => Html.Trim().Length < 1;
         }
 
         static string GetFormattedCode(string code, TokenCollection tokens) {
@@ -158,7 +176,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor {
                 }
                 if (first || text.Trim().Length > 0) {
                     if (hasCss)
-                        currentLine.Html += String.Format("<span class=\"{0}\">", cssClass);
+                        currentLine.Html += $@"<span class=""{cssClass}"">";
                     currentLine.Html += HttpUtility.HtmlEncode(text);
                     if (hasCss)
                         currentLine.Html += "</span>";

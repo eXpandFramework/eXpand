@@ -46,18 +46,9 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             skipEditModeDataBind = true;
         }
 
-        public WebLookupEditorHelper WebLookupEditorHelper {
-            get { return _helper; }
-        }
+        public WebLookupEditorHelper WebLookupEditorHelper => _helper;
 
-        protected CollectionSourceBase DataSource {
-            get {
-                if (_listView != null) {
-                    return _listView.CollectionSource;
-                }
-                return null;
-            }
-        }
+        protected CollectionSourceBase DataSource => _listView?.CollectionSource;
 
         public int WindowWidth {
             get { return _windowWidth; }
@@ -69,13 +60,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             set { _windowHeight = value; }
         }
 
-        internal LookupEditorHelper Helper {
-            get { return _helper; }
-        }
+        internal LookupEditorHelper Helper => _helper;
+
         #region IDependentPropertyEditor Members
-        IList<string> IDependentPropertyEditor.MasterProperties {
-            get { return _helper.MasterProperties; }
-        }
+        IList<string> IDependentPropertyEditor.MasterProperties => _helper.MasterProperties;
+
         #endregion
         #region IFrameContainer Members
         public Frame Frame {
@@ -139,7 +128,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         void result_Callback(object sender, CallbackEventArgs e) {
-            FillSearchDropDownValues(GetObjectByKey(String.Format("{0}({1})", Helper.LookupObjectTypeInfo, e.Argument)));
+            FillSearchDropDownValues(GetObjectByKey($"{Helper.LookupObjectTypeInfo}({e.Argument})"));
         }
 
         void UpdateDropDownLookup(WebControl editor) {
@@ -176,7 +165,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         void newObjectViewController_ObjectCreating(object sender, ObjectCreatingEventArgs e) {
             e.ShowDetailView = false;
             if (e.ObjectSpace is INestedObjectSpace) {
-                e.ObjectSpace = _application.CreateObjectSpace();
+                e.ObjectSpace = _application.CreateObjectSpace(e.ObjectType);
             }
         }
 
@@ -221,10 +210,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             }
         }
 
-        void OnViewShowingNotification() {
-            if (ViewShowingNotification != null) {
-                ViewShowingNotification(this, EventArgs.Empty);
-            }
+        void OnViewShowingNotification(){
+            ViewShowingNotification?.Invoke(this, EventArgs.Empty);
         }
 
         protected override void ApplyReadOnly() {
@@ -251,7 +238,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (ViewEditMode == ViewEditMode.Edit && Editor != null) {
                 ASPxComboBox dropDownControl = _searchDropDownEdit.DropDown;
                 if (dropDownControl.Value != null && dropDownControl.Value.ToString() != CaptionHelper.NullValueText) {
-                    string objectKey = String.Format("{0}({1})", Helper.LookupObjectTypeInfo, dropDownControl.Value);
+                    string objectKey = $"{Helper.LookupObjectTypeInfo}({dropDownControl.Value})";
                     return GetObjectByKey(objectKey);
                 }
                 return null;
@@ -452,9 +439,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
 
-        public ASPxComboBox DropDown {
-            get { return _dropDown; }
-        }
+        public ASPxComboBox DropDown => _dropDown;
 
         public bool ReadOnly {
             get { return _dropDown.ReadOnly; }
@@ -464,9 +449,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             }
         }
 
-        public BaseObjectSpace ObjectSpace {
-            get { return (BaseObjectSpace)Helper.ObjectSpace; }
-        }
+        public BaseObjectSpace ObjectSpace => (BaseObjectSpace)Helper.ObjectSpace;
 
         public WebLookupEditorHelper Helper { get; set; }
         public string EmptyValue { get; set; }
@@ -502,14 +485,13 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (result.Length > 0) {
                 result.Remove(result.Length - 1, 1);
             }
-            return string.Format("{0}><{1}", _dropDown.ClientID, result);
+            return $"{_dropDown.ClientID}><{result}";
         }
 
-        public void RaiseCallbackEvent(string eventArgument) {
-            if (Callback != null) {
-                Callback(this, new CallbackEventArgs(eventArgument));
-            }
+        public void RaiseCallbackEvent(string eventArgument){
+            Callback?.Invoke(this, new CallbackEventArgs(eventArgument));
         }
+
         #endregion
         void UpdateClientButtonsScript() {
             _dropDown.ClientSideEvents.ButtonClick = @"function(s, e) {

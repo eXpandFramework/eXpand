@@ -25,11 +25,10 @@ namespace Xpand.ExpressApp.Workflow{
         private static WorkflowServerStarter _starter;
         private WorkflowServer _server;
         private AppDomain _domain;
-        void starter_OnCustomHandleException_(object sender, ExceptionEventArgs e) {
-            if (OnCustomHandleException != null) {
-                OnCustomHandleException(null, e);
-            }
+        void starter_OnCustomHandleException_(object sender, ExceptionEventArgs e){
+            OnCustomHandleException?.Invoke(null, e);
         }
+
         private void Start_<TWorkflowDefinition, TUserActivityVersion,TModulesProvider>(string connectionString, string applicationName, string url)
             where TWorkflowDefinition : IWorkflowDefinitionSettings
             where TUserActivityVersion : IUserActivityVersionBase where TModulesProvider:ModuleBase{
@@ -67,9 +66,7 @@ namespace Xpand.ExpressApp.Workflow{
 
             _server.CustomHandleException += delegate(object sender, CustomHandleServiceExceptionEventArgs e) {
                 Tracing.Tracer.LogError(e.Exception);
-                if (OnCustomHandleException_ != null) {
-                    OnCustomHandleException_(this, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Exception.Message + "\r\n\r\n'" + e.Service.GetType() + "' service"));
-                }
+                OnCustomHandleException_?.Invoke(this, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Exception.Message + "\r\n\r\n'" + e.Service.GetType() + "' service"));
                 e.Handled = true;
             };
             _server.Start();
@@ -95,15 +92,11 @@ namespace Xpand.ExpressApp.Workflow{
             }
             catch (Exception e) {
                 Tracing.Tracer.LogError(e);
-                if (OnCustomHandleException != null) {
-                    OnCustomHandleException(null, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Message));
-                }
+                OnCustomHandleException?.Invoke(null, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Message));
             }
         }
         public void Stop() {
-            if (_starter != null) {
-                _starter.Stop_();
-            }
+            _starter?.Stop_();
             if (_domain != null) {
                 AppDomain.Unload(_domain);
             }

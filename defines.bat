@@ -18,7 +18,7 @@ if '%vsver%'=='vs2013' goto vs2013
 if '%vsver%'=='vs2015' goto vs2015
 
 :vs2015
-set msbuild="%ProgramFiles%\MSBuild\12.0\Bin\MSBuild.exe"
+set msbuild="%ProgramFiles%\MSBuild\14.0\Bin\MSBuild.exe"
 
 IF NOT EXIST %msbuild% goto VS2013Tools
 

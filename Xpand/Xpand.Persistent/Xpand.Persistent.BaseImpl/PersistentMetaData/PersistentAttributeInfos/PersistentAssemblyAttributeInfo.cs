@@ -1,4 +1,5 @@
-﻿using DevExpress.Persistent.Base;
+﻿using System.ComponentModel;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -15,9 +16,11 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         [Persistent]
         [Size(255)]
         [VisibleInDetailView(false)]
-        public string Name {
-            get { return GetType().Name + ": " + ToString(); }
-        }
+        public string Name => Type + ": " + ToString();
+        [Browsable(false)]
+        [Persistent]
+        [Size(255)]
+        public string Type => GetType().Name;
         [VisibleInDetailView(false)]
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]

@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
                             appProcess.CloseMainWindow();
                         }
                         catch (Exception e) {
-                            Logger.Instance.AddMessage(string.Format("Process.CloseMainWindow return error:\n'{0}'", e.Message));
+                            Logger.Instance.AddMessage($"Process.CloseMainWindow return error:\n'{e.Message}'");
                         }
                     }
                     Trace.WriteLine(DateTime.Now + "\tCall Process.MainWindowHandle success");
@@ -68,25 +68,26 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
                         }
                     }
                     catch (Exception e) {
-                        Logger.Instance.AddMessage(string.Format("Process.WaitForExit return error:\n'{0}'", e.Message));
+                        Logger.Instance.AddMessage($"Process.WaitForExit return error:\n'{e.Message}'");
                     }
                     spendTime = DateTime.Now - start;
                 }
                 if (!closed) {
                     if (!force) {
-                        Logger.Instance.AddMessage(string.Format(
-                            "The process '{0}' was not closed in '{1}' millisecond after " +
-                            "the Process.CloseMainWindow was invoked, trying to kill this process",
-                            processName, totalTimeout));
+                        Logger.Instance.AddMessage(
+                            $"The process '{processName}' was not closed in '{totalTimeout}' millisecond after " +
+                            "the Process.CloseMainWindow was invoked, trying to kill this process");
                     }
                     try {
                         appProcess.Kill();
                     }
                     catch (Exception e) {
-                        Logger.Instance.AddMessage(string.Format("Process name: '{0}' is not killed.\nReason:\n'{1}'", processName, e.Message));
+                        Logger.Instance.AddMessage(
+                            $"Process name: '{processName}' is not killed.\nReason:\n'{e.Message}'");
                     }
                     if (!appProcess.WaitForExit(10000)) {
-                        throw new WarningException(string.Format("Process name: '{0}' doesn't exited in 10 seconds after the Process.Kill was invoked", processName));
+                        throw new WarningException(
+                            $"Process name: '{processName}' doesn't exited in 10 seconds after the Process.Kill was invoked");
                     }
                 }
             }
@@ -94,9 +95,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
 
         public override void KillApplication(TestApplication testApplication, KillApplicationConext context) {
             ScreenCaptureCommand.Stop();
-            if (_winEasyTestCommandAdapter != null) {
-                _winEasyTestCommandAdapter.Disconnect();
-            }
+            _winEasyTestCommandAdapter?.Disconnect();
             testApplication.DeleteParametersFile();
             testApplication.ClearModel();
             CloseApplication(new[]{mainProcess}, true);
@@ -144,7 +143,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
 
 
     public class XpandWinCommandAdapter : WinEasyTestCommandAdapter, IXpandEasyTestCommandAdapter{
-        public XpandWinCommandAdapter() {
+        public XpandWinCommandAdapter(){
             TestControlFactoryWin.SetInstance(new XpandCustomTestControlFactory());
         }
 

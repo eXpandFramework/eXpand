@@ -53,17 +53,14 @@ namespace Xpand.ExpressApp.Win {
 
         protected void OnConfirmationRequired(CancelEventArgs e) {
             CancelEventHandler handler = ConfirmationRequired;
-            if (handler != null) handler(this, e);
-
+            handler?.Invoke(this, e);
         }
 
-        string IXafApplication.ModelAssemblyFilePath {
-            get { return GetModelAssemblyFilePath(); }
-        }
+        string IXafApplication.ModelAssemblyFilePath => GetModelAssemblyFilePath();
 
         public void OnCustomCreateListEditor(CreatingListEditorEventArgs e) {
             EventHandler<CreatingListEditorEventArgs> handler = CustomCreateListEditor;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
@@ -124,7 +121,7 @@ namespace Xpand.ExpressApp.Win {
 
         protected virtual void OnWindowCreating(WindowCreatingEventArgs e) {
             var handler = WindowCreating;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 

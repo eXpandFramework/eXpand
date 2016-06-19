@@ -10,7 +10,7 @@ namespace Xpand.EasyTest.Commands {
 
         protected string GetConnectionString() {
             const string connectionString = @"Integrated Security=SSPI;Data Source=(localDb)\MSSQLLocalDB;";
-            if (Parameters.MainParameter != null && !string.IsNullOrEmpty(Parameters.MainParameter.Value)) {
+            if (!string.IsNullOrEmpty(Parameters.MainParameter?.Value)) {
                 return Parameters.MainParameter.Value.StartsWith("Alias:")
                     ? Extensions.GetAlias(_scriptsPath,
                         Parameters.MainParameter.Value.Substring(
@@ -35,7 +35,7 @@ namespace Xpand.EasyTest.Commands {
                         if (parameter.Name.StartsWith("Scalar")) {
                             var scalar = sqlCommand.ExecuteScalar();
                             if (scalar + "" != Parameters["Result" + parameter.Name.Replace("ScalarCommand", "")].Value)
-                                throw new CommandException(string.Format("{0} result is {1}", parameter.Name, scalar), StartPosition);
+                                throw new CommandException($"{parameter.Name} result is {scalar}", StartPosition);
                         }
                         else
                             sqlCommand.ExecuteNonQuery();

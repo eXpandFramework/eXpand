@@ -27,10 +27,7 @@ namespace Xpand.Persistent.Base.General {
             Tracing.Tracer.LogVerboseValue(GetType().FullName,Environment.StackTrace);
         }
 
-        public IDataLayer WorkingDataLayer {
-            get { return _dataLayer; }
-        }
-
+        public IDataLayer WorkingDataLayer => _dataLayer;
 
         string IObjectSpaceProvider.ConnectionString{
             get { return ConnectionString; }
@@ -50,9 +47,9 @@ namespace Xpand.Persistent.Base.General {
             return new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, CreateUnitOfWork);
         }
 
-        IObjectSpace IObjectSpaceProvider.CreateUpdatingObjectSpace(Boolean allowUpdateSchema){
+        IObjectSpace IObjectSpaceProvider.CreateUpdatingObjectSpace(bool allowUpdateSchema){
             IDisposable[] disposableObjects;
-            var dataStore = allowUpdateSchema ? DataStoreProvider.CreateUpdatingStore(true, out disposableObjects) : DataStoreProvider.CreateWorkingStore(out disposableObjects);
+            var dataStore =  DataStoreProvider.CreateUpdatingStore(allowUpdateSchema, out disposableObjects);
             return new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, () => CreateUnitOfWork(dataStore, disposableObjects));
         }
 
@@ -72,7 +69,7 @@ namespace Xpand.Persistent.Base.General {
 
         protected void OnCreatingWorkingDataLayer(CreatingWorkingDataLayerArgs e) {
             EventHandler<CreatingWorkingDataLayerArgs> handler = CreatingWorkingDataLayer;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected override IDataLayer CreateDataLayer(IDataStore dataStore) {

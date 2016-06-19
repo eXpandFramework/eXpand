@@ -14,7 +14,7 @@ namespace Xpand.Utils.Helpers {
     /// Summary description for StringHelper.
     /// </summary>
     public static class StringExtensions {
-        private static readonly Regex isGuid =
+        private static readonly Regex _isGuid =
             new Regex(
                 @"^(\{){0,1}[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(\}){0,1}$",
                 RegexOptions.Compiled);
@@ -70,10 +70,7 @@ namespace Xpand.Utils.Helpers {
 
         public static string GetAttributeValue(this XElement element, XName name) {
             XAttribute xAttribute = element.Attribute(name);
-            if (xAttribute != null) {
-                return xAttribute.Value;
-            }
-            return null;
+            return xAttribute?.Value;
         }
 
         public static string MakeFirstCharUpper(this string s) {
@@ -111,7 +108,7 @@ namespace Xpand.Utils.Helpers {
 
         public static bool IsGuid(this string candidate) {
             if (candidate != null) {
-                if (isGuid.IsMatch(candidate)) {
+                if (_isGuid.IsMatch(candidate)) {
                     return true;
                 }
             }
@@ -139,7 +136,7 @@ namespace Xpand.Utils.Helpers {
             return value.All(Char.IsWhiteSpace);
         }
 
-        public static string CleanCodeName(this string name) {
+        public static string CleanCodeName(string name) {
             var regex = new Regex(@"[^\p{Ll}\p{Lu}\p{Lt}\p{Lo}\p{Nd}\p{Nl}\p{Mn}\p{Mc}\p{Cf}\p{Pc}\p{Lm}]");
             string ret = regex.Replace(name + "", "");
             if (!(String.IsNullOrEmpty(ret)) && !Char.IsLetter(ret, 0) && !CodeDomProvider.CreateProvider("C#").IsValidIdentifier(ret))

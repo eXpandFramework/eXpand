@@ -44,10 +44,6 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
         #endregion
         [Association("CodeTemplateInfo-PersistentTemplatedTypeInfos")]
-        public XPCollection<PersistentTemplatedTypeInfo> PersistentTemplatedTypeInfos {
-            get {
-                return GetCollection<PersistentTemplatedTypeInfo>("PersistentTemplatedTypeInfos");
-            }
-        }
+        public XPCollection<PersistentTemplatedTypeInfo> PersistentTemplatedTypeInfos => GetCollection<PersistentTemplatedTypeInfo>("PersistentTemplatedTypeInfos");
     }
 }

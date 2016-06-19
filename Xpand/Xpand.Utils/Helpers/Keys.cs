@@ -24,9 +24,7 @@ namespace Xpand.Utils.Helpers {
             _keys = CheckKey(key, false);
         }
 
-        public Keys Key {
-            get { return _keys; }
-        }
+        public Keys Key => _keys;
 
         public bool IsExist {
             get {
@@ -35,17 +33,11 @@ namespace Xpand.Utils.Helpers {
             }
         }
 
-        public static string AltKeyName {
-            get { return GetModifierKeyName(Keys.Alt); }
-        }
+        public static string AltKeyName => GetModifierKeyName(Keys.Alt);
 
-        public static string ShiftKeyName {
-            get { return GetModifierKeyName(Keys.Shift); }
-        }
+        public static string ShiftKeyName => GetModifierKeyName(Keys.Shift);
 
-        public static string ControlKeyName {
-            get { return GetModifierKeyName(Keys.Control); }
-        }
+        public static string ControlKeyName => GetModifierKeyName(Keys.Control);
 
         public override string ToString() {
             if (this == Empty) return "(none)";
@@ -103,8 +95,7 @@ namespace Xpand.Utils.Helpers {
 
         public override bool Equals(object value) {
             var shcut = value as KeyShortcut;
-            if (shcut == null) return false;
-            return _keys == shcut.Key;
+            return _keys == shcut?.Key;
         }
 
         public override int GetHashCode() {
@@ -115,9 +106,9 @@ namespace Xpand.Utils.Helpers {
     }
 
     public class KeysConverter : TypeConverter, IComparer {
-        List<string> displayOrder;
-        IDictionary keyNames;
-        StandardValuesCollection values;
+        private List<string> _displayOrder;
+        private IDictionary _keyNames;
+        private StandardValuesCollection _values;
 
         [TargetedPatchingOptOut("Performance critical to inline this type of method across NGen image boundaries")]
         public KeysConverter() {
@@ -125,17 +116,17 @@ namespace Xpand.Utils.Helpers {
 
         IDictionary KeyNames {
             get {
-                if (keyNames == null)
+                if (_keyNames == null)
                     Initialize();
-                return keyNames;
+                return _keyNames;
             }
         }
 
         IEnumerable<string> DisplayOrder {
             get {
-                if (displayOrder == null)
+                if (_displayOrder == null)
                     Initialize();
-                return displayOrder;
+                return _displayOrder;
             }
         }
 
@@ -161,9 +152,7 @@ namespace Xpand.Utils.Helpers {
                 string str = s.Trim();
                 if (str.Length == 0)
                     return null;
-                string[] strArray = str.Split(new[]{
-                    '+'
-                });
+                string[] strArray = str.Split('+');
                 for (int index = 0; index < strArray.Length; ++index)
                     strArray[index] = strArray[index].Trim();
                 var keys1 = Keys.None;
@@ -195,7 +184,7 @@ namespace Xpand.Utils.Helpers {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value,
                                          Type destinationType) {
             if (destinationType == null)
-                throw new ArgumentNullException("destinationType");
+                throw new ArgumentNullException(nameof(destinationType));
             if (value is Keys || value is int) {
                 bool flag1 = destinationType == typeof (string);
                 bool flag2 = false;
@@ -207,7 +196,7 @@ namespace Xpand.Utils.Helpers {
                     var arrayList = new ArrayList();
                     Keys keys2 = keys1 & Keys.Modifiers;
                     foreach (string str in DisplayOrder) {
-                        var keys3 = (Keys) keyNames[str];
+                        var keys3 = (Keys) _keyNames[str];
                         if ((keys3 & keys2) != Keys.None) {
                             if (flag1) {
                                 if (flag3)
@@ -224,7 +213,7 @@ namespace Xpand.Utils.Helpers {
                     if (flag3 && flag1)
                         arrayList.Add("+");
                     foreach (string str in DisplayOrder) {
-                        var keys3 = (Keys) keyNames[str];
+                        var keys3 = (Keys) _keyNames[str];
                         if (keys3.Equals(keys4)) {
                             if (flag1)
                                 arrayList.Add(str);
@@ -252,14 +241,14 @@ namespace Xpand.Utils.Helpers {
         }
 
         public override StandardValuesCollection GetStandardValues(ITypeDescriptorContext context) {
-            if (values == null) {
+            if (_values == null) {
                 var arrayList = new ArrayList();
                 foreach (object obj in KeyNames.Values)
                     arrayList.Add(obj);
                 arrayList.Sort(this);
-                values = new StandardValuesCollection(arrayList.ToArray());
+                _values = new StandardValuesCollection(arrayList.ToArray());
             }
-            return values;
+            return _values;
         }
 
         public override bool GetStandardValuesExclusive(ITypeDescriptorContext context) {
@@ -271,13 +260,13 @@ namespace Xpand.Utils.Helpers {
         }
 
         void AddKey(string key, Keys value) {
-            keyNames[key] = value;
-            displayOrder.Add(key);
+            _keyNames[key] = value;
+            _displayOrder.Add(key);
         }
 
         void Initialize() {
-            keyNames = new Hashtable(34);
-            displayOrder = new List<string>(34);
+            _keyNames = new Hashtable(34);
+            _displayOrder = new List<string>(34);
             AddKey("Enter", Keys.Return);
             AddKey("F12", Keys.F12);
             AddKey("F11", Keys.F11);

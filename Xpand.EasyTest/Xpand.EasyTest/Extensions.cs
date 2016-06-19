@@ -89,7 +89,7 @@ namespace Xpand.EasyTest {
                     ? _navigationControlPossibleNames[i] + " or "
                     : _navigationControlPossibleNames[i];
             }
-            throw new WarningException(string.Format("Cannot find the '{0}' control", controlNames));
+            throw new WarningException($"Cannot find the '{controlNames}' control");
         }
 
         public static void Execute(this CopyFileCommand copyFileCommand,ICommandAdapter adapter,TestParameters testParameters,string sourceFile,string destinationFile){
@@ -114,7 +114,7 @@ namespace Xpand.EasyTest {
             var suffix = adapter.IsWinAdapter() ? ".win" : ".web";
             if (!fileNameWithoutExtension.ToLower().EndsWith(suffix)) {
                 var directoryName = Path.GetDirectoryName(fileName) + "";
-                fileName = string.Format("{0}{1}{2}", fileNameWithoutExtension, suffix, Path.GetExtension(fileName));
+                fileName = $"{fileNameWithoutExtension}{suffix}{Path.GetExtension(fileName)}";
                 fileName =Path.Combine(directoryName, fileName);
             }
             return fileName;
@@ -247,7 +247,8 @@ namespace Xpand.EasyTest {
             var paramValue = application.FindParamValue(parameterName);
             T result;
             if (!XpandConvert.TryToChange(paramValue, out result)) {
-                throw new EasyTestException(string.Format("Cannot retrieve the '{0}' attribute's value for the '{1}' application", parameterName, application.Name));
+                throw new EasyTestException(
+                    $"Cannot retrieve the '{parameterName}' attribute's value for the '{application.Name}' application");
             }
             return result;
         }
@@ -276,7 +277,7 @@ namespace Xpand.EasyTest {
             Parameter parameter = command.Parameters[parameterName];
             if (parameter != null){
                 if (!XpandConvert.TryToChange(parameter.Value, out result)) {
-                    throw new CommandException(string.Format("'{0}' value is incorrect", parameterName), command.StartPosition);    
+                    throw new CommandException($"'{parameterName}' value is incorrect", command.StartPosition);    
                 }
             }
             return result;
@@ -285,9 +286,7 @@ namespace Xpand.EasyTest {
         private static IXpandTestAdapter _adapter;
         private static TestApplication _application;
 
-        public static IXpandTestAdapter Adapter {
-            get { return _adapter; }
-        }
+        public static IXpandTestAdapter Adapter => _adapter;
 
         public static void Assign(this TestApplication application) {
             _application=application;    
@@ -302,6 +301,8 @@ namespace Xpand.EasyTest {
                 {typeof (FieldIsVisibleCommand), FieldIsVisibleCommand.Name},
                 {typeof (DeleteCommand), DeleteCommand.Name},
                 {typeof (CreatePermissionCommand), CreatePermissionCommand.Name},
+                {typeof (CopyTextCommand), CopyTextCommand.Name},
+                {typeof (CheckClipboardValueCommand), CheckClipboardValueCommand.Name},
                 {typeof (ChangeUserPasswordCommand), ChangeUserPasswordCommand.Name},
                 {typeof (XpandExecuteEditorAction), XpandExecuteEditorAction.Name},
                 {typeof (NavigateCommand), NavigateCommand.Name},
@@ -319,6 +320,7 @@ namespace Xpand.EasyTest {
                 {typeof (MouseCommand), MouseCommand.Name},
                 {typeof (LClickCommand), LClickCommand.Name},
                 {typeof (RClickCommand), RClickCommand.Name},
+                {typeof (DblClickCommand), DblClickCommand.Name},
                 {typeof (MouseDragDropCommand), MouseDragDropCommand.Name},
                 {typeof (UseModelCommand), UseModelCommand.Name},
                 {typeof (SetEnvironmentVariableCommand), SetEnvironmentVariableCommand.Name},
@@ -331,7 +333,6 @@ namespace Xpand.EasyTest {
                 {typeof (OpenFileDialogCommand), OpenFileDialogCommand.Name},
                 {typeof (XpandAutoTestCommand), XpandAutoTestCommand.Name},
                 {typeof (XpandCheckFieldValuesCommand), XpandCheckFieldValuesCommand.Name},
-                {typeof (LogonCommand), LogonCommand.Name},
                 {typeof (LogOffCommand), LogOffCommand.Name},
                 {typeof (XpandCheckFileExistsCommand), XpandCheckFileExistsCommand.Name},
                 {typeof (MoveWindowCommand), MoveWindowCommand.Name},

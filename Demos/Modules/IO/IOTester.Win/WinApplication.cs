@@ -30,7 +30,7 @@ namespace IOTester.Win {
 
         protected void OnConfirmationRequired(CancelEventArgs e) {
             CancelEventHandler handler = ConfirmationRequired;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
         public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
             var cancelEventArgs = new CancelEventArgs();

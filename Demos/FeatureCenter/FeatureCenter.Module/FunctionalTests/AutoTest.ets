@@ -12,7 +12,6 @@
 *ScreenCapture
 *FillForm
  User Name = Admin
- Password = Admin
 *Action Log On
 
 *XpandAutoTest

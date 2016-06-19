@@ -19,35 +19,34 @@ namespace Xpand.ExpressApp.Security.Registration {
 
         protected virtual void OnCustomCancelLogonParameter(ParameterEventArgs e){
             var handler = CustomCancelLogonParameter;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected virtual void OnCustomProccessedLogonParameter(ParameterEventArgs e){
             var handler = CustomProccessedLogonParameter;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<CustomActiveKeyArgs> CustomActiveKey;
 
         protected virtual void OnCustomActiveKey(CustomActiveKeyArgs e) {
             var handler = CustomActiveKey;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
 
         protected virtual void OnCustomProccessLogonParameter(ParameterEventArgs e) {
             var handler = CustomProccessLogonParameter;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
 
         protected const string LogonActionParametersActiveKey = "Active for ILogonActionParameters only";
         public const string EmailPattern = @"^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$";
-        private readonly SimpleAction _restorePassword;
-        private readonly SimpleAction _registerUser;
+
         public ManageUsersOnLogonController() {
-            _registerUser = CreateLogonSimpleAction("RegisterUser", "RegisterUserCategory", "Register User", "BO_User", "Register a new user within the system", typeof(RegisterUserParameters));
-            _restorePassword = CreateLogonSimpleAction("RestorePassword", "RestorePasswordCategory", "Restore Password", "Action_ResetPassword", "Restore forgotten login information", typeof(RestorePasswordParameters));
+            RegisterUserAction = CreateLogonSimpleAction("RegisterUser", "RegisterUserCategory", "Register User", "BO_User", "Register a new user within the system", typeof(RegisterUserParameters));
+            RestorePasswordAction = CreateLogonSimpleAction("RestorePassword", "RestorePasswordCategory", "Restore Password", "Action_ResetPassword", "Restore forgotten login information", typeof(RestorePasswordParameters));
         }
         
         protected override void OnViewChanging(View view) {
@@ -80,7 +79,7 @@ namespace Xpand.ExpressApp.Security.Registration {
         
         protected virtual void CreateParametersViewCore(SimpleActionExecuteEventArgs e) {
             var parametersType = e.Action.Tag as Type;
-            var detailView = Application.CreateDetailView(Application.CreateObjectSpace(), parametersType.CreateInstance());
+            var detailView = Application.CreateDetailView(Application.CreateObjectSpace(parametersType), parametersType.CreateInstance());
             detailView.ViewEditMode = ViewEditMode.Edit;
             e.ShowViewParameters.CreatedView = detailView;
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;
@@ -97,21 +96,14 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
 
         class ActionDataHolder:Controller{
-            private readonly string _caption;
-            private readonly string _tooltip;
-
             public ActionDataHolder(string caption, string tooltip){
-                _caption = caption;
-                _tooltip = tooltip;
+                Caption = caption;
+                Tooltip = tooltip;
             }
 
-            public string Caption{
-                get { return _caption; }
-            }
+            public string Caption { get; }
 
-            public string Tooltip{
-                get { return _tooltip; }
-            }
+            public string Tooltip { get; }
         }
 
         private void CancelActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
@@ -139,7 +131,7 @@ namespace Xpand.ExpressApp.Security.Registration {
             dialogController.AcceptAction.ToolTip = actionDataHolder.Tooltip;
             cancelEventArgs.Cancel = true;
             actionBase.Executing -= AcceptActionOnExecuting;
-            var detailView = Application.CreateDetailView(Application.CreateObjectSpace(), SecuritySystem.LogonParameters);
+            var detailView = Application.CreateDetailView(Application.CreateObjectSpace(SecuritySystem.LogonParameters.GetType()), SecuritySystem.LogonParameters);
             detailView.ViewEditMode=ViewEditMode.Edit;
             var showViewParameters = new ShowViewParameters{
                 CreatedView = detailView,
@@ -165,17 +157,13 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
         
         protected virtual bool GetLogonParametersActiveState() {
-            return View != null && View.ObjectTypeInfo != null && View.ObjectTypeInfo.Implements<ILogonParameters>();
+            return View?.ObjectTypeInfo != null && View.ObjectTypeInfo.Implements<ILogonParameters>();
         }
 
-        public SimpleAction RestorePasswordAction {
-            get { return _restorePassword; }
-        }
+        public SimpleAction RestorePasswordAction { get; }
 
-        public SimpleAction RegisterUserAction {
-            get { return _registerUser; }
-        }
-        
+        public SimpleAction RegisterUserAction { get; }
+
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelOptions, IModelOptionsRegistration>();
             extenders.Add<IModelRegistrationEnabled, IModelRegistration>();
@@ -185,27 +173,19 @@ namespace Xpand.ExpressApp.Security.Registration {
 
 
     public class CustomActiveKeyArgs:HandledEventArgs {
-        readonly View _view;
-
         public CustomActiveKeyArgs(View view) {
-            _view = view;
+            View = view;
             Handled = false;
         }
 
-        public View View {
-            get { return _view; }
-        }
+        public View View { get; }
     }
 
     public class ParameterEventArgs:HandledEventArgs {
-        readonly ILogonParameters _parameters;
-
         public ParameterEventArgs(ILogonParameters parameters) {
-            _parameters = parameters;
+            Parameters = parameters;
         }
 
-        public ILogonParameters Parameters {
-            get { return _parameters; }
-        }
+        public ILogonParameters Parameters { get; }
     }
 }
