@@ -45,9 +45,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [Association("ModelDifferenceObject-AspectObjects")]
         [Aggregated]
         [VisibleInDetailView(false)]
-        public XPCollection<AspectObject> AspectObjects {
-            get { return GetCollection<AspectObject>("AspectObjects"); }
-        }
+        public XPCollection<AspectObject> AspectObjects => GetCollection<AspectObject>("AspectObjects");
 
         public virtual IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master) {
             return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(_persistentApplication.UniqueName, null).Where(differenceObject => differenceObject.Oid != Oid), master);
@@ -78,7 +76,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
         public ModelApplicationBase GetModel(ModelApplicationBase master) {
             if (!master.IsMaster) {
-                throw new ArgumentException("IsNotMaster", "master");
+                throw new ArgumentException("IsNotMaster", nameof(master));
             }
             if (master.LastLayer.Id != "After Setup")
                 throw new ArgumentException("master.LastLayer", master.LastLayer.Id);
@@ -101,11 +99,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
         [VisibleInListView(false)]
         [NonPersistent]
-        public ModelApplicationBase Model {
-            get {
-                return _currentModel;
-            }
-        }
+        public ModelApplicationBase Model => _currentModel;
 
 
         public int CombineOrder {
@@ -152,12 +146,11 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
         [Size(SizeAttribute.Unlimited)]
         [NonCloneable]
-        [NonPersistent, VisibleInListView(false)]
+        [NonPersistent, VisibleInListView(false)][ImmediatePostData]
         public string XmlContent {
             get {
-                if (_currentModel != null) return _currentModel.Xml;
                 var aspectObject = GetActiveAspect(PreferredAspect);
-                return aspectObject != null ? aspectObject.Xml : null;
+                return aspectObject?.Xml;
             }
             set {
                 var currentModel = _currentModel;
@@ -259,8 +252,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { _combineOrder = (int)value; }
         }
 
-        string ISupportSequenceObject.Prefix {
-            get { return null; }
-        }
+        string ISupportSequenceObject.Prefix => null;
     }
 }

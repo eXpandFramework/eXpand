@@ -17,14 +17,15 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
     public sealed class ModelDifferenceWindowsFormsModule : ModelDifferenceBaseModule {
         public ModelDifferenceWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
+            RequiredModuleTypes.Add(typeof(ExpressApp.Security.Win.XpandSecurityWinModule));
         }
         public static ModelApplicationCreator ApplicationCreator { get; set; }
-        private bool? _modelsLoaded = false;
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (Application != null) {
                 var winApplication = Application as WinApplication;
-                if (winApplication != null) winApplication.HandleException();
+                winApplication?.HandleException();
                 Application.LoggedOff += Application_LoggedOff;
                 Application.Disposed += Application_Disposed;
             }
@@ -57,9 +58,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
             return Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
         }
 
-        protected override bool? ModelsLoaded {
-            get { return _modelsLoaded; }
-            set { _modelsLoaded = value; }
-        }
+        protected override bool? ModelsLoaded { get; set; } = false;
     }
 }

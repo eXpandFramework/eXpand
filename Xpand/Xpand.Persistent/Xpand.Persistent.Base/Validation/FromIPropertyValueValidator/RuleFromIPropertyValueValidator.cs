@@ -33,13 +33,9 @@ namespace Xpand.Persistent.Base.Validation.FromIPropertyValueValidator {
             }
         }
 
-        public new IRuleFromIPropertyValueValidatorProperties Properties {
-            get { return (IRuleFromIPropertyValueValidatorProperties) base.Properties; }
-        }
+        public new IRuleFromIPropertyValueValidatorProperties Properties => (IRuleFromIPropertyValueValidatorProperties) base.Properties;
 
-        public override Type PropertiesType {
-            get { return typeof (RuleFromIPropertyValueValidatorProperties); }
-        }
+        public override Type PropertiesType => typeof (RuleFromIPropertyValueValidatorProperties);
 
         protected override bool IsValidInternal(object target, out string errorMessageTemplate) {
             errorMessageTemplate = null;

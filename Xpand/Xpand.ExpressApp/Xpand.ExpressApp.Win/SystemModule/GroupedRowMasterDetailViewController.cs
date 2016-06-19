@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         DetailView CreateDetailView(object groupRowValue, IModelDetailView modelDetailView) {
-            var objectSpace = Application.CreateObjectSpace();
+            var objectSpace = Application.CreateObjectSpace(modelDetailView.ModelClass.TypeInfo.Type);
             groupRowValue = objectSpace.GetObject(groupRowValue);
             return Application.CreateDetailView(objectSpace, modelDetailView, false, groupRowValue);
         }
@@ -70,7 +70,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         GridView GridView {
             get {
                 var columnsListEditor = View.Editor as WinColumnsListEditor;
-                return columnsListEditor != null ? columnsListEditor.GridView() : null;
+                return columnsListEditor?.GridView();
             }
         }
 

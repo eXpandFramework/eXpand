@@ -25,9 +25,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
 
         public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, FilterEnabled filterEnabled, Func<Type, object> dashboardDatasource, XafApplication application) {
             var dashBoard = CreateDashBoard(template,dashboardDatasource, application);
-            if (dashBoard != null){
-                dashBoard.ApplyModel(filterEnabled, template,application.Model);
-            }
+            dashBoard?.ApplyModel(filterEnabled, template,application.Model);
             return dashBoard;
         }
 
@@ -106,7 +104,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                 var filter = adapter.ModelDataSource as  IModelDashboardDataSourceFilter;
                 if (filter != null) adapter.DataSource.Filter = filter.ApplyFilter(adapter.DataSource.Filter);
                 var parameter = adapter.ModelDataSource as IModelDashboardDataSourceParameter;
-                if (parameter != null) parameter.ApplyValue(dashboard.Parameters[parameter.ParameterName]);
+                parameter?.ApplyValue(dashboard.Parameters[parameter.ParameterName]);
             }
         }
 
@@ -166,22 +164,14 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
     }
 
     class DataSourceAdapter {
-        private readonly IDashboardDataSource _dataSource;
-
-        private readonly IModelDashboardDataSource _dashboardDataSource;
-
         public DataSourceAdapter(IDashboardDataSource dataSource, IModelDashboardDataSource dashboardDataSource) {
-            _dataSource = dataSource;
-            _dashboardDataSource = dashboardDataSource;
+            DataSource = dataSource;
+            ModelDataSource = dashboardDataSource;
         }
 
-        public IDashboardDataSource DataSource {
-            get { return _dataSource; }
-        }
+        public IDashboardDataSource DataSource { get; }
 
-        public IModelDashboardDataSource ModelDataSource {
-            get { return _dashboardDataSource; }
-        }
+        public IModelDashboardDataSource ModelDataSource { get; }
     }
 
 }

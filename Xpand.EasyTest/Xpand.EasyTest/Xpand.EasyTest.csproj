@@ -8,10 +8,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.EasyTest</RootNamespace>
     <AssemblyName>Xpand.EasyTest</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <LangVersion>4</LangVersion>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +22,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,9 +34,13 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>true</UseVSHostingProcess>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AForge, Version=2.2.5.0, Culture=neutral, PublicKeyToken=c1db6ff4eaa06aeb, processorArchitecture=MSIL">
@@ -81,11 +87,14 @@
   <ItemGroup>
     <Compile Include="ButtonLocalizations.cs" />
     <Compile Include="Commands\ChangeUserPasswordCommand.cs" />
+    <Compile Include="Commands\CheckClipboardValueCommand.cs" />
+    <Compile Include="Commands\CopyTextCommand.cs" />
     <Compile Include="Commands\DeleteCommand.cs" />
     <Compile Include="Commands\CreatePermissionCommand.cs" />
     <Compile Include="Commands\FieldIsVisibleCommand.cs" />
     <Compile Include="Commands\FocusControlCommand.cs" />
     <Compile Include="Commands\HideScrollBarCommand.cs" />
+    <Compile Include="Commands\InputSimulator\DblClickCommand.cs" />
     <Compile Include="Commands\InputSimulator\LClickCommand.cs" />
     <Compile Include="Commands\InputSimulator\MouseClickCommand.cs" />
     <Compile Include="Commands\InputSimulator\RClickCommand.cs" />
@@ -119,6 +128,7 @@
     <Compile Include="Commands\SetEnvironmentVariableCommand.cs" />
     <Compile Include="Commands\XpandCheckFieldValuesCommand.cs" />
     <Compile Include="Commands\XpandCheckFileExistsCommand.cs" />
+    <Compile Include="Commands\XpandCheckValidationResultCommand.cs" />
     <Compile Include="Commands\XpandCompareFilesCommand.cs" />
     <Compile Include="Commands\XpandCompareScreenshotCommand.cs" />
     <Compile Include="Commands\XpandDeleteFileCommand.cs" />

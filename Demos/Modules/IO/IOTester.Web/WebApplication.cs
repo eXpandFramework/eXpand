@@ -9,8 +9,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 using IOTester.Module;
 using IOTester.Module.Web;
+using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
 
 namespace IOTester.Web {
@@ -37,7 +39,7 @@ namespace IOTester.Web {
 
         protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
             var handler = CustomWriteSecuredLogonParameters;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
@@ -56,7 +58,7 @@ namespace IOTester.Web {
 
         protected void OnConfirmationRequired(CancelEventArgs e) {
             CancelEventHandler handler = ConfirmationRequired;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
@@ -66,7 +68,10 @@ namespace IOTester.Web {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = this.GetObjectSpaceProvider(args.ConnectionString);
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
+            if (this.GetEasyTestParameter("NorthWind"))
+                args.ObjectSpaceProviders.Add(new WorldCreatorObjectSpaceProvider());
         }
 
         void IOTesterAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {

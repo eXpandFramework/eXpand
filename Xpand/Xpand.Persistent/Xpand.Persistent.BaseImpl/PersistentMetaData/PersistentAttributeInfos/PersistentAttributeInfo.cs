@@ -12,9 +12,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         [Persistent]
         [Size(255)]
         [VisibleInDetailView(false)]
-        public string Name {
-            get { return GetType().Name + ": " + ToString(); }
-        }
+        public string Name => GetType().Name + ": " + ToString();
 
         public abstract AttributeInfoAttribute Create();
 

@@ -64,11 +64,11 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static MethodInfo GetMethodInfo(Expression method) {
-            if (method == null) throw new ArgumentNullException("method");
+            if (method == null) throw new ArgumentNullException(nameof(method));
 
             var lambda = method as LambdaExpression;
-            if (lambda == null) throw new ArgumentException("Not a lambda expression", "method");
-            if (lambda.Body.NodeType != ExpressionType.Call) throw new ArgumentException("Not a method call", "method");
+            if (lambda == null) throw new ArgumentException("Not a lambda expression", nameof(method));
+            if (lambda.Body.NodeType != ExpressionType.Call) throw new ArgumentException("Not a method call", nameof(method));
 
             return ((MethodCallExpression)lambda.Body).Method;
         }
@@ -81,7 +81,7 @@ namespace Xpand.Utils.Helpers {
                 case ExpressionType.Convert:
                 case ExpressionType.ConvertChecked:
                     var ue = expr.Body as UnaryExpression;
-                    me = ((ue != null) ? ue.Operand : null) as MemberExpression;
+                    me = ue?.Operand as MemberExpression;
                     break;
                 default:
                     me = expr.Body as MemberExpression;
@@ -97,7 +97,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static MemberInfo GetMemberInfo(this LambdaExpression lambda) {
-            if (lambda == null) throw new ArgumentException("Not a lambda expression", "lambda");
+            if (lambda == null) throw new ArgumentException("Not a lambda expression", nameof(lambda));
             MemberExpression memberExpr = null;
             switch (lambda.Body.NodeType){
                 case ExpressionType.Convert:
@@ -107,7 +107,7 @@ namespace Xpand.Utils.Helpers {
                     memberExpr = lambda.Body as MemberExpression;
                     break;
             }
-            if (memberExpr == null) throw new ArgumentException("Not a member access", "lambda");
+            if (memberExpr == null) throw new ArgumentException("Not a member access", nameof(lambda));
             return memberExpr.Member;
         }
 
@@ -119,10 +119,8 @@ namespace Xpand.Utils.Helpers {
             var memberExpression = property.Body as MemberExpression;
             if (memberExpression != null) return memberExpression.Member.Name;
             var unaryExpression = property.Body as UnaryExpression;
-            if (unaryExpression != null) {
-                var expression = unaryExpression.Operand as MemberExpression;
-                if (expression != null) return expression.Member.Name;
-            }
+            var expression = unaryExpression?.Operand as MemberExpression;
+            if (expression != null) return expression.Member.Name;
             throw new NotImplementedException();
         }
 
@@ -152,7 +150,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static MemberInfo GetMemberInfo<TTarget>(this TTarget target, Expression member) {
-            if (member == null) throw new ArgumentNullException("member");
+            if (member == null) throw new ArgumentNullException(nameof(member));
             var lambda = member as LambdaExpression;
             return GetMemberInfo(lambda);
         }
@@ -168,14 +166,12 @@ namespace Xpand.Utils.Helpers {
             if (currVal == null || !currVal.Equals(value)) {
                 propertyValueHolder = value;
                 var fieldInfo = source.GetType().GetField("PropertyChanged", BindingFlags.Instance | BindingFlags.NonPublic);
-                if (fieldInfo != null) {
-                    var eventDelegate = (MulticastDelegate)fieldInfo.GetValue(source);
-                    if (eventDelegate != null) {
-                        Delegate[] delegates = eventDelegate.GetInvocationList();
-                        var args = new PropertyChangedEventArgs(prop.Name);
-                        foreach (Delegate dlg in delegates)
-                            dlg.Method.Invoke(dlg.Target, new object[] { source, args });
-                    }
+                var eventDelegate = (MulticastDelegate) fieldInfo?.GetValue(source);
+                if (eventDelegate != null) {
+                    Delegate[] delegates = eventDelegate.GetInvocationList();
+                    var args = new PropertyChangedEventArgs(prop.Name);
+                    foreach (Delegate dlg in delegates)
+                        dlg.Method.Invoke(dlg.Target, new object[] { source, args });
                 }
                 doIfChanged();
             }
@@ -188,8 +184,43 @@ namespace Xpand.Utils.Helpers {
             source.SetProperty(propExpr, ref propertyValueHolder, value, () => { });
         }
 
+        public static PropertyInfo[] GetPublicProperties(this Type type) {
+            if (type.IsInterface) {
+                var propertyInfos = new List<PropertyInfo>();
+
+                var considered = new List<Type>();
+                var queue = new Queue<Type>();
+                considered.Add(type);
+                queue.Enqueue(type);
+                while (queue.Count > 0) {
+                    var subType = queue.Dequeue();
+                    foreach (var subInterface in subType.GetInterfaces()) {
+                        if (considered.Contains(subInterface)) continue;
+
+                        considered.Add(subInterface);
+                        queue.Enqueue(subInterface);
+                    }
+
+                    var typeProperties = subType.GetProperties(
+                        BindingFlags.FlattenHierarchy
+                        | BindingFlags.Public
+                        | BindingFlags.Instance);
+
+                    var newPropertyInfos = typeProperties
+                        .Where(x => !propertyInfos.Contains(x));
+
+                    propertyInfos.InsertRange(0, newPropertyInfos);
+                }
+
+                return propertyInfos.ToArray();
+            }
+
+            return type.GetProperties(BindingFlags.FlattenHierarchy
+                | BindingFlags.Public | BindingFlags.Instance);
+        }
+
         public static object CreateGeneric(this Type generic, Type innerType, params object[] args) {
-            Type specificType = generic.MakeGenericType(new[] { innerType });
+            Type specificType = generic.MakeGenericType(innerType);
             return specificType.CreateInstance(args);
         }
 

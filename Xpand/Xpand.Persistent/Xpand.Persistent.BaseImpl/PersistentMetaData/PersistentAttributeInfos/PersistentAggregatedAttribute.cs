@@ -17,12 +17,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
 
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
-        public string AggregatedName {
-            get { return "Aggregated"; }
-        }
+        public string AggregatedName => "Aggregated";
 
         public override AttributeInfoAttribute Create() {
-            return new AttributeInfoAttribute(typeof(AggregatedAttribute).GetConstructor(new Type[0]), new object[0]);
+            return new AttributeInfoAttribute(typeof(AggregatedAttribute).GetConstructor(new Type[0]));
         }
     }
 }

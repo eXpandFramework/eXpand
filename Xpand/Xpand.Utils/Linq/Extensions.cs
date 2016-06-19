@@ -80,11 +80,9 @@ namespace Xpand.Utils.Linq{
 
                     // Static properties don't require an instance
                     var property = memberExpr.Member as PropertyInfo;
-                    if (property != null){
-                        MethodInfo getter = property.GetGetMethod();
-                        if (getter != null && getter.IsStatic)
-                            return true;
-                    }
+                    MethodInfo getter = property?.GetGetMethod();
+                    if (getter != null && getter.IsStatic)
+                        return true;
                     obj = memberExpr.Expression;
                 }
                 else{
@@ -108,7 +106,7 @@ namespace Xpand.Utils.Linq{
 
         public static void ThrowIfNull<T>(this T container) where T : class {
             if (container == null) {
-                throw new ArgumentNullException("container");
+                throw new ArgumentNullException(nameof(container));
             }
             NullChecker<T>.Check(container);
         }

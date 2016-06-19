@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 
@@ -9,35 +10,35 @@ namespace Xpand.Persistent.Base.General {
 
         protected virtual void OnChanged(ObjectChangedEventArgs<TObject> e) {
             EventHandler<ObjectChangedEventArgs<TObject>> handler = ObjectChanged;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<ObjectsManipulatingEventArgs<TObject>> ObjectDeleted;
 
         protected virtual void OnDeleted(ObjectsManipulatingEventArgs<TObject> e) {
             EventHandler<ObjectsManipulatingEventArgs<TObject>> handler = ObjectDeleted;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<ObjectsManipulatingEventArgs<TObject>> ObjectDeleting;
 
         protected virtual void OnDeleting(ObjectsManipulatingEventArgs<TObject> e) {
             EventHandler<ObjectsManipulatingEventArgs<TObject>> handler = ObjectDeleting;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<ObjectManipulatingEventArgs<TObject>> ObjectSaved;
 
         protected virtual void OnSaved(ObjectManipulatingEventArgs<TObject> e) {
             EventHandler<ObjectManipulatingEventArgs<TObject>> handler = ObjectSaved;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<ObjectManipulatingEventArgs<TObject>> ObjectSaving;
 
         protected virtual void OnSaving(ObjectManipulatingEventArgs<TObject> e) {
             EventHandler<ObjectManipulatingEventArgs<TObject>> handler = ObjectSaving;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected ObjectObserver(IObjectSpace objectSpace) {
@@ -46,32 +47,53 @@ namespace Xpand.Persistent.Base.General {
             objectSpace.ObjectDeleting += ObjectSpaceOnObjectDeleting;
             objectSpace.ObjectSaved += ObjectSpaceOnObjectSaved;
             objectSpace.ObjectSaving += ObjectSpaceOnObjectSaving;
-            _objectSpace = objectSpace;
+            objectSpace.Disposed+=ObjectSpaceOnDisposed;
+            objectSpace.Committing+=ObjectSpaceOnCommitting;
+            ObjectSpace = objectSpace;
 
         }
-        private readonly IObjectSpace _objectSpace;
-        public IObjectSpace ObjectSpace {
-            get { return _objectSpace; }
+
+        private void ObjectSpaceOnDisposed(object sender, EventArgs eventArgs){
+            var objectSpace = ((IObjectSpace) sender);
+            objectSpace.Committing-=ObjectSpaceOnCommitting;
+            objectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
+            objectSpace.ObjectDeleted -= ObjectSpaceOnObjectDeleted;
+            objectSpace.ObjectDeleting -= ObjectSpaceOnObjectDeleting;
+            objectSpace.ObjectSaved -= ObjectSpaceOnObjectSaved;
+            objectSpace.ObjectSaving -= ObjectSpaceOnObjectSaving;
+            objectSpace.Disposed -= ObjectSpaceOnDisposed;
         }
 
-        void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs objectManipulatingEventArgs) {
-            if (objectManipulatingEventArgs.Object is TObject)
-                OnSaving(new ObjectManipulatingEventArgs<TObject>(objectManipulatingEventArgs.Object as TObject));
+        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
+            OnCommiting(cancelEventArgs);
         }
 
-        void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs objectManipulatingEventArgs) {
-            if (objectManipulatingEventArgs.Object is TObject)
-                OnSaved(new ObjectManipulatingEventArgs<TObject>(objectManipulatingEventArgs.Object as TObject));
+        protected virtual void OnCommiting(CancelEventArgs cancelEventArgs){
+            
+        }
+
+        public IObjectSpace ObjectSpace { get; }
+
+        void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs objectManipulatingEventArgs){
+            var theObject = objectManipulatingEventArgs.Object as TObject;
+            if (theObject != null)
+                OnSaving(new ObjectManipulatingEventArgs<TObject>(theObject));
+        }
+
+        void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs objectManipulatingEventArgs){
+            var theObject = objectManipulatingEventArgs.Object as TObject;
+            if (theObject != null)
+                OnSaved(new ObjectManipulatingEventArgs<TObject>(theObject));
         }
 
         void ObjectSpaceOnObjectDeleting(object sender, ObjectsManipulatingEventArgs objectsManipulatingEventArgs) {
-            IEnumerable<TObject> objects = objectsManipulatingEventArgs.Objects.OfType<TObject>();
+            var objects = objectsManipulatingEventArgs.Objects.OfType<TObject>().ToArray();
             if (objects.Any())
                 OnDeleting(new ObjectsManipulatingEventArgs<TObject>(objects));
         }
 
         void ObjectSpaceOnObjectDeleted(object sender, ObjectsManipulatingEventArgs objectsManipulatingEventArgs) {
-            IEnumerable<TObject> objects = objectsManipulatingEventArgs.Objects.OfType<TObject>();
+            var objects = objectsManipulatingEventArgs.Objects.OfType<TObject>().ToArray();
             if (objects.Any())
                 OnDeleted(new ObjectsManipulatingEventArgs<TObject>(objects));
         }
@@ -93,20 +115,14 @@ namespace Xpand.Persistent.Base.General {
                 objectChangedEventArgs.NewValue) {
         }
 
-        public new TObject Object {
-            get { return (TObject)base.Object; }
-        }
-
+        public new TObject Object => (TObject)base.Object;
     }
 
     public class ObjectManipulatingEventArgs<TObject> : ObjectManipulatingEventArgs {
         public ObjectManipulatingEventArgs(TObject theObject)
             : base(theObject) {
         }
-        public new TObject Object {
-            get { return (TObject)base.Object; }
-        }
-
+        public new TObject Object => (TObject)base.Object;
     }
     public class ObjectsManipulatingEventArgs<TObject> : ObjectsManipulatingEventArgs {
         public ObjectsManipulatingEventArgs(TObject theObject)
@@ -116,9 +132,6 @@ namespace Xpand.Persistent.Base.General {
         public ObjectsManipulatingEventArgs(IEnumerable<TObject> objects)
             : base(objects) {
         }
-        public new IEnumerable<TObject> Objects {
-            get { return base.Objects.Cast<TObject>(); }
-        }
-
+        public new IEnumerable<TObject> Objects => base.Objects.Cast<TObject>();
     }
 }

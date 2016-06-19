@@ -12,21 +12,14 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public class CreatingListEditorEventArgs : HandledEventArgs {
-        readonly IModelListView _modelListView;
-        readonly CollectionSourceBase _collectionSource;
-
         public CreatingListEditorEventArgs(IModelListView modelListView, CollectionSourceBase collectionSource) {
-            _modelListView = modelListView;
-            _collectionSource = collectionSource;
+            ModelListView = modelListView;
+            CollectionSource = collectionSource;
         }
 
-        public IModelListView ModelListView {
-            get { return _modelListView; }
-        }
+        public IModelListView ModelListView { get; }
 
-        public CollectionSourceBase CollectionSource {
-            get { return _collectionSource; }
-        }
+        public CollectionSourceBase CollectionSource { get; }
 
         public ListEditor ListEditor { get; set; }
     }
@@ -53,6 +46,9 @@ namespace Xpand.Persistent.Base.General {
         event EventHandler<WindowCreatingEventArgs> WindowCreating;
     }
 
+    public interface ITestXafApplication {
+        
+    }
     public interface IXafApplication : IConfirmationRequired,  IWindowCreating {
         string ModelAssemblyFilePath { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);

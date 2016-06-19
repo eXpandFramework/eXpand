@@ -21,14 +21,15 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
     [DefaultClassOptions]
     [NavigationItem("WorldCreator")]
     [InterfaceRegistrator(typeof (IPersistentAssemblyInfo))]
-    [DefaultProperty("Name")]
+    [DefaultProperty(nameof(Name))]
     public class PersistentAssemblyInfo : XpandBaseCustomObject, IPersistentAssemblyInfo{
         private CodeDomProvider _codeDomProvider;
-        private string _compileErrors;
+        private string _errors;
         private int _compileOrder;
 
         private bool _doNotCompile;
         private string _name;
+        [Persistent("Revision")]
         private int _revision;
 
         private StrongKeyFile _strongKeyFile;
@@ -49,15 +50,11 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         [ModelDefault("AllowEdit", "false")]
         [Size(SizeAttribute.Unlimited)]
         [EditorAlias(EditorAliases.CSCodePropertyEditor)]
-        public string GeneratedCode{
-            get { return CodeEngine.GenerateCode(this); }
-        }
+        public string GeneratedCode => this.GenerateCode();
 
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]
         [Aggregated]
-        public XPCollection<PersistentClassInfo> PersistentClassInfos{
-            get { return GetCollection<PersistentClassInfo>("PersistentClassInfos"); }
-        }
+        public XPCollection<PersistentClassInfo> PersistentClassInfos => GetCollection<PersistentClassInfo>("PersistentClassInfos");
 
 
         public override void AfterConstruction(){
@@ -77,6 +74,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         }
 
         private bool _isLegacy;
+        
 
         [Appearance("IsLegacy_assembly", AppearanceItemType.ViewItem, "IsNewObject=false", Enabled = false)]
         public bool IsLegacy{
@@ -84,7 +82,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
             set { SetPropertyValue("IsLegacy", ref _isLegacy, value); }
         }
 
-        private bool _validateModelOnCompile;
+        [VisibleInDetailView(false)]
+        [PersistentAlias("_revision")]
+        [RuleValueComparison(ValueComparisonType.GreaterThan, 0)]
+        public int Revision => _revision;
 
         public bool ValidateModelOnCompile{
             get { return _validateModelOnCompile; }
@@ -103,15 +104,9 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         }
 
         [Association("PersistentAssemblyInfo-Attributes")]
-        public XPCollection<PersistentAssemblyAttributeInfo> Attributes{
-            get { return GetCollection<PersistentAssemblyAttributeInfo>("Attributes"); }
-        }
+        public XPCollection<PersistentAssemblyAttributeInfo> Attributes => GetCollection<PersistentAssemblyAttributeInfo>("Attributes");
 
-        IList<IPersistentAssemblyAttributeInfo> IPersistentAssemblyInfo.Attributes{
-            get{
-                return new ListConverter<IPersistentAssemblyAttributeInfo, PersistentAssemblyAttributeInfo>(Attributes);
-            }
-        }
+        IList<IPersistentAssemblyAttributeInfo> IPersistentAssemblyInfo.Attributes => new ListConverter<IPersistentAssemblyAttributeInfo, PersistentAssemblyAttributeInfo>(Attributes);
 
         [Index(2)]
         [AllowEdit(true, AllowEditEnum.NewObject)]
@@ -140,9 +135,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
             set { SetPropertyValue("CompileErrors", ref _compileErrors, value); }
         }
 
-        IList<IPersistentClassInfo> IPersistentAssemblyInfo.PersistentClassInfos{
-            get { return new ListConverter<IPersistentClassInfo, PersistentClassInfo>(PersistentClassInfos); }
-        }
+        IList<IPersistentClassInfo> IPersistentAssemblyInfo.PersistentClassInfos => new ListConverter<IPersistentClassInfo, PersistentClassInfo>(PersistentClassInfos);
 
         #endregion
     }

@@ -22,9 +22,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             TargetObjectType = typeof(ModelDifferenceObject);
         }
 
-        bool UseOldTemplates{
-            get { return ((WinApplication) Application).UseOldTemplates; }
-        }
+        bool UseOldTemplates => ((WinApplication) Application).UseOldTemplates;
 
         protected override void OnActivated(){
             base.OnActivated();

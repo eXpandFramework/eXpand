@@ -8,6 +8,17 @@ using Xpand.Persistent.Base.General.Win;
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     public partial class RichEditContainer : RichEditContainerBase {
         private readonly List<string> _mergedBarNames=new List<string>();
+        private static readonly IMapper _barMapper;
+
+
+        static RichEditContainer(){
+            var mapperConfiguration = new MapperConfiguration(configuration =>{
+                configuration.ShouldMapProperty = info => info.CanWrite&&info.GetSetMethod(false)!=null && info.GetSetMethod(false) != null;
+                configuration.CreateMap<Bar, Bar>();
+                configuration.CreateMap<BarOptions, BarOptions>();
+            });
+            _barMapper = mapperConfiguration.CreateMapper();
+        }
 
         public RichEditContainer(){
             InitializeComponent();
@@ -67,18 +78,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
         private Bar CopyBar(Bar bar, BarManager barManager){
             Bar res = new Bar(barManager);
-            var barMappingExpression = Mapper.CreateMap<Bar, Bar>();
-            barMappingExpression.IgnoreAllPropertiesWithAnInaccessibleSetter();
-            Mapper.Map(bar, res);
-            var barOptionsMappingExpression = Mapper.CreateMap<BarOptions, BarOptions>();
-            barOptionsMappingExpression.IgnoreAllPropertiesWithAnInaccessibleSetter();
-            Mapper.Map(bar.OptionsBar, res.OptionsBar);
+            _barMapper.Map(bar, res);
+            _barMapper.Map(bar.OptionsBar, res.OptionsBar);
             return res;
         }
 
-        public override RichEditControl RichEditControl{
-            get { return richEditControl1; }
-        }
+        public override RichEditControl RichEditControl => richEditControl1;
 
         public override void HideToolBars(){
             base.HideToolBars();

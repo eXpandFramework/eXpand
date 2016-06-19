@@ -119,7 +119,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool CanBuildSecurityObjects(this XafApplication xafApplication) {
-            return (xafApplication.Security != null && xafApplication.Security.UserType != null && !xafApplication.Security.UserType.IsInterface);
+            return (xafApplication.Security?.UserType != null && !xafApplication.Security.UserType.IsInterface);
         }
 
         public static View CreateView(this XafApplication application, IModelView viewModel) {
@@ -141,13 +141,12 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void SetClientSideSecurity(this XafApplication xafApplication) {
-            var xpandObjectSpaceProvider = (xafApplication.ObjectSpaceProvider as XpandObjectSpaceProvider);
+            var xpandObjectSpaceProvider = (xafApplication.ObjectSpaceProviders.OfType<XpandObjectSpaceProvider>().FirstOrDefault());
             if (xpandObjectSpaceProvider != null)
                 xpandObjectSpaceProvider.SetClientSideSecurity(xafApplication.ClientSideSecurity());
             else {
                 var modelOptionsClientSideSecurity = xafApplication.Model.Options as IModelOptionsClientSideSecurity;
-                if (modelOptionsClientSideSecurity != null && modelOptionsClientSideSecurity.ClientSideSecurity != null &&
-                    modelOptionsClientSideSecurity.ClientSideSecurity.Value == Model.ClientSideSecurity.IntegratedMode) {
+                if (modelOptionsClientSideSecurity?.ClientSideSecurity != null && modelOptionsClientSideSecurity.ClientSideSecurity.Value == Model.ClientSideSecurity.IntegratedMode) {
                     throw new Exception("Set Application.Model.Options.ClientSideSecurity to another value than IntegratedMode or use " + typeof(XpandObjectSpaceProvider).FullName);
                 }
             }
@@ -180,9 +179,10 @@ namespace Xpand.Persistent.Base.General {
             using (var dbConnection = connectionProvider.Connection) {
                 using (var sqlConnection = (SqlConnection)DataStore(connectionString).Connection) {
                     SqlCommand sqlCommand = sqlConnection.CreateCommand();
-                    sqlCommand.CommandText = string.Format("ALTER DATABASE {0} SET SINGLE_USER WITH ROLLBACK IMMEDIATE", dbConnection.Database);
+                    sqlCommand.CommandText =
+                        $"ALTER DATABASE {dbConnection.Database} SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
                     sqlCommand.ExecuteNonQuery();
-                    sqlCommand.CommandText = string.Format("DROP DATABASE {0}", dbConnection.Database);
+                    sqlCommand.CommandText = $"DROP DATABASE {dbConnection.Database}";
                     sqlCommand.ExecuteNonQuery();
                 }
             }
@@ -203,7 +203,7 @@ namespace Xpand.Persistent.Base.General {
 
         public static ClientSideSecurity? ClientSideSecurity(this XafApplication xafApplication) {
             var modelOptionsClientSideSecurity = xafApplication.Model.Options as IModelOptionsClientSideSecurity;
-            return modelOptionsClientSideSecurity != null ? (modelOptionsClientSideSecurity).ClientSideSecurity : null;
+            return modelOptionsClientSideSecurity?.ClientSideSecurity;
         }
 
         public static SimpleDataLayer CreateCachedDataLayer(this XafApplication xafApplication, IDataStore argsDataStore) {

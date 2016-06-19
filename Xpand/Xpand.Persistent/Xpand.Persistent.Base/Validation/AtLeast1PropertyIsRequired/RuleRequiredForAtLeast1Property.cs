@@ -24,20 +24,11 @@ namespace Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired {
         }
 
 
-        public override ReadOnlyCollection<string> UsedProperties {
-            get {
-                return
-                    new ReadOnlyCollection<string>(Properties.TargetProperties.Split(Properties.Delimiters.ToCharArray()));
-            }
-        }
+        public override ReadOnlyCollection<string> UsedProperties => new ReadOnlyCollection<string>(Properties.TargetProperties.Split(Properties.Delimiters.ToCharArray()));
 
-        public new IRuleRequiredForAtLeast1PropertyProperties Properties {
-            get { return (IRuleRequiredForAtLeast1PropertyProperties)base.Properties; }
-        }
+        public new IRuleRequiredForAtLeast1PropertyProperties Properties => (IRuleRequiredForAtLeast1PropertyProperties)base.Properties;
 
-        public override Type PropertiesType {
-            get { return typeof(RuleRequiredForAtLeast1PropertyProperties); }
-        }
+        public override Type PropertiesType => typeof(RuleRequiredForAtLeast1PropertyProperties);
 
         protected override bool IsValidInternal(object target, out string errorMessageTemplate) {
             Dictionary<string, object> values = GetValues(target);
