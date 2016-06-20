@@ -7,6 +7,7 @@ using System.Threading;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
@@ -27,7 +28,7 @@ namespace Xpand.Persistent.Base.General {
         IList<ISequenceReleasedObject> SequenceReleasedObjects { get; }
     }
 
-    public interface ISupportSequenceObject  {
+    public interface ISupportSequenceObject:ISessionProvider  {
         long Sequence { get; set; }
         string Prefix { get; }
     }
@@ -207,7 +208,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
-            if (_defaultDataLayer == null || !((XPBaseObject) supportSequenceObject).Session.IsNewObject(supportSequenceObject))
+            if (_defaultDataLayer == null || !supportSequenceObject.Session.IsNewObject(supportSequenceObject) ||
+                (supportSequenceObject.Session.ObjectLayer is SecuredSessionObjectLayer))
                 return;
             if (!IsProviderSupported(supportSequenceObject)) {
                 if (ThrowProviderSupportedException)
@@ -217,9 +219,7 @@ namespace Xpand.Persistent.Base.General {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
-            Session session = ((XPBaseObject
-                )supportSequenceObject).Session;
-            if (IsNotNestedUnitOfWork(session)) {
+            if (IsNotNestedUnitOfWork(supportSequenceObject.Session)) {
                 SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
                 sessionOnAfterCommitTransaction[0] = (sender, args) => {
                     if (_sequenceGenerator != null) {
@@ -227,12 +227,12 @@ namespace Xpand.Persistent.Base.General {
                             _sequenceGenerator.Accept();
                         }
                         finally {
-                            session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
+                            supportSequenceObject.Session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
                         }
                     }
 
                 };
-                session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
+                supportSequenceObject.Session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
             }
             supportSequenceObject.Sequence = nextSequence;
         }

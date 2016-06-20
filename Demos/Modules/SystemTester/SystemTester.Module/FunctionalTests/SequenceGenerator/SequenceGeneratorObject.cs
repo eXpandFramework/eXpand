@@ -48,9 +48,7 @@ namespace SystemTester.Module.FunctionalTests.SequenceGenerator{
         }
 
         [Association("SequenceGeneratorObject-SequenceGeneratorNestedObjects"), DevExpress.Xpo.Aggregated]
-        public XPCollection<SequenceGeneratorNestedObject> SequenceGeneratorNestedObjects{
-            get { return GetCollection<SequenceGeneratorNestedObject>("SequenceGeneratorNestedObjects"); }
-        }
+        public XPCollection<SequenceGeneratorNestedObject> SequenceGeneratorNestedObjects => GetCollection<SequenceGeneratorNestedObject>("SequenceGeneratorNestedObjects");
 
         [Action]
         public void UpdateSequence(){
@@ -81,8 +79,6 @@ namespace SystemTester.Module.FunctionalTests.SequenceGenerator{
             Xpand.Persistent.Base.General.SequenceGenerator.GenerateSequence(this);
         }
 
-        public string Prefix{
-            get { return SequenceGeneratorObject.Sequence+". "; }
-        }
+        public string Prefix => SequenceGeneratorObject.Sequence+". ";
     }
 }
