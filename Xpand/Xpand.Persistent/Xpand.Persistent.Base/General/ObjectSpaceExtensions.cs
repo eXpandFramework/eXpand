@@ -198,10 +198,15 @@ namespace Xpand.Persistent.Base.General {
             return classInfo;
         }
 
+        public static T QueryObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,Type implType,
+            bool intransaction = true){
+            var criteriaOperator = objectSpace.GetCriteriaOperator(expression);
+            return (T)objectSpace.FindObject(implType, criteriaOperator, intransaction);
+        }
+
         public static T QueryObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,bool intransaction=true){
             var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
-            var criteriaOperator = objectSpace.GetCriteriaOperator(expression);
-            return (T)objectSpace.FindObject(objectType, criteriaOperator, intransaction);
+            return objectSpace.QueryObject(expression, objectType, intransaction);
         }
 
         public static T Create<T>(this IObjectSpace objectSpace){

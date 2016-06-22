@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -73,7 +72,7 @@ namespace Xpand.ExpressApp.SystemModule {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             FullTextContainsFunction.Instance.Register();
-            if (Application != null && Application.Security != null) {
+            if (Application?.Security != null) {
                 CreatePessimisticLockingField(typesInfo);
             }
         }
@@ -92,8 +91,9 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
-            editorDescriptors.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), false)));
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory){
+            base.RegisterEditorDescriptors(editorDescriptorsFactory);
+            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.TimePropertyEditor, typeof(DateTime), false)));
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

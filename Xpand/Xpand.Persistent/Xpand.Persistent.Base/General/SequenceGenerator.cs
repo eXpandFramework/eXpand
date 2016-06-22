@@ -272,8 +272,8 @@ namespace Xpand.Persistent.Base.General {
             if (_defaultDataLayer == null)
                 return;
             var objectSpace = (XPObjectSpace)XPObjectSpace.FindObjectSpaceByObject(supportSequenceObject);
-            var sequenceObject = objectSpace.GetObjectByKey(_sequenceObjectType, supportSequenceObject.Prefix +
-                                                                                 ((XPBaseObject)supportSequenceObject).ClassInfo.FullName) as ISequenceObject;
+            var typeName = supportSequenceObject.Prefix + supportSequenceObject.GetType().FullName;
+            var sequenceObject = objectSpace.QueryObject<ISequenceObject>(seq =>seq.TypeName==typeName, _sequenceObjectType);
             if (sequenceObject != null) {
                 var objectFromInterface = objectSpace.Create<ISequenceReleasedObject>();
                 objectFromInterface.Sequence = supportSequenceObject.Sequence;
