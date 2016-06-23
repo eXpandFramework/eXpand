@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.WorldCreator.System {
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            if (!InterfaceBuilder.SkipAssemblyCleanup&&Application != null && (RuntimeMode || !string.IsNullOrEmpty(ConnectionString))) {
+            if (!InterfaceBuilder.SkipAssemblyCleanup&&Application != null && (RuntimeMode || !string.IsNullOrEmpty(ConnectionString))){
                 using (var worldCreatorObjectSpaceProvider = new WorldCreatorObjectSpaceProvider()){
                     CompatibilityCheckerApplication.CheckCompatibility(Application, worldCreatorObjectSpaceProvider);
                 }

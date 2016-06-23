@@ -11,11 +11,12 @@ using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.System{
-    public class WorldCreatorTypeInfoSource: XpandXpoTypeInfoSource,IEntityStore{
+    public class WorldCreatorTypeInfoSource: XpandXpoTypeInfoSource{
         static readonly ReflectionDictionary _reflectionDictionary = new ReflectionDictionary();
+        private static WorldCreatorTypeInfoSource _instance;
 
         static WorldCreatorTypeInfoSource(){
-            Instance = CreateSource();
+            Init();
         }
 
         public WorldCreatorTypeInfoSource(TypesInfo typesInfo) : this(typesInfo,Type.EmptyTypes){
@@ -27,9 +28,9 @@ namespace Xpand.ExpressApp.WorldCreator.System{
         public WorldCreatorTypeInfoSource(TypesInfo typesInfo, XPDictionary dictionary) : base(typesInfo, dictionary){
         }
 
-        public static WorldCreatorTypeInfoSource Instance { get; }
+        public static WorldCreatorTypeInfoSource Instance => _instance;
 
-        private static WorldCreatorTypeInfoSource CreateSource(){
+        static void Init(){
             var typesInfo = (TypesInfo) XafTypesInfo.Instance;
             var types = XpandModuleBase.BaseImplAssembly.GetTypes().Where(IsWorldCreatorType).ToArray();
             var entityStore = new WorldCreatorTypeInfoSource(typesInfo,types);
@@ -38,8 +39,7 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             classInfo.AddAttribute(new PersistentAttribute("PersistentClasses_XPObjectType"));
             typesInfo.AddEntityStore(entityStore);
             entityStore.EntityTypes.Each(XafTypesInfo.Instance.RegisterEntity);
-            
-            return entityStore;
+            _instance=entityStore;
         }
 
         private static bool IsWorldCreatorType(Type type){
@@ -52,15 +52,9 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             ((HashSet<Type>) this.GetFieldValue("entityTypes")).Add(item);
         }
 
-//        void IEntityStore.RegisterEntity(Type type){
-//            if (((IEntityStore) this).CanRegister(type))
-//                RegisterEntity(type);
-//        }
-
-//        bool IEntityStore.CanRegister(Type type){
-//            return CanRegister(type) &&IsWorldCreatorType(type);
-//        }
-
-
+        public static void UseDefaultObjectTypePersistance(){
+            var classInfo = Instance.XPDictionary.GetClassInfo(typeof(XPObjectType));
+            classInfo.RemoveAttribute(typeof(PersistentAttribute));
+        }
     }
 }
