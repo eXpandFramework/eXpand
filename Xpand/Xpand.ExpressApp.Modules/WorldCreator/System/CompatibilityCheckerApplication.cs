@@ -33,7 +33,18 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             lock (_locker){
                 using (var compatibilityApplication = new CompatibilityCheckerApplication(objectSpaceProvider, application.Modules)){
                     compatibilityApplication.ApplicationName = application.ApplicationName;
-                    compatibilityApplication.CheckCompatibility();
+                    try{
+                        compatibilityApplication.CheckCompatibility();
+                    }
+                    catch (CompatibilityException e){
+                        if (e.Message.Contains("FK_TemplateInfo_ObjectType")){
+                            var message = "Please use " + typeof(WorldCreatorTypeInfoSource).Name + "." +
+                                          nameof(WorldCreatorTypeInfoSource.UseDefaultObjectTypePersistance) +
+                                          " before " + application.GetType().Name;
+                            throw new CompatibilityException(new CompatibilityError(message, e));
+                        }
+                        throw;
+                    }
                     using (objectSpaceProvider.CreateUpdatingObjectSpace(true)){
                     
                     }
@@ -54,7 +65,6 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             public WorldCreatorDatabaseUpdater(IObjectSpaceProvider objectSpaceProvider, string applicationName,ModuleList moduleBases)
                 : base(objectSpaceProvider, moduleBases, applicationName, objectSpaceProvider.ModuleInfoType){
             }
-
 
             protected override IList<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, IList<IModuleInfo> versionInfoList){
                 List<ModuleUpdater> dbUpdaters = new List<ModuleUpdater>();
