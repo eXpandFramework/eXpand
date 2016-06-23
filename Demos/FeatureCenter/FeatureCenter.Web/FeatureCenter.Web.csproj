@@ -211,6 +211,9 @@
     <Reference Include="DevExpress.XtraReports.v16.1.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Web.Resources.v16.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraReports.v16.1.Web">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
