@@ -4,9 +4,9 @@
   <DataSources>
     <SqlDataSource ComponentName="dashboardSqlDataSource1">
       <Name>SQL Data Source 1</Name>
-      <Connection Name="(localdb)\MSSQLLocalDB_XtraDashboardTesterEasyTest_Connection" ProviderKey="MSSqlServer">
+      <Connection Name="(localdb)\mssqllocaldb_XtraDashboardTesterEasyTest_Connection" ProviderKey="MSSqlServer">
         <Parameters>
-          <Parameter Name="server" Value="(localdb)\MSSQLLocalDB" />
+          <Parameter Name="server" Value="(localdb)\mssqllocaldb" />
           <Parameter Name="database" Value="XtraDashboardTesterEasyTest" />
           <Parameter Name="useIntegratedSecurity" Value="True" />
           <Parameter Name="read only" Value="1" />
@@ -15,15 +15,18 @@
           <Parameter Name="password" Value="" />
         </Parameters>
       </Connection>
-      <Query Type="TableQuery" Name="Customer">
-        <Table Name="Customer" />
-        <Table Name="Person">
-          <Column Name="FirstName" />
-          <Column Name="LastName" />
-        </Table>
-        <Relation Type="Inner" Parent="Customer" Nested="Person">
-          <KeyColumn Parent="Oid" Nested="Oid" />
-        </Relation>
+      <Query Type="SelectQuery" Name="Customer">
+        <Tables>
+          <Table Name="Customer" Meta="0|0|125|80" />
+          <Table Name="Person" Meta="0|0|125|160" />
+          <Relation Type="Inner" Parent="Customer" Nested="Person">
+            <KeyColumn Parent="Oid" Nested="Oid" />
+          </Relation>
+        </Tables>
+        <Columns>
+          <Column Table="Person" Name="FirstName" />
+          <Column Table="Person" Name="LastName" />
+        </Columns>
       </Query>
       <ResultSchema>
         <DataSet Name="SQL Data Source 1">
@@ -33,6 +36,7 @@
           </View>
         </DataSet>
       </ResultSchema>
+      <ConnectionOptions CloseConnection="true" CommandTimeout="0" />
     </SqlDataSource>
   </DataSources>
   <Parameters>
@@ -57,7 +61,7 @@
   </Items>
   <LayoutTree>
     <LayoutGroup>
-      <LayoutItem DashboardItem="gridDashboardItem1" />
+      <LayoutItem DashboardItem="gridDashboardItem1" Weight="0.5" />
     </LayoutGroup>
   </LayoutTree>
 </Dashboard>

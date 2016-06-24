@@ -21,6 +21,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
 
         static DashboardDesignerEditor() {
             DashboardService.SetDashboardStorage(new DatabaseDashboardStorage());
+            DashboardService.PassCredentials = true;
         }
         public DashboardDesignerEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) {
         }
@@ -65,7 +66,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         private string GetDashboardId() {
-            return Definition.Name;
+            return ObjectTypeInfo.KeyMember.GetValue(Definition).ToString().ToUpper();
         }
 
         private void UnSubscribe() {
