@@ -28,7 +28,7 @@ namespace Xpand.Persistent.Base.General {
         IList<ISequenceReleasedObject> SequenceReleasedObjects { get; }
     }
 
-    public interface ISupportSequenceObject:ISessionProvider  {
+    public interface ISupportSequenceObject  {
         long Sequence { get; set; }
         string Prefix { get; }
     }
@@ -208,8 +208,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
-            if (_defaultDataLayer == null || !supportSequenceObject.Session.IsNewObject(supportSequenceObject) ||
-                (supportSequenceObject.Session.ObjectLayer is SecuredSessionObjectLayer))
+            if (_defaultDataLayer == null || !((ISessionProvider) supportSequenceObject).Session.IsNewObject(supportSequenceObject) ||
+                (((ISessionProvider)supportSequenceObject).Session.ObjectLayer is SecuredSessionObjectLayer))
                 return;
             if (!IsProviderSupported(supportSequenceObject)) {
                 if (ThrowProviderSupportedException)
@@ -219,7 +219,7 @@ namespace Xpand.Persistent.Base.General {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
-            if (IsNotNestedUnitOfWork(supportSequenceObject.Session)) {
+            if (IsNotNestedUnitOfWork(((ISessionProvider)supportSequenceObject).Session)) {
                 SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
                 sessionOnAfterCommitTransaction[0] = (sender, args) => {
                     if (_sequenceGenerator != null) {
@@ -227,12 +227,12 @@ namespace Xpand.Persistent.Base.General {
                             _sequenceGenerator.Accept();
                         }
                         finally {
-                            supportSequenceObject.Session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
+                            ((ISessionProvider)supportSequenceObject).Session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
                         }
                     }
 
                 };
-                supportSequenceObject.Session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
+                ((ISessionProvider)supportSequenceObject).Session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
             }
             supportSequenceObject.Sequence = nextSequence;
         }

@@ -8,7 +8,7 @@
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100"/>
     <!-- Web -->
-    <Application
+    <Application Ignored="0"
 			Name="SystemTester.Web"
 			Url="http://localhost:63074"
 			PhysicalPath="[WebAppBin]"
