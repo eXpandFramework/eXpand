@@ -418,6 +418,6 @@
   <Message Text="@(NuGetFile)"></Message>
   </Target>
   <Target Name="NuGet"  Inputs="@(NuGetFile)" Outputs="NotUsedOutput" DependsOnTargets="NuGetPackage">
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) push %(NuGetFile.Identity) $(NuGetApiKey)" />
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) push %(NuGetFile.Identity) $(NuGetApiKey) -source https://api.nuget.org/v3/index.json" />
   </Target>
 </Project>
