@@ -27,6 +27,7 @@ namespace SecurityTester.Web {
             LastLogonParametersReading += OnLastLogonParametersReading;
         }
 
+
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
             if (string.IsNullOrEmpty(e.SettingsStorage.LoadOption("", "UserName"))) {
                 e.SettingsStorage.SaveOption("", "UserName", "Admin");
@@ -68,7 +69,7 @@ namespace SecurityTester.Web {
                     "'Database Security References' at http://www.devexpress.com/Help/?document=ExpressApp/CustomDocument3237.htm\r\n" +
                     "If this doesn't help, please contact our Support Team at http://www.devexpress.com/Support/Center/";
 
-                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
+                if (e.CompatibilityError?.Exception != null) {
                     message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
                 }
                 throw new InvalidOperationException(message);
@@ -121,7 +122,7 @@ namespace SecurityTester.Web {
 
         protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
             var handler = CustomWriteSecuredLogonParameters;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 }

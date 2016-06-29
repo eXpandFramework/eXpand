@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.Security.Registration {
             RegisterUserAction = CreateLogonSimpleAction("RegisterUser", "RegisterUserCategory", "Register User", "BO_User", "Register a new user within the system", typeof(RegisterUserParameters));
             RestorePasswordAction = CreateLogonSimpleAction("RestorePassword", "RestorePasswordCategory", "Restore Password", "Action_ResetPassword", "Restore forgotten login information", typeof(RestorePasswordParameters));
         }
-        
+
         protected override void OnViewChanging(View view) {
             base.OnViewChanging(view);
             var customActiveKeyArgs = new CustomActiveKeyArgs(view);

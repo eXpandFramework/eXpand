@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using SecurityTester.Module.Web.Controllers;
 using SecurityTester.Module.Web.FunctionalTests.Anonymous;
+using SecurityTester.Module.Web.FunctionalTests.NewUserActivation;
 
 namespace SecurityTester.Module.Web {
     [ToolboxItemFilter("Xaf.Platform.Web")]
@@ -24,7 +25,10 @@ namespace SecurityTester.Module.Web {
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
-            return new ModuleUpdater[]{new Updater(objectSpace, Version), new AnonymousRoleUpdater(objectSpace, Version)};
+            return new ModuleUpdater[]{
+                new Updater(objectSpace, Version), new AnonymousRoleUpdater(objectSpace, Version),
+                new NewUserActivationUpdater(objectSpace, versionFromDB)
+            };
         }
     }
 }

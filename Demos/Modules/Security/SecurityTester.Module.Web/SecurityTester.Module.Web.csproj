@@ -61,6 +61,7 @@
     <Reference Include="DevExpress.ExpressApp.Web.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Persistent.BaseImpl.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -70,6 +71,7 @@
     <Reference Include="System">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
@@ -97,6 +99,11 @@
     </Compile>
     <Compile Include="FunctionalTests\Anonymous\AnonymousObject.cs" />
     <Compile Include="FunctionalTests\Anonymous\AnonymousRoleUpdater.cs" />
+    <Compile Include="FunctionalTests\NewUserActivation\NewUserActivationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\NewUserActivation\NewUserActivationObject.cs" />
+    <Compile Include="FunctionalTests\NewUserActivation\NewUserActivationUpdater.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
@@ -132,11 +139,17 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="FunctionalTests\Anonymous\AnonymousAuthentication.ets" />
+    <None Include="FunctionalTests\NewUserActivation\NewUserActivation.ets" />
+    <EmbeddedResource Include="FunctionalTests\NewUserActivation\NewUserActivation.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Images\ReadMe.txt" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FunctionalTests\Anonymous\Config.xml" />
+    <Content Include="FunctionalTests\NewUserActivation\Config.xml" />
+    <None Include="FunctionalTests\NewUserActivation\Init.inc" />
     <None Include="FunctionalTests\Anonymous\Init.inc" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
