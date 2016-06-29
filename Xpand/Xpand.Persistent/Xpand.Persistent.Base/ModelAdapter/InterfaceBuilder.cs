@@ -123,7 +123,16 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             return compileAssemblyFromSource;
         }
 
-        public bool IsDevMachine => Environment.GetEnvironmentVariable("XpandDevMachine", EnvironmentVariableTarget.User).Change<bool>();
+        public bool IsDevMachine {
+            get {
+                try {
+                    return  Environment.GetEnvironmentVariable("XpandDevMachine", EnvironmentVariableTarget.User).Change<bool>();
+                }
+                catch (System.Security.SecurityException) {
+                    return false;
+                }
+            }
+        }
 
         public static bool IsDBUpdater => Process.GetCurrentProcess().ProcessName.StartsWith("DBUpdater"+AssemblyInfo.VSuffix);
 
