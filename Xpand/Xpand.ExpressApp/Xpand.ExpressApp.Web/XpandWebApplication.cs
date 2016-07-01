@@ -16,17 +16,9 @@ namespace Xpand.ExpressApp.Web {
         public XpandWebApplication() {
         }
 
-        string IXafApplication.ModelAssemblyFilePath {
-            get { return GetModelAssemblyFilePath(); }
-        }
+        string IXafApplication.ModelAssemblyFilePath => GetModelAssemblyFilePath();
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args, null);
-        }
-
-        protected override bool SupportMasterDetailMode {
-            get { return true; }
-        }
+        protected override bool SupportMasterDetailMode => true;
 
         protected override IHttpRequestManager CreateHttpRequestManager() {
             return this.NewHttpRequestManager();
@@ -37,7 +29,7 @@ namespace Xpand.ExpressApp.Web {
 
         protected void OnConfirmationRequired(CancelEventArgs e) {
             CancelEventHandler handler = ConfirmationRequired;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
@@ -86,14 +78,14 @@ namespace Xpand.ExpressApp.Web {
 
         protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
             var handler = CustomWriteSecuredLogonParameters;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<WindowCreatingEventArgs> WindowCreating;
 
         protected virtual void OnWindowCreating(WindowCreatingEventArgs e) {
             var handler = WindowCreating;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 }
