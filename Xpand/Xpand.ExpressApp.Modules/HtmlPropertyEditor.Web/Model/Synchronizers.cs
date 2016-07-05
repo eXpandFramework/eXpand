@@ -16,28 +16,28 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.Model {
             var htmlEditor = Control.Editor;
             var modelHtmlEditor = ((IModelPropertyHtmlEditor)Model).HtmlEditor;
             if (htmlEditor != null) {
+                var htmlEditorCustomDialog = new HtmlEditorCustomDialog();
                 foreach (var editor in ((IModelPropertyHtmlEditor)Model).HtmlEditorModelAdapters.SelectMany(adapter => adapter.ModelAdapters)) {
-                    ApplyModel(editor,htmlEditor );
+                    ApplyModel(editor,htmlEditor , htmlEditorCustomDialog);
                 }
-                ApplyModel(modelHtmlEditor, htmlEditor);
+                ApplyModel(modelHtmlEditor, htmlEditor,htmlEditorCustomDialog);
+                htmlEditor.CustomDialogs.Add(htmlEditorCustomDialog);
             }
         }
 
-        void ApplyModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor) {
+        void ApplyModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor, HtmlEditorCustomDialog htmlEditorCustomDialog) {
             ApplyModel(modelHtmlEditor, htmlEditor, ApplyValues);
             ApplyToolbarModel(modelHtmlEditor, htmlEditor,modelHtmlEditor.GetPropertyName(editor => editor.ToolBars));
             ApplyShortcutModel(modelHtmlEditor, htmlEditor, modelHtmlEditor.GetPropertyName(editor => editor.Shortcuts));
-            ApplyCustomDialodModel(modelHtmlEditor, htmlEditor, modelHtmlEditor.GetPropertyName(editor => editor.CustomDialogs));
+            ApplyCustomDialodModel(modelHtmlEditor, htmlEditor, modelHtmlEditor.GetPropertyName(editor => editor.CustomDialogs),htmlEditorCustomDialog);
         }
 
-        void ApplyCustomDialodModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor, string propertyName) {
+        void ApplyCustomDialodModel(IModelHtmlEditor modelHtmlEditor, ASPxHtmlEditor htmlEditor, string propertyName, HtmlEditorCustomDialog htmlEditorCustomDialog){
             var editorCustomDialogs = (IModelHtmlEditorCustomDialogs)((ModelNode)modelHtmlEditor)[propertyName];
             foreach (var modelCustomDialog in editorCustomDialogs.OfType<ModelNode>()) {
                 var editorCustomDialog = htmlEditor.CustomDialogs[modelCustomDialog.Id];
                 if (editorCustomDialog == null) {
-                    var htmlEditorCustomDialog = new HtmlEditorCustomDialog();
                     ApplyModel(modelCustomDialog, htmlEditorCustomDialog,ApplyValues);
-                    htmlEditor.CustomDialogs.Add(htmlEditorCustomDialog);
                 }
             }
         }
