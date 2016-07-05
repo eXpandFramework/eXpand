@@ -53,7 +53,9 @@ namespace Xpand.ExpressApp.Security {
             if (typeInfo != null)
                 yield return app.CreateController(typeInfo.Type);
 
-            yield return app.CreateController(app.TypesInfo.FindTypeInfo(typeof(ManageUsersOnLogonController)).Descendants.First().Type);
+            var manageUsedOnLogonTypeInfo = app.TypesInfo.FindTypeInfo(typeof(ManageUsersOnLogonController));
+            var manageUsedOnLogonType = manageUsedOnLogonTypeInfo.Descendants.Select(info => info.Type).FirstOrDefault() ??manageUsedOnLogonTypeInfo.Type;
+            yield return app.CreateController(manageUsedOnLogonType);
         }
     }
 }

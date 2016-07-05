@@ -139,9 +139,8 @@ namespace Xpand.Persistent.Base.General {
             return (View) application.CallMethod("CreateView", viewModel);
         }
 
-        public static Controller CreateController(this XafApplication application,Type type) {
-            var methodInfo = typeof (XafApplication).Method(new[]{type}, "CreateController", Flags.InstancePublicDeclaredOnly);
-            return (Controller) methodInfo.Call(application);
+        public static Controller CreateController(this XafApplication application,Type type){
+            return (Controller) application.CallMethod(new[]{type}, "CreateController");
         }
 
         public static T FindModule<T>(this XafApplication xafApplication,bool extactMatch=true) where T : ModuleBase{
