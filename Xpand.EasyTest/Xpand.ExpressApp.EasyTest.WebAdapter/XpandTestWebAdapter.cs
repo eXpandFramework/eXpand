@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
 
         private void KillApplicationBase(KillApplicationConext context){
             this.CallMethod("CloseWebBrowser");
-            _serverManager.ProcessKillApplication(context);
+            _serverManager?.ProcessKillApplication(context);
         }
 
         public override void RegisterCommands(IRegisterCommand registrator){

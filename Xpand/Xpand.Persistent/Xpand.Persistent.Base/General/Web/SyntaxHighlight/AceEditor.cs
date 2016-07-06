@@ -107,7 +107,7 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight{
         }
 
         public string CreateContainer(string editorId,string text){
-            return string.Format(@"<div id='AceEditor{0}'>{1}</div>", editorId, text.XMLEncode());
+            return $@"<div id='AceEditor{editorId}'>{(text+"").XMLEncode()}</div>";
         }
 
 

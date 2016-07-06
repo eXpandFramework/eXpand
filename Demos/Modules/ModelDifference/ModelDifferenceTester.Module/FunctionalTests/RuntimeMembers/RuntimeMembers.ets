@@ -1,5 +1,5 @@
 ﻿#DropDB ModelDifferenceTesterEasyTest
-;#Application ModelDifferenceTester.Win
+#Application ModelDifferenceTester.Win
 #Application ModelDifferenceTester.Web
 *UseModel
 *LogOn

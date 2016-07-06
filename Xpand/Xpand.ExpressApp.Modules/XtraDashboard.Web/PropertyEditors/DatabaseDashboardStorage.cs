@@ -25,17 +25,17 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors{
 
         protected virtual void OnRequestDashboarXml(RequestDashboardXmlArgs e) {
             var handler = RequestDashboardXml;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected virtual void OnRequestDashboardInfos(RequestDashboardInfosArgs e) {
             EventHandler<RequestDashboardInfosArgs> handler = RequestDashboardInfos;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected virtual void OnRequestObjectSpace(RequestObjectSpaceArgs e) {
             var handler = RequestObjectSpace;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public IEnumerable<DashboardInfo> GetAllDashboardsInfo() {
@@ -60,7 +60,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors{
             var args = new RequestObjectSpaceArgs();
             OnRequestObjectSpace(args);
             using (var objectSpace = args.ObjectSpace) {
-                var dashboardDefintion = objectSpace.GetObjectsQuery<DashboardDefinition>().First(definition => definition.Name == id);
+                var guid= Guid.Parse(id);
+                var dashboardDefintion = objectSpace.GetObjectsQuery<DashboardDefinition>().First(definition => definition.Oid == guid);
                 dashboardDefintion.Xml = dashboard.ToString();
                 objectSpace.CommitChanges();
             }

@@ -61,8 +61,8 @@ namespace Xpand.Utils.Automation.InputSimulator{
             LeftButtonDown();
 
 
-            MoveMouseTo(start.X, start.Y + 1);
-            Sleep(1000);
+            MoveMouseTo(start.X, start.Y + 3);
+            Sleep(1500);
 
             MoveMouseTo(end.X, end.Y);
             LeftButtonUp();

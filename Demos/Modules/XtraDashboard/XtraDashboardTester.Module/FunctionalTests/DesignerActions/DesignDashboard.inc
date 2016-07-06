@@ -43,7 +43,7 @@
 #IfDef XtraDashboardTester.Win
 *Mouse LeftButtonClick
  MoveMouseTo = [SaveAndCloseRibbonButton]
-*Sleep 1500
+*Sleep 3000
 #EndIf
 #IfDef XtraDashboardTester.Web
 *Mouse LeftButtonClick
@@ -51,6 +51,6 @@
 *Sleep 1500
 *Mouse LeftButtonClick
  MoveMouseTo = [WebSave]
-*Sleep 1500
+*Sleep 3000
 *Action OK
 #EndIf

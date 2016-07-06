@@ -5,11 +5,12 @@
 *ToggleNavigation = True
 *Action New
 *LClick [NewAction]
-*ToggleNavigation = False
+
 
 *XpandFillForm
  Name = Tolis
 *SaveAndClose
+*ToggleNavigation = False
 *Navigate ASPx Search Lookup Property Editor Object
 *Action New
 *SendKeys Tol

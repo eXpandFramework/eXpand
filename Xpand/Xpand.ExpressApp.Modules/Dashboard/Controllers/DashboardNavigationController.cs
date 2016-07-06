@@ -19,9 +19,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             TargetWindowType = WindowType.Main;
         }
 
-        protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions{
-            get { return _dashboardActions ?? (_dashboardActions = new Dictionary<ChoiceActionItem, DashboardDefinition>()); }
-        }
+        protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions => _dashboardActions ?? (_dashboardActions = new Dictionary<ChoiceActionItem, DashboardDefinition>());
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelDashboardModule, IModelDashboardModuleNavigation>();
@@ -66,8 +64,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                         if (!string.IsNullOrEmpty(dashboardOptions.DashboardsParentItem)) {
                             var itemCollection = ((ShowNavigationItemController)sender).ShowNavigationItemAction.Items.GetItems<ChoiceActionItem>(item => item.Items);
                             var parent = itemCollection.FirstOrDefault(c => c.Id == dashboardOptions.DashboardsParentItem);
-                            if (parent != null)
-                                parent.Items.Add(dashboardGroup);
+                            parent?.Items.Add(dashboardGroup);
                         }
                         else
                             ((ShowNavigationItemController)sender).ShowNavigationItemAction.Items.Add(dashboardGroup);
@@ -91,11 +88,10 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         protected virtual bool HasRights(ChoiceActionItem item, IModelView view) {
             var data = (ViewShortcut)item.Data;
             if (view == null) {
-                throw new ArgumentException(string.Format("Cannot find the '{0}' view specified by the shortcut: {1}",
-                                                          data.ViewId, data));
+                throw new ArgumentException($"Cannot find the '{data.ViewId}' view specified by the shortcut: {data}");
             }
             var objectView = view as IModelObjectView;
-            Type type = (objectView != null) ? objectView.ModelClass.TypeInfo.Type : null;
+            Type type = objectView?.ModelClass.TypeInfo.Type;
             if (type != null) {
                 if (!string.IsNullOrEmpty(data.ObjectKey) && !data.ObjectKey.StartsWith("@")) {
                     try {

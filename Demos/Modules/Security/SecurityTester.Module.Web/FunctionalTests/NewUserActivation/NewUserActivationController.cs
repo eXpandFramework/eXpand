@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Web;
@@ -20,7 +21,7 @@ namespace SecurityTester.Module.Web.FunctionalTests.NewUserActivation{
             xpandUser.SetMemberValue(registrationActivation.ActivationIdMember.Name,Guid.NewGuid().ToString());
             var oid = xpandUser.Oid;
             WebApplication.Instance.LogOff();
-            WebApplication.Redirect("/?Ua="+oid);
+            WebApplication.Redirect(HttpContext.Current.Request.Url.AbsoluteUri+ "/?Ua=" + oid);
         }
     }
 }

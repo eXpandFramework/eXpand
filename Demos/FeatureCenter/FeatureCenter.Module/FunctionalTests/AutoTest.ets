@@ -5,7 +5,7 @@
 #Application FeatureCenter.Win
 #Application FeatureCenter.Web
 
-*SetWebMaxWaitTimeOut 50000
+*SetWebMaxWaitTimeOut 200000
  
 *ScreenCapture
 
