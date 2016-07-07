@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailTester.Module", "EmailTester.Module\EmailTester.Module.csproj", "{5F114BD0-1EDD-44CC-A6FE-057E3808BB3F}"
 EndProject
@@ -37,6 +37,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Security.Win", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Security.Win\Xpand.ExpressApp.Security.Win.csproj", "{50DF1466-D5B2-40FC-B91E-B212E4A7F4A9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Security.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Security.Web\Xpand.ExpressApp.Security.Web.csproj", "{BAD55FD1-7A64-4A38-894D-5C18895EB76B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.WebAdapter", "..\..\..\Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WebAdapter\Xpand.ExpressApp.EasyTest.WebAdapter.csproj", "{38E16F8A-517C-4CA9-9775-56F598F25534}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -152,6 +154,12 @@ Global
 		{BAD55FD1-7A64-4A38-894D-5C18895EB76B}.RecompiledDxSources|Any CPU.Build.0 = RecompiledDxSources|Any CPU
 		{BAD55FD1-7A64-4A38-894D-5C18895EB76B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAD55FD1-7A64-4A38-894D-5C18895EB76B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38E16F8A-517C-4CA9-9775-56F598F25534}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -169,5 +177,6 @@ Global
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD} = {9523A9FB-F4AA-4812-98AC-D12462B5BC97}
 		{50DF1466-D5B2-40FC-B91E-B212E4A7F4A9} = {DEC26375-C0F7-458F-A6F7-A8448C5527B7}
 		{BAD55FD1-7A64-4A38-894D-5C18895EB76B} = {DEC26375-C0F7-458F-A6F7-A8448C5527B7}
+		{38E16F8A-517C-4CA9-9775-56F598F25534} = {9523A9FB-F4AA-4812-98AC-D12462B5BC97}
 	EndGlobalSection
 EndGlobal

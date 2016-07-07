@@ -45,11 +45,8 @@ namespace Xpand.ExpressApp.Email.Logic {
             }
         }
 
-        public IRazorEngineService RazorEngineService{
-            get{ return _razorEngineService ??
-                       (_razorEngineService = Application.FindModule<EmailModule>().RazorEngineService);
-            }
-        }
+        public IRazorEngineService RazorEngineService => _razorEngineService ??
+                                                         (_razorEngineService = Application.FindModule<EmailModule>().RazorEngineService);
 
         protected virtual MailMessage CreateEmail(LogicRuleInfo logicRuleInfo, EmailRule emailRule, IModelSmtpClientContext modelSmtpClientContext, IEmailTemplate emailTemplateObject, IModelApplicationEmail modelApplicationEmail){
             var body = RazorEngineService.RunCompile(emailTemplateObject.Body, Guid.NewGuid().ToString(),null, logicRuleInfo.Object);
@@ -58,10 +55,8 @@ namespace Xpand.ExpressApp.Email.Logic {
                 Subject = RazorEngineService.RunCompile(emailTemplateObject.Subject, Guid.NewGuid().ToString(), null, logicRuleInfo.Object),
                 Body = body
             };
-            if (emailRule.CurrentObjectEmailMember != null){
-                var toEmail = emailRule.CurrentObjectEmailMember.MemberInfo.GetValue(logicRuleInfo.Object) as string;
-                if (toEmail != null) toEmail.Split(';').Each(s => email.To.Add(s));
-            }
+            var toEmail = emailRule.CurrentObjectEmailMember?.MemberInfo.GetValue(logicRuleInfo.Object) as string;
+            toEmail?.Split(';').Each(s => email.To.Add(s));
             if (!string.IsNullOrEmpty(emailRule.EmailReceipientsContext)) {
                 AddReceipients(emailRule, modelApplicationEmail, email,logicRuleInfo.Object);
             }
@@ -72,14 +67,14 @@ namespace Xpand.ExpressApp.Email.Logic {
 
         protected virtual void AddReceipients(EmailRule emailRule, IModelApplicationEmail modelApplicationEmail, MailMessage email, object currentObject) {
             var emailReceipientGroup =modelApplicationEmail.Email.EmailReceipients.First(
-                    @group => @group.GetValue<string>("Id") == emailRule.EmailReceipientsContext);
+                    group => group.GetValue<string>("Id") == emailRule.EmailReceipientsContext);
             foreach (var modelEmailReceipient in emailReceipientGroup) {
                 var criteriaOperator = GetCriteriaOperator(modelEmailReceipient,currentObject);
                 var objects = ObjectSpace.GetObjects(modelEmailReceipient.EmailReceipient.TypeInfo.Type,criteriaOperator);
                 var sendToCollection = GetSendToCollection(email, modelEmailReceipient);
                 foreach (var obj in objects){
                     var item = modelEmailReceipient.EmailMember.MemberInfo.GetValue(obj) as string;
-                    if (item != null) item.Split(';').Each(s => sendToCollection.Add(s));
+                    item?.Split(';').Each(s => sendToCollection.Add(s));
                 }
             }
         }
@@ -103,7 +98,7 @@ namespace Xpand.ExpressApp.Email.Logic {
                 DeliveryMethod = modelSmtpClientContext.DeliveryMethod,
             };
             if (!string.IsNullOrEmpty(modelSmtpClientContext.PickupDirectoryLocation))
-                smtpClient.PickupDirectoryLocation = Path.GetFullPath(modelSmtpClientContext.PickupDirectoryLocation);
+                smtpClient.PickupDirectoryLocation = Path.GetFullPath(Environment.ExpandEnvironmentVariables(modelSmtpClientContext.PickupDirectoryLocation));
             if (smtpClient.DeliveryMethod == SmtpDeliveryMethod.Network){
                 smtpClient.Host = modelSmtpClientContext.Host;
                 smtpClient.Port = modelSmtpClientContext.Port;

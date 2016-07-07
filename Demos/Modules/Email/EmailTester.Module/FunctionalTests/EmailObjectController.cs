@@ -37,7 +37,7 @@ namespace EmailTester.Module.FunctionalTests{
         }
 
         private void CreateEmailObject(){
-            var path = Path.Combine(Path.GetFullPath("."), "Emails");
+            var path = Path.GetFullPath(Environment.ExpandEnvironmentVariables(@"%temp%\Emails"));
             var emlFiles = Directory.GetFiles(path, "*.eml").OrderByDescending(s => new FileInfo(s).CreationTime);
             foreach (var emlFile in emlFiles){
                 var emailObject = ObjectSpace.CreateObject<EmailObject>();

@@ -2,10 +2,11 @@
 #Application EmailTester.Win
 #Application EmailTester.Web
 *ScreenCapture
-*XpandDeleteFile Emails\*.eml
- InBin = true
+*XpandDeleteFile %temp%\Emails\*.eml
+ 
 
 ;-----Register user------
+*SetWebMaxWaitTimeOut 60000
 *Action Register User
 *XpandFillForm
  User Name = user1

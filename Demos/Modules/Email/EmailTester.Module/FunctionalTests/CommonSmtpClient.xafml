@@ -2,7 +2,7 @@
 <Application Title="EmailTester" Logo="ExpressAppLogo">
   <Email>
     <SmtpClientContexts>
-      <SmtpClientContext Id="GlobalSmtpClientContext" SenderEmail="sender@mail.com" DeliveryMethod="SpecifiedPickupDirectory" PickupDirectoryLocation=".\Emails" ReplyToEmails="mymail@mail.com" IsNewNode="True" />
+      <SmtpClientContext Id="GlobalSmtpClientContext" SenderEmail="sender@mail.com" DeliveryMethod="SpecifiedPickupDirectory" PickupDirectoryLocation="%temp%\Emails" ReplyToEmails="mymail@mail.com" IsNewNode="True" />
     </SmtpClientContexts>
   </Email>
 </Application>

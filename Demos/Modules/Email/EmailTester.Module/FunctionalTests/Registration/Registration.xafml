@@ -15,7 +15,7 @@
       <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="GlobalSmtpClientContext" CurrentObjectEmailMember="Email" EmailReceipientsContext="Send to Admins" IsNewNode="True" />
     </Rules>
     <SmtpClientContexts>
-      <SmtpClientContext Id="GlobalSmtpClientContext" SenderEmail="sender@mail.com" DeliveryMethod="SpecifiedPickupDirectory" PickupDirectoryLocation=".\Emails" ReplyToEmails="mymail@mail.com" IsNewNode="True" />
+      <SmtpClientContext Id="GlobalSmtpClientContext" SenderEmail="sender@mail.com" DeliveryMethod="SpecifiedPickupDirectory" PickupDirectoryLocation="%temp%\Emails" ReplyToEmails="mymail@mail.com" IsNewNode="True" />
     </SmtpClientContexts>
   </Email>
   <Options>
