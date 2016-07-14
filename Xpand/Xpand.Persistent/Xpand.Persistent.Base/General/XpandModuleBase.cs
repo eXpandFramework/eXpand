@@ -733,15 +733,15 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        protected override void Dispose(bool disposing) {
-            if (!RuntimeMode) {
-                var keyValuePairs = CallMonitor.Keys.ToList();
-                foreach (var pair in keyValuePairs) {
-                    CallMonitor[pair].Clear();
-                }
-            }
-            base.Dispose(disposing);
-        }
+//        protected override void Dispose(bool disposing) {
+//            if (!RuntimeMode) {
+//                var keyValuePairs = CallMonitor.Keys.ToList();
+//                foreach (var pair in keyValuePairs) {
+//                    CallMonitor[pair].Clear();
+//                }
+//            }
+//            base.Dispose(disposing);
+//        }
 
         public void ConvertXml(ConvertXmlParameters parameters) {
             if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType)) {

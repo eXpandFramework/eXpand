@@ -11,14 +11,14 @@ using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.FileAttachment.Web.PropertyEditors{
-    public interface IModelPropertyEditorFileData{
+    public interface IModelMemberViewItemFileData{
         [Category(AttributeCategoryNameProvider.Xpand)]
         [ModelBrowsable(typeof(EditorTypeVisibilityCalculator<FileDataPropertyEditorController, IModelDetailView>))]
         string AttachmentImage { get; set; }
     }
     public class FileDataPropertyEditorController:Controller,IModelExtender {
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
-            extenders.Add<IModelPropertyEditor, IModelPropertyEditorFileData>();
+            extenders.Add<IModelMemberViewItem, IModelMemberViewItemFileData>();
         }
     }
     [PropertyEditor(typeof(IFileData), true)]
@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.FileAttachment.Web.PropertyEditors{
         }
 
         protected override WebControl CreateEditModeControlCore(){
-            if (!string.IsNullOrWhiteSpace(((IModelPropertyEditorFileData)Model).AttachmentImage)){
+            if (!string.IsNullOrWhiteSpace(((IModelMemberViewItemFileData)Model).AttachmentImage)){
                 var fileDataEdit = new FileDataEdit(ViewEditMode, FileData, !AllowEdit, ImmediatePostData);
                 fileDataEdit.CreateCustomFileDataObject +=CreateFileDataObject;
                 return fileDataEdit;
