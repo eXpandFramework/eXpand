@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Reports;
+
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
@@ -19,7 +19,6 @@ using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
 using XVideoRental.Module.Win.BusinessObjects;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
-using DevExpress.ExpressApp.Utils;
 using XVideoRental.Module.Win.BusinessObjects.Rent;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.IO.Core;
@@ -45,7 +44,6 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 SetPermissions(employersRole);
             }
 
-            CreateReports();
             CreateDashboards();
 
             ObjectSpace.CommitChanges();
@@ -53,13 +51,13 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         void CreateDashboards() {
-            CreateDashboards("Rentals", 0, new[] { typeof(Rent), typeof(MovieItem) }, ImageLoader.Instance.GetLargeImageInfo("CustomerFilmRentsList").Image);
-            CreateDashboards("Customer Revenue", 1, new[] { typeof(Rent), typeof(Receipt) }, ImageLoader.Instance.GetLargeImageInfo("CustomerRevenue").Image);
-            CreateDashboards("Demographics", 2, new[] { typeof(Rent) }, ImageLoader.Instance.GetLargeImageInfo("CustomersKPI").Image);
+            CreateDashboards("Rentals", 0, new[] { typeof(Rent), typeof(MovieItem) });
+            CreateDashboards("Customer Revenue", 1, new[] { typeof(Rent), typeof(Receipt) });
+            CreateDashboards("Demographics", 2, new[] { typeof(Rent) });
         }
 
-        private void CreateDashboards(string dashboardName, int index, IEnumerable<Type> types, Image icon) {
-            UpdateStatus("CreateDashboard", "", string.Format("Creating dashboard: {0}", dashboardName));
+        private void CreateDashboards(string dashboardName, int index, IEnumerable<Type> types) {
+            UpdateStatus("CreateDashboard", "", $"Creating dashboard: {dashboardName}");
             var dashboard = ObjectSpace.FindObject<DashboardDefinition>(new BinaryOperator("Name", dashboardName));
             if (dashboard == null) {
                 dashboard = ObjectSpace.CreateObject<DashboardDefinition>();
@@ -86,32 +84,9 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 return reader.ReadLine();
         }
 
-        void CreateReports() {
-            CreateReport("Customer Cards", typeof(Customer));
-            CreateReport("Active Customers", typeof(Customer));
-            CreateReport("Most Profitable Genres", typeof(Movie));
-            CreateReport("Movie Invetory", typeof(MovieItem));
-            CreateReport("Movie Rentals By Customer", typeof(Customer));
-            CreateReport("Top Movie Rentals", typeof(Movie));
-        }
-
         void SetPermissions(SecuritySystemRole employersRole) {
             employersRole.SetTypePermissions<ReportData>(SecurityOperations.ReadOnlyAccess, SecuritySystemModifier.Allow);
             employersRole.CreatePermissionBehaviour(PermissionBehavior.ReadOnlyAccess, (role, info) => role.SetTypePermissions(info.Type, SecurityOperations.ReadOnlyAccess, SecuritySystemModifier.Allow));
-        }
-
-        private void CreateReport(string reportName, Type type) {
-            UpdateStatus("CreateReport", "",string.Format("Creating reports: {0}", reportName));
-            UpdateStatus("CreateReport","", string.Format("Creating reports: {0}", reportName));
-            var reportdata = ObjectSpace.FindObject<ReportData>(new BinaryOperator("Name", reportName));
-            if (reportdata == null) {
-                reportdata = ObjectSpace.CreateObject<ReportData>();
-                var rep = new XafReport { ObjectSpace = ObjectSpace };
-                rep.LoadLayout(GetResourceStream(reportName+".repx"));
-                rep.DataType = type;
-                rep.ReportName = reportName;
-                reportdata.SaveReport(rep);
-            }
         }
 
         Stream GetResourceStream(string resource) {
@@ -137,7 +112,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 dashboardUser.Roles.Add(defaultRole);
                 dashboardUser.Roles.Add(dashboardRole);
 
-                employersRole.CreateFullPermissionAttributes();
+                employersRole.AddNewFullPermissionAttributes();
                 return (XpandRole)employersRole;
             }
             return null;
@@ -202,9 +177,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             return unitOfWork;
         }
 
-        public UnitOfWork UnitOfWork {
-            get { return _unitOfWork; }
-        }
+        public UnitOfWork UnitOfWork => _unitOfWork;
 
         public void Import() {
             _updater.UpdateStatus("Import", "", "");
@@ -268,8 +241,8 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
 
         void NotifyWhenTransform(string inputClassName, int position) {
             var statusMessage = position > -1
-                                       ? string.Format("Transforming records from {0}: {1}", inputClassName, position)
-                                       : string.Format("Transforming records from {0} ...", inputClassName);
+                                       ? $"Transforming records from {inputClassName}: {position}"
+                : $"Transforming records from {inputClassName} ...";
             _updater.UpdateStatus("Import", "", statusMessage);
         }
 

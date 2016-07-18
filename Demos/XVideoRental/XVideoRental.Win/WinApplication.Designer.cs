@@ -46,8 +46,6 @@ namespace XVideoRental.Win {
             this.schedulerModuleBase1 = new DevExpress.ExpressApp.Scheduler.SchedulerModuleBase();
             this.schedulerWindowsFormsModule1 = new DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule();
             this.module4 = new XVideoRental.Module.Win.XVideoRentalWindowsFormsModule();
-            this.reportsModule1 = new DevExpress.ExpressApp.Reports.ReportsModule();
-            this.reportsWindowsFormsModule1 = new DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule();
             this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
             this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
             this.xpandPivotGridWinModule1 = new Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule();
@@ -62,9 +60,7 @@ namespace XVideoRental.Win {
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
             this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
             this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
-            this._xpandReportsWindowsFormsModule2 = new Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule();
             this.dashboardModule1 = new Xpand.ExpressApp.Dashboard.DashboardModule();
-            this.xpandReportsModule1 = new Xpand.ExpressApp.Reports.XpandReportsModule();
             this.dashboardWindowsFormsModule1 = new Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
@@ -95,8 +91,6 @@ namespace XVideoRental.Win {
             // 
             // reportsModule1
             // 
-            this.reportsModule1.EnableInplaceReports = true;
-            this.reportsModule1.ReportDataType = typeof(DevExpress.Persistent.BaseImpl.ReportData);
             // 
             // validationModule1
             // 
@@ -118,8 +112,6 @@ namespace XVideoRental.Win {
             this.Modules.Add(this.chartWindowsFormsModule1);
             this.Modules.Add(this.schedulerModuleBase1);
             this.Modules.Add(this.schedulerWindowsFormsModule1);
-            this.Modules.Add(this.reportsModule1);
-            this.Modules.Add(this.reportsWindowsFormsModule1);
             this.Modules.Add(this.securityModule1);
             this.Modules.Add(this.xpandSystemModule1);
             this.Modules.Add(this.xpandSystemWindowsFormsModule1);
@@ -136,8 +128,6 @@ namespace XVideoRental.Win {
             this.Modules.Add(this.treeListEditorsModuleBase1);
             this.Modules.Add(this.xpandValidationModule1);
             this.Modules.Add(this.modelArtifactStateModule1);
-            this.Modules.Add(this.xpandReportsModule1);
-            this.Modules.Add(this._xpandReportsWindowsFormsModule2);
             this.Modules.Add(this.dashboardWindowsFormsModule1);
             this.Modules.Add(this.module4);
             this.Security = this.securityStrategyComplex1;
@@ -166,8 +156,6 @@ namespace XVideoRental.Win {
         private DevExpress.ExpressApp.Chart.Win.ChartWindowsFormsModule chartWindowsFormsModule1;
         private DevExpress.ExpressApp.Scheduler.SchedulerModuleBase schedulerModuleBase1;
         private DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule schedulerWindowsFormsModule1;
-        private DevExpress.ExpressApp.Reports.ReportsModule reportsModule1;
-        private DevExpress.ExpressApp.Reports.Win.ReportsWindowsFormsModule reportsWindowsFormsModule1;
         private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
         private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
         private Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule xpandPivotGridWinModule1;
@@ -184,9 +172,8 @@ namespace XVideoRental.Win {
 
 
         private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
-        private Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule _xpandReportsWindowsFormsModule2;
+        
         private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
-        private Xpand.ExpressApp.Reports.XpandReportsModule xpandReportsModule1;
         private Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule dashboardWindowsFormsModule1;
         
     }

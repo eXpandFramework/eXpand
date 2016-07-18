@@ -28,7 +28,7 @@ namespace ReportsTester.Module.Win {
             // 
             this.RequiredModuleTypes.Add(typeof(ReportsTester.Module.ReportsTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ReportsV2.Win.ReportsV2WinModule));
 
         }
 

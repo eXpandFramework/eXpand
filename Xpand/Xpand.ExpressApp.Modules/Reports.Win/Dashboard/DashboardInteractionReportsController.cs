@@ -1,23 +1,19 @@
 ﻿using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Filtering;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Reports;
+using Xpand.ExpressApp.Reports.Dashboard;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Reports.Win.Dashboard {
-    public interface IModelDashboardViewFilterReport : IModelDashboardViewFilter {
-        string ReportDataTypeMember { get; set; }
-    }
-    public class DashboardInteractionReportsController : ViewController<DashboardView>, IModelExtender {
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            Frame.GetController<DashboardInteractionController>().ListViewFiltering -= OnListViewFiltering;
-        }
-
-        protected override void OnActivated() {
-            base.OnActivated();
-            Frame.GetController<DashboardInteractionController>().ListViewFiltering += OnListViewFiltering;
+    public class DashboardInteractionReportsController: Reports.Dashboard.DashboardInteractionReportsController {
+        protected override void OnBeforeCreateDocument(DashboardInteractionController interactionController, DashboardReportViewItem dashboardReportViewItem, ListViewFilteringArgs listViewFilteringArgs){
+            base.OnBeforeCreateDocument(interactionController, dashboardReportViewItem,listViewFilteringArgs);
+            var reportDataTypeMember = ((IModelDashboardViewFilterReport) ((IModelDashboardViewItemEx)dashboardReportViewItem.Model).Filter).ReportDataTypeMember;
+            var report = (XafReport)dashboardReportViewItem.Report;
+            var propertyName = PropertyName(report, reportDataTypeMember);
+            var criteria = new InOperator(propertyName, interactionController.Getkeys(listViewFilteringArgs.DataSourceListView));
+            report.SetFilteringObject(new LocalizedCriteriaWrapper(report.DataType, criteria));
         }
 
         string PropertyName(XafReport report, string reportDataTypeMember) {
@@ -25,27 +21,5 @@ namespace Xpand.ExpressApp.Reports.Win.Dashboard {
             return string.IsNullOrEmpty(reportDataTypeMember) ? typeInfo.KeyMember.Name : typeInfo.FindMember(reportDataTypeMember).Name;
         }
 
-        void OnListViewFiltering(object sender, ListViewFilteringArgs listViewFilteringArgs) {
-
-            var dashboardViewItem = listViewFilteringArgs.DashboardViewItem;
-            var dashboardReportViewItem = dashboardViewItem as DashboardReportViewItem;
-            if (dashboardReportViewItem != null) {
-                listViewFilteringArgs.Handled = true;
-                var dashboardInteractionController = ((DashboardInteractionController)sender);
-                var report = (dashboardReportViewItem).Report;
-                var reportDataTypeMember = ((IModelDashboardViewFilterReport)listViewFilteringArgs.Model.Filter).ReportDataTypeMember;
-                var propertyName = PropertyName(report, reportDataTypeMember);
-                var criteria = new InOperator(propertyName, dashboardInteractionController.Getkeys(listViewFilteringArgs.DataSourceListView));
-                report.SetFilteringObject(new LocalizedCriteriaWrapper(report.DataType, criteria));
-                report.CreateDocument(false);
-            }
-
-        }
-
-        #region Implementation of IModelExtender
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelDashboardViewFilter, IModelDashboardViewFilterReport>();
-        }
-        #endregion
     }
 }

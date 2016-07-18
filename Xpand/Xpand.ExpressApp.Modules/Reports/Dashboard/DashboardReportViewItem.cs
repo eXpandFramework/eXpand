@@ -1,57 +1,41 @@
 using System;
 using System.Windows.Forms;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Reports;
-using DevExpress.Persistent.Base.General;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraPrinting.Preview;
+using DevExpress.XtraReports.UI;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Win;
 
-namespace Xpand.ExpressApp.Reports.Win.Dashboard {
+namespace Xpand.ExpressApp.Reports.Dashboard {
     public interface IModelDashboardReportViewItem : IModelDashboardReportViewItemBase {
          
     }
     [ViewItem(typeof(IModelDashboardReportViewItem))]
     public class DashboardReportViewItem : DashboardViewItem, IComplexViewItem {
-        readonly IModelDashboardReportViewItem _model;
-        XafReport _report;
         PrintControl _printControl;
         XafApplication _application;
 
         public DashboardReportViewItem(IModelDashboardReportViewItem model, Type objectType)
             : base(model, objectType) {
-            _model = model;
+            Model = model;
         }
 
-        public new IModelDashboardReportViewItem Model {
-            get { return _model; }
-        }
+        public XafApplication Application => _application;
 
-        public XafReport Report {
-            get { return _report; }
-        }
+        public new IModelDashboardReportViewItem Model { get; }
+        public XtraReport Report { get; set; }
+        public object ReportData { get; set; }
+
+        public new PrintControl Control => _printControl;
 
         protected override object CreateControlCore() {
             _printControl = new PrintControl { Dock = DockStyle.Fill };
             _printControl.ParentChanged += OnControlParentChanged;
-            Type reportDataType = ReportsModule.FindReportsModule(_application.Modules).ReportDataType;
-            var reportData = (IReportData)View.ObjectSpace.FindObject(reportDataType, CriteriaOperator.Parse("ReportName=?", Model.ReportName));
-            if (reportData == null)
-                throw new NullReferenceException(string.Format("Report {0} not found", Model.ReportName));
-            _report = (XafReport)reportData.LoadReport(View.ObjectSpace);
-            View.ControlsCreated += ViewOnControlsCreated;
-            _printControl.PrintingSystem = Report.PrintingSystem;
             return _printControl;
-        }
-
-        void ViewOnControlsCreated(object sender, EventArgs eventArgs) {
-            if (Model.CreateDocumentOnLoad)
-                _report.CreateDocument(true);
         }
 
         void OnControlParentChanged(object sender, EventArgs e) {

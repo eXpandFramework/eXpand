@@ -84,10 +84,7 @@
     <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.v16.1">
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.Win.v16.1">
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Scheduler.v16.1">
@@ -236,9 +233,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotGrid.Win.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Reports.Win">
+    <Reference Include="Xpand.ExpressApp.ReportsV2.Win">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Reports.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ReportsV2.Win.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Scheduler.Win">
       <SpecificVersion>False</SpecificVersion>
@@ -295,6 +292,42 @@
     <Compile Include="Controllers\StatisticsTopCustomersController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\ActiveCustomers.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ActiveCustomers.Designer.cs">
+      <DependentUpon>ActiveCustomers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\CustomerCards.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\CustomerCards.Designer.cs">
+      <DependentUpon>CustomerCards.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MostProfitableGenres.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MostProfitableGenres.Designer.cs">
+      <DependentUpon>MostProfitableGenres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MovieInvetory.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MovieInvetory.Designer.cs">
+      <DependentUpon>MovieInvetory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\MovieRentalsByCustomer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\MovieRentalsByCustomer.Designer.cs">
+      <DependentUpon>MovieRentalsByCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\TopMovieRentals.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\TopMovieRentals.Designer.cs">
+      <DependentUpon>TopMovieRentals.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -307,6 +340,25 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ActiveCustomers.resx">
+      <DependentUpon>ActiveCustomers.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\CustomerCards.resx">
+      <DependentUpon>CustomerCards.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MostProfitableGenres.resx">
+      <DependentUpon>MostProfitableGenres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MovieInvetory.resx">
+      <DependentUpon>MovieInvetory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\MovieRentalsByCustomer.resx">
+      <DependentUpon>MovieRentalsByCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TopMovieRentals.resx">
+      <DependentUpon>TopMovieRentals.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinModule.resx">
       <DependentUpon>WinModule.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -314,16 +366,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Controllers\ReadMe.txt" />
-    <EmbeddedResource Include="Resources\Active Customers.repx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Customer Cards.repx" />
-    <EmbeddedResource Include="Resources\Most Profitable Genres.repx" />
-    <EmbeddedResource Include="Resources\Movie Invetory.repx" />
-    <EmbeddedResource Include="Resources\Movie Rentals By Customer.repx" />
-    <EmbeddedResource Include="Resources\Top Movie Rentals.repx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Resources\LegacyVideoRent.zip" />
   </ItemGroup>
   <ItemGroup>

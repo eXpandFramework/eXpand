@@ -143,10 +143,6 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Drawing" />
-    <Reference Include="Xpand.ExpressApp.Dashboard">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Reports">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Reports.dll</HintPath>
@@ -175,8 +171,10 @@
     <Compile Include="Dashboard\DashboardInteractionReportsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Dashboard\DashboardReportViewItem.cs" />
-    <Compile Include="XpandReportsWindowsFormsModule.cs">
+    <Compile Include="Dashboard\DashboardReportViewItemController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
