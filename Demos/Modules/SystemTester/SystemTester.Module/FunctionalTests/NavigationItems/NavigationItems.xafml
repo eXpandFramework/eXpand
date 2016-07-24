@@ -2,9 +2,13 @@
 <Application Title="SystemTester" Logo="ExpressAppLogo">
   <NavigationItems>
     <Items>
-      <Item Id="NavigationItems">
-        <Items>
-          <Item Id="Group" DatasourceListView="NavigationItemsObject_NavItemsDataSource_ListView" ImageName="BO_Folder" IsNewNode="True" />
+      <Item Id="NavigationItems" IsNewNode="True">
+        <Items IsNewNode="True">
+          <Item Id="Group" DatasourceListView="NavigationItemsObject_NavItemsDataSource_ListView" IsNewNode="True">
+            <Items IsNewNode="True">
+              <Item Id="@f8bc6cc3-d078-4e0f-a89a-03055e185868" ViewId="NavigationItemsObject_ListView" Visible="False" IsNewNode="True" />
+            </Items>
+          </Item>
         </Items>
       </Item>
     </Items>

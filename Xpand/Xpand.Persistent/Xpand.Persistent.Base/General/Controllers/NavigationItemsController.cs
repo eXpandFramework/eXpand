@@ -20,25 +20,25 @@ namespace Xpand.Persistent.Base.General.Controllers {
     public class NavigationItemsController:WindowController,IModelExtender{
         private bool _recreate;
 
-        public NavigationItemsController(){
-            TargetWindowType=WindowType.Main;
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
+            if (Frame.Context==TemplateContext.ApplicationWindow){
+                Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+                var showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
+                showNavigationItemController.CustomInitializeItems += OnCustomInitializeItems;
+                showNavigationItemController.ItemsInitialized += ShowNavigationItemControllerOnItemsInitialized;
+                Frame.Disposing+=FrameOnDisposing;
+            }
         }
 
-        protected override void OnActivated(){
-            base.OnActivated();
-            Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
-            var showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
-            showNavigationItemController.CustomInitializeItems += OnCustomInitializeItems;
-            showNavigationItemController.ItemsInitialized += ShowNavigationItemControllerOnItemsInitialized;
-        }
-
-        protected override void OnDeactivated(){
-            base.OnDeactivated();
+        private void FrameOnDisposing(object sender, EventArgs eventArgs){
+            Frame.Disposing -= FrameOnDisposing;
             Application.ObjectSpaceCreated -= ApplicationOnObjectSpaceCreated;
             var showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
             showNavigationItemController.CustomInitializeItems -= OnCustomInitializeItems;
             showNavigationItemController.ItemsInitialized -= ShowNavigationItemControllerOnItemsInitialized;
         }
+
 
         private void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e){
             var objectSpace = e.ObjectSpace;
