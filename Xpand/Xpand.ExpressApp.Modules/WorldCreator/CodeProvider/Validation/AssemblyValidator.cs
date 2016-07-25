@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
         }
 
         private void TypesInfoValidation(string assemblyFile, TypesInfo typesInfo) {
-            var applicationModulesManager = new ApplicationModulesManager();
+            var applicationModulesManager = new T409498ApplicationModulesManager();
             var types = Assembly.LoadFile(assemblyFile).GetTypes();
             applicationModulesManager.AddModule(types.First(type => typeof(ModuleBase).IsAssignableFrom(type)));
             applicationModulesManager.Load(typesInfo);

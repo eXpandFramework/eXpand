@@ -160,6 +160,7 @@
     <Compile Include="BusinessObjects\Validation\RuleClassInfoMerge.cs" />
     <Compile Include="BusinessObjects\Validation\RuleValidCodeIdentifier.cs" />
     <Compile Include="CodeProvider\AssocationMemberBuilder.cs" />
+    <Compile Include="CodeProvider\Validation\T409498ApplicationModulesManager.cs" />
     <Compile Include="CodeProvider\Validation\CodeProviderValidationExtensions.cs" />
     <Compile Include="Controllers\AssemblyToolsController.cs">
       <SubType>Component</SubType>

@@ -11,10 +11,7 @@ using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
-using Xpand.Persistent.BaseImpl.PersistentMetaData;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
-
-[assembly: Xpand.Xpo.DB.DataStore(typeof (PersistentAssemblyInfo), "WorldCreator")]
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
     [DefaultClassOptions]

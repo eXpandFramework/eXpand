@@ -19,14 +19,14 @@ namespace Xpand.Persistent.Base.General {
             _connectionString = connectionString;
         }
 
-//        private static Type FindType(string nameSpaceType){
-//            if (_dictionary.ContainsKey(nameSpaceType))
-//                return _dictionary[nameSpaceType];
-//            var type = ReflectionHelper.FindType(nameSpaceType);
-//            if (type != null)
-//                _dictionary[nameSpaceType] = type;
-//            return type;
-//        }
+        private static Type FindType(string nameSpaceType){
+            if (_dictionary.ContainsKey(nameSpaceType))
+                return _dictionary[nameSpaceType];
+            var type = ReflectionHelper.FindType(nameSpaceType);
+            if (type != null)
+                _dictionary[nameSpaceType] = type;
+            return type;
+        }
 
         public DataStoreAttribute(string connectionString, string nameSpaceType, bool isLegacy)
             : base(null, null, isLegacy) {
