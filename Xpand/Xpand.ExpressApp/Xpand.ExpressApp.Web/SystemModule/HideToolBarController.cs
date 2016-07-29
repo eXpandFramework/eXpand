@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             if (Frame.Template != null){
                 _containerHolders = ((Control)Frame.Template).FindNestedControls<ActionContainerHolder>().Where(holder => holder.ContainerStyle==ActionContainerStyle.ToolBar);
                 foreach (var containerHolder in _containerHolders){
-                    var modelViewHideViewToolBar = ((IModelViewHideViewToolBar)View.Model);
+                    var modelViewHideViewToolBar = ((IModelClassHideViewToolBar)View.Model);
                     if (_containerHolders != null && modelViewHideViewToolBar.HideToolBar.HasValue && modelViewHideViewToolBar.HideToolBar.Value) {
                         _visibility = containerHolder.Style[HtmlTextWriterStyle.Display];
                         containerHolder.Style[HtmlTextWriterStyle.Visibility] = "Hidden";

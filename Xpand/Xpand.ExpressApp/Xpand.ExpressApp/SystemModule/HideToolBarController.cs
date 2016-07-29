@@ -13,10 +13,11 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelViewHideViewToolBar : IModelClassHideViewToolBar {
     }
 
-    public class HideToolBarController : ViewController<ObjectView>, IModelExtender {
+    public class HideToolBarController : ViewController, IModelExtender {
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelClass, IModelClassHideViewToolBar>();
             extenders.Add<IModelObjectView, IModelViewHideViewToolBar>();
+            extenders.Add<IModelDashboardView, IModelClassHideViewToolBar>();
         }
     }
 }
