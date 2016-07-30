@@ -2,7 +2,8 @@ using System;
 using System.Threading;
 
 namespace Xpand.Utils.Automation {
-    public class Wait {
+    public class Wait{
+
         #region private fields
         #endregion
         #region constants

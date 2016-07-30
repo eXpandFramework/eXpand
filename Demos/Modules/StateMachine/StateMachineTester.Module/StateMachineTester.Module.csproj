@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>StateMachineTester.Module</RootNamespace>
     <AssemblyName>StateMachineTester.Module</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <LangVersion>6</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>

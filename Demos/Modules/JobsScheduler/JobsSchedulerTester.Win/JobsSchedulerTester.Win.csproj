@@ -11,7 +11,7 @@
     <RootNamespace>JobsSchedulerTester.Win</RootNamespace>
     <AssemblyName>JobsSchedulerTester.Win</AssemblyName>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <LangVersion>6</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>

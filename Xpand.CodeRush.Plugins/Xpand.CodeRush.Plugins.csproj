@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -201,12 +201,15 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Target Name="AfterBuild">
-    <Message Text="$(OutputPath)$(AssemblyName).dll"></Message>
-    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll;$(OutputPath)$(AssemblyName).pdb;$(OutputPath)\Mono.Cecil.dll" DestinationFolder="$(DXCorePluginsFolder)" ContinueOnError="true"></Copy>
+    <Message Text="$(OutputPath)$(AssemblyName).dll">
+    </Message>
+    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll;$(OutputPath)$(AssemblyName).pdb;$(OutputPath)\Mono.Cecil.dll" DestinationFolder="$(DXCorePluginsFolder)" ContinueOnError="true">
+    </Copy>
   </Target>
   <Import Project="..\Support\Build\Nuget.Targets" />
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
     <LangVersion>6</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>

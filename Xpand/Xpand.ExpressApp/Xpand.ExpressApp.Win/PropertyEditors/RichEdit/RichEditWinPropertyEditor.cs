@@ -216,7 +216,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         private void Editor_RtfTextChanged(object sender, EventArgs e) {
-            if (!inReadValue && (Control.DataBindings.Count > 0)) {
+            if (!IsValueReading && (Control.DataBindings.Count > 0)) {
                 OnControlValueChanged();
             }
         }

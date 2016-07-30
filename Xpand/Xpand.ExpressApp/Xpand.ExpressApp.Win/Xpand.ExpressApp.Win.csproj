@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Win</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -63,9 +63,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper.Net4">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.CodeParser.v16.1">
@@ -575,4 +579,5 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
 </Project>

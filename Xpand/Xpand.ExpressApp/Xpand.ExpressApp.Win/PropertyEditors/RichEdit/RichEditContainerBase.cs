@@ -21,13 +21,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit{
             throw new System.NotImplementedException();
         }
 
-        public bool ToolBarsAreHidden{
-            get { return _toolBarsAreHidden; }
-        }
+        public bool ToolBarsAreHidden => _toolBarsAreHidden;
 
-        public XafApplication Application{
-            get { return _application; }
-        }
+        public XafApplication Application => _application;
 
         [Bindable(true)]
         public string ControlText {

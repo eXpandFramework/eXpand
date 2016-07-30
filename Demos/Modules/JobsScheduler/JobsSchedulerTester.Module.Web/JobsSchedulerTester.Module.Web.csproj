@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>JobsSchedulerTester.Module.Web</RootNamespace>
     <AssemblyName>JobsSchedulerTester.Module.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <LangVersion>6</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
