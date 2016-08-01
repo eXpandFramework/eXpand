@@ -9,8 +9,13 @@ namespace Xpand.ExpressApp.WorldCreator.System{
     public class WorldCreatorObjectSpaceProvider : XPObjectSpaceProvider{
         private readonly AssemblyRevisionUpdater _assemblyRevisionUpdater=new AssemblyRevisionUpdater();
 
-        public WorldCreatorObjectSpaceProvider(bool threadSafe):base(GetConnectionStringDataStoreProvider(), XafTypesInfo.Instance,
-                WorldCreatorTypeInfoSource.Instance, threadSafe) {
+        public WorldCreatorObjectSpaceProvider(bool threadSafe, IXpoDataStoreProvider xpoDataStoreProvider)
+            : base(
+                GetConnectionStringDataStoreProvider(xpoDataStoreProvider), XafTypesInfo.Instance, WorldCreatorTypeInfoSource.Instance,
+                threadSafe){
+        }
+
+        public WorldCreatorObjectSpaceProvider(bool threadSafe):base(GetConnectionStringDataStoreProvider(), XafTypesInfo.Instance,WorldCreatorTypeInfoSource.Instance, threadSafe) {
         }
 
         public WorldCreatorObjectSpaceProvider()
@@ -29,9 +34,12 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             return objectSpaceCore;
         }
 
-        private static IXpoDataStoreProvider GetConnectionStringDataStoreProvider(){
+        private static IXpoDataStoreProvider GetConnectionStringDataStoreProvider(IXpoDataStoreProvider xpoDataStoreProvider=null){
             if (InterfaceBuilder.IsDBUpdater)
                 return new MemoryDataStoreProvider();
+            if (xpoDataStoreProvider!=null){
+                return xpoDataStoreProvider;
+            }
             var connectionStringSettings = ConfigurationManager.ConnectionStrings["WorldCreatorConnectionString"];
             if (connectionStringSettings == null) {
                 throw new ConfigurationErrorsException("WorldCreatorConnectionString not found");
