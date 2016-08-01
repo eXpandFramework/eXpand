@@ -25,7 +25,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         public const string LockViewModel = "Lock View Model";
         public override void UpdateNode(ModelNode node){
             var modelAction = ((IModelActions) node)[ActionModifyModelController.ModifyModelActionName];
-            if (modelAction != null && modelAction.ChoiceActionItems != null){
+            if (modelAction?.ChoiceActionItems != null){
                 var lockViewModel = modelAction.ChoiceActionItems.AddNode<IModelChoiceActionItem>(LockViewModel);
                 var modelNodePaths = ((IModelChoiceActionItemModifyModel) lockViewModel).ModelNodePaths;
                 modelNodePaths.NewCaption = "Unlock Model";
@@ -90,9 +90,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
             _modifyModelAction.Execute+=ModifyModelActionOnExecute;
         }
 
-        public SingleChoiceAction ModifyModelAction{
-            get { return _modifyModelAction; }
-        }
+        public SingleChoiceAction ModifyModelAction => _modifyModelAction;
 
         private void ModifyModelActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
 
@@ -110,7 +108,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         }
 
         private IEnumerable<IModelChoiceActionItemModifyModel> GetModelChoiceActionItemModifyModels(IEnumerable<IModelChoiceActionItem> modelChoiceActionItems){
-            var actionItemModifyModels = modelChoiceActionItems.Cast<IModelChoiceActionItemModifyModel>();
+            var actionItemModifyModels = modelChoiceActionItems.OfType<IModelChoiceActionItemModifyModel>();
             return actionItemModifyModels.Where(model => model.ModelNodePaths.Any());
         }
 
@@ -131,7 +129,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
                     e.SelectedChoiceActionItem.Caption = modelNodePaths.NewCaption;
                     var modelItem = modelBaseChoiceActionItem;
                     foreach (var modelNodePath in modelItem.ModelNodePaths) {
-                        var modelNodes = GetModelNodes(modelNodePath);
+                        var modelNodes = GetModelNodes(modelNodePath).ToArray();
                         foreach (var nodeAttribute in modelNodePath.Attributes) {
                             var propertyName = nodeAttribute.Id();
                             var oldValue = OldValue(propertyName, modelNodes, nodeAttribute.Value);
