@@ -16,6 +16,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         readonly Dictionary<string, BoolList> _activeBoolLists = new Dictionary<string, BoolList>();
         bool _disposing;
         private bool _isSyncState;
+        private readonly Dictionary<string, object> _valueLists=new Dictionary<string, object>();
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -41,7 +42,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         bool CanClone() {
-            return !_isSyncState && !_disposing && GridListEditor != null && GridListEditor.Grid != null && GridListEditor.Grid.FocusedView != null && !HasDetailFrame();
+            return !_isSyncState && !_disposing && GridListEditor?.Grid?.FocusedView != null && !HasDetailFrame();
         }
 
         private bool HasDetailFrame() {
@@ -57,11 +58,12 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             base.OnDeactivated();
             _activeBoolLists.Clear();
             _enabledBoolLists.Clear();
+            _valueLists.Clear();
         }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (GridListEditor != null && GridListEditor.ColumnView is IMasterDetailColumnView) {
+            if (GridListEditor?.ColumnView is IMasterDetailColumnView) {
                 var gridView = ((IMasterDetailColumnView)GridListEditor.ColumnView);
                 if (gridView.MasterFrame == null && HasRules && SynchronizeActions()) {
                     foreach (var action in GetActions(Frame)) {
@@ -69,7 +71,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                         PushExecutionToNestedFrame(action);
                     }
                     if (gridView.MasterFrame == null) {
-                        CloneActionState(Frame, _activeBoolLists, _enabledBoolLists);
+                        CloneActionState(Frame, _activeBoolLists, _enabledBoolLists,_valueLists);
                         gridView.GridControl.FocusedViewChanged += OnFocusedViewChanged;
                     }
                 }
@@ -86,15 +88,20 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 Frame frame = Frame;
                 var activeBoolLists = new Dictionary<string, BoolList>();
                 var enableBoolLists = new Dictionary<string, BoolList>();
+                var valueLists =new Dictionary<string,object>();
                 if (GridListEditor.Grid.MainView != e.View) {
                     frame = ((IMasterDetailColumnView)GridListEditor.Grid.FocusedView).Window;
                 }
-                CloneActionState(frame, activeBoolLists, enableBoolLists);
+                CloneActionState(frame, activeBoolLists, enableBoolLists,valueLists);
                 if (GridListEditor.Grid.MainView == e.View) {
                     activeBoolLists = _activeBoolLists;
                     enableBoolLists = _enabledBoolLists;
+                    valueLists = _valueLists;
                 }
                 foreach (var action in GetActions(Frame)) {
+                    var singleChoiceAction = action as SingleChoiceAction;
+                    if (singleChoiceAction != null && valueLists.ContainsKey(singleChoiceAction.Id))
+                        singleChoiceAction.SelectedItem = (ChoiceActionItem) valueLists[singleChoiceAction.Id];
                     SyncStates(action.Id, action.Active, activeBoolLists);
                     SyncStates(action.Id, action.Enabled, enableBoolLists);
                     _isSyncState = true;
@@ -120,8 +127,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             }
         }
 
-        void CloneActionState(Frame frame, Dictionary<string, BoolList> active, Dictionary<string, BoolList> enable) {
+        void CloneActionState(Frame frame, Dictionary<string, BoolList> active, Dictionary<string, BoolList> enable, Dictionary<string, object> valueLists) {
             foreach (var action in GetActions(frame)) {
+                var singleChoiceAction = action as SingleChoiceAction;
+                if (singleChoiceAction != null)
+                    valueLists.Add(action.Id, singleChoiceAction.SelectedItem);
                 CloneBoolList(action.Id, action.Active, active);
                 CloneBoolList(action.Id, action.Enabled, enable);
             }
@@ -149,13 +159,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             }
         }
 
-        WinColumnsListEditor GridListEditor {
-            get { return View != null ? (View).Editor as WinColumnsListEditor : null; }
-        }
+        WinColumnsListEditor GridListEditor => View?.Editor as WinColumnsListEditor;
 
         void PushExecutionToNestedFrameCore(ActionBase action, Action cancelAction) {
-            var xpandXafGridView = GridListEditor != null ? GridListEditor.Grid.FocusedView as IMasterDetailColumnView : null;
-            if (xpandXafGridView != null && xpandXafGridView.MasterFrame != null) {
+            var xpandXafGridView = GridListEditor?.Grid.FocusedView as IMasterDetailColumnView;
+            if (xpandXafGridView?.MasterFrame != null) {
                 var controller = Controller(action.Controller, xpandXafGridView);
                 if (controller != action.Controller) {
                     cancelAction.Invoke();
