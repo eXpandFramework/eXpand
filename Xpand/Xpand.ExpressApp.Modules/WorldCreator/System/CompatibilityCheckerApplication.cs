@@ -29,8 +29,9 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             e.Handled = true;
         }
 
-        public static void CheckCompatibility(XafApplication application, IObjectSpaceProvider objectSpaceProvider ) {
+        public static void CheckCompatibility(XafApplication application) {
             lock (_locker){
+                var objectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(application,false);
                 using (var compatibilityApplication = new CompatibilityCheckerApplication(objectSpaceProvider, application.Modules)){
                     compatibilityApplication.ApplicationName = application.ApplicationName;
                     try{
@@ -49,7 +50,7 @@ namespace Xpand.ExpressApp.WorldCreator.System{
                     
                     }
                 }
-                
+                objectSpaceProvider.ResetThreadSafe();
             }
         }
 

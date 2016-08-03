@@ -32,39 +32,34 @@ namespace Xpand.ExpressApp.WorldCreator.System {
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
             if (!InterfaceBuilder.SkipAssemblyCleanup&&Application != null && (RuntimeMode || !string.IsNullOrEmpty(ConnectionString))){
-                using (var worldCreatorObjectSpaceProvider = new WorldCreatorObjectSpaceProvider()){
-                    CompatibilityCheckerApplication.CheckCompatibility(Application, worldCreatorObjectSpaceProvider);
-                }
+                CompatibilityCheckerApplication.CheckCompatibility(Application);
                 AddPersistentModules();
                 Application.LoggedOn+=ApplicationOnLoggedOn;
-                
                 XpoObjectMerger.MergeTypes(this);
             }
         }
 
         private void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs){
-            AddObjectSpaceProviders();
+            AddDynamicModulesObjectSpaceProviders();
         }
 
-        private void AddObjectSpaceProviders(){
-            if (!Application.ObjectSpaceProviders.OfType<WorldCreatorObjectSpaceProvider>().Any())
-                Application.AddObjectSpaceProvider(new WorldCreatorObjectSpaceProvider());
+        private void AddDynamicModulesObjectSpaceProviders(){
             var providerBuilder = new DatastoreObjectSpaceProviderBuilder(DynamicModules);
             providerBuilder.CreateProviders().Each(provider => Application.AddObjectSpaceProvider(provider));
         }
 
         void AddPersistentModules() {
             if (!string.IsNullOrEmpty(ConnectionString) || Application.ObjectSpaceProvider is DataServerObjectSpaceProvider) {
-                lock (_locker) {
-                    using (var worldCreatorObjectSpaceProvider = new WorldCreatorObjectSpaceProvider()) {
-                        using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()) {
-                            var codeValidator = new CodeValidator(new Compiler(GetPath()), new AssemblyValidator());
-                            var assemblyManager = new AssemblyManager(objectSpace, codeValidator);
-                            foreach (var assembly in assemblyManager.LoadAssemblies()) {
-                                var moduleType = assembly.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type));
-                                ModuleManager.AddModule((ModuleBase)moduleType.CreateInstance());
-                            }
+                lock (_locker){
+                    var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(Application,false);
+                    using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()) {
+                        var codeValidator = new CodeValidator(new Compiler(GetPath()), new AssemblyValidator());
+                        var assemblyManager = new AssemblyManager(objectSpace, codeValidator);
+                        foreach (var assembly in assemblyManager.LoadAssemblies()) {
+                            var moduleType = assembly.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type));
+                            ModuleManager.AddModule((ModuleBase)moduleType.CreateInstance());
                         }
+                        worldCreatorObjectSpaceProvider.ResetThreadSafe();
                     }
                 }
             }
