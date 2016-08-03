@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 editor.Grid.ViewRemoved -= Grid_ViewRemoved;
                 if (columnViewEditor != null && masterDetailColumnView != null && !masterDetailColumnView.IsDetailView(columnViewEditor)) {
                     var gridViews = editor.Grid.Views.OfType<IMasterDetailColumnView>().ToList();
-                    for (int i = gridViews.Count() - 1; i > -1; i--) {
+                    for (int i = gridViews.Count - 1; i > -1; i--) {
                         var xpandXafGridView = gridViews[i];
                         CloseNestedWindow(xpandXafGridView);
                     }
@@ -55,12 +55,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 if (columnViewEditor != null && masterDetailColumnView != null && masterDetailColumnView.IsDetailView(columnViewEditor)) {
                     View.CollectionSource.CriteriaApplied -= CollectionSourceOnCriteriaApplied;
                 }
+                View.Closing -= ViewOnClosing;
             }
-        }
-
-        void GridViewOnMasterRowCollapsing(object sender, MasterRowCanExpandEventArgs masterRowCanExpandEventArgs) {
-            var detailView = (IMasterDetailColumnView)((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetDetailView(masterRowCanExpandEventArgs.RowHandle, masterRowCanExpandEventArgs.RelationIndex);
-            detailView.Window.View.SaveModel();
         }
 
         protected override void OnViewControlsCreated() {
@@ -70,6 +66,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
                 SyncronizeDataSourceWithCriteria(columnViewEditor);
                 if (IsMasterDetail()) {
                     var masterDetailColumnView = (DevExpress.XtraGrid.Views.Grid.GridView)(columnViewEditor).ColumnView;
+                    View.Closing+=ViewOnClosing;
                     Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executing += ShowNavigationItemActionOnExecuting;
                     var grid = columnViewEditor.Grid;
                     grid.ViewRegistered += Grid_ViewRegistered;
@@ -86,10 +83,22 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
             }
         }
 
+        private void ViewOnClosing(object sender, EventArgs eventArgs){
+            var availableViews = ((WinColumnsListEditor)View.Editor).Grid.Views.ToArray();
+            foreach (var availableView in availableViews.OfType<IMasterDetailColumnView>()) {
+                CloseNestedWindow(availableView);
+            }
+        }
+
+        void GridViewOnMasterRowCollapsing(object sender, MasterRowCanExpandEventArgs masterRowCanExpandEventArgs) {
+            var detailView = (IMasterDetailColumnView)((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetDetailView(masterRowCanExpandEventArgs.RowHandle, masterRowCanExpandEventArgs.RelationIndex);
+            detailView.Window.View.SaveModel();
+        }
+
         private void GridOnFocusedViewChanged(object sender, ViewFocusEventArgs viewFocusEventArgs) {
             var columnView = (viewFocusEventArgs.View) as IMasterDetailColumnView;
-            if (columnView != null && (columnView != columnView.GridControl.MainView && columnView.Window != null)) {
-                ((ListView)columnView.Window.View).Editor.CallMethod("OnFocusedObjectChanged");
+            if (columnView != null && columnView != columnView.GridControl.MainView) {
+                ((ListView) columnView.Window?.View)?.Editor.CallMethod("OnFocusedObjectChanged");
             }
         }
 
@@ -116,7 +125,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         public abstract bool IsMasterDetail();
 
         void ShowNavigationItemActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {
-            var availableViews = ((WinColumnsListEditor)View.Editor).Grid.AvailableViews;
+            var availableViews = ((WinColumnsListEditor)View.Editor).Grid.Views.ToArray();
             foreach (var availableView in availableViews.OfType<IMasterDetailColumnView>()) {
                 CloseNestedWindow(availableView);
             }
@@ -176,9 +185,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         Frame GetFrame(IMasterDetailColumnView columnView) {
-            return columnView != null && columnView.Window != null
-                       ? columnView.Window
-                       : Frame;
+            return columnView.Window ?? Frame;
         }
 
         void ViewOnMasterRowEmpty(object sender, MasterRowEmptyEventArgs e) {
@@ -208,12 +215,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         void CloseNestedWindow(IMasterDetailColumnView baseView) {
-            if (baseView != null) {
-                var window = baseView.Window as WinWindow;
-                if (window != null && window.Form != null) {
-                    window.Form.Close();
-                }
-            }
+            var window = baseView?.Window as WinWindow;
+            window?.Form?.Close();
         }
     }
 
