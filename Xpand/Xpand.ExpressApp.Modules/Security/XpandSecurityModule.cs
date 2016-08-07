@@ -70,9 +70,12 @@ namespace Xpand.ExpressApp.Security {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             CurrentUserNameOperator.Instance.Register();
-            var typeInfos = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo<SecuritySystemRole>()).Where(info => !info.IsAbstract).ToArray();
-            foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
-                CreateMember(typeInfos, attribute, typesInfo);
+            if (Application != null && (Application.Security?.UserType == null)){
+                var typeInfos = typesInfo.PersistentTypes.Where(info => typeof(SecuritySystemRole).IsAssignableFrom(info.Type)).SelectMany(info 
+                    => info.Descendants.Where(typeInfo => !typeInfo.IsAbstract)).ToArray();
+                foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
+                    CreateMember(typeInfos, attribute, typesInfo);
+                }
             }
             AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(ModifierPermission), typeof(ModifierPermissionData) });
         }
