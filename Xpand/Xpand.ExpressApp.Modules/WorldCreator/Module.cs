@@ -5,7 +5,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
-using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Validation;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects.Validation;
 using Xpand.Persistent.Base.General;
@@ -20,7 +19,6 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public WorldCreatorModule() {
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
-            RequiredModuleTypes.Add(typeof(XpandSecurityModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
 

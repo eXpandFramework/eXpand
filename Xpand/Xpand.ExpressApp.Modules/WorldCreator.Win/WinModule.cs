@@ -22,7 +22,6 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
         
         public WorldCreatorWinModule() {
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));
-            RequiredModuleTypes.Add(typeof(Security.Win.XpandSecurityWinModule));
             RequiredModuleTypes.Add(typeof(FileAttachmentsWindowsFormsModule));
         }
 

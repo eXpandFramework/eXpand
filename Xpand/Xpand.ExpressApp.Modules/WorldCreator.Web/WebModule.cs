@@ -22,7 +22,6 @@ namespace Xpand.ExpressApp.WorldCreator.Web {
     public sealed class WorldCreatorWebModule : WorldCreatorModuleBase {
         public WorldCreatorWebModule() {
             RequiredModuleTypes.Add(typeof(FileAttachmentsAspNetModule));
-            RequiredModuleTypes.Add(typeof(Security.Web.XpandSecurityWebModule));
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
