@@ -31,8 +31,7 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (_masterDetailRules!=null)
-                _masterDetailRules.Clear();
+            _masterDetailRules?.Clear();
         }
 
         void LogicRuleViewControllerOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
@@ -50,10 +49,7 @@ namespace Xpand.ExpressApp.MasterDetail.Logic {
             }
         }
 
-        public List<IMasterDetailRule> MasterDetailRules {
-            get { return _masterDetailRules; }
-        }
-
+        public List<IMasterDetailRule> MasterDetailRules => _masterDetailRules;
     }
 
 }

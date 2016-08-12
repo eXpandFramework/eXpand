@@ -16,9 +16,7 @@ namespace Xpand.ExpressApp.Logic {
         XafApplication _application;
         ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
 
-        public LogicRuleExecutor LogicRuleExecutor {
-            get { return _logicRuleExecutor; }
-        }
+        public LogicRuleExecutor LogicRuleExecutor => _logicRuleExecutor;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -123,7 +121,7 @@ namespace Xpand.ExpressApp.Logic {
             var actionBases = Enumerable.Empty<ActionBase>();
             var modelLogicWrappers = ModelLogics.Where(wrapper => wrapper.ActionExecutionContextGroup != null);
             var actionExecutionContextGroups = modelLogicWrappers.SelectMany(logic => logic.ActionExecutionContextGroup);
-            return actionExecutionContextGroups.SelectMany(@group => @group, (@group, executionContext)
+            return actionExecutionContextGroups.SelectMany(group => @group, (@group, executionContext)
                 => executionContext.Name).Aggregate(actionBases, (current, actionContexts)
                 => current.Union(Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).Where(@base
                     => actionContexts.Contains(@base.Id)&&@base.Active&&@base.Enabled)));

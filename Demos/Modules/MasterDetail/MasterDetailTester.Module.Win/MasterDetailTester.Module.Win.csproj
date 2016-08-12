@@ -171,10 +171,10 @@
     <None Include="FunctionalTests\FromModel\Config.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FunctionalTests\Images\ExpandMasterRow.win.png" />
     <Content Include="FunctionalTests\Images\MasterDetailLayoutView.win.png" />
     <None Include="FunctionalTests\FromPermission\Config.xml" />
     <None Include="FunctionalTests\MasterDetailLayoutView\Config.xml" />
-    <Content Include="FunctionalTests\Images\ExpandMasterRow.win.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

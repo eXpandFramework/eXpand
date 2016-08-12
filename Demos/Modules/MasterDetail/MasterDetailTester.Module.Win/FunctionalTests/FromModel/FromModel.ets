@@ -23,6 +23,7 @@
 *Action Master Detail
 *XpandCompareScreenshot ..\..\Images\ExpandMasterRow.png
  MaskRectangle = 22x99;650x69
+ ValidDiffPercentage = 1
 
 
 

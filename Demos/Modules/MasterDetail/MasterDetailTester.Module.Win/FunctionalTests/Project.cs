@@ -18,8 +18,23 @@ namespace MasterDetailTester.Module.Win.FunctionalTests{
         public XPCollection<Contributor> Contributors{
             get { return GetCollection<Contributor>("Contributors"); }
         }
+
+        [Association("Project-Developers")]
+        public XPCollection<Developer> Developers => GetCollection<Developer>(nameof(Developers));
     }
 
+    public class Developer:BaseObject{
+        public Developer(Session session) : base(session){
+        }
+
+        Project _project;
+
+        [Association("Project-Developers")]
+        public Project Project{
+            get { return _project; }
+            set { SetPropertyValue(nameof(Project), ref _project, value); }
+        }
+    }
     public interface ISupportMasterDetail{
     }
 

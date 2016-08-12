@@ -10,9 +10,7 @@ namespace Xpand.ExpressApp.Logic {
         public event EventHandler<LogicRuleExecutingEventArgs> LogicRuleExecuting;
         public event EventHandler<LogicRuleExecuteEventArgs> LogicRuleExecute;
 
-        public LogicRuleEvaluator Evaluator {
-            get { return _evaluator; }
-        }
+        public LogicRuleEvaluator Evaluator => _evaluator;
 
         public virtual void Execute<T>(View view, bool invertCustomization, ExecutionContext executionContext,
             object currentObject, EventArgs eventArgs) where T:ILogicRule{
@@ -47,7 +45,7 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual void OnLogicRuleExecute(LogicRuleExecuteEventArgs e) {
             EventHandler<LogicRuleExecuteEventArgs> handler = LogicRuleExecute;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public void InvertExecution(View view, ExecutionContext executionContext, object currentObject,EventArgs eventArgs) {
@@ -64,18 +62,14 @@ namespace Xpand.ExpressApp.Logic {
         }
 
 
-        protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs args) {
-            if (LogicRuleExecuting != null) {
-                LogicRuleExecuting(this, args);
-            }
+        protected virtual void OnLogicRuleExecuting(LogicRuleExecutingEventArgs args){
+            LogicRuleExecuting?.Invoke(this, args);
         }
 
         protected virtual void OnLogicRuleExecuted(LogicRuleExecuteEventArgs args) {
             if (args.LogicRuleInfo.Rule.IsNew.HasValue)
                 Evaluator.IsNew = false;
-            if (LogicRuleExecuted != null) {
-                LogicRuleExecuted(this, args);
-            }
+            LogicRuleExecuted?.Invoke(this, args);
         }
 
         public void Execute<T>(ExecutionContext executionContext, View view) where T : ILogicRule{
@@ -83,7 +77,12 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         public void Execute<T>(ExecutionContext executionContext, View view, EventArgs eventArgs) where T:ILogicRule{
-            Execute<T>(view, false, executionContext, view != null ? view.CurrentObject : null, eventArgs);
+            Execute<T>(view, false, executionContext, GetCurrentObject(view), eventArgs);
+        }
+
+        private object GetCurrentObject(View view){
+            var listView = view as ListView;
+            return listView != null ? listView.SelectedObjects.Cast<object>().FirstOrDefault() : view?.CurrentObject;
         }
 
         internal void Execute(ExecutionContext executionContext, View view, EventArgs eventArgs) {
