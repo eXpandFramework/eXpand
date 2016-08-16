@@ -17,7 +17,11 @@ using Image = System.Drawing.Image;
 namespace Xpand.EasyTest.Commands {
     public class XpandCompareScreenshotCommand : CompareScreenshotCommand {
         public const string Name = "XpandCompareScreenshot";
-        
+        private const string WinMaskRectangle = "WinMaskRectangle";
+        private const string WebMaskRectangle = "WebMaskRectangle";
+        private const string MaskRectangle = "MaskRectangle";
+        private const string ValidDiffPercentage = "ValidDiffPercentage";
+
         readonly Size _defaultWindowSize = new Size(1024, 768);
         private bool _additionalCommands;
 
@@ -36,7 +40,7 @@ namespace Xpand.EasyTest.Commands {
                     CompareAndSave(filename, testImage, adapter);
                 } else {
                     SaveActualImage(testImage, filename);
-                    throw new CommandException(String.Format("'{0}' master copy was not found", filename), StartPosition);
+                    throw new CommandException($"'{filename}' master copy was not found", StartPosition);
                 }
             } finally {
                 if (!windowHandleInfo.Value && this.ParameterValue(ToggleNavigationCommand.Name, true) && _additionalCommands){
@@ -50,7 +54,7 @@ namespace Xpand.EasyTest.Commands {
             var threshold = this.ParameterValue<byte>("ImageDiffThreshold", 3);
             var localImage = Image.FromFile(filename);
             var masks = GetMasks(adapter).ToArray();
-            var validDiffPercentace = this.ParameterValue("ValidDiffPercentage", 10);
+            var validDiffPercentace = this.ParameterValue(ValidDiffPercentage, 10);
             if (!masks.Any()) {
                 var maskRectangle = GetMaskRectangle(adapter);
                 if (maskRectangle != Rectangle.Empty){
@@ -131,9 +135,9 @@ namespace Xpand.EasyTest.Commands {
         }
 
         private Rectangle GetMaskRectangle(ICommandAdapter adapter) {
-            var parameterName = adapter.IsWinAdapter() ? "WinMaskRectangle" : "WebMaskRectangle";
+            var parameterName = adapter.IsWinAdapter() ? WinMaskRectangle : WebMaskRectangle;
             var rectangle = this.ParameterValue<Rectangle>(parameterName);
-            return rectangle == Rectangle.Empty ? this.ParameterValue<Rectangle>("MaskRectangle") : rectangle;
+            return rectangle == Rectangle.Empty ? this.ParameterValue<Rectangle>(MaskRectangle) : rectangle;
         }
 
         private static Image GetTestImage(IntPtr windowHandle) {
@@ -166,7 +170,7 @@ namespace Xpand.EasyTest.Commands {
                 isCustom = true;
                 windowHandle = Win32Declares.WindowHandles.FindWindowByCaption(IntPtr.Zero, windowNameParameter.Value);
                 if (windowHandle == IntPtr.Zero)
-                    throw new CommandException(String.Format("Cannot find window {0}", windowNameParameter.Value), StartPosition);
+                    throw new CommandException($"Cannot find window {windowNameParameter.Value}", StartPosition);
             }
 
             return new KeyValuePair<IntPtr, bool>(windowHandle, isCustom);
@@ -186,7 +190,8 @@ namespace Xpand.EasyTest.Commands {
             }
             var activeWindowSize = this.ParameterValue("ActiveWindowSize", _defaultWindowSize);
             var resizeWindowCommand = new ResizeWindowCommand();
-            resizeWindowCommand.Parameters.MainParameter = new MainParameter(String.Format("{0}x{1}", activeWindowSize.Width, activeWindowSize.Height));
+            resizeWindowCommand.Parameters.MainParameter = new MainParameter(
+                $"{activeWindowSize.Width}x{activeWindowSize.Height}");
             resizeWindowCommand.Execute(adapter);
 
             if (this.ParameterValue(HideCursorCommand.Name, true)) {
