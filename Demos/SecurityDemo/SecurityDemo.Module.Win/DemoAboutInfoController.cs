@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.Utils.About;
 
 namespace Demo.Module.Win {
+	//For demo purposes only.
     public class DemoAboutInfoController : AboutInfoController {
         private SimpleAction demoAboutInfoAction;
 

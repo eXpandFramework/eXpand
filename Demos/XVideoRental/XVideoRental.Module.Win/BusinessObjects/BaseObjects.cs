@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
@@ -11,14 +10,15 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace XVideoRental.Module.Win.BusinessObjects {
     public class ViewIdProvider {
         public const string MovieItemMediaPerformance = "MovieItem_ListView_MediaPerformance";
-        public const string MediaPerformance_Movie_Summury = "Rent_ListView_MediaPerformance_Movie_Summury";
-        public const string CustomersKPI = "Receipt_ListView_KPI";
-        public const string CustomersKPIDiscount = "Receipt_ListView_KPI_Discount";
-        public const string CustomersKPICustomersByDates = "Receipt_ListView_KPI_Customers_By_Dates";
+        public const string MediaPerformanceMovieSummury = "Rent_ListView_MediaPerformance_Movie_Summury";
+        public const string CustomersKpi = "Receipt_ListView_KPI";
+        public const string CustomersKpiDiscount = "Receipt_ListView_KPI_Discount";
+        public const string CustomersKpiCustomersByDates = "Receipt_ListView_KPI_Customers_By_Dates";
         public const string StatisticsTopCustomers = "Receipt_ListView_Statistics_TopCustomers";
         public const string StatisticsRevenueSplit = "Receipt_ListView_Statistics_Revenue_Split";
         public const string StatisticsRevenueByCustomer = "Receipt_ListView_Statistics_Revenue_ByCustomer";
@@ -28,14 +28,14 @@ namespace XVideoRental.Module.Win.BusinessObjects {
     [NonPersistent]
     public abstract class VideoRentalBaseObject : SequenceBaseObject {
         DateTime _createdAt;
-        SecuritySystemUser _createdBy;
+        XpandPermissionPolicyUser _createdBy;
         string _tag;
 
         protected VideoRentalBaseObject(Session session)
             : base(session) {
         }
         [Browsable(false)]
-        public SecuritySystemUser CreatedBy {
+        public XpandPermissionPolicyUser CreatedBy {
             get { return _createdBy; }
             set { SetPropertyValue("CreatedBy", ref _createdBy, value); }
         }
@@ -56,7 +56,7 @@ namespace XVideoRental.Module.Win.BusinessObjects {
         public override void AfterConstruction() {
             base.AfterConstruction();
             IObjectSpace objectSpace = XPObjectSpace.FindObjectSpaceByObject(this);
-            if (objectSpace != null) CreatedBy = (SecuritySystemUser)objectSpace.GetObject(SecuritySystem.CurrentUser);
+            if (objectSpace != null) CreatedBy = (XpandPermissionPolicyUser)objectSpace.GetObject(SecuritySystem.CurrentUser);
         }
     }
 
@@ -87,9 +87,8 @@ namespace XVideoRental.Module.Win.BusinessObjects {
             set { Id = value; }
         }
 
-        string ISupportSequenceObject.Prefix {
-            get { return null; }
-        }
+        string ISupportSequenceObject.Prefix => null;
+
         #endregion
     }
 
@@ -102,13 +101,13 @@ namespace XVideoRental.Module.Win.BusinessObjects {
             : base(session) {
         }
         #region Person
-        const string defaultFullNameFormat = "{LastName} {MiddleName} {FirstName}";
-        const string defaultFullNamePersistentAlias = "concat(FirstName,' ',MiddleName,' ', LastName)";
-        readonly PersonImpl person = new PersonImpl();
+        const string DefaultFullNameFormat = "{LastName} {MiddleName} {FirstName}";
+        const string DefaultFullNamePersistentAlias = "concat(FirstName,' ',MiddleName,' ', LastName)";
+        readonly PersonImpl _person = new PersonImpl();
 
 
         static VideoPerson() {
-            PersonImpl.FullNameFormat = defaultFullNameFormat;
+            PersonImpl.FullNameFormat = DefaultFullNameFormat;
         }
 
         public string MiddleName {
@@ -125,50 +124,44 @@ namespace XVideoRental.Module.Win.BusinessObjects {
 
 
         public void SetFullName(string fullName) {
-            person.SetFullName(fullName);
+            _person.SetFullName(fullName);
         }
         [RuleRequiredField]
         public string FirstName {
-            get { return person.FirstName; }
+            get { return _person.FirstName; }
             set {
-                person.FirstName = value;
+                _person.FirstName = value;
                 OnChanged("FirstName");
             }
         }
         [RuleRequiredField]
         public string LastName {
-            get { return person.LastName; }
+            get { return _person.LastName; }
             set {
-                person.LastName = value;
+                _person.LastName = value;
                 OnChanged("LastName");
             }
         }
 
         [DevExpress.Xpo.DisplayName("BirthDate")]
         public DateTime Birthday {
-            get { return person.Birthday; }
+            get { return _person.Birthday; }
             set {
-                person.Birthday = value;
+                _person.Birthday = value;
                 OnChanged("Birthday");
             }
         }
 
         //        [ObjectValidatorIgnoreIssue(typeof(ObjectValidatorDefaultPropertyIsNonPersistentNorAliased)),
         //         SearchMemberOptions(SearchMemberMode.Include)]
-        [PersistentAlias(defaultFullNamePersistentAlias)]
-        public string FullName {
-            get {
-                return EvaluateAlias("FullName") as string;
-                //                return ObjectFormatter.Format(PersonImpl.FullNameFormat, this,
-                //                                              EmptyEntriesMode.RemoveDelimeterWhenEntryIsEmpty);
-            }
-        }
+        [PersistentAlias(DefaultFullNamePersistentAlias)]
+        public string FullName => EvaluateAlias("FullName") as string;
 
         [Size(255)]
         public string Email {
-            get { return person.Email; }
+            get { return _person.Email; }
             set {
-                person.Email = value;
+                _person.Email = value;
                 OnChanged("Email");
             }
         }

@@ -11,6 +11,7 @@ using System.Runtime.Serialization;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Security.Strategy;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 
 namespace SecurityDemo.Module {
     [NonPersistent, Hint(Hints.LogonWindowHeaderHint, ViewType.DetailView)]
@@ -18,8 +19,8 @@ namespace SecurityDemo.Module {
     [System.ComponentModel.DisplayName("Log On")]
     public class SecurityDemoAuthenticationLogonParameters : INotifyPropertyChanged, ISerializable {
         private IObjectSpace objectSpace;
-        private XPCollection<SecuritySystemUser> availableUsers;
-        private SecuritySystemUser user;
+        private XPCollection<PermissionPolicyUser> availableUsers;
+        private PermissionPolicyUser user;
 
         public SecurityDemoAuthenticationLogonParameters() { }
         public SecurityDemoAuthenticationLogonParameters(SerializationInfo info, StreamingContext context) {
@@ -34,18 +35,18 @@ namespace SecurityDemo.Module {
             set { objectSpace = value; }
         }
         [Browsable(false)]
-        public XPCollection<SecuritySystemUser> AvailableUsers {
+        public XPCollection<PermissionPolicyUser> AvailableUsers {
             get {
                 if(availableUsers == null) {
 
-                    availableUsers = (XPCollection<SecuritySystemUser>)ObjectSpace.GetObjects<SecuritySystemUser>();
+                    availableUsers = (XPCollection<PermissionPolicyUser>)ObjectSpace.GetObjects<PermissionPolicyUser>();
                     availableUsers.BindingBehavior = CollectionBindingBehavior.AllowNone;
                 }
                 return availableUsers;
             }
         }
         [DataSourceProperty("AvailableUsers"), ImmediatePostData]
-        public SecuritySystemUser User {
+        public PermissionPolicyUser User {
             get { return user; }
             set {
                 user = value;
@@ -88,7 +89,7 @@ namespace SecurityDemo.Module {
             if(string.IsNullOrEmpty(logonParameters.UserName)) {
                 throw new UserFriendlyException("The 'User' field must not be empty.");
             }
-            object user = objectSpace.FindObject<SecuritySystemUser>(new DevExpress.Data.Filtering.BinaryOperator("UserName", logonParameters.UserName));
+            object user = objectSpace.FindObject<PermissionPolicyUser>(new DevExpress.Data.Filtering.BinaryOperator("UserName", logonParameters.UserName));
             if(user == null) {
                 throw new AuthenticationException(logonParameters.UserName);
             }

@@ -5,8 +5,8 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.Security;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace SecurityTester.Module.Web.FunctionalTests.NewUserActivation{
     public class NewUserActivationController:ObjectViewController<ObjectView, NewUserActivationObject> {
@@ -16,7 +16,7 @@ namespace SecurityTester.Module.Web.FunctionalTests.NewUserActivation{
         }
 
         private void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
-            var xpandUser = ObjectSpace.GetObjectsQuery<XpandUser>().First(user => user.UserName== "NewUserActivation");
+            var xpandUser = ObjectSpace.GetObjectsQuery<XpandPermissionPolicyUser>().First(user => user.UserName== "NewUserActivation");
             var registrationActivation = (IModelRegistrationActivation)((IModelOptionsRegistration)Application.Model.Options).Registration;
             xpandUser.SetMemberValue(registrationActivation.ActivationIdMember.Name,Guid.NewGuid().ToString());
             var oid = xpandUser.Oid;

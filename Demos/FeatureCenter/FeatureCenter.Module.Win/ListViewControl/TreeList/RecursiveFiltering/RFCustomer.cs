@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.Base.General;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveFiltering {

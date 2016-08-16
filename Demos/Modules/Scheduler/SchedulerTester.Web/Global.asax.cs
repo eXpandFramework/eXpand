@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace SchedulerTester.Web {
     public class Global : HttpApplication {
@@ -29,7 +30,7 @@ namespace SchedulerTester.Web {
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
-            WebApplication.Instance.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+            WebApplication.Instance.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

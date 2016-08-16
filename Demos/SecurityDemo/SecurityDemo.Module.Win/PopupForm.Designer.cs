@@ -1,9 +1,3 @@
-using System.Drawing;
-using System.Windows.Forms;
-using DevExpress.XtraLayout;
-using DevExpress.ExpressApp.Win.Layout;
-using DevExpress.ExpressApp.Win.Core;
-using DevExpress.ExpressApp.Win.Templates;
 namespace FeatureCenter.Module.Win {
     partial class PopupForm {
         /// <summary>
@@ -30,7 +24,7 @@ namespace FeatureCenter.Module.Win {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new XafComponentResourceManager(typeof(PopupForm));
+            System.ComponentModel.ComponentResourceManager resources = new DevExpress.ExpressApp.Win.Templates.XafComponentResourceManager(typeof(PopupForm));
             this.xafBarManager1 = new DevExpress.ExpressApp.Win.Templates.Controls.XafBarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -56,7 +50,7 @@ namespace FeatureCenter.Module.Win {
             this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
             this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
             this.formStateModelSynchronizer = new DevExpress.ExpressApp.Win.Core.FormStateModelSynchronizer(this.components);
-            this.viewSiteManager = new ViewSiteManager(components);
+            this.viewSiteManager = new DevExpress.ExpressApp.Win.Templates.ViewSiteManager(components);
             ((System.ComponentModel.ISupportInitialize)(this.xafBarManager1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.buttonsContainer1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Root)).BeginInit();
@@ -205,14 +199,13 @@ namespace FeatureCenter.Module.Win {
             // buttonsContainer1
             // 
             this.buttonsContainer1.ActionId = null;
-            this.buttonsContainer1.AllowCustomizationMenu = false;
+            this.buttonsContainer1.AllowCustomization = false;
             resources.ApplyResources(this.buttonsContainer1, "buttonsContainer1");
             this.buttonsContainer1.ContainerId = "PopupActions";
             this.buttonsContainer1.Name = "buttonsContainer1";
             this.buttonsContainer1.Orientation = DevExpress.ExpressApp.Model.ActionContainerOrientation.Horizontal;
             this.buttonsContainer1.PaintStyle = DevExpress.ExpressApp.Templates.ActionItemPaintStyle.CaptionAndImage;
             this.buttonsContainer1.Root = this.Root;
-            
             // 
             // Root
             // 
@@ -251,7 +244,7 @@ namespace FeatureCenter.Module.Win {
             // 
             // bottomPanel
             // 
-            this.bottomPanel.AllowCustomizationMenu = false;
+            this.bottomPanel.AllowCustomization = false;
             resources.ApplyResources(this.bottomPanel, "bottomPanel");
             this.bottomPanel.Controls.Add(this.buttonsContainer1);
             this.bottomPanel.Name = "bottomPanel";
@@ -310,7 +303,7 @@ namespace FeatureCenter.Module.Win {
             //
             // viewSiteManager
             //
-            this.viewSiteManager.UseDefferedLoading = false;
+            this.viewSiteManager.UseDeferredLoading = false;
             this.viewSiteManager.ViewSiteControl = this.viewSitePanel;
             // 
             // PopupForm
@@ -349,20 +342,20 @@ namespace FeatureCenter.Module.Win {
         private DevExpress.XtraBars.BarDockControl barDockControlBottom;
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
-        private ActionContainersManager actionContainersManager1;
+        private DevExpress.ExpressApp.Win.Templates.ActionContainersManager actionContainersManager1;
         private DevExpress.ExpressApp.Win.Templates.ActionContainers.ActionContainerBarItem cUndoRedo;
         private DevExpress.ExpressApp.Win.Templates.ActionContainers.ActionContainerBarItem cExport;
         public DevExpress.Utils.Frames.NotePanel8_1 hintPanel;
-        private XafLayoutControl bottomPanel;
-        private LayoutControlGroup layoutControlGroup1;
+        private DevExpress.ExpressApp.Win.Layout.XafLayoutControl bottomPanel;
+        private DevExpress.XtraLayout.LayoutControlGroup layoutControlGroup1;
         private DevExpress.ExpressApp.Win.Templates.ActionContainers.ButtonsContainer buttonsContainer1;
-        private LayoutControlGroup Root;
-        private SimpleSeparator simpleSeparator1;
-        private EmptySpaceItem emptySpaceItem1;
-        private LayoutControlItem layoutControlItem1;
-        private FormStateModelSynchronizer formStateModelSynchronizer;
+        private DevExpress.XtraLayout.LayoutControlGroup Root;
+        private DevExpress.XtraLayout.SimpleSeparator simpleSeparator1;
+        private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+        private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
+        private DevExpress.ExpressApp.Win.Core.FormStateModelSynchronizer formStateModelSynchronizer;
         protected DevExpress.XtraEditors.PanelControl viewSiteControlPanel;
         protected DevExpress.XtraEditors.PanelControl viewSitePanel;
-        private ViewSiteManager viewSiteManager;
+        private DevExpress.ExpressApp.Win.Templates.ViewSiteManager viewSiteManager;
     }
 }

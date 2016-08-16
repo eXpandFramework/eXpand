@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace ModelDifferenceTester.Win {
     static class Program {
@@ -28,7 +29,7 @@ namespace ModelDifferenceTester.Win {
 			}
 #endif
             try {
-                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
                 winApplication.UseOldTemplates = false;
                 winApplication.UseOldTemplates=false;
                 winApplication.Setup();

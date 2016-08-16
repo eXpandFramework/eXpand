@@ -1,18 +1,17 @@
-using System.Linq;
-using DevExpress.ExpressApp.Utils;
-using SecurityDemo.Module;
-using Xpand.ExpressApp.Win;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Win;
+using DevExpress.ExpressApp.Xpo;
 
-namespace SecurityDemo.Win {
-    public partial class SecurityDemoWindowsFormsApplication : XpandWinApplication {
-        public SecurityDemoWindowsFormsApplication() {
+namespace SecurityDemo.Win{
+    public partial class SecurityDemoWindowsFormsApplication : WinApplication{
+        public SecurityDemoWindowsFormsApplication(){
             InitializeComponent();
         }
 
-//        protected override void ReadLastLogonParametersCore(SettingsStorage storage, object logonObject){
-//            base.ReadLastLogonParametersCore(storage, logonObject);
-//            var logonParameters = ((SecurityDemoAuthenticationLogonParameters) logonObject);
-//            logonParameters.User = logonParameters.AvailableUsers.Last();
-//        }
+
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
+            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
+        }
     }
 }

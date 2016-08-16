@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalSaveDelete {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {

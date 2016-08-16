@@ -3,7 +3,7 @@
   <Email>
     <EmailReceipients>
       <EmailReceipientGroup Id="Send to Admins" IsNewNode="True">
-        <EmailReceipient Id="Admin users" EmailReceipient="Xpand.ExpressApp.Security.Core.XpandUser" EmailMember="Email" Criteria="[Roles][[IsAdministrative] = True]" IsNewNode="True" />
+        <EmailReceipient Id="Admin users" EmailReceipient="Xpand.Persistent.BaseImpl.Security.XpandPermissionPolicyUser" EmailMember="Email" Criteria="[Roles][[IsAdministrative] = True]" IsNewNode="True" />
       </EmailReceipientGroup>
     </EmailReceipients>
     <EmailTemplateContexts>
@@ -19,6 +19,6 @@
     </SmtpClientContexts>
   </Email>
   <Options>
-    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" RoleModelClass="Xpand.ExpressApp.Security.Core.XpandRole" UserModelClass="Xpand.ExpressApp.Security.Core.XpandUser" />
+    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" RoleModelClass="Xpand.Persistent.BaseImpl.Security.XpandPermissionPolicyRole" UserModelClass="Xpand.Persistent.BaseImpl.Security.XpandPermissionPolicyUser" />
   </Options>
 </Application>

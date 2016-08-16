@@ -1,9 +1,9 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.ExpandAbleMembers {

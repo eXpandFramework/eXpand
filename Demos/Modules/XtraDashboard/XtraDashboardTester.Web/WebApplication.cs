@@ -6,17 +6,17 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ScriptRecorder;
 using DevExpress.ExpressApp.ScriptRecorder.Web;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Xpand.ExpressApp.Dashboard;
-using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.XtraDashboard.Web;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.BaseImpl.Security;
 using XtraDashboardTester.Module;
 using XtraDashboardTester.Module.Web;
 
@@ -126,8 +126,8 @@ namespace XtraDashboardTester.Web{
             // _securityStrategyComplex1
             // 
             _securityStrategyComplex1.Authentication = _authenticationStandard1;
-            _securityStrategyComplex1.RoleType = typeof(XpandRole);
-            _securityStrategyComplex1.UserType = typeof(SecuritySystemUser);
+            _securityStrategyComplex1.RoleType = typeof(XpandPermissionPolicyRole);
+            _securityStrategyComplex1.UserType = typeof(PermissionPolicyUser);
             // 
             // _authenticationStandard1
             // 

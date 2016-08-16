@@ -92,7 +92,7 @@
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\obj\Debug\Xpand.Persistent.BaseImpl.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Utils">

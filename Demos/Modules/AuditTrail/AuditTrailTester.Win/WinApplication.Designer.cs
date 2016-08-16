@@ -37,7 +37,6 @@ namespace AuditTrailTester.Win {
             this.module3 = new AuditTrailTester.Module.AuditTrailTesterModule();
             this.module4 = new AuditTrailTester.Module.Win.AuditTrailTesterWindowsFormsModule();
             this.logicModule2 = new Xpand.ExpressApp.Logic.LogicModule();
-            this.xpandAuditTrailModule2 = new Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -93,6 +92,6 @@ namespace AuditTrailTester.Win {
         private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
         private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;
         private Xpand.ExpressApp.Logic.LogicModule logicModule2;
-        private Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule xpandAuditTrailModule2;
+        
     }
 }

@@ -2,8 +2,9 @@ using System;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
@@ -18,15 +19,15 @@ namespace XtraDashboardTester.Module.DatabaseUpdate {
 
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+            var defaultRole = (PermissionPolicyRole)ObjectSpace.GetDefaultRole();
 
             var adminRole = ObjectSpace.GetAdminRole("Admin");
             var adminUser = adminRole.GetUser("Admin");
 
-            var userRole = ObjectSpace.GetRole("User");
+            var userRole = (IPermissionPolicyRole) ObjectSpace.GetRole("User");
             userRole.CanEditModel = true;
 
-            var user = (SecuritySystemUser)userRole.GetUser("user");
+            var user = (PermissionPolicyUser) ((ISecurityRole) userRole).GetUser("user");
             user.Roles.Add(defaultRole);
 
             if (ObjectSpace.FindObject<Customer>(null) == null) {
@@ -37,7 +38,7 @@ namespace XtraDashboardTester.Module.DatabaseUpdate {
                 customer = ObjectSpace.CreateObject<Customer>();
                 customer.FirstName = "FilteredApostolis";
                 customer.LastName = "FilteredBekiaris";
-                customer.User = (SecuritySystemUser) adminUser;
+                customer.User =  (PermissionPolicyUser) adminUser;
                 var dashboardDefinition = ObjectSpace.CreateObject<DashboardDefinition>();
                 dashboardDefinition.Name = "Filtered from model";
                 dashboardDefinition.Xml = GetXML();

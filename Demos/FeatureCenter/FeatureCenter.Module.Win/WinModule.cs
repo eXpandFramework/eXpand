@@ -8,12 +8,12 @@ using DevExpress.Persistent.Base;
 using FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication;
 using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyCalculatedField;
 using FeatureCenter.Module.Win.WorldCreator.DynamicAssemblyMasterDetail;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
 
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.ModelDifference;
 using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using CreateCustomModelDifferenceStoreEventArgs = Xpand.ExpressApp.ModelDifference.CreateCustomModelDifferenceStoreEventArgs;
 
 namespace FeatureCenter.Module.Win {

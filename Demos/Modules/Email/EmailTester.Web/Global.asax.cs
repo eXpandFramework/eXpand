@@ -4,6 +4,7 @@ using System.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace EmailTester.Web {
     public class Global : HttpApplication {
@@ -30,8 +31,8 @@ namespace EmailTester.Web {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            
-            WebApplication.Instance.NewSecurityStrategyComplex();
+
+            WebApplication.Instance.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>();
 
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolation {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {

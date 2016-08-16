@@ -1,4 +1,6 @@
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace XtraDashboardTester.Win {
     partial class XtraDashboardTesterWindowsFormsApplication {
@@ -43,8 +45,8 @@ namespace XtraDashboardTester.Win {
             // XtraDashboardTesterWindowsFormsApplication
             // 
             this.securityStrategyComplex1.Authentication = this.authenticationStandard1;
-            this.securityStrategyComplex1.RoleType = typeof(XpandRole);
-            this.securityStrategyComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
+            this.securityStrategyComplex1.RoleType = typeof(XpandPermissionPolicyRole);
+            this.securityStrategyComplex1.UserType = typeof(PermissionPolicyUser);
             // 
             // authenticationStandard1
             // 

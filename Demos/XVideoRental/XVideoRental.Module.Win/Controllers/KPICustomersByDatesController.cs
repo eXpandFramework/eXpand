@@ -11,7 +11,7 @@ namespace XVideoRental.Module.Win.Controllers {
         private const string Payment = "Payment";
         private const string Customer = "Customer";
         public KPICustomersByDatesController() {
-            TargetViewId = ViewIdProvider.CustomersKPICustomersByDates;
+            TargetViewId = ViewIdProvider.CustomersKpiCustomersByDates;
             var sortCustomersByDatesChart = new SingleChoiceAction(this, "SortCustomersByDatesChart", PredefinedCategory.Filters);
             sortCustomersByDatesChart.Items.Add(new ChoiceActionItem(Payment, null));
             sortCustomersByDatesChart.Items.Add(new ChoiceActionItem(Customer, null));
@@ -61,9 +61,6 @@ namespace XVideoRental.Module.Win.Controllers {
             }
         }
 
-        PivotGridListEditor PivotGridListEditor {
-            get { return View != null ? View.Editor as PivotGridListEditor : null; }
-        }
-
+        PivotGridListEditor PivotGridListEditor => View?.Editor as PivotGridListEditor;
     }
 }

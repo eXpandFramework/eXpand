@@ -1,7 +1,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using FeatureCenter.Base;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
@@ -13,9 +13,6 @@ namespace FeatureCenter.Module.ListViewControl.PropertyPathFilters {
         }
 
         [Association("PPCustomer-Orders")]
-        public XPCollection<PPOrder> Orders {
-            get { return GetCollection<PPOrder>("Orders"); }
-        }
-
+        public XPCollection<PPOrder> Orders => GetCollection<PPOrder>("Orders");
     }
 }

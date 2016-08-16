@@ -4,13 +4,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
-using Xpand.ExpressApp;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
-using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.Persistent.Base.General;
 using Xpand.Xpo.Collections;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.ModelDifference;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace FeatureCenter.Module.ApplicationDifferences {
 
@@ -27,9 +27,9 @@ namespace FeatureCenter.Module.ApplicationDifferences {
             var session = ((XPObjectSpace)ObjectSpace).Session;
             if (new QueryModelDifferenceObject(session).GetActiveModelDifference(ModelCombine, ApplicationHelper.Instance.Application) == null) {
                 new ModelDifferenceObject(session).InitializeMembers(ModelCombine, ApplicationHelper.Instance.Application);
-                var role = (XpandRole)ObjectSpace.GetRole(ModelCombine);
+                var role = (XpandPermissionPolicyRole)ObjectSpace.GetRole(ModelCombine);
                 role.CanEditModel = true;
-                var permissionData = ObjectSpace.CreateObject<ModelCombineOperationPermissionData>();
+                var permissionData = ObjectSpace.CreateObject<ModelCombineOperationPermissionPolicyData>();
                 permissionData.Difference = ModelCombine;
                 role.Permissions.Add(permissionData);
 

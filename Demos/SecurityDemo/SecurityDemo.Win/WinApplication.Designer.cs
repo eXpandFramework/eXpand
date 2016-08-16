@@ -1,6 +1,3 @@
-using System.Runtime.Remoting.Channels;
-using System;
-using System.Configuration;
 namespace SecurityDemo.Win
 {
 	partial class SecurityDemoWindowsFormsApplication
@@ -45,7 +42,6 @@ namespace SecurityDemo.Win
             // 
 			// SecurityDemoWindowsFormsApplication
             //
-            this.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=SecurityDemo_v12.2";
 			this.ApplicationName = "SecurityDemo";
             this.Modules.Add(this.module1);
             this.Modules.Add(this.module2);
@@ -56,6 +52,7 @@ namespace SecurityDemo.Win
             this.Modules.Add(this.module8);
             this.Modules.Add(this.module10);
             this.Modules.Add(this.securityModule1);
+            this.CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }

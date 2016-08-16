@@ -2,6 +2,8 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace EmailTester.Win {
     static class Program {
@@ -30,6 +32,7 @@ namespace EmailTester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
+                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

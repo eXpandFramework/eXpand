@@ -155,6 +155,12 @@
     <Content Include="FunctionalTests\Controllers\Config.xml" />
     <None Include="FunctionalTests\Actions\Init.inc" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj">
+      <Project>{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}</Project>
+      <Name>Xpand.Persistent.BaseImpl</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

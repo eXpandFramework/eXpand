@@ -14,8 +14,6 @@
 *FillForm
  Object Type Data = Project
  ID = Project-Contributors
-*Action MasterDetailData
-*XpandFillForm
  Collection Member = Contributors
  Child List View = Contributor_ListView
 *Action Save and Close

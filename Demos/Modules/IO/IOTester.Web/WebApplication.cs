@@ -16,7 +16,7 @@ using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
 
 namespace IOTester.Web {
-    public class IOTesterAspNetApplication : WebApplication, IConfirmationRequired,IWriteSecuredLogonParameters {
+    public class IOTesterAspNetApplication : WebApplication, IWriteSecuredLogonParameters {
         SystemModule _module1;
         SystemAspNetModule _module2;
         IOTesterModule _module3;
@@ -53,19 +53,6 @@ namespace IOTester.Web {
             return "en-US";
         }
 #endif
-        public event CancelEventHandler ConfirmationRequired;
-
-
-        protected void OnConfirmationRequired(CancelEventArgs e) {
-            CancelEventHandler handler = ConfirmationRequired;
-            handler?.Invoke(this, e);
-        }
-
-        public override ConfirmationResult AskConfirmation(ConfirmationType confirmationType) {
-            var cancelEventArgs = new CancelEventArgs();
-            OnConfirmationRequired(cancelEventArgs);
-            return cancelEventArgs.Cancel ? ConfirmationResult.No : base.AskConfirmation(confirmationType);
-        }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));

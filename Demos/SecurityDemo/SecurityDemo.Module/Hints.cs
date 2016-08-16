@@ -16,6 +16,9 @@ namespace SecurityDemo.Module {
         public const string MemberLevelSecurityObjectHint =
             @"This View demonstrates an object that is partially accessible for the ""John"" user. Some object members are read-only or totally inaccessible for him.";
 
+        public const string MemberByCriteriaLevelSecurityObjectHint =
+            @"This View demonstrates an object that is partially accessible for the ""John"" user. In different objects, members can be read-only, inaccessible, or fully accessible. The access level is determined by criteria.";
+
         public const string ObjectLevelSecurityObject =
             @"This View demonstrates objects of the same type that have various access levels for the ""John"" user. There are read-only, irremovable, inaccessible and fully accessible objects.";
 

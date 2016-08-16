@@ -1,10 +1,10 @@
 ﻿using System.Drawing;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace SystemTester.Module.Win.FunctionalTests.LayoutViewListEditor{
     [XpandNavigationItem("LayoutViewListEditor/Layout", "LayoutViewListEditor_Layout_ListView")]
@@ -15,13 +15,13 @@ namespace SystemTester.Module.Win.FunctionalTests.LayoutViewListEditor{
     public class LayoutViewListEditorObject : BaseObject{
         private Image _blue;
         private Image _red;
-        private SecuritySystemUser _user;
+        private XpandPermissionPolicyUser _user;
 
         public LayoutViewListEditorObject(Session session)
             : base(session){
         }
 
-        public SecuritySystemUser User{
+        public XpandPermissionPolicyUser User{
             get { return _user; }
             set { SetPropertyValue("User", ref _user, value); }
         }

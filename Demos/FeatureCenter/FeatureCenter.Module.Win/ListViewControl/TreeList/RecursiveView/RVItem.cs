@@ -1,7 +1,7 @@
 ﻿using DevExpress.Persistent.Base.General;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
@@ -13,10 +13,10 @@ namespace FeatureCenter.Module.Win.ListViewControl.TreeList.RecursiveView {
     [DisplayFeatureModel("RVItem_ListView", "RecursiveView")]
     public class RVItem : BaseObject, ICategorizedItem {
         public RVItem(Session session) : base(session) { }
-        private string _Name;
+        private string _name;
         public string Name {
-            get { return _Name; }
-            set { SetPropertyValue("Name", ref _Name, value); }
+            get { return _name; }
+            set { SetPropertyValue("Name", ref _name, value); }
         }
         private RVCategory _category;
         public RVCategory Category {

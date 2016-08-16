@@ -2,7 +2,9 @@ using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace SecurityTester.Module.Win.FunctionalTests.OverallCustomizationAllowed {
     public class Updater : ModuleUpdater {
@@ -11,8 +13,8 @@ namespace SecurityTester.Module.Win.FunctionalTests.OverallCustomizationAllowed 
             base.UpdateDatabaseAfterUpdateSchema();
             
 
-            var userRole = ObjectSpace.GetRole("User");
-            userRole.EnsureTypePermissions<OverallCustomizationAllowedObject>(SecurityOperations.FullAccess);
+            XpandPermissionPolicyRole userRole = (XpandPermissionPolicyRole) ObjectSpace.GetRole("User");
+            userRole.SetTypePermission<OverallCustomizationAllowedObject>(SecurityOperations.FullAccess,SecurityPermissionState.Allow);
 
         }
     }

@@ -32,6 +32,7 @@ namespace FeatureCenter.Web{
                     ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
 #endif
+            
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

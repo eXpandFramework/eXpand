@@ -3,35 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.StateMachine.Utils;
 using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 using StateMachineTester.Module.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace StateMachineTester.Module.DatabaseUpdate {
     public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+            var defaultRole = (XpandPermissionPolicyRole)ObjectSpace.GetDefaultRole();
 
             var adminRole =  ObjectSpace.GetAdminRole("Admin");
             adminRole.GetUser("Admin");
             
 
-            var userRole = (XpandRole) ObjectSpace.GetRole("User");
-            var user = (SecuritySystemUser)userRole.GetUser("user");
+            var userRole = (XpandPermissionPolicyRole) ObjectSpace.GetRole("User");
+            var user = (XpandPermissionPolicyUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
-            userRole.SetTypePermissions<XpoStateMachine>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
-            userRole.SetTypePermissions<XpoState>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
-            userRole.SetTypePermissions<XpoTransition>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
-            userRole.SetTypePermissions<PaymentTask>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
-            userRole.SetTypePermissions<Status>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
-            userRole.SetTypePermissions<BillStatus>(SecurityOperations.FullAccess, SecuritySystemModifier.Allow);
+            userRole.SetTypePermission<XpoStateMachine>(SecurityOperations.FullAccess, SecurityPermissionState.Allow);
+            userRole.SetTypePermission<XpoState>(SecurityOperations.FullAccess, SecurityPermissionState.Allow);
+            userRole.SetTypePermission<XpoTransition>(SecurityOperations.FullAccess, SecurityPermissionState.Allow);
+            userRole.SetTypePermission<PaymentTask>(SecurityOperations.FullAccess, SecurityPermissionState.Allow);
+            userRole.SetTypePermission<Status>(SecurityOperations.FullAccess, SecurityPermissionState.Allow);
+            
             CreateStatuses();
             ObjectSpace.CommitChanges();
             CreateStateMachines();

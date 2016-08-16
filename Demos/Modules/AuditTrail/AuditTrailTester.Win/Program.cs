@@ -1,11 +1,9 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
-using DevExpress.Persistent.BaseImpl;
+using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace AuditTrailTester.Win {
     static class Program {
@@ -35,6 +33,7 @@ namespace AuditTrailTester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
+                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard),typeof(AuthenticationStandardLogonParameters));
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

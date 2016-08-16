@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic;
 using System.Linq;
 using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace FeatureCenter.Module.Web {
     [ToolboxItemFilter("Xaf.Platform.Web")]

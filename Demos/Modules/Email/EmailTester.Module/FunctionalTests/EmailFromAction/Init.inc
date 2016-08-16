@@ -1,8 +1,8 @@
 ﻿#DropDB EmailTesterEasyTest
 #Application EmailTester.Win
-;#Application EmailTester.Web
+#Application EmailTester.Web
 *ScreenCapture
 *UseModel ..\CommonSmtpClient;..\CommonReceipient;EmailFromAction
 *LogOn
-*XpandDeleteFile Emails\*.eml
+*XpandDeleteFile %temp%\Emails\*.eml
  InBin = true

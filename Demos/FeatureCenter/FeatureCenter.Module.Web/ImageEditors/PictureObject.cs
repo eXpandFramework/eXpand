@@ -5,7 +5,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 
 namespace FeatureCenter.Module.Web.ImageEditors {
@@ -19,8 +19,8 @@ namespace FeatureCenter.Module.Web.ImageEditors {
         PictureMasterObject _horizantalMasterObject;
         PictureMasterObject _horizontalMasterObjectStyleModified;
         PictureMasterObject _verticalMasterObject;
-        Image cover;
-        string title;
+        private Image _cover;
+        private string _title;
 
         public PictureObject(Session session)
             : base(session) {
@@ -69,8 +69,8 @@ namespace FeatureCenter.Module.Web.ImageEditors {
             set { SetPropertyValue("VerticalMasterObjectStyleModified", ref _verticalMasterObjectStyleModified, value); }
         }
         public string Title {
-            get { return title; }
-            set { SetPropertyValue("Title", ref title, value); }
+            get { return _title; }
+            set { SetPropertyValue("Title", ref _title, value); }
         }
         private string _subTitle;
         public string SubTitle {
@@ -80,17 +80,13 @@ namespace FeatureCenter.Module.Web.ImageEditors {
         [VisibleInListView(false)]
         [Size(SizeAttribute.Unlimited), ValueConverter(typeof(ImageValueConverter))]
         public Image Cover {
-            get { return cover; }
-            set { SetPropertyValue("Cover", ref cover, value); }
+            get { return _cover; }
+            set { SetPropertyValue("Cover", ref _cover, value); }
         }
         #region IPictureItem Members
-        string IPictureItem.ID {
-            get { return Oid.ToString(); }
-        }
+        string IPictureItem.ID => Oid.ToString();
 
-        Image IPictureItem.Image {
-            get { return Cover; }
-        }
+        Image IPictureItem.Image => Cover;
 
 
         private string _imagePath;

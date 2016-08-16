@@ -1,3 +1,5 @@
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+
 namespace SecurityDemo.UiLevel.Win
 {
 	partial class SecurityDemoWindowsFormsApplication
@@ -43,10 +45,9 @@ namespace SecurityDemo.UiLevel.Win
             // 
             // securityComplex1
             // 
-            this.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=SecurityDemo_v12.2";
             this.securityComplex1.Authentication = this.authentication1;
-            this.securityComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
-            this.securityComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+            this.securityComplex1.UserType = typeof(PermissionPolicyUser);
+            this.securityComplex1.RoleType = typeof(PermissionPolicyRole);
             // 
 			// SecurityDemoWindowsFormsApplication
             // 
@@ -60,6 +61,7 @@ namespace SecurityDemo.UiLevel.Win
             this.Modules.Add(this.module8);
             this.Modules.Add(this.securityModule1);
             this.Security = this.securityComplex1;
+            this.CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.SecurityDemoWindowsFormsApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 

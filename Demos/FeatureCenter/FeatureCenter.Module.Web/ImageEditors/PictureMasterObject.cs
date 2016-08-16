@@ -1,7 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace FeatureCenter.Module.Web.ImageEditors {
 
@@ -24,37 +24,26 @@ namespace FeatureCenter.Module.Web.ImageEditors {
 
         [Aggregated]
         [Association("MasterObject-HorizontalPictureObjects")]
-        public XPCollection<PictureObject> HorizontalPicObjects {
-            get { return GetCollection<PictureObject>("HorizontalPicObjects"); }
-        }
+        public XPCollection<PictureObject> HorizontalPicObjects => GetCollection<PictureObject>("HorizontalPicObjects");
 
         [Aggregated]
         [Association("MasterObject-HorizontalPictureObjectsStyleModified")]
-        public XPCollection<PictureObject> HorizontalPicObjectsStyleModified {
-            get { return GetCollection<PictureObject>("HorizontalPicObjectsStyleModified"); }
-        }
+        public XPCollection<PictureObject> HorizontalPicObjectsStyleModified => GetCollection<PictureObject>("HorizontalPicObjectsStyleModified");
 
         [Aggregated]
         [Association("MasterObject-VerticalPictureObjects")]
-        public XPCollection<PictureObject> VerticalPicObjects {
-            get { return GetCollection<PictureObject>("VerticalPicObjects"); }
-        }
+        public XPCollection<PictureObject> VerticalPicObjects => GetCollection<PictureObject>("VerticalPicObjects");
 
         [Aggregated]
         [Association("MasterObject-VerticalPicObjects")]
-        public XPCollection<PictureObject> VerticalPicObjectsStyleModified {
-            get { return GetCollection<PictureObject>("VerticalPicObjectsStyleModified"); }
-        }
+        public XPCollection<PictureObject> VerticalPicObjectsStyleModified => GetCollection<PictureObject>("VerticalPicObjectsStyleModified");
+
         [Aggregated]
         [Association("MasterObject-HorizontalPicObjectsWithNoImage")]
-        public XPCollection<PictureObject> HorizontalPicObjectsWithNoImage {
-            get { return GetCollection<PictureObject>("HorizontalPicObjectsWithNoImage"); }
-        }
+        public XPCollection<PictureObject> HorizontalPicObjectsWithNoImage => GetCollection<PictureObject>("HorizontalPicObjectsWithNoImage");
+
         [Aggregated]
         [Association("MasterObject-VerticalPicObjectsWithNoImage")]
-        public XPCollection<PictureObject> VerticalPicObjectsWithNoImage {
-            get { return GetCollection<PictureObject>("VerticalPicObjectsWithNoImage"); }
-        }
-
+        public XPCollection<PictureObject> VerticalPicObjectsWithNoImage => GetCollection<PictureObject>("VerticalPicObjectsWithNoImage");
     }
 }

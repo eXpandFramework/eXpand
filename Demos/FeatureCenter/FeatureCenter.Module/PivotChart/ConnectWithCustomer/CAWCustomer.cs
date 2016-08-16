@@ -2,9 +2,9 @@
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.PivotChart.PivotedProperty;
 using FeatureCenter.Base;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Xpo.Collections;
 
@@ -19,9 +19,7 @@ namespace FeatureCenter.Module.PivotChart.ConnectWithCustomer {
         }
 
         [Association("CWCustomer-Orders")]
-        public XPCollection<CAWOrder> Orders {
-            get { return GetCollection<CAWOrder>("Orders"); }
-        }
+        public XPCollection<CAWOrder> Orders => GetCollection<CAWOrder>("Orders");
 
         [PivotedProperty("OrderLines", "Name='Controlling Grid Settings'")]
         public Analysis ControllingGridSettingsAnalysis { get; set; }

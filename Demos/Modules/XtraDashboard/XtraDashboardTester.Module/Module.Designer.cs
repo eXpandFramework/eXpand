@@ -24,6 +24,7 @@ namespace XtraDashboardTester.Module {
         /// </summary>
         private void InitializeComponent() {
             RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Dashboard.DashboardModule));
+            RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.SystemModule.XpandSystemModule));
         }
 
         #endregion

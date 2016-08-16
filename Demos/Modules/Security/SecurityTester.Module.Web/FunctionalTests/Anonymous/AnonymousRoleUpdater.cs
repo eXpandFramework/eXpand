@@ -1,9 +1,9 @@
 ﻿using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
-using Xpand.ExpressApp.Security.Core;
+using DevExpress.Persistent.Base;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace SecurityTester.Module.Web.FunctionalTests.Anonymous {
     public class AnonymousRoleUpdater:ModuleUpdater {
@@ -12,9 +12,9 @@ namespace SecurityTester.Module.Web.FunctionalTests.Anonymous {
 
         public override void UpdateDatabaseAfterUpdateSchema(){
             base.UpdateDatabaseAfterUpdateSchema();
-            var anonymousRole = ObjectSpace.GetAnonymousRole("Anonymous");
-            anonymousRole.GetAnonymousUser();
-            anonymousRole.SetTypePermissions<AnonymousObject>(SecurityOperations.FullAccess,SecuritySystemModifier.Allow);
+            var anonymousRole = ObjectSpace.GetAnonymousPermissionPolicyRole("Anonymous");
+            anonymousRole.GetAnonymousPermissionPolicyUser();
+            anonymousRole.AddTypePermission<AnonymousObject>(SecurityOperations.FullAccess,SecurityPermissionState.Allow);
 
         }
     }

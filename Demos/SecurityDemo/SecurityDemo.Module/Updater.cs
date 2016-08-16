@@ -3,7 +3,9 @@ using DevExpress.ExpressApp;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
-using Xpand.ExpressApp.ModelDifference.Security;
+using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using DevExpress.Persistent.Base;
 
 namespace SecurityDemo.Module
 {
@@ -14,40 +16,38 @@ namespace SecurityDemo.Module
 		public override void UpdateDatabaseAfterUpdateSchema() {
 			base.UpdateDatabaseAfterUpdateSchema();
 
+
+            CreateClassLevelObjects();
+            CreateMemberLevelObjects();
+            CreateObjectLevelObjects();
             
-            CreateSecurityDemoObjects();
-		    
-		    DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole defaultRole = CreateDefaultRole();
+            PermissionPolicyRole administratorRole = CreateAdministratorRole();
 
-            DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole administratorRole = CreateAdministratorRole();
-
-            SecuritySystemUser userAdmin = ObjectSpace.FindObject<SecuritySystemUser>(new BinaryOperator("UserName", "Sam"));
+            PermissionPolicyUser userAdmin = ObjectSpace.FindObject<PermissionPolicyUser>(new BinaryOperator("UserName", "Sam"));
             if(userAdmin == null) {
-                userAdmin = ObjectSpace.CreateObject<SecuritySystemUser>();
+                userAdmin = ObjectSpace.CreateObject<PermissionPolicyUser>();
                 userAdmin.UserName = "Sam";
                 userAdmin.IsActive = true;
                 userAdmin.SetPassword("");
                 userAdmin.Roles.Add(administratorRole);
             }
 
-            DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole securityDemoRole = CreateSecurityDemoRole();
+            PermissionPolicyRole securityDemoRole = CreateSecurityDemoRole();
 
-            SecuritySystemUser userJohn = ObjectSpace.FindObject<SecuritySystemUser>(new BinaryOperator("UserName", "John"));
+            PermissionPolicyUser userJohn = ObjectSpace.FindObject<PermissionPolicyUser>(new BinaryOperator("UserName", "John"));
 			if(userJohn == null) {
-                userJohn = ObjectSpace.CreateObject<SecuritySystemUser>();
+                userJohn = ObjectSpace.CreateObject<PermissionPolicyUser>();
 				userJohn.UserName = "John";
                 userJohn.IsActive = true;
-                userJohn.Roles.Add(defaultRole);
+                //userJohn.Roles.Add(defaultRole);
                 userJohn.Roles.Add(securityDemoRole);
-                var modelRole = ObjectSpace.GetDefaultModelRole("ModelRole");
-                userJohn.Roles.Add((SecuritySystemRole) modelRole);
 				userJohn.Save();
 			}
 
             ObjectSpace.CommitChanges();
 		}
 
-        private void CreateSecurityDemoObjects() {
+        private void CreateClassLevelObjects() {
             FullAccessObject fullAccessObject = ObjectSpace.FindObject<FullAccessObject>(new BinaryOperator("Name", "Fully Accessible Object"));
             if(fullAccessObject == null) {
                 fullAccessObject = ObjectSpace.CreateObject<FullAccessObject>();
@@ -79,6 +79,8 @@ namespace SecurityDemo.Module
                 uncreatableObject.Name = "Protected Creation Object";
                 uncreatableObject.Save();
             }
+        }
+        private void CreateMemberLevelObjects() {
             MemberLevelSecurityObject memberLevelSecurityObject = ObjectSpace.FindObject<MemberLevelSecurityObject>(new BinaryOperator("Name", "Member-Level Protected Object"));
             if(memberLevelSecurityObject == null) {
                 memberLevelSecurityObject = ObjectSpace.CreateObject<MemberLevelSecurityObject>();
@@ -96,6 +98,43 @@ namespace SecurityDemo.Module
                 memberLevelSecurityObject.ReadOnlyCollection.Add(obj2);
                 memberLevelSecurityObject.Save();
             }
+
+            MemberLevelReferencedObject1 refObject = ObjectSpace.FindObject<MemberLevelReferencedObject1>(new BinaryOperator("Name", "Object 1"));
+            if(refObject == null) {
+                refObject = ObjectSpace.CreateObject<MemberLevelReferencedObject1>();
+                refObject.Name = "Object 1";
+                ObjectSpace.CreateObject<MemberLevelReferencedObject1>().Name = "Object 2";
+            }
+            MemberByCriteriaSecurityObject fullAccessObjectObject = ObjectSpace.FindObject<MemberByCriteriaSecurityObject>(new BinaryOperator("Name", "Fully Accessible Property Object"));
+            if(fullAccessObjectObject == null) {
+                fullAccessObjectObject = ObjectSpace.CreateObject<MemberByCriteriaSecurityObject>();
+                fullAccessObjectObject.Name = "Fully Accessible Property Object";
+                fullAccessObjectObject.Property1 = "Full Access";
+                fullAccessObjectObject.ReferenceProperty = refObject;
+            }
+            MemberByCriteriaSecurityObject readOnlyObjectObject = ObjectSpace.FindObject<MemberByCriteriaSecurityObject>(new BinaryOperator("Name", "Read-Only Property Object"));
+            if(readOnlyObjectObject == null) {
+                readOnlyObjectObject = ObjectSpace.CreateObject<MemberByCriteriaSecurityObject>();
+                readOnlyObjectObject.Name = "Read-Only Property Object";
+                readOnlyObjectObject.Property1 = "Read-Only";
+                readOnlyObjectObject.ReferenceProperty = refObject;
+            }
+            MemberByCriteriaSecurityObject protectedContentObjectObject = ObjectSpace.FindObject<MemberByCriteriaSecurityObject>(new BinaryOperator("Name", "Protected Property Object"));
+            if(protectedContentObjectObject == null) {
+                protectedContentObjectObject = ObjectSpace.CreateObject<MemberByCriteriaSecurityObject>();
+                protectedContentObjectObject.Name = "Protected Property Object";
+                protectedContentObjectObject.Property1 = "protected";
+                protectedContentObjectObject.ReferenceProperty = refObject;
+            }
+            MemberByCriteriaSecurityObject noReadAccessObject = ObjectSpace.FindObject<MemberByCriteriaSecurityObject>(new BinaryOperator("Name", "No Read Access Object"));
+            if(noReadAccessObject == null) {
+                noReadAccessObject = ObjectSpace.CreateObject<MemberByCriteriaSecurityObject>();
+                noReadAccessObject.Name = "No Read Access Object";
+                noReadAccessObject.Property1 = "No Read Access";
+                noReadAccessObject.ReferenceProperty = refObject;
+            }
+        }
+        private void CreateObjectLevelObjects() {
             ObjectLevelSecurityObject fullAccessObjectObject = ObjectSpace.FindObject<ObjectLevelSecurityObject>(new BinaryOperator("Name", "Fully Accessible Object"));
             if(fullAccessObjectObject == null) {
                 fullAccessObjectObject = ObjectSpace.CreateObject<ObjectLevelSecurityObject>();
@@ -121,209 +160,57 @@ namespace SecurityDemo.Module
                 irremovableObjectObject.Save();
             }
         }
-
-        private DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole CreateSecurityDemoRole() {
-            DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole securityDemoRole = ObjectSpace.FindObject<DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole>(new BinaryOperator("Name", "Demo"));
+        private PermissionPolicyRole CreateSecurityDemoRole() {
+            PermissionPolicyRole securityDemoRole = ObjectSpace.FindObject<PermissionPolicyRole>(new BinaryOperator("Name", "Demo"));
             if(securityDemoRole == null) {
-                securityDemoRole = ObjectSpace.CreateObject<DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole>();
+                securityDemoRole = ObjectSpace.CreateObject<PermissionPolicyRole>();
                 securityDemoRole.Name = "Demo";
 
+                // System Permissions
+                securityDemoRole.AddObjectPermission<PermissionPolicyUser>(SecurityOperations.ReadOnlyAccess, "[Oid] = CurrentUserId()", SecurityPermissionState.Allow);
+                securityDemoRole.AddMemberPermission<PermissionPolicyUser>(SecurityOperations.ReadWriteAccess, "ChangePasswordOnFirstLogon; StoredPassword", null, SecurityPermissionState.Allow);
+                securityDemoRole.AddObjectPermission<PermissionPolicyRole>(SecurityOperations.ReadOnlyAccess, "[Name] = 'Demo'", SecurityPermissionState.Allow);
+                securityDemoRole.AddTypePermission<PermissionPolicyTypePermissionObject>(SecurityOperations.Read, SecurityPermissionState.Allow);
+
                 // Type Operation Permissions
-                SecuritySystemTypePermissionObject fullAccessPermission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                fullAccessPermission.TargetType = typeof(FullAccessObject);
-                fullAccessPermission.AllowCreate = true;
-                fullAccessPermission.AllowDelete = true;
-                fullAccessPermission.AllowNavigate = true;
-                fullAccessPermission.AllowRead = true;
-                fullAccessPermission.AllowWrite = true;
-                fullAccessPermission.Save();
-                securityDemoRole.TypePermissions.Add(fullAccessPermission);
-                SecuritySystemTypePermissionObject protectedContentPermission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                protectedContentPermission.TargetType = typeof(ProtectedContentObject);
-                protectedContentPermission.AllowNavigate = true;
-                protectedContentPermission.Save();
-                securityDemoRole.TypePermissions.Add(protectedContentPermission);
-                SecuritySystemTypePermissionObject readOnlyPermission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                readOnlyPermission.TargetType = typeof(ReadOnlyObject);
-                readOnlyPermission.AllowNavigate = true;
-                readOnlyPermission.AllowRead = true;
-                readOnlyPermission.Save();
-                securityDemoRole.TypePermissions.Add(readOnlyPermission);
-
-                SecuritySystemTypePermissionObject irremovablePermission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                irremovablePermission.TargetType = typeof(IrremovableObject);
-                irremovablePermission.AllowCreate = true;
-                irremovablePermission.AllowNavigate = true;
-                irremovablePermission.AllowRead = true;
-                irremovablePermission.AllowWrite = true;
-                irremovablePermission.Save();
-                securityDemoRole.TypePermissions.Add(irremovablePermission);
-                SecuritySystemTypePermissionObject uncreatablePermission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                uncreatablePermission.TargetType = typeof(UncreatableObject);
-                uncreatablePermission.AllowDelete = true;
-                uncreatablePermission.AllowNavigate = true;
-                uncreatablePermission.AllowRead = true;
-                uncreatablePermission.AllowWrite = true;
-                uncreatablePermission.Save();
-                securityDemoRole.TypePermissions.Add(uncreatablePermission);
-
+                securityDemoRole.SetTypePermission<FullAccessObject>(SecurityOperations.FullAccess, SecurityPermissionState.Allow);
+                securityDemoRole.SetTypePermission<ProtectedContentObject>(SecurityOperations.Navigate, SecurityPermissionState.Allow);
+                securityDemoRole.SetTypePermission<ReadOnlyObject>(SecurityOperations.ReadOnlyAccess, SecurityPermissionState.Allow);
+                securityDemoRole.SetTypePermission<IrremovableObject>(SecurityOperations.Navigate + ";" + SecurityOperations.Create + ";" + SecurityOperations.ReadWriteAccess, SecurityPermissionState.Allow);
+                securityDemoRole.SetTypePermission<UncreatableObject>(SecurityOperations.FullObjectAccess, SecurityPermissionState.Allow);
+                
                 // Member Operation Permissions
-                SecuritySystemTypePermissionObject navigateMemberLevelOperationObjectPermission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                navigateMemberLevelOperationObjectPermission.TargetType = typeof(MemberLevelSecurityObject);
-                navigateMemberLevelOperationObjectPermission.AllowCreate = true;
-                navigateMemberLevelOperationObjectPermission.AllowDelete = true;
-                navigateMemberLevelOperationObjectPermission.AllowNavigate = true;
-                navigateMemberLevelOperationObjectPermission.Save();
-                securityDemoRole.TypePermissions.Add(navigateMemberLevelOperationObjectPermission);
+                securityDemoRole.SetTypePermission<MemberLevelSecurityObject>(SecurityOperations.Navigate + ";" + SecurityOperations.Create + ";" + SecurityOperations.Delete, SecurityPermissionState.Allow);
+                securityDemoRole.AddMemberPermission<MemberLevelSecurityObject>(SecurityOperations.ReadWriteAccess, "ReadWriteProperty;Name;oid;Oid;OptimisticLockField", null,  SecurityPermissionState.Allow);
+                securityDemoRole.AddMemberPermission<MemberLevelSecurityObject>(SecurityOperations.Read, "ReadOnlyProperty;ReadOnlyCollection", null, SecurityPermissionState.Allow);
+                securityDemoRole.AddMemberPermission<MemberLevelSecurityObject>(SecurityOperations.Write, "ReadOnlyCollection;ReadOnlyProperty", null, SecurityPermissionState.Deny);
+                securityDemoRole.AddMemberPermission<MemberLevelSecurityObject>(SecurityOperations.ReadWriteAccess, "ProtectedContentProperty;ProtectedContentCollection", null, SecurityPermissionState.Deny);
                 
-                SecuritySystemMemberPermissionsObject readWriteMemberPermission = ObjectSpace.CreateObject<SecuritySystemMemberPermissionsObject>();
-                //readWriteMemberPermission.TargetType = typeof(MemberLevelSecurityObject);
-                readWriteMemberPermission.Members = "ReadWriteProperty; Name; oid; Oid; OptimisticLockField"; // TODO - Slava D - service fields - XPO responsibility
-                readWriteMemberPermission.AllowRead = true;
-                readWriteMemberPermission.AllowWrite = true;
-                readWriteMemberPermission.Save();
-                navigateMemberLevelOperationObjectPermission.MemberPermissions.Add(readWriteMemberPermission);
-                //securityDemoRole.TypePermissions.Add(readWriteMemberPermission);
-                
-                SecuritySystemMemberPermissionsObject protectedContentMemberPermission = ObjectSpace.CreateObject<SecuritySystemMemberPermissionsObject>();
-                //protectedContentMemberPermission.TargetType = typeof(MemberLevelSecurityObject);
-                protectedContentMemberPermission.Members = "ProtectedContentProperty; ProtectedContentCollection";
-                protectedContentMemberPermission.Save();
-                navigateMemberLevelOperationObjectPermission.MemberPermissions.Add(protectedContentMemberPermission);
-                //securityDemoRole.TypePermissions.Add(protectedContentMemberPermission);
-
-                SecuritySystemMemberPermissionsObject readOnlyMemberPermission = ObjectSpace.CreateObject<SecuritySystemMemberPermissionsObject>();
-                //readOnlyMemberPermission.TargetType = typeof(MemberLevelSecurityObject);
-                readOnlyMemberPermission.Members = "ReadOnlyProperty; ReadOnlyCollection";
-                readOnlyMemberPermission.AllowRead = true;
-                readOnlyMemberPermission.Save();
-                navigateMemberLevelOperationObjectPermission.MemberPermissions.Add(readOnlyMemberPermission);
-                //securityDemoRole.TypePermissions.Add(readOnlyMemberPermission);
-
-                SecuritySystemTypePermissionObject memberLevelReferencedObject1Permission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                memberLevelReferencedObject1Permission.TargetType = typeof(MemberLevelReferencedObject1);
-                memberLevelReferencedObject1Permission.AllowRead = true;
-                memberLevelReferencedObject1Permission.AllowWrite = true;
-                memberLevelReferencedObject1Permission.AllowCreate = true;
-                memberLevelReferencedObject1Permission.AllowDelete = true;
-                memberLevelReferencedObject1Permission.Save();
-                securityDemoRole.TypePermissions.Add(memberLevelReferencedObject1Permission);
-
-                SecuritySystemTypePermissionObject memberLevelReferencedObject2Permission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                memberLevelReferencedObject2Permission.TargetType = typeof(MemberLevelReferencedObject2);
-                memberLevelReferencedObject2Permission.AllowRead = true;
-                memberLevelReferencedObject2Permission.AllowWrite = true;
-                memberLevelReferencedObject2Permission.AllowCreate = true;
-                memberLevelReferencedObject2Permission.AllowDelete = true;
-                memberLevelReferencedObject2Permission.Save();
-                securityDemoRole.TypePermissions.Add(memberLevelReferencedObject2Permission);
-
-                
+                securityDemoRole.SetTypePermission<MemberLevelReferencedObject1>(SecurityOperations.CRUDAccess, SecurityPermissionState.Allow);
+                securityDemoRole.SetTypePermission<MemberLevelReferencedObject2>(SecurityOperations.CRUDAccess, SecurityPermissionState.Allow);                
 
                 // Object Operation Permissions
-                SecuritySystemTypePermissionObject navigateObjectLevelSecurityObjectPermission = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                navigateObjectLevelSecurityObjectPermission.TargetType = typeof(ObjectLevelSecurityObject);
-                navigateObjectLevelSecurityObjectPermission.AllowNavigate = true;
-                navigateObjectLevelSecurityObjectPermission.Save();
-                securityDemoRole.TypePermissions.Add(navigateObjectLevelSecurityObjectPermission);
-                
-                SecuritySystemObjectPermissionsObject fullAccessObjectPermission = ObjectSpace.CreateObject<SecuritySystemObjectPermissionsObject>();
-                //fullAccessObjectPermission.TargetType = typeof(ObjectLevelSecurityObject);
-                fullAccessObjectPermission.Criteria = "[Name] Like '%Fully Accessible%'";
-                //fullAccessObjectPermission.AllowCreate = true;
-                fullAccessObjectPermission.AllowDelete = true;
-                fullAccessObjectPermission.AllowNavigate = true;
-                fullAccessObjectPermission.AllowRead = true;
-                fullAccessObjectPermission.AllowWrite = true;
-                fullAccessObjectPermission.Save();
-                navigateObjectLevelSecurityObjectPermission.ObjectPermissions.Add(fullAccessObjectPermission);
-                //securityDemoRole.TypePermissions.Add(fullAccessObjectPermission);
+                securityDemoRole.SetTypePermission<ObjectLevelSecurityObject>(SecurityOperations.Navigate, SecurityPermissionState.Allow);
+                securityDemoRole.AddObjectPermission<ObjectLevelSecurityObject>( SecurityOperations.FullObjectAccess, "Contains([Name], 'Fully Accessible')", SecurityPermissionState.Allow);
+                securityDemoRole.AddObjectPermission<ObjectLevelSecurityObject>(SecurityOperations.Read, "Contains([Name], 'Read-Only')",  SecurityPermissionState.Allow);
+                securityDemoRole.AddObjectPermission<ObjectLevelSecurityObject>(SecurityOperations.ReadWriteAccess, "Contains([Name], 'Protected Deletion')",  SecurityPermissionState.Allow);
 
-                SecuritySystemObjectPermissionsObject protectedContentObjectPermission = ObjectSpace.CreateObject<SecuritySystemObjectPermissionsObject>();
-                //protectedContentObjectPermission.TargetType = typeof(ObjectLevelSecurityObject);
-                protectedContentObjectPermission.Criteria = "[Name] Like '%Protected%'";
-                protectedContentObjectPermission.AllowNavigate = true;
-                protectedContentObjectPermission.Save();
-                navigateObjectLevelSecurityObjectPermission.ObjectPermissions.Add(protectedContentObjectPermission);
-                //securityDemoRole.TypePermissions.Add(protectedContentObjectPermission);
-
-                SecuritySystemObjectPermissionsObject readOnlyObjectPermission = ObjectSpace.CreateObject<SecuritySystemObjectPermissionsObject>();
-                //readOnlyObjectPermission.TargetType = typeof(ObjectLevelSecurityObject);
-                readOnlyObjectPermission.Criteria = "[Name] Like '%Read-Only%'";
-                readOnlyObjectPermission.AllowNavigate = true;
-                readOnlyObjectPermission.AllowRead = true;
-                readOnlyObjectPermission.Save();
-                navigateObjectLevelSecurityObjectPermission.ObjectPermissions.Add(readOnlyObjectPermission);
-                //securityDemoRole.TypePermissions.Add(readOnlyObjectPermission);
-
-                SecuritySystemObjectPermissionsObject irremovableObjectPermission = ObjectSpace.CreateObject<SecuritySystemObjectPermissionsObject>();
-                //irremovableObjectPermission.TargetType = typeof(ObjectLevelSecurityObject);
-                irremovableObjectPermission.Criteria = "[Name] Like '%Protected Deletion%'";
-                //irremovableObjectPermission.AllowCreate = true;
-                irremovableObjectPermission.AllowNavigate = true;
-                irremovableObjectPermission.AllowRead = true;
-                irremovableObjectPermission.AllowWrite = true;
-                irremovableObjectPermission.Save();
-                navigateObjectLevelSecurityObjectPermission.ObjectPermissions.Add(irremovableObjectPermission);
-                //securityDemoRole.TypePermissions.Add(irremovableObjectPermission);
-
-                securityDemoRole.Save();
+                // Member By Criteria Operation Permissions
+                securityDemoRole.SetTypePermission<MemberByCriteriaSecurityObject>(SecurityOperations.Navigate, SecurityPermissionState.Allow);
+                securityDemoRole.AddMemberPermission<MemberByCriteriaSecurityObject>(SecurityOperations.ReadWriteAccess, "Name",  "[Name] <> 'No Read Access Object'", SecurityPermissionState.Allow);
+                securityDemoRole.AddMemberPermission<MemberByCriteriaSecurityObject>(SecurityOperations.ReadWriteAccess, "Property1;ReferenceProperty;Oid;oid",  "[Name] = 'Fully Accessible Property Object'", SecurityPermissionState.Allow);
+                securityDemoRole.AddMemberPermission<MemberByCriteriaSecurityObject>(SecurityOperations.Read, "Property1;ReferenceProperty;Oid;oid",  "[Name] = 'Read-Only Property Object'", SecurityPermissionState.Allow);
             }
             return securityDemoRole;
         }
-
-        private DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole CreateAdministratorRole() {
-            DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole administratorRole = ObjectSpace.FindObject<DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole>(new BinaryOperator("Name", "Administrator"));
+        private PermissionPolicyRole CreateAdministratorRole() {
+            PermissionPolicyRole administratorRole = ObjectSpace.FindObject<PermissionPolicyRole>(new BinaryOperator("Name", "Administrator"));
             if(administratorRole == null) {
-                administratorRole = ObjectSpace.CreateObject<DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole>();
+                administratorRole = ObjectSpace.CreateObject<PermissionPolicyRole>();
                 administratorRole.Name = "Administrator";
                 administratorRole.IsAdministrative = true;
             }
             return administratorRole;
-        }
-
-        private DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole CreateDefaultRole() {
-            DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole defaultRole = ObjectSpace.FindObject<DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole>(new BinaryOperator("Name", "Default"));
-            if(defaultRole == null) {
-                defaultRole = ObjectSpace.CreateObject<DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole>();
-                defaultRole.Name = "Default";
-
-                SecuritySystemTypePermissionObject securityDemoUserPermissions = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                securityDemoUserPermissions.TargetType = typeof(SecuritySystemUser);
-                defaultRole.TypePermissions.Add(securityDemoUserPermissions);
-
-                SecuritySystemObjectPermissionsObject myDetailsPermission = ObjectSpace.CreateObject<SecuritySystemObjectPermissionsObject>();
-                //myDetailsPermission.TargetType = typeof(SecuritySystemUser);
-                myDetailsPermission.Criteria = "[Oid] = CurrentUserId()";
-                myDetailsPermission.AllowNavigate = true;
-                myDetailsPermission.AllowRead = true;
-                securityDemoUserPermissions.ObjectPermissions.Add(myDetailsPermission);
-                //defaultRole.PersistentPermissions.Add(myDetailsPermission);
-
-                SecuritySystemTypePermissionObject userPermissions = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                userPermissions.TargetType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
-                defaultRole.TypePermissions.Add(userPermissions);
-                
-                SecuritySystemMemberPermissionsObject ownPasswordPermission = ObjectSpace.CreateObject<SecuritySystemMemberPermissionsObject>();
-                //ownPasswordPermission.TargetType = typeof(SecurityUser);
-                ownPasswordPermission.Members = "ChangePasswordOnFirstLogon; StoredPassword";
-                ownPasswordPermission.AllowWrite = true;
-                userPermissions.MemberPermissions.Add(ownPasswordPermission);
-                //defaultRole.PersistentPermissions.Add(ownPasswordPermission);
-
-                SecuritySystemTypePermissionObject securityRolePermissions = ObjectSpace.CreateObject<SecuritySystemTypePermissionObject>();
-                securityRolePermissions.TargetType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
-                defaultRole.TypePermissions.Add(userPermissions);
-
-                SecuritySystemObjectPermissionsObject defaultRolePermission = ObjectSpace.CreateObject<SecuritySystemObjectPermissionsObject>();
-                //defaultRolePermission.TargetType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
-                defaultRolePermission.Criteria = "[Name] = 'Default'";
-                defaultRolePermission.AllowNavigate = true;
-                defaultRolePermission.AllowRead = true;
-                securityRolePermissions.ObjectPermissions.Add(defaultRolePermission);
-                //defaultRole.PersistentPermissions.Add(defaultRolePermission);
-            }
-            return defaultRole;
         }
     }
 }

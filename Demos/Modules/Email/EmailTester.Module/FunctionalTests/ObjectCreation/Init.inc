@@ -4,5 +4,5 @@
 *ScreenCapture
 *UseModel ..\CommonSmtpClient;..\CommonReceipient;NewObject
 *LogOn
-*XpandDeleteFile Emails\*.eml
+*XpandDeleteFile %temp%\Emails\*.eml
  InBin = true

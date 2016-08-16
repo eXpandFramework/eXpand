@@ -1,11 +1,13 @@
 using System;
 using AuditTrailTester.Module.BusinessObjects;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using Xpand.ExpressApp.AuditTrail.Security;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.AuditTrail;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace AuditTrailTester.Module.DatabaseUpdate {
     
@@ -16,24 +18,24 @@ namespace AuditTrailTester.Module.DatabaseUpdate {
         
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+            var defaultRole = (PermissionPolicyRole)ObjectSpace.GetDefaultRole();
 
             var adminRole = ObjectSpace.GetAdminRole("Admin");
             adminRole.GetUser("Admin");
 
-            var userRole = ObjectSpace.GetRole("User");
+            var userRole = (PermissionPolicyRole)ObjectSpace.GetRole("User");
             userRole.CanEditModel = true;
-            userRole.SetTypePermissionsRecursively<object>(SecurityOperations.FullAccess,SecuritySystemModifier.Allow);
+            userRole.AddTypePermissionsRecursively<object>(SecurityOperations.FullAccess,SecurityPermissionState.Allow);
             
-            var user = (SecuritySystemUser)userRole.GetUser("user");
+            var user = (PermissionPolicyUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
 
             if (ObjectSpace.IsNewObject(userRole)) {
-                var permissionData = ObjectSpace.CreateObject<AuditTrailOperationPermissionData>();
+                var permissionData = ObjectSpace.CreateObject<AuditTrailOperationPermissionPolicyPolicyData>();
                 permissionData.ObjectTypeData = typeof (Employee);
                 permissionData.ID = "audit_emplyee";
                 permissionData.AuditTrailMembersContext = "Employee_Members";
-                ((XpandRole) userRole).Permissions.Add(permissionData);
+                ((XpandPermissionPolicyRole) userRole).Permissions.Add(permissionData);
             }
             ObjectSpace.CommitChanges();
         }

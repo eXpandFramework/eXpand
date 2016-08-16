@@ -9,7 +9,6 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
@@ -24,6 +23,8 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using System.Drawing;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Country = XVideoRental.Module.Win.BusinessObjects.Movie.Country;
 
 namespace XVideoRental.Module.Win.DatabaseUpdate {
@@ -69,8 +70,9 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                     dashboard.DashboardTypes.Add(new TypeWrapper(type));
             }
             var dashboardRole = ObjectSpace.GetRole("Dashboard View Role");
-            var dashboardCollection = (XPBaseCollection)dashboardRole.GetMemberValue(typeof(DashboardDefinition).Name + "s");
-            dashboardRole.SetMemberValue("DashboardOperation", SecurityOperationsEnum.ReadOnlyAccess);
+            var dashboardCollection = (XPBaseCollection)
+                ((XPBaseObject) dashboardRole).GetMemberValue(typeof(DashboardDefinition).Name + "s");
+            ((XPBaseObject) dashboardRole).SetMemberValue("DashboardOperation", SecurityOperationsEnum.ReadOnlyAccess);
             dashboardCollection.BaseAdd(dashboard);
         }
 
@@ -84,9 +86,10 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
                 return reader.ReadLine();
         }
 
-        void SetPermissions(SecuritySystemRole employersRole) {
-            employersRole.SetTypePermissions<ReportData>(SecurityOperations.ReadOnlyAccess, SecuritySystemModifier.Allow);
-            employersRole.CreatePermissionBehaviour(PermissionBehavior.ReadOnlyAccess, (role, info) => role.SetTypePermissions(info.Type, SecurityOperations.ReadOnlyAccess, SecuritySystemModifier.Allow));
+        void SetPermissions(IPermissionPolicyRole employersRole) {
+            employersRole.SetTypePermission<ReportData>(SecurityOperations.ReadOnlyAccess, SecurityPermissionState.Allow);
+            ((ISecurityRole) employersRole).CreatePermissionBehaviour(PermissionBehavior.ReadOnlyAccess, (role, info) =>
+                ((IPermissionPolicyRole) role).SetTypePermission(info.Type, SecurityOperations.ReadOnlyAccess, SecurityPermissionState.Allow));
         }
 
         Stream GetResourceStream(string resource) {
@@ -94,26 +97,26 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             return moduleType.Assembly.GetManifestResourceStream(string.Format(moduleType.Namespace + ".Resources.{0}", resource));
         }
 
-        XpandRole CreateUserData() {
+        IPermissionPolicyRole CreateUserData() {
             InitAdminSecurityData();
             return InitVideoRentalSecurityData();
         }
 
-        XpandRole InitVideoRentalSecurityData() {
-            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+        IPermissionPolicyRole InitVideoRentalSecurityData() {
+            var defaultRole = (PermissionPolicyRole)ObjectSpace.GetDefaultRole();
             if (ObjectSpace.IsNewObject(defaultRole)) {
-                var employersRole = (SecuritySystemRole)ObjectSpace.GetRole("Employers");
-                var dashboardRole = (SecuritySystemRole)ObjectSpace.GetRole("Dashboard View Role");
+                var employersRole = (IPermissionPolicyRole)ObjectSpace.GetRole("Employers");
+                var dashboardRole = (PermissionPolicyRole)ObjectSpace.GetRole("Dashboard View Role");
 
-                var user = (SecuritySystemUser)employersRole.GetUser("User");
-                var dashboardUser = (SecuritySystemUser)dashboardRole.GetUser("DashboardUser");
+                var user = (PermissionPolicyUser) ((ISecurityRole) employersRole).GetUser("User");
+                var dashboardUser = (PermissionPolicyUser) dashboardRole.GetUser("DashboardUser");
 
                 user.Roles.Add(defaultRole);
                 dashboardUser.Roles.Add(defaultRole);
                 dashboardUser.Roles.Add(dashboardRole);
 
-                employersRole.AddNewFullPermissionAttributes();
-                return (XpandRole)employersRole;
+                ((ISecurityRole) employersRole).AddNewFullPermissionAttributes();
+                return employersRole;
             }
             return null;
         }

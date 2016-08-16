@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.BaseImpl;
-using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace FeatureCenter.Module.PivotChart.HidePivot {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {

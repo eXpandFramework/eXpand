@@ -22,6 +22,7 @@ using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelArtifact;
 using Xpand.Utils.Helpers;
 
 

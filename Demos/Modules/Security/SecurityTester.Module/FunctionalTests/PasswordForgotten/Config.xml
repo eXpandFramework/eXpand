@@ -8,7 +8,7 @@
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100" Model="PasswordForgotten"/>
     <!-- Web -->
-    <Application
+    <Application Ignored="0"
 			Name="SecurityTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"

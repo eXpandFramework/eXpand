@@ -1,10 +1,14 @@
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
-using Xpand.ExpressApp.Web;
+using DevExpress.ExpressApp.Web;
+using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Xpand.Persistent.Base.General;
 
-namespace SecurityDemo.UiLevel.Web.ApplicationCode {
-    public partial class SecurityDemoAspNetApplication : XpandWebApplication {
+namespace SecurityDemo.Web
+{
+    public partial class SecurityDemoAspNetApplication : WebApplication, IWriteSecuredLogonParameters {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
         private SecurityDemo.Module.SecurityDemoModule module3;
@@ -13,30 +17,47 @@ namespace SecurityDemo.UiLevel.Web.ApplicationCode {
         private DevExpress.ExpressApp.Objects.BusinessClassLibraryCustomizationModule module6;
         private DevExpress.ExpressApp.TreeListEditors.Web.TreeListEditorsAspNetModule module8;
         private SecurityDemo.Module.SecurityDemoAuthentication authentication1;
-        private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
+		private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityComplex1;
 
-        public SecurityDemoAspNetApplication() {
+        public SecurityDemoAspNetApplication()
+        {
             InitializeComponent();
         }
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args, null);
+
+        public event HandledEventHandler CustomWriteSecuredLogonParameters;
+        protected override void WriteSecuredLogonParameters() {
+            var handledEventArgs = new HandledEventArgs();
+            OnCustomWriteSecuredLogonParameters(handledEventArgs);
+            if (!handledEventArgs.Handled)
+                base.WriteSecuredLogonParameters();
         }
 
-        private void SecurityDemoAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
+        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
+            var handler = CustomWriteSecuredLogonParameters;
+            handler?.Invoke(this, e);
+        }
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+			args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
+		}
+
+        private void SecurityDemoAspNetApplication_DatabaseVersionMismatch(object sender, DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs e) {
             try {
                 e.Updater.Update();
                 e.Handled = true;
-            } catch (CompatibilityException exception) {
-                if (exception.Error is CompatibilityUnableToOpenDatabaseError) {
+            }
+            catch(CompatibilityException exception) {
+                if(exception.Error is CompatibilityUnableToOpenDatabaseError) {
                     throw new UserFriendlyException(
                     "The connection to the database failed. This demo requires the local instance of Microsoft SQL Server Express. To use another database server,\r\nopen the demo solution in Visual Studio and modify connection string in the \"app.config\" file.");
                 }
             }
         }
 
-        private void InitializeComponent() {
-            module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
+        private void InitializeComponent()
+        {
+            this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule();
             this.module3 = new SecurityDemo.Module.SecurityDemoModule();
             this.module4 = new SecurityDemo.Module.Web.SecurityDemoAspNetModule();
@@ -44,16 +65,15 @@ namespace SecurityDemo.UiLevel.Web.ApplicationCode {
             this.module8 = new DevExpress.ExpressApp.TreeListEditors.Web.TreeListEditorsAspNetModule();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
             this.authentication1 = new SecurityDemo.Module.SecurityDemoAuthentication();
-            this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
+			this.securityComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
 
-            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
-            // 
-            // securityComplex1
-            // 
-            this.ConnectionString = @"Integrated Security=SSPI;Pooling=false;Data Source=.\SQLEXPRESS;Initial Catalog=SecurityDemo_v12.2";
-            this.securityComplex1.Authentication = this.authentication1;
-            this.securityComplex1.UserType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemUser);
-            this.securityComplex1.RoleType = typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole);
+			((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+			// 
+			// securityComplex1
+			// 
+			this.securityComplex1.Authentication = this.authentication1;
+            this.securityComplex1.UserType = typeof(PermissionPolicyUser);
+            this.securityComplex1.RoleType = typeof(PermissionPolicyRole);
             // 
             // SecurityDemoAspNetApplication
             // 
@@ -66,8 +86,9 @@ namespace SecurityDemo.UiLevel.Web.ApplicationCode {
             this.Modules.Add(this.module8);
 
             this.Modules.Add(this.securityModule1);
-            this.Security = this.securityComplex1;
-            this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.SecurityDemoAspNetApplication_DatabaseVersionMismatch);
+			this.Security = this.securityComplex1;
+            this.CheckCompatibilityType = DevExpress.ExpressApp.CheckCompatibilityType.DatabaseSchema;
+			this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.SecurityDemoAspNetApplication_DatabaseVersionMismatch);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
 
         }

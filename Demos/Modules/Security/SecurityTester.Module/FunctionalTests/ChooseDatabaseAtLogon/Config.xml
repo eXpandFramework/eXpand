@@ -2,17 +2,17 @@
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
   <Applications>
     <!-- Win -->
-    <Application
+    <Application Ignored="0"
 			Name="SecurityTester.Win"
 			FileName="[WinAppBin]\SecurityTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100" Model="ChooseDatabaseAtLogon" Ignored="1"/>
+			CommunicationPort="4100" Model="ChooseDatabaseAtLogon" />
     <!-- Web -->
-    <Application
+    <Application Ignored="0"
 			Name="SecurityTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]" Model="ChooseDatabaseAtLogon" Ignored="0"
+      AdapterFileName="[WebAdapterFileName]" Model="ChooseDatabaseAtLogon" 
 />
     <!-- For IIS -->
     <!--Application

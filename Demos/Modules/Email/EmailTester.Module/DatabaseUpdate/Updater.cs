@@ -1,16 +1,17 @@
 using System;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using Xpand.ExpressApp.Email.BusinessObjects;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace EmailTester.Module.DatabaseUpdate {
     public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+            var defaultRole = (PermissionPolicyRole)ObjectSpace.GetDefaultRole();
             if (ObjectSpace.IsNewObject(defaultRole)) {
                 
                 var emailTemplate = ObjectSpace.CreateObject<EmailTemplate>();
@@ -36,11 +37,11 @@ namespace EmailTester.Module.DatabaseUpdate {
                 emailTemplate.Body = "Email send for the task with subject (@Model.Subject)";
             }
             var adminRole = ObjectSpace.GetAdminRole("Admin");
-            var adminUser = (XpandUser) adminRole.GetUser("Admin");
+            var adminUser = (XpandPermissionPolicyUser) adminRole.GetUser("Admin");
             adminUser.Email = "admin@mail.com";
 
             var userRole = ObjectSpace.GetRole("User");
-            var user = (SecuritySystemUser)userRole.GetUser("user");
+            var user = (PermissionPolicyUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
 
             ObjectSpace.CommitChanges();

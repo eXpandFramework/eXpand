@@ -3,8 +3,8 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.NullAble {
     [AdditionalViewControlsRule(Module.Captions.ViewMessage + " " + Captions.HeaderNullAble, "1=1", "1=1",

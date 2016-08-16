@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace SecurityTester.Win {
     static class Program {
@@ -28,7 +29,7 @@ namespace SecurityTester.Win {
             }
 #endif
             try {
-                winApplication.NewSecurityStrategyComplex();
+                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser,XpandPermissionPolicyRole>();
                 winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();

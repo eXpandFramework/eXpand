@@ -2,8 +2,9 @@ using System;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using ModelDifferenceTester.Module.FunctionalTests.ApplicationModel;
 using ModelDifferenceTester.Module.FunctionalTests.RoleModel;
 using ModelDifferenceTester.Module.FunctionalTests.UserModel;
@@ -15,22 +16,22 @@ namespace ModelDifferenceTester.Module.DatabaseUpdate {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+            var defaultRole = (PermissionPolicyRole)ObjectSpace.GetDefaultRole();
 
             var adminRole = ObjectSpace.GetAdminRole("Admin");
             adminRole.GetUser("Admin");
 
-            var userRole = ObjectSpace.GetRole("User");
-            var user = (SecuritySystemUser)userRole.GetUser("user");
+            var userRole = (PermissionPolicyRole) ObjectSpace.GetRole("User");
+            var user = (PermissionPolicyUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
-            user = (SecuritySystemUser)userRole.GetUser("user2");
+            user = (PermissionPolicyUser)userRole.GetUser("user2");
             user.Roles.Add(defaultRole);
-            userRole.EnsureTypePermissions<RoleModelObject>(SecurityOperations.FullAccess);
-            userRole.EnsureTypePermissions<UserModelObject>(SecurityOperations.FullAccess);
-            userRole.EnsureTypePermissions<ApplicationModelObject>(SecurityOperations.FullAccess);
+            userRole.AddTypePermission<RoleModelObject>(SecurityOperations.FullAccess,SecurityPermissionState.Allow);
+            userRole.AddTypePermission<UserModelObject>(SecurityOperations.FullAccess,SecurityPermissionState.Allow);
+            userRole.AddTypePermission<ApplicationModelObject>(SecurityOperations.FullAccess,SecurityPermissionState.Allow);
 
 
-            var modelRole = (SecuritySystemRole)ObjectSpace.GetDefaultModelRole("ModelRole");
+            var modelRole = (PermissionPolicyRole)ObjectSpace.GetDefaultModelRole("ModelRole");
             user.Roles.Add(modelRole);
 
             ObjectSpace.CommitChanges();

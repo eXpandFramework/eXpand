@@ -9,10 +9,6 @@ namespace SecurityTester.Module.FunctionalTests.Registration {
         public RegistrationObject(Session session) : base(session){
         }
 
-        public string UserName {
-            get {
-                return SecuritySystem.CurrentUserName;
-            }
-        }
+        public string UserName => SecuritySystem.CurrentUserName;
     }
 }

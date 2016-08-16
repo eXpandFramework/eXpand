@@ -36,6 +36,7 @@ using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Web;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace FeatureCenter.Web.ApplicationCode{
     public class FeatureCenterAspNetApplication : XpandWebApplication{
@@ -79,6 +80,7 @@ namespace FeatureCenter.Web.ApplicationCode{
 
         public FeatureCenterAspNetApplication(){
             InitializeComponent();
+            this.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {

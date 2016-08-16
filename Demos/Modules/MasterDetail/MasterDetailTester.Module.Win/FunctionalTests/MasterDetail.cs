@@ -7,6 +7,7 @@ using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.MasterDetail;
 
 namespace MasterDetailTester.Module.Win.FunctionalTests {
     public class MasterDetail : ObjectViewController<ListView, ISupportMasterDetail> {

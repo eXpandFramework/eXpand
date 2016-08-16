@@ -1,23 +1,23 @@
 using System;
 
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Updating;
 
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace SecurityTester.Module.DatabaseUpdate {
     public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion) { }
         public override void UpdateDatabaseAfterUpdateSchema() {
             base.UpdateDatabaseAfterUpdateSchema();
-            var defaultRole = (SecuritySystemRole)ObjectSpace.GetDefaultRole();
+            var defaultRole = (XpandPermissionPolicyRole)ObjectSpace.GetDefaultRole();
 
             var adminRole = ObjectSpace.GetAdminRole("Admin");
             adminRole.GetUser("Admin");
 
             var userRole = ObjectSpace.GetRole("User");
-            var user = (XpandUser)userRole.GetUser("user");
+            var user = (XpandPermissionPolicyUser)userRole.GetUser("user");
             user.Roles.Add(defaultRole);
             user.Email = "user@mail.com";
         }

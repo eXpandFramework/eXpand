@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace SystemTester.Module {
     public static class Extensions {
@@ -11,7 +12,7 @@ namespace SystemTester.Module {
                 application.ConnectionString = ConfigurationManager.ConnectionStrings["MySQL"].ConnectionString;
             else if (application.GetEasyTestParameter("SqlLite"))
                 application.ConnectionString = ConfigurationManager.ConnectionStrings["SqlLite"].ConnectionString;
-            application.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+            application.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard),typeof(AuthenticationStandardLogonParameters));
         }
     }
 }

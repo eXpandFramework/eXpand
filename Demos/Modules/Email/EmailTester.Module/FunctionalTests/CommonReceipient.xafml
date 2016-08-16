@@ -3,7 +3,7 @@
   <Email>
     <EmailReceipients>
       <EmailReceipientGroup Id="Send to Admins" IsNewNode="True">
-        <EmailReceipient Id="Admin users" EmailReceipient="Xpand.ExpressApp.Security.Core.XpandUser" EmailMember="Email" Criteria="[Roles][[IsAdministrative] = True]" IsNewNode="True" />
+        <EmailReceipient Id="Admin users" EmailReceipient="Xpand.Persistent.BaseImpl.Security.XpandPermissionPolicyUser" EmailMember="Email" Criteria="[Roles][[IsAdministrative] = True]" IsNewNode="True" />
       </EmailReceipientGroup>
     </EmailReceipients>
   </Email>

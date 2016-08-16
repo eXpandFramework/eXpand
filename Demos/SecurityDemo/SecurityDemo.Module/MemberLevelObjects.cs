@@ -89,4 +89,24 @@ namespace SecurityDemo.Module {
         }
 
     }
+
+    [Hint(Hints.MemberByCriteriaLevelSecurityObjectHint, ViewType.Any)]
+    [NavigationItem(NavigationGroups.MemberLevelSecurity)]
+    [ImageName("Demo_Security_MemberByCriteria")]
+    [ModelDefault("Caption", "Protect Member By Criteria Object")]
+    public class MemberByCriteriaSecurityObject : SecurityDemoBaseObject {
+        private string property1;
+        private MemberLevelReferencedObject1 referenceProperty;
+        public MemberByCriteriaSecurityObject(Session session)
+            : base(session) {
+        }
+        public string Property1 {
+            get { return property1; }
+            set { SetPropertyValue("Property1", ref property1, value); }
+        }
+        public MemberLevelReferencedObject1 ReferenceProperty {
+            get { return referenceProperty; }
+            set { SetPropertyValue("ReferenceProperty", ref referenceProperty, value); }
+        }
+    }
 }

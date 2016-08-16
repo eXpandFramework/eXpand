@@ -1,23 +1,16 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Templates;
-using DevExpress.XtraBars.Docking;
-using DevExpress.ExpressApp.Utils;
-using DevExpress.XtraBars;
-using System.Windows.Forms;
-using DevExpress.XtraTabbedMdi;
-using DevExpress.ExpressApp.Win.Templates.ActionContainers;
-using DevExpress.XtraBars.Ribbon;
-using DevExpress.ExpressApp.Core;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Win.SystemModule;
-using DevExpress.ExpressApp.Win.Templates;
 using System.IO;
 using System.Text;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.ExpressApp.Win.Templates;
+using DevExpress.ExpressApp.Win.Templates.ActionContainers;
+using DevExpress.XtraBars;
+using DevExpress.XtraBars.Docking;
 
 namespace FeatureCenter.Module.Win {
     public partial class MainForm : MainFormTemplateBase, IDockManagerHolder, ISupportClassicToRibbonTransform, DevExpress.ExpressApp.Demos.IHintTemplate, IInfoPanelTemplate, ICaptionPanelHolder {
@@ -42,6 +35,7 @@ namespace FeatureCenter.Module.Win {
             UpdateMdiModeDependentProperties();
             documentManager.BarAndDockingController = mainBarAndDockingController;
             documentManager.MenuManager = mainBarManager;
+            BarManager.ForceLinkCreate();
         }
         public Bar ClassicStatusBar {
             get { return _statusBar; }

@@ -18,7 +18,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
     [CloneView(CloneViewType.ListView, "Rent_ListView_KPI")]
     [CloneView(CloneViewType.ListView, "Rent_ListView_MediaPerformance")]
     [CloneView(CloneViewType.ListView, "Rent_ListView_MediaPerformance_Layout")]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.MediaPerformance_Movie_Summury)]
+    [CloneView(CloneViewType.ListView, ViewIdProvider.MediaPerformanceMovieSummury)]
     [MapInheritance(MapInheritanceType.ParentTable)]
     [PermissionBehavior(PermissionBehavior.ReadOnlyAccess)]
     public class Rent : RentEvent {
@@ -34,8 +34,8 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
 
         public Rent(Receipt receipt, MovieItem item, int days)
             : base(receipt.Session) {
-            if (receipt == null) throw new ArgumentNullException("receipt");
-            if (item == null) throw new ArgumentNullException("item");
+            if (receipt == null) throw new ArgumentNullException(nameof(receipt));
+            if (item == null) throw new ArgumentNullException(nameof(item));
             if (item.Status != MovieItemStatus.Active) throw new ArgumentException("Item is not active");
             Receipt = receipt;
             Item = item;
@@ -55,7 +55,9 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
         }
 
         public override string Subject {
-            get { if (Item != null) return Item.Movie.MovieTitle; return null; }
+            get {
+                return Item?.Movie.MovieTitle;
+            }
             set { }
         }
 
@@ -65,7 +67,9 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
         }
 
         public override string Description {
-            get { if (_item != null) return _item.Movie.Plot; return null; }
+            get {
+                return _item?.Movie.Plot;
+            }
             set { }
         }
 
@@ -85,9 +89,8 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
         }
 
         [PersistentAlias("Id")]
-        public long RentId {
-            get { return (long)EvaluateAlias("RentId"); }
-        }
+        public long RentId => (long)EvaluateAlias("RentId");
+
         [Persistent, Association("Item-Rents")]
         [RuleRequiredField]
         public MovieItem Item {
@@ -105,12 +108,14 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             set { SetPropertyValue("ReturnedOn", ref _returnedOn, value); }
         }
         [Indexed(Unique = false)]
-        public DateTime ExpectedOn { get { return ReturnedOn.HasValue ? ReturnedOn.Value : ClearedReturnedOn; } }
-        public DateTime ClearedReturnedOn { get { return RentedOn.AddDays(Days); } }
-        public DateTime ClearedReturnedOnDate { get { return ClearedReturnedOn.Date; } }
+        public DateTime ExpectedOn => ReturnedOn ?? ClearedReturnedOn;
+
+        public DateTime ClearedReturnedOn => RentedOn.AddDays(Days);
+        public DateTime ClearedReturnedOnDate => ClearedReturnedOn.Date;
+
         public int Overdue {
             get {
-                DateTime date = ReturnedOn.HasValue ? ReturnedOn.Value : DateTime.Now;
+                DateTime date = ReturnedOn ?? DateTime.Now;
                 return (int)(((double)date.Ticks - RentedOn.Ticks) / TimeSpan.TicksPerDay - Days);
             }
         }
@@ -122,17 +127,16 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
                 return ActiveRentType.Active;
             }
         }
-        public bool IsOverdue { get { return Overdue > 0; } }
-        public bool Active { get { return ReturnedOn == null && Item.Status == MovieItemStatus.Rented; } }
+        public bool IsOverdue => Overdue > 0;
+        public bool Active => ReturnedOn == null && Item.Status == MovieItemStatus.Rented;
 
         [Indexed(Unique = false), PersistentAlias("Receipt.Date")]
-        public DateTime RentedOn {
-            get { return (DateTime)EvaluateAlias("RentedOn"); }
-        }
+        public DateTime RentedOn => (DateTime)EvaluateAlias("RentedOn");
+
         protected override void OnSaving() {
             base.OnSaving();
             StartOn = RentedOn;
-            EndOn = ReturnedOn == null ? DateTime.MinValue : ReturnedOn.Value;
+            EndOn = ReturnedOn ?? DateTime.MinValue;
         }
         public decimal Payment {
             get { return _payment; }
@@ -143,11 +147,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             set { SetPropertyValue<decimal>("OverduePayment", ref _overduePayment, value); }
         }
 
-        public MovieItemFormat ItemFormat {
-            get {
-                return Item == null ? MovieItemFormat.DVD : Item.Format;
-            }
-        }
+        public MovieItemFormat ItemFormat => Item?.Format ?? MovieItemFormat.DVD;
 
         [Persistent, Association("Receipt-Rents")]
         public Receipt Receipt {

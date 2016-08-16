@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.Persistent.BaseImpl.Security;
 
 namespace TreeListEditorsTester.Win {
     static class Program {
@@ -30,7 +31,7 @@ namespace TreeListEditorsTester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
-                winApplication.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
+                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

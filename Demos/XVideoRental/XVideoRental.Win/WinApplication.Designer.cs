@@ -82,7 +82,7 @@ namespace XVideoRental.Win {
             // 
             // viewVariantsModule1
             // 
-            this.viewVariantsModule1.GenerateVariantsNode = true;
+
             this.viewVariantsModule1.ShowAdditionalNavigation = false;
             // 
             // pivotChartModuleBase1

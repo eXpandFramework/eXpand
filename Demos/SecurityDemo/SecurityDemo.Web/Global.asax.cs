@@ -5,6 +5,7 @@ using System.Web;
 
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.BaseImpl;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.TestScripts;
@@ -16,6 +17,9 @@ using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.ExpressApp.Security.Strategy;
+using DevExpress.Internal;
+using DevExpress.ExpressApp.Security.Adapters;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 
 namespace SecurityDemo.Web {
 	public class Global : System.Web.HttpApplication {
@@ -25,33 +29,32 @@ namespace SecurityDemo.Web {
 		}
 		protected void Application_Start(Object sender, EventArgs e) {
             ASPxWebControl.CallbackError += new EventHandler(Application_Error);
-#if EASYTEST
+        }
+        protected void Session_Start(Object sender, EventArgs e) {
+#if EasyTest
             DevExpress.ExpressApp.Web.TestScripts.TestScriptsManager.EasyTestEnabled = true;
 #endif
-
-		}
-		protected void Session_Start(Object sender, EventArgs e) {
-			WebApplication.SetInstance(Session, new SecurityDemoAspNetApplication());
+            WebApplication.SetInstance(Session, new SecurityDemoAspNetApplication());
             WebApplication.Instance.CreateCustomLogonWindowObjectSpace += new EventHandler<CreateCustomLogonWindowObjectSpaceEventArgs>(Instance_CreateCustomLogonWindowObjectSpace);
             WebApplication.Instance.CreateCustomLogonWindowControllers += new EventHandler<CreateCustomLogonWindowControllersEventArgs>(Instance_CreateCustomLogonWindowControllers);
 
-#if EASYTEST
-			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
-				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
-			}
-#else
 
             if(ConfigurationManager.AppSettings["SiteMode"] != null && ConfigurationManager.AppSettings["SiteMode"].ToLower() == "true") {
-                InMemoryDataStoreProvider.Register();
                 WebApplication.Instance.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
             }
             else {
-                if(ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
+#if EasyTest
+                if (ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
+                    WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
+                }
+#else
+                if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                     WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
                 }
-            }
 #endif
-            SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(DevExpress.ExpressApp.Security.Strategy.SecuritySystemRole), new SecurityDemoAuthentication());
+
+            }
+            SecurityStrategyComplex security = new SecurityStrategyComplex(typeof(PermissionPolicyUser), typeof(PermissionPolicyRole), new SecurityDemoAuthentication());
             WebApplication.Instance.Security = security;
             WebApplication.Instance.DatabaseVersionMismatch += delegate(object sender2, DatabaseVersionMismatchEventArgs e2) {
                 try {
@@ -65,11 +68,14 @@ namespace SecurityDemo.Web {
                     }
                 }
             };
+            WebApplication.Instance.CreateCustomObjectSpaceProvider += delegate(object sender3, CreateCustomObjectSpaceProviderEventArgs e3) {
+                e3.ObjectSpaceProvider = new SecuredObjectSpaceProvider(security, e3.ConnectionString, e3.Connection);
+            };
 
-//            WebApplication.Instance.CreateCustomObjectSpaceProvider += delegate(object sender3, CreateCustomObjectSpaceProviderEventArgs e3) {
-//                e3.ObjectSpaceProvider = new SecuredObjectSpaceProvider(security, e3.ConnectionString, e3.Connection);
-//            };
-            
+            if(System.Diagnostics.Debugger.IsAttached && WebApplication.Instance.CheckCompatibilityType == CheckCompatibilityType.DatabaseSchema) {
+                WebApplication.Instance.DatabaseUpdateMode = DatabaseUpdateMode.UpdateDatabaseAlways;
+            }
+
             WebApplication.Instance.Setup();
 			WebApplication.Instance.Start();
 
@@ -85,11 +91,6 @@ namespace SecurityDemo.Web {
         }
 
 		protected void Application_BeginRequest(Object sender, EventArgs e) {
-			string filePath = HttpContext.Current.Request.PhysicalPath;
-			if(!string.IsNullOrEmpty(filePath)
-				&& (filePath.IndexOf("Images") >= 0) && !System.IO.File.Exists(filePath)) {
-				HttpContext.Current.Response.End();
-			}
 		}
 		protected void Application_EndRequest(Object sender, EventArgs e) {
 		}
@@ -98,11 +99,12 @@ namespace SecurityDemo.Web {
 		protected void Application_Error(Object sender, EventArgs e) {
 			ErrorHandling.Instance.ProcessApplicationError();
 		}
-		protected void Session_End(Object sender, EventArgs e) {
-			WebApplication.DisposeInstance(Session);
-		}
-		protected void Application_End(Object sender, EventArgs e) {
-		}
+        protected void Session_End(Object sender, EventArgs e) {
+            WebApplication.DisposeInstance(Session);
+        }
+        protected void Application_End(Object sender, EventArgs e) {
+        }
+
 		#region Web Form Designer generated code
 		/// <summary>
 		/// Required method for Designer support - do not modify

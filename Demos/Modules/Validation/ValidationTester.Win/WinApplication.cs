@@ -1,8 +1,6 @@
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
-using Xpand.ExpressApp.Security.Core;
 
 namespace ValidationTester.Win {
     public partial class ValidationTesterWindowsFormsApplication : WinApplication {
@@ -10,7 +8,6 @@ namespace ValidationTester.Win {
             InitializeComponent();
             LastLogonParametersReading += OnLastLogonParametersReading;
             DelayedViewItemsInitialization = true;
-            this.NewSecurityStrategyComplex<AuthenticationStandard, AuthenticationStandardLogonParameters>();
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e){
