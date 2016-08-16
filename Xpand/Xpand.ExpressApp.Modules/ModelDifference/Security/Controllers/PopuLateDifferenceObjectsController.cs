@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.Security.Controllers {
     public class PopulateDifferenceObjectsController : PopulateController<IModelCombinePermission> {

@@ -85,9 +85,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         [DataSourceProperty("Types")]
         [ImmediatePostData]
         [VisibleInDetailView(false)]
-        public IList<ITypeWrapper> DashboardTypes {
-            get { return GetBindingList(); }
-        }
+        public IList<ITypeWrapper> DashboardTypes => GetBindingList();
 
         BindingList<ITypeWrapper> GetBindingList() {
             return _dashboardTypes ?? (_dashboardTypes = new BindingList<ITypeWrapper>());
@@ -107,7 +105,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         void UpdateTargetObjectTypes() {
             _targetObjectTypes = "<Types>\r\n";
             foreach (var resource in DashboardTypes.Distinct())
-                _targetObjectTypes += string.Format("<Value Type=\"{0}\"/>\r\n", resource.Type.FullName);
+                _targetObjectTypes += $"<Value Type=\"{resource.Type.FullName}\"/>\r\n";
             _targetObjectTypes += "</Types>";
         }
 

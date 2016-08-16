@@ -8,6 +8,7 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.AuditTrail.Model;
 using Xpand.ExpressApp.Logic;
 using System.Linq;
+using Xpand.Persistent.Base.AuditTrail;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
@@ -101,7 +102,7 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
             
             var auditTrailSettings = auditTrailService.Settings;
 
-            var memberNames = GetMembers((AuditTrailRule) auditTrailRule);
+            var memberNames = GetMembers((AuditTrailRule) auditTrailRule).ToArray();
             if (memberNames.Any()) {
                 auditTrailSettings.Clear();
                 var names = memberNames.Select(info => info.Name).ToArray();

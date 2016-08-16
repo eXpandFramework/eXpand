@@ -7,31 +7,34 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Fasterflect;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {
     public abstract class LogicRulePermission : OperationPermissionBase, IContextLogicRule {
-        protected LogicRulePermission(string operation, LogicRuleOperationPermissionData contextLogicRule)
+        protected LogicRulePermission(string operation, IContextLogicRule contextLogicRule)
             : base(operation) {
             ObjectChangedExecutionContextGroup = contextLogicRule.ObjectChangedExecutionContextGroup;
             ExecutionContextGroup = contextLogicRule.ExecutionContextGroup;
             FrameTemplateContextGroup = contextLogicRule.FrameTemplateContextGroup;
             ViewContextGroup = contextLogicRule.ViewContextGroup;
             ActionExecutionContextGroup=contextLogicRule.ActionExecutionContextGroup;
-            View = CaptionHelper.ApplicationModel.Views[contextLogicRule.View];
+            var viewId = (string)contextLogicRule.GetPropertyValue(nameof(ILogicRuleOperationPermissionData.ViewId),Flags.TrimExplicitlyImplemented|Flags.AllMembers);
+            View = CaptionHelper.ApplicationModel.Views[viewId];
             Description = contextLogicRule.Description;
-            ID = contextLogicRule.ID;
+            ID = (string) contextLogicRule.GetPropertyValue(nameof(ILogicRuleOperationPermissionData.ID));
             Index = contextLogicRule.Index;
             IsRootView = contextLogicRule.IsRootView;
             Nesting = contextLogicRule.Nesting;
-            if (!string.IsNullOrEmpty(contextLogicRule.View))
-                ((ILogicRule)this).View = CaptionHelper.ApplicationModel.Views[contextLogicRule.View];
+            if (!string.IsNullOrEmpty(viewId))
+                ((ILogicRule)this).View = CaptionHelper.ApplicationModel.Views[viewId];
             ViewEditMode = contextLogicRule.ViewEditMode;
             ViewType = contextLogicRule.ViewType;
-            if (contextLogicRule.ObjectTypeData!=null)
-                ObjectType = contextLogicRule.ObjectTypeData;
+            var objectTypeData = (Type)contextLogicRule.GetPropertyValue(nameof(ILogicRuleOperationPermissionData.ObjectTypeData));
+            if (objectTypeData!=null)
+                ObjectType = objectTypeData;
             NormalCriteria=contextLogicRule.NormalCriteria;
             EmptyCriteria=contextLogicRule.EmptyCriteria;
         }

@@ -29,9 +29,7 @@ namespace Xpand.ExpressApp.Logic {
             }
         }
 
-        public ReadOnlyCollection<ILogicInstaller> LogicInstallers {
-            get { return _logicInstallers.AsReadOnly(); }
-        }
+        public ReadOnlyCollection<ILogicInstaller> LogicInstallers => _logicInstallers.AsReadOnly();
 
         public ILogicInstaller this[IModelLogicRule logicRule] {
             get {
@@ -71,8 +69,7 @@ namespace Xpand.ExpressApp.Logic {
         public ILogicInstaller this[Type ruleType] {
             get {
                 if (!_logicInstallerTypes.ContainsKey(ruleType)) {
-                    _logicInstallerTypes[ruleType] = _logicInstallers.First(installer =>
-                        ruleType == installer.GetModelLogic().RuleType);
+                    _logicInstallerTypes[ruleType] = _logicInstallers.First(installer =>installer.GetModelLogic().RuleType.IsAssignableFrom(ruleType));
                 }
                 return _logicInstallerTypes[ruleType];
             }

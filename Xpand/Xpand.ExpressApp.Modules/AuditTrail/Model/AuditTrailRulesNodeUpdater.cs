@@ -1,5 +1,5 @@
-﻿using Xpand.ExpressApp.AuditTrail.Logic;
-using Xpand.ExpressApp.Logic.NodeUpdaters;
+﻿using Xpand.ExpressApp.Logic.NodeUpdaters;
+using Xpand.Persistent.Base.AuditTrail;
 
 namespace Xpand.ExpressApp.AuditTrail.Model {
     public class AuditTrailRulesNodeUpdater : LogicRulesNodeUpdater<IAuditTrailRule, IModelAuditTrailRule> {

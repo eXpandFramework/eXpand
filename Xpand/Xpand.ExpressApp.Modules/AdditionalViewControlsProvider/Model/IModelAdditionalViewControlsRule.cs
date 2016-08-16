@@ -6,7 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Model {

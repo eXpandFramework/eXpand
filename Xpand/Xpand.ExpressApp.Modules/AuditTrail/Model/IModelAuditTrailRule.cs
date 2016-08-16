@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.AuditTrail.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using System.Linq;
+using Xpand.Persistent.Base.AuditTrail;
 
 namespace Xpand.ExpressApp.AuditTrail.Model {
     [ModelInterfaceImplementor(typeof(IContextAuditTrailRule), "Attribute")]

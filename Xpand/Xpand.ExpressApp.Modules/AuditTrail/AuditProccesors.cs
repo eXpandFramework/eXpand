@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.AuditTrail {
 
     public class XpandObjectAuditProcessorsFactory : ObjectAuditProcessorsFactory {
         public override bool IsSuitableAuditProcessor(ObjectAuditProcessor processor, ObjectAuditingMode mode) {
-            var isNoAuditMode = mode == (ObjectAuditingMode)Logic.ObjectAuditingMode.None;
+            var isNoAuditMode = mode == (ObjectAuditingMode)Persistent.Base.AuditTrail.ObjectAuditingMode.None;
             if (isNoAuditMode) {
                 return processor is NoAuditProccesor;
             }
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.AuditTrail {
                 var auditTrailMemberInfos = auditTrailClassInfo.Properties;
                 auditTrailSettings.AddType(auditTrailClassInfo.ClassInfo.ClassType, auditTrailMemberInfos.Select(info => info.Name).ToArray());
             }
-            return mode == (ObjectAuditingMode)Logic.ObjectAuditingMode.None ? new NoAuditProccesor(session, auditTrailSettings) : base.CreateAuditProcessor(mode, session, auditTrailSettings);
+            return mode == (ObjectAuditingMode)Persistent.Base.AuditTrail.ObjectAuditingMode.None ? new NoAuditProccesor(session, auditTrailSettings) : base.CreateAuditProcessor(mode, session, auditTrailSettings);
         }
     }
 

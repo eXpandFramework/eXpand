@@ -4,6 +4,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.MasterDetail;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {

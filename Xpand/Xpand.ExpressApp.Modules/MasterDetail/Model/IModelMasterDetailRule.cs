@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.Persistent.Base.Logic.Model;
+using Xpand.Persistent.Base.MasterDetail;
 
 namespace Xpand.ExpressApp.MasterDetail.Model {
     [ModelInterfaceImplementor(typeof(IContextMasterDetailRule), "Attribute")]

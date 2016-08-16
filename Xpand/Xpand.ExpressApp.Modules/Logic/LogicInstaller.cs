@@ -45,9 +45,7 @@ namespace Xpand.ExpressApp.Logic {
 
         public abstract List<ExecutionContext> ExecutionContexts { get; }
 
-        public virtual List<ExecutionContext> ValidExecutionContexts{
-            get { return ExecutionContexts;}
-        }
+        public virtual List<ExecutionContext> ValidExecutionContexts => ExecutionContexts;
 
         public abstract LogicRulesNodeUpdater<TLogicRule, TModelLogicRule> LogicRulesNodeUpdater { get; }
 

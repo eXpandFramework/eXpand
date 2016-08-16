@@ -102,6 +102,42 @@
         <ColumnInfo Id="UserName" AllowEdit="False" />
       </Columns>
     </ListView>
+    <DetailView Id="XpandPermissionPolicyRole_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="7.4235807860262009">
+            <LayoutGroup Id="PermissionPolicyRoleBase" Index="0" RelativeSize="100">
+              <LayoutItem Id="Name" RelativeSize="47.058823529411768" />
+              <LayoutGroup Id="Auto88d1eb3e-834f-46ae-80f6-a7bf68cb9ec8" ShowCaption="False" Caption="Auto88d1eb3e-834f-46ae-80f6-a7bf68cb9ec8(5)" Direction="Horizontal" Index="1" RelativeSize="52.941176470588232" IsNewNode="True">
+                <LayoutItem Id="PermissionPolicy" ViewItem="PermissionPolicy" Index="0" RelativeSize="31.688511950655357" IsNewNode="True" />
+                <LayoutItem Id="IsAdministrative" ViewItem="IsAdministrative" Index="1" RelativeSize="18.041634541249035" IsNewNode="True" />
+                <LayoutItem Id="CanEditModel" ViewItem="CanEditModel" Index="2" RelativeSize="50.269853508095608" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="PermissionPolicy" Index="2" RelativeSize="30.612244897959183" Removed="True" />
+              <LayoutItem Id="CanEditModel" Removed="True" />
+              <LayoutItem Id="IsAdministrative" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="92.5764192139738" Index="1">
+            <LayoutGroup Id="Permissions" RelativeSize="100">
+              <LayoutItem Id="Permissions" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Users" RelativeSize="100">
+              <LayoutItem Id="Users" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypePermissions" RelativeSize="100">
+              <LayoutItem Id="TypePermissions" RelativeSize="100" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="3" Caption="Extras" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="HiddenNavigationItems" ViewItem="HiddenNavigationItems" Index="0" RelativeSize="100" CaptionLocation="Top" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="45.851528384279476" Caption="Hidden Navigation Items" Direction="Horizontal" Removed="True">
+            <LayoutItem Id="HiddenNavigationItems" RelativeSize="100" Removed="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="XpandRole_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">

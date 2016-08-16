@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Email.Logic;
 using Xpand.ExpressApp.Email.Model;
+using Xpand.Persistent.Base.Email;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Utils.Helpers;
 

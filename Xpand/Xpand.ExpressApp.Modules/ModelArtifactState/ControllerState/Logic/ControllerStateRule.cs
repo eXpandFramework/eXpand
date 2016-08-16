@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model.Core;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
     public class ControllerStateRule : ArtifactStateRule,IControllerStateRule{
@@ -14,6 +15,6 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
         public Type ControllerType { get; set; }
 
         [Category("Behavior")]
-        public ControllerState ControllerState { get; set; }
+        public Persistent.Base.ModelArtifact.ControllerState ControllerState { get; set; }
     }
 }

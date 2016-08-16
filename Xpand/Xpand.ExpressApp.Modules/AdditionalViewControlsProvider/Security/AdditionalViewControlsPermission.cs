@@ -3,8 +3,8 @@ using System.Drawing;
 using System.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic.Security;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security {
     [NonPersistent]

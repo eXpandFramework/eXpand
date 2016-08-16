@@ -5,7 +5,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
@@ -31,9 +31,8 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
         [PropertyEditor(typeof(IChooseFromListCollectionEditor))]
         [DataSourceProperty("AllDates")]
         [DisplayFormat("{0:dd/MM}")]
-        public List<DateTime> DatesExcluded {
-            get { return _datesExcluded; }
-        }
+        public List<DateTime> DatesExcluded => _datesExcluded;
+
         [Persistent("DatesIncluded")]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(SerializableObjectConverter))]
@@ -42,18 +41,11 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
         [PropertyEditor(typeof(IChooseFromListCollectionEditor))]
         [DataSourceProperty("AllDates")]
         [DisplayFormat("{0:dd/MM}")]
-        public List<DateTime> DatesIncluded {
-            get { return _datesIncluded; }
-        }
-        [Browsable(false)]
-        public List<DateTime> AllDates {
-            get {
-                return DateTimeUtils.GetDates().ToList();
-            }
-        }
-        string ITriggerCalendar.CalendarTypeFullName {
-            get { return "Quartz.Impl.Calendar.AnnualCalendar"; }
-        }
+        public List<DateTime> DatesIncluded => _datesIncluded;
 
+        [Browsable(false)]
+        public List<DateTime> AllDates => DateTimeUtils.GetDates().ToList();
+
+        string ITriggerCalendar.CalendarTypeFullName => "Quartz.Impl.Calendar.AnnualCalendar";
     }
 }

@@ -1,5 +1,5 @@
-﻿using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
-using Xpand.ExpressApp.Logic.NodeUpdaters;
+﻿using Xpand.ExpressApp.Logic.NodeUpdaters;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Model {
     public class AdditionalViewControlsRulesNodeUpdater :LogicRulesNodeUpdater<IAdditionalViewControlsRule, IModelAdditionalViewControlsRule> {

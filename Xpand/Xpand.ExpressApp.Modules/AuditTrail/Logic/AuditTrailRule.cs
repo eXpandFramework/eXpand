@@ -1,5 +1,7 @@
 using DevExpress.Persistent.AuditTrail;
+using Xpand.Persistent.Base.AuditTrail;
 using Xpand.Persistent.Base.Logic;
+using ObjectAuditingMode = Xpand.Persistent.Base.AuditTrail.ObjectAuditingMode;
 
 namespace Xpand.ExpressApp.AuditTrail.Logic {
     public class AuditTrailRule:LogicRule,IAuditTrailRule {
@@ -26,9 +28,4 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
         public AuditTrailStrategy AuditTrailStrategy { get; set; }
     }
 
-    public enum AuditMemberStrategy {
-        None,
-        OwnMembers,
-        AllMembers
-    }
 }

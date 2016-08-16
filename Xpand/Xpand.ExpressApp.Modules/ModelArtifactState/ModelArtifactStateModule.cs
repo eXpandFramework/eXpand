@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
@@ -12,12 +13,13 @@ using Xpand.ExpressApp.ModelArtifactState.ObjectViews;
 using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.ModelArtifactState {
     [ToolboxBitmap(typeof(ModelArtifactStateModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public class ModelArtifactStateModule : XpandModuleBase, IModelXmlConverter {
+    public class ModelArtifactStateModule : XpandModuleBase, IModelXmlConverter,ISecurityModuleUser {
         public ModelArtifactStateModule() {
             RequiredModuleTypes.Add(typeof(Validation.XpandValidationModule));
             LogicInstallerManager.RegisterInstallers(new ILogicInstaller[]{
@@ -25,6 +27,11 @@ namespace Xpand.ExpressApp.ModelArtifactState {
                 new ControllerStateLogicInstaller(this),
                 new ObjectViewsLogicInstaller(this)
             });
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager){
+            base.Setup(moduleManager);
+            this.AddSecurityObjectsToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ModelArtifact");
         }
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {

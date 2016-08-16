@@ -10,9 +10,7 @@ namespace Xpand.ExpressApp.Security.Permissions{
 
         public string HiddenNavigationItem { get; set; }
 
-        public string Operation{
-            get { return "NavigateToItem"; }
-        }
+        public string Operation => "NavigateToItem";
     }
 
     [Serializable]
@@ -24,7 +22,7 @@ namespace Xpand.ExpressApp.Security.Permissions{
         public string NavigationItem { get; set; }
 
         public object GetHashObject(){
-            return String.Format("{0} - {1}", GetType().FullName, NavigationItem);
+            return $"{GetType().FullName} - {NavigationItem}";
         }
     }
 

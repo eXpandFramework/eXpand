@@ -1,5 +1,5 @@
 ﻿using Xpand.ExpressApp.Logic.NodeUpdaters;
-using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model {
     public class ObjectViewRulesNodeUpdater :LogicRulesNodeUpdater<IObjectViewRule, IModelObjectViewRule> {

@@ -2,9 +2,9 @@
 using System.Windows.Forms;
 using DevExpress.Utils.Frames;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using System;
 using DevExpress.ExpressApp.Utils;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public sealed class WarningPanel : NotePanel8_1, ISupportLayoutManager, ISupportAppeareance, IAdditionalViewControl {

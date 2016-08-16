@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.AuditTrail</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.AuditTrail</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -81,6 +83,16 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>6</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>6</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v16.1">
@@ -154,7 +166,6 @@
     <Compile Include="Logic\AuditTrailRuleViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Logic\IContextAuditTrailRule.cs" />
     <Compile Include="Model\AuditTrailRulesNodeUpdater.cs" />
     <Compile Include="Model\IModelApplicationAudiTrail.cs" />
     <Compile Include="Model\IModelAuditTrailRule.cs" />
@@ -163,13 +174,12 @@
     <Compile Include="Security\AuditTrailOperationPermissionData.cs" />
     <Compile Include="Logic\AuditTrailRule.cs" />
     <Compile Include="Logic\AuditTrailRuleAttribute.cs" />
-    <Compile Include="Logic\IAuditTrailRule.cs" />
     <Compile Include="Security\AuditTrailRulePermission.cs" />
     <Compile Include="Security\PopulateAuditTrailMembersContextContextsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="XpandAuditDataStore.cs" />
-    <Compile Include="XpandAuditTrailModule.cs">
+    <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />

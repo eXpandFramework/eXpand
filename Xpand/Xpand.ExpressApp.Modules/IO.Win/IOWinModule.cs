@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp.FileAttachments.Win;
@@ -18,10 +17,5 @@ namespace Xpand.ExpressApp.IO.Win {
             RequiredModuleTypes.Add(typeof(XpandTreeListEditorsWinModule));
             RequiredModuleTypes.Add(typeof(FileAttachmentsWindowsFormsModule));
         }
-        #region Overrides of XpandModuleBase
-        protected override Type[] ApplicationTypes() {
-            return new[]{typeof(IConfirmationRequired)};
-        }
-        #endregion
     }
 }

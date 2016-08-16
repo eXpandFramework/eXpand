@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -6,6 +7,12 @@ using DevExpress.Persistent.Validation;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.Logic.Model {
+    public interface ILogicRuleOperationPermissionData {
+        Type ObjectTypeData { get; set; }
+        string ID { get; set; }
+        string ViewId { get; set; }
+    }
+
     [RuleCriteria("IContextLogicRule", DefaultContexts.Save, "(Not IsNullOrEmpty(ExecutionContextGroup)) OR (Not IsNullOrEmpty(ActionExecutionContextGroup))", SkipNullOrEmptyValues = false, CustomMessageTemplate = "At least one of ExecutionContextGroup, ActionExecutionContextGroup should not be null")]
     [ModelAbstractClass]
     public interface IContextLogicRule : ILogicRule {

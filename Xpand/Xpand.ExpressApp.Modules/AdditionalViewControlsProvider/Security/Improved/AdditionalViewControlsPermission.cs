@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic.Security.Improved;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
     public class AdditionalViewControlsPermission : LogicRulePermission, IContextAdditionalViewControlsRule {

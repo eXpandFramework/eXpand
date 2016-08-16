@@ -2,8 +2,8 @@
 using DevExpress.ExpressApp;
 using System.Linq;
 using Quartz;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Utils.Helpers;
 using Xpand.Persistent.Base.General;

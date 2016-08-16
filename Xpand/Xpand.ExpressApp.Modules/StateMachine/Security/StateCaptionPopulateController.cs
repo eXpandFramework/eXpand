@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.StateMachine;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.StateMachine;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.StateMachine.Security{

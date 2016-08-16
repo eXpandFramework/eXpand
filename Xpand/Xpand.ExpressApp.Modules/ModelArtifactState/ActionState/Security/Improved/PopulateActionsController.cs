@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
     public class PopulateActionsController : PopulateController<IContextActionStateRule> {

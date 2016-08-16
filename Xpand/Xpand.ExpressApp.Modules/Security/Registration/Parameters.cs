@@ -58,12 +58,9 @@ namespace Xpand.ExpressApp.Security.Registration {
             userTypeInfo.FindMember("UserName").SetValue(securityUserWithRoles,UserName);
             userTypeInfo.FindMember("IsActive").SetValue(securityUserWithRoles,modelRegistration.ActivateUser);
 
-            if (modelRegistration.EmailMember != null)
-                modelRegistration.EmailMember.MemberInfo.SetValue(securityUserWithRoles,Email);
+            modelRegistration.EmailMember?.MemberInfo.SetValue(securityUserWithRoles,Email);
             var activationLinkMember = modelRegistration.ActivationIdMember;
-            if (activationLinkMember!=null) {
-                activationLinkMember.MemberInfo.SetValue(securityUserWithRoles, Guid.NewGuid().ToString());
-            }
+            activationLinkMember?.MemberInfo.SetValue(securityUserWithRoles, Guid.NewGuid().ToString());
 
             securityUserWithRoles.CallMethod("SetPassword",new []{typeof(string)}, Password);
             objectSpace.CommitChanges();

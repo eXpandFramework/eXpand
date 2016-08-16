@@ -4,7 +4,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
@@ -30,28 +30,19 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
         private List<int> _daysExcluded = new List<int>();
         [PropertyEditor(typeof(IChooseFromListCollectionEditor))]
         [DataSourceProperty("AllDays")]
-        public List<int> DaysExcluded {
-            get { return _daysExcluded; }
-        }
+        public List<int> DaysExcluded => _daysExcluded;
+
         [Persistent("DaysIncluded")]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(SerializableObjectConverter))]
         private List<int> _daysIncluded = new List<int>();
         [PropertyEditor(typeof(IChooseFromListCollectionEditor))]
         [DataSourceProperty("AllDays")]
-        public List<int> DaysIncluded {
-            get { return _daysIncluded; }
-        }
+        public List<int> DaysIncluded => _daysIncluded;
+
         [Browsable(false)]
-        public List<int> AllDays {
-            get {
-                return Enumerable.Range(1, 31).ToList();
-            }
-        }
+        public List<int> AllDays => Enumerable.Range(1, 31).ToList();
 
-        string ITriggerCalendar.CalendarTypeFullName {
-            get { return "Quartz.Impl.Calendar.MonthlyCalendar"; }
-        }
-
+        string ITriggerCalendar.CalendarTypeFullName => "Quartz.Impl.Calendar.MonthlyCalendar";
     }
 }

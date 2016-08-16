@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.StateMachine;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.StateMachine;
 
 namespace Xpand.ExpressApp.StateMachine.Security {
     public class StateMachinePopulateController : PopulateController<IStateMachineTransitionPermission> {

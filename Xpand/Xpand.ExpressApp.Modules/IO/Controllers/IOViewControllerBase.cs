@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
@@ -77,17 +76,18 @@ namespace Xpand.ExpressApp.IO.Controllers {
         protected abstract void Save(XDocument document);
 
         protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            var objectSpace = (XPObjectSpace)Application.CreateObjectSpace<IXmlFileChooser>();
-            object o = objectSpace.Create<IXmlFileChooser>();
+            var objectSpace = Application.CreateObjectSpace<IFileChooser>();
+            object o = objectSpace.Create<IFileChooser>();
             var detailView = Application.CreateDetailView(objectSpace, o);
             detailView.ViewEditMode=ViewEditMode.Edit;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = detailView;
-            var dialogController = new DialogController { SaveOnAccept = false };
+            var dialogController = new DialogController { SaveOnAccept = true };
             dialogController.AcceptAction.Execute += (sender1, args) => {
                 var memoryStream = new MemoryStream();
-                var xmlFileChooser = ((IXmlFileChooser)args.CurrentObject);
-                xmlFileChooser.FileData.SaveToStream(memoryStream);
-                new ImportEngine(xmlFileChooser.ErrorHandling).ImportObjects(memoryStream, CreateObjectSpace);
+                var fileChooser = ((IFileChooser)args.CurrentObject);
+                fileChooser.FileData.SaveToStream(memoryStream);
+                memoryStream.Position = 0;
+                new ImportEngine(fileChooser.ErrorHandling).ImportObjects(memoryStream, CreateObjectSpace);
             };
             singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);

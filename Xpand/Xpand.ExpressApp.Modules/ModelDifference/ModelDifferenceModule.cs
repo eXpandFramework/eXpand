@@ -14,6 +14,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.Validation;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Security;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
@@ -24,7 +25,7 @@ namespace Xpand.ExpressApp.ModelDifference {
     }
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser{
+    public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser,ISecurityModuleUser{
         public const string ModelDifferenceCategory = "eXpand.ModelDifference";
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
@@ -49,6 +50,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
+            this.AddSecurityObjectsToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.ModelDifference");
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(XmlContentCodeRule), typeof(IRuleBaseProperties));
         }
 
@@ -56,16 +58,20 @@ namespace Xpand.ExpressApp.ModelDifference {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSettingUp;
+                application.SetupComplete+=ApplicationOnSetupComplete;
             }
             AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
         }
 
-        void ApplicationOnSettingUp(object sender, EventArgs eventArgs) {
-            BuildSecuritySystemObjects();
+        private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
             var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
             if (securityStrategy != null) {
                 (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
             }
+        }
+
+        void ApplicationOnSettingUp(object sender, EventArgs eventArgs) {
+            BuildSecuritySystemObjects();
         }
 
         void BuildSecuritySystemObjects() {

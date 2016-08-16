@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.Email;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Email.Logic {

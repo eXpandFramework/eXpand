@@ -1,14 +1,10 @@
 ﻿using System.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.ModelDifference;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Security {
-    public interface IModelCombinePermission {
-        ApplicationModelCombineModifier Modifier { get; set; }
-        string Difference { get; set; }
-    }
-
     [NonPersistent]
     public class ModelCombinePermission : PermissionBase, IModelCombinePermission {
         public ModelCombinePermission() {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.Security.Improved {
     public class ModelCombineOperationPermission : OperationPermissionBase, IModelCombinePermission {

@@ -3,8 +3,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using DevExpress.Utils.Frames;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.Persistent.Base;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public class ApplicationCaption : ApplicationCaption8_1, IAdditionalViewControl {

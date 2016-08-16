@@ -1,31 +1,24 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Fasterflect;
+using PropertyChanged;
+
 
 namespace Xpand.Persistent.Base {
-    [Persistent]
+    [DomainComponent]
     [DefaultProperty("FileName")]
-    public class XpandFileData : XpandBaseCustomObject, IFileData, IEmptyCheckable {
-#if MediumTrust
-		private int _size;
-		private string fileName = "";
-		public int Size {
-			get { return _size; }
-			set { _size = value; }
-		}
-#else
-        [Persistent]
-        private int _size;
-        private string _fileName = "";
-        public int Size {
-            get { return _size; }
-        }
-#endif
-        public XpandFileData(Session session) : base(session) { }
+    [ImplementPropertyChanged]
+    public class XpandFileData :  IFileData, IEmptyCheckable {
+        private byte[] _content;
+        public int Size { get; set; }
+
+        
         public void LoadFromStream(string fileName, Stream stream) {
             Guard.ArgumentNotNull(stream, "stream");
             Guard.ArgumentNotNullOrEmpty(fileName, "fileName");
@@ -49,30 +42,24 @@ namespace Xpand.Persistent.Base {
             return FileName;
         }
         [Size(260)]
-        public string FileName {
-            get { return _fileName; }
-            set {
-                SetPropertyValue("FileName", ref _fileName, value);
-            }
-        }
+        public string FileName{
+            get; set; }
         [Persistent, Delayed,
          ValueConverter(typeof(CompressionConverter)),
          MemberDesignTimeVisibility(false)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         public byte[] Content {
-            get { return GetDelayedPropertyValue<byte[]>("Content"); }
+            get { return _content; }
             set {
-                int oldSize = _size;
-                _size = value != null ? value.Length : 0;
-                SetDelayedPropertyValue("Content", value);
-                OnChanged("Size", oldSize, _size);
+                Size = value?.Length ?? 0;
+                _content = value;
+                this.CallMethod("OnPropertyChanged", "Size");
             }
         }
         #region IEmptyCheckable Members
         [NonPersistent, MemberDesignTimeVisibility(false)]
-        public bool IsEmpty {
-            get { return string.IsNullOrEmpty(FileName); }
-        }
+        public bool IsEmpty => string.IsNullOrEmpty(FileName);
+
         #endregion
     }
 }

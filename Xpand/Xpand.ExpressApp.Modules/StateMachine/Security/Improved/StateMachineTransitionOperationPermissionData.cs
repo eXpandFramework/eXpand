@@ -3,11 +3,10 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.StateMachine;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
-    public enum StateMachineTransitionModifier{
-        Deny
-    }
+    
     [System.ComponentModel.DisplayName("StateMachineTransition")]
     public class StateMachineTransitionOperationPermissionData : XpandPermissionData, IStateMachineTransitionPermission {
         bool _hide;
@@ -21,9 +20,7 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
             : base(session) {
         }
 
-        public StateMachineTransitionModifier Modifier {
-            get { return StateMachineTransitionModifier.Deny; }
-        }
+        public StateMachineTransitionModifier Modifier => StateMachineTransitionModifier.Deny;
 
         [ImmediatePostData]
         public string StateMachineName {

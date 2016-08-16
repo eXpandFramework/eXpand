@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
     public class ControllerStateRuleController : ViewController {
@@ -13,13 +14,13 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
         protected void ChangeState(LogicRuleInfo info) {
             var rule = ((IControllerStateRule)info.Rule);
             Controller controller = Frame.GetController(rule.ControllerType);
-            if (rule.ControllerState == ControllerState.Register) {
+            if (rule.ControllerState == Persistent.Base.ModelArtifact.ControllerState.Register) {
                 if (!controller.Active) {
                     Frame.RegisterController(controller);
                 }
             }
             else{
-                controller.Active[ActiveObjectTypeHasControllerRules] = info.InvertCustomization || ((IControllerStateRule)info.Rule).ControllerState == ControllerState.Enabled;
+                controller.Active[ActiveObjectTypeHasControllerRules] = info.InvertCustomization || ((IControllerStateRule)info.Rule).ControllerState == Persistent.Base.ModelArtifact.ControllerState.Enabled;
             }
         }
 

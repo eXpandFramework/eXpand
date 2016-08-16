@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.AuditTrail.Logic;
 using Xpand.ExpressApp.AuditTrail.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.NodeUpdaters;
+using Xpand.Persistent.Base.AuditTrail;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
@@ -13,13 +13,9 @@ namespace Xpand.ExpressApp.AuditTrail {
             : base(xpandModuleBase) {
         }
 
-        public override List<ExecutionContext> ExecutionContexts {
-            get { return new List<ExecutionContext>(); }
-        }
+        public override List<ExecutionContext> ExecutionContexts => new List<ExecutionContext>();
 
-        public override LogicRulesNodeUpdater<IAuditTrailRule, IModelAuditTrailRule> LogicRulesNodeUpdater {
-            get { return new AuditTrailRulesNodeUpdater(); }
-        }
+        public override LogicRulesNodeUpdater<IAuditTrailRule, IModelAuditTrailRule> LogicRulesNodeUpdater => new AuditTrailRulesNodeUpdater();
 
         protected override IModelLogicWrapper GetModelLogicCore(IModelApplication applicationModel) {
             var auditTrail = ((IModelApplicationAudiTrail)applicationModel).AudiTrail;

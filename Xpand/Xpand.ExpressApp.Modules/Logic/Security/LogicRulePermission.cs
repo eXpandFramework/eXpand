@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Logic.DomainLogic;
-using Xpand.ExpressApp.Logic.TypeConverters;
+using Xpand.Persistent.Base.General.TypeConverters;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;

@@ -1,4 +1,5 @@
 ﻿using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ArtifactState.Logic {
     public abstract class ArtifactStateRule : LogicRule, IArtifactStateRule {

@@ -1,20 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
-using Xpand.ExpressApp.Email.Logic;
+using Fasterflect;
 using Xpand.ExpressApp.Logic.Security.Improved;
+using Xpand.Persistent.Base.Email;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.ExpressApp.Email.Security {
     public class EmailRulePermission : LogicRulePermission, IContextEmailRule{
         public const string OperationName = "Email";
 
-        public EmailRulePermission(EmailOperationPermissionData contextLogicRule) : base(OperationName, contextLogicRule) {
+        public EmailRulePermission(IContextEmailRule contextLogicRule) : base(OperationName, contextLogicRule) {
             EmailReceipientsContext = contextLogicRule.EmailReceipientsContext;
             TemplateContext = contextLogicRule.TemplateContext;
             SmtpClientContext = contextLogicRule.SmtpClientContext;
-            if (contextLogicRule.ObjectTypeData != null)
-                CurrentObjectEmailMember =CaptionHelper.ApplicationModel.BOModel.GetClass(contextLogicRule.ObjectTypeData)
-                                                       .FindMember(contextLogicRule.CurrentObjectEmailMember);
+            var objectTypeData = (Type)contextLogicRule.GetPropertyValue(nameof(ILogicRuleOperationPermissionData.ObjectTypeData));
+            if (objectTypeData != null){
+                var propertyValue = (string) contextLogicRule.GetPropertyValue(nameof(IEmailOperationPermissionData.CurrentObjectEmailMember));
+                if (!string.IsNullOrWhiteSpace(propertyValue))
+                    CurrentObjectEmailMember =CaptionHelper.ApplicationModel.BOModel.GetClass(objectTypeData).FindMember(propertyValue);
+            }
         }
 
         public string SelectedObjectEmailMember { get; set; }

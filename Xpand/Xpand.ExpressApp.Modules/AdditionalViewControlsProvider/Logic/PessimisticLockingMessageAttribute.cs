@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.Xpo.Metadata;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Xpo.MetaData;
 

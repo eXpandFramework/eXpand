@@ -5,7 +5,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
@@ -30,28 +30,19 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
         private List<DayOfWeek> _daysExcluded;
         [PropertyEditor(typeof(IChooseFromListCollectionEditor))]
         [DataSourceProperty("AllDaysOfWeek")]
-        public List<DayOfWeek> DaysOfWeekExcluded {
-            get { return _daysExcluded; }
-        }
+        public List<DayOfWeek> DaysOfWeekExcluded => _daysExcluded;
+
         [Persistent("DaysOfWeekIncluded")]
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(SerializableObjectConverter))]
         private List<DayOfWeek> _daysIncluded;
         [PropertyEditor(typeof(IChooseFromListCollectionEditor))]
         [DataSourceProperty("AllDaysOfWeek")]
-        public List<DayOfWeek> DaysOfWeekIncluded {
-            get { return _daysIncluded; }
-        }
+        public List<DayOfWeek> DaysOfWeekIncluded => _daysIncluded;
+
         [Browsable(false)]
-        public List<DayOfWeek> AllDaysOfWeek {
-            get {
-                return Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList();
-            }
-        }
+        public List<DayOfWeek> AllDaysOfWeek => Enum.GetValues(typeof(DayOfWeek)).OfType<DayOfWeek>().ToList();
 
-        string ITriggerCalendar.CalendarTypeFullName {
-            get { return "Quartz.Impl.Calendar.WeeklyCalendar"; }
-        }
-
+        string ITriggerCalendar.CalendarTypeFullName => "Quartz.Impl.Calendar.WeeklyCalendar";
     }
 }

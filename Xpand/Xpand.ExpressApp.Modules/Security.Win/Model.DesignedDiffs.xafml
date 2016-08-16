@@ -6,37 +6,100 @@
     <SchemaModule Name="SystemModule" Version="9.1.2.5458" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <DetailView Id="PermissionPolicyRole_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors1" ShowCaption="False" RelativeSize="6.7685589519650655" Caption="SimpleEditors1">
+            <LayoutItem Id="Name" RelativeSize="51.612903225806448" ViewItem="Name" />
+            <LayoutGroup Id="Auto3bf1e22f-860e-4fd7-80d0-ab98059d82ae" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="48.387096774193552" IsNewNode="True">
+              <LayoutItem Id="PermissionPolicy" ViewItem="PermissionPolicy" Index="0" RelativeSize="24.980724749421743" IsNewNode="True" />
+              <LayoutItem Id="CanEditModel" ViewItem="CanEditModel" Index="1" RelativeSize="24.980724749421743" IsNewNode="True" />
+              <LayoutItem Id="IsAdministrative" ViewItem="IsAdministrative" Index="2" RelativeSize="50.038550501156514" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutItem Id="PermissionPolicy" Index="2" RelativeSize="35.294117647058826" ViewItem="PermissionPolicy" Removed="True" />
+            <LayoutItem Id="CanEditModel" ViewItem="CanEditModel" Removed="True" />
+            <LayoutItem Id="IsAdministrative" ViewItem="IsAdministrative" Removed="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs1" RelativeSize="93.231441048034938">
+            <LayoutGroup Id="Users" ShowCaption="True" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="Users" TextAlignMode="AutoSize" Index="0" RelativeSize="100" ViewItem="Users" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypePermissions" ShowCaption="True" TextAlignMode="AlignWithChildren" RelativeSize="100">
+              <LayoutItem Id="TypePermissions" TextAlignMode="AutoSize" Index="0" RelativeSize="100" ViewItem="TypePermissions" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Horizontal" Index="2" Caption="Extras" IsNewNode="True" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="XpandPermissionPolicyRole_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="7.5327510917030569">
+            <LayoutGroup Id="PermissionPolicyRoleBase" RelativeSize="98.550724637681157">
+              <LayoutGroup Id="Auto88d1eb3e-834f-46ae-80f6-a7bf68cb9ec8">
+                <LayoutItem Id="PermissionPolicy" RelativeSize="24.826522744795682" ViewItem="PermissionPolicy" />
+                <LayoutItem Id="IsAdministrative" RelativeSize="24.826522744795682" ViewItem="IsAdministrative" />
+                <LayoutItem Id="CanEditModel" RelativeSize="50.346954510408636" ViewItem="CanEditModel" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="XpandPermissionPolicyRole" Caption="Modify Layout" Direction="Horizontal" Index="1" RelativeSize="1.4492753623188406">
+              <LayoutItem Id="ModifyLayout" ViewItem="ModifyLayout" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="92.467248908296938">
+            <LayoutGroup Id="Permissions" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="Permissions" TextAlignMode="AutoSize" ViewItem="Permissions" />
+            </LayoutGroup>
+            <LayoutGroup Id="Users" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="Users" TextAlignMode="AutoSize" ViewItem="Users" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypePermissions" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TypePermissions" TextAlignMode="AutoSize" ViewItem="TypePermissions" />
+            </LayoutGroup>
+            <LayoutGroup Id="Item1">
+              <LayoutItem Id="ModifyLayout" ViewItem="ModifyLayout" Index="0" RelativeSize="3.855721393034826" TextAlignMode="CustomSize" IsNewNode="True" />
+              <LayoutGroup Id="Auto78f9f2d6-403b-4666-9509-4f0f32e11a80" ShowCaption="False" Caption="" Direction="Horizontal" Index="1" RelativeSize="96.144278606965173" IsNewNode="True">
+                <LayoutItem Id="Item2" Index="0" RelativeSize="0.78678206136900075" IsNewNode="True" />
+                <LayoutItem Id="HiddenNavigationItems" TextAlignMode="AutoSize" ViewItem="HiddenNavigationItems" CaptionLocation="Top" Index="1" RelativeSize="99.213217938631" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutItem Id="HiddenNavigationItems" TextAlignMode="AutoSize" Index="1" RelativeSize="96.144278606965173" ViewItem="HiddenNavigationItems" Removed="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <DetailView Id="XpandRole_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
           <LayoutGroup Id="SimpleEditors" RelativeSize="9.13978494623656">
             <LayoutGroup Id="SecuritySystemRoleBase" RelativeSize="100">
-              <LayoutItem Id="Name" RelativeSize="47.058823529411768" />
+              <LayoutItem Id="Name" RelativeSize="47.058823529411768" ViewItem="Name" />
               <LayoutGroup Id="Autoa4a6d10d-db72-4464-8c5c-7d28161d12e7" Caption="Autoa4a6d10d-db72-4464-8c5c-7d28161d12e7(5)" RelativeSize="52.941176470588232" />
             </LayoutGroup>
             <LayoutGroup Id="XpandRole" Caption="Modify Layout" Direction="Horizontal" Index="1" RelativeSize="89.324960753532181" Removed="True">
-              <LayoutItem Id="ModifyLayout" Removed="True" />
+              <LayoutItem Id="ModifyLayout" ViewItem="ModifyLayout" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
           <TabbedGroup Id="Tabs" RelativeSize="90.86021505376344">
             <LayoutGroup Id="Permissions" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="Permissions" TextAlignMode="AutoSize" />
+              <LayoutItem Id="Permissions" TextAlignMode="AutoSize" ViewItem="Permissions" />
             </LayoutGroup>
             <LayoutGroup Id="Users" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="Users" TextAlignMode="AutoSize" />
+              <LayoutItem Id="Users" TextAlignMode="AutoSize" ViewItem="Users" />
             </LayoutGroup>
             <LayoutGroup Id="ChildRoles" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="ChildRoles" TextAlignMode="AutoSize" />
+              <LayoutItem Id="ChildRoles" TextAlignMode="AutoSize" ViewItem="ChildRoles" />
             </LayoutGroup>
             <LayoutGroup Id="ParentRoles" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="ParentRoles" TextAlignMode="AutoSize" />
+              <LayoutItem Id="ParentRoles" TextAlignMode="AutoSize" ViewItem="ParentRoles" />
             </LayoutGroup>
             <LayoutGroup Id="TypePermissions" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="TypePermissions" TextAlignMode="AutoSize" />
+              <LayoutItem Id="TypePermissions" TextAlignMode="AutoSize" ViewItem="TypePermissions" />
             </LayoutGroup>
             <LayoutGroup Id="Item1">
               <LayoutItem Id="ModifyLayout" ViewItem="ModifyLayout" Index="0" RelativeSize="5.0552922590837284" IsNewNode="True" />
-              <LayoutItem Id="HiddenNavigationItems" TextAlignMode="AutoSize" Index="1" RelativeSize="94.944707740916272" CaptionLocation="Top" />
+              <LayoutItem Id="HiddenNavigationItems" TextAlignMode="AutoSize" Index="1" RelativeSize="94.944707740916272" CaptionLocation="Top" ViewItem="HiddenNavigationItems" />
             </LayoutGroup>
           </TabbedGroup>
         </LayoutGroup>

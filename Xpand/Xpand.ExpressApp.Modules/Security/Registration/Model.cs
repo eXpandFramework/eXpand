@@ -4,11 +4,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using System.Linq;
-using Xpand.ExpressApp.Security.Core;
+using DevExpress.ExpressApp.Security;
 using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Registration {
@@ -47,15 +46,15 @@ namespace Xpand.ExpressApp.Security.Registration {
     [DomainLogic(typeof(IModelRegistration))]
     public static class ModelRegistrationDomainLogic {
         public static IModelMember Get_EmailMember(IModelRegistration modelRegistration) {
-            return modelRegistration.UserModelClass!=null ? modelRegistration.UserModelClass.FindMember("Email") : null;
+            return modelRegistration.UserModelClass?.FindMember("Email");
         }
 
         public static IModelClass Get_UserModelClass(IModelRegistration modelRegistration) {
-            return modelRegistration.ModelClasses(typeof(XpandUser)).First();
+            return modelRegistration.ModelClasses(typeof(ISecurityUser)).First();
         }
 
         public static IModelClass Get_RoleModelClass(IModelRegistration modelRegistration) {
-            return modelRegistration.ModelClasses(typeof(XpandRole)).First();
+            return modelRegistration.ModelClasses(typeof(ISecurityRole)).First();
         }
 
         public static IModelList<IModelClass> Get_RoleClasses(IModelRegistration modelRegistration){
@@ -67,16 +66,18 @@ namespace Xpand.ExpressApp.Security.Registration {
         }
 
         public static IModelList<IModelClass> UserModelClasses(this IModelNode modelRegistration){
-            return modelRegistration.ModelClasses(typeof (SecuritySystemUserBase));
+            return modelRegistration.ModelClasses(typeof (ISecurityUser));
         }
 
         public static IModelList<IModelClass> RoleModelClasses(this IModelNode modelRegistration){
-            return modelRegistration.ModelClasses(typeof (SecuritySystemRoleBase));
+            return modelRegistration.ModelClasses(typeof (ISecurityRole));
         }
 
         public static IModelList<IModelClass> ModelClasses(this IModelNode modelRegistration, Type assignableFromType){
-            var modelClasses = modelRegistration.Application.BOModel.Where(@class
-                => assignableFromType.IsAssignableFrom(@class.TypeInfo.Type) && !@class.TypeInfo.IsAbstract);
+            var modelClasses = modelRegistration.Application.BOModel.Where(modelClass
+                =>assignableFromType.IsAssignableFrom(modelClass.TypeInfo.Type) && !modelClass.TypeInfo.IsAbstract &&
+                new[]{typeof(ISecurityRelated), typeof(ISecurityPermisssionPolicyRelated)}.Any(
+                    type => type.IsAssignableFrom(modelClass.TypeInfo.Type)));
             return new CalculatedModelNodeList<IModelClass>(modelClasses);
         }
     }

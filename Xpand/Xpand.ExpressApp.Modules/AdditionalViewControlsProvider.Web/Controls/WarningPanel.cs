@@ -1,5 +1,5 @@
 ﻿using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls {
     public class WarningPanel : HintPanelBase, ISupportLayoutManager, IAdditionalViewControl {

@@ -17,9 +17,7 @@ namespace Xpand.ExpressApp.Web.ListEditors {
         ASPxGridView _gridView;
         bool _inGetFocusedObject;
 
-        public SelectionType SelectionType {
-            get { return SelectionType.Full; }
-        }
+        public SelectionType SelectionType => SelectionType.Full;
 
         public object GetFocusedObject(CollectionSourceBase collectionSource) {
             if (_inGetFocusedObject || _gridView == null)
@@ -41,14 +39,14 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             gridView.Load += (s, e) => onFocusedObjectChanged();
 
             gridView.ClientSideEvents.Init = "function (s,e) { s.firstRowChangedAfterInit = true;}";
-            gridView.ClientSideEvents.FocusedRowChanged = string.Format(
-                @"function(s,e) {{ 
-                    {0}
+            gridView.ClientSideEvents.FocusedRowChanged =
+                $@"function(s,e) {{ 
+                    {XpandLayoutManager.GetXpandHelperScript()}
                     var parentSplitter = XpandHelper.GetParentControl(s);
                     var up = XpandHelper.GetFirstChildControl(parentSplitter.GetPane(1).GetElement().childNodes[0]);
                     if ((s.firstRowChangedAfterInit!==true || !XpandHelper.IsRootSplitter(parentSplitter)) && up && up.GetMainElement()) {{ 
                         up.PerformCallback(s.GetFocusedRowIndex());}} 
-                    s.firstRowChangedAfterInit = false; }}", XpandLayoutManager.GetXpandHelperScript());
+                    s.firstRowChangedAfterInit = false; }}";
 
             gridView.Settings.VerticalScrollBarMode = ScrollBarMode.Visible;
         }
@@ -80,12 +78,12 @@ namespace Xpand.ExpressApp.Web.ListEditors {
 
         protected virtual void OnCustomCreateWebDataSource(CustomCreateWebDataSourceEventArgs e){
             var handler = CustomCreateWebDataSource;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected virtual void OnColumnCreated(ColumnCreatedEventArgs e) {
             EventHandler<ColumnCreatedEventArgs> handler = ColumnCreated;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public override object FocusedObject {
@@ -121,15 +119,9 @@ namespace Xpand.ExpressApp.Web.ListEditors {
             return _masterDetailProvider.GetSelectedObjects(FocusedObject);
         }
 
-        public bool MasterDetail {
-            get { return Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView; }
-        }
+        public bool MasterDetail => Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView;
 
-        public override SelectionType SelectionType {
-            get {
-                return MasterDetail ? _masterDetailProvider.SelectionType : base.SelectionType;
-            }
-        }
+        public override SelectionType SelectionType => MasterDetail ? _masterDetailProvider.SelectionType : base.SelectionType;
 
         public override void Setup(CollectionSourceBase collectionSource, XafApplication application) {
             base.Setup(collectionSource, application);
@@ -172,11 +164,9 @@ namespace Xpand.ExpressApp.Web.ListEditors {
 
         public void NotifyViewControlsCreated(XpandListView listView) {
             if (listView == null)
-                throw new ArgumentNullException("listView");
+                throw new ArgumentNullException(nameof(listView));
 
-            if (ViewControlsCreated != null)
-                ViewControlsCreated(this, new ViewControlCreatedEventArgs(listView.IsRoot));
-
+            ViewControlsCreated?.Invoke(this, new ViewControlCreatedEventArgs(listView.IsRoot));
         }
 
     }
@@ -192,15 +182,11 @@ namespace Xpand.ExpressApp.Web.ListEditors {
 
 
     public class ColumnCreatedEventArgs : EventArgs {
-        private readonly GridViewDataColumn _gridViewDataColumnWithInfo;
-
         public ColumnCreatedEventArgs(GridViewDataColumn gridViewDataColumnWithInfo) {
-            _gridViewDataColumnWithInfo = gridViewDataColumnWithInfo;
+            GridViewDataColumnWithInfo = gridViewDataColumnWithInfo;
         }
 
-        public GridViewDataColumn GridViewDataColumnWithInfo {
-            get { return _gridViewDataColumnWithInfo; }
-        }
+        public GridViewDataColumn GridViewDataColumnWithInfo { get; }
     }
 
     

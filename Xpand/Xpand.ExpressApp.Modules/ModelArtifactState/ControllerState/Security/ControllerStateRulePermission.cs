@@ -3,7 +3,7 @@ using System.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Security;
-using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
+using Xpand.Persistent.Base.ModelArtifact;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Security {
@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Security {
         #region IControllerStateRule Members
         public Type ControllerType { get; set; }
 
-        public Logic.ControllerState ControllerState { get; set; }
+        public Persistent.Base.ModelArtifact.ControllerState ControllerState { get; set; }
 
         #endregion
         public override IPermission Copy() {

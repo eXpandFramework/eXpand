@@ -8,11 +8,12 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.Strategy;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
+using Fasterflect;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
@@ -24,6 +25,7 @@ namespace Xpand.ExpressApp.Security {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandSecurityModule : XpandModuleBase {
+        public const string BaseImplNameSpace = "Xpand.Persistent.BaseImpl.Security";
         public const string XpandSecurity = "eXpand.Security";
         public XpandSecurityModule() {
             RequiredModuleTypes.Add(typeof(SecurityModule));
@@ -39,6 +41,8 @@ namespace Xpand.ExpressApp.Security {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             if (RuntimeMode) {
+                if (Application.Security != null && typeof(IPermissionPolicyUser).IsAssignableFrom(Application.Security.UserType))
+                    AddToAdditionalExportedTypes(BaseImplNameSpace);
                 Application.SetupComplete += ApplicationOnSetupComplete;
                 Application.LogonFailed += (o, eventArgs) => {
                     var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
@@ -48,6 +52,9 @@ namespace Xpand.ExpressApp.Security {
                     }
                 };
             }
+            else {
+                AddToAdditionalExportedTypes(BaseImplNameSpace);
+            }
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
@@ -55,12 +62,23 @@ namespace Xpand.ExpressApp.Security {
             if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
         }
 
+
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e) {
+            var permissionDictionary = e.Permissions.WithCustomPermissions();
+            var permissionRequestProcessor = e.Processors.Select(pair => pair.Value).OfType<ISecurityProcessor>().FirstOrDefault();
+            if (permissionRequestProcessor != null){
+                
+                var fieldName = "permissionDictionary";
+                if (permissionRequestProcessor is ServerPermissionRequestProcessor)
+                    fieldName = "permissions";
+                var processorDictionary = ((IPermissionDictionary)permissionRequestProcessor.GetFieldValue(fieldName));
+                permissionRequestProcessor.SetFieldValue(fieldName,processorDictionary.WithSecurityOperationAttributePermissions());
+            }
             var keyValuePairs = new[]{
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(e.Permissions)),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), new AnonymousLoginRequestProcessor(e.Permissions)),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), new IsAdministratorPermissionRequestProcessor(e.Permissions)),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(NavigationItemPermissionRequest), new NavigationItemPermissionRequestProcessor(e.Permissions))
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(permissionDictionary)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), new AnonymousLoginRequestProcessor(permissionDictionary)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), new IsAdministratorPermissionRequestProcessor(permissionDictionary)),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(NavigationItemPermissionRequest), new NavigationItemPermissionRequestProcessor(e.Permissions.WithHiddenNavigationItemPermissions()))
             };
             foreach (var keyValuePair in keyValuePairs) {
                 e.Processors.Add(keyValuePair);
@@ -70,39 +88,29 @@ namespace Xpand.ExpressApp.Security {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             CurrentUserNameOperator.Instance.Register();
-            if (Application != null && (Application.Security?.UserType == null)){
-                var typeInfos = typesInfo.PersistentTypes.Where(info => typeof(SecuritySystemRole).IsAssignableFrom(info.Type)).SelectMany(info 
-                    => info.Descendants.Where(typeInfo => !typeInfo.IsAbstract)).ToArray();
-                foreach (var attribute in SecurityOperationsAttributes(typesInfo)) {
-                    CreateMember(typeInfos, attribute, typesInfo);
-                }
-            }
-            AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(ModifierPermission), typeof(ModifierPermissionData) });
-        }
-
-        void AddNewObjectCreateGroup(ITypesInfo typesInfo, IEnumerable<Type> types) {
-            foreach (var type in types) {
-                var typeDescendants = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo(type));
-                foreach (var typeInfo in typeDescendants) {
-                    typeInfo.AddAttribute(new NewObjectCreateGroupAttribute("SimpleModifer"));
-                }
+            ApplySecurityOperations(typesInfo);
+            var types = typesInfo.DomainSealedInfos<IModifier>();
+            foreach (var typeInfo in types) {
+                typeInfo.AddAttribute(new NewObjectCreateGroupAttribute("SimpleModifer"));
             }
         }
 
-        void CreateMember(IEnumerable<ITypeInfo> typeInfos, SecurityOperationsAttribute attribute, ITypesInfo typesInfo) {
-            foreach (var typeInfo in typeInfos){
-                if (!RuntimeMode)
-                    CreateWeaklyTypedCollection(typesInfo, typeInfo.Type,attribute.CollectionName);
-                if (typeInfo.FindMember(attribute.OperationProviderProperty) == null) {
-                    typeInfo.CreateMember(attribute.OperationProviderProperty, typeof(SecurityOperationsEnum));
+        private void ApplySecurityOperations(ITypesInfo typesInfo){
+            var securityOperationInfos =typesInfo.PersistentTypes.Where(info => info.FindAttribute<SecurityOperationsAttribute>() != null);
+            var roleInfos = typesInfo.DomainSealedInfos<ISecurityRole>().ToArray();
+            foreach (var securityOperationInfo in securityOperationInfos){
+                var securityOperationsAttributes = securityOperationInfo.FindAttributes<SecurityOperationsAttribute>();
+                foreach (var securityOperationsAttribute in securityOperationsAttributes){
+                    foreach (var roleInfo in roleInfos.Where(info => !RuntimeMode || info.Type == RoleType)){
+                        if (roleInfo.FindMember(securityOperationsAttribute.OperationProviderProperty) == null)
+                            roleInfo.CreateMember(securityOperationsAttribute.OperationProviderProperty,typeof(SecurityOperationsEnum));
+                        if (!RuntimeMode)
+                            CreateWeaklyTypedCollection(typesInfo, roleInfo.Type,securityOperationsAttribute.CollectionName);
+                    }
                 }
             }
         }
 
-        IEnumerable<SecurityOperationsAttribute> SecurityOperationsAttributes(ITypesInfo typesInfo) {
-            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<SecurityOperationsAttribute>() != null);
-            return typeInfos.SelectMany(info => info.FindAttributes<SecurityOperationsAttribute>());
-        }
     }
 
 }

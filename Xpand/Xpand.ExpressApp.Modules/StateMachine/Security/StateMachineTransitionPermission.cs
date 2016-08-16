@@ -3,6 +3,7 @@ using System.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.StateMachine;
 
 namespace Xpand.ExpressApp.StateMachine.Security {
 
@@ -13,7 +14,7 @@ namespace Xpand.ExpressApp.StateMachine.Security {
 
         protected void OnPropertyChanged(PropertyChangedEventArgs e) {
             PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public override IPermission Copy() {

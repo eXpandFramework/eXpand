@@ -10,6 +10,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.Logic;
 using Fasterflect;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public abstract class AdditionalViewControlsRuleViewController:ViewController {
@@ -28,10 +29,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
             _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= OnLogicRuleExecute;
         }
 
-        protected bool HasRules {
-            get { return LogicRuleManager.HasRules<AdditionalViewControlsLogicInstaller>(View.ObjectTypeInfo); }
-        }
-        
+        protected bool HasRules => LogicRuleManager.HasRules<AdditionalViewControlsLogicInstaller>(View.ObjectTypeInfo);
+
         void OnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
             var info = logicRuleExecuteEventArgs.LogicRuleInfo;
             var additionalViewControlsRule = info.Rule as IAdditionalViewControlsRule;
@@ -51,14 +50,14 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
                         var control = GetControl(controlType, additionalViewControl, additionalViewControlsRule);
                         if (control != null) {
                             control.Rule = additionalViewControlsRule;
-                            calculator.ControlsRule.DecoratorType.CreateInstance(new[] { info.View, (object)control, additionalViewControlsRule });
+                            calculator.ControlsRule.DecoratorType.CreateInstance(info.View, (object)control, additionalViewControlsRule);
                             if (additionalViewControl == null) {
                                 InitializeControl(control, additionalViewControlsRule, calculator, logicRuleExecuteEventArgs.ExecutionContext);
                                 AddControl(control, controls, info);
                             }
                         }
                     } else if (additionalViewControl != null) {
-                        controls.CallMethod("Remove",new[]{GetControlType()}, new object[]{additionalViewControl});
+                        controls.CallMethod("Remove",new[]{GetControlType()}, additionalViewControl);
                     }
                 }
             }
@@ -67,10 +66,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
 
         protected abstract Type GetControlType();
 
-        protected Dictionary<string, object> RuleToLayoutMap {
-            get { return _infoToLayoutMapCore ?? (_infoToLayoutMapCore = new Dictionary<string, object>()); }
-        }
-        
+        protected Dictionary<string, object> RuleToLayoutMap => _infoToLayoutMapCore ?? (_infoToLayoutMapCore = new Dictionary<string, object>());
+
         protected void ResetInfoToLayoutMap() {
             RuleToLayoutMap.Clear();
         }
@@ -104,7 +101,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         protected object GetContainerControl(IViewSiteTemplate viewSiteTemplate, IAdditionalViewControlsRule rule) {
             if (rule.Position == Position.DetailViewItem && View is DetailView) {
                 var modelAdditionalViewControlsItem = ((DetailView)View).Items.OfType<AdditionalViewControlsItem>().FirstOrDefault(item => item.Model.Rule.Id == rule.Id);
-                return modelAdditionalViewControlsItem != null ? modelAdditionalViewControlsItem.Control : null;
+                return modelAdditionalViewControlsItem?.Control;
             }
             return viewSiteTemplate.ViewSiteControl;
         }
@@ -123,7 +120,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
         }
         
         protected virtual void AddControl(object control, object controls, LogicRuleInfo info) {
-            controls.CallMethod("Add",new[]{GetControlType()}, new[]{control});
+            controls.CallMethod("Add",new[]{GetControlType()}, control);
         }
         
         protected virtual void InitializeControl(object control, IAdditionalViewControlsRule additionalViewControlsRule, AdditionalViewControlsProviderCalculator calculator, ExecutionContext context) {

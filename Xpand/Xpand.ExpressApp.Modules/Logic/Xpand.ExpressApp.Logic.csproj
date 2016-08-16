@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.Logic</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Logic</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -163,9 +165,6 @@
     <Compile Include="LogicModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LogicRuleAttribute.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="LogicRuleEvaluator.cs" />
     <Compile Include="LogicRuleExecuteEventArgs.cs">
       <SubType>Code</SubType>
@@ -201,12 +200,6 @@
     </Compile>
     <Compile Include="Security\PopulateControllers.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="TypeConverters\StringToModelMemberConverter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TypeConverters\StringToModelViewConverter.cs">
-      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>

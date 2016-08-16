@@ -5,11 +5,11 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Logic.Security.Improved;
-using Xpand.ExpressApp.MasterDetail.Logic;
+using Xpand.Persistent.Base.MasterDetail;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
     [System.ComponentModel.DisplayName("MasterDetail")]
-    public class MasterDetailOperationPermissionData : LogicRuleOperationPermissionData, IContextMasterDetailRule {
+    public class MasterDetailOperationPermissionData : LogicRuleOperationPermissionData, IContextMasterDetailRule, IMasterDetailOperationPermissionData{
         public MasterDetailOperationPermissionData(Session session)
             : base(session) {
         }

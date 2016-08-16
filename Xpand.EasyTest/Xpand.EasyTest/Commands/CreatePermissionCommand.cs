@@ -24,11 +24,11 @@ namespace Xpand.EasyTest.Commands {
 
             var fillFormCommand = new FillFormCommand();
             fillFormCommand.Parameters.Add(new Parameter("Target Type", targetType, true, StartPosition));
-            fillFormCommand.Parameters.Add(new Parameter("Read", this.ParameterValue("Read", true.ToString()), true, StartPosition));
-            fillFormCommand.Parameters.Add(new Parameter("Write", this.ParameterValue("Write", true.ToString()), true, StartPosition));
-            fillFormCommand.Parameters.Add(new Parameter("Delete", this.ParameterValue("Delete", true.ToString()), true, StartPosition));
-            fillFormCommand.Parameters.Add(new Parameter("Create", this.ParameterValue("Create", true.ToString()), true, StartPosition));
-            fillFormCommand.Parameters.Add(new Parameter("Navigate", this.ParameterValue("Navigate", true.ToString()), true, StartPosition));
+            fillFormCommand.Parameters.Add(new Parameter("Read", this.ParameterValue("Read", "Allow"), true, StartPosition));
+            fillFormCommand.Parameters.Add(new Parameter("Write", this.ParameterValue("Write", "Allow"), true, StartPosition));
+            fillFormCommand.Parameters.Add(new Parameter("Delete", this.ParameterValue("Delete", "Allow"), true, StartPosition));
+            fillFormCommand.Parameters.Add(new Parameter("Create", this.ParameterValue("Create", "Allow"), true, StartPosition));
+            fillFormCommand.Parameters.Add(new Parameter("Navigate", this.ParameterValue("Navigate", "Allow"), true, StartPosition));
             fillFormCommand.Execute(adapter);
 
             var saveAndCloseCommand = new SaveAndCloseCommand();

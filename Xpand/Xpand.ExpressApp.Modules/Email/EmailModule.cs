@@ -12,10 +12,11 @@ using Xpand.ExpressApp.Email.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Validation;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Email {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules), ToolboxBitmap(typeof (EmailModule)), ToolboxItem(true)]
-    public sealed class EmailModule : XpandModuleBase{
+    public sealed class EmailModule : XpandModuleBase,ISecurityModuleUser{
         private IRazorEngineService _razorEngineService;
         public event EventHandler<RazorEngineArgs> CustomCreateRazorEngine;
         public EmailModule() {
@@ -23,9 +24,7 @@ namespace Xpand.ExpressApp.Email {
             LogicInstallerManager.RegisterInstaller(new EmailLogicInstaller(this));
         }
 
-        public IRazorEngineService RazorEngineService{
-            get { return _razorEngineService ?? (_razorEngineService = CreateRazorEngine()); }
-        }
+        public IRazorEngineService RazorEngineService => _razorEngineService ?? (_razorEngineService = CreateRazorEngine());
 
         void application_CreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e) {
             if (((IModelApplicationEmail) Application.Model).Email.CreateControllersOnLogon) {
@@ -41,6 +40,7 @@ namespace Xpand.ExpressApp.Email {
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
+            this.AddSecurityObjectsToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.Email");
             if (Application != null){
                 Application.CreateCustomLogonWindowControllers +=application_CreateCustomLogonWindowControllers;
                 Application.UserDifferencesLoaded+=ApplicationOnUserDifferencesLoaded;
@@ -66,7 +66,7 @@ namespace Xpand.ExpressApp.Email {
 
         private void OnCustomCreateRazorEngine(RazorEngineArgs e){
             var handler = CustomCreateRazorEngine;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 

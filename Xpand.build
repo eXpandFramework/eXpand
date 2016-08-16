@@ -104,9 +104,14 @@
     </CreateItem>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)"  />
   </Target>
-  
-  <Target Name="Build" DependsOnTargets="CopyCodeRushAssemblies;Copy3rdPartyAssemblies;FixReferencesB4Build">
-    <MSBuild Projects="Support\VersionChanger\VersionChanger.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="True" />
+  <Target Name="NuGetRestore" Condition="$(RestoreNuget)==true">
+	<Exec Command="$(NuGetTool) restore %(CoreProjects.Identity)" />
+	<Exec Command="$(NuGetTool) restore %(EasyTestProjects.Identity)" />
+	<Exec Command="$(NuGetTool) restore %(HelperProjects.Identity)" />
+	<Exec Command="$(NuGetTool) restore %(VSAddons.Identity)" />
+	<Exec Command="$(NuGetTool) restore %(ModuleProjects.Identity)" />
+  </Target>  
+  <Target Name="Build" DependsOnTargets="CopyCodeRushAssemblies;Copy3rdPartyAssemblies;FixReferencesB4Build;NuGetRestore">
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -305,7 +310,7 @@
       <VideoBuilderFiles Include="$(XpandDLLPath)\Aforge*.dll;$(_third_party_assemblies)\Aforge*.dll;$(_third_party_assemblies)\FFMPEG\*.*"></VideoBuilderFiles>
     </ItemGroup>
     <Copy SourceFiles="@(VideoBuilderFiles)" DestinationFolder="$(XpandDLLPath)" SkipUnchangedFiles="true"></Copy>
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe $(EasyTestVideoFolders);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe $(EasyTestVideoFolders);ExecCommandWorkingDirectory=$(XpandDLLPath)" ContinueOnError="True" />
     <Delete Files="@(EasyTestVideoImages)"></Delete>
   </Target>
   <Target Name="Config">
@@ -319,7 +324,7 @@
   </Target>
   <Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
   <!--For Continuous integration and automated releases-->
-  <Target Name="Release" DependsOnTargets="Clean;_Version;Build;Report;" >
+  <Target Name="Release" DependsOnTargets="NuGetRestore;Clean;_Version;Build;Report;" >
 	<IndexSources/>
   </Target>
   <Target Name="Installer">
@@ -417,6 +422,7 @@
     </CreateItem>
   <Message Text="@(NuGetFile)"></Message>
   </Target>
+  
   <Target Name="NuGet"  Inputs="@(NuGetFile)" Outputs="NotUsedOutput" DependsOnTargets="NuGetPackage">
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) push %(NuGetFile.Identity) $(NuGetApiKey) -source https://api.nuget.org/v3/index.json" />
   </Target>

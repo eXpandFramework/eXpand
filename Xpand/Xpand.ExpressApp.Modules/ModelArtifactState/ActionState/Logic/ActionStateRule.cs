@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Logic;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
     public class ActionStateRule : ArtifactStateRule, IActionStateRule {
@@ -16,6 +17,6 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
         public string ActionId { get; set; }
 
         [Category("Behavior")]
-        public ActionState ActionState { get; set; }
+        public Persistent.Base.ModelArtifact.ActionState ActionState { get; set; }
     }
 }

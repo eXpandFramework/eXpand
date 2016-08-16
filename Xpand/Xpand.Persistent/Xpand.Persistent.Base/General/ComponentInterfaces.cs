@@ -34,7 +34,7 @@ namespace Xpand.Persistent.Base.General {
     public interface IWriteSecuredLogonParameters {
         event HandledEventHandler CustomWriteSecuredLogonParameters;
     }
-
+    [Obsolete("not used",true)]
     public interface IConfirmationRequired {
         event CancelEventHandler ConfirmationRequired;
     }
@@ -49,7 +49,7 @@ namespace Xpand.Persistent.Base.General {
     public interface ITestXafApplication {
         
     }
-    public interface IXafApplication : IConfirmationRequired,  IWindowCreating {
+    public interface IXafApplication :   IWindowCreating {
         string ModelAssemblyFilePath { get; }
         void WriteLastLogonParameters(DetailView view, object logonObject);
     }

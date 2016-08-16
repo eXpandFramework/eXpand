@@ -2,8 +2,8 @@
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic;
 using Xpand.Persistent.Base.Logic.Model;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model {
     [ModelInterfaceImplementor(typeof(IContextObjectViewRule), "Attribute")]

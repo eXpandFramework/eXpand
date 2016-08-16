@@ -3,9 +3,9 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
 using Xpand.Persistent.Base.Logic.Model;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Model {
     [ModelInterfaceImplementor(typeof(IContextActionStateRule), "Attribute")]

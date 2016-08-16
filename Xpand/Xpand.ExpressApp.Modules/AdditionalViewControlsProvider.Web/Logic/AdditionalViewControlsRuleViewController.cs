@@ -3,8 +3,8 @@ using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.Web;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Logic {
     public interface ISupportAdditionalViewControls {

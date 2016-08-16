@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
@@ -28,6 +27,15 @@ namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
 
     public class WebShortcutsController : WindowController, IXafCallbackHandler, IModelExtender {
         private const string KeybShortCutsScriptName = "KeybShortCuts";
+        protected override void OnActivated(){
+            base.OnActivated();
+            var url = WebWindow.CurrentRequestPage.ClientScript.GetWebResourceUrl(GetType(), ResourceNames.jwerty);
+            ((WebWindow)Frame).RegisterClientScriptInclude("Jwerty",url);
+            var script = GetScript();
+            if (!string.IsNullOrEmpty(script)) {
+                ((WebWindow)Frame).RegisterStartupScript("ActionKeybShortCuts", script, true);
+            }
+        }
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -44,7 +52,7 @@ namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
 
         void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
             var callbackManagerHolder = Frame.Template as ICallbackManagerHolder;
-            if (callbackManagerHolder != null && callbackManagerHolder.CallbackManager != null) {
+            if (callbackManagerHolder?.CallbackManager != null) {
                 callbackManagerHolder.CallbackManager.RegisterHandler(KeybShortCutsScriptName, this);
                 ((WebWindow)Frame).PagePreRender += CallbackManagerOnPreRender;
             }
@@ -52,16 +60,7 @@ namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
 
         void CallbackManagerOnPreRender(object sender, EventArgs e) {
             ((WebWindow)Frame).PagePreRender -= CallbackManagerOnPreRender;
-            var page = WebWindow.CurrentRequestPage;
-            var clientScriptManager = page.ClientScript;
-            var url = clientScriptManager.GetWebResourceUrl(GetType(), ResourceNames.jwerty);
-            page.Header.Controls.Add(new LiteralControl(@"<script language=""javascript"" src=""" + url + @"""></script>"));
-            var script = GetScript();
-            if (!string.IsNullOrEmpty(script)) {
-                ((WebWindow)Frame).RegisterStartupScript("ActionKeybShortCuts", script, true);
-                var xafCallbackManager = ((ICallbackManagerHolder)Frame.Template).CallbackManager;
-                xafCallbackManager.RegisterHandler(KeybShortCutsScriptName, this);
-            }
+            
         }
 
         string GetScript() {

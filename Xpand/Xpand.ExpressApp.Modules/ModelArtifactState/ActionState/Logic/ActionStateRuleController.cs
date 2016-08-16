@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Actions;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
     public class ActionStateRuleController:ViewController {
@@ -43,11 +44,11 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
         }
 
         void ActivateDeActivateAction(LogicRuleInfo info, ActionBase actionBase) {
-            actionBase.Active[ActiveObjectTypeHasActionRules] = info.InvertCustomization || ((IActionStateRule)info.Rule).ActionState != ActionState.Hidden;
+            actionBase.Active[ActiveObjectTypeHasActionRules] = info.InvertCustomization || ((IActionStateRule)info.Rule).ActionState != Persistent.Base.ModelArtifact.ActionState.Hidden;
         }
 
         void EnableDisableAction(LogicRuleInfo info, ActionBase actionBase) {
-            actionBase.Enabled[ActiveObjectTypeHasActionRules] = info.InvertCustomization || ((IActionStateRule)info.Rule).ActionState != ActionState.Disabled;
+            actionBase.Enabled[ActiveObjectTypeHasActionRules] = info.InvertCustomization || ((IActionStateRule)info.Rule).ActionState != Persistent.Base.ModelArtifact.ActionState.Disabled;
         }
 
         void ExecuteAction(ActionBase actionBase) {
@@ -80,23 +81,23 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
                 if (rule != null){
                     foreach (ActionBase actionBase in GetActions(rule)){
                         switch (rule.ActionState){
-                            case ActionState.ForceActive:{
+                            case Persistent.Base.ModelArtifact.ActionState.ForceActive:{
                                 actionBase.Active.Clear();
                                 break;
                             }
-                            case ActionState.Hidden:
+                            case Persistent.Base.ModelArtifact.ActionState.Hidden:
                                 ActivateDeActivateAction(logicRuleInfo, actionBase);
                                 break;
-                            case ActionState.Disabled:
+                            case Persistent.Base.ModelArtifact.ActionState.Disabled:
                                 EnableDisableAction(logicRuleInfo, actionBase);
                                 break;
-                            case ActionState.Executed:{
+                            case Persistent.Base.ModelArtifact.ActionState.Executed:{
                                 if (logicRuleInfo.Active){
                                     ExecuteAction(actionBase);
                                 }
                             }
                                 break;
-                            case ActionState.ExecutedAndDisable:
+                            case Persistent.Base.ModelArtifact.ActionState.ExecutedAndDisable:
                                 ExecuteAndDisableAction(actionBase);
                                 break;
                         }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Model;
-using Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic;
 using Xpand.Persistent.Base.Logic.Model;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Model {
     [ModelInterfaceImplementor(typeof (IContextControllerStateRule), "Attribute")]

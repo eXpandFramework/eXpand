@@ -4,8 +4,8 @@ using DevExpress.Utils.Frames;
 using DevExpress.XtraLayout;
 using DevExpress.XtraLayout.Utils;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators {
     [TypeDecorator(typeof(FrameControl), typeof(WarningPanel), true, Position = Position.DetailViewItem)]
@@ -34,8 +34,9 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Decorators {
                 _frameControl.Text = text;
                 bool visible = !string.IsNullOrEmpty(_frameControl.Text);
                 _frameControl.Visible = visible;
-                if (_frameControl is ISupportLayoutManager) {
-                    ((BaseLayoutItem)((ISupportLayoutManager)_frameControl).LayoutItem).Visibility = visible ? LayoutVisibility.Always : LayoutVisibility.Never;
+                var manager = _frameControl as ISupportLayoutManager;
+                if (manager != null) {
+                    ((BaseLayoutItem)manager.LayoutItem).Visibility = visible ? LayoutVisibility.Always : LayoutVisibility.Never;
                 }
             }
         }

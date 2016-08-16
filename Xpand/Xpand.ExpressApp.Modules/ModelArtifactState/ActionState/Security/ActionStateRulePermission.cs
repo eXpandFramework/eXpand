@@ -1,8 +1,8 @@
 ﻿using System.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Security;
+using Xpand.Persistent.Base.ModelArtifact;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security {
@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security {
         #region IActionStateRule Members
         public virtual string ActionId { get; set; }
 
-        public Logic.ActionState ActionState { get; set; }
+        public Persistent.Base.ModelArtifact.ActionState ActionState { get; set; }
         #endregion
         public override IPermission Copy() {
             return new ActionStateRulePermission();

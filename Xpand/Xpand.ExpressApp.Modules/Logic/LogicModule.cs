@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Validation;
-using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Logic.DomainLogic;
-using Xpand.ExpressApp.Logic.Security.Improved;
 using Xpand.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
@@ -29,9 +25,7 @@ namespace Xpand.ExpressApp.Logic {
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
 
-        public LogicRuleCollector LogicRuleCollector {
-            get { return _logicRuleCollector; }
-        }
+        public LogicRuleCollector LogicRuleCollector => _logicRuleCollector;
 
         public override void CustomizeLogics(CustomLogics customLogics) {
             base.CustomizeLogics(customLogics);
@@ -54,15 +48,9 @@ namespace Xpand.ExpressApp.Logic {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            AddNewObjectCreateGroup(typesInfo, new List<Type> { typeof(LogicRulePermission), typeof(LogicRuleOperationPermissionData) });
-        }
-
-        void AddNewObjectCreateGroup(ITypesInfo typesInfo, IEnumerable<Type> types) {
-            foreach (var type in types) {
-                var typeDescendants = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo(type));
-                foreach (var typeInfo in typeDescendants) {
-                    typeInfo.AddAttribute(new NewObjectCreateGroupAttribute("Logic"));
-                }
+            var logicRuleTypes = typesInfo.DomainSealedInfos<IContextLogicRule>();
+            foreach (var logicRuleType in logicRuleTypes){
+                logicRuleType.AddAttribute(new NewObjectCreateGroupAttribute("Logic"));    
             }
         }
 

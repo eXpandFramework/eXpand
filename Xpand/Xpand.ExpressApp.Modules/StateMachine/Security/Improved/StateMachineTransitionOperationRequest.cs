@@ -1,5 +1,6 @@
 ﻿using System;
 using DevExpress.ExpressApp.Security;
+using Xpand.Persistent.Base.StateMachine;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
     [Serializable]

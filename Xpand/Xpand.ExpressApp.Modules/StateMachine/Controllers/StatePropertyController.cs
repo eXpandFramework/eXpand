@@ -55,18 +55,18 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
         }
 
-        protected override void OnActivated() {
-            base.OnActivated();
+        protected override void OnViewControllersActivated(){
+            base.OnViewControllersActivated();
             _stateMachineController = Frame.GetController<StateMachineController>();
             var enabledStateMachines = GetEnabledStateMachines().ToArray();
-            if (enabledStateMachines.Any()){
+            if (enabledStateMachines.Any()) {
                 AppearanceController.AppearanceApplied += AppearanceController_AppearanceApplied;
                 ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
                 _stateMachineController.TransitionExecuted += OnTransitionExecuted;
                 var stateProperties = enabledStateMachines.Select(machine => machine.StatePropertyName);
-                _propertyEditors =View.GetItems<PropertyEditor>()
+                _propertyEditors = View.GetItems<PropertyEditor>()
                         .Where(editor => stateProperties.Contains(editor.PropertyName)).ToArray();
-                foreach (var item in _propertyEditors){
+                foreach (var item in _propertyEditors) {
                     item.ControlCreated += ItemOnControlCreated;
                 }
             }

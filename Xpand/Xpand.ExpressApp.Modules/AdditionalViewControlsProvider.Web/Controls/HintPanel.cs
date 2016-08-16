@@ -1,4 +1,4 @@
-﻿using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+﻿using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls {
 

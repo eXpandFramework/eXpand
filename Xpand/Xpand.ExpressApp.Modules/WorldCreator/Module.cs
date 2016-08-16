@@ -67,7 +67,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                         var assemblyManager = new AssemblyManager(objectSpace, codeValidator);
                         foreach (var assembly in assemblyManager.LoadAssemblies()) {
                             var moduleType = assembly.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type));
-                            ModuleManager.AddModule((ModuleBase)moduleType.CreateInstance());
+                            ModuleManager.AddModule(Application,(ModuleBase)moduleType.CreateInstance());
                         }
                         worldCreatorObjectSpaceProvider.ResetThreadSafe();
                     }

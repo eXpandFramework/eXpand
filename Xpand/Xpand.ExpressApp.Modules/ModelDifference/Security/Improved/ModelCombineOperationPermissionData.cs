@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.Security.Improved{
     [System.ComponentModel.DisplayName("ModelCombine")]

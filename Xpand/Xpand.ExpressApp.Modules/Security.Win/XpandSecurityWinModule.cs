@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -86,10 +87,14 @@ namespace Xpand.ExpressApp.Security.Win {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            var type = Application == null ? typeof(XpandRole) : RoleType;
-            var typeInfo = typesInfo.FindTypeInfo(type);
-            if (typeInfo != null && typeInfo.FindMember("ModifyLayout") == null)
-                typeInfo.CreateMember("ModifyLayout", typeof(bool));
+            AddToAdditionalExportedTypes(XpandSecurityModule.BaseImplNameSpace);
+            var policyRoleTypes=AdditionalExportedTypes.Where(type => typeof(IPermissionPolicyRole).IsAssignableFrom(type));
+            Type[] types = Application == null ? policyRoleTypes.Concat(new[] {typeof(XpandRole)}).ToArray() : new[] { RoleType };
+            foreach (var type in types){
+                var typeInfo = typesInfo.FindTypeInfo(type);
+                if (typeInfo != null && typeInfo.FindMember("ModifyLayout") == null)
+                    typeInfo.CreateMember("ModifyLayout", typeof(bool));
+            }
         }
     }
 }

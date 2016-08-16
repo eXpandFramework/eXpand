@@ -10,15 +10,17 @@ using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.StateMachine {
 
     [ToolboxBitmap(typeof(XpandStateMachineModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class XpandStateMachineModule : XpandModuleBase {
+    public sealed class XpandStateMachineModule : XpandModuleBase, ISecurityModuleUser {
         public const string AdminRoles = "AdminRoles";
         public const string EnableFilteredProperty = "EnableFilteredProperty";
         public XpandStateMachineModule() {
@@ -29,6 +31,7 @@ namespace Xpand.ExpressApp.StateMachine {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            this.AddSecurityObjectsToAdditionalExportedTypes("Xpand.Persistent.BaseImpl.StateMachine");
             if (RuntimeMode)
                 Application.SetupComplete += ApplicationOnSetupComplete;
         }
@@ -60,9 +63,7 @@ namespace Xpand.ExpressApp.StateMachine {
             BuildSecuritySystemObjects();
         }
 
-        private Type StateMachineType{
-            get { return ModuleManager.Modules.FindModule<StateMachineModule>().StateMachineStorageType; }
-        }
+        private Type StateMachineType => ModuleManager.Modules.FindModule<StateMachineModule>().StateMachineStorageType;
 
         void BuildSecuritySystemObjects() {
             var dynamicSecuritySystemObjects = new DynamicSecuritySystemObjects(Application);
@@ -76,7 +77,7 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
-            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionOperationRequest), new StateMachineTransitionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions)));
+            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionOperationRequest), new StateMachineTransitionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions.WithCustomPermissions())));
         }
 
     }

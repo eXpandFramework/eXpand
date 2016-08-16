@@ -19,6 +19,25 @@ using TypeInfo = DevExpress.ExpressApp.DC.TypeInfo;
 namespace Xpand.Persistent.Base.General {
 
     public static class TypesInfoExtensions {
+        public static IEnumerable<ITypeInfo> BaseInfos(this ITypeInfo typeInfo) {
+            var baseInfo = typeInfo.Base;
+            while (baseInfo != null) {
+                yield return baseInfo;
+                baseInfo = baseInfo.Base;
+            }
+        }
+
+        public static IEnumerable<ITypeInfo> DomainSealedInfos(this ITypesInfo typesInfo,Type type){
+            var typeInfo = typesInfo.FindTypeInfo(type);
+            var infos = typeInfo.IsInterface ? typeInfo.Implementors : typeInfo.Descendants;
+            var typeInfos = infos.Where(info => !info.IsAbstract).Reverse().ToArray();
+            return typeInfos.Except(typeInfos.SelectMany(BaseInfos));
+        }
+
+        public static IEnumerable<ITypeInfo> DomainSealedInfos<T>(this ITypesInfo typesInfo){
+            return typesInfo.DomainSealedInfos(typeof(T));
+        }
+
         public static void ModifySequenceObjectWhenMySqlDatalayer(this ITypesInfo typesInfo) {
             SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
         }

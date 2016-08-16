@@ -1,5 +1,7 @@
 using DevExpress.Persistent.AuditTrail;
-using Xpand.ExpressApp.Logic;
+using Xpand.Persistent.Base.AuditTrail;
+using Xpand.Persistent.Base.Logic;
+using ObjectAuditingMode = Xpand.Persistent.Base.AuditTrail.ObjectAuditingMode;
 
 namespace Xpand.ExpressApp.AuditTrail.Logic {
     public sealed class AuditTrailRuleAttribute:LogicRuleAttribute,IContextAuditTrailRule {

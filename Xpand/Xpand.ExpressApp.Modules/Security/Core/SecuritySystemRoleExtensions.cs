@@ -5,6 +5,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
@@ -13,21 +14,14 @@ using Xpand.ExpressApp.Security.Permissions;
 namespace Xpand.ExpressApp.Security.Core {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class SecurityOperationsAttribute : Attribute {
-        readonly string _collectionName;
-        readonly string _operationProviderProperty;
-
         public SecurityOperationsAttribute(string collectionName, string operationProviderProperty) {
-            _collectionName = collectionName;
-            _operationProviderProperty = operationProviderProperty;
+            CollectionName = collectionName;
+            OperationProviderProperty = operationProviderProperty;
         }
 
-        public string CollectionName {
-            get { return _collectionName; }
-        }
+        public string CollectionName { get; }
 
-        public string OperationProviderProperty {
-            get { return _operationProviderProperty; }
-        }
+        public string OperationProviderProperty { get; }
     }
 
     public enum SecurityOperationsEnum {
@@ -44,7 +38,8 @@ namespace Xpand.ExpressApp.Security.Core {
 
     }
     public static class SecuritySystemRoleExtensions {
-        static IEnumerable<XPMemberInfo> OperationPermissionCollectionMembers(XPClassInfo classInfo) {
+        static IEnumerable<XPMemberInfo> OperationPermissionCollectionMembers(this IXpandRoleCustomPermissions xpandRoleCustomPermissions) {
+            var classInfo = ((IXPClassInfoProvider)xpandRoleCustomPermissions).ClassInfo;
             return classInfo.OwnMembers.Where(info => info.IsAssociationList && info.CollectionElementType.HasAttribute(typeof(SecurityOperationsAttribute)));
         }
 
@@ -55,11 +50,19 @@ namespace Xpand.ExpressApp.Security.Core {
                 : Enumerable.Empty<NavigationItemPermission>();
         }
 
-        public static IEnumerable<IOperationPermission> GetCustomPermissions(this IXpandRoleCustomPermissions xpandRoleCustomPermissions, IEnumerable<IOperationPermission> basePermissions) {
-            var operationPermissions =basePermissions.Union(xpandRoleCustomPermissions.Permissions.SelectMany(data => data.GetPermissions()));
+        public static IEnumerable<IOperationPermission> GetCustomPermissions(this IXpandRoleCustomPermissions xpandRoleCustomPermissions) {
+            var operationPermissions = xpandRoleCustomPermissions.Permissions.SelectMany(data => data.GetPermissions());
             var permissions = operationPermissions.Union(PermissionProviderStorage.Instance.SelectMany(info => info.GetPermissions(xpandRoleCustomPermissions)));
-            var classInfo = ((IXPClassInfoProvider) xpandRoleCustomPermissions).ClassInfo;
-            return OperationPermissionCollectionMembers(classInfo).Aggregate(permissions, (current, xpMemberInfo) => current.Union(xpandRoleCustomPermissions.ObjectOperationPermissions(xpMemberInfo)));
+            return xpandRoleCustomPermissions.SecurityOperationAttributePermissions().Concat(permissions);
+        }
+
+        public static IEnumerable<IOperationPermission> SecurityOperationAttributePermissions(this IXpandRoleCustomPermissions xpandRoleCustomPermissions){
+            var operationPermissionCollectionMembers = xpandRoleCustomPermissions.OperationPermissionCollectionMembers();
+            var operationPermissions = new List<IOperationPermission>();
+            foreach (var operationPermissionCollectionMember in operationPermissionCollectionMembers){
+                operationPermissions.AddRange(xpandRoleCustomPermissions.ObjectOperationPermissions(operationPermissionCollectionMember));
+            }
+            return operationPermissions.Distinct();
         }
 
         public static IEnumerable<ObjectOperationPermission> ObjectOperationPermissions(this ISecurityRole securityRole, XPMemberInfo member) {
@@ -68,14 +71,17 @@ namespace Xpand.ExpressApp.Security.Core {
             if (!string.IsNullOrEmpty(securityOperation)) {
                 foreach (var operation in securityOperation.Split(ServerPermissionRequestProcessor.Delimiters, StringSplitOptions.RemoveEmptyEntries)) {
                     foreach (var obj in collection) {
-                        yield return ObjectOperationPermissions(member, obj, operation);
+                        yield return ObjectOperationPermissions(member, obj, operation, securityRole.Name);
                     }
                 }
             }
         }
 
-        static ObjectOperationPermission ObjectOperationPermissions(XPMemberInfo member, object obj, string securityOperation) {
-            return new ObjectOperationPermission(member.CollectionElementType.ClassType, Criteria(obj, member.CollectionElementType), securityOperation);
+        static ObjectOperationPermission ObjectOperationPermissions(XPMemberInfo member, object obj, string securityOperation, string roleName) {
+            var permissionPolicyUser = SecuritySystem.CurrentUser as IPermissionPolicyUser;
+            var isGranted = securityOperation == SecurityPermissionState.Allow.ToString();
+            return permissionPolicyUser == null? new ObjectOperationPermission(member.CollectionElementType.ClassType,Criteria(obj, member.CollectionElementType), securityOperation)
+                : new ObjectOperationStatePermission(member.CollectionElementType.ClassType,Criteria(obj, member.CollectionElementType), securityOperation, roleName,true);
         }
 
         static string Criteria(object obj, XPClassInfo classInfo) {

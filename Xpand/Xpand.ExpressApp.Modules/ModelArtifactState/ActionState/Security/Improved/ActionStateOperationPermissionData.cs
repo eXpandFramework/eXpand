@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
 using Xpand.ExpressApp.ModelArtifactState.ArtifactState.Security.Improved;
+using Xpand.Persistent.Base.ModelArtifact;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Security.Improved {
         #region IActionStateRule Members
         public string ActionId { get; set; }
 
-        public Logic.ActionState ActionState { get; set; }
+        public Persistent.Base.ModelArtifact.ActionState ActionState { get; set; }
         #endregion
         public override IList<IOperationPermission> GetPermissions() {
             return new IOperationPermission[] { new ActionStateRulePermission(this) };

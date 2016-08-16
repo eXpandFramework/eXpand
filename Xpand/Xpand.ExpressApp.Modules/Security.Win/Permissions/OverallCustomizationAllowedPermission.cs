@@ -5,13 +5,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Xpo.Helpers;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.Security.Win.Permissions {
     public class OverallCustomizationAllowedPermission : IOperationPermission, IPermissionInfo {
-        public string Operation {
-            get { return "OverallCustomizationAllowed"; }
-        }
+        public string Operation => "OverallCustomizationAllowed";
+
         #region Implementation of IPermissionInfo
         public IEnumerable<IOperationPermission> GetPermissions(ISecurityRole securityRole) {
             return true.Equals(((IXPClassInfoProvider) securityRole).ClassInfo.GetMember("ModifyLayout").GetValue(securityRole))
@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
         }
 
         static void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
-            var requestProcessor = new OverallCustomizationAllowedPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions);
+            var requestProcessor = new OverallCustomizationAllowedPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions.WithCustomPermissions());
             customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(OverallCustomizationAllowedPermissionRequest), requestProcessor));
         }
 

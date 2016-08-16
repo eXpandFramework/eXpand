@@ -3,7 +3,7 @@ using System.Security;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Logic.Security;
-using Xpand.ExpressApp.MasterDetail.Logic;
+using Xpand.Persistent.Base.MasterDetail;
 
 namespace Xpand.ExpressApp.MasterDetail.Security {
     [NonPersistent]

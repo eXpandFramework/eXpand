@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -16,37 +17,32 @@ using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
-using System.Linq;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {
+
     [NonPersistent]
     [RuleCriteria("LogicRulePermission", DefaultContexts.Save, "(Not IsNullOrEmpty(ExecutionContextGroup)) OR (Not IsNullOrEmpty(ActionExecutionContextGroup))", SkipNullOrEmptyValues = false, CustomMessageTemplate = "At least one of ExecutionContextGroup, ActionExecutionContextGroup should not be null")]
     [Appearance("ActionContextGroupVisibility", AppearanceItemType.ViewItem, "HasActionContextGroup=false", Visibility = ViewItemVisibility.Hide, TargetItems = "ActionExecutionContextGroup",Context = "DetailView")]
     [Appearance("ExecutionContextGroupVisibility", AppearanceItemType.ViewItem, "HasExecutionContextGroup=false", Visibility = ViewItemVisibility.Hide, TargetItems = "ExecutionContextGroup", Context = "DetailView")]
     [Appearance("FrameTemplateContextGroupVisibility", AppearanceItemType.ViewItem, "HasFrameTemplateContextGroup=false", Visibility = ViewItemVisibility.Hide, TargetItems = "FrameTemplateContextGroup", Context = "DetailView")]
     [Appearance("ViewContextGroupVisibility", AppearanceItemType.ViewItem, "HasViewContextGroup=false", Visibility = ViewItemVisibility.Hide, TargetItems = "ViewContextGroup", Context = "DetailView")]
-    public abstract class LogicRuleOperationPermissionData : XpandPermissionData, IContextLogicRule {
+    public abstract class LogicRuleOperationPermissionData : XpandPermissionData, IContextLogicRule, ILogicRuleOperationPermissionData{
 
         protected LogicRuleOperationPermissionData(Session session)
             : base(session) {
 
         }
         [Browsable(false)]
-        public bool HasFrameTemplateContextGroup {
-            get { return LogicInstallerManager.Instance[this].GetModelLogic().FrameTemplateContextsGroup.Any(); }
-        }
+        public bool HasFrameTemplateContextGroup => LogicInstallerManager.Instance[this].GetModelLogic().FrameTemplateContextsGroup.Any();
+
         [Browsable(false)]
-        public bool HasViewContextGroup {
-            get { return LogicInstallerManager.Instance[this].GetModelLogic().ViewContextsGroup.Any(); }
-        }
+        public bool HasViewContextGroup => LogicInstallerManager.Instance[this].GetModelLogic().ViewContextsGroup.Any();
+
         [Browsable(false)]
-        public bool HasExecutionContextGroup {
-            get { return LogicInstallerManager.Instance[this].GetModelLogic().ExecutionContextsGroup.Any(); }
-        }
+        public bool HasExecutionContextGroup => LogicInstallerManager.Instance[this].GetModelLogic().ExecutionContextsGroup.Any();
+
         [Browsable(false)]
-        public bool HasActionContextGroup {
-            get { return LogicInstallerManager.Instance[this].GetModelLogic().ActionExecutionContextGroup.Any(); }
-        }
+        public bool HasActionContextGroup => LogicInstallerManager.Instance[this].GetModelLogic().ActionExecutionContextGroup.Any();
 
         public override void AfterConstruction() {
             base.AfterConstruction();
@@ -55,6 +51,7 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
 
 
         private Type _objectTypeData = typeof(PersistentBase);
+        
 
         [RuleRequiredField]
         [ValueConverter(typeof (TypeValueConverter))]
@@ -70,6 +67,12 @@ namespace Xpand.ExpressApp.Logic.Security.Improved {
         [RuleRequiredField]
         [Index(0)]
         public string ID { get; set; }
+
+        string ILogicRuleOperationPermissionData.ViewId{
+            get { return View; }
+            set { View = value; }
+        }
+
         [Index(9)]
         public string ExecutionContextGroup { get; set; }
         [Index(12)]

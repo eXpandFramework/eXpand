@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Utils.Frames;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public class HintPanel : NotePanel8_1, ISupportAppeareance, IAdditionalViewControl {

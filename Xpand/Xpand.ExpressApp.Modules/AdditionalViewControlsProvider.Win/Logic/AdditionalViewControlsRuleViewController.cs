@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.Layout;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
@@ -69,7 +69,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Logic {
         }
 
         void BringViewControlToFront(Control control) {
-            if (control != null && control.Parent != null)
+            if (control?.Parent != null)
                 control.BringToFront();
             else if (control != null)
                 control.ParentChanged += control_ParentChanged;

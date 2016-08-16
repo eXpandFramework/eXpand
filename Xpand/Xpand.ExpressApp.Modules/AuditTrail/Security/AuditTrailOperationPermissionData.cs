@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.AuditTrail;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AuditTrail.Logic;
 using Xpand.ExpressApp.Logic.Security.Improved;
-using ObjectAuditingMode = Xpand.ExpressApp.AuditTrail.Logic.ObjectAuditingMode;
+using Xpand.Persistent.Base.AuditTrail;
+using ObjectAuditingMode = Xpand.Persistent.Base.AuditTrail.ObjectAuditingMode;
 
 namespace Xpand.ExpressApp.AuditTrail.Security {
     [System.ComponentModel.DisplayName("AuditTrail")]

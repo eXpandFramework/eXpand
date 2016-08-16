@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic;
-using Xpand.ExpressApp.Logic.TypeConverters;
+using Xpand.Persistent.Base.Email;
+using Xpand.Persistent.Base.General.TypeConverters;
+using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Email.Logic {
     public sealed class EmailRuleAttribute : LogicRuleAttribute, IContextEmailRule {

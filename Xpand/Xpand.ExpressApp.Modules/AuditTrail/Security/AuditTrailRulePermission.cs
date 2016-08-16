@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using DevExpress.Persistent.AuditTrail;
-using Xpand.ExpressApp.AuditTrail.Logic;
 using Xpand.ExpressApp.Logic.Security.Improved;
-using ObjectAuditingMode = Xpand.ExpressApp.AuditTrail.Logic.ObjectAuditingMode;
+using Xpand.Persistent.Base.AuditTrail;
+using ObjectAuditingMode = Xpand.Persistent.Base.AuditTrail.ObjectAuditingMode;
 
 namespace Xpand.ExpressApp.AuditTrail.Security {
     public class AuditTrailRulePermission:LogicRulePermission,IContextAuditTrailRule {
         public const string OperationName = "AuditTrail";
 
-        public AuditTrailRulePermission(AuditTrailOperationPermissionData contextLogicRule)
+        public AuditTrailRulePermission(IContextAuditTrailRule contextLogicRule)
             : base(OperationName, contextLogicRule) {
             IncludeRelatedTypes=contextLogicRule.IncludeRelatedTypes;
             AuditPending = contextLogicRule.AuditPending;

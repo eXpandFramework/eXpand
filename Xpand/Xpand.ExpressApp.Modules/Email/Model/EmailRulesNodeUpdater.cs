@@ -1,5 +1,5 @@
-﻿using Xpand.ExpressApp.Email.Logic;
-using Xpand.ExpressApp.Logic.NodeUpdaters;
+﻿using Xpand.ExpressApp.Logic.NodeUpdaters;
+using Xpand.Persistent.Base.Email;
 
 namespace Xpand.ExpressApp.Email.Model {
     public class EmailRulesNodeUpdater : LogicRulesNodeUpdater<IEmailRule, IModelEmailRule> {

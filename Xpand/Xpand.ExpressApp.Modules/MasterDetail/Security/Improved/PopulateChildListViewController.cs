@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.MasterDetail;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved{

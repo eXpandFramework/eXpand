@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.Web.Templates{
                 //CurrentMenuGroup.HeaderStyleCollapsed.CssClass = " LastHeaderCollapsed";
             }
             //CurrentMenuGroup.Expanded = false;
-            SyncronizeWithItem();
+            SynchronizeWithItem();
         }
 
         public MenuItem MenuGroup{
@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.Web.Templates{
             : base(item, action){
             _currentAction = action;
             CurrentMenuItem = new MenuItem{Name = item.GetIdPath()};
-            SyncronizeWithItem();
+            SynchronizeWithItem();
         }
 
         public MenuItem CurrentMenuItem { get; private set; }

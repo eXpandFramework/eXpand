@@ -1,5 +1,5 @@
 ﻿using Xpand.ExpressApp.Logic.NodeUpdaters;
-using Xpand.ExpressApp.MasterDetail.Logic;
+using Xpand.Persistent.Base.MasterDetail;
 
 namespace Xpand.ExpressApp.MasterDetail.Model {
     public class MasterDetailRulesNodeUpdater :LogicRulesNodeUpdater<IMasterDetailRule, IModelMasterDetailRule> {

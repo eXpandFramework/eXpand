@@ -12,8 +12,8 @@ using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Persistent.AuditTrail;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.AuditTrail.BusinessObjects;
-using Xpand.ExpressApp.AuditTrail.Logic;
 using Xpand.ExpressApp.Logic;
+using Xpand.Persistent.Base.AuditTrail;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
@@ -61,9 +61,7 @@ namespace Xpand.ExpressApp.AuditTrail {
             _approveAuditsAction.TargetObjectType = typeof (IBaseAuditDataItemPersistent);
         }
 
-        public SimpleAction ApproveAuditsAction{
-            get { return _approveAuditsAction; }
-        }
+        public SimpleAction ApproveAuditsAction => _approveAuditsAction;
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
@@ -93,10 +91,8 @@ namespace Xpand.ExpressApp.AuditTrail {
         private void LogicRuleExecutorOnLogicRuleExecuted(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs){
             var logicRuleInfo = logicRuleExecuteEventArgs.LogicRuleInfo;
             var auditTrailRule = logicRuleInfo.Rule as IAuditTrailRule;
-            if (auditTrailRule != null){
-                if (auditTrailRule.AuditPending.HasValue){
-                    _auditPending = auditTrailRule.AuditPending.Value;
-                }
+            if (auditTrailRule?.AuditPending != null){
+                _auditPending = auditTrailRule.AuditPending.Value;
             }
         }
 

@@ -40,8 +40,8 @@ namespace Xpand.ExpressApp.Security.Permissions {
 
         string GetCaption(XPMemberInfo propertyInfo) {
             var value = propertyInfo.GetValue(this);
-            return value != null && !string.IsNullOrEmpty(value.ToString())
-                       ? string.Format("{0}: {1}", propertyInfo.Name, value) + ", "
+            return !string.IsNullOrEmpty(value?.ToString())
+                       ? $"{propertyInfo.Name}: {value}" + ", "
                        : null;
         }
 

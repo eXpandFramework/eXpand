@@ -1,8 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Logic;
-using Xpand.ExpressApp.Logic.TypeConverters;
+using Xpand.Persistent.Base.General.TypeConverters;
+using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.MasterDetail;
 
 namespace Xpand.ExpressApp.MasterDetail.Logic {
     public sealed class MasterDetailAttribute : LogicRuleAttribute, IContextMasterDetailRule {

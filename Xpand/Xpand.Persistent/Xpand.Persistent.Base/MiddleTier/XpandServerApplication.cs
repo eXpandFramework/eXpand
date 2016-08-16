@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model.Core;
@@ -38,10 +37,6 @@ namespace Xpand.Persistent.Base.MiddleTier {
             throw new NotImplementedException();
         }
 
-        event CancelEventHandler IConfirmationRequired.ConfirmationRequired {
-            add { throw new NotImplementedException(); }
-            remove { throw new NotImplementedException(); }
-        }
 
         string IXafApplication.ModelAssemblyFilePath => GetModelAssemblyFilePath();
 

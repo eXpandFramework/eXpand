@@ -1,5 +1,5 @@
 ﻿using Xpand.ExpressApp.Logic.NodeUpdaters;
-using Xpand.ExpressApp.ModelArtifactState.ActionState.Logic;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Model {
     public class ActionStateRulesNodeUpdater :LogicRulesNodeUpdater<IActionStateRule, IModelActionStateRule> {

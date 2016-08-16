@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.Web.Layout {
 
         protected virtual void OnInstantiated(TemplateInstantiatedEventArgs e) {
             var handler = Instantiated;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<MasterDetailLayoutEventArgs> MasterDetailLayout;
@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.Web.Layout {
         public static void RegisterListControlAdapter(Type controlType, Type adapterType) {
             Guard.ArgumentNotNull(controlType, "controlType");
             if (!typeof(IListControlAdapter).IsAssignableFrom(adapterType))
-                throw new ArgumentException("Class must implement the IListControlAdapter interface", "adapterType");
+                throw new ArgumentException("Class must implement the IListControlAdapter interface", nameof(adapterType));
 
             for (int i = 0; i < _listControlAdapters.Count; i++) {
                 if (_listControlAdapters[i].Item1.IsAssignableFrom(controlType)) {
@@ -76,11 +76,9 @@ namespace Xpand.ExpressApp.Web.Layout {
                     ASPxSplitter splitter = LayoutMasterDetail(detailControl, adapter, splitLayout);
                     var viewItem = detailViewItems[0] as ListEditorViewItem;
 
-                    if (viewItem != null) {
-                        var listEditor = viewItem.ListEditor as IXpandListEditor;
-                        if (listEditor != null) {
-                            listEditor.ViewControlsCreated += (s, e) => SetSplitterInitClientEvent(splitter, e.IsRoot);
-                        }
+                    var listEditor = viewItem?.ListEditor as IXpandListEditor;
+                    if (listEditor != null) {
+                        listEditor.ViewControlsCreated += (s, e) => SetSplitterInitClientEvent(splitter, e.IsRoot);
                     }
 
                     RaiseMasterDetailLayout(new MasterDetailLayoutEventArgs {
@@ -148,10 +146,8 @@ namespace Xpand.ExpressApp.Web.Layout {
             }
 
         }
-        private void RaiseMasterDetailLayout(MasterDetailLayoutEventArgs args) {
-            if (MasterDetailLayout != null) {
-                MasterDetailLayout(this, args);
-            }
+        private void RaiseMasterDetailLayout(MasterDetailLayoutEventArgs args){
+            MasterDetailLayout?.Invoke(this, args);
         }
 
         bool IsMasterDetail(IModelNode layoutInfo, ViewItemsCollection detailViewItems, IModelSplitLayout splitLayout) {
@@ -283,17 +279,14 @@ namespace Xpand.ExpressApp.Web.Layout {
                 foreach (ViewItem item in _detailViewItems) {
                     item.BreakLinksToControl(false);
                     var frameContainer = item as IFrameContainer;
-                    if (frameContainer != null)
-                        frameContainer.Frame.View.BreakLinksToControls();
+                    frameContainer?.Frame.View.BreakLinksToControls();
                 }
             }
         }
 
         internal void UpdateItemsVisibility() {
             var baseType = GetType().BaseType;
-            if (baseType != null) {
-                baseType.Method("UpdateItemsVisibility").Call(this);
-            }
+            baseType?.Method("UpdateItemsVisibility").Call(this);
         }
     }
 

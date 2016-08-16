@@ -2,14 +2,14 @@
 using System.ComponentModel;
 using System.Reflection;
 using DevExpress.ExpressApp;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
     public class AdditionalViewControlsProviderCalculator : IDisposable {
         IAdditionalViewControlsRule _controlsRule;
         readonly Type _objectType;
-        string currentAdditionalText;
-        object currentObject;
+        private string _currentAdditionalText;
+        private object _currentObject;
 
         public AdditionalViewControlsProviderCalculator(IAdditionalViewControlsRule controlsRule, Type objectType) {
             _controlsRule = controlsRule;
@@ -25,19 +25,19 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
         }
 
         public object CurrentObject {
-            get { return currentObject; }
+            get { return _currentObject; }
             set {
-                RemovePropertyChangedHandler(currentObject);
-                currentObject = value;
-                AddPropertyChangedHandler(currentObject);
+                RemovePropertyChangedHandler(_currentObject);
+                _currentObject = value;
+                AddPropertyChangedHandler(_currentObject);
                 UpdateAdditionalText();
             }
         }
 
         public string AdditionalText {
-            get { return currentAdditionalText; }
+            get { return _currentAdditionalText; }
             set {
-                currentAdditionalText = value;
+                _currentAdditionalText = value;
                 OnHintChanged();
             }
         }
@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
         }
 
         void UpdateAdditionalText() {
-            if (_controlsRule != null && !string.IsNullOrEmpty(_controlsRule.MessageProperty)) {
+            if (!string.IsNullOrEmpty(_controlsRule?.MessageProperty)) {
                 if (CurrentObject != null) {
                     var memberInfo = XafTypesInfo.Instance.FindTypeInfo(CurrentObject.GetType()).FindMember(_controlsRule.MessageProperty);
                     if (memberInfo != null) {
@@ -102,9 +102,8 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
                 AdditionalText = "";
         }
 
-        protected virtual void OnHintChanged() {
-            if (HintChanged != null)
-                HintChanged(this, EventArgs.Empty);
+        protected virtual void OnHintChanged(){
+            HintChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public event EventHandler<EventArgs> HintChanged;

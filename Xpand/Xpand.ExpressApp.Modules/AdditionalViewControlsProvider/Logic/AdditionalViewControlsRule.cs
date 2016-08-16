@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {

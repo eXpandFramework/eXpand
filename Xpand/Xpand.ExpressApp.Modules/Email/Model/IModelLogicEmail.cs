@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.Email.BusinessObjects;
-using Xpand.ExpressApp.Email.Logic;
+using Xpand.Persistent.Base.Email;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.Logic.NodeGenerators;
 

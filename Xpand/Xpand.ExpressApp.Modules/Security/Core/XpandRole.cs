@@ -45,8 +45,7 @@ namespace Xpand.ExpressApp.Security.Core {
         IList<IOperationPermissionProvider> IXpandRoleCustomPermissions.Permissions => new ListConverter<IOperationPermissionProvider,XpandPermissionData>(Permissions);
 
         protected override IEnumerable<IOperationPermission> GetPermissionsCore(){
-            var customPermissions = this.GetCustomPermissions(base.GetPermissionsCore());
-            return customPermissions.Concat(this.GetHiddenNavigationItemPermissions());
+            return this.GetCustomPermissions().Concat(base.GetPermissionsCore()).Concat(this.GetHiddenNavigationItemPermissions());
         }
     }
 }

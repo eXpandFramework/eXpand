@@ -49,7 +49,7 @@ using TypeInfo = DevExpress.ExpressApp.DC.TypeInfo;
 namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {
         event EventHandler<GeneratorUpdaterEventArgs> CustomAddGeneratorUpdaters;
-        event EventHandler ApplicationModulesManagerSetup;
+        event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
         ModuleTypeList RequiredModuleTypes { get; }
         XafApplication Application { get; }
     }
@@ -80,15 +80,15 @@ namespace Xpand.Persistent.Base.General {
         private List<KeyValuePair<string, ModelDifferenceStore>> _extraDiffStores;
         private bool _loggedOn;
         private static readonly TypesInfo _additionalTypesTypesInfo;
-        public event EventHandler ApplicationModulesManagerSetup;
+        public event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
 
         static XpandModuleBase(){
             _additionalTypesTypesInfo=new TypesInfo();
         }
 
-        protected virtual void OnApplicationModulesManagerSetup(EventArgs e) {
-            EventHandler handler = ApplicationModulesManagerSetup;
-            handler?.Invoke(null, e);
+        protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
+            var handler = ApplicationModulesManagerSetup;
+            handler?.Invoke(this, e);
         }
 
         public event CancelEventHandler InitSeqGenerator;
@@ -422,12 +422,16 @@ namespace Xpand.Persistent.Base.General {
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            var declaredExportedTypes = base.GetDeclaredExportedTypes();
+            var declaredExportedTypes = base.GetDeclaredExportedTypes().ToArray();
             declaredExportedTypes = !Executed<IModifyModelActionUser>("GetDeclaredExportedTypes")
-                ? declaredExportedTypes.Concat(new[] { typeof(ModelConfiguration), SequenceObjectType }).Where(type => type != null)
+                ? declaredExportedTypes.Concat(new[] { typeof(ModelConfiguration), SequenceObjectType }).Where(type => type != null).ToArray()
                 : declaredExportedTypes;
             if (Application != null && (Application.Security?.UserType == null))
                 return declaredExportedTypes.Where(type => !typeof(ISecurityRelated).IsAssignableFrom(type));
+            if ( (Application?.Security != null && typeof(ISecurityPermisssionPolicyRelated).IsAssignableFrom(Application.Security.UserType))){
+                var oldSecurityTypes = declaredExportedTypes.Where(type => typeof(ISecurityRelated).IsAssignableFrom(type)&&!typeof(ISecurityPermisssionPolicyRelated).IsAssignableFrom(type));
+                return declaredExportedTypes.Except(oldSecurityTypes);
+            }
             return declaredExportedTypes;
         }
 
@@ -496,7 +500,7 @@ namespace Xpand.Persistent.Base.General {
             return assemblyInfo.Types;
         }
 
-        protected void AddToAdditionalExportedTypes(string nameSpaceName) {
+        protected internal void AddToAdditionalExportedTypes(string nameSpaceName) {
             AddToAdditionalExportedTypes(nameSpaceName, BaseImplAssembly);
         }
 
@@ -518,7 +522,7 @@ namespace Xpand.Persistent.Base.General {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            OnApplicationModulesManagerSetup(EventArgs.Empty);
+            OnApplicationModulesManagerSetup(new ApplicationModulesManagerSetupArgs(moduleManager));
             if (Executed("Setup2"))
                 return;
             if (RuntimeMode)
@@ -772,6 +776,14 @@ namespace Xpand.Persistent.Base.General {
         }
     }
 
+    public class ApplicationModulesManagerSetupArgs : EventArgs{
+        public ApplicationModulesManagerSetupArgs(ApplicationModulesManager moduleManager){
+            ModuleManager = moduleManager;
+        }
+
+        public ApplicationModulesManager ModuleManager { get; }
+    }
+
 
     public class GeneratorUpdaterEventArgs : EventArgs {
         public GeneratorUpdaterEventArgs(ModelNodesGeneratorUpdaters updaters) {
@@ -794,12 +806,13 @@ namespace Xpand.Persistent.Base.General {
             if (moduleBase.Application.ObjectSpaceProviders.Count == 0) {
                 return moduleBase.Application.ConnectionString;
             }
-            var provider = moduleBase.Application.ObjectSpaceProvider as IXpandObjectSpaceProvider;
+            var provider = moduleBase.Application.ObjectSpaceProviders.OfType<IXpandObjectSpaceProvider>().FirstOrDefault();
             if (provider != null) {
                 return provider.DataStoreProvider.ConnectionString;
             }
-            if (moduleBase.Application.ObjectSpaceProvider is XPObjectSpaceProvider) {
-                return ((IXpoDataStoreProvider)moduleBase.Application.ObjectSpaceProvider.GetFieldValue("dataStoreProvider")).ConnectionString;
+            var xpObjectSpaceProvider = moduleBase.Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().FirstOrDefault();
+            if (xpObjectSpaceProvider!=null) {
+                return ((IXpoDataStoreProvider)xpObjectSpaceProvider.GetFieldValue("dataStoreProvider")).ConnectionString;
             }
             return moduleBase.Application.ConnectionString;
         }
@@ -857,7 +870,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         void XafApplicationOnStatusUpdating(object sender, StatusUpdatingEventArgs statusUpdatingEventArgs) {
-            if (statusUpdatingEventArgs.Context == ApplicationStatusMesssageId.UpdateDatabaseData.ToString()) {
+            if (statusUpdatingEventArgs.Context == ApplicationStatusMessageId.UpdateDatabaseData.ToString()) {
                 Application.StatusUpdating -= XafApplicationOnStatusUpdating;
                 ApplicationOnObjectSpaceCreated(Application, null);
             }

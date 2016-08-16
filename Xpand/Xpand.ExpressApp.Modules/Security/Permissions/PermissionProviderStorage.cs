@@ -8,14 +8,10 @@ namespace Xpand.ExpressApp.Security.Permissions {
 
 
     public class PermissionProviderStorage : HashSet<IPermissionInfo> {
-        static readonly PermissionProviderStorage _instance;
-
         static PermissionProviderStorage() {
-            _instance = new PermissionProviderStorage();
+            Instance = new PermissionProviderStorage();
         }
 
-        public static PermissionProviderStorage Instance {
-            get { return _instance; }
-        }
+        public static PermissionProviderStorage Instance { get; }
     }
 }

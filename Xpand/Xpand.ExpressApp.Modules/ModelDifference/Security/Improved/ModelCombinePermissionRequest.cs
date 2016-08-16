@@ -1,4 +1,5 @@
 using System;
+using Xpand.Persistent.Base.ModelDifference;
 
 
 namespace Xpand.ExpressApp.ModelDifference.Security.Improved {

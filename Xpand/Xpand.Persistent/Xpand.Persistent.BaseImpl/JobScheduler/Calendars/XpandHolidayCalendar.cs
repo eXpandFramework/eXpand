@@ -5,7 +5,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
@@ -22,9 +22,8 @@ The implementation DOES take the year into consideration, so if you want to excl
         public XpandHolidayCalendar(Session session)
             : base(session) {
         }
-        string ITriggerCalendar.CalendarTypeFullName {
-            get { return "Quartz.Impl.Calendar.HolidayCalendar"; }
-        }
+        string ITriggerCalendar.CalendarTypeFullName => "Quartz.Impl.Calendar.HolidayCalendar";
+
         public override void AfterConstruction() {
             base.AfterConstruction();
             _datesExcluded = new List<DateTime>();
@@ -37,15 +36,9 @@ The implementation DOES take the year into consideration, so if you want to excl
         [PropertyEditor(typeof(IChooseFromListCollectionEditor))]
         [DataSourceProperty("AllDates")]
         [DisplayFormat("{0:dd/MM}")]
-        public List<DateTime> DatesExcluded {
-            get { return _datesExcluded; }
-        }
-        [Browsable(false)]
-        public List<DateTime> AllDates {
-            get {
-                return DateTimeUtils.GetDates().ToList();
-            }
-        }
+        public List<DateTime> DatesExcluded => _datesExcluded;
 
+        [Browsable(false)]
+        public List<DateTime> AllDates => DateTimeUtils.GetDates().ToList();
     }
 }

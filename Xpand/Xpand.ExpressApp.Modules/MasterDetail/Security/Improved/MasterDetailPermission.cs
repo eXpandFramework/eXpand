@@ -1,21 +1,22 @@
 ﻿using System.Collections.Generic;
 using DevExpress.ExpressApp.Model;
+using Fasterflect;
 using Xpand.ExpressApp.Logic.Security.Improved;
-using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.MasterDetail;
 
 namespace Xpand.ExpressApp.MasterDetail.Security.Improved {
     public class MasterDetailPermission : LogicRulePermission, IContextMasterDetailRule {
         public const string OperationName = "MasterDetail";
 
-        public MasterDetailPermission(MasterDetailOperationPermissionData logicRule)
+        public MasterDetailPermission(IContextMasterDetailRule logicRule)
             : base(OperationName, logicRule) {
             var modelApplication = ApplicationHelper.Instance.Application.Model;
-            ChildListView = (IModelListView) modelApplication.Views[logicRule.ChildListView];
-            var modelClass = modelApplication.BOModel.GetClass(((ILogicRule) logicRule).TypeInfo.Type);
-            if (logicRule.CollectionMember != null)
-                CollectionMember = modelClass.FindMember(logicRule.CollectionMember);
+            ChildListView = (IModelListView) modelApplication.Views[(string) logicRule.GetPropertyValue(nameof(IMasterDetailOperationPermissionData.ChildListView))];
+            var modelClass = modelApplication.BOModel.GetClass(logicRule.TypeInfo.Type);
+            var collectionMember = (string)logicRule.GetPropertyValue(nameof(IMasterDetailOperationPermissionData.CollectionMember));
+            if (collectionMember != null)
+                CollectionMember = modelClass.FindMember(collectionMember);
         }
         
         public override IList<string> GetSupportedOperations() {

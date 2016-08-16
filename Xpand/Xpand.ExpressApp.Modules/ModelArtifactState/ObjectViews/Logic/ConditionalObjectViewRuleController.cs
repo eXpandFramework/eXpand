@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
     public class ConditionalObjectViewRuleController : ViewController {

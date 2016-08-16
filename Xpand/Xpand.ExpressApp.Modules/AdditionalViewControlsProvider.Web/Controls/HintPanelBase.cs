@@ -1,24 +1,22 @@
 using System.Drawing;
 using System.Web.UI.WebControls;
 using DevExpress.Web;
-using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
+using Xpand.Persistent.Base.AdditionalViewControls;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls {
     public class HintPanelBase : ASPxPanel, ISupportAppeareance {
-        readonly ASPxLabel label;
+        private readonly ASPxLabel _label;
 
         public HintPanelBase() {
             Paddings.PaddingBottom = 8;
             var innerHintPanel = new ASPxPanel();
             Controls.Add(innerHintPanel);
 
-            label = new ASPxLabel { EncodeHtml = false };
-            innerHintPanel.Controls.Add(label);
+            _label = new ASPxLabel { EncodeHtml = false };
+            innerHintPanel.Controls.Add(_label);
         }
 
-        public ASPxLabel Label {
-            get { return label; }
-        }
+        public ASPxLabel Label => _label;
 
         Color? ISupportAppeareance.BackColor {
             get { return BackColor; }
