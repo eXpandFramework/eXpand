@@ -118,6 +118,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyPathProvider.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>

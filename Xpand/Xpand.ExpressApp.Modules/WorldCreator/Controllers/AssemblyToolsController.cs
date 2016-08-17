@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
@@ -57,8 +56,7 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
         private void ValidateAssembly(IPersistentAssemblyInfo persistentAssemblyInfo) {
             if(!_validating){
                 _validating = true;
-                var worldCreatorModuleBase = Application.Modules.OfType<WorldCreatorModuleBase>().First();
-                var validatorResult = persistentAssemblyInfo.Validate(worldCreatorModuleBase.GetPath());
+                var validatorResult = persistentAssemblyInfo.Validate(AssemblyPathProvider.Instance.GetPath(Application));
                 persistentAssemblyInfo.Errors=validatorResult.Message;
                 ObjectSpace.CommitChanges();
                 _validating = false;

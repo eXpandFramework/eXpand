@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 ﻿using System.Collections.Generic;
 ﻿using System.Linq;
 ﻿using System.Security;
@@ -45,6 +45,10 @@ namespace Xpand.ExpressApp.Security.Core {
         public static void NewSecurityStrategyComplex<TAuthentation, TLogonParameter>(this XafApplication application, Type userType = null, Type roleType = null)
             where TAuthentation : AuthenticationBase {
                 application.NewSecurityStrategyComplex(typeof(TAuthentation), typeof(TLogonParameter), userType ?? typeof(XpandUser),roleType??typeof(XpandRole));
+        }
+
+        public static void NewSecurityStrategyComplexV2<TUser,TRole>(this XafApplication application, Type authethicationType = null,Type logonParametersType = null) where TRole:IPermissionPolicyRole where TUser:ISecurityUser{
+            NewSecurityStrategyComplexCore(application, authethicationType, logonParametersType, null, null, typeof(TUser), typeof(TRole));
         }
 
         public static void NewSecurityStrategyComplex(this XafApplication application,Type authethicationType=null, Type logonParametersType=null,Type userType=null,Type roleType=null){

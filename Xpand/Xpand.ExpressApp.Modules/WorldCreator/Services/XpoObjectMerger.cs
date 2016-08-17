@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
             return tableName;
         }
 
-        public static void MergeTypes(WorldCreatorModuleBase worldCreatorModule){
+        public static void MergeTypes(WorldCreatorModule worldCreatorModule){
             var objectSpaceProviders = worldCreatorModule.Application.ObjectSpaceProviders;
             worldCreatorModule.Application.LoggedOn+= (sender, args) =>{
                 var creatorObjectSpaceProvider =objectSpaceProviders.OfType<WorldCreatorObjectSpaceProvider>().First();

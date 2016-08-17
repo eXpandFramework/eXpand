@@ -9,7 +9,6 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.Win.PropertyEditors;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.ExpressApp.Win.SystemModule;
-using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
 using AssemblyHelper = DevExpress.ExpressApp.Utils.Reflection.AssemblyHelper;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
@@ -18,7 +17,7 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
     [ToolboxBitmap(typeof(WorldCreatorWinModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
-    public sealed class WorldCreatorWinModule : WorldCreatorModuleBase, IRichEditUser {
+    public sealed class WorldCreatorWinModule : XpandModuleBase, IRichEditUser {
         
         public WorldCreatorWinModule() {
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));
@@ -39,10 +38,6 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
             return base.GetDeclaredControllerTypes().Concat(new[] { typeof(RichEditModelAdapterController) });
-        }
-
-        public override string GetPath() {
-            return Application.GetStorageFolder(WCAssembliesPath);
         }
     }
 }

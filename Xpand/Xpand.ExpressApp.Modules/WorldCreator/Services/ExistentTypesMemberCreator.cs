@@ -101,7 +101,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
             }
         }
 
-        public static XPCustomMemberInfo[] CreateMembers(WorldCreatorModuleBase worldCreatorModule){
+        public static XPCustomMemberInfo[] CreateMembers(WorldCreatorModule worldCreatorModule){
             if (_members.Length==0  && InterfaceBuilder.RuntimeMode){
                 var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(worldCreatorModule.Application,false);
                 using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()){
