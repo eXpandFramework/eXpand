@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
-namespace Xpand.CodeRush.Plugins {
+namespace Xpand.CodeRush.Plugins.Extensions {
     /// <summary>
     /// Takes an encoding (defaulting to UTF-8) and a function which produces a seekable stream
     /// (or a filename for convenience) and yields lines from the end of the stream backwards.

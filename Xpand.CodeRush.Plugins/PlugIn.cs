@@ -4,12 +4,14 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.CodeRush.Core;
 using DevExpress.CodeRush.PlugInCore;
 using DevExpress.DXCore.Controls.Xpo.DB.Helpers;
 using EnvDTE;
+using EnvDTE90;
 using Mono.Cecil;
 using Xpand.CodeRush.Plugins.Enums;
 using Xpand.CodeRush.Plugins.Extensions;
@@ -346,6 +348,26 @@ namespace Xpand.CodeRush.Plugins {
 
         private bool VersionMissMatch(string path){
             return !(Path.GetFileName(path) + "").StartsWith("DevExpress")&&!AssemblyDefinition.ReadAssembly(path).VersionMatch();
+        }
+
+        private void events_DebuggerEnterRunMode(DebuggerEnterModeEventArgs ea){
+            if (!OptionClass.Instance.DisableExceptions){
+                var exceptionsBreaks = OptionClass.Instance.Exceptions;
+                var debugger = (Debugger3)_dte.Debugger;
+                foreach (var exceptionsBreak in exceptionsBreaks){
+                    var exceptionSettings= debugger.ExceptionGroups.Item("Common Language Runtime Exceptions");
+                    ExceptionSetting exceptionSetting = null;
+                    try {
+                        exceptionSetting = exceptionSettings.Item(exceptionsBreak.Exception);
+                    }
+                    catch (COMException e){
+                        if (e.ErrorCode == -2147352565){
+                            exceptionSetting=exceptionSettings.NewException(exceptionsBreak.Exception, 0);
+                        }
+                    }
+                    exceptionSettings.SetBreakWhenThrown(exceptionsBreak.Break,exceptionSetting);
+                }
+            }
         }
     }
 }

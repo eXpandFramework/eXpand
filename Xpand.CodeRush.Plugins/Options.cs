@@ -30,7 +30,7 @@ namespace Xpand.CodeRush.Plugins {
             gridView2.KeyDown+=GridViewOnKeyDown;
             gridView3.KeyDown+=GridViewOnKeyDown;
             gridView4.KeyDown+=GridViewOnKeyDown;
-            
+            gridView5.KeyDown+=GridViewOnKeyDown;
             PreparePage+=OnPreparePage;
         }
 
@@ -42,11 +42,13 @@ namespace Xpand.CodeRush.Plugins {
             specificVersionCheckEdit.Checked = OptionClass.Instance.SpecificVersion;
             checkEditDebugME.Checked = OptionClass.Instance.DebugME;
             checkEditKillModelEditor.Checked = OptionClass.Instance.KillModelEditor;
+            checkEditDisableExceptions.Checked = OptionClass.Instance.DisableExceptions;
 
             gridControlConnectionStrings.DataSource = OptionClass.Instance.ConnectionStrings;
             gridControlLoadProjectFromReferenceItem.DataSource = OptionClass.Instance.SourceCodeInfos;
             gridControlME.DataSource = OptionClass.Instance.MEs;
             gridControlAssemblyFolders.DataSource = OptionClass.Instance.ReferencedAssembliesFolders;
+            gridControlExceptions.DataSource = OptionClass.Instance.Exceptions;
         }
 
 
@@ -89,6 +91,7 @@ namespace Xpand.CodeRush.Plugins {
             instance.SpecificVersion = specificVersionCheckEdit.Checked;
             instance.DebugME = checkEditDebugME.Checked;
             instance.KillModelEditor = checkEditKillModelEditor.Checked;
+            instance.DisableExceptions = checkEditDisableExceptions.Checked;
             instance.Save();
         }
 
@@ -157,22 +160,15 @@ namespace Xpand.CodeRush.Plugins {
 
     public class OptionClass{
         private static readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
-        private readonly BindingList<ConnectionString> _connectionStrings=new BindingList<ConnectionString>();
-        private readonly BindingList<ReferencedAssembliesFolder> _referencedAssembliesFolders=new BindingList<ReferencedAssembliesFolder>();
-        private readonly BindingList<ME> _mEs=new BindingList<ME>();
-        private readonly BindingList<SourceCodeInfo> _sourceCodeInfos=new BindingList<SourceCodeInfo>();
-        private static readonly OptionClass _instance;
         private static readonly string _path;
 
         static OptionClass(){
             var storage = DevExpress.CodeRush.Core.CodeRush.Options.GetStorage(typeof(Options));
             _path = Path.Combine(Path.GetDirectoryName(storage.FileName) + "", Path.GetFileNameWithoutExtension(storage.FileName) + "-Options.xml");
-            _instance = GetOptionClass();
+            Instance = GetOptionClass();
         }
 
-        public static OptionClass Instance{
-            get { return _instance; }
-        }
+        public static OptionClass Instance { get; }
 
         public bool KillModelEditor { get; set; }
 
@@ -211,22 +207,21 @@ namespace Xpand.CodeRush.Plugins {
         }
 
         [XmlArray]
-        public BindingList<ConnectionString> ConnectionStrings{
-            get { return _connectionStrings; }
-        }
-        [XmlArray]
-        public BindingList<ReferencedAssembliesFolder> ReferencedAssembliesFolders{
-            get { return _referencedAssembliesFolders; }
-        }
+        public BindingList<ConnectionString> ConnectionStrings { get; } = new BindingList<ConnectionString>();
 
         [XmlArray]
-        public BindingList<ME> MEs{
-            get { return _mEs; }
-        }
+        public BindingList<ReferencedAssembliesFolder> ReferencedAssembliesFolders { get; } = new BindingList<ReferencedAssembliesFolder>();
+
         [XmlArray]
-        public BindingList<SourceCodeInfo> SourceCodeInfos{
-            get { return _sourceCodeInfos; }
-        }
+        public BindingList<ExceptionsBreak> Exceptions { get; } = new BindingList<ExceptionsBreak>();
+
+        [XmlArray]
+        public BindingList<ME> MEs { get; } = new BindingList<ME>();
+
+        [XmlArray]
+        public BindingList<SourceCodeInfo> SourceCodeInfos { get; } = new BindingList<SourceCodeInfo>();
+
+        public bool DisableExceptions { get; set; }
 
         public void Save(){
             var stringBuilder = new StringBuilder();
@@ -242,6 +237,12 @@ namespace Xpand.CodeRush.Plugins {
 
         public string Folder { get; set; }
     }
+    public class ExceptionsBreak : OptionClassBase{
+
+        public string Exception { get; set; }
+
+        public bool Break { get; set; }
+    }
 
     public class ME:OptionClassBase{
         public string Path { get; set; }
@@ -249,18 +250,13 @@ namespace Xpand.CodeRush.Plugins {
 
 
     public class SourceCodeInfo:OptionClassBase {
-        private readonly List<ProjectInfo> _projectPaths=new List<ProjectInfo>();
         public string RootPath { get; set; }
         public string ProjectRegex { get; set; }
 
-        public int Count{
-            get { return ProjectPaths.Count; }
-        }
+        public int Count => ProjectPaths.Count;
 
         [XmlArray]
-        public List<ProjectInfo> ProjectPaths{
-            get { return _projectPaths; }
-        }
+        public List<ProjectInfo> ProjectPaths { get; } = new List<ProjectInfo>();
 
         public override string ToString() {
             return "RootPath:" + RootPath + " ProjectRegex=" + ProjectRegex + " Count=" + Count;
