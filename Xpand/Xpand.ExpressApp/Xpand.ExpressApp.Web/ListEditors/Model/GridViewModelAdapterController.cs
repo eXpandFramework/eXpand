@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
         protected override void OnActivated() {
             base.OnActivated();
             var listView = View as ListView;
-            if (listView != null && listView.Editor is ASPxGridListEditor) {
+            if (listView?.Editor is ASPxGridListEditor) {
                 ASPxGridListEditor = (ASPxGridListEditor)listView.Editor;
                 ASPxGridListEditor.ModelApplied += ASPxGridListEditorOnModelApplied;
                 ASPxGridListEditor.ModelSaved += ASPxGridListEditorOnModelSaved;
@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
             var assembly = builder.Build(CreateBuilderData(), GetPath(typeof(ASPxGridView).Name));
 
             builder.ExtendInteface<IModelOptionsGridView, ASPxGridView>(assembly);
-            builder.ExtendInteface<IModelOptionsColumnGridView, GridViewColumn>(assembly);
+            builder.ExtendInteface<IModelOptionsColumnGridView, GridViewDataColumn>(assembly);
         }
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
                 Act =info =>info.Name!="Item"&&(info.DXFilter(BaseGridViewControlTypes(), typeof (object)) ||
                      typeof (PropertiesBase).IsAssignableFrom(info.PropertyType))
             };
-            yield return new InterfaceBuilderData(typeof(GridViewColumn)) {
+            yield return new InterfaceBuilderData(typeof(GridViewDataColumn)) {
                 Act = info => (info.DXFilter(BaseGridViewControlTypes(), typeof(object))) && info.Name != "Width"
             };
             yield return new InterfaceBuilderData(typeof(GridViewBandColumn)) {
@@ -74,7 +74,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
         }
 
         IList<Type> BaseGridViewBandColumnControlTypes() {
-            return new List<Type> { typeof(Style) };
+            return new List<Type> { typeof(Style),typeof(StateManager) };
         }
     }
 }

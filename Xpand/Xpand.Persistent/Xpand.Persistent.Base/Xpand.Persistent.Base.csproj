@@ -631,7 +631,6 @@
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -647,5 +646,4 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
   <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" />
-  
 </Project>

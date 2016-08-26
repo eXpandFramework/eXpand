@@ -12,9 +12,7 @@ namespace Xpand.Persistent.Base.General.Model.Options {
             _overrideViewDesignMode = overrideViewDesignMode;
         }
 
-        protected bool OverrideViewDesignMode {
-            get { return _overrideViewDesignMode; }
-        }
+        protected bool OverrideViewDesignMode => _overrideViewDesignMode;
 
         protected override void ApplyModelCore() {
             if (Model.NodeEnabled || _overrideViewDesignMode)

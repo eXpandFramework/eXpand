@@ -41,6 +41,9 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
             var dataColumnWithInfos = Control.Columns.OfType<GridViewDataColumn>().ToList();
             foreach (var viewDataColumnWithInfo in dataColumnWithInfos.Where(column => column.FieldName != "ProtectedContentColumn ED6F4AF3-F04C-45EB-B8C1-6CEE05D395B2")) {
                 var modelColumnOptionsGridView = ((IModelColumnOptionsGridView) viewDataColumnWithInfo.Model(Model));
+                foreach (var modelAdapter in modelColumnOptionsGridView.OptionModelAdapters.SelectMany(adapter => adapter.ModelAdapters)){
+                    ApplyModel(modelAdapter, viewDataColumnWithInfo, ApplyValues);
+                }
                 ApplyModel(modelColumnOptionsGridView.OptionsColumnGridView, viewDataColumnWithInfo, ApplyValues);
             }
         }
