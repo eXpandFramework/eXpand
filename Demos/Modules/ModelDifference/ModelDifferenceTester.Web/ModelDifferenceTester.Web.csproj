@@ -12,11 +12,9 @@
     <RootNamespace>ModelDifferenceTester.Web</RootNamespace>
     <AssemblyName>ModelDifferenceTester.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -82,7 +80,9 @@
     <Reference Include="DevExpress.Office.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v16.1, Version=16.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Persistent.BaseImpl.v16.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.RichEdit.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -236,8 +236,7 @@
   -->
   <Target Name="AfterBuild">
     <ItemGroup>
-      <OutputFiles Include="$(OutputPath)\**\*.*">
-      </OutputFiles>
+      <OutputFiles Include="$(OutputPath)\**\*.*"></OutputFiles>
     </ItemGroup>
     <Copy SourceFiles="@(OutputFiles)" DestinationFolder="..\ModelDifferenceTester.Win\bin\EasyTest\%(OutputFiles.RecursiveDir)" />
     <!--    <Copy SourceFiles="$(OutputPath)\*.*" DestinationFolder="..\ModelDifferenceTester.Win\bin\EasyTest\"></Copy>-->
@@ -250,12 +249,10 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50822</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl></IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl></CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
