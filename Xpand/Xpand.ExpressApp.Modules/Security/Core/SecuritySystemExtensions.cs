@@ -44,10 +44,6 @@ namespace Xpand.ExpressApp.Security.Core {
                 application.NewSecurityStrategyComplex(typeof(TAuthentation), typeof(TLogonParameter), userType ?? typeof(XpandUser),roleType??typeof(XpandRole));
         }
 
-        public static void NewSecurityStrategyComplexV2<TUser,TRole>(this XafApplication application, Type authethicationType = null,Type logonParametersType = null) where TRole:IPermissionPolicyRole where TUser:ISecurityUser{
-            NewSecurityStrategyComplexCore(application, authethicationType, logonParametersType, null, null, typeof(TUser), typeof(TRole));
-        }
-
         public static void NewSecurityStrategyComplexV2<TUser,TRole>(this XafApplication application, Type authethicationType = null,
             Type logonParametersType = null) where TRole:IPermissionPolicyRole where TUser:ISecurityUser{
             NewSecurityStrategyComplexCore(application, authethicationType, logonParametersType, null, null, typeof(TUser), typeof(TRole));
