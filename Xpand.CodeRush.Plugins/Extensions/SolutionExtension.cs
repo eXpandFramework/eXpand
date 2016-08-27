@@ -18,13 +18,13 @@ namespace Xpand.CodeRush.Plugins.Extensions {
 
         public static string GetDXRootDirectory(this Solution solution){
             var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\WOW6432node\DevExpress\Components\" + solution.GetDXVersion());
-            return registryKey != null ? (string) registryKey.GetValue("RootDirectory") : null;
+            return (string) registryKey?.GetValue("RootDirectory");
         }
 
         public static string GetDXVersion(this Solution solution){
             return solution.DTE.Solution.Projects.Cast<Project>()
                 .Select(project => project.Object)
-                .Cast<VSProject>()
+                .OfType<VSProject>()
                 .SelectMany(project => project.References.Cast<Reference>()).Select(reference =>{
                     var matchResults = Regex.Match(reference.Name, @"DevExpress(.*)(v[^.]*\.[.\d])");
                     return matchResults.Success ? matchResults.Groups[2].Value : null;
