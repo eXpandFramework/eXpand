@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -6,6 +7,7 @@ using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
+using DevExpress.ExpressApp.Model.Core;
 using Fasterflect;
 
 namespace Xpand.Persistent.Base.General.Model.Options {
@@ -19,7 +21,7 @@ namespace Xpand.Persistent.Base.General.Model.Options {
 
     [ModelNodesGenerator(typeof(ModelGridViewAdaptersNodeGenerator))]
     public interface IModelGridViewModelAdapters : IModelList<IModelGridViewModelAdapter>, IModelNode {
-
+        
     }
 
     [ModelDisplayName("Adapter")]
@@ -114,10 +116,16 @@ namespace Xpand.Persistent.Base.General.Model.Options {
 
     [ModelNodesGenerator(typeof(ModelGridColumnAdaptersNodeGenerator))]
     public interface IModelGridColumnModelAdapters : IModelList<IModelColumnGridViewModelAdapter>, IModelNode {
-
+        [DefaultValue(true)]
+        bool AlwaysApplyDefault { get; set; }
     }
 
     public class ModelGridColumnAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelOptionsColumnGridView, IModelColumnGridViewModelAdapter> {
+        protected override void GenerateNodesCore(ModelNode node) {
+            var modelOptionsAdvBandedView = ((IModelApplicationModelAdapterContexts)node.Application).ModelAdapterContexts.GetAdapters<IModelOptionsColumnGridView>().FirstOrDefault();
+            var optionsAdvBandedView = node.AddNode<IModelColumnGridViewModelAdapter>("Default");
+            optionsAdvBandedView.ModelAdapter = modelOptionsAdvBandedView;
+        }
 
     }
 
