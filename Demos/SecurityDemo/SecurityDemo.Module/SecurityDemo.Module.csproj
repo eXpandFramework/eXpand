@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SecurityDemo.Module</RootNamespace>
     <AssemblyName>SecurityDemo.Module</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -170,7 +172,7 @@
     <EmbeddedResource Include="Images\Demo_Security_MemberByCriteria_32x32.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\AutoTest.UI.Client\AutoTest.ets" />
+    <None Include="FunctionalTests\AutoTest.UI.Client\AutoTest.UI.Client.ets" />
     <None Include="FunctionalTests\AutoTest\AutoTest.ets" />
     <None Include="packages.config" />
   </ItemGroup>

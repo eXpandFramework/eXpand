@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XVideoRental.Module.Win", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XVideoRental.Win", "XVideoRental.Win\XVideoRental.Win.csproj", "{F9B6C458-59EB-44FC-899C-DBCBA869C08E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Security", "..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj", "{B964E541-EBA2-4971-B104-A99ABBD95D36}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,21 +85,6 @@ Global
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|Mixed Platforms.Build.0 = EasyTest|x86
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|x86.ActiveCfg = EasyTest|x86
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|x86.Build.0 = EasyTest|x86
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.EasyTest|Any CPU.ActiveCfg = Test|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.EasyTest|Mixed Platforms.ActiveCfg = Test|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.EasyTest|x86.ActiveCfg = Test|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.RecompiledDxSources|Mixed Platforms.ActiveCfg = RecompiledDxSources|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.RecompiledDxSources|x86.ActiveCfg = RecompiledDxSources|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Release|x86.ActiveCfg = Release|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Test|Any CPU.ActiveCfg = Test|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Test|Mixed Platforms.ActiveCfg = Test|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Test|x86.ActiveCfg = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

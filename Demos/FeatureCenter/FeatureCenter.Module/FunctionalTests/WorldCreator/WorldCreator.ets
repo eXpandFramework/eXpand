@@ -1,15 +1,17 @@
 #Timeout 160
 #DropDB XpandFeatureCenterEasyTest
 #DropDB NorthWind
-#DropDB XpandFeatureCenterWorldCreator
+#DropDB XpandFeatureCenterWorldCreatorWeb
+#DropDB XpandFeatureCenterWorldCreatorWin
 #Application FeatureCenter.Win
 #Application FeatureCenter.Web
  
 *ScreenCapture
 *LogOn
 
-#IfDef FeatureCenter.Win
 *Action Navigation(WorldCreator.Persistent Assembly Info)
+
+#IfDef FeatureCenter.Win
 *XpandProcessRecord 
  Name = MasterDetailDynamicAssembly
 !FieldIsVisible
@@ -17,7 +19,7 @@
 *SaveAndClose
 #EndIf
 
-*ProcessRecord 
+*XpandProcessRecord 
  Name = [MappedDBName]
 !FieldIsVisible
  Fields = Errors 

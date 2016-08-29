@@ -210,6 +210,7 @@
     <Content Include="FunctionalTests\LayoutStyle\Images\LayoutStyle.web.png" />
     <Content Include="FunctionalTests\MasterDetail\Config.xml" />
     <None Include="FunctionalTests\MasterDetail\Init.inc" />
+    <Content Include="FunctionalTests\MasterDetail\Images\MasterDetail.web.mask.png" />
     <Content Include="FunctionalTests\MasterDetail\Images\MasterDetail.web.png" />
     <Content Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Config.xml" />
     <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Init.inc" />

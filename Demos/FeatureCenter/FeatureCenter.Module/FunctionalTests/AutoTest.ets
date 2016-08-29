@@ -1,7 +1,8 @@
 #Timeout 160
 #DropDB XpandFeatureCenterEasyTest
 #DropDB NorthWind
-#DropDB XpandFeatureCenterWorldCreator
+#DropDB XpandFeatureCenterWorldCreatorWin
+#DropDB XpandFeatureCenterWorldCreatorWeb
 #Application FeatureCenter.Win
 #Application FeatureCenter.Web
 

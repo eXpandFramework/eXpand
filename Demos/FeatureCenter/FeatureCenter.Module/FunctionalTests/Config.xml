@@ -23,9 +23,8 @@
   <TestDatabases>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterEasyTest"/>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="NorthWind"/>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterExceptionHandling"/>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterMultipleDataStore"/>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterWorldCreator"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterWorldCreatorWin"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterWorldCreatorWeb"/>
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

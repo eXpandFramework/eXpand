@@ -49,6 +49,7 @@ namespace FeatureCenter.Win {
 
                 winApplication.UseOldTemplates=false;
                 winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser,XpandPermissionPolicyRole>(typeof(AuthenticationStandard),typeof(AuthenticationStandardLogonParameters));
+//                winApplication.EnableModelCache = true;
                 winApplication.Setup();
                 winApplication.LoggingOn += (sender, args) => {
                     if (cmdargs.Length > 0)

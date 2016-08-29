@@ -11,7 +11,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
 
         public override void UpdateNode(ModelNode node) {
             var modelAction = ((IModelActions)node)[ActionModifyModelController.ModifyModelActionName];
-            if (modelAction != null && modelAction.ChoiceActionItems != null) {
+            if (modelAction?.ChoiceActionItems != null) {
                 modelAction.ChoiceActionItems.AddNode<IModelChoiceActionItem>(ResetViewModel);
                 modelAction.ChoiceActionItems.AddNode<IModelChoiceActionItem>(ChangeViewModel);
             }
@@ -27,9 +27,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
             _actionModifyModelController.ModifyModelAction.Execute += ModifyModelActionOnExecute;
         }
 
-        public ActionModifyModelController ActionModifyModelController{
-            get { return _actionModifyModelController; }
-        }
+        public ActionModifyModelController ActionModifyModelController => _actionModifyModelController;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();

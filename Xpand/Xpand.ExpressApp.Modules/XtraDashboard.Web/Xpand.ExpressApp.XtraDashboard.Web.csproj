@@ -228,4 +228,5 @@
   -->
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
   <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" />
+      <LangVersion>6</LangVersion>
 </Project>

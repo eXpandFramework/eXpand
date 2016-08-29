@@ -8,7 +8,7 @@
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100"/>
     <!-- Web -->
-    <Application Ignored="1"
+    <Application Ignored="0"
 			Name="FeatureCenter.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
@@ -23,7 +23,8 @@
   <TestDatabases>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterEasyTest"/>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="NorthWind"/>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterWorldCreator"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterWorldCreatorWin"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandFeatureCenterWorldCreatorWeb"/>
   </TestDatabases>
   <Aliases>
     <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />

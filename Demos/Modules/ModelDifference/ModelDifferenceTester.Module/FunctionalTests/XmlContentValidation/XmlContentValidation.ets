@@ -16,6 +16,7 @@
 ;-------test validation on focus changes-------
 #IfDef ModelDifferenceTester.Win
 *LClick [ModelTab]
+*Sleep 1000
 *XpandCheckValidationResult
  Info = *invalid*
 #EndIf
