@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
+using Xpand.ExpressApp.TreeListEditors.Web;
+using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Module.Web {
     [ToolboxItemFilter("Xaf.Platform.Web")]
@@ -11,6 +13,12 @@ namespace SystemTester.Module.Web {
 
         public SystemTesterAspNetModule() {
             InitializeComponent();
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager){
+            base.Setup(moduleManager);
+            if (Application.GetEasyTestParameter("ColumnChooser"))
+                moduleManager.AddModule(Application,new XpandTreeListEditorsAspNetModule());
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {

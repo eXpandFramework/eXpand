@@ -1,6 +1,7 @@
 ﻿namespace Xpand.Persistent.Base.General {
     public struct EditorAliases {
         public const string DashboardXMLEditor = "DashboardXMLEditor";
+        public const string XpandTreeListEditor = "XpandTreeListEditor";
         public const string HyperLinkPropertyEditor = "HyperLinkPropertyEditor";
         public const string CriteriaPropertyEditorEx = "CriteriaPropertyEditorEx";
         public const string FilterableEnumPropertyEditor = "FilterableEnumPropertyEditor";

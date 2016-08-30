@@ -86,8 +86,11 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool GetEasyTestParameter(this XafApplication app,string parameter){
-            var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");
-            return File.Exists(paramFile) && File.ReadAllLines(paramFile).Any(s => s == parameter);
+            if (app!=null){
+                var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");
+                return File.Exists(paramFile) && File.ReadAllLines(paramFile).Any(s => s == parameter);
+            }
+            return false;
         }
 
         public static IEnumerable<Controller> CreateValidationControllers(this XafApplication app){

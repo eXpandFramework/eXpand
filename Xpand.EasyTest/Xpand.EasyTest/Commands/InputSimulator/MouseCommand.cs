@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using System.Windows.Forms;
 using DevExpress.EasyTest.Framework;
 using Fasterflect;
 using Xpand.EasyTest.Commands.Window;
@@ -20,6 +21,7 @@ namespace Xpand.EasyTest.Commands.InputSimulator{
                 activateApplicationWindowCommand.Execute(adapter);
                 if (Parameters["MoveMouseTo"]!=null){
                     var point = this.ParameterValue<Point>("MoveMouseTo");
+                    Cursor.Position=point;
                     _simulator.Mouse.MoveMouseTo(point.X, point.Y);
                 }
                 if (!string.IsNullOrEmpty(Parameters.MainParameter.Value)){

@@ -19,6 +19,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                     if (_containerHolders != null && modelViewHideViewToolBar.HideToolBar.HasValue && modelViewHideViewToolBar.HideToolBar.Value) {
                         _visibility = containerHolder.Style[HtmlTextWriterStyle.Display];
                         containerHolder.Style[HtmlTextWriterStyle.Visibility] = "Hidden";
+                        containerHolder.Style[HtmlTextWriterStyle.Display] = "None";
                     }    
                 }
             }

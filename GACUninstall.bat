@@ -1,2 +1,2 @@
 
-call .\Xpand.DLL\GACInstaller.exe -m UnInstall -r Xpand.*
+call .\Xpand.DLL\GACInstaller.exe -m UnInstall

@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.ExpressApp.Win.Controls;
+using DevExpress.Utils.Controls;
 using DevExpress.XtraTreeList;
 using DevExpress.XtraTreeList.Columns;
-using Xpand.ExpressApp.TreeListEditors.Win.ListEditors;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
@@ -43,5 +43,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
             return typeof(TreeList);
         }
 
+        protected override IList<Type> GetTreeListFilterTypes(){
+            return new[]{typeof(BaseOptions)};
+        }
     }
 }

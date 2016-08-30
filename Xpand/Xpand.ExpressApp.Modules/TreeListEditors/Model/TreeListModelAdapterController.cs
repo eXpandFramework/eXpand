@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
         protected override void OnActivated() {
             base.OnActivated();
             var listView = View as ListView;
-            if (listView != null && listView.Editor != null && GetValidEditor()) {
+            if (listView?.Editor != null && GetValidEditor()) {
                 listView.Editor.ModelApplied+=EditorOnModelApplied;
                 listView.Editor.ModelSaved+=EditorOnModelSaved;
             }
@@ -65,11 +65,15 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(TreeListType()) {
-                Act = info => info.DXFilter()
+                Act = info => info.DXFilter(GetTreeListFilterTypes(),typeof(object))
             };
             yield return new InterfaceBuilderData(TreeListColumnType()) {
                 Act = info => info.DXFilter()
             };
+        }
+
+        protected virtual IList<Type> GetTreeListFilterTypes(){
+            return InterfaceBuilderExtensions.BaseTypes;
         }
     }
 }

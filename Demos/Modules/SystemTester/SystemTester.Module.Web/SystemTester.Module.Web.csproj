@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module.Web</RootNamespace>
     <AssemblyName>SystemTester.Module.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -68,6 +70,9 @@
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v16.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Printing.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -115,6 +120,14 @@
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Web.dll</HintPath>
@@ -125,6 +138,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\ColumnChooser\ColumnChooserObject.cs" />
     <Compile Include="FunctionalTests\ASPXGridViewOptions\ASPxGridVIewObject.cs" />
     <Compile Include="FunctionalTests\LayoutStyle\LayoutStyleObjects.cs" />
     <Compile Include="FunctionalTests\MasterDetail\MasterDetail.cs">
@@ -162,6 +176,10 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\ColumnChooser\ColumnChooser.ets" />
+    <None Include="FunctionalTests\ColumnChooser\ColumnChooser.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ASPXGridViewOptions\ASPXGridViewOptions.ets" />
     <None Include="FunctionalTests\ASPXGridViewOptions\ASPXGridViewOptions.xafml">
       <SubType>Designer</SubType>
@@ -204,6 +222,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="FunctionalTests\ColumnChooser\Config.xml" />
     <Content Include="FunctionalTests\ASPXGridViewOptions\Config.xml" />
     <Content Include="FunctionalTests\LayoutStyle\Config.xml" />
     <None Include="FunctionalTests\LayoutStyle\Init.inc" />

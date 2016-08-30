@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -14,6 +15,7 @@ using Xpand.ExpressApp.Web.Model;
 using Xpand.ExpressApp.Web.PropertyEditors;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
+using Xpand.Persistent.Base.TreeNode;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -32,8 +34,8 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             RequiredModuleTypes.Add(typeof(CloneObjectModule));
         }
 
-        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            return new List<Type>();
+        protected override IEnumerable<Type> GetDeclaredExportedTypes(){
+            return base.GetDeclaredExportedTypes().Concat(new[] {typeof(ColumnChooserList) });
         }
 
         protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory) {

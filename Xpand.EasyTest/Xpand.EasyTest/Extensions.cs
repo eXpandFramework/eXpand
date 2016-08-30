@@ -300,6 +300,7 @@ namespace Xpand.EasyTest {
                 {typeof (FillDateTimeValueCommand), FillDateTimeValueCommand.Name},
                 {typeof (FieldIsVisibleCommand), FieldIsVisibleCommand.Name},
                 {typeof (DeleteCommand), DeleteCommand.Name},
+                {typeof (DeleteAllObjectsCommand), DeleteAllObjectsCommand.Name},
                 {typeof (CreatePermissionCommand), CreatePermissionCommand.Name},
                 {typeof (CopyTextCommand), CopyTextCommand.Name},
                 {typeof (CheckClipboardValueCommand), CheckClipboardValueCommand.Name},

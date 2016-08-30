@@ -10,8 +10,6 @@ namespace Xpand.EasyTest.Commands.InputSimulator{
             mouseCommand.Parameters.MainParameter = new MainParameter(ClickMethodName());
             mouseCommand.Parameters.Add(new Parameter("MoveMouseTo", Parameters.MainParameter.Value, true, EndPosition));
             mouseCommand.Execute(adapter);
-
-            Thread.Sleep(1000);
         }
 
 

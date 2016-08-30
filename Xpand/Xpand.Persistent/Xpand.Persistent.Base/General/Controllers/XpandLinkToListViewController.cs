@@ -9,11 +9,13 @@ namespace Xpand.Persistent.Base.General.Controllers{
         private void Application_ViewShowing(object sender, ViewShowingEventArgs e) {
             if ((e.TargetFrame is Window) && (e.SourceFrame == Frame)) {
                 if ((Frame.View is ObjectView)
-                        && (e.View is DetailView)
-                        && (Link != null) && (Link.ListView != null) && !(Frame.View.ObjectTypeInfo.IsAssignableFrom(e.View.ObjectTypeInfo))) {
+                    && (e.View is DetailView) && Link?.ListView != null && !(Frame.View.ObjectTypeInfo.IsAssignableFrom(e.View.ObjectTypeInfo))) {
                     e.View.Tag = Link;
-                    e.View.Disposing+=ViewOnDisposing;
                 }
+                else{
+                    e.View.Tag = Frame;
+                }
+                e.View.Disposing += ViewOnDisposing;
             }
         }
 
@@ -42,11 +44,10 @@ namespace Xpand.Persistent.Base.General.Controllers{
                 OnLinkChanged();
             }
         }
-        protected virtual void OnLinkChanged() {
-            if (LinkChanged != null) {
-                LinkChanged(this, EventArgs.Empty);
-            }
+        protected virtual void OnLinkChanged(){
+            LinkChanged?.Invoke(this, EventArgs.Empty);
         }
+
         protected override void OnActivated() {
             base.OnActivated();
             Frame.ViewChanging += Frame_ViewChanging;
@@ -56,7 +57,7 @@ namespace Xpand.Persistent.Base.General.Controllers{
                 _link = new Link(view);
                 OnLinkChanged();
             }
-            if (Frame != null && Frame.Application != null) {
+            if (Frame?.Application != null) {
                 Frame.Application.ViewShowing += Application_ViewShowing;
             }
         }
@@ -65,11 +66,11 @@ namespace Xpand.Persistent.Base.General.Controllers{
             Frame.ViewChanged -= Frame_ViewChanged;
         }
         protected override void Dispose(bool disposing) {
-            if (Frame != null && Frame.Application != null) {
+            if (Frame?.Application != null) {
                 Frame.Application.ViewShowing -= Application_ViewShowing;
             }
             if (_link != null) {
-                if (Frame != null && Frame.View is ListView) {
+                if (Frame?.View is ListView) {
                     _link.ListView = null;
                 }
                 _link = null;

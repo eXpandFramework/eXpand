@@ -32,12 +32,11 @@ namespace SystemTester.Web{
             }
         }
 
-        protected override bool SupportMasterDetailMode{
-            get { return true; }
-        }
+        protected override bool SupportMasterDetailMode => true;
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
             this.CreateCustomObjectSpaceprovider(args, null);
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
         }
 
         private void SystemTesterAspNetApplication_DatabaseVersionMismatch(object sender,

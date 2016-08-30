@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id="ColumnChooser" ImageName="TemplatesV2Images.Navigation_Item_View" />
+    </Actions>
+  </ActionDesign>
   <Localization>
     <LocalizationGroup Name="eXpand.Web" IsNewNode="True">
       <LocalizationItem Name="CancelAgain" Value="Please, click Cancel again to cancel your changes." IsNewNode="True" />
@@ -11,4 +16,21 @@
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.ShowNavigationItemController" Version="8.3.4.5247" IsNewNode="True" />
     <SchemaModule Name="SystemModule" Version="8.3.4.5247" IsNewNode="True" />
   </SchemaModules>
+  <Views>
+    <ListView Id="ColumnChooserList_Columns_ListView" HideToolBar="True">
+      <HiddenActions>
+        <ActionLink ActionId="Edit" IsNewNode="True" />
+        <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <DetailView Id="ColumnChooserList_DetailView" CollectionsEditMode="Edit">
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="Columns_Group" ShowCaption="False" Direction="Vertical" RelativeSize="100">
+            <LayoutItem Id="Columns" RelativeSize="100" ViewItem="Columns" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
 </Application>

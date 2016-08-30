@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -36,7 +37,8 @@
     <TargetFrameworkProfile />
     <LangVersion>6</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +52,8 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>6</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NoWarn></NoWarn>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -146,6 +149,7 @@
     <Reference Include="PropertyChanged">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.1.51.3\lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
       <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -193,7 +197,11 @@
     <Compile Include="General\Controllers\NavigationItemsController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="General\Controllers\PopupParentFrameController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="General\FileDataExtensions.cs" />
+    <Compile Include="General\IDataBound.cs" />
     <Compile Include="General\ModuleActivator.cs" />
     <Compile Include="General\TypeConverters\StringToModelMemberConverter.cs" />
     <Compile Include="General\TypeConverters\StringToModelViewConverter.cs" />
@@ -297,6 +305,7 @@
     <Compile Include="Security\ISecurityRelated.cs" />
     <Compile Include="StateMachine\IStateMachineTransitionPermission.cs" />
     <Compile Include="StateMachine\StateMachineTransitionModifier.cs" />
+    <Compile Include="TreeNode\ColumnChooser.cs" />
     <Compile Include="Validation\RuleIsValidFileName.cs" />
     <Compile Include="XpandFileData.cs" />
     <Compile Include="Xpo\AssemblyXpoTypeInfoSource.cs" />
@@ -625,8 +634,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
+    <Content Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -642,5 +654,12 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+      <LangVersion>6</LangVersion>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.1.29.4\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+  </Target>
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Web;
@@ -23,6 +24,9 @@ namespace Xpand.ExpressApp.TreeListEditors.Web.Model {
             return typeof(ASPxTreeList);
         }
 
+        protected override IList<Type> GetTreeListFilterTypes(){
+            return new[]{typeof(TreeListSettingsBase)};
+        }
     }
 
 }

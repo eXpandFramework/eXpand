@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
+	<RestoreNuget>true</RestoreNuget>
     <DXVersion>16.1</DXVersion>
     <DXPath>C:\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
@@ -105,11 +106,7 @@
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)"  />
   </Target>
   <Target Name="NuGetRestore" Condition="$(RestoreNuget)==true">
-	<Exec Command="$(NuGetTool) restore %(CoreProjects.Identity)" />
-	<Exec Command="$(NuGetTool) restore %(EasyTestProjects.Identity)" />
-	<Exec Command="$(NuGetTool) restore %(HelperProjects.Identity)" />
-	<Exec Command="$(NuGetTool) restore %(VSAddons.Identity)" />
-	<Exec Command="$(NuGetTool) restore %(ModuleProjects.Identity)" />
+	<Exec Command="$(NuGetTool) restore %(NugetRestoreProjects.Identity)" />
   </Target>  
   <Target Name="Build" DependsOnTargets="CopyCodeRushAssemblies;Copy3rdPartyAssemblies;FixReferencesB4Build;NuGetRestore">
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
@@ -133,7 +130,7 @@
   <Target Name="BuildNH">
 	<MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
   </Target>
-  <Target Name="Clean">
+  <Target Name="Clean" DependsOnTargets="NuGetRestore">
     <MSBuild Projects="@(CoreProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />

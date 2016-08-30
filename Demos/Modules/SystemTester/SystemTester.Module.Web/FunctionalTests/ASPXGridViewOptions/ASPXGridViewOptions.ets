@@ -4,10 +4,7 @@
 *ScreenCapture
 
 *Navigate ASPx Grid VIew Object
-*ExecuteTableAction
- SelectAll = True
-*OptionalAction Delete
-*OptionalAction Yes
+*DeleteAllObjects
 *Action New
 *FillForm
  Name = Tolis
