@@ -13,6 +13,7 @@ namespace FeatureCenter.Win {
     public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication {
         public FeatureCenterWindowsFormsApplication() {
             InitializeComponent();
+            
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
@@ -35,8 +36,6 @@ namespace FeatureCenter.Win {
 			e.Handled = true;
 #else
             if (Debugger.IsAttached) {
-                if (this.DropDatabaseOnVersionMissmatch() > 0)
-                    Application.ExitThread();
                 e.Updater.Update();
                 e.Handled = true;
             } else {

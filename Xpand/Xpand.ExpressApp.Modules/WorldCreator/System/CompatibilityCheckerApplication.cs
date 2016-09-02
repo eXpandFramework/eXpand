@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -7,6 +8,7 @@ using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Updating;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.WorldCreator.System{
     class CompatibilityCheckerApplication:XafApplication,ITestXafApplication{
@@ -46,7 +48,7 @@ namespace Xpand.ExpressApp.WorldCreator.System{
                         }
                         throw;
                     }
-                    using (objectSpaceProvider.CreateUpdatingObjectSpace(true)){
+                    using (objectSpaceProvider.CreateUpdatingObjectSpace(Debugger.IsAttached||InterfaceBuilder.IsDBUpdater)){
                     
                     }
                 }

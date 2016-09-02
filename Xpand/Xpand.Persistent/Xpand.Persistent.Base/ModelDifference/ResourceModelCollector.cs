@@ -19,7 +19,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
             if (!string.IsNullOrEmpty(prefix))
                 assemblyResourcesNames = assemblyResourcesNames.Where(arg => ((arg.s.StartsWith(prefix) || (!(arg.s.StartsWith(prefix)) && arg.s.IndexOf("." + prefix, StringComparison.Ordinal) > -1))));
             var dictionary = new Dictionary<string, ResourceInfo>();
-            foreach (var assemblyResourcesName in assemblyResourcesNames){
+            foreach (var assemblyResourcesName in assemblyResourcesNames.Distinct()){
                 var resourceName = assemblyResourcesName.s;
                 string path = GetPath(prefix, resourceName);
                 resourceName = GetResourceName(prefix, path);

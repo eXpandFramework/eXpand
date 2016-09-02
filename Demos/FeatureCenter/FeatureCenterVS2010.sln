@@ -24,6 +24,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Module.Web", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeatureCenter.Web", "FeatureCenter.Web\FeatureCenter.Web.csproj", "{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.WorldCreator", "..\..\Xpand\Xpand.ExpressApp.Modules\WorldCreator\Xpand.ExpressApp.WorldCreator.csproj", "{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Logic", "..\..\Xpand\Xpand.ExpressApp.Modules\Logic\Xpand.ExpressApp.Logic.csproj", "{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.AdditionalViewControlsProvider", "..\..\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider\Xpand.ExpressApp.AdditionalViewControlsProvider.csproj", "{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.ModelArtifactState", "..\..\Xpand\Xpand.ExpressApp.Modules\ModelArtifactState\Xpand.ExpressApp.ModelArtifactState.csproj", "{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +157,41 @@ Global
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{52BA000D-2A75-45BE-91A7-B3FFF4EAE89A}.Test|Any CPU.Build.0 = EasyTest|Any CPU
+		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3A59B23-05DF-4AB1-BE2B-471EAC7ADD60}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.EasyTest|Any CPU.ActiveCfg = Test|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E40CCB3-7904-4300-BCD6-E34D275E6370}.Test|Any CPU.ActiveCfg = Test|Any CPU
+		{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}.EasyTest|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}.Test|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.DebugTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.EasyTest|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}.Test|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

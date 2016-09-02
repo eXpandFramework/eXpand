@@ -6,12 +6,14 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using PropertyChanged;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.Base.General.Controllers.Actions{
     [NonPersistent]
+    [DoNotNotify]
     public class ModelConfiguration:XpandCustomObject {
         public ModelConfiguration(Session session) : base(session){
         }

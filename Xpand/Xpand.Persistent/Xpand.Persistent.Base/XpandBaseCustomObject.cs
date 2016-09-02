@@ -4,11 +4,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using PropertyChanged;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.Base {
     [Serializable]
     [NonPersistent]
+    [DoNotNotify]
     public abstract class XpandBaseCustomObject : XpandCustomObject {
         private bool _isDefaultPropertyAttributeInit;
         private XPMemberInfo _defaultPropertyMemberInfo;

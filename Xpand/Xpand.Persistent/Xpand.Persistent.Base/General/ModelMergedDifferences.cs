@@ -21,8 +21,11 @@ namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator>{
         public static bool Disable;
         public override void UpdateCachedNode(ModelNode node){
-            UpdateNodeCore(node);
+            if (EnableAtRuntime)
+                UpdateNodeCore(node);
         }
+
+        public static bool EnableAtRuntime { get; set; }
 
         private void UpdateNodeCore(ModelNode node){
             if (Disable || ModelUpdating())
@@ -363,14 +366,16 @@ namespace Xpand.Persistent.Base.General {
                     modelApplicationBases.Add(modelApplicationBase);
                 }
             }
-            modelApplicationBases = modelApplicationBases.Concat(GetEmbebedApplications(modelApplicationBases, node)).ToList();
+            var embebedApplications = GetEmbebedApplications(modelApplicationBases, node).ToArray();
+            modelApplicationBases = modelApplicationBases.Concat(embebedApplications).ToList();
             ReadFromOtherLayers(modelApplicationBases, node);
             return modelApplicationBases;
         }
 
         private static IEnumerable<ModelApplicationBase> GetEmbebedApplications(IEnumerable<ModelApplicationBase> modelApplicationBases, ModelNode node) {
             var moduleBases = modelApplicationBases.Cast<IModelSources>().SelectMany(sources => sources.Modules);
-            return ResourceModelCollector.GetEmbededModelStores(moduleBases).Select(pair => {
+            var embededModelStores = ResourceModelCollector.GetEmbededModelStores(moduleBases).ToArray();
+            return embededModelStores.Select(pair => {
                 var modelApplication = node.CreatorInstance.CreateModelApplication();
                 modelApplication.Id = pair.Key;
                 pair.Value.Load(modelApplication);

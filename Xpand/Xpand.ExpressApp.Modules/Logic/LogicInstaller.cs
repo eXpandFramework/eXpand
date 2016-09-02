@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.Logic {
             var updaters = generatorUpdaterEventArgs.Updaters;
             updaters.Add(new LogicDefaultContextNodeUpdater(ValidExecutionContexts, GetModelLogic));
             updaters.Add(new LogicDefaultGroupContextNodeUpdater(GetModelLogic));
-            updaters.Add(LogicRulesNodeUpdater);
+            if (LogicRulesNodeUpdater != null) updaters.Add(LogicRulesNodeUpdater);
         }
 
 
