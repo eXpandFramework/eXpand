@@ -141,14 +141,17 @@
     <MSBuild Projects="$(XpandDocsPath)\Xpand.Docs.sln" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(DemoSolutions)" Targets="Clean" Properties="Configuration=$(Configuration);DefineConstants=CodeFirst;" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
-    <CreateItem Include="**/Debug/**/*.*;**/Release/**/*.*;**/EasyTestUsers/**/*.*">
-      <Output ItemName="_binaryFiles" TaskParameter="Include" />
-    </CreateItem>
-    <Delete Files="@(_binaryFiles)" TreatErrorsAsWarnings="true" />
     <ItemGroup>
       <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
+      <BinFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;bin&quot;, SearchOption.AllDirectories))"/>
+	  <ObjFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;obj&quot;, SearchOption.AllDirectories))"/>
+	  <ModelAdaptorDllFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ModelAdaptorDll&quot;, SearchOption.AllDirectories))"/>
     </ItemGroup>
-    <RemoveDir Directories="@(EasyTestVideoFolders)"></RemoveDir>
+    <RemoveDir Directories="@(EasyTestVideoFolders)"/>
+	<RemoveDir Directories="@(BinFolders)"/>
+	<RemoveDir Directories="@(ObjFolders)"/>
+	<RemoveDir Directories="@(ModelAdaptorDllFolders)"/>
+	<RemoveDir Directories="$(XpandDLLPath)"/>
   </Target>
   <Target Name="Copy" DependsOnTargets="Build">
     <MakeDir Directories="$(BuildPath);$(TempPath)" />
