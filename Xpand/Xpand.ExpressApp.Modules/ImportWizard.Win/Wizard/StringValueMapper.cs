@@ -86,7 +86,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
                 }
             }
             else
-                result = Convert.ChangeType(value, prop.MemberType);
+                result = Convert.ChangeType(value, prop.MemberType,CultureInfo.InvariantCulture);
             return result;
         }
 
