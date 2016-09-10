@@ -145,6 +145,10 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.CodeParser.v16.1">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraReports.v16.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
