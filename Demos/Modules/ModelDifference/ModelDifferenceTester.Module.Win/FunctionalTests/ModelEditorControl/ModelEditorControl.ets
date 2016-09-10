@@ -15,7 +15,9 @@
 *Sleep 4000
 *SendKeys
  Keys = Tab;Down;Down;Down;Down;Down;Down;Return
-*CopyText 
+*SendKeys
+ Modifiers = Control
+ Keys = c
 
 *CheckClipboardValue
  Value = xmlcontent
