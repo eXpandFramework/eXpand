@@ -10,4 +10,4 @@
  Full Name = Apostolis Bekiaris
  Action = Edit
 *CheckFieldValues
- Non Persistent = False
+ Non Persistent = Indeterminate
