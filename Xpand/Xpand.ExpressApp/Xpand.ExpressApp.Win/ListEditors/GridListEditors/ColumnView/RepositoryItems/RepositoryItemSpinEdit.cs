@@ -1,9 +1,11 @@
 ﻿using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.XtraEditors.Repository;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems{
     [ModelDisplayName("SpinEdit")]
+    [RepositoryItem(typeof(RepositoryItemSpinEdit))]
     public interface IModelRepositoryItemSpinEdit : IModelRepositoryItem {
         IModelRepositoryItemSpinEditModelAdapters ModelAdapters { get; }
     }

@@ -13,7 +13,6 @@ namespace FeatureCenter.Win {
     public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication {
         public FeatureCenterWindowsFormsApplication() {
             InitializeComponent();
-            
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){

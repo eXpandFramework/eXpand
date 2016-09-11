@@ -225,7 +225,6 @@
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryFieldPicker.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemButtonEdit.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemComboBox.cs" />
-    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemFileDataEdit.cs" />
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>

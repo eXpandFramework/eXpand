@@ -1,9 +1,11 @@
 ﻿using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.XtraEditors.Repository;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems{
     [ModelDisplayName("MarqueeProgressBar")]
+    [RepositoryItem(typeof(RepositoryItemMarqueeProgressBar))]
     public interface IModelRepositoryItemMarqueeProgressBar : IModelRepositoryItem {
         IModelRepositoryItemMarqueeProgressBarModelAdapters ModelAdapters { get; }
     }

@@ -1,9 +1,11 @@
 ﻿using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.XtraEditors.Repository;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems{
     [ModelDisplayName("MemoExEdit")]
+    [RepositoryItem(typeof(RepositoryItemMemoExEdit))]
     public interface IModelRepositoryItemMemoExEdit : IModelRepositoryItem {
         IModelRepositoryItemMemoExEditModelAdapters ModelAdapters { get; }
     }

@@ -1,9 +1,11 @@
 ﻿using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems{
     [ModelDisplayName("IModelRepositoryFieldPicker")]
+    [RepositoryItem(typeof(RepositoryFieldPicker))]
     public interface IModelRepositoryFieldPicker : IModelRepositoryItem {
         IModelRepositoryFieldPickerModelAdapters ModelAdapters { get; }
     }

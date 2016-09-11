@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
         protected override void ApplyModelCore() {
             foreach (var viewItem in ViewItems()){
                 var dxPropertyEditor = Control.GetItems<DXPropertyEditor>().FirstOrDefault(editor => editor.Model == viewItem);
-                if (dxPropertyEditor != null && dxPropertyEditor.Control != null){
+                if (dxPropertyEditor?.Control != null){
                     var repositoryItem = dxPropertyEditor.Control.Properties;
                     var modelRepositoryItems = GetRepositoryItems(repositoryItem, viewItem);
                     foreach (var modelRepositoryItem in modelRepositoryItems){

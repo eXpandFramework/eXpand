@@ -1,9 +1,11 @@
 ﻿using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.XtraEditors.Repository;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems{
     [ModelDisplayName("ProgressBar")]
+    [RepositoryItem(typeof(RepositoryItemProgressBar))]
     public interface IModelRepositoryItemProgressBar : IModelRepositoryItem {
         IModelRepositoryItemProgressBarModelAdapters ModelAdapters { get; }
     }

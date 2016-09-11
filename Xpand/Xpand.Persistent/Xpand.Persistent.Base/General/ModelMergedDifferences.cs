@@ -21,8 +21,7 @@ namespace Xpand.Persistent.Base.General {
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator>{
         public static bool Disable;
         public override void UpdateCachedNode(ModelNode node){
-            if (EnableAtRuntime)
-                UpdateNodeCore(node);
+            UpdateNodeCore(node);
         }
 
         public static bool EnableAtRuntime { get; set; }

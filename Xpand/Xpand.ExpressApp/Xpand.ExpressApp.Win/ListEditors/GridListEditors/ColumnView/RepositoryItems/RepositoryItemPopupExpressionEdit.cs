@@ -1,9 +1,11 @@
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems{
     [ModelDisplayName("PopupExpressionEdit")]
+    [RepositoryItem(typeof(RepositoryItemPopupExpressionEdit))]
     public interface IModelRepositoryItemPopupExpressionEdit : IModelRepositoryItem {
         IModelRepositoryItemPopupExpressionEditModelAdapters ModelAdapters { get; }
     }

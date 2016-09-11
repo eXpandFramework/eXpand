@@ -1,9 +1,11 @@
 ﻿using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
+using DevExpress.XtraEditors.Repository;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems{
     [ModelDisplayName("CheckEdit")]
+    [RepositoryItem(typeof(RepositoryItemCheckEdit))]
     public interface IModelRepositoryItemCheckEdit : IModelRepositoryItem {
         IModelRepositoryItemCheckEditModelAdapters ModelAdapters { get; }
     }

@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp.DC;
+﻿using System;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -21,5 +22,19 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Repository
     [ModelAbstractClass]
     public interface IModelRepositoryItem : IModelModelAdapter {
 
+    }
+    [AttributeUsage(AttributeTargets.Interface)]
+    public class RepositoryItemAttribute:Attribute{
+        public RepositoryItemAttribute(string typeName){
+            TypeName = typeName;
+        }
+
+        public RepositoryItemAttribute(Type type){
+            Type = type;
+        }
+
+        public Type Type { get; }
+
+        public string TypeName { get; }
     }
 }
