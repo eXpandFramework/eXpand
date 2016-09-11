@@ -87,7 +87,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             base.CustomizeTypesInfo(typesInfo);
             AddToAdditionalExportedTypes(BaseImplNameSpace);
             ExistentTypesMemberCreator.CreateMembers(this);
-            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<WorldCreatorTypeInfoSourceAttribute>() != null);
+            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<WorldCreatorTypeInfoSourceAttribute>() != null).ToArray();
             foreach (var typeInfo in typeInfos) {
                 WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(typeInfo.Type);
             }
