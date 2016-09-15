@@ -17,6 +17,14 @@ namespace Xpand.Persistent.Base.General {
             return Enumerable.Empty<TAction>();
         }
 
+        public static bool Available(this ActionBase a){
+            return a.Active && a.Enabled;
+        }
+
+        public static IEnumerable<ActionBase> Available(this IEnumerable<ActionBase> actionBases){
+            return actionBases.Where(Available);
+        }
+
         public static IEnumerable<ActionBase> Actions(this Frame frame){
             return frame.Actions<ActionBase>();
         }

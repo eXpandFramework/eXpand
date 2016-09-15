@@ -156,6 +156,9 @@
     <Compile Include="SystemModule\CloneMemberValueViewController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\SupressConfirmationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\Filtering\FilteringCriteria.cs" />
     <Compile Include="SystemModule\Filtering\ApplyFilterCriteriaToListViewController.cs">
       <SubType>Component</SubType>

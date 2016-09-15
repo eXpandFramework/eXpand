@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Xpo;
@@ -41,7 +42,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected virtual void OnCustomNewObject(CustomNewObjectArgs e){
             var handler = CustomNewObject;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected override void OnActivated() {
@@ -76,6 +77,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void FrameOnDisposing(object sender, EventArgs eventArgs) {
+            if (Frame.Context == TemplateContext.ApplicationWindow){
+                Frame.GetController<CloseFormController>().Cancel -= OnCancel;
+            }
             Frame.Disposing -= FrameOnDisposing;
             Application.DetailViewCreated -= ApplicationOnDetailViewCreated;
             Frame.TemplateChanged -= FrameOnTemplateChanged;
@@ -94,14 +98,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void ViewOnQueryCanClose(object sender, CancelEventArgs e) {
             if (CloseFormController.IsNotLoggingOffOrModelEditing && !_applicationWindowClosing && _closeReason == CloseReason.UserClosing) {
-                var cancelEventArgs = new CancelEventArgs(false);
-                Frame.GetController<WinModificationsController>().CallMethod("OnViewQueryCanClose", cancelEventArgs);
                 e.Cancel = true;
-                if (!cancelEventArgs.Cancel) {
-                    if (ObjectSpace.IsNewObject(View.CurrentObject))
-                        ObjectSpace.SetIsModified(false);
-                    ((Form)Frame.Template).Hide();
-                }
+                if (ObjectSpace.IsNewObject(View.CurrentObject))
+                    ObjectSpace.SetIsModified(false);
+                ((Form)Frame.Template).Hide();
             }
         }
 
@@ -114,7 +114,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                         winWindow.View.ObjectSpace.RollbackSilent();
                     winWindow.View.SetFieldValue("keyMemberValueForPendingLoading", null);
                     var currentObject = GetCurrentObject(e, winWindow);
+                    var winModificationsController = winWindow.GetController<WinModificationsController>();
+                    var modificationsCheckingMode = winModificationsController.ModificationsCheckingMode;
+                    winModificationsController.ModificationsCheckingMode=ModificationsCheckingMode.OnCloseOnly;
                     winWindow.View.CurrentObject = currentObject;
+                    winModificationsController.ModificationsCheckingMode=modificationsCheckingMode;
                 }
             }
         }

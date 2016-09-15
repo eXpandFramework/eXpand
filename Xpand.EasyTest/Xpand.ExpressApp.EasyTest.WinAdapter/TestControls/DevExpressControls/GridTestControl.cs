@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls;
 using DevExpress.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Layout;
 using Fasterflect;
 
@@ -17,7 +18,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls{
 
         int IGridBase.GetRowCount(){
             var layoutView = control.DefaultView as LayoutView;
-            return layoutView == null ? base.GetRowCount() : layoutView.RowCount;
+            return layoutView?.RowCount ?? base.GetRowCount();
         }
 
         string IGridBase.GetCellValue(int row, IGridColumn column){
@@ -38,9 +39,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls{
         IEnumerable<IGridColumn> IGridBase.Columns{
             get{
                 var layoutView = control.DefaultView as LayoutView;
-                return layoutView == null
-                    ? base.Columns
-                    : layoutView.Columns.Cast<GridColumn>().Select(column => new DXGridColumn(column));
+                return layoutView?.Columns.Cast<GridColumn>().Select(column => new DXGridColumn(column)) ?? base.Columns;
             }
         }
 
@@ -62,8 +61,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls{
             layoutView.ShowEditor();
             if (layoutView.ActiveEditor == null){
                 throw new AdapterOperationException(
-                    string.Format("Cannot get the ActiveEditor for the '{0}' table's ({1}, {2}) cell", TestControl.Name,
-                        row, column.Caption));
+                    $"Cannot get the ActiveEditor for the '{TestControl.Name}' table's ({row}, {column.Caption}) cell");
             }
             return TestControlFactoryWin.Instance.CreateControl(layoutView.ActiveEditor);
         }
@@ -81,8 +79,13 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls{
 
         void IGridControlAct.GridActEx(string actionName, int rowIndex, IGridColumn column, string[] paramValues){
             var layoutView = control.DefaultView as LayoutView;
-            if (layoutView == null || actionName != "SetTableFilter")
-                base.GridActEx(actionName, rowIndex, column, paramValues);
+            if (layoutView == null || actionName != "SetTableFilter"){
+                if (actionName == "SelectAll")
+                    ((ColumnView) control.DefaultView).SelectAll();
+                else{
+                    GridActEx(actionName, rowIndex, column, paramValues);
+                }
+            }
             else{
                 layoutView.ActiveFilterCriteria = CriteriaOperator.Parse(paramValues[0]);
             }
@@ -123,7 +126,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter.TestControls.DevExpressControls{
 
         bool IGridRowsSelection.IsRowSelected(int rowIndex){
             var layoutView = control.DefaultView as LayoutView;
-            return layoutView == null ? base.IsRowSelected(rowIndex) : layoutView.IsRowSelected(rowIndex);
+            return layoutView?.IsRowSelected(rowIndex) ?? base.IsRowSelected(rowIndex);
         }
     }
 }

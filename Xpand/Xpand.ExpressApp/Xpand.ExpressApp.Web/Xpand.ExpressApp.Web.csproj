@@ -177,6 +177,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="SystemModule\SupressConfirmationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Templates\ASPxMenuNavicationControl.cs" />
     <Compile Include="Templates\ASPxMenuNavigationActionContainer.cs" />
     <Compile Include="XpandHttpRequestManager.cs" />
