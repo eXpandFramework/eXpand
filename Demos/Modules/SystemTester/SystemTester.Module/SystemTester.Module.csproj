@@ -144,6 +144,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="FunctionalTests\AutoCommit\AutoCommitObject.cs" />
+    <None Include="FunctionalTests\AutoCommit\ListView.inc" />
     <Compile Include="FunctionalTests\SupressConfirmation\SupressConfirmationObject.cs" />
     <Compile Include="FunctionalTests\NavigationItems\NavigationItemsObject.cs" />
     <Compile Include="FunctionalTests\Actions\Actions.cs">
@@ -206,6 +208,12 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\AutoCommit\AutoCommit.ets" />
+    <None Include="FunctionalTests\AutoCommit\AutoCommit.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\AutoCommit\DetailView.inc" />
+    <None Include="FunctionalTests\AutoCommit\Init.inc" />
     <None Include="FunctionalTests\SupressConfirmation\SupressConfirmation.ets" />
     <None Include="FunctionalTests\SupressConfirmation\SupressConfirmation.xafml">
       <SubType>Designer</SubType>
@@ -224,6 +232,7 @@
     </None>
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.ets" />
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.xafml" />
+    <Content Include="FunctionalTests\AutoCommit\Config.xml" />
     <Content Include="FunctionalTests\SupressConfirmation\Config.xml" />
     <Content Include="FunctionalTests\NavigationItems\Config.xml">
       <SubType>Designer</SubType>
