@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -650,8 +651,8 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         static bool IsValidProperty(PropertyInfo info){
             if (IsObsolete(info))
                 return false;
-            return !info.PropertyType.BehaveLikeValueType() ||
-                   info.GetSetMethod() != null && info.GetGetMethod() != null;
+            return (!info.PropertyType.BehaveLikeValueType() ||
+                   info.GetSetMethod() != null && info.GetGetMethod() != null)&&!typeof(IEnumerable).IsAssignableFrom(info.PropertyType);
         }
 
         static bool IsObsolete(PropertyInfo info){
@@ -707,8 +708,8 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             CanRead = canRead;
             CanWrite = canWrite;
             _targetPropertyInfo = targetPropertyInfo;
-            _attributesCore.AddRange(
-                targetPropertyInfo.GetCustomAttributes(false).Where(o => !(o is DefaultValueAttribute)));
+            var collection = targetPropertyInfo.GetCustomAttributes(false).Where(o => !(o is DefaultValueAttribute));
+            _attributesCore.AddRange(collection);
         }
 
 
