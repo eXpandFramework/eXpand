@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         protected override void OnPropertyPathFilterParsed(CriteriaOperator criteriaOperator) {
-            new AsyncServerModeCriteriaProccessor(View.ObjectTypeInfo).Process(criteriaOperator);
+            new AsyncServerModeCriteriaProcessor(View.ObjectTypeInfo).Process(criteriaOperator);
         }
 
         protected override void SynchronizeInfo(View view) {

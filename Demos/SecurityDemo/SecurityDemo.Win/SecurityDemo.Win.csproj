@@ -357,8 +357,13 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
+  
   -->
+  <Target Name="AfterBuild" Condition="$(Configuration)=='EasyTest'">
+    <ItemGroup>
+      <AllXpandDlls Include="..\..\..\Xpand.DLL\*.dll"></AllXpandDlls>
+    </ItemGroup>
+    <Copy DestinationFolder="$(OutputPath)" SourceFiles="@(AllXpandDlls)"></Copy>
+  </Target>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

@@ -198,9 +198,14 @@ namespace Xpand.CodeRush.Plugins {
                         .FirstOrDefault(info =>info.OutputPath.ToLower() == reference.Path.ToLower() &&AssemblyDefinition.ReadAssembly(info.OutputPath).VersionMatch());
                     if (projectInfo!=null){
                         _dte.WriteToOutput(reference.Name + " found at "+projectInfo.OutputPath);
-                        var project = DevExpress.CodeRush.Core.CodeRush.Solution.Active.AddFromFile(projectInfo.Path);
-                        SkipBuild( project);
-                        ChangeActiveConfiguration(project);
+                        if (_dte.Solution.Projects.Cast<Project>().Where(project => project.CodeModel!=null).All(project => project.FullName != projectInfo.Path)) {
+                            var project = DevExpress.CodeRush.Core.CodeRush.Solution.Active.AddFromFile(projectInfo.Path);
+                            SkipBuild(project);
+                            ChangeActiveConfiguration(project);
+                        }
+                        else{
+                            _dte.WriteToOutput(projectInfo.Path+" already loaded");
+                        }
                         
                     }
                     else {

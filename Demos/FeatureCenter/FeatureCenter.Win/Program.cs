@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Forms;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
@@ -49,7 +50,6 @@ namespace FeatureCenter.Win {
 
                 winApplication.UseOldTemplates=false;
                 winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser,XpandPermissionPolicyRole>(typeof(AuthenticationStandard),typeof(AuthenticationStandardLogonParameters));
-//                winApplication.EnableModelCache = true;
                 
                 winApplication.Setup();
                 winApplication.LoggingOn += (sender, args) => {

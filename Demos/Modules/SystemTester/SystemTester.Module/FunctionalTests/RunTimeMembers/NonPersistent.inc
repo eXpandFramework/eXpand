@@ -9,5 +9,11 @@
 *XpandProcessRecord
  Full Name = Apostolis Bekiaris
  Action = Edit
+#IfDef SystemTester.Win
 *CheckFieldValues
  Non Persistent = Indeterminate
+#EndIf
+#IfDef SystemTester.Web
+*CheckFieldValues
+ Non Persistent = False
+#EndIf

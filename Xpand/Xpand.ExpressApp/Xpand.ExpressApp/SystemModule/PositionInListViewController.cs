@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.SystemModule {
         [Localizable(false)]
         [Category(AttributeCategoryNameProvider.Xpand)]
         IModelColumn PositionColumn { get; set; }
-
+        [Browsable(false)]
         IEnumerable<IModelColumn> SortableColumns { get; }
     }
 
