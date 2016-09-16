@@ -161,6 +161,7 @@
     <Compile Include="SystemModule\ChangeLanguageController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\ModelAttributeValueController.cs" />
     <Compile Include="SystemModule\DirtyTitleWindowController.cs">
       <SubType>Component</SubType>
     </Compile>

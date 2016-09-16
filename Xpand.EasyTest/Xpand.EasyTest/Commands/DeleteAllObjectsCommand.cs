@@ -8,7 +8,7 @@ namespace Xpand.EasyTest.Commands {
             var executeTableActionCommand = new ExecuteTableActionCommand();
             var mainParameter = new MainParameter{Value = ""};
             executeTableActionCommand.Parameters.MainParameter = mainParameter;
-            executeTableActionCommand.Parameters.Add(new Parameter("SelectAll","True",true, EndPosition));
+            executeTableActionCommand.Parameters.Add(new Parameter(" SelectAll = True",EndPosition));
             executeTableActionCommand.Execute(adapter);
 
             var optionalActionCommand = new OptionalActionCommand();
