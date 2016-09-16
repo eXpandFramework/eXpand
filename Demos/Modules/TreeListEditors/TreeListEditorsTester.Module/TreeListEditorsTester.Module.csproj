@@ -72,6 +72,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors, Version=16.1.6.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -88,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\MyCategory.cs" />
+    <Compile Include="FunctionalTests\AutoExpand\AutoExpandObject.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -114,6 +119,10 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\AutoExpand\AutoExpand.ets" />
+    <EmbeddedResource Include="FunctionalTests\AutoExpand\AutoExpand.xafml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="FunctionalTests\ReadMe.txt" />
   </ItemGroup>
@@ -122,6 +131,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FunctionalTests\AutoExpand\Config.xml" />
     <Content Include="FunctionalTests\Config.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

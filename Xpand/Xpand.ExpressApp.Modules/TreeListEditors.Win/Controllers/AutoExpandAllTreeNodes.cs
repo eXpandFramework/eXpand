@@ -1,20 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows.Forms;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
-using DevExpress.Persistent.Base.General;
 using DevExpress.XtraTreeList;
-using ListView = DevExpress.ExpressApp.ListView;
+using Xpand.ExpressApp.TreeListEditors.Controllers;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers{
-    [ModelAbstractClass]
-    public interface IModelListViewAutoExpandAllTreeNodes:IModelListView {
-        [Category("eXpand.TreeList")]
-        bool AutoExpandAllTreeNodes { get; set; }
-    }
-    public class AutoExpandAllTreeNodesController : ObjectViewController<ListView, ITreeNode>,IModelExtender{
+    public class AutoExpandAllTreeNodesController : TreeListEditors.Controllers.AutoExpandAllTreeNodesController{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             var treeListEditor = View.Editor as TreeListEditor;
@@ -40,8 +31,5 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers{
             }
         }
 
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
-            extenders.Add<IModelListView,IModelListViewAutoExpandAllTreeNodes>();
-        }
     }
 }
