@@ -10,6 +10,8 @@ using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
+using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.ExpressApp.Validation;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects.Validation;
@@ -20,7 +22,6 @@ using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.ExpressApp.WorldCreator.System.NodeUpdaters;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
-using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Utils.Helpers;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
@@ -86,11 +87,12 @@ namespace Xpand.ExpressApp.WorldCreator {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             AddToAdditionalExportedTypes(BaseImplNameSpace);
-            ExistentTypesMemberCreator.CreateMembers(this);
-            var typeInfos = typesInfo.PersistentTypes.Where(info => info.FindAttribute<WorldCreatorTypeInfoSourceAttribute>() != null).ToArray();
-            foreach (var typeInfo in typeInfos) {
-                WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(typeInfo.Type);
+            var classInfos = Dictiorary.Classes.OfType<XPClassInfo>().Where(info => info.IsPersistent &&
+                            WorldCreatorTypeInfoSource.Instance.RegisteredEntities.Contains(info.ClassType));
+            foreach (var xpClassInfo in classInfos) {
+                xpClassInfo.AddAttribute(new NonPersistentAttribute());
             }
+            ExistentTypesMemberCreator.CreateMembers(this);
         }
 
         public override void Setup(ApplicationModulesManager moduleManager){
@@ -103,6 +105,17 @@ namespace Xpand.ExpressApp.WorldCreator {
                 AddPersistentModules();
                 Application.LoggedOn += ApplicationOnLoggedOn;
                 XpoObjectMerger.MergeTypes(this);
+                RegisterDerivedTypes();
+            }
+        }
+
+        private void RegisterDerivedTypes(){
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new[] {"System", "DevExpress" }.All(s => !assembly.GetName().Name.StartsWith(s)));
+            var types = assemblies.SelectMany(assembly => assembly.GetTypes());
+            var additionalTypes =AdditionalExportedTypes.Where(type => type.Namespace != null && type.Namespace.StartsWith(BaseImplNameSpace)).ToArray();
+            types =types.Where(type => type.Assembly != BaseImplAssembly && additionalTypes.Any(type1 => type1.IsAssignableFrom(type)));
+            foreach (var type in types){
+                WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(type);
             }
         }
 

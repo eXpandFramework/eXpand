@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<AllXpandDlls Include="..\..\Xpand.dll\*.dll" />
+	</ItemGroup>
+	<Target Name="BeforeBuild" Condition="$(Configuration)=='EasyTest'">
+		<Delete Files="@(AllXpandDlls-&gt;'$(MSBuildProjectDirectory)\$(OutputPath)%(Filename)%(Extension)')" ContinueOnError="True" />
+	</Target>
+	<Target Name="AfterBuild" Condition="$(Configuration)=='EasyTest'">
+		<MakeDir Directories="$(MSBuildProjectDirectory)\$(OutputPath)\Temp" />
+		<Copy DestinationFolder="$(MSBuildProjectDirectory)\$(OutputPath)\Temp" SourceFiles="@(FileWrites)" />
+		<Copy DestinationFolder="$(MSBuildProjectDirectory)\$(OutputPath)" SourceFiles="@(AllXpandDlls)"></Copy>
+		<CreateItem Include="$(MSBuildProjectDirectory)\$(OutputPath)\Temp\*.*">
+		  <Output TaskParameter="Include" ItemName="FileWritesCopy" />
+		</CreateItem>
+		<Copy DestinationFolder="$(MSBuildProjectDirectory)\$(OutputPath)" SourceFiles="@(FileWritesCopy)" />
+		<RemoveDir Directories="$(MSBuildProjectDirectory)\$(OutputPath)\Temp" />
+	</Target>
+</Project>

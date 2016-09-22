@@ -1,11 +1,10 @@
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.Utils;
+using Xpand.ExpressApp.WorldCreator.DBMapper.BusinessObjects;
 using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper {
     [ToolboxBitmap(typeof(WorldCreatorDBMapperModule))]
@@ -16,10 +15,9 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));
         }
 
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo){
-            base.CustomizeTypesInfo(typesInfo);
-            var types = ModuleHelper.CollectExportedTypesFromAssembly(GetType().Assembly,IsExportedType);
-            types.Each(WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity);
+        public override void Setup(ApplicationModulesManager moduleManager){
+            base.Setup(moduleManager);
+            WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(typeof(DBLogonObject));
         }
     }
 }

@@ -186,7 +186,6 @@
     <Compile Include="System\AssemblyManager.cs" />
     <Compile Include="System\AssemblyPathProvider.cs" />
     <Compile Include="System\DatastoreObjectSpaceProviderBuilder.cs" />
-    <Compile Include="System\WorldCreatorAssemblyTypeInfoSource.cs" />
     <Compile Include="System\CompatibilityCheckerApplication.cs">
       <SubType>Component</SubType>
     </Compile>

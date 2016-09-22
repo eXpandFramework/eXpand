@@ -14,21 +14,21 @@ namespace Xpand.Persistent.Base.General {
         private static HashSet<string> _loadedAssemblyNames;
 
         public static IEnumerable<ModuleBase> CreateInstances(string path,string tabNameFilter,string searchPattern="Xpand.ExpressApp*.dll"){
-            _path = path;
+            _path = Path.GetFullPath(path);
             AppDomain.CurrentDomain.AssemblyResolve+=CurrentDomainOnAssemblyResolve;
             _loadedAssemblyNames = new HashSet<string>(AppDomain.CurrentDomain.GetAssemblies().Select(assembly => assembly.GetName().FullName));
-            var filteredTypes = GetModuleTypes(path, tabNameFilter,searchPattern);
+            var filteredTypes = GetModuleTypes(tabNameFilter,searchPattern);
             var filteredInstances =filteredTypes.Select(type => type.CreateInstance()).Cast<ModuleBase>().ToArray();
-            var requiredModuleTypes = filteredInstances.GetItems<ModuleBase>(m => m.RequiredModuleTypes).Distinct().Select(m => m.GetType());
-            var agnosticTypes =GetModuleTypes(path,"Win-Web",searchPattern).Except(requiredModuleTypes);
+            var requiredModuleTypes = filteredInstances.GetItems<ModuleBase>(m => m.RequiredModuleTypes).Select(m => m.GetType()).Distinct();
+            var agnosticTypes =GetModuleTypes("Win-Web",searchPattern).Except(requiredModuleTypes);
             filteredInstances= filteredInstances.Concat(agnosticTypes.Select(type => type.CreateInstance()).Cast<ModuleBase>()).ToArray();
             AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomainOnAssemblyResolve;
-            return filteredInstances;
+            return filteredInstances.DistinctBy(m => m.GetType());
         }
 
 
-        private static IEnumerable<Type> GetModuleTypes(string path, string filter,string searchPattern){
-            foreach (var file in Directory.GetFiles(path, searchPattern)){
+        private static IEnumerable<Type> GetModuleTypes(string filter,string searchPattern){
+            foreach (var file in Directory.GetFiles(_path, searchPattern)){
                 var assembly = Assembly.LoadFile(file);
                 _loadedAssemblyNames.Add(assembly.GetName().FullName);
                 var assemblies = new[]{assembly}.GetItems<Assembly>(assembly1 => assembly1.GetReferencedAssemblies().Select(LoadAssembly)).Where(assembly1 => assembly1!=null).Select(assembly1 => assembly1.GetName()).ToArray();

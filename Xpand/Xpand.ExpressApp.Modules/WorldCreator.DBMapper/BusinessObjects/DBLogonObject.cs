@@ -3,12 +3,10 @@ using System.Linq;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
-using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper.BusinessObjects{
     [NonPersistent]
-    [WorldCreatorTypeInfoSource]
     public class DBLogonObject : XpandCustomObject{
         private string _connectionString;
 

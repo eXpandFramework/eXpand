@@ -1,18 +1,19 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3"  DefaultTimeout="60">
+<?xml version="1.0" encoding="utf-8"?>
+
+<Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" DefaultTimeout="60">
   <Applications>
     <!-- Win -->
     <Application Ignored="0"
-			Name="SecurityDemo.UiLevel.Win"
-			FileName="[WinAppBin]\SecurityDemo.UiLevel.Win.exe"
-			AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100"/>
+                 Name="SecurityDemo.UiLevel.Win"
+                 FileName="[WinAppBin]\SecurityDemo.UiLevel.Win.exe"
+                 AdapterFileName="[WinAdapterFileName]"
+                 CommunicationPort="4100" />
     <!-- Web -->
-    <Application Ignored="1"
-			Name="SecurityDemo.UiLevel.Web"
-			Url="http://localhost:4030"
-			PhysicalPath="[WebAppBin]"
-			AdapterFileName="[WebAdapterFileName]"  />
+    <Application Ignored="0"
+                 Name="SecurityDemo.UiLevel.Web"
+                 Url="http://localhost:4030"
+                 PhysicalPath="[WebAppBin]"
+                 AdapterFileName="[WebAdapterFileName]" />
     <!-- For IIS -->
     <!--Application
 			Name="SecurityDemo.Web"
@@ -20,13 +21,15 @@
 			AdapterAssemblyName="[WebAdapterAssemblyName]"  /-->
   </Applications>
   <TestDatabases>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandSecurityDemoEasyTest"/>
-    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandSecurityDemoWC"/>
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandSecurityDemoEasyTest" />
+    <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="XpandSecurityDemoWC" />
   </TestDatabases>
 
   <Aliases>
-    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAdapterFileName"
+           Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName"
+           Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\SecurityDemo.UiLevel.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\SecurityDemo.UiLevel.Web" />
   </Aliases>

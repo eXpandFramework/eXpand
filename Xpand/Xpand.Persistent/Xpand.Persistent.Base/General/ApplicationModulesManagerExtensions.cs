@@ -19,18 +19,17 @@ namespace Xpand.Persistent.Base.General{
         }
 
         public static void AddModule(this ApplicationModulesManager applicationModulesManager, XafApplication application,params ModuleBase[] moduleBases){
-            var installedModuleTypes = applicationModulesManager.Modules.Select(m => m.GetType()).ToList();
-            AddModule(applicationModulesManager, application, moduleBases, installedModuleTypes);
+            var moduleTypes = new HashSet<string>(applicationModulesManager.Modules.Select(m => m.Name));
+            AddModule(applicationModulesManager, application, moduleBases, moduleTypes);
         }
 
         private static void AddModule(ApplicationModulesManager applicationModulesManager, XafApplication application,
-            ModuleBase[] moduleBases, List<Type> installedModuleTypes){
+            ModuleBase[] moduleBases, HashSet<string> installedModules){
             foreach (var moduleBase in moduleBases){
-                if (!installedModuleTypes.Contains(moduleBase.GetType())){
-                    installedModuleTypes.Add(moduleBase.GetType());
-                    var requiredModuleTypes =
-                        moduleBase.RequiredModuleTypes.Select(type => type.CreateInstance()).Cast<ModuleBase>().ToArray();
-                    AddModule(applicationModulesManager, application,requiredModuleTypes,installedModuleTypes);
+                if (!installedModules.Contains(moduleBase.Name)){
+                    installedModules.Add(moduleBase.Name);
+                    var requiredModuleTypes = moduleBase.RequiredModuleTypes.Select(type => type.CreateInstance()).Cast<ModuleBase>().ToArray();
+                    AddModule(applicationModulesManager, application,requiredModuleTypes,installedModules);
                     applicationModulesManager.AddModule(moduleBase);
                     LoadRegularTypesToTypesInfo(application.TypesInfo, moduleBase);
                     applicationModulesManager.ControllersManager.RegisterControllerTypes(

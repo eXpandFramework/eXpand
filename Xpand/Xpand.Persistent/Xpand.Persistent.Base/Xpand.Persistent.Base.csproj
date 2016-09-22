@@ -308,7 +308,6 @@
     <Compile Include="ModelArtifact\ObjectViewRuleAttribute.cs" />
     <Compile Include="ModelDifference\ApplicationModelCombineModifier.cs" />
     <Compile Include="ModelDifference\IModelCombinePermission.cs" />
-    <Compile Include="PersistentMetaData\ISupportWorldCreatorTypeInfoStore.cs" />
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentMapInheritanceAttribute.cs" />
     <Compile Include="RuntimeMembers\RuntimeMemberModelDifferenceController.cs">
       <SubType>Component</SubType>

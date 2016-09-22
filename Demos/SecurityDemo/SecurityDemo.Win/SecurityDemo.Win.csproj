@@ -355,15 +355,9 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
+  
   
   -->
-  <Target Name="AfterBuild" Condition="$(Configuration)=='EasyTest'">
-    <ItemGroup>
-      <AllXpandDlls Include="..\..\..\Xpand.DLL\*.dll"></AllXpandDlls>
-    </ItemGroup>
-    <Copy DestinationFolder="$(OutputPath)" SourceFiles="@(AllXpandDlls)"></Copy>
-  </Target>
+  <Import Project="..\SecurityDemo.targets" />
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

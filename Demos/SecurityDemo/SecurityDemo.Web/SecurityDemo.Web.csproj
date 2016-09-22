@@ -308,12 +308,6 @@
   <Target Name="BeforeBuild">
   </Target>
   -->
-  <Target Name="AfterBuild" Condition="$(Configuration)=='EasyTest'">
-    <ItemGroup>
-      <AllXpandDlls Include="..\..\..\Xpand.DLL\*.dll"></AllXpandDlls>
-    </ItemGroup>
-    <Copy DestinationFolder="$(OutputPath)" SourceFiles="@(AllXpandDlls)"></Copy>
-  </Target>
   <ProjectExtensions>
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
@@ -333,6 +327,8 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Target Name="BeforeGenerateProjectPriFile"></Target>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
+  <Import Project="..\SecurityDemo.targets" />
 </Project>

@@ -1,14 +1,13 @@
 using System;
 using System.Configuration;
-using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Web;
 using SecurityDemo.Module;
-using DevExpress.Internal;
+using SecurityDemo.Web;
 
-namespace SecurityDemo.Web {
+namespace SecurityDemo.UiLevel.Web {
     public class Global : System.Web.HttpApplication {
         public Global() {
             InitializeComponent();

@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.SystemModule.Filtering{
@@ -18,7 +17,6 @@ namespace Xpand.ExpressApp.SystemModule.Filtering{
     }
 
     [ImageName("Action_Filter")]
-    [WorldCreatorTypeInfoSource]
     public class FilteringCriteria : XpandCustomObject, IFilteringCriteria{
         [Persistent("Criteria")] private string _criteria;
 
@@ -70,7 +68,7 @@ namespace Xpand.ExpressApp.SystemModule.Filtering{
             set{
                 if (_objectType != value){
                     _objectType = value;
-                    ObjectTypeName = (value == null) ? null : value.FullName;
+                    ObjectTypeName = value?.FullName;
                 }
             }
         }

@@ -21,8 +21,8 @@ namespace SecurityDemo.Module.Win
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            var moduleAssembliesPath = new DirectoryInfo(AppDomain.CurrentDomain.SetupInformation.ApplicationBase).GetParentFolder("xpand.dll");
-            var moduleBases = ModuleActivator.CreateInstances(moduleAssembliesPath, "Win").Distinct();
+            
+            var moduleBases = ModuleActivator.CreateInstances(".", XpandAssemblyInfo.TabWinModules).OrderBy(m => m.GetType().FullName);
             foreach (var module in moduleBases){
                 moduleManager.AddModule(Application, module);
             }
