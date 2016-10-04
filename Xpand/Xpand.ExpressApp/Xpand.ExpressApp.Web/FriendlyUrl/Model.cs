@@ -19,9 +19,10 @@ namespace Xpand.ExpressApp.Web.FriendlyUrl {
 
     public interface IModelOptionsFriendlyUrl {
         [Category("eXpand")]
+        [Browsable(false)]
         bool EnableFriendlyUrl { get; set; }
     }
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = false, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, Inherited = false)]
     public class FriendlyUrlAttribute : Attribute, IFriendlyUrl {
         public FriendlyUrlAttribute(string friendlyUrl) {
             FriendlyUrl = friendlyUrl;

@@ -380,9 +380,6 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
         public event EventHandler<EventArgs> ViewShowingNotification;
 
-        internal string GetSearchActionName() {
-            return Frame.GetController<FilterController>().FullTextFilterAction.Caption;
-        }
     }
 
     public class ASPxSearchDropDownEdit : Table, INamingContainer, ICallbackEventHandler {
