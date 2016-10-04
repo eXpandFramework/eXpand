@@ -34,6 +34,9 @@ namespace Xpand.EasyTest.Commands {
             GetRootWindow(windowHandleInfo.Key,adapter);
             var testImage = GetTestImage(windowHandleInfo.Key);
             var filename = GetFilename(adapter);
+            var path = Path.GetDirectoryName(filename)+"";
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
             try {
                 if (File.Exists(filename)) {
@@ -121,6 +124,12 @@ namespace Xpand.EasyTest.Commands {
         private void SaveImages(string filename, Image testImage, byte threshold, Image localImage, Bitmap maskImage) {
             var differences = localImage.Differences(testImage, maskImage, threshold);
             SaveImagesCore(differences, filename, testImage,Rectangle.Empty);
+        }
+
+        public new void SaveActualImage(Image actualImage,string etalonFileName){
+            string filename =
+                $"{ Path.Combine(Path.GetDirectoryName(etalonFileName)+"", Path.GetFileNameWithoutExtension(etalonFileName)+"")}.Actual{ Path.GetExtension(etalonFileName)}";
+            actualImage.Save(filename, ImageFormat.Png);
         }
 
         private void SaveImagesCore(IEnumerable<KeyValuePair<byte[,], float>> differences, string filename, Image testImage, Rectangle maskRectangle) {
