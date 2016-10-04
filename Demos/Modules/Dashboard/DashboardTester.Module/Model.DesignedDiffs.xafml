@@ -1,3 +1,10 @@
-﻿<?xml version="1.0" ?>
-<Application Title="DashboardTester" Logo="ExpressAppLogo" />
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="DashboardTester" Logo="ExpressAppLogo">
+  <ActionDesign>
+    <ActionToContainerMapping>
+      <ActionContainer Id="View">
+        <ActionLink ActionId="ToggleNavigation" IsNewNode="True" />
+      </ActionContainer>
+    </ActionToContainerMapping>
+  </ActionDesign>
+</Application>

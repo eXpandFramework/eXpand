@@ -97,7 +97,6 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FunctionalTests\AutoTest.ets" />
     <None Include="FunctionalTests\MasterDetail\MasterDetail.ets" />
   </ItemGroup>
   <ItemGroup>
@@ -108,9 +107,7 @@
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Config.xml" />
     <Content Include="FunctionalTests\MasterDetail\Config.xml" />
-    <Content Include="FunctionalTests\MasterDetail\Images\FirstRow.win.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

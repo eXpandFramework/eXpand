@@ -2,13 +2,13 @@
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
   <Applications>
     <!-- Win -->
-    <Application
+    <Application Ignored="0"
 			Name="DashboardTester.Win"
 			FileName="[WinAppBin]\DashboardTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100"/>
     <!-- Web -->
-    <Application
+    <Application Ignored="0"
 			Name="DashboardTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
@@ -24,9 +24,9 @@
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" DBName="DashboardTesterEasyTest" />
   </TestDatabases>
   <Aliases>
-    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
-    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\DashboardTester.Win\Bin\EasyTest" />
-    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\DashboardTester.Web" />
+    <Alias Name="WinAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\DashboardTester.Win\Bin\EasyTest" />
+    <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\DashboardTester.Web" />
   </Aliases>
 </Options>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Title="DashboardTester" Logo="ExpressAppLogo">
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="@02b1cc2d-9d43-46ee-908f-ffab7e96c29c" ViewId="MasterDetail" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <DashboardView Id="MasterDetail" MasterDetail="True" IsNewNode="True">
+      <Items IsNewNode="True">
+        <DashboardViewItem Id="DetailView" ViewId="MasterDetailObject_DetailView" Caption="DetailView" IsNewNode="True" />
+        <DashboardViewItem Id="ListView" ViewId="MasterDetailObject_ListView" Caption="ListView" IsNewNode="True" />
+      </Items>
+    </DashboardView>
+  </Views>
+</Application>
