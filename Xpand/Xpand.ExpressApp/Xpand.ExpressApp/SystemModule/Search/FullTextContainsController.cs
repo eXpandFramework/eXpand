@@ -5,6 +5,7 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
@@ -16,12 +17,19 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     public interface IModelMemberFullTextContains : IModelMember {
         [Category(AttributeCategoryNameProvider.Search)]
         [Description("Supported in eXpand ListEditors, CollectionSource.CriteriaApplying, CriteriaPropertyEditorEx, gridView.ColumnFilterChanged, XpandObjectSpaceProvider")]
+        [ModelBrowsable(typeof(ModelMemberFullTextContainsVisibilityCalculator))]
         bool FullText { get; set; }
     }
 
+    public class ModelMemberFullTextContainsVisibilityCalculator:IModelIsVisible {
+        public bool IsVisible(IModelNode node, string propertyName){
+            var memberInfo = ((IModelMember) node).MemberInfo;
+            return memberInfo.MemberType == typeof(string)&&memberInfo.FindAttributes<SizeAttribute>().Any(attribute => attribute.Size==SizeAttribute.Unlimited);
+        }
+    }
     public static class ModelMemberFullTextContainsEx {
         public static IEnumerable<IModelMember> GetFullTextMembers(this IModelListView modelListView) {
-            return modelListView.Columns.Select(column => column.ModelMember).Where(info => info != null && info.MemberInfo != null).Cast<IModelMemberFullTextContains>().Where(contains => contains.FullText);
+            return modelListView.Columns.Select(column => column.ModelMember).Where(info => info?.MemberInfo != null).Cast<IModelMemberFullTextContains>().Where(contains => contains.FullText);
         }
     }
 
