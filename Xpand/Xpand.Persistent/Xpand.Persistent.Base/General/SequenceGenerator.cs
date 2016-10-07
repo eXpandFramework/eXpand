@@ -47,20 +47,17 @@ namespace Xpand.Persistent.Base.General {
         private readonly ExplicitUnitOfWork _explicitUnitOfWork;
         private ISequenceObject _sequence;
 
-        static SequenceGenerator() {
-            ThrowProviderSupportedException = true;
-        }
-        public SequenceGenerator() {
+        public SequenceGenerator(string fullName, string prefix) {
             int count = MaxGenerationAttemptsCount;
             while (true) {
                 try {
                     _explicitUnitOfWork = new ExplicitUnitOfWork(_defaultDataLayer);
-                    XPCollection sequences;
-                    using (sequences = new XPCollection(_explicitUnitOfWork, _sequenceObjectType)){
-                        foreach (XPBaseObject seq in sequences)
-                            seq.Save();
+                    XPBaseObject obj = (XPBaseObject)_explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(fullName, prefix));
+                    if (obj != null) {
+                        //obj = (XPBaseObject)CreateSequenceObject(prefix+fullName, _explicitUnitOfWork);
+                        obj.Save();
+                        _explicitUnitOfWork.FlushChanges();
                     }
-                    _explicitUnitOfWork.FlushChanges();
                     break;
                 }
                 catch (LockingException) {
@@ -71,6 +68,10 @@ namespace Xpand.Persistent.Base.General {
                     Thread.Sleep(MinGenerationAttemptsDelay * count);
                 }
             }
+        }
+
+        static SequenceGenerator() {
+            ThrowProviderSupportedException = true;
         }
 
         public static Type SequenceObjectType => _sequenceObjectType;
@@ -85,7 +86,7 @@ namespace Xpand.Persistent.Base.General {
 
         public static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
             if (_sequenceGenerator == null)
-                _sequenceGenerator = new SequenceGenerator();
+                _sequenceGenerator = new SequenceGenerator(typeInfo.FullName,prefix);
             var objectByKey = _sequenceGenerator._explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(typeInfo.FullName, prefix), true);
             _sequenceGenerator._sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(prefix + typeInfo.FullName, _sequenceGenerator._explicitUnitOfWork);
             _sequenceGenerator._sequence.NextSequence = nextId;
@@ -208,7 +209,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
-            if (_defaultDataLayer == null || !((ISessionProvider) supportSequenceObject).Session.IsNewObject(supportSequenceObject) ||
+            if (_defaultDataLayer == null || !((ISessionProvider)supportSequenceObject).Session.IsNewObject(supportSequenceObject) ||
                 (((ISessionProvider)supportSequenceObject).Session.ObjectLayer is SecuredSessionObjectLayer))
                 return;
             if (!IsProviderSupported(supportSequenceObject)) {
@@ -217,7 +218,7 @@ namespace Xpand.Persistent.Base.General {
                 return;
             }
             if (_sequenceGenerator == null)
-                _sequenceGenerator = new SequenceGenerator();
+                _sequenceGenerator = new SequenceGenerator(typeInfo.FullName, supportSequenceObject.Prefix);
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
             if (IsNotNestedUnitOfWork(((ISessionProvider)supportSequenceObject).Session)) {
                 SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
@@ -236,7 +237,6 @@ namespace Xpand.Persistent.Base.General {
             }
             supportSequenceObject.Sequence = nextSequence;
         }
-
         public static bool ThrowProviderSupportedException { get; set; }
 
         private static bool IsProviderSupported(ISupportSequenceObject supportSequenceObject) {
