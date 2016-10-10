@@ -428,7 +428,7 @@ namespace Xpand.Persistent.Base.General {
                 : declaredExportedTypes;
             if (Application != null && (Application.Security?.UserType == null))
                 return declaredExportedTypes.Where(type => !typeof(ISecurityRelated).IsAssignableFrom(type));
-            if ( (Application?.Security != null && typeof(ISecurityPermisssionPolicyRelated).IsAssignableFrom(Application.Security.UserType))){
+            if ( (Application?.Security != null && typeof(IPermissionPolicyUser).IsAssignableFrom(Application.Security.UserType))){
                 var oldSecurityTypes = declaredExportedTypes.Where(type => typeof(ISecurityRelated).IsAssignableFrom(type)&&!typeof(ISecurityPermisssionPolicyRelated).IsAssignableFrom(type));
                 return declaredExportedTypes.Except(oldSecurityTypes);
             }
