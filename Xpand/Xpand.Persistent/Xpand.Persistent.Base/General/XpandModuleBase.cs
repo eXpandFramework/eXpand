@@ -178,7 +178,7 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(NavigationContainerWinController) });
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
                 declaredControllerTypes =declaredControllerTypes.Union(new[]{
-                        typeof (NavigationContainerWebController), typeof (ActionsClientScriptController),
+                        typeof (NavigationContainerWebController), typeof (ActionsClientScriptController),typeof(ActionsClientConfirmationController),
                         typeof (CustomizeASPxPopupController),typeof(SyntaxHighlightController)
                     });
 
