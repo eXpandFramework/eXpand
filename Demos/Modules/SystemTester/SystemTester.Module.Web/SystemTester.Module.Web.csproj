@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module.Web</RootNamespace>
     <AssemblyName>SystemTester.Module.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -150,6 +152,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\ClientScript\ClientScript.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\ClientScript\ClientScriptObject.cs" />
     <Compile Include="FunctionalTests\ColumnChooser\ColumnChooserObject.cs" />
     <Compile Include="FunctionalTests\ASPXGridViewOptions\ASPxGridVIewObject.cs" />
     <Compile Include="FunctionalTests\LayoutStyle\LayoutStyleObjects.cs" />
@@ -188,6 +194,11 @@
     <None Include="Editors\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="FunctionalTests\ClientScript\ClientScript.ets" />
+    <None Include="FunctionalTests\ClientScript\ClientScript.xafml">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="FunctionalTests\ClientScript\Init.inc" />
     <None Include="FunctionalTests\ColumnChooser\ColumnChooser.ets" />
     <None Include="FunctionalTests\ColumnChooser\ColumnChooser.xafml">
       <SubType>Designer</SubType>
@@ -234,6 +245,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="FunctionalTests\ClientScript\Config.xml" />
     <Content Include="FunctionalTests\ColumnChooser\Config.xml" />
     <Content Include="FunctionalTests\ASPXGridViewOptions\Config.xml" />
     <Content Include="FunctionalTests\LayoutStyle\Config.xml" />
