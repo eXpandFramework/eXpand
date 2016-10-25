@@ -2,7 +2,6 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.Security.Controllers {
@@ -11,35 +10,30 @@ namespace Xpand.ExpressApp.Security.Controllers {
         ShowNavigationItemController _showNavigationItemController;
         ChoiceActionItem _myDetailsItem;
         const string KeyDisable = "MyDetailsPermissionController";
+
+        public MyDetailsPermissionController(){
+            TargetWindowType=WindowType.Main;
+        }
+
         protected override void OnActivated() {
             base.OnActivated();
             if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())) {
-                var isGranted = SecuritySystem.IsGranted(new MyDetailsOperationRequest(new MyDetailsPermission(Modifier.Allow)));
-                
+                var isGranted = !SecuritySystem.IsGranted(new MyDetailsOperationRequest(new MyDetailsPermission(Modifier.Deny)));
                 _myDetailsController = Frame.GetController<MyDetailsController>();
-                if (_myDetailsController != null) {
-                    _myDetailsController.Active.SetItemValue(KeyDisable, !isGranted);
-                }
+                _myDetailsController?.Active.SetItemValue(KeyDisable, isGranted);
                 _showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
                 if (_showNavigationItemController != null) {
                     _myDetailsItem = FindMyDetailsItem(_showNavigationItemController.ShowNavigationItemAction.Items);
-                    if (_myDetailsItem != null) {
-                        _myDetailsItem.Active.SetItemValue(KeyDisable, !isGranted);
-                    }
+                    _myDetailsItem?.Active.SetItemValue(KeyDisable, isGranted);
                 }
-                
             }
             else {
                 Active["IsAdmin"] = false;
             }
         }
         protected override void OnDeactivated() {
-            if (_myDetailsController != null) {
-                _myDetailsController.Active.RemoveItem(KeyDisable);
-            }
-            if (_myDetailsItem != null) {
-                _myDetailsItem.Active.RemoveItem(KeyDisable);
-            }
+            _myDetailsController?.Active.RemoveItem(KeyDisable);
+            _myDetailsItem?.Active.RemoveItem(KeyDisable);
             base.OnDeactivated();
         }
         private ChoiceActionItem FindMyDetailsItem(IEnumerable<ChoiceActionItem> items) {

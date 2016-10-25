@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         public static void NewSecurityStrategyComplexV2<TUser,TRole>(this XafApplication application, Type authethicationType = null,
-            Type logonParametersType = null) where TRole:IPermissionPolicyRole where TUser:ISecurityUser{
+            Type logonParametersType = null) where TRole:ISecurityRole where TUser:ISecurityUser{
             NewSecurityStrategyComplexCore(application, authethicationType, logonParametersType, null, null, typeof(TUser), typeof(TRole));
         }
 
