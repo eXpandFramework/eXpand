@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.Security.Core {
             return Name;
         }
 
-        [Association("XpandRole-XpandPermissionDatas")]
+        [Association("XpandRole-XpandPermissionDatas"), Aggregated]
         public XPCollection<XpandPermissionData> Permissions => GetCollection<XpandPermissionData>("Permissions");
 
         IList<IOperationPermissionProvider> IXpandRoleCustomPermissions.Permissions => new ListConverter<IOperationPermissionProvider,XpandPermissionData>(Permissions);

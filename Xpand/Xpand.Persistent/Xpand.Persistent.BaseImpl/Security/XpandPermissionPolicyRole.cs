@@ -20,7 +20,7 @@ namespace Xpand.Persistent.BaseImpl.Security{
         public XpandPermissionPolicyRole(Session session) : base(session){
         }
 
-        [Association("XpandPermissionPolicyRole-XpandPermissionDatas")]
+        [Association("XpandPermissionPolicyRole-XpandPermissionDatas"),Aggregated]
         public XPCollection<PermissionPolicyData.PermissionPolicyData> Permissions
             => GetCollection<PermissionPolicyData.PermissionPolicyData>("Permissions");
 
