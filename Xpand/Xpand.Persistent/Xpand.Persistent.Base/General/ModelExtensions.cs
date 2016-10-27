@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
@@ -62,7 +63,8 @@ namespace Xpand.Persistent.Base.General {
             var descendants = ReflectionHelper.FindTypeDescendants(typeInfo);
             var propertyDescriptors = descendants.SelectMany(info => info.Members).DistinctBy(info => info.Name).Select(info => new XafPropertyDescriptor(info,info.Name)).Cast<PropertyDescriptor>().ToArray();
             var evaluatorContextDescriptor = new EvaluatorContextDescriptorDefault(new PropertyDescriptorCollection(propertyDescriptors));
-            return new ExpressionEvaluator(evaluatorContextDescriptor, criteriaOperator, false, XpandModuleBase.Dictiorary.CustomFunctionOperators);    
+            return new ExpressionEvaluator(evaluatorContextDescriptor, criteriaOperator, false,
+                XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.CustomFunctionOperators);    
         }
 
         public static IEnumerable<T> GetNodes<T>(this IEnumerable<T> modelNodes, string criteria) where T:IModelNode{

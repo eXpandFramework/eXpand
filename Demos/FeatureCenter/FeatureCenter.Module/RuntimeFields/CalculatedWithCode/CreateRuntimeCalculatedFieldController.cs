@@ -8,7 +8,7 @@ namespace FeatureCenter.Module.RuntimeFields.CalculatedWithCode {
     public class CreateRuntimeCalculatedFieldController : ViewController {
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(typeof(Customer));
+            var classInfo = typeof(Customer).GetTypeInfo().QueryXPClassInfo();
 
             if (classInfo.FindMember("SumOfOrderTotals") == null) {
                 var xpandCalcMemberInfo = classInfo.CreateCalculabeMember("SumOfOrderTotals", typeof(float), "Orders.Sum(Total)");

@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
 
         static XPCustomMemberInfo GetXPCustomMemberInfo(IExtendedCollectionMemberInfo info) {
             if (info.Owner != null) {
-                var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
+                var classInfo = info.Owner.GetTypeInfo().QueryXPClassInfo();
                 if (!(info is IExtendedOrphanedCollection)) {
                     return classInfo.CreateMember(info.Name, typeof(XPCollection), true);
                 }
@@ -87,7 +87,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
 
         static XPCustomMemberInfo GetMember(IExtendedMemberInfo info, Type referenceType) {
             if (info.Owner != null) {
-                var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(info.Owner);
+                var classInfo = info.Owner.GetTypeInfo().QueryXPClassInfo();
                 return info.TypeAttributes.OfType<IPersistentPersistentAliasAttribute>().FirstOrDefault() == null
                            ? classInfo.CreateMember(info.Name, referenceType)
                            : classInfo.CreateCalculabeMember(info.Name, referenceType, "");

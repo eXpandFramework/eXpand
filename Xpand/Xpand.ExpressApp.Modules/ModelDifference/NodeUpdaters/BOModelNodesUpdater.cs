@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {
             if (!XpandModuleBase.IsLoadingExternalModel())
                 return;
             var modelBoModelClassMembers = ((IModelBOModelClassMembers)node);
-            var xpClassInfo = XpandModuleBase.Dictiorary.QueryClassInfo(((IModelClass)modelBoModelClassMembers.Parent).TypeInfo.Type);
+            var xpClassInfo = ((IModelClass)modelBoModelClassMembers.Parent).TypeInfo.QueryXPClassInfo();
             if (xpClassInfo == null) return;
             for (int index = modelBoModelClassMembers.Count - 1; index > -1; index--) {
                 var modelClassMember = modelBoModelClassMembers[index];

@@ -56,10 +56,9 @@ namespace Xpand.ExpressApp.SystemModule.Search {
 
         private Dictionary<string, List<XPMemberInfo>> CreateDictionary(){
             var fullTextMembers = View.Model.GetFullTextMembers();
-            var xpDictionary = Application.GetXPDictionary();
             var dictionary = new Dictionary<string, List<XPMemberInfo>>();
             foreach (var fullTextMember in fullTextMembers){
-                var tableName = xpDictionary.GetClassInfo(fullTextMember.ModelClass.TypeInfo.Type).TableName;
+                var tableName = fullTextMember.ModelClass.TypeInfo.QueryXPClassInfo().TableName;
                 if (!dictionary.ContainsKey(tableName))
                     dictionary.Add(tableName,new List<XPMemberInfo>());
                 var memberInfos = dictionary[tableName];

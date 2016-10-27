@@ -29,7 +29,7 @@ namespace Xpand.Persistent.Base.General {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
                 var typeToCreateOn = securityComplex.RoleType.IsInterface ? XpandModuleBase.RoleType : typeInfo.Type;
                 if (IsValidType(typeToCreateOn)) {
-                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
+                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember,  true, association, propertyName, otherPartPropertyName);
                     XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);
                 }
             }
@@ -64,7 +64,7 @@ namespace Xpand.Persistent.Base.General {
             if (_application.Security != null) {
                 if (XpandModuleBase.UserType != null) {
                     if (IsValidType(XpandModuleBase.UserType)) {
-                        xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(XpandModuleBase.UserType, otherPartMember, XpandModuleBase.Dictiorary, true, association, propertyName, otherPartPropertyName);
+                        xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(XpandModuleBase.UserType, otherPartMember,  true, association, propertyName, otherPartPropertyName);
                         XafTypesInfo.Instance.RefreshInfo(XpandModuleBase.UserType);
                     }
                 }

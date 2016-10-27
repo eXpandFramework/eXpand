@@ -132,7 +132,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static long GetNowSequence(ITypeInfo typeInfo) {
-            var xpClassInfo = XpandModuleBase.Dictiorary.GetClassInfo(typeInfo.Type);
+            var xpClassInfo = typeInfo.QueryXPClassInfo();
             return GetNowSequence(xpClassInfo, null);
         }
 
@@ -293,7 +293,7 @@ namespace Xpand.Persistent.Base.General {
         public override void UpdateDatabaseBeforeUpdateSchema() {
             base.UpdateDatabaseBeforeUpdateSchema();
             if (SequenceGenerator.UseGuidKey) {
-                var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(XpandModuleBase.SequenceObjectType);
+                var classInfo = XafTypesInfo.CastTypeToTypeInfo(XpandModuleBase.SequenceObjectType).QueryXPClassInfo();
                 var dbTable = GetDbTable(classInfo.TableName);
                 var typeNamePropertyName = GetSequenceObject().GetPropertyName(o => o.TypeName);
                 if (dbTable != null && dbTable.PrimaryKey.Columns.Contains(typeNamePropertyName)) {

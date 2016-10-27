@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
@@ -16,7 +17,7 @@ namespace Xpand.Persistent.Base.General {
 
         public MultiDataStoreProxy(IDataStore dataStore, string connectionString,XPDictionary dictionary=null) : base(dataStore){
             if (dictionary==null)
-                dictionary=XpandModuleBase.Dictiorary;
+                dictionary=XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
 
             _dataStoreManager = new DataStoreManager(connectionString);
             FillDictionaries(dictionary);

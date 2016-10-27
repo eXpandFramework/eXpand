@@ -11,12 +11,12 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
-using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Xpo.DB;
@@ -130,10 +130,6 @@ namespace Xpand.Persistent.Base.General {
             xafApplication.CallMethod("EnsureShowViewStrategy");
         }
 
-        public static XPDictionary GetXPDictionary(this XafApplication xafApplication){
-            return XpandModuleBase.Dictiorary;
-        }
-
         public static bool CanBuildSecurityObjects(this XafApplication xafApplication) {
             return (xafApplication.Security?.UserType != null && !xafApplication.Security.UserType.IsInterface);
         }
@@ -224,7 +220,7 @@ namespace Xpand.Persistent.Base.General {
         public static SimpleDataLayer CreateCachedDataLayer(this XafApplication xafApplication, IDataStore argsDataStore) {
             var cacheRoot = new DataCacheRoot(argsDataStore);
             var cacheNode = new DataCacheNode(cacheRoot);
-            return new SimpleDataLayer(XpandModuleBase.Dictiorary, cacheNode);
+            return new SimpleDataLayer(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, cacheNode);
         }
 
         public static bool DisableObjectSpaceProderCreation { get; set; }

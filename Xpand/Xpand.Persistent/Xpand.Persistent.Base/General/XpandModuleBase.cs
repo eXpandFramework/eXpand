@@ -195,8 +195,6 @@ namespace Xpand.Persistent.Base.General {
             updaterRegistrator.AddUpdater(this);
         }
 
-        public static XPDictionary Dictiorary => XafTypesInfo.Instance.GetType() == typeof (TypesInfo)? XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary
-            : ((TypesInfoBuilder.TypesInfo) XafTypesInfo.Instance).Source.XPDictionary;
 
         public override void CustomizeLogics(CustomLogics customLogics) {
             base.CustomizeLogics(customLogics);
@@ -728,7 +726,7 @@ namespace Xpand.Persistent.Base.General {
             var infos = typesInfo.PersistentTypes.Select(info => new { TypeInfo = info, Attribute = info.FindAttribute<XpandDefaultPropertyAttribute>() })
                     .Where(arg => arg.Attribute != null).ToList();
             foreach (var info in infos.Where(arg => arg.TypeInfo.Base.FindAttribute<XpandDefaultPropertyAttribute>() == null)) {
-                var classInfo = Dictiorary.GetClassInfo(info.TypeInfo.Type);
+                var classInfo = info.TypeInfo.QueryXPClassInfo();
                 var memberInfo = new XpandCalcMemberInfo(classInfo, info.Attribute.MemberName, typeof(string), info.Attribute.Expression);
                 if (info.Attribute.InVisibleInAllViews)
                     memberInfo.AddAttribute(new InvisibleInAllViewsAttribute());

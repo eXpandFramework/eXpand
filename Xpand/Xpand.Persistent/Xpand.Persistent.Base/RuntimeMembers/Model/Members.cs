@@ -141,7 +141,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
         protected static XPClassInfo FindXPClassInfo(TModelMember modelMemberEx) {
             var typeInfo = (TypeInfo)modelMemberEx.ModelClass.TypeInfo;
-            return typeInfo.IsInterface ? typeInfo.FindDCXPClassInfo() : XpandModuleBase.Dictiorary.GetClassInfo(typeInfo.Type);
+            return typeInfo.IsInterface ? typeInfo.FindDCXPClassInfo() : typeInfo.QueryXPClassInfo();
         }
     }
 

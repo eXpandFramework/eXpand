@@ -8,7 +8,7 @@ namespace FeatureCenter.Module.RuntimeFields.OrphanedCollectionWithCode {
     public class CreateRuntimeOrphanedCollectionController : ViewController {
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(typeof(Customer));
+            var classInfo = typeof(Customer).GetTypeInfo().QueryXPClassInfo();
 
             if (classInfo.FindMember("OrderLinesFromCode") == null) {
                 var attributes = new Attribute[] {new VisibleInListViewAttribute(false),new VisibleInLookupListViewAttribute(false),

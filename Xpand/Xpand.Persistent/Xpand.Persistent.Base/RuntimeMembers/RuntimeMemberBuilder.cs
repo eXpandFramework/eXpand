@@ -77,7 +77,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         static void CreateXpandCustomMemberInfo(IModelMemberEx modelMemberEx, XPObjectSpace objectSpace) {
             try {
                 Type classType = modelMemberEx.ModelClass.TypeInfo.Type;
-                XPClassInfo xpClassInfo = XpandModuleBase.Dictiorary.GetClassInfo(classType);
+                XPClassInfo xpClassInfo = modelMemberEx.ModelClass.TypeInfo.QueryXPClassInfo();
                 lock (xpClassInfo) {
                     var customMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
                     if (customMemberInfo == null) {

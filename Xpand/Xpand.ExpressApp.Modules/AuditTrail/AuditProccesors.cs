@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.AuditTrail;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
@@ -25,7 +26,7 @@ namespace Xpand.ExpressApp.AuditTrail {
 
         public override ObjectAuditProcessor CreateAuditProcessor(ObjectAuditingMode mode, Session session, AuditTrailSettings settings) {
             var auditTrailSettings = new AuditTrailSettings();
-            auditTrailSettings.SetXPDictionary(XpandModuleBase.Dictiorary);
+            auditTrailSettings.SetXPDictionary(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
             foreach (var auditTrailClassInfo in settings.TypesToAudit) {
                 var auditTrailMemberInfos = auditTrailClassInfo.Properties;
                 auditTrailSettings.AddType(auditTrailClassInfo.ClassInfo.ClassType, auditTrailMemberInfos.Select(info => info.Name).ToArray());

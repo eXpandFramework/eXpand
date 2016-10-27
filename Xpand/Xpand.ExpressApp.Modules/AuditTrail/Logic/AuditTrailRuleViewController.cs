@@ -8,6 +8,7 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.AuditTrail.Model;
 using Xpand.ExpressApp.Logic;
 using System.Linq;
+using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AuditTrail;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
@@ -116,12 +117,12 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
         IEnumerable<XPMemberInfo> GetMembers(AuditTrailRule auditTrailRule) {
             var hasContext = !string.IsNullOrEmpty(auditTrailRule.MemberContext);
             if (!hasContext && auditTrailRule.AuditMemberStrategy!=AuditMemberStrategy.None) {
-                return GetAllPublicProperties(auditTrailRule.TypeInfo.Type,info => auditTrailRule.AuditMemberStrategy == AuditMemberStrategy.AllMembers?info.Members:info.OwnMembers);
+                return GetAllPublicProperties(auditTrailRule.TypeInfo,info => auditTrailRule.AuditMemberStrategy == AuditMemberStrategy.AllMembers?info.Members:info.OwnMembers);
             }
             if (hasContext) {
                 var auditTrailMembersContexts = ((IModelApplicationAudiTrail) Application.Model).AudiTrail.AuditTrailMembersContextGroup[auditTrailRule.MemberContext];
                 var membersContexts =auditTrailMembersContexts.Where(context=>context.ModelClass.TypeInfo.IsAssignableFrom(auditTrailRule.TypeInfo));
-                var classInfos =membersContexts.Select(context =>new{ClassInfo = XpandModuleBase.Dictiorary.GetClassInfo(context.ModelClass.TypeInfo.Type),context.Members});
+                var classInfos =membersContexts.Select(context =>new{ClassInfo = context.ModelClass.TypeInfo.QueryXPClassInfo(), context.Members});
                 return classInfos.SelectMany(arg => arg.Members.Select(member => arg.ClassInfo.FindMember(member.ModelMemberName)));
             }
             return Enumerable.Empty<XPMemberInfo>();
@@ -130,9 +131,9 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
             return memberInfo.IsCollection || memberInfo.IsAssociationList;
         }
 
-        IEnumerable<XPMemberInfo> GetAllPublicProperties(Type type,Func<XPClassInfo,ICollection<XPMemberInfo>> func ) {
+        IEnumerable<XPMemberInfo> GetAllPublicProperties(ITypeInfo typeInfo,Func<XPClassInfo,ICollection<XPMemberInfo>> func ) {
             var result = new List<XPMemberInfo>();
-            XPClassInfo currentClassInfo = XpandModuleBase.Dictiorary.GetClassInfo(type);
+            var currentClassInfo = typeInfo.QueryXPClassInfo();
             while (currentClassInfo != null && currentClassInfo.ClassType.Assembly != typeof (XPObject).Assembly) {
                 foreach (XPMemberInfo memberInfo in func.Invoke(currentClassInfo)) {
                     if (memberInfo.IsPublic && (IsCollection(memberInfo) || !memberInfo.IsReadOnly)) {
@@ -145,8 +146,7 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
         }
 
         void AddMember(XPMemberInfo memberInfo, List<XPMemberInfo> result) {
-            Type memberType = memberInfo.MemberType;
-            XPClassInfo memberClassInfo = XpandModuleBase.Dictiorary.QueryClassInfo(memberType);
+            var memberClassInfo = XafTypesInfo.CastTypeToTypeInfo(memberInfo.MemberType).QueryXPClassInfo();
             if (memberClassInfo != null && !memberClassInfo.IsPersistent) {
                 return;
             }

@@ -3,7 +3,7 @@
   <MasterDetail>
     <Rules>
       <MasterDetailRule Id="Project_Contributors" TypeInfo="MasterDetailTester.Module.Win.FunctionalTests.Project" CollectionMember="Contributors" ChildListView="Contributor_ListView" IsNewNode="True" />
-      <MasterDetailRule Id="Project_Developers" TypeInfo="MasterDetailTester.Module.Win.FunctionalTests.Project" CollectionMember="Developers" ChildListView="Developer_ListView" NormalCriteria="[Developers][]" IsNewNode="True" />
+<!--      <MasterDetailRule Id="Project_Developers" TypeInfo="MasterDetailTester.Module.Win.FunctionalTests.Project" CollectionMember="Developers" ChildListView="Developer_ListView" NormalCriteria="[Developers][]" IsNewNode="True" />-->
     </Rules>
   </MasterDetail>
 </Application>

@@ -66,7 +66,7 @@ namespace Xpand.ExpressApp.AuditTrail {
         void RuntimeMemberBuilderOnCustomCreateMember(object sender, CustomCreateMemberArgs customCreateMemberArgs) {
             var modelMemberAuditTrail = customCreateMemberArgs.ModelMemberEx as IModelMemberAuditTrail;
             if (modelMemberAuditTrail != null) {
-                XPClassInfo owner = Dictiorary.GetClassInfo(modelMemberAuditTrail.ModelClass.TypeInfo.Type);
+                XPClassInfo owner = modelMemberAuditTrail.ModelClass.TypeInfo.QueryXPClassInfo();
                 if (owner.FindMember(modelMemberAuditTrail.Name)==null) {
                     new AuditTrailCollectionMemberInfo(owner, modelMemberAuditTrail.Name,modelMemberAuditTrail.CollectionType.TypeInfo.Type);
                 }

@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
 using DevExpress.Xpo;
@@ -87,7 +88,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             AddToAdditionalExportedTypes(BaseImplNameSpace);
-            var classInfos = Dictiorary.Classes.OfType<XPClassInfo>().Where(info => info.IsPersistent &&
+            var classInfos = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.Classes.OfType<XPClassInfo>().Where(info => info.IsPersistent &&
                             WorldCreatorTypeInfoSource.Instance.RegisteredEntities.Contains(info.ClassType));
             foreach (var xpClassInfo in classInfos) {
                 xpClassInfo.AddAttribute(new NonPersistentAttribute());

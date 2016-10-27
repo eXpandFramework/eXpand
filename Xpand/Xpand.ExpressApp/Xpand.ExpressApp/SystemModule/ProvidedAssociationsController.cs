@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.SystemModule {
         IEnumerable<XPMemberInfo> GetDecoratedMembers(ITypesInfo typesInfo) {
             var memberInfos =
                 typesInfo.PersistentTypes.Where(info => (info.IsInterface && !info.IsDomainComponent) || !info.IsInterface).SelectMany(typeInfo => {
-                    XPClassInfo xpClassInfo = XpandModuleBase.Dictiorary.QueryClassInfo(typeInfo.Type);
+                    var xpClassInfo = typeInfo.QueryXPClassInfo();
                     return xpClassInfo != null ? xpClassInfo.OwnMembers : new List<XPMemberInfo>();
                 });
             return memberInfos.Where(memberInfo => memberInfo.HasAttribute(typeof(ProvidedAssociationAttribute)));
@@ -62,14 +62,12 @@ namespace Xpand.ExpressApp.SystemModule {
                     typeToCreateOn,
                     memberInfo.Owner.ClassType,
                     associationAttribute.Name,
-                    XpandModuleBase.Dictiorary,
                     providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.ClassType.Name + "s", false);
             } else {
                 xpCustomMemberInfo = typesInfo.CreateMember(
                     typeToCreateOn,
                     memberInfo.Owner.ClassType,
                     associationAttribute.Name,
-                    XpandModuleBase.Dictiorary,
                     providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.ClassType.Name, false);
             }
 
