@@ -413,9 +413,6 @@
     <Compile Include="SystemModule\ToolTip\GridViewImageTextToolTipController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ToolTip\NewObjectActionTooltipController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\ToolTip\ObjectToolTipViewController.cs" />
     <Compile Include="SystemModule\UnboundColumnController.cs">
       <SubType>Component</SubType>
