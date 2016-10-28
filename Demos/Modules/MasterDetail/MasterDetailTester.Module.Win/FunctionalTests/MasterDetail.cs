@@ -1,9 +1,10 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Base;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
@@ -27,17 +28,23 @@ namespace MasterDetailTester.Module.Win.FunctionalTests {
         }
 
         private void SimpleActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs){
-            var gridView = (GridView) ((XpandGridListEditor) View.Editor).Grid.MainView;
-            var masterRowExpanded = gridView.GetMasterRowExpanded(0);
+            var gridControl = ((XpandGridListEditor) View.Editor).Grid;
+            var gridView = (GridView) gridControl.MainView;
+            var selectedRow = gridView.GetSelectedRows()[0];
+            var masterRowExpanded = gridView.GetMasterRowExpanded(selectedRow);
             if (!masterRowExpanded){
                 gridView.MasterRowExpanded+=GridViewOnMasterRowExpanded;
                 
             }
-            gridView.SetMasterRowExpanded(0,!masterRowExpanded);    
+            gridView.SetMasterRowExpanded(selectedRow, !masterRowExpanded);
         }
 
         private void GridViewOnMasterRowExpanded(object sender, CustomMasterRowEventArgs e){
-            var detailView = (ColumnView)((GridView)sender).GetDetailView(e.RowHandle, e.RelationIndex);
+            var gridView = ((GridView)sender);
+            var detailView = (ColumnView)gridView.GetDetailView(e.RowHandle, e.RelationIndex);
+            var project = ((Project) View.CurrentObject);
+            project.Relations = gridView.GetRelationCount(e.RowHandle);
+            project.DetailViewType = detailView.GetType().Name;
             detailView.GridControl.FocusedView = detailView;
             detailView.FocusedRowHandle = 0;
         }

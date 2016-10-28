@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.BaseImpl.Security;
 
@@ -25,7 +26,7 @@ namespace MasterDetailTester.Win {
             }
 #if EASYTEST
 			if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
-				winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
+				winApplication.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
 			}
 #endif
             try {

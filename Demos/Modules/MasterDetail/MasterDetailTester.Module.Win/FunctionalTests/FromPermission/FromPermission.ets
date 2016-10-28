@@ -4,7 +4,7 @@
 *ScreenCapture
 *LogOn
 #IncludeFile ..\CreateMasterDetailObjects.inc 
-*CreatePermission Project;Contributor
+*CreatePermission Project;Contributor;Developer
 
 *Action Navigation(Default.Role)
 *ProcessRecord 
@@ -17,11 +17,17 @@
  Collection Member = Contributors
  Child List View = Contributor_ListView
 *Action Save and Close
+*Action Permissions.New(Logic.MasterDetail)
+*FillForm
+ Object Type Data = Project
+ ID = Project-Developers
+ Collection Member = Developers
+ Child List View = Developer_ListView
+*Action Save and Close
 *Action Save and Close
 
 *Action Log Off
 *LogOn User
-*Navigate Project
 
-#IncludeFile ..\Checks.inc 
 
+#IncludeFile ..\CreateMasterDetailObjects.inc 

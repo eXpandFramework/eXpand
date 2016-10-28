@@ -16,5 +16,6 @@
 *Navigate Project
 
 *Action Master Detail
-*XpandCompareScreenshot ..\..\Images\MasterDetailLayoutView.png
- MaskRectangle = 390x188;281x281
+*CheckTable
+ Columns = Detail View Type
+ Row = XpandXafLayoutView

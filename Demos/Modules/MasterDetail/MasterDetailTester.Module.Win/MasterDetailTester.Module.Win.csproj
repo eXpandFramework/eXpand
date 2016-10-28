@@ -176,7 +176,6 @@
     <None Include="FunctionalTests\FromModel\Config.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="FunctionalTests\Images\ExpandMasterRow.win.png" />
     <Content Include="FunctionalTests\Images\MasterDetailLayoutView.win.png" />
     <None Include="FunctionalTests\FromPermission\Config.xml" />
     <None Include="FunctionalTests\MasterDetailLayoutView\Config.xml" />

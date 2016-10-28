@@ -77,12 +77,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         public void Execute<T>(ExecutionContext executionContext, View view, EventArgs eventArgs) where T:ILogicRule{
-            Execute<T>(view, false, executionContext, GetCurrentObject(view), eventArgs);
-        }
-
-        private object GetCurrentObject(View view){
-            var listView = view as ListView;
-            return listView != null ? listView.SelectedObjects.Cast<object>().FirstOrDefault() : view?.CurrentObject;
+            Execute<T>(view, false, executionContext, view?.CurrentObject, eventArgs);
         }
 
         internal void Execute(ExecutionContext executionContext, View view, EventArgs eventArgs) {

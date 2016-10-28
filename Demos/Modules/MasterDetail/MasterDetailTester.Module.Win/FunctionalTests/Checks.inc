@@ -1,10 +1,39 @@
-﻿*Action Master Detail
+﻿*Navigate Project
+*SelectRecords
+ Columns = Name
+ Row = eXpandFramework
+
+*Action Master Detail
+
+;------check action synchronization----------------------
 !ActionAvailable Delete
 *Action Master Detail
 *ActionAvailable Delete
 
+;------------------check criteria-------------------------
+*CheckTable
+ Columns = Name,Relations
+ Row = eXpandFramework,1
+*ClearSelection
+*SelectRecords
+ Columns = Name
+ Row = Project2
 *Action Master Detail
-*XpandCompareScreenshot ..\..\Images\ExpandMasterRow.png
- MaskRectangle = 22x99;650x69
+*CheckTable
+ Columns = Name,Relations
+ Row = Project2,2
+*Action Master Detail
+*ClearSelection
+*SelectRecords
+ Columns = Name
+ Row = eXpandFramework
+*Action Master Detail
+*CheckTable
+ Columns = Name,Relations
+ Row = eXpandFramework,1
+
+ 
+
+
 
 
