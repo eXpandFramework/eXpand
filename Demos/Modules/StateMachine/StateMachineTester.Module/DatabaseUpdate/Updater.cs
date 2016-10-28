@@ -25,7 +25,7 @@ namespace StateMachineTester.Module.DatabaseUpdate {
             
 
             var userRole = (XpandPermissionPolicyRole) ObjectSpace.GetRole("User");
-            var user = (XpandPermissionPolicyUser)userRole.GetUser("user");
+            var user = (XpandPermissionPolicyUser)userRole.GetUser("User");
             user.Roles.Add(defaultRole);
             userRole.SetTypePermission<XpoStateMachine>(SecurityOperations.FullAccess, SecurityPermissionState.Allow);
             userRole.SetTypePermission<XpoState>(SecurityOperations.FullAccess, SecurityPermissionState.Allow);

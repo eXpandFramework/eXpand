@@ -11,9 +11,9 @@
  InlineEdit = ''
 *FillRecord
  Columns = User
- Values = user
+ Values = User
 *Action Save and Close
 
 *Action Navigation(LayoutViewListEditor.Edit)
 *XpandProcessRecord
- User = user
+ User = User

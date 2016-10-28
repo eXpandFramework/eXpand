@@ -22,12 +22,12 @@
 *Navigate User
 
 *XpandProcessRecord 
- User Name = user
+ User Name = User
  Action = Edit
 *XpandFillForm
  Test = test
 *SaveAndClose
 *XpandProcessRecord 
- User Name = user
+ User Name = User
 *CheckFieldValues
  Test = test

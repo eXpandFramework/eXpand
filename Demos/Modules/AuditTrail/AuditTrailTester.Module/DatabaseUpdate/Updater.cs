@@ -27,7 +27,7 @@ namespace AuditTrailTester.Module.DatabaseUpdate {
             userRole.CanEditModel = true;
             userRole.AddTypePermissionsRecursively<object>(SecurityOperations.FullAccess,SecurityPermissionState.Allow);
             
-            var user = (PermissionPolicyUser)userRole.GetUser("user");
+            var user = (PermissionPolicyUser)userRole.GetUser("User");
             user.Roles.Add(defaultRole);
 
             if (ObjectSpace.IsNewObject(userRole)) {

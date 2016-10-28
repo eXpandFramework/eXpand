@@ -149,11 +149,11 @@ namespace Xpand.Persistent.Base.General {
         }
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
-            return FilterDisabledControllers(GetDeclaredControllerTypesCore());
+            var declaredControllerTypes = base.GetDeclaredControllerTypes();
+            return FilterDisabledControllers(GetDeclaredControllerTypesCore(declaredControllerTypes));
         }
 
-        protected virtual IEnumerable<Type> GetDeclaredControllerTypesCore() {
-            var declaredControllerTypes = base.GetDeclaredControllerTypes();
+        protected virtual IEnumerable<Type> GetDeclaredControllerTypesCore(IEnumerable<Type> declaredControllerTypes) {
             if (!Executed<IDashboardInteractionUser>("DashboardUser")) {
                 declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(DashboardInteractionController), typeof(WebDashboardRefreshController) });
             }
@@ -704,11 +704,12 @@ namespace Xpand.Persistent.Base.General {
                                info.FindAttribute<EditorAliasAttribute>() != null);
             foreach (var memberInfo in memberInfos) {
                 var editorAliasAttribute = memberInfo.FindAttribute<EditorAliasAttribute>();
-                var typeInfo = typeInfos.First(info => {
+                var typeInfo = typeInfos.FirstOrDefault(info => {
                     var propertyEditorAttribute = info.FindAttribute<PropertyEditorAttribute>();
                     return (string)propertyEditorAttribute.GetFieldValue("alias") == editorAliasAttribute.Alias;
                 });
-                memberInfo.AddAttribute(new ModelDefaultAttribute("PropertyEditorType", typeInfo.Type.FullName));
+                if (typeInfo != null)
+                    memberInfo.AddAttribute(new ModelDefaultAttribute("PropertyEditorType", typeInfo.Type.FullName));
             }
         }
 

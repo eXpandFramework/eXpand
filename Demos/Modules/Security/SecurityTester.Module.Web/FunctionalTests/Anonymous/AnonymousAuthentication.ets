@@ -6,7 +6,7 @@
 *LogOn User
 *Action Edit
 *CheckFieldValues
- User Name = user
+ User Name = User
 *Action Log Off
 *Navigate Anonymous Object
 *Action Login

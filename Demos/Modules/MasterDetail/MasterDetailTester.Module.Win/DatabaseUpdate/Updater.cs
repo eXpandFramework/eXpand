@@ -17,8 +17,9 @@ namespace MasterDetailTester.Module.Win.DatabaseUpdate {
                 adminRole.GetUser("Admin");
 
                 var userRole = ObjectSpace.GetRole("User");
-                var user = (XpandPermissionPolicyUser)userRole.GetUser("user");
+                var user = (XpandPermissionPolicyUser)userRole.GetUser("User");
                 user.Roles.Add(defaultRole);
+                ObjectSpace.CommitChanges();
             }
         }
     }

@@ -10,10 +10,18 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model;
 using Xpand.ExpressApp.Win.Model;
 using Xpand.ExpressApp.Win.Model.NodeUpdaters;
 using Xpand.ExpressApp.Win.PropertyEditors;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
+using Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors;
+using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.Options;
@@ -40,6 +48,64 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             return new List<Type>();
+        }
+
+        protected override IEnumerable<Type> GetDeclaredControllerTypes(){
+            Type[] controllerTypes = {
+                typeof(EditModelController),
+                typeof(ApplicationMultiInstancesController),
+                typeof(AutoCommitController),
+                typeof(AutoExpandNewRowController),
+                typeof(ApplicationExitController),
+                typeof(LayoutControlGroupModelAdapterController),
+                typeof(FilterByGridViewColumnController),
+                typeof(DetailViewCachingController),
+                typeof(FullTextAutoFilterRowController),
+                typeof(GridListEditorEventController),
+                typeof(CustomSummaryCalculateController),
+                typeof(GroupedRowMasterDetailViewController),
+                typeof(ImmediatePostDataController),
+                typeof(OpenWithController),
+                typeof(SelectedItemSumController),
+                typeof(XafLayoutControlModelAdapterController),
+                typeof(EMailHighlightingController),
+                typeof(UnboundColumnController),
+                typeof(CursorPositionController),
+                typeof(CriteriaPropertyEditorControlAdapterController),
+                typeof(PreventDataLoadingGridViewController),
+                typeof(NewObjectCollectCreatableItemTypesDataSource),
+                typeof(PessimisticLockingViewController),
+                typeof(SwitchToEditModeController),
+                typeof(WinSelectFirstNavigationItemController),
+                typeof(FilterByPropertyPathViewController),
+                typeof(FilterControlListViewController),
+                typeof(FocusControlByShortcutController),
+                typeof(GuessAutoFilterRowValuesFromFilterController),
+                typeof(HideGridPopUpMenuViewController),
+                typeof(HideToolBarController),
+                typeof(HighlightFocusedLayoutItemDetailViewController),
+                typeof(LoadWithWindowsController),
+                typeof(CloseFormController),
+                typeof(NotifyIconController),
+                typeof(ReadOnlyTabStopController),
+                typeof(RemoveNavigationItemsController),
+                typeof(SearchFromDetailViewController),
+                typeof(ViewEditValueChangedFiringModeController),
+                typeof(WindowHintController),
+                typeof(GridViewImageTextToolTipController),
+                typeof(WinToolTipsController),
+                typeof(HyperLinkGridListViewController),
+                typeof(LabelControlModelAdapterController),
+                typeof(RichEditToolbarController),
+                typeof(RichEditModelAdapterController),
+                typeof(LayoutViewColumnChooserController),
+                typeof(LayoutViewModelAdapterController),
+                typeof(GridViewModelAdapterController),
+                typeof(RememberGridSelectionController),
+                typeof(RepositoryItemModelAdapterController),
+                typeof(AdvBandedViewModelAdapterController)
+            };
+            return GetDeclaredControllerTypesCore(controllerTypes);
         }
 
         public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator){

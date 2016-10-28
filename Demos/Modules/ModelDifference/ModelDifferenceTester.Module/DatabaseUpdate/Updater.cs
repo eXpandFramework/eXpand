@@ -22,7 +22,7 @@ namespace ModelDifferenceTester.Module.DatabaseUpdate {
             adminRole.GetUser("Admin");
 
             var userRole = (PermissionPolicyRole) ObjectSpace.GetRole("User");
-            var user = (PermissionPolicyUser)userRole.GetUser("user");
+            var user = (PermissionPolicyUser)userRole.GetUser("User");
             user.Roles.Add(defaultRole);
             user = (PermissionPolicyUser)userRole.GetUser("user2");
             user.Roles.Add(defaultRole);

@@ -41,7 +41,7 @@ namespace EmailTester.Module.DatabaseUpdate {
             adminUser.Email = "admin@mail.com";
 
             var userRole = ObjectSpace.GetRole("User");
-            var user = (PermissionPolicyUser)userRole.GetUser("user");
+            var user = (PermissionPolicyUser)userRole.GetUser("User");
             user.Roles.Add(defaultRole);
 
             ObjectSpace.CommitChanges();
