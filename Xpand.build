@@ -78,13 +78,13 @@
           
         </Task> 
   </UsingTask> 
-  <Target Name="FixReferencesB4Build" Condition="$(SkipFixReferences)!=true">
-    <MSBuild Projects=".\Support\FixReferences\FixReferences.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=&quot;$(XpandDLLPath)\FixReferences.exe&quot;" />
+  <Target Name="BuildHelperB4Build" Condition="$(SkipBuildHelper)!=true">
+    <MSBuild Projects=".\Support\BuildHelper\BuildHelper.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
+	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=&quot;$(XpandDLLPath)\BuildHelper.exe&quot;" />
   </Target>
-  <Target Name="FixReferencesAfterBuild" Condition="$(SkipFixReferences)!=true">
-    <MSBuild Projects=".\Support\FixReferences\FixReferences.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=&quot;$(XpandDLLPath)\FixReferences.exe&quot; --afterbuild" />
+  <Target Name="BuildHelperAfterBuild" Condition="$(SkipBuildHelper)!=true">
+    <MSBuild Projects=".\Support\BuildHelper\BuildHelper.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
+	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=&quot;$(XpandDLLPath)\BuildHelper.exe&quot; --afterbuild" />
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
@@ -108,7 +108,7 @@
   <Target Name="NuGetRestore" Condition="$(RestoreNuget)==true">
 	<Exec Command="$(NuGetTool) restore %(NugetRestoreProjects.Identity)" />
   </Target>  
-  <Target Name="Build" DependsOnTargets="CopyCodeRushAssemblies;Copy3rdPartyAssemblies;FixReferencesB4Build;NuGetRestore">
+  <Target Name="Build" DependsOnTargets="CopyCodeRushAssemblies;Copy3rdPartyAssemblies;BuildHelperB4Build;NuGetRestore">
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -125,7 +125,7 @@
       <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
     <Delete Files="@(DxAssemblies)" Condition="$(LeaveDXAssemblies)!=true"></Delete>
-	<CallTarget Targets="FixReferencesAfterBuild"/>
+	<CallTarget Targets="BuildHelperAfterBuild"/>
   </Target>
   <Target Name="BuildNH">
 	<MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
