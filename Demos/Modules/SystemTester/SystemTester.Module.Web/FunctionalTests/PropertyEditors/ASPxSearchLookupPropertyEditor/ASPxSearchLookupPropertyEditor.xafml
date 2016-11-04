@@ -3,7 +3,7 @@
   <Views>
     <DetailView Id="ASPxSearchLookupPropertyEditorObject_DetailView">
       <Items>
-        <PropertyEditor Id="ASPxSearchLookupPropertyEditorLookup" PropertyEditorType="Xpand.ExpressApp.Web.PropertyEditors.ASPxSearchLookupPropertyEditor" />
+        <PropertyEditor Id="ASPxSearchLookupPropertyEditorLookup" PropertyEditorType="Xpand.ExpressApp.Web.PropertyEditors.ASPxSearchLookupPropertyEditor" LookupEditorMode="AllItemsWithSearch" />
       </Items>
     </DetailView>
   </Views>

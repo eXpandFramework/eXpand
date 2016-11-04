@@ -15,230 +15,278 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.ExpressApp.Web.Templates;
 using DevExpress.ExpressApp.Web.TestScripts;
+using DevExpress.ExpressApp.Web.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Web;
+using Xpand.Utils.Helpers;
 using CallbackEventArgs = DevExpress.ExpressApp.Web.Editors.ASPx.CallbackEventArgs;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using PopupWindow = DevExpress.ExpressApp.Web.PopupWindow;
 
-namespace Xpand.ExpressApp.Web.PropertyEditors {
+namespace Xpand.ExpressApp.Web.PropertyEditors{
     [PropertyEditor(typeof(object), EditorAliases.ASPxSearchLookupPropertyEditor, false)]
     public class ASPxSearchLookupPropertyEditor : ASPxObjectPropertyEditorBase, IDependentPropertyEditor,
-                                                  ISupportViewShowing, IFrameContainer {
-        static int _windowWidth = 800;
-        static int _windowHeight = 480;
-        readonly List<IObjectSpace> _createdObjectSpaces = new List<IObjectSpace>();
-        string _editorId;
-        NestedFrame _frame;
-        WebLookupEditorHelper _helper;
-        ListView _listView;
-        object _newObject;
-        IObjectSpace _newObjectSpace;
-        NewObjectViewController _newObjectViewController;
-        PopupWindowShowAction _newObjectWindowAction;
-        ASPxSearchDropDownEdit _searchDropDownEdit;
-        WebApplication _application;
-        IObjectSpace _objectSpace;
+        ISupportViewShowing, IFrameContainer{
+        private static int _windowWidth = 800;
+        private static int _windowHeight = 480;
+        private readonly List<IObjectSpace> _createdObjectSpaces = new List<IObjectSpace>();
+        private WebApplication _application;
+        private string _editorId;
+        private NestedFrame _frame;
+        private ListView _listView;
+        private object _newObject;
+        private IObjectSpace _newObjectSpace;
+        private NewObjectViewController _newObjectViewController;
+        private PopupWindowShowAction _newObjectWindowAction;
+        private IObjectSpace _objectSpace;
+        private ASPxSearchDropDownEdit _searchDropDownEdit;
+        private PopupWindowShowAction _showFindSelectWindowAction;
 
         public ASPxSearchLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
-            : base(objectType, model) {
+            : base(objectType, model){
             skipEditModeDataBind = true;
+            NullText = "";
         }
 
-        public WebLookupEditorHelper WebLookupEditorHelper => _helper;
+        public WebLookupEditorHelper WebLookupEditorHelper { get; private set; }
 
         protected CollectionSourceBase DataSource => _listView?.CollectionSource;
 
-        public int WindowWidth {
+        public int WindowWidth{
             get { return _windowWidth; }
             set { _windowWidth = value; }
         }
 
-        public int WindowHeight {
+        public int WindowHeight{
             get { return _windowHeight; }
             set { _windowHeight = value; }
         }
 
-        internal LookupEditorHelper Helper => _helper;
+        internal WebLookupEditorHelper Helper => WebLookupEditorHelper;
 
         #region IDependentPropertyEditor Members
-        IList<string> IDependentPropertyEditor.MasterProperties => _helper.MasterProperties;
+
+        IList<string> IDependentPropertyEditor.MasterProperties => WebLookupEditorHelper.MasterProperties;
 
         #endregion
-        #region IFrameContainer Members
-        public Frame Frame {
-            get {
-                InitializeFrame();
-                return _frame;
-            }
-        }
 
-        public void InitializeFrame() {
-            if (_frame == null) {
-                _frame = _helper.Application.CreateNestedFrame(this, TemplateContext.LookupControl);
-                _newObjectViewController = _frame.GetController<NewObjectViewController>();
-                if (_newObjectViewController != null) {
-                    _newObjectViewController.ObjectCreating += newObjectViewController_ObjectCreating;
-                    _newObjectViewController.ObjectCreated += newObjectViewController_ObjectCreated;
-                }
-            }
-        }
-        #endregion
         #region ISupportViewShowing Members
-        event EventHandler<EventArgs> ISupportViewShowing.ViewShowingNotification {
+
+        event EventHandler<EventArgs> ISupportViewShowing.ViewShowingNotification{
             add { ViewShowingNotification += value; }
             remove { ViewShowingNotification -= value; }
         }
+
         #endregion
-        protected override void SetImmediatePostDataScript(string script) {
+
+        protected override void SetImmediatePostDataScript(string script){
             _searchDropDownEdit.DropDown.ClientSideEvents.SelectedIndexChanged = script;
         }
 
-        protected override void SetImmediatePostDataCompanionScript(string script) {
+        protected override void SetImmediatePostDataCompanionScript(string script){
             _searchDropDownEdit.DropDown.SetClientSideEventHandler("GotFocus", script);
         }
 
-        void UpdateDropDownLookupControlAddButton(ASPxSearchDropDownEdit control) {
+        private void UpdateDropDownLookupControlAddButton(ASPxSearchDropDownEdit control){
             control.AddingEnabled = false;
-            if (CurrentObject != null) {
+            if (CurrentObject != null){
                 string diagnosticInfo;
                 RecreateListView(true);
                 control.AddingEnabled = AllowEdit &&
-                                        DataManipulationRight.CanCreate(_listView, _helper.LookupObjectType,
-                                                                        _listView.CollectionSource, out diagnosticInfo);
-                if (control.AddingEnabled) {
-                    if (_newObjectViewController != null) {
+                                        DataManipulationRight.CanCreate(_listView,
+                                            WebLookupEditorHelper.LookupObjectType,
+                                            _listView.CollectionSource, out diagnosticInfo);
+                if (control.AddingEnabled)
+                    if (_newObjectViewController != null)
                         control.AddingEnabled = _newObjectViewController.NewObjectAction.Active &&
                                                 _newObjectViewController.NewObjectAction.Enabled;
-                    }
-                }
             }
         }
 
-        ASPxSearchDropDownEdit CreateSearchDropDownEditControl() {
-            var result = new ASPxSearchDropDownEdit(_helper, CaptionHelper.NullValueText, DisplayFormat) { Width = Unit.Percentage(100) };
-            result.DropDown.SelectedIndexChanged += dropDownLookup_SelectedIndexChanged;
-            result.Init += dropDownLookup_Init;
-            result.PreRender += dropDownLookup_PreRender;
-            result.Callback += result_Callback;
-            result.ReadOnly = !AllowEdit;
-            UpdateDropDownLookup(result);
-            return result;
+        private void action_FindWindowParamsCustomizing(object sender, CustomizePopupWindowParamsEventArgs args){
+            OnViewShowingNotification();
+            args.View = WebLookupEditorHelper.CreateListView(CurrentObject);
+            var controller = WebLookupEditorHelper.Application.CreateController<FindLookupDialogController>();
+            controller.Initialize(WebLookupEditorHelper);
+            args.DialogController = controller;
         }
 
-        void result_Callback(object sender, CallbackEventArgs e) {
-            FillSearchDropDownValues(GetObjectByKey($"{Helper.LookupObjectTypeInfo}({e.Argument})"));
+        private void UpdateFindButtonScript(ASPxSearchDropDownEdit findEdit, PopupWindowManager popupWindowManager){
+            if ((findEdit != null) && (popupWindowManager != null)){
+                var callbackManagerHolder = WebWindow.CurrentRequestPage as ICallbackManagerHolder;
+                var immediatePostDataScript = Model.ImmediatePostData && (callbackManagerHolder != null)
+                    ? callbackManagerHolder.CallbackManager.GetScript().Replace("'", @"\\\\\\""")
+                    : string.Empty;
+                var processFindResultFunc = "xafFindLookupProcessFindObject('" + findEdit.UniqueID + "', '" +
+                                            findEdit.Hidden.ClientID + "', window.findLookupResult, '" +
+                                            immediatePostDataScript + "');";
+                var showInFindPopup = DeviceDetector.Instance.GetDeviceCategory() == DeviceCategory.Desktop;
+                var showPopupWindowScript = popupWindowManager.GetShowPopupWindowScript(_showFindSelectWindowAction,
+                    HttpUtility.JavaScriptStringEncode(processFindResultFunc), findEdit.ClientID, false, true, true,
+                    showInFindPopup,
+                    "function() { window.buttonEditAlreadyClicked = false; window.canInitiateImmediatePostData = true;}");
+                findEdit.SetFindButtonClientScript(showPopupWindowScript);
+            }
         }
 
-        void UpdateDropDownLookup(WebControl editor) {
-            var supportNewObjectCreating = editor as ASPxSearchDropDownEdit;
-            if (supportNewObjectCreating != null) {
-                if (_newObjectViewController != null) {
-                    supportNewObjectCreating.NewActionCaption = _newObjectViewController.NewObjectAction.Caption;
-                }
-                UpdateDropDownLookupControlAddButton(supportNewObjectCreating);
+        private ASPxSearchDropDownEdit CreateSearchDropDownEditControl(){
+            if (_showFindSelectWindowAction == null){
+                _showFindSelectWindowAction = new PopupWindowShowAction(null,
+                    MemberInfo.Name + "_ASPxLookupEditor_ShowFindWindow", PredefinedCategory.Unspecified);
+                _showFindSelectWindowAction.Execute += actionFind_OnExecute;
+                _showFindSelectWindowAction.CustomizePopupWindowParams += action_FindWindowParamsCustomizing;
+                _showFindSelectWindowAction.Application = application;
+                _showFindSelectWindowAction.AcceptButtonCaption = string.Empty;
+                _showFindSelectWindowAction.Data[EditorActionRelationKey] = this;
+            }
+            var searchDropDownEdit = new ASPxSearchDropDownEdit{Width = Unit.Percentage(100)};
+            searchDropDownEdit.DropDown.SelectedIndexChanged += DropDownOnSelectedIndexChanged;
+
+            searchDropDownEdit.Init += DropDownEditOnInit;
+            searchDropDownEdit.PreRender += DropDownEditOnPreRender;
+            searchDropDownEdit.Callback += DropDownEditOnCallback;
+            searchDropDownEdit.ValueChanged += DropDownEditOnValueChanged;
+            searchDropDownEdit.Setup(Helper);
+            searchDropDownEdit.ReadOnly = !AllowEdit;
+            DisplayFormat = DisplayFormat;
+            UpdateDropDownLookup(searchDropDownEdit);
+            return searchDropDownEdit;
+        }
+
+
+        private void actionFind_OnExecute(object sender, PopupWindowShowActionExecuteEventArgs args){
+            var objectKey = WebLookupEditorHelper.GetObjectKey(((ListView) args.PopupWindow.View).CurrentObject);
+            ((PopupWindow) args.PopupWindow).ClosureScript =
+                "if(window.dialogOpener) window.dialogOpener.findLookupResult = '" + EscapeObjectKey(objectKey) + "';";
+        }
+
+        private string EscapeObjectKey(string key){
+            return key.Replace("'", "\\'");
+        }
+
+        private void DropDownEditOnCallback(object sender, CallbackEventArgs e){
+            var argument = e.Argument;
+            if (argument == "clear") {
+                _searchDropDownEdit.DropDown.Text = Helper.GetDisplayText(null, NullText, DisplayFormat);
+            }
+            else if (argument.StartsWith("found")){
+                argument = argument.Substring(5);
+                object editValue = GetObjectByKey(argument);
+                _searchDropDownEdit.DropDown.Text = Helper.GetDisplayText(editValue, NullText, DisplayFormat);
+                _searchDropDownEdit.DropDown.JSProperties[ASPxSearchDropDownEdit.CpLookup] = editValue == null;
+                _searchDropDownEdit.DropDown.JSProperties[ASPxSearchDropDownEdit.CpIsEmpty] = editValue == null;
+                FillSearchDropDownValues(editValue);
+                return;
+            }
+            FillSearchDropDownValues(GetObjectByKey($"{Helper.LookupObjectTypeInfo}({argument})"));
+        }
+
+        private void UpdateDropDownLookup(WebControl editor){
+            var dropDownEdit = editor as ASPxSearchDropDownEdit;
+            if (dropDownEdit != null){
+                if (_newObjectViewController != null)
+                    dropDownEdit.NewActionCaption = _newObjectViewController.NewObjectAction.Caption;
+                UpdateDropDownLookupControlAddButton(dropDownEdit);
                 if (_application != null){
-                    var callBackFuncName = HttpUtility.JavaScriptStringEncode(supportNewObjectCreating.GetProcessNewObjFunction());
-                    var script=application.PopupWindowManager.GetShowPopupWindowScript(_newObjectWindowAction,callBackFuncName, editor.ClientID, false,_newObjectWindowAction.IsSizeable);
-                    supportNewObjectCreating.SetClientNewButtonScript(script);
+                    var callBackFuncName = HttpUtility.JavaScriptStringEncode(dropDownEdit.GetProcessNewObjFunction());
+                    var script = application.PopupWindowManager.GetShowPopupWindowScript(_newObjectWindowAction,
+                        callBackFuncName, editor.ClientID, false, _newObjectWindowAction.IsSizeable);
+                    dropDownEdit.SetNewButtonScript(script);
+
+                    UpdateFindButtonScript(dropDownEdit, application.PopupWindowManager);
                 }
             }
         }
-
-        void dropDownLookup_SelectedIndexChanged(object source, EventArgs e) {
+        
+        private void DropDownOnSelectedIndexChanged(object source, EventArgs e){
             EditValueChangedHandler(source, EventArgs.Empty);
         }
 
-        void dropDownLookup_Init(object sender, EventArgs e) {
-            UpdateDropDownLookup((WebControl)sender);
+        private void DropDownEditOnInit(object sender, EventArgs e){
+            UpdateDropDownLookup((WebControl) sender);
         }
 
-        void dropDownLookup_PreRender(object sender, EventArgs e) {
-            UpdateDropDownLookup((WebControl)sender);
+        private void DropDownEditOnPreRender(object sender, EventArgs e){
+            UpdateDropDownLookup((WebControl) sender);
         }
 
-        object GetObjectByKey(string key) {
-            return _helper.GetObjectByKey(CurrentObject, key);
+        private object GetObjectByKey(string key){
+            return WebLookupEditorHelper.GetObjectByKey(CurrentObject, key);
         }
 
-        void newObjectViewController_ObjectCreating(object sender, ObjectCreatingEventArgs e) {
+        private void newObjectViewController_ObjectCreating(object sender, ObjectCreatingEventArgs e){
             e.ShowDetailView = false;
-            if (e.ObjectSpace is INestedObjectSpace) {
-                e.ObjectSpace = _application.CreateObjectSpace(e.ObjectType);
-            }
+            if (e.ObjectSpace is INestedObjectSpace) e.ObjectSpace = _application.CreateObjectSpace(e.ObjectType);
         }
 
-        void newObjectViewController_ObjectCreated(object sender, ObjectCreatedEventArgs e) {
+        private void newObjectViewController_ObjectCreated(object sender, ObjectCreatedEventArgs e){
             _newObject = e.CreatedObject;
             _newObjectSpace = e.ObjectSpace;
             _createdObjectSpaces.Add(_newObjectSpace);
         }
 
-        void newObjectWindowAction_OnCustomizePopupWindowParams(Object sender, CustomizePopupWindowParamsEventArgs args) {
-            if (!DataSource.AllowAdd) {
-                throw new InvalidOperationException();
-            }
-            if (_newObjectViewController != null) {
-                OnViewShowingNotification(); 
+        private void newObjectWindowAction_OnCustomizePopupWindowParams(object sender,
+            CustomizePopupWindowParamsEventArgs args){
+            if (!DataSource.AllowAdd) throw new InvalidOperationException();
+            if (_newObjectViewController != null){
+                OnViewShowingNotification();
                 _newObjectViewController.NewObjectAction.DoExecute(_newObjectViewController.NewObjectAction.Items[0]);
                 args.View = _application.CreateDetailView(_newObjectSpace, _newObject, _listView);
             }
         }
 
-        void newObjectWindowAction_OnExecute(Object sender, PopupWindowShowActionExecuteEventArgs args) {
-            if (!DataSource.AllowAdd) {
-                throw new InvalidOperationException();
-            }
-            if (_objectSpace != args.PopupWindow.View.ObjectSpace) {
-                args.PopupWindow.View.ObjectSpace.CommitChanges();
-            }
-            var detailView = (DetailView)args.PopupWindow.View;
-            DataSource.Add(_helper.ObjectSpace.GetObject(detailView.CurrentObject));
-            ((PopupWindow)args.PopupWindow).ClosureScript =
+        private void newObjectWindowAction_OnExecute(object sender, PopupWindowShowActionExecuteEventArgs args){
+            if (!DataSource.AllowAdd) throw new InvalidOperationException();
+            if (_objectSpace != args.PopupWindow.View.ObjectSpace) args.PopupWindow.View.ObjectSpace.CommitChanges();
+            var detailView = (DetailView) args.PopupWindow.View;
+            DataSource.Add(WebLookupEditorHelper.ObjectSpace.GetObject(detailView.CurrentObject));
+            ((PopupWindow) args.PopupWindow).ClosureScript =
                 "if(window.dialogOpener != null) window.dialogOpener.ddLookupResult = '" +
                 detailView.ObjectSpace.GetKeyValueAsString(detailView.CurrentObject) + "';";
         }
 
-        void RecreateListView(bool ifNotCreatedOnly) {
-            if (ViewEditMode == ViewEditMode.Edit && (!ifNotCreatedOnly || _listView == null)) {
+        private void RecreateListView(bool ifNotCreatedOnly){
+            if ((ViewEditMode == ViewEditMode.Edit) && (!ifNotCreatedOnly || (_listView == null))){
                 _listView = null;
-                if (CurrentObject != null) {
-                    _listView = _helper.CreateListView(CurrentObject);
-                }
+                if (CurrentObject != null) _listView = WebLookupEditorHelper.CreateListView(CurrentObject);
                 Frame.SetView(_listView);
             }
         }
 
-        void OnViewShowingNotification(){
+        private void OnViewShowingNotification(){
             ViewShowingNotification?.Invoke(this, EventArgs.Empty);
         }
 
-        protected override void ApplyReadOnly() {
-            if (_searchDropDownEdit != null) {
-                _searchDropDownEdit.ReadOnly = !AllowEdit;
-            }
+        protected override void ApplyReadOnly(){
+            if (_searchDropDownEdit != null) _searchDropDownEdit.ReadOnly = !AllowEdit;
         }
 
-        protected override WebControl CreateEditModeControlCore() {
-            if (_newObjectWindowAction == null) {
-                _newObjectWindowAction = new PopupWindowShowAction(null, "New", PredefinedCategory.Unspecified.ToString());
+        public ASPxSearchDropDownEdit SearchDropDownEdit => _searchDropDownEdit;
+
+        protected override WebControl CreateEditModeControlCore(){
+            if (_newObjectWindowAction == null){
+                _newObjectWindowAction = new PopupWindowShowAction(null, "New",
+                    PredefinedCategory.Unspecified.ToString());
                 _newObjectWindowAction.Execute += newObjectWindowAction_OnExecute;
                 _newObjectWindowAction.CustomizePopupWindowParams += newObjectWindowAction_OnCustomizePopupWindowParams;
-                _newObjectWindowAction.Application = _helper.Application;
+                _newObjectWindowAction.Application = WebLookupEditorHelper.Application;
             }
 
-            var panel = new Panel();          
+            var panel = new Panel();
             _searchDropDownEdit = CreateSearchDropDownEditControl();
             panel.Controls.Add(_searchDropDownEdit);
             return panel;
         }
 
-        protected override object GetControlValueCore() {
-            if (ViewEditMode == ViewEditMode.Edit && Editor != null) {
-                ASPxComboBox dropDownControl = _searchDropDownEdit.DropDown;
-                if (dropDownControl.Value != null && dropDownControl.Value.ToString() != CaptionHelper.NullValueText) {
-                    string objectKey = $"{Helper.LookupObjectTypeInfo}({dropDownControl.Value})";
+        protected override object GetControlValueCore(){
+            if ((ViewEditMode == ViewEditMode.Edit) && (Editor != null)){
+                if (!string.IsNullOrEmpty(_searchDropDownEdit.Value))
+                    return GetObjectByKey(_searchDropDownEdit.Value);
+                var dropDownControl = _searchDropDownEdit.DropDown;
+                if (dropDownControl.Value != null && (dropDownControl.Value.CanChange(Helper.LookupObjectTypeInfo.KeyMember.MemberType) && ((string) dropDownControl.Value != NullText))){
+                    var objectKey = GetObjectKey(dropDownControl);
                     return GetObjectByKey(objectKey);
                 }
                 return null;
@@ -246,39 +294,55 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             return MemberInfo.GetValue(CurrentObject);
         }
 
-        protected override void OnCurrentObjectChanged() {
-            if (Editor != null) {
-                RecreateListView(false);
-            }
+        private string GetObjectKey(ASPxComboBox dropDownControl){
+            return
+                (string)
+                (Helper.LookupObjectTypeInfo.IsPersistent
+                    ? $"{Helper.LookupObjectTypeInfo}({dropDownControl.Value})"
+                    : dropDownControl.Value);
+        }
+
+        protected override void OnCurrentObjectChanged(){
+            if (Editor != null) RecreateListView(false);
             base.OnCurrentObjectChanged();
             UpdateDropDownLookup(_searchDropDownEdit);
         }
 
-        protected override string GetPropertyDisplayValue() {
-            return _helper.GetDisplayText(MemberInfo.GetValue(CurrentObject), CaptionHelper.NullValueText, DisplayFormat);
+        protected override string GetPropertyDisplayValue(){
+            return WebLookupEditorHelper.GetDisplayText(MemberInfo.GetValue(CurrentObject), CaptionHelper.NullValueText,
+                DisplayFormat);
         }
 
-        void FillSearchDropDownValues(object item) {
+        private void FillSearchDropDownValues(object item){
             _searchDropDownEdit.DropDown.Items.Clear();
-            if (item != null) {
-                _searchDropDownEdit.DropDown.DataSource = new List<object>(new[] { item });
+            if (item != null){
+                _searchDropDownEdit.DropDown.DataSource = new List<object>(new[]{item});
                 _searchDropDownEdit.DropDown.DataBind();
             }
             _searchDropDownEdit.DropDown.SelectedIndex = _searchDropDownEdit.DropDown.Items.Count - 1;
         }
 
-        protected override void ReadEditModeValueCore() {
-            if (_searchDropDownEdit != null) {
+        protected override void ReadEditModeValueCore(){
+            if (_searchDropDownEdit != null){
                 FillSearchDropDownValues(PropertyValue);
+                if (_searchDropDownEdit.DropDown.JSProperties.ContainsKey(ASPxSearchDropDownEdit.CpLookup)){
+                    _searchDropDownEdit.Value = Helper.GetObjectKey(PropertyValue);
+                    _searchDropDownEdit.DropDown.Text = GetPropertyDisplayValueForObject(PropertyValue);
+                    _searchDropDownEdit.DropDown.JSProperties[ASPxSearchDropDownEdit.CpIsEmpty] = PropertyValue == null;
+                }
             }
         }
 
-        public void SetValueToControl(object obj) {
-            if (_searchDropDownEdit != null) {
-                ASPxComboBox controlBox = _searchDropDownEdit.DropDown;
-                foreach (ListEditItem item in controlBox.Items) {
+        private string GetPropertyDisplayValueForObject(object propertyValue){
+            return Helper.GetDisplayText(propertyValue, NullText, DisplayFormat);
+        }
+
+        public void SetValueToControl(object obj){
+            if (_searchDropDownEdit != null){
+                var controlBox = _searchDropDownEdit.DropDown;
+                foreach (ListEditItem item in controlBox.Items){
                     var val = item.Value as string;
-                    if (val == _helper.GetObjectKey(obj)) {
+                    if (val == WebLookupEditorHelper.GetObjectKey(obj)){
                         controlBox.SelectedIndex = item.Index;
                         break;
                     }
@@ -286,234 +350,261 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             }
         }
 
-        protected override IJScriptTestControl GetInplaceViewModeEditorTestControlImpl() {
+        protected override IJScriptTestControl GetInplaceViewModeEditorTestControlImpl(){
             return new JSButtonTestControl();
         }
 
-        protected override WebControl GetActiveControl() {
-            if (_searchDropDownEdit != null) {
-                return _searchDropDownEdit.DropDown;
-            }
+        protected override WebControl GetActiveControl(){
+            if (_searchDropDownEdit != null) return _searchDropDownEdit.DropDown;
             return base.GetActiveControl();
         }
 
-        protected override string GetEditorClientId() {
-            return _searchDropDownEdit.ClientID;
+        protected override string GetEditorClientId(){
+            return _searchDropDownEdit.DropDown.ClientID;
         }
 
-        void UpdateControlId() {
-            _searchDropDownEdit.ID = _editorId;
+
+        private void UpdateControlId(){
+            if (_searchDropDownEdit?.DropDown != null){
+                _searchDropDownEdit.DropDown.ID = _editorId;
+                if (EditorClientInfo != null && _searchDropDownEdit.DropDown != null){
+                    var controlId = _searchDropDownEdit.DropDown.ID;
+                    EditorClientInfo.ID = _editorId + "_" + controlId + "_EditorClientInfo";
+                }
+            }
         }
 
-        protected override void SetEditorId(string controlId) {
+        protected override void SetEditorId(string controlId){
             _editorId = controlId;
             UpdateControlId();
         }
 
-        protected override void Dispose(bool disposing) {
-            try {
-                if (disposing) {
-                    if (_newObjectWindowAction != null) {
+        protected override void Dispose(bool disposing){
+            try{
+                if (disposing){
+                    if (_showFindSelectWindowAction != null){
+                        _showFindSelectWindowAction.Execute -= actionFind_OnExecute;
+                        _showFindSelectWindowAction.CustomizePopupWindowParams -= action_FindWindowParamsCustomizing;
+                        DisposeAction(_showFindSelectWindowAction);
+                        _showFindSelectWindowAction = null;
+                    }
+                    if (_newObjectWindowAction != null){
                         _newObjectWindowAction.Execute -= newObjectWindowAction_OnExecute;
                         _newObjectWindowAction.CustomizePopupWindowParams -=
                             newObjectWindowAction_OnCustomizePopupWindowParams;
                         DisposeAction(_newObjectWindowAction);
                         _newObjectWindowAction = null;
                     }
-                    if (_newObjectViewController != null) {
+                    if (_newObjectViewController != null){
                         _newObjectViewController.ObjectCreating -= newObjectViewController_ObjectCreating;
                         _newObjectViewController.ObjectCreated -= newObjectViewController_ObjectCreated;
                         _newObjectViewController = null;
                     }
-                    if (_frame != null) {
+                    if (_frame != null){
                         _frame.SetView(null);
                         _frame.Dispose();
                         _frame = null;
                     }
-                    if (_listView != null) {
+                    if (_listView != null){
                         _listView.Dispose();
                         _listView = null;
                     }
-                    foreach (IObjectSpace createdObjectSpace in _createdObjectSpaces) {
-                        if (!createdObjectSpace.IsDisposed) {
-                            createdObjectSpace.Dispose();
-                        }
-                    }
+                    foreach (var createdObjectSpace in _createdObjectSpaces)
+                        if (!createdObjectSpace.IsDisposed) createdObjectSpace.Dispose();
                     _createdObjectSpaces.Clear();
                     _newObject = null;
                     _newObjectSpace = null;
                 }
-            } finally {
+            }
+            finally{
                 base.Dispose(disposing);
             }
         }
 
-        public override void BreakLinksToControl(bool unwireEventsOnly) {
-            if (_searchDropDownEdit != null) {
-                _searchDropDownEdit.DropDown.SelectedIndexChanged -= dropDownLookup_SelectedIndexChanged;
-                _searchDropDownEdit.Init -= dropDownLookup_Init;
-                _searchDropDownEdit.PreRender -= dropDownLookup_PreRender;
-                _searchDropDownEdit.Callback -= result_Callback;
+        public override void BreakLinksToControl(bool unwireEventsOnly){
+            if (_searchDropDownEdit != null){
+                _searchDropDownEdit.DropDown.SelectedIndexChanged -= DropDownOnSelectedIndexChanged;
+                _searchDropDownEdit.ValueChanged -= DropDownEditOnValueChanged;
+                _searchDropDownEdit.Init -= DropDownEditOnInit;
+                _searchDropDownEdit.PreRender -= DropDownEditOnPreRender;
+                _searchDropDownEdit.Callback -= DropDownEditOnCallback;
             }
-            if (!unwireEventsOnly) {
-                _searchDropDownEdit = null;
-            }
+            if (!unwireEventsOnly) _searchDropDownEdit = null;
             base.BreakLinksToControl(unwireEventsOnly);
         }
 
-        public void SetControlValue(object val) {
-            object selectedObject = GetControlValueCore();
-            if (((selectedObject == null && val == null) || (selectedObject != val)) && (CurrentObject != null)) {
-                OnValueStoring(_helper.GetDisplayText(val, CaptionHelper.NullValueText, DisplayFormat));
-                MemberInfo.SetValue(CurrentObject, _helper.ObjectSpace.GetObject(val));
+        private void DropDownEditOnValueChanged(object sender, EventArgs eventArgs){
+            EditValueChangedHandler(sender, eventArgs);
+        }
+
+        public void SetControlValue(object val){
+            var selectedObject = GetControlValueCore();
+            if ((((selectedObject == null) && (val == null)) || (selectedObject != val)) && (CurrentObject != null)){
+                OnValueStoring(WebLookupEditorHelper.GetDisplayText(val, CaptionHelper.NullValueText, DisplayFormat));
+                MemberInfo.SetValue(CurrentObject, WebLookupEditorHelper.ObjectSpace.GetObject(val));
                 OnValueStored();
                 ReadValue();
             }
         }
 
-        public override void Setup(IObjectSpace space, XafApplication xafApplication) {
+        public override void Setup(IObjectSpace space, XafApplication xafApplication){
             base.Setup(space, xafApplication);
             _application = application;
             _objectSpace = objectSpace;
-            _helper = new WebLookupEditorHelper(xafApplication, space, MemberInfo.MemberTypeInfo, Model);
+            WebLookupEditorHelper = new WebLookupEditorHelper(xafApplication, space, MemberInfo.MemberTypeInfo, Model);
         }
 
         public event EventHandler<EventArgs> ViewShowingNotification;
 
-    }
+        #region IFrameContainer Members
 
-    public class ASPxSearchDropDownEdit : Table, INamingContainer, ICallbackEventHandler {
-        const int NumberCharSearch = 1;
-        readonly EditButton _clearButton;
-        readonly ASPxComboBox _dropDown;
-        readonly EditButton _newButton;
-        bool _addingEnabled;
-        string _clearButtonScript;
-        bool _isPrerendered;
-        string _newButtonScript;
-
-        public ASPxSearchDropDownEdit(WebLookupEditorHelper helper, string emptyValue, string displayFormat) {
-            Helper = helper;
-            EmptyValue = emptyValue;
-            DisplayFormat = displayFormat;
-
-            _dropDown = RenderHelper.CreateASPxComboBox();
-            _dropDown.ID = "DD";
-            _dropDown.Width = Unit.Percentage(100);
-            _dropDown.CssClass = "xafLookupEditor";
-
-            _dropDown.IncrementalFilteringMode = IncrementalFilteringMode.StartsWith;
-            _dropDown.FilterMinLength = 3;
-
-            _dropDown.DropDownButton.Visible = false;
-            _dropDown.EnableCallbackMode = true;
-            _dropDown.CallbackPageSize = 10;
-            _dropDown.ItemRequestedByValue += dropDown_ItemRequestedByValue;
-            _dropDown.ItemsRequestedByFilterCondition += dropDown_ItemsRequestedByFilterCondition;
-            if (Helper.DisplayMember==null)
-                throw new NullReferenceException("DisplayMember");
-            _dropDown.TextField = Helper.DisplayMember.Name;
-            _dropDown.ValueField = Helper.LookupObjectTypeInfo.KeyMember.Name;
-            _dropDown.Columns.Add(Helper.LookupObjectTypeInfo.DefaultMember.BindingName);
-            _newButton = _dropDown.Buttons.Add();
-            _clearButton = _dropDown.Buttons.Add();
-            ASPxImageHelper.SetImageProperties(_newButton.Image, "Action_New_12x12");
-            ASPxImageHelper.SetImageProperties(_clearButton.Image, "Editor_Clear");
-
-            InitTable();
-        }
-
-        void InitTable() {
-            CellPadding = 0;
-            CellSpacing = 0;
-            Rows.Add(new TableRow());
-            Rows[0].Cells.Add(new TableCell());
-
-            Rows[0].Cells[0].Width = Unit.Percentage(100);
-            Rows[0].Cells[0].Attributes["align"] = "left";
-            Rows[0].Cells[0].Attributes["valign"] = "middle";
-            Rows[0].Cells[0].Controls.Add(_dropDown);
-        }
-
-
-        public ASPxComboBox DropDown => _dropDown;
-
-        public bool ReadOnly {
-            get { return _dropDown.ReadOnly; }
-            set {
-                _dropDown.ReadOnly = value;
-                _dropDown.Enabled = !value;
+        public Frame Frame{
+            get{
+                InitializeFrame();
+                return _frame;
             }
         }
 
-        public BaseObjectSpace ObjectSpace => (BaseObjectSpace)Helper.ObjectSpace;
+        public void InitializeFrame(){
+            if (_frame == null){
+                _frame = WebLookupEditorHelper.Application.CreateNestedFrame(this, TemplateContext.LookupControl);
+                _newObjectViewController = _frame.GetController<NewObjectViewController>();
+                if (_newObjectViewController != null){
+                    _newObjectViewController.ObjectCreating += newObjectViewController_ObjectCreating;
+                    _newObjectViewController.ObjectCreated += newObjectViewController_ObjectCreated;
+                }
+            }
+        }
+
+        #endregion
+    }
+
+    public sealed class ASPxSearchDropDownEdit : WebControl, INamingContainer, ICallbackEventHandler{
+        private const int NumberCharSearch = 1;
+        public const string CpLookup = "cpLookup";
+        public const string CpIsEmpty = "cpIsEmpty";
+        private readonly EditButton _clearButton;
+        private readonly HiddenField _hidden;
+        private readonly EditButton _newButton;
+        private readonly EditButton _searchButton;
+        private bool _addingEnabled;
+        private string _clearButtonScript;
+        private string _findButtonScript;
+        private bool _isClearingHiddenValue;
+        private bool _isPrerendered;
+        private string _newButtonScript;
+
+        
+
+        public ASPxSearchDropDownEdit():base(HtmlTextWriterTag.Div){
+
+            DropDown = RenderHelper.CreateASPxComboBox();
+            DropDown.ID = "DD";
+            DropDown.Width = Unit.Percentage(100);
+            DropDown.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
+            DropDown.FilterMinLength = 3;
+
+            DropDown.DropDownButton.Visible = false;
+            DropDown.EnableCallbackMode = true;
+            DropDown.CallbackPageSize = 10;
+            DropDown.ItemRequestedByValue += dropDown_ItemRequestedByValue;
+            DropDown.ItemsRequestedByFilterCondition += dropDown_ItemsRequestedByFilterCondition;
+            _newButton = DropDown.Buttons.Add();
+            _clearButton = DropDown.Buttons.Add();
+            _searchButton = DropDown.Buttons.Add();
+            
+            ASPxImageHelper.SetImageProperties(_newButton.Image, "Action_New_12x12");
+            ASPxImageHelper.SetImageProperties(_clearButton.Image, "Editor_Clear");
+            ASPxImageHelper.SetImageProperties(_searchButton.Image, "Editor_Search", 16, 16);
+            Controls.Add(DropDown);
+            _hidden = new LookupHiddenField{ID = "HDN"};
+            _hidden.ValueChanged += hidden_ValueChanged;
+            Controls.Add(_hidden);
+            DropDown.DropDownStyle=DropDownStyle.DropDown;
+        }
+
+        public Control Hidden => _hidden;
+
+        public string Value{
+            get { return _hidden.Value; }
+            set { _hidden.Value = value; }
+        }
+
+        public ASPxComboBox DropDown { get; }
+
+        public bool ReadOnly{
+            get { return DropDown.ReadOnly; }
+            set{
+                DropDown.ReadOnly = value;
+                DropDown.Enabled = !value;
+            }
+        }
+
+        public BaseObjectSpace ObjectSpace => (BaseObjectSpace) Helper.ObjectSpace;
 
         public WebLookupEditorHelper Helper { get; set; }
-        public string EmptyValue { get; set; }
-        public string DisplayFormat { get; set; }
 
-        public bool AddingEnabled {
+        public bool AddingEnabled{
             get { return _addingEnabled; }
-            set {
+            set{
                 _addingEnabled = value;
-                if (_newButton != null) {
+                if (_newButton != null){
                     _newButton.Enabled = value;
                     _newButton.Visible = value;
                 }
             }
         }
 
-        public string NewActionCaption {
+        public string NewActionCaption{
             get { return _newButton.Text; }
-            set {
+            set{
                 _newButton.ToolTip = value;
-                if (_newButton.Image.IsEmpty) {
-                    _newButton.Text = value;
-                }
+                if (_newButton.Image.IsEmpty) _newButton.Text = value;
             }
-        }
-        #region ICallbackEventHandler Members
-        public string GetCallbackResult() {
-            var result = new StringBuilder();
-            foreach (ListEditItem item in _dropDown.Items) {
-                result.AppendFormat("{0}<{1}{2}|", HttpUtility.HtmlAttributeEncode(item.Text), item.Value,
-                                    _dropDown.SelectedItem == item ? "<" : "");
-            }
-            if (result.Length > 0) {
-                result.Remove(result.Length - 1, 1);
-            }
-            return $"{_dropDown.ClientID}><{result}";
         }
 
-        public void RaiseCallbackEvent(string eventArgument){
-            Callback?.Invoke(this, new CallbackEventArgs(eventArgument));
+        private void hidden_ValueChanged(object sender, EventArgs e){
+            if (!_isClearingHiddenValue){
+                ValueChanged?.Invoke(this, EventArgs.Empty);
+                _isClearingHiddenValue = true;
+                _hidden.Value = null;
+                _isClearingHiddenValue = false;
+            }
         }
 
-        #endregion
-        void UpdateClientButtonsScript() {
-            _dropDown.ClientSideEvents.ButtonClick = @"function(s, e) {
-                if(e.buttonIndex == 0) {" +
-                                                    _newButtonScript +
-                                                    @"}
-                if(e.buttonIndex == 1) {" +
-                                                    _clearButtonScript +
-                                                    @"}             
+        public event EventHandler ValueChanged;
+
+        public override void Dispose(){
+            try{
+                if (_hidden != null) _hidden.ValueChanged -= hidden_ValueChanged;
+            }
+            finally{
+                base.Dispose();
+            }
+        }
+
+        private void UpdateClientButtonsScript(){
+            DropDown.ClientSideEvents.ButtonClick = @"function(s, e) {
+                if(e.buttonIndex == 0) {" + _newButtonScript + @"};
+                if(e.buttonIndex == 1) {" + _clearButtonScript + @"};
+                if(e.buttonIndex == 2) {" + _findButtonScript + @"};
             }";
         }
 
-        void dropDown_ItemsRequestedByFilterCondition(object source, ListEditItemsRequestedByFilterConditionEventArgs e) {
-            if (String.IsNullOrEmpty(e.Filter) || e.Filter.Length < NumberCharSearch)
+        private void dropDown_ItemsRequestedByFilterCondition(object source,
+            ListEditItemsRequestedByFilterConditionEventArgs e){
+            if (string.IsNullOrEmpty(e.Filter) || (e.Filter.Length < NumberCharSearch))
                 return;
-            var editor = ((ASPxComboBox)source);
+            var editor = (ASPxComboBox) source;
             editor.DataSource = GetLookupSource(e.Filter);
             editor.DataBind();
         }
 
-        void dropDown_ItemRequestedByValue(object source, ListEditItemRequestedByValueEventArgs e) {
+        private void dropDown_ItemRequestedByValue(object source, ListEditItemRequestedByValueEventArgs e){
         }
 
-        public IList GetLookupSource(string filter) {
-            var criteriaBuilder = new SearchCriteriaBuilder {
+        public IList GetLookupSource(string filter){
+            var criteriaBuilder = new SearchCriteriaBuilder{
                 TypeInfo = Helper.LookupObjectTypeInfo,
                 SearchInStringPropertiesOnly = false,
                 SearchText = filter,
@@ -523,43 +614,88 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             return ObjectSpace.GetObjects(Helper.LookupObjectType, criteriaBuilder.BuildCriteria());
         }
 
-        protected override void OnPreRender(EventArgs e) {
+        public EditButton SearchButton => _searchButton;
+
+        protected override void OnPreRender(EventArgs e){
             _isPrerendered = true;
-            if (!ReadOnly) {
+            if (!ReadOnly){
                 _clearButtonScript =
                     @"var processOnServer = false;
-						var dropDownControl = ASPxClientControl.GetControlCollection().GetByName('" +
-                    _dropDown.ClientID +
-                    @"');
-						if(dropDownControl) {
-							dropDownControl.ClearItems();                            
-							processOnServer = dropDownControl.RaiseValueChangedEvent();
-						}
-						e.processOnServer = processOnServer;";
+                    document.getElementById('" + Hidden.ClientID + @"').value = ''
+					var dropDownControl = ASPxClientControl.GetControlCollection().GetByName('" + DropDown.ClientID + @"');
+					if(dropDownControl) {
+                        dropDownControl.SetValue('');
+                        dropDownControl.cpIsEmpty = true;
+						dropDownControl.ClearItems();                            
+						processOnServer = dropDownControl.RaiseValueChangedEvent();
+                        dropDownControl.Validate();
+					}
+					e.processOnServer = processOnServer;";
                 UpdateClientButtonsScript();
-            } else {
+            }
+            else{
                 _clearButton.Visible = false;
                 _newButton.Visible = false;
+                _searchButton.Visible = false;
             }
+            
             base.OnPreRender(e);
         }
 
-        protected override void Render(HtmlTextWriter writer) {
-            if (!_isPrerendered) {
+        protected override void Render(HtmlTextWriter writer){
+            if (!_isPrerendered)
                 OnPreRender(EventArgs.Empty);
-            }
+            Page.ClientScript.RegisterForEventValidation(DropDown.ClientID);
             base.Render(writer);
         }
 
-        public void SetClientNewButtonScript(string value) {
+        public void SetNewButtonScript(string value){
             _newButtonScript = value;
             UpdateClientButtonsScript();
         }
 
-        public string GetProcessNewObjFunction() {
+        public string GetProcessNewObjFunction(){
             return "xafDropDownLookupProcessNewObject('" + UniqueID + "')";
         }
 
         public event EventHandler<CallbackEventArgs> Callback;
+
+        public void SetFindButtonClientScript(string script){
+            _findButtonScript = script;
+            UpdateClientButtonsScript();
+        }
+
+        #region ICallbackEventHandler Members
+
+        public string GetCallbackResult(){
+            if (DropDown.JSProperties.ContainsKey(CpLookup)){
+                DropDown.JSProperties.Remove(CpLookup);
+                return DropDown.ClientID + "><" + HttpUtility.HtmlAttributeEncode(DropDown.Text) + "><" + ClientSideEventsHelper.ToJSBoolean((bool)DropDown.JSProperties[CpIsEmpty]);
+            }
+            var result = new StringBuilder();
+            foreach (ListEditItem item in DropDown.Items)
+                result.AppendFormat("{0}<{1}{2}|", HttpUtility.HtmlAttributeEncode(item.Text), item.Value,DropDown.SelectedItem == item ? "<" : "");
+            if (result.Length > 0) result.Remove(result.Length - 1, 1);
+            return $"{DropDown.ClientID}><{result}";
+        }
+
+        public void RaiseCallbackEvent(string eventArgument){
+            Callback?.Invoke(this, new CallbackEventArgs(eventArgument));
+        }
+
+        #endregion
+
+        public void Setup(LookupEditorHelper helper){
+            Helper = (WebLookupEditorHelper) helper;
+            SearchButton.Visible = helper.IsSearchEditorMode();
+            if (Helper.DisplayMember == null)
+                throw new NullReferenceException("DisplayMember");
+            DropDown.TextField = Helper.DisplayMember.Name;
+            DropDown.ValueField = Helper.LookupObjectTypeInfo.KeyMember.Name;
+            foreach (var visibleColumn in Helper.LookupListViewModel.Columns.GetVisibleColumns()){
+                DropDown.Columns.Add(visibleColumn.ModelMember.MemberInfo.BindingName,visibleColumn.Caption);
+            }
+            
+        }
     }
 }

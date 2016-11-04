@@ -1,7 +1,9 @@
 ﻿;#IncludeFile .\Init.inc
 
-
+*Navigate ASPx Search Lookup Property Editor Lookup Object
+*DeleteAllObjects
 *Navigate ASPx Search Lookup Property Editor Object
+*DeleteAllObjects
 *ToggleNavigation = True
 *Action New
 *LClick [NewAction]
@@ -13,10 +15,10 @@
 *ToggleNavigation = False
 *Navigate ASPx Search Lookup Property Editor Object
 *Action New
-*SendKeys Tol
-*Sleep 3000
+*SendKeys oli
+*Sleep 2000
 *SendKeys 
- Keys = Return
+ Keys = Down;Return
 *SaveAndClose
 *XpandProcessRecord
  ASPx Search Lookup Property Editor Lookup = Tolis

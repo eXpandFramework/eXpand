@@ -28,7 +28,8 @@
     <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\..\SystemTester.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\..\SystemTester.Web" />
-    <Alias Name="NewAction" Value="950x282" />
-    <Alias Name="ClearAction" Value="971x282" />
+    <Alias Name="NewAction" Value="936x282" />
+    <Alias Name="ClearAction" Value="954x282" />
+    <Alias Name="SearchAction" Value="972x352" />
   </Aliases>
 </Options>

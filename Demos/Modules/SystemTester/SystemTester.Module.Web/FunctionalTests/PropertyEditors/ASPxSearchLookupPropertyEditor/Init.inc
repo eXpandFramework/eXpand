@@ -1,4 +1,4 @@
-﻿#DropDB SystemTesterEasyTest
+﻿;#DropDB SystemTesterEasyTest
 #Application SystemTester.Web
 *UseModel
 *LogOn
