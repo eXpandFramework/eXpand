@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
@@ -8,6 +9,7 @@ using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
+using CriteriaOperatorExtensions = Xpand.Xpo.Filtering.CriteriaOperatorExtensions;
 
 namespace Xpand.Persistent.Base.Xpo {
     public static class Extensions {
@@ -23,14 +25,14 @@ namespace Xpand.Persistent.Base.Xpo {
             }
             return null;
         }
-
+        
         public static void Register(this ICustomFunctionOperator customFunctionOperator) {
             if (!(XafTypesInfo.Instance is TypesInfoBuilder.TypesInfo)) {
                 ICustomFunctionOperator registeredItem = CriteriaOperator.GetCustomFunction(customFunctionOperator.Name);
                 if (registeredItem != null && registeredItem != customFunctionOperator && InterfaceBuilder.RuntimeMode){
-                    throw new InvalidOperationException();
-                }
-                if (registeredItem == null){
+                    if (CriteriaOperatorExtensions.ThirdPartyCustomFunctionOperators.All(op => op.Name != customFunctionOperator.Name))
+                        throw new InvalidOperationException();
+                }else if (registeredItem == null){
                     CriteriaOperator.RegisterCustomFunction(customFunctionOperator);
                 }
             }

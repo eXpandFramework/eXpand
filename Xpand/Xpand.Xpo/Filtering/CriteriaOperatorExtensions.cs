@@ -8,6 +8,8 @@ using Fasterflect;
 
 namespace Xpand.Xpo.Filtering {
     public static class CriteriaOperatorExtensions {
+        public static IList<ICustomFunctionOperator> ThirdPartyCustomFunctionOperators { get; } = new List<ICustomFunctionOperator>();
+
         public static IEnumerable<CriteriaOperator> GetOperators(this CriteriaOperator criteriaOperator) {
             if (criteriaOperator is FunctionOperator)
                 return (IEnumerable<CriteriaOperator>) criteriaOperator.GetPropertyValue("Operands");
