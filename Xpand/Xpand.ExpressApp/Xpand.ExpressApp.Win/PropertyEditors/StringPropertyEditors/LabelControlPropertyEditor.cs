@@ -10,6 +10,7 @@ using DevExpress.XtraEditors.Controls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
     [ModelAbstractClass]
@@ -60,7 +61,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
 
     }
 
-    [PropertyEditor(typeof(string),false)]
+    [PropertyEditor(typeof(string),EditorAliases.LabelPropertyEditor,false)]
     public class LabelControlPropertyEditor : WinPropertyEditor, IPropertyEditor{
         public LabelControlPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
             ControlBindingProperty = "Text";
