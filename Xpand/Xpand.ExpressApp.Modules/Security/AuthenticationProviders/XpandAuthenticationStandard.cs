@@ -18,15 +18,18 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         public override bool AskLogonParametersViaUI {
             get {
                 var application = ApplicationHelper.Instance.Application;
-                application.ReadLastLogonParameters();
-                var xpandLogonParameters = LogonParameters as XpandLogonParameters;
-                var ask = xpandLogonParameters == null || (!xpandLogonParameters.RememberMe || !(!(string.IsNullOrEmpty(
-                xpandLogonParameters.Password)) && !(string.IsNullOrEmpty(xpandLogonParameters.UserName))));
-                if (!ask){
-                    var authenticationStandard =((SecurityStrategyBase) SecuritySystem.Instance).Authentication as XpandAuthenticationStandard;
-                    return authenticationStandard != null && !authenticationStandard.CanAuthenticate();
+                if (!application.IsHosted()){
+                    application.ReadLastLogonParameters();
+                    var xpandLogonParameters = LogonParameters as XpandLogonParameters;
+                    var ask = xpandLogonParameters == null || (!xpandLogonParameters.RememberMe || !(!(string.IsNullOrEmpty(
+                                                                                                         xpandLogonParameters.Password)) && !(string.IsNullOrEmpty(xpandLogonParameters.UserName))));
+                    if (!ask){
+                        var authenticationStandard =((SecurityStrategyBase) SecuritySystem.Instance).Authentication as XpandAuthenticationStandard;
+                        return authenticationStandard != null && !authenticationStandard.CanAuthenticate();
+                    }
+                    return true;
                 }
-                return true;
+                return base.AskLogonParametersViaUI;
             }
         }
 
