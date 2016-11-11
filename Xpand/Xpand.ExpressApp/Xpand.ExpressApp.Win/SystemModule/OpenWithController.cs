@@ -9,14 +9,15 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
+using Xpand.Persistent.Base.General.Model;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     [ModelAbstractClass]
     public interface IModelCommonMemberViewItemOpenWith {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool OpenWithAssociatedProgram { get; set; }
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         bool OpenPathWithExplorer { get; set; }
     }
 
@@ -75,7 +76,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void OpenWith(GridControl gridControl){
             var focusedView = gridControl.FocusedView as ColumnView;
-            if (focusedView != null && focusedView.FocusedColumn != null){
+            if (focusedView?.FocusedColumn != null){
                 var path = focusedView.GetRowCellDisplayText(focusedView.FocusedRowHandle, focusedView.FocusedColumn);
                 var modelCommonMemberViewItemOpenWith =
                     ((IModelCommonMemberViewItemOpenWith) focusedView.FocusedColumn.Model());

@@ -13,10 +13,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             var columnsListEditor = View.Editor as WinColumnsListEditor;
-            if (columnsListEditor != null){
-                var gridView = columnsListEditor.ColumnView;
-                if (gridView != null) gridView.ColumnFilterChanged+=GridViewOnColumnFilterChanged;
-            }
+            var gridView = columnsListEditor?.ColumnView;
+            if (gridView != null) gridView.ColumnFilterChanged+=GridViewOnColumnFilterChanged;
         }
 
         private void GridViewOnColumnFilterChanged(object sender, EventArgs eventArgs){

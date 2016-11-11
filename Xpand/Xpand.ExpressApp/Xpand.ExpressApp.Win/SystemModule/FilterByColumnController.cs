@@ -21,11 +21,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         void GridViewOnFocusedColumnChanged(object sender, FocusedColumnChangedEventArgs focusedColumnChangedEventArgs) {
-            if (focusedColumnChangedEventArgs.FocusedColumn != null){
-                var columnCellFilter = focusedColumnChangedEventArgs.FocusedColumn.Model() as IModelColumnCellFilter;
-                if (columnCellFilter != null) {   
-                    _filterByColumnController.UpdateAction(columnCellFilter.CellFilter);
-                }
+            var columnCellFilter = focusedColumnChangedEventArgs.FocusedColumn?.Model() as IModelColumnCellFilter;
+            if (columnCellFilter != null) {   
+                _filterByColumnController.UpdateAction(columnCellFilter.CellFilter);
             }
         }
 
@@ -40,7 +38,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public GridView GridView {
             get {
                 var columnsListEditor = View.Editor as WinColumnsListEditor;
-                return  (columnsListEditor != null ? columnsListEditor.ColumnView : null) as GridView;
+                return  columnsListEditor?.ColumnView as GridView;
             }
         }
     }

@@ -5,9 +5,18 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using Fasterflect;
 using System.Linq;
+using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.Persistent.Base.General {
     public static class FrameExtensions {
+
+        public static void CleanDetailView(this Frame frame) {
+            var webModificationsController = frame.GetController<ModificationsController>();
+            webModificationsController.Active["CleanDetailView"] = false;
+            frame.View.CurrentObject = frame.View.ObjectSpace.CreateObject(frame.View.ObjectTypeInfo.Type);
+            webModificationsController.Active.RemoveItem("CleanDetailView");
+        }
+
         public static IEnumerable<TAction> Actions<TAction>(this Frame frame, IEnumerable<IModelNode> items) where TAction : ActionBase{
             var choiceActions = frame.Actions<TAction>().ToArray();
             if (choiceActions.Any())

@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Web.UI.WebControls;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -568,7 +569,8 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             typeof(AppearanceObject),
             typeof(TextOptions),
             typeof(BaseAppearanceCollection),
-            typeof(PropertiesBase)
+            typeof(PropertiesBase),
+            typeof(WebControl)
         };
 
         public static readonly HashSet<string> ExcludedReservedNames = new HashSet<string>{"IsReadOnly"};

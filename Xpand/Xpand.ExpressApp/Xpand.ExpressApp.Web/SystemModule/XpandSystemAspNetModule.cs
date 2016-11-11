@@ -10,9 +10,15 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Web.FriendlyUrl;
+using Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor;
+using Xpand.ExpressApp.Web.ListEditors.Model;
 using Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor;
 using Xpand.ExpressApp.Web.Model;
 using Xpand.ExpressApp.Web.PropertyEditors;
+using Xpand.ExpressApp.Web.SystemModule.MasterDetail;
+using Xpand.ExpressApp.Web.SystemModule.ModelAdapters;
+using Xpand.ExpressApp.Web.SystemModule.WebShortcuts;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.TreeNode;
@@ -36,6 +42,40 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes(){
             return base.GetDeclaredExportedTypes().Concat(new[] {typeof(ColumnChooserList) });
+        }
+
+        protected override IEnumerable<Type> GetDeclaredControllerTypes(){
+            Type[] controllerTypes ={
+                typeof(AutoCommitController),
+                typeof(WebProcessDataLockingInfoController),
+                typeof(ColumnChooserGridViewController),
+                typeof(LayoutStyleController),
+                typeof(RegisterScriptsController),
+                typeof(SupressConfirmationController),
+                typeof(NullTextController),
+                typeof(PreviewRowDetailViewController),
+                typeof(UnboundColumnController),
+                typeof(PessimisticLockingViewController),
+                typeof(WebToolTipsController),
+                typeof(FilterByPropertyPathViewController),
+                typeof(HideToolBarController),
+                typeof(HighlightFocusedLayoutItemDetailViewController),
+                typeof(WebShortcutsController),
+                typeof(NestedListViewAutoCommitController),
+                typeof(MasterDetailKeyFieldController),
+                typeof(RegisterCallbackPanelScriptsController),
+                typeof(DisableProcessCurrentObjectController),
+                typeof(UpdateVisibilityController),
+                typeof(GridViewModelAdapterController),
+                typeof(TwoDimensionEditorViewItemController),
+                typeof(ViewModeAppliedAtTwoDimensionListEditorController),
+                typeof(EditableTabEnabledListEditorController),
+                typeof(ASPxSearchDropDownEditControlModelAdapter),
+                typeof(ASPxLookupFindEditControlModelAdapter),
+                typeof(ASPxLookupDropDownEditControlModelAdapter),
+                typeof(FriendlyUrlModelExtenderController)
+            };
+            return GetDeclaredControllerTypesCore(controllerTypes);
         }
 
         protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory) {

@@ -41,17 +41,25 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 foreach (var node in modelNodes){
                     var objectModelSynchronizer = new ObjectModelSynchronizer(propertyEditorControl, node);
                     _objectModelSynchronizers.Add(objectModelSynchronizer);
-                    objectModelSynchronizer.ApplyModel();
+                    ApplyModel(objectModelSynchronizer);
                 }
             }
+        }
+
+        protected virtual void ApplyModel(ObjectModelSynchronizer objectModelSynchronizer){
+            objectModelSynchronizer.ApplyModel();
         }
 
         private void OnDisposed(object sender, EventArgs eventArgs){
             ((IComponent) sender).Disposed-=OnDisposed;
             foreach (var objectModelSynchronizer in _objectModelSynchronizers){
-                objectModelSynchronizer.SynchronizeModel();
+                SynchronizeModel(objectModelSynchronizer);
                 objectModelSynchronizer.Dispose();
             }
+        }
+
+        protected virtual void SynchronizeModel(ObjectModelSynchronizer objectModelSynchronizer){
+            objectModelSynchronizer.SynchronizeModel();
         }
 
         protected virtual IEnumerable<TModelControl> GetControlModelNodes(TModelMemberViewItem modelPropertyEditorLabelControl){

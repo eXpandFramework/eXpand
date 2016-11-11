@@ -2,12 +2,10 @@
 using System.Linq;
 using DevExpress.Data;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
 using Xpand.ExpressApp.Model;
-using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -29,9 +27,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
 
-        public ASPxGridListEditor GridListEditor {
-            get { return View.Editor as ASPxGridListEditor; }
-        }
+        public ASPxGridListEditor GridListEditor => View.Editor as ASPxGridListEditor;
     }
 
     public class UnboundColumnSynchronizer : ModelSynchronizer<ASPxGridListEditor, IModelListView> {

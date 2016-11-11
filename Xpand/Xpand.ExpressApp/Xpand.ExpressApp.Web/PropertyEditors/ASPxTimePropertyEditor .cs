@@ -5,17 +5,17 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Web;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
-    [PropertyEditor(typeof(DateTime),EditorAliases.TimeSpanPropertyEditor,false)]
+    [PropertyEditor(typeof(DateTime),EditorAliases.TimePropertyEditor,false)]
     public class ASPxTimePropertyEditor : ASPxPropertyEditor {
         private const string TimeFormat = "HH:mm";
 
         public ASPxTimePropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) { }
 
-        public new ASPxTimeEdit Editor {
-            get { return (ASPxTimeEdit)base.Editor; }
-        }
+        public new ASPxTimeEdit Editor => (ASPxTimeEdit)base.Editor;
+
         private void SelectedDateChangedHandler(object source, EventArgs e) {
             FixYear(source as ASPxTimeEdit);
 
@@ -56,10 +56,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         private void FixYear(ASPxTimeEdit editor) {
-            if (editor == null)
-                return;
-
-            if (editor.Value is DateTime) {
+            if (editor?.Value is DateTime) {
                 var time = (DateTime)editor.Value;
                 editor.Value = time.AddYears(Math.Max(2000 - time.Year, 0));
             }

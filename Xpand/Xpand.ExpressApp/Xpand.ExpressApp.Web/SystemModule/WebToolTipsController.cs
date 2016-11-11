@@ -11,10 +11,11 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         protected override void SetListViewToolTips() {
             var editor = ((ListView)View).Editor as ASPxGridListEditor;
             if (editor != null) {
-                foreach (ColumnWrapper columnWrapper in editor.Columns) {
-                    if (columnWrapper is ASPxGridViewColumnWrapper) {
+                foreach (ColumnWrapper columnWrapper in editor.Columns){
+                    var wrapper = columnWrapper as ASPxGridViewColumnWrapper;
+                    if (wrapper != null) {
                         GridViewDataColumn column =
-                            ((ASPxGridViewColumnWrapper)columnWrapper).Column;
+                            wrapper.Column;
                         var modelListView = (IModelListView) View.Model;
                         if (TooltipCalculator.HasToolTip(column.Model(modelListView)))
                             column.ToolTip = TooltipCalculator.GetToolTip(column.Model(modelListView));

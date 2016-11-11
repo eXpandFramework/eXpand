@@ -8,10 +8,14 @@ using Fasterflect;
 namespace Xpand.Persistent.Base.General {
     [SecuritySafeCritical]
     public static class ViewExtensions {
+        public static void Clean(this DetailView detailView,Frame frame) {
+            frame.CleanDetailView();
+        }
+
         public static ILayoutManager LayoutManager {
             get {
                 var typeInfo =ReflectionHelper.FindTypeDescendants(ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo(typeof (ILayoutManager))).FirstOrDefault();
-                return typeInfo != null ? (ILayoutManager) typeInfo.Type.CreateInstance() : null;
+                return (ILayoutManager) typeInfo?.Type.CreateInstance();
             }
         }
         

@@ -7,9 +7,10 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.Layout;
 using DevExpress.Web;
+using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class NullTextAttribute : Attribute {
         public static NullTextAttribute Default = new NullTextAttribute(null);
 
@@ -21,7 +22,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     }
 
     public interface IModelMemberNullText {
-        [Category("eXpand")]
+        [Category(AttributeCategoryNameProvider.Xpand)]
         string NullText { get; set; }
     }
 
@@ -33,12 +34,8 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     [DomainLogic(typeof(IModelMemberNullText))]
     public static class ModelMemberExtendersLogic {
         public static string Get_NullText(IModelMember modelMember) {
-            if (modelMember != null && modelMember.MemberInfo != null) {
-                var attribute = modelMember.MemberInfo.FindAttribute<NullTextAttribute>();
-                if (attribute != null)
-                    return attribute.NullText;
-            }
-            return null;
+            var attribute = modelMember?.MemberInfo?.FindAttribute<NullTextAttribute>();
+            return attribute?.NullText;
         }
     }
 
@@ -70,7 +67,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         string GetNullText(IModelViewLayoutElement modelViewLayoutElement) {
             string nullText = null;
             var modelLayoutViewItem = ((modelViewLayoutElement)) as IModelLayoutViewItem;
-            if (modelLayoutViewItem != null && modelLayoutViewItem.ViewItem is IModelPropertyEditor) {
+            if (modelLayoutViewItem?.ViewItem is IModelPropertyEditor) {
                 var modelMember = ((IModelPropertyEditor)modelLayoutViewItem.ViewItem).ModelMember;
                 var modelMemberNullText = modelMember as IModelMemberNullText;
                 if (modelMemberNullText != null) {
@@ -83,16 +80,19 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             return nullText;
         }
 
-        void SetNullText(ViewItem viewItem, string nullText) {
-            if (viewItem is ASPxStringPropertyEditor) {
-                var propertyEditor = viewItem as ASPxStringPropertyEditor;
-                if (propertyEditor.Editor is ASPxTextBox)
-                    (propertyEditor.Editor as ASPxTextBox).NullText = nullText;
+        void SetNullText(ViewItem viewItem, string nullText){
+            var editor = viewItem as ASPxStringPropertyEditor;
+            if (editor != null) {
+                var propertyEditor = editor;
+                var box = propertyEditor.Editor as ASPxTextBox;
+                if (box != null)
+                    box.NullText = nullText;
                 else if (propertyEditor.Editor is ASPxMemo)
-                    (propertyEditor.Editor as ASPxMemo).NullText = nullText;
-            } else if (viewItem is ASPxDateTimePropertyEditor) {
-                var propertyEditor = viewItem as ASPxDateTimePropertyEditor;
-                if (propertyEditor.Editor != null)
+                    ((ASPxMemo) propertyEditor.Editor).NullText = nullText;
+            } else{
+                var timePropertyEditor = viewItem as ASPxDateTimePropertyEditor;
+                var propertyEditor = timePropertyEditor;
+                if (propertyEditor?.Editor != null)
                     propertyEditor.Editor.NullText = nullText;
             }
         }
