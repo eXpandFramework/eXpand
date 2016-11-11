@@ -158,6 +158,7 @@
     </Compile>
     <Compile Include="SystemModule\ModelAdapters\ASPxLookupFindEditControlModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxLookupDropDownEditControlModelAdapter.cs" />
+    <Compile Include="SystemModule\ModelAdapters\ASPxSearchDropDownEditControlModelAdapter.cs" />
     <Compile Include="SystemModule\WebProcessDataLockingInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
