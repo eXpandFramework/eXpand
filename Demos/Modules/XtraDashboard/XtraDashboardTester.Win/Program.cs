@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using XtraDashboardTester.Module;
 
 namespace XtraDashboardTester.Win {
     static class Program {
@@ -29,6 +30,7 @@ namespace XtraDashboardTester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
+                winApplication.ProjectSetup();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

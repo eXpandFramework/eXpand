@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Workflow.Xpo;
+using WorkflowTester.Module;
 using WorkflowTester.Module.Win;
 using Xpand.ExpressApp.Workflow;
 using Xpand.Persistent.Base.General;
@@ -51,6 +52,7 @@ namespace WorkflowTester.Win {
 
             try {
                 winApplication.UseOldTemplates=false;
+                winApplication.ProjectSetup();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

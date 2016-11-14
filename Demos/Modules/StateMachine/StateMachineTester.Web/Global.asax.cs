@@ -1,11 +1,9 @@
 using System;
 using System.Configuration;
 using System.Web;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.BaseImpl.Security;
+using StateMachineTester.Module;
 
 namespace StateMachineTester.Web {
     public class Global : HttpApplication {
@@ -31,7 +29,7 @@ namespace StateMachineTester.Web {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
-            WebApplication.Instance.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
+            WebApplication.Instance.ProjectSetup();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

@@ -55,6 +55,7 @@
     <Reference Include="DevExpress.ExpressApp.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Persistent.Base.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -69,6 +70,7 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
@@ -92,6 +94,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="FunctionalTests\NavigationItemPermission\NavigationItemPermissionObject.cs" />
     <Compile Include="FunctionalTests\NavigationItemPermission\NavigationItemPermission.cs">
       <SubType>Component</SubType>

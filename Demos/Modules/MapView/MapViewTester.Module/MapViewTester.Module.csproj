@@ -94,6 +94,7 @@
     <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="BusinessObjects\CustomerGroup.cs" />
     <Compile Include="BusinessObjects\Waypoint.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>

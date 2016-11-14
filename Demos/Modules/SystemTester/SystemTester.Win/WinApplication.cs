@@ -3,6 +3,7 @@ using System;
 #endif
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Win {
@@ -19,7 +20,11 @@ namespace SystemTester.Win {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args, null);
+            if (args.ConnectionString==InMemoryDataStoreProvider.ConnectionString)
+                args.ObjectSpaceProvider = new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString)); 
+            else
+                this.CreateCustomObjectSpaceprovider(args, null);
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider( ));
         }
 
         private void SystemTesterWindowsFormsApplication_CustomizeLanguagesList(object sender, CustomizeLanguagesListEventArgs e) {

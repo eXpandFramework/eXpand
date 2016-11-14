@@ -3,8 +3,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.BaseImpl.Security;
+using EmailTester.Module;
 
 namespace EmailTester.Web {
     public class Global : HttpApplication {
@@ -32,8 +31,7 @@ namespace EmailTester.Web {
 			}
 #endif
 
-            WebApplication.Instance.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>();
-
+            WebApplication.Instance.ProjectSetup();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

@@ -2,8 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.BaseImpl.Security;
+using ValidationTester.Module;
 
 namespace ValidationTester.Win {
     static class Program {
@@ -31,7 +30,7 @@ namespace ValidationTester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
-                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
+                winApplication.ProjectSetup();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

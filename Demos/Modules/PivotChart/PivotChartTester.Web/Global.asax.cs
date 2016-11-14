@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
+using PivotChartTester.Module;
 
 namespace PivotChartTester.Web {
     public class Global : HttpApplication {
@@ -27,6 +28,7 @@ namespace PivotChartTester.Web {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
+            WebApplication.Instance.ProjectSetup();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

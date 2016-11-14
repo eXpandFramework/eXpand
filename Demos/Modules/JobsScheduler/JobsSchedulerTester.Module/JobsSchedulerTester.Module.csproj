@@ -109,6 +109,7 @@
     <Compile Include="Controllers\Class1.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Extensions.cs" />
     <Compile Include="FunctionalTests\CreateProductJob.cs" />
     <Compile Include="FunctionalTests\Product.cs" />
     <Compile Include="Module.cs">

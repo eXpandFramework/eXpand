@@ -8,17 +8,17 @@
     </EmailReceipients>
     <EmailTemplateContexts>
       <EmailTemplate Id="pass forgotten" Criteria="[Name] = 'pass forgotten'" IsNewNode="True" />
-      <EmailTemplate Id="user activation" Criteria="[Name] = 'user activation'" IsNewNode="True" />
+      <EmailTemplate Id="User activation" Criteria="[Name] = 'User activation'" IsNewNode="True" />
     </EmailTemplateContexts>
     <Rules>
       <EmailRule Id="pass forgotten" TypeInfo="Xpand.ExpressApp.Security.Registration.RestorePasswordParameters" SmtpClientContext="GlobalSmtpClientContext" TemplateContext="pass forgotten" CurrentObjectEmailMember="Email" IsNewNode="True" />
-      <EmailRule Id="user activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="user activation" SmtpClientContext="GlobalSmtpClientContext" CurrentObjectEmailMember="Email" EmailReceipientsContext="Send to Admins" IsNewNode="True" />
+      <EmailRule Id="User activation" TypeInfo="Xpand.ExpressApp.Security.Registration.RegisterUserParameters" TemplateContext="User activation" SmtpClientContext="GlobalSmtpClientContext" CurrentObjectEmailMember="Email" EmailReceipientsContext="Send to Admins" IsNewNode="True" />
     </Rules>
     <SmtpClientContexts>
       <SmtpClientContext Id="GlobalSmtpClientContext" SenderEmail="sender@mail.com" DeliveryMethod="SpecifiedPickupDirectory" PickupDirectoryLocation="%temp%\Emails" ReplyToEmails="mymail@mail.com" IsNewNode="True" />
     </SmtpClientContexts>
   </Email>
   <Options>
-    <Registration RoleCriteria="[Name] = 'user'" Enabled="True" ActivationHost="http://localhost:50822/" RoleModelClass="Xpand.Persistent.BaseImpl.Security.XpandPermissionPolicyRole" UserModelClass="Xpand.Persistent.BaseImpl.Security.XpandPermissionPolicyUser" />
+    <Registration RoleCriteria="[Name] = 'User'" Enabled="True" ActivationHost="http://localhost:50822/" RoleModelClass="Xpand.Persistent.BaseImpl.Security.XpandPermissionPolicyRole" UserModelClass="Xpand.Persistent.BaseImpl.Security.XpandPermissionPolicyUser" />
   </Options>
 </Application>

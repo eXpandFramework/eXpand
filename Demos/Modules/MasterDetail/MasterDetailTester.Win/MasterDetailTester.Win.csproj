@@ -157,6 +157,10 @@
       <Project>{C87E8318-DB3A-49C2-B61A-DB7D9FBB1EBA}</Project>
       <Name>MasterDetailTester.Module.Win</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MasterDetailTester.Module\MasterDetailTester.Module.csproj">
+      <Project>{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}</Project>
+      <Name>MasterDetailTester.Module</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

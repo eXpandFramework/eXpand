@@ -2,8 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.BaseImpl.Security;
+using ModelArtifactStateTester.Module;
 
 namespace ModelArtifactStateTester.Win {
     static class Program {
@@ -30,7 +29,7 @@ namespace ModelArtifactStateTester.Win {
 			}
 #endif
             try {
-                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
+                winApplication.ProjectSetup();
                 winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();

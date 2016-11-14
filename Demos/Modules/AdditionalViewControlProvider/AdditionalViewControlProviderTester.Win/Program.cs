@@ -2,6 +2,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using AdditionalViewControlProviderTester.Module;
 using DevExpress.ExpressApp.Security;
 
 namespace AdditionalViewControlProviderTester.Win {
@@ -30,6 +31,7 @@ namespace AdditionalViewControlProviderTester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
+                winApplication.ProjectSetup();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

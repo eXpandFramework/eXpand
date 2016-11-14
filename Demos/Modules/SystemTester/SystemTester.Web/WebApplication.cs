@@ -9,6 +9,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
+using DevExpress.ExpressApp.Xpo;
 
 //using DevExpress.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
@@ -34,8 +35,11 @@ namespace SystemTester.Web{
 
         protected override bool SupportMasterDetailMode => true;
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
-            this.CreateCustomObjectSpaceprovider(args, null);
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            if (args.ConnectionString == InMemoryDataStoreProvider.ConnectionString)
+                args.ObjectSpaceProvider = new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString));
+            else
+                this.CreateCustomObjectSpaceprovider(args, null);
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
         }
 

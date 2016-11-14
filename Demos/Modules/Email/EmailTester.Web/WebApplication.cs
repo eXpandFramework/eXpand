@@ -53,7 +53,7 @@ namespace EmailTester.Web {
 #endif
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
+            args.ObjectSpaceProvider = new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString).CachedInstance(),  true);
         }
 
         void EmailTesterAspNetApplication_DatabaseVersionMismatch(object sender,
@@ -140,7 +140,7 @@ namespace EmailTester.Web {
 
         protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
             var handler = CustomWriteSecuredLogonParameters;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 }

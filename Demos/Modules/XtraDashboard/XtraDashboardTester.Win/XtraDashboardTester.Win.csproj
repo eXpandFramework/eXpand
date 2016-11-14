@@ -12,8 +12,10 @@
     <AssemblyName>XtraDashboardTester.Win</AssemblyName>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -242,6 +244,10 @@
     <ProjectReference Include="..\XtraDashboardTester.Module.Win\XtraDashboardTester.Module.Win.csproj">
       <Project>{fb94e9f7-2f94-47c6-aec0-25a4f160ea7f}</Project>
       <Name>XtraDashboardTester.Module.Win</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XtraDashboardTester.Module\XtraDashboardTester.Module.csproj">
+      <Project>{B9EF03FF-D05B-4FD4-A8E9-F90D819CB1DC}</Project>
+      <Name>XtraDashboardTester.Module</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

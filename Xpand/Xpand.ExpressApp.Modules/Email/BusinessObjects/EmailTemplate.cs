@@ -18,8 +18,7 @@ namespace Xpand.ExpressApp.Email.BusinessObjects {
         public void Configure(EmailTemplateConfig config, string acivationHost=null) {
             if (config == EmailTemplateConfig.UserActivation){
                 Subject = "User activation";
-                Body = string.Format("A new user @Model.User.UserName has been created. To activate the account please click the following link {0}@Model.User.Activation",
-                                                   acivationHost + "?ua=");
+                Body =$"A new user @Model.User.UserName has been created. To activate the account please click the following link {acivationHost + "?ua="}@Model.User.Activation";
             }
             else{
                 Subject = "pass forgotten";

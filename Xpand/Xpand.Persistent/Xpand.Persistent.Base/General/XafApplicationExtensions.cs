@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
@@ -23,6 +24,17 @@ using Xpand.Xpo.DB;
 using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
 
 namespace Xpand.Persistent.Base.General {
+    public static class WebXafApplicationExtenions{
+        public static IXpoDataStoreProvider CachedInstance(this IXpoDataStoreProvider dataStoreProvider) {
+            if (dataStoreProvider.ConnectionString == InMemoryDataStoreProvider.ConnectionString)
+                dataStoreProvider=new MemoryDataStoreProvider();
+            string key = dataStoreProvider.GetType().Name;
+            if (HttpContext.Current.Application[key] != null)
+                return (IXpoDataStoreProvider)HttpContext.Current.Application[key];
+            HttpContext.Current.Application[key] = dataStoreProvider;
+            return dataStoreProvider;
+        }
+    }
     public static class XafApplicationExtensions {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;

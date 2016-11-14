@@ -25,7 +25,7 @@ namespace Xpand.Persistent.Base.General {
 
     public static class ObjectSpaceExtensions {
         public static ConnectionProviderType GetProviderType(this IObjectSpaceProvider provider) {
-            var helper = new ConnectionStringParser(provider.ConnectionString);
+            var helper = new ConnectionStringParser(provider.ConnectionString+"");
             string providerType = helper.GetPartByName(DataStoreBase.XpoProviderTypeParameterName);
             if (providerType == MySqlConnectionProvider.XpoProviderTypeString)
                 return ConnectionProviderType.MySQL;

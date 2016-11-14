@@ -4,6 +4,7 @@ using System.Diagnostics;
 #endif
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
@@ -43,9 +44,11 @@ namespace SecurityTester.Web {
             return base.CreateLogonParameterStoreCore();
         }
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
+            args.ObjectSpaceProvider = new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString).CachedInstance(), true);
         }
+
+        
 
         void SecurityTesterAspNetApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
 #if EASYTEST

@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
+using JobsSchedulerTester.Module;
 
 namespace JobsSchedulerTester.Web {
     public class Global : HttpApplication {
@@ -28,6 +29,7 @@ namespace JobsSchedulerTester.Web {
 				WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;
 			}
 #endif
+            WebApplication.Instance.ProjectSetup();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

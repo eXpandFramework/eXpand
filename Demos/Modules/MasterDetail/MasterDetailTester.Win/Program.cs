@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
+using MasterDetailTester.Module;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.BaseImpl.Security;
 
@@ -29,8 +30,8 @@ namespace MasterDetailTester.Win {
 				winApplication.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
 			}
 #endif
-            try {
-                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
+            try{
+                winApplication.ProjectSetup();
                 winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();

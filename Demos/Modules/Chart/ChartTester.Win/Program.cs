@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using ChartTester.Module.Win;
 using DevExpress.ExpressApp.Security;
 
 namespace ChartTester.Win {
@@ -29,6 +30,7 @@ namespace ChartTester.Win {
             
             try {
                 winApplication.UseOldTemplates=false;
+                winApplication.ProjectSetup();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

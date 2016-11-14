@@ -55,6 +55,7 @@
     <Reference Include="DevExpress.ExpressApp.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Persistent.Base.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -93,6 +94,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="BusinessObjects\Project.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="FunctionalTests\EmailFromAction\EmailFromAction.cs">
       <SubType>Component</SubType>
     </Compile>

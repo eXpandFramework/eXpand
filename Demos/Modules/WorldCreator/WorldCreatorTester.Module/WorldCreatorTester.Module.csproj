@@ -109,6 +109,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="FunctionalTests\MergeWithExistingType\ExistingTypeToMergeWith.cs" />
     <Compile Include="FunctionalTests\OneToMany\OneToManyModuleUpdater.cs" />
     <Compile Include="ITestInterfaceInfo.cs" />

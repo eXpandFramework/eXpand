@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using ImportWizardTester.Module;
 
 namespace ImportWizardTester.Win {
     static class Program {
@@ -28,6 +29,7 @@ namespace ImportWizardTester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
+                winApplication.ProjectSetup();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

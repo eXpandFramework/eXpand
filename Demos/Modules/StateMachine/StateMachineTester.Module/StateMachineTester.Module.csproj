@@ -113,6 +113,7 @@
     <Content Include="FunctionalTests\EnableFilteredProperty\Init.inc" />
     <Content Include="FunctionalTests\TransitionPermission\Config.xml" />
     <None Include="FunctionalTests\TransitionPermission\Init.inc" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>

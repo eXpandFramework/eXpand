@@ -222,7 +222,9 @@ namespace Xpand.EasyTest {
             var paramValue = application.ParameterValue<string>("Parameter");
             if (paramValue != null){
                 using (var streamWriter = File.CreateText(paramFile)){
-                    streamWriter.WriteLine(paramValue);
+                    foreach (var param in paramValue.Split(';')){
+                        streamWriter.WriteLine(param);
+                    }
                 }
             }
         }

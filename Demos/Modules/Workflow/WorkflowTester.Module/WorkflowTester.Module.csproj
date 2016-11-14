@@ -92,6 +92,7 @@
     <Compile Include="BusinessObjects\DemoTask.cs" />
     <None Include="FunctionalTests\WorldCreatorWorkflow\WorldCreatorWorkflow.ets" />
     <None Include="FunctionalTests\ObjectChangedWorkflow\ObjectChangedWorkflow.ets" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="FunctionalTests\AssignXmlController.cs">
       <SubType>Component</SubType>
     </Compile>

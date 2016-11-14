@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
+using XtraDashboardTester.Module;
 
 namespace XtraDashboardTester.Web {
     public class Global : HttpApplication {
@@ -29,6 +30,7 @@ namespace XtraDashboardTester.Web {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
 #endif
+            WebApplication.Instance.ProjectSetup();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }

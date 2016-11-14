@@ -100,6 +100,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="FunctionalTests\TypeAsSerializationKey\TypeAsSerializationKey.cs" />
     <Compile Include="FunctionalTests\SimpleIO\SimpleIO.cs" />
     <Compile Include="FunctionalTests\NorthWind\WorldCreatorUpdater.cs" />

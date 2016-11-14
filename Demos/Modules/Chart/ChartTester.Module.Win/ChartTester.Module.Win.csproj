@@ -52,6 +52,7 @@
     <Reference Include="DevExpress.ExpressApp.Win.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v16.1, Version=16.1.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>
@@ -67,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BussinessObjects\Customer.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>

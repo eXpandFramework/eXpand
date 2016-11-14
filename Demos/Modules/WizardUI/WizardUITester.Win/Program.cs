@@ -2,6 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using WizardUITester.Module;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.BaseImpl.Security;
 
@@ -31,7 +32,7 @@ namespace WizardUITester.Win {
 #endif
             try {
                 winApplication.UseOldTemplates=false;
-                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
+                winApplication.ProjectSetup();
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {

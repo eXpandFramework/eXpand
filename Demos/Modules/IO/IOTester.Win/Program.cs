@@ -2,8 +2,7 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Security.Core;
-using Xpand.Persistent.BaseImpl.Security;
+using IOTester.Module;
 
 namespace IOTester.Win {
     static class Program {
@@ -28,7 +27,7 @@ namespace IOTester.Win {
 			}
 #endif
             try {
-                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>();
+                winApplication.ProjectSetup();
                 winApplication.UseOldTemplates=false;
                 winApplication.Setup();
                 winApplication.Start();

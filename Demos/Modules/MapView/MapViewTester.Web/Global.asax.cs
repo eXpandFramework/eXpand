@@ -3,6 +3,7 @@ using System.Configuration;
 using System.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Web;
+using MapViewTester.Module;
 
 namespace MapViewTester.Web {
     public class Global : HttpApplication {
@@ -29,6 +30,7 @@ namespace MapViewTester.Web {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
 #endif
+            WebApplication.Instance.ProjectSetup();
             WebApplication.Instance.Setup();
             WebApplication.Instance.Start();
         }
