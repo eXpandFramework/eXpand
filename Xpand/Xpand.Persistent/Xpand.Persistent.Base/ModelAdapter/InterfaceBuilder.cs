@@ -630,14 +630,19 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                     type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
                         .Distinct(new PropertyInfoEqualityComparer());
                 var infos = propertyInfos.Where(info => HasAttributes(info, attributes));
+                if (infos.Any(info => info.Name.StartsWith("TextFormatSt"))){
+                    var array = infos.Where(IsValidProperty).ToArray();
+                    Debug.Print(array.Length.ToString());
+                }
                 return infos.Where(IsValidProperty).ToArray();
             }
             return new PropertyInfo[0];
         }
 
         static bool HasAttributes(this PropertyInfo propertyInfo, params Type[] attributes){
-            return (attributes == null || attributes == Type.EmptyTypes) || (attributes.Any()) ||
-                   (attributes.All(type => propertyInfo.GetCustomAttributes(type, false).Any()));
+            var hasAttributes = (attributes == null || attributes == Type.EmptyTypes) || (attributes.Any()) ||
+                                (attributes.All(type => propertyInfo.GetCustomAttributes(type, false).Any()));
+            return hasAttributes;
         }
 
         class PropertyInfoEqualityComparer : IEqualityComparer<PropertyInfo>{
@@ -653,8 +658,9 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         static bool IsValidProperty(PropertyInfo info){
             if (IsObsolete(info))
                 return false;
+            var isNotEnumerable = !typeof(IEnumerable).IsAssignableFrom(info.PropertyType)||typeof(string)==info.PropertyType;
             return (!info.PropertyType.BehaveLikeValueType() ||
-                   info.GetSetMethod() != null && info.GetGetMethod() != null)&&!typeof(IEnumerable).IsAssignableFrom(info.PropertyType);
+                   info.GetSetMethod() != null && info.GetGetMethod() != null)&&(isNotEnumerable);
         }
 
         static bool IsObsolete(PropertyInfo info){
