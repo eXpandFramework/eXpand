@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.ExpressApp.Web.Utils;
 using DevExpress.Web;
 using Xpand.ExpressApp.Web.PropertyEditors;
 using Xpand.Persistent.Base.General.Model;
@@ -49,15 +50,20 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             if (dxControl != null) {
                 EventHandler loadEventHandler = (s, e) => {
                     ASPxWebControl control = (ASPxWebControl)s;
-                    AddClientSideEventHandlerSafe(control, "GotFocus", "window.lastFocusedEditorId = s.inputElement.id;");
-                    AddClientSideEventHandlerSafe(control, "Init", @"            
-                        if (window.lastFocusedEditorId === s.inputElement.id) {
-                            window.setTimeout(function () {
-                                var element = document.getElementById(s.inputElement.id);
-                                element.focus();
-                                element.selectionStart = element.selectionEnd = 10000;
-                            }, 500);
-                        }");
+                    ClientSideEventsHelper.AssignClientHandlerSafe(control, "GotFocus", @"
+                        function (s,e){
+                            window.lastFocusedEditorId = s.inputElement.id;
+                        }", Guid.NewGuid().ToString());
+                    ClientSideEventsHelper.AssignClientHandlerSafe(control, "Init", @"            
+                        function (s,e){
+                            if (window.lastFocusedEditorId === s.inputElement.id) {
+                                window.setTimeout(function () {
+                                    var element = document.getElementById(s.inputElement.id);
+                                    element.focus();
+                                    element.selectionStart = element.selectionEnd = 10000;
+                                }, 500);
+                            }
+                        }",Guid.NewGuid().ToString());
                 };
                 EventHandler disposedEventHandler = null;
                 disposedEventHandler = (s, e) => {
@@ -67,17 +73,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 };
                 dxControl.Disposed += disposedEventHandler;
                 dxControl.Load += loadEventHandler;
-            }
-        }
-        private static void AddClientSideEventHandlerSafe(ASPxWebControl control, string eventName, string handler) {
-            string format = @"function(s,e){{{0}}}";
-            string existingHandler = control.GetClientSideEventHandler(eventName);
-            if (string.IsNullOrEmpty(existingHandler)) {
-                control.SetClientSideEventHandler(eventName, string.Format(format, handler));
-            }
-            else {
-                existingHandler = $"{existingHandler.Substring(0, existingHandler.LastIndexOf('}'))}{handler}\r\n}}";
-                control.SetClientSideEventHandler(eventName, existingHandler);
             }
         }
 
