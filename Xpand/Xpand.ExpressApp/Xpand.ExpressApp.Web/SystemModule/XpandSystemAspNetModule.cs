@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.CloneObject;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -73,9 +74,20 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 typeof(ASPxSearchDropDownEditControlModelAdapter),
                 typeof(ASPxLookupFindEditControlModelAdapter),
                 typeof(ASPxLookupDropDownEditControlModelAdapter),
-                typeof(FriendlyUrlModelExtenderController)
+                typeof(FriendlyUrlModelExtenderController),
+                typeof(ImmediatePostDataRestoreFocusController),
+                typeof(UpperCaseController)
             };
             return GetDeclaredControllerTypesCore(controllerTypes);
+        }
+
+        public override void Setup(XafApplication application){
+            base.Setup(application);
+            application.CreateCustomLogonWindowControllers+=ApplicationOnCreateCustomLogonWindowControllers;
+        }
+
+        private void ApplicationOnCreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e){
+            e.Controllers.Add(Application.CreateController<UpperCaseController>());
         }
 
         protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory) {
