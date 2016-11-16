@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -274,10 +275,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
                 _newObjectWindowAction.Application = WebLookupEditorHelper.Application;
             }
 
-            var panel = new Panel();
+            
             _searchDropDownEdit = CreateSearchDropDownEditControl();
-            panel.Controls.Add(_searchDropDownEdit);
-            return panel;
+            
+            return _searchDropDownEdit;
         }
 
         protected override object GetControlValueCore(){
@@ -479,7 +480,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         #endregion
     }
 
-    public sealed class ASPxSearchDropDownEdit : WebControl, INamingContainer, ICallbackEventHandler{
+    public sealed class ASPxSearchDropDownEdit : WebControl, ICallbackEventHandler, INamingContainer {
         private const int NumberCharSearch = 1;
         public const string CpLookup = "cpLookup";
         public const string CpIsEmpty = "cpIsEmpty";
@@ -495,15 +496,15 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         private string _newButtonScript;
 
         
+        public ComboBoxClientSideEvents ClientSideEvents => DropDown.ClientSideEvents;
 
-        public ASPxSearchDropDownEdit():base(HtmlTextWriterTag.Div){
-
+        public ASPxSearchDropDownEdit(){
+            
             DropDown = RenderHelper.CreateASPxComboBox();
             DropDown.ID = "DD";
             DropDown.Width = Unit.Percentage(100);
-            DropDown.IncrementalFilteringMode = IncrementalFilteringMode.Contains;
-            DropDown.FilterMinLength = 3;
-
+            DropDown.FilterMinLength = 2;
+            EnableMultiColumnClientSideSelection();
             DropDown.DropDownButton.Visible = false;
             DropDown.EnableCallbackMode = true;
             DropDown.CallbackPageSize = 10;
@@ -521,6 +522,22 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
             _hidden.ValueChanged += hidden_ValueChanged;
             Controls.Add(_hidden);
             DropDown.DropDownStyle=DropDownStyle.DropDown;
+        }
+
+        private void EnableMultiColumnClientSideSelection(){
+            DropDown.ClientSideEvents.Init = @"function (s, e) {            
+                var actualOnBeforeCallbackFinally = s.filterStrategy.OnBeforeCallbackFinally;
+                s.filterStrategy.OnBeforeCallbackFinally = function () {
+                    var lb = this.GetListBoxControl();
+                    var actualTextFormatString = lb.textFormatString;
+                    actualOnBeforeCallbackFinally.apply(this);
+                    for(var i=0; i < lb.columnFieldNames.length; i++){
+                        lb.textFormatString = ""{""+i+""}"";
+                        s.filterStrategy.RefreshHighlightInItems();
+                    }
+                    lb.textFormatString = actualTextFormatString;
+                };
+            }";
         }
 
         public Control Hidden => _hidden;
@@ -610,7 +627,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
                 SearchText = filter,
                 SearchMode = SearchMode.SearchInObject
             };
-            criteriaBuilder.SetSearchProperties(Helper.LookupObjectTypeInfo.DefaultMember.BindingName);
+            criteriaBuilder.SetSearchProperties(Helper.LookupListViewModel.Columns.GetVisibleColumns().Select(column => column.ModelMember.MemberInfo.BindingName).ToArray());
             return ObjectSpace.GetObjects(Helper.LookupObjectType, criteriaBuilder.BuildCriteria());
         }
 
@@ -667,7 +684,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
 
         #region ICallbackEventHandler Members
 
-        public string GetCallbackResult(){
+        string ICallbackEventHandler.GetCallbackResult(){
             if (DropDown.JSProperties.ContainsKey(CpLookup)){
                 DropDown.JSProperties.Remove(CpLookup);
                 return DropDown.ClientID + "><" + HttpUtility.HtmlAttributeEncode(DropDown.Text) + "><" + ClientSideEventsHelper.ToJSBoolean((bool)DropDown.JSProperties[CpIsEmpty]);
@@ -679,7 +696,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
             return $"{DropDown.ClientID}><{result}";
         }
 
-        public void RaiseCallbackEvent(string eventArgument){
+        void ICallbackEventHandler.RaiseCallbackEvent(string eventArgument){
             Callback?.Invoke(this, new CallbackEventArgs(eventArgument));
         }
 
