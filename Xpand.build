@@ -411,7 +411,8 @@
     <NuspecFile Include="Support\Nuspec\*.nuspec" Exclude="Support\Nuspec\DX-Nuspec\*.nuspec" Condition="$(SkipDashboard)!='true'"/>
   </ItemGroup>
   <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
-    <CreateItem Include="$(XpandDLLPath)\*.pdb;">
+	<CallTarget Targets="BuildHelperAfterBuild"/>
+    <CreateItem Include="$(XpandDLLPath)\*.pdb;$(XpandDLLPath)\*.dll">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
