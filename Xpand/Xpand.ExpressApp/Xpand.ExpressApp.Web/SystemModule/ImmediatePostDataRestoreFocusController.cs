@@ -5,7 +5,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors;
-using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.Utils;
 using DevExpress.Web;
 using Xpand.ExpressApp.Web.PropertyEditors;
@@ -25,24 +24,12 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             base.OnActivated();
             foreach (WebPropertyEditor item in View.GetItems<WebPropertyEditor>().Where(editor => editor.ImmediatePostData&&((IModelPropertyEditorImmediatePostDataRestoreFocus) editor.Model).ImmediatePostDataRestoreFocus)){
                 item.ControlCreated += (s, e) => {
-                    if (View.ViewEditMode==ViewEditMode.Edit)
-                        AddClientSideFunctionality(s);
+                    if (View.ViewEditMode == ViewEditMode.Edit){
+                        foreach (var editor in ((WebPropertyEditor) s).GetEditors()) {
+                            AddClientSideFunctionalityCore(editor);
+                        }
+                    }
                 };
-            }
-        }
-
-        protected void AddClientSideFunctionality(object element){
-            var editor = element as ASPxLookupPropertyEditor;
-            if (editor != null) {
-                AddClientSideFunctionalityCore(editor.DropDownEdit.DropDown);
-                AddClientSideFunctionalityCore(editor.FindEdit.Editor);
-            }
-            else if (element is ASPxSearchLookupPropertyEditor){
-                var propertyEditor = ((ASPxSearchLookupPropertyEditor) element);
-                AddClientSideFunctionalityCore(propertyEditor.SearchDropDownEdit.DropDown);
-            }
-            else if (element is WebPropertyEditor){
-                AddClientSideFunctionalityCore(((WebPropertyEditor) element).Editor as ASPxWebControl);
             }
         }
 
@@ -57,13 +44,14 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                     ClientSideEventsHelper.AssignClientHandlerSafe(control, "Init", @"            
                         function (s,e){
                             if (window.lastFocusedEditorId === s.inputElement.id) {
-                                window.setTimeout(function () {
+                                var timeout = window.setTimeout(function () {
                                     var element = document.getElementById(s.inputElement.id);
                                     element.focus();
                                     element.selectionStart = element.selectionEnd = 10000;
+                                    clearTimeout(timeout);
                                 }, 500);
                             }
-                        }",Guid.NewGuid().ToString());
+                        }", Guid.NewGuid().ToString());
                 };
                 EventHandler disposedEventHandler = null;
                 disposedEventHandler = (s, e) => {

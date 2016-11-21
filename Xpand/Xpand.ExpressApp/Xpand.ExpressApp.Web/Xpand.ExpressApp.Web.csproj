@@ -154,6 +154,7 @@
     <Compile Include="PropertyEditors\ASPxLookupPropertyEditorWithEdit.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\WebPropertyEditorsExtensions.cs" />
     <Compile Include="SystemModule\AutoCommitController.cs">
       <SubType>Component</SubType>
     </Compile>
