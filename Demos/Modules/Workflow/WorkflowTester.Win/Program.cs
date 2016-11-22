@@ -26,7 +26,6 @@ namespace WorkflowTester.Win {
             Application.SetCompatibleTextRenderingDefault(false);
             EditModelPermission.AlwaysGranted = true;
             var winApplication = new WorkflowTesterWindowsFormsApplication();
-            var easyTestParameter = winApplication.GetEasyTestParameter("WorldCreator");
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 winApplication.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }

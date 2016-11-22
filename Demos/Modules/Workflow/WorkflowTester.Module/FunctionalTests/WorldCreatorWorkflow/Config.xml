@@ -6,13 +6,13 @@
 			Name="WorkflowTester.Win"
 			FileName="[WinAppBin]\WorkflowTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100" Parameter="WorldCreator" Model="WorldCreatorWorkflow"/>
+			CommunicationPort="4100" Parameter="WorldCreator;SqlServer" Model="WorldCreatorWorkflow"/>
     <!-- Web -->
     <Application
 			Name="WorkflowTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]" Parameter="WorldCreator"
+      AdapterFileName="[WebAdapterFileName]" Parameter="WorldCreator;SqlServer"
 />
     <!-- For IIS -->
     <!--Application
