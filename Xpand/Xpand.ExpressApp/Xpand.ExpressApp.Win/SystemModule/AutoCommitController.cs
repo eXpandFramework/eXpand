@@ -1,19 +1,26 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using DevExpress.ExpressApp.Actions;
+﻿using System.ComponentModel;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.Persistent.Base.General;
+using Xpand.ExpressApp.SystemModule.Actions;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
+
     public class AutoCommitController: ExpressApp.SystemModule.AutoCommitController {
-        private IEnumerable<ActionBase> _actionBases;
-        protected override void OnActivated() {
+        private AvailableActionListController _availableActionListController;
+
+        protected override void OnActivated(){
             base.OnActivated();
-            if (((IModelObjectViewAutoCommit)View.Model).AutoCommit) {
-                _actionBases = Frame.Actions().Available();
-                foreach (var actionBase in _actionBases) {
-                    actionBase.Executing += ActionBaseOnExecuting;
-                }
+            _availableActionListController = Frame.GetController<AvailableActionListController>();
+            foreach (var action in _availableActionListController.AvailableActions){
+                action.Executing+=ActionBaseOnExecuting;
+            }
+            _availableActionListController.AvailableActionListChanged += OnAvailableActionListChanged;
+        }
+
+        private void OnAvailableActionListChanged(object sender, AvailableActionArgs e){
+            if (!e.Added)
+                e.ActionBase.Executing-=ActionBaseOnExecuting;
+            else{
+                e.ActionBase.Executing+=ActionBaseOnExecuting;
             }
         }
 
@@ -21,8 +28,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.OnDeactivated();
             if (((IModelObjectViewAutoCommit)View.Model).AutoCommit) {
                 CommitChanges();
-                foreach (var actionBase in _actionBases) {
-                    actionBase.Executing -= ActionBaseOnExecuting;
+                foreach (var action in _availableActionListController.AvailableActions) {
+                    action.Executing -= ActionBaseOnExecuting;
                 }
             }
         }

@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ObjectViews.Logic {
                             var modelView = info.Active ? objectViewRule.ObjectView : Application.Model.BOModel.GetClass(View.ObjectTypeInfo.Type).DefaultDetailView;
                             if (modelView!=null){
                                 var shortcut = new ViewShortcut(modelView.Id,View.ObjectTypeInfo.KeyMember.GetValue(View.CurrentObject).ToString());
-                                Frame.SetView(Application.ProcessShortcut(shortcut));
+                                Frame.SetView(Application.ProcessShortcut(shortcut),View.Tag as Frame);
                             }
                         }
                         break;

@@ -125,7 +125,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             return compileAssemblyFromSource;
         }
 
-        public bool IsDevMachine {
+        public static bool IsDevMachine {
             get {
                 try {
                     return  Environment.GetEnvironmentVariable("XpandDevMachine", EnvironmentVariableTarget.User).Change<bool>();
@@ -629,7 +629,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 var propertyInfos =
                     type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
                         .Distinct(new PropertyInfoEqualityComparer());
-                var infos = propertyInfos.Where(info => HasAttributes(info, attributes));
+                var infos = propertyInfos.Where(info => HasAttributes(info, attributes)).ToArray();
                 if (infos.Any(info => info.Name.StartsWith("TextFormatSt"))){
                     var array = infos.Where(IsValidProperty).ToArray();
                     Debug.Print(array.Length.ToString());
