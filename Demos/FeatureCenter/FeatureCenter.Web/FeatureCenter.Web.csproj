@@ -69,155 +69,155 @@
     <Reference Include="Common.Logging, Version=2.1.2.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Chart.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v16.1">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Demos.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Demos.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v16.1">
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Kpi.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Kpi.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Reports.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Reports.Web.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Reports.Web.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.StateMachine.v16.1">
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v16.1">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Web.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v16.1">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v16.1">
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Objects.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v16.1">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Web.v16.1">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Web.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v16.1">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v16.1">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v16.1">
+    <Reference Include="DevExpress.ExpressApp.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v16.1">
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Workflow.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Workflow.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v16.1">
+    <Reference Include="DevExpress.Persistent.Base.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v16.1.Core">
+    <Reference Include="DevExpress.Office.v16.2.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v16.1">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v16.1.Core">
+    <Reference Include="DevExpress.Printing.v16.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v16.1.Core">
+    <Reference Include="DevExpress.RichEdit.v16.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v16.1">
+    <Reference Include="DevExpress.Web.ASPxHtmlEditor.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxScheduler.v16.1">
+    <Reference Include="DevExpress.Web.ASPxScheduler.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxSpellChecker.v16.1">
+    <Reference Include="DevExpress.Web.ASPxSpellChecker.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxTreeList.v16.1">
+    <Reference Include="DevExpress.Web.ASPxTreeList.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v16.1">
+    <Reference Include="DevExpress.Web.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Workflow.Activities.v16.1">
+    <Reference Include="DevExpress.Workflow.Activities.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v16.1">
+    <Reference Include="DevExpress.Xpo.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v16.1">
+    <Reference Include="DevExpress.XtraEditors.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Charts.v16.1.Core">
+    <Reference Include="DevExpress.Charts.v16.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v16.1">
+    <Reference Include="DevExpress.XtraCharts.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v16.1.Core">
+    <Reference Include="DevExpress.PivotGrid.v16.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v16.1.Core">
+    <Reference Include="DevExpress.Sparkline.v16.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v16.1">
+    <Reference Include="DevExpress.CodeParser.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v16.1">
+    <Reference Include="DevExpress.XtraReports.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v16.1">
+    <Reference Include="DevExpress.DataAccess.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v16.1.UI">
+    <Reference Include="DevExpress.DataAccess.v16.2.UI">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v16.1.Extensions">
+    <Reference Include="DevExpress.XtraReports.v16.2.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.Resources.v16.1">
+    <Reference Include="DevExpress.Web.Resources.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v16.1.Web">
+    <Reference Include="DevExpress.XtraReports.v16.2.Web">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v16.1.Core">
+    <Reference Include="DevExpress.XtraScheduler.v16.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">

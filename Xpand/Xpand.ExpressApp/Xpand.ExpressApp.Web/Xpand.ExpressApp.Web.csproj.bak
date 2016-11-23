@@ -17,8 +17,7 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -36,7 +35,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <LangVersion>4</LangVersion>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +48,8 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -57,45 +59,47 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.CodeParser.v15.2">
+    <Reference Include="DevExpress.CodeParser.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v15.2">
+    <Reference Include="DevExpress.ExpressApp.CloneObject.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v15.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v15.2">
+    <Reference Include="DevExpress.Data.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v15.2">
+    <Reference Include="DevExpress.ExpressApp.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v15.2.Core">
+    <Reference Include="DevExpress.Office.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v15.2">
+    <Reference Include="DevExpress.Persistent.Base.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v15.2.Core">
+    <Reference Include="DevExpress.RichEdit.v16.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v15.2">
+    <Reference Include="DevExpress.Web.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v15.2">
+    <Reference Include="DevExpress.Xpo.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
@@ -145,8 +149,29 @@
     <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionListEditor.cs" />
     <Compile Include="ListEditors\WebControlAppearanceAdapter.cs" />
     <Compile Include="Model\QueryStringParameter.cs" />
+    <Compile Include="PropertyEditors\ASPxLabelPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\ASPxLookupPropertyEditorWithEdit.cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\WebPropertyEditorsExtensions.cs" />
+    <Compile Include="SystemModule\AutoCommitController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ImmediatePostDataRestoreFocusController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ModelAdapters\ASPxLookupFindEditControlModelAdapter.cs" />
+    <Compile Include="SystemModule\ModelAdapters\ASPxLookupDropDownEditControlModelAdapter.cs" />
+    <Compile Include="SystemModule\ModelAdapters\ASPxSearchDropDownEditControlModelAdapter.cs" />
+    <Compile Include="SystemModule\UpperCaseController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\WebProcessDataLockingInfoController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\ColumnChooser.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\MasterDetail\NestedListViewAutoCommitController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -156,7 +181,6 @@
     <Compile Include="SystemModule\MasterDetail\RegisterCallbackPanelScriptsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\UnsavedObjectController.cs" />
     <Compile Include="SystemModule\LayoutStyleController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -170,6 +194,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
+    <Compile Include="SystemModule\SupressConfirmationController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Templates\ASPxMenuNavicationControl.cs" />
     <Compile Include="Templates\ASPxMenuNavigationActionContainer.cs" />
     <Compile Include="XpandHttpRequestManager.cs" />
@@ -318,6 +345,8 @@
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

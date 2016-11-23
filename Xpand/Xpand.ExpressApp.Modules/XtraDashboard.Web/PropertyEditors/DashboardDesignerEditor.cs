@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Web.UI.WebControls;
-using DevExpress.DashboardCommon;
 using DevExpress.DashboardWeb;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -17,11 +16,11 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
     public class DashboardDesignerEditor : WebPropertyEditor, IComplexViewItem {
         private IObjectSpace _objectSpace;
         private XafApplication _application;
-        private ASPxDashboardDesigner _dashboardDesigner;
+        private ASPxDashboard _dashboardDesigner;
 
         static DashboardDesignerEditor() {
-            DashboardService.SetDashboardStorage(new DatabaseDashboardStorage());
-            DashboardService.PassCredentials = true;
+            DashboardConfigurator.Default.SetDashboardStorage(new DatabaseDashboardStorage());
+            DashboardConfigurator.PassCredentials = true;
         }
         public DashboardDesignerEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) {
         }
@@ -36,8 +35,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
                 _dashboardDesigner.DashboardId = GetDashboardId();
         }
 
-        private ASPxDashboardDesigner GetASPxDashboardDesigner() {
-            _dashboardDesigner = new ASPxDashboardDesigner {
+        private ASPxDashboard GetASPxDashboardDesigner() {
+            _dashboardDesigner = new ASPxDashboard {
                 DashboardId = GetDashboardId(),
                 Width = Unit.Percentage(100),
                 AllowOpenDashboard = false,
@@ -47,8 +46,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
             };
 
             UnSubscribe();
-            var dashboardDesignerStorage = DashboardService.DashboardStorage;
-            DashboardService.DataApi.DataLoading += DashboardDesignerStorageOnDataLoading;
+            var dashboardDesignerStorage = DashboardConfigurator.Default.DashboardStorage;
+            DashboardConfigurator.Default.DataLoading += DashboardDesignerStorageOnDataLoading;
             var databaseDashboardStorage = ((DatabaseDashboardStorage)dashboardDesignerStorage);
             databaseDashboardStorage.RequestDashboardXml += OnRequestDashboardXml;
             databaseDashboardStorage.RequestObjectSpace += DatabaseDashboardStorageOnRequestObjectSpace;
@@ -56,7 +55,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
             return _dashboardDesigner;
         }
 
-        private void DashboardDesignerStorageOnDataLoading(object sender, ServiceDataLoadingEventArgs e) {
+        private void DashboardDesignerStorageOnDataLoading(object sender, DataLoadingWebEventArgs e) {
             var modelApplication = (ModelApplicationBase)_application.Model;
             var typeWrapper = Definition.DashboardTypes.FirstOrDefault(t => t.GetDefaultCaption(modelApplication) == e.DataSourceName);
             if (typeWrapper != null) {
@@ -70,8 +69,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         }
 
         private void UnSubscribe() {
-            DashboardService.DataApi.DataLoading -= DashboardDesignerStorageOnDataLoading;
-            var databaseDashboardStorage = ((DatabaseDashboardStorage)DashboardService.DashboardStorage);
+            DashboardConfigurator.Default.DataLoading -= DashboardDesignerStorageOnDataLoading;
+            var databaseDashboardStorage = ((DatabaseDashboardStorage)DashboardConfigurator.Default.DashboardStorage);
             databaseDashboardStorage.RequestDashboardXml -= OnRequestDashboardXml;
             databaseDashboardStorage.RequestObjectSpace -= DatabaseDashboardStorageOnRequestObjectSpace;
             databaseDashboardStorage.RequestDashboardInfos -= DatabaseDashboardStorageOnRequestDashboardInfos;

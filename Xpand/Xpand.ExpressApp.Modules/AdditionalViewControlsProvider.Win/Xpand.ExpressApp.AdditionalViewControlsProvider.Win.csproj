@@ -72,28 +72,28 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v16.1">
+    <Reference Include="DevExpress.Data.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v16.1">
+    <Reference Include="DevExpress.ExpressApp.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v16.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v16.1">
+    <Reference Include="DevExpress.Utils.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v16.1">
+    <Reference Include="DevExpress.Xpo.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v16.1">
+    <Reference Include="DevExpress.XtraEditors.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v16.1">
+    <Reference Include="DevExpress.XtraPrinting.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v16.1">
+    <Reference Include="DevExpress.XtraLayout.v16.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider">
@@ -144,9 +144,7 @@
     </Compile>
     <Compile Include="Decorators\WinFrameControlDecorator.cs" />
     <Compile Include="Editors\AdditionalViewControlsItem.cs"></Compile>
-    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Logic\AdditionalViewControlsRuleViewController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\ControlTypeConverter.cs" />
     <Compile Include="Security\DecoratorTypeConverter.cs" />

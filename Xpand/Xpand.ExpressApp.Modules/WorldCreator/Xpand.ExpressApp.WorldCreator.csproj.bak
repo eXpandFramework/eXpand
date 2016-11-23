@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,11 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.WorldCreator</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.WorldCreator</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -35,7 +33,8 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <LangVersion>4</LangVersion>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,6 +45,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -55,6 +56,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
     <OutputPath>bin\RecompiledDxSources\</OutputPath>
@@ -64,53 +67,74 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\EasyTest\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>6</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v15.2">
+    <Reference Include="AppDomainToolkit">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AppDomainToolkit.1.0.4.3\lib\net\AppDomainToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v15.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v15.2">
+    <Reference Include="DevExpress.Data.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v15.2">
+    <Reference Include="DevExpress.ExpressApp.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v15.2">
+    <Reference Include="DevExpress.Persistent.Base.v16.1">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v16.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
     </Reference>
-    <Reference Include="Mono.Cecil">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.1\lib\net40\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.1\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.1\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.1\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xpand.ExpressApp.Security">
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.4\lib\net40\Mono.Cecil.dll</HintPath>
+      <Private>True</Private>
     </Reference>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.4\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.4\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.9.6.4\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="Xpand.ExpressApp.Validation">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
@@ -140,16 +164,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\Validation\RuleClassInfoMerge.cs" />
+    <Compile Include="BusinessObjects\Validation\RuleValidCodeIdentifier.cs" />
+    <Compile Include="CodeProvider\AssocationMemberBuilder.cs" />
+    <Compile Include="CodeProvider\Validation\CodeProviderValidationExtensions.cs" />
     <Compile Include="Controllers\AssemblyToolsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\DataStoreLogonDatabasesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\NeedCompilationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\PersistentReferenceMemberInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\CodeTemplateInfoController.cs">
@@ -158,14 +177,23 @@
     <Compile Include="Controllers\PopulateModelDefaultAttributePropertyNamesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Core\AssemblyInfoExtensions.cs" />
-    <Compile Include="Core\ICodeTemplateInfoExtensions.cs" />
-    <Compile Include="Core\IPersistentMemberInfoExtensions.cs" />
-    <Compile Include="Core\IPersistentTemplatedTypeInfoExtensions.cs" />
-    <Compile Include="Core\ObjectSpaceExtensions.cs" />
-    <Compile Include="NodeUpdaters\ImageSourcesUpdater.cs" />
-    <Compile Include="Observers\CodeTemplateInfoObserver.cs" />
-    <Compile Include="Observers\CodeTemplateObserver.cs" />
+    <Compile Include="BusinessObjects\AssemblyInfoExtensions.cs" />
+    <Compile Include="BusinessObjects\CodeTemplateInfoExtensions.cs" />
+    <Compile Include="CodeProvider\Validation\AssemblyValidator.cs" />
+    <Compile Include="CodeProvider\Validation\CodeValidator.cs" />
+    <Compile Include="BusinessObjects\PersistentMemberInfoExtensions.cs" />
+    <Compile Include="BusinessObjects\PersistentTemplatedTypeInfoExtensions.cs" />
+    <Compile Include="System\AssemblyManager.cs" />
+    <Compile Include="System\AssemblyPathProvider.cs" />
+    <Compile Include="System\DatastoreObjectSpaceProviderBuilder.cs" />
+    <Compile Include="System\CompatibilityCheckerApplication.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="System\DatabaseUpdate\ModuleUpdater.cs" />
+    <Compile Include="System\NodeUpdaters\ImageSourcesUpdater.cs" />
+    <Compile Include="System\DatabaseUpdate\AssemblyRevisionUpdater.cs" />
+    <Compile Include="System\Observers\CodeTemplateInfoObserver.cs" />
+    <Compile Include="System\Observers\CodeTemplateObserver.cs" />
     <Compile Include="Controllers\CodeTemplateObserverController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -175,31 +203,21 @@
     <Compile Include="Controllers\InitializeTemplatedTypeInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Observers\PersistentReferenceMemberInfoObserver.cs" />
-    <Compile Include="PersistentTypesHelpers\CodeTemplateBuilder.cs" />
-    <Compile Include="PersistentTypesHelpers\CodeTemplateQuery.cs" />
-    <Compile Include="Core\CodeEngine.cs" />
-    <Compile Include="Core\CompileEngine.cs" />
-    <Compile Include="Core\ExistentTypesMemberCreator.cs" />
-    <Compile Include="Core\PersistentClassInfoExtensions.cs" />
-    <Compile Include="Core\TypeInfoExtensions.cs" />
+    <Compile Include="CodeProvider\CodeEngine.cs" />
+    <Compile Include="CodeProvider\Compiler.cs" />
+    <Compile Include="Services\ExistentTypesMemberCreator.cs" />
+    <Compile Include="BusinessObjects\PersistentClassInfoExtensions.cs" />
+    <Compile Include="System\TypeInfoExtensions.cs" />
     <Compile Include="Controllers\PopulateInterfacesController.cs" />
-    <Compile Include="PersistentTypesHelpers\PersistentAssemblyBuilder.cs" />
-    <Compile Include="PersistentTypesHelpers\PersistentClassInfoQuery.cs" />
-    <Compile Include="PersistentTypesHelpers\PersistentAttributeInfoQuery.cs" />
-    <Compile Include="NodeUpdaters\ShowOwnerForExtendedMembersUpdater.cs" />
-    <Compile Include="Core\WCTypesInfo.cs" />
-    <Compile Include="TypeSynchronizer.cs" />
-    <Compile Include="WorldCreatorModule.cs">
+    <Compile Include="System\NodeUpdaters\ShowOwnerForExtendedMembersUpdater.cs" />
+    <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs" />
-    <Compile Include="Core\XpoObjectMerger.cs" />
-    <Compile Include="WorldCreatorModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WorldCreatorUpdater.cs" />
+    <Compile Include="System\WorldCreatorTypeInfoSource.cs" />
+    <Compile Include="Services\XpoObjectMerger.cs" />
+    <Compile Include="System\WorldCreatorModuleUpdater.cs" />
+    <Compile Include="System\WorldCreatorObjectSpaceProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
@@ -252,6 +270,8 @@
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+    <LangVersion>6</LangVersion>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

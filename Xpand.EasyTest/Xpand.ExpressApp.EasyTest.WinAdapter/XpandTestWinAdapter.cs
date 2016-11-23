@@ -107,14 +107,14 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             CloseApplication(_additionalProcesses.Where(process => !process.HasExited).ToArray(), true);
         }
 
-        public override void RunApplication(TestApplication testApplication) {
+        public override void RunApplication(TestApplication testApplication,string connectionString) {
             testApplication.Assign();
             testApplication.DeleteUserModel();
             testApplication.CreateParametersFile();
             testApplication.CopyModel();
             DeleteLogonParametersFile(testApplication);
             RunAdditionalApps(testApplication);
-            base.RunApplication(testApplication);
+            base.RunApplication(testApplication,connectionString);
             _winEasyTestCommandAdapter.MainWindowHandle=new IntPtr(mainProcess.Id);
         }
 

@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.EasyTest.WebAdapter;
 using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
 using DevExpress.ExpressApp.EasyTest.WebAdapter.WebServerManagers;
 using Fasterflect;
+using SHDocVw;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
@@ -20,7 +21,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         private XpandWebCommandAdapter _webCommandAdapter;
         private IWebServerManager _serverManager;
 
-        public override void RunApplication(TestApplication testApplication){
+        public override void RunApplication(TestApplication testApplication,string connectionString){
             testApplication.Assign();
             testApplication.CreateParametersFile();
             testApplication.DeleteUserModel();
@@ -29,7 +30,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             if (testApplication.ParameterValue<bool>(ApplicationParams.UseIIS)) {
                 IISHelper.Configure(testApplication);
             }  
-            base.RunApplication(testApplication);
+            base.RunApplication(testApplication,connectionString);
             WebBrowser.BrowserWindowHandle.MoveWindow(new Rectangle(0,0,1024,768));
         }
 
@@ -88,13 +89,58 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     }
 
     public class XpandWebCommandAdapter : WebCommandAdapter,IXpandEasyTestCommandAdapter{
+        private readonly IEasyTestWebBrowser _webBrowser;
 
         public XpandWebCommandAdapter(IEasyTestWebBrowser webBrowser) : base(webBrowser){
+            _webBrowser = webBrowser;
         }
 
-        public IntPtr MainWindowHandle => WebBrowser.BrowserWindowHandle;
+        public XpandEasyTestWebBrowser WebBrowser => new XpandEasyTestWebBrowser(_webBrowser);
+
+        public IntPtr MainWindowHandle => _webBrowser.BrowserWindowHandle;
 
         
     }
 
+    public class XpandEasyTestWebBrowser:IEasyTestWebBrowser{
+        private readonly IEasyTestWebBrowser _easyTestWebBrowser;
+
+        public XpandEasyTestWebBrowser(IEasyTestWebBrowser easyTestWebBrowser){
+            _easyTestWebBrowser = easyTestWebBrowser;
+        }
+
+        public IWebBrowser2 Browser => (IWebBrowser2) _easyTestWebBrowser.GetPropertyValue("InternetExplorer");
+
+        public void Navigate(string url){
+            _easyTestWebBrowser.Navigate(url);
+        }
+
+        public void Refresh(){
+            _easyTestWebBrowser.Refresh();
+        }
+
+        public void GoBack(){
+            _easyTestWebBrowser.GoBack();
+        }
+
+        public void GoForward(){
+            _easyTestWebBrowser.GoForward();
+        }
+
+        public void SetWindowSize(int width, int height){
+            _easyTestWebBrowser.SetWindowSize(width, height);
+        }
+
+        public object ExecuteScript(string script){
+            return _easyTestWebBrowser.ExecuteScript(script);
+        }
+
+        public void Close(){
+            _easyTestWebBrowser.Close();
+        }
+
+        public IntPtr BrowserWindowHandle => _easyTestWebBrowser.BrowserWindowHandle;
+
+        public IntPtr DialogWindowHandle => _easyTestWebBrowser.DialogWindowHandle;
+    }
 }
