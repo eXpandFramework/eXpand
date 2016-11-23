@@ -9,11 +9,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override void OnActivated(){
             base.OnActivated();
-            _availableActionListController = Frame.GetController<AvailableActionListController>();
-            foreach (var action in _availableActionListController.AvailableActions){
-                action.Executing+=ActionBaseOnExecuting;
+            if (((IModelObjectViewAutoCommit)View.Model).AutoCommit) {
+                _availableActionListController = Frame.GetController<AvailableActionListController>();
+                foreach (var action in _availableActionListController.AvailableActions){
+                    action.Executing+=ActionBaseOnExecuting;
+                }
+                _availableActionListController.AvailableActionListChanged += OnAvailableActionListChanged;
             }
-            _availableActionListController.AvailableActionListChanged += OnAvailableActionListChanged;
         }
 
         private void OnAvailableActionListChanged(object sender, AvailableActionArgs e){
