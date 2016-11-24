@@ -31,25 +31,13 @@ namespace Xpand.ExpressApp.Scheduler.Model {
 
     [ModelDisplayName("Scheduler")]
     public interface IModelOptionsSchedulerEx : IModelOptionsColumnView {
-        IModelSchedulerPopupMenus PopupMenus { get; }
+        IModelSchedulerPopupMenuItems PopupMenuItems { get; }
     }
-    public interface IModelSchedulerPopupMenus : IModelNode, IModelList<IModelSchedulerPopupMenu> {
+    public interface IModelSchedulerPopupMenuItems : IModelNode, IModelList<IModelSchedulerPopupMenuItem> {
     }
-    [KeyProperty("MenuId")]
-    [DisplayProperty("MenuId")]
-    public interface IModelSchedulerPopupMenu : IModelNode {
-        [Required]
-        [DataSourceProperty("Menus")]
-        string MenuId { get; set; }
-        [Browsable(false)]
-        IEnumerable<string> Menus { get; }
-    }
-    [DomainLogic(typeof(IModelSchedulerPopupMenu))]
-    public class ModelSchedulerPopupMenuDomainLogic {
-        public static IEnumerable<string> Get_Menus(IModelSchedulerPopupMenu popupMenu) {
-            var enumValues = Enum.GetValues(typeof(SchedulerMenuItemId));
-            return (enumValues.Cast<object>().Select(enumValue => enumValue.ToString())).ToList();
-        }
+    
+    public interface IModelSchedulerPopupMenuItem : IModelNodeEnabled {
+        
     }
 
     [ModelAbstractClass]

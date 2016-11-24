@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Configuration;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -91,7 +89,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
     }
     public class ModelAdapterContextsNodeGenerator:ModelNodesGeneratorBase{
-        public const string Default = "Default Context";
+        public const string Default = "Default";
         protected override void GenerateNodesCore(ModelNode node){
             node.AddNode<IModelModelAdapters>(Default);
         }
@@ -106,11 +104,28 @@ namespace Xpand.Persistent.Base.ModelAdapter {
          
     }
 
-
     [ModelAbstractClass]
     public interface IModelModelAdapter:IModelNodeEnabled{
     }
 
+    public static class ModelModelAdapterDomainLogic{
+        public static IEnumerable<IModelModelAdapter> GetContextAdapters(this IModelModelAdapter modelModelAdapter) {
+
+            var modelAdapters = modelModelAdapter.GetNode("ModelAdapters");
+            var adapters = new List<IModelModelAdapter>();
+            if (modelAdapters!=null){
+                for (int i = 0; i < modelAdapters.NodeCount; i++){
+                    var modelAdapter = modelAdapters.GetNode(i);
+                    var modelModelAdapters =
+                        ((IModelApplicationModelAdapterContexts) modelModelAdapter.Application).ModelAdapterContexts[
+                            modelAdapter.Id()];
+                    var id = ((ModelNode) modelAdapter.GetValue("ModelAdapter")).Id;
+                    adapters.Add(modelModelAdapters[id]);
+                }
+            }
+            return adapters;
+        } 
+    }
     public class ModelAdaptersNodeGenerator:ModelNodesGeneratorBase{
         protected override void GenerateNodesCore(ModelNode node){
             var modelAdapterTypeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelModelAdapter)).Descendants.Where(info 
@@ -162,39 +177,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         public virtual string GetPath(string name) {
-            var modelAdaptorFolder = GetModelAdaptorFolder();
-            var path2 = "ModelAdaptor" + name + ".dll";
+            const string folderName = "ModelAdaptor";
+            var modelAdaptorFolder = Path.Combine(Application.GetStorageFolder(folderName),folderName);
+            var path2 = folderName + name + ".dll";
             return Path.Combine(modelAdaptorFolder + "", path2);
-        }
-
-        protected T GetFileLocation<T>(T defaultValue, string keyName) {
-            T result = defaultValue;
-            string value = ConfigurationManager.AppSettings[keyName];
-            if (!string.IsNullOrEmpty(value)) {
-                result = (T)Enum.Parse(typeof(T), value, true);
-            }
-            return result;
-        }
-
-        string GetModelAdaptorFolder() {
-            string appSetting = ConfigurationManager.AppSettings["ModelAdaptorPath"];
-            if (Directory.Exists(appSetting))
-                return appSetting;
-            if (InterfaceBuilder.RuntimeMode&&!XpandModuleBase.IsHosted&&!Debugger.IsAttached&&appSetting!=null) {
-                var userAppDataPath = System.Windows.Forms.Application.UserAppDataPath;
-                var xafApplication = ApplicationHelper.Instance.Application;
-                if (xafApplication != null) {
-                    var methodInfo = xafApplication.GetType().GetMethod("GetFileLocation", BindingFlags.Instance | BindingFlags.NonPublic);
-                    var typeInfo = XafTypesInfo.Instance.FindTypeInfo("DevExpress.ExpressApp.Win.FileLocation");
-                    methodInfo = methodInfo.MakeGenericMethod(typeInfo.Type);
-                    var values = Enum.GetValues(typeInfo.Type);
-                    var value = values.GetValue(1);
-                    var invoke = methodInfo.Invoke(xafApplication, new[] { value, "ModelAdaptorPath" });
-                    return (int) invoke != (int) value? userAppDataPath: PathHelper.GetApplicationFolder();
-                }
-            }
-            var folder = InterfaceBuilder.RuntimeMode? AppDomain.CurrentDomain.SetupInformation.ApplicationBase: InterfaceBuilder.GetTempDirectory();
-            return Path.Combine(folder, "ModelAdaptor");
         }
     }
 
@@ -236,6 +222,39 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     public abstract class ModelAdapterDomainLogicBase<T> where T : IModelModelAdapter{
         public static IModelList<T> GetModelAdapters(IModelApplication modelApplication) {
             return new CalculatedModelNodeList<T>(((IModelApplicationModelAdapterContexts)modelApplication).ModelAdapterContexts.GetAdapters<T>());
+        }
+    }
+
+    public interface IModelModelAdapterLink : IModelNode {
+        [DataSourceProperty("ModelAdapterContexts")]
+        [Category("eXpand.ModelAdapters")]
+        [RefreshProperties(RefreshProperties.All)]
+        [Required]
+        IModelModelAdapters ModelAdapterContext { get; set; }
+
+        [Browsable(false)]
+        IEnumerable<IModelModelAdapters> ModelAdapterContexts { get; }
+
+        [Category("eXpand.ModelAdapters")]
+        [DataSourceProperty("ModelAdapters")]
+        IModelModelAdapter ModelAdapter { get; set; }
+
+        [Browsable(false)]
+        IEnumerable<IModelModelAdapter> ModelAdapters { get; }
+    }
+
+    [DomainLogic(typeof(IModelModelAdapterLink))]
+    public class ModelModelAdapterLinkDomainLogic {
+        public static IEnumerable<IModelModelAdapters> Get_ModelAdapterContexts(IModelModelAdapterLink controlGroup) {
+            return ((IModelApplicationModelAdapterContexts)controlGroup.Application).ModelAdapterContexts;
+        }
+
+        public static IModelModelAdapters Get_ModelAdapterContext(IModelModelAdapterLink controlGroup) {
+            return ((IModelApplicationModelAdapterContexts)controlGroup.Application).ModelAdapterContexts[ModelAdapterContextsNodeGenerator.Default];
+        }
+
+        public static IEnumerable<IModelModelAdapter> Get_ModelAdapters(IModelModelAdapterLink controlGroup) {
+            return controlGroup.ModelAdapterContext ?? Enumerable.Empty<IModelModelAdapter>();
         }
     }
 }

@@ -1,7 +1,5 @@
 using System.Web.UI;
-using DevExpress.Web.ASPxClasses;
-using DevExpress.Web.ASPxEditors;
-using DevExpress.Web.ASPxPanel;
+using DevExpress.Web;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     public class FilterByPropertyPathViewController : ExpressApp.SystemModule.FilterByPropertyPathViewController {

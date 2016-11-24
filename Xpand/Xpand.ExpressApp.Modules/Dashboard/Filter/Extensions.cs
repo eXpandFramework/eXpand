@@ -21,15 +21,15 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             dashboard.ApplyModel(FilterEnabled.Always, template);
         }
 
-        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, FilterEnabled filterEnabled){
-            var dashBoard = CreateDashBoard(template);
+        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template, FilterEnabled filterEnabled, Func<Type, object> dashboardDatasource) {
+            var dashBoard = CreateDashBoard(template,dashboardDatasource);
             if (dashBoard != null){
                 dashBoard.ApplyModel(filterEnabled, template);
             }
             return dashBoard;
         }
 
-        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template) {
+        public static DevExpress.DashboardCommon.Dashboard CreateDashBoard(this IDashboardDefinition template,Func<Type,object> dashboardDatasource) {
             var dashboard = new DevExpress.DashboardCommon.Dashboard();
             try {
                 if (!string.IsNullOrEmpty(template.Xml)) {
@@ -38,12 +38,12 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                 foreach (var typeWrapper in template.DashboardTypes.Select(wrapper => new { wrapper.Type, Caption = wrapper.GetDefaultCaption() })) {
                     var wrapper = typeWrapper;
                     var dsource = dashboard.DataSources.FirstOrDefault(source => source.Name.Equals(wrapper.Caption));
-                    var objects = ApplicationHelper.Instance.Application.CreateDashboardDataSource(wrapper.Type);
+                    object objects = dashboardDatasource(typeWrapper.Type);
                     if (dsource != null) {
                         dsource.Data = objects;
                     }
                     else if (!dashboard.DataSources.Contains(ds => ds.Name.Equals(wrapper.Caption))) {
-                        dashboard.AddDataSource(typeWrapper.Caption, objects);
+                        dashboard.DataSources.Add(new DashboardObjectDataSource(typeWrapper.Caption,objects));
                     }
                 }
             }
@@ -77,8 +77,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             }
         }
 
-        public static string GetXml(this IDashboardDefinition template, FilterEnabled filterEnabled){
-            var dashBoard = template.CreateDashBoard( filterEnabled);
+        public static string GetXml(this IDashboardDefinition template, FilterEnabled filterEnabled, Func<Type, object> dashboardDatasource) {
+            var dashBoard = template.CreateDashBoard( filterEnabled,dashboardDatasource);
             using (var memoryStream = new MemoryStream()) {
                 dashBoard.SaveToXml(memoryStream);
                 memoryStream.Position = 0;
@@ -135,7 +135,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             if (parameter.IsCustomFunction) {
                 if (dashboardParameter!=null) {
                     var criteriaOperator = CriteriaOperator.Parse("Field="+ parameter.ParameterValue);
-                    new CustomFunctionValueProcessor().Process(criteriaOperator);
+                    var customFunctionValueProcessor = new CustomFunctionValueProcessor();
+                    customFunctionValueProcessor.Process(criteriaOperator);
                     dashboardParameter.Value = ((OperandValue) ((BinaryOperator) criteriaOperator).RightOperand).Value;
                 }
             }
@@ -151,7 +152,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             string criteria = null;
             if (!string.IsNullOrEmpty(modelDataSource.Filter)) {
                 var criteriaOperator = CriteriaOperator.Parse(modelDataSource.Filter);
-                new CustomFunctionValueProcessor().Process(criteriaOperator);
+                var customFunctionValueProcessor = new CustomFunctionValueProcessor();
+                customFunctionValueProcessor.Process(criteriaOperator);
                 criteria = criteriaOperator.ToString();
                 if (!string.IsNullOrEmpty(filterString))
                     criteria = " and " + criteria;
@@ -161,16 +163,16 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
     }
 
     class DataSourceAdapter {
-        private readonly DataSource _dataSource;
+        private readonly IDashboardDataSource _dataSource;
 
         private readonly IModelDashboardDataSource _dashboardDataSource;
 
-        public DataSourceAdapter(DataSource dataSource, IModelDashboardDataSource dashboardDataSource) {
+        public DataSourceAdapter(IDashboardDataSource dataSource, IModelDashboardDataSource dashboardDataSource) {
             _dataSource = dataSource;
             _dashboardDataSource = dashboardDataSource;
         }
 
-        public DataSource DataSource {
+        public IDashboardDataSource DataSource {
             get { return _dataSource; }
         }
 

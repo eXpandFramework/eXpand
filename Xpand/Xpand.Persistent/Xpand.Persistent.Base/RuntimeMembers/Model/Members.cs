@@ -24,7 +24,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
     }
     public class ModelClassExDomainLogic {
         public static ITypeInfo  Get_TypeInfo(IModelClass modelClass) {
-            var typesInfo = ((IModelTypesInfoProvider) modelClass.Application).TypesInfo;
+            var typesInfo = XafTypesInfo.Instance;
             if (typesInfo != null) return typesInfo.FindTypeInfo(modelClass.Name);
             return XafTypesInfo.Instance.FindTypeInfo(modelClass.Name);
         }

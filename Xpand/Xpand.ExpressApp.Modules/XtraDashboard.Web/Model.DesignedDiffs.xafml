@@ -12,15 +12,10 @@
         <PropertyEditor Id="Xml" RowCount="20" />
       </Items>
     </DetailView>
-    <DetailView Id="DashboardViewer_DetailView" Caption="Dashboard" ClassName="Xpand.ExpressApp.Dashboard.BusinessObjects.DashboardDefinition" IsNewNode="True">
-      <Items IsNewNode="True">
-        <PropertyEditor Id="Xml" PropertyName="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors.DashboardViewEditorWeb" IsNewNode="True" />
+    <DetailView Id="DashboardViewer_DetailView">
+      <Items>
+        <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors.DashboardViewEditorWeb" />
       </Items>
-      <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True">
-          <LayoutItem Id="Xml" ViewItem="Xml" Index="0" ShowCaption="False" SizeConstraintsType="Default" RelativeSize="100" IsNewNode="True" />
-        </LayoutGroup>
-      </Layout>
     </DetailView>
   </Views>
 </Application>

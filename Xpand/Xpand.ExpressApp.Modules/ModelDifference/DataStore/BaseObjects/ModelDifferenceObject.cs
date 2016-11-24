@@ -22,6 +22,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [ModelDefault("Caption", Caption), ModelDefault("IsClonable", "True"), VisibleInReports(false)]
     [CloneView(CloneViewType.DetailView, "MDO_DetailView",true)]
     [CloneView(CloneViewType.ListView, "MDO_ListView",true)]
+    [FriendlyKeyProperty("Name")]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference, ISupportSequenceObject {
         public  const string DefaultListViewName="MDO_ListView";
         public const string DefaultDetailViewName = "MDO_DetailView";

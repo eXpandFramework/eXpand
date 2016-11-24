@@ -9,6 +9,6 @@ namespace Xpand.ExpressApp.Web.Layout {
 
         public DevExpress.ExpressApp.Editors.ViewItem DetailViewItem { get; internal set; }
 
-        public DevExpress.Web.ASPxSplitter.ASPxSplitter SplitterControl { get; internal set; }
+        public DevExpress.Web.ASPxSplitter SplitterControl { get; internal set; }
     }
 }

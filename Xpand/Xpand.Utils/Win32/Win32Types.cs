@@ -202,32 +202,23 @@ namespace Xpand.Utils.Win32 {
         }
         #endregion
         #region Nested type: INPUT
-        [StructLayout(LayoutKind.Explicit)]
+        [StructLayout(LayoutKind.Sequential)]
         public struct INPUT {
-            /// <summary>
-            /// Indicates the type of device information this structure carries
-            /// </summary>
+            public INPUTTYPE type;
+            public MouseKeybdhardwareInputUnion mkhi;
+        }
+        [StructLayout(LayoutKind.Explicit)]
+        public struct MouseKeybdhardwareInputUnion {
             [FieldOffset(0)]
-            public INPUTTYPE Type;
-
-            /// <summary>
-            /// MOUSEINPUT structure that contains information about simulated mouse input. 
-            /// </summary>
-            [FieldOffset(4)]
             public MOUSEINPUT mi;
 
-            /// <summary>
-            /// KEYBDINPUT structure that contains information about simulated keyboard input. 
-            /// </summary>
-            [FieldOffset(4)]
+            [FieldOffset(0)]
             public KEYBDINPUT ki;
 
-            /// <summary>
-            /// HARDWAREINPUT structure that contains information about a simulated input device message. 
-            /// </summary>
-            [FieldOffset(4)]
+            [FieldOffset(0)]
             public HARDWAREINPUT hi;
         }
+
         #endregion
         #region Nested type: KEYBDINPUT
         /// <summary>
@@ -248,7 +239,7 @@ namespace Xpand.Utils.Win32 {
             /// <summary>
             /// Specifies a hardware scan code for the key. If dwFlags specifies KEYEVENTF_UNICODE, wScan specifies a Unicode character which is to be sent to the foreground application.
             /// </summary>
-            public short wScan;
+            public UInt16 wScan;
 
             /// <summary>
             /// Specifies various aspects of a keystroke. This member can be certain combinations of the following values. 

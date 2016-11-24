@@ -10,6 +10,7 @@ namespace Xpand.EmailTemplateEngine {
             CC = new List<string>();
             Bcc = new List<string>();
             Headers = new Dictionary<string, string>();
+            Attachments = new Dictionary<string, byte[]>();
         }
 
         public string From { get; set; }
@@ -31,5 +32,7 @@ namespace Xpand.EmailTemplateEngine {
         public string HtmlBody { get; set; }
 
         public string TextBody { get; set; }
+
+        public Dictionary<string, byte[]> Attachments { get; set; }
     }
 }

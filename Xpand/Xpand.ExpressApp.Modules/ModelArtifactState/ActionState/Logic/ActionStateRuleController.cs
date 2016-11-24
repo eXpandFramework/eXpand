@@ -43,17 +43,11 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
         }
 
         void ActivateDeActivateAction(LogicRuleInfo info, ActionBase actionBase) {
-            if (info.InvertCustomization)
-                actionBase.Active[ActiveObjectTypeHasActionRules] = true;
-            else
-                actionBase.Active[ActiveObjectTypeHasActionRules] = !info.Active;
+            actionBase.Active[ActiveObjectTypeHasActionRules] = info.InvertCustomization || ((IActionStateRule)info.Rule).ActionState != ActionState.Hidden;
         }
 
         void EnableDisableAction(LogicRuleInfo info, ActionBase actionBase) {
-            if (info.InvertCustomization)
-                actionBase.Enabled[ActiveObjectTypeHasActionRules] = true;
-            else
-                actionBase.Enabled[ActiveObjectTypeHasActionRules] = !info.Active&&!info.InvertCustomization;
+            actionBase.Enabled[ActiveObjectTypeHasActionRules] = info.InvertCustomization || ((IActionStateRule)info.Rule).ActionState != ActionState.Disabled;
         }
 
         void ExecuteAction(ActionBase actionBase) {
@@ -81,29 +75,31 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
 
         void OnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
             var logicRuleInfo = logicRuleExecuteEventArgs.LogicRuleInfo;
-            var rule = logicRuleInfo.Rule as IActionStateRule;
-            if (rule!=null) {
-                foreach (ActionBase actionBase in GetActions(rule)) {
-                    switch (rule.ActionState) {
-                        case ActionState.ForceActive: {
-                            actionBase.Active.Clear();
-                            break;
-                        }
-                        case ActionState.Hidden:
-                            ActivateDeActivateAction(logicRuleInfo, actionBase);
-                            break;
-                        case ActionState.Disabled:
-                            EnableDisableAction(logicRuleInfo, actionBase);
-                            break;
-                        case ActionState.Executed: {
-                            if (logicRuleInfo.Active) {
-                                ExecuteAction(actionBase);
+            if (logicRuleInfo.Active){
+                var rule = logicRuleInfo.Rule as IActionStateRule;
+                if (rule != null){
+                    foreach (ActionBase actionBase in GetActions(rule)){
+                        switch (rule.ActionState){
+                            case ActionState.ForceActive:{
+                                actionBase.Active.Clear();
+                                break;
                             }
+                            case ActionState.Hidden:
+                                ActivateDeActivateAction(logicRuleInfo, actionBase);
+                                break;
+                            case ActionState.Disabled:
+                                EnableDisableAction(logicRuleInfo, actionBase);
+                                break;
+                            case ActionState.Executed:{
+                                if (logicRuleInfo.Active){
+                                    ExecuteAction(actionBase);
+                                }
+                            }
+                                break;
+                            case ActionState.ExecutedAndDisable:
+                                ExecuteAndDisableAction(actionBase);
+                                break;
                         }
-                            break;
-                        case ActionState.ExecutedAndDisable:
-                            ExecuteAndDisableAction(actionBase);
-                            break;
                     }
                 }
             }

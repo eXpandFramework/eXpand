@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
@@ -28,7 +29,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (((IModelListViewAutoExpandNewRow)View.Model).AutoExpandNewRow) {
                 var gridControl = (GridControl)View.Editor.Control;
                 gridControl.ProcessGridKey += GridControlOnProcessGridKey;
-                _xafGridView = ((ColumnsListEditor)View.Editor).GridView();
+                _xafGridView = ((WinColumnsListEditor)View.Editor).GridView();
                 _xafGridView.FocusedRowChanged += GridView_OnFocusedRowChanged;
                 _xafGridView.InitNewRow += GridView_OnInitNewRow;
             }

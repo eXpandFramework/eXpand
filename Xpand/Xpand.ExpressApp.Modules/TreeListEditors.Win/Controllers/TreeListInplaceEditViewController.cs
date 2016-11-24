@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
 
         private void TreeListOnShowingEditor(object sender, CancelEventArgs cancelEventArgs){
             var fieldName = _treeList.FocusedColumn.FieldName;
-            var eventArgs = new CustomizeAppearanceEventArgs(fieldName, "ViewItem",new TreeListCancelEventArgsAppearanceAdapter(_treeList, cancelEventArgs), _treeList.FocusedObject);
+            var eventArgs = new CustomizeAppearanceEventArgs(fieldName, "ViewItem", new TreeListCancelEventArgsAppearanceAdapter(_treeList, cancelEventArgs), _treeList.FocusedObject, ViewInfo.FromView(View));
             OnCustomizeAppearance(eventArgs);
         }
 

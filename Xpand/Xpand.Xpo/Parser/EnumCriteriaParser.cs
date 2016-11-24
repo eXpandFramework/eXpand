@@ -4,7 +4,7 @@ using System.ComponentModel;
 using DevExpress.Data.Filtering;
 
 namespace Xpand.Xpo.Parser {
-    public class EnumCriteriaParser : ICriteriaVisitor {
+    public class EnumCriteriaParser : ICriteriaVisitor<CriteriaOperator> {
         /* Private */
         readonly Dictionary<string, OperandValue> _values = new Dictionary<string, OperandValue>();
 
@@ -29,31 +29,31 @@ namespace Xpand.Xpo.Parser {
 
         /* Operand visitors */
         #region ICriteriaVisitor Members
-        public object Visit(FunctionOperator theOperator) {
+        public CriteriaOperator Visit(FunctionOperator theOperator) {
             /* Nothing special to do here.. */
             return theOperator;
         }
 
-        public object Visit(OperandValue theOperand) {
+        public CriteriaOperator Visit(OperandValue theOperand) {
             /* Nothing special to do here.. */
             return theOperand;
         }
 
-        public object Visit(GroupOperator theOperator) {
+        public CriteriaOperator Visit(GroupOperator theOperator) {
             foreach (CriteriaOperator operand in theOperator.Operands)
                 operand.Accept(this);
 
             return theOperator;
         }
 
-        public object Visit(InOperator theOperator) {
+        public CriteriaOperator Visit(InOperator theOperator) {
             UpdatePropertyName(theOperator.LeftOperand);
             ToValue(theOperator.Operands);
 
             return theOperator;
         }
 
-        public object Visit(UnaryOperator theOperator) {
+        public CriteriaOperator Visit(UnaryOperator theOperator) {
             switch (theOperator.OperatorType) {
                 case UnaryOperatorType.IsNull:
                     UpdatePropertyName(theOperator.Operand);
@@ -66,7 +66,7 @@ namespace Xpand.Xpo.Parser {
             return theOperator;
         }
 
-        public object Visit(BinaryOperator theOperator) {
+        public CriteriaOperator Visit(BinaryOperator theOperator) {
             UpdatePropertyName(theOperator.LeftOperand);
 
             CriteriaOperator operandValue;
@@ -79,7 +79,7 @@ namespace Xpand.Xpo.Parser {
             return theOperator;
         }
 
-        public object Visit(BetweenOperator theOperator) {
+        public CriteriaOperator Visit(BetweenOperator theOperator) {
             UpdatePropertyName(theOperator.TestExpression);
 
             CriteriaOperator operandValue;

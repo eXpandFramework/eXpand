@@ -12,7 +12,7 @@ namespace Xpand.Persistent.Base.General {
         readonly string _path;
         readonly string _viewId;
 
-        public XpandNavigationItemAttribute(string path, string viewId, int index = -1) {
+        public XpandNavigationItemAttribute(string path, string viewId=null, int index = -1) {
             _path = path;
             _viewId = viewId;
             _index = index;
@@ -47,13 +47,15 @@ namespace Xpand.Persistent.Base.General {
                 var navigationItemAttributes = modelClass.TypeInfo.FindAttributes<XpandNavigationItemAttribute>();
                 foreach (var itemAttribute in navigationItemAttributes) {
                     var paths = itemAttribute.Path.Split('/');
-                    AddNodes(((IModelRootNavigationItems)node).Items, paths.ToList(), ViewIds(itemAttribute, modelClass.TypeInfo.Type.Namespace), itemAttribute.ObjectKey, itemAttribute.Index);
+                    AddNodes(((IModelRootNavigationItems)node).Items, paths.ToList(), ViewIds(itemAttribute, modelClass), itemAttribute.ObjectKey, itemAttribute.Index);
                 }
             }
         }
 
-        string[] ViewIds(XpandNavigationItemAttribute itemAttribute, string ns) {
-            return new[] { string.Format("{0}.{1}", ns, itemAttribute.ViewId), itemAttribute.ViewId };
+        string[] ViewIds(XpandNavigationItemAttribute itemAttribute, IModelClass modelClass) {
+            var ns = modelClass.TypeInfo.Type.Namespace;
+            var viewId = itemAttribute.ViewId??modelClass.DefaultListView.Id;
+            return new[] { string.Format("{0}.{1}", ns, viewId), viewId };
         }
 
         void AddNodes(IModelNavigationItems navigationItems, List<string> strings, string[] viewIds, string objectKey, int index) {

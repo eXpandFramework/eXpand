@@ -1,3 +1,4 @@
+using System;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Security;
@@ -5,8 +6,8 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using System.IO;
 using System.Xml;
 using System.Windows.Forms;
-using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 using Xpand.ExpressApp.XtraDashboard.Win.Templates;
+using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
     public partial class DashboardDesignerController : ViewController {
@@ -30,8 +31,29 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            View.SelectionChanged += (s, e) => UpdateActionState();
+            View.SelectionChanged += ViewOnSelectionChanged;
             UpdateActionState();
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            View.SelectionChanged -= ViewOnSelectionChanged;
+            ResetActionsState();
+        }
+
+        private void ViewOnSelectionChanged(object sender, EventArgs eventArgs) {
+            UpdateActionState();
+        }
+
+        private void ResetActionsState(){
+            _dashboardEdit.Active["SecurityIsGranted"] = true;
+            _dashboardExportXml.Active["SecurityIsGranted"] = true;
+            _dashboardImportXml.Active["SecurityIsGranted"] = true;
+            var detailView = View as DetailView;
+            if (detailView != null){
+                _dashboardEdit.Active["ViewEditMode"] = true;
+                _dashboardImportXml.Active["ViewEditMode"] = true;
+            }
         }
 
         void UpdateActionState() {
@@ -45,13 +67,19 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
                 _dashboardExportXml.Active["SecurityIsGranted"] = isGranted;
                 _dashboardImportXml.Active["SecurityIsGranted"] = isGranted;
             }
+            var detailView = View as DetailView;
+            if (detailView != null) {
+                _dashboardEdit.Active["ViewEditMode"] = detailView.AllowEdit;
+                _dashboardImportXml.Active["ViewEditMode"] = detailView.AllowEdit;
+            }
         }
 
         void dashboardEdit_Execute(object sender, SimpleActionExecuteEventArgs e) {
-            using (var form = new DashboardDesignerForm()) {
-                new XPObjectSpaceAwareControlInitializer(form, Application);
-                form.LoadTemplate(View.CurrentObject as IDashboardDefinition);
+            using (var form = new DashboardDesignerForm { ObjectSpace = ObjectSpace }) {
+                form.LoadTemplate(((IDashboardDefinition)View.CurrentObject), Application);
                 form.ShowDialog();
+                if (View is ListView)
+                    ObjectSpace.CommitChanges();
             }
         }
 

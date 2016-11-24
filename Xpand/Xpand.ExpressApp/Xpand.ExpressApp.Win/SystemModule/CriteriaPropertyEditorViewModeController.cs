@@ -15,7 +15,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         IModelFilterControl FilterControl { get; }
     }
 
-    public class CriteriaPropertyEditorVisibilityCalculator:EditorTypeVisibilityCalculator{
+    public class CriteriaPropertyEditorVisibilityCalculator:EditorTypeVisibilityCalculator<IModelPropertyEditor>{
         public override bool IsVisible(IModelNode node, string propertyName){
             var types = new[]{typeof(CriteriaPropertyEditor),typeof (PopupCriteriaPropertyEditor)};
             return types.Any(type => type.IsAssignableFrom(EditorType(node)));

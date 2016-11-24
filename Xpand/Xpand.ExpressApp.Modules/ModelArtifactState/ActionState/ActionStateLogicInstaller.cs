@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ActionState {
         }
 
         public override List<ExecutionContext> ExecutionContexts {
-            get { return new List<ExecutionContext> { ExecutionContext.ViewChanged }; }
+            get { return new List<ExecutionContext> { ExecutionContext.ViewChanging }; }
         }
 
         public override LogicRulesNodeUpdater<IActionStateRule, IModelActionStateRule> LogicRulesNodeUpdater {

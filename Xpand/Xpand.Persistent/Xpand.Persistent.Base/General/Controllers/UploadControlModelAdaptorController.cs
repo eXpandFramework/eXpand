@@ -4,8 +4,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors;
-using DevExpress.Web.ASPxClasses;
-using DevExpress.Web.ASPxUploadControl;
+using DevExpress.Web;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
 

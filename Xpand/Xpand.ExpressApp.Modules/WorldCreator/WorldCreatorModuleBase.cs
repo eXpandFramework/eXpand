@@ -19,6 +19,7 @@ using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp.WorldCreator {
     public abstract class WorldCreatorModuleBase : XpandModuleBase {
+        public const string WCAssembliesPath = "WCAssembliesPath";
         List<Type> _dynamicModuleTypes = new List<Type>();
 
         public static event EventHandler<CollectTypesEventArgs> AddAdditionalReflectionDictionaryTypes;
@@ -89,7 +90,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             if (session.DataLayer != null) MergeTypes(new UnitOfWork(session.DataLayer));
         }
 
-        void RunUpdaters(Session session) {
+        void RunUpdaters(Session session){
             foreach (WorldCreatorUpdater worldCreatorUpdater in GetWorldCreatorUpdaters(session)) {
                 worldCreatorUpdater.Update();
             }

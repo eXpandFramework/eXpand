@@ -20,11 +20,14 @@ namespace Xpand.ExpressApp.Win.Editors {
         public static void RaisePopupMenuShowingX(this IXpandFilterControl filterControl,PopupMenuShowingEventArgs e){
             if (e.MenuType == FilterControlMenuType.Clause && filterControl.ModelMembers != null){
                 var criteriaOperator = new XpandNodeToCriteriaProcessor().Process(e.CurrentNode);
-                var operandProperty = criteriaOperator.GetOperators().OfType<OperandProperty>().First();
-                var modelMember =filterControl.ModelMembers.Cast<IModelMemberFullTextContains>().FirstOrDefault(member => member.FullText && member.Name == operandProperty.PropertyName);
-                if (modelMember != null){
-                    var dxMenuItem = new DXMenuItem(ClauseTypeEnumHelper.GetMenuStringByClauseType(ClauseTypeEnumHelper.FullText),filterControl.OnClauseClick){Tag = ClauseTypeEnumHelper.FullText};
-                    e.Menu.Items.Add(dxMenuItem);
+                var operandProperty = criteriaOperator.GetOperators().OfType<OperandProperty>().FirstOrDefault();
+                if (!ReferenceEquals(operandProperty,null)){
+                    var modelMember =filterControl.ModelMembers.Cast<IModelMemberFullTextContains>().FirstOrDefault(member 
+                        => member.FullText && member.Name == operandProperty.PropertyName);
+                    if (modelMember != null){
+                        var dxMenuItem =new DXMenuItem(ClauseTypeEnumHelper.GetMenuStringByClauseType(ClauseTypeEnumHelper.FullText),filterControl.OnClauseClick){Tag = ClauseTypeEnumHelper.FullText};
+                        e.Menu.Items.Add(dxMenuItem);
+                    }
                 }
             }
         }
@@ -227,16 +230,16 @@ namespace Xpand.ExpressApp.Win.Editors {
         public CriteriaToTreeProcessorBase(INodesFactory nodesFactory, IList<CriteriaOperator> skippedHolder) : base(nodesFactory, skippedHolder){
         }
     }
-    public class XpandCriteriaToTreeProcessor : CriteriaToTreeProcessorBase, IClientCriteriaVisitor {
+    public class XpandCriteriaToTreeProcessor : CriteriaToTreeProcessorBase, IClientCriteriaVisitor<INode> {
         public XpandCriteriaToTreeProcessor(INodesFactory nodesFactory, IList<CriteriaOperator> skippedHolder) : base(nodesFactory, skippedHolder){
         }
 
         public object ProcessX(CriteriaOperator criteriaOperator){
             return this.CallMethod("Process", new[]{typeof (CriteriaOperator)}, criteriaOperator);
         }
-        object ICriteriaVisitor.Visit(FunctionOperator theOperand){
+        INode ICriteriaVisitor<INode>.Visit(FunctionOperator theOperand){
             var skippedHolder = new List<CriteriaOperator>();
-            var visit = ((IClientCriteriaVisitor) new CriteriaToTreeProcessorBase(Factory, skippedHolder)).Visit(theOperand);
+            var visit = ((IClientCriteriaVisitor<INode>) new CriteriaToTreeProcessorBase(Factory, skippedHolder)).Visit(theOperand);
             if (skippedHolder.Contains(theOperand)&&theOperand.OperatorType==FunctionOperatorType.Custom){
                 skippedHolder.Remove(theOperand);
                 return Factory.Create((ClauseType) ClauseTypeEnumHelper.FullText, (OperandProperty) theOperand.Operands[1],new[]{theOperand.Operands[2]});

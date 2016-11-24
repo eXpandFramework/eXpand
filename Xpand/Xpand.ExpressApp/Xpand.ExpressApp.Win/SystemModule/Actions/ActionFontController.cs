@@ -27,16 +27,19 @@ namespace Xpand.ExpressApp.Win.SystemModule.Actions{
 
         private void item_ControlCreated(object sender, EventArgs e){
             var viewItem = (WinActionContainerViewItem)(sender);
-            ((ButtonsContainer)viewItem.Control).ActionItemAdding += (o, args) => ChangeFont(viewItem, (ButtonsContainer)o, args);
+            ((ButtonsContainer)viewItem.Control).ActionItemAdding += (o, args) => ChangeFont(viewItem, args);
         }
 
-        private void ChangeFont(WinActionContainerViewItem winActionContainerViewItem, ButtonsContainer buttonsContainer, ActionItemEventArgs e){
+        private void ChangeFont(WinActionContainerViewItem winActionContainerViewItem, ActionItemEventArgs e) {
             var buttonsContainersSimpleActionItem = e.Item as ButtonsContainersSimpleActionItem;
             if (buttonsContainersSimpleActionItem != null) {
                 SimpleButton simpleButton = (buttonsContainersSimpleActionItem.Control);
                 if (simpleButton != null) {
-                    var actionLink = (IModelActionLinkFont)winActionContainerViewItem.Model.ActionContainer.First(link => link.ActionId == e.Item.Action.Id);
-                    simpleButton.Font = GetFont(actionLink.Font,simpleButton.Font);
+                    if (winActionContainerViewItem.Model.ActionContainer != null) {
+                        var actionLink = (IModelActionLinkFont)winActionContainerViewItem.Model.ActionContainer.FirstOrDefault(link => link.ActionId == e.Item.Action.Id);
+                        if (actionLink != null)
+                            simpleButton.Font = GetFont(actionLink.Font, simpleButton.Font);
+                    }
                 }
             }
         }

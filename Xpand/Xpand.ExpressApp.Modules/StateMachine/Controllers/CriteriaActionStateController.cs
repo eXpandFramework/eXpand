@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.ExpressApp.StateMachine.Xpo;
 using DevExpress.Persistent.Validation;
+using DevExpress.Xpo;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class CriteriaActionStateController : ViewController<ObjectView> {
@@ -17,7 +18,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             var typeInfo = typesInfo.FindTypeInfo(typeof(XpoState));
-            if (typeInfo.FindMember(HideIfCriteriaDoNotFit) == null) {
+            if (typeInfo != null && typeInfo.FindMember(HideIfCriteriaDoNotFit) == null) {
                 typeInfo.CreateMember(HideIfCriteriaDoNotFit, typeof(bool));
             }
         }
@@ -32,18 +33,23 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             choiceActionItemArgs.Active[key] = IsActive(choiceActionItemArgs.Transition);
         }
 
-        bool IsActive(XpoTransition xpoTransition) {
-            var hideIfCriteriaDoNotFit = xpoTransition.TargetState.GetMemberValue(HideIfCriteriaDoNotFit) as bool?;
-            if (hideIfCriteriaDoNotFit.HasValue && hideIfCriteriaDoNotFit.Value) {
+        private bool IsActive(ITransition iTransition){
+            bool? hideIfCriteriaDoNotFit = null;
+            var targetState = iTransition.TargetState as XPBaseObject;
+            if (targetState != null){
+                hideIfCriteriaDoNotFit =targetState.GetMemberValue(HideIfCriteriaDoNotFit) as bool?;
+            }
+
+            if (hideIfCriteriaDoNotFit.HasValue && hideIfCriteriaDoNotFit.Value){
                 var stateMachineLogic = new StateMachineLogic(ObjectSpace);
-                var ruleSetValidationResult = RuleSetValidationResult(xpoTransition, stateMachineLogic);
+                RuleSetValidationResult ruleSetValidationResult = RuleSetValidationResult(iTransition, stateMachineLogic);
                 return ruleSetValidationResult.State != ValidationState.Invalid;
             }
             return true;
         }
 
-        RuleSetValidationResult RuleSetValidationResult(XpoTransition xpoTransition, StateMachineLogic stateMachineLogic) {
-            return stateMachineLogic.ValidateTransition(xpoTransition.TargetState, View.CurrentObject);
+        RuleSetValidationResult RuleSetValidationResult(ITransition iTransition, StateMachineLogic stateMachineLogic) {
+            return stateMachineLogic.ValidateTransition(iTransition.TargetState, View.CurrentObject);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.Logic;
 using System.Linq;
 using Xpand.Persistent.Base.Logic.Model;
-using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.General;
 
 
@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.Logic {
 
         public ILogicInstaller this[IModelLogicRule logicRule] {
             get {
-                var typeInfo = ((IModelTypesInfoProvider) logicRule.Application).TypesInfo.FindTypeInfo(logicRule.GetType());
+                var typeInfo = XafTypesInfo.Instance.FindTypeInfo(logicRule.GetType());
                 var memberType = typeInfo.FindMember<IModelConditionalLogicRule<ILogicRule>>(rule => rule.Attribute).MemberType;
                 return this[memberType,logicRule.Application];
             }

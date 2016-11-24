@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
@@ -13,15 +13,15 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 
 namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
     public class MemberLevelSecurityListViewViewController : ViewController<ListView> {
-        private GridControl gridControl;
+        private GridControl _gridControl;
 
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (!((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem()) {
-                gridControl = (View.Control) as GridControl;
-                var gridListEditor = View.Editor as ColumnsListEditor;
-                if (gridControl != null && gridListEditor != null) {
+                _gridControl = (View.Control) as GridControl;
+                var gridListEditor = View.Editor as WinColumnsListEditor;
+                if (_gridControl != null && gridListEditor != null) {
                     GridView xafGridView = gridListEditor.GridView();
                     xafGridView.CustomRowCellEdit += CustomRowCellEdit;
                     xafGridView.ShowingEditor += XafGridViewOnShowingEditor;
@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.MemberLevelSecurity.Win.Controllers {
             IMemberInfo memberInfo = View.ObjectTypeInfo.FindMember(e.Column.FieldName);
             IModelColumn modelColumn = GetModelColumn(memberInfo);
             if (modelColumn != null)
-                e.RepositoryItem = ((ColumnsListEditor)View.Editor).RepositoryFactory().CreateRepositoryItem(canNotRead, modelColumn, View.ObjectTypeInfo.Type);
+                e.RepositoryItem = ((WinColumnsListEditor)View.Editor).RepositoryFactory.CreateRepositoryItem(canNotRead, modelColumn, View.ObjectTypeInfo.Type);
         }
 
         IModelColumn GetModelColumn(IMemberInfo memberInfo) {

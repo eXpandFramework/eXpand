@@ -295,6 +295,8 @@ namespace Xpand.Utils.Win32 {
         }
         #endregion
         #region KeyboardEvent enum
+
+        [Flags]
         public enum KeyboardEvent {
             KEYEVENTF_EXTENDEDKEY = 0x1,
             KEYEVENTF_KEYUP = 0x2,
@@ -359,6 +361,8 @@ namespace Xpand.Utils.Win32 {
         }
         #endregion
         #region MouseEvent enum
+
+        [Flags]
         public enum MouseEvent {
             MOUSEEVENTF_MOVE = 0x00000001,
             MOUSEEVENTF_LEFTDOWN = 0x00000002,
@@ -367,8 +371,12 @@ namespace Xpand.Utils.Win32 {
             MOUSEEVENTF_RIGHTUP = 0x00000010,
             MOUSEEVENTF_MIDDLEDOWN = 0x00000020,
             MOUSEEVENTF_MIDDLEUP = 0x00000040,
-            MOUSEEVENTF_WHEEL = 0x00000800,
-            MOUSEEVENTF_ABSOLUTE = 0x00008000
+            MOUSEEVENTF_VWHEEL = 0x00000800,
+            MOUSEEVENTF_ABSOLUTE = 0x00008000,
+            MOUSEEVENTF_VIRTUALDESK = 0x4000,
+            MOUSEEVENTF_XDOWN = 0x0080,
+            MOUSEEVENTF_XUP = 0x0100,
+            MOUSEEVENTF_HWHEEL = 0x1000
         }
         #endregion
         #region SendMessageTimeoutFlags enum
@@ -638,6 +646,10 @@ namespace Xpand.Utils.Win32 {
 
             NumLock = 0x90,
             Scroll = 0x91,
+            LMenu=0xA4,
+            RMenu=0xA5,
+            Control=0x11,
+            Cancel=0x03
         }
         #endregion
     }

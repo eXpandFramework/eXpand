@@ -31,6 +31,7 @@ namespace Xpand.ExpressApp.AuditTrail {
         public override void Setup(XafApplication application){
             base.Setup(application);
             AuditTrailService.Instance.SaveAuditTrailData+=OnSaveAuditTrailData;
+            AuditTrailService.Instance.AuditDataStore = new XpandAuditDataStore();
             AuditTrailService.Instance.CustomCreateObjectAuditProcessorsFactory+=OnCustomCreateObjectAuditProcessorsFactory;
             var auditTrailModule = application.FindModule<AuditTrailModule>();
             application.Disposed += application_Disposed;

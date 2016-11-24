@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
@@ -15,9 +16,9 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
-using Xpand.Utils.Helpers;
-using ITypeInfo = DevExpress.ExpressApp.DC.ITypeInfo;
 using Fasterflect;
+using Xpand.Persistent.Base.Xpo;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.General {
     public interface ISequenceObject {
@@ -45,15 +46,19 @@ namespace Xpand.Persistent.Base.General {
         private readonly ExplicitUnitOfWork _explicitUnitOfWork;
         private ISequenceObject _sequence;
 
-
+        static SequenceGenerator() {
+            ThrowProviderSupportedException = true;
+        }
         public SequenceGenerator() {
             int count = MaxGenerationAttemptsCount;
             while (true) {
                 try {
                     _explicitUnitOfWork = new ExplicitUnitOfWork(_defaultDataLayer);
-                    var sequences = new XPCollection(_explicitUnitOfWork, _sequenceObjectType);
-                    foreach (XPBaseObject seq in sequences)
-                        seq.Save();
+                    XPCollection sequences;
+                    using (sequences = new XPCollection(_explicitUnitOfWork, _sequenceObjectType)){
+                        foreach (XPBaseObject seq in sequences)
+                            seq.Save();
+                    }
                     _explicitUnitOfWork.FlushChanges();
                     break;
                 }
@@ -82,7 +87,7 @@ namespace Xpand.Persistent.Base.General {
         public static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
-            var objectByKey = _sequenceGenerator._explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(typeInfo.FullName,prefix), true);
+            var objectByKey = _sequenceGenerator._explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(typeInfo.FullName, prefix), true);
             _sequenceGenerator._sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(prefix + typeInfo.FullName, _sequenceGenerator._explicitUnitOfWork);
             _sequenceGenerator._sequence.NextSequence = nextId;
             _sequenceGenerator._explicitUnitOfWork.FlushChanges();
@@ -102,37 +107,37 @@ namespace Xpand.Persistent.Base.General {
         long GetNextSequence(XPClassInfo classInfo, string preFix) {
             if (classInfo == null)
                 throw new ArgumentNullException("classInfo");
-            _sequence=GetNowSequence(classInfo, preFix,_explicitUnitOfWork);
+            _sequence = GetNowSequence(classInfo, preFix, _explicitUnitOfWork);
             long nextId = _sequence.NextSequence;
             _sequence.NextSequence++;
             _explicitUnitOfWork.FlushChanges();
             return nextId;
         }
 
-        private static ISequenceObject GetNowSequence(XPClassInfo classInfo, string preFix,UnitOfWork unitOfWork){
+        private static ISequenceObject GetNowSequence(XPClassInfo classInfo, string preFix, UnitOfWork unitOfWork) {
             var obj = unitOfWork.FindObject(_sequenceObjectType, GetCriteria(classInfo.FullName, preFix));
-            return obj != null? (ISequenceObject) obj: CreateSequenceObject(preFix + classInfo.FullName, unitOfWork);
+            return obj != null ? (ISequenceObject)obj : CreateSequenceObject(preFix + classInfo.FullName, unitOfWork);
         }
 
-        private static CriteriaOperator GetCriteria(string typeFullName, string preFix){
+        private static CriteriaOperator GetCriteria(string typeFullName, string preFix) {
             return CriteriaOperator.Parse("TypeName=?", preFix + typeFullName);
         }
 
-        public static long GetNowSequence(XPClassInfo classInfo, string prefix){
+        public static long GetNowSequence(XPClassInfo classInfo, string prefix) {
             long nextSequence;
-            using (var unitOfWork = new UnitOfWork(_defaultDataLayer)){
+            using (var unitOfWork = new UnitOfWork(_defaultDataLayer)) {
                 nextSequence = GetNowSequence(classInfo, prefix, unitOfWork).NextSequence;
             }
             return nextSequence;
         }
 
-        public static long GetNowSequence(ITypeInfo typeInfo){
+        public static long GetNowSequence(ITypeInfo typeInfo) {
             var xpClassInfo = XpandModuleBase.Dictiorary.GetClassInfo(typeInfo.Type);
-            return GetNowSequence(xpClassInfo,null);
+            return GetNowSequence(xpClassInfo, null);
         }
 
         public static long GetNowSequence(XPClassInfo xpClassInfo) {
-            return GetNowSequence(xpClassInfo,null);
+            return GetNowSequence(xpClassInfo, null);
         }
 
         public long GetNextSequence(XPClassInfo classInfo) {
@@ -186,27 +191,32 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static Dictionary<string, bool> GetTypeToExistsMap(UnitOfWork unitOfWork) {
-            var sequenceList = new XPCollection(unitOfWork, _sequenceObjectType);
-            var typeToExistsMap = new Dictionary<string, bool>();
-            foreach (ISequenceObject seq in sequenceList) {
-                typeToExistsMap[seq.TypeName] = true;
+            Dictionary<string, bool> typeToExistsMap;
+            XPCollection sequenceList;
+            using (sequenceList = new XPCollection(unitOfWork, _sequenceObjectType)){
+                typeToExistsMap = new Dictionary<string, bool>();
+                foreach (ISequenceObject seq in sequenceList) {
+                    typeToExistsMap[seq.TypeName] = true;
+                }
             }
             return typeToExistsMap;
         }
 
         public static ISequenceObject CreateSequenceObject(string fullName, UnitOfWork unitOfWork) {
-            var sequenceObject = (ISequenceObject)_sequenceObjectType.CreateInstance(new object[] { unitOfWork });
+            var sequenceObject = (ISequenceObject)_sequenceObjectType.CreateInstance(unitOfWork);
             sequenceObject.TypeName = fullName;
             sequenceObject.NextSequence = 0;
             return sequenceObject;
         }
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
-            if (_defaultDataLayer == null)
+            if (_defaultDataLayer == null || !supportSequenceObject.Session.IsNewObject(supportSequenceObject))
                 return;
-            if (supportSequenceObject.Session is NestedUnitOfWork ||
-                !supportSequenceObject.Session.IsNewObject(supportSequenceObject))
+            if (!IsProviderSupported(supportSequenceObject)) {
+                if (ThrowProviderSupportedException)
+                    throw new NotSupportedException("Current provider does not support isolated transactions");
                 return;
+            }
             if (_sequenceGenerator == null)
                 _sequenceGenerator = new SequenceGenerator();
             long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
@@ -229,6 +239,12 @@ namespace Xpand.Persistent.Base.General {
             supportSequenceObject.Sequence = nextSequence;
         }
 
+        public static bool ThrowProviderSupportedException { get; set; }
+
+        private static bool IsProviderSupported(ISupportSequenceObject supportSequenceObject) {
+            return !(supportSequenceObject.Session.DataLayer.ConnectionProvider(supportSequenceObject) is SQLiteConnectionProvider);
+        }
+
         static bool IsNotNestedUnitOfWork(Session session) {
             return !(session is NestedUnitOfWork);
         }
@@ -237,11 +253,17 @@ namespace Xpand.Persistent.Base.General {
             GenerateSequence(supportSequenceObject, XafTypesInfo.Instance.FindTypeInfo(supportSequenceObject.ClassInfo.FullName));
         }
 
-        public static void Initialize(string connectionString, Type sequenceObjectType) {
+        public static void Initialize(IDataLayer dataLayer, Type sequenceObjectType) {
+            Guard.ArgumentNotNull(dataLayer,"datalayer");
+            Guard.ArgumentNotNull(sequenceObjectType, "sequenceObjectType");
             _sequenceGenerator = null;
             _sequenceObjectType = sequenceObjectType;
-            _defaultDataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.None);
+            _defaultDataLayer = dataLayer;
             RegisterSequences(ApplicationHelper.Instance.Application.TypesInfo.PersistentTypes);
+        }
+
+        public static void Initialize(string connectionString, Type sequenceObjectType){
+            Initialize(XpoDefault.GetDataLayer(connectionString, AutoCreateOption.None), sequenceObjectType);
         }
 
         public static void ReleaseSequence(ISupportSequenceObject supportSequenceObject) {
@@ -257,58 +279,59 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     public interface ISequenceGeneratorUser {
+        event CancelEventHandler InitSeqGenerator;
     }
 
-    public class SequenceGeneratorUpdater:ModuleUpdater{
-        public SequenceGeneratorUpdater(IObjectSpace objectSpace, Version currentDBVersion) : base(objectSpace, currentDBVersion){
+    public class SequenceGeneratorUpdater : ModuleUpdater {
+        public SequenceGeneratorUpdater(IObjectSpace objectSpace, Version currentDBVersion)
+            : base(objectSpace, currentDBVersion) {
         }
 
-        public override void UpdateDatabaseBeforeUpdateSchema(){
+        public override void UpdateDatabaseBeforeUpdateSchema() {
             base.UpdateDatabaseBeforeUpdateSchema();
-            if (SequenceGenerator.UseGuidKey){
+            if (SequenceGenerator.UseGuidKey) {
                 var classInfo = XpandModuleBase.Dictiorary.GetClassInfo(XpandModuleBase.SequenceObjectType);
                 var dbTable = GetDbTable(classInfo.TableName);
-                if (dbTable!=null){
+                var typeNamePropertyName = GetSequenceObject().GetPropertyName(o => o.TypeName);
+                if (dbTable != null && dbTable.PrimaryKey.Columns.Contains(typeNamePropertyName)) {
                     if (SequenceGeneratorHelper.IsMySql())
                         throw new NotImplementedException("Set SequenceGenerator.UseGuidKey=false or update the set Oid as key property manually");
-                    var memberInfo =classInfo.Members.FirstOrDefault(info =>info.IsCollection &&typeof (ISequenceReleasedObject).IsAssignableFrom(info.CollectionElementType.ClassType));
-                    if (memberInfo != null){
+                    var memberInfo = classInfo.Members.FirstOrDefault(info => info.IsCollection && typeof(ISequenceReleasedObject).IsAssignableFrom(info.CollectionElementType.ClassType));
+                    if (memberInfo != null) {
                         var tableName = memberInfo.CollectionElementType.Table.Name;
-                        if (GetDbTable(tableName)!=null)
+                        if (GetDbTable(tableName) != null)
                             ExecuteNonQueryCommand("drop table " + tableName, false);
                     }
-                    ExecuteNonQueryCommand("alter table " + classInfo.TableName + " drop constraint PK_SequenceObject", false);
+                    ExecuteNonQueryCommand(String.Format(
+                        CultureInfo.InvariantCulture, "alter table {0} drop constraint PK_{0}", classInfo.TableName), false);
                 }
             }
         }
 
-        private DBTable GetDbTable(string name){
+        private DBTable GetDbTable(string name) {
             var xpObjectSpace = ObjectSpace as XPObjectSpace;
             var dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(xpObjectSpace);
-            
-            var typeNamePropertyName = GetSequenceObject().GetPropertyName(o => o.TypeName);
             return dataStoreSchemaExplorer.GetStorageTablesList(false).Where(s => s.ToLowerInvariant() == name.ToLowerInvariant()).Select(s => {
                 var dbTable = new DBTable(s);
                 ((ConnectionProviderSql)dataStoreSchemaExplorer).GetTableSchema(dbTable, true, true);
                 return dbTable;
-            }).FirstOrDefault(table => table.PrimaryKey != null && table.PrimaryKey.Columns.Contains(typeNamePropertyName));
+            }).FirstOrDefault(table => table.PrimaryKey != null);
         }
 
-
-        private ISequenceObject GetSequenceObject(){
+        private ISequenceObject GetSequenceObject() {
             return null;
         }
 
-        private IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(XPObjectSpace xpObjectSpace){
+        private IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(XPObjectSpace xpObjectSpace) {
             var connectionProvider = ((BaseDataLayer)xpObjectSpace.Session.DataLayer).ConnectionProvider;
             var multiDataStoreProxy = connectionProvider as MultiDataStoreProxy;
             if (multiDataStoreProxy != null)
-                return (IDataStoreSchemaExplorer) multiDataStoreProxy.DataStore;
+                return (IDataStoreSchemaExplorer)multiDataStoreProxy.DataStore;
             return connectionProvider as IDataStoreSchemaExplorer;
         }
     }
 
-    class SequenceGeneratorHelper{
+    class SequenceGeneratorHelper {
         private const string SequenceGeneratorHelperName = "SequenceGeneratorHelper";
         XpandModuleBase _xpandModuleBase;
 
@@ -324,7 +347,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public void InitializeSequenceGenerator() {
-            if (_xpandModuleBase==null)
+            if (_xpandModuleBase == null)
                 return;
             try {
                 var cancelEventArgs = new CancelEventArgs();
@@ -333,8 +356,10 @@ namespace Xpand.Persistent.Base.General {
                     return;
                 if (!typeof(ISequenceObject).IsAssignableFrom(SequenceObjectType))
                     throw new TypeLoadException("Please make sure XPand.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
-                if (Application != null && Application.ObjectSpaceProvider != null && !(Application.ObjectSpaceProvider is DataServerObjectSpaceProvider)) {
-                    SequenceGenerator.Initialize(XpandModuleBase.ConnectionString, SequenceObjectType);
+                if (Application != null ) {
+                    var xpObjectSpaceProvider = Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().FirstOrDefault();
+                    if (xpObjectSpaceProvider!=null)
+                        SequenceGenerator.Initialize(XpandModuleBase.ConnectionString, SequenceObjectType);
                 }
             }
             catch (Exception e) {
@@ -344,12 +369,14 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
-            var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
-            if (IsMySql(typeInfo)) {
-                var memberInfo = (XafMemberInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
-                memberInfo.RemoveAttributes<SizeAttribute>();
-                memberInfo.AddAttribute(new SizeAttribute(255));
+        public static void ModifySequenceObjectWhenMySqlDatalayer(ITypesInfo typesInfo) {
+            if (SequenceObjectType != null) {
+                var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
+                if (IsMySql(typeInfo)) {
+                    var memberInfo = (XafMemberInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
+                    memberInfo.RemoveAttributes<SizeAttribute>();
+                    memberInfo.AddAttribute(new SizeAttribute(255));
+                }
             }
         }
 
@@ -377,13 +404,15 @@ namespace Xpand.Persistent.Base.General {
 
         public void Attach(XpandModuleBase xpandModuleBase) {
             if (!xpandModuleBase.Executed<ISequenceGeneratorUser>(SequenceGeneratorHelperName)) {
-                if (SequenceObjectType == null){
+                if (SequenceObjectType == null) {
                     SequenceObjectType = xpandModuleBase.LoadFromBaseImpl("Xpand.Persistent.BaseImpl.SequenceObject");
-                    ModifySequenceObjectWhenMySqlDatalayer(XafTypesInfo.Instance);
                 }
                 if (xpandModuleBase.RuntimeMode) {
                     _xpandModuleBase = xpandModuleBase;
                     Application.LoggedOff += ApplicationOnLoggedOff;
+                    var helper = new ConnectionStringHelper();
+                    helper.Attach(_xpandModuleBase);
+                    helper.ConnectionStringUpdated += (sender, args) => InitializeSequenceGenerator();
                 }
             }
         }

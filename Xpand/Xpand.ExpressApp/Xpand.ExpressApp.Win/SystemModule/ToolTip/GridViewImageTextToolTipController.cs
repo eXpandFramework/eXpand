@@ -5,15 +5,13 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
-using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Utils.Helpers;
 using ListView = DevExpress.ExpressApp.ListView;
 
@@ -60,10 +58,8 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
         protected virtual DevExpress.XtraGrid.Views.Grid.GridView GridView {
             get {
                 if (View != null) {
-                    var gridListEditor = View.Editor as ColumnsListEditor;
+                    var gridListEditor = View.Editor as WinColumnsListEditor;
                     if (gridListEditor != null) return gridListEditor.GridView();
-                    var columnViewEditor = View.Editor as IColumnViewEditor;
-                    if (columnViewEditor != null) return columnViewEditor.ColumnView as DevExpress.XtraGrid.Views.Grid.GridView;
                 }
                 return null;
             }
@@ -91,7 +87,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
             }
         }
 
-        bool TooltipEnabled(IModelColumnOptionsColumnView modelColumnOptionsColumnView) {
+        bool TooltipEnabled(IModelColumn modelColumnOptionsColumnView) {
             var columnTooltipData = (IModelColumnTooltipData)modelColumnOptionsColumnView;
             return columnTooltipData != null && (columnTooltipData.TooltipData.DataOnToolTip || !string.IsNullOrEmpty(columnTooltipData.TooltipData.ToolTipText) || columnTooltipData.TooltipData.ToolTipController != null);
         }
@@ -107,13 +103,13 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             if (GridView != null) {
-                GridView.TopRowChanged += GridViewTopRowChanged;
-                GridView.ShownEditor += HideHint;
+                GridView.TopRowChanged -= GridViewTopRowChanged;
+                GridView.ShownEditor -= HideHint;
                 GridControl gridControl = GridView.GridControl;
                 if (gridControl != null) {
-                    gridControl.MouseMove += GridControl_MouseMove;
-                    gridControl.MouseDown += HideHint;
-                    gridControl.MouseLeave += HideHint;
+                    gridControl.MouseMove -= GridControl_MouseMove;
+                    gridControl.MouseDown -= HideHint;
+                    gridControl.MouseLeave -= HideHint;
                 }
             }
             if (_toolTipController != null)

@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             var dictionary = Dictionary(targetObjectKey, propertyName, oldValue);
             Guid instanceHandle = workflowHost.StartWorkflow(dictionary);
             var runningWorkflowInstanceInfoService = GetService<IRunningWorkflowInstanceInfoService>();
-            runningWorkflowInstanceInfoService.CreateRunningWorkflowInstanceInfo(targetWorkflowName, workflowHost.ActivityUnigueId, targetObjectKey, instanceHandle);
+            runningWorkflowInstanceInfoService.CreateRunningWorkflowInstanceInfo(targetWorkflowName, workflowHost.ActivityUniqueId, targetObjectKey, instanceHandle);
             return true;
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using Xpand.ExpressApp.Editors;
 
 namespace Xpand.ExpressApp.Web.Editors {

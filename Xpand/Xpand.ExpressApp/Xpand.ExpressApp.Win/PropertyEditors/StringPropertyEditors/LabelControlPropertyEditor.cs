@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
         IModelLabelControl LabelControl { get; }
     }
 
-    public class LabelPropertyEditorVisibilityCalculator:EditorTypeVisibilityCalculator<LabelControlPropertyEditor>{
+    public class LabelPropertyEditorVisibilityCalculator:EditorTypeVisibilityCalculator<LabelControlPropertyEditor,IModelPropertyEditor>{
     }
 
     public interface IModelLabelControl : IModelModelAdapter {

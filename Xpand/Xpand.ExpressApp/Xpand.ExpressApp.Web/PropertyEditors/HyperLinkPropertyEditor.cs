@@ -5,18 +5,25 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     [PropertyEditor(typeof(String), EditorAliases.HyperLinkPropertyEditor, false)]
-    [CancelClickEventPropagation]
     public class HyperLinkPropertyEditor : ASPxPropertyEditor {
+        private bool _cancelClickEventPropagation;
+
         public const string UrlEmailMask =
             @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})";
 
         public HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem info)
-            : base(objectType, info) {
+            : base(objectType, info){
+            _cancelClickEventPropagation = true;
+        }
+
+        public override bool CancelClickEventPropagation{
+            get { return _cancelClickEventPropagation; }
+            set { _cancelClickEventPropagation = value; }
         }
 
         protected override WebControl CreateEditModeControlCore(){
@@ -27,7 +34,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                 validationSettings.ValidateOnLeave = true;
                 validationSettings.CausesValidation = true;
                 validationSettings.RegularExpression.ValidationExpression = UrlEmailMask;
-                textBox.TextChanged += ExtendedEditValueChangedHandler;
+                textBox.TextChanged += EditValueChangedHandler;
                 return textBox;
             }
             return CreateHyperLink();

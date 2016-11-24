@@ -13,15 +13,14 @@ using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using Fasterflect;
+using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Dashboard.Filter;
-using Xpand.ExpressApp.XtraDashboard.Win.Helpers;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
-    public partial class DashboardDesignerForm : XtraForm, IXPObjectSpaceAwareControl {
+    public partial class DashboardDesignerForm : XtraForm {
         bool _saveDashboard;
         History _editHistory;
-        IObjectSpace _objectSpace;
         IDashboardDefinition _template;
         private DashboardDesigner _dashboardDesigner;
         private BarButtonItem _barButtonItemSave;
@@ -48,13 +47,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             get { return _template; }
         }
 
-        public IObjectSpace ObjectSpace {
-            get { return _objectSpace; }
-        }
-
-        public void UpdateDataSource(IObjectSpace objectSpace) {
-            _objectSpace = objectSpace;
-        }
+        public IObjectSpace ObjectSpace { get; set; }
 
         void _EditHistory_Changed(object sender, EventArgs e) {
             UpdateActionState();
@@ -64,13 +57,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             _editHistory.Changed -= _EditHistory_Changed;
             _editHistory = null;
             _template = null;
-            _objectSpace = null;
+            ObjectSpace = null;
             _dashboardDesigner.Dashboard.Dispose();
             _dashboardDesigner = null;
             base.OnClosed(e);
         }
 
-        void Save(object sender, ItemClickEventArgs e) {
+        public void Save() {
             UpdateTemplateXml();
             UpdateActionState();
         }
@@ -96,13 +89,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         }
 
         void SaveAndClose(object sender, ItemClickEventArgs e) {
-            Save(null, null);
+            Save();
             DialogResult = DialogResult.OK;
         }
 
-        public void LoadTemplate(IDashboardDefinition dashboardDefinition) {
+        public void LoadTemplate(IDashboardDefinition dashboardDefinition,XafApplication application) {
             _template = dashboardDefinition;
-            Designer.Dashboard = _template.CreateDashBoard(FilterEnabled.DesignTime);
+            Designer.Dashboard = _template.CreateDashBoard(FilterEnabled.DesignTime,application.CreateDashboardDataSource );
             _editHistory.Changed += _EditHistory_Changed;
         }
 
@@ -125,9 +118,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         void DashboardDesignerForm_Load(object sender, EventArgs e) {
             HideButtons();
             _barButtonItemSave = AddButton("Save", "MenuBar_Save_32x32.png");
-            _barButtonItemSave.ItemClick += Save;
+            _barButtonItemSave.ItemClick += BarButtonItemSaveOnItemClick;
             _barButtonItemSaveAndClose = AddButton("Save & Close", "MenuBar_SaveAndClose_32x32.png");
             _barButtonItemSaveAndClose.ItemClick += SaveAndClose;
+        }
+
+        private void BarButtonItemSaveOnItemClick(object sender, ItemClickEventArgs itemClickEventArgs){
+            Save();
         }
 
         private void HideButtons() {

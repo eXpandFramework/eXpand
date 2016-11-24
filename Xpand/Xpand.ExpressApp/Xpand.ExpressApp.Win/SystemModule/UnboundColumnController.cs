@@ -15,24 +15,24 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public class UnboundColumnController : ExpressApp.Model.UnboundColumnController {
         protected override void OnActivated() {
             base.OnActivated();
-            var gridListEditor = View.Editor as ColumnsListEditor;
+            var gridListEditor = View.Editor as WinColumnsListEditor;
             if (gridListEditor != null)
                 gridListEditor.CreateCustomModelSynchronizer += GridListEditorOnCreateCustomModelSynchronizer;
         }
 
         protected override void AddColumn(IModelColumnUnbound modelColumnUnbound) {
-            var columnWrapper = ((GridListEditor) View.Editor).AddColumn(modelColumnUnbound);
+            var columnWrapper = ((GridListEditor)View.Editor).AddColumn(modelColumnUnbound);
             columnWrapper.VisibleIndex = 0;
-            new UnboundColumnSynchronizer((ColumnsListEditor) View.Editor, View.Model).ApplyModel();
+            new UnboundColumnSynchronizer((WinColumnsListEditor)View.Editor, View.Model).ApplyModel();
         }
 
         void GridListEditorOnCreateCustomModelSynchronizer(object sender, CreateCustomModelSynchronizerEventArgs createCustomModelSynchronizerEventArgs) {
-            CustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer((ColumnsListEditor)sender, View.Model));
+            CustomModelSynchronizerHelper.Assign(createCustomModelSynchronizerEventArgs, new UnboundColumnSynchronizer((WinColumnsListEditor)sender, View.Model));
         }
     }
 
-    public class UnboundColumnSynchronizer : ModelSynchronizer<ColumnsListEditor, IModelListView> {
-        public UnboundColumnSynchronizer(ColumnsListEditor control, IModelListView model)
+    public class UnboundColumnSynchronizer : ModelSynchronizer<WinColumnsListEditor, IModelListView> {
+        public UnboundColumnSynchronizer(WinColumnsListEditor control, IModelListView model)
             : base(control, model) {
         }
 
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 var modelColumnUnbound = (IModelColumnUnbound)column.Model();
                 column.FieldName = Guid.NewGuid().ToString();
                 column.Caption = modelColumnUnbound.Caption;
-                column.UnboundType = (UnboundColumnType) Enum.Parse(typeof(UnboundColumnType),modelColumnUnbound.UnboundType.ToString());
+                column.UnboundType = (UnboundColumnType)Enum.Parse(typeof(UnboundColumnType), modelColumnUnbound.UnboundType.ToString());
                 column.OptionsColumn.AllowEdit = false;
                 column.ShowUnboundExpressionMenu = modelColumnUnbound.ShowUnboundExpressionMenu;
                 column.UnboundExpression = modelColumnUnbound.UnboundExpression;
@@ -51,12 +51,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         IEnumerable<GridColumn> GetXafGridColumns() {
             var gridView = Control.GridView();
-            if (gridView==null)
+            if (gridView == null)
                 return Enumerable.Empty<GridColumn>();
             var modelColumnUnbounds = Model.Columns.OfType<IModelColumnUnbound>();
-            return gridView.Columns.OfType<GridColumn>()
-                        .Select(column => new{column, columnView = column.GetModel()})
-                        .Select(@t => new{@t, modelColumnUnbound = @t.columnView as IModelColumnUnbound})
+            return gridView.Columns
+                        .Select(column => new { column, columnView = column.GetModel() })
+                        .Select(@t => new { @t, modelColumnUnbound = @t.columnView as IModelColumnUnbound })
                         .Where(@t => @t.modelColumnUnbound != null && modelColumnUnbounds.Contains(@t.modelColumnUnbound))
                         .Select(@t => @t.@t.column);
 
@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void SynchronizeModel() {
             var xafGridColumns = GetXafGridColumns();
             foreach (var xafGridColumn in xafGridColumns) {
-                var modelColumnUnbound = ((IModelColumnUnbound) xafGridColumn.Model());
+                var modelColumnUnbound = ((IModelColumnUnbound)xafGridColumn.Model());
                 modelColumnUnbound.UnboundExpression = xafGridColumn.UnboundExpression;
                 modelColumnUnbound.ShowUnboundExpressionMenu = xafGridColumn.ShowUnboundExpressionMenu;
             }

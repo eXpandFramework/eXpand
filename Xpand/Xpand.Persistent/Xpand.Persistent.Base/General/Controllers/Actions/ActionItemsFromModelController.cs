@@ -5,11 +5,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.Persistent.Base.General.Controllers.Actions {
     [ModelAbstractClass]
     public interface IModelActionItemsFromModel : IModelAction {
         [Category(AttributeCategoryNameProvider.Xpand)]
+        [ModelBrowsable(typeof(ActionVisibilityCalculator<SingleChoiceAction>))]
         bool ItemsFromModel { get; set; }
     }
 
@@ -24,7 +26,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         protected override void OnViewControllersActivated(){
             base.OnViewControllersActivated();
             var modelActions = Application.Model.ActionDesign.Actions.Cast<IModelActionItemsFromModel>().Where(model => model.ItemsFromModel);
-            var choiceActionItems = modelActions.Where(model => model.ChoiceActionItems != null).SelectMany(model => model.ChoiceActionItems);
+            var choiceActionItems = modelActions.Where(model => model.ChoiceActionItems != null).SelectMany(model => model.ChoiceActionItems).ToArray();
             var actions = Frame.Actions<SingleChoiceAction>(choiceActionItems).ToDictionary(@base => @base.Id, @base => @base);
             if (actions.Any()) {
                 foreach (var choiceActionItem in choiceActionItems) {

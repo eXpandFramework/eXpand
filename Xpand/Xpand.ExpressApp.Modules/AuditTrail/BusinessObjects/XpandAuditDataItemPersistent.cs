@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.AuditTrail.BusinessObjects{
             set { SetPropertyValue("OperationType", ref _operationType, value); }
         }
 
-        [Size(2048), Delayed, MemberDesignTimeVisibility(true)]
+        [Size(SizeAttribute.Unlimited), Delayed, MemberDesignTimeVisibility(true)]
         public string Description{
             get { return GetDelayedPropertyValue<string>("Description"); }
             set { SetDelayedPropertyValue("Description", value); }
@@ -95,13 +95,13 @@ namespace Xpand.ExpressApp.AuditTrail.BusinessObjects{
             set { SetPropertyValue("NewObject", ref _newObject, value); }
         }
 
-        [Delayed, Size(1024)]
+        [Delayed, Size(SizeAttribute.Unlimited)]
         public string OldValue{
             get { return GetDelayedPropertyValue<string>("OldValue"); }
             set { SetDelayedPropertyValue("OldValue", value); }
         }
 
-        [Delayed, Size(1024)]
+        [Delayed, Size(SizeAttribute.Unlimited)]
         public string NewValue{
             get { return GetDelayedPropertyValue<string>("NewValue"); }
             set { SetDelayedPropertyValue("NewValue", value); }

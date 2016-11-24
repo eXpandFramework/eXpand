@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web;
 using Xpand.ExpressApp.PropertyEditors;
 using System.Linq;
 using Xpand.Persistent.Base.General;
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         protected override WebControl CreateViewModeControlCore() {
-            _viewModeLabelControl = new Label { CssClass = ViewModeControlCssClass, ID = Guid.NewGuid().ToString() };
+            _viewModeLabelControl = new Label { ID = Guid.NewGuid().ToString() };
             return _viewModeLabelControl;
         }
         protected override WebControl CreateEditModeControlCore() {

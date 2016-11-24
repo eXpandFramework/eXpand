@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
         SortingDirection SortingDirection { get; set; }
     }
 
-    public class StringLookupPropertyEditorVisibilityCalculator :EditorTypeVisibilityCalculator<IStringLookupPropertyEditor>{
+    public class StringLookupPropertyEditorVisibilityCalculator :EditorTypeVisibilityCalculator<IStringLookupPropertyEditor,IModelMemberViewItem>{
          
     }
 
@@ -43,6 +43,9 @@ namespace Xpand.ExpressApp.PropertyEditors {
             var dataSourcePropertyAttribute = _propertyEditor.MemberInfo.FindAttribute<DataSourcePropertyAttribute>();
             if (dataSourcePropertyAttribute != null)
                 BuildFromDatasource(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating);
+            else if (!string.IsNullOrEmpty(_propertyEditor.Model.PredefinedValues)) {
+                itemsCalculated(PredefinedValuesEditorHelper.CreatePredefinedValuesFromString(_propertyEditor.Model.PredefinedValues), false);
+            }
             else
                 GroupBuild(itemsCalculated);
         }

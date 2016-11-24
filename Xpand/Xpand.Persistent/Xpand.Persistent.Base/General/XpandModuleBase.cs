@@ -9,6 +9,7 @@ using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -37,6 +38,7 @@ using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
 using Xpand.Xpo.MetaData;
+using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttribute;
 
 namespace Xpand.Persistent.Base.General {
     public interface IXpandModuleBase {
@@ -64,7 +66,6 @@ namespace Xpand.Persistent.Base.General {
         static string _connectionString;
         private static readonly object _syncRoot = new object();
         protected Type DefaultXafAppType = typeof (XafApplication);
-        static  bool? _isHosted;
         static string _assemblyString;
         private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
         private static readonly HashSet<Type> _disabledControllerTypes = new HashSet<Type>();
@@ -120,31 +121,6 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static bool IsHosted {
-            get{
-                if (!_isHosted.HasValue) {
-                    _isHosted = GetIsHosted(CaptionHelper.ApplicationModel);
-                }
-                return _isHosted.Value;
-            }
-        }
-
-        public static bool GetIsHosted(IModelApplication application) {
-            var modelSources = application as IModelSources;
-            if (modelSources == null)
-                return Assembly.GetEntryAssembly() == null;
-            var moduleBases = modelSources.Modules;
-            return GetIsHosted(moduleBases);
-        }
-
-        private static bool GetIsHosted(IEnumerable<ModuleBase> moduleBases){
-            return moduleBases.Any(@base =>{
-                var attribute =XafTypesInfo.Instance.FindTypeInfo(@base.GetType()).FindAttribute<ToolboxItemFilterAttribute>();
-                return attribute != null && attribute.FilterString == "Xaf.Platform.Web";
-            });
-        }
-
-
         public static void DisableControllers(params Type[] types){
             lock (_disabledControllerTypesLock){
                 foreach (Type type in types){
@@ -184,13 +160,13 @@ namespace Xpand.Persistent.Base.General {
                     typeof (CustomAttibutesController), typeof (NotifyMembersController),
                     typeof (XpandModelMemberInfoController), typeof (XpandLinkToListViewController),
                     typeof(ModifyObjectSpaceController),typeof (ActionItemsFromModelController),typeof(ActionModelChoiceItemController),
-                    typeof (ModelViewSavingController),typeof (NavigationContainerController),typeof(ModelController)
+                    typeof (ModelViewSavingController),typeof (NavigationContainerController),typeof(ModelController),typeof(ViewEditModeController)
                 });
             }
             if (!Executed("GetDeclaredWinControllerTypes",ModuleType.Win))
                 declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseControllerWin), typeof (NavigationContainerWinController) });
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
-                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseWebController), typeof(NavigationContainerWebController), typeof(CollectionsEditModeController) });
+                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(InvalidEditorActionBaseWebController), typeof(NavigationContainerWebController), typeof(CollectionsEditModeController), typeof(ActionsClientScriptController) });
 
             return declaredControllerTypes;
         }
@@ -216,9 +192,8 @@ namespace Xpand.Persistent.Base.General {
             if (Executed("CustomizeLogics"))
                 return;
             customLogics.RegisterLogic(typeof(IModelClassEx), typeof(ModelClassExDomainLogic));
-            customLogics.RegisterLogic(typeof(IModelTypesInfoProvider), typeof(TypesInfoProviderDomainLogic));
             customLogics.RegisterLogic(typeof(IModelColumnDetailViews), typeof(ModelColumnDetailViewsDomainLogic));
-            customLogics.RegisterLogic(typeof(IModelApplicationListViews), typeof(ModelApplicationListViewsDomainLogic));
+            customLogics.RegisterLogic(typeof(IModelApplicationViews), typeof(ModelApplicationViewsDomainLogic));
         }
 
         public bool Executed<T>(string name){
@@ -246,7 +221,7 @@ namespace Xpand.Persistent.Base.General {
 
         public bool Executed(string name,ModuleType moduleType){
             if (RuntimeMode){
-                var type = IsHosted ? ModuleType.Web : ModuleType.Win;
+                var type = Application.IsHosted() ? ModuleType.Web : ModuleType.Win;
                 if (type == moduleType && ModuleType == ModuleType.Agnostic && !NonAgnosticExists(type))
                     return ExecutedCore(name);
             }
@@ -299,13 +274,12 @@ namespace Xpand.Persistent.Base.General {
             extenders.Add<IModelClass, IModelClassDefaultCriteria>();
             extenders.Add<IModelColumn, IModelColumnDetailViews>();
             extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
-            extenders.Add<IModelApplication, IModelTypesInfoProvider>();
             extenders.Add<IModelApplication, IModelApplicationModule>();
             extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
-            extenders.Add<IModelApplication, IModelApplicationListViews>();
+            extenders.Add<IModelApplication, IModelApplicationViews>();
             extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
             extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
-            
+            extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();    
             
         }
         public static Type UserType { get; set; }
@@ -321,6 +295,7 @@ namespace Xpand.Persistent.Base.General {
             }
             if (Executed("AddGeneratorUpdaters"))
                 return;
+            updaters.Add(new ToggleNavigationActionUpdater());
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
             updaters.Add(new XpandNavigationItemNodeUpdater());
@@ -446,7 +421,7 @@ namespace Xpand.Persistent.Base.General {
         protected override IEnumerable<Type> GetDeclaredExportedTypes(){
             var declaredExportedTypes = base.GetDeclaredExportedTypes();
             return !Executed<IModifyModelActionUser>("GetDeclaredExportedTypes")
-                ? declaredExportedTypes.Concat(new[]{typeof (ModelConfiguration)})
+                ? declaredExportedTypes.Concat(new[]{typeof (ModelConfiguration),SequenceObjectType}).Where(type => type!=null)
                 : declaredExportedTypes;
         }
 
@@ -545,18 +520,17 @@ namespace Xpand.Persistent.Base.General {
 
         public override void Setup(XafApplication application) {
             lock (XafTypesInfo.Instance) {
-                if (RuntimeMode && XafTypesInfo.PersistentEntityStore == null)
-                    XafTypesInfo.SetPersistentEntityStore(new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo));
+                if (RuntimeMode && ((TypesInfo)XafTypesInfo.Instance).FindEntityStore(typeof(XpoTypeInfoSource)) == null){
+                    XpoTypesInfoHelper.ForceInitialize();
+                    new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo).AssignAsPersistentEntityStore();
+                }
             }
             base.Setup(application);
             CheckApplicationTypes();
             if (RuntimeMode){
                 ApplicationHelper.Instance.Initialize(application);
-                var helper = new ConnectionStringHelper();
-                helper.Attach(this);
                 var generatorHelper = new SequenceGeneratorHelper();
                 generatorHelper.Attach(this);
-                helper.ConnectionStringUpdated += (sender, args) => generatorHelper.InitializeSequenceGenerator();
             }
                 
             if (Executed("Setup"))
@@ -586,7 +560,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private void OnCreateCustomUserModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs e) {
-            if (IsHosted&&_customUserModelDifferenceStore)
+            if (Application.IsHosted()&&_customUserModelDifferenceStore)
                 return;
             _customUserModelDifferenceStore = true;
             var stringModelStores = ResourceModelCollector.GetEmbededModelStores();
@@ -595,7 +569,7 @@ namespace Xpand.Persistent.Base.General {
             }
             IEnumerable<string> models = Directory.GetFiles(BinDirectory,"*.Xpand.xafml",SearchOption.TopDirectoryOnly);
             models = models.Concat(Directory.GetFiles(BinDirectory, "model.user*.xafml", SearchOption.TopDirectoryOnly)).Where(s => !s.ToLowerInvariant().EndsWith("model.user.xafml"));
-            if (IsHosted){
+            if (Application.IsHosted()) {
                 models=models.Concat(Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,"model.user*.xafml",SearchOption.TopDirectoryOnly));
             }
             foreach (var path in models){
@@ -607,7 +581,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static string BinDirectory{
-            get{return IsHosted ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;}
+            get{return ApplicationHelper.Instance.Application.IsHosted() ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;}
         }
 
         public static bool ObjectSpaceCreated { get; internal set; }
@@ -659,42 +633,71 @@ namespace Xpand.Persistent.Base.General {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
-            if (Executed("CustomizeTypesInfo"))
-                return;
-            if (RuntimeMode) {
-                foreach (var persistentType in typesInfo.PersistentTypes) {
-                    CreateAttributeRegistratorAttributes(persistentType);
+            if (!Executed("CustomizeTypesInfo")){
+                typesInfo.ModifySequenceObjectWhenMySqlDatalayer();
+                if (RuntimeMode) {
+                    foreach (var persistentType in typesInfo.PersistentTypes) {
+                        CreateAttributeRegistratorAttributes(persistentType);
+                    }
+                }
+                CreateXpandDefaultProperty(typesInfo);
+                ModelValueOperator.Register();
+                ConvertInvisibleInAllViewsAttrbiute(typesInfo);
+
+                AssignSecurityEntities();
+                ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof(IModelMember));
+                var type = (BaseInfo)findTypeInfo.FindMember("Type");
+
+                var attribute = type.FindAttribute<ModelReadOnlyAttribute>();
+                if (attribute != null)
+                    type.RemoveAttribute(attribute);
+
+                type = (BaseInfo)typesInfo.FindTypeInfo(typeof(IModelBOModelClassMembers));
+                attribute = type.FindAttribute<ModelReadOnlyAttribute>();
+                if (attribute != null)
+                    type.RemoveAttribute(attribute);
+
+                if (!SequenceGenerator.UseGuidKey) {
+                    var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
+                    var memberInfo = (BaseInfo)typeInfo.FindMember("Oid");
+                    memberInfo.RemoveAttribute(new KeyAttribute(false));
+                    memberInfo = (BaseInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
+                    memberInfo.AddAttribute(new KeyAttribute(false));
                 }
             }
-            CreateXpandDefaultProperty(typesInfo);
-            ModelValueOperator.Register();
-            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(info => info.Members).Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null).ToList()) {
+            if ((!Executed("CustomizedTypesInfo", ModuleType.Win)))
+                EditorAliasForNullableEnums(typesInfo);
+            else if (!Executed("CustomizedTypesInfo",ModuleType.Web)){
+                EditorAliasForNullableEnums(typesInfo);
+            }
+        }
+
+        private void EditorAliasForNullableEnums(ITypesInfo typesInfo){
+            var typeInfos = ReflectionHelper.FindTypeDescendants(typesInfo.FindTypeInfo<PropertyEditor>()).Where(info =>{
+                var editorAttribute = info.FindAttribute<PropertyEditorAttribute>();
+                return editorAttribute != null && editorAttribute.GetFieldValue("alias") != null;
+            }).ToArray();
+            var memberInfos = typesInfo.PersistentTypes.SelectMany(info => info.OwnMembers)
+                .Where(info => info.MemberType.IsNullableType() && info.MemberType.GetGenericArguments()[0].IsEnum &&
+                               info.FindAttribute<EditorAliasAttribute>() != null);
+            foreach (var memberInfo in memberInfos){
+                var editorAliasAttribute = memberInfo.FindAttribute<EditorAliasAttribute>();
+                var typeInfo = typeInfos.First(info =>{
+                    var propertyEditorAttribute = info.FindAttribute<PropertyEditorAttribute>();
+                    return (string) propertyEditorAttribute.GetFieldValue("alias") == editorAliasAttribute.Alias;
+                });
+                memberInfo.AddAttribute(new ModelDefaultAttribute("PropertyEditorType", typeInfo.Type.FullName));
+            }
+        }
+
+        private static void ConvertInvisibleInAllViewsAttrbiute(ITypesInfo typesInfo){
+            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(typeInfo =>
+                typeInfo.OwnMembers.Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null))
+                .ToList()){
                 memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
                 memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
                 memberInfo.AddAttribute(new VisibleInLookupListViewAttribute(false));
             }
-
-            AssignSecurityEntities();
-            ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof (IModelMember));
-            var type = (BaseInfo) findTypeInfo.FindMember("Type");
-
-            var attribute = type.FindAttribute<ModelReadOnlyAttribute>();
-            if (attribute != null)
-                type.RemoveAttribute(attribute);
-
-            type = (BaseInfo) typesInfo.FindTypeInfo(typeof (IModelBOModelClassMembers));
-            attribute = type.FindAttribute<ModelReadOnlyAttribute>();
-            if (attribute != null)
-                type.RemoveAttribute(attribute);
-
-            if (!SequenceGenerator.UseGuidKey) {
-                var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
-                var memberInfo = (BaseInfo)typeInfo.FindMember("Oid");
-                memberInfo.RemoveAttribute(new KeyAttribute(false));
-                memberInfo = (BaseInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
-                memberInfo.AddAttribute(new KeyAttribute(false));
-            }
-
         }
 
         private static void CreateXpandDefaultProperty(ITypesInfo typesInfo){
@@ -747,6 +750,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
     }
+
 
     public class GeneratorUpdaterEventArgs : EventArgs {
         readonly ModelNodesGeneratorUpdaters _updaters;
@@ -802,8 +806,9 @@ namespace Xpand.Persistent.Base.General {
        
         void ApplicationOnLoggedOff(object sender, EventArgs eventArgs) {
             XpandModuleBase.ObjectSpaceCreated = false;
-            ((XafApplication)sender).LoggedOff -= ApplicationOnLoggedOff;
-            if (!XpandModuleBase.IsHosted)
+            var xafApplication = ((XafApplication)sender);
+            xafApplication.LoggedOff -= ApplicationOnLoggedOff;
+            if (!xafApplication.IsHosted())
                 Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
             else
                 XpandModuleBase.RemoveCall(ConnectionStringHelperName,_xpandModuleBase.ModuleManager);

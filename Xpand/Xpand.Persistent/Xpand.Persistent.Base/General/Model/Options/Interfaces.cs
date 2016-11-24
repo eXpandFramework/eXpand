@@ -1,4 +1,5 @@
 ﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
@@ -37,18 +38,28 @@ namespace Xpand.Persistent.Base.General.Model.Options {
 
     }
 
-    public abstract class GridListEditorVisibilityCalculatorHelper : EditorTypeVisibilityCalculator {
+    public abstract class GridListEditorVisibilityCalculatorHelper : EditorTypeVisibilityCalculator<IModelListView> {
 
     }
-    public class GridListEditorVisibilityCalculator : EditorTypeVisibilityCalculator {
+    public class GridListEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IModelListView> {
         #region Overrides of EditorTypeVisibilityCalculator
         public override bool IsVisible(IModelNode node, string propertyName) {
-            var typesInfo = node.Application.GetTypesInfo();
+            var typesInfo = XafTypesInfo.Instance;
             var typeToTypeInfo = typesInfo.FindTypeInfo(typeof(GridListEditorVisibilityCalculatorHelper));
             var typeInfo = ReflectionHelper.FindTypeDescendants(typeToTypeInfo).SingleOrDefault();
             if (typeInfo != null) {
                 var calculatorHelper = (GridListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
-                return calculatorHelper.IsVisible(node, propertyName);
+                return IsVisibleCore(node, propertyName, calculatorHelper);
+            }
+            return false;
+        }
+
+        private static bool IsVisibleCore(IModelNode node, string propertyName, GridListEditorVisibilityCalculatorHelper calculatorHelper){
+            var isVisible = calculatorHelper.IsVisible(node, propertyName);
+            if (isVisible) {
+                var modelListView = node as IModelListView ?? node.GetParent<IModelListView>();
+                return !modelListView.BandsLayout.Enable;
+
             }
             return false;
         }

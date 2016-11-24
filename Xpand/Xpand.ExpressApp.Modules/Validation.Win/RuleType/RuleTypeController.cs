@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Validation.AllContextsView;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Persistent.Validation;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.DXErrorProvider;
@@ -15,6 +16,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using Xpand.ExpressApp.Validation.RuleType;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
+using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 
 namespace Xpand.ExpressApp.Validation.Win.RuleType {
     public class RuleTypeController : Validation.RuleType.RuleTypeController {
@@ -28,6 +30,10 @@ namespace Xpand.ExpressApp.Validation.Win.RuleType {
             }
         }
 
+        public new WinColumnsListEditor ListEditor {
+            get { return base.ListEditor as WinColumnsListEditor; }
+        }
+
         void GridViewOnCustomDrawCell(object sender, RowCellCustomDrawEventArgs e) {
             BaseEditViewInfo info = ((GridCellInfo)e.Cell).ViewInfo;
             var enumDescriptor = new EnumDescriptor(typeof(ErrorType));
@@ -37,7 +43,7 @@ namespace Xpand.ExpressApp.Validation.Win.RuleType {
             if (resultItem != null) {
                 errorIcon = ErrorIcon(resultItem, enumDescriptor);
             } else if (Columns.Any()) {
-                var keyValuePairs = Columns.SelectMany(types => types);
+                var keyValuePairs = Columns.SelectMany(types => types).ToArray();
                 var propertyName = e.Column.PropertyName();
                 Func<KeyValuePair<ColumnWrapper, Validation.RuleType.RuleType>, bool> predicate = pair => propertyName == pair.Key.PropertyName;
                 if (keyValuePairs.Any(predicate)) {

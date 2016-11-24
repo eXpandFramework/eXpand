@@ -138,10 +138,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
             }
             return result;
         }
-        [Obsolete("Use the 'GetBusinessClasses' method instead.")]
-        public override IList<Type> GetPersistentObjectTypes() {
-            return GetBusinessClasses();
-        }
+
         [Category("Behavior")]
         public override Type UserType {
             get { return _userType; }

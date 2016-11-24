@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Xpand.Utils.Helpers{
     public static class Retry {
@@ -26,7 +27,8 @@ namespace Xpand.Utils.Helpers{
                 }
                 catch (Exception ex) {
                     exceptions.Add(ex);
-                    Thread.Sleep(retryInterval);
+                    var task = Task.Factory.StartNew(() => Thread.Sleep(retryInterval));
+                    Task.WaitAll(task);
                 }
             }
 

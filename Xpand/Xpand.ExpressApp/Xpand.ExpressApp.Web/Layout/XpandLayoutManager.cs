@@ -8,19 +8,18 @@ using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.Layout;
-using DevExpress.Web.ASPxCallbackPanel;
-using DevExpress.Web.ASPxGridView;
-using DevExpress.Web.ASPxSplitter;
+using DevExpress.Web;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates;
 using System.Collections.Generic;
-using DevExpress.Web.ASPxClasses.Internal;
+using DevExpress.Web.Internal;
 using System.Text;
 using System.Linq;
 using Xpand.ExpressApp.ListEditors;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Fasterflect;
+using PopupWindow = DevExpress.ExpressApp.Web.PopupWindow;
 
 
 namespace Xpand.ExpressApp.Web.Layout {
@@ -32,6 +31,10 @@ namespace Xpand.ExpressApp.Web.Layout {
     public class XpandLayoutManager : WebLayoutManager, ILayoutManager, IWebLayoutManager {
         public event EventHandler<TemplateInstantiatedEventArgs> Instantiated;
 
+        public XpandLayoutManager(){
+        }
+
+        public const string IsMasterDetailSplitterPropertyName = "cpIsMasterDetailSplitter";
         private static readonly List<Tuple<Type, Type>> _listControlAdapters = new List<Tuple<Type, Type>>();
         private ViewItemsCollection _detailViewItems;
 
@@ -179,7 +182,7 @@ namespace Xpand.ExpressApp.Web.Layout {
             return updatePanel;
         }
 
-        void updatePanel_CustomJSProperties(object sender, DevExpress.Web.ASPxClasses.CustomJSPropertiesEventArgs e) {
+        void updatePanel_CustomJSProperties(object sender, CustomJSPropertiesEventArgs e) {
 
             Page page = WebWindow.CurrentRequestPage;
             var updatePanels = new List<XafUpdatePanel>();
@@ -254,6 +257,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                 ShowCollapseForwardButton = true
             };
 
+            splitter.CustomJSProperties += (s, e) => e.Properties[IsMasterDetailSplitterPropertyName] = true;
             splitter.ClientSideEvents.PaneResized = GetPaneResizedEventScript(adapter);
             return splitter;
         }

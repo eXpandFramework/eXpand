@@ -62,7 +62,13 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                         dashboardGroup = new ChoiceActionItem(dashboardOptions.DashboardGroupCaption, null) {
                             ImageName = "BO_DashboardDefinition"
                         };
-                        ((ShowNavigationItemController)sender).ShowNavigationItemAction.Items.Add(dashboardGroup);
+                        if (!string.IsNullOrEmpty(dashboardOptions.DashboardsParentItem)) {
+                            var parent = ((ShowNavigationItemController)sender).ShowNavigationItemAction.Items.FirstOrDefault(c => c.Id == dashboardOptions.DashboardsParentItem);
+                            if (parent != null)
+                                parent.Items.Add(dashboardGroup);
+                        }
+                        else
+                            ((ShowNavigationItemController)sender).ShowNavigationItemAction.Items.Add(dashboardGroup);
                     }
                     while (dashboardGroup.Items.Count != 0) {
                         ChoiceActionItem item = dashboardGroup.Items[0];
@@ -95,7 +101,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                             return (DataManipulationRight.CanRead(type, null, objectByKey, null, space) &&
                                     DataManipulationRight.CanNavigate(type, objectByKey, space));
                         }
-                    } catch {
+                    }
+                    catch {
                         return true;
                     }
                 }
@@ -113,9 +120,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         void ReloadDashboardActions() {
             DashboardActions.Clear();
-            IObjectSpace objectSpace = Application.CreateObjectSpace(typeof(DashboardDefinition));
-            IOrderedEnumerable<DashboardDefinition> templates =
-                objectSpace.GetObjects<DashboardDefinition>().Where(t => t.Active).OrderBy(i => i.Index);
+            var objectSpace = Application.CreateObjectSpace(typeof(DashboardDefinition));
+            var templates =objectSpace.GetObjects<DashboardDefinition>().Where(t => t.Active).OrderBy(i => i.Index);
             foreach (DashboardDefinition template in templates) {
                 var action = new ChoiceActionItem(
                     template.Oid.ToString(),
@@ -145,5 +151,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         [DefaultValue(true)]
         [Category("Navigation")]
         bool DashboardsInGroup { get; set; }
+
+        [Category("Navigation")]
+        String DashboardsParentItem { get; set; }
     }
 }

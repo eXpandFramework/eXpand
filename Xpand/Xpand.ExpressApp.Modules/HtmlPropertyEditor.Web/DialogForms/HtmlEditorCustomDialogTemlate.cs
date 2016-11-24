@@ -2,10 +2,9 @@
 using System.IO;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using DevExpress.Web.ASPxClasses.Internal;
-using DevExpress.Web.ASPxEditors;
+using DevExpress.Web.Internal;
+using DevExpress.Web;
 using DevExpress.Web.ASPxHtmlEditor;
-using DevExpress.Web.ASPxUploadControl;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.DialogForms {
@@ -34,7 +33,7 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.DialogForms {
         protected string SaveUploadFile() {
             string fileName = "";
             if (HasFile()) {
-                string uploadFolder = HtmlEditor.SettingsImageUpload.UploadImageFolder;
+                string uploadFolder = HtmlEditor.SettingsDialogs.InsertImageDialog.SettingsImageUpload.UploadFolder;
                 fileName = MapPath(uploadFolder) + _uploadControl.UploadedFiles[0].FileName;
                 try {
                     _uploadControl.UploadedFiles[0].SaveAs(fileName, false);
