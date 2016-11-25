@@ -119,8 +119,8 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         protected virtual bool IsValidTypeInfo(ViewInfo viewInfo, ILogicRuleObject rule) {
-            return (((rule.TypeInfo != null && rule.TypeInfo.IsAssignableFrom(viewInfo.ObjectTypeInfo)) 
-                || IsValidDCTypeInfo(viewInfo, rule)) || rule.TypeInfo == null);
+            return rule.TypeInfo.Type==typeof (AllViews)||((rule.TypeInfo != null && rule.TypeInfo.IsAssignableFrom(viewInfo.ObjectTypeInfo)) 
+                || IsValidDCTypeInfo(viewInfo, rule)) || rule.TypeInfo == null;
         }
 
         protected virtual bool IsValidDCTypeInfo(ViewInfo viewInfo, ILogicRuleObject rule) {
@@ -146,7 +146,7 @@ namespace Xpand.ExpressApp.Logic {
 
         public virtual bool Fit(object targetObject, ILogicRuleObject logicRule) {
             var criteria = CriteriaOperator.Parse(logicRule.NormalCriteria);
-            return targetObject != null ? criteria.Fit(targetObject) : string.IsNullOrEmpty(logicRule.EmptyCriteria) || CriteriaOperator.Parse(logicRule.EmptyCriteria).Fit(new object());
+            return (targetObject != null ? criteria.Fit(targetObject) : string.IsNullOrEmpty(logicRule.EmptyCriteria)) || CriteriaOperator.Parse(logicRule.EmptyCriteria).Fit(new object());
         }
 
     }

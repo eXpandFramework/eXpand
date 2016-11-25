@@ -4,6 +4,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
@@ -20,13 +21,17 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual void OnCollectModelLogics(CollectModelLogicsArgs e) {
             EventHandler<CollectModelLogicsArgs> handler = CollectModelLogics;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
-        readonly HashSet<IModelLogicWrapper> _modelLogics = new HashSet<IModelLogicWrapper>(); 
+        readonly HashSet<IModelLogicWrapper> _modelLogics = new HashSet<IModelLogicWrapper>();
+        private Type[] _generatedTypes;
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             _module.Application.SetupComplete -= ApplicationOnSetupComplete;
+            var typesInfo = ((XafApplication) sender).TypesInfo;
+            var xpoTypeInfoSource = XpoTypesInfoHelper.GetXpoTypeInfoSource();
+            _generatedTypes = typesInfo.PersistentTypes.Where(info => info.IsInterface).Select(info => xpoTypeInfoSource.GetGeneratedEntityType(info.Type)).Where(type => type!=null).ToArray();
             CollectRules((XafApplication)sender);
         }
 
@@ -88,12 +93,12 @@ namespace Xpand.ExpressApp.Logic {
 
         FrameTemplateContext GetFrameTemplateContext(IContextLogicRule contextLogicRule, IModelLogicWrapper modelLogic) {
             var templateContexts = modelLogic.FrameTemplateContextsGroup.FirstOrDefault(contexts => contexts.Id == contextLogicRule.FrameTemplateContextGroup);
-            return templateContexts != null ? templateContexts.FrameTemplateContext : FrameTemplateContext.All;
+            return templateContexts?.FrameTemplateContext ?? FrameTemplateContext.All;
         }
 
         ExecutionContext GetExecutionContext(IContextLogicRule contextLogicRule, IModelLogicWrapper modelLogic) {
             var modelExecutionContexts = modelLogic.ExecutionContextsGroup.FirstOrDefault(contexts => contexts.Id == contextLogicRule.ExecutionContextGroup);
-            return modelExecutionContexts != null ? modelExecutionContexts.ExecutionContext : ExecutionContext.None;
+            return modelExecutionContexts?.ExecutionContext ?? ExecutionContext.None;
         }
 
         Type LogicRuleObjectType(ILogicRule logicRule) {
@@ -104,7 +109,7 @@ namespace Xpand.ExpressApp.Logic {
 
         void OnRulesCollected(EventArgs e) {
             EventHandler handler = RulesCollected;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public virtual void CollectRules(XafApplication xafApplication) {
@@ -130,8 +135,18 @@ namespace Xpand.ExpressApp.Logic {
             var groupings = ruleObjects.GroupBy(rule => rule.TypeInfo).Select(grouping => new { grouping.Key, Rules = grouping }).ToList();
             foreach (var grouping in groupings) {
                 LogicRuleManager.Instance.AddRules(grouping.Key,grouping.Rules);
-                foreach (var info in grouping.Key.Descendants) {
-                    LogicRuleManager.Instance.AddRules(info, grouping.Rules);
+                if (grouping.Key.Type == typeof(AllViews)){
+                    foreach (var typeInfo in XafTypesInfo.Instance.PersistentTypes){
+                        LogicRuleManager.Instance.AddRules(typeInfo, grouping.Rules);
+                    }
+                }
+                else{
+                    foreach (var info in grouping.Key.Descendants)
+                        LogicRuleManager.Instance.AddRules(info, grouping.Rules);
+                    foreach (var generatedType in _generatedTypes) {
+                        if (grouping.Key.Type.IsAssignableFrom(generatedType))
+                            LogicRuleManager.Instance.AddRules(generatedType.GetTypeInfo(), grouping.Rules);
+                    }
                 }
             }
         }
@@ -159,9 +174,6 @@ namespace Xpand.ExpressApp.Logic {
     }
 
     public class CollectModelLogicsArgs : EventArgs {
-        readonly List<IModelLogicWrapper> _modelLogics = new List<IModelLogicWrapper>();
-        public List<IModelLogicWrapper> ModelLogics {
-            get { return _modelLogics; }
-        }
+        public List<IModelLogicWrapper> ModelLogics { get; } = new List<IModelLogicWrapper>();
     }
 }

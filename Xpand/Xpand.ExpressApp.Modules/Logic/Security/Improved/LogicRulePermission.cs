@@ -15,7 +15,8 @@ using IRule = Xpand.Persistent.Base.Logic.IRule;
 namespace Xpand.ExpressApp.Logic.Security.Improved {
     public abstract class LogicRulePermission : OperationPermissionBase, IContextLogicRule {
         protected LogicRulePermission(string operation, IContextLogicRule contextLogicRule)
-            : base(operation) {
+            : base(operation){
+            IsNew = contextLogicRule.IsNew;
             ObjectChangedExecutionContextGroup = contextLogicRule.ObjectChangedExecutionContextGroup;
             ExecutionContextGroup = contextLogicRule.ExecutionContextGroup;
             FrameTemplateContextGroup = contextLogicRule.FrameTemplateContextGroup;

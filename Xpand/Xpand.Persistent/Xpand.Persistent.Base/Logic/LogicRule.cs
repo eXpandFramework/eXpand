@@ -15,10 +15,7 @@ namespace Xpand.Persistent.Base.Logic {
     }
 
     public abstract class LogicRule : ILogicRuleObject {
-        readonly HashSet<string> _views=new HashSet<string>();
-        private readonly HashSet<string> _objectChangedPropertyNames=new HashSet<string>();
-
-        protected LogicRule(IContextLogicRule logicRule) {
+        protected LogicRule(IContextLogicRule logicRule){
             Description = logicRule.Description;
             ID = logicRule.Id;
             Index = logicRule.Index;
@@ -47,6 +44,7 @@ namespace Xpand.Persistent.Base.Logic {
         public bool? IsNew { get; set; }
 
         public bool? IsRootView { get; set; }
+        
 
         public ViewType ViewType { get; set; }
 
@@ -70,12 +68,10 @@ namespace Xpand.Persistent.Base.Logic {
 
         public FrameTemplateContext FrameTemplateContext { get; set; }
 
-        public HashSet<string> Views {
-            get { return _views; }
-        }
-        public HashSet<string> ObjectChangedPropertyNames {
-            get { return _objectChangedPropertyNames; }
-        }
+        public HashSet<string> Views { get; } = new HashSet<string>();
+
+        public HashSet<string> ObjectChangedPropertyNames { get; } = new HashSet<string>();
+
         #endregion
         public override string ToString() {
             return !string.IsNullOrEmpty(ID) ? ID : base.ToString();
