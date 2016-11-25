@@ -19,7 +19,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public List<XPMemberInfo> BuildRole(Type otherPartMember) {
-            return BuildRole(otherPartMember, "Role" + otherPartMember.Name + otherPartMember.Name + "s", otherPartMember.Name + "s", "Roles", false);
+            return BuildRole(otherPartMember, otherPartMember.Name + otherPartMember.Name + "s", otherPartMember.Name + "s", "Roles", false);
         }
 
         public List<XPMemberInfo> BuildRole(Type otherPartMember, string association, string propertyName, string otherPartPropertyName, bool visibleInDetailView = true) {
@@ -29,7 +29,7 @@ namespace Xpand.Persistent.Base.General {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
                 var typeToCreateOn = securityComplex.RoleType.IsInterface ? XpandModuleBase.RoleType : typeInfo.Type;
                 if (IsValidType(typeToCreateOn)) {
-                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember,  true, association, propertyName, otherPartPropertyName);
+                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember,  true, typeInfo.FullName.Replace(".","_") + association, propertyName, otherPartPropertyName);
                     XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);
                 }
             }
