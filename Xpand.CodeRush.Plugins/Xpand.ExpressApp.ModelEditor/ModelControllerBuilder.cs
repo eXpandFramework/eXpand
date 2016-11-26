@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
 using DevExpress.Persistent.Base;
 using DevExpress.ExpressApp.Xpo;
@@ -39,10 +41,15 @@ namespace Xpand.ExpressApp.ModelEditor {
         ApplicationModulesManager GetApplicationModulesManager(PathInfo pathInfo) {
             string assemblyPath = Path.GetDirectoryName(pathInfo.AssemblyPath);
             var designerModelFactory = new DesignerModelFactory();
-            var moduleFromFile = designerModelFactory.CreateModuleFromFile(pathInfo.AssemblyPath, assemblyPath);
             ReflectionHelper.Reset();
             XafTypesInfo.HardReset();
             XpoTypesInfoHelper.ForceInitialize();
+            if (pathInfo.IsApplicationModel){
+                var applicationInstance = Activator.CreateInstance(Assembly.LoadFile(pathInfo.AssemblyPath).GetTypes().First(type => typeof(XafApplication).IsAssignableFrom(type)));
+                var configFileName = applicationInstance is WinApplication? pathInfo.AssemblyPath+".config":Path.Combine(pathInfo.FullPath,"web.config");
+                return designerModelFactory.CreateModulesManager((XafApplication) applicationInstance, configFileName,Path.GetDirectoryName(pathInfo.AssemblyPath));
+            }
+            var moduleFromFile = designerModelFactory.CreateModuleFromFile(pathInfo.AssemblyPath, assemblyPath);
             return designerModelFactory.CreateModulesManager(moduleFromFile, pathInfo.AssemblyPath);
         }
 

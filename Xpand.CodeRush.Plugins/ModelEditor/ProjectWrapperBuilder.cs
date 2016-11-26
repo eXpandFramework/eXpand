@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
 using Xpand.CodeRush.Plugins.Extensions;
@@ -13,14 +14,16 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             return projects.Where(project => project.ConfigurationManager != null && project.ProjectItems != null);
         }
 
-        static ProjectItemWrapper ProjectItemWrapperSelector(ProjectItem item1) {
+        static ProjectItemWrapper ProjectItemWrapperSelector(ProjectItem item){
             return new ProjectItemWrapper {
-                Name = GetName(item1),
-                OutputPath = item1.ContainingProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value.ToString(),
-                OutPutFileName = item1.ContainingProject.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
-                FullPath = item1.ContainingProject.FindProperty(ProjectProperty.FullPath).Value.ToString(),
-                UniqueName = item1.ContainingProject.UniqueName,
-                LocalPath = (item1.FindProperty(ProjectItemProperty.LocalPath) ?? item1.FindProperty(ProjectItemProperty.FullPath)).Value.ToString()
+                Name = GetName(item),
+                IsApplicationProject = item.ContainingProject.IsApplicationProject(),
+                ModelFileName=item.Name,
+                OutputPath = item.ContainingProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value.ToString(),
+                OutPutFileName = item.ContainingProject.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
+                FullPath = item.ContainingProject.FindProperty(ProjectProperty.FullPath).Value.ToString(),
+                UniqueName = item.ContainingProject.UniqueName,
+                LocalPath = (item.FindProperty(ProjectItemProperty.LocalPath) ?? item.FindProperty(ProjectItemProperty.FullPath)).Value.ToString()
             };
         }
 

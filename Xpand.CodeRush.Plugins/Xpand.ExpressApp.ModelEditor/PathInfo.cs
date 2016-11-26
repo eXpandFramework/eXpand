@@ -3,29 +3,25 @@ using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelEditor {
     public class PathInfo {
-        readonly string _fullPath;
-        readonly string _localPath;
-
         public PathInfo(string[] args) {
             Tracing.Tracer.LogValue("PathInfo", args);
-            AssemblyPath = args[0].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
-            _fullPath = args[2].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
-            _localPath = args[1].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
-
+            AssemblyPath = args[1].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
+            FullPath = args[3].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
+            LocalPath = args[2].TrimStart(Convert.ToChar("\"")).TrimEnd(Convert.ToChar("\""));
+            IsApplicationModel = Convert.ToBoolean(args[0].Trim());
         }
 
+        public bool IsApplicationModel { get;  }
+
         public override string ToString() {
-            return string.Format("AssemblyPath={0}{1}FullPath={2}{3}LocalPath={4}", AssemblyPath, Environment.NewLine, FullPath, Environment.NewLine, LocalPath);
+            return
+                $"AssemblyPath={AssemblyPath}{Environment.NewLine}FullPath={FullPath}{Environment.NewLine}LocalPath={LocalPath}";
         }
 
         public string AssemblyPath { get; set; }
 
-        public string FullPath {
-            get { return _fullPath; }
-        }
+        public string FullPath { get; }
 
-        public string LocalPath {
-            get { return _localPath; }
-        }
+        public string LocalPath { get; }
     }
 }

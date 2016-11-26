@@ -12,8 +12,6 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
         private readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
         public void Start(ProjectItemWrapper projectItemWrapper) {
             string outputFileName = projectItemWrapper.OutPutFileName;
-            if (outputFileName.ToLower().EndsWith(".exe"))
-                outputFileName += ".config";
             
             string path = GetPath();
             if (path != null) StartMEProcess(projectItemWrapper, outputFileName, path);
@@ -51,7 +49,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                 var fullPath = projectItemWrapper.FullPath;
                 string assemblyPath = Path.Combine(fullPath, Path.Combine(projectItemWrapper.OutputPath, outputFileName));
                 if (!File.Exists(assemblyPath)) {
-                    MessageBox.Show(String.Format(@"Assembly {0} not found", assemblyPath), null, MessageBoxButtons.OK);
+                    MessageBox.Show($@"Assembly {assemblyPath} not found", null, MessageBoxButtons.OK);
                     return;
                 }
             
@@ -64,11 +62,11 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                         File.Copy(configPath,Path.Combine(Path.GetDirectoryName(destFileName)+"",Path.GetFileName(configPath)),true);
                 }
                 string debugMe = OptionClass.Instance.DebugME ? "d":null;
-                string arguments = String.Format("{0} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectItemWrapper.LocalPath);
+                string arguments = String.Format("{0} {4} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectItemWrapper.LocalPath,projectItemWrapper.IsApplicationProject);
                 if (File.Exists(destFileName))
                     Process.Start(destFileName, arguments);
                 else
-                    MessageBox.Show(String.Format("Model editor not found at {0}", destFileName));
+                    MessageBox.Show($"Model editor not found at {destFileName}");
             }
             catch (Exception e){
                 MessageBox.Show(e.ToString());

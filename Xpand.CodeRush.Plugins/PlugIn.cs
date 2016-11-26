@@ -74,7 +74,7 @@ namespace Xpand.CodeRush.Plugins {
         private void exploreXafErrors_Execute(ExecuteEventArgs ea) {
             Project startUpProject = DevExpress.CodeRush.Core.CodeRush.ApplicationObject.Solution.FindStartUpProject();
             Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath);
-            bool isWeb = IsWeb(startUpProject);
+            bool isWeb = startUpProject.IsWeb();
             string fullPath = startUpProject.FindProperty(ProjectProperty.FullPath).Value + "";
             string path = Path.Combine(fullPath, outPut.Value.ToString()) + "";
             if (isWeb)
@@ -102,9 +102,6 @@ namespace Xpand.CodeRush.Plugins {
             }
         }
 
-        bool IsWeb(Project startUpProject) {
-            return startUpProject.ProjectItems.OfType<ProjectItem>().Any(item => item.Name.ToLower() == "web.config");
-        }
 
         private void DropDataBase_Execute(ExecuteEventArgs ea){
             _dte.InitOutputCalls("Dropdatabase");

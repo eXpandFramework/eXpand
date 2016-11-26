@@ -1,7 +1,5 @@
 
 using System;
-using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -15,18 +13,18 @@ using DevExpress.Persistent.Base;
 namespace Xpand.ExpressApp.ModelEditor {
     public class MainClass {
         private static ModelEditorForm _modelEditorForm;
-        static private void HandleException(Exception e) {
+        private static void HandleException(Exception e) {
             Tracing.Tracer.LogError(e);
             Messaging.GetMessaging(null).Show(ModelEditorForm.Title, e);
         }
-        static private void OnException(object sender, ThreadExceptionEventArgs e) {
+        private static void OnException(object sender, ThreadExceptionEventArgs e) {
             HandleException(e.Exception);
         }
         static void CheckAssemblyFile(PathInfo pathInfo) {
             if (!File.Exists(pathInfo.AssemblyPath)) {
                 pathInfo.AssemblyPath = Path.Combine(Environment.CurrentDirectory, pathInfo.AssemblyPath);
                 if (!File.Exists(pathInfo.AssemblyPath)) {
-                    throw new Exception(String.Format("The file '{0}' couldn't be found.", pathInfo.AssemblyPath));
+                    throw new Exception($"The file '{pathInfo.AssemblyPath}' couldn't be found.");
                 }
             }
         }
@@ -37,7 +35,7 @@ namespace Xpand.ExpressApp.ModelEditor {
             Application.ThreadException += OnException;
             try {
                 var strings = args;
-                if (args.Length>3&&args[0]=="d"){
+                if (args.Length>4&&args[0]=="d"){
                     MessageBox.Show("Attach to this proccess");
                     strings = args.Skip(1).ToArray();
                 }
