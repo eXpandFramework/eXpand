@@ -1,5 +1,5 @@
 ﻿namespace Xpand.CodeRush.Plugins.ModelEditor {
-    public class ProjectWrapper {
+    public class ProjectItemWrapper {
         public string Name { get; set; }
 
         public string OutputPath { get; set; }

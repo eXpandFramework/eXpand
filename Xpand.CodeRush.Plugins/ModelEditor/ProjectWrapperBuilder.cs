@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DevExpress.CodeRush.Core;
 using EnvDTE;
 using Xpand.CodeRush.Plugins.Enums;
 using Xpand.CodeRush.Plugins.Extensions;
@@ -14,8 +13,8 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             return projects.Where(project => project.ConfigurationManager != null && project.ProjectItems != null);
         }
 
-        static ProjectWrapper ProjectWrapperSelector(ProjectItem item1) {
-            return new ProjectWrapper {
+        static ProjectItemWrapper ProjectItemWrapperSelector(ProjectItem item1) {
+            return new ProjectItemWrapper {
                 Name = GetName(item1),
                 OutputPath = item1.ContainingProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value.ToString(),
                 OutPutFileName = item1.ContainingProject.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
@@ -25,26 +24,26 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             };
         }
 
-        public static IEnumerable<ProjectWrapper> GetProjectWrappers() {
+        public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers() {
             var projects = GetProjects().ToList();
-            return GetProjectWrappers(projects);
+            return GetProjectItemWrappers(projects);
         }
 
-        public static IEnumerable<ProjectWrapper> GetProjectWrappers(IEnumerable<Project> projects) {
+        public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers(IEnumerable<Project> projects) {
             var projectItems = projects.SelectMany(project1 => project1.ProjectItems.OfType<ProjectItem>()).ToList();
 
-            var items = new List<ProjectWrapper>();
-            GetAllItems(projectItems, items);
+            var items = new List<ProjectItemWrapper>();
+            GetAllModelItems(projectItems, items);
             return items;
         }
 
-        static void GetAllItems(IEnumerable<ProjectItem> projectItems, List<ProjectWrapper> list) {
+        static void GetAllModelItems(IEnumerable<ProjectItem> projectItems, List<ProjectItemWrapper> list) {
             foreach (var projectItem in projectItems) {
                 string name = projectItem.Name;
                 if (name.EndsWith(".xafml") &&  !name.Contains("Localization") && name.IndexOf(" ", StringComparison.Ordinal) == -1)
-                    list.Add(ProjectWrapperSelector(projectItem));
+                    list.Add(ProjectItemWrapperSelector(projectItem));
                 if (projectItem.ProjectItems != null)
-                    GetAllItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
+                    GetAllModelItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
             }
         }
 

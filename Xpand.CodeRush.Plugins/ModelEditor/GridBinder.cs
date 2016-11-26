@@ -18,11 +18,11 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             events.ProjectItemAdded += EventsOnProjectItemAdded;
             events.ProjectItemRenamed += EventsOnProjectItemRenamed;
             events.SolutionOpened += SetGridDataSource;
-            events.ProjectAdded += project => AddProjectWrappers(ProjectWrapperBuilder.GetProjectWrappers(new List<Project> { project }));
-            events.ProjectRemoved += project1 => RemoveProjectWrappers(ProjectWrapperBuilder.GetProjectWrappers(new List<Project> { project1 }));
+            events.ProjectAdded += project => AddProjectWrappers(ProjectWrapperBuilder.GetProjectItemWrappers(new List<Project> { project }));
+            events.ProjectRemoved += project1 => RemoveProjectWrappers(ProjectWrapperBuilder.GetProjectItemWrappers(new List<Project> { project1 }));
         }
-        private void RemoveProjectWrappers(IEnumerable<ProjectWrapper> projectWrappers) {
-            var list = (BindingList<ProjectWrapper>)_gridControl.DataSource;
+        private void RemoveProjectWrappers(IEnumerable<ProjectItemWrapper> projectWrappers) {
+            var list = (BindingList<ProjectItemWrapper>)_gridControl.DataSource;
             foreach (var projectWrapper in projectWrappers) {
                 var singleWrapper = list.Single(wrapper => wrapper.UniqueName==projectWrapper.UniqueName);
                 list.Remove(singleWrapper);
@@ -46,16 +46,16 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                 SetGridDataSource();
         }
 
-        private void AddProjectWrappers(IEnumerable<ProjectWrapper> projectWrappers) {
+        private void AddProjectWrappers(IEnumerable<ProjectItemWrapper> projectWrappers) {
             foreach (var projectWrapper in projectWrappers) {
-                ((BindingList<ProjectWrapper>)_gridControl.DataSource).Add(projectWrapper);
+                ((BindingList<ProjectItemWrapper>)_gridControl.DataSource).Add(projectWrapper);
             }
         }
         private void SetGridDataSource(){
-            List<ProjectWrapper> projectWrappers = null;
+            List<ProjectItemWrapper> projectWrappers = null;
             var context = TaskScheduler.FromCurrentSynchronizationContext();
-            Task.Factory.StartNewNow(() => projectWrappers = ProjectWrapperBuilder.GetProjectWrappers().ToList())
-                .ContinueWith(task1 => { _gridControl.DataSource = new BindingList<ProjectWrapper>(projectWrappers); }, context);
+            Task.Factory.StartNewNow(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList())
+                .ContinueWith(task1 => { _gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers); }, context);
         }
 
         public static void Init(GridControl gridControl, DXCoreEvents events) {

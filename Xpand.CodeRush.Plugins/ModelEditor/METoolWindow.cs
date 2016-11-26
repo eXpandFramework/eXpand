@@ -38,7 +38,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                     dialogResult = MessageBox.Show(@"Build fail!!! Continue opening the MEs?", null, MessageBoxButtons.YesNo);
                 }
                 if (dialogResult == DialogResult.Yes) {
-                    var projectWrapper = (ProjectWrapper)gridView1.GetRow(gridView1.FocusedRowHandle);
+                    var projectWrapper = (ProjectItemWrapper)gridView1.GetRow(gridView1.FocusedRowHandle);
                     OpenModelEditor(projectWrapper);
                 }
             }
@@ -46,10 +46,10 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
         }
         
         #endregion
-        private void OpenModelEditor(ProjectWrapper projectWrapper) {
+        private void OpenModelEditor(ProjectItemWrapper projectItemWrapper) {
             _dte.InitOutputCalls("OpenModelEditor");
             try{
-                new ModelEditorRunner().Start(projectWrapper);
+                new ModelEditorRunner().Start(projectItemWrapper);
             }
             catch (Exception e){
                 _dte.WriteToOutput(e.ToString());
@@ -62,7 +62,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                 gridView.FocusedRowHandle = GridControl.AutoFilterRowHandle;
             if (e.KeyCode == Keys.Return) {
                 if (GridControl.AutoFilterRowHandle != gridView.FocusedRowHandle&& GridControl.InvalidRowHandle != gridView.FocusedRowHandle) {
-                    var projectWrapper = (ProjectWrapper)gridView.GetRow(gridView.FocusedRowHandle);
+                    var projectWrapper = (ProjectItemWrapper)gridView.GetRow(gridView.FocusedRowHandle);
                     if (e.Control) {
                         Solution solution = DevExpress.CodeRush.Core.CodeRush.Solution.Active;
                         string solutionConfigurationName = solution.SolutionBuild.ActiveConfiguration.Name;
@@ -71,7 +71,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                     } else
                         OpenModelEditor(projectWrapper);
                 } else if (gridView.RowCount > 0)
-                    OpenModelEditor((ProjectWrapper)gridView.GetRow(0));
+                    OpenModelEditor((ProjectItemWrapper)gridView.GetRow(0));
             }
         }
 
@@ -104,7 +104,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
 
         private void gridView1_DoubleClick(object sender, EventArgs e) {
             var gridView = ((GridView)sender);
-            OpenModelEditor((ProjectWrapper)gridView.GetRow(gridView.FocusedRowHandle));
+            OpenModelEditor((ProjectItemWrapper)gridView.GetRow(gridView.FocusedRowHandle));
         }
 
     }

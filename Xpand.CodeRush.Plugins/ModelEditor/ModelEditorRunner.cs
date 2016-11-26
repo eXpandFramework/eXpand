@@ -10,13 +10,13 @@ using Process = System.Diagnostics.Process;
 namespace Xpand.CodeRush.Plugins.ModelEditor {
     public class ModelEditorRunner {
         private readonly DTE _dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
-        public void Start(ProjectWrapper projectWrapper) {
-            string outputFileName = projectWrapper.OutPutFileName;
+        public void Start(ProjectItemWrapper projectItemWrapper) {
+            string outputFileName = projectItemWrapper.OutPutFileName;
             if (outputFileName.ToLower().EndsWith(".exe"))
                 outputFileName += ".config";
             
             string path = GetPath();
-            if (path != null) StartMEProcess(projectWrapper, outputFileName, path);
+            if (path != null) StartMEProcess(projectItemWrapper, outputFileName, path);
         }
 
         private string GetPath(){
@@ -46,10 +46,10 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             return null;
         }
 
-        void StartMEProcess(ProjectWrapper projectWrapper, string outputFileName, string path) {
+        void StartMEProcess(ProjectItemWrapper projectItemWrapper, string outputFileName, string path) {
             try{
-                var fullPath = projectWrapper.FullPath;
-                string assemblyPath = Path.Combine(fullPath, Path.Combine(projectWrapper.OutputPath, outputFileName));
+                var fullPath = projectItemWrapper.FullPath;
+                string assemblyPath = Path.Combine(fullPath, Path.Combine(projectItemWrapper.OutputPath, outputFileName));
                 if (!File.Exists(assemblyPath)) {
                     MessageBox.Show(String.Format(@"Assembly {0} not found", assemblyPath), null, MessageBoxButtons.OK);
                     return;
@@ -64,7 +64,7 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                         File.Copy(configPath,Path.Combine(Path.GetDirectoryName(destFileName)+"",Path.GetFileName(configPath)),true);
                 }
                 string debugMe = OptionClass.Instance.DebugME ? "d":null;
-                string arguments = String.Format("{0} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectWrapper.LocalPath);
+                string arguments = String.Format("{0} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectItemWrapper.LocalPath);
                 if (File.Exists(destFileName))
                     Process.Start(destFileName, arguments);
                 else
