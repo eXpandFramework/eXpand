@@ -33,15 +33,25 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
             var projectItems = projects.SelectMany(project1 => project1.ProjectItems.OfType<ProjectItem>()).ToList();
 
             var items = new List<ProjectItemWrapper>();
+            
             GetAllModelItems(projectItems, items);
-            return items;
+            var localizationModels = items.Where(item =>{
+                var match = Regex.Match(item.ModelFileName, @"\A(.*)_(.*)\.xafml\z");
+                if (match.Success && item.ModelFileName.EndsWith(match.Groups[2].Value+".xafml"))
+                    return items.Any(wrapper => wrapper.ModelFileName == match.Groups[1].Value + ".xafml");
+                return false;
+            }).ToArray();
+            return items.Except(localizationModels);
         }
 
-        static void GetAllModelItems(IEnumerable<ProjectItem> projectItems, List<ProjectItemWrapper> list) {
-            foreach (var projectItem in projectItems) {
+        static void GetAllModelItems(IEnumerable<ProjectItem> projectItems, List<ProjectItemWrapper> list){
+            var items = projectItems.ToArray();
+            foreach (var projectItem in items) {
                 string name = projectItem.Name;
-                if (name.EndsWith(".xafml") &&  !name.Contains("Localization") && name.IndexOf(" ", StringComparison.Ordinal) == -1)
-                    list.Add(ProjectItemWrapperSelector(projectItem));
+                if (name.EndsWith(".xafml") &&  !name.Contains(".Localization.") && name.IndexOf(" ", StringComparison.Ordinal) == -1){
+                    var item = ProjectItemWrapperSelector(projectItem);
+                    list.Add(item);
+                }
                 if (projectItem.ProjectItems != null)
                     GetAllModelItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
             }
