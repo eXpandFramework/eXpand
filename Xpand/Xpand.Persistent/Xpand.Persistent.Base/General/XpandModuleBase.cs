@@ -679,11 +679,11 @@ namespace Xpand.Persistent.Base.General {
                 if (attribute != null)
                     type.RemoveAttribute(attribute);
 
-                if (!SequenceGenerator.UseGuidKey) {
+                if (!SequenceGenerator.UseGuidKey && SequenceObjectType != null){
                     var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
-                    var memberInfo = (BaseInfo)typeInfo.FindMember("Oid");
+                    var memberInfo = (BaseInfo) typeInfo.FindMember("Oid");
                     memberInfo.RemoveAttribute(new KeyAttribute(false));
-                    memberInfo = (BaseInfo)typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
+                    memberInfo = (BaseInfo) typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
                     memberInfo.AddAttribute(new KeyAttribute(false));
                 }
             }

@@ -101,7 +101,7 @@ namespace Xpand.ExpressApp.Security {
             foreach (var securityOperationInfo in securityOperationInfos){
                 var securityOperationsAttributes = securityOperationInfo.FindAttributes<SecurityOperationsAttribute>();
                 foreach (var securityOperationsAttribute in securityOperationsAttributes){
-                    foreach (var roleInfo in roleInfos.Where(info => !RuntimeMode || info.Type == RoleType)){
+                    foreach (var roleInfo in roleInfos.Where(info => (!RuntimeMode || info.Type == RoleType)&&!(((TypeInfo)info).Source is ReflectionTypeInfoSource))){
                         if (roleInfo.FindMember(securityOperationsAttribute.OperationProviderProperty) == null)
                             roleInfo.CreateMember(securityOperationsAttribute.OperationProviderProperty,typeof(SecurityOperationsEnum));
                         if (!RuntimeMode)
