@@ -6,9 +6,11 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
+using Xpand.ExpressApp.Web.SystemModule.ModelAdapters;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
+
     [PropertyEditor(typeof(String), EditorAliases.HyperLinkPropertyEditor, false)]
     public class HyperLinkPropertyEditor : ASPxPropertyEditor {
         private bool _cancelClickEventPropagation;
@@ -48,26 +50,34 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
         protected override void ReadEditModeValueCore() {
             base.ReadEditModeValueCore();
-            SetupHyperLink(PropertyValue, Editor);
+            SetupHyperLink(Editor);
         }
+
         protected override WebControl CreateViewModeControlCore() {
             return CreateHyperLink();
         }
 
         protected override void ReadViewModeValueCore() {
-            base.ReadViewModeValueCore();
-            SetupHyperLink(PropertyValue, InplaceViewModeEditor);
+            base.ReadViewModeValueCore();    
+            SetupHyperLink(InplaceViewModeEditor);
         }
 
-        static string GetResolvedUrl(object value) {
+        string GetResolvedUrl(object value) {
             string url = Convert.ToString(value);
-            if (!string.IsNullOrEmpty(url)) {
-                if (url.Contains("@") && IsValidUrl(url))
-                    return string.Format("mailto:{0}", url);
-                if (!url.Contains("://"))
-                    url = string.Format("http://{0}", url);
-                if (IsValidUrl(url))
-                    return url;
+            if (!string.IsNullOrEmpty(url)){
+                var modelMemberViewItemHyperLink = ((IModelMemberViewItemASPxHyperLink) Model);
+                var hyperLinkFormat = modelMemberViewItemHyperLink.ASPxHyperLinkControl.HyperLinkFormat;
+                if (string.IsNullOrEmpty(hyperLinkFormat)){
+                    if (url.Contains("@") && IsValidUrl(url))
+                        return $"mailto:{url}";
+                    if (!url.Contains("://"))
+                        url = $"http://{url}";
+                    if (IsValidUrl(url))
+                        return url;
+                }
+                else{
+                    return string.Format(hyperLinkFormat, url);
+                }
             }
             return string.Empty;
         }
@@ -76,19 +86,27 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             return Regex.IsMatch(url, UrlEmailMask);
         }
 
-        ASPxHyperLink CreateHyperLink() {
-            ASPxHyperLink hyperlink = RenderHelper.CreateASPxHyperLink();
-            return hyperlink;
+        protected override string GetPropertyDisplayValue(){
+            return GetFormattedValue();
         }
 
-        void SetupHyperLink(object value, object editor) {
-            
+
+        ASPxHyperLink CreateHyperLink() {
+            return RenderHelper.CreateASPxHyperLink();
+        }
+
+        public override bool CanFormatPropertyValue => true;
+
+        void SetupHyperLink(object editor) {
             var hyperlink = editor as ASPxHyperLink;
             if (hyperlink != null) {
-                string url = Convert.ToString(value);
+                string url = GetFormattedValue();
                 hyperlink.Text = url;
-                hyperlink.NavigateUrl = GetResolvedUrl(url);
-                hyperlink.Target = "blank";
+                hyperlink.NavigateUrl = GetResolvedUrl(PropertyValue);
+                var hyperlinkTarget = ((IModelMemberViewItemASPxHyperLink) Model).ASPxHyperLinkControl.GetValue<string>(nameof(ASPxHyperLink.Target));
+                if (string.IsNullOrEmpty(hyperlinkTarget))
+                    hyperlinkTarget = "_blank";
+                hyperlink.Target = hyperlinkTarget;
             }
         }
     }
