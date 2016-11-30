@@ -228,15 +228,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Target Name="AfterBuild">
-    <Message Text="$(OutputPath)$(AssemblyName).dll">
-    </Message>
-    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll;$(OutputPath)$(AssemblyName).pdb;$(OutputPath)\Mono.Cecil.dll" DestinationFolder="$(DXCorePluginsFolder)" ContinueOnError="true">
-    </Copy>
+    <Message Text="$(OutputPath)$(AssemblyName).dll"></Message>
+    <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll;$(OutputPath)$(AssemblyName).pdb;$(OutputPath)\Mono.Cecil.dll" DestinationFolder="$(DXCorePluginsFolder)" ContinueOnError="true"></Copy>
   </Target>
   <Import Project="..\Support\Build\Nuget.Targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent></PostBuildEvent>
     <LangVersion>6</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
