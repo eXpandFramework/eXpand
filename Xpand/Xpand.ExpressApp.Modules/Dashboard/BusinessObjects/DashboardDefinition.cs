@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [CloneView(CloneViewType.DetailView, DashboardViewerDetailView)]
     [CloneView(CloneViewType.DetailView, DashboardDesignerDetailView)]
     public class DashboardDefinition : XpandCustomObject, IDashboardDefinition{
-        public const string DashboardViewerDetailView = "DashboardViewer_DetailView";
+        public const string DashboardViewerDetailView = "DashboardDefinitionViewer_DetailView";
         public const string DashboardDesignerDetailView = "DashboardDesigner_DetailView";
         bool _active;
         BindingList<ITypeWrapper> _dashboardTypes;

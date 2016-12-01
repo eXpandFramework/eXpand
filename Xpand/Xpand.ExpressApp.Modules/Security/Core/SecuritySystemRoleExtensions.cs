@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.Security.Core {
             return operationPermissions.Distinct();
         }
 
-        public static IEnumerable<ObjectOperationPermission> ObjectOperationPermissions(this ISecurityRole securityRole, XPMemberInfo member) {
+        static IEnumerable<IOperationPermission> ObjectOperationPermissions(this ISecurityRole securityRole, XPMemberInfo member) {
             var collection = ((XPBaseCollection)member.GetValue(securityRole)).OfType<object>().ToArray();
             var securityOperation = GetSecurityOperation(securityRole, member);
             if (!string.IsNullOrEmpty(securityOperation)) {
@@ -77,11 +77,14 @@ namespace Xpand.ExpressApp.Security.Core {
             }
         }
 
-        static ObjectOperationPermission ObjectOperationPermissions(XPMemberInfo member, object obj, string securityOperation, string roleName) {
+        static IOperationPermission ObjectOperationPermissions(XPMemberInfo member, object obj, string securityOperation, string roleName){
             var permissionPolicyUser = SecuritySystem.CurrentUser as IPermissionPolicyUser;
-            var isGranted = securityOperation == SecurityPermissionState.Allow.ToString();
-            return permissionPolicyUser == null? new ObjectOperationPermission(member.CollectionElementType.ClassType,Criteria(obj, member.CollectionElementType), securityOperation)
-                : new ObjectOperationStatePermission(member.CollectionElementType.ClassType,Criteria(obj, member.CollectionElementType), securityOperation, roleName,true);
+            if (permissionPolicyUser == null){
+                return new ObjectOperationPermission(member.CollectionElementType.ClassType,
+                    Criteria(obj, member.CollectionElementType), securityOperation);
+            }
+            return new ObjectOperationStatePermission(member.CollectionElementType.ClassType,
+                Criteria(obj, member.CollectionElementType), securityOperation, roleName, true);
         }
 
         static string Criteria(object obj, XPClassInfo classInfo) {

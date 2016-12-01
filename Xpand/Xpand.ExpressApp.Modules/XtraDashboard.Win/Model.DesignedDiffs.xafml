@@ -10,7 +10,7 @@
         <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardXMLEditor" />
       </Items>
     </DetailView>
-    <DetailView Id="DashboardViewer_DetailView">
+    <DetailView Id="DashboardDefinitionViewer_DetailView">
       <Items>
         <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardViewEditor" />
       </Items>

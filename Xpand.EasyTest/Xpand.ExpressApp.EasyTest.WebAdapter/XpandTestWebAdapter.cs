@@ -22,6 +22,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         private IWebServerManager _serverManager;
 
         public override void RunApplication(TestApplication testApplication,string connectionString){
+            XafWebBrowser.OperationMillisecondsTimeout = 60000*2;
             testApplication.Assign();
             testApplication.CreateParametersFile();
             testApplication.DeleteUserModel();
@@ -31,6 +32,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                 IISHelper.Configure(testApplication);
             }  
             base.RunApplication(testApplication,connectionString);
+
             WebBrowser.BrowserWindowHandle.MoveWindow(new Rectangle(0,0,1024,768));
         }
 

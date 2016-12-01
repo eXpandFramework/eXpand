@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         public SchedulerListEditorBase SchedulerListEditor {
             get {
                 var listView = View as ListView;
-                return listView != null ? listView.Editor as SchedulerListEditorBase : null;
+                return listView?.Editor as SchedulerListEditorBase;
             }
         }
 
@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
 
         void LinkToListViewControllerOnLinkChanged(object sender, EventArgs eventArgs) {
             var link = ((LinkToListViewController) sender).Link;
-            if (SchedulerListEditor!=null && link != null && link.ListView != null) {
+            if (SchedulerListEditor!=null && link?.ListView != null) {
                 new AppoitmentSynchronizer(Labels(), Statuses(), (IModelListViewOptionsScheduler)link.ListView.Model).ApplyModel();
             }	
         }
@@ -91,7 +91,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         protected abstract ResourceStorageBase Resources();
 
         protected abstract IEnumerable<Appointment> Items();
-        protected abstract SchedulerStorageBase Storage();
+        protected abstract ISchedulerStorageBase Storage();
 
         protected void SynchMenu(object menu) {
             var popupMenus = ((IModelListViewOptionsScheduler) View.Model).OptionsScheduler.PopupMenuItems;
@@ -122,6 +122,10 @@ namespace Xpand.ExpressApp.Scheduler.Model {
                 Act = info =>{
                     if (info.Name == "Item"&&!info.PropertyType.BehaveLikeValueType())
                         return false;
+                    if (info.Name == "DataStorage") {
+                        info.SetName("Storage");
+                        info.SetPropertyType(typeof(SchedulerStorage));
+                    }
                     info.RemoveInvalidTypeConverterAttributes("DevExpress.XtraScheduler.Design");
                     return info.DXFilter(BaseSchedulerControlTypes(), typeof(object));
                 }

@@ -7,7 +7,7 @@ namespace Xpand.ExpressApp.Scheduler.Win.Reminders {
     public class RemindersForm : DevExpress.XtraScheduler.Forms.RemindersForm {
         readonly XafApplication _xafApplication;
 
-        public RemindersForm(XafApplication xafApplication, SchedulerStorage storage)
+        public RemindersForm(XafApplication xafApplication, ISchedulerStorage storage)
             : base(storage) {
             _xafApplication = xafApplication;
         }

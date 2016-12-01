@@ -707,11 +707,13 @@ namespace Xpand.Persistent.Base.ModelAdapter{
     public sealed class DynamicModelPropertyInfo : PropertyInfo{
         readonly List<object> _attributesCore = new List<object>();
         readonly PropertyInfo _targetPropertyInfo;
+        private Type _propertyType;
+        private string _name;
 
         public DynamicModelPropertyInfo(string name, Type propertyType, Type declaringType, bool canRead, bool canWrite,
             PropertyInfo targetPropertyInfo){
-            Name = name;
-            PropertyType = propertyType;
+            _name = name;
+            _propertyType = propertyType;
             DeclaringType = declaringType;
             CanRead = canRead;
             CanWrite = canWrite;
@@ -721,9 +723,9 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         }
 
 
-        public override string Name { get; }
+        public override string Name => _name;
 
-        public override Type PropertyType { get; }
+        public override Type PropertyType => _propertyType;
 
         public override Type DeclaringType { get; }
 
@@ -777,6 +779,15 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         public override bool IsDefined(Type attributeType, bool inherit){
             return _targetPropertyInfo.IsDefined(attributeType, inherit);
+        }
+
+
+        public void SetName(string name) {
+            _name = name;
+        }
+
+        public void SetPropertyType(Type type) {
+            _propertyType = type;
         }
 
         public void RemoveAttribute(Attribute attribute){

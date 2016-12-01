@@ -51,7 +51,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="DashboardViewer_DetailView" ViewEditMode="View">
+    <DetailView Id="DashboardDefinitionViewer_DetailView" ViewEditMode="View">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100" Direction="Vertical" Caption="SimpleEditors">

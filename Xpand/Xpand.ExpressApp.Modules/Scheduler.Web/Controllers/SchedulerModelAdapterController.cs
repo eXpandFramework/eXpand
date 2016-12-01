@@ -36,11 +36,7 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
             }
 
         }
-        public new ASPxSchedulerListEditor SchedulerListEditor {
-            get {
-                return base.SchedulerListEditor as ASPxSchedulerListEditor;
-            }
-        }
+        public new ASPxSchedulerListEditor SchedulerListEditor => base.SchedulerListEditor as ASPxSchedulerListEditor;
 
         protected override IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             return base.CreateBuilderData().Concat(new[]{
@@ -98,7 +94,7 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
             return SchedulerListEditor.SchedulerControl.Storage.Appointments.Items;
         }
 
-        protected override SchedulerStorageBase Storage() {
+        protected override ISchedulerStorageBase Storage() {
             return SchedulerListEditor.SchedulerControl.Storage;
         }
 
@@ -112,7 +108,7 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (SchedulerListEditor != null && SchedulerListEditor.SchedulerControl != null)
+            if (SchedulerListEditor?.SchedulerControl != null)
                 SchedulerListEditor.SchedulerControl.PopupMenuShowing -= SchedulerControlOnPopupMenuShowing;
         }
     }

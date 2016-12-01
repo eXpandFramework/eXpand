@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
         private const string PrintPreview = "PrintPreview";
         public DashboardExportController() {
             TargetObjectType = typeof(IDashboardDefinition);
-            _exportDashboardAction = new SingleChoiceAction(this, "ExportDashboard", PredefinedCategory.Export) { Caption = "Export Dashboard To" };
+            _exportDashboardAction = new SingleChoiceAction(this, "ExportDashboardTo", PredefinedCategory.Export) { Caption = "Export Dashboard To" };
             _exportDashboardAction.Items.Add(new ChoiceActionItem(PrintPreview, PrintPreview) { ImageName = "Action_Printing_Preview" });
             _exportDashboardAction.Items.Add(new ChoiceActionItem(ExportToPdf, ExportToPdf) { ImageName = "Action_Export_ToPDF" });
             _exportDashboardAction.Items.Add(new ChoiceActionItem(ExportToImage, ExportToImage) { ImageName = "Action_Export_ToImage" });
@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (View.Id== "DashboardViewer_DetailView"){
+            if (View.Id== "DashboardDefinitionViewer_DetailView") {
                 var xmlViewItem = View.FindItem("Xml");
                 var item = xmlViewItem as DashboardViewEditor;
                 if (item != null) {

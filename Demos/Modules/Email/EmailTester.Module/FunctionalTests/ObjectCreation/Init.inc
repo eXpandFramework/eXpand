@@ -5,4 +5,3 @@
 *UseModel ..\CommonSmtpClient;..\CommonReceipient;NewObject
 *LogOn
 *XpandDeleteFile %temp%\Emails\*.eml
- InBin = true

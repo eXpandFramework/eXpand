@@ -538,7 +538,7 @@ namespace Xpand.Persistent.Base.General {
 
     [ModelNodesGenerator(typeof(MergedDifferenceStrategyIncludedNodePathsGenerator))]
     public interface IModelMergedDifferenceStrategyIncludedNodePaths : IModelNode, IModelList<IModelMergedDifferenceStrategyIncludedNodePath> {
-        //TODO:        Ilya+defaultvalue+check old masterdetail
+        
     }
 
     [ModelNodesGenerator(typeof(MergedDifferenceStrategyExcludedNodePathsGenerator))]
@@ -582,6 +582,7 @@ namespace Xpand.Persistent.Base.General {
                     modelNode.Remove();
             }
         }
+
 
         void GenerateAll(ModelNode node, IModelMergedDifferenceStrategyIncludedNodePaths modelMergedDifferenceStrategyNodePaths) {
             var modelApplicationCreator = ((ModelNode)node.Application.Views).CreatorInstance;

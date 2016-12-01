@@ -7,7 +7,6 @@ using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 using System.Linq;
-using DevExpress.ExpressApp.Model.Core;
 using Fasterflect;
 
 namespace Xpand.Persistent.Base.General.Model.Options {
@@ -121,11 +120,6 @@ namespace Xpand.Persistent.Base.General.Model.Options {
     }
 
     public class ModelGridColumnAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelOptionsColumnGridView, IModelColumnGridViewModelAdapter> {
-        protected override void GenerateNodesCore(ModelNode node) {
-            var modelOptionsAdvBandedView = ((IModelApplicationModelAdapterContexts)node.Application).ModelAdapterContexts.GetAdapters<IModelOptionsColumnGridView>().FirstOrDefault();
-            var optionsAdvBandedView = node.AddNode<IModelColumnGridViewModelAdapter>("Default");
-            optionsAdvBandedView.ModelAdapter = modelOptionsAdvBandedView;
-        }
 
     }
 

@@ -48,7 +48,7 @@
         <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors.DashboardDesignerEditor" />
       </Items>
     </DetailView>
-    <DetailView Id="DashboardViewer_DetailView" AllowEdit="False">
+    <DetailView Id="DashboardDefinitionViewer_DetailView" AllowEdit="False">
       <Items>
         <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors.DashboardViewEditorWeb" />
       </Items>

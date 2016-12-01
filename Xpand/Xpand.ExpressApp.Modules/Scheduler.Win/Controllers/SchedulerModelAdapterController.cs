@@ -53,9 +53,7 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
     }
 
     public class SchedulerModelAdapterController : SchedulerModelAdapterControllerBase {
-        public new SchedulerListEditor SchedulerListEditor {
-            get {return base.SchedulerListEditor as SchedulerListEditor;}
-        }
+        public new SchedulerListEditor SchedulerListEditor => base.SchedulerListEditor as SchedulerListEditor;
 
         protected override IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             return base.CreateBuilderData().Concat(new[]{
@@ -117,7 +115,7 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
 
         ISchedulerStorage SchedulerStorage() {
             var schedulerLabelPropertyEditor = ((DetailView) View).GetItems<SchedulerLabelPropertyEditor>().FirstOrDefault();
-            return schedulerLabelPropertyEditor != null ? ((AppointmentLabelEdit) schedulerLabelPropertyEditor.Control).Storage : null;
+            return ((AppointmentLabelEdit) schedulerLabelPropertyEditor?.Control)?.Storage;
         }
 
         protected override IInnerSchedulerControlOwner SchedulerControl() {
@@ -132,8 +130,8 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
             return SchedulerListEditor.SchedulerControl.Storage.Appointments.Items;
         }
 
-        protected override SchedulerStorageBase Storage() {
-            return SchedulerListEditor.SchedulerControl.Storage;
+        protected override ISchedulerStorageBase Storage() {
+            return SchedulerListEditor.SchedulerControl.DataStorage;
         }
 
         void SchedulerControlOnPopupMenuShowing(object sender, PopupMenuShowingEventArgs e){

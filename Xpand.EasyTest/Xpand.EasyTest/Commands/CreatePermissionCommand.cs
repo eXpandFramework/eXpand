@@ -2,7 +2,8 @@
 using DevExpress.EasyTest.Framework.Commands;
 
 namespace Xpand.EasyTest.Commands {
-    public class CreatePermissionCommand : Command {
+    public class CreatePermissionCommand : Command,IRequireApplicationOptions {
+        private TestApplication _applicationOptions;
         public const string Name = "CreatePermission";
         protected override void InternalExecute(ICommandAdapter adapter) {
             NavigateToRole(adapter);
@@ -40,6 +41,7 @@ namespace Xpand.EasyTest.Commands {
 
         private void ProccessUserRole(ICommandAdapter adapter) {
             var processRecordCommand = new XpandProcessRecordCommand();
+            processRecordCommand.SetApplicationOptions(_applicationOptions);
             processRecordCommand.Parameters.MainParameter = new MainParameter("");
             processRecordCommand.Parameters.Add(new Parameter("Name", this.ParameterValue("EditRole", "User"), true, StartPosition));
             processRecordCommand.Parameters.Add(new Parameter("Action", "Edit", true, StartPosition));
@@ -50,6 +52,10 @@ namespace Xpand.EasyTest.Commands {
             var navigateCommand = new NavigateCommand();
             navigateCommand.Parameters.MainParameter = new MainParameter(this.ParameterValue("RolePath", "Default.Role"));
             navigateCommand.Execute(adapter);
+        }
+
+        public void SetApplicationOptions(TestApplication applicationOptions){
+            _applicationOptions = applicationOptions;
         }
     }
 }
