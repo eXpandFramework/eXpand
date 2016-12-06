@@ -2,7 +2,7 @@
 <Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <PropertyGroup>
 	<RestoreNuget>true</RestoreNuget>
-    <DXVersion>16.2</DXVersion>
+    <DXVersion>16.1</DXVersion>
     <DXPath>C:\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
     <ProjectConverterPath>$(DXPath)\Components\Tools\Components</ProjectConverterPath>
@@ -69,11 +69,15 @@
           <Output Output="true" /> 
         </ParameterGroup> 
         <Task> 
-          <![CDATA[
+         <![CDATA[
           Set-ExecutionPolicy Unrestricted
           $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Source code indexing...")
-          $var = powershell .\Support\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
-          $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
+		  New-Item -ItemType Directory -Force -Path $(MSBuildProjectDirectory)\Xpand.dll\pdb
+		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\*" -include "Xpand.*.pdb" -Destination "$(MSBuildProjectDirectory)\Xpand.dll\pdb"
+          $var = powershell .\Support\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll\pdb -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
+		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
+		  
+          
 ]]>
           
         </Task> 
@@ -321,8 +325,9 @@
     <MakeDir Directories="$(ArtifactDirectory)" />
   </Target>
   <Target Name="Test">
+  
   </Target>
-  <Target Name="Integrate" DependsOnTargets="Clean;Test;Report;" />
+  <Target Name="Integrate" DependsOnTargets="Clean;Report;" />
   <!--For Continuous integration and automated releases-->
   <Target Name="Release" DependsOnTargets="NuGetRestore;Clean;_Version;Build;Report;" >
 	<IndexSources/>
