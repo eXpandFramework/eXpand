@@ -37,17 +37,17 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         private void OnCancel(object sender, CancelEventArgs e){
             var options = ((IModelOptionsApplicationExit)Application.Model.Options);
-            e.Cancel = (options.PromptOnExit || options.MinimizeOnExit || options.HideOnExit);
+            if ((options.PromptOnExit || options.MinimizeOnExit || options.HideOnExit))
+                e.Cancel = true;
         }
 
         private void OnClose(object sender, CancelEventArgs e) {
             var modelOptionsOnCloseActions = ((IModelOptionsApplicationExit)Application.Model.Options);
-            e.Cancel = MinimizeOnClose(modelOptionsOnCloseActions);
+            var minimizeOnClose = MinimizeOnClose(modelOptionsOnCloseActions);
             var hideOnClose = HideOnClose(modelOptionsOnCloseActions);
-            if (!e.Cancel)
-                e.Cancel = hideOnClose;
-            if (!e.Cancel) {
-                e.Cancel = PromptOnExit(modelOptionsOnCloseActions);
+            var promptOnExit = PromptOnExit(modelOptionsOnCloseActions);
+            if (promptOnExit||hideOnClose||minimizeOnClose) {
+                e.Cancel = true;
             }
         }
 
