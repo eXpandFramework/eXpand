@@ -12,6 +12,7 @@ using Xpand.Persistent.Base;
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
     public class XmlContentValidationController:ObjectViewController<DetailView,IXpoModelDifference>{
         private PropertyEditor _propertyEditor;
+        private Control _xmlContentControl;
 
         protected override void OnActivated(){
             base.OnActivated();
@@ -28,11 +29,13 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
-            MergeWithModel();
+            if (_xmlContentControl != null && _xmlContentControl.Focused)
+                MergeWithModel();
         }
 
         private void PropertyEditorOnControlCreated(object sender, EventArgs eventArgs){
-            ((Control) ((PropertyEditor) sender).Control).Leave+=OnLeave;
+            _xmlContentControl = ((Control) ((PropertyEditor) sender).Control);
+            _xmlContentControl.Leave+=OnLeave;
         }
 
         private void OnLeave(object sender, EventArgs eventArgs){
