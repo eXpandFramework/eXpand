@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -104,7 +103,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         public int CombineOrder {
             get { return _combineOrder; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _combineOrder, value); }
+            set { SetPropertyValue(nameof(CombineOrder), ref _combineOrder, value); }
         }
         [NonCloneable]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
@@ -113,7 +112,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public PersistentApplication PersistentApplication {
             get { return _persistentApplication; }
             set {
-                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _persistentApplication, value);
+                SetPropertyValue(nameof(PersistentApplication), ref _persistentApplication, value);
             }
         }
 
@@ -130,19 +129,19 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public string Name {
             get { return _name; }
             set {
-                SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _name, value);
+                SetPropertyValue(nameof(Name), ref _name, value);
             }
         }
 
         public bool Disabled {
             get { return _disabled; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _disabled, value); }
+            set { SetPropertyValue(nameof(Disabled), ref _disabled, value); }
         }
 
         [ModelDefault("AllowEdit", "false"), RuleRequiredField(null, DefaultContexts.Save)]
         public DateTime DateCreated {
             get { return _dateCreated; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _dateCreated, value); }
+            set { SetPropertyValue(nameof(DateCreated), ref _dateCreated, value); }
         }
         [Size(SizeAttribute.Unlimited)]
         [NonCloneable]

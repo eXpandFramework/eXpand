@@ -16,28 +16,20 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected virtual void OnCancel(CancelEventArgs e) {
             var handler = Cancel;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
-        public Form Form {
-            get { return _form; }
-        }
+        public Form Form => _form;
 
-        public static bool IsloggingOff {
-            get { return _isloggingOff; }
-        }
+        public static bool IsloggingOff => _isloggingOff;
 
-        public static bool IsModelEditing {
-            get { return _modelEditing; }
-        }
+        public static bool IsModelEditing => _modelEditing;
 
-        public static bool IsNotLoggingOffOrModelEditing {
-            get { return !IsloggingOff && !IsModelEditing; }
-        }
+        public static bool IsNotLoggingOffOrModelEditing => !IsloggingOff && !IsModelEditing;
 
         protected virtual void OnClose(CancelEventArgs e) {
             var handler = Close;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected override void OnFrameAssigned() {
@@ -92,8 +84,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         private void FormOnFormClosing(object sender, FormClosingEventArgs e) {
             if (_cancel) {
                 _cancel = false;
-                e.Cancel = e.CloseReason == CloseReason.UserClosing;
-                if (e.Cancel) {
+                if (e.CloseReason == CloseReason.UserClosing) {
                     OnClose(e);
                 }
             }

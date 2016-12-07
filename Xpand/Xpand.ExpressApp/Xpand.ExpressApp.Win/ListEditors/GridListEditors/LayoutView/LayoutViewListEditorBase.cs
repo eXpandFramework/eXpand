@@ -710,7 +710,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             base.OnCreateCustomColumn(sender, e);
             if (e.Column == null) {
                 e.Column = new LayoutViewColumn();
-                e.GridColumnInfo = new LayoutViewColumnInfo(e.ModelColumn, e.ObjectTypeInfo, IsAsyncServerMode, HasProtectedContent(e.ModelColumn.PropertyName));
+                e.GridColumnInfo = new LayoutViewColumnInfo(e.ModelColumn, e.ObjectTypeInfo, IsInstantFeedbackMode, HasProtectedContent(e.ModelColumn.PropertyName));
             }
         }
         protected override void OnCustomizeGridColumn(object sender, CustomizeGridColumnEventArgs e) {

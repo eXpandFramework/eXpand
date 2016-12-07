@@ -31,9 +31,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _nonPersistent, value); }
         }
         [Browsable(false)]
-        public bool IsCurrentUserModel{
-            get {  return ReferenceEquals(new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(ApplicationHelper.Instance.Application.GetType().FullName, Name), this);}
-        }
+        public bool IsCurrentUserModel => ReferenceEquals(new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(ApplicationHelper.Instance.Application.GetType().FullName, Name), this);
 
         public override void AfterConstruction() {
             base.AfterConstruction();
