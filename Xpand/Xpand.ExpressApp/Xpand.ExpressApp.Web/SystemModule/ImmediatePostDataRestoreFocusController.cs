@@ -39,11 +39,12 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                     ASPxWebControl control = (ASPxWebControl)s;
                     ClientSideEventsHelper.AssignClientHandlerSafe(control, "GotFocus", @"
                         function (s,e){
-                            window.lastFocusedEditorId = s.inputElement.id;
+                            if (s.inputElement!=null)
+                                window.lastFocusedEditorId = s.inputElement.id;
                         }", Guid.NewGuid().ToString());
                     ClientSideEventsHelper.AssignClientHandlerSafe(control, "Init", @"            
                         function (s,e){
-                            if (window.lastFocusedEditorId === s.inputElement.id) {
+                            if (s.inputElement!=null && window.lastFocusedEditorId === s.inputElement.id) {
                                 var timeout = window.setTimeout(function () {
                                     var element = document.getElementById(s.inputElement.id);
                                     element.focus();
