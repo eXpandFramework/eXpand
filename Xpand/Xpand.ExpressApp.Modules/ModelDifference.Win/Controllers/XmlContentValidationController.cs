@@ -5,14 +5,16 @@ using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.Persistent.Validation;
+using DevExpress.XtraRichEdit;
 using Xpand.ExpressApp.ModelDifference.DataStore.Validation;
 using Xpand.ExpressApp.ModelDifference.Win.PropertyEditors;
+using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
     public class XmlContentValidationController:ObjectViewController<DetailView,IXpoModelDifference>{
         private PropertyEditor _propertyEditor;
-        private Control _xmlContentControl;
+        private RichEditControl _richEditControl;
 
         protected override void OnActivated(){
             base.OnActivated();
@@ -29,13 +31,13 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
-            if (_xmlContentControl != null && _xmlContentControl.Focused)
+            if (_richEditControl != null && _richEditControl.Focused)
                 MergeWithModel();
         }
 
         private void PropertyEditorOnControlCreated(object sender, EventArgs eventArgs){
-            _xmlContentControl = ((Control) ((PropertyEditor) sender).Control);
-            _xmlContentControl.Leave+=OnLeave;
+            _richEditControl = ((RichEditContainer) ((PropertyEditor) sender).Control).RichEditControl;
+            _richEditControl.Leave+=OnLeave;
         }
 
         private void OnLeave(object sender, EventArgs eventArgs){
