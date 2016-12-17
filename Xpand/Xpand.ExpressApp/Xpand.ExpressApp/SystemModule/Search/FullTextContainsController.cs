@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
     public class ModelMemberFullTextContainsVisibilityCalculator:IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName){
             var memberInfo = ((IModelMember) node).MemberInfo;
-            return memberInfo.MemberType == typeof(string)&&memberInfo.FindAttributes<SizeAttribute>().Any(attribute => attribute.Size==SizeAttribute.Unlimited);
+            return memberInfo != null && (memberInfo.MemberType == typeof(string)&&memberInfo.FindAttributes<SizeAttribute>().Any(attribute => attribute.Size==SizeAttribute.Unlimited));
         }
     }
     public static class ModelMemberFullTextContainsEx {
