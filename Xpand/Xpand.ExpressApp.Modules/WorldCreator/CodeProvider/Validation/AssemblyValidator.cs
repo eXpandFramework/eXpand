@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
     [Serializable]
@@ -24,6 +25,7 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
         private ValidatorResult ValidateCore(string assemblyPath){
             var validatorResult = new ValidatorResult();
             try{
+                throw new ReflectionTypeLoadException(new Type[] { typeof(ApplicationModulesManager) }, new Exception[] { new AccessViolationException(), });
                 using (var typesInfo = new TypesInfo()){
                     typesInfo.AddEntityStore(new XpoTypeInfoSource(typesInfo));
                     TypesInfoValidation(assemblyPath, typesInfo);
@@ -31,10 +33,14 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
                 }
             }
             catch (Exception e){
-                validatorResult.Message=e.ToString();
+                var exception = e;
+                if (exception.InnerException != null)
+                    exception = e.InnerException;
+                validatorResult.Message=Tracing.Tracer.FormatExceptionReport(exception);
             }
             return validatorResult;
         }
+
 
         private void TypesInfoValidation(string assemblyFile, TypesInfo typesInfo) {
             var applicationModulesManager = new ApplicationModulesManager();
