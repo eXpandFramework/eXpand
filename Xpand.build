@@ -76,8 +76,8 @@
 		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\*" -include "Xpand.*.pdb" -Destination "$(MSBuildProjectDirectory)\Xpand.dll\pdb"
           $var = powershell .\Support\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll\pdb -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
 		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
-		  
-          
+		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\pdb\*.*" -Destination "$(MSBuildProjectDirectory)\Xpand.dll" -Force
+		  Remove-Item "$(MSBuildProjectDirectory)\Xpand.dll\pdb" -Recurse -Force
 ]]>
           
         </Task> 
