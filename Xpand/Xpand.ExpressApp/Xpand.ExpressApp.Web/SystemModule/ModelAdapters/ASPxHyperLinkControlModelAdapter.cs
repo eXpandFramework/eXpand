@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.Web.SystemModule.ModelAdapters {
     public interface IModelASPxHyperLinkControl : IModelModelAdapter {
         [Category(AttributeCategoryNameProvider.Xpand)]
         string HyperLinkFormat { get; set; }
-        IModelDropDownControlModelAdapters ModelAdapters { get; }
+        IModelASPxHyperLinkControlModelAdapters ModelAdapters { get; }
     }
 
     [ModelNodesGenerator(typeof(ModelASPxHyperLinkControlAdaptersNodeGenerator))]
