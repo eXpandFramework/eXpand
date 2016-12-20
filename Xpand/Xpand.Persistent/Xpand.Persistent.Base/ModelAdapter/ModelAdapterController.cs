@@ -211,10 +211,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     public abstract class ModelAdapterNodeGeneratorBase<T, T2> : ModelNodesGeneratorBase
             where T : IModelModelAdapter
             where T2 : IModelCommonModelAdapter<T> {
-        [Obsolete("replace with "+nameof(ModelValueNames))]
+
         protected override void GenerateNodesCore(ModelNode node) {
             var optionsAdvBandedView = GenerateNode(node);
-            optionsAdvBandedView.SetValue("NeedsCachingKey", false);
+            optionsAdvBandedView.SetValue(ModelValueNames.NeedsCachingKey, false);
         }
         protected override void UpdateCachedNodes(ModelNode node) {
             if (node.GetNode("Default") == null) {
