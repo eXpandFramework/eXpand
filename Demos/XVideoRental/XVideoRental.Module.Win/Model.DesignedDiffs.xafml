@@ -1209,14 +1209,6 @@
         <ActionLink ActionId="Export" IsNewNode="True" />
         <ActionLink ActionId="PrintPreview" IsNewNode="True" />
       </HiddenActions>
-      <OptionsAdvBandedView>
-        <GridBands>
-          <GridBand Id="Photo" Index="0" Visible="True" IsNewNode="True" />
-          <GridBand Id="Movie" Index="1" Visible="True" Width="326" IsNewNode="True" />
-          <GridBand Id="Awards" Index="2" Visible="True" IsNewNode="True" />
-          <GridBand Id="General" Index="3" Visible="True" IsNewNode="True" />
-        </GridBands>
-      </OptionsAdvBandedView>
       <OptionsPivotGrid>
         <Rules IsNewNode="True">
           <PivotSpinEditRule Id="All cell rows editable" End="-1, -1" IsNewNode="True" />
