@@ -68,6 +68,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             if (e.MenuType == GridViewContextMenuType.Columns) {
                 var item = e.CreateItem(ColumnChooserAction.Caption, ColumnChooserAction.Id);
                 ASPxImageHelper.SetImageProperties(item.Image, ColumnChooserAction.ImageName);
+                e.Items[10].Visible = false;
                 e.Items.Insert(10, item);
             }
         }

@@ -52,11 +52,9 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 item.ControlCreated += ItemOnControlCreated;
             }
             var listView = View as ListView;
-            if (listView != null) {
-                var asPxGridListEditor = listView.Editor as ASPxGridListEditor;
-                if (asPxGridListEditor != null) {
-                    asPxGridListEditor.CustomCreateCellControl += AsPxGridListEditorOnCustomCreateCellControl;
-                }
+            var asPxGridListEditor = listView?.Editor as ASPxGridListEditor;
+            if (asPxGridListEditor != null) {
+                asPxGridListEditor.CustomCreateCellControl += AsPxGridListEditorOnCustomCreateCellControl;
             }
         }
 
@@ -108,8 +106,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         TableCell ContainerCell(WebPropertyEditor item) {
             var tableEx = (item.Control as TableEx);
-            if (tableEx == null) return null;
-            return ((TableRow)tableEx.Controls[0]).Cells[1];
+            return ((TableRow) tableEx?.Controls[0])?.Cells[1];
         }
 
         void OnInstantiated(object sender, TemplateInstantiatedEventArgs templateInstantiatedEventArgs) {
@@ -226,7 +223,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         LayoutGroupTemplateContainer LayoutGroupTemplateContainer(WebControl containerControl, int cellIndex) {
             var tableRow = containerControl.Controls[0] as TableRow;
-            return tableRow != null && tableRow.Cells[cellIndex].Controls.Cast<object>().Any() ? tableRow.Cells[cellIndex].Controls[0] as LayoutGroupTemplateContainer : null;
+            return tableRow != null && tableRow.Cells.Cast<TableCell>().Any()&& tableRow.Cells[cellIndex].Controls.Cast<object>().Any() ? tableRow.Cells[cellIndex].Controls[0] as LayoutGroupTemplateContainer : null;
         }
 
         public void ApplyControlStyle(WebControl webControl, ILayoutStyle layoutStyle) {
