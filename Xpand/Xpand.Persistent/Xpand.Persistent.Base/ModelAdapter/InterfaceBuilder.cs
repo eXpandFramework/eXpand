@@ -337,10 +337,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         string GetAttributesCode(DynamicModelPropertyInfo property){
             var attributes = property.GetCustomAttributes(false).OfType<Attribute>().ToList();
-            if (property.PropertyType == typeof(string) && !attributes.OfType<LocalizableAttribute>().Any())
-                attributes.Add(new LocalizableAttribute(true));
-            IEnumerable<string> codeList =
-                attributes.Select(attribute => GetAttributeCode(attribute, property))
+            var codeList = attributes.Select(attribute => GetAttributeCode(attribute, property))
                     .Where(attributeCode => !string.IsNullOrEmpty(attributeCode));
             return codeList.Aggregate<string, string>(null,
                 (current, attributeCode) => current + $"   [{attributeCode}]{Environment.NewLine}");
