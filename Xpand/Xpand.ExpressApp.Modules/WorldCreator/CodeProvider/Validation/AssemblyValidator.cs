@@ -25,7 +25,6 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
         private ValidatorResult ValidateCore(string assemblyPath){
             var validatorResult = new ValidatorResult();
             try{
-                throw new ReflectionTypeLoadException(new Type[] { typeof(ApplicationModulesManager) }, new Exception[] { new AccessViolationException(), });
                 using (var typesInfo = new TypesInfo()){
                     typesInfo.AddEntityStore(new XpoTypeInfoSource(typesInfo));
                     TypesInfoValidation(assemblyPath, typesInfo);
