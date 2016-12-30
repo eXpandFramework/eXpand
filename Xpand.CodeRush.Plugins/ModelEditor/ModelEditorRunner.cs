@@ -64,7 +64,12 @@ namespace Xpand.CodeRush.Plugins.ModelEditor {
                 string debugMe = OptionClass.Instance.DebugME ? "d":null;
                 string arguments = String.Format("{0} {4} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectItemWrapper.LocalPath,projectItemWrapper.IsApplicationProject);
                 if (File.Exists(destFileName))
-                    Process.Start(destFileName, arguments);
+                    try{
+                        Process.Start(destFileName, arguments);
+                    }
+                    catch (IOException){
+                        MessageBox.Show("You have probably open the same model from another ME instance. If not please report this with reproduction details in eXpandFramework bugs forum");
+                    }
                 else
                     MessageBox.Show($"Model editor not found at {destFileName}");
             }
