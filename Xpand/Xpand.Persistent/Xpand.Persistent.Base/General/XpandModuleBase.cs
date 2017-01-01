@@ -692,6 +692,14 @@ namespace Xpand.Persistent.Base.General {
             else if (!Executed("CustomizedTypesInfo", ModuleType.Web)) {
                 EditorAliasForNullableEnums(typesInfo);
             }
+
+            var info = ModuleManager.Modules.OfType<XpandModuleBase>().Last().GetType();
+            if (GetType()== info) {
+                var keyValuePairs = CallMonitor.Keys.ToList();
+                foreach (var pair in keyValuePairs) {
+                    CallMonitor[pair].Clear();
+                }
+            }
         }
 
         private void EditorAliasForNullableEnums(ITypesInfo typesInfo) {
@@ -735,16 +743,6 @@ namespace Xpand.Persistent.Base.General {
                 ((TypeInfo)info.TypeInfo).DefaultMember = info.TypeInfo.FindMember(info.Attribute.MemberName);
             }
         }
-
-//        protected override void Dispose(bool disposing) {
-//            if (!RuntimeMode) {
-//                var keyValuePairs = CallMonitor.Keys.ToList();
-//                foreach (var pair in keyValuePairs) {
-//                    CallMonitor[pair].Clear();
-//                }
-//            }
-//            base.Dispose(disposing);
-//        }
 
         public void ConvertXml(ConvertXmlParameters parameters) {
             if (typeof(IModelMember).IsAssignableFrom(parameters.NodeType)) {
