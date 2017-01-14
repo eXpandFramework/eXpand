@@ -47,6 +47,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes ={
+                typeof(ASPxSpinEditModelAdapter),
                 typeof(ASPxHyperLinkControlModelAdapter),
                 typeof(AutoCommitController),
                 typeof(WebProcessDataLockingInfoController),
