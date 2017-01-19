@@ -67,4 +67,7 @@ namespace Xpand.Persistent.Base.General.Model {
     public interface IColumnCellFilterUser {
          
     }
+    public interface ITreeUser {
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
@@ -15,7 +16,20 @@ using Xpand.Persistent.Base.TreeNode;
 namespace Xpand.ExpressApp.Web.SystemModule {
     public interface IModelOptionsColumnChooserContextMenu : IModelNode {
         [Category(AttributeCategoryNameProvider.Xpand)]
+        [ModelReadOnly(typeof(ModelOptionsColumnChooserContextMenuReadOnlyCalculator))]
+        [Description("Hierarchical support when XpandTreeListEditorsAspNetModule is installed")]
         bool ColumnChooserContextMenu { get; set; }
+    }
+
+    
+    public class ModelOptionsColumnChooserContextMenuReadOnlyCalculator:IModelIsReadOnly {
+        public bool IsReadOnly(IModelNode node, string propertyName){
+            return !((IModelSources) node.Application).Modules.Any(m => m is ITreeUser);
+        }
+
+        public bool IsReadOnly(IModelNode node, IModelNode childNode){
+            return IsReadOnly(node, "");
+        }
     }
 
     [ModelInterfaceImplementor(typeof(IModelOptionsColumnChooserContextMenu), "Application.Options")]
@@ -26,6 +40,11 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public ColumnChooserGridViewController() {
             ColumnChooserAction = new SimpleAction(this, "ColumnChooser", "HiddenCategory");
             ColumnChooserAction.Execute += ColumnChooserActionOnExecute;
+        }
+
+        protected override void OnActivated(){
+            base.OnActivated();
+            Active["XpandTreeModule"]= new ModelOptionsColumnChooserContextMenuReadOnlyCalculator().IsReadOnly(Application.Model.Options, (IModelNode)null);
         }
 
         public SimpleAction ColumnChooserAction { get; }

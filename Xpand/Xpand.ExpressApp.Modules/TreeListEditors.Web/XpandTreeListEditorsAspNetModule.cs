@@ -9,6 +9,7 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Utils;
 using Xpand.ExpressApp.TreeListEditors.Web.ListEditors;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.TreeNode;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
@@ -17,7 +18,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Web {
     [ToolboxBitmap(typeof(TreeListEditorsAspNetModule), "Resources.Toolbox_Module_TreeListEditors_Web.ico")]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
-    public sealed class XpandTreeListEditorsAspNetModule : XpandModuleBase {
+    public sealed class XpandTreeListEditorsAspNetModule : XpandModuleBase, ITreeUser {
         public XpandTreeListEditorsAspNetModule() {
             RequiredModuleTypes.Add(typeof(TreeListEditorsAspNetModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
@@ -33,4 +34,5 @@ namespace Xpand.ExpressApp.TreeListEditors.Web {
         }
 
     }
+
 }
