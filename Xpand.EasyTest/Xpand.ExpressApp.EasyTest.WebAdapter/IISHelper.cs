@@ -3,20 +3,24 @@ using System.Linq;
 using System.Threading;
 using DevExpress.EasyTest.Framework;
 using Microsoft.Web.Administration;
+using Microsoft.Win32;
 using Xpand.EasyTest;
 
-namespace Xpand.ExpressApp.EasyTest.WebAdapter{
-    public class IISHelper{
+namespace Xpand.ExpressApp.EasyTest.WebAdapter {
+    public class IISHelper {
 
-        public static void Configure(TestApplication testApplication){
-            using (var server = new ServerManager()){
+        public static void Configure(TestApplication testApplication) {
+            using (var server = new ServerManager()) {
                 var applicationName = GetApplicationName(testApplication);
-                ApplicationPool applicationPool = server.ApplicationPools.FirstOrDefault(pool => pool.Name == applicationName) ?? server.ApplicationPools.Add(applicationName);
-                applicationPool.ProcessModel.IdentityType = ProcessModelIdentityType.LocalService;
+                var applicationPool = server.ApplicationPools.FirstOrDefault(pool => pool.Name == applicationName) ?? server.ApplicationPools.Add(applicationName);
+                applicationPool.ProcessModel.IdentityType = ProcessModelIdentityType.SpecificUser;
+                applicationPool.ProcessModel.UserName = GetValueFromRegistry("UserName");
+                applicationPool.ProcessModel.Password = GetValueFromRegistry("Password");
+
                 var webSite = server.Sites.First(site => site.Name == "Default Web Site");
-                var url = GetUrl(webSite,applicationName);
+                var url = GetUrl(webSite, applicationName);
                 ConfigureTestApplication(testApplication, url);
-                ConfigureSiteApplication(testApplication, webSite, applicationPool,applicationName);
+                ConfigureSiteApplication(testApplication, webSite, applicationPool, applicationName);
                 server.CommitChanges();
                 if (applicationPool.State == ObjectState.Started)
                     applicationPool.Stop();
@@ -30,9 +34,14 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             }
         }
 
-        private static void ConfigureSiteApplication(TestApplication testApplication, Site webSite, ApplicationPool applicationPool, string applicationName){
-            var application =webSite.Applications.FirstOrDefault(application1 => application1.Path.EndsWith(applicationName));
-            if (application == null){
+        private static string GetValueFromRegistry(string name) {
+            var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\Xpand\ProcessAsUser");
+            return registryKey?.GetValue(name).ToString().Split(';')[0];
+        }
+
+        private static void ConfigureSiteApplication(TestApplication testApplication, Site webSite, ApplicationPool applicationPool, string applicationName) {
+            var application = webSite.Applications.FirstOrDefault(application1 => application1.Path.EndsWith(applicationName));
+            if (application == null) {
                 application = webSite.Applications.CreateElement();
                 application["path"] = "/" + applicationName;
                 var physicalPath = Path.GetFullPath(testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath));
@@ -40,20 +49,20 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                 webSite.Applications.Add(application);
                 application.ApplicationPoolName = applicationPool.Name;
             }
-            else{
+            else {
                 application.VirtualDirectories.Clear();
                 var physicalPath = Path.GetFullPath(testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath));
                 application.VirtualDirectories.Add("/", physicalPath);
             }
-            
+
         }
 
-        private static string GetApplicationName(TestApplication testApplication){
+        private static string GetApplicationName(TestApplication testApplication) {
             var userName = testApplication.ParameterValue<string>(ApplicationParams.UserName);
             return userName ?? testApplication.Name;
         }
 
-        private static string GetUrl(Site webSite, string applicationName){
+        private static string GetUrl(Site webSite, string applicationName) {
             var binding = webSite.Bindings.First();
             var host = binding.Host;
             if (string.IsNullOrEmpty(host))
@@ -62,17 +71,17 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             return url;
         }
 
-        private static void ConfigureTestApplication(TestApplication testApplication, string url){
+        private static void ConfigureTestApplication(TestApplication testApplication, string url) {
             testApplication.SetParameterValue(ApplicationParams.DontRunWebDev, "True");
             testApplication.SetParameterValue(ApplicationParams.DontRunIISExpress, "True");
             testApplication.SetParameterValue(ApplicationParams.DontRestartIIS, "True");
             testApplication.SetParameterValue(ApplicationParams.Url, url);
         }
 
-        public static void StopAplicationPool(TestApplication testApplication){
+        public static void StopAplicationPool(TestApplication testApplication) {
             var applicationName = GetApplicationName(testApplication);
-            using (var serverManager = new ServerManager()){
-                var applicationPool = serverManager.ApplicationPools.First(pool => pool.Name==applicationName);
+            using (var serverManager = new ServerManager()) {
+                var applicationPool = serverManager.ApplicationPools.First(pool => pool.Name == applicationName);
                 applicationPool.Stop();
             }
         }
