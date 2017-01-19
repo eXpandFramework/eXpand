@@ -45,9 +45,11 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             var modelOptionsOnCloseActions = ((IModelOptionsApplicationExit)Application.Model.Options);
             var minimizeOnClose = MinimizeOnClose(modelOptionsOnCloseActions);
             var hideOnClose = HideOnClose(modelOptionsOnCloseActions);
-            var promptOnExit = PromptOnExit(modelOptionsOnCloseActions);
-            if (promptOnExit||hideOnClose||minimizeOnClose) {
+            if (hideOnClose||minimizeOnClose) {
                 e.Cancel = true;
+            }
+            else{
+                e.Cancel = PromptOnExit(modelOptionsOnCloseActions);
             }
         }
 
