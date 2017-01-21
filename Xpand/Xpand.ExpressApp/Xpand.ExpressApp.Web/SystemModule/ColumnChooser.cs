@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override void OnActivated(){
             base.OnActivated();
-            Active["XpandTreeModule"]= new ModelOptionsColumnChooserContextMenuReadOnlyCalculator().IsReadOnly(Application.Model.Options, (IModelNode)null);
+            Active["XpandTreeModule"]= !new ModelOptionsColumnChooserContextMenuReadOnlyCalculator().IsReadOnly(Application.Model.Options, (IModelNode)null);
         }
 
         public SimpleAction ColumnChooserAction { get; }
