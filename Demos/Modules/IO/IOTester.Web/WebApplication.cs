@@ -16,7 +16,7 @@ using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
 
 namespace IOTester.Web {
-    public class IOTesterAspNetApplication : WebApplication, IWriteSecuredLogonParameters {
+    public class IOTesterAspNetApplication : WebApplication {
         SystemModule _module1;
         SystemAspNetModule _module2;
         IOTesterModule _module3;
@@ -26,20 +26,6 @@ namespace IOTester.Web {
         public IOTesterAspNetApplication() {
             InitializeComponent();
             LastLogonParametersReading += OnLastLogonParametersReading;
-        }
-
-        protected override void WriteSecuredLogonParameters() {
-            var handledEventArgs = new HandledEventArgs();
-            OnCustomWriteSecuredLogonParameters(handledEventArgs);
-            if (!handledEventArgs.Handled)
-                base.WriteSecuredLogonParameters();
-        }
-
-        public event HandledEventHandler CustomWriteSecuredLogonParameters;
-
-        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
-            var handler = CustomWriteSecuredLogonParameters;
-            handler?.Invoke(this, e);
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
@@ -68,26 +54,7 @@ namespace IOTester.Web {
 #else
             e.Updater.Update();
             e.Handled = true;
-            if (Debugger.IsAttached) {
-                e.Updater.Update();
-                e.Handled = true;
-            } else {
-                string message =
-                    "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
-                    "This error occurred  because the automatic database update was disabled when the application was started without debugging.\r\n" +
-                    "To avoid this error, you should either start the application under Visual Studio in debug mode, or modify the " +
-                    "source code of the 'DatabaseVersionMismatch' event handler to enable automatic database update, " +
-                    "or manually create a database using the 'DBUpdater' tool.\r\n" +
-                    "Anyway, refer to the following help topics for more detailed information:\r\n" +
-                    "'Update Application and Database Versions' at http://www.devexpress.com/Help/?document=ExpressApp/CustomDocument2795.htm\r\n" +
-                    "'Database Security References' at http://www.devexpress.com/Help/?document=ExpressApp/CustomDocument3237.htm\r\n" +
-                    "If this doesn't help, please contact our Support Team at http://www.devexpress.com/Support/Center/";
-
-                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
-                    message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
-                }
-                throw new InvalidOperationException(message);
-            }
+            
 #endif
         }
 

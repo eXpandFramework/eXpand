@@ -27,10 +27,10 @@ namespace Xpand.Persistent.Base.General {
     public interface IWinApplication : IXafApplication {
         void LogOff();
     }
-    public interface IWebApplication : IXafApplication, IWriteSecuredLogonParameters {
+    public interface IWebApplication : IXafApplication {
         void LogOff();
     }
-
+    [Obsolete("not used", true)]
     public interface IWriteSecuredLogonParameters {
         event HandledEventHandler CustomWriteSecuredLogonParameters;
     }

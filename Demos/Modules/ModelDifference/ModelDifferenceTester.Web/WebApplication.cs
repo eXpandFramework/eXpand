@@ -20,7 +20,7 @@ using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
 
 namespace ModelDifferenceTester.Web {
-    public class ModelDifferenceTesterAspNetApplication : WebApplication,IWriteSecuredLogonParameters {
+    public class ModelDifferenceTesterAspNetApplication : WebApplication {
         
         
         CloneObjectModule _cloneObjectModule1;
@@ -119,16 +119,6 @@ namespace ModelDifferenceTester.Web {
         }
 
 
-        public event HandledEventHandler CustomWriteSecuredLogonParameters;
-        protected override void WriteSecuredLogonParameters() {
-            var handledEventArgs = new HandledEventArgs();
-            OnCustomWriteSecuredLogonParameters(handledEventArgs);
-            if (!handledEventArgs.Handled)
-                base.WriteSecuredLogonParameters();
-        }
-
-        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e){
-            CustomWriteSecuredLogonParameters?.Invoke(this, e);
-        }
+        
     }
 }

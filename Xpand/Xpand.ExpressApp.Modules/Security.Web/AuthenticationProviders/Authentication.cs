@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Net;
 using System.Web;
 using System.Web.Security;
@@ -10,7 +9,6 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
 
@@ -42,7 +40,7 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
             }
             if (AutomaticallyLogonEnabled(webApplication)) {
                 webApplication.CanAutomaticallyLogonWithStoredLogonParameters = true;
-                ((IWriteSecuredLogonParameters)webApplication).CustomWriteSecuredLogonParameters += OnCustomWriteSecuredLogonParameters;
+                webApplication.LoggedOn+=WebApplicationOnLoggedOn;
             }
             if (_anonymousAuthentication.Enabled) {
                 var authentication = ((SecurityStrategyBase)webApplication.Security).Authentication;
@@ -60,6 +58,15 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
             }
         }
 
+        private void WebApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs){
+            var logonParameters = SecuritySystem.LogonParameters as XpandLogonParameters;
+            if (logonParameters != null && logonParameters.RememberMe){
+                var logonParametersAsString = LogonParametersAsString();
+                var cookie = HttpCookie(logonParametersAsString, (WebApplication) sender);
+                HttpContext.Current.Response.Cookies.Add(cookie);
+            }
+        }
+
         bool AutomaticallyLogonEnabled(WebApplication webApplication) {
             var b = _autoAthentication.Enabled || webApplication.CanAutomaticallyLogonWithStoredLogonParameters;
             if (b&&!(webApplication.Security.LogonParameters is XpandLogonParameters))
@@ -67,17 +74,6 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
             return b;
         }
 
-        void OnCustomWriteSecuredLogonParameters(object sender, HandledEventArgs handledEventArgs) {
-            var webApplication = ((WebApplication) sender);
-            handledEventArgs.Handled = true;
-            if (HttpContext.Current == null) {
-                Tracing.Tracer.LogWarning("Cannot add a Forms cookie to the Respose.Cookies collection: the HttpContext.Current property is null");
-                return;
-            }
-            var logonParametersAsString = LogonParametersAsString();
-            var cookie = HttpCookie(logonParametersAsString, webApplication);
-            HttpContext.Current.Response.Cookies.Add(cookie);
-        }
 
         string LogonParametersAsString() {
             string logonParametersAsString = "";

@@ -7,7 +7,7 @@ using Xpand.Persistent.Base.General;
 
 namespace SecurityDemo.Web
 {
-    public partial class SecurityDemoAspNetApplication : WebApplication, IWriteSecuredLogonParameters {
+    public partial class SecurityDemoAspNetApplication : WebApplication {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule module2;
         private SecurityDemo.Module.SecurityDemoModule module3;
@@ -60,17 +60,6 @@ namespace SecurityDemo.Web
 
         }
 
-        public event HandledEventHandler CustomWriteSecuredLogonParameters;
-        protected override void WriteSecuredLogonParameters() {
-            var handledEventArgs = new HandledEventArgs();
-            OnCustomWriteSecuredLogonParameters(handledEventArgs);
-            if (!handledEventArgs.Handled)
-                base.WriteSecuredLogonParameters();
-        }
 
-        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
-            var handler = CustomWriteSecuredLogonParameters;
-            handler?.Invoke(this, e);
-        }
     }
 }

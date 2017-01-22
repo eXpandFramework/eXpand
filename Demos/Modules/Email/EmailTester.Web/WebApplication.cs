@@ -19,7 +19,7 @@ using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
 
 namespace EmailTester.Web {
-    public class EmailTesterAspNetApplication : WebApplication,IWriteSecuredLogonParameters {
+    public class EmailTesterAspNetApplication : WebApplication {
         AuthenticationStandard _authenticationStandard;
         SecurityStrategyComplex _securityStrategyComplex;
         CloneObjectModule _cloneObjectModule1;
@@ -62,28 +62,9 @@ namespace EmailTester.Web {
 			e.Updater.Update();
 			e.Handled = true;
 #else
-           
-            if (Debugger.IsAttached) {
-                e.Updater.Update();
-                e.Handled = true;
-            }
-            else {
-                string message =
-                    "The application cannot connect to the specified database, because the latter doesn't exist or its version is older than that of the application.\r\n" +
-                    "This error occurred  because the automatic database update was disabled when the application was started without debugging.\r\n" +
-                    "To avoid this error, you should either start the application under Visual Studio in debug mode, or modify the " +
-                    "source code of the 'DatabaseVersionMismatch' event handler to enable automatic database update, " +
-                    "or manually create a database using the 'DBUpdater' tool.\r\n" +
-                    "Anyway, refer to the following help topics for more detailed information:\r\n" +
-                    "'Update Application and Database Versions' at http://www.devexpress.com/Help/?document=ExpressApp/CustomDocument2795.htm\r\n" +
-                    "'Database Security References' at http://www.devexpress.com/Help/?document=ExpressApp/CustomDocument3237.htm\r\n" +
-                    "If this doesn't help, please contact our Support Team at http://www.devexpress.com/Support/Center/";
-
-                if (e.CompatibilityError != null && e.CompatibilityError.Exception != null) {
-                    message += "\r\n\r\nInner exception: " + e.CompatibilityError.Exception.Message;
-                }
-                throw new InvalidOperationException(message);
-            }
+            e.Updater.Update();
+            e.Handled = true;
+            
 #endif
         }
 
@@ -135,12 +116,6 @@ namespace EmailTester.Web {
             ((ISupportInitialize) (this)).EndInit();
         }
 
-        public event HandledEventHandler CustomWriteSecuredLogonParameters;
         
-
-        protected virtual void OnCustomWriteSecuredLogonParameters(HandledEventArgs e) {
-            var handler = CustomWriteSecuredLogonParameters;
-            handler?.Invoke(this, e);
-        }
     }
 }
