@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -14,12 +15,21 @@ namespace Xpand.ExpressApp.SystemModule {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.Disposing += FrameOnDisposing;
-            Frame.GetController<NewObjectViewController>().CollectDescendantTypes += OnCollectDescendantTypes;
+            var newObjectViewController = Frame.GetController<NewObjectViewController>();
+            newObjectViewController.CollectDescendantTypes += OnCollectDescendantTypes;
+            newObjectViewController.NewObjectAction.Executing+=NewObjectActionOnExecuting;
             Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes += OnCollectDescendantPermissionTypes;
         }
 
+        private void NewObjectActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
+            var selectedItem = ((SingleChoiceAction) sender).SelectedItem;
+            cancelEventArgs.Cancel = (Type) selectedItem?.Data == GetType();
+        }
+
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
-            Frame.GetController<NewObjectViewController>().CollectDescendantTypes -= OnCollectDescendantTypes;
+            var newObjectViewController = Frame.GetController<NewObjectViewController>();
+            newObjectViewController.CollectDescendantTypes -= OnCollectDescendantTypes;
+            newObjectViewController.NewObjectAction.Executing-=NewObjectActionOnExecuting;
             Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes -= OnCollectDescendantPermissionTypes;
         }
 
@@ -45,7 +55,7 @@ namespace Xpand.ExpressApp.SystemModule {
             string itemId = strings[0];
             ChoiceActionItem choiceActionItem = choiceActionItemCollection.FindItemByID(itemId);
             if (choiceActionItem == null) {
-                choiceActionItem = new ChoiceActionItem(itemId, itemId, null);
+                choiceActionItem = new ChoiceActionItem(itemId, itemId, GetType());
                 choiceActionItemCollection.Add(choiceActionItem);
                 strings.RemoveAt(0);
                 if (strings.Count == 0) {
