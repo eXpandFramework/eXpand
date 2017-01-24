@@ -54,8 +54,9 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             }
         }
 
+
         public override ICommandAdapter CreateCommandAdapter(){
-            _webCommandAdapter = new XpandWebCommandAdapter(WebBrowser);
+            _webCommandAdapter = new XpandWebCommandAdapter(WebBrowser,_serverManager);
             Win32Helper.MoveMousePointTo(new Point(0, 0));
             return _webCommandAdapter;
         }
@@ -93,7 +94,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
     public class XpandWebCommandAdapter : WebCommandAdapter,IXpandEasyTestCommandAdapter{
         private readonly IEasyTestWebBrowser _webBrowser;
 
-        public XpandWebCommandAdapter(IEasyTestWebBrowser webBrowser) : base(webBrowser){
+        public XpandWebCommandAdapter(IEasyTestWebBrowser webBrowser, IWebServerManager serverManager) : base(webBrowser,serverManager){
             _webBrowser = webBrowser;
         }
 
