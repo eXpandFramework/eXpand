@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using AppDomainToolkit;
@@ -14,9 +13,9 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
     public class AssemblyValidator: IAssemblyValidator {
         public ValidatorResult Validate(string assemblyPath){
             var setupInfo = new AppDomainSetup{ApplicationName = "WCValidationDomain"};
-            var rootDir = Path.GetDirectoryName(new Uri(GetType().Assembly.CodeBase).LocalPath);
-            setupInfo.PrivateBinPath = rootDir;
-            setupInfo.ApplicationBase = rootDir;
+            var setupInformation = AppDomain.CurrentDomain.SetupInformation;
+            setupInfo.PrivateBinPath = setupInformation.PrivateBinPath;
+            setupInfo.ApplicationBase = setupInformation.ApplicationBase;
             using (var context = AppDomainContext.Create(setupInfo)){
                 return RemoteFunc.Invoke(context.Domain,assemblyPath, ValidateCore);
             }
