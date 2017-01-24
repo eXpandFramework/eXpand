@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="integrate" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+<Project DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <PropertyGroup>
 	<RestoreNuget>true</RestoreNuget>
     <DXVersion>16.2</DXVersion>
@@ -70,14 +70,28 @@
         </ParameterGroup> 
         <Task> 
          <![CDATA[
-          Set-ExecutionPolicy Unrestricted
+		 function Disable-ExecutionPolicy {
+    ($ctx = $executioncontext.gettype().getfield(
+        "_context","nonpublic,instance").getvalue(
+            $executioncontext)).gettype().getfield(
+                "_authorizationManager","nonpublic,instance").setvalue(
+        $ctx, (new-object System.Management.Automation.AuthorizationManager `
+                  "Microsoft.PowerShell"))
+}
+          Disable-ExecutionPolicy
           $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Source code indexing...")
 		  New-Item -ItemType Directory -Force -Path $(MSBuildProjectDirectory)\Xpand.dll\pdb
-		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\*" -include "Xpand.*.pdb" -Destination "$(MSBuildProjectDirectory)\Xpand.dll\pdb"
+		  
+		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Copy symbols to temp...")
+		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\*" -include "Xpand.*.pdb" -Destination "$(MSBuildProjectDirectory)\Xpand.dll\pdb" 
+		  
           $var = powershell .\Support\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll\pdb -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
 		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
-		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\pdb\*.*" -Destination "$(MSBuildProjectDirectory)\Xpand.dll" -Force
-		  Remove-Item "$(MSBuildProjectDirectory)\Xpand.dll\pdb" -Recurse -Force
+		  
+		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Copy symbols from temp bakup tp Xpand.Dll...")
+		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\*" -include "Xpand.*.pdb" -Destination "$(MSBuildProjectDirectory)\Xpand.dll\pdb" -Verbose
+		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Copy symbols from temp...")
+		  Remove-Item "$(MSBuildProjectDirectory)\Xpand.dll\pdb" -Recurse -Force -Verbose
 ]]>
           
         </Task> 
@@ -321,13 +335,11 @@
   <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=VideoBuilder.exe $(EasyTestVideoFolders);ExecCommandWorkingDirectory=$(XpandDLLPath)" />
     <Message Text="This sub-solution does not need configuration" />
   </Target>
-  <Target Name="Report" DependsOnTargets="Clean;Build;Copy">
-    <MakeDir Directories="$(ArtifactDirectory)" />
-  </Target>
+  
   <Target Name="Test">
   
   </Target>
-  <Target Name="Integrate" DependsOnTargets="Clean;Report;" />
+  
   <!--For Continuous integration and automated releases-->
   <Target Name="Release" DependsOnTargets="NuGetRestore;Clean;_Version;Build;Report;" >
 	<IndexSources/>
