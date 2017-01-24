@@ -341,7 +341,8 @@
   </Target>
   
   <!--For Continuous integration and automated releases-->
-  <Target Name="Release" DependsOnTargets="NuGetRestore;Clean;_Version;Build;Report;" >
+  <Target Name="Release" DependsOnTargets="NuGetRestore;Clean;_Version;Build;Copy" >
+	<MakeDir Directories="$(ArtifactDirectory)" />
 	<IndexSources/>
   </Target>
   <Target Name="Installer">
