@@ -77,7 +77,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
 
         int IPersistentAssemblyInfo.Revision{
             get { return _revision; }
-            set { _revision = value; }
+            set{
+                _revision = value;
+                OnChanged(nameof(_revision));
+            }
         }
 
 
