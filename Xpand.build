@@ -85,11 +85,11 @@
 		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Copy symbols to temp...")
 		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\*" -include "Xpand.*.pdb" -Destination "$(MSBuildProjectDirectory)\Xpand.dll\pdb" 
 		  
-          $var = powershell .\Support\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll\pdb -userId eXpand -repository eXpand -branch master -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
+          $var = powershell .\Support\NuSpec\Sourcepack.ps1 -symbolsfolder $(MSBuildProjectDirectory)\Xpand.dll\pdb -userId eXpand -repository eXpand -branch $(DXVersion) -sourcesRoot $(MSBuildProjectDirectory) -verbose -githuburl https://raw.githubusercontent.com -serverIsRaw -dbgToolsPath "$(ToolsPath)\srcsrv"
 		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", $var)
 		  
 		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Copy symbols from temp bakup tp Xpand.Dll...")
-		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\*" -include "Xpand.*.pdb" -Destination "$(MSBuildProjectDirectory)\Xpand.dll\pdb" -Verbose
+		  Copy-Item -path "$(MSBuildProjectDirectory)\Xpand.dll\pdb\*" -include "Xpand.*.pdb" -Destination "$(MSBuildProjectDirectory)\Xpand.dll" -Verbose -Force
 		  $log.LogMessage([Microsoft.Build.Framework.MessageImportance]"High", "Copy symbols from temp...")
 		  Remove-Item "$(MSBuildProjectDirectory)\Xpand.dll\pdb" -Recurse -Force -Verbose
 ]]>
@@ -337,7 +337,7 @@
   </Target>
   
   <Target Name="Test">
-  
+  <IndexSources/>
   </Target>
   
   <!--For Continuous integration and automated releases-->
