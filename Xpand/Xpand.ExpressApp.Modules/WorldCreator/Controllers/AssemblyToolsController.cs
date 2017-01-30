@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -21,11 +22,12 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
         private const string ValidateAssemblyKey = "Validate code";
         readonly SingleChoiceAction _singleChoiceAction;
         private bool _validating;
+        private List<IPersistentAssemblyInfo> _modifiedPersistentAssemblies;
 
         public AssemblyToolsController() {
-            TargetObjectType = typeof(IPersistentAssemblyInfo);
             _singleChoiceAction = new SingleChoiceAction(this, "Tools", PredefinedCategory.ObjectsCreation);
             _singleChoiceAction.Items.Add(new ChoiceActionItem(ValidateAssemblyKey, ValidateAssemblyKey));
+            TargetObjectType = typeof(IPersistentAssemblyInfo);
             _singleChoiceAction.Execute += SingleChoiceActionOnExecute;
             _singleChoiceAction.ItemType = SingleChoiceActionItemType.ItemIsOperation;
         }
@@ -33,16 +35,26 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
         protected override void OnActivated(){
             base.OnActivated();
             ObjectSpace.Committed+=ObjectSpaceOnCommitted;
+            ObjectSpace.Committing+=ObjectSpaceOnCommitting;
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
             ObjectSpace.Committed-=ObjectSpaceOnCommitted;
+            ObjectSpace.Committing-=ObjectSpaceOnCommitting;
+        }
+
+        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
+            if (((IModelOptionsWorldCreator) Application.Model.Options).ValidateAssemblyOnSave){
+                _modifiedPersistentAssemblies = ObjectSpace.GetModifiedPersistentAssemblies();
+            }
         }
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs){
-            if (((IModelOptionsWorldCreator) Application.Model.Options).ValidateAssemblyOnSave){
-                ValidateAssembly((IPersistentAssemblyInfo) View.CurrentObject);
+            if (_modifiedPersistentAssemblies!=null){
+                foreach (var assemblyInfo in _modifiedPersistentAssemblies.ToArray()){
+                    ValidateAssembly(assemblyInfo);
+                }
             }
         }
 
