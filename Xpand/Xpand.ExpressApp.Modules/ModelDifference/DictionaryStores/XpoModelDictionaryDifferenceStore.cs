@@ -10,7 +10,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
@@ -165,13 +164,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             return model;
         }
 
-        public override DifferenceType DifferenceType {
-            get { return DifferenceType.Model; }
-        }
+        public override DifferenceType DifferenceType => DifferenceType.Model;
 
-        public bool IsDebuggerAttached {
-            get { return Debugger.IsAttached; }
-        }
+        public bool IsDebuggerAttached => Debugger.IsAttached;
 
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name) {

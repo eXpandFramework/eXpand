@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 
@@ -25,9 +26,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [VisibleInDetailView(false)]
         [VisibleInListView(true)]
         [ModelDefault("GroupIndex", "0")]
-        public string TypeInfoName {
-            get { return GetType().Name.Replace("Persistent", ""); }
-        }
+        public string TypeInfoName => GetType().Name.Replace("Persistent", "");
+
         [Browsable(false)]
         public PersistentClassInfo OwnerClassInfo {
             get { return _ownerClassInfo; }
@@ -45,11 +45,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         [PersistentAlias("Concat(_owner,'')")]
-        public string OwnerType {
-            get {
-                return (string)this.EvaluateAlias("OwnerType");
-            }
-        }
+        public string OwnerType => (string)EvaluateAlias("OwnerType");
 
         #endregion
     }

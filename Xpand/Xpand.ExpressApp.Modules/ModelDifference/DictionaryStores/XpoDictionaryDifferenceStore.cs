@@ -16,17 +16,11 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
 
-        public XafApplication Application {
-            get { return _application; }
-        }
+        public XafApplication Application => _application;
 
-        public XPObjectSpace ObjectSpace {
-            get { return _objectSpace; }
-        }
+        public XPObjectSpace ObjectSpace => _objectSpace;
 
-        public override string Name {
-            get { return DifferenceType.ToString(); }
-        }
+        public override string Name => DifferenceType.ToString();
 
         public abstract DifferenceType DifferenceType { get; }
 

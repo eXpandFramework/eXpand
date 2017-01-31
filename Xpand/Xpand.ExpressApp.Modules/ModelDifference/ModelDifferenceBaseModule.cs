@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         public void OnCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e) {
             EventHandler<CreateCustomModelDifferenceStoreEventArgs> handler = CreateCustomModelDifferenceStore;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
@@ -40,8 +40,8 @@ namespace Xpand.ExpressApp.ModelDifference {
         public void LoadModels(bool loadResources) {
             var model = (ModelApplicationBase)Application.Model;
             LoadApplicationModels(loadResources, model);
-            if (Application.Security is ISecurityComplex && _userModelDictionaryDifferenceStore != null)
-                _userModelDictionaryDifferenceStore.Load();
+            if (Application.Security is ISecurityComplex)
+                _userModelDictionaryDifferenceStore?.Load();
             RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
         }
 

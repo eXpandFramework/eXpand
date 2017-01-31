@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
-using Xpand.ExpressApp.ModelDifference.Security;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base;
@@ -24,9 +23,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             : base(application) {
         }
 
-        public override DifferenceType DifferenceType {
-            get { return DifferenceType.User; }
-        }
+        public override DifferenceType DifferenceType => DifferenceType.User;
 
         protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name) {
             return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName, Application);
