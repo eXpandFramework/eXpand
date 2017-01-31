@@ -11,7 +11,6 @@ namespace Xpand.ExpressApp.ModelDifference {
     public abstract class ModelDifferenceBaseModule : XpandModuleBase {
         XpoUserModelDictionaryDifferenceStore _userModelDictionaryDifferenceStore;
 
-        protected abstract bool? ModelsLoaded { get; set; }
         public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
 
         public void OnCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e) {
@@ -34,18 +33,18 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         void OnUserDifferencesLoaded(object sender, EventArgs eventArgs) {
-            LoadModels(!ModelsLoaded.HasValue || !ModelsLoaded.Value);
+            LoadModels();
         }
 
-        public void LoadModels(bool loadResources) {
+        public void LoadModels() {
             var model = (ModelApplicationBase)Application.Model;
-            LoadApplicationModels(loadResources, model);
+            LoadApplicationModels(model);
             if (Application.Security is ISecurityComplex)
                 _userModelDictionaryDifferenceStore?.Load();
             RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
         }
 
-        void LoadApplicationModels(bool loadResources, ModelApplicationBase model) {
+        void LoadApplicationModels(ModelApplicationBase model) {
             var userDiffLayers = new List<ModelApplicationBase>();
             while (model.LastLayer != null && model.LastLayer.Id != "After Setup"){
                 userDiffLayers.Add(model.LastLayer);
@@ -56,7 +55,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled){
-                new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores, loadResources).Load(model);
+                new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores).Load(model);
             }
             userDiffLayers.Reverse();
             foreach (var layer in userDiffLayers){

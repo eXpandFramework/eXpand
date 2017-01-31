@@ -73,6 +73,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 SetPropertyValue("PreferredAspect", ref _preferredAspect, value);
             }
         }
+
         public ModelApplicationBase GetModel(ModelApplicationBase master) {
             if (!master.IsMaster) {
                 throw new ArgumentException("IsNotMaster", nameof(master));

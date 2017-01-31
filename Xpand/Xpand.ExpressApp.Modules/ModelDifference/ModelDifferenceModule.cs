@@ -18,11 +18,15 @@ using Xpand.Persistent.Base.Security;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
-    public interface IModelOptionsUserModelDifferenceObjectSubjectTemplate{
+    public interface IModelOptionsModelDifference{
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
         [DefaultValue("Autocreated at {0} For {1}")]
         string UserModelDifferenceObjectSubjectTemplate { get; set; }
+        [Category(ModelDifferenceModule.ModelDifferenceCategory)]
+        [ModelValueCalculator("Application","Title")]
+        string ModelToUpdateFromFile { get; set; }
     }
+
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser,ISecurityModuleUser{
@@ -35,7 +39,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             base.ExtendModelInterfaces(extenders);
-            extenders.Add<IModelOptions, IModelOptionsUserModelDifferenceObjectSubjectTemplate>();
+            extenders.Add<IModelOptions, IModelOptionsModelDifference>();
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {

@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
@@ -31,47 +33,32 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         public const string RoleApplicationPrefix = "RDO_";
         readonly string _path;
         readonly List<ModelApplicationFromStreamStoreBase> _extraDiffStores;
-        readonly bool _loadResources;
+        private static bool _executed;
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
 
-        public XpoModelDictionaryDifferenceStore(XafApplication application, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores, bool loadResources)
+        public XpoModelDictionaryDifferenceStore(XafApplication application, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores)
             : base(application) {
             _path = path;
             _extraDiffStores = extraDiffStores;
-            _loadResources = loadResources;
         }
-
-        internal bool UseModelFromPath() {
-            return IsDebuggerAttached && debuggerAttachedEnabled();
-        }
-
-        private bool debuggerAttachedEnabled() {
-            string setting = ConfigurationManager.AppSettings[EnableDebuggerAttachedCheck];
-            if (string.IsNullOrEmpty(setting))
-                return false;
-            return setting.ToLower() == "true";
-        }
-
-        protected internal List<string> GetModelPaths() {
-            List<string> paths = Directory.GetFiles(_path).Where(
-                s => s.EndsWith(".xafml")).ToList();
-            return paths;
-        }
-
-
 
         public override void Load(ModelApplicationBase model) {
             Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Adding Layers to application model ");
             var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder();
             var language = model.Application.PreferredLanguage;
-            if (UseModelFromPath()) {
-                return;
-            }
+            
             var loadedModelDifferenceObjectInfos = GetLoadedModelDifferenceObjectInfos(model);
+            
             extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
-            if (_loadResources) {
+            if (!_executed) {
+                KeyValuePair<string, ModelDifferenceObjectInfo> valuePair = loadedModelDifferenceObjectInfos.FirstOrDefault(pair 
+                    => pair.Key == ((IModelOptionsModelDifference)model.Application.Options).ModelToUpdateFromFile);
+                if (!Equals(valuePair, default(KeyValuePair<string, ModelDifferenceObjectInfo>))) {
+                    valuePair.Value.ModelDifferenceObject.CreateAspectsCore(LoadFromPath(model));
+                }
                 Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- CreateResourceModels");
                 CreateResourceModels(model, loadedModelDifferenceObjectInfos);
+                _executed = true;
             }
             if (model.Application.PreferredLanguage != language) {
                 Application.SetLanguage(model.Application.PreferredLanguage);
@@ -80,6 +67,21 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             ObjectSpace.CommitChanges();
             Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Application model saved to the database");
             
+        }
+
+        private ModelApplicationBase LoadFromPath(ModelApplicationBase model){
+            var modelApplication = CreateModelApplication(model, DifferenceType);
+            var applicationFolder = PathHelper.GetApplicationFolder();
+            FileModelStore fileModelStore = new FileModelStore(applicationFolder, Application.GetDiffDefaultName(applicationFolder));
+            IEnumerable<String> aspects = fileModelStore.GetAspects().Concat(new[] { "" });
+            foreach (var aspect in aspects){
+                String aspectFileName = Path.Combine(applicationFolder, fileModelStore.GetFileNameForAspect(aspect));
+                if (File.Exists(aspectFileName)) {
+                    ModelXmlReader reader = new ModelXmlReader();
+                    reader.ReadFromFile(modelApplication, aspect, aspectFileName);
+                }
+            }
+            return modelApplication;
         }
 
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model) {
@@ -97,6 +99,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             var application = CreateModelApplication(model, DifferenceType);
             model.AddLayerBeforeLast(application);
             var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id, Application);
+            modelDifferenceObject.CreateAspectsCore(LoadFromPath(model));
             CreateUserModelDifferenceXPObjectType();
             var modelDifferenceObjectInfo = new ModelDifferenceObjectInfo(modelDifferenceObject, application);
             modelDifferenceObjectInfos.Add(application.Id, modelDifferenceObjectInfo);
@@ -138,30 +141,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelApplications(ModelApplicationBase model) {
-            if (UseModelFromPath()) {
-                var loadedModel = LoadFromPath();
-                loadedModel.Id = "Loaded From Path";
-                var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo> { { loadedModel.Id, new ModelDifferenceObjectInfo(null, loadedModel) } };
-                return modelDifferenceObjectInfos;
-            }
             var modelDifferenceObjects = new QueryModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null);
             return modelDifferenceObjects.ToList().Select(o => new ModelDifferenceObjectInfo(o, o.GetModel(model))).ToDictionary(info => info.Model.Id, objectInfo => objectInfo);
 
-        }
-
-        private ModelApplicationBase LoadFromPath() {
-            var reader = new ModelXmlReader();
-            var model = CreateModelApplication(((ModelApplicationBase)Application.Model), DifferenceType); 
-            
-            foreach (var s in GetModelPaths().Where(s => (Path.GetFileName(s) + "").ToLower().StartsWith("model") && s.IndexOf(".User", System.StringComparison.Ordinal) == -1)) {
-                string replace = s.Replace(".xafml", "");
-                string aspect = string.Empty;
-                if (replace.IndexOf("_", System.StringComparison.Ordinal) > -1)
-                    aspect = replace.Substring(replace.IndexOf("_", System.StringComparison.Ordinal) + 1);
-                reader.ReadFromFile(model, aspect, s);
-            }
-
-            return model;
         }
 
         public override DifferenceType DifferenceType => DifferenceType.Model;

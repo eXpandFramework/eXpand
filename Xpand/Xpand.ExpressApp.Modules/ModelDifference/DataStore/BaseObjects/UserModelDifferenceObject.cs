@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
         public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
             ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName);
-            modelDifferenceObject.Name = string.Format(((IModelOptionsUserModelDifferenceObjectSubjectTemplate) ApplicationHelper.Instance.Application.Model.Options).UserModelDifferenceObjectSubjectTemplate, DateTime.Now, GetUserName());
+            modelDifferenceObject.Name = string.Format(((IModelOptionsModelDifference) ApplicationHelper.Instance.Application.Model.Options).UserModelDifferenceObjectSubjectTemplate, DateTime.Now, GetUserName());
             return modelDifferenceObject;
         }
 
