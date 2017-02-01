@@ -51,7 +51,8 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
             using (var objectSpaceProvider = new XPObjectSpaceProvider(new MemoryDataStoreProvider(), typesInfo, typesInfo.EntityStores.OfType<XpoTypeInfoSource>().First())) {
                 using (var objectSpace = objectSpaceProvider.CreateObjectSpace()) {
                     foreach (var persistentType in typesInfo.PersistentTypes.Where(info => info.IsPersistent)) {
-                        objectSpace.CreateObject(persistentType.Type);
+                        if (objectSpace.CanInstantiate(persistentType.Type))
+                            objectSpace.CreateObject(persistentType.Type);
                         objectSpace.FindObject(persistentType.Type, null);
                     }
                 }
