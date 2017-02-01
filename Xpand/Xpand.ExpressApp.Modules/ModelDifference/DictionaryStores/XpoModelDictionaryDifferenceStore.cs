@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
@@ -31,14 +29,12 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     public class XpoModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore {
         public const string ModelApplicationPrefix = "MDO_";
         public const string RoleApplicationPrefix = "RDO_";
-        readonly string _path;
         readonly List<ModelApplicationFromStreamStoreBase> _extraDiffStores;
         private static bool _executed;
         public const string EnableDebuggerAttachedCheck = "EnableDebuggerAttachedCheck";
 
-        public XpoModelDictionaryDifferenceStore(XafApplication application, string path, List<ModelApplicationFromStreamStoreBase> extraDiffStores)
+        public XpoModelDictionaryDifferenceStore(XafApplication application, List<ModelApplicationFromStreamStoreBase> extraDiffStores)
             : base(application) {
-            _path = path;
             _extraDiffStores = extraDiffStores;
         }
 

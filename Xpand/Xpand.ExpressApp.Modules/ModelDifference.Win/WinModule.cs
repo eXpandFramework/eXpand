@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -67,11 +66,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
             afterSetupLayer.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplicationBase, afterSetupLayer);
         }
-
-        public override string GetPath() {
-            return Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath);
-        }
-
         
     }
 }

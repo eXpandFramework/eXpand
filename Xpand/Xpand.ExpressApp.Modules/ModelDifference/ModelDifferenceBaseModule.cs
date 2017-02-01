@@ -55,7 +55,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
             OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
             if (!customModelDifferenceStoreEventArgs.Handled){
-                new XpoModelDictionaryDifferenceStore(Application, GetPath(), customModelDifferenceStoreEventArgs.ExtraDiffStores).Load(model);
+                new XpoModelDictionaryDifferenceStore(Application, customModelDifferenceStoreEventArgs.ExtraDiffStores).Load(model);
             }
             userDiffLayers.Reverse();
             foreach (var layer in userDiffLayers){
@@ -63,6 +63,5 @@ namespace Xpand.ExpressApp.ModelDifference {
             }
         }
 
-        public abstract string GetPath();
     }
 }

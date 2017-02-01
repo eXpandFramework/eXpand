@@ -1,6 +1,5 @@
 using System.ComponentModel;
 using System.Drawing;
-using System.Web;
 using DevExpress.Utils;
 
 namespace Xpand.ExpressApp.ModelDifference.Web {
@@ -14,10 +13,5 @@ namespace Xpand.ExpressApp.ModelDifference.Web {
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
         }
 
-
-        public override string GetPath() {
-            HttpRequest request = HttpContext.Current.Request;
-            return request.MapPath(request.ApplicationPath);
-        }
     }
 }
