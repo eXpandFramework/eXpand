@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         }
 
         private void PropertyEditorOnControlCreated(object sender, EventArgs eventArgs){
-            _richEditControl = ((RichEditContainer) ((PropertyEditor) sender).Control).RichEditControl;
+            _richEditControl = ((RichEditContainerBase) ((PropertyEditor) sender).Control).RichEditControl;
             _richEditControl.Leave+=OnLeave;
         }
 
