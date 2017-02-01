@@ -38,7 +38,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [RuleRequiredField(null, DefaultContexts.Save)]
-        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
+        [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
         public Type Owner {
             get { return _owner; }
             set { SetPropertyValue("Owner", ref _owner, value); }
