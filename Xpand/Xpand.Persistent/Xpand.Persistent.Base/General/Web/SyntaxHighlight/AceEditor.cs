@@ -6,6 +6,7 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight{
     public class AceEditor{
         public void Configure(string editorID, IModelSyntaxHighLight syntaxHighLight, bool allowEdit,string text){
             var script = @"var timer = setInterval(function(){
+                                clearInterval(timer);
                                 if (!document.getElementById('AceEditor" + editorID + @"')) return;
                                 var editor = ace.edit('AceEditor" + editorID + @"');
                                 editor.getSession().setMode('ace/mode/" + syntaxHighLight.Mode + @"');" +
@@ -13,8 +14,7 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight{
                                 BindEditorToControl(allowEdit, editorID) +
                                 AssignTheme(syntaxHighLight) +
                                 @"editor.resize();
-                                clearInterval(timer);
-                            },10);";
+                            },1);";
             RegisterThemeScript(syntaxHighLight);
             WebWindow.CurrentRequestWindow.RegisterStartupScript("AceEditor" +editorID+ "InitScript", script);
             RegisterJsLibScript();
@@ -97,6 +97,10 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight{
                 return @"
                     var editorElement = document.getElementById('" + editorID + @"');
                     var textArea = editorElement.getElementsByTagName('textarea')[0];
+                    editor.getSession().on('change', function(){
+                        var editorText = editor.getSession().getValue();
+                        textArea.value=editorText;
+                    });
                     textArea.style.display = 'none';
                     ";
             return @"
