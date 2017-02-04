@@ -14,7 +14,7 @@ namespace Xpand.Persistent.Base.General.Model {
                 foreach (var cloneViewAttribute in cloneViewAttributes) {
                     if (node.Application.Views[cloneViewAttribute.ViewId]==null) {
                         var modelView = GetModelView(modelClass, cloneViewAttribute);
-                        var cloneNodeFrom = ((ModelNode) modelView).Clone(cloneViewAttribute.ViewId);
+                        var cloneNodeFrom = ModelEditorHelper.AddCloneNode((ModelNode)node.Application.Views, (ModelNode)modelView, cloneViewAttribute.ViewId);
                         AssignAsDefaultView(cloneViewAttribute, (IModelObjectView) cloneNodeFrom);
                         if (modelView is IModelListView && !(string.IsNullOrEmpty(cloneViewAttribute.DetailView))) {
                             CloneViewAttribute attribute = cloneViewAttribute;
@@ -54,7 +54,7 @@ namespace Xpand.Persistent.Base.General.Model {
         ListView,
         LookupListView
     }
-    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = false)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = true, Inherited = false)]
     public sealed class CloneViewAttribute : Attribute, ISupportViewId {
         public CloneViewAttribute(CloneViewType viewType, string viewId, bool isDefault = false) {
             ViewType = viewType;
