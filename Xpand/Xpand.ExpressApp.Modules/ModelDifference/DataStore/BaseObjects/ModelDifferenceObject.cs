@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference, ISupportSequenceObject {
         public  const string DefaultListViewName="MDO_ListView";
         public const string DefaultDetailViewName = "MDO_DetailView";
-        public const string Caption = "Application Difference";
+        public const string Caption = "Application Settings";
         DifferenceType _differenceType;
         bool _disabled;
         int _combineOrder;

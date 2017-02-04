@@ -9,7 +9,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
-    [HideFromNewMenu, VisibleInReports(false), ModelDefault("Caption", "Role Difference")]
+    [HideFromNewMenu, VisibleInReports(false), ModelDefault("Caption", "Role Settings")]
     [CreatableItem(false)]
     [CloneView(CloneViewType.DetailView, "RDO_DetailView",true)]
     public class RoleModelDifferenceObject : ModelDifferenceObject {

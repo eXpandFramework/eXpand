@@ -314,14 +314,14 @@ namespace Xpand.Persistent.Base.General {
                 var id = modelMergedDifference.Parent.Parent.Id();
                 var mergeDifferences = modelApplicationBases.Cast<IModelApplication>().Select(application =>
                     application.Views[id]).OfType<IModelObjectViewMergedDifferences>().Where(view =>
-                        view?.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences).ToArray();
+                        view.MergedDifferences != null).SelectMany(differences => differences.MergedDifferences).ToArray();
                 viewId = mergeDifferences.Select(GetViewIdCore).First(value => !string.IsNullOrEmpty(value));
             }
             return viewId;
         }
 
         static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, ModelNode node) {
-            var applicationBases = modelApplicationBases as ModelApplicationBase[] ?? modelApplicationBases.ToArray();
+            var applicationBases = modelApplicationBases.ToArray();
             var strategiesModel = node.Application.StrategiesModel(applicationBases);
             foreach (var modelApplicationBase in applicationBases) {
                 var modelMergedDifferences = ModelMergedDifferences(modelApplicationBase);
@@ -397,7 +397,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static void ReadViewsFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases, IModelMergedDifference modelMergedDifference, ModelApplicationBase modelApplicationBase) {
-            var applicationBases = modelApplicationBases as ModelApplicationBase[] ?? modelApplicationBases.ToArray();
+            var applicationBases = modelApplicationBases.ToArray();
             var viewId = GetViewId(modelMergedDifference, applicationBases);
             var mergedView = (IModelObjectView)applicationBases.Cast<IModelApplication>().Select(application
                                                                                                       => application.Views[viewId]).FirstOrDefault(view => view != null);
