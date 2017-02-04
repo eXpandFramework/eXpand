@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using DevExpress.Persistent.Base;
 
 namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
     [Serializable]

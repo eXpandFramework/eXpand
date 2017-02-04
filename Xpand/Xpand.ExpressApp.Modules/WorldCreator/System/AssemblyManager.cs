@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
+using DevExpress.Persistent.Base;
 using Mono.Cecil;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects;
 using Xpand.ExpressApp.WorldCreator.CodeProvider;
@@ -75,6 +76,10 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             var code = info.GenerateCode();
             var validatorResult = CodeValidator.Validate(code, strongKeyBytes);
             info.Errors = validatorResult.Message;
+            if (!validatorResult.Valid){
+                Tracing.Tracer.LogSeparator("Validation for "+ info.Name);
+                Tracing.Tracer.LogText(validatorResult.Message);
+            }
             return validatorResult;
         }
 
