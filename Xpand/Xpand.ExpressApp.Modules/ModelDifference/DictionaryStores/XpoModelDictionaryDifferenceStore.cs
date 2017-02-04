@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
             if (!_executed) {
                 KeyValuePair<string, ModelDifferenceObjectInfo> valuePair = loadedModelDifferenceObjectInfos.FirstOrDefault(pair 
-                    => pair.Key == ((IModelOptionsModelDifference)model.Application.Options).ModelToUpdateFromFile);
+                    => IsUpdateableFromFile(model, pair));
                 if (!Equals(valuePair, default(KeyValuePair<string, ModelDifferenceObjectInfo>))) {
                     valuePair.Value.ModelDifferenceObject.CreateAspectsCore(LoadFromPath(model));
                 }
@@ -63,6 +63,12 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             ObjectSpace.CommitChanges();
             Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Application model saved to the database");
             
+        }
+
+        private bool IsUpdateableFromFile(ModelApplicationBase model, KeyValuePair<string, ModelDifferenceObjectInfo> pair){
+            var isObjectFitForCriteria = ObjectSpace.IsObjectFitForCriteria(pair.Value.ModelDifferenceObject.GetType(), pair.Value.ModelDifferenceObject,
+                CriteriaOperator.Parse(((IModelOptionsModelDifference) model.Application.Options).ModelToUpdateFromFileCriteria));
+            return isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value;
         }
 
         private ModelApplicationBase LoadFromPath(ModelApplicationBase model){

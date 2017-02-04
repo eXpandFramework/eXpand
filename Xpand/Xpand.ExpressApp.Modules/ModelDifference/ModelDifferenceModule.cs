@@ -1,32 +1,52 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Design;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
+using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Validation;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
+using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
-    public interface IModelOptionsModelDifference{
+    public interface IModelOptionsModelDifference:IModelNode{
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
         [DefaultValue("Autocreated at {0} For {1}")]
         string UserModelDifferenceObjectSubjectTemplate { get; set; }
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
-        [ModelValueCalculator("Application","Title")]
-        string ModelToUpdateFromFile { get; set; }
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [CriteriaOptions("MDOTypeInfo")]
+        string ModelToUpdateFromFileCriteria { get; set; }
+        [Browsable(false)]
+        ITypeInfo  MDOTypeInfo { get; }
     }
 
+    [DomainLogic(typeof(IModelOptionsModelDifference))]
+    public class ModelOptionsModelDifferenceLogic {
+        public static ITypeInfo Get_MDOTypeInfo(IModelOptionsModelDifference modelDifference){
+            return modelDifference.Application.BOModel.GetClass(typeof(ModelDifferenceObject)).TypeInfo;
+        }
+
+        public static string Get_ModelToUpdateFromFileCriteria(IModelOptionsModelDifference modelDifference) {
+            return new XPQuery<ModelDifferenceObject>(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary).TransformExpression(
+                    o =>o.DifferenceType == DifferenceType.Model && o.Name.Contains(modelDifference.Application.Title) && !o.Disabled).ToString();
+        }
+
+    }
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser,ISecurityModuleUser{
