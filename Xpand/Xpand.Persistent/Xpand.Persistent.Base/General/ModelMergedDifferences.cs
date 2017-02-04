@@ -12,7 +12,6 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Fasterflect;
-using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
 using ResourcesModelStore = DevExpress.ExpressApp.ResourcesModelStore;
@@ -433,26 +432,11 @@ namespace Xpand.Persistent.Base.General {
 
         public static IEnumerable<ModelMergedDifferenceInfo> GenerateModelMergedDifferenceInfos(this IModelViews modelViews) {
             var modelApplication = modelViews.Application;
-            var objects = modelApplication.BOModel.Select(@class => new { ModelClass = @class, Attributes = @class.TypeInfo.FindAttributes<ModelMergedDifferencesAttribute>(false) }).Where(arg
-                            => arg.Attributes.Any()).Select(arg => new {
-                                arg.Attributes,
-                                arg.ModelClass,
-                                Views = modelApplication.Views.OfType<IModelObjectView>().Where(view
-                                    => view.ModelClass != arg.ModelClass && arg.ModelClass.TypeInfo.IsAssignableFrom(view.ModelClass.TypeInfo))
-                            });
-            foreach (var o in objects) {
-                foreach (IModelObjectView view in o.Views) {
-                    var mergedDifferences = ((IModelObjectViewMergedDifferences)view);
-                    IModelObjectView view1 = view;
-                    foreach (var attribute in o.Attributes.Where(attribute => attribute.CloneViewType == CloneViewType.ListView ? view1 is IModelListView : view1 is IModelDetailView)) {
-                        var modelMergedDifference = mergedDifferences.MergedDifferences.AddNode<IModelMergedDifference>(attribute.Strategy + " from " + o.ModelClass.TypeInfo.Name);
-                        ModelMergedDifferencesAttribute attribute1 = attribute;
-                        modelMergedDifference.Strategy = ((IModelOptionsMergedDifferenceStrategy)modelApplication.Options).MergedDifferenceStrategies.First(strategy
-                            => strategy.Id() == attribute1.Strategy);
-                        modelMergedDifference.View = (IModelObjectView)(attribute.CloneViewType == CloneViewType.ListView ? (IModelView)o.ModelClass.DefaultListView : o.ModelClass.DefaultDetailView);
-                        yield return MergedDifferenceInfo(new[] { (ModelApplicationBase)modelApplication })(modelMergedDifference);
-                    }
-                }
+            foreach (var attribute in modelApplication.BOModel.SelectMany(bo => bo.TypeInfo.FindAttributes<ModelMergedDifferencesAttribute>())){
+                var modelMergedDifference = ((IModelObjectViewMergedDifferences)modelApplication.Views[attribute.TargetView]).MergedDifferences.AddNode<IModelMergedDifference>(attribute.Strategy+"-"+attribute.SourceView);
+                modelMergedDifference.View = (IModelObjectView) modelApplication.Views[attribute.SourceView];
+                modelMergedDifference.Strategy= modelMergedDifference.Strategies.First(strategy => strategy.Id()==attribute.Strategy);
+                yield return MergedDifferenceInfo(new[] { (ModelApplicationBase)modelApplication })(modelMergedDifference);
             }
         }
 
@@ -461,14 +445,16 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     public class ModelMergedDifferencesAttribute : Attribute {
-        public ModelMergedDifferencesAttribute(CloneViewType cloneViewType) {
-            CloneViewType = cloneViewType;
-            Strategy = MergedDifferencesStrategiesGenerator.EverythingButLayout;
+
+        public ModelMergedDifferencesAttribute(string targetView, string sourceView, string strategy=MergedDifferencesStrategiesGenerator.Everything) {
+            TargetView = targetView;
+            Strategy = strategy;
+            SourceView = sourceView;
         }
 
-        public CloneViewType CloneViewType { get; }
-
-        public string Strategy { get; set; }
+        public string TargetView { get; }
+        public string Strategy { get; }
+        public string SourceView { get; }
     }
 
     class ModelMergedDifferenceInfo {
