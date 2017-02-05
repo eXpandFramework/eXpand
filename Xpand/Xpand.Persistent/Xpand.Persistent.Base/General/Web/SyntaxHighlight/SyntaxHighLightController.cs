@@ -17,7 +17,8 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight {
 
         protected override void OnActivated(){
             base.OnActivated();
-            ((WebWindow) Frame).PagePreRender+=OnPagePreRender;
+            var webWindow =  Frame as WebWindow;
+            if (webWindow != null) webWindow.PagePreRender+=OnPagePreRender;
             _propertyEditors = View.GetItems<WebPropertyEditor>().Where(SyntaxHighlightEnabled).ToArray();
             foreach (var propertyEditor in _propertyEditors){
                 propertyEditor.ControlCreated+=ControlCreated;
@@ -32,7 +33,8 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight {
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            ((WebWindow)Frame).PagePreRender -= OnPagePreRender;
+            var webWindow = Frame as WebWindow;
+            if (webWindow != null) webWindow.PagePreRender -= OnPagePreRender;
             foreach (var propertyEditor in _propertyEditors) {
                 propertyEditor.ControlCreated -= ControlCreated;
             }
