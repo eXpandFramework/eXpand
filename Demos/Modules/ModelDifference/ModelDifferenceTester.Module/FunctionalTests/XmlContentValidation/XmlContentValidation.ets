@@ -5,7 +5,7 @@
 *ScreenCapture
 
 ;-------set invalid xml ---------------------
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord
  Name = ModelDifferenceTester*
  Action = Edit

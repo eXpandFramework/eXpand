@@ -6,7 +6,7 @@
 *ScreenCapture
 
 ;------add a runtime member to the application model--------
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord
  Name = ModelDifferenceTester*
  Action = Edit
@@ -27,7 +27,7 @@
  App Model Runtime = True
 
 ;------add a runtime member to the user model--------
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord
  Name = *Admin*
  Action = Edit

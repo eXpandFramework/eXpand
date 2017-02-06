@@ -3,7 +3,7 @@
 *LogOn
 *ScreenCapture
 
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord
  Name = ModelDifferenceTester*
 *Action Xml Content

@@ -12,7 +12,7 @@
 
 #IfDef ModelDifferenceTester.Web
 #IncludeFile .\CreateWCAssembly.inc
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord 
  Name = ModelDifferenceTester.Web
  Persistent Application = ModelDifferenceTester.Web
@@ -24,7 +24,7 @@
 #EndIf
 
 #IfDef ModelDifferenceTester.Win
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord 
  Name = ModelDifferenceTester.Web
  Persistent Application = ModelDifferenceTester.Web

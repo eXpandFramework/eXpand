@@ -5,7 +5,7 @@
 *ScreenCapture
 
 ;-------change xml of user model---------------------
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord
  Name = *Admin*
  Action = Edit
@@ -15,7 +15,7 @@
 *SaveAndClose
 
 ;-------update xml of user model---------------------
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord
  Name = *Admin*
  Action = Edit

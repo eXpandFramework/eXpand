@@ -1,5 +1,5 @@
 ﻿#IfDef ModelDifferenceTester.Win
-*Navigate Application Difference
+*Navigate Application Settings
 *XpandProcessRecord
  Name = ModelDifferenceTester.Win
  Persistent Application = ModelDifferenceTester.Win

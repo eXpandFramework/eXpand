@@ -4,12 +4,12 @@
 *UseModel
 *LogOn
 *ScreenCapture
-*Navigate Application Difference
-*SelectRecords Application Difference
+*Navigate Application Settings
+*SelectRecords Application Settings
  Columns = Difference Type
  Row = Model
 
-*Action Clone...(Role Difference)
+*Action Clone...(Role Settings)
 *Action General
 *XpandFillForm
  Name = User Role
