@@ -1,8 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
-using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -63,7 +61,7 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         void AddPersistentModules() {
-            if (!string.IsNullOrEmpty(ConnectionString) || Application.ObjectSpaceProvider is DataServerObjectSpaceProvider) {
+            if (!string.IsNullOrEmpty(ConnectionString)) {
                 lock (_locker) {
                     var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(Application, false);
                     using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()) {
@@ -89,6 +87,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
+            CheckIfSupported();
             AddToAdditionalExportedTypes(BaseImplNameSpace);
             var classInfos = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.Classes.OfType<XPClassInfo>().Where(info => info.IsPersistent &&
                             WorldCreatorTypeInfoSource.Instance.RegisteredEntities.Contains(info.ClassType));
@@ -100,6 +99,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
+            CheckIfSupported();
             AddToAdditionalExportedTypes(BaseImplNameSpace);
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleClassInfoMerge), typeof(IRuleBaseProperties));
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleValidCodeIdentifier), typeof(IRuleBaseProperties));
@@ -110,6 +110,12 @@ namespace Xpand.ExpressApp.WorldCreator {
                 XpoObjectMerger.MergeTypes(this);
                 RegisterDerivedTypes();
             }
+        }
+
+        private void CheckIfSupported(){
+            var dataServerObjectSpaceProvider = Application?.ObjectSpaceProvider as DataServerObjectSpaceProvider;
+            if (dataServerObjectSpaceProvider != null)
+                throw new NotSupportedException(Application.ObjectSpaceProvider.GetType().FullName);
         }
 
         private void RegisterDerivedTypes(){
