@@ -15,10 +15,15 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Fasterflect;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
+using Xpand.ExpressApp.Security.Controllers;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.Xpo;
+using Xpand.Persistent.Base.Xpo.MetaData;
+using MyDetailsController = Xpand.ExpressApp.Security.Controllers.MyDetailsController;
 
 namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
@@ -55,6 +60,28 @@ namespace Xpand.ExpressApp.Security {
             else {
                 AddToAdditionalExportedTypes(BaseImplNameSpace);
             }
+        }
+
+        protected override IEnumerable<Type> GetDeclaredControllerTypes(){
+            return base.GetDeclaredControllerTypes().Concat(new[]{
+                typeof(ManageUsersOnLogonController),
+                typeof(ChooseDatabaseAtLogonController),
+                typeof(ShowNavigationItemController),
+                typeof(MyDetailsController),
+                typeof(MyDetailsPermissionController),
+                typeof(FilterCustomPermissionsController),
+                typeof(DefaultRolePermissionsController),
+                typeof(RememberMeController),
+                typeof(CreatableItemController),
+                typeof(FilterByColumnController),
+                typeof(CreateExpandAbleMembersViewController),
+                typeof(HideFromNewMenuViewController),
+                typeof(CustomAttibutesController),
+                typeof(NotifyMembersController),
+                typeof(XpandModelMemberInfoController),
+                typeof(XpandLinkToListViewController),
+                typeof(ModifyObjectSpaceController)
+            });
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
