@@ -6,7 +6,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter.Commands {
         protected override void InternalExecute(ICommandAdapter adapter){
             var webCommandAdapter = ((WebCommandAdapter) adapter);
             var waitTimeoutTime = webCommandAdapter.WaitTimeoutTime;
-            webCommandAdapter.WaitTimeoutTime = 60000;
+            webCommandAdapter.WaitTimeoutTime = 120000;
             base.InternalExecute(adapter);
             webCommandAdapter.WaitTimeoutTime=waitTimeoutTime;
         }
