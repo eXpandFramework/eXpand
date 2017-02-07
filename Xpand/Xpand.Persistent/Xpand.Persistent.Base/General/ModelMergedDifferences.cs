@@ -433,7 +433,9 @@ namespace Xpand.Persistent.Base.General {
         public static IEnumerable<ModelMergedDifferenceInfo> GenerateModelMergedDifferenceInfos(this IModelViews modelViews) {
             var modelApplication = modelViews.Application;
             foreach (var attribute in modelApplication.BOModel.SelectMany(bo => bo.TypeInfo.FindAttributes<ModelMergedDifferencesAttribute>())){
-                var modelMergedDifference = ((IModelObjectViewMergedDifferences)modelApplication.Views[attribute.TargetView]).MergedDifferences.AddNode<IModelMergedDifference>(attribute.Strategy+"-"+attribute.SourceView);
+                var modelMergedDifferences = ((IModelObjectViewMergedDifferences)modelApplication.Views[attribute.TargetView]).MergedDifferences;
+                var id = attribute.Strategy+"-"+attribute.SourceView;
+                var modelMergedDifference = modelMergedDifferences[id] ?? modelMergedDifferences.AddNode<IModelMergedDifference>(id);
                 modelMergedDifference.View = (IModelObjectView) modelApplication.Views[attribute.SourceView];
                 modelMergedDifference.Strategy= modelMergedDifference.Strategies.First(strategy => strategy.Id()==attribute.Strategy);
                 yield return MergedDifferenceInfo(new[] { (ModelApplicationBase)modelApplication })(modelMergedDifference);
