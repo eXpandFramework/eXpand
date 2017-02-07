@@ -8,21 +8,14 @@ using Xpand.ExpressApp.ImportWizard.Win.Properties;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
     class WorkerArgs {
-        private readonly IEnumerable<Row> _rows;
-        private readonly int _headerRows;
-
         public WorkerArgs(IEnumerable<Row> rows, int? headerRows){
-            _rows = rows;
-            if (headerRows != null) _headerRows = headerRows.Value;
+            Rows = rows;
+            if (headerRows != null) HeaderRows = headerRows.Value;
         }
 
-        public IEnumerable<Row> Rows {
-            get { return _rows; }
-        }
+        public IEnumerable<Row> Rows { get; }
 
-        public int HeaderRows {
-            get { return _headerRows; }
-        }
+        public int HeaderRows { get; }
     }
 
     public partial class ExcelImportWizard{
@@ -32,8 +25,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
 
         private void BgWorkerProgressChanged(object sender, ProgressChangedEventArgs e){
             Application.DoEvents();
-            if (_frmProgress != null)
-                _frmProgress.DoProgress(e.ProgressPercentage);
+            _frmProgress?.DoProgress(e.ProgressPercentage);
 
             SetMemoText(e.UserState.ToString());
             Application.DoEvents();
@@ -72,7 +64,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
             // If these threads are different, it returns true.
             if (ResultsMemoEdit.InvokeRequired){
                 var d = new SetMemoTextDelegate(SetMemoText);
-                Invoke(d, new object[]{text});
+                Invoke(d, text);
             }
             else{
                 ResultsMemoEdit.Text += Environment.NewLine + text;

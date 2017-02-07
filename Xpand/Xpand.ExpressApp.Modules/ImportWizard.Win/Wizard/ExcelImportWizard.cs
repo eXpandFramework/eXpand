@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             _propertyValueMapper = propertyValueMapper ?? new StringValueMapper().MapValueToObjectProperty;
             //set local variable values
             if (objectSpace == null)
-                throw new ArgumentNullException("objectSpace", Resources.ExcelImportWizard_ExcelImportWizard_ObjectSpace_cannot_be_NULL);
+                throw new ArgumentNullException(nameof(objectSpace), Resources.ExcelImportWizard_ExcelImportWizard_ObjectSpace_cannot_be_NULL);
 
             ObjectSpace = objectSpace;
             CurrentCollectionSource = collectionSourceBase;
@@ -114,8 +114,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         #endregion
 
         private MyUserSettings _mus;
-        public XPObjectSpace ObjectSpace { get; private set; }
-        public CollectionSourceBase CurrentCollectionSource { get; private set; }
+        public XPObjectSpace ObjectSpace { get; }
+        public CollectionSourceBase CurrentCollectionSource { get; }
 
         private SpreadsheetDocument ExcelDocument { get; set; }
         private Sheet _sheet;
@@ -160,17 +160,13 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
 
         private List<MappableProperty> MappableColumns { get; set; }
-        private IEnumerable<ImportMap> ImportMapsCollection {
-            get {
-                return ObjectSpace.Session.
-                        GetObjects(ObjectSpace.Session.GetClassInfo(typeof(ImportMap)),
-                                   null, null, 0, false, true).OfType<ImportMap>();
-            }
-        }
+        private IEnumerable<ImportMap> ImportMapsCollection => ObjectSpace.Session.
+            GetObjects(ObjectSpace.Session.GetClassInfo(typeof(ImportMap)),
+                null, null, 0, false, true).OfType<ImportMap>();
 
         private void AssignDataSource() {
             ((GridView)ExcelSheetPreviewGrid.MainView).Columns.Clear();
-            ExcelSheetPreviewGrid.DataSource = _sheet == null ? null : _sheet.DataPreviewTable();
+            ExcelSheetPreviewGrid.DataSource = _sheet?.DataPreviewTable();
         }
 
         #region Page commit
@@ -273,7 +269,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             if (table.Rows.OfType<DataRow>()
                 .Where(p => {
                     var lastOrDefault = p.ItemArray.LastOrDefault();
-                    return lastOrDefault != null && !string.IsNullOrEmpty(lastOrDefault.ToString());
+                    return !string.IsNullOrEmpty(lastOrDefault?.ToString());
                 })
                 .GroupBy(p => p.ItemArray.LastOrDefault())
                 .Select(g => new { g.Key, count = g.Count() }).Any())
@@ -283,7 +279,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             var gridMappings = table.Rows.OfType<DataRow>()
                 .Where(p => {
                     var orDefault = p.ItemArray.LastOrDefault();
-                    return orDefault != null && !string.IsNullOrEmpty(orDefault.ToString());
+                    return !string.IsNullOrEmpty(orDefault?.ToString());
                 });
 
             //synchronize columns mappings with Importmap object
@@ -344,15 +340,13 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void FileSelectEdit_ButtonClick(object sender, ButtonPressedEventArgs e) {
-            var mruEdit = sender as MRUEdit;
-            if (mruEdit != null)
-                if (mruEdit.Properties.Buttons.IndexOf(e.Button)
-                    == mruEdit.Properties.ActionButtonIndex) return;
+            var mruEdit = ((MRUEdit) sender);
+            if (mruEdit.Properties.Buttons.IndexOf(e.Button)
+                == mruEdit.Properties.ActionButtonIndex) return;
             var dlg = new OpenFileDialog {
                 Filter = Resources.ExcelImportWizard_FileSelectEdit_ButtonClick_Excel_Files___xlsx____xlsx
             };
             if (dlg.ShowDialog() != DialogResult.OK) return;
-            if (mruEdit == null) return;
             mruEdit.EditValue = new FileInfo(dlg.FileName).FullName;
             mruEdit.Properties.Items.Add(mruEdit.Text);
 
@@ -607,7 +601,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                                 .FirstOrDefault()
                     ;
 
-                dt.Rows[i][dataRow.ItemArray.Length - 1] = mapsTo != null ? mapsTo.ToString() : null;
+                dt.Rows[i][dataRow.ItemArray.Length - 1] = mapsTo?.ToString();
             }
         }
 
@@ -653,7 +647,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 currentCollectionSource.Add(newObject);
             else {
                 var propertyCollectionSource = (currentCollectionSource as PropertyCollectionSource);
-                if ((propertyCollectionSource != null) && (propertyCollectionSource.MasterObject != null)) {
+                if (propertyCollectionSource?.MasterObject != null) {
                     Object collectionOwner;
                     IMemberInfo memberInfo = null;
                     if (propertyCollectionSource.MemberInfo.GetPath().Count > 1) {
@@ -693,19 +687,15 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         protected virtual void OnCustomSelectSheetProperties(CustomSelectSheetPropertiesArgs e){
             EventHandler<CustomSelectSheetPropertiesArgs> handler = CustomSelectSheetProperties;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 
     public class CustomSelectSheetPropertiesArgs:EventArgs{
-        private readonly List<StringValue> _sheets;
-
         public CustomSelectSheetPropertiesArgs(List<StringValue> sheets){
-            _sheets = sheets;
+            Sheets = sheets;
         }
 
-        public List<StringValue> Sheets{
-            get { return _sheets; }
-        }
+        public List<StringValue> Sheets { get; }
     }
 }

@@ -23,8 +23,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
                 var classTypeDeclaration = (CodeTypeDeclaration)manager.GetService(typeof(CodeTypeDeclaration));
                 CodeExpression typeofExpression = new CodeTypeOfExpression(classTypeDeclaration.Name);
                 CodeExpression rightCodeExpression =
-                    new CodeObjectCreateExpression(typeof(XafComponentResourceManager),
-                                                                  new[] { typeofExpression });
+                    new CodeObjectCreateExpression(typeof(XafComponentResourceManager), typeofExpression);
                 //CodeExpression rightCodeExpression =
                 //    new CodeTypeReferenceExpression(
                 //        "new DevExpress.ExpressApp.Win.Templates"),
