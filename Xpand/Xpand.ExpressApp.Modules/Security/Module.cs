@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.Security {
         }
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
-            return base.GetDeclaredControllerTypes().Concat(new[]{
+            var types = new[]{
                 typeof(ManageUsersOnLogonController),
                 typeof(ChooseDatabaseAtLogonController),
                 typeof(ShowNavigationItemController),
@@ -81,7 +81,8 @@ namespace Xpand.ExpressApp.Security {
                 typeof(XpandModelMemberInfoController),
                 typeof(XpandLinkToListViewController),
                 typeof(ModifyObjectSpaceController)
-            });
+            };
+            return GetDeclaredControllerTypesCore(types).Concat(types);
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
