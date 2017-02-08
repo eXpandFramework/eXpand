@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Windows.Forms;
+using System.Threading;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
@@ -10,51 +9,40 @@ using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ImportWizard.Core;
 using Xpand.ExpressApp.ImportWizard.Win.Properties;
 using Xpand.Persistent.Base.General;
+using Xpand.Utils.Threading;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
     public partial class ExcelImportWizard{
-        public void ProccesExcellRows( XPObjectSpace objectSpace, DoWorkEventArgs e, Type type){
-            var workerArgs = ((WorkerArgs) e.Argument);
-            var records = workerArgs.Rows;
+        public static int TransactionSize = 100;
+        public void ProccesExcellRows(XPObjectSpace objectSpace, Row[] rows, Type type, int? headerRows,  CancellationToken token, IProgress<string> progress) {
+            
+            var records = rows;
             int i = 0;
             var props = objectSpace.FindXPClassInfo(type).PersistentProperties.OfType<XPMemberInfo>().ToList();
             string keyPropertyName = objectSpace.GetKeyPropertyName(type);
             foreach (Row excelRow in records){
                 ++i;
-                if (i <= workerArgs.HeaderRows) continue;
-                if (_bgWorker.CancellationPending){
-                    e.Cancel = true;
-                    break;
-                }
-
-
+                if (i <= headerRows) continue;
+                token.ThrowIfCancellationRequested();
                 string message;
-
-                ProcessSingleRow(objectSpace, e, type, keyPropertyName, excelRow, props, i, out message);
-
-                if (i%50 == 0)
+                ProcessSingleRow(objectSpace, type, keyPropertyName, excelRow, props, i, out message,progress.Report);
+                if (i% TransactionSize==0) {
                     objectSpace.CommitChanges();
-
-                _bgWorker.ReportProgress(1, message);
-                Application.DoEvents();
+                    progress.Report(string.Format(Resources.SuccessProcessingRecord, i - 1));
+                }
             }
+            progress.Report(string.Format(Resources.SuccessProcessingRecord, i - 1));
             objectSpace.CommitChanges();
         }
 
-        private void ProcessSingleRow(XPObjectSpace objectSpace, DoWorkEventArgs e, Type type, string keyPropertyName,
-            Row excelRow, List<XPMemberInfo> props, int i, out string message){
+        private void ProcessSingleRow(XPObjectSpace objectSpace, Type type, string keyPropertyName, Row excelRow, List<XPMemberInfo> props, int i, out string message, Action<string> notify){
             IXPSimpleObject newObj = GetExistingOrCreateNewObject(objectSpace, keyPropertyName, excelRow, type);
-
+            message = null;
             if (newObj == null){
                 message = string.Format(Resources.newObjectError, i);
                 return;
             }
             foreach (Mapping mapping in ImportMap.Mappings){
-                if (_bgWorker.CancellationPending){
-                    e.Cancel = true;
-                    break;
-                }
-                Application.DoEvents();
 
                 XPMemberInfo prop = props.Single(p => p.Name == mapping.MapedTo);
 
@@ -68,15 +56,13 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
                 catch (Exception ee){
                     message = string.Format(Resources.ErrorProcessingRecord,
                         i - 1, ee);
-                    _bgWorker.ReportProgress(0, message);
+                    notify(message);
                 }
 
-                if (CurrentCollectionSource != null)
-                    AddNewObjectToCollectionSource(CurrentCollectionSource, newObj, ObjectSpace);
             }
 
             objectSpace.Session.Save(newObj);
-            message = string.Format(Resources.SuccessProcessingRecord, i - 1);
+            
         }
 
         private IXPSimpleObject GetExistingOrCreateNewObject(XPObjectSpace objectSpace, string keyPropertyName,

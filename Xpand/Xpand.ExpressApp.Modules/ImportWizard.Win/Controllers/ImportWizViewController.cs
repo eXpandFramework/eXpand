@@ -17,8 +17,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Controllers {
         public override void ShowWizard(IObjectSpace objectSpace) {
             var wiz = new ExcelImportWizard(
                             (XPObjectSpace)objectSpace,
-                            View.ObjectTypeInfo,
-                            this.GetCurrentCollectionSource(), Application);
+                            View.ObjectTypeInfo);
 
             wiz.ShowDialog();
         }

@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using DevExpress.XtraEditors;
@@ -24,34 +27,32 @@ using Xpand.ExpressApp.ImportWizard.Core;
 using Xpand.ExpressApp.ImportWizard.Settings;
 using Xpand.ExpressApp.ImportWizard.Win.Forms;
 using Xpand.ExpressApp.ImportWizard.Win.Properties;
+using Xpand.Utils.Threading;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
     public delegate void ExcelImportWizardStringToPropertyMap(XPObjectSpace objectSpace, XPMemberInfo prop, string value, ref IXPSimpleObject newObj);
     public partial class ExcelImportWizard : XtraForm{
         public event EventHandler<CustomSelectSheetPropertiesArgs> CustomSelectSheetProperties;
-        readonly XafApplication _application;
         readonly ExcelImportWizardStringToPropertyMap _propertyValueMapper;
 
         #region Initialization
 
         //Extra constructor to enable Value mapping customisation
         public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo,
-            CollectionSourceBase collectionSourceBase, XafApplication application,
             StringValueMapper valueMapper)
-            : this(objectSpace, typeInfo, collectionSourceBase, application, valueMapper.MapValueToObjectProperty) {
+            : this(objectSpace, typeInfo, valueMapper.MapValueToObjectProperty) {
         }
 
 
-        public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo, CollectionSourceBase collectionSourceBase, XafApplication application,
+        public ExcelImportWizard(XPObjectSpace objectSpace, ITypeInfo typeInfo,
             ExcelImportWizardStringToPropertyMap propertyValueMapper = null) {
-            _application = application;
+
             _propertyValueMapper = propertyValueMapper ?? new StringValueMapper().MapValueToObjectProperty;
             //set local variable values
             if (objectSpace == null)
                 throw new ArgumentNullException(nameof(objectSpace), Resources.ExcelImportWizard_ExcelImportWizard_ObjectSpace_cannot_be_NULL);
 
             ObjectSpace = objectSpace;
-            CurrentCollectionSource = collectionSourceBase;
 
             Type = typeInfo.Type;
 
@@ -115,7 +116,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         private MyUserSettings _mus;
         public XPObjectSpace ObjectSpace { get; }
-        public CollectionSourceBase CurrentCollectionSource { get; }
+        
 
         private SpreadsheetDocument ExcelDocument { get; set; }
         private Sheet _sheet;
@@ -610,9 +611,20 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
         #region Import Data
 
-        private BackgroundWorker _bgWorker;
         private ProgressForm _frmProgress;
+        private CancellationTokenSource _cancellationTokenSource;
 
+
+        public void NotifyProgress(string text){
+            _frmProgress.DoProgress(TransactionSize);
+            SetText(text);
+        }
+
+        private void SetText(string text){
+            ResultsMemoEdit.Text += Environment.NewLine + text;
+            ResultsMemoEdit.SelectionStart = ResultsMemoEdit.Text.Length;
+            ResultsMemoEdit.ScrollToCaret();
+        }
 
         private void ImportButton_Click(object sender, EventArgs e) {
 
@@ -623,53 +635,55 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
             _frmProgress = new ProgressForm(Resources.ExcelImportWizard_ImportButton_Click_Import_excell_rows_progress___, rowCount, @"Processing record {0} of {1} ");
             _frmProgress.CancelClick += FrmProgressCancelClick;
 
-            _bgWorker = new BackgroundWorker {
-                WorkerSupportsCancellation = true,
-                WorkerReportsProgress = true
-            };
+            _cancellationTokenSource = new CancellationTokenSource();
+            CancellationToken token = _cancellationTokenSource.Token;
+            var progress = new Progress<string>();
+            progress.ProgressReported += NotifyProgress;
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
+            Task.Factory.StartNew(() =>{
+                    ProccesExcellRows(ObjectSpace, Sheet.Rows().ToArray(),_type, Sheet.ColumnHeaderRow, token, progress);
+                }, token, TaskCreationOptions.AttachedToParent, TaskScheduler.Default)
+                .ContinueWith(task =>{
+                    stopwatch.Stop();
+                    SetText("Time Ellapsed: " + stopwatch.Elapsed);
+                    AfterRecordProcessing(token, task);
+                },TaskScheduler.FromCurrentSynchronizationContext());
 
-            _bgWorker.RunWorkerCompleted += BgWorkerRunWorkerCompleted;
-            _bgWorker.ProgressChanged += BgWorkerProgressChanged;
-            _bgWorker.DoWork += BgWorkerDoWork;
-
-            _bgWorker.RunWorkerAsync(new WorkerArgs(Sheet.Rows(),Sheet.ColumnHeaderRow));
+            
 
             _frmProgress.ShowDialog();
 
         }
 
-        private void AddNewObjectToCollectionSource(CollectionSourceBase currentCollectionSource, object newObject, XPObjectSpace objectSpace) {
-            var newObjectTypeInfo = XafTypesInfo.Instance.FindTypeInfo(newObject.GetType());
-            if ((currentCollectionSource == null) ||
-                !currentCollectionSource.ObjectTypeInfo.IsAssignableFrom(newObjectTypeInfo)) return;
-
-            if (objectSpace == currentCollectionSource.ObjectSpace)
-                currentCollectionSource.Add(newObject);
-            else {
-                var propertyCollectionSource = (currentCollectionSource as PropertyCollectionSource);
-                if (propertyCollectionSource?.MasterObject != null) {
-                    Object collectionOwner;
-                    IMemberInfo memberInfo = null;
-                    if (propertyCollectionSource.MemberInfo.GetPath().Count > 1) {
-                        collectionOwner = ImportUtils.GetCollectionOwner(propertyCollectionSource.MasterObject,
-                            propertyCollectionSource.MemberInfo);
-                        if (collectionOwner != null)
-                            memberInfo =
-                                XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType())
-                                    .FindMember(propertyCollectionSource.MemberInfo.LastMember.Name);
-                    }
-                    else {
-                        collectionOwner = propertyCollectionSource.MasterObject;
-                        memberInfo = propertyCollectionSource.MemberInfo;
-                    }
-                    if ((collectionOwner != null) &&
-                        XafTypesInfo.Instance.FindTypeInfo(collectionOwner.GetType()).IsPersistent) {
-                        var collectionSource = _application.CreatePropertyCollectionSource(objectSpace, null,
-                            objectSpace.GetObject(collectionOwner), memberInfo, "", CollectionSourceMode.Normal);
-                        collectionSource.Add(newObject);
-                    }
-                }
+        private void AfterRecordProcessing(CancellationToken token, Task task){
+            _frmProgress.Close();
+            if (token.IsCancellationRequested){
+                ObjectSpace.Rollback();
+                XtraMessageBox.Show(
+                    Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_cancelled,
+                    Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Work_Canceled, MessageBoxButtons.OK,
+                    MessageBoxIcon.Exclamation);
             }
+            else if (task.Exception != null && task.Exception.InnerExceptions.Any()){
+                ObjectSpace.Rollback();
+                XtraMessageBox.Show(
+                    Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Error__Details__ +
+                    Tracing.Tracer.FormatExceptionReport(task.Exception),
+                    Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_Error, MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+            else{
+                ObjectSpace.CommitChanges();
+                XtraMessageBox.Show(
+                    Resources.ExcelImportWizard_BgWorkerRunWorkerCompleted_The_task_has_been_completed__Results__);
+            }
+
+            WizardControl.SelectedPage = completionWizardPage1;
+        }
+
+        private void FrmProgressCancelClick(object sender, EventArgs e){
+            _cancellationTokenSource.Cancel();
         }
 
         /// <summary>

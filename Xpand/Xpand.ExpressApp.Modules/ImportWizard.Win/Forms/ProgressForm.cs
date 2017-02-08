@@ -1,9 +1,8 @@
 using System;
-using System.Windows.Forms;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
     public partial class ProgressForm : DevExpress.XtraEditors.XtraForm {
-        public event EventHandler CancelClick = null;
+        public event EventHandler CancelClick;
         public ProgressForm() {
             InitializeComponent();
         }
@@ -35,7 +34,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
                                     string.Format(_messageTemplate, _current, _totalRecords);
         }
 
-        public override sealed string Text {
+        public sealed override string Text {
             get { return base.Text; }
             set { base.Text = value; }
         }
@@ -44,13 +43,11 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Forms {
             if (CancelClick == null) return;
 
             Close();
-            CancelClick(sender, e);
+            CancelClick?.Invoke(sender, e);
         }
 
         public void DoProgress() {
-            Application.DoEvents();
             DoProgress(1);
-            Application.DoEvents();
         }
 
         public void DoProgress(int i) {
