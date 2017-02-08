@@ -56,6 +56,9 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         static IEnumerable<XElement> GetKeys(XElement element) {
+            if (element.GetAttributeValue("strategy") == SerializationStrategy.SerializeAsValue.ToString()){
+                return element.Descendants("Key");
+            }
             IEnumerable<XElement> elements = element.Descendants("Property");
             var xElements =
                 elements.Where(xElement => xElement.GetAttributeValue("isKey").MakeFirstCharUpper() == true.ToString(CultureInfo.InvariantCulture));
