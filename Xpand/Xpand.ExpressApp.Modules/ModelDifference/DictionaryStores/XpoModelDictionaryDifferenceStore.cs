@@ -46,6 +46,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             var loadedModelDifferenceObjectInfos = GetLoadedModelDifferenceObjectInfos(model);
             
             extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
+            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Loaded: "+_executed);
             if (!_executed) {
                 KeyValuePair<string, ModelDifferenceObjectInfo> valuePair = loadedModelDifferenceObjectInfos.FirstOrDefault(pair 
                     => IsUpdateableFromFile(model, pair));
@@ -66,9 +67,12 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         private bool IsUpdateableFromFile(ModelApplicationBase model, KeyValuePair<string, ModelDifferenceObjectInfo> pair){
-            var isObjectFitForCriteria = ObjectSpace.IsObjectFitForCriteria(pair.Value.ModelDifferenceObject.GetType(), pair.Value.ModelDifferenceObject,
-                CriteriaOperator.Parse(((IModelOptionsModelDifference) model.Application.Options).ModelToUpdateFromFileCriteria));
-            return isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value;
+            var objectType = pair.Value.ModelDifferenceObject.GetType();
+            var criteria = CriteriaOperator.Parse(((IModelOptionsModelDifference) model.Application.Options).ModelToUpdateFromFileCriteria);
+            var isObjectFitForCriteria = ObjectSpace.IsObjectFitForCriteria(objectType, pair.Value.ModelDifferenceObject,criteria);
+            var isFit = isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value;
+            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Criteria: " + criteria.ToString() + ", -- object: " + pair.Value.ModelDifferenceObject+", --fit:"+isFit);
+            return isFit;
         }
 
         private ModelApplicationBase LoadFromPath(ModelApplicationBase model){
