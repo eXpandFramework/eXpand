@@ -69,10 +69,13 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         private bool IsUpdateableFromFile(ModelApplicationBase model, KeyValuePair<string, ModelDifferenceObjectInfo> pair){
             var objectType = pair.Value.ModelDifferenceObject.GetType();
             var criteria = CriteriaOperator.Parse(((IModelOptionsModelDifference) model.Application.Options).ModelToUpdateFromFileCriteria);
-            var isObjectFitForCriteria = ObjectSpace.IsObjectFitForCriteria(objectType, pair.Value.ModelDifferenceObject,criteria);
-            var isFit = isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value;
-            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Criteria: " + criteria.ToString() + ", -- object: " + pair.Value.ModelDifferenceObject+", --fit:"+isFit);
-            return isFit;
+            if (!ReferenceEquals(criteria,null)){
+                var isObjectFitForCriteria = ObjectSpace.IsObjectFitForCriteria(objectType, pair.Value.ModelDifferenceObject,criteria);
+                var isFit = isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value;
+                Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Criteria: " + criteria.ToString() + ", -- object: " + pair.Value.ModelDifferenceObject+", --fit:"+isFit);
+                return isFit;
+            }
+            return false;
         }
 
         private ModelApplicationBase LoadFromPath(ModelApplicationBase model){
