@@ -377,7 +377,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                     !(typeConverterAttribute).ConverterTypeName.EndsWith(".Design")){
                     var type = Type.GetType((typeConverterAttribute).ConverterTypeName);
                     if (type != null && type.IsPublic && !type.FullName.Contains(".Design."))
-                        return string.Format("{1}(typeof({0}))", type.FullName, TypeToString(attribute.GetType()));
+                        return string.Format("{1}(typeof({0}))", TypeToString(type), TypeToString(attribute.GetType()));
                 }
                 return null;
             }
