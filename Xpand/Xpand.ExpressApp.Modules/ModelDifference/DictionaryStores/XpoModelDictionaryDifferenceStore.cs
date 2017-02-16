@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.MiddleTier;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -51,7 +48,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 KeyValuePair<string, ModelDifferenceObjectInfo> valuePair = loadedModelDifferenceObjectInfos.FirstOrDefault(pair 
                     => IsUpdateableFromFile(model, pair));
                 if (!Equals(valuePair, default(KeyValuePair<string, ModelDifferenceObjectInfo>))) {
-                    valuePair.Value.ModelDifferenceObject.CreateAspectsCore(LoadFromPath(model));
+                    var applicationFolder = PathHelper.GetApplicationFolder();
+                    valuePair.Value.ModelDifferenceObject.CreateAspectsFromPath(Application.GetDiffDefaultName(applicationFolder));
                 }
                 Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- CreateResourceModels");
                 CreateResourceModels(model, loadedModelDifferenceObjectInfos);
@@ -78,21 +76,6 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             return false;
         }
 
-        private ModelApplicationBase LoadFromPath(ModelApplicationBase model){
-            var modelApplication = CreateModelApplication(model, DifferenceType);
-            var applicationFolder = PathHelper.GetApplicationFolder();
-            FileModelStore fileModelStore = new FileModelStore(applicationFolder, Application.GetDiffDefaultName(applicationFolder));
-            IEnumerable<String> aspects = fileModelStore.GetAspects().Concat(new[] { "" });
-            foreach (var aspect in aspects){
-                String aspectFileName = Path.Combine(applicationFolder, fileModelStore.GetFileNameForAspect(aspect));
-                if (File.Exists(aspectFileName)) {
-                    ModelXmlReader reader = new ModelXmlReader();
-                    reader.ReadFromFile(modelApplication, aspect, aspectFileName);
-                }
-            }
-            return modelApplication;
-        }
-
         Dictionary<string, ModelDifferenceObjectInfo> GetLoadedModelDifferenceObjectInfos(ModelApplicationBase model) {
             Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos = GetLoadedModelApplications(model);
             if (!loadedModelDifferenceObjectInfos.Any())
@@ -108,7 +91,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             var application = CreateModelApplication(model, DifferenceType);
             model.AddLayerBeforeLast(application);
             var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id, Application);
-            modelDifferenceObject.CreateAspectsCore(LoadFromPath(model));
+            modelDifferenceObject.CreateAspectsFromPath(Application.GetDiffDefaultName(PathHelper.GetApplicationFolder()));
             CreateUserModelDifferenceXPObjectType();
             var modelDifferenceObjectInfo = new ModelDifferenceObjectInfo(modelDifferenceObject, application);
             modelDifferenceObjectInfos.Add(application.Id, modelDifferenceObjectInfo);

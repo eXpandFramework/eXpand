@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Text;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
@@ -221,18 +223,41 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
 
+        public void CreateAspectsFromPath(string diffDefaultName){
+            var applicationFolder = PathHelper.GetApplicationFolder();
+            var fileModelStore = new FileModelStore(applicationFolder, diffDefaultName);
+            var aspects = fileModelStore.GetAspects().Concat(new[] { "" });
+            foreach (var aspect in aspects) {
+                var aspectFileName = Path.Combine(applicationFolder, fileModelStore.GetFileNameForAspect(aspect));
+                if (File.Exists(aspectFileName)) {
+                    using (Stream stream = File.Open(aspectFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+                        ModelXmlReader reader = new ModelXmlReader();
+                        Encoding aspectFileEncoding = reader.GetStreamEncoding(stream) ?? Encoding.UTF8;
+                        using (StreamReader streamReader = new StreamReader(stream, aspectFileEncoding)) {
+                            var aspectName = GetAspectName(aspect);
+                            CreateAspect(aspectName, streamReader.ReadToEnd());
+                        }
+                    }
+                }
+            }
+        }
+
         public void CreateAspectsCore(ModelApplicationBase model) {
             var modelXmlWriter = new ModelXmlWriter();
             for (int i = 0; i < model.AspectCount; i++) {
                 var xml = modelXmlWriter.WriteToString(model, i);
                 string name = GetAspectName(model.GetAspect(i));
-                AspectObjects.Filter = CriteriaOperator.Parse("Name=?", name);
-                if (AspectObjects.Count == 0)
-                    AspectObjects.Add(new AspectObject(Session) { Name = name });
-
-                AspectObjects[0].Xml = xml;
-                AspectObjects.Filter = null;
+                CreateAspect(name, xml);
             }
+        }
+
+        private void CreateAspect(string name, string xml){
+            AspectObjects.Filter = CriteriaOperator.Parse("Name=?", name);
+            if (AspectObjects.Count == 0)
+                AspectObjects.Add(new AspectObject(Session){Name = name});
+
+            AspectObjects[0].Xml = xml;
+            AspectObjects.Filter = null;
         }
 
         public string GetAspectName(AspectObject aspectObject) {
