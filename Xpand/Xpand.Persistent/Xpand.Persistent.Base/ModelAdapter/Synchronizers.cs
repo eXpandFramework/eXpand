@@ -23,16 +23,13 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         private void ApplyModel(Action<ModelNode, object, PropertyDescriptorCollection> action) {
             var modelModelAdapter = Model as IModelModelAdapter;
             if (modelModelAdapter != null){
-                foreach (var modelAdapter in modelModelAdapter.GetContextAdapters()){
+                foreach (var modelAdapter in (IEnumerable<IModelNode>) modelModelAdapter.GetNode("ModelAdapters")) {
                     ApplyModel(modelAdapter, Control, action);
                 }
                 ApplyModel(Model, Control, action);
             }
             var modelAdapterLink = Model as IModelModelAdapterLink;
-            if (modelAdapterLink != null && modelAdapterLink.ModelAdapter != null)
-                ApplyModel(modelAdapterLink.ModelAdapter, Control, action);
-            else
-                ApplyModel(Model, Control, action);
+            ApplyModel(modelAdapterLink?.ModelAdapter ?? Model, Control, action);
         }
 
         public override void SynchronizeModel() {
@@ -91,7 +88,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
 
         protected virtual void CheckComponentType(object component) {
             if (component is IModelNode)
-                throw new ArgumentOutOfRangeException("component");
+                throw new ArgumentOutOfRangeException(nameof(component));
         }
 
         protected void ApplyValues(ModelNode node, object component, PropertyDescriptorCollection properties) {
@@ -156,8 +153,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return IsDisabled(modelNode) ? Enumerable.Empty<ModelValueInfo>() : ((ModelNode)modelNode).NodeInfo.ValuesInfo.Where(IsNotExcluded);
         }
 
-        bool IsDisabled(IModelNode modelNode) {
-            return modelNode is IModelNodeEnabled && !((IModelNodeEnabled)modelNode).NodeEnabled;
+        bool IsDisabled(IModelNode modelNode){
+            var node = modelNode as IModelNodeEnabled;
+            return node != null && !node.NodeEnabled;
         }
 
         bool IsNotExcluded(ModelValueInfo info) {
@@ -188,9 +186,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _modelSynchronizerList.SynchronizeModel();
         }
 
-        public ModelSynchronizerList ModelSynchronizerList {
-            get { return _modelSynchronizerList; }
-        }
+        public ModelSynchronizerList ModelSynchronizerList => _modelSynchronizerList;
 
         public override void Dispose() {
             base.Dispose();
@@ -209,9 +205,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             _font = font;
         }
 
-        public IModelNode ModelAppearanceFont {
-            get { return _modelAppearanceFont; }
-        }
+        public IModelNode ModelAppearanceFont => _modelAppearanceFont;
 
         public Font GetFont() {
             var name = GetNodeValue("FontName", "Name");
@@ -309,9 +303,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             get { throw new NotImplementedException(); }
         }
 
-        public override Type PropertyType {
-            get { return Name == "FontName" ? typeof(string) : typeof(Font).Property(Name).PropertyType; }
-        }
+        public override Type PropertyType => Name == "FontName" ? typeof(string) : typeof(Font).Property(Name).PropertyType;
     }
 
 }

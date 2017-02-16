@@ -90,8 +90,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     }
     public class ModelAdapterContextsNodeGenerator:ModelNodesGeneratorBase{
         public const string Default = "Default";
+        public const string ModelAdapterAttribute = "ModelAdapterAttribute";
         protected override void GenerateNodesCore(ModelNode node){
             node.AddNode<IModelModelAdapters>(Default);
+            node.AddNode<IModelModelAdapters>(ModelAdapterAttribute);
         }
     }
 
@@ -108,33 +110,35 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     public interface IModelModelAdapter:IModelNodeEnabled{
     }
 
-    public static class ModelModelAdapterDomainLogic{
-        public static IEnumerable<IModelModelAdapter> GetContextAdapters(this IModelModelAdapter modelModelAdapter) {
-
-            var modelAdapters = modelModelAdapter.GetNode("ModelAdapters");
-            var adapters = new List<IModelModelAdapter>();
-            if (modelAdapters!=null){
-                for (int i = 0; i < modelAdapters.NodeCount; i++){
-                    var modelAdapter = modelAdapters.GetNode(i);
-                    var modelModelAdapters =
-                        ((IModelApplicationModelAdapterContexts) modelModelAdapter.Application).ModelAdapterContexts[
-                            modelAdapter.Id()];
-                    var id = ((ModelNode) modelAdapter.GetValue("ModelAdapter")).Id;
-                    adapters.Add(modelModelAdapters[id]);
-                }
-            }
-            return adapters;
-        } 
-    }
     public class ModelAdaptersNodeGenerator:ModelNodesGeneratorBase{
         protected override void GenerateNodesCore(ModelNode node){
-            var modelAdapterTypeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelModelAdapter)).Descendants.Where(info 
-                => info.FindAttribute<ModelAbstractClassAttribute>(false) == null&&info.IsInterface );
-            
-            var installedInfos = GetInstalledAdapters(modelAdapterTypeInfos.ToArray(), node.Application);
-            foreach (var typeInfo in installedInfos) {
-                node.AddNode(GetName(typeInfo), typeInfo.Type);
+            var modelAdapterTypeInfos = XafTypesInfo.Instance.FindTypeInfo(typeof(IModelModelAdapter)).Descendants.Where(info
+                        => info.FindAttribute<ModelAbstractClassAttribute>(false) == null && info.IsInterface);
+            var installedInfos = GetInstalledAdapters(modelAdapterTypeInfos.ToArray(), node.Application).ToArray();
+            if (node.Id == ModelAdapterContextsNodeGenerator.Default){
+                foreach (var typeInfo in installedInfos){
+                    AddNode(node, typeInfo);
+                }
             }
+            else if (node.Id == ModelAdapterContextsNodeGenerator.ModelAdapterAttribute){
+                foreach (var info in GetTypeInfos(node, installedInfos).SelectMany(infos => infos).Distinct()) {
+                    AddNode(node, info);
+                }
+            }
+        }
+
+        private static IEnumerable<IEnumerable<ITypeInfo>> GetTypeInfos(ModelNode node, ITypeInfo[] installedInfos){
+            var modelMembers = node.Application.BOModel.SelectMany(c => c.OwnMembers)
+                    .Where(member => member.MemberInfo.FindAttributes<ModelAdapterAttribute>().Any());
+            foreach (var modelMember in modelMembers){
+                foreach (var adapterAttribute in modelMember.MemberInfo.FindAttributes<ModelAdapterAttribute>()){
+                    yield return installedInfos.Where(info => info.Type.Name == "IModel" + adapterAttribute.Adapter);
+                }
+            }
+        }
+
+        private void AddNode(ModelNode node, ITypeInfo typeInfo){
+            node.AddNode(GetName(typeInfo), typeInfo.Type);
         }
 
         private IEnumerable<ITypeInfo> GetInstalledAdapters(ITypeInfo[] typeInfos, IModelApplication application){
@@ -209,28 +213,121 @@ namespace Xpand.Persistent.Base.ModelAdapter {
     }
 
     public abstract class ModelAdapterNodeGeneratorBase<T, T2> : ModelNodesGeneratorBase
-            where T : IModelModelAdapter
-            where T2 : IModelCommonModelAdapter<T> {
+                where T : IModelModelAdapter
+                where T2 : IModelCommonModelAdapter<T> {
 
         protected override void GenerateNodesCore(ModelNode node) {
-            var optionsAdvBandedView = GenerateNode(node);
-            optionsAdvBandedView.SetValue(ModelValueNames.NeedsCachingKey, false);
+            var generateNode = GenerateDefaultNode(node);
+            generateNode.SetValue(ModelValueNames.NeedsCachingKey, false);
+            foreach (var generateAttributeNode in GenerateAttributeNodes(node)){
+                generateAttributeNode.SetValue(ModelValueNames.NeedsCachingKey, false);
+            }
+            
         }
         protected override void UpdateCachedNodes(ModelNode node) {
-            if (node.GetNode("Default") == null) {
-                GenerateNode(node);
+            if (node.GetNode(ModelAdapterContextsNodeGenerator.Default) == null) {
+                GenerateDefaultNode(node);
+                GenerateAttributeNodes(node);
             }
         }
 
-        private T2 GenerateNode(ModelNode node){
-            var modelOptionsAdvBandedView =((IModelApplicationModelAdapterContexts) node.Application).ModelAdapterContexts.GetAdapters<T>().FirstOrDefault();
-            var optionsAdvBandedView = node.AddNode<T2>("Default");
-            optionsAdvBandedView.ModelAdapter = modelOptionsAdvBandedView;
-            return optionsAdvBandedView;
+        private T2 GenerateDefaultNode(ModelNode node) {
+            var modelAdapter = ((IModelApplicationModelAdapterContexts)node.Application).ModelAdapterContexts.GetAdapters<T>().FirstOrDefault(arg => arg.GetParent<IModelModelAdapters>().Id()!= ModelAdapterContextsNodeGenerator.ModelAdapterAttribute);
+            var newNode = node.AddNode<T2>(ModelAdapterContextsNodeGenerator.Default);
+            newNode.ModelAdapter = modelAdapter;
+            newNode.Index = 0;
+            return newNode;
+        }
+        private List<T2> GenerateAttributeNodes(ModelNode node) {
+            var modelMemberViewItem = node.GetParent<IModelMemberViewItem>();
+            var nodes = new List<T2>();
+            if (modelMemberViewItem != null){
+                var modelAdapterAttributes = modelMemberViewItem.ModelMember.MemberInfo.FindAttributes<ModelAdapterAttribute>().ToArray();
+                
+                for (var index = 0;index < modelAdapterAttributes.Length; index++){
+                    var modelAdapterAttribute =modelAdapterAttributes[index];
+                    if (typeof(T).Name.EndsWith(modelAdapterAttribute.Adapter.ToString())){
+                        var newNode = node.AddNode<T2>(modelAdapterAttribute.Adapter.ToString());
+                        var modelAdapter = ((IModelApplicationModelAdapterContexts) node.Application).ModelAdapterContexts[
+                            ModelAdapterContextsNodeGenerator.ModelAdapterAttribute].OfType<T>().FirstOrDefault(
+                            arg => arg.Id() == modelAdapterAttribute.Adapter.ToString());
+                        newNode.ModelAdapter = modelAdapter;
+                        newNode.Index=index+1;
+                        nodes.Add(newNode);
+                    }
+                }
+            }
+            return nodes;
         }
     }
 
+    [AttributeUsage(AttributeTargets.Property)]
+    public class ModelAdapterAttribute:Attribute{
+        public ModelAdapterAlias Adapter { get; }
+
+        public ModelAdapterAttribute( ModelAdapterAlias adapter){
+            Adapter = adapter;
+        }
+    }
+
+    public enum ModelAdapterAlias{
+
+        ASPxDateEditControl,
+        DashboardViewEditor,
+        DashboardViewer,
+        HtmlEditor,
+        ASPxHyperLinkControl,
+        ASPxLookupDropDownEditControl,
+        ASPxLookupFindEditControl,
+        ASPxSearchDropDownEditControl,
+        ASPxSpinEditControl,
+        RepositoryItemBaseSpinEdit,
+        RepositoryItemBlobBaseEdit,
+        RepositoryItemButtonEdit,
+        RepositoryItemCalcEdit,
+        RepositoryItemCheckedComboBoxEdit,
+        RepositoryItemCheckEdit,
+        RepositoryItemColorEdit,
+        RepositoryItemColorPickEdit,
+        RepositoryItemColorComboBox,
+        RepositoryItemDateEdit,
+        RepositoryItemFontEdit,
+        RepositoryItemHyperLinkEdit,
+        RepositoryItemImageComboBox,
+        RepositoryItemImageEdit,
+        RepositoryItemLookUpEdit,
+        RepositoryItemLookUpEditBase,
+        RepositoryItemMarqueeProgressBar,
+        RepositoryItemMemoEdit,
+        RepositoryItemMemoExEdit,
+        RepositoryItemMRUEdit,
+        RepositoryItemObjectEdit,
+        RepositoryItemPictureEdit,
+        RepositoryItemPopupBase,
+        RepositoryItemPopupBaseAutoSearchEdit,
+        RepositoryItemPopupContainerEdit,
+        RepositoryItemPopupCriteriaEdit,
+        RepositoryItemPopupExpressionEdit,
+        RepositoryItemPopupProgressEdit,
+        RepositoryItemProtectedContextTextEdit,
+        RepositoryItemRadioGroup,
+        RepositoryItemRangeTrackBar,
+        RepositoryItemRtfEditEx,
+        RepositoryItemSpinEdit,
+        RepositoryItemTextEdit,
+        RepositoryItemTimeEdit,
+        RepositoryItemTrackBar,
+        RepositoryItemZoomTrackBar,
+        RichEdit,
+        LabelControl,
+        FilterControl,
+        LayoutControlGroup,
+        UploadControl
+
+    }
+
     public abstract class ModelAdapterDomainLogicBase<T> where T : IModelModelAdapter{
+
         public static IModelList<T> GetModelAdapters(IModelApplication modelApplication) {
             return new CalculatedModelNodeList<T>(((IModelApplicationModelAdapterContexts)modelApplication).ModelAdapterContexts.GetAdapters<T>());
         }
@@ -241,7 +338,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         [Category("eXpand.ModelAdapters")]
         [RefreshProperties(RefreshProperties.All)]
         [Required]
-        IModelModelAdapters ModelAdapterContext { get; set; }
+        IModelList<IModelModelAdapter> ModelAdapterContext { get; set; }
 
         [Browsable(false)]
         IEnumerable<IModelModelAdapters> ModelAdapterContexts { get; }
@@ -260,8 +357,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             return ((IModelApplicationModelAdapterContexts)controlGroup.Application).ModelAdapterContexts;
         }
 
-        public static IModelModelAdapters Get_ModelAdapterContext(IModelModelAdapterLink controlGroup) {
-            return ((IModelApplicationModelAdapterContexts)controlGroup.Application).ModelAdapterContexts[ModelAdapterContextsNodeGenerator.Default];
+        public static IModelList<IModelModelAdapter> Get_ModelAdapterContext(IModelModelAdapterLink controlGroup) {
+            return new CalculatedModelNodeList<IModelModelAdapter>(((IModelApplicationModelAdapterContexts)controlGroup.Application).ModelAdapterContexts.SelectMany(adapters => adapters));
         }
 
         public static IEnumerable<IModelModelAdapter> Get_ModelAdapters(IModelModelAdapterLink controlGroup) {
