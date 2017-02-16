@@ -1,11 +1,9 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq.Expressions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
-using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -20,8 +18,6 @@ namespace Xpand.ExpressApp.Web.SystemModule.ModelAdapters {
     }
 
     public interface IModelASPxSpinEditControl : IModelModelAdapter {
-        [Category(AttributeCategoryNameProvider.Xpand)]
-        string HyperLinkFormat { get; set; }
         IModelASPxSpinEditControlModelAdapters ModelAdapters { get; }
     }
 
