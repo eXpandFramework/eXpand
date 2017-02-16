@@ -49,6 +49,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             Type[] controllerTypes ={
                 typeof(ASPxSpinEditModelAdapter),
                 typeof(ASPxHyperLinkControlModelAdapter),
+                typeof(ASPxDateEditModelAdapter),
                 typeof(AutoCommitController),
                 typeof(WebProcessDataLockingInfoController),
                 typeof(ColumnChooserGridViewController),

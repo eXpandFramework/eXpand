@@ -17,7 +17,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -160,6 +161,7 @@
     <Compile Include="SystemModule\ImmediatePostDataRestoreFocusController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\ModelAdapters\ASPxDateTimeModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxSpinEditModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxHyperLinkControlModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxLookupFindEditControlModelAdapter.cs" />
@@ -171,9 +173,7 @@
     <Compile Include="SystemModule\WebProcessDataLockingInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ColumnChooser.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\ColumnChooser.cs" />
     <Compile Include="SystemModule\MasterDetail\NestedListViewAutoCommitController.cs">
       <SubType>Component</SubType>
     </Compile>
