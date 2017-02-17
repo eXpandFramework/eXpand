@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -8,6 +7,7 @@ using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Web.Editors.ASPx;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
@@ -17,45 +17,86 @@ namespace Xpand.Persistent.Base.ModelAdapter{
     public abstract class PropertyEditorControlAdapterController<TModelMemberViewItem, TModelControl, TPropertyEditor> : ModelAdapterController, IModelExtender
         where TModelMemberViewItem : IModelMemberViewItem
         where TModelControl : IModelModelAdapter{
-        List<ObjectModelSynchronizer> _objectModelSynchronizers;
-        protected PropertyEditorControlAdapterController() {
-            TargetViewType = ViewType.DetailView;
-        }
+        readonly HashSet<ObjectModelSynchronizer> _objectModelSynchronizers=new HashSet<ObjectModelSynchronizer>();
 
         protected override void OnActivated() {
             base.OnActivated();
-            _objectModelSynchronizers=new List<ObjectModelSynchronizer>();
-            var detailView = ((DetailView)View);
-            foreach (var item in detailView.GetItems<PropertyEditor>().OfType<TPropertyEditor>().Cast<PropertyEditor>()) {
-                item.ControlCreated += ItemOnControlCreated;
+            var listView = View as ListView;
+            var gridListEditor = listView?.Editor as ASPxGridListEditor;
+            if (gridListEditor != null)
+                gridListEditor.CustomizeAutoFilterCellEditor += GridListEditorOnCustomizeAutoFilterCellEditor;
+            foreach (var propertyEditor in GetPropertyEditors()) {
+                propertyEditor.ControlCreated += ItemOnControlCreated;
+            }
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            var listView = View as ListView;
+            var gridListEditor = listView?.Editor as ASPxGridListEditor;
+            if (gridListEditor != null)
+                gridListEditor.CustomizeAutoFilterCellEditor -= GridListEditorOnCustomizeAutoFilterCellEditor;
+            if (_objectModelSynchronizers != null) {
+                foreach (var objectModelSynchronizer in _objectModelSynchronizers) {
+                    SynchronizeModel(objectModelSynchronizer);
+                    objectModelSynchronizer.Dispose();
+                }
+                foreach (var propertyEditor in GetPropertyEditors()) {
+                    propertyEditor.ControlCreated -= ItemOnControlCreated;
+                }
+            }
+        }
+
+        private void GridListEditorOnCustomizeAutoFilterCellEditor(object sender, CustomHandleAutoFilterCellEditorEventArgs e){
+            ApplyModel((TModelMemberViewItem) e.ColumnModel,e.SourceEventArgs.EditorProperties);
+        }
+
+        protected override void OnViewControlsCreated(){
+            base.OnViewControlsCreated();
+            foreach (var propertyEditor in GetPropertyEditors()){
+                propertyEditor.ControlCreated-=ItemOnControlCreated;
+                propertyEditor.ControlCreated+=ItemOnControlCreated;
+            }
+        }
+
+        private IEnumerable<PropertyEditor> GetPropertyEditors(){
+            var detailView = View as DetailView;
+            if (detailView != null)
+                foreach (var editor in detailView.GetItems<PropertyEditor>().OfType<TPropertyEditor>().Cast<PropertyEditor>()){
+                    yield return editor;
+                }
+            var listView = View as ListView;
+            if (listView!=null){
+                if (Application.IsHosted()  && listView.AllowEdit){
+                    var propertyEditors = ((IEnumerable<PropertyEditor>) listView.Editor.GetPropertyValue("PropertyEditors")).OfType<TPropertyEditor>().Cast<PropertyEditor>();
+                    foreach (var item in propertyEditors){
+                        yield return item;
+                    }
+                }
             }
         }
 
         private void ItemOnControlCreated(object sender, EventArgs eventArgs){
+            ((PropertyEditor) sender).ControlCreated-=ItemOnControlCreated;
             var item = (TPropertyEditor)sender;
-            var modelPropertyEditorLabelControl = (TModelMemberViewItem) (item).GetPropertyValue("Model");
             var propertyEditorControl = GetPropertyEditorControl(item);
             if (propertyEditorControl != null){
-                ((IComponent) propertyEditorControl).Disposed+=OnDisposed;
-                var modelNodes = GetControlModelNodes(modelPropertyEditorLabelControl);
-                foreach (var node in modelNodes){
-                    var objectModelSynchronizer = new ObjectModelSynchronizer(propertyEditorControl, node);
-                    _objectModelSynchronizers.Add(objectModelSynchronizer);
-                    ApplyModel(objectModelSynchronizer);
-                }
+                var model = (TModelMemberViewItem)(item).GetPropertyValue("Model");
+                ApplyModel(model, propertyEditorControl);
+            }
+        }
+
+        private void ApplyModel(TModelMemberViewItem model, object targetObject){
+            var modelNodes = GetControlModelNodes(model);
+            foreach (var node in modelNodes){
+                var objectModelSynchronizer = new ObjectModelSynchronizer(targetObject, node);
+                _objectModelSynchronizers.Add(objectModelSynchronizer);
+                ApplyModel(objectModelSynchronizer);
             }
         }
 
         protected virtual void ApplyModel(ObjectModelSynchronizer objectModelSynchronizer){
             objectModelSynchronizer.ApplyModel();
-        }
-
-        private void OnDisposed(object sender, EventArgs eventArgs){
-            ((IComponent) sender).Disposed-=OnDisposed;
-            foreach (var objectModelSynchronizer in _objectModelSynchronizers){
-                SynchronizeModel(objectModelSynchronizer);
-                objectModelSynchronizer.Dispose();
-            }
         }
 
         protected virtual void SynchronizeModel(ObjectModelSynchronizer objectModelSynchronizer){

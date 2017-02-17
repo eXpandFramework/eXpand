@@ -121,8 +121,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 }
             }
             else if (node.Id == ModelAdapterContextsNodeGenerator.ModelAdapterAttribute){
-                foreach (var info in GetTypeInfos(node, installedInfos).SelectMany(infos => infos).Distinct()) {
-                    AddNode(node, info);
+                foreach (var info in GetTypeInfos(node, installedInfos).SelectMany(infos => infos).Distinct()){
+                    var modelNode = AddNode(node, info);
+                    modelNode.Id = ModelAdapterContextsNodeGenerator.ModelAdapterAttribute + "-" + modelNode.Id;
                 }
             }
         }
@@ -137,8 +138,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             }
         }
 
-        private void AddNode(ModelNode node, ITypeInfo typeInfo){
-            node.AddNode(GetName(typeInfo), typeInfo.Type);
+        private ModelNode AddNode(ModelNode node, ITypeInfo typeInfo){
+            return node.AddNode(GetName(typeInfo), typeInfo.Type);
         }
 
         private IEnumerable<ITypeInfo> GetInstalledAdapters(ITypeInfo[] typeInfos, IModelApplication application){
@@ -247,10 +248,10 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                 for (var index = 0;index < modelAdapterAttributes.Length; index++){
                     var modelAdapterAttribute =modelAdapterAttributes[index];
                     if (typeof(T).Name.EndsWith(modelAdapterAttribute.Adapter.ToString())){
-                        var newNode = node.AddNode<T2>(modelAdapterAttribute.Adapter.ToString());
+                        var id = ModelAdapterContextsNodeGenerator.ModelAdapterAttribute + "-"+ modelAdapterAttribute.Adapter;
+                        var newNode = node.AddNode<T2>(id);
                         var modelAdapter = ((IModelApplicationModelAdapterContexts) node.Application).ModelAdapterContexts[
-                            ModelAdapterContextsNodeGenerator.ModelAdapterAttribute].OfType<T>().FirstOrDefault(
-                            arg => arg.Id() == modelAdapterAttribute.Adapter.ToString());
+                            ModelAdapterContextsNodeGenerator.ModelAdapterAttribute].OfType<T>().FirstOrDefault(arg => arg.Id() == id);
                         newNode.ModelAdapter = modelAdapter;
                         newNode.Index=index+1;
                         nodes.Add(newNode);
