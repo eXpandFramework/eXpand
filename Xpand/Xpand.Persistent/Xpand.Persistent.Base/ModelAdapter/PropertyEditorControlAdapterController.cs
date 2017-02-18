@@ -7,6 +7,7 @@ using System.Web.UI;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
@@ -68,9 +69,12 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             var listView = View as ListView;
             if (listView!=null){
                 if (Application.IsHosted()  && listView.AllowEdit){
-                    var propertyEditors = ((IEnumerable<PropertyEditor>) listView.Editor.GetPropertyValue("PropertyEditors")).OfType<TPropertyEditor>().Cast<PropertyEditor>();
-                    foreach (var item in propertyEditors){
-                        yield return item;
+                    var listViewEditor = listView.Editor as ComplexWebListEditor;
+                    if (listViewEditor != null){
+                        var propertyEditors = listViewEditor.PropertyEditors.OfType<TPropertyEditor>().Cast<PropertyEditor>();
+                        foreach (var item in propertyEditors){
+                            yield return item;
+                        }
                     }
                 }
             }
