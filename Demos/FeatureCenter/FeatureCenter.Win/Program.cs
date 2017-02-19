@@ -49,7 +49,7 @@ namespace FeatureCenter.Win {
                 //                };
 
                 winApplication.UseOldTemplates=false;
-                winApplication.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser,XpandPermissionPolicyRole>(typeof(AuthenticationStandard),typeof(AuthenticationStandardLogonParameters));
+                
                 
                 winApplication.Setup();
                 winApplication.LoggingOn += (sender, args) => {

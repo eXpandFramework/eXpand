@@ -23,6 +23,7 @@ namespace Xpand.Persistent.Base.General {
                 .WithOutObjectSpaceProvider()
                 .Build();
             xafApplication.ConnectionString = connectionString;
+            xafApplication.SetFieldValue("connectionString", connectionString);
             xafApplication.Setup();
             if (!string.IsNullOrEmpty(connectionString)) {
                 xafApplication.CheckCompatibility();
@@ -74,11 +75,11 @@ namespace Xpand.Persistent.Base.General {
                 typesInfo.LoadTypes(assembly);
                 var findTypeInfo = typesInfo.FindTypeInfo(typeof(XafApplication));
                 var findTypeDescendants = ReflectionHelper.FindTypeDescendants(assemblyInfo, findTypeInfo, false);
-                var instance = SecuritySystem.Instance;
+                var securityInstance = SecuritySystem.Instance;
                 var info = XafTypesInfo.Instance;
                 typesInfo.AssignAsInstance();
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance());
-                SecuritySystem.SetInstance(instance);
+                SecuritySystem.SetInstance(securityInstance);
                 SetConnectionString(xafApplication);
                 if (!_withOutObjectSpaceProvider) {
                     var objectSpaceProviders = ((IList<IObjectSpaceProvider>) xafApplication.GetFieldValue("objectSpaceProviders"));

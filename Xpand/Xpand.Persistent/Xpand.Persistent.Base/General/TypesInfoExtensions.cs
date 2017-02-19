@@ -85,6 +85,7 @@ namespace Xpand.Persistent.Base.General {
             var type = typeof (XafTypesInfo);
             if (type.GetFieldValue("instance")!=typesInfo){
                 type.SetFieldValue("instance", typesInfo);
+                typeof(XpoTypesInfoHelper).SetFieldValue("xpoTypeInfoSource",((TypesInfo) typesInfo).FindEntityStore(typeof(XpoTypeInfoSource)));
             }
         }
 

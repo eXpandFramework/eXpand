@@ -5,14 +5,18 @@ using System.Windows.Forms;
 using Xpand.Persistent.Base.General;
 #endif
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Win;
+using Xpand.Persistent.BaseImpl.Security;
 
 
 namespace FeatureCenter.Win {
     public partial class FeatureCenterWindowsFormsApplication : XpandWinApplication {
         public FeatureCenterWindowsFormsApplication() {
             InitializeComponent();
+            this.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){

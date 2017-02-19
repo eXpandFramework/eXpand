@@ -4,6 +4,7 @@ using System.ComponentModel;
 
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
+using ModelDifferenceTester.Module.FunctionalTests;
 using Xpand.ExpressApp.WorldCreator.Win;
 using Xpand.Persistent.Base.General;
 
@@ -14,10 +15,10 @@ namespace ModelDifferenceTester.Module.Win {
             InitializeComponent();
         }
 
-        public override void Setup(XafApplication application) {
-            base.Setup(application);
-            if (application.GetEasyTestParameter("WCModel"))
-                Application.Modules.Add(new WorldCreatorWinModule());
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            if (Application != null && Application.GetEasyTestParameter(EasyTestParameters.WCModel))
+                moduleManager.AddModule(Application, new WorldCreatorWinModule());
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {

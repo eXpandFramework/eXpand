@@ -101,6 +101,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
                         applicationModulesManager.AddModule(module);
                     }
                     applicationModulesManager.Security = application.Security;
+                    applicationModulesManager.AddAdditionalModules(application);
                 }
                 if (!string.IsNullOrEmpty(configFileName)) {
                     applicationModulesManager.AddModuleFromAssemblies(GetModulesFromConfig(application));

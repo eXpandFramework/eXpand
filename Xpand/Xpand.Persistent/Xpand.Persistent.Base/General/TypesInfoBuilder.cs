@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
+using Xpand.Persistent.Base.Xpo;
 
 namespace Xpand.Persistent.Base.General {
     public class TypesInfoBuilder {
@@ -15,7 +16,7 @@ namespace Xpand.Persistent.Base.General {
             return this;
         }
 
-        public ITypesInfo Build(bool tryToUseCurrentTypesInfo) {
+        public ITypesInfo Build(bool tryToUseCurrentTypesInfo){
             return tryToUseCurrentTypesInfo
                        ? (UseCurrentTypesInfo() ? XafTypesInfo.Instance : GetTypesInfo())
                        : GetTypesInfo();
@@ -28,7 +29,7 @@ namespace Xpand.Persistent.Base.General {
         TypesInfo GetTypesInfo() {
             var typesInfo = new TypesInfo();
             typesInfo.AddEntityStore(new NonPersistentTypeInfoSource(typesInfo));
-            var xpoSource = new XpoTypeInfoSource(typesInfo);
+            var xpoSource = new XpandXpoTypeInfoSource(typesInfo);
             typesInfo.Source = xpoSource;
             typesInfo.AddEntityStore(xpoSource);
             return typesInfo;

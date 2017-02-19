@@ -13,7 +13,7 @@ using Xpand.Utils.Helpers;
 namespace Xpand.ExpressApp.WorldCreator.System{
     public class WorldCreatorTypeInfoSource: XpandXpoTypeInfoSource{
         static readonly ReflectionDictionary _reflectionDictionary = new ReflectionDictionary();
-        private static WorldCreatorTypeInfoSource _instance;
+        private static readonly Dictionary<ITypesInfo, WorldCreatorTypeInfoSource> _instances=new Dictionary<ITypesInfo, WorldCreatorTypeInfoSource>();
 
         public WorldCreatorTypeInfoSource(TypesInfo typesInfo) : this(typesInfo,Type.EmptyTypes){
         }
@@ -27,12 +27,12 @@ namespace Xpand.ExpressApp.WorldCreator.System{
         public static WorldCreatorTypeInfoSource Instance{
             get{
                 Init();
-                return _instance;
+                return _instances[XafTypesInfo.Instance];
             }
         }
 
         static void Init(){
-            if (_instance==null){
+            if (!_instances.ContainsKey(XafTypesInfo.Instance)) {
                 var typesInfo = (TypesInfo) XafTypesInfo.Instance;
                 var types = XpandModuleBase.BaseImplAssembly.GetTypes().Where(IsWorldCreatorType).ToArray();
                 var entityStore = new WorldCreatorTypeInfoSource(typesInfo,types);
@@ -41,7 +41,7 @@ namespace Xpand.ExpressApp.WorldCreator.System{
                 classInfo.AddAttribute(new PersistentAttribute("PersistentClasses_XPObjectType"));
                 typesInfo.AddEntityStore(entityStore);
                 entityStore.EntityTypes.Each(XafTypesInfo.Instance.RegisterEntity);
-                _instance=entityStore;
+                _instances.Add(XafTypesInfo.Instance, entityStore);
             }
         }
 

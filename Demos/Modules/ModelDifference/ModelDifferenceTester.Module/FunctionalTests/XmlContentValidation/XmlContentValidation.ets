@@ -7,11 +7,14 @@
 ;-------set invalid xml ---------------------
 *Navigate Application Settings
 *XpandProcessRecord
+
  Name = ModelDifferenceTester*
  Action = Edit
 *Action Xml Content
 *FillForm
- Xml Content = Invalid xml
+ Xml Content = Invalid xm
+*SendKeys
+ Keys = Space
 
 ;-------test validation on focus changes-------
 #IfDef ModelDifferenceTester.Win
@@ -29,6 +32,8 @@
 ;------set invalid model schema
 *FillForm
  Xml Content = <Application><Views></ListView></Views></Application>
+*SendKeys
+ Keys = Space
 
 ;-------test validation on focus changes-------
 #IfDef ModelDifferenceTester.Win

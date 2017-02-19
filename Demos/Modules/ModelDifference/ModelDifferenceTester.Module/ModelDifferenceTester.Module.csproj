@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="FunctionalTests\EasyTestParameters.cs" />
     <Compile Include="FunctionalTests\RuntimeMembers\RuntimeMembersObject.cs" />
     <Compile Include="FunctionalTests\RoleModel\RoleModelObject.cs" />
     <Compile Include="FunctionalTests\ApplicationModel\ApplicationModelObject.cs" />

@@ -3,6 +3,8 @@ using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
+using ModelDifferenceTester.Module;
+using ModelDifferenceTester.Module.FunctionalTests;
 using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
 
@@ -12,12 +14,13 @@ namespace ModelDifferenceTester.Win {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
             LastLogonParametersReading += OnLastLogonParametersReading;
+            this.ProjectSetup();
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
             args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
-            if (this.GetEasyTestParameter("WCModel"))
+            if (this.GetEasyTestParameter(EasyTestParameters.WCModel))
                 args.ObjectSpaceProviders.Add(new WorldCreatorObjectSpaceProvider());
         }
 

@@ -1,5 +1,4 @@
-﻿#DropDB ModelDifferenceWorldCreatorTester
-#Application ModelDifferenceTester.Web
+﻿#Application ModelDifferenceTester.Web
 #Application ModelDifferenceTester.Win
 *SetWebMaxWaitTimeOut 60000
 #IfDef ModelDifferenceTester.Web
@@ -11,7 +10,25 @@
 *ScreenCapture
 
 #IfDef ModelDifferenceTester.Web
-#IncludeFile .\CreateWCAssembly.inc
+
+*Action Navigation(WorldCreator.Persistent Assembly Info)
+*DeleteAllObjects
+*Action New
+*FillForm
+ Name = TestAssembly
+*Action Persistent Class Infos
+*Action Persistent Class Infos.New
+*FillForm
+ Name = TestClass
+*Action Own Members
+*Action Own Members.New(Core)
+*FillForm
+ Data Type = String
+ Name = TestProperty
+*SaveAndClose
+*SaveAndClose
+*SaveAndClose
+
 *Navigate Application Settings
 *XpandProcessRecord 
  Name = ModelDifferenceTester.Web
@@ -31,4 +48,7 @@
 *Action Xml Content
 *XpandCheckFieldValues
  Xml Content = *Changed*
+*Action Show Unusable Data
+*HandleDialog
+ Caption = There are no unsable nodes*
 #EndIf

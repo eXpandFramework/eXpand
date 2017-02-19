@@ -97,6 +97,11 @@ namespace Xpand.Persistent.Base.General {
             return result;
         }
 
+        public static void SetEasyTestParameter(this XafApplication app, string parameter){
+            var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");
+            File.AppendAllLines(paramFile,new[] {parameter});
+        }
+
         public static bool GetEasyTestParameter(this XafApplication app,string parameter){
             if (app!=null){
                 var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");

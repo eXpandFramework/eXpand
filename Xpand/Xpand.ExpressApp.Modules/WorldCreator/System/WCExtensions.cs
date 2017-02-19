@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.WorldCreator.System {
 
         public static List<IPersistentAssemblyInfo> GetModifiedPersistentAssemblies(this IObjectSpace objectSpace){
             var persistentAssemblyInfos = new List<IPersistentAssemblyInfo>();
-            foreach (var modifiedObject in objectSpace.ModifiedObjects) {
+            foreach (var modifiedObject in objectSpace.ModifiedObjects.Cast<object>().Where(o => !objectSpace.IsDeletedObject(o))) {
                 var persistentAssemblyInfo = modifiedObject as IPersistentAssemblyInfo;
                 if (persistentAssemblyInfo != null) persistentAssemblyInfos.Add(persistentAssemblyInfo);
                 var persistentClassInfo = modifiedObject as IPersistentClassInfo;

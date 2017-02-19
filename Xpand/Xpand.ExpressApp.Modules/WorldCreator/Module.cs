@@ -22,7 +22,7 @@ using Xpand.ExpressApp.WorldCreator.Services;
 using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.ExpressApp.WorldCreator.System.NodeUpdaters;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Helpers;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class WorldCreatorModule : XpandModuleBase {
+    public sealed class WorldCreatorModule : XpandModuleBase ,IAdditionalModuleProvider{
         public const string BaseImplNameSpace = "Xpand.Persistent.BaseImpl.PersistentMetaData";
 
         public WorldCreatorModule() {
@@ -61,6 +61,9 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         void AddPersistentModules() {
+            
+            CompatibilityCheckerApplication.CheckCompatibility(Application);
+
             if (!string.IsNullOrEmpty(ConnectionString)) {
                 lock (_locker) {
                     var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(Application, false);
@@ -83,6 +86,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                     ModuleManager.AddModule(assembly1.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
+            XpoObjectMerger.MergeTypes(this);
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -103,13 +107,16 @@ namespace Xpand.ExpressApp.WorldCreator {
             AddToAdditionalExportedTypes(BaseImplNameSpace);
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleClassInfoMerge), typeof(IRuleBaseProperties));
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleValidCodeIdentifier), typeof(IRuleBaseProperties));
-            if (!InterfaceBuilder.SkipAssemblyCleanup && Application != null && (RuntimeMode || !string.IsNullOrEmpty(ConnectionString))) {
-                CompatibilityCheckerApplication.CheckCompatibility(Application);
+            if (Application != null && (RuntimeMode || !string.IsNullOrEmpty(ConnectionString))) {
                 AddPersistentModules();
-                Application.LoggedOn += ApplicationOnLoggedOn;
-                XpoObjectMerger.MergeTypes(this);
                 RegisterDerivedTypes();
+                Application.LoggedOn += ApplicationOnLoggedOn;
             }
+        }
+
+        void IAdditionalModuleProvider.AddAdditionalModules(ApplicationModulesManager applicationModulesManager){
+            AddToAdditionalExportedTypes(BaseImplNameSpace);
+            AddPersistentModules();
         }
 
         private void CheckIfSupported(){
@@ -132,7 +139,6 @@ namespace Xpand.ExpressApp.WorldCreator {
             base.RegisterEditorDescriptors(editorDescriptorsFactory);
             editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), false)));
         }
-        
     }
 }
 

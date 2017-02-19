@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using ModelDifferenceTester.Module;
+using ModelDifferenceTester.Module.FunctionalTests;
 using ModelDifferenceTester.Module.Web;
 using Xpand.ExpressApp.ModelDifference;
 using Xpand.ExpressApp.ModelDifference.Web;
@@ -37,6 +38,7 @@ namespace ModelDifferenceTester.Web {
 
         public ModelDifferenceTesterAspNetApplication() {
             InitializeComponent();
+            this.ProjectSetup();
             DatabaseVersionMismatch += ModelDifferenceTesterAspNetApplication_DatabaseVersionMismatch;
             LastLogonParametersReading += OnLastLogonParametersReading;
         }
@@ -45,7 +47,7 @@ namespace ModelDifferenceTester.Web {
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
-            if (this.GetEasyTestParameter("WCModel"))
+            if (this.GetEasyTestParameter(EasyTestParameters.WCModel))
                 args.ObjectSpaceProviders.Add(new WorldCreatorObjectSpaceProvider());
         }
 

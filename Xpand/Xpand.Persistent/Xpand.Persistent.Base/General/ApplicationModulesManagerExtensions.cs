@@ -31,9 +31,9 @@ namespace Xpand.Persistent.Base.General{
                     var requiredModuleTypes = moduleBase.RequiredModuleTypes.Select(type => type.CreateInstance()).Cast<ModuleBase>().ToArray();
                     AddModule(applicationModulesManager, application,requiredModuleTypes,installedModules);
                     applicationModulesManager.AddModule(moduleBase);
+                    moduleBase.Application=application;
                     LoadRegularTypesToTypesInfo(application.TypesInfo, moduleBase);
-                    applicationModulesManager.ControllersManager.RegisterControllerTypes(
-                        moduleBase.GetControllerTypes().ToArray());
+                    applicationModulesManager.ControllersManager.RegisterControllerTypes(moduleBase.GetControllerTypes().ToArray());
                     
                 }
             }

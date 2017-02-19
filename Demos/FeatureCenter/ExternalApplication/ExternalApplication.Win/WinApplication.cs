@@ -1,4 +1,6 @@
 using System;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Win;
 
 namespace ExternalApplication.Win {
@@ -6,6 +8,12 @@ namespace ExternalApplication.Win {
         public ExternalApplicationWindowsFormsApplication() {
             InitializeComponent();
         }
+
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+            args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
+        }
+
 
 #if EASYTEST
         protected override string GetUserCultureName() {
