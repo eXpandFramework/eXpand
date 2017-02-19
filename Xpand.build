@@ -126,7 +126,7 @@
   <Target Name="NuGetRestore" Condition="$(RestoreNuget)==true">
 	<Exec Command="$(NuGetTool) restore %(NugetRestoreProjects.Identity)" />
   </Target>  
-  <Target Name="Build" DependsOnTargets="CopyCodeRushAssemblies;Copy3rdPartyAssemblies;BuildHelperB4Build;NuGetRestore">
+  <Target Name="Build" DependsOnTargets="Clean;CopyCodeRushAssemblies;Copy3rdPartyAssemblies;BuildHelperB4Build;NuGetRestore">
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
