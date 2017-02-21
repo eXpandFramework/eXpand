@@ -1,4 +1,5 @@
 ﻿;#IncludeFile .\Init.inc
+*SetWebMaxWaitTimeOut 600000
 *Navigate ASPx Search Lookup Property Editor Object
 *DeleteAllObjects
 *Action New

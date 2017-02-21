@@ -12,22 +12,20 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     public class UnboundColumnController : ViewController<ListView> {
         protected override void OnActivated() {
             base.OnActivated();
-            if (GridListEditor != null){
-                GridListEditor.ModelApplied +=GridListEditorOnModelApplied;
-                GridListEditor.ModelSaved+=GridListEditorOnModelSaved;
+            var gridListEditor = View.Editor as ASPxGridListEditor;
+            if (gridListEditor != null){
+                gridListEditor.ModelApplied +=GridListEditorOnModelApplied;
+                gridListEditor.ModelSaved+=GridListEditorOnModelSaved;
             }
         }
 
         private void GridListEditorOnModelSaved(object sender, EventArgs eventArgs){
-            new UnboundColumnSynchronizer(GridListEditor, View.Model).SynchronizeModel();
+            new UnboundColumnSynchronizer((ASPxGridListEditor) sender, View.Model).SynchronizeModel();
         }
 
         private void GridListEditorOnModelApplied(object sender, EventArgs eventArgs){
-            new UnboundColumnSynchronizer(GridListEditor, View.Model).ApplyModel();
-        }
-
-
-        public ASPxGridListEditor GridListEditor => View.Editor as ASPxGridListEditor;
+            new UnboundColumnSynchronizer((ASPxGridListEditor)sender, View.Model).ApplyModel();
+        }    
     }
 
     public class UnboundColumnSynchronizer : ModelSynchronizer<ASPxGridListEditor, IModelListView> {

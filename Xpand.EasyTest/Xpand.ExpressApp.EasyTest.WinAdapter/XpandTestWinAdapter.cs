@@ -126,7 +126,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
                     var fullPath = Path.GetFullPath(app);
                     var process = new Process { StartInfo = new ProcessStartInfo(fullPath) };
                     process.Start();
-                    Thread.Sleep(15000);
+                    Thread.Sleep(45000);
                     _additionalProcesses.Add(process);
                 }
 

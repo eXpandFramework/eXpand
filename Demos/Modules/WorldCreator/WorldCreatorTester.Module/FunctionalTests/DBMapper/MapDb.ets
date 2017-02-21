@@ -1,5 +1,5 @@
 ﻿#IncludeFile .\Init.inc
-
+*SetWebMaxWaitTimeOut 160000
 ;----------------------Create Mapped Assembly----------------
 *Action Navigation(WorldCreator.Persistent Assembly Info)
 *Action New(Persistent Assembly Info)

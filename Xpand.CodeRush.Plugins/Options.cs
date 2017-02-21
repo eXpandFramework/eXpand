@@ -223,6 +223,8 @@ namespace Xpand.CodeRush.Plugins {
 
         public bool DisableExceptions { get; set; }
 
+        public string DefaultConfiguration => "Debug";
+
         public void Save(){
             var stringBuilder = new StringBuilder();
             new XmlSerializer(typeof(OptionClass)).Serialize(XmlWriter.Create(stringBuilder),Instance );

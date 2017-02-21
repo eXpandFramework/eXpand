@@ -223,7 +223,7 @@ namespace Xpand.CodeRush.Plugins {
             var configurationName = solutionConfigurationNames.First(solutionConfigurationName =>project.ConfigurationManager.Cast<EnvDTE.Configuration>()
                         .Any(configuration => configuration.ConfigurationName == solutionConfigurationName));
             var solutionContext = _dte.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts.Cast<SolutionContext>().First(context => Path.GetFileNameWithoutExtension(context.ProjectName) ==project.Name);
-            solutionContext.ConfigurationName = configurationName;
+            solutionContext.ConfigurationName = !string.IsNullOrEmpty(OptionClass.Instance.DefaultConfiguration) ? OptionClass.Instance.DefaultConfiguration : configurationName;
             _dte.WriteToOutput(solutionContext.ConfigurationName+" configuration activated");
         }
 

@@ -14,7 +14,7 @@ namespace Xpand.Persistent.Base.General.Model {
                 foreach (var cloneViewAttribute in cloneViewAttributes) {
                     if (node.Application.Views[cloneViewAttribute.ViewId]==null) {
                         var modelView = GetModelView(modelClass, cloneViewAttribute);
-                        var cloneNodeFrom = ModelEditorHelper.AddCloneNode((ModelNode)node.Application.Views, (ModelNode)modelView, cloneViewAttribute.ViewId);
+                        var cloneNodeFrom = ((ModelNode)modelView).Clone(cloneViewAttribute.ViewId);
                         AssignAsDefaultView(cloneViewAttribute, (IModelObjectView) cloneNodeFrom);
                         if (modelView is IModelListView && !(string.IsNullOrEmpty(cloneViewAttribute.DetailView))) {
                             CloneViewAttribute attribute = cloneViewAttribute;
