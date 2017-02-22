@@ -57,13 +57,13 @@ namespace Xpand.ExpressApp.TreeListEditors.Web.Controllers {
                     modelColumn.PropertyName = selectedKey;
                     modelColumn.Index = 0;
                 }
-                else if (modelColumn.Index == -1)
+                else if (modelColumn.Index <0||modelColumn.Index==null)
                     modelColumn.Index = 0;
             }
         }
 
         private void TreeListOnVirtualModeNodeCreated(object sender, TreeListVirtualNodeEventArgs e){
-            e.Node.Selected = _parentModel.Columns.Any(column => column.Index > -1 && column.Id == e.Node.Key);
+            e.Node.Selected = _parentModel.Columns.Any(column => (column.Index == null || column.Index > -1) && column.Id == e.Node.Key);
         }
 
         private void TreeListOnVirtualModeNodeCreating(object sender, TreeListVirtualModeNodeCreatingEventArgs e){

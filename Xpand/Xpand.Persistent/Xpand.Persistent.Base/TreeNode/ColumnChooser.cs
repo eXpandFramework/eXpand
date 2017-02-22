@@ -45,7 +45,7 @@ namespace Xpand.Persistent.Base.TreeNode{
 
         public static ColumnChooserList CreateRoot(IObjectSpace objectSpace, IModelColumns modelColumns) {
             var columnChooserList = new ColumnChooserList();
-            var columns = modelColumns.Where(column => CanBeDisplayed(column.ModelMember.MemberInfo)).Where(column => !column.PropertyName.Contains(".")).OrderBy(column => column.Caption);
+            var columns = modelColumns.Where(column => CanBeDisplayed(column.ModelMember.MemberInfo)).OrderBy(column => column.Caption);
             foreach (var modelColumn in columns) {
                 var columnChooser = objectSpace.CreateObject<ColumnChooser>();
                 var modelMember = modelColumn.ModelMember;
