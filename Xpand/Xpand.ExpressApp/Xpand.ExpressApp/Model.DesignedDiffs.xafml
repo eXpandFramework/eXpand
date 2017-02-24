@@ -4,6 +4,8 @@
     <Actions>
       <Action Id="ChooseFormattingCulture" Active="False" />
       <Action Id="ChooseLanguage" Active="False" />
+      <Action Id="PositionDown" ImageName="Action_Sorting_Descending" />
+      <Action Id="PositionUp" ImageName="Action_Sorting_Ascending" />
     </Actions>
   </ActionDesign>
 </Application>

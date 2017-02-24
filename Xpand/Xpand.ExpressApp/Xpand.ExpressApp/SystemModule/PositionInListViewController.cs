@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.SystemModule {
     [ModelAbstractClass]
@@ -26,9 +27,22 @@ namespace Xpand.ExpressApp.SystemModule {
     public class ListViewPositionColumnDomainLogic{
         public static void Set_PositionColumn(IModelListViewPositionColumn listView, IModelColumn modelColumn){
             listView.SetValue("PositionColumn", modelColumn);
-            modelColumn.SortIndex = 0;
-            modelColumn.SortOrder=ColumnSortOrder.Ascending;
-            modelColumn.Index = -1;
+            var settingsBehavior = listView.GetNodeByPath("GridViewOptions/SettingsBehavior");
+            settingsBehavior?.ClearValue("AllowSort");
+            settingsBehavior?.ClearValue("AllowSelectSingleRowOnly");
+            if (modelColumn != null){
+                settingsBehavior?.SetValue("AllowSort", true);
+                settingsBehavior?.SetValue("AllowSort", false);
+                settingsBehavior?.SetValue("AllowSelectSingleRowOnly", true);
+                modelColumn.SortIndex = 0;
+                modelColumn.SortOrder=ColumnSortOrder.Ascending;
+                modelColumn.Index = -1;
+                foreach (var column in listView.Columns.Where(column => column!=modelColumn)){
+                    column.SortOrder=ColumnSortOrder.None;
+                    column.SortIndex = -1;
+                }
+                
+            }
         }
 
         public static IEnumerable<IModelColumn> Get_SortableColumns(IModelListViewPositionColumn column) {
@@ -44,22 +58,41 @@ namespace Xpand.ExpressApp.SystemModule {
         private readonly SimpleAction _positionDownAction;
 
         public PositionInListViewController(){
-            _positionUpAction = new SimpleAction(this,"PositionUp",PredefinedCategory.RecordsNavigation){Caption = "Up"};
+            _positionUpAction = new SimpleAction(this,"PositionUp",PredefinedCategory.View){Caption = "Up"};
             _positionUpAction.Execute+=PositionUpActionOnExecute;
             _positionUpAction.SelectionDependencyType=SelectionDependencyType.RequireSingleObject;
-            _positionDownAction = new SimpleAction(this,"PositionDown",PredefinedCategory.RecordsNavigation){Caption = "Down"};
+            _positionDownAction = new SimpleAction(this,"PositionDown",PredefinedCategory.View) {Caption = "Down"};
             _positionDownAction.Execute += PositionDownActionOnExecute;
             _positionDownAction.SelectionDependencyType=SelectionDependencyType.RequireSingleObject;
         }
 
+        protected override void OnDeactivated(){
+            base.OnDeactivated();
+            if (_positionColumn != null)
+                View.Editor.DataSourceChanged += EditorOnDataSourceChanged;
+        }
+
         protected override void OnActivated(){
             base.OnActivated();
+            
             _positionColumn = ((IModelListViewPositionColumn)View.Model).PositionColumn;
             foreach (var action in Actions) {
                 action.Active["PositionColumn"] = _positionColumn != null;
             }
             if (_positionColumn != null){
+                
                 _memberInfo = _positionColumn.ModelMember.MemberInfo;
+                View.Editor.DataSourceChanged+=EditorOnDataSourceChanged;
+            }
+        }
+
+        private void EditorOnDataSourceChanged(object sender, EventArgs eventArgs){
+            if (View?.CollectionSource.List != null && _positionColumn != null){
+                var orderedObjects = GetObjects(null).ToArray();
+                for (var index = 0; index < orderedObjects.Length; index++){
+                    var orderedObject = orderedObjects[index];
+                    _memberInfo.SetValue(orderedObject, index);
+                }
             }
         }
 
@@ -67,10 +100,10 @@ namespace Xpand.ExpressApp.SystemModule {
             base.OnFrameAssigned();
             var recordsNavigationController = Frame.GetController<RecordsNavigationController>();
             recordsNavigationController.NextObjectAction.Enabled.ResultValueChanged += (sender, args) =>{
-                _positionDownAction.Enabled["NextObjectAction"] = args.NewValue;
+                _positionDownAction.Enabled["Move"] = args.NewValue;
             };
             recordsNavigationController.PreviousObjectAction.Enabled.ResultValueChanged += (sender, args) =>{
-                _positionUpAction.Enabled["PreviousObjectAction"] = args.NewValue;
+                _positionUpAction.Enabled["Move"] = args.NewValue;
             };
             
         }
@@ -81,18 +114,33 @@ namespace Xpand.ExpressApp.SystemModule {
 
         private void Move(bool down, object selectedObject){
             int currentPosition = (int) _memberInfo.GetValue(selectedObject);
-            object otherObject = GetOtherObject(down, currentPosition);
-            if (otherObject!=null){
-                var otherPosition = _memberInfo.GetValue(otherObject);
-                _memberInfo.SetValue(selectedObject, otherPosition);
-                _memberInfo.SetValue(otherObject, currentPosition);
-                ObjectSpace.CommitChanges();
+            object otherObject = GetOtherObject(down, currentPosition,selectedObject);
+            var otherPosition = _memberInfo.GetValue(otherObject);
+            _memberInfo.SetValue(selectedObject, otherPosition);
+            _memberInfo.SetValue(otherObject, currentPosition);
+            ObjectSpace.CommitChanges();
+
+            currentPosition = (int)_memberInfo.GetValue(selectedObject);
+            otherObject = GetOtherObject(down, currentPosition, selectedObject);
+            if (down){
+                _positionUpAction.Enabled["Move"] = true;
+                _positionDownAction.Enabled["Move"] = otherObject != null;
+            }
+            else{
+                _positionDownAction.Enabled["Move"] = true;
+                _positionUpAction.Enabled["Move"] = otherObject != null;
             }
         }
 
-        private object GetOtherObject(bool down, int currentPosition){
-            return ((IEnumerable) View.CollectionSource.Collection).Cast<object>()
-                .OrderBy(o => o).FirstOrDefault(o => IsOtherObject(down, currentPosition, o));
+        private object GetOtherObject(bool down, int currentPosition, object selectedObject){
+            var objects = GetObjects(selectedObject);
+            if (!down)
+                objects = objects.Reverse();
+            return objects.FirstOrDefault(o => IsOtherObject(down, currentPosition, o));
+        }
+
+        private IEnumerable<object> GetObjects(object selectedObject){
+            return View.CollectionSource.List.Cast<object>().OrderBy(o => _memberInfo.GetValue(o)).Where(o => o != selectedObject);
         }
 
         private bool IsOtherObject(bool down, int currentPosition, object o){
