@@ -6,17 +6,15 @@ using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     public abstract class XpoDictionaryDifferenceStore : ModelDifferenceStore {
-
-        private readonly XafApplication _application;
-        private XPObjectSpace _objectSpace;
+        private readonly XPObjectSpace _objectSpace;
 
         protected XpoDictionaryDifferenceStore(XafApplication application) {
-            _application = application;
+            Application = application;
             _objectSpace = (XPObjectSpace)application.CreateObjectSpace(typeof(ModelDifferenceObject));
         }
 
 
-        public XafApplication Application => _application;
+        public XafApplication Application { get; }
 
         public XPObjectSpace ObjectSpace => _objectSpace;
 
@@ -26,7 +24,6 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         public override void SaveDifference(ModelApplicationBase model) {
             if (model != null) {
-                _objectSpace = _application.CreateObjectSpace(typeof(ModelDifferenceObject)) as XPObjectSpace;
                 ModelDifferenceObject modelDifferenceObject =
                     GetActiveDifferenceObject(model.Id) ??
                     GetNewDifferenceObject(_objectSpace)

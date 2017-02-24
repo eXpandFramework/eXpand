@@ -2,7 +2,7 @@
 using DevExpress.DashboardWin;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
-using Xpand.ExpressApp.Dashboard.Filter;
+using Xpand.ExpressApp.Dashboard;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {

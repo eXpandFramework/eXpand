@@ -45,7 +45,9 @@ namespace ModelDifferenceTester.Web {
 
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+            args.ObjectSpaceProviders.Add(
+                this.GetEasyTestParameter(EasyTestParameters.RuntimeMembers)? new XpandObjectSpaceProvider(new DataStoreProvider(args.ConnectionString), Security, true):
+                 new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString), false));
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
             if (this.GetEasyTestParameter(EasyTestParameters.WCModel))
                 args.ObjectSpaceProviders.Add(new WorldCreatorObjectSpaceProvider());

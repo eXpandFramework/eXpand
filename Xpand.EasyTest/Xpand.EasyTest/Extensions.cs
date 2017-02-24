@@ -162,7 +162,7 @@ namespace Xpand.EasyTest {
 
         public static void DeleteUserModel(this TestApplication testApplication) {
             var appPath = testApplication.ParameterValue<string>(ApplicationParams.FileName);
-            var directoryName = File.Exists(appPath) ? Path.GetDirectoryName(appPath) + "" : testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
+            var directoryName = Directory.Exists(Path.GetDirectoryName(appPath)) ? Path.GetDirectoryName(appPath) + "" : testApplication.ParameterValue<string>(ApplicationParams.PhysicalPath);
             foreach (var file in Directory.GetFiles(directoryName, "Model.user*.xafml").ToArray()) {
                 File.Delete(file);
             }

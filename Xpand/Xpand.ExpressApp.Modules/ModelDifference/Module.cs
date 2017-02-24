@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.ModelDifference.Controllers;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Validation;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
@@ -60,6 +61,14 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelOptionsModelDifference>();
+        }
+
+        protected override IEnumerable<Type> GetDeclaredControllerTypes(){
+            var types = new[]{
+                typeof(CloneObjectViewController), typeof(CombineActiveUserDiffsWithLastLayerController),typeof(DeleteActiveUserModelController),
+                typeof(MergeDifferencesController),typeof(ModelDifferenceObjectsRuntimeMembersController),typeof(ReloadApplicationModelController)
+            };
+            return GetDeclaredControllerTypesCore(types);
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {

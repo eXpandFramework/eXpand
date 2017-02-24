@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             providerBuilder.CreateProviders().Each(provider => Application.AddObjectSpaceProvider(provider));
         }
 
-        void AddPersistentModules() {
+        void AddPersistentModules(ApplicationModulesManager applicationModulesManager) {
             
             CompatibilityCheckerApplication.CheckCompatibility(Application);
 
@@ -72,7 +72,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                         var assemblyManager = new AssemblyManager(objectSpace, codeValidator);
                         foreach (var assembly in assemblyManager.LoadAssemblies()) {
                             var moduleType = assembly.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type));
-                            ModuleManager.AddModule(Application,(ModuleBase)moduleType.CreateInstance());
+                            applicationModulesManager.AddModule(Application,(ModuleBase)moduleType.CreateInstance());
                         }
                         worldCreatorObjectSpaceProvider.ResetThreadSafe();
                     }
@@ -83,7 +83,7 @@ namespace Xpand.ExpressApp.WorldCreator {
                     AppDomain.CurrentDomain.GetAssemblies()
                         .Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(Compiler.XpandExtension));
                 foreach (var assembly1 in assemblies) {
-                    ModuleManager.AddModule(assembly1.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type)));
+                    applicationModulesManager.AddModule(assembly1.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
             XpoObjectMerger.MergeTypes(this);
@@ -108,7 +108,7 @@ namespace Xpand.ExpressApp.WorldCreator {
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleClassInfoMerge), typeof(IRuleBaseProperties));
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleValidCodeIdentifier), typeof(IRuleBaseProperties));
             if (Application != null && (RuntimeMode || !string.IsNullOrEmpty(ConnectionString))) {
-                AddPersistentModules();
+                AddPersistentModules(moduleManager);
                 RegisterDerivedTypes();
                 Application.LoggedOn += ApplicationOnLoggedOn;
             }
@@ -116,7 +116,7 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         void IAdditionalModuleProvider.AddAdditionalModules(ApplicationModulesManager applicationModulesManager){
             AddToAdditionalExportedTypes(BaseImplNameSpace);
-            AddPersistentModules();
+            AddPersistentModules(applicationModulesManager);
         }
 
         private void CheckIfSupported(){

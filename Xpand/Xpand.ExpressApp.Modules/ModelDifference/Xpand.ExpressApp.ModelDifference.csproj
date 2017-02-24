@@ -158,6 +158,9 @@
     <Compile Include="Controllers\CombineActiveUserDiffsWithLastLayerController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controllers\DeleteActiveUserModelController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controllers\MergeDifferencesController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -190,7 +193,7 @@
     <Compile Include="ModelDifferenceBaseModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelDifferenceModule.cs" />
+    <Compile Include="Module.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\Controllers\PopulateDifferenceObjectsController.cs">
       <SubType>Component</SubType>

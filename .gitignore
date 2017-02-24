@@ -63,3 +63,5 @@ log.txt
 **/Images/ScreenCapture/*.*
 *.mask.png
 .vs
+$RECYCLE.BIN/
+System Volume Information/
