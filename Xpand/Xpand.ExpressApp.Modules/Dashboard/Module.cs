@@ -14,6 +14,13 @@ using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Dashboard {
 
+    public interface IModelApplicationDashboardModule : IModelApplication {
+        IModelDashboardModule DashboardModule { get; }
+    }
+
+    public interface IModelDashboardModule : IModelNode {
+
+    }
     [ToolboxBitmap(typeof(DashboardModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
@@ -26,6 +33,7 @@ namespace Xpand.ExpressApp.Dashboard {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelApplication,IModelApplicationDashboardModule>();
+            extenders.Add<IModelDashboardModule, IModelDashboardModuleDataSources>();
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {

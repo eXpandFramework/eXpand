@@ -10,16 +10,13 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Dashboard.Filter{
-    public interface IModelApplicationDashboardModule:IModelApplication{
-        IModelDashboardModule DashboardModule { get; }
-    }
-
+    
 
     public interface IModelDashboardParameter:IModelNode{
 
     }
 
-    public interface IModelDashboardModule:IModelNode{
+    public interface IModelDashboardModuleDataSources:IModelNode{
         IModelDashboardDataSources DataSources { get; }
     }
 

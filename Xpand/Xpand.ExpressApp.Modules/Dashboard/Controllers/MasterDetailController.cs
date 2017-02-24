@@ -8,17 +8,50 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelAdapter;
 
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
+    public interface IModelDashboardModuleDetailViewObjectTypeLink : IModelNode {
+        IModelDashboardDetailViewObjectTypeLinkGroups DashboardDetailViewObjectTypeLinkGroups { get; }
+    }
+
+    public interface IModelDashboardDetailViewObjectTypeLinkGroups : IModelNode, IModelList<IModelDashboardDetailViewObjectTypeLinkGroup> {
+    }
+
+    public interface IModelDashboardDetailViewObjectTypeLinkGroup:IModelNode{
+        IModelDashboardDetailViewObjectTypeLinks DashboardDetailViewObjectTypeLinks { get; }
+    }
+
+    [ModelNodesGenerator(typeof(DashboardDetailViewObjectTypeLinksNodesGenerator))]
+    public interface IModelDashboardDetailViewObjectTypeLinks : IModelNode, IModelList<IModelDashboardDetailViewObjectTypeLink> {
+
+    }
+
+    public interface IModelDashboardDetailViewObjectTypeLink:IModelNodeEnabled{
+        [Required]
+        [DataSourceProperty("Application.DetailViews")]
+        IModelDetailView DetailView { get; set; }
+        [DataSourceProperty("Application.BOModel")]
+        [Required]
+        IModelClass ModelClass { get; set; }
+    }
+
+    public class DashboardDetailViewObjectTypeLinksNodesGenerator : ModelNodesGeneratorBase {
+        protected override void GenerateNodesCore(ModelNode node) {
+
+        }
+    }
+
     [ModelAbstractClass]
     public interface IModelListViewMasterDetail : IModelListView {
-        [Category(AttributeCategoryNameProvider.Xpand)]
+        [Category(AttributeCategoryNameProvider.Xpand + "." + nameof(DashboardModule))]
         string MasterDetailDashboardView { get; set; }
         [Browsable(false)]
         IEnumerable<IModelDashboardView> DashboardViews { get; }
@@ -34,9 +67,12 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
     [ModelAbstractClass]
     public interface IModelDashoardViewMasterDetail : IModelDashboardView {
-        [Category(AttributeCategoryNameProvider.Xpand)]
+        [Category(AttributeCategoryNameProvider.Xpand+"."+nameof(DashboardModule) )]
         [ModelBrowsable(typeof(ModelDashboardViewMasterDetailVisibilityCalculator))]
         bool MasterDetail { get; set; }
+        [Category(AttributeCategoryNameProvider.Xpand+"."+nameof(DashboardModule) )]
+        [ModelBrowsable(typeof(ModelDashboardViewMasterDetailVisibilityCalculator))]
+        IModelDashboardDetailViewObjectTypeLinkGroup DetailViewObjectTypeLinkGroup { get; set; }
     }
 
     [DomainLogic(typeof(IModelDashoardViewMasterDetail))]
@@ -103,16 +139,40 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         private void ProcessSelectedItem(Object sender, CustomProcessListViewSelectedItemEventArgs e) {
             if (e.InnerArgs.CurrentObject != null) {
-                if (_detailView.ObjectSpace != null)
-                    _detailView.ObjectSpace.Committed -= DetailViewObjectSpaceCommitted;
                 e.Handled = true;
-                var objectSpace = Application.CreateObjectSpace();
-                _detailView.Close();
-                _detailViewdashboardViewItem.Frame.SetView(null);
-                _detailView = Application.CreateDetailView(objectSpace, objectSpace.GetObject(e.InnerArgs.CurrentObject), View);
-                ConfigureDetailView(_detailView);
-                _detailViewdashboardViewItem.Frame.SetView(_detailView, true, Frame);
+                var detailViewModel = GetDetailViewModel(e);
+                if (detailViewModel!=_detailView.Model){
+                    if (_detailView.ObjectSpace != null)
+                        _detailView.ObjectSpace.Committed -= DetailViewObjectSpaceCommitted;
+
+                    _detailView.Close();
+                    _detailViewdashboardViewItem.Frame.SetView(null);
+                    var objectSpace = Application.CreateObjectSpace();
+
+                    var currentObject = objectSpace.GetObject(e.InnerArgs.CurrentObject);    
+                    _detailView = Application.CreateDetailView(objectSpace, detailViewModel.Id, true, currentObject);
+                    ConfigureDetailView(_detailView);
+                    _detailViewdashboardViewItem.Frame.SetView(_detailView, true, Frame);
+                }
+                else{
+                    _detailView.CurrentObject = _detailView.ObjectSpace.GetObject(e.InnerArgs.CurrentObject);
+                }
             }
+        }
+
+        private IModelDetailView GetDetailViewModel(CustomProcessListViewSelectedItemEventArgs e){
+            var detailViewModel = _detailView.Model;
+            var linkGroup = ((IModelDashoardViewMasterDetail) View.Model).DetailViewObjectTypeLinkGroup;
+            if (linkGroup != null){
+                var currentObjectModelClass = Application.Model.BOModel.GetClass(e.InnerArgs.CurrentObject.GetType());
+                var modelDetailView =
+                    linkGroup.DashboardDetailViewObjectTypeLinks.Where(link => link.ModelClass == currentObjectModelClass)
+                        .Select(link => link.DetailView)
+                        .FirstOrDefault();
+                if (modelDetailView != null)
+                    detailViewModel = modelDetailView;
+            }
+            return detailViewModel;
         }
 
         private void DetailViewObjectSpaceCommitted(Object sender, EventArgs e) {
@@ -131,14 +191,22 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         private void ListViewDashboardViewItemControlCreated(Object sender, EventArgs e) {
-            if (Application.IsHosted())
-                _listViewDashboardViewItem.Frame.Controllers.Cast<Controller>().First(controller => controller.GetType().Name == "ListViewFastCallbackHandlerController").Active[GetType().FullName] = false;
+            DisableListViewFastCallbackHandlerController(_listViewDashboardViewItem.Frame);
             var listViewProcessCurrentObjectController = _listViewDashboardViewItem.Frame.GetController<ListViewProcessCurrentObjectController>();
             listViewProcessCurrentObjectController.CustomProcessSelectedItem -= ProcessSelectedItem;
             listViewProcessCurrentObjectController.CustomProcessSelectedItem += ProcessSelectedItem;
             _listView = (ListView)_listViewDashboardViewItem.InnerView;
             _listView.ObjectSpace.Committed -= ListViewObjectSpaceCommitted;
             _listView.ObjectSpace.Committed += ListViewObjectSpaceCommitted;
+        }
+
+        private void DisableListViewFastCallbackHandlerController(Frame frame){
+            if (Application.IsHosted()){
+                frame.Controllers.Cast<Controller>()
+                    .First(controller => controller.GetType().Name == "ListViewFastCallbackHandlerController")
+                    .Active[GetType().FullName] = false;
+                
+            }
         }
 
         private void DetailViewdashboardViewItemControlCreated(Object sender, EventArgs e) {
@@ -162,6 +230,10 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         private void ConfigureDetailView(DetailView detailView) {
             _detailView = detailView;
+            foreach (var listPropertyEditor in detailView.GetItems<ListPropertyEditor>()){
+                listPropertyEditor.ControlCreated+=ListPropertyEditorOnControlCreated;
+
+            }
             detailView.ViewEditMode = ViewEditMode.Edit;
             var objectSpace = detailView.ObjectSpace;
             if (objectSpace != null) {
@@ -169,6 +241,13 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                 objectSpace.Committed += DetailViewObjectSpaceCommitted;
             }
         }
+
+        private void ListPropertyEditorOnControlCreated(object sender, EventArgs eventArgs){
+            var listPropertyEditor = ((ListPropertyEditor) sender);
+            listPropertyEditor.ControlCreated-=ListPropertyEditorOnControlCreated;
+            DisableListViewFastCallbackHandlerController(listPropertyEditor.Frame);
+        }
+
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -243,6 +322,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelDashboardView, IModelDashoardViewMasterDetail>();
             extenders.Add<IModelListView, IModelListViewMasterDetail>();
+            extenders.Add<IModelDashboardModule, IModelDashboardModuleDetailViewObjectTypeLink>();
         }
     }
 }

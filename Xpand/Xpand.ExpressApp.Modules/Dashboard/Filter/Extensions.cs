@@ -88,7 +88,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                 foreach (var dataSourceAdapter in dataSourceAdapters){
                     if (document.Root != null){
                         DataSourceAdapter adapter = dataSourceAdapter;
-                        var datasources = document.Root.Descendants("DataSource").Where(element => element.Attribute("Name").Value==adapter.DataSource.Name&&!element.Descendants("Filter").Any());
+                        var datasources = document.Root.Descendants("DataSource").Where(element => element.Attribute("Name")?.Value==adapter.DataSource.Name&&!element.Descendants("Filter").Any());
                         foreach (var datasource in datasources){
                             datasource.Add(new XElement("Filter", dataSourceAdapter.DataSource.Filter));    
                         }
@@ -109,8 +109,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
         }
 
         static IEnumerable<DataSourceAdapter> GetDataSources(DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IModelApplication model) {
-            var modelDashboardModule =
-                ((IModelApplicationDashboardModule)model).DashboardModule;
+            var modelDashboardModule =((IModelDashboardModuleDataSources) ((IModelApplicationDashboardModule)model).DashboardModule);
             return modelDashboardModule.DataSources.Where(source => source.NodeEnabled && CanApply(source, filterEnabled, template)).Select(modelDataSource => {
                 var dataSource = dashboard.DataSources.FirstOrDefault(source =>
                     String.Equals(source.Name.Trim(), modelDataSource.DataSourceName.Trim(), StringComparison.CurrentCultureIgnoreCase));
