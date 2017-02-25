@@ -28,7 +28,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                     GetActiveDifferenceObject(model.Id) ??
                     GetNewDifferenceObject(_objectSpace)
                     .InitializeMembers(model.Id == "Application" ? Application.Title : model.Id, Application.Title, Application.GetType().FullName);
-
+                if (!_objectSpace.IsNewObject(modelDifferenceObject))
+                    _objectSpace.ReloadObject(modelDifferenceObject);
                 OnDifferenceObjectSaving(modelDifferenceObject, model);
             }
         }

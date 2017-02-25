@@ -33,6 +33,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         }
 
         public static void CreateRuntimeMembers(IModelApplication model) {
+
             using (var objectSpace = CreateObjectSpace()) {
                 Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
                 var modelMemberOneToManyCollections = new List<IModelMemberOneToManyCollection>();
@@ -142,11 +143,14 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
             }
         }
 
-        static void AddAttributes(IModelMemberEx modelMemberEx, XPCustomMemberInfo memberInfo) {
-            if (modelMemberEx.Size != 0)
-                memberInfo.AddAttribute(new SizeAttribute(modelMemberEx.Size));
-            if (modelMemberEx is IModelMemberNonPersistent && !(modelMemberEx is IModelMemberCalculated))
-                memberInfo.AddAttribute(new NonPersistentAttribute());
+        static void AddAttributes(IModelMemberEx modelMemberEx, XPCustomMemberInfo memberInfo){
+            ModifyDictionary(() =>{
+                if (modelMemberEx.Size != 0)
+                    memberInfo.AddAttribute(new SizeAttribute(modelMemberEx.Size));
+                if (modelMemberEx is IModelMemberNonPersistent && !(modelMemberEx is IModelMemberCalculated))
+                    memberInfo.AddAttribute(new NonPersistentAttribute());
+                return null;
+            });
         }
 
         static XpandCustomMemberInfo CreateMemberInfo(IModelMemberEx modelMemberEx, XPClassInfo xpClassInfo) {
@@ -171,7 +175,21 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 var memberInfo = ModelMemberModelMemberDomainLogic.Get_MemberInfo(modelMemberModelMember);
                 return (XpandCustomMemberInfo) xpClassInfo.FindMember(memberInfo.Name);
             }
-            return xpClassInfo.CreateCustomMember(modelMemberEx.Name, modelMemberEx.Type, modelMemberEx is IModelMemberNonPersistent);
+            
+
+            
+            return (XpandCustomMemberInfo) ModifyDictionary(() => xpClassInfo.CreateCustomMember(modelMemberEx.Name, modelMemberEx.Type,
+                modelMemberEx is IModelMemberNonPersistent));
+        }
+
+        private static object ModifyDictionary(Func<object> action){
+            var application = ApplicationHelper.Instance.Application;
+            var dataLayer = ((XPObjectSpaceProvider) application.ObjectSpaceProvider).DataLayer;
+            var overrideThreadSafe = dataLayer as IOverrideThreadSafe;
+            if (dataLayer != null && overrideThreadSafe != null) overrideThreadSafe.OverrideThreadSafe = true;
+            var o = action();
+            if (overrideThreadSafe != null) overrideThreadSafe.OverrideThreadSafe = false;
+            return o;
         }
     }
 

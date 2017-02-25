@@ -27,7 +27,6 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Workflow.Xpo;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Workflow.Xpo;
 using FeatureCenter.Module;
@@ -84,7 +83,7 @@ namespace FeatureCenter.Web.ApplicationCode{
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+            args.ObjectSpaceProviders.Add(new XpandObjectSpaceProvider(new DataStoreProvider(args.ConnectionString), Security,true));
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
         }
 

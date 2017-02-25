@@ -98,13 +98,20 @@ namespace Xpand.Persistent.Base.General {
         }
     }
 
-    public class XpandThreadSafeDataLayer : ThreadSafeDataLayer {
+    public interface IOverrideThreadSafe{
+        bool OverrideThreadSafe { get; set; }
+    }
+
+    public class XpandThreadSafeDataLayer : ThreadSafeDataLayer, IOverrideThreadSafe{
+        public bool OverrideThreadSafe { get; set; }
+
         public XpandThreadSafeDataLayer(XPDictionary xpDictionary, IDataStore dataStore) : base(xpDictionary, dataStore){
             
         }
 
         protected override void OnClassInfoChanged(object sender, ClassInfoEventArgs e){
-
+            if (!OverrideThreadSafe)
+                base.OnClassInfoChanged(sender, e);
         }
     }
 }
