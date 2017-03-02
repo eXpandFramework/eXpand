@@ -51,5 +51,19 @@ namespace Xpand.ExpressApp {
                 return new ReadOnlyCollection<object>(new object[] { });
             }
         }
+        public override IList SelectedObjects
+        {
+            get
+            {
+                if (Editor != null)
+                {
+                    return new List<Object>(Editor.GetSelectedObjects() as IList<Object>).Where(t => ObjectTypeInfo.Type.IsAssignableFrom(t.GetType())).ToArray();
+                }
+                else
+                {
+                    return new ReadOnlyCollection<object>(new object[0] { });
+                }
+            }
+        }
     }
 }
