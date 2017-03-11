@@ -30,11 +30,11 @@ namespace Xpand.ExpressApp.ModelDifference.NodeUpdaters {
 
 
         public override void UpdateNode(ModelNode node) {
-            var boModel = ((IModelBOModel)node);
-            var classNode = boModel[typeof(RoleModelDifferenceObject).FullName];
-            if (SecuritySystem.UserType != null && !(SecuritySystem.Instance is ISecurityComplex) && classNode != null) {
-                (classNode).Remove();
-            }
+//            var boModel = ((IModelBOModel)node);
+//            var classNode = boModel[typeof(RoleModelDifferenceObject).FullName];
+//            if (SecuritySystem.UserType != null && !(SecuritySystem.Instance is ISecurityComplex) && classNode != null) {
+//                (classNode).Remove();
+//            }
         }
     }
 }
