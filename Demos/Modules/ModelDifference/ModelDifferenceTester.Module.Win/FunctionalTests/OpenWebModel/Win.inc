@@ -1,4 +1,6 @@
-﻿#IfDef ModelDifferenceTester.Win
+﻿;#Application ModelDifferenceTester.Win
+;*LogOn
+#IfDef ModelDifferenceTester.Win
 *Navigate Application Settings
 *XpandProcessRecord
  Name = ModelDifferenceTester.Win

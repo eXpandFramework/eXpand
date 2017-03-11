@@ -49,6 +49,6 @@
 *XpandCheckFieldValues
  Xml Content = *Changed*
 *Action Show Unusable Data
-*HandleDialog
- Caption = There are no unsable nodes*
+*XpandHandleDialog
+ Caption = There are no unsable nodes
 #EndIf

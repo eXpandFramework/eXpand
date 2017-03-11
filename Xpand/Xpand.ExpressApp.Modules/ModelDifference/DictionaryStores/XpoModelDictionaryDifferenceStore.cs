@@ -36,14 +36,14 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         public override void Load(ModelApplicationBase model) {
-            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Adding Layers to application model ");
+            Tracing.Tracer.LogSubSeparator("ModelDifference -- Adding Layers to application model ");
             var extraDiffStoresLayerBuilder = new ExtraDiffStoresLayerBuilder();
             var language = model.Application.PreferredLanguage;
             
             var loadedModelDifferenceObjectInfos = GetLoadedModelDifferenceObjectInfos(model);
             
             extraDiffStoresLayerBuilder.AddLayers(loadedModelDifferenceObjectInfos, _extraDiffStores);
-            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Loaded: "+_executed);
+            Tracing.Tracer.LogSubSeparator("ModelDifference -- Loaded: "+_executed);
             if (!_executed) {
                 KeyValuePair<string, ModelDifferenceObjectInfo> valuePair = loadedModelDifferenceObjectInfos.FirstOrDefault(pair 
                     => IsUpdateableFromFile(model, pair));
@@ -51,16 +51,16 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                     var applicationFolder = PathHelper.GetApplicationFolder();
                     valuePair.Value.ModelDifferenceObject.CreateAspectsFromPath(Application.GetDiffDefaultName(applicationFolder));
                 }
-                Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- CreateResourceModels");
+                Tracing.Tracer.LogSubSeparator("ModelDifference -- CreateResourceModels");
                 CreateResourceModels(model, loadedModelDifferenceObjectInfos);
                 _executed = true;
             }
             if (model.Application.PreferredLanguage != language) {
                 Application.SetLanguage(model.Application.PreferredLanguage);
             }
-            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Layers added to application model");
+            Tracing.Tracer.LogSubSeparator("ModelDifference -- Layers added to application model");
             ObjectSpace.CommitChanges();
-            Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Application model saved to the database");
+            Tracing.Tracer.LogSubSeparator("ModelDifference -- Application model saved to the database");
             
         }
 
@@ -70,7 +70,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             if (!ReferenceEquals(criteria,null)){
                 var isObjectFitForCriteria = ObjectSpace.IsObjectFitForCriteria(objectType, pair.Value.ModelDifferenceObject,criteria);
                 var isFit = isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value;
-                Tracing.Tracer.LogVerboseSubSeparator("ModelDifference -- Criteria: " + criteria.ToString() + ", -- object: " + pair.Value.ModelDifferenceObject+", --fit:"+isFit);
+                Tracing.Tracer.LogSubSeparator("ModelDifference -- Criteria: " + criteria.ToString() + ", -- object: " + pair.Value.ModelDifferenceObject+", --fit:"+isFit);
                 return isFit;
             }
             return false;
