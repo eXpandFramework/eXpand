@@ -33,7 +33,6 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         }
 
         public static void CreateRuntimeMembers(IModelApplication model) {
-
             using (var objectSpace = CreateObjectSpace()) {
                 Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation started");
                 var modelMemberOneToManyCollections = new List<IModelMemberOneToManyCollection>();
@@ -184,12 +183,17 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
 
         private static object ModifyDictionary(Func<object> action){
             var application = ApplicationHelper.Instance.Application;
-            var dataLayer = ((XPObjectSpaceProvider) application.ObjectSpaceProvider).DataLayer;
+            var dataLayer = GetDataLayer(application);
             var overrideThreadSafe = dataLayer as IOverrideThreadSafe;
             if (dataLayer != null && overrideThreadSafe != null) overrideThreadSafe.OverrideThreadSafe = true;
             var o = action();
-            if (overrideThreadSafe != null) overrideThreadSafe.OverrideThreadSafe = false;
+            if (overrideThreadSafe!= null) overrideThreadSafe.OverrideThreadSafe = false;
             return o;
+        }
+
+        private static IDataLayer GetDataLayer(XafApplication application){
+            var objectSpaceProvider = application.ObjectSpaceProvider as XPObjectSpaceProvider;
+            return objectSpaceProvider?.DataLayer;
         }
     }
 
