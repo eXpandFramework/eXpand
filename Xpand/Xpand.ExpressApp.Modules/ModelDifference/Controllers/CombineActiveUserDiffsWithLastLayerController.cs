@@ -1,3 +1,4 @@
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
@@ -21,27 +22,29 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
                     userModelDifferenceObject.CreateAspectsCore(lastLayer);
                     ObjectSpace.CommitChanges();
                 }
-            ObjectSpace.ObjectSaving += ObjectSpaceOnObjectSaving;
+            ObjectSpace.ObjectSaved+=ObjectSpaceOnObjectSaved;
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            ObjectSpace.ObjectSaving-=ObjectSpaceOnObjectSaving;
+            ObjectSpace.ObjectSaved-=ObjectSpaceOnObjectSaved;
         }
 
-        void ObjectSpaceOnObjectSaving(object sender, ObjectManipulatingEventArgs args) {
+        private void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args){
             var userModelDifferenceObject = args.Object as UserModelDifferenceObject;
-            if (userModelDifferenceObject != null && ReferenceEquals(GetDifference(Application.GetType().FullName, userModelDifferenceObject.Name), userModelDifferenceObject)) {
-                var applicationModel = (ModelApplicationBase)Application.Model;
+            if (userModelDifferenceObject != null &&ReferenceEquals(GetDifference(Application.GetType().FullName, userModelDifferenceObject.Name),userModelDifferenceObject)){
+                var applicationModel = (ModelApplicationBase) Application.Model;
                 var model = applicationModel.CreatorInstance.CreateModelApplication();
                 model.Id = applicationModel.LastLayer.Id;
-                foreach (var aspectObject in userModelDifferenceObject.AspectObjects){
-                    new ModelXmlReader().ReadFromString(model,userModelDifferenceObject.GetAspectName(aspectObject),aspectObject.Xml);
-                }
+                foreach (var aspectObject in userModelDifferenceObject.AspectObjects.Where(o => !string.IsNullOrWhiteSpace(o.Xml)))
+                    new ModelXmlReader().ReadFromString(model, userModelDifferenceObject.GetAspectName(aspectObject),
+                        aspectObject.Xml);
                 ModelApplicationHelper.RemoveLayer(applicationModel);
                 ModelApplicationHelper.AddLayer(applicationModel, model);
             }
+
         }
+
 
         protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {
             return new QueryUserModelDifferenceObject(((XPObjectSpace)View.ObjectSpace).Session).GetActiveModelDifference(applicationName, name);
