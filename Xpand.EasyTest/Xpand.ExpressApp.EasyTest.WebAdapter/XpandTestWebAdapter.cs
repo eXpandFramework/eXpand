@@ -71,7 +71,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             testApplication.ClearModel();
             testApplication.DeleteParametersFile();
             ScreenCaptureCommand.Stop(false);
-            if (testApplication.ParameterValue<bool>(ApplicationParams.UseIIS))
+//            if (testApplication.ParameterValue<bool>(ApplicationParams.UseIIS))
                 IISHelper.StopAplicationPool(testApplication);
         }
 
