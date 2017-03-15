@@ -143,13 +143,10 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         }
 
         static void AddAttributes(IModelMemberEx modelMemberEx, XPCustomMemberInfo memberInfo){
-            ModifyDictionary(() =>{
-                if (modelMemberEx.Size != 0)
-                    memberInfo.AddAttribute(new SizeAttribute(modelMemberEx.Size));
-                if (modelMemberEx is IModelMemberNonPersistent && !(modelMemberEx is IModelMemberCalculated))
-                    memberInfo.AddAttribute(new NonPersistentAttribute());
-                return null;
-            });
+            if (modelMemberEx.Size != 0)
+                memberInfo.AddAttribute(new SizeAttribute(modelMemberEx.Size));
+            if (modelMemberEx is IModelMemberNonPersistent && !(modelMemberEx is IModelMemberCalculated))
+                memberInfo.AddAttribute(new NonPersistentAttribute());
         }
 
         static XpandCustomMemberInfo CreateMemberInfo(IModelMemberEx modelMemberEx, XPClassInfo xpClassInfo) {
@@ -173,27 +170,8 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
             if (modelMemberModelMember != null){
                 var memberInfo = ModelMemberModelMemberDomainLogic.Get_MemberInfo(modelMemberModelMember);
                 return (XpandCustomMemberInfo) xpClassInfo.FindMember(memberInfo.Name);
-            }
-            
-
-            
-            return (XpandCustomMemberInfo) ModifyDictionary(() => xpClassInfo.CreateCustomMember(modelMemberEx.Name, modelMemberEx.Type,
-                modelMemberEx is IModelMemberNonPersistent));
-        }
-
-        private static object ModifyDictionary(Func<object> action){
-            var application = ApplicationHelper.Instance.Application;
-            var dataLayer = GetDataLayer(application);
-            var overrideThreadSafe = dataLayer as IOverrideThreadSafe;
-            if (dataLayer != null && overrideThreadSafe != null) overrideThreadSafe.OverrideThreadSafe = true;
-            var o = action();
-            if (overrideThreadSafe!= null) overrideThreadSafe.OverrideThreadSafe = false;
-            return o;
-        }
-
-        private static IDataLayer GetDataLayer(XafApplication application){
-            var objectSpaceProvider = application.ObjectSpaceProvider as XPObjectSpaceProvider;
-            return objectSpaceProvider?.DataLayer;
+            }   
+            return xpClassInfo.CreateCustomMember(modelMemberEx.Name, modelMemberEx.Type,modelMemberEx is IModelMemberNonPersistent);
         }
     }
 

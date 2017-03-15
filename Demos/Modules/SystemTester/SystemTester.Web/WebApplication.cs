@@ -37,9 +37,13 @@ namespace SystemTester.Web{
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             if (args.ConnectionString == InMemoryDataStoreProvider.ConnectionString)
-                args.ObjectSpaceProvider = new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString));
-            else
-                this.CreateCustomObjectSpaceprovider(args, null);
+                args.ObjectSpaceProvider =
+                    new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString));
+            else{
+                args.ObjectSpaceProvider = this.GetEasyTestParameter("RuntimeMember")
+                    ? new XpandObjectSpaceProvider(new DataStoreProvider(args.ConnectionString), Security, true)
+                    : new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString));
+            }
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
         }
 

@@ -50,5 +50,5 @@
  Xml Content = *Changed*
 *Action Show Unusable Data
 *XpandHandleDialog
- Caption = There are no unsable nodes
+ Caption = There are no unusable nodes
 #EndIf
