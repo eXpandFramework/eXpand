@@ -23,6 +23,7 @@ namespace Xpand.Persistent.Base.Logic.Model {
 
         [Category(AttributeCategoryNameProvider.LogicData)]
         [DataSourceProperty("ExecutionContexts")]
+        [ModelBrowsable(typeof(ConextLogicRuleExecutionContextGroupVisibilityCalculator))]
         string ExecutionContextGroup { get; set; }
 
         [Category(AttributeCategoryNameProvider.LogicData)]
@@ -39,6 +40,25 @@ namespace Xpand.Persistent.Base.Logic.Model {
         [DataSourceProperty("ViewContexts")]
         [ModelBrowsable(typeof(ViewContextGroupVisibilityCalculator))]
         string ViewContextGroup { get; set; }
+    }
+
+    public class ConextLogicRuleExecutionContextGroupVisibilityCalculator:IModelIsVisible{
+        public bool IsVisible(IModelNode node, string propertyName){
+            var any = node.GetType().GetInterfaces().Any(type =>{
+                return type.GetCustomAttributes(typeof(InvisibleLogicPropertyAttribute), false)
+                    .Cast<InvisibleLogicPropertyAttribute>()
+                    .Any(attribute => attribute.PropertyName == nameof(IContextLogicRule.ExecutionContextGroup));
+            });
+            return !any;
+        }
+    }
+
+    public class InvisibleLogicPropertyAttribute:Attribute{
+        public InvisibleLogicPropertyAttribute(string propertyName){
+            PropertyName = propertyName;
+        }
+
+        public string PropertyName { get; }
     }
 
     public class ObjectChangedContextGroupVisibilityCalculator : IModelIsVisible {

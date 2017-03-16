@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using DevExpress.Persistent.AuditTrail;
 using Xpand.Persistent.Base.Logic;
+using Xpand.Persistent.Base.Logic.Model;
 
 namespace Xpand.Persistent.Base.AuditTrail {
     public enum AuditMemberStrategy {
@@ -10,11 +11,13 @@ namespace Xpand.Persistent.Base.AuditTrail {
     }
 
     public enum ObjectAuditingMode{
+        [Browsable(false)]
         None = -1,
         Full,
         Lightweight,
         CreationOnly
     }
+    [InvisibleLogicProperty(nameof(IContextLogicRule.ExecutionContextGroup))]
     public interface IAuditTrailRule:ILogicRule {
         [Category("AuditTrail")]
         bool? AuditPending { get; set; }
