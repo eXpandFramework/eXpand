@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             }
             var connectionStringSettings = ConfigurationManager.ConnectionStrings[WorldCreatorConnectionString];
             if (connectionStringSettings == null) {
-                throw new ConfigurationErrorsException("WorldCreatorConnectionString not found");
+                throw new ConfigurationErrorsException("WorldCreatorConnectionString entry not found in application configuration file. If you want to open a model using the ModelDifference.Win module and you need to provide the WC connectionstring from code then you must create the "+nameof(WorldCreatorObjectSpaceProvider)+" in the ctor of your Win/Web application and add it to the protected objectSpaceProviders field of the application (objectSpaceProviders.Add(...)");
             }
             return new ConnectionStringDataStoreProvider(connectionStringSettings.ConnectionString);
         }
