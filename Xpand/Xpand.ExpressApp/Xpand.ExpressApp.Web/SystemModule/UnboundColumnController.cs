@@ -15,12 +15,15 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             var gridListEditor = View.Editor as ASPxGridListEditor;
             if (gridListEditor != null){
                 gridListEditor.ModelApplied +=GridListEditorOnModelApplied;
-                gridListEditor.ModelSaved+=GridListEditorOnModelSaved;
             }
         }
 
-        private void GridListEditorOnModelSaved(object sender, EventArgs eventArgs){
-            new UnboundColumnSynchronizer((ASPxGridListEditor) sender, View.Model).SynchronizeModel();
+        protected override void OnDeactivated(){
+            base.OnDeactivated();
+            var gridListEditor = View.Editor as ASPxGridListEditor;
+            if (gridListEditor != null){
+                gridListEditor.ModelApplied -=GridListEditorOnModelApplied;
+            }
         }
 
         private void GridListEditorOnModelApplied(object sender, EventArgs eventArgs){
