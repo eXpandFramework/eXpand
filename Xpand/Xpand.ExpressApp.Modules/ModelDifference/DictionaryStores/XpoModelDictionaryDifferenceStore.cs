@@ -50,6 +50,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 if (!Equals(valuePair, default(KeyValuePair<string, ModelDifferenceObjectInfo>))) {
                     var applicationFolder = PathHelper.GetApplicationFolder();
                     valuePair.Value.ModelDifferenceObject.CreateAspectsFromPath(Application.GetDiffDefaultName(applicationFolder));
+                    Tracing.Tracer.LogVerboseValue("ObjectSpace.ModifiedObjects", ObjectSpace.ModifiedObjects.Count);
                 }
                 Tracing.Tracer.LogSubSeparator("ModelDifference -- CreateResourceModels");
                 CreateResourceModels(model, loadedModelDifferenceObjectInfos);

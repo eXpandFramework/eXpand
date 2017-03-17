@@ -224,11 +224,16 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
 
         public void CreateAspectsFromPath(string diffDefaultName){
+            Tracing.Tracer.LogVerboseValue("diffDefaultName", diffDefaultName);
             var applicationFolder = PathHelper.GetApplicationFolder();
+            Tracing.Tracer.LogVerboseValue("applicationfodler",applicationFolder);
             var fileModelStore = new FileModelStore(applicationFolder, diffDefaultName);
-            var aspects = fileModelStore.GetAspects().Concat(new[] { "" });
+            var aspects = fileModelStore.GetAspects().Concat(new[] { "" }).ToArray();
+            Tracing.Tracer.LogVerboseValue("aspects.count", aspects.Count());
             foreach (var aspect in aspects) {
                 var aspectFileName = Path.Combine(applicationFolder, fileModelStore.GetFileNameForAspect(aspect));
+                Tracing.Tracer.LogVerboseValue("aspectFileName", aspectFileName);
+                Tracing.Tracer.LogVerboseValue("aspectFileNameExists", File.Exists(aspectFileName));
                 if (File.Exists(aspectFileName)) {
                     using (Stream stream = File.Open(aspectFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
                         ModelXmlReader reader = new ModelXmlReader();
