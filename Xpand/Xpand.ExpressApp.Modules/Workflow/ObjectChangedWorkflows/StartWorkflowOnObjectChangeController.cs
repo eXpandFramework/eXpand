@@ -79,7 +79,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         }
 
         void PopulateObjectChangedEventArgs(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
-            if (!string.IsNullOrEmpty(objectChangedEventArgs.PropertyName)) {
+            if (!string.IsNullOrEmpty(objectChangedEventArgs.PropertyName)&&ObjectSpace.IsModified) {
                 var changedEventArgs = _objectChangedEventArgses.FirstOrDefault(args => args.Object == objectChangedEventArgs.Object && args.PropertyName == objectChangedEventArgs.PropertyName);
                 if (changedEventArgs != null) {
                     _objectChangedEventArgses.Remove(changedEventArgs);
