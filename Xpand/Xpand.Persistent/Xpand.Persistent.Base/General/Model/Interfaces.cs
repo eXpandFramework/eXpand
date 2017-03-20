@@ -69,5 +69,5 @@ namespace Xpand.Persistent.Base.General.Model {
     }
     public interface ITreeUser {
     }
-
+    
 }

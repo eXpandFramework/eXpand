@@ -9,6 +9,7 @@
     <ListView Id="ColumnChooserList_Columns_ListView">
       <TreeListOptions>
         <Settings ShowColumnHeaders="False" />
+        <SettingsBehavior ProcessFocusedNodeChangedOnServer="True" AllowFocusedNode="True" />
         <SettingsPager Visible="" Mode="ShowAllNodes" />
       </TreeListOptions>
     </ListView>

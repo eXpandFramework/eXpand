@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel;
-using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.Templates;
+using DevExpress.Persistent.Base;
 using DevExpress.Web;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Model;
@@ -16,20 +17,30 @@ using Xpand.Persistent.Base.TreeNode;
 namespace Xpand.ExpressApp.Web.SystemModule {
     public interface IModelOptionsColumnChooserContextMenu : IModelNode {
         [Category(AttributeCategoryNameProvider.Xpand)]
-        [ModelReadOnly(typeof(ModelOptionsColumnChooserContextMenuReadOnlyCalculator))]
+        [ModelReadOnly(typeof(ModelColumnChooserReadOnlyCalculator))]
         [Description("Hierarchical support when XpandTreeListEditorsAspNetModule is installed")]
         bool ColumnChooserContextMenu { get; set; }
     }
 
-    
-    public class ModelOptionsColumnChooserContextMenuReadOnlyCalculator:IModelIsReadOnly {
-        public bool IsReadOnly(IModelNode node, string propertyName){
-            return !((IModelSources) node.Application).Modules.Any(m => m is ITreeUser);
-        }
+    [ModelAbstractClass]
+    public interface IModelMemberColumnChooserListView:IModelMember{
+        [Category(AttributeCategoryNameProvider.Xpand)]
+        [DataSourceProperty("Application.Views")]
+        [DataSourceCriteria("(AsObjectView Is Not Null) And (AsObjectView.ModelClass Is Not Null) And ('@This.ModelClass' = AsObjectView.ModelClass)")]
+        [ModelBrowsable(typeof(ColumnChooserListViewVisibilityCalulator))]
+        [ModelReadOnly(typeof(ModelColumnChooserReadOnlyCalculator))]
+        IModelListView ColumnChooserListView { get; set; }
+    }
 
-        public bool IsReadOnly(IModelNode node, IModelNode childNode){
-            return IsReadOnly(node, "");
+    [DomainLogic(typeof(IModelMemberColumnChooserListView))]
+    public class ModelMemberColumnChooserListViewLogic {
+        public static IModelListView Get_ColumnChooserListView(IModelMemberColumnChooserListView chooserListView){
+            var memberType = chooserListView.ModelClass.TypeInfo.FindMember(chooserListView.Name)?.MemberType;
+            return memberType != null ? chooserListView.Application.BOModel.GetClass(memberType)?.DefaultListView : null;
         }
+    }
+
+    public interface IModelColumnColumnChooserListView : IModelColumn, IColumnChooserListView {
     }
 
     [ModelInterfaceImplementor(typeof(IModelOptionsColumnChooserContextMenu), "Application.Options")]
@@ -44,7 +55,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override void OnActivated(){
             base.OnActivated();
-            Active["XpandTreeModule"]= !new ModelOptionsColumnChooserContextMenuReadOnlyCalculator().IsReadOnly(Application.Model.Options, (IModelNode)null);
+            Active["XpandTreeModule"]= !new ModelColumnChooserReadOnlyCalculator().IsReadOnly(Application.Model.Options, (IModelNode)null);
         }
 
         public SimpleAction ColumnChooserAction { get; }
@@ -95,7 +106,10 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             extenders.Add<IModelOptions,IModelOptionsColumnChooserContextMenu>();
             extenders.Add<IModelListView,IModelListViewColumnChooserContextMenu>();
+            extenders.Add<IModelMember, IModelMemberColumnChooserListView>();
+            extenders.Add<IModelColumn,IModelColumnColumnChooserListView>();
         }
     }
+
 }
 

@@ -13,11 +13,10 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 ASPxGridListEditor gridListEditor = listView?.Editor as ASPxGridListEditor;
                 if (gridListEditor != null) {
                     if (gridListEditor.IsBatchMode) {
-                        GridViewClientSideEvents gridViewClientSideEvents;
-                        ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(gridViewClientSideEvents.Init), GetInitScript(), "grid.Init");
-                        ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(gridViewClientSideEvents.BatchEditStartEditing), "function(s, e) { clearTimeout(s.timerHandle); }", "grid.BatchEditStartEditing");
-                        ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(gridViewClientSideEvents.BatchEditEndEditing), "function(s, e) { s.timerHandle = setTimeout(function() { s.UpdateEdit();}, 100); }", "grid.BatchEditEndEditing");
-                        ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(gridViewClientSideEvents.EndCallback), GetInitScript(), "grid.EndCallback");
+                        ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(GridViewClientSideEvents.Init), GetInitScript(), "grid.Init");
+                        ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(GridViewClientSideEvents.BatchEditStartEditing), "function(s, e) { clearTimeout(s.timerHandle); }", "grid.BatchEditStartEditing");
+                        ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(GridViewClientSideEvents.BatchEditEndEditing), "function(s, e) { s.timerHandle = setTimeout(function() { s.UpdateEdit();}, 100); }", "grid.BatchEditEndEditing");
+                        ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(GridViewClientSideEvents.EndCallback), GetInitScript(), "grid.EndCallback");
                     }
                 }
             }

@@ -19,13 +19,9 @@ namespace Xpand.Persistent.Base.General.Controllers{
             _easyTestAction.Execute+=SingleChoiceActionOnExecute;
         }
 
-        public SingleChoiceAction EasyTestAction{
-            get { return _easyTestAction; }
-        }
+        public SingleChoiceAction EasyTestAction => _easyTestAction;
 
-        public ParametrizedAction ParametrizedAction{
-            get { return _parametrizedAction; }
-        }
+        public ParametrizedAction ParametrizedAction => _parametrizedAction;
 
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
             if (e.SelectedChoiceActionItem.Caption == LoadModel|| e.SelectedChoiceActionItem.Caption == MergeModel) {

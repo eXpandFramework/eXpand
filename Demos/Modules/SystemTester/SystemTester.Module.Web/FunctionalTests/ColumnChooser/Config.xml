@@ -31,12 +31,16 @@
     <Alias Name="GridHeader" Value="322x248"/>
     <Alias Name="ColumnChooser" Value="353x408"/>
     <Alias Name="ColumnChooser2" Value="353x390"/>
-    <Alias Name="NodeName" Value="201x348"/>
-    <Alias Name="NodeReference" Value="200x324"/>
-    <Alias Name="NodeReferenceExpand" Value="180x327"/>
-    <Alias Name="NodeSubReferenceExpand" Value="202x349"/>
-    <Alias Name="NodeSubReference" Value="221x351"/>
-    <Alias Name="NodeSubReferenceSub" Value="248x373"/>
+    <Alias Name="NodeName" Value="199x327"/>
+    <Alias Name="NodeReference" Value="223x349"/>
+    <Alias Name="NodeReferenceExpand" Value="180x324"/>
+    <Alias Name="NodeSubReferenceExpand" Value="202x366"/>
+    <Alias Name="NodeSubReference" Value="223x371"/>
+    <Alias Name="NodeSubReferenceSub" Value="223x350"/>
+    <Alias Name="Reference2Expand" Value="178x392"/>
+    <Alias Name="Reference2NodeName" Value="222x412"/>
+    <Alias Name="ColumnChooserExpand" Value="180x372"/>
+    <Alias Name="ColumnChooserReferenceName" Value="225x390"/>
     
   </Aliases>
 </Options>
