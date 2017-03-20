@@ -46,7 +46,6 @@ namespace Xpand.ExpressApp.WorldCreator {
 
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new ShowOwnerForExtendedMembersUpdater());
             updaters.Add(new ImageSourcesUpdater(DynamicModules));
         }
 
