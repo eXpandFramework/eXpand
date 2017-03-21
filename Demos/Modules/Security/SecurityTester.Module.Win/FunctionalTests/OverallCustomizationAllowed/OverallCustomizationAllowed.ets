@@ -14,15 +14,13 @@
 *Action New
 *XpandFillForm
  Field = Test
-*Mouse RightButtonClick
- MoveMouseTo = [EmptyAreaOfDetailView]
+*RClick [EmptyAreaOfDetailView]
 *Sleep 1000
 *SendKeys
  Keys = Down;Return
 *Sleep 2000
 
-*Mouse LeftButtonClick
- MoveMouseTo = [FieldArea]
+*LClick [FieldArea]
 *Sleep 1000
 *SendKeys
  Keys = Delete

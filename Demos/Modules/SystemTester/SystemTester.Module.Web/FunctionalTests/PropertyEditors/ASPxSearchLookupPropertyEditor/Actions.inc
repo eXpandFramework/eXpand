@@ -4,8 +4,7 @@
 *DeleteAllObjects
 *Action New
 *ToggleNavigation
-*Mouse LeftButtonClick
- MoveMouseTo = [NewAction]
+*LClick [NewAction]
 *XpandFillForm
  Name = Bekiaris
 *SaveAndClose
@@ -14,16 +13,16 @@
 *XpandProcessRecord
  ASPx Search Lookup Property Editor Lookup = Bekiaris
 
-*Mouse LeftButtonClick
- MoveMouseTo = [ClearAction]
- ToggleNavigation = True
+*ToggleNavigation
+*LClick [ClearAction]
+*ToggleNavigation
 *SaveAndClose
 *CheckValidationResult
  Message = Problems were detected during data validation*
 
 *ToggleNavigation
-*Mouse LeftButtonClick
- MoveMouseTo = [SearchAction]
+*LClick [SearchAction]
+ Id = SearchAction
 *Sleep 1000
 *HandleDialog
  Caption = ASPx Search Lookup Property Editor Lookup Object

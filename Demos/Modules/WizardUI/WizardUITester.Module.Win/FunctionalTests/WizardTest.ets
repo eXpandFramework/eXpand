@@ -18,8 +18,7 @@
 ;----change value to fit criteria
 *XpandFillForm
  Page 1 = 0 
-*Mouse LeftButtonClick
- MoveMouseTo = [Page1UpArrow]
+*LClick [Page1UpArrow]
 ;---move to next page------
 *HandleDialog
  Caption = Wizard Object
@@ -38,8 +37,7 @@
  Respond = Finish
 
 ;-----change the Page 2 value------
-*Mouse LeftButtonClick
- MoveMouseTo = [Page2Field]
+*LClick [Page2Field]
 *SendKeys
  Keys = v;a;l;u;e
 

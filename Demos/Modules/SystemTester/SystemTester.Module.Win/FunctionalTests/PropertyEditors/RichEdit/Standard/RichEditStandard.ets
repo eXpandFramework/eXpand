@@ -8,15 +8,13 @@
 *Action New (Rich Edit Object)
 
 ;------Check that rich edit is shown and tables can be created--------
-*Mouse LeftButtonClick
- MoveMouseTo = [TableCommand]
+*LClick [TableCommand]
 *Sleep 1000
 *HandleDialog
  Caption = Insert Table
  Respond = Cancel
 ;---------Check that toolbar is visible when a window from a command was shown----
-*Mouse LeftButtonClick
- MoveMouseTo = [TableCommand]
+*LClick [TableCommand]
 *Sleep 1000
 *HandleDialog
  Caption = Insert Table
@@ -24,15 +22,13 @@
 ;---------Check that toolbar is visible when form loses focus------
 *MinimizeApplicationWindow
 *ActivateWindow
-*Mouse LeftButtonClick
- MoveMouseTo = [TableCommand]
+*LClick [TableCommand]
 *Sleep 1000
 *HandleDialog
  Caption = Insert Table
  Respond = Cancel
 ;------Check that hypelinks are disable as per model-----
-*Mouse LeftButtonClick
- MoveMouseTo = [BookmarkCommand]
+*LClick [BookmarkCommand]
 *Sleep 1000
 !HandleDialog
  Caption = Bookmark
@@ -42,18 +38,15 @@
 ;-----Check that toolbar is not available when editor is not focused-------
 *XpandFillForm
  Field = somevalue
-*Mouse LeftButtonClick
- MoveMouseTo = [TableCommand]
+*LClick [TableCommand]
 *Sleep 1000
 !HandleDialog
  Caption = Insert Table
  Respond = Cancel
 
 ;------Check that toolbar is restored when gotfocus--------
-*Mouse LeftButtonClick
- MoveMouseTo = [TextField]
-*Mouse LeftButtonClick
- MoveMouseTo = [TableCommand]
+*LClick [TextField]
+*LClick [TableCommand]
 *Sleep 1000
 *HandleDialog
  Caption = Insert Table
@@ -61,10 +54,8 @@
 
 ;------Check the toolbar in a different tab--------
 *Action Tab2
-*Mouse LeftButtonClick
- MoveMouseTo = [TextField]
-*Mouse LeftButtonClick
- MoveMouseTo = [TableCommand]
+*LClick [TextField]
+*LClick [TableCommand]
 *Sleep 1000
 *HandleDialog
  Caption = Insert Table
@@ -72,10 +63,8 @@
 
 ;------Check HideToolBarsAttribute--------
 *Action Tab3
-*Mouse LeftButtonClick
- MoveMouseTo = [TextField]
-*Mouse LeftButtonClick
- MoveMouseTo = [TableCommand]
+*LClick [TextField]
+*LClick [TableCommand]
 *Sleep 1000
 !HandleDialog
  Caption = Insert Table

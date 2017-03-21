@@ -30,6 +30,6 @@
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\..\SystemTester.Web" />
     <Alias Name="NewAction" Value="936x282" />
     <Alias Name="ClearAction" Value="954x282" />
-    <Alias Name="SearchAction" Value="972x352" />
+    <Alias Name="SearchAction" Value="976x341" />
   </Aliases>
 </Options>
