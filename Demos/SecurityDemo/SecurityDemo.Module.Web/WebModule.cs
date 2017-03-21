@@ -18,7 +18,7 @@ namespace SecurityDemo.Module.Web
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            var moduleBases = ModuleActivator.CreateInstances(".", XpandAssemblyInfo.TabWinModules).OrderBy(m => m.GetType().FullName);
+            var moduleBases = ModuleActivator.CreateInstances(AppDomain.CurrentDomain.SetupInformation.PrivateBinPath, XpandAssemblyInfo.TabWinModules).OrderBy(m => m.GetType().FullName);
             foreach (var module in moduleBases) {
                 moduleManager.AddModule(Application, module);
             }
