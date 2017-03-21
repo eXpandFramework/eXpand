@@ -10,7 +10,6 @@ using DevExpress.EasyTest.Framework.Commands;
 using Xpand.EasyTest.Commands.InputSimulator;
 using Xpand.EasyTest.Commands.Window;
 using Xpand.Utils.Automation;
-using Xpand.Utils.Helpers;
 using Xpand.Utils.Win32;
 using Image = System.Drawing.Image;
 

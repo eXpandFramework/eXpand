@@ -5,7 +5,7 @@ using AForge.Video;
 using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using DevExpress.EasyTest.Framework.Loggers;
-using ScreenCaptureStream = Xpand.Utils.Helpers.ScreenCaptureStream;
+using ScreenCaptureStream = Xpand.EasyTest.ScreenCaptureStream;
 
 namespace Xpand.EasyTest.Commands{
     public class ScreenCaptureCommand:FilesCommand{

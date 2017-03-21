@@ -3,10 +3,8 @@ using System.Runtime.InteropServices;
 using AForge.Video;
 using Xpand.Utils.Win32;
 
-namespace Xpand.Utils.Helpers{
+namespace Xpand.EasyTest{
     public class ScreenCaptureStream : AForge.Video.ScreenCaptureStream{
-        private bool _drawCursor = true;
-
         public ScreenCaptureStream(Rectangle region) : base(region){
             NewFrame+=OnNewFrame;
         }
@@ -15,10 +13,7 @@ namespace Xpand.Utils.Helpers{
             NewFrame+=OnNewFrame;
         }
 
-        public bool DrawCursor{
-            get { return _drawCursor; }
-            set { _drawCursor = value; }
-        }
+        public bool DrawCursor { get; set; } = true;
 
         public string FileName { get; set; }
 
