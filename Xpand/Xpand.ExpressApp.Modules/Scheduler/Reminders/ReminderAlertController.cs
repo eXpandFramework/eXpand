@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,8 +9,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Xml;
-using Xpand.Utils.Automation;
-using Timer = System.Timers.Timer;
 
 namespace Xpand.ExpressApp.Scheduler.Reminders {
     public interface IModelScheduler : IModelNode {
@@ -50,30 +47,17 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
         }
 
         private void ApplicationOnViewShown(object sender, ViewShownEventArgs viewShownEventArgs){
-            
-            Task.Factory.StartNew(() =>{
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
-                while (stopwatch.Elapsed.TotalMilliseconds<2000){
-                    Thread.Sleep(100);
-                }
-                stopwatch.Stop();
-            }).ContinueWith(task => {
-                    CreateAppoitments();
-                }, TaskScheduler.FromCurrentSynchronizationContext());
-            
+            Task.Factory.StartNew(() => Thread.Sleep(2000)).ContinueWith(task => CreateAppoitments(viewShownEventArgs.TargetFrame.View.ObjectSpace),
+                    TaskScheduler.FromCurrentSynchronizationContext());
             ((XafApplication) sender).ViewShown -= ApplicationOnViewShown;
         }
 
-        private void CreateAppoitments(){
+        private void CreateAppoitments(IObjectSpace objectSpace){
             var reminderInfos = Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info != null);
             var reminderController = Frame.GetController<ReminderController>();
-            var objectSpace = Application.CreateObjectSpace();
             foreach (var modelMemberReminderInfo in reminderInfos){
                 var criteriaOperator = reminderController.GetCriteria(modelMemberReminderInfo);
-                var reminderEvents =
-                    objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false)
-                        .Cast<IEvent>();
+                var reminderEvents = objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false).Cast<IEvent>();
                 var appointments = reminderController.CreateAppoitments(reminderEvents);
                 reminderController.UpdateAppoitmentKey(appointments);
             }

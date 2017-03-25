@@ -1,13 +1,20 @@
 ﻿using System;
+using System.Web.UI;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Web.SystemModule;
+using Xpand.Utils.Helpers;
 
+[assembly: WebResource("Xpand.ExpressApp.Web.SystemModule."+HighlightFocusedLayoutItemDetailViewController.HighlightFocusedLayoutItem, "text /javascript")]
 namespace Xpand.ExpressApp.Web.SystemModule {
      public class HighlightFocusedLayoutItemDetailViewController : HighlightFocusedLayoutItemDetailViewControllerBase {
-        private const string ClientSideEventHandlerFunctionFormat = @"function(s,e){{{0}}}";
+         public const string HighlightFocusedLayoutItem = "HighlightFocusedLayoutItemDetailViewController.js";
+         
+         private const string ClientSideEventHandlerFunctionFormat = @"function(s,e){{{0}}}";
         protected override void OnActivated() {
             base.OnActivated();
             if(View.ViewEditMode == ViewEditMode.Edit) {
@@ -21,7 +28,14 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 }
             }
         }
-        protected override void ApplyFocusedStyle(object element) {
+
+         protected override void OnViewControlsCreated(){
+             base.OnViewControlsCreated();
+             var script = GetType().Assembly.GetManifestResourceStream(GetType(),HighlightFocusedLayoutItem).ReadToEndAsString();
+             WebWindow.CurrentRequestWindow.RegisterStartupScript(HighlightFocusedLayoutItem,script);
+        }
+
+         protected override void ApplyFocusedStyle(object element) {
             var editor = element as ASPxLookupPropertyEditor;
             if (editor != null) {
                 if (editor.DropDownEdit != null)
@@ -57,13 +71,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
         private static void AddEventHandlerSafe(ASPxWebControl control, string eventName, string handler) {
             string existingHandler = control.GetClientSideEventHandler(eventName);
-            if(string.IsNullOrEmpty(existingHandler)) {
-                control.SetClientSideEventHandler(eventName, string.Format(ClientSideEventHandlerFunctionFormat, handler));
+            if(String.IsNullOrEmpty(existingHandler)) {
+                control.SetClientSideEventHandler(eventName, String.Format(ClientSideEventHandlerFunctionFormat, handler));
             }
             else {
-                existingHandler = String.Format("{0}{1}\r\n}}", existingHandler.Substring(0, existingHandler.LastIndexOf('}')), handler);
+                existingHandler = $"{existingHandler.Substring(0, existingHandler.LastIndexOf('}'))}{handler}\r\n}}";
                 control.SetClientSideEventHandler(eventName, existingHandler);
             }
         }
-    }
+     }
 }

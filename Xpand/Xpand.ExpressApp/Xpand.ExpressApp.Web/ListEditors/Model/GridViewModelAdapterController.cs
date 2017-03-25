@@ -45,7 +45,9 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
             var builder = new InterfaceBuilder(extenders);
 
-            var assembly = builder.Build(CreateBuilderData(), GetPath(typeof(ASPxGridView).Name));
+            var interfaceBuilderDatas = CreateBuilderData();
+            var assemblyFilePath = GetPath(typeof(ASPxGridView).Name);
+            var assembly = builder.Build(interfaceBuilderDatas, assemblyFilePath);
 
             builder.ExtendInteface<IModelOptionsGridView, ASPxGridView>(assembly);
             builder.ExtendInteface<IModelOptionsColumnGridView, GridViewDataColumn>(assembly);
@@ -53,8 +55,7 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(typeof(ASPxGridView)) {
-                Act =info =>info.Name!="Item"&&(info.DXFilter(BaseGridViewControlTypes(), typeof (object)) ||
-                     typeof (PropertiesBase).IsAssignableFrom(info.PropertyType))
+                Act =info =>info.Name!="Item"&&info.DXFilter()
             };
             yield return new InterfaceBuilderData(typeof(GridViewDataColumn)) {
                 Act = info => (info.DXFilter(BaseGridViewControlTypes(), typeof(object))) && info.Name != "Width"

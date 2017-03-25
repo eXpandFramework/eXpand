@@ -325,5 +325,4 @@
   <Target Name="BeforeGenerateProjectPriFile"></Target>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v14.0\WebApplications\Microsoft.WebApplication.targets" />
-  <Import Project="..\SecurityDemo.targets" />
 </Project>

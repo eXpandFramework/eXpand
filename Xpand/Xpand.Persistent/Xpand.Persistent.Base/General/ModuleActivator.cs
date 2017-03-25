@@ -6,62 +6,74 @@ using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.Utils;
 using Fasterflect;
+using Mono.Cecil;
 using Xpand.Utils.Linq;
 
 namespace Xpand.Persistent.Base.General {
-    public class ModuleActivator {
+    public static class ModuleActivator {
+        // ReSharper disable once UnusedMember.Local
+        private static readonly Destructor _finalise = new Destructor();
+        private sealed class Destructor {
+            ~Destructor() {
+                AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomainOnAssemblyResolve;
+            }
+        }
         private static string _path;
-        private static HashSet<string> _loadedAssemblyNames;
+
+        static ModuleActivator(){
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
+        }
+        public static void AddModules(this ModuleBase moduleBase, string xpandDLLPath){
+            var filter = moduleBase.ModuleManager.Modules.AreHosted() ? XpandAssemblyInfo.TabAspNetModules: XpandAssemblyInfo.TabWinModules;
+            var moduleBases = CreateInstances(xpandDLLPath, filter).OrderBy(m => m.GetType().FullName).ToArray();
+            ModuleBase first = null;
+//            first = moduleBases[35];
+            foreach (var module in moduleBases.Where(m => m!=first)) {
+                moduleBase.ModuleManager.AddModule(moduleBase.Application, module);
+            }
+        }
 
         public static IEnumerable<ModuleBase> CreateInstances(string path,string tabNameFilter,string searchPattern="Xpand.ExpressApp*.dll"){
             _path = Path.GetFullPath(path);
-            AppDomain.CurrentDomain.AssemblyResolve+=CurrentDomainOnAssemblyResolve;
-            _loadedAssemblyNames = new HashSet<string>(AppDomain.CurrentDomain.GetAssemblies().Select(assembly => assembly.GetName().FullName));
+            
             var filteredTypes = GetModuleTypes(tabNameFilter,searchPattern);
             var filteredInstances =filteredTypes.Select(type => type.CreateInstance()).Cast<ModuleBase>().ToArray();
             var requiredModuleTypes = filteredInstances.GetItems<ModuleBase>(m => m.RequiredModuleTypes).Select(m => m.GetType()).Distinct();
             var agnosticTypes =GetModuleTypes("Win-Web",searchPattern).Except(requiredModuleTypes);
             filteredInstances= filteredInstances.Concat(agnosticTypes.Select(type => type.CreateInstance()).Cast<ModuleBase>()).ToArray();
-            AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomainOnAssemblyResolve;
             return filteredInstances.DistinctBy(m => m.GetType());
         }
 
 
         private static IEnumerable<Type> GetModuleTypes(string filter,string searchPattern){
             foreach (var file in Directory.GetFiles(_path, searchPattern)){
-                var assembly = Assembly.LoadFile(file);
-                _loadedAssemblyNames.Add(assembly.GetName().FullName);
-                var assemblies = new[]{assembly}.GetItems<Assembly>(assembly1 => assembly1.GetReferencedAssemblies().Select(LoadAssembly)).Where(assembly1 => assembly1!=null).Select(assembly1 => assembly1.GetName()).ToArray();
-                LoadReferences(assemblies);
-                var moduleType =assembly.GetTypes().FirstOrDefault(type => type.GetCustomAttributes(typeof(ToolboxTabNameAttribute), false).Any());
-                if (moduleType != null){
-                    var toolboxAttribute =moduleType.GetCustomAttributes(typeof(ToolboxTabNameAttribute), false).Cast<ToolboxTabNameAttribute>().First();
-                    if (toolboxAttribute.TabName.Contains(filter))
-                        yield return moduleType;
+                var assemblyDefinition = AssemblyDefinition.ReadAssembly(file);
+                var typeDefinition = assemblyDefinition.MainModule.Types.FirstOrDefault(definition => definition.CustomAttributes.Any(attribute => attribute.AttributeType.Name==typeof(ToolboxTabNameAttribute).Name));
+                if (typeDefinition != null){
+                    var toolboxAttribute = typeDefinition.CustomAttributes.First(attribute => attribute.AttributeType.Name==typeof(ToolboxTabNameAttribute).Name);
+                    var argument = toolboxAttribute.ConstructorArguments[0].Value.ToString();
+                    if (argument.Contains(filter)){
+                        yield return Assembly.Load(file).GetTypes().First(type => type.GetCustomAttributes(typeof(ToolboxTabNameAttribute),false).Any());
+                    }
                 }
             }
         }
 
-        private static AssemblyName LoadAssembly(AssemblyName name){
-            if (_loadedAssemblyNames.Contains(name.FullName))
-                return null;
-            _loadedAssemblyNames.Add(name.FullName);
-            Assembly.Load(name);
-            return name;
-        }
-
+        static readonly Dictionary<string,Assembly> _loadedAssemblies=new Dictionary<string,Assembly>();
         private static Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args){
             var name = args.Name;
-            var assemblyName = new AssemblyName(name);
-            var path = Path.Combine(_path,assemblyName.Name+".dll");
-            return Assembly.LoadFile(path);
+            var fileName = Path.GetFileName(args.Name) + "";
+            if (name.Contains(","))
+                fileName = name.Substring(0,name.IndexOf(",", StringComparison.Ordinal)) + ".dll";
+            
+            var path = Path.Combine(_path,fileName);
+            if (File.Exists(path)){
+                if (!_loadedAssemblies.ContainsKey(fileName))
+                    _loadedAssemblies.Add(fileName, Assembly.LoadFile(path));
+                return _loadedAssemblies[fileName];
+            }
+            return null;
         }
 
-        private static void LoadReferences(AssemblyName[] assemblyNames){
-            foreach (var assemblyName in assemblyNames.Where(name => name.Name.StartsWith("Xpand"))){
-                var assembly = Assembly.Load(assemblyName);
-                LoadReferences(assembly.GetReferencedAssemblies());
-            }
-        }
     }
 }

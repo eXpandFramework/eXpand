@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using Xpand.Persistent.Base.General;
@@ -18,10 +17,8 @@ namespace SecurityDemo.Module.Web
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            var moduleBases = ModuleActivator.CreateInstances(AppDomain.CurrentDomain.SetupInformation.PrivateBinPath, XpandAssemblyInfo.TabWinModules).OrderBy(m => m.GetType().FullName);
-            foreach (var module in moduleBases) {
-                moduleManager.AddModule(Application, module);
-            }
+            var xpandDLLPath =AppDomain.CurrentDomain.SetupInformation.ApplicationBase+ @"..\..\..\xpand.dll\";
+            this.AddModules(xpandDLLPath);
 
         }
 

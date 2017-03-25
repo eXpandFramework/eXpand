@@ -358,6 +358,5 @@
   
   
   -->
-  <Import Project="..\SecurityDemo.targets" />
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
 </Project>

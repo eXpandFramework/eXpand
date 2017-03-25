@@ -23,9 +23,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 url = clientScriptManager.GetWebResourceUrl(GetType(), cssFile);
                 page.Header.Controls.Add(new LiteralControl("<link rel=\"stylesheet\" type=\"text/css\" href=\"" + url + "\" />"));    
             }
-            
-            url = clientScriptManager.GetWebResourceUrl(GetType(), ResourceNames.HighlightFocusedLayoutItem);
-            page.Header.Controls.Add(new LiteralControl(@"<script language=""javascript"" src=""" + url + @"""></script>"));
         }
     }
 }

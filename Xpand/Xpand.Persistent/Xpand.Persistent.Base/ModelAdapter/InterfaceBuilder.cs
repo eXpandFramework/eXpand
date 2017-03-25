@@ -153,18 +153,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                    GetType().Assembly.GetName().Version.ToString();
         }
 
-        protected Assembly LoadFromDomain(string assemblyFilePath){
-            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            string fileName = Path.GetFileName(assemblyFilePath);
-            foreach (var assembly in assemblies){
-                if (!(assembly.IsDynamic()) && Path.GetFileName(assembly.Location) == fileName){
-                    return assembly;
-                }
-            }
-            throw new NotImplementedException(assemblyFilePath);
-        }
-
-        private static Assembly CompileAssemblyFromSource(String source, String[] references, Boolean isDebug,
+        private Assembly CompileAssemblyFromSource(String source, String[] references, Boolean isDebug,
             String assemblyFile){
             if (!String.IsNullOrEmpty(assemblyFile)){
                 var directoryName = Path.GetDirectoryName(assemblyFile) + "";
@@ -181,12 +170,12 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             return compilerResults.CompiledAssembly;
         }
 
-        private static void RaiseCompilerException(String source, CompilerResults compilerResults, string assemblyFile){
+        private void RaiseCompilerException(String source, CompilerResults compilerResults, string assemblyFile){
             throw new CompilerErrorException(compilerResults, source,
                 "Assembly=" + assemblyFile + Environment.NewLine + compilerResults.AggregateErrors());
         }
 
-        private static CompilerParameters GetCompilerParameters(String[] references, Boolean isDebug,
+        private CompilerParameters GetCompilerParameters(String[] references, Boolean isDebug,
             String assemblyFile){
             var compilerParameters = new CompilerParameters();
             compilerParameters.ReferencedAssemblies.AddRange(references);
@@ -207,13 +196,6 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             var assemblyVersion = ReflectionHelper.GetAssemblyVersion(GetType().Assembly);
             return string.Format(@"[assembly: {1}(""{0}"")]", assemblyVersion,
                 TypeToString(typeof(AssemblyVersionAttribute)));
-        }
-
-        public static string GetTempDirectory(){
-            var directory = Path.Combine(Environment.GetEnvironmentVariable("temp") + "", XpandAssemblyInfo.Version);
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
-            return directory;
         }
 
         string GetCode(IEnumerable<InterfaceBuilderData> builderDatas){
@@ -293,7 +275,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 info.CanWrite, info);
         }
 
-        static string GetInterfaceName(string assemblyName, Type type, string namePrefix = null){
+        string GetInterfaceName(string assemblyName, Type type, string namePrefix = null){
             var interfaceName = string.Format("{0}" + assemblyName + "{1}", namePrefix ?? NamePrefix, type.Name);
             return interfaceName;
         }
@@ -493,7 +475,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             ExtendInteface(typeof(TTargetInterface), typeof(TComponent), assembly);
         }
 
-        public static string GeneratedEmptyInterfacesCode(IEnumerable<ITypeInfo> typeInfos, Type baseType,
+        public string GeneratedEmptyInterfacesCode(IEnumerable<ITypeInfo> typeInfos, Type baseType,
             Func<ITypeInfo, Type, string, string> func = null){
             return
                 typeInfos.Aggregate<ITypeInfo, string>(null,
@@ -502,7 +484,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                     .TrimEnd(Environment.NewLine.ToCharArray());
         }
 
-        static string GenerateInterfaceCode(ITypeInfo typeInfo, Type baseType,
+        string GenerateInterfaceCode(ITypeInfo typeInfo, Type baseType,
             Func<ITypeInfo, Type, string, string> func){
             var interfaceBuilder = new InterfaceBuilder();
             var classDeclaration = interfaceBuilder.ClassDeclarationCore(typeInfo.Type, baseType, null, null);
@@ -514,7 +496,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             return interfaceCode;
         }
 
-        public static string GeneratedDisplayNameCode(string arg3){
+        public string GeneratedDisplayNameCode(string arg3){
             var interfaceBuilder = new InterfaceBuilder();
             return $@"[{interfaceBuilder.TypeToString(typeof(ModelDisplayNameAttribute))}(""{arg3}"")]";
         }

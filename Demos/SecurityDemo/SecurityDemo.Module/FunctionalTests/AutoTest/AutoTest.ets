@@ -1,4 +1,5 @@
 #DropDB XpandSecurityDemoEasyTest
+#DropDB XpandSecurityDemoWC
 #Application SecurityDemo.Win
 #Application SecurityDemo.Web
 

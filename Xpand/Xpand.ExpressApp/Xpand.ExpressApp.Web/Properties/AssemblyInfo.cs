@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Web.UI;
+using Xpand.ExpressApp.Web.SystemModule;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -39,11 +40,10 @@ using System.Web.UI;
 [assembly: WebResource(ResourceNames.CodeFormatter, "text/css")]
 [assembly: WebResource(ResourceNames.CommonStyles, "text/css")]
 [assembly: WebResource(ResourceNames.jwerty, "text/javascript")]
-[assembly: WebResource(ResourceNames.HighlightFocusedLayoutItem, "text/javascript")]
+
 class ResourceNames {
     public const string CommonStyles = "Xpand.ExpressApp.Web.Styles.CommonStyle.css";
     public const string CodeFormatter = "Xpand.ExpressApp.Web.PropertyEditors.CSCodePropertyEditor.CodeFormatter.css";
     public const string jwerty = "Xpand.ExpressApp.Web.SystemModule.WebShortcuts.jwerty.js";
-    public const string HighlightFocusedLayoutItem = "Xpand.ExpressApp.Web.SystemModule.HighlightFocusedLayoutItemDetailViewController.js";
 }
 

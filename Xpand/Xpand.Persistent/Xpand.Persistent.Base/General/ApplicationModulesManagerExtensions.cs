@@ -32,7 +32,7 @@ namespace Xpand.Persistent.Base.General{
                     AddModule(applicationModulesManager, application,requiredModuleTypes,installedModules);
                     applicationModulesManager.AddModule(moduleBase);
                     moduleBase.Application=application;
-                    LoadRegularTypesToTypesInfo(application.TypesInfo, moduleBase);
+                    LoadRegularTypesToTypesInfo(XafTypesInfo.Instance, moduleBase);
                     applicationModulesManager.ControllersManager.RegisterControllerTypes(moduleBase.GetControllerTypes().ToArray());
                     
                 }
