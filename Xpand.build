@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
   <PropertyGroup>
-	<RestoreNuget>true</RestoreNuget>
+    <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
     <DXVersion>16.2</DXVersion>
     <DXPath>C:\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
@@ -108,25 +108,19 @@
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
 	<PropertyGroup>
-	<CodeRushAssembliesFolders></CodeRushAssembliesFolders>
-	</PropertyGroup>
-	<ItemGroup>
-		<CodeRushAssemblies Include="$(CodeRushAssembliesFolders);$(Registry:HKEY_CURRENT_USER\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\CRControls)\*.dll;$(Registry:HKEY_CURRENT_USER\SOFTWARE\Microsoft\.NETFramework\v4.0.30319\AssemblyFoldersEx\CRCore)\*.dll"></CodeRushAssemblies>		
-	</ItemGroup>
 	
-  <Target Name="CopyCodeRushAssemblies">
-	<Copy SourceFiles="@(CodeRushAssemblies)" DestinationFolder="$(XpandDLLPath)"  />
-  </Target>
+	</PropertyGroup>
+	
+
+	
+  
   <Target Name="Copy3rdPartyAssemblies">
     <CreateItem Include="$(_third_party_assemblies)\**\*.*">
       <Output TaskParameter="Include" ItemName="FilesToCopy"/>
     </CreateItem>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)"  />
   </Target>
-  <Target Name="NuGetRestore" Condition="$(RestoreNuget)==true">
-	<Exec Command="$(NuGetTool) restore %(NugetRestoreProjects.Identity)" />
-  </Target>  
-  <Target Name="Build" DependsOnTargets="Clean;CopyCodeRushAssemblies;Copy3rdPartyAssemblies;BuildHelperB4Build;NuGetRestore">
+  <Target Name="Build" DependsOnTargets="Clean;Copy3rdPartyAssemblies;BuildHelperB4Build;Restore-Nuget">
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -148,7 +142,7 @@
   <Target Name="BuildNH">
 	<MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
   </Target>
-  <Target Name="Clean" DependsOnTargets="NuGetRestore">
+  <Target Name="Clean" >
     <MSBuild Projects="@(CoreProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
@@ -162,14 +156,15 @@
     <ItemGroup>
       <EasyTestVideoFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ScreenCapture&quot;, SearchOption.AllDirectories))"/>
       <BinFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;bin&quot;, SearchOption.AllDirectories))"/>
-	  <ObjFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;obj&quot;, SearchOption.AllDirectories))"/>
-	  <ModelAdaptorDllFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ModelAdaptorDll&quot;, SearchOption.AllDirectories))"/>
+	    <ObjFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;obj&quot;, SearchOption.AllDirectories))"/>
+	    <ModelAdaptorDllFolders Include="$([System.IO.Directory]::GetDirectories(&quot;.&quot;,&quot;ModelAdaptorDll&quot;, SearchOption.AllDirectories))"/>
     </ItemGroup>
     <RemoveDir Directories="@(EasyTestVideoFolders)"/>
 	<RemoveDir Directories="@(BinFolders)"/>
 	<RemoveDir Directories="@(ObjFolders)"/>
 	<RemoveDir Directories="@(ModelAdaptorDllFolders)"/>
 	<RemoveDir Directories="$(XpandDLLPath)"/>
+	<RemoveDir Directories="$(_third_party_assemblies)\Packages\" />
   </Target>
   <Target Name="Copy" DependsOnTargets="Build">
     <MakeDir Directories="$(BuildPath);$(TempPath)" />
@@ -182,12 +177,7 @@
       <Output ItemName="keyFiles" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(keyFiles)" DestinationFolder="$(BuildPath)\Xpand.Key" />
-    <!-- TODO: All Tests 
-		<CreateItem Include="Xpand\Xpand.Tests\**\bin\$(Configuration)\*.*" Exclude="Xpand\Xpand.Tests\**\bin\$(Configuration)\*.xml;Xpand\Xpand.Tests\**\bin\$(Configuration)\*.pdb;">
-			<Output ItemName="TestFiles" TaskParameter="Include"/>
-		</CreateItem>
-		<Copy SourceFiles="@(TestFiles)" DestinationFolder="$(TestPath)" />
-		-->
+    
   </Target>
 
   <Target Name="PublishXpandDocsSite" DependsOnTargets="RunEasyTestsForDocsSite;UpdateXpandDocsSiteFiles;XpandDocsSiteDBUpdater"/>
@@ -336,12 +326,27 @@
     <Message Text="This sub-solution does not need configuration" />
   </Target>
   
-  <Target Name="Test">
-  <IndexSources/>
+  <Target Name="Restore-Nuget">
+   <PropertyGroup>
+    <ScriptLocation Condition=" '$(ScriptLocation)'=='' ">.\Support\Build\Restore-Nuget.ps1</ScriptLocation>
+    <Com>$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;$(ScriptLocation)&apos; } &quot;
+    </Com>
+    </PropertyGroup>
+    <Message Text="$(com)"/>
+    <Exec Command="$(Com)" ConsoleToMSBuild="true" />
+  </Target>
+  <Target Name="Build-Demos">
+   <PropertyGroup>
+    <ScriptLocation Condition=" '$(ScriptLocation)'=='' ">.\Support\Build\Build-Demos.ps1</ScriptLocation>
+    <Com>$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;$(ScriptLocation)&apos; &apos;$(MSBuildBinPath)\msbuild.exe&apos; } &quot;
+    </Com>
+    </PropertyGroup>
+    <Message Text="$(com)"/>
+    <Exec Command="$(Com)" ConsoleToMSBuild="true" />
   </Target>
   
   <!--For Continuous integration and automated releases-->
-  <Target Name="Release" DependsOnTargets="NuGetRestore;Clean;_Version;Build;Copy" >
+  <Target Name="Release" DependsOnTargets="Clean;_Version;Build;Copy" >
 	<MakeDir Directories="$(ArtifactDirectory)" />
 	<IndexSources/>
   </Target>
@@ -351,16 +356,14 @@
       <files Include="$(XpandDLLPath)\**\*.dll;$(XpandDLLPath)\*.exe;$(XpandDLLPath)\*.config" Exclude="$(XpandDLLPath)\DatabaseUpdate\**\*.*;$(XpandDLLPath)\FFMPEG\**\*.*;$(XpandDLLPath)\ImportExport\**\*.*;$(XpandDLLPath)\Packages\**\*.*;$(XpandDLLPath)\XAFImageFormatter\**\*.*;$(XpandDLLPath)\**\DevExpress.*;$(XpandDLLPath)\**\System.*"/>
     </ItemGroup>
     <Copy SourceFiles="@(files)" DestinationFiles="@(files->'$(InstallerFolder)\Xpand.DLL\%(RecursiveDir)%(Filename)%(Extension)')" />
-    <CreateItem Include="$(XpandDesignExperiencePath)\**\*.*">
-      <Output ItemName="XpandDesignExperienceFiles" TaskParameter="Include" />
-    </CreateItem>
-    <Copy SourceFiles="@(XpandDesignExperienceFiles)" DestinationFolder="$(InstallerFolder)\Xpand.DesignExperience\%(XpandDesignExperienceFiles.SubFolder)%(XpandDesignExperienceFiles.RecursiveDir)" />
+    
+    <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFolder="$(InstallerFolder)" />
     <!-- Source.zip -->
     <CreateItem Include="**\*.*" Exclude="**\_third_party_assemblies\packages\**\*.*;**\dxbuildgenerator\packages\**\*.*;**\_Resharper*\**\*.*;**\FunctionalTests\**\ScreenCapture\**\*.*;**\*.log;**\*web_view.html;**\*win_view.html;**\*web_view.jpeg;**\*win_view.jpeg;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=Support\Tool\NSIS\makensis.exe /DVERSION=$(Version) Support\Build\Xpand.nsi" />
+	  <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=Support\Tool\NSIS\makensis.exe /DVERSION=$(Version) Support\Build\Xpand.nsi" />
     <CreateItem Include="Support\Build\setup.exe">
       <Output ItemName="setupFiles" TaskParameter="Include" />
     </CreateItem>
@@ -404,6 +407,7 @@
       <Output ItemName="_libFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_libFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Lib-$(Version).zip" Flatten="true" />
+    <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFolder="$(PackageDirectory)" />
     <!--
 		Condition="$(DeployUpdate)=='true'" 
 		-->
@@ -419,7 +423,7 @@
   </Target>
   <Target Name="ExecuteCommand">
       <Exec ContinueOnError="True" Command="$(ExecCommand)" ConsoleToMSBuild="true" WorkingDirectory="$(ExecCommandWorkingDirectory)" >
-        <Output TaskParameter="ConsoleOutput" PropertyName="OutputOfExec" />
+        <!--<Output TaskParameter="ConsoleToMSBuild" PropertyName="OutputOfExec" />-->
         <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
       </Exec>
       <Error Text="$(OutputOfExec)" Condition="'$(ErrorCode)' > '0'" />
