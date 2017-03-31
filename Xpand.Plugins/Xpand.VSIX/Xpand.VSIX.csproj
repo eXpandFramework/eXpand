@@ -314,6 +314,5 @@
   </Target>
   -->
   <Import Project="..\..\Support\Build\Nuget.Targets" />
-  <Target Name="DeployVsixExtensionFiles"/>
-  
+  <Target Name="DeployVsixExtensionFiles" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' "/>
 </Project>
