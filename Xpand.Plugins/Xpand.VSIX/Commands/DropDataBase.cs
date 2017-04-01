@@ -6,12 +6,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using DevExpress.DXCore.Controls.Xpo.DB.Helpers;
 using EnvDTE;
+using EnvDTE80;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 
 namespace Xpand.VSIX.Commands {
     public class DropDataBase {
-        private static readonly DTE _dte=DteExtensions.DTE;
+        private static readonly DTE2 _dte=DteExtensions.DTE;
 
         public static void Drop() {
             _dte.InitOutputCalls("Dropdatabase");

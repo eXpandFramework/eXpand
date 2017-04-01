@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
+
   <PropertyGroup>
     <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
     <DXVersion>16.2</DXVersion>
@@ -57,6 +58,9 @@
     </Tokens>
     <Tokens Include="BinaryPackage">
       <ReplacementValue>$(ProjectName)-Lib-$(Version).zip</ReplacementValue>
+    </Tokens>
+    <Tokens Include="VSIXPackage">
+      <ReplacementValue>$Xpand.VSIX-$(Version).vsix</ReplacementValue>
     </Tokens>
     <Tokens Include="Version">
       <ReplacementValue>$(Version)</ReplacementValue>
@@ -357,7 +361,7 @@
     </ItemGroup>
     <Copy SourceFiles="@(files)" DestinationFiles="@(files->'$(InstallerFolder)\Xpand.DLL\%(RecursiveDir)%(Filename)%(Extension)')" />
     
-    <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFolder="$(InstallerFolder)" />
+    <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFiles="$(InstallerFolder)\Xpand.VSIX-$(Version).vsix" />
     <!-- Source.zip -->
     <CreateItem Include="**\*.*" Exclude="**\_third_party_assemblies\packages\**\*.*;**\dxbuildgenerator\packages\**\*.*;**\_Resharper*\**\*.*;**\FunctionalTests\**\ScreenCapture\**\*.*;**\*.log;**\*web_view.html;**\*win_view.html;**\*web_view.jpeg;**\*win_view.jpeg;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
@@ -421,6 +425,7 @@
       <Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
     </Time>
   </Target>
+  
   <Target Name="ExecuteCommand">
       <Exec ContinueOnError="True" Command="$(ExecCommand)" ConsoleToMSBuild="true" WorkingDirectory="$(ExecCommandWorkingDirectory)" >
         <!--<Output TaskParameter="ConsoleToMSBuild" PropertyName="OutputOfExec" />-->

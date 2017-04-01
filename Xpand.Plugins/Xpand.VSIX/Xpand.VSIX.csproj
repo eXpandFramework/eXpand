@@ -9,11 +9,11 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -56,6 +56,9 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs">
+      <Link>Properties\XpandAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Commands\DropDataBase.cs" />
     <Compile Include="Extensions\ConfigurationExtensions.cs" />
     <Compile Include="Extensions\IFullReference.cs" />
@@ -105,7 +108,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Key.snk" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -116,7 +118,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="index.html" />
     <Content Include="Resources\Command1.png" />
     <Content Include="Resources\DebugEasyTest.png" />
     <Content Include="Resources\LoadProjectFromReference.png" />
@@ -167,6 +168,7 @@
     <Reference Include="EnvDTE90, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
+    <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.CommandBars, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -314,5 +316,4 @@
   </Target>
   -->
   <Import Project="..\..\Support\Build\Nuget.Targets" />
-  <Target Name="DeployVsixExtensionFiles" Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
 </Project>

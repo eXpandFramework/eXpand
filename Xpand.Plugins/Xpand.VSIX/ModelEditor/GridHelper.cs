@@ -24,14 +24,33 @@ namespace Xpand.VSIX.ModelEditor {
             _eventsProjectItemsEvents.ItemAdded += EventsOnProjectItemAdded;
             _eventsProjectItemsEvents.ItemRenamed += EventsOnProjectItemRenamed;
             _eventsSolutionEvents = _events.SolutionEvents;
-            _eventsSolutionEvents.Opened += SetGridDataSource;
-            _eventsSolutionEvents.ProjectAdded += project => AddProjectWrappers(ProjectWrapperBuilder.GetProjectItemWrappers(new List<Project> { project }));
-            _eventsSolutionEvents.ProjectRemoved += project1 => RemoveProjectWrappers(ProjectWrapperBuilder.GetProjectItemWrappers(new List<Project> { project1 }));
+            _eventsSolutionEvents.Opened += EventsSolutionEventsOnOpened;
+            _eventsSolutionEvents.AfterClosing+=EventsSolutionEventsOnAfterClosing;
         }
+
+        private static void EventsSolutionEventsOnAfterClosing(){
+            _eventsSolutionEvents.ProjectAdded -= EventsSolutionEventsOnProjectAdded;
+            _eventsSolutionEvents.ProjectRemoved -= EventsSolutionEventsOnProjectRemoved;
+        }
+
+        private static void EventsSolutionEventsOnOpened(){
+            SetGridDataSource();
+            _eventsSolutionEvents.ProjectAdded += EventsSolutionEventsOnProjectAdded;
+            _eventsSolutionEvents.ProjectRemoved += EventsSolutionEventsOnProjectRemoved;
+        }
+
+        private static void EventsSolutionEventsOnProjectRemoved(Project project){
+            RemoveProjectWrappers(ProjectWrapperBuilder.GetProjectItemWrappers(new List<Project>{project}));
+        }
+
+        private static void EventsSolutionEventsOnProjectAdded(Project project){
+            AddProjectWrappers(ProjectWrapperBuilder.GetProjectItemWrappers(new List<Project>{project}));
+        }
+
         private static void RemoveProjectWrappers(IEnumerable<ProjectItemWrapper> projectWrappers) {
             var list = (BindingList<ProjectItemWrapper>)_gridControl.DataSource;
             foreach (var projectWrapper in projectWrappers) {
-                var singleWrapper = list.Single(wrapper => wrapper.UniqueName==projectWrapper.UniqueName);
+                var singleWrapper = list.First(wrapper => wrapper.UniqueName==projectWrapper.UniqueName);
                 list.Remove(singleWrapper);
             }
             _gridControl.RefreshDataSource();
@@ -59,10 +78,10 @@ namespace Xpand.VSIX.ModelEditor {
             }
         }
         private static void SetGridDataSource(){
-            List<ProjectItemWrapper> projectWrappers = null;
+            List<ProjectItemWrapper> projectWrappers = new List<ProjectItemWrapper>();
             var context = TaskScheduler.FromCurrentSynchronizationContext();
             Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList(),CancellationToken.None,TaskCreationOptions.None, TaskScheduler.Default)
-                .ContinueWith(task1 => { _gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers); }, context);
+                .ContinueWith(task1 =>_gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers), context);
         }
 
         public static void Init(GridControl gridControl) {

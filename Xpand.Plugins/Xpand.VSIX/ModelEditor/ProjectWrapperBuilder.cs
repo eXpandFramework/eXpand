@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using EnvDTE;
 using Xpand.VSIX.Extensions;
 using Project = EnvDTE.Project;
+using ProjectItem = Microsoft.Build.Evaluation.ProjectItem;
 
 namespace Xpand.VSIX.ModelEditor {
     public class ProjectWrapperBuilder {
@@ -12,30 +12,32 @@ namespace Xpand.VSIX.ModelEditor {
             return DteExtensions.DTE.Solution.Projects.Cast<Project>().Where(project => project.ConfigurationManager != null && project.ProjectItems != null);
         }
 
-        static ProjectItemWrapper ProjectItemWrapperSelector(ProjectItem item){
-            return new ProjectItemWrapper {
-                Name = GetName(item),
-                IsApplicationProject = item.ContainingProject.IsApplicationProject(),
-                ModelFileName=item.Name,
-                OutputPath = item.ContainingProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath).Value.ToString(),
-                OutPutFileName = item.ContainingProject.FindProperty(ProjectProperty.OutputFileName).Value.ToString(),
-                FullPath = item.ContainingProject.FindProperty(ProjectProperty.FullPath).Value.ToString(),
-                UniqueName = item.ContainingProject.UniqueName,
-                LocalPath = (item.FindProperty(ProjectItemProperty.LocalPath) ?? item.FindProperty(ProjectItemProperty.FullPath)).Value.ToString()
-            };
-        }
-
         public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers() {
-            var projects = GetProjects().ToList();
-            return GetProjectItemWrappers(projects);
+            return GetProjectItemWrappers(GetProjects());
+        }
+        static bool IsWeb(string fullPath) {
+            var webconfig = Path.Combine(Path.GetDirectoryName(fullPath) + "", "web.config");
+            return File.Exists(webconfig);
         }
 
         public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers(IEnumerable<Project> projects) {
-            var projectItems = projects.SelectMany(project1 => project1.ProjectItems.OfType<ProjectItem>()).ToList();
-
-            var items = new List<ProjectItemWrapper>();
-            
-            GetAllModelItems(projectItems, items);
+            var msbuildProjects = GetProjects().Select(project1 => new Microsoft.Build.Evaluation.Project(project1.FullName)).ToList();
+            var items = msbuildProjects.SelectMany(project
+                => new[] { "None", "Content", "EmbeddedResource" }.SelectMany(project.GetItems)
+                    .Where(item => item.EvaluatedInclude.EndsWith(".xafml"))).Select(item => {
+                var outputFileName = item.Project.AllEvaluatedProperties.First(property => property.Name == "TargetFileName").EvaluatedValue;
+                var fullPath = GetEvaluatedValue(item, "ProjectDir");
+                return new ProjectItemWrapper{
+                    Name = GetName(item),
+                    ModelFileName = Path.GetFileName(item.EvaluatedInclude),
+                    OutputPath = GetEvaluatedValue(item, "OutputPath"),
+                    OutputFileName = outputFileName,
+                    IsApplicationProject = Path.GetExtension(outputFileName) == "exe" || IsWeb(fullPath),
+                    FullPath = fullPath,
+                    UniqueName =Path.GetDirectoryName(fullPath) + @"\" +GetEvaluatedValue(item, "ProjectFileName"),
+                    LocalPath = Path.GetDirectoryName(fullPath) + @"\" + item.EvaluatedInclude
+                };
+            }).ToArray();
             var localizationModels = items.Where(item =>{
                 var match = Regex.Match(item.ModelFileName, @"\A(.*)_(.*)\.xafml\z");
                 if (match.Success && item.ModelFileName.EndsWith(match.Groups[2].Value+".xafml"))
@@ -45,21 +47,13 @@ namespace Xpand.VSIX.ModelEditor {
             return items.Except(localizationModels);
         }
 
-        static void GetAllModelItems(IEnumerable<ProjectItem> projectItems, List<ProjectItemWrapper> list){
-            var items = projectItems.ToArray();
-            foreach (var projectItem in items) {
-                string name = projectItem.Name;
-                if (name.EndsWith(".xafml") &&  !name.Contains(".Localization.") && name.IndexOf(" ", StringComparison.Ordinal) == -1){
-                    var item = ProjectItemWrapperSelector(projectItem);
-                    list.Add(item);
-                }
-                if (projectItem.ProjectItems != null)
-                    GetAllModelItems(projectItem.ProjectItems.OfType<ProjectItem>(), list);
-            }
+        private static string GetEvaluatedValue(ProjectItem item, string projectdir){
+            return item.Project.AllEvaluatedProperties.First(property => property.Name == projectdir).EvaluatedValue;
         }
 
-        static string GetName(ProjectItem item1) {
-            return item1.Name == "Model.DesignedDiffs.xafml" ? item1.ContainingProject.Name : item1.ContainingProject.Name + " / " + item1.Name;
+
+        static string GetName(ProjectItem item) {
+            return item.EvaluatedInclude == "Model.DesignedDiffs.xafml" ? Path.GetFileNameWithoutExtension(item.Project.FullPath) : Path.GetFileNameWithoutExtension(item.Project.FullPath) + " / " + Path.GetFileNameWithoutExtension(item.EvaluatedInclude);
         }
     }
 }

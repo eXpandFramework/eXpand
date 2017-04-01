@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using EnvDTE;
+using EnvDTE80;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Task = System.Threading.Tasks.Task;
@@ -16,7 +17,7 @@ namespace Xpand.VSIX.Commands{
     }
 
     class EasyTest {
-        private readonly DTE _dte=DteExtensions.DTE;
+        private readonly DTE2 _dte=DteExtensions.DTE;
         public event EventHandler<LastBuildStatusArgs> QueryLastBuildStatus;
         public void RunTest(bool debug) {
             _dte.InitOutputCalls("RunTest");

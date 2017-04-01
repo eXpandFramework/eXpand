@@ -4,15 +4,16 @@ using System.Linq;
 using System.Management;
 using System.Windows.Forms;
 using EnvDTE;
+using EnvDTE80;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Process = System.Diagnostics.Process;
 
 namespace Xpand.VSIX.ModelEditor {
     public class ModelEditorRunner {
-        private readonly DTE _dte = DteExtensions.DTE;
+        private readonly DTE2 _dte = DteExtensions.DTE;
         public void Start(ProjectItemWrapper projectItemWrapper) {
-            string outputFileName = projectItemWrapper.OutPutFileName;
+            string outputFileName = projectItemWrapper.OutputFileName;
             
             string path = GetPath();
             if (path != null) StartMEProcess(projectItemWrapper, outputFileName, path);

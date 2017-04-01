@@ -18,8 +18,9 @@ namespace Xpand.VSIX.Extensions{
             return project.IsWeb() || isWin;
         }
 
-        public static bool IsWeb(this Project startUpProject) {
-            return startUpProject.ProjectItems.OfType<ProjectItem>().Any(item => item.Name.ToLower() == "web.config");
+        public static bool IsWeb(this Project project) {
+            var webconfig = Path.Combine(Path.GetDirectoryName(project.FullName)+"","web.config");
+            return File.Exists(webconfig);
         }
 
         public static string FindOutputPath(this Project project) {

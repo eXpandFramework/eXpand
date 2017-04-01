@@ -11,8 +11,11 @@
       <Group guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" priority="100">
         <Parent guid="guidVSXpandPackageCmdSet" id="XpandTopLevelMenu" />
       </Group>
-      <Group guid="guidVSXpandPackageCmdSet" id="EasyTestCmdSetGroup" priority="100">
+      <Group guid="guidVSXpandPackageCmdSet" id="EasyTestContextMenuCmdSetGroup" priority="100">
         <Parent guid="easyTestContextCommandSet" id="ContextMenu"/>
+      </Group>
+      <Group guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup" priority="100">
+        <Parent guid="easyTestToolbarCommandSet" id="Toolbar"/>
       </Group>
       <Group guid="guidVSXpandPackageCmdSet" id="SolutionExplorerCmdSetGroup" priority="100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_PROJWIN"/>
@@ -85,10 +88,16 @@
   </Commands>
   <CommandPlacements>
     <CommandPlacement guid="guidVSXpandPackageCmdSet" id="cmdidDebugEasyTest" priority="0x100">
-      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestCmdSetGroup"/>
+      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestContextMenuCmdSetGroup"/>
     </CommandPlacement>
     <CommandPlacement guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" priority="0x100">
-      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestCmdSetGroup"/>
+      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestContextMenuCmdSetGroup"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidVSXpandPackageCmdSet" id="cmdidDebugEasyTest" priority="0x100">
+      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup"/>
+    </CommandPlacement>
+    <CommandPlacement guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" priority="0x100">
+      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup"/>
     </CommandPlacement>
   </CommandPlacements>
   <KeyBindings>
@@ -103,10 +112,10 @@
     <GuidSymbol value="{fa1289e0-6376-4d19-98c5-9d0c90dd3283}" name="guidVSXpandPackage" />
     
     <GuidSymbol value="{6c0bd9dc-4a51-4a9d-8952-c5a69f472eab}" name="guidVSXpandPackageCmdSet">
+      <IDSymbol value="269" name="EasyTestToolbarCmdSetGroup" />
       <IDSymbol value="267" name="XpandTopLevelMenu" />
       <IDSymbol value="266" name="SolutionExplorerCmdSetGroup" />
-      <IDSymbol value="266" name="EasyTestMenuGroup" />
-      <IDSymbol value="265" name="EasyTestCmdSetGroup" />
+      <IDSymbol value="265" name="EasyTestContextMenuCmdSetGroup" />
       <IDSymbol value="263" name="XpandMenuGroup" />
       <IDSymbol value="256" name="cmdidDebugEasyTest" />
       <IDSymbol value="257" name="cmdidRunEasyTest" />
@@ -119,6 +128,11 @@
     </GuidSymbol>
     <GuidSymbol name="easyTestContextCommandSet" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
       <IDSymbol name="ContextMenu" value="0x040D" />
+    </GuidSymbol>
+    <GuidSymbol name="easyTestToolbarCommandSet" value="{19492BCB-32B3-4EC3-8826-D67CD5526653}">
+<!--    <GuidSymbol name="easyTestToolbarCommandSet" value="{d309f791-903f-11d0-9efc-00a0c911004f}">-->
+<!--    <GuidSymbol name="easyTestToolbarCommandSet" value="{5DD0BB59-7076-4C59-88D3-DE36931F63F0}">-->
+      <IDSymbol name="Toolbar" value="0x101" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
+using EnvDTE80;
 using Mono.Cecil;
 using VSLangProj;
 using Xpand.VSIX.Options;
@@ -11,7 +12,7 @@ using Xpand.VSIX.Options;
 namespace Xpand.VSIX.Extensions {
     public static class LoadProjectFromReference{
 
-        private static readonly DTE _dte = DteExtensions.DTE;
+        private static readonly DTE2 _dte = DteExtensions.DTE;
 
         public static Reference[] GetReferences(this UIHierarchyItem[] uiHierarchyItems, Func<Reference, bool> isFiltered) {
             _dte.SuppressUI = true;

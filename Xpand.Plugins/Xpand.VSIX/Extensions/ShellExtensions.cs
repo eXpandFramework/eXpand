@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
-using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using VSLangProj;
@@ -69,8 +68,7 @@ namespace Xpand.VSIX.Extensions {
 
         public static OleMenuCommand EnableForActiveFile(this OleMenuCommand oleMenuCommand, params string[] extensions){
             oleMenuCommand.BeforeQueryStatus+= (sender, args) =>{
-                var dte2 = (DTE2)Package.GetGlobalService(typeof(DTE));
-                var activeDocument = dte2.ActiveDocument;
+                var activeDocument = DteExtensions.DTE.ActiveDocument;
                 oleMenuCommand.Enabled = activeDocument != null && extensions.Any(s => activeDocument.FullName.EndsWith(s));
             };
             return oleMenuCommand;

@@ -41,12 +41,12 @@ namespace Xpand.VSIX.Commands{
             var commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null){
                 var menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDebugEasyTest);
-                var menuItem = new OleMenuCommand((sender, args) => new EasyTest().RunTest(false), menuCommandID);
+                var menuItem = new OleMenuCommand((sender, args) => new EasyTest().RunTest(true), menuCommandID);
                 menuItem.EnableForDXSolution().EnableForActiveFile(".ets",".inc");
                 commandService.AddCommand(menuItem);
 
                 menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidRunEasyTest);
-                menuItem = new OleMenuCommand((sender, args) => new EasyTest().RunTest(true), menuCommandID);
+                menuItem = new OleMenuCommand((sender, args) => new EasyTest().RunTest(false), menuCommandID);
                 menuItem.EnableForDXSolution().EnableForActiveFile(".ets",".inc");
                 commandService.AddCommand(menuItem);
 

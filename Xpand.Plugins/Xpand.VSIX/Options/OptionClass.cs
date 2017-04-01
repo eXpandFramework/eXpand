@@ -5,16 +5,16 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using EnvDTE;
+using EnvDTE80;
 using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.Options{
     public class OptionClass {
-        private static readonly DTE _dte = DteExtensions.DTE;
+        private static readonly DTE2 _dte = DteExtensions.DTE;
         private static readonly string _path;
 
         static OptionClass() {
-            _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs),"Xpand.VSIX.Options.xml");
+            _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "Xpand.VSIX.Options.xml");
             Instance = GetOptionClass();
         }
 
@@ -40,16 +40,20 @@ namespace Xpand.VSIX.Options{
             var optionClass = new OptionClass();
             try {
                 var xmlSerializer = new XmlSerializer(typeof(OptionClass));
-
-                var allText = File.ReadAllText(_path);
-                if (!string.IsNullOrWhiteSpace(allText)) {
-                    var xmlReader = XmlReader.Create(new StringReader(allText));
-                    if (xmlSerializer.CanDeserialize(xmlReader)) {
-                        optionClass = (OptionClass)xmlSerializer.Deserialize(xmlReader);
+                using (var stream = File.Open(_path, FileMode.OpenOrCreate)){
+                    using (var streamReader = new StreamReader(stream)){
+                        var allText = streamReader.ReadToEnd();
+                        if (!string.IsNullOrWhiteSpace(allText)){
+                            var xmlReader = XmlReader.Create(new StringReader(allText));
+                            if (xmlSerializer.CanDeserialize(xmlReader))
+                                optionClass = (OptionClass) xmlSerializer.Deserialize(xmlReader);
+                        }
                     }
                 }
+                
             }
             catch (Exception e) {
+                _dte.LogError(e.ToString());
                 _dte.WriteToOutput(e.ToString());
             }
             return optionClass;

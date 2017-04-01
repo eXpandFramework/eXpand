@@ -4,13 +4,14 @@ using System.Windows.Forms;
 using DevExpress.DXCore.Controls.XtraGrid;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
 using EnvDTE;
+using EnvDTE80;
 using Microsoft.VisualStudio.Shell.Interop;
 using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.ModelEditor {
     
     public partial class METoolWindowControl : UserControl {
-        private readonly DTE _dte = DteExtensions.DTE;
+        private readonly DTE2 _dte = DteExtensions.DTE;
         string _buildingProject;
         bool? _atLeastOneFail;
 
@@ -34,9 +35,7 @@ namespace Xpand.VSIX.ModelEditor {
 
         public METoolWindowControl(){
             InitializeComponent();
-            
             GridHelper.Init(gridControl1);
-//            _dte.Events.BuildEvents.OnBuildDone += EventsOnProjectBuildDone;
         }
 
         private void OpenModelEditor(ProjectItemWrapper projectItemWrapper) {

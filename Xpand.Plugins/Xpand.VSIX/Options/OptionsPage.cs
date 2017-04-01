@@ -22,20 +22,20 @@ namespace Xpand.VSIX.Options{
 
         #region Methods
 
+        public override void SaveSettingsToStorage(){
+            _optionsControl.Save();
+            base.SaveSettingsToStorage();
+        }
+
         protected override void Dispose(bool disposing){
-            Save();
             if (disposing)
                 if (_optionsControl != null){
-                    _optionsControl.Save();
                     _optionsControl.Dispose();
                     _optionsControl = null;
                 }
             base.Dispose(disposing);
         }
 
-        protected virtual void Save(){
-            OptionClass.Instance.Save();
-        }
 
         #endregion Methods
 

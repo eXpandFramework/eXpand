@@ -1,12 +1,13 @@
 ﻿using System.IO;
 using EnvDTE;
+using EnvDTE80;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Process = System.Diagnostics.Process;
 
 namespace Xpand.VSIX.Commands {
     class ProjectConverter {
-        private static readonly DTE _dte=DteExtensions.DTE;
+        private static readonly DTE2 _dte =DteExtensions.DTE;
         private static string GetProjectConverterPath() {
             if (string.IsNullOrWhiteSpace(OptionClass.Instance.ProjectConverterPath)) {
                 var version = _dte.Solution.GetDXVersion();
