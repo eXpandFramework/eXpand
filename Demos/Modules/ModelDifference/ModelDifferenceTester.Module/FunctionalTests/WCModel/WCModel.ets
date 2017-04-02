@@ -1,10 +1,6 @@
 ﻿#Application ModelDifferenceTester.Web
 #Application ModelDifferenceTester.Win
 *SetWebMaxWaitTimeOut 60000
-#IfDef ModelDifferenceTester.Web
-*SqlDropDB 
- DBName = ModelDifferenceTesterEasyTest
-#EndIf
 
 *LogOn
 *ScreenCapture

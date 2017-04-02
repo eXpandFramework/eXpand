@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             testApplication.Assign();
             testApplication.CreateParametersFile();
             testApplication.DeleteUserModel();
-            testApplication.CopyModel();
+            testApplication.DropDatabases();
             ConfigApplicationModel(testApplication);
             if (testApplication.ParameterValue<bool>(ApplicationParams.UseIIS)) {
                 IISHelper.Configure(testApplication);

@@ -5,19 +5,20 @@ using DevExpress.EasyTest.Framework;
 
 namespace Xpand.EasyTest.Commands {
     public class SqlCommand : Command {
+        public const string ConnectionString = @"Integrated Security=SSPI;Data Source=(localDb)\MSSQLLocalDB;";
         private string _scriptsPath;
         public const string Name = "Sql";
 
-        protected string GetConnectionString() {
-            const string connectionString = @"Integrated Security=SSPI;Data Source=(localDb)\MSSQLLocalDB;";
-            if (!string.IsNullOrEmpty(Parameters.MainParameter?.Value)) {
-                return Parameters.MainParameter.Value.StartsWith("Alias:")
+        protected string GetConnectionString(string mainParameterValue) {
+            
+            if (!string.IsNullOrEmpty(mainParameterValue)) {
+                return mainParameterValue.StartsWith("Alias:")
                     ? Extensions.GetAlias(_scriptsPath,
-                        Parameters.MainParameter.Value.Substring(
-                            Parameters.MainParameter.Value.IndexOf(":", StringComparison.Ordinal) + 1)).Value
-                    : Parameters.MainParameter.Value;
+                        mainParameterValue.Substring(
+                            mainParameterValue.IndexOf(":", StringComparison.Ordinal) + 1)).Value
+                    : mainParameterValue;
             }
-            return connectionString;
+            return ConnectionString;
         }
 
         public override void ParseCommand(CommandCreationParam commandCreationParam) {
@@ -27,7 +28,7 @@ namespace Xpand.EasyTest.Commands {
 
         protected override void InternalExecute(ICommandAdapter adapter) {
 
-            using (var sqlConnection = new SqlConnection(GetConnectionString())) {
+            using (var sqlConnection = new SqlConnection(GetConnectionString(Parameters.MainParameter?.Value))) {
                 sqlConnection.Open();
                 foreach (var parameter in Parameters.Where(parameter => parameter.Name.Contains("Command"))) {
                     using (var sqlCommand = sqlConnection.CreateCommand()) {

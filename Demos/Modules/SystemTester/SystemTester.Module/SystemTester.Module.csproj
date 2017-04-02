@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module</RootNamespace>
     <AssemblyName>SystemTester.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>0d93d223</NuGetPackageImportStamp>
@@ -145,6 +147,7 @@
     <Compile Include="FunctionalTests\AutoCommit\AutoCommitObject.cs" />
     <None Include="FunctionalTests\Actions\ClientScript.inc" />
     <None Include="FunctionalTests\AutoCommit\ListView.inc" />
+    <Compile Include="FunctionalTests\EasyTestParameter.cs" />
     <Compile Include="FunctionalTests\ModelAttributeValue\ModelAttributeValueObject.cs" />
     <Compile Include="FunctionalTests\SupressConfirmation\SupressConfirmationObject.cs" />
     <Compile Include="FunctionalTests\NavigationItems\NavigationItemsObject.cs" />
@@ -371,7 +374,8 @@
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml">
-      <SubType></SubType>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />

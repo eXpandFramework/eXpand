@@ -33,7 +33,8 @@ namespace Xpand.EasyTest {
         Model,
         UseIIS,
         DontRunIISExpress,
-        UserName
+        UserName,
+        DropDatabase
     }
 
     public interface IXpandEasyTestCommandAdapter {
@@ -198,6 +199,13 @@ namespace Xpand.EasyTest {
         public static void ClearModel(this TestApplication application){
             var appPath = application.ParameterValue<string>(ApplicationParams.PhysicalPath) ?? Path.GetDirectoryName(application.ParameterValue<string>(ApplicationParams.FileName));
             File.WriteAllText(Path.Combine(appPath+"","Model.xafml"), @"<?xml version=""1.0"" ?><Application />");
+        }
+
+        public static void DropDatabases(this TestApplication application){
+            var databases = (application.ParameterValue<string>(ApplicationParams.DropDatabase) + "").Split(';');
+            foreach (var database in databases){
+                SqlDropDatabaseCommand.Dropdatabase(database);
+            }
         }
 
         public static void CopyModel(this TestApplication application){

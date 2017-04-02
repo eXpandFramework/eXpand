@@ -112,6 +112,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             testApplication.DeleteUserModel();
             testApplication.CreateParametersFile();
             testApplication.CopyModel();
+            testApplication.DropDatabases();
             DeleteLogonParametersFile(testApplication);
             RunAdditionalApps(testApplication);
             base.RunApplication(testApplication,connectionString);
