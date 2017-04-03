@@ -107,23 +107,8 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
                 using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()){
                     _members = CreateMembers(objectSpace);
                 }
-//                worldCreatorObjectSpaceProvider.ResetThreadSafe();
-//                worldCreatorModule.Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
             }
             return _members;
         }
-
-//        private static void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e){
-//            var application = ((XafApplication) sender);
-//            application.ObjectSpaceCreated-=ApplicationOnObjectSpaceCreated;
-//            var memberInfoGroups = _members.Where(info => info.IsPersistent).GroupBy(info => info.MemberType);
-//            foreach (var memberInfoGroup in memberInfoGroups){
-//                using (var objectSpace = application.CreateObjectSpace(memberInfoGroup.Key)){
-//                    foreach (var info in memberInfoGroup){
-//                        objectSpace.CreateColumn(info);
-//                    }
-//                }
-//            }
-//        }
     }
 }

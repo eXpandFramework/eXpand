@@ -2,6 +2,7 @@
 <Project DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 
   <PropertyGroup>
+    <DeployExtension>false</DeployExtension>
     <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
     <DXVersion>16.2</DXVersion>
     <DXPath>C:\DevExpress $(DXVersion)</DXPath>
@@ -128,7 +129,7 @@
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
+    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="DeployExtension=$(DeployExtension);Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
     <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath)" />
     <CallTarget Targets="BuildNH"/>
      <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
@@ -420,7 +421,6 @@
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;" />
   </Target>
   <Target Name="_Version">
-    <FileUpdate Files="Xpand\Xpand.Utils\Properties\AssemblyInfo.cs" Regex="(\d+\.\d+\.\d+\.\d+)" ReplacementText="$(Version)" />
     <Time Format="yyyy-MM-dd HH:mm">
       <Output TaskParameter="FormattedTime" PropertyName="BuildTime" />
     </Time>
