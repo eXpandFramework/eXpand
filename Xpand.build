@@ -61,7 +61,7 @@
       <ReplacementValue>$(ProjectName)-Lib-$(Version).zip</ReplacementValue>
     </Tokens>
     <Tokens Include="VSIXPackage">
-      <ReplacementValue>$Xpand.VSIX-$(Version).vsix</ReplacementValue>
+      <ReplacementValue>Xpand.VSIX-$(Version).vsix</ReplacementValue>
     </Tokens>
     <Tokens Include="Version">
       <ReplacementValue>$(Version)</ReplacementValue>
@@ -412,7 +412,7 @@
       <Output ItemName="_libFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_libFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Lib-$(Version).zip" Flatten="true" />
-    <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFolder="$(PackageDirectory)" />
+    <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFiles="$(PackageDirectory)\Xpand.VSIX-$(Version).vsix" />
     <!--
 		Condition="$(DeployUpdate)=='true'" 
 		-->
