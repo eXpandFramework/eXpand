@@ -364,7 +364,7 @@
     
     <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFiles="$(InstallerFolder)\Xpand.VSIX-$(Version).vsix" />
     <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="**\_third_party_assemblies\packages\**\*.*;**\dxbuildgenerator\packages\**\*.*;**\_Resharper*\**\*.*;**\FunctionalTests\**\ScreenCapture\**\*.*;**\*.log;**\*web_view.html;**\*win_view.html;**\*web_view.jpeg;**\*win_view.jpeg;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
+    <CreateItem Include="**\*.*" Exclude="**\$RECYCLE.BIN\**\*.*;**\System Volume Information\**\*.*;**\_third_party_assemblies\packages\**\*.*;**\dxbuildgenerator\packages\**\*.*;**\_Resharper*\**\*.*;**\FunctionalTests\**\ScreenCapture\**\*.*;**\*.log;**\*web_view.html;**\*win_view.html;**\*web_view.jpeg;**\*win_view.jpeg;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
       <Output ItemName="_SourceFiles" TaskParameter="Include" />
     </CreateItem>
     <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
