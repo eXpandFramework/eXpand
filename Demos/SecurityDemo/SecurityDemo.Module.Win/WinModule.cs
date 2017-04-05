@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using FeatureCenter.Module.Win;
@@ -21,7 +22,9 @@ namespace SecurityDemo.Module.Win
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            this.AddModules(@"..\..\..\..\..\xpand.dll\");
+            
+            var xpandDLLPath = Path.GetFullPath(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + @"..\..\..\..\..\..\..\xpand.dll\");
+            this.AddModules(xpandDLLPath);
         }
 
 
