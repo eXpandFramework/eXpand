@@ -126,18 +126,18 @@
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)"  />
   </Target>
   <Target Name="Build" DependsOnTargets="Clean;Copy3rdPartyAssemblies;BuildHelperB4Build;Restore-Nuget">
-    <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
-    <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
-    <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
-    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="DeployExtension=$(DeployExtension);Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" ContinueOnError="$(BatchCall)" />
-    <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath)" />
+    <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
+    <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
+    <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" />
+    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="DeployExtension=$(DeployExtension);Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" ContinueOnError="$(BatchCall)" />
+    <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <CallTarget Targets="BuildNH"/>
-     <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)" />
+     <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" />
     
-    <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst" />
-    <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
-    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath)" />
-    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath)" />
+    <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false" />
+    <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
+    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" />
+    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
