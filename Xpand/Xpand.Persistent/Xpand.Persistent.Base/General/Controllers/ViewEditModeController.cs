@@ -37,7 +37,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
             var detailView = e.View as DetailView;
             if (detailView != null){
                 detailView.ControlsCreated += ViewOnControlsCreated;
-                if (!Application.IsHosted())
+                if (!Application.IsHosted()&& ((IModelDetailViewViewEditMode)detailView.Model).ViewEditMode.HasValue)
                     detailView.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(detailView);
             }
         }
@@ -46,7 +46,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
             var view = ((View)sender);
             view.ControlsCreated -= ViewOnControlsCreated;
             UpdateView((DetailView)view);
-            if (!Application.IsHosted()){
+            if (!Application.IsHosted()&& ((IModelDetailViewViewEditMode)view.Model).ViewEditMode.HasValue) {
                 UpdateEditableActions(view);
                 view.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(view);
             }
@@ -81,10 +81,12 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         private void UpdateEditableActions(View view) {
             var modificationsController = Frame.GetController<ModificationsController>();
-            modificationsController.SaveAction.Active[typeof(ViewEditModeController).Name] = view.AllowEdit;
-            modificationsController.SaveAndCloseAction.Active[typeof(ViewEditModeController).Name] = view.AllowEdit;
-            modificationsController.CancelAction.Active[typeof(ViewEditModeController).Name] = view.AllowEdit;
-            Frame.GetController<RefreshController>().RefreshAction.Active[typeof(ViewEditModeController).Name] = view.AllowEdit;
+            var key = typeof(ViewEditModeController).Name;
+            modificationsController.SaveAction.Active[key] = view.AllowEdit;
+            modificationsController.SaveAndCloseAction.Active[key] = view.AllowEdit;
+            modificationsController.CancelAction.Active[key] = view.AllowEdit;
+            Frame.GetController<DeleteObjectsViewController>().DeleteAction.Active[key] = view.AllowEdit;
+            Frame.GetController<NewObjectViewController>().NewObjectAction.Active[key] = view.AllowEdit;
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

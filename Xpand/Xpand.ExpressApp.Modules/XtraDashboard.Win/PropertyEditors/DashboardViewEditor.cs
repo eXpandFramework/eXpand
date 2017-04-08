@@ -27,17 +27,11 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
             : base(objectType, model) {
         }
 
-        public DashboardViewer DashboardViewer {
-            get { return (DashboardViewer)Control; }
-        }
+        public DashboardViewer DashboardViewer => (DashboardViewer)Control;
 
-        public IObjectSpace ObjectSpace {
-            get { return _objectSpace; }
-        }
+        public IObjectSpace ObjectSpace => _objectSpace;
 
-        public XafApplication Application {
-            get { return _application; }
-        }
+        public XafApplication Application => _application;
 
         public void Setup(IObjectSpace objectSpace, XafApplication application) {
             _objectSpace = objectSpace;
