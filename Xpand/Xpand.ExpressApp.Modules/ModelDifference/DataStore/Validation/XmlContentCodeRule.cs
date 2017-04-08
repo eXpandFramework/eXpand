@@ -19,8 +19,9 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Validation{
         protected override bool IsValidInternal(IXpoModelDifference target, out string errorMessageTemplate) {
             try {
                 if (!string.IsNullOrWhiteSpace(target.XmlContent)){
-                    var stringReader = new StringReader(target.XmlContent);
-                    XDocument.Load(stringReader);
+                    using (var stringReader = new StringReader(target.XmlContent)){
+                        XDocument.Load(stringReader);
+                    }
                     var modelApplication =
                         ((ModelApplicationBase) CaptionHelper.ApplicationModel).CreatorInstance.CreateModelApplication();
                     new ModelXmlReader().ReadFromString(modelApplication, "", target.XmlContent);

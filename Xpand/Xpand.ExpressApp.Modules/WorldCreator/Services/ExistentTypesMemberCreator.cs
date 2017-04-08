@@ -15,10 +15,10 @@ using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.WorldCreator.Services {
     public class ExistentTypesMemberCreator {
-        private static XPCustomMemberInfo[] _members= new XPCustomMemberInfo[0];
+        private static XPCustomMemberInfo[] _members = new XPCustomMemberInfo[0];
 
         static XPCustomMemberInfo[] CreateMembers(IObjectSpace objectSpace) {
-            var members =CreateCollectionMembers(objectSpace)
+            var members = CreateCollectionMembers(objectSpace)
                     .Concat(CreateReferenceMembers(objectSpace).Concat(CreateCoreMembers(objectSpace)))
                     .ToArray();
 
@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
         }
 
         static IEnumerable<IExtendedMemberInfo> GetMembers(IObjectSpace objectSpace, Type infoType) {
-            return objectSpace.GetObjects(infoType).Cast<IExtendedMemberInfo>().Where(info => !MemberExists(info,objectSpace));
+            return objectSpace.GetObjects(infoType).Cast<IExtendedMemberInfo>().Where(info => !MemberExists(info, objectSpace));
         }
 
         private static bool MemberExists(IExtendedMemberInfo extendedMemberInfo, IObjectSpace objectSpace) {
@@ -68,7 +68,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
                 var member = GetMember(info, referenceType);
                 if (member != null) {
                     CreateAttributes(info, member);
-	                yield return member;
+                    yield return member;
                 }
             }
         }
@@ -101,10 +101,10 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
             }
         }
 
-        public static XPCustomMemberInfo[] CreateMembers(WorldCreatorModule worldCreatorModule){
-            if (_members.Length==0  && InterfaceBuilder.RuntimeMode){
-                var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(worldCreatorModule.Application,false);
-                using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()){
+        public static XPCustomMemberInfo[] CreateMembers(WorldCreatorModule worldCreatorModule) {
+            if (_members.Length == 0 && InterfaceBuilder.RuntimeMode) {
+                var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(worldCreatorModule.Application, false);
+                using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()) {
                     _members = CreateMembers(objectSpace);
                 }
             }
