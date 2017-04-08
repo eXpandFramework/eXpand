@@ -56,6 +56,12 @@
             <ButtonText>Drop Databases</ButtonText>
           </Strings>
         </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidKillIISExpress" priority="0x0103" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Kill IISExpress</ButtonText>
+          </Strings>
+        </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreference" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
@@ -118,6 +124,7 @@
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidDebugEasyTest" editor="guidVSStd97" key1="d" mod1="Alt" />
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidShowMEToolbox" editor="guidVSStd97" key1="m" mod1="Alt Control Shift"  />
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidDropDatabase" editor="guidVSStd97" key1="d" mod1="Alt Control Shift"  />
+    <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidKillIISExpress" editor="guidVSStd97" key1="i" mod1="Alt Control Shift"  />
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreference" editor="guidVSStd97" key1="l" mod1="Alt Control Shift"  />
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreferenceTool" editor="guidVSStd97" key1="l" mod1="Alt Control Shift"  />
   </KeyBindings>
@@ -125,6 +132,7 @@
     <GuidSymbol value="{fa1289e0-6376-4d19-98c5-9d0c90dd3283}" name="guidVSXpandPackage" />
     
     <GuidSymbol value="{6c0bd9dc-4a51-4a9d-8952-c5a69f472eab}" name="guidVSXpandPackageCmdSet">
+      <IDSymbol value="270" name="cmdidKillIISExpress" />
       <IDSymbol value="269" name="EasyTestToolbarCmdSetGroup" />
       <IDSymbol value="267" name="XpandTopLevelMenu" />
       <IDSymbol value="266" name="SolutionExplorerCmdSetGroup" />

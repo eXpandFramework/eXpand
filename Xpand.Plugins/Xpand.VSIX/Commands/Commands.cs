@@ -16,6 +16,7 @@ using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Options;
+using Process = System.Diagnostics.Process;
 using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands {
@@ -42,29 +43,10 @@ namespace Xpand.VSIX.Commands {
 
             var commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
             if (commandService != null) {
-                var easyTestToolBar = ((CommandBars) DteExtensions.DTE.CommandBars).Cast<CommandBar>().FirstOrDefault(bar => bar.Name=="EasyTest");
-                var commandBarControl = easyTestToolBar?.Controls.Cast<CommandBarControl>().FirstOrDefault(control => control.Caption== "Debug EasyTest");
-                if (commandBarControl != null){
-                    commandBarControl.TooltipText = commandBarControl.Caption;
-                    commandBarControl.Caption = "D";
-                }
-                commandBarControl = easyTestToolBar?.Controls.Cast<CommandBarControl>().FirstOrDefault(control => control.Caption== "Run EasyTest");
-                if (commandBarControl != null){
-                    commandBarControl.TooltipText = commandBarControl.Caption;
-                    commandBarControl.Caption = "R";
-                }
-                var menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDebugEasyTest);
-                var menuItem = new OleMenuCommand((sender, args) => new EasyTest().RunTest(true), menuCommandID);
-                menuItem.EnableForDXSolution().EnableForActiveFile(".ets", ".inc");
-                commandService.AddCommand(menuItem);
+                InitEasyTest(commandService);
 
-                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidRunEasyTest);
-                menuItem = new OleMenuCommand((sender, args) => new EasyTest().RunTest(false), menuCommandID);
-                menuItem.EnableForDXSolution().EnableForActiveFile(".ets", ".inc");
-                commandService.AddCommand(menuItem);
-
-                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDropDatabase);
-                menuItem = new OleMenuCommand((sender, args) => DropDataBase.Drop(), menuCommandID);
+                var menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDropDatabase);
+                var menuItem = new OleMenuCommand((sender, args) => DropDataBase.Drop(), menuCommandID);
                 menuItem.EnableForConfigFile();
                 commandService.AddCommand(menuItem);
 
@@ -82,52 +64,100 @@ namespace Xpand.VSIX.Commands {
                 menuItem.EnableForDXSolution();
                 commandService.AddCommand(menuItem);
 
-                DteExtensions.DTE.Events.SolutionEvents.Opened += () => {
-                    if (OptionClass.Instance.SpecificVersion) {
-                        IEnumerable<IFullReference> fullReferences = null;
-                        Task.Factory.StartNew(() => {
-                            fullReferences = DteExtensions.DTE.GetReferences();
-                        }).ContinueWith(task => {
-                            foreach (var fullReference in fullReferences) {
-                                fullReference.SpecificVersion = false;
-                            }
-                        });
-                    }
-                };
+                SetSpecificVersion();
 
                 menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidExploreXAFErrors);
                 menuItem = new OleMenuCommand((sender, args) => XAFErrorExplorer.Explore(), menuCommandID);
                 commandService.AddCommand(menuItem);
 
-                if (!OptionClass.Instance.DisableExceptions) {
-                    var exceptionsBreaks = OptionClass.Instance.Exceptions;
-                    var debugger = (Debugger3)DteExtensions.DTE.Debugger;
-                    DteExtensions.DTE.Events.DebuggerEvents.OnEnterBreakMode +=
-                        (dbgEventReason reason, ref dbgExecutionAction action) => {
-                            foreach (var exceptionsBreak in exceptionsBreaks) {
-                                var exceptionSettings = debugger.ExceptionGroups.Item("Common Language Runtime Exceptions");
-                                ExceptionSetting exceptionSetting = null;
-                                try {
-                                    exceptionSetting = exceptionSettings.Item(exceptionsBreak.Exception);
-                                }
-                                catch (COMException e) {
-                                    if (e.ErrorCode == -2147352565) {
-                                        exceptionSetting = exceptionSettings.NewException(exceptionsBreak.Exception, 0);
-                                    }
-                                }
-                                exceptionSettings.SetBreakWhenThrown(exceptionsBreak.Break, exceptionSetting);
-                            }
-
-                        };
-                }
+                DisableExceptions();
 
                 menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidShowMEToolbox);
                 menuItem = new OleMenuCommand((sender, args) => _package.ShowToolWindow<ModelToolWindow>(), menuCommandID);
                 commandService.AddCommand(menuItem);
+
+                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidKillIISExpress);
+                menuItem = new OleMenuCommand((sender, args) =>{
+                    var processes = Process.GetProcessesByName("IISExpress");
+                    if (!processes.Any())
+                        DteExtensions.DTE.WriteToOutput("IISEXpress is not running");
+                    else{
+                        foreach (var process in processes) {
+                            var processId = process.Id;
+                            DteExtensions.DTE.WriteToOutput($"Killing IISExpress({processId})");
+                            process.Kill();
+                            DteExtensions.DTE.WriteToOutput($"IISExpress({processId}) stopped");
+                        }
+                    }
+                }, menuCommandID);
+                commandService.AddCommand(menuItem);
             }
         }
 
+        private static void DisableExceptions(){
+            if (!OptionClass.Instance.DisableExceptions){
+                var exceptionsBreaks = OptionClass.Instance.Exceptions;
+                var debugger = (Debugger3) DteExtensions.DTE.Debugger;
+                DteExtensions.DTE.Events.DebuggerEvents.OnEnterBreakMode +=
+                    (dbgEventReason reason, ref dbgExecutionAction action) =>{
+                        foreach (var exceptionsBreak in exceptionsBreaks){
+                            var exceptionSettings = debugger.ExceptionGroups.Item("Common Language Runtime Exceptions");
+                            ExceptionSetting exceptionSetting = null;
+                            try{
+                                exceptionSetting = exceptionSettings.Item(exceptionsBreak.Exception);
+                            }
+                            catch (COMException e){
+                                if (e.ErrorCode == -2147352565){
+                                    exceptionSetting = exceptionSettings.NewException(exceptionsBreak.Exception, 0);
+                                }
+                            }
+                            exceptionSettings.SetBreakWhenThrown(exceptionsBreak.Break, exceptionSetting);
+                        }
+                    };
+            }
+        }
 
+        private void SetSpecificVersion(){
+            if (OptionClass.Instance.SpecificVersion){
+                DteExtensions.DTE.Events.SolutionEvents.Opened += () =>{
+                    IEnumerable<IFullReference> fullReferences = null;
+                    Task.Factory.StartNew(() => {
+                        fullReferences = DteExtensions.DTE.GetReferences();
+                    }).ContinueWith(task =>{
+                        foreach (var fullReference in fullReferences){
+                            fullReference.SpecificVersion = false;
+                        }
+                    });
+                };
+            }
+        }
+
+        private static void InitEasyTest(OleMenuCommandService commandService){
+            var easyTestToolBar =
+                ((CommandBars) DteExtensions.DTE.CommandBars).Cast<CommandBar>().FirstOrDefault(bar => bar.Name == "EasyTest");
+            var commandBarControl =
+                easyTestToolBar?.Controls.Cast<CommandBarControl>()
+                    .FirstOrDefault(control => control.Caption == "Debug EasyTest");
+            if (commandBarControl != null){
+                commandBarControl.TooltipText = commandBarControl.Caption;
+                commandBarControl.Caption = "D";
+            }
+            commandBarControl =
+                easyTestToolBar?.Controls.Cast<CommandBarControl>().FirstOrDefault(control => control.Caption == "Run EasyTest");
+            if (commandBarControl != null){
+                commandBarControl.TooltipText = commandBarControl.Caption;
+                commandBarControl.Caption = "R";
+            }
+            var menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDebugEasyTest);
+            var menuItem = new OleMenuCommand((sender, args) => new EasyTest().RunTest(true), menuCommandID);
+            menuItem.EnableForDXSolution().EnableForActiveFile(".ets", ".inc");
+            commandService.AddCommand(menuItem);
+
+            menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidRunEasyTest);
+            menuItem = new OleMenuCommand((sender, args) => new EasyTest().RunTest(false), menuCommandID);
+            menuItem.EnableForDXSolution().EnableForActiveFile(".ets", ".inc");
+            commandService.AddCommand(menuItem);
+        }
 
 
         /// <summary>

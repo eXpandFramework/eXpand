@@ -26,6 +26,7 @@ namespace Xpand.VSIX
     /// </summary>
     internal sealed partial class PackageIds
     {
+        public const int cmdidKillIISExpress = 0x010E;
         public const int EasyTestToolbarCmdSetGroup = 0x010D;
         public const int XpandTopLevelMenu = 0x010B;
         public const int SolutionExplorerCmdSetGroup = 0x010A;
