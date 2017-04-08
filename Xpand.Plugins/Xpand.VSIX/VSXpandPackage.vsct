@@ -14,7 +14,7 @@
       <Group guid="guidVSXpandPackageCmdSet" id="EasyTestContextMenuCmdSetGroup" priority="100">
         <Parent guid="easyTestContextCommandSet" id="ContextMenu"/>
       </Group>
-      <Group guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup" priority="100">
+      <Group guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup" priority="105">
         <Parent guid="easyTestToolbarCommandSet" id="Toolbar"/>
       </Group>
       <Group guid="guidVSXpandPackageCmdSet" id="SolutionExplorerCmdSetGroup" priority="100">
@@ -30,60 +30,79 @@
         </Strings>
       </Menu>
     </Menus>
+    
     <Buttons>
-      <Button guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreferenceTool" priority="0x0100" type="Button">
-        <Parent guid="guidVSXpandPackageCmdSet" id="SolutionExplorerCmdSetGroup" />
-        <Strings>
-          <ButtonText>P</ButtonText>
-          <ToolTipText>Load project from selected assembly references</ToolTipText>
-        </Strings>
-      </Button>
-      <Button guid="guidVSXpandPackageCmdSet" id="cmdidShowMEToolbox" priority="0x0102" type="Button">
-        <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
-        <Strings>
-          <ButtonText>XAF Models List</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidVSXpandPackageCmdSet" id="cmdidDropDatabase" priority="0x0103" type="Button">
-        <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
-        <Strings>
-          <ButtonText>Drop Databases</ButtonText>
-        </Strings>
-      </Button>
-      
-      <Button guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreference" priority="0x0103" type="Button">
-        <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
-        <Strings>
-          <ButtonText>Load Project from reference</ButtonText>
-          <ToolTipText>Load project from selected assembly references</ToolTipText>
-        </Strings>
-      </Button>
-      
-      <Button guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" priority="0x0100" type="Button">
-        <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
-        <Strings>
-          <ButtonText>Run EasyTest</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidVSXpandPackageCmdSet" id="cmdidDebugEasyTest" priority="0x0101" type="Button">
-        <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
-        <Strings>
-          <ButtonText>Debug EasyTest</ButtonText>
-        </Strings>
-      </Button>
-      
-      <Button guid="guidVSXpandPackageCmdSet" id="cmdidExploreXAFErrors" priority="0x0104" type="Button">
-        <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
-        <Strings>
-          <ButtonText>Explore XAF Errors</ButtonText>
-        </Strings>
-      </Button>
-      <Button guid="guidVSXpandPackageCmdSet" id="cmdidProjectConverter" priority="0x0105" type="Button">
-        <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
-        <Strings>
-          <ButtonText>Project Converter</ButtonText>
-        </Strings>
-      </Button>
+      <!--Solution explorer-->
+      <Buttons>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreferenceTool" priority="0x0100" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="SolutionExplorerCmdSetGroup" />
+          <Strings>
+            <ButtonText>P</ButtonText>
+            <ToolTipText>Load project from selected assembly references</ToolTipText>
+          </Strings>
+        </Button>
+      </Buttons>
+     <!--Main Menu-->
+      <Buttons>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidShowMEToolbox" priority="0x0102" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>XAF Models List</ButtonText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidDropDatabase" priority="0x0103" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Drop Databases</ButtonText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreference" priority="0x0103" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Load Project from reference</ButtonText>
+            <ToolTipText>Load project from selected assembly references</ToolTipText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" priority="0x0100" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Run EasyTest</ButtonText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidDebugEasyTest" priority="0x0101" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Debug EasyTest</ButtonText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidExploreXAFErrors" priority="0x0104" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Explore XAF Errors</ButtonText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidProjectConverter" priority="0x0105" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Project Converter</ButtonText>
+          </Strings>
+        </Button>
+        <!--XAF EasyTest toolbar-->
+        <Buttons>
+          <Button guid="guidVSXpandPackageCmdSet" id="cmdidDebugEasyTest" priority="0x0102" type="Button">
+            <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup" />
+            <Strings>
+              <ButtonText>I USED CODE</ButtonText>
+            </Strings>
+          </Button>
+          <Button guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" priority="0x0101" type="Button">
+            <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup" />
+            <Strings>
+              <ButtonText>I USED CODE</ButtonText>
+            </Strings>
+          </Button>
+        </Buttons>
+      </Buttons>
     </Buttons>
   </Commands>
   <CommandPlacements>
@@ -91,14 +110,8 @@
       <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestContextMenuCmdSetGroup"/>
     </CommandPlacement>
     <CommandPlacement guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" priority="0x100">
-      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestContextMenuCmdSetGroup"/>
-    </CommandPlacement>
-    <CommandPlacement guid="guidVSXpandPackageCmdSet" id="cmdidDebugEasyTest" priority="0x100">
-      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup"/>
-    </CommandPlacement>
-    <CommandPlacement guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" priority="0x100">
-      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup"/>
-    </CommandPlacement>
+      <Parent guid="guidVSXpandPackageCmdSet" id="EasyTestContextMenuCmdSetGroup"/>  
+    </CommandPlacement>    
   </CommandPlacements>
   <KeyBindings>
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" editor="guidVSStd97" key1="r" mod1="Alt" />
@@ -129,10 +142,8 @@
     <GuidSymbol name="easyTestContextCommandSet" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
       <IDSymbol name="ContextMenu" value="0x040D" />
     </GuidSymbol>
-    <GuidSymbol name="easyTestToolbarCommandSet" value="{19492BCB-32B3-4EC3-8826-D67CD5526653}">
-<!--    <GuidSymbol name="easyTestToolbarCommandSet" value="{d309f791-903f-11d0-9efc-00a0c911004f}">-->
-<!--    <GuidSymbol name="easyTestToolbarCommandSet" value="{5DD0BB59-7076-4C59-88D3-DE36931F63F0}">-->
-      <IDSymbol name="Toolbar" value="0x101" />
+    <GuidSymbol name="easyTestToolbarCommandSet" value="{7B1B96BE-B83B-4ED4-AEA2-9EC8BBF7506A}">
+      <IDSymbol name="Toolbar" value="0x1012" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
