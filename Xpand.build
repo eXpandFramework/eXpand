@@ -103,22 +103,17 @@
   </UsingTask> 
   <Target Name="BuildHelperB4Build" Condition="$(SkipBuildHelper)!=true">
     <MSBuild Projects=".\Support\BuildHelper\BuildHelper.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=&quot;$(XpandDLLPath)\BuildHelper.exe&quot;" />
+    <Exec Command="$(XpandDLLPath)\BuildHelper.exe"/>
   </Target>
   <Target Name="BuildHelperAfterBuild" Condition="$(SkipBuildHelper)!=true">
     <MSBuild Projects=".\Support\BuildHelper\BuildHelper.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
-	<MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=&quot;$(XpandDLLPath)\BuildHelper.exe&quot; --afterbuild" />
+    <Exec Command="$(XpandDLLPath)\BuildHelper.exe --afterbuild"/>
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
 	-->
 	<PropertyGroup>
-	
 	</PropertyGroup>
-	
-
-	
-  
   <Target Name="Copy3rdPartyAssemblies">
     <CreateItem Include="$(_third_party_assemblies)\**\*.*">
       <Output TaskParameter="Include" ItemName="FilesToCopy"/>
@@ -129,17 +124,18 @@
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" />
-    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="DeployExtension=$(DeployExtension);Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" ContinueOnError="$(BatchCall)" />
+    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="DeployExtension=$(DeployExtension);Configuration=$(Configuration);OutputPath=$(XpandDLLPath)\Plugins;DefineConstants=$(DefineConstants);RestorePackages=false" ContinueOnError="$(BatchCall)" />
+    <CallTarget Targets="BuildVSIX"/>
     <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <CallTarget Targets="BuildNH"/>
-     <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" />
+    <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" />
     
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false" />
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <ItemGroup>
-      <DxAssemblies Include="$(XpandDLLPath)\DevExpress*.*" ></DxAssemblies>
+      <DxAssemblies Include="$(XpandDLLPath)\**\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
     <Delete Files="@(DxAssemblies)" Condition="$(LeaveDXAssemblies)!=true"></Delete>
 	<CallTarget Targets="BuildHelperAfterBuild"/>
@@ -332,13 +328,7 @@
   </Target>
   
   <Target Name="Restore-Nuget">
-   <PropertyGroup>
-    <ScriptLocation Condition=" '$(ScriptLocation)'=='' ">.\Support\Build\Restore-Nuget.ps1</ScriptLocation>
-    <Com>$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;$(ScriptLocation)&apos; } &quot;
-    </Com>
-    </PropertyGroup>
-    <Message Text="$(com)"/>
-    <Exec Command="$(Com)" ConsoleToMSBuild="true" />
+    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\Restore-Nuget.ps1&apos; } &quot;" ConsoleToMSBuild="true" />
   </Target>
   <Target Name="Build-Demos">
    <PropertyGroup>
@@ -356,26 +346,11 @@
 	<IndexSources/>
   </Target>
   <Target Name="Installer">
-    <MakeDir Directories="$(InstallerFolder);" />
-    <ItemGroup>
-      <files Include="$(XpandDLLPath)\**\*.dll;$(XpandDLLPath)\*.exe;$(XpandDLLPath)\*.config" Exclude="$(XpandDLLPath)\DatabaseUpdate\**\*.*;$(XpandDLLPath)\FFMPEG\**\*.*;$(XpandDLLPath)\ImportExport\**\*.*;$(XpandDLLPath)\Packages\**\*.*;$(XpandDLLPath)\XAFImageFormatter\**\*.*;$(XpandDLLPath)\**\DevExpress.*;$(XpandDLLPath)\**\System.*"/>
-    </ItemGroup>
-    <Copy SourceFiles="@(files)" DestinationFiles="@(files->'$(InstallerFolder)\Xpand.DLL\%(RecursiveDir)%(Filename)%(Extension)')" />
-    
-    <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFiles="$(InstallerFolder)\Xpand.VSIX-$(Version).vsix" />
-    <!-- Source.zip -->
-    <CreateItem Include="**\*.*" Exclude="**\$RECYCLE.BIN\**\*.*;**\System Volume Information\**\*.*;**\_third_party_assemblies\packages\**\*.*;**\dxbuildgenerator\packages\**\*.*;**\_Resharper*\**\*.*;**\FunctionalTests\**\ScreenCapture\**\*.*;**\*.log;**\*web_view.html;**\*win_view.html;**\*web_view.jpeg;**\*win_view.jpeg;Build\**\*.*;Support\Build\Profile.Local\*.*;$(SourceExclusions);**\**\DevExpress*.dll;Xpand.DLL\**\*.*;**\*.docstates;**\*teamcity*;">
-      <Output ItemName="_SourceFiles" TaskParameter="Include" />
-    </CreateItem>
-    <Zip Files="@(_SourceFiles)" ZipFileName="$(InstallerFolder)\Source.zip" Flatten="false" />
-	  <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=Support\Tool\NSIS\makensis.exe /DVERSION=$(Version) Support\Build\Xpand.nsi" />
-    <CreateItem Include="Support\Build\setup.exe">
-      <Output ItemName="setupFiles" TaskParameter="Include" />
-    </CreateItem>
-    <Copy SourceFiles="@(setupFiles)" DestinationFiles="$(PackageDirectory)\eXpandFramework-$(Version).exe" />
-    <Delete Files="@(setupFiles)" />
-    <CallTarget Targets="Distrib"></CallTarget>
-	<Exec Command="$(XpandDLLPath)\DistribNugetAssemblies.exe" WorkingDirectory="$(XpandDLLPath)"></Exec>
+    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\Installer.ps1&apos; &apos;$(MSBuildProjectDirectory)&apos; &apos;$(Version)&apos; } &quot;" ConsoleToMSBuild="true" />
+	  <!--<Exec Command="$(XpandDLLPath)\DistribNugetAssemblies.exe" WorkingDirectory="$(XpandDLLPath)"></Exec>-->
+  </Target>
+  <Target Name="BuildVSIX">
+    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\BuildVSIX.ps1&apos; &apos;$(MSBuildProjectDirectory)&apos; &apos;$(MSBuildBinPath)\msbuild.exe&apos; &apos;$(Version)&apos; } &quot;" ConsoleToMSBuild="true"  />
   </Target>
   <Target Name="DeployUpdate">
     <MakeDir Directories="$(DeploymentFolder);" />
@@ -402,20 +377,6 @@
     <Copy SourceFiles="Support\Template\index.template" DestinationFolder="$(TempPath)" />
     <TemplateFile Template="$(TempPath)\index.template" OutputFile="index.out" Tokens="@(AllTokens)" />
     <Copy SourceFiles="$(TempPath)\index.out" DestinationFiles="$(DeploymentFolder)\index.htm" />
-  </Target>
-  <Target Name="Distrib">
-    <MakeDir Directories="$(PackageDirectory);" />
-    <!-- Source.zip -->
-	  <Copy SourceFiles="$(InstallerFolder)\Source.zip" DestinationFiles="$(PackageDirectory)\$(ProjectName)-Source-$(Version).zip"/>
-    <!-- Lib.zip -->
-    <CreateItem Include="$(TempPath)\*.*;" Exclude="$(TempPath)\DevExpress*;">
-      <Output ItemName="_libFiles" TaskParameter="Include" />
-    </CreateItem>
-    <Zip Files="@(_libFiles)" ZipFileName="$(PackageDirectory)\$(ProjectName)-Lib-$(Version).zip" Flatten="true" />
-    <Copy SourceFiles="$(XpandDLLPath)\Xpand.VSIX.Vsix" DestinationFiles="$(PackageDirectory)\Xpand.VSIX-$(Version).vsix" />
-    <!--
-		Condition="$(DeployUpdate)=='true'" 
-		-->
   </Target>
   <Target Name="Twitter">
     <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;" />

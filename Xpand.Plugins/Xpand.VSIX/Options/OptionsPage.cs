@@ -1,13 +1,4 @@
-/***************************************************************************
- 
-Copyright (c) Microsoft Corporation. All rights reserved.
-THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
-ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
-IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
-PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
-
-***************************************************************************/
-
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
@@ -58,5 +49,9 @@ namespace Xpand.VSIX.Options{
 
 
         #endregion Properties
+
+        public static void Show(object sender, EventArgs e){
+            VSPackage.VSPackage.Instance.ShowOptionPage(typeof(OptionsPage));
+        }
     }
 }

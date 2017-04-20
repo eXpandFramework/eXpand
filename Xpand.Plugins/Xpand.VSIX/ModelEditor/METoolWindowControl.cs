@@ -36,6 +36,13 @@ namespace Xpand.VSIX.ModelEditor {
         public METoolWindowControl(){
             InitializeComponent();
             GridHelper.Init(gridControl1);
+            gridView1.KeyDown+=GridView1OnKeyDown;
+        }
+
+        private void GridView1OnKeyDown(object sender, KeyEventArgs e){
+            var gridView = ((GridView)gridControl1.MainView);
+            if (gridView.FocusedRowHandle == 0 && e.KeyCode == Keys.Up)
+                gridView.FocusedRowHandle = GridControl.AutoFilterRowHandle;
         }
 
         private void OpenModelEditor(ProjectItemWrapper projectItemWrapper) {
@@ -50,8 +57,6 @@ namespace Xpand.VSIX.ModelEditor {
 
         private void gridView1_KeyUp(object sender, KeyEventArgs e) {
             var gridView = ((GridView)gridControl1.MainView);
-            if (gridView.FocusedRowHandle == 0 && e.KeyCode == Keys.Up)
-                gridView.FocusedRowHandle = GridControl.AutoFilterRowHandle;
             if (e.KeyCode == Keys.Return) {
                 if (GridControl.AutoFilterRowHandle != gridView.FocusedRowHandle&& GridControl.InvalidRowHandle != gridView.FocusedRowHandle) {
                     var projectWrapper = (ProjectItemWrapper)gridView.GetRow(gridView.FocusedRowHandle);

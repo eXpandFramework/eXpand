@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Linq;
@@ -7,14 +8,21 @@ using System.Threading.Tasks;
 using DevExpress.DXCore.Controls.Xpo.DB.Helpers;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
+using Xpand.VSIX.VSPackage;
+using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands {
-    public class DropDataBase {
+    public class DropDataBaseCommand:OleMenuCommand {
         private static readonly DTE2 _dte=DteExtensions.DTE;
 
-        public static void Drop() {
+        public DropDataBaseCommand():base((sender, args) => Drop(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDropDatabase)){
+            this.EnableForConfigFile();
+        }
+
+        static void Drop() {
             _dte.InitOutputCalls("Dropdatabase");
             Task.Factory.StartNew(() => {
 

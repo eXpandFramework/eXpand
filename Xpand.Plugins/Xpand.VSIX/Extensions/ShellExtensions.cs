@@ -41,6 +41,11 @@ namespace Xpand.VSIX.Extensions {
             return oleMenuCommand;
         }
 
+        public static OleMenuCommand ActiveForDXSolution(this OleMenuCommand oleMenuCommand){
+            oleMenuCommand.BeforeQueryStatus+=(sender, args) => oleMenuCommand.Visible = DteExtensions.DTE.Solution.GetDXVersion() != null;
+            return oleMenuCommand;
+        }
+
         public static OleMenuCommand EnableForConfigFile(this OleMenuCommand oleMenuCommand){
             oleMenuCommand.EnableForProjectFile("app.config|web.config");
             return oleMenuCommand;

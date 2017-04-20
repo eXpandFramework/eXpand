@@ -4,16 +4,17 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
+    <SignAssembly>true</SignAssembly>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -40,7 +41,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Xpand.DLL\</OutputPath>
+    <OutputPath>..\..\Xpand.DLL\Plugins\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -49,7 +50,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Xpand.DLL\</OutputPath>
+    <OutputPath>..\..\Xpand.DLL\Plugins\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -59,10 +60,11 @@
     <Compile Include="..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs">
       <Link>Properties\XpandAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Commands\DropDataBase.cs" />
+    <Compile Include="Commands\DropDataBaseCommand.cs" />
+    <Compile Include="Commands\IISExpress.cs" />
     <Compile Include="Extensions\ConfigurationExtensions.cs" />
     <Compile Include="Extensions\IFullReference.cs" />
-    <Compile Include="Extensions\LoadProjectFromReference.cs" />
+    <Compile Include="Commands\LoadProjectFromReferenceCommand.cs" />
     <Compile Include="Extensions\ProjectExtensions.cs" />
     <Compile Include="Extensions\ProjectItemExtensions.cs" />
     <Compile Include="Extensions\ReverseLineReader.cs" />
@@ -92,22 +94,45 @@
     <Compile Include="Options\OptionsPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Commands\ProjectConverter.cs" />
+    <Compile Include="Commands\ProjectConverterCommand.cs" />
+    <Compile Include="VSPackage\VSPackage1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VSPackage.vsct</DependentUpon>
+    </Compile>
+    <Compile Include="Wizard\ModulesInstaller.cs" />
+    <Compile Include="Wizard\ModuleManager.cs" />
+    <EmbeddedResource Include="Wizard\Resources\Updater.cs" />
+    <EmbeddedResource Include="Wizard\Resources\Updater.vb" />
+    <Compile Include="Wizard\SecurityInstaller.cs" />
+    <Compile Include="Wizard\WizardForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wizard\WizardForm.Designer.cs">
+      <DependentUpon>WizardForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizard\XpandModule.cs" />
+    <Compile Include="Wizard\SolutionWizard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="VSXpandPackage.cs" />
-    <Compile Include="Commands\XAFErrorExplorer.cs" />
-    <Compile Include="VSXpandPackage1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VSXpandPackage.vsct</DependentUpon>
-    </Compile>
+    <Compile Include="VSPackage\VSPackage.cs" />
+    <Compile Include="Commands\XAFErrorExplorerCommand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+    <Content Include="ProjectTemplates\DevExpress XAF\SolutionCS.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\DevExpress XAF\SolutionVB.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="ProjectTemplates\favicon.ico">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -118,21 +143,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Command1.png" />
-    <Content Include="Resources\DebugEasyTest.png" />
-    <Content Include="Resources\LoadProjectFromReference.png" />
-    <Content Include="Resources\LoadProjectFromReferenceItem.png" />
-    <Content Include="Resources\ModelToolWindowCommand.png" />
-    <Content Include="Resources\RunEasyTestCommand.png" />
-    <Content Include="Resources\ToolWindow1Command.png" />
-    <Content Include="Resources\ToolWindow2Command.png" />
-    <Content Include="Resources\VSXpandPackage.ico" />
-    <Content Include="stylesheet.css" />
-    <VSCTCompile Include="VSXpandPackage.vsct">
+    <VSCTCompile Include="VSPackage\VSPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
       <Generator>VsctGenerator</Generator>
-      <LastGenOutput>VSXpandPackage1.cs</LastGenOutput>
+      <LastGenOutput>VSPackage1.cs</LastGenOutput>
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +244,7 @@
       <HintPath>..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Shell.Interop.9.0.9.0.30729\lib\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.TextManager.Interop.7.10.6070\lib\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
       <Private>True</Private>
@@ -267,6 +283,11 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="PropertyChanged">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.1.52.1\lib\netstandard10\PropertyChanged.dll</HintPath>
+      <Private>True</Private>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
@@ -275,7 +296,29 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Core.3.1.1\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Linq.3.1.1\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.PlatformServices.3.1.1\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
@@ -292,11 +335,16 @@
     <EmbeddedResource Include="Options\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="VSPackage.resx">
+    <EmbeddedResource Include="VSPackage\VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wizard\WizardForm.resx">
+      <DependentUpon>WizardForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -306,14 +354,17 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.props'))" />
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets'))" />
+    <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets'))" />
   </Target>
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  <Target Name="AfterBuild">
-  </Target>
+
   -->
+  <Target Name="BeforeBuild">
+  </Target>
   <Import Project="..\..\Support\Build\Nuget.Targets" />
+  <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets')" />
 </Project>

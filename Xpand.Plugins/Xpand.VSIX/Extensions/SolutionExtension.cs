@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
@@ -10,6 +11,18 @@ using Project = EnvDTE.Project;
 namespace Xpand.VSIX.Extensions {
 
     public static class SolutionExtension {
+        public static Reference[] GetReferences(this UIHierarchy uiHierarchy, Func<Reference, bool> isFiltered) {
+            DteExtensions.DTE.SuppressUI = true;
+            var references = ((UIHierarchyItem[]) uiHierarchy.SelectedItems).GetItems<UIHierarchyItem>(item => {
+                if (!(item.Object is Reference)) {
+                    item.UIHierarchyItems.Expanded = true;
+                }
+                return item.UIHierarchyItems.Cast<UIHierarchyItem>();
+            }).Select(item => item.Object).OfType<Reference>().Where(isFiltered).ToArray();
+            DteExtensions.DTE.SuppressUI = false;
+            return references;
+        }
+
         public static bool VersionMatch(this AssemblyDefinition assemblyDefinition) {
             var dxVersion = DteExtensions.DTE.Solution.GetDXVersion();
             var dxAssemblies = assemblyDefinition.MainModule.AssemblyReferences.Where(name => name.Name.StartsWith("DevExpress")).ToArray();
@@ -21,8 +34,16 @@ namespace Xpand.VSIX.Extensions {
             return (string)registryKey?.GetValue("RootDirectory");
         }
 
+        public static Project[] Projects(this Solution solution){
+            return solution.Projects.Cast<Project>().Where(project => project.Kind!= Constants.vsProjectKindUnmodeled&&project.Language()!=Language.Unknown).ToArray();
+        }
+
+        public static bool HasAuthentication(this Solution solution){
+            return solution.Projects().Any(project => project.IsApplicationProject() && project.HasAuthentication());
+        }
+
         public static string GetDXVersion(this Solution solution) {
-            return solution.DTE.Solution.Projects.Cast<Project>()
+            return solution.DTE.Solution.Projects()
                 .Select(project => project.Object)
                 .OfType<VSProject>()
                 .SelectMany(project => project.References.Cast<Reference>()).Select(reference => {
@@ -32,11 +53,11 @@ namespace Xpand.VSIX.Extensions {
         }
 
         public static Project FindProjectFromUniqueName(this Solution solution, string projectName) {
-            return DteExtensions.DTE.Solution.Projects.Cast<Project>().First(project1 => project1.UniqueName == projectName);
+            return DteExtensions.DTE.Solution.Projects().First(project1 => project1.UniqueName == projectName);
         }
 
         public static Project FindProject(this Solution solution, string projectName){
-            return solution.Projects.Cast<Project>().FirstOrDefault(project => project.Name == projectName);
+            return solution.Projects().FirstOrDefault(project => project.Name == projectName);
         }
         public static void CollapseAllFolders(this Solution solution) {
             var dte = DteExtensions.DTE;
@@ -51,7 +72,7 @@ namespace Xpand.VSIX.Extensions {
         }
         public static Project FindStartUpProject(this Solution solution){
             return ((IEnumerable) solution.SolutionBuild.StartupProjects)?.Cast<string>()
-                .Select(s => DteExtensions.DTE.Solution.Projects.Cast<Project>().First(project => project.UniqueName == s))
+                .Select(s => DteExtensions.DTE.Solution.Projects().First(project => project.UniqueName == s))
                 .FirstOrDefault();
         }
 

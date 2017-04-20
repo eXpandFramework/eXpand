@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-
-
   <Extern href="stdidcmd.h" />
   <Extern href="vsshlids.h" />
   
@@ -11,11 +8,20 @@
       <Group guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" priority="100">
         <Parent guid="guidVSXpandPackageCmdSet" id="XpandTopLevelMenu" />
       </Group>
+      <Group guid="guidVSXpandPackageCmdSet" id="ReferenceContextMenuGroup" priority="100">
+        <Parent guid="vsContextMenuCommandSet" id="ReferenceContextMenu" />
+      </Group>
+      <Group guid="guidVSXpandPackageCmdSet" id="ReferencesContextMenuGroup" priority="100">
+        <Parent guid="vsContextMenuCommandSet" id="ReferencesContextMenu" />
+      </Group>
+      <Group guid="guidVSXpandPackageCmdSet" id="XpandMenuBottomGroup" priority="100">
+        <Parent guid="guidVSXpandPackageCmdSet" id="XpandTopLevelMenu" />
+      </Group>
       <Group guid="guidVSXpandPackageCmdSet" id="EasyTestContextMenuCmdSetGroup" priority="100">
-        <Parent guid="easyTestContextCommandSet" id="ContextMenu"/>
+        <Parent guid="vsContextMenuCommandSet" id="EasyTestContextMenu"/>
       </Group>
       <Group guid="guidVSXpandPackageCmdSet" id="EasyTestToolbarCmdSetGroup" priority="105">
-        <Parent guid="easyTestToolbarCommandSet" id="Toolbar"/>
+        <Parent guid="easyTestToolbarCommandSet" id="EasyTestToolbar"/>
       </Group>
       <Group guid="guidVSXpandPackageCmdSet" id="SolutionExplorerCmdSetGroup" priority="100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_PROJWIN"/>
@@ -35,10 +41,16 @@
       <!--Solution explorer-->
       <Buttons>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreferenceTool" priority="0x0100" type="Button">
-          <Parent guid="guidVSXpandPackageCmdSet" id="SolutionExplorerCmdSetGroup" />
+          <Parent guid="guidVSXpandPackageCmdSet" id="ReferenceContextMenuGroup" />
           <Strings>
-            <ButtonText>P</ButtonText>
-            <ToolTipText>Load project from selected assembly references</ToolTipText>
+            <ButtonText>Load Projects...</ButtonText>
+            <ToolTipText>Load project from selected assembly references (configure from options)</ToolTipText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidAddXpandReference" priority="0x0100" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="ReferencesContextMenuGroup" />
+          <Strings>
+            <ButtonText>Add Xpand...</ButtonText>
           </Strings>
         </Button>
       </Buttons>
@@ -54,6 +66,12 @@
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
             <ButtonText>Drop Databases</ButtonText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidOptions" priority="0x0103" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuBottomGroup" />
+          <Strings>
+            <ButtonText>Options</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidKillIISExpress" priority="0x0103" type="Button">
@@ -85,6 +103,12 @@
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
             <ButtonText>Explore XAF Errors</ButtonText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidProjectConverter" priority="0x0105" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Project Converter</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidProjectConverter" priority="0x0105" type="Button">
@@ -130,8 +154,12 @@
   </KeyBindings>
   <Symbols>
     <GuidSymbol value="{fa1289e0-6376-4d19-98c5-9d0c90dd3283}" name="guidVSXpandPackage" />
-    
     <GuidSymbol value="{6c0bd9dc-4a51-4a9d-8952-c5a69f472eab}" name="guidVSXpandPackageCmdSet">
+      <IDSymbol value="275" name="cmdidAddXpandReference" />
+      <IDSymbol value="274" name="ReferencesContextMenuGroup" />
+      <IDSymbol value="273" name="ReferenceContextMenuGroup" />
+      <IDSymbol value="272" name="cmdidOptions" />
+      <IDSymbol value="271" name="XpandMenuBottomGroup" />
       <IDSymbol value="270" name="cmdidKillIISExpress" />
       <IDSymbol value="269" name="EasyTestToolbarCmdSetGroup" />
       <IDSymbol value="267" name="XpandTopLevelMenu" />
@@ -147,11 +175,13 @@
       <IDSymbol value="261" name="cmdidExploreXAFErrors" />
       <IDSymbol value="262" name="cmdidShowMEToolbox" />
     </GuidSymbol>
-    <GuidSymbol name="easyTestContextCommandSet" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
-      <IDSymbol name="ContextMenu" value="0x040D" />
+    <GuidSymbol name="vsContextMenuCommandSet" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
+      <IDSymbol name="EasyTestContextMenu" value="0x040D" />
+      <IDSymbol name="ReferenceContextMenu" value="0x0451" />
+      <IDSymbol name="ReferencesContextMenu" value="0x0450" />
     </GuidSymbol>
     <GuidSymbol name="easyTestToolbarCommandSet" value="{7B1B96BE-B83B-4ED4-AEA2-9EC8BBF7506A}">
-      <IDSymbol name="Toolbar" value="0x1012" />
+      <IDSymbol name="EasyTestToolbar" value="0x1012" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>

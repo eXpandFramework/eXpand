@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using EnvDTE;
+using VSLangProj;
 
 namespace Xpand.VSIX.Extensions{
     public enum ProjectProperty {
@@ -10,8 +11,60 @@ namespace Xpand.VSIX.Extensions{
         ProjectType,
         OutputType
     }
+    public enum Platform {
+        Agnostic,
+        Win,
+        Web
+    }
+    public enum Language {
+        Unknown,
+        CSharp,
+        VisualBasic
+    }
 
     public static class ProjectExtensions {
+        public static string CommandSeperator(this Project project){
+            return project.Language() == Extensions.Language.CSharp ? ";" : "";
+        }
+
+        public static string Self(this Project project) {
+            return project.Language() == Extensions.Language.CSharp ? "this" : "Me";
+        }
+
+        public static string TypeofFunction(this Project project) {
+            return project.Language() == Extensions.Language.CSharp ? "typeof" : "GetType";
+        }
+
+        public static Language Language(this Project project){
+            var extension = Path.GetExtension(project.FileName)+"";
+            if (extension.EndsWith("csproj"))
+                return Extensions.Language.CSharp;
+            if (extension.EndsWith("vbproj"))
+                return Extensions.Language.VisualBasic;
+            return Extensions.Language.Unknown;
+        }
+
+        public static string FileExtension(this Project project){
+            return project.Language() == Extensions.Language.CSharp? "cs": "vb";
+        }
+
+        private static bool References(Project project, string assemblyName) {
+            return ((VSProject)project.Object).References.Cast<Reference>().Any(reference => reference.Name.Contains(assemblyName));
+        }
+
+        public static Platform GetPlatform(this Project project) {
+            return References(project, "DevExpress.ExpressApp.Win")? Platform.Win : (References(project, "DevExpress.ExpressApp.Web") ? Platform.Web : Platform.Agnostic);
+        }
+
+        public static bool HasAuthentication(this Project project){
+            string fileName = "WinApplication.Designer";
+            if (project.IsWeb()){
+                fileName = "WebApplication";
+            }
+            var path = Path.Combine(Path.GetDirectoryName(project.FullName) + "", $"{fileName}.{project.FileExtension()}");
+            return File.ReadAllLines(path).Any(s => s.Contains("Authentication"));
+        }
+
         public static bool IsApplicationProject(this Project project) {
             string outputFileName = (string)project.FindProperty(ProjectProperty.OutputFileName).Value;
             bool isWin = (Path.GetExtension(outputFileName) + "").EndsWith("exe");

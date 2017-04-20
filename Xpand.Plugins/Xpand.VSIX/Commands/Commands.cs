@@ -1,10 +1,4 @@
-﻿//------------------------------------------------------------------------------
-// <copyright file="RunEasyTest.cs" company="Company">
-//     Copyright (c) Company.  All rights reserved.
-// </copyright>
-//------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
@@ -16,80 +10,43 @@ using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Options;
-using Process = System.Diagnostics.Process;
+using Xpand.VSIX.VSPackage;
+using Xpand.VSIX.Wizard;
 using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands {
-    /// <summary>
-    ///     Command handler
-    /// </summary>
     internal sealed class Commands {
-
-
-        /// <summary>
-        ///     VS Package that provides this command, not null.
-        /// </summary>
         private readonly Package _package;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Commands" /> class.
-        ///     Adds our command handlers for menu (commands must exist in the command table file)
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
         private Commands(Package package) {
             if (package == null) throw new ArgumentNullException(nameof(package));
 
             _package = package;
 
             var commandService = ServiceProvider.GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-            if (commandService != null) {
+            if (commandService != null){
                 InitEasyTest(commandService);
+                commandService.AddCommand(new DropDataBaseCommand());
+                commandService.AddCommand(new LoadProjectFromReferenceCommand());
+                commandService.AddCommand(new LoadProjectFromReferenceCommand(PackageIds.cmdidLoadProjectFromreferenceTool));
+                commandService.AddCommand(new ProjectConverterCommand());
+                SetSpecificVersion();
+                commandService.AddCommand(new XAFErrorExplorerCommand());
+                DisableExceptions();
 
-                var menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDropDatabase);
-                var menuItem = new OleMenuCommand((sender, args) => DropDataBase.Drop(), menuCommandID);
-                menuItem.EnableForConfigFile();
-                commandService.AddCommand(menuItem);
 
-                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidLoadProjectFromreference);
-                menuItem = new OleMenuCommand((sender, args) => LoadProjectFromReference.LoadProjects(), menuCommandID);
-                menuItem.EnableForAssemblyReferenceSelection();
-                commandService.AddCommand(menuItem);
-                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidLoadProjectFromreferenceTool);
-                menuItem = new OleMenuCommand((sender, args) => LoadProjectFromReference.LoadProjects(), menuCommandID);
-                menuItem.EnableForAssemblyReferenceSelection();
-                commandService.AddCommand(menuItem);
-
-                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidProjectConverter);
-                menuItem = new OleMenuCommand((sender, args) => ProjectConverter.Convert(), menuCommandID);
+                var menuItem = new OleMenuCommand(ModelToolWindow.Show,new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidShowMEToolbox));
                 menuItem.EnableForDXSolution();
                 commandService.AddCommand(menuItem);
 
-                SetSpecificVersion();
-
-                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidExploreXAFErrors);
-                menuItem = new OleMenuCommand((sender, args) => XAFErrorExplorer.Explore(), menuCommandID);
+                menuItem = new OleMenuCommand(IISExpress.KillIISExpress, new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidKillIISExpress));
                 commandService.AddCommand(menuItem);
 
-                DisableExceptions();
-
-                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidShowMEToolbox);
-                menuItem = new OleMenuCommand((sender, args) => _package.ShowToolWindow<ModelToolWindow>(), menuCommandID);
+                menuItem = new OleMenuCommand(OptionsPage.Show, new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidOptions));
                 commandService.AddCommand(menuItem);
 
-                menuCommandID = new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidKillIISExpress);
-                menuItem = new OleMenuCommand((sender, args) =>{
-                    var processes = Process.GetProcessesByName("IISExpress");
-                    if (!processes.Any())
-                        DteExtensions.DTE.WriteToOutput("IISEXpress is not running");
-                    else{
-                        foreach (var process in processes) {
-                            var processId = process.Id;
-                            DteExtensions.DTE.WriteToOutput($"Killing IISExpress({processId})");
-                            process.Kill();
-                            DteExtensions.DTE.WriteToOutput($"IISExpress({processId}) stopped");
-                        }
-                    }
-                }, menuCommandID);
+                menuItem = new OleMenuCommand(SolutionWizard.Show, new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidAddXpandReference));
+                menuItem.ActiveForDXSolution();
                 commandService.AddCommand(menuItem);
             }
         }
@@ -122,7 +79,7 @@ namespace Xpand.VSIX.Commands {
                 DteExtensions.DTE.Events.SolutionEvents.Opened += () =>{
                     IEnumerable<IFullReference> fullReferences = null;
                     Task.Factory.StartNew(() => {
-                        fullReferences = DteExtensions.DTE.GetReferences();
+                        fullReferences = DteExtensions.DTE.GetSolutionAllReferences();
                     }).ContinueWith(task =>{
                         foreach (var fullReference in fullReferences){
                             fullReference.SpecificVersion = false;
@@ -177,6 +134,5 @@ namespace Xpand.VSIX.Commands {
         public static void Initialize(Package package) {
             Instance = new Commands(package);
         }
-
     }
 }

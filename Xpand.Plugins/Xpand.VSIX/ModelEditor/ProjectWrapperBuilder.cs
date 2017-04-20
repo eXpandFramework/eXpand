@@ -9,7 +9,7 @@ using ProjectItem = Microsoft.Build.Evaluation.ProjectItem;
 namespace Xpand.VSIX.ModelEditor {
     public class ProjectWrapperBuilder {
         static IEnumerable<Project> GetProjects() {
-            return DteExtensions.DTE.Solution.Projects.Cast<Project>().Where(project => project.ConfigurationManager != null && project.ProjectItems != null);
+            return DteExtensions.DTE.Solution.Projects().Where(project => project.ConfigurationManager != null && project.ProjectItems != null);
         }
 
         public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers() {

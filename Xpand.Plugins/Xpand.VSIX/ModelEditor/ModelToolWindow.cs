@@ -4,9 +4,12 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
+using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
+using Xpand.VSIX.Extensions;
+using Xpand.VSIX.VSPackage;
 
 namespace Xpand.VSIX.ModelEditor {
     /// <summary>
@@ -34,6 +37,10 @@ namespace Xpand.VSIX.ModelEditor {
             // we are not calling Dispose on this object. This is because ToolWindowPane calls Dispose on
             // the object returned by the Content property.
             _meToolWindowControl = new METoolWindowControl();
+        }
+
+        public static void Show(object sender, EventArgs eventArgs){
+            VSPackage.VSPackage.Instance.ShowToolWindow<ModelToolWindow>();
         }
 
         public override IWin32Window Window => _meToolWindowControl;
