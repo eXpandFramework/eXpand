@@ -50,34 +50,34 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v16.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.StateMachine.v16.2">
+    <Reference Include="DevExpress.ExpressApp.StateMachine.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v16.2">
+    <Reference Include="DevExpress.ExpressApp.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v16.2">
+    <Reference Include="DevExpress.Persistent.Base.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v16.2">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v16.2">
+    <Reference Include="DevExpress.Xpo.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">

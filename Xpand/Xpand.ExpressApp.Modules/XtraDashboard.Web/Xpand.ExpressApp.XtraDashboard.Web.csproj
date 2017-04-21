@@ -73,63 +73,63 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Validation.Web.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Web.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v16.2">
+    <Reference Include="DevExpress.Persistent.Base.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v16.2.Core">
+    <Reference Include="DevExpress.Sparkline.v17.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v16.2.UI">
+    <Reference Include="DevExpress.DataAccess.v17.1.UI">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v16.2.Core">
+    <Reference Include="DevExpress.Dashboard.v17.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Web.Resources.v16.2">
+    <Reference Include="DevExpress.Web.Resources.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v16.2.Web">
+    <Reference Include="DevExpress.Dashboard.v17.1.Web">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v16.2">
+    <Reference Include="DevExpress.DataAccess.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Office.v16.2.Core">
+    <Reference Include="DevExpress.Office.v17.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v16.2">
+    <Reference Include="DevExpress.Data.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v16.2">
+    <Reference Include="DevExpress.ExpressApp.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v16.2.Core">
+    <Reference Include="DevExpress.RichEdit.v17.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Web.v16.2">
+    <Reference Include="DevExpress.Web.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v16.2">
+    <Reference Include="DevExpress.Xpo.v17.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>

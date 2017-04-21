@@ -46,19 +46,19 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v16.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v16.2">
+    <Reference Include="DevExpress.ExpressApp.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Web.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Web.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v16.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">
