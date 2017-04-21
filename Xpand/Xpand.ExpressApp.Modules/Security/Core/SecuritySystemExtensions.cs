@@ -96,19 +96,19 @@ namespace Xpand.ExpressApp.Security.Core {
             return objectSpace.GetDefaultRole("Default");
         }
 
-        public static DelayedIPermissionDictionary WithSecurityOperationAttributePermissions(this IPermissionDictionary permissionDictionary){
+        public static PermissionDictionary WithSecurityOperationAttributePermissions(this IPermissionDictionary permissionDictionary){
             var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<IXpandRoleCustomPermissions>().SelectMany(role => role.SecurityOperationAttributePermissions());
-            return new DelayedIPermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
         }
 
-        public static DelayedIPermissionDictionary WithHiddenNavigationItemPermissions(this IPermissionDictionary permissionDictionary){
+        public static PermissionDictionary WithHiddenNavigationItemPermissions(this IPermissionDictionary permissionDictionary){
             var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<ISupportHiddenNavigationItems>().SelectMany(role => role.GetHiddenNavigationItemPermissions());
-            return new DelayedIPermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
         }
 
-        public static DelayedIPermissionDictionary WithCustomPermissions(this IPermissionDictionary permissionDictionary) {
+        public static PermissionDictionary WithCustomPermissions(this IPermissionDictionary permissionDictionary) {
             var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<IXpandRoleCustomPermissions>().SelectMany(role => role.GetCustomPermissions());
-            return new DelayedIPermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
         }
 
         public static ISecurityUserWithRoles GetAnonymousUser(this XpandRole systemRole) {

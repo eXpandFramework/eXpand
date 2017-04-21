@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
@@ -10,6 +11,7 @@ using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using DevExpress.EasyTest.Framework.Loggers;
 using DevExpress.Xpo.DB.Helpers;
+using Fasterflect;
 using Xpand.EasyTest.Commands;
 using Xpand.EasyTest.Commands.InputSimulator;
 using Xpand.EasyTest.Commands.Window;
@@ -142,7 +144,8 @@ namespace Xpand.EasyTest {
         public static Options LoadOptions(string scriptsPath) {
             var configPath = Path.Combine(scriptsPath, "config.xml");
             var optionsStream = new FileStream(configPath, FileMode.Open, FileAccess.Read, FileShare.Read);
-            return Options.LoadOptions(optionsStream, null, null, Path.GetDirectoryName(configPath));
+            var optionsLoader = new OptionsLoader();
+            return optionsLoader.Load(optionsStream, null, null, Path.GetDirectoryName(configPath));
         }
 
         public static Command ParseCommand(this Command command,TestParameters testParameters,params Parameter[] parameters){
@@ -170,7 +173,8 @@ namespace Xpand.EasyTest {
         }
 
         public static void SetParameterValue(this TestApplication application, ApplicationParams applicationParams, string value){
-            application.AddParam(applicationParams.ToString(),value);
+            var dictionary = ((StringDictionary) application.GetFieldValue("attributes"));
+            dictionary[applicationParams.ToString()]=value;
         }
 
         public static bool IsUriAvailable(this TestApplication testApplication, Uri uri) {

@@ -12,6 +12,9 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (TreeList != null){
+                TreeList.OptionsBehavior.EnableFiltering = true;
+                TreeList.OptionsFilter.AllowFilterEditor = true;
+                TreeList.ActiveFilterEnabled = true;
                 _filterByColumnController = Frame.GetController<FilterByColumnController>();
                 _filterByColumnController.CellFilterAction.Execute += CellFilterActionOnExecute;
                 TreeList.FocusedColumnChanged += ObjectTreeListOnFocusedColumnChanged;
@@ -31,17 +34,16 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
                 var modelColumn = ((TreeListColumnTag)TreeList.FocusedColumn.Tag).Model;
                 var parameters = TreeList.FocusedNode[TreeList.FocusedColumn.Name];
                 var activeFilterCriteria = _filterByColumnController.GetCriteria(modelColumn,parameters,TreeList.ActiveFilterCriteria);
-                TreeList.OptionsBehavior.EnableFiltering = true;
-                TreeList.OptionsFilter.AllowFilterEditor = true;
-                TreeList.ActiveFilterEnabled = true;
+                
                 TreeList.ActiveFilterCriteria = activeFilterCriteria;
+                
             }
         }
 
         public TreeList TreeList {
             get {
                 var columnsListEditor = View.Editor as TreeListEditor;
-                return columnsListEditor != null ? columnsListEditor.TreeList : null;
+                return columnsListEditor?.TreeList;
             }
         }
     }

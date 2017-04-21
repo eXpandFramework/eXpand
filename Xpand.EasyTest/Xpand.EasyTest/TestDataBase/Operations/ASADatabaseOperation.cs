@@ -28,15 +28,15 @@ namespace Xpand.EasyTest.TestDataBase.Operations {
                     DropDB(conn, database);
                     using (IDbCommand c = conn.CreateCommand()) {
                         string dbFileName = database.DBSourceLocation.Replace(@"\", @"\\");
-                        if (string.IsNullOrEmpty(database.Backupfilename)) {
-                            c.CommandText = string.Format("Create Database '{0}'", dbFileName);
+                        if (string.IsNullOrEmpty(database.BackupFileName)) {
+                            c.CommandText = $"Create Database '{dbFileName}'";
                             c.ExecuteNonQuery();
                         } else {
                             if (
-                                GetExtension(database.Backupfilename)
+                                GetExtension(database.BackupFileName)
                                     .Equals(".db", StringComparison.OrdinalIgnoreCase) ||
-                                File.Exists(database.Backupfilename + ".db")) {
-                                string baseSourceFileName = database.Backupfilename;
+                                File.Exists(database.BackupFileName + ".db")) {
+                                string baseSourceFileName = database.BackupFileName;
                                 string baseDestFileName = database.DBSourceLocation;
                                 if (GetExtension(baseSourceFileName)
                                         .Equals(".db", StringComparison.OrdinalIgnoreCase)) {
@@ -51,17 +51,16 @@ namespace Xpand.EasyTest.TestDataBase.Operations {
                                     File.Copy(baseSourceFileName + ".log", baseDestFileName + ".log", true);
                                 }
                             } else {
-                                string backupFileName = database.Backupfilename.Replace(@"\", @"\\");
-                                if (GetExtension(database.Backupfilename)
+                                string backupFileName = database.BackupFileName.Replace(@"\", @"\\");
+                                if (GetExtension(database.BackupFileName)
                                         .Equals(".1", StringComparison.OrdinalIgnoreCase)) {
                                     backupFileName = Path.ChangeExtension(backupFileName, null);
                                 }
-                                c.CommandText = string.Format("RESTORE DATABASE '{0}' FROM '{1}' HISTORY OFF",
-                                                              dbFileName, backupFileName);
+                                c.CommandText = $"RESTORE DATABASE '{dbFileName}' FROM '{backupFileName}' HISTORY OFF";
                                 c.ExecuteNonQuery();
                             }
                         }
-                        c.CommandText = string.Format("START DATABASE '{0}' AS [{1}]", dbFileName, database.DBName);
+                        c.CommandText = $"START DATABASE '{dbFileName}' AS [{database.DBName}]";
                         c.ExecuteNonQuery();
                     }
                 } finally {
@@ -86,32 +85,22 @@ namespace Xpand.EasyTest.TestDataBase.Operations {
                 helper.RemovePartByName("DBF");
                 connString = helper.GetConnectionString();
             } else {
-                string uid;
-                string pwd;
-                if (database.Login != null && !string.IsNullOrEmpty(database.Login.UserID)) {
-                    uid = database.Login.UserID;
-                } else {
-                    uid = "dba";
-                }
-                if (database.Login != null && !string.IsNullOrEmpty(database.Login.Password)) {
-                    pwd = database.Login.Password;
-                } else {
-                    pwd = "sql";
-                }
-                connString = string.Format("eng={0};uid={1};pwd={2};", database.Server, uid, pwd);
+                var uid = !string.IsNullOrEmpty(database.Login?.UserID) ? database.Login.UserID : "dba";
+                var pwd = !string.IsNullOrEmpty(database.Login?.Password) ? database.Login.Password : "sql";
+                connString = $"eng={database.Server};uid={uid};pwd={pwd};";
             }
             return "DBN=utility_db;" + connString;
         }
 
         void DropDB(IDbConnection conn, TestDatabase database) {
             using (IDbCommand c = conn.CreateCommand()) {
-                c.CommandText = string.Format("STOP DATABASE [{0}] UNCONDITIONALLY", database.DBName);
+                c.CommandText = $"STOP DATABASE [{database.DBName}] UNCONDITIONALLY";
                 try {
                     c.ExecuteNonQuery();
                 } catch (Exception) {
                 }
                 if (!string.IsNullOrEmpty(database.DBSourceLocation)) {
-                    c.CommandText = string.Format("DROP DATABASE '{0}'", database.DBSourceLocation.Replace(@"\", @"\\"));
+                    c.CommandText = $"DROP DATABASE '{database.DBSourceLocation.Replace(@"\", @"\\")}'";
                     try {
                         c.ExecuteNonQuery();
                     } catch (Exception) {

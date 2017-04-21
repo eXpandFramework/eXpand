@@ -67,7 +67,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
             return _serverManager;
         }
 
-        public override void KillApplication(TestApplication testApplication, KillApplicationConext context){
+        public override void KillApplication(TestApplication testApplication, KillApplicationContext context){
             KillApplicationBase(context);
             testApplication.ClearModel();
             testApplication.DeleteParametersFile();
@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
                 IISHelper.StopAplicationPool(testApplication);
         }
 
-        private void KillApplicationBase(KillApplicationConext context){
+        private void KillApplicationBase(KillApplicationContext context){
             this.CallMethod("CloseWebBrowser");
             _serverManager?.ProcessKillApplication(context);
         }

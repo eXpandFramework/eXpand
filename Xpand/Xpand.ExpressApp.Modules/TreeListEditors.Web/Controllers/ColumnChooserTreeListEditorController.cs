@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Web;
 using DevExpress.Web.ASPxTreeList;
 using Xpand.ExpressApp.TreeListEditors.Web.ListEditors;
 using Xpand.Persistent.Base.General.Controllers;
@@ -19,18 +20,19 @@ namespace Xpand.ExpressApp.TreeListEditors.Web.Controllers {
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             _treeListEditor = ((XpandASPxTreeListEditor)View.Editor);
-            _treeListEditor.TreeList.Load+=TreeListOnLoad;
+            WebWindow.CurrentRequestWindow.ProcessPreRenderCompleted+=CurrentRequestWindowOnProcessPreRenderCompleted;
+            
             _treeListEditor.TreeList.VirtualModeNodeCreated+=TreeListOnVirtualModeNodeCreated;
             _treeListEditor.TreeList.VirtualModeCreateChildren+=TreeListOnVirtualModeCreateChildren;
             _treeListEditor.TreeList.VirtualModeNodeCreating+=TreeListOnVirtualModeNodeCreating;
             _treeListEditor.TreeList.SelectionChanged+=TreeListOnSelectionChanged;
-            _treeListEditor.TreeList.FocusedNodeChanged+=TreeListOnFocusedNodeChanged;
+            _treeListEditor.TreeList.SettingsBehavior.AllowFocusedNode = true;
             _parentFrame =  Frame.GetController<PopupParentFrameController>().ParentFrame;
             _listViewModel = ((ListView) _parentFrame.View).Model;
         }
 
-        private void TreeListOnFocusedNodeChanged(object sender, EventArgs eventArgs){
-            
+        private void CurrentRequestWindowOnProcessPreRenderCompleted(object sender, EventArgs eventArgs){
+            _treeListEditor.TreeList.ClientSideEvents.NodeClick = null;
         }
 
         protected override void OnDeactivated(){
@@ -53,16 +55,14 @@ namespace Xpand.ExpressApp.TreeListEditors.Web.Controllers {
                 if (modelColumn.Index == null || modelColumn.Index < 0)
                     modelColumn.Index = 0;
             }
+            WebWindow.CurrentRequestWindow.ProcessPreRenderCompleted -= CurrentRequestWindowOnProcessPreRenderCompleted;
             if (_treeListEditor.TreeList != null){
-                _treeListEditor.TreeList.Load -= TreeListOnLoad;
+                
                 _treeListEditor.TreeList.VirtualModeNodeCreated -= TreeListOnVirtualModeNodeCreated;
                 _treeListEditor.TreeList.VirtualModeCreateChildren -= TreeListOnVirtualModeCreateChildren;
                 _treeListEditor.TreeList.VirtualModeNodeCreating -= TreeListOnVirtualModeNodeCreating;
                 _treeListEditor.TreeList.SelectionChanged -= TreeListOnSelectionChanged;
             }
-        }
-        private void TreeListOnLoad(object sender, EventArgs eventArgs){
-            _treeListEditor.TreeList.ClientSideEvents.NodeClick = null;
         }
 
         readonly Dictionary<string,string> _selectedKeys=new Dictionary<string, string>();

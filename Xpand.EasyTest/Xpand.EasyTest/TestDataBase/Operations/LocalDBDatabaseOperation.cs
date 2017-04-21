@@ -36,9 +36,9 @@ namespace Xpand.EasyTest.TestDataBase.Operations{
             Drop(database);
             using (var connection = new SqlConnection(string.Format(DefaultConnString, serverName, MasterDB))){
                 connection.Open();
-                if (string.IsNullOrEmpty(database.Backupfilename)){
+                if (string.IsNullOrEmpty(database.BackupFileName)){
                     using (
-                        var command = new SqlCommand(string.Format(@"CREATE DATABASE [{0}]", database.DBName),
+                        var command = new SqlCommand($@"CREATE DATABASE [{database.DBName}]",
                             connection)){
                         command.ExecuteNonQuery();
                     }
@@ -49,7 +49,7 @@ namespace Xpand.EasyTest.TestDataBase.Operations{
                             new SqlCommand(
                                 string.Format(
                                     @"RESTORE DATABASE [{0}] FROM DISK = '{1}' WITH REPLACE, MOVE N'{0}' TO N'{2}\{0}.mdf', MOVE N'{0}_log' TO N'{2}\{0}_log.LDF'",
-                                    database.DBName, database.Backupfilename,
+                                    database.DBName, database.BackupFileName,
                                     Environment.GetEnvironmentVariable("USERPROFILE")), connection)){
                         command.ExecuteNonQuery();
                     }

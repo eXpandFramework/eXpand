@@ -12,7 +12,7 @@ namespace Xpand.EasyTest.TestDataBase.Operations {
         }
 
         public void Restore(TestDatabase database) {
-            File.Copy(database.Backupfilename, database.DBSourceLocation, true);
+            File.Copy(database.BackupFileName, database.DBSourceLocation, true);
         }
     }
 }

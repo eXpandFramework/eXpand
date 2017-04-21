@@ -3,6 +3,7 @@
 *FillForm
  Data Type = Full Text Contains Object
 *Action Show Clause Menu(CriteriaPropertyEditorEx)
+*LClick [ClauseMenu]
 
 *XpandCompareScreenshot CriteriaPropertyEditorEx.png
  ToggleNavigation = False

@@ -98,7 +98,7 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             }
         }
 
-        public override void KillApplication(TestApplication testApplication, KillApplicationConext context) {
+        public override void KillApplication(TestApplication testApplication, KillApplicationContext context) {
             ScreenCaptureCommand.Stop(true);
             _winEasyTestCommandAdapter?.Disconnect();
             testApplication.DeleteParametersFile();

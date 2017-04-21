@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Base;
@@ -91,20 +90,21 @@ namespace Xpand.ExpressApp.Security {
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e) {
-            var permissionRequestProcessors = e.Processors;
-            var permissionRequestProcessor = permissionRequestProcessors.Select(pair => pair.Value).OfType<ISecurityProcessor>().FirstOrDefault();
             var customPermissions = e.Permissions.WithCustomPermissions();
-            if (permissionRequestProcessor != null){
+            foreach (var processor in e.Processors.Where(pair => !pair.Value.GetType().HasAttribute<ObsoleteAttribute>())){
                 var fieldName = "permissionDictionary";
-                if (permissionRequestProcessor is ServerPermissionRequestProcessor)
+                var requestProcessor = processor.Value;
+                if (requestProcessor is ServerPermissionRequestProcessor)
                     fieldName = "permissions";
-                var processorDictionary = ((IPermissionDictionary)permissionRequestProcessor.GetFieldValue(fieldName)).WithSecurityOperationAttributePermissions();
-                permissionRequestProcessor.SetFieldValue(fieldName,processorDictionary);
-                var operationPermissions = processorDictionary.GetPermissions<IOperationPermission>().ToList();
-                var delayedIPermissionDictionary = ((DelayedIPermissionDictionary) e.Permissions);
-                delayedIPermissionDictionary.SetFieldValue("permissions",operationPermissions);
-                delayedIPermissionDictionary.SetFieldValue("innerDictionary",null);
-                customPermissions= new DelayedIPermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(operationPermissions));
+                if (requestProcessor.GetType().Name.EndsWith("Wrapper"))
+                    requestProcessor = (IPermissionRequestProcessor) requestProcessor.GetFieldValue("requestProcessor");
+
+                if (requestProcessor.GetType().Members(Flags.AllMembers).Any(info => info.Name == fieldName)) {
+                    var processorDictionary = ((IPermissionDictionary)requestProcessor.GetFieldValue(fieldName)).WithSecurityOperationAttributePermissions();
+                    requestProcessor.SetFieldValue(fieldName, processorDictionary);
+                    var operationPermissions = processorDictionary.GetPermissions<IOperationPermission>().ToList();
+                    customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(operationPermissions));
+                }
             }
             var keyValuePairs = new[]{
                 new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(customPermissions)),
@@ -113,7 +113,7 @@ namespace Xpand.ExpressApp.Security {
                 new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(NavigationItemPermissionRequest), new NavigationItemPermissionRequestProcessor(e.Permissions.WithHiddenNavigationItemPermissions()))
             };
             foreach (var keyValuePair in keyValuePairs) {
-                permissionRequestProcessors.Add(keyValuePair);
+                e.Processors.Add(keyValuePair);
             }
         }
 

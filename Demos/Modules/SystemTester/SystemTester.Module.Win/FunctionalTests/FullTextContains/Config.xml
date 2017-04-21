@@ -28,5 +28,7 @@
     <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\SystemTester.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\SystemTester.Web" />
+    <Alias Name="ClauseMenu" Value="167x118" />
+    <Alias Name="ClauseMenu2" Value="438x278" />
   </Aliases>
 </Options>

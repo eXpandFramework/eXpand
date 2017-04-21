@@ -15,9 +15,9 @@ namespace WorkflowTester.Module.FunctionalTests {
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
             if ((string) e.SelectedChoiceActionItem.Data == "WorldCreatorWorkflow"){
                 var objectChangedWorkflow =((XpoWorkflowDefinition)View.CurrentObject);
-                objectChangedWorkflow.Xaml = @"<Activity mc:Ignorable=""sads sap"" x:Class=""DevExpress.Workflow.XafWorkflow""
+                objectChangedWorkflow.Xaml = $@"<Activity mc:Ignorable=""sads sap"" x:Class=""DevExpress.Workflow.XafWorkflow""
  xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities""
- xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v16.2""
+ xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v{AssemblyInfo.VersionShort}""
  xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
  xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities""
  xmlns:sa=""clr-namespace:System.Activities;assembly=System.Activities""
@@ -45,9 +45,9 @@ namespace WorkflowTester.Module.FunctionalTests {
                 var objectChangedWorkflow =
                     ((Xpand.ExpressApp.Workflow.ObjectChangedWorkflows.ObjectChangedWorkflow) View.CurrentObject);
                 objectChangedWorkflow.PropertyName = "PropertyName";
-                objectChangedWorkflow.Xaml = @"<Activity mc:Ignorable=""sap sads"" x:Class=""DevExpress.Workflow.xWF1""
+                objectChangedWorkflow.Xaml = $@"<Activity mc:Ignorable=""sap sads"" x:Class=""DevExpress.Workflow.xWF1""
   xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities""
-  xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v16.2""
+  xmlns:dwa=""clr-namespace:DevExpress.Workflow.Activities;assembly=DevExpress.Workflow.Activities.v{AssemblyInfo.VersionShort}""
   xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
   xmlns:mva=""clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities""
   xmlns:sads=""http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger""

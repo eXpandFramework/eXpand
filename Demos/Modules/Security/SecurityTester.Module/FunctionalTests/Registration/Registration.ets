@@ -15,6 +15,15 @@
 *XpandCheckFieldValues
  User Name = NewUser
  Email = newuser@mail.com
+*CheckTable Roles
+ Columns = Name
+ Row[0] = Protected Content
+ Row[1] = Protected Content
+*LogOff
+*LogOn Admin
+*Navigate User
+*XpandProcessRecord 
+ User Name = NewUser
 *ProcessRecord Roles
  Name = User
 *SaveAndClose
