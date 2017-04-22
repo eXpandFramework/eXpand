@@ -48,6 +48,10 @@ namespace Xpand.VSIX.Commands {
                 menuItem = new OleMenuCommand(SolutionWizard.Show, new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidAddXpandReference));
                 menuItem.ActiveForDXSolution();
                 commandService.AddCommand(menuItem);
+
+                menuItem = new OleMenuCommand(BuildSelectionCommand.Build, new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidBuildSelection));
+                menuItem.EnableForSolution();
+                commandService.AddCommand(menuItem);
             }
         }
 
@@ -79,7 +83,7 @@ namespace Xpand.VSIX.Commands {
                 DteExtensions.DTE.Events.SolutionEvents.Opened += () =>{
                     IEnumerable<IFullReference> fullReferences = null;
                     Task.Factory.StartNew(() => {
-                        fullReferences = DteExtensions.DTE.GetSolutionAllReferences();
+                        fullReferences = DteExtensions.DTE.Solution.GetReferences();
                     }).ContinueWith(task =>{
                         foreach (var fullReference in fullReferences){
                             fullReference.SpecificVersion = false;

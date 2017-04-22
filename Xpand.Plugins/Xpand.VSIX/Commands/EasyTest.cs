@@ -22,11 +22,6 @@ namespace Xpand.VSIX.Commands{
         public void RunTest(bool debug) {
             _dte.InitOutputCalls("RunTest");
             Task.Factory.StartNew(() => RunTestCore(debug),CancellationToken.None,TaskCreationOptions.None,TaskScheduler.Current);
-            _dte.Events.BuildEvents.OnBuildDone+=BuildEventsOnOnBuildDone;
-        }
-
-        private void BuildEventsOnOnBuildDone(vsBuildScope scope, vsBuildAction action){
-            
         }
 
         private void RunTestCore(bool debug) {

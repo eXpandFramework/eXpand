@@ -6,7 +6,6 @@ using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using VSLangProj;
-using Xpand.VSIX.VSPackage;
 using Constants = EnvDTE.Constants;
 
 namespace Xpand.VSIX.Extensions {
@@ -26,8 +25,8 @@ namespace Xpand.VSIX.Extensions {
             return DTE;
         }
 
-        public static IEnumerable<IFullReference> GetSolutionAllReferences(this DTE2 dte) {
-            return dte.Solution.Projects().SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
+        public static IEnumerable<IFullReference> GetReferences(this Solution solution) {
+            return solution.Projects().SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
                 reference.SpecificVersion && (reference.Identity.StartsWith("Xpand") || reference.Identity.StartsWith("DevExpress"))).ToArray();
         }
 

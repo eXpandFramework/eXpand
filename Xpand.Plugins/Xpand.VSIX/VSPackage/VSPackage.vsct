@@ -31,26 +31,24 @@
       <Menu guid="guidVSXpandPackageCmdSet" id="XpandTopLevelMenu" priority="0x700" type="Menu">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
         <Strings>
-          <ButtonText>Xpand</ButtonText>
-          <CommandName>Xpand</CommandName>
+          <ButtonText>X&amp;pand</ButtonText>
         </Strings>
       </Menu>
     </Menus>
-    
     <Buttons>
       <!--Solution explorer-->
       <Buttons>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreferenceTool" priority="0x0100" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="ReferenceContextMenuGroup" />
           <Strings>
-            <ButtonText>Load Projects...</ButtonText>
+            <ButtonText>&amp;Load Projects...</ButtonText>
             <ToolTipText>Load project from selected assembly references (configure from options)</ToolTipText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidAddXpandReference" priority="0x0100" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="ReferencesContextMenuGroup" />
           <Strings>
-            <ButtonText>Add Xpand...</ButtonText>
+            <ButtonText>Add &amp;Xpand...</ButtonText>
           </Strings>
         </Button>
       </Buttons>
@@ -59,62 +57,62 @@
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidShowMEToolbox" priority="0x0102" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>XAF Models List</ButtonText>
+            <ButtonText>XAF &amp;Models List</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidDropDatabase" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Drop Databases</ButtonText>
+            <ButtonText>Drop &amp;Databases</ButtonText>
+          </Strings>
+        </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidBuildSelection" priority="0x0103" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Build &amp;Selection</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidOptions" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuBottomGroup" />
           <Strings>
-            <ButtonText>Options</ButtonText>
+            <ButtonText>&amp;Options</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidKillIISExpress" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Kill IISExpress</ButtonText>
+            <ButtonText>Kill &amp;IISExpress</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreference" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Load Project from reference</ButtonText>
+            <ButtonText>&amp;Load Project from reference</ButtonText>
             <ToolTipText>Load project from selected assembly references</ToolTipText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidRunEasyTest" priority="0x0100" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Run EasyTest</ButtonText>
+            <ButtonText>&amp;Run EasyTest</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidDebugEasyTest" priority="0x0101" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Debug EasyTest</ButtonText>
+            <ButtonText>De&amp;bug EasyTest</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidExploreXAFErrors" priority="0x0104" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Explore XAF Errors</ButtonText>
+            <ButtonText>&amp;Explore XAF Errors</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidProjectConverter" priority="0x0105" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Project Converter</ButtonText>
-          </Strings>
-        </Button>
-        <Button guid="guidVSXpandPackageCmdSet" id="cmdidProjectConverter" priority="0x0105" type="Button">
-          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
-          <Strings>
-            <ButtonText>Project Converter</ButtonText>
+            <ButtonText>Project &amp;Converter</ButtonText>
           </Strings>
         </Button>
         <!--XAF EasyTest toolbar-->
@@ -151,10 +149,12 @@
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidKillIISExpress" editor="guidVSStd97" key1="i" mod1="Alt Control Shift"  />
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreference" editor="guidVSStd97" key1="l" mod1="Alt Control Shift"  />
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreferenceTool" editor="guidVSStd97" key1="l" mod1="Alt Control Shift"  />
+    <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidBuildSelection" editor="guidVSStd97" key1="VK_RETURN" mod1="Alt Control Shift"  />
   </KeyBindings>
   <Symbols>
     <GuidSymbol value="{fa1289e0-6376-4d19-98c5-9d0c90dd3283}" name="guidVSXpandPackage" />
     <GuidSymbol value="{6c0bd9dc-4a51-4a9d-8952-c5a69f472eab}" name="guidVSXpandPackageCmdSet">
+      <IDSymbol value="276" name="cmdidBuildSelection" />
       <IDSymbol value="275" name="cmdidAddXpandReference" />
       <IDSymbol value="274" name="ReferencesContextMenuGroup" />
       <IDSymbol value="273" name="ReferenceContextMenuGroup" />

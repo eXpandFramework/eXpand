@@ -4,7 +4,8 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
@@ -59,6 +60,7 @@
     <Compile Include="..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs">
       <Link>Properties\XpandAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commands\BuildSelectionCommand.cs" />
     <Compile Include="Commands\DropDataBaseCommand.cs" />
     <Compile Include="Commands\IISExpress.cs" />
     <Compile Include="Extensions\ConfigurationExtensions.cs" />
@@ -362,7 +364,8 @@
   </Target>
 
   -->
-  <Target Name="BeforeBuild"></Target>
+  <Target Name="BeforeBuild">
+  </Target>
   <Import Project="..\..\Support\Build\Nuget.Targets" />
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets')" />
 </Project>
