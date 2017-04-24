@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using DevExpress.DXCore.Controls.XtraGrid;
 using EnvDTE;
@@ -12,76 +13,75 @@ namespace Xpand.VSIX.ModelEditor {
     public class GridHelper {
         static GridControl _gridControl;
         private static Events2 _events;
-        private static ProjectItemsEvents _eventsProjectItemsEvents;
         private static SolutionEvents _eventsSolutionEvents;
+        private static IEnumerable<FileSystemWatcher> _fileSystemWatchers;
 
         static void Setup(GridControl gridControl) {
             _gridControl = gridControl;
             SetGridDataSource();
             _events = (Events2) DteExtensions.DTE.Events;
-            _eventsProjectItemsEvents = _events.ProjectItemsEvents;
-            _eventsProjectItemsEvents.ItemRemoved += EventsOnProjectItemRemoved;
-            _eventsProjectItemsEvents.ItemAdded += EventsOnProjectItemAdded;
-            _eventsProjectItemsEvents.ItemRenamed += EventsOnProjectItemRenamed;
             _eventsSolutionEvents = _events.SolutionEvents;
             _eventsSolutionEvents.Opened += EventsSolutionEventsOnOpened;
             _eventsSolutionEvents.AfterClosing+=EventsSolutionEventsOnAfterClosing;
         }
 
         private static void EventsSolutionEventsOnAfterClosing(){
-            _eventsSolutionEvents.ProjectAdded -= EventsSolutionEventsOnProjectAdded;
-            _eventsSolutionEvents.ProjectRemoved -= EventsSolutionEventsOnProjectRemoved;
+            foreach (var fileSystemWatcher in _fileSystemWatchers) {
+                fileSystemWatcher.Changed -= SystemWatcherOnChanged;
+            }
         }
 
         private static void EventsSolutionEventsOnOpened(){
             SetGridDataSource();
-            _eventsSolutionEvents.ProjectAdded += EventsSolutionEventsOnProjectAdded;
-            _eventsSolutionEvents.ProjectRemoved += EventsSolutionEventsOnProjectRemoved;
-        }
-
-        private static void EventsSolutionEventsOnProjectRemoved(Project project){
-            RemoveProjectWrappers(ProjectWrapperBuilder.GetProjectItemWrappers(new List<Project>{project}));
-        }
-
-        private static void EventsSolutionEventsOnProjectAdded(Project project){
-            AddProjectWrappers(ProjectWrapperBuilder.GetProjectItemWrappers(new List<Project>{project}));
-        }
-
-        private static void RemoveProjectWrappers(IEnumerable<ProjectItemWrapper> projectWrappers) {
-            var list = (BindingList<ProjectItemWrapper>)_gridControl.DataSource;
-            foreach (var projectWrapper in projectWrappers) {
-                var singleWrapper = list.First(wrapper => wrapper.UniqueName==projectWrapper.UniqueName);
-                list.Remove(singleWrapper);
+            try{
+                _fileSystemWatchers =GetFileSystemWatchers();
             }
-            _gridControl.RefreshDataSource();
-
-        }
-
-        static void EventsOnProjectItemRemoved(ProjectItem projectItem) {
-            if (projectItem.Name.EndsWith(".xafml"))
-                SetGridDataSource();
-        }
-
-        static void EventsOnProjectItemRenamed(ProjectItem projectItem, string oldName) {
-            if (projectItem.Name.EndsWith(".xafml"))
-                SetGridDataSource();
-        }
-
-        static void EventsOnProjectItemAdded(ProjectItem projectItem) {
-            if (projectItem.Name.EndsWith(".xafml"))
-                SetGridDataSource();
-        }
-
-        private static void AddProjectWrappers(IEnumerable<ProjectItemWrapper> projectWrappers) {
-            foreach (var projectWrapper in projectWrappers) {
-                ((BindingList<ProjectItemWrapper>)_gridControl.DataSource).Add(projectWrapper);
+            catch (Exception e){
+                DteExtensions.DTE.WriteToOutput(e.ToString());
+                throw;
             }
         }
+
+        private static IEnumerable<FileSystemWatcher> GetFileSystemWatchers(){
+            var solution = DteExtensions.DTE.Solution;
+            var fileSystemWatchers = new[]{CreateFileSystemWatcher(solution.FullName) }
+                .Concat(solution.Projects().Select(project =>CreateFileSystemWatcher(project.FullName))).ToArray();
+            foreach (var fileSystemWatcher in fileSystemWatchers) {
+                fileSystemWatcher.Changed += SystemWatcherOnChanged;
+            }
+            return fileSystemWatchers;
+        }
+
+        private static FileSystemWatcher CreateFileSystemWatcher(string fileName){
+            return new FileSystemWatcher(Path.GetDirectoryName(fileName) +""){NotifyFilter = NotifyFilters.LastWrite,Filter = Path.GetFileName(fileName),EnableRaisingEvents = true};
+        }
+
+        private static void SystemWatcherOnChanged(object sender, FileSystemEventArgs e){
+            try{
+                foreach (var fileSystemWatcher in _fileSystemWatchers){
+                    fileSystemWatcher.Changed-=SystemWatcherOnChanged;
+                    fileSystemWatcher.Dispose();
+                }
+                _fileSystemWatchers=GetFileSystemWatchers();
+                SetGridDataSource();
+            }
+            catch (Exception exception){
+                DteExtensions.DTE.WriteToOutput(exception.ToString());
+                throw;
+            }
+        }
+
         private static void SetGridDataSource(){
             List<ProjectItemWrapper> projectWrappers = new List<ProjectItemWrapper>();
-            var context = TaskScheduler.FromCurrentSynchronizationContext();
-            Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList(),CancellationToken.None,TaskCreationOptions.None, TaskScheduler.Default)
-                .ContinueWith(task1 =>_gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers), context);
+            
+            Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList())
+                .ContinueWith(task1 => {
+                    if (task1.Exception != null){
+                        DteExtensions.DTE.LogError(task1.Exception.ToString());
+                        DteExtensions.DTE.WriteToOutput(task1.Exception.ToString());
+                    }
+                    _gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers);
+                },TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         public static void Init(GridControl gridControl) {

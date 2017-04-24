@@ -31,7 +31,7 @@
       <Menu guid="guidVSXpandPackageCmdSet" id="XpandTopLevelMenu" priority="0x700" type="Menu">
         <Parent guid="guidSHLMainMenu" id="IDG_VS_MM_TOOLSADDINS" />
         <Strings>
-          <ButtonText>X&amp;pand</ButtonText>
+          <ButtonText>Xp&amp;and</ButtonText>
         </Strings>
       </Menu>
     </Menus>

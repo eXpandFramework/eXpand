@@ -2,26 +2,26 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.Build.Construction;
+using Microsoft.Build.Evaluation;
 using Xpand.VSIX.Extensions;
-using Project = EnvDTE.Project;
 using ProjectItem = Microsoft.Build.Evaluation.ProjectItem;
 
 namespace Xpand.VSIX.ModelEditor {
     public class ProjectWrapperBuilder {
-        static IEnumerable<Project> GetProjects() {
-            return DteExtensions.DTE.Solution.Projects().Where(project => project.ConfigurationManager != null && project.ProjectItems != null);
+        static IEnumerable<string> GetProjects(){
+            var solutionFile = SolutionFile.Parse(DteExtensions.DTE.Solution.FullName);
+            return solutionFile.ProjectsInOrder.Where(solution => solution.ProjectType==SolutionProjectType.KnownToBeMSBuildFormat).Select(solution => solution.AbsolutePath);
         }
 
-        public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers() {
-            return GetProjectItemWrappers(GetProjects());
-        }
         static bool IsWeb(string fullPath) {
             var webconfig = Path.Combine(Path.GetDirectoryName(fullPath) + "", "web.config");
             return File.Exists(webconfig);
         }
 
-        public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers(IEnumerable<Project> projects) {
-            var msbuildProjects = GetProjects().Select(project1 => new Microsoft.Build.Evaluation.Project(project1.FullName)).ToList();
+        public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers() {
+            var projectCollection = new ProjectCollection();
+            var msbuildProjects = GetProjects().Select(project1 => new Project(project1,null,null,projectCollection)).ToList();
             var items = msbuildProjects.SelectMany(project
                 => new[] { "None", "Content", "EmbeddedResource" }.SelectMany(project.GetItems)
                     .Where(item => item.EvaluatedInclude.EndsWith(".xafml"))).Select(item => {
@@ -42,7 +42,7 @@ namespace Xpand.VSIX.ModelEditor {
                 var match = Regex.Match(item.ModelFileName, @"\A(.*)_(.*)\.xafml\z");
                 if (match.Success && item.ModelFileName.EndsWith(match.Groups[2].Value+".xafml"))
                     return items.Any(wrapper => wrapper.ModelFileName == match.Groups[1].Value + ".xafml");
-                return false;
+                return item.ModelFileName.Contains("Model.DesignedDiffs.Localization.");
             }).ToArray();
             return items.Except(localizationModels);
         }

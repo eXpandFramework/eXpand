@@ -13,9 +13,10 @@ namespace Xpand.VSIX.Commands{
         private void Build(){
             var dte2 = this.DTE2();
             if (dte2.ActiveDocument != null){
+                dte2.Windows.Item(Constants.vsext_wk_SProjectWindow).Activate();
                 var uihSolutionExplorer = dte2.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
                 if (uihSolutionExplorer != null && uihSolutionExplorer.UIHierarchyItems.Cast<UIHierarchyItem>().Any()){
-
+                    
                 }
                 try{
                     var track =
