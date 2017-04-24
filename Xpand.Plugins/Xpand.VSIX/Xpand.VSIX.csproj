@@ -284,8 +284,9 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="PropertyChanged">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.1.52.1\lib\netstandard10\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=1.53.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.1.53.0\lib\netstandard10\PropertyChanged.dll</HintPath>
       <Private>True</Private>
       <Private>False</Private>
     </Reference>
@@ -355,7 +356,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.props'))" />
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets'))" />
-    <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets'))" />
   </Target>
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -367,5 +368,5 @@
   <Target Name="BeforeBuild">
   </Target>
   <Import Project="..\..\Support\Build\Nuget.Targets" />
-  <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.1.29.2\build\dotnet\Fody.targets')" />
+  <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets')" />
 </Project>
