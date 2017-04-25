@@ -8,7 +8,7 @@
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100"/>
     <!-- Web -->
-    <Application Parameter="ColumnChooser"
+    <Application Parameter="ColumnChooser" Ignored="1"
 			Name="SystemTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
