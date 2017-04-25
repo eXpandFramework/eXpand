@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.Utils.Linq;
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
