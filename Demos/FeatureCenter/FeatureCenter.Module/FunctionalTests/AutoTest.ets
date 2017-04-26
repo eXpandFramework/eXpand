@@ -1,8 +1,4 @@
 #Timeout 160
-#DropDB XpandFeatureCenterEasyTest
-#DropDB NorthWind
-#DropDB XpandFeatureCenterWorldCreatorWin
-#DropDB XpandFeatureCenterWorldCreatorWeb
 #Application FeatureCenter.Win
 #Application FeatureCenter.Web
 
@@ -11,6 +7,8 @@
 *ScreenCapture
 
 *LogOn
-
-*XpandAutoTest
+*AutoTest
+*Action Navigation (Controlling Search.DetailView Search)
+*Action New
+*Action New
 

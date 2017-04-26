@@ -2,7 +2,7 @@
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" DefaultTimeout="50" >
   <Applications>
     <!-- Win -->
-    <Application
+    <Application Ignored="1"
 			Name="FeatureCenter.Win"
 			FileName="[WinAppBin]\FeatureCenter.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
