@@ -5,11 +5,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Templates.ActionControls;
 using DevExpress.ExpressApp.Templates.ActionControls.Binding;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Win.Templates;
+using DevExpress.Persistent.Base;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using Fasterflect;
@@ -42,15 +44,69 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
                 var mainBarActions = (Dictionary<ActionBase, string>) controller.GetFieldValue("mainBarActions");
                 var actionBases = mainBarActions.Select(pair => pair.Key).ToArray().Where(@base => !new [] {"Open","Save"}.Contains(@base.Id)).ToArray();
                 foreach (var actionBase in actionBases){
-                    actionBase.Category = "Unspecified";
+                    actionBase.Category = PredefinedCategory.View.ToString();
                 }
                 e.ShowViewParameters.Controllers.Add(new ModelEditorActionsController(actionBases));
             }
         }
 
         class ModelEditorActionsController:ViewController<DetailView>{
+            private readonly ActionBase[] _actionBases;
+            private readonly ActionBinding[] _actionBindings;
+
             public ModelEditorActionsController(ActionBase[] actionBases){
-                RegisterActions(actionBases);
+                _actionBases = actionBases;
+                _actionBindings=new ActionBinding[_actionBases.Length];
+                RegisterActions(_actionBases);
+            }
+
+            protected override void OnActivated(){
+                base.OnActivated();
+                Frame.ViewChanged+=FrameOnTemplateChanged;
+            }
+
+            protected override void OnDeactivated(){
+                base.OnDeactivated();
+                Frame.ViewChanged-=FrameOnTemplateChanged;
+                foreach (var actionBinding in _actionBindings){
+                    actionBinding.Dispose();
+                }
+            }
+
+            private void FrameOnTemplateChanged(object sender, EventArgs eventArgs){
+                for (var index = 0; index < _actionBases.Length; index++){
+                    var actionBase = _actionBases[index];
+                    var actionBinding = CreateActionBinding(actionBase);
+                    _actionBindings[index]=actionBinding;
+                }
+            }
+
+            private ActionBinding CreateActionBinding(ActionBase action) {
+                var site = Frame.Template as IActionControlsSite;
+                var actionControl = AddActionControl(action,site);
+                return ActionBindingFactory.Instance.Create(action, actionControl);
+            }
+
+            private IActionControl AddActionControl(ActionBase action, IActionControlsSite site){
+                var container = GetTargetActionContainer(site);
+                if (action is SimpleAction)
+                    return container.AddSimpleActionControl(action.Id);
+                var singleChoiceAction = action as SingleChoiceAction;
+                if (singleChoiceAction!=null)
+                    return container.AddSingleChoiceActionControl(action.Id,false,singleChoiceAction.ItemType);
+
+                var parametrizedAction = ((ParametrizedAction) action);
+                return container.AddParametrizedActionControl(parametrizedAction.Id, parametrizedAction.ValueType);
+            }
+
+            private IActionControlContainer GetTargetActionContainer(IActionControlsSite site) {
+                if (site == null) return null;
+                foreach (IActionControlContainer container in site.ActionContainers) {
+                    if (container.ActionCategory == PredefinedCategory.View.ToString()) {
+                        return container;
+                    }
+                }
+                return null;
             }
         }
         protected override void OnFrameAssigned(){
