@@ -36,19 +36,11 @@ namespace Xpand.Persistent.Base.General.Controllers {
         private void FrameOnViewChanging(object sender, ViewChangingEventArgs e){
             var detailView = e.View as DetailView;
             if (detailView != null){
-                detailView.ControlsCreated += ViewOnControlsCreated;
-                if (!Application.IsHosted()&& ((IModelDetailViewViewEditMode)detailView.Model).ViewEditMode.HasValue)
+                UpdateView(detailView);
+                if (!Application.IsHosted() && ((IModelDetailViewViewEditMode)detailView.Model).ViewEditMode.HasValue) {
+                    UpdateEditableActions(detailView);
                     detailView.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(detailView);
-            }
-        }
-
-        private void ViewOnControlsCreated(object sender, EventArgs eventArgs) {
-            var view = ((View)sender);
-            view.ControlsCreated -= ViewOnControlsCreated;
-            UpdateView((DetailView)view);
-            if (!Application.IsHosted()&& ((IModelDetailViewViewEditMode)view.Model).ViewEditMode.HasValue) {
-                UpdateEditableActions(view);
-                view.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(view);
+                }
             }
         }
 
