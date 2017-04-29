@@ -61,19 +61,19 @@ namespace Xpand.VSIX.Options{
         }
 
         [XmlArray]
-        public BindingList<ConnectionString> ConnectionStrings { get; } = new BindingList<ConnectionString>();
+        public BindingList<ConnectionString> ConnectionStrings { get; set; } = new BindingList<ConnectionString>();
 
         [XmlArray]
-        public BindingList<ReferencedAssembliesFolder> ReferencedAssembliesFolders { get; } = new BindingList<ReferencedAssembliesFolder>();
+        public BindingList<ReferencedAssembliesFolder> ReferencedAssembliesFolders { get; set; } = new BindingList<ReferencedAssembliesFolder>();
 
         [XmlArray]
-        public BindingList<ExceptionsBreak> Exceptions { get; } = new BindingList<ExceptionsBreak>();
+        public BindingList<ExceptionsBreak> Exceptions { get; set; } = new BindingList<ExceptionsBreak>();
 
         [XmlArray]
-        public BindingList<ME> MEs { get; } = new BindingList<ME>();
+        public BindingList<ME> MEs { get; set; } = new BindingList<ME>();
 
         [XmlArray]
-        public BindingList<SourceCodeInfo> SourceCodeInfos { get; } = new BindingList<SourceCodeInfo>();
+        public BindingList<SourceCodeInfo> SourceCodeInfos { get; set; } = new BindingList<SourceCodeInfo>();
 
         public bool DisableExceptions { get; set; }
 

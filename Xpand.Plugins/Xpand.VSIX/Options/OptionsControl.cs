@@ -43,6 +43,12 @@ namespace Xpand.VSIX.Options {
             instance.DebugME = checkEditDebugME.Checked;
             instance.KillModelEditor = checkEditKillModelEditor.Checked;
             instance.DisableExceptions = checkEditDisableExceptions.Checked;
+
+            OptionClass.Instance.ConnectionStrings = (BindingList<ConnectionString>) gridControlConnectionStrings.DataSource;
+            OptionClass.Instance.SourceCodeInfos = (BindingList<SourceCodeInfo>) gridControlLoadProjectFromReferenceItem.DataSource;
+            OptionClass.Instance.MEs = (BindingList<ME>) gridControlME.DataSource;
+            OptionClass.Instance.ReferencedAssembliesFolders = (BindingList<ReferencedAssembliesFolder>) gridControlAssemblyFolders.DataSource;
+            OptionClass.Instance.Exceptions = (BindingList<ExceptionsBreak>) gridControlExceptions.DataSource;
             instance.Save();
         }
 
