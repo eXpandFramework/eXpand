@@ -9,7 +9,6 @@ using Xpand.ExpressApp.Win.SystemModule;
 namespace SystemTester.Module.Win.FunctionalTests.ApplicationExit {
     public class ApplicationExit:ObjectViewController<ObjectView,ApplicationExitObject> {
         private readonly SingleChoiceAction _singleChoiceAction;
-        private Form _mainForm;
 
         public ApplicationExit() {
             _singleChoiceAction = new SingleChoiceAction(this,GetType().Name,PredefinedCategory.ObjectsCreation){
@@ -22,27 +21,18 @@ namespace SystemTester.Module.Win.FunctionalTests.ApplicationExit {
             _singleChoiceAction.Execute+=SingleChoiceActionOnExecute;
         }
 
-        public SingleChoiceAction SingleChoiceAction{
-            get { return _singleChoiceAction; }
-        }
-
-        protected override void OnFrameAssigned() {
-            base.OnFrameAssigned();
-            Frame.TemplateChanged+=FrameOnTemplateChanged;
-        }
-
-        private void FrameOnTemplateChanged(object sender, EventArgs eventArgs){
-            _mainForm = Frame.Template as Form;
-        }
+        public SingleChoiceAction SingleChoiceAction => _singleChoiceAction;
 
         private void SingleChoiceActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
             var id = SingleChoiceAction.SelectedItem.Id;
             ((IModelOptionsApplicationExit)Application.Model.Options).SetValue(id, true);
-            _mainForm.Close();
-            var value = new[] { "PromptOnExit", "MinimizeOnExit" }.Contains(id) ? _mainForm.WindowState != FormWindowState.Minimized : _mainForm.Visible;
+            var mainForm = ((Form) Application.MainWindow.Template);
+            mainForm.Close();
+            var value = new[] { "PromptOnExit", "MinimizeOnExit" }.Contains(id) ? mainForm.WindowState != FormWindowState.Minimized : mainForm.Visible;
             _singleChoiceAction.Enabled.SetItemValue("ActionOnFormIsNot", value);
-            if (!_mainForm.Disposing&&!_mainForm.IsDisposed)
-                _mainForm.Show();
+            if (!mainForm.Disposing&&!mainForm.IsDisposed)
+                mainForm.Show();
         }
     }
 }
+

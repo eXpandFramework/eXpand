@@ -42,24 +42,21 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         private void OnClose(object sender, CancelEventArgs e) {
-            var modelOptionsOnCloseActions = ((IModelOptionsApplicationExit)Application.Model.Options);
-            var minimizeOnClose = MinimizeOnClose(modelOptionsOnCloseActions);
-            var hideOnClose = HideOnClose(modelOptionsOnCloseActions);
+            var modelOptionsApplicationExit = ((IModelOptionsApplicationExit)Application.Model.Options);
+            var minimizeOnClose = MinimizeOnClose(modelOptionsApplicationExit);
+            var hideOnClose = HideOnClose(modelOptionsApplicationExit);
             if (hideOnClose||minimizeOnClose) {
                 e.Cancel = true;
             }
-            else{
-                e.Cancel = PromptOnExit(modelOptionsOnCloseActions);
+            else if (modelOptionsApplicationExit.PromptOnExit){
+                e.Cancel = PromptOnExit();
             }
         }
 
-        private static bool PromptOnExit(IModelOptionsApplicationExit modelOptionsApplicationExit) {
-            if (modelOptionsApplicationExit.PromptOnExit) {
-                var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
-                var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
-                return WinApplication.Messaging.GetUserChoice(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo) != DialogResult.Yes;
-            }
-            return false;
+        private  bool PromptOnExit() {
+            var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
+            var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
+            return WinApplication.Messaging.GetUserChoice(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo) != DialogResult.Yes;
         }
 
         private bool HideOnClose(IModelOptionsApplicationExit modelOptionsApplicationExit) {

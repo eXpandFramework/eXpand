@@ -1,4 +1,9 @@
-#IncludeFile .\Init.inc
+#DropDB SystemTesterEasyTest
+#Application SystemTester.Win
+*UseModel ..\ApplicationExit
+*LogOn
+*ScreenCapture
+*Action Navigation(Default.Application Exit Object)
 
 *ActionAvailable Refresh
 *ActionAvailable Application Exit

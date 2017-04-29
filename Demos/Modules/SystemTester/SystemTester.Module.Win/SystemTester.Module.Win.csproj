@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module.Win</RootNamespace>
     <AssemblyName>SystemTester.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -263,10 +265,8 @@
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Default.inc" />
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Mask.inc" />
     <None Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\PredifineValue.inc" />
-    <None Include="FunctionalTests\ApplicationExit\HideOnExit\Init.inc" />
     <Content Include="FunctionalTests\ApplicationExit\MinimizeOnExit\Config.xml" />
     <Content Include="FunctionalTests\ApplicationExit\PromptOnExit\Config.xml" />
-    <None Include="FunctionalTests\ApplicationExit\PromptOnExit\Init.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\Config.xml" />
     <None Include="FunctionalTests\GridView\ImmediatePostData.inc" />
     <Content Include="FunctionalTests\PropertyEditors\StringLookupPropertyEditor\Config.xml" />
@@ -329,7 +329,9 @@
   <ItemGroup>
     <None Include="FunctionalTests\Actions\Actions.Win.ets" />
     <None Include="FunctionalTests\Actions\Actions.xafml" />
-    <None Include="FunctionalTests\ApplicationExit\ApplicationExit.xafml" />
+    <None Include="FunctionalTests\ApplicationExit\ApplicationExit.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ApplicationExit\HideOnExit\HideOnExit.ets" />
     <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit\MinimizeOnExit.ets" />
     <None Include="FunctionalTests\ApplicationExit\PromptOnExit\PromptOnExit.ets" />
@@ -386,7 +388,6 @@
     <Content Include="FunctionalTests\Actions\Lock View Model.inc" />
     <Content Include="FunctionalTests\Actions\Reset View Model.inc" />
     <Content Include="FunctionalTests\ApplicationExit\HideOnExit\Config.xml" />
-    <None Include="FunctionalTests\ApplicationExit\MinimizeOnExit\Init.inc" />
     <None Include="FunctionalTests\DetailViewCaching\Init.inc" />
     <Content Include="FunctionalTests\FilterEditor\Config.xml" />
     <Content Include="FunctionalTests\FilterEditor\FilterEditorTop.inc" />
