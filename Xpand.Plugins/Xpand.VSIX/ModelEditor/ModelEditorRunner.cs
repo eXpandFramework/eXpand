@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Management;
 using System.Windows.Forms;
-using EnvDTE;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
@@ -23,12 +22,14 @@ namespace Xpand.VSIX.ModelEditor {
             var mePaths = OptionClass.Instance.MEs.Where(me => File.Exists(me.Path)).ToArray();
             foreach (var me in mePaths){
                 var assembly = Mono.Cecil.AssemblyDefinition.ReadAssembly(me.Path);
-                if (assembly.VersionMatch())
+                var versionMatch = assembly.VersionMatch();
+                _dte.WriteToOutput($"{me.Path} VersionMatch={versionMatch}");
+                if (versionMatch)
                     return me.Path;
             }
             
             if (!mePaths.Any()){
-                _dte.WriteToOutput("Use setting to add at least one model editor path ");
+                _dte.WriteToOutput("Use setting to add at least one model editor path for each major version");
                 return null;
             }
             
