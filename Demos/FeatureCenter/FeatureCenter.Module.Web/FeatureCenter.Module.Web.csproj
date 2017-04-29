@@ -90,7 +90,7 @@
     <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v17.1, Version=17.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" >
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v17.1">
