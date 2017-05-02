@@ -18,11 +18,13 @@ namespace Xpand.Persistent.Base.ModelAdapter{
     public abstract class PropertyEditorControlAdapterController<TModelMemberViewItem, TModelControl, TPropertyEditor> : ModelAdapterController, IModelExtender
         where TModelMemberViewItem : IModelMemberViewItem
         where TModelControl : IModelModelAdapter{
-        readonly HashSet<ObjectModelSynchronizer> _objectModelSynchronizers=new HashSet<ObjectModelSynchronizer>();
+        private HashSet<ObjectModelSynchronizer> _objectModelSynchronizers;
 
         protected override void OnActivated() {
             base.OnActivated();
-            var listView = View as ListView;
+
+	        _objectModelSynchronizers = new HashSet<ObjectModelSynchronizer>();
+			var listView = View as ListView;
             var gridListEditor = listView?.Editor as ASPxGridListEditor;
             if (gridListEditor != null)
                 gridListEditor.CustomizeAutoFilterCellEditor += GridListEditorOnCustomizeAutoFilterCellEditor;
