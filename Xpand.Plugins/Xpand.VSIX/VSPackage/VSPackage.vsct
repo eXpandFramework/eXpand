@@ -72,6 +72,12 @@
             <ButtonText>Build &amp;Selection</ButtonText>
           </Strings>
         </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidFindInSolution" priority="0x0103" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>Find In So&amp;lution</ButtonText>
+          </Strings>
+        </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidOptions" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuBottomGroup" />
           <Strings>
@@ -150,10 +156,12 @@
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreference" editor="guidVSStd97" key1="l" mod1="Alt Control Shift"  />
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidLoadProjectFromreferenceTool" editor="guidVSStd97" key1="l" mod1="Alt Control Shift"  />
     <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidBuildSelection" editor="guidVSStd97" key1="VK_RETURN" mod1="Alt Control Shift"  />
+    <KeyBinding guid="guidVSXpandPackageCmdSet" id="cmdidFindInSolution" editor="guidVSStd97" key1="l" mod1="Alt Shift"  />
   </KeyBindings>
   <Symbols>
     <GuidSymbol value="{fa1289e0-6376-4d19-98c5-9d0c90dd3283}" name="guidVSXpandPackage" />
     <GuidSymbol value="{6c0bd9dc-4a51-4a9d-8952-c5a69f472eab}" name="guidVSXpandPackageCmdSet">
+      <IDSymbol value="277" name="cmdidFindInSolution" />
       <IDSymbol value="276" name="cmdidBuildSelection" />
       <IDSymbol value="275" name="cmdidAddXpandReference" />
       <IDSymbol value="274" name="ReferencesContextMenuGroup" />

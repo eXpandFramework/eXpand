@@ -52,6 +52,9 @@ namespace Xpand.VSIX.Commands {
                 menuItem = new OleMenuCommand(BuildSelectionCommand.Build, new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidBuildSelection));
                 menuItem.EnableForSolution();
                 commandService.AddCommand(menuItem);
+                menuItem = new OleMenuCommand((sender, args) => FindInSolutionCommand.Find(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidFindInSolution));
+                menuItem.EnableForSolution();
+                commandService.AddCommand(menuItem);
             }
         }
 
