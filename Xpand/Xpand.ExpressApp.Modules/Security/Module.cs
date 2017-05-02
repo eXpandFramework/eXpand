@@ -91,21 +91,18 @@ namespace Xpand.ExpressApp.Security {
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e) {
             var customPermissions = e.Permissions.WithCustomPermissions();
-            foreach (var processor in e.Processors.Where(pair => !pair.Value.GetType().HasAttribute<ObsoleteAttribute>())){
-                var fieldName = "permissionDictionary";
-                var requestProcessor = processor.Value;
-                if (requestProcessor is ServerPermissionRequestProcessor)
-                    fieldName = "permissions";
-                if (requestProcessor.GetType().Name.EndsWith("Wrapper"))
-                    requestProcessor = (IPermissionRequestProcessor) requestProcessor.GetFieldValue("requestProcessor");
-
-                if (requestProcessor.GetType().Members(Flags.AllMembers).Any(info => info.Name == fieldName)) {
-                    var processorDictionary = ((IPermissionDictionary)requestProcessor.GetFieldValue(fieldName)).WithSecurityOperationAttributePermissions();
-                    requestProcessor.SetFieldValue(fieldName, processorDictionary);
-                    var operationPermissions = processorDictionary.GetPermissions<IOperationPermission>().ToList();
-                    customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(operationPermissions));
-                }
+            var fieldName = "permissionDictionary";
+            var requestProcessors = e.Processors.Select(pair => pair.Value)
+                .Where(processor => processor is SerializablePermissionRequestProcessorWrapper ||
+                                    processor is NavigationPermissionRequestProcessor);
+            foreach (var processor in requestProcessors){
+                var requestProcessor = processor is NavigationPermissionRequestProcessor?processor:(IPermissionRequestProcessor) processor.GetFieldValue("requestProcessor");
+                var processorDictionary = ((IPermissionDictionary)requestProcessor.GetFieldValue(fieldName)).WithSecurityOperationAttributePermissions();
+                requestProcessor.SetFieldValue(fieldName, processorDictionary);
+                var operationPermissions = processorDictionary.GetPermissions<IOperationPermission>().ToList();
+                customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(operationPermissions));
             }
+                
             var keyValuePairs = new[]{
                 new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(customPermissions)),
                 new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), new AnonymousLoginRequestProcessor(customPermissions)),
