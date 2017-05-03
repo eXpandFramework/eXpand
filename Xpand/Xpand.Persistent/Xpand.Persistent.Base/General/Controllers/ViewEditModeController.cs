@@ -72,13 +72,15 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         private void UpdateEditableActions(View view) {
-            var modificationsController = Frame.GetController<ModificationsController>();
             var key = typeof(ViewEditModeController).Name;
-            modificationsController.SaveAction.Active[key] = view.AllowEdit;
-            modificationsController.SaveAndCloseAction.Active[key] = view.AllowEdit;
-            modificationsController.CancelAction.Active[key] = view.AllowEdit;
-            Frame.GetController<DeleteObjectsViewController>().DeleteAction.Active[key] = view.AllowEdit;
-            Frame.GetController<NewObjectViewController>().NewObjectAction.Active[key] = view.AllowEdit;
+            Frame.GetController<ModificationsController>(controller => {
+                controller.SaveAction.Active[key] = view.AllowEdit;
+                controller.SaveAndCloseAction.Active[key] = view.AllowEdit;
+                controller.CancelAction.Active[key] = view.AllowEdit;
+            });
+
+            Frame.GetController<DeleteObjectsViewController>(controller => controller.DeleteAction.Active[key] = view.AllowEdit);
+            Frame.GetController<NewObjectViewController>(controller => controller.NewObjectAction.Active[key] = view.AllowEdit);
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

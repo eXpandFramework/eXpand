@@ -3,17 +3,19 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule.Search {
     public class SearchFromListViewController : SearchFromViewController {
         protected override void OnActivated() {
             base.OnActivated();
-            var filterController = Frame.GetController<FilterController>();
-            var modelListView = View.Model as IModelListViewFullTextSearch;
-            if (modelListView != null && modelListView.FullTextSearchMode.HasValue)
-                filterController.FullTextSearchMode = modelListView.FullTextSearchMode.Value;
-            filterController.FullTextFilterAction.Executing += FullTextFilterActionOnExecuting;
-            filterController.CustomGetFullTextSearchProperties += OnCustomGetFullTextSearchProperties;
+            Frame.GetController<FilterController>(filterController => {
+                var modelListView = View.Model as IModelListViewFullTextSearch;
+                if (modelListView?.FullTextSearchMode != null)
+                    filterController.FullTextSearchMode = modelListView.FullTextSearchMode.Value;
+                filterController.FullTextFilterAction.Executing += FullTextFilterActionOnExecuting;
+                filterController.CustomGetFullTextSearchProperties += OnCustomGetFullTextSearchProperties;
+            });
         }
 
         void FullTextFilterActionOnExecuting(object sender, CancelEventArgs cancelEventArgs) {

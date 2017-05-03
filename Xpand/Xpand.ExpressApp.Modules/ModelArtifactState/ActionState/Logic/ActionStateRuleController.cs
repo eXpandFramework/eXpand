@@ -11,19 +11,17 @@ using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ActionState.Logic {
     public class ActionStateRuleController:ViewController {
-        LogicRuleViewController _logicRuleViewController;
         public const string ActiveObjectTypeHasActionRules = "ActiveObjectTypeHasActionRules";
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.Disposing+=FrameOnDisposing;
-            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute+=OnLogicRuleExecute;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute += OnLogicRuleExecute);
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute-=OnLogicRuleExecute;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute -= OnLogicRuleExecute);
         }
 
         IEnumerable<ActionBase> GetActions(IActionStateRule rule) {

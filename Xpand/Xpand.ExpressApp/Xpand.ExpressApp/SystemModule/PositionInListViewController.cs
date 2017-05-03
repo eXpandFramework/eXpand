@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 
@@ -98,13 +99,15 @@ namespace Xpand.ExpressApp.SystemModule {
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            var recordsNavigationController = Frame.GetController<RecordsNavigationController>();
-            recordsNavigationController.NextObjectAction.Enabled.ResultValueChanged += (sender, args) =>{
-                _positionDownAction.Enabled["Move"] = args.NewValue;
-            };
-            recordsNavigationController.PreviousObjectAction.Enabled.ResultValueChanged += (sender, args) =>{
-                _positionUpAction.Enabled["Move"] = args.NewValue;
-            };
+            Frame.GetController<RecordsNavigationController>(recordsNavigationController => {
+                recordsNavigationController.NextObjectAction.Enabled.ResultValueChanged += (sender, args) => {
+                    _positionDownAction.Enabled["Move"] = args.NewValue;
+                };
+                recordsNavigationController.PreviousObjectAction.Enabled.ResultValueChanged += (sender, args) => {
+                    _positionUpAction.Enabled["Move"] = args.NewValue;
+                };
+            });
+            
             
         }
 

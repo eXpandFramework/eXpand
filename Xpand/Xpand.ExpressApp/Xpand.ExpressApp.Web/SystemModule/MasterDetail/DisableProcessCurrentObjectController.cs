@@ -1,6 +1,7 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.Layout;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
     public class DisableProcessCurrentObjectController : ViewController<ListView> {
@@ -9,17 +10,15 @@ namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
             TargetViewType = ViewType.ListView;
         }
         protected override void OnDeactivated() {
-            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[StrDisableProcessCurrentObjectController] = IsMasterDetail;
+            Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.ProcessCurrentObjectAction.Active[StrDisableProcessCurrentObjectController] = IsMasterDetail);
             base.OnDeactivated();
         }
 
-        bool IsMasterDetail {
-            get { return View.Model != null && View.Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView&&View.LayoutManager is XpandLayoutManager; }
-        }
+        bool IsMasterDetail => View.Model != null && View.Model.MasterDetailMode == MasterDetailMode.ListViewAndDetailView&&View.LayoutManager is XpandLayoutManager;
 
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Active[StrDisableProcessCurrentObjectController] = !IsMasterDetail;
+            Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.ProcessCurrentObjectAction.Active[StrDisableProcessCurrentObjectController] = !IsMasterDetail);
         }
     }
 }

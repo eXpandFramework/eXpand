@@ -14,6 +14,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.XtraWizard;
 using Fasterflect;
 using Xpand.ExpressApp.WizardUI.Win.Templates;
+using Xpand.Persistent.Base.General;
 using View = DevExpress.ExpressApp.View;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
@@ -45,9 +46,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
         #endregion
 
-        public WizardDetailViewForm WizardForm{
-            get { return _wizardForm; }
-        }
+        public WizardDetailViewForm WizardForm => _wizardForm;
 
         #region Methods
 
@@ -94,16 +93,12 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             }
         }
 
-        protected virtual void OnWizardPageDetailViewCreating() {
-            if (WizardPageDetailViewCreating != null) {
-                WizardPageDetailViewCreating(this, EventArgs.Empty);
-            }
+        protected virtual void OnWizardPageDetailViewCreating(){
+            WizardPageDetailViewCreating?.Invoke(this, EventArgs.Empty);
         }
 
-        protected virtual void OnWizardPageDetailViewCreated() {
-            if (WizardPageDetailViewCreated != null) {
-                WizardPageDetailViewCreated(this, EventArgs.Empty);
-            }
+        protected virtual void OnWizardPageDetailViewCreated(){
+            WizardPageDetailViewCreated?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -159,30 +154,28 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// <param name="page">current WizardPage</param>
         private void UpdateCurrentView(BaseWizardPage page){
             var xafWizardPage = page as XafWizardPage;
-            if (xafWizardPage != null) {
-                var wizardPage = xafWizardPage;
-                if (wizardPage.View != null) {
-                    wizardPage.View.SaveModel();
-                    var detailView = wizardPage.View;
-                    OnWizardPageDetailViewCreating();
-                    wizardPage.View = Application.CreateDetailView(ObjectSpace, wizardPage.View.Id, false);
-                    OnWizardPageDetailViewCreated();
-                    wizardPage.View.CurrentObject = View.CurrentObject;
+            var wizardPage = xafWizardPage;
+            if (wizardPage?.View != null) {
+                wizardPage.View.SaveModel();
+                var detailView = wizardPage.View;
+                OnWizardPageDetailViewCreating();
+                wizardPage.View = Application.CreateDetailView(ObjectSpace, wizardPage.View.Id, false);
+                OnWizardPageDetailViewCreated();
+                wizardPage.View.CurrentObject = View.CurrentObject;
 
-                    wizardPage.View.ErrorMessages.Clear();
-                    ((Control)((IViewSiteTemplate)Frame.Template).ViewSiteControl).Parent = page;
+                wizardPage.View.ErrorMessages.Clear();
+                ((Control)((IViewSiteTemplate)Frame.Template).ViewSiteControl).Parent = page;
 
-                    UpdateControllers(wizardPage.View);
-                    detailView.Dispose();
-                    Frame.Template.SetView(wizardPage.View);
-                    if (!View.ErrorMessages.IsEmpty)
-                        wizardPage.View.ErrorMessages.LoadMessages(View.ErrorMessages);
-                }
+                UpdateControllers(wizardPage.View);
+                detailView.Dispose();
+                Frame.Template.SetView(wizardPage.View);
+                if (!View.ErrorMessages.IsEmpty)
+                    wizardPage.View.ErrorMessages.LoadMessages(View.ErrorMessages);
             }
         }
 
         private void FocusDefaultItem() {
-            Frame.GetController<FocusDefaultDetailViewItemController>().CallMethod("FocusDefaultItemControl");
+            Frame.GetController<FocusDefaultDetailViewItemController>(controller => controller.CallMethod("FocusDefaultItemControl"));
         }
 
         /// <summary>
@@ -202,7 +195,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
                 return true;
             var validationResults = new RuleSetValidationResult();
             var usedProperties = new List<string>();
-            var resultsHighlightControllers = new List<ResultsHighlightController> { Frame.GetController<ResultsHighlightController>() };
+            var resultsHighlightControllers = new List<ResultsHighlightController> { Frame.GetController<ResultsHighlightController>() }.Where(controller => controller!=null).ToList();
 
             foreach (var item in page.View.GetItems<PropertyEditor>()) {
                 if (item.Control != null && ((Control)item.Control).Visible) {
@@ -223,7 +216,8 @@ namespace Xpand.ExpressApp.WizardUI.Win {
             foreach (var obj in modifiedObjects) {
                 IList<IRule> rules = Validator.RuleSet.GetRules(obj, ContextIdentifier.Save);
                 foreach (IRule rule in rules) {
-                    bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.FirstOrDefault(p => p.EndsWith(String.Format(".{0}", property)))));
+                    bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.FirstOrDefault(p => p.EndsWith(
+                                                                             $".{property}"))));
                     string reason;
                     if (ruleInUse && RuleSet.NeedToValidateRule(ObjectSpace, rule, obj, out reason)) {
                         var objectSpaceLink = rule as IObjectSpaceLink;
@@ -272,12 +266,14 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
             UpdateControllers(View);
             var currentObject = View.CurrentObject;
-            var controller = Frame.GetController<ModificationsController>();
-            if (controller.SaveAndCloseAction.Active && controller.SaveAndCloseAction.Enabled) {
-                Frame.GetController<ModificationsController>().SaveAndCloseAction.DoExecute();
-            } else {
-                Frame.GetController<CloseWindowController>().CloseAction.DoExecute();
-            }
+            Frame.GetController<ModificationsController>(controller => {
+                if (controller.SaveAndCloseAction.Active && controller.SaveAndCloseAction.Enabled) {
+                    Frame.GetController<ModificationsController>(modificationsController => modificationsController.SaveAndCloseAction.DoExecute());
+                }
+                else {
+                    Frame.GetController<CloseWindowController>(windowController => windowController.CloseAction.DoExecute());
+                }
+            });
 
             if (_wizardForm.ShowRecordAfterCompletion) {
                 var os = Application.CreateObjectSpace(View.ObjectTypeInfo.Type);
@@ -299,7 +295,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// <param name="e">Cancel EventArgs</param>
         private void WizardControl_CancelClick(object sender, CancelEventArgs e) {
             UpdateControllers(View);
-            Frame.GetController<CloseWindowController>().CloseAction.DoExecute();
+            Frame.GetController<CloseWindowController>(controller => controller.CloseAction.DoExecute());
             if (((WizardControl)sender).SelectedPage != null && View != null) {
                 UpdateCurrentView(((WizardControl)sender).SelectedPage);
             }

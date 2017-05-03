@@ -11,10 +11,11 @@ namespace Xpand.Persistent.Base.General {
     public static class FrameExtensions {
 
         public static void CleanDetailView(this Frame frame) {
-            var webModificationsController = frame.GetController<ModificationsController>();
-            webModificationsController.Active["CleanDetailView"] = false;
-            frame.View.CurrentObject = frame.View.ObjectSpace.CreateObject(frame.View.ObjectTypeInfo.Type);
-            webModificationsController.Active.RemoveItem("CleanDetailView");
+            frame.GetController<ModificationsController>(controller => {
+                controller.Active["CleanDetailView"] = false;
+                frame.View.CurrentObject = frame.View.ObjectSpace.CreateObject(frame.View.ObjectTypeInfo.Type);
+                controller.Active.RemoveItem("CleanDetailView");
+            });
         }
 
         public static IEnumerable<TAction> Actions<TAction>(this Frame frame, IEnumerable<IModelNode> items) where TAction : ActionBase{
@@ -54,8 +55,16 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static Controller GetController(this Frame frame, Type controllerType){
-            return (Controller)frame.CallMethod(new[] { controllerType }, "GetController");
+        public static void GetController<T>(this Frame frame, Action<T> withController) where T:Controller{
+            var controller = frame?.GetController<T>();
+            if (controller != null)
+                withController(controller);
+        }
+
+        public static void GetController(this Frame frame, Type controllerType,Action<Controller> action){
+            var controller = (Controller)frame.CallMethod(new[] { controllerType }, "GetController");
+            if (controller!=null)
+                action(controller);
         }
     }
 }

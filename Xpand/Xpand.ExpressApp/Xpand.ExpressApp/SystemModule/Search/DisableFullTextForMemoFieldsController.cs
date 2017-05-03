@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule.Search {
@@ -28,7 +29,12 @@ namespace Xpand.ExpressApp.SystemModule.Search {
 
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<FilterController>().CustomBuildCriteria += OnCustomBuildCriteria;
+            Frame.GetController<FilterController>(controller => controller.CustomBuildCriteria += OnCustomBuildCriteria);
+        }
+
+        protected override void OnDeactivated(){
+            base.OnDeactivated();
+            Frame.GetController<FilterController>(controller => controller.CustomBuildCriteria -= OnCustomBuildCriteria);
         }
 
         void OnCustomBuildCriteria(object sender, CustomBuildCriteriaEventArgs customBuildCriteriaEventArgs) {

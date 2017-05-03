@@ -9,19 +9,19 @@ using Xpand.Persistent.Base.ModelArtifact;
 
 namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
     public class ControllerStateRuleController : ViewController {
-        LogicRuleViewController _logicRuleViewController;
         public const string ActiveObjectTypeHasControllerRules="ActiveObjectTypeHasControllerRules";
         protected void ChangeState(LogicRuleInfo info) {
             var rule = ((IControllerStateRule)info.Rule);
-            Controller controller = Frame.GetController(rule.ControllerType);
-            if (rule.ControllerState == Persistent.Base.ModelArtifact.ControllerState.Register) {
-                if (!controller.Active) {
-                    Frame.RegisterController(controller);
+            Frame.GetController(rule.ControllerType, controller => {
+                if (rule.ControllerState == Persistent.Base.ModelArtifact.ControllerState.Register) {
+                    if (!controller.Active) {
+                        Frame.RegisterController(controller);
+                    }
                 }
-            }
-            else{
-                controller.Active[ActiveObjectTypeHasControllerRules] = info.InvertCustomization || ((IControllerStateRule)info.Rule).ControllerState == Persistent.Base.ModelArtifact.ControllerState.Enabled;
-            }
+                else {
+                    controller.Active[ActiveObjectTypeHasControllerRules] = info.InvertCustomization || ((IControllerStateRule)info.Rule).ControllerState == Persistent.Base.ModelArtifact.ControllerState.Enabled;
+                }
+            });
         }
 
         void ChangeStateOnModules(LogicRuleInfo info) {
@@ -43,14 +43,13 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic {
 
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute += LogicRuleExecutorOnLogicRuleExecute);
             Frame.Disposing += FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleExecutorOnLogicRuleExecute;
         }
 
         private void FrameOnDisposing(object sender, EventArgs e){
             Frame.Disposing -= FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleExecutorOnLogicRuleExecute;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute -= LogicRuleExecutorOnLogicRuleExecute);
         }
 
         private void LogicRuleExecutorOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs e){

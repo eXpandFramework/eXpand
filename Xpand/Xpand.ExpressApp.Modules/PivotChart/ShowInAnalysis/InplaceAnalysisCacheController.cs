@@ -9,16 +9,14 @@ using Xpand.ExpressApp.PivotChart.Core;
 
 namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
     public class InplaceAnalysisCacheController : WindowController {
-        readonly LightDictionary<Type, List<object>> analysisCache = new LightDictionary<Type, List<object>>();
+        readonly LightDictionary<Type, List<object>> _analysisCache = new LightDictionary<Type, List<object>>();
         ITypeInfoContainer _typeInfoContainer;
 
         public InplaceAnalysisCacheController() {
             TargetWindowType = WindowType.Main;
         }
 
-        protected LightDictionary<Type, List<object>> AnalysisCache {
-            get { return analysisCache; }
-        }
+        protected LightDictionary<Type, List<object>> AnalysisCache => _analysisCache;
 
         void Window_ViewChanging(object sender, EventArgs e) {
             ClearCache();
@@ -31,12 +29,12 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
         }
 
         public void ClearCache() {
-            analysisCache.Clear();
+            _analysisCache.Clear();
         }
 
         public virtual List<object> GetAnalysisDataList(Type targetObjectType) {
             List<object> cachedReports;
-            if (analysisCache.TryGetValue(targetObjectType, out cachedReports)) {
+            if (_analysisCache.TryGetValue(targetObjectType, out cachedReports)) {
                 return cachedReports;
             }
             _typeInfoContainer = (ITypeInfoContainer)Application.Modules.Single(@base => @base is ITypeInfoContainer);
@@ -48,7 +46,7 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
                                                                  new InOperator("ObjectTypeName", targetObjectTypeNames));
                     result.AddRange(reports.Cast<object>().Select(objectSpace.GetKeyValue));
                 }
-                analysisCache.Add(targetObjectType, result);
+                _analysisCache.Add(targetObjectType, result);
                 return result;
             }
         }
@@ -67,13 +65,8 @@ namespace Xpand.ExpressApp.PivotChart.ShowInAnalysis {
 
         public static List<object> GetAnalysisDataList(XafApplication xafApplication, Type targetObjectType) {
             Guard.ArgumentNotNull(xafApplication, "xafApplication");
-            if (xafApplication.MainWindow != null) {
-                var cacheController = xafApplication.MainWindow.GetController<InplaceAnalysisCacheController>();
-                if (cacheController != null) {
-                    return cacheController.GetAnalysisDataList(targetObjectType);
-                }
-            }
-            return new List<object>();
+            var cacheController = xafApplication.MainWindow?.GetController<InplaceAnalysisCacheController>();
+            return cacheController != null ? cacheController.GetAnalysisDataList(targetObjectType) : new List<object>();
         }
     }
 }

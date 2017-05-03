@@ -2,18 +2,17 @@
 using DevExpress.ExpressApp.StateMachine;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class CriteriaActionStateController : ViewController<ObjectView> {
         private const string HideIfCriteriaDoNotFit = "HideIfCriteriaDoNotFit";
-        ChangeStateActionController _changeStateActionController;
         private StateMachineLogic _stateMachineLogic;
 
         protected override void OnActivated() {
             base.OnActivated();
             _stateMachineLogic = new StateMachineLogic(ObjectSpace);
-            _changeStateActionController = Frame.GetController<ChangeStateActionController>();
-            _changeStateActionController.RequestActiveState += ChangeStateActionControllerOnRequestActiveStateAction;
+            Frame.GetController<ChangeStateActionController>(controller => controller.RequestActiveState += ChangeStateActionControllerOnRequestActiveStateAction);
         }
 
         public override void CustomizeTypesInfo(DevExpress.ExpressApp.DC.ITypesInfo typesInfo) {
@@ -26,7 +25,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            _changeStateActionController.RequestActiveState -= ChangeStateActionControllerOnRequestActiveStateAction;
+            Frame.GetController<ChangeStateActionController>(controller => controller.RequestActiveState -= ChangeStateActionControllerOnRequestActiveStateAction);
         }
 
         void ChangeStateActionControllerOnRequestActiveStateAction(object sender, ChoiceActionItemArgs choiceActionItemArgs) {

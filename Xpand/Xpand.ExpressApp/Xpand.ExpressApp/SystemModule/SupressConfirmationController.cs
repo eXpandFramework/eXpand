@@ -3,6 +3,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -15,19 +16,21 @@ namespace Xpand.ExpressApp.SystemModule {
     public interface IModelObjectViewSupressConfirmation : IModelClassSupressConfirmation {
     }
     public class SupressConfirmationController:ViewController<ObjectView>,IModelExtender{
-        private ModificationsController _modificationsController;
         private ModificationsHandlingMode _modificationsHandlingMode;
+        private ModificationsController _modificationsController;
 
         protected override void OnActivated(){
             base.OnActivated();
             if (((IModelObjectViewSupressConfirmation)View.Model).SupressConfirmation) {
-                _modificationsController = Frame.GetController<ModificationsController>();
-                _modificationsHandlingMode = _modificationsController.ModificationsHandlingMode;
-                _modificationsController.ModificationsHandlingMode = (ModificationsHandlingMode) (-1);
-                ObjectSpace.Committed += ObjectSpaceOnCommitted;
-                if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject)){
-                    ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
-                }
+                Frame.GetController<ModificationsController>(controller => {
+                    _modificationsController = controller;
+                    _modificationsHandlingMode = controller.ModificationsHandlingMode;
+                    controller.ModificationsHandlingMode = (ModificationsHandlingMode)(-1);
+                    ObjectSpace.Committed += ObjectSpaceOnCommitted;
+                    if (View is DetailView && ObjectSpace.IsNewObject(View.CurrentObject)) {
+                        ObjectSpace.ObjectChanged += ObjectSpace_ObjectChanged;
+                    }
+                });
             }
         }
 
@@ -36,8 +39,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            if (_modificationsController != null)
-                _modificationsController.ModificationsHandlingMode=_modificationsHandlingMode;
+            Frame.GetController<ModificationsController>(controller => controller.ModificationsHandlingMode = _modificationsHandlingMode);
             ObjectSpace.ObjectChanged -= ObjectSpace_ObjectChanged;
             ObjectSpace.Committed-=ObjectSpaceOnCommitted;
         }

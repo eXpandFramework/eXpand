@@ -6,18 +6,14 @@ using System.Linq;
 namespace Xpand.Persistent.Base.General.Controllers {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
     public sealed class CreateableItemAttribute : Attribute {
-        readonly Type _masterObjectType;
-
         public CreateableItemAttribute() {
         }
 
         public CreateableItemAttribute(Type masterObjectType) {
-            _masterObjectType = masterObjectType;
+            MasterObjectType = masterObjectType;
         }
 
-        public Type MasterObjectType {
-            get { return _masterObjectType; }
-        }
+        public Type MasterObjectType{ get; }
     }
 
     public class CreatableItemController : ViewController {
@@ -25,12 +21,12 @@ namespace Xpand.Persistent.Base.General.Controllers {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.Disposing += FrameOnDisposing;
-            Frame.GetController<NewObjectViewController>().CollectDescendantTypes += OnCollectDescendantTypes;
+            Frame.GetController<NewObjectViewController>(controller => controller.CollectDescendantTypes += OnCollectDescendantTypes);
         }
 
         void OnCollectDescendantTypes(object sender, CollectTypesEventArgs e) {
             var nestedFrame = Frame as NestedFrame;
-            if (nestedFrame != null && nestedFrame.ViewItem.View as ObjectView!=null) {
+            if (nestedFrame?.ViewItem.View is ObjectView) {
                 var parentType = nestedFrame.ViewItem.View.ObjectTypeInfo.Type;
                 var typeInfos = e.Types.Select(type => Application.TypesInfo.FindTypeInfo(type));
                 var typeAttributes = typeInfos.Select(info => new{info.Type, Attributes = info.FindAttributes<CreateableItemAttribute>()}).
@@ -47,7 +43,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
-            Frame.GetController<NewObjectViewController>().CollectDescendantTypes -= OnCollectDescendantTypes;        
+            Frame.GetController<NewObjectViewController>(controller => controller.CollectDescendantTypes -= OnCollectDescendantTypes);        
         }
     }
 

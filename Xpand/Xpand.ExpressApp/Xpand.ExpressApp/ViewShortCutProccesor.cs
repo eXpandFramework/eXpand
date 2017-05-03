@@ -86,7 +86,7 @@ namespace Xpand.ExpressApp {
             if (!ReferenceEquals(criteriaOperator , null))
                 return criteriaOperator;
 
-            throw new ArgumentException(objectKeyString, "objectKeyString");
+            throw new ArgumentException(objectKeyString, nameof(objectKeyString));
         }
 
         protected virtual object GetObjectCore(IModelDetailView modelView, object objectKey, IObjectSpace objectSpace) {
@@ -135,9 +135,11 @@ namespace Xpand.ExpressApp {
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            var showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
-            showNavigationItemController.CustomInitializeItems += ShowNavigationItemControllerOnCustomInitializeItems;
-            showNavigationItemController.ItemsInitialized += ShowNavigationItemControllerOnItemsInitialized;
+            Frame.GetController<ShowNavigationItemController>(showNavigationItemController => {
+                showNavigationItemController.CustomInitializeItems += ShowNavigationItemControllerOnCustomInitializeItems;
+                showNavigationItemController.ItemsInitialized += ShowNavigationItemControllerOnItemsInitialized;
+            });
+            
         }
 
         void ShowNavigationItemControllerOnCustomInitializeItems(object sender, HandledEventArgs handledEventArgs) {
@@ -151,14 +153,13 @@ namespace Xpand.ExpressApp {
         }
 
         bool CannotConvertCriteriaValueToObjectKeyType(IModelNavigationItem modelNavigationItem) {
-            return !string.IsNullOrEmpty(modelNavigationItem.ObjectKey) && (((modelNavigationItem.View != null &&
-                   modelNavigationItem.View.AsObjectView != null && !modelNavigationItem.ObjectKey.CanChange(
-                       modelNavigationItem.View.AsObjectView.ModelClass.TypeInfo.KeyMember.MemberType)))&&!modelNavigationItem.ObjectKey.StartsWith("@"));
+            return !string.IsNullOrEmpty(modelNavigationItem.ObjectKey) && modelNavigationItem.View?.AsObjectView != null && !modelNavigationItem.ObjectKey.CanChange(
+                       modelNavigationItem.View.AsObjectView.ModelClass.TypeInfo.KeyMember.MemberType) && !modelNavigationItem.ObjectKey.StartsWith("@");
         }
 
         void ShowNavigationItemControllerOnItemsInitialized(object sender, EventArgs eventArgs) {
             var showNavigationItemController = ((ShowNavigationItemController) sender);
-            var choiceActionItems = showNavigationItemController.ShowNavigationItemAction.Items.GetItems<ChoiceActionItem>(item => item.Items).Where(ItemMatches);
+            var choiceActionItems = showNavigationItemController.ShowNavigationItemAction.Items.GetItems<ChoiceActionItem>(item => item.Items).Where(ItemMatches).ToArray();
             showNavigationItemController.ItemsInitialized -= ShowNavigationItemControllerOnItemsInitialized;
             foreach (var item in _items) {
                 item.Key.ObjectKey = item.Value;

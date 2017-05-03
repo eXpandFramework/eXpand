@@ -218,8 +218,7 @@ namespace Xpand.ExpressApp.ViewVariants {
 
         private void SynchronizeModel(Frame frame, string viewId){
             var viewVariant = (ViewVariant)frame.View.CurrentObject;
-            var modelMemberInfoController = frame.GetController<XpandModelMemberInfoController>();
-            modelMemberInfoController.SynchronizeModel(Application.Model.Views[viewId], viewVariant);
+            frame.GetController<XpandModelMemberInfoController>(controller => controller.SynchronizeModel(Application.Model.Views[viewId], viewVariant));
         }
 
         void ChangeToVariant() {

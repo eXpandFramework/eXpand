@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.SystemModule;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
@@ -16,9 +17,6 @@ namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
     }
 
     public class NestedListViewAutoCommitController:ViewController<ListView>,IModelExtender{
-        private SingleChoiceAction _newObjectAction;
-        private SimpleAction _deleteAction;
-        private SimpleAction _editAction;
 
         private bool Enabled(){
             return View.Editor is ASPxGridListEditor&& View.CollectionSource.Collection!=null&&Frame is NestedFrame && ((IModelListViewAutoCommitWhenNested) View.Model).AutoCommitWhenNested;
@@ -27,21 +25,18 @@ namespace Xpand.ExpressApp.Web.SystemModule.MasterDetail {
         protected override void OnActivated(){
             base.OnActivated();
             if (Enabled()){
-                _newObjectAction = Frame.GetController<NewObjectViewController>().NewObjectAction;
-                _newObjectAction.ExecuteCompleted+=NewObjectActionOnExecuteCompleted;
-                _deleteAction = Frame.GetController<DeleteObjectsViewController>().DeleteAction;
-                _deleteAction.Execute+=DeleteActionOnExecute;
-                _editAction = Frame.GetController<ListViewController>().EditAction;
-                _editAction.ExecuteCompleted+=EditActionOnExecuteCompleted;
+                Frame.GetController<NewObjectViewController>(controller => controller.NewObjectAction.ExecuteCompleted += NewObjectActionOnExecuteCompleted);
+                Frame.GetController<DeleteObjectsViewController>(controller => controller.DeleteAction.Execute+=DeleteActionOnExecute);
+                Frame.GetController<ListViewController>(controller => controller.EditAction.ExecuteCompleted+=EditActionOnExecuteCompleted);
             }
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            if (_newObjectAction != null){
-                _newObjectAction.ExecuteCompleted-=NewObjectActionOnExecuteCompleted;
-                _deleteAction.Execute-=DeleteActionOnExecute;
-                _editAction.ExecuteCompleted-=EditActionOnExecuteCompleted;
+            if (Enabled()){
+                Frame.GetController<NewObjectViewController>(controller => controller.NewObjectAction.ExecuteCompleted -= NewObjectActionOnExecuteCompleted);
+                Frame.GetController<DeleteObjectsViewController>(controller => controller.DeleteAction.Execute -= DeleteActionOnExecute);
+                Frame.GetController<ListViewController>(controller => controller.EditAction.ExecuteCompleted -= EditActionOnExecuteCompleted);
             }
         }
 

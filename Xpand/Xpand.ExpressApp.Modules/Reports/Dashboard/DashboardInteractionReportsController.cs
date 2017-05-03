@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.Reports.Dashboard {
@@ -9,17 +10,15 @@ namespace Xpand.ExpressApp.Reports.Dashboard {
     public class DashboardInteractionReportsController : ViewController<DashboardView>, IModelExtender {
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            Frame.GetController<DashboardInteractionController>().ListViewFiltering -= OnListViewFiltering;
+            Frame.GetController<DashboardInteractionController>(controller => controller.ListViewFiltering -= OnListViewFiltering);
         }
 
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<DashboardInteractionController>().ListViewFiltering += OnListViewFiltering;
+            Frame.GetController<DashboardInteractionController>(controller => controller.ListViewFiltering += OnListViewFiltering);
         }
 
-
         void OnListViewFiltering(object sender, ListViewFilteringArgs listViewFilteringArgs) {
-
             var dashboardViewItem = listViewFilteringArgs.DashboardViewItem;
             var dashboardReportViewItem = dashboardViewItem as DashboardReportViewItem;
             if (dashboardReportViewItem != null) {

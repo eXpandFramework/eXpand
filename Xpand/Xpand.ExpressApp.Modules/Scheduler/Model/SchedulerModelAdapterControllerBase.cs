@@ -9,11 +9,11 @@ using DevExpress.Persistent.Base.General;
 using DevExpress.Utils.Controls;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Native;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Scheduler.Model {
     public abstract class SchedulerModelAdapterControllerBase : ModelAdapterController, IModelExtender {
-        LinkToListViewController _linkToListViewController;
 
         public SchedulerListEditorBase SchedulerListEditor {
             get {
@@ -31,8 +31,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
             }
             var detailView = View as DetailView;
             if (detailView != null && View.ObjectTypeInfo.Implements<IEvent>()) {
-                _linkToListViewController = Frame.GetController<LinkToListViewController>();
-                _linkToListViewController.LinkChanged+=LinkToListViewControllerOnLinkChanged;
+                Frame.GetController<LinkToListViewController>(controller => controller.LinkChanged += LinkToListViewControllerOnLinkChanged);
             }
         }
 
@@ -42,8 +41,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
                 ((ListView)View).CollectionSource.CriteriaApplied -= CollectionSourceOnCriteriaApplied;
                 SchedulerListEditor.ResourceDataSourceCreating -= SchedulerListEditorOnResourceDataSourceCreating;
             }
-            if (_linkToListViewController!=null)
-                _linkToListViewController.LinkChanged-=LinkToListViewControllerOnLinkChanged;
+            Frame.GetController<LinkToListViewController>(controller => controller.LinkChanged -= LinkToListViewControllerOnLinkChanged);
 
         }
 

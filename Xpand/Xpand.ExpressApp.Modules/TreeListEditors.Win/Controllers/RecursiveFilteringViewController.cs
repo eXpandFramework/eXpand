@@ -17,10 +17,10 @@ using FilterControl = DevExpress.XtraEditors.FilterControl;
 using LookupEdit = DevExpress.ExpressApp.Win.Editors.LookupEdit;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
-    public partial class ResursiveFilteringViewController : ViewController {
+    public partial class RecursiveFilteringViewController : ViewController {
         private static bool _recursive;
         private static bool _lookUpQueryPopUp;
-        public ResursiveFilteringViewController() {
+        public RecursiveFilteringViewController() {
             InitializeComponent();
             RegisterActions(components);
             TargetViewType = ViewType.ListView;

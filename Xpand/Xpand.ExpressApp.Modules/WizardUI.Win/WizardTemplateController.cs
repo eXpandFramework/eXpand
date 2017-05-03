@@ -1,26 +1,25 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.WizardUI.Win {
     public class WizardTemplateController : ViewController {
         protected override void OnActivated() {
             base.OnActivated();
-
-            Frame.GetController<NewObjectViewController>().NewObjectAction.Executed += Action_Executed;
-            Frame.GetController<NewObjectViewController>().ObjectCreated += ObjectCreated;
-            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed += Action_Executed;
-            Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executed += Action_Executed;
+            Frame.GetController<NewObjectViewController>(controller => controller.NewObjectAction.Executed += Action_Executed);
+            Frame.GetController<NewObjectViewController>(controller => controller.ObjectCreated += ObjectCreated);
+            Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.ProcessCurrentObjectAction.Executed += Action_Executed);
+            Frame.GetController<ShowNavigationItemController>(controller => controller.ShowNavigationItemAction.Executed += Action_Executed);
         }
 
         protected override void OnDeactivated() {
-            Frame.GetController<NewObjectViewController>().NewObjectAction.Executed -= Action_Executed;
-            Frame.GetController<NewObjectViewController>().ObjectCreated -= ObjectCreated;
-            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Executed -= Action_Executed;
-            Frame.GetController<ShowNavigationItemController>().ShowNavigationItemAction.Executed -= Action_Executed;
+            Frame.GetController<NewObjectViewController>(controller => controller.NewObjectAction.Executed -= Action_Executed);
+            Frame.GetController<NewObjectViewController>(controller => controller.ObjectCreated -= ObjectCreated);
+            Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.ProcessCurrentObjectAction.Executed -= Action_Executed);
+            Frame.GetController<ShowNavigationItemController>(controller => controller.ShowNavigationItemAction.Executed -= Action_Executed);
             base.OnDeactivated();
         }
-
 
         IObjectSpace _objectSpace;
         object _newObject;

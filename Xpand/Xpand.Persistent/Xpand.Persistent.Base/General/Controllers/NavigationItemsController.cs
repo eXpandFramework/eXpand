@@ -24,9 +24,10 @@ namespace Xpand.Persistent.Base.General.Controllers {
             base.OnFrameAssigned();
             if (Frame.Context==TemplateContext.ApplicationWindow){
                 Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
-                var showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
-                showNavigationItemController.CustomInitializeItems += OnCustomInitializeItems;
-                showNavigationItemController.ItemsInitialized += ShowNavigationItemControllerOnItemsInitialized;
+                Frame.GetController<ShowNavigationItemController>(showNavigationItemController => {
+                    showNavigationItemController.CustomInitializeItems += OnCustomInitializeItems;
+                    showNavigationItemController.ItemsInitialized += ShowNavigationItemControllerOnItemsInitialized;
+                });
                 Frame.Disposing+=FrameOnDisposing;
             }
         }
@@ -34,9 +35,10 @@ namespace Xpand.Persistent.Base.General.Controllers {
         private void FrameOnDisposing(object sender, EventArgs eventArgs){
             Frame.Disposing -= FrameOnDisposing;
             Application.ObjectSpaceCreated -= ApplicationOnObjectSpaceCreated;
-            var showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
-            showNavigationItemController.CustomInitializeItems -= OnCustomInitializeItems;
-            showNavigationItemController.ItemsInitialized -= ShowNavigationItemControllerOnItemsInitialized;
+            Frame.GetController<ShowNavigationItemController>(showNavigationItemController => {
+                showNavigationItemController.CustomInitializeItems -= OnCustomInitializeItems;
+                showNavigationItemController.ItemsInitialized -= ShowNavigationItemControllerOnItemsInitialized;
+            } );
         }
 
 
@@ -63,7 +65,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs){
             if (_recreate) {
-                Frame.Application.MainWindow.GetController<ShowNavigationItemController>().RecreateNavigationItems();
+                Frame.Application.MainWindow.GetController<ShowNavigationItemController>(controller => controller.RecreateNavigationItems());
                 _recreate = false;
             }
         }

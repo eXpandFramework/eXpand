@@ -15,15 +15,14 @@ using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.AuditTrail.Logic {
     public class AuditTrailRuleViewController:ViewController {
-        LogicRuleViewController _logicRuleViewController;
         private static bool _editingModel;
         private bool _auditSystemChanges;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute += LogicRuleExecutorOnLogicRuleExecute);
             Frame.Disposing += FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleExecutorOnLogicRuleExecute;
+            
             if (Frame.Template == Application.MainWindow){
                 AuditSystemChanges();
             }
@@ -46,7 +45,9 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
 
         private void BeginSessionAudit(){
             var handledEventArgs = new HandledEventArgs();
-            _logicRuleViewController.LogicRuleExecutor.Execute<IAuditTrailRule>(ExecutionContext.None, View, handledEventArgs);
+            Frame.GetController<LogicRuleViewController>(
+                controller => controller.LogicRuleExecutor.Execute<IAuditTrailRule>(ExecutionContext.None, View,
+                    handledEventArgs));
             if (handledEventArgs.Handled)
                 AuditTrailService.Instance.BeginSessionAudit(ObjectSpace.Session(), AuditTrailStrategy.OnObjectLoaded);
         }
@@ -76,7 +77,7 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleExecutorOnLogicRuleExecute;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute -= LogicRuleExecutorOnLogicRuleExecute);
         }
 
         void LogicRuleExecutorOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {

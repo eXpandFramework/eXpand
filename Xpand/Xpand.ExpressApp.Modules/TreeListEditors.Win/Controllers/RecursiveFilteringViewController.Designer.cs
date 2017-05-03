@@ -1,6 +1,6 @@
 namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers
 {
-    partial class ResursiveFilteringViewController
+    partial class RecursiveFilteringViewController
     {
         /// <summary>
         /// Required designer variable.

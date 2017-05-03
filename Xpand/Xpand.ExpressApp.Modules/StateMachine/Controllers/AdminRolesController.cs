@@ -1,14 +1,16 @@
-﻿using System;
-using DevExpress.ExpressApp;
+﻿using DevExpress.ExpressApp;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class AdminRolesController:ViewController {
         protected override void OnActivated(){
             base.OnActivated();
-            var enableStatePropertyController = Frame.GetController<StatePropertyController>();
-            enableStatePropertyController.CustomStatePropertyIsEnabled+=CustomStatePropertyIsEnabled;
-            enableStatePropertyController.CustomFilterEditorItems+=CustomFilterEditorItems;
+            Frame.GetController<StatePropertyController>(statePropertyController => {
+                statePropertyController.CustomStatePropertyIsEnabled += CustomStatePropertyIsEnabled;
+                statePropertyController.CustomFilterEditorItems += CustomFilterEditorItems;
+            });
         }
+
 
         private void CustomFilterEditorItems(object sender, StatePropertyFilterEditorItemsEventArgs e){
             e.Handled = e.StateMachine.CanExecuteAllTransitions();
@@ -16,8 +18,10 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            var enableStatePropertyController = Frame.GetController<StatePropertyController>();
-            enableStatePropertyController.CustomStatePropertyIsEnabled -= CustomStatePropertyIsEnabled;
+            Frame.GetController<StatePropertyController>(statePropertyController => {
+                statePropertyController.CustomStatePropertyIsEnabled -= CustomStatePropertyIsEnabled;
+                statePropertyController.CustomFilterEditorItems -= CustomFilterEditorItems;
+            });
         }
 
         private void CustomStatePropertyIsEnabled(object sender, StatePropertyEventArgs e){

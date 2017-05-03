@@ -53,27 +53,24 @@ namespace Xpand.ExpressApp.AuditTrail {
     public class AuditPendingController:ViewController,IModelExtender {
         public const string ApproveAudits = "ApproveAudits";
         private bool _auditPending;
-        private readonly SimpleAction _approveAuditsAction;
 
         public AuditPendingController(){
-            _approveAuditsAction = new SimpleAction(this,ApproveAudits,PredefinedCategory.ObjectsCreation);
-            _approveAuditsAction.Execute+=ApproveAuditsActionOnExecute;
-            _approveAuditsAction.TargetObjectType = typeof (IBaseAuditDataItemPersistent);
+            ApproveAuditsAction = new SimpleAction(this,ApproveAudits,PredefinedCategory.ObjectsCreation);
+            ApproveAuditsAction.Execute+=ApproveAuditsActionOnExecute;
+            ApproveAuditsAction.TargetObjectType = typeof (IBaseAuditDataItemPersistent);
         }
 
-        public SimpleAction ApproveAuditsAction => _approveAuditsAction;
+        public SimpleAction ApproveAuditsAction{ get; }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            var logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            logicRuleViewController.LogicRuleExecutor.LogicRuleExecuted -= LogicRuleExecutorOnLogicRuleExecuted;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecuted -= LogicRuleExecutorOnLogicRuleExecuted);
             ObjectSpace.CustomCommitChanges -= CustomCommitChanges;
         }
 
         protected override void OnActivated(){
             base.OnActivated();
-            var logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            logicRuleViewController.LogicRuleExecutor.LogicRuleExecuted+=LogicRuleExecutorOnLogicRuleExecuted;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecuted += LogicRuleExecutorOnLogicRuleExecuted);
             ObjectSpace.CustomCommitChanges+=CustomCommitChanges;
             var listView = View as ListView;
             if (listView != null){

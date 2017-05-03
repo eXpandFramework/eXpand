@@ -2,28 +2,23 @@
 using DevExpress.ExpressApp.StateMachine;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.StateMachine.Controllers {
     public class PermissionTransitionStateController:ViewController<ObjectView> {
-        ChangeStateActionController _changeStateActionController;
 
         protected override void OnActivated() {
             base.OnActivated();
             if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())){
-                var stateMachineController = Frame.GetController<StateMachineController>();
-                stateMachineController.TransitionExecuting += OnTransitionExecuting;
-                _changeStateActionController = Frame.GetController<ChangeStateActionController>();
-                _changeStateActionController.RequestActiveState+=RequestActiveState;
+                Frame.GetController<StateMachineController>(controller => controller.TransitionExecuting += OnTransitionExecuting);
+                Frame.GetController<ChangeStateActionController>(controller => controller.RequestActiveState += RequestActiveState);
             }
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (_changeStateActionController != null){
-                _changeStateActionController.RequestActiveState-=RequestActiveState;
-                var stateMachineController = Frame.GetController<StateMachineController>();
-                stateMachineController.TransitionExecuting -= OnTransitionExecuting;
-            }
+            Frame.GetController<StateMachineController>(controller => controller.TransitionExecuting -= OnTransitionExecuting);
+            Frame.GetController<ChangeStateActionController>(controller => controller.RequestActiveState -= RequestActiveState);
         }
 
         void OnTransitionExecuting(object sender, ExecuteTransitionEventArgs executeTransitionEventArgs){

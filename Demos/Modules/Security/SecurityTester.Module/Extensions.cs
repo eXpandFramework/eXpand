@@ -7,6 +7,7 @@ using Xpand.Persistent.BaseImpl.Security;
 namespace SecurityTester.Module {
     public static class Extensions {
         public static void ProjectSetup(this XafApplication application) {
+            application.OptimizedControllersCreation = true;
             if (!application.GetEasyTestParameter("SqlServer"))
                 application.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
             application.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>();

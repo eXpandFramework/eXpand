@@ -45,19 +45,20 @@ namespace Xpand.ExpressApp.SystemModule {
     public class ProccessListViewSelectedItemController : ViewController<ListView>, IModelExtender {
         protected override void OnActivated() {
             base.OnActivated();
-            var listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
-            var processCurrentObjectAction = listViewProcessCurrentObjectController.ProcessCurrentObjectAction;
-            var proccessListViewSelectItem = ((IModelListViewProcessSelectedItem)View.Model).ProccessListViewSelectItem;
-            var modelProccessListViewSelectItem = proccessListViewSelectItem.Handled;
-            if (modelProccessListViewSelectItem.HasValue && (proccessListViewSelectItem.DetailView == null && proccessListViewSelectItem.Action == null))
-                processCurrentObjectAction.Active[typeof(IModelProccessListViewSelectItem).Name] = !modelProccessListViewSelectItem.Value;
-            listViewProcessCurrentObjectController.CustomProcessSelectedItem += OnCustomProcessSelectedItem;
+            Frame.GetController<ListViewProcessCurrentObjectController>(listViewProcessCurrentObjectController => {
+                var processCurrentObjectAction = listViewProcessCurrentObjectController.ProcessCurrentObjectAction;
+                var proccessListViewSelectItem = ((IModelListViewProcessSelectedItem)View.Model).ProccessListViewSelectItem;
+                var modelProccessListViewSelectItem = proccessListViewSelectItem.Handled;
+                if (modelProccessListViewSelectItem.HasValue && (proccessListViewSelectItem.DetailView == null && proccessListViewSelectItem.Action == null))
+                    processCurrentObjectAction.Active[typeof(IModelProccessListViewSelectItem).Name] = !modelProccessListViewSelectItem.Value;
+                listViewProcessCurrentObjectController.CustomProcessSelectedItem += OnCustomProcessSelectedItem;
+            });
         }
 
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
+            Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.CustomProcessSelectedItem -= OnCustomProcessSelectedItem);
         }
         void OnCustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e){
             if (e.Handled) return;

@@ -15,19 +15,17 @@ using Xpand.Utils.Helpers;
 namespace Xpand.ExpressApp.Email.Logic {
     public class EmailRuleViewController : ViewController {
         public const string RuleObjectKeyValue = "RuleObjectKeyValue";
-        LogicRuleViewController _logicRuleViewController;
         private IRazorEngineService _razorEngineService;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.Disposing += FrameOnDisposing;
-            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleExecutorOnLogicRuleExecute;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute += LogicRuleExecutorOnLogicRuleExecute);
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing -= FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleExecutorOnLogicRuleExecute;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute -= LogicRuleExecutorOnLogicRuleExecute);
         }
 
         void LogicRuleExecutorOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {

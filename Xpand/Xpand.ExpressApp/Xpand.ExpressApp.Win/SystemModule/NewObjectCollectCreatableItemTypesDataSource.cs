@@ -18,10 +18,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 if (typesDataSourceAttribute!=null)
                     editor.Control.Popup+=(sender, args) => {
                         var types =((IEnumerable<Type>)editor.MemberInfo.Owner.FindMember(typesDataSourceAttribute.PropertyName).GetValue(editor.CurrentObject));
-                        var choiceActionItemCollection = editor.Control.Frame.GetController<NewObjectViewController>().NewObjectAction.Items;
-                        choiceActionItemCollection.Clear();
-                        var creatableItems = ((IModelApplicationCreatableItems)Application.Model).CreatableItems.Where(item => types.Contains(item.ModelClass.TypeInfo.Type));
-                        creatableItems.Each(AddItems(choiceActionItemCollection));
+                        editor.Control.Frame.GetController<NewObjectViewController>(controller => {
+                            var choiceActionItemCollection = controller.NewObjectAction.Items;
+                            choiceActionItemCollection.Clear();
+                            var creatableItems = ((IModelApplicationCreatableItems)Application.Model).CreatableItems.Where(item => types.Contains(item.ModelClass.TypeInfo.Type));
+                            creatableItems.Each(AddItems(choiceActionItemCollection));
+                        });
                     };
             });
         }

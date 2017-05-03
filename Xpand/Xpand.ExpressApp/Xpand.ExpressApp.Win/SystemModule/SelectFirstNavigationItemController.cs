@@ -8,11 +8,11 @@ using DevExpress.XtraNavBar;
 using Xpand.ExpressApp.Win.Model;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
-    public class WinSelectFirstNavigationItemController : WindowController {
-        private ShowNavigationItemController showNavigationItemController;
-        private bool isLocked = true;
-        private SingleChoiceAction navigationAction;
-        public WinSelectFirstNavigationItemController() {
+    public class SelectFirstNavigationItemController : WindowController {
+        private ShowNavigationItemController _showNavigationItemController;
+        private bool _isLocked = true;
+        private SingleChoiceAction _navigationAction;
+        public SelectFirstNavigationItemController() {
             TargetWindowType = WindowType.Main;
         }
         protected NavigationActionContainer FindNavigationActionContainer() {
@@ -22,22 +22,22 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnActivated() {
             base.OnActivated();
             Frame.TemplateChanged += Frame_TemplateChanged;
-            showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
-            navigationAction = showNavigationItemController.ShowNavigationItemAction;
-            if (showNavigationItemController != null) {
-                showNavigationItemController.ShowNavigationItemAction.SelectedItemChanged += ShowNavigationItemAction_SelectedItemChanged;
+            _showNavigationItemController = Frame.GetController<ShowNavigationItemController>();
+            _navigationAction = _showNavigationItemController.ShowNavigationItemAction;
+            if (_showNavigationItemController != null) {
+                _showNavigationItemController.ShowNavigationItemAction.SelectedItemChanged += ShowNavigationItemAction_SelectedItemChanged;
             }
         }
         protected override void OnDeactivated() {
             Frame.TemplateChanged -= Frame_TemplateChanged;
-            if (showNavigationItemController != null) {
-                showNavigationItemController.ShowNavigationItemAction.SelectedItemChanged -= ShowNavigationItemAction_SelectedItemChanged;
-                showNavigationItemController = null;
+            if (_showNavigationItemController != null) {
+                _showNavigationItemController.ShowNavigationItemAction.SelectedItemChanged -= ShowNavigationItemAction_SelectedItemChanged;
+                _showNavigationItemController = null;
             }
             base.OnDeactivated();
         }
         private void ShowNavigationItemAction_SelectedItemChanged(object sender, EventArgs e) {
-            isLocked = true;
+            _isLocked = true;
         }
         private void Frame_TemplateChanged(object sender, EventArgs e) {
             NavigationActionContainer result = FindNavigationActionContainer();
@@ -53,11 +53,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
         }
         private void navBar_Click(object sender, EventArgs e) {
-            isLocked = false;
+            _isLocked = false;
         }
         private void navBar_ActiveGroupChanged(object sender, NavBarGroupEventArgs e) {
-            if (!isLocked) {
-                isLocked = true;
+            if (!_isLocked) {
+                _isLocked = true;
                 AutoSelectFirstItemInGroup(((NavBarNavigationControl)e.Group.NavBar).GroupToActionItemWrapperMap[e.Group].ActionItem);
             }
         }
@@ -65,7 +65,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (!CanAutoSelectFirstItemInGroup()) return;
             foreach (ChoiceActionItem item in navGroupItem.Items) {
                 if (item.Enabled.ResultValue && item.Active.ResultValue) {
-                    navigationAction.DoExecute(item);
+                    _navigationAction.DoExecute(item);
                     return;
                 }
             }

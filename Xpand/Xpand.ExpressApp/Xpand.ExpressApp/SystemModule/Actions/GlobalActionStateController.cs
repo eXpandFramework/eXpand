@@ -22,10 +22,12 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
             
             var modelActionStates = Application.Model.ActionDesign.Actions.Cast<IModelActionState>();
             foreach (var modelActionState in modelActionStates.Where(state => !state.Active)) {
-                var actionBase = Frame.Actions().First(a => a.Id==modelActionState.Id);
-                actionBase.Active.BeginUpdate();
-                actionBase.Active[ModelActiveAttribute] = false;
-                actionBase.Active.EndUpdate();
+                var actionBase = Frame.Actions().FirstOrDefault(a => a.Id==modelActionState.Id);
+                if (actionBase != null){
+                    actionBase.Active.BeginUpdate();
+                    actionBase.Active[ModelActiveAttribute] = false;
+                    actionBase.Active.EndUpdate();
+                }
             }
         }
 

@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.ExpressApp.Logic {
@@ -14,7 +15,6 @@ namespace Xpand.ExpressApp.Logic {
         private bool _isRefreshing;
         object _previousObject;
         XafApplication _application;
-        ListViewProcessCurrentObjectController _listViewProcessCurrentObjectController;
 
         public LogicRuleExecutor LogicRuleExecutor => _logicRuleExecutor;
 
@@ -83,9 +83,10 @@ namespace Xpand.ExpressApp.Logic {
                 _logicRuleExecutor.Execute(ExecutionContext.ControllerActivated,EventArgs.Empty,View);
                 
                 if (View is ListView) {
-                    _listViewProcessCurrentObjectController = Frame.GetController<ListViewProcessCurrentObjectController>();
-                    _listViewProcessCurrentObjectController.CustomProcessSelectedItem += OnCustomProcessSelectedItem;
-                    _listViewProcessCurrentObjectController.CustomizeShowViewParameters+=CustomizeShowViewParameters;
+                    Frame.GetController<ListViewProcessCurrentObjectController>(controller => {
+                        controller.CustomProcessSelectedItem += OnCustomProcessSelectedItem;
+                        controller.CustomizeShowViewParameters += CustomizeShowViewParameters;
+                    });
                 }
             }
         }
@@ -167,8 +168,10 @@ namespace Xpand.ExpressApp.Logic {
 
                 Frame.TemplateViewChanged -= FrameOnTemplateViewChanged;
                 if (View is ListView) {
-                    _listViewProcessCurrentObjectController.CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
-                    _listViewProcessCurrentObjectController.CustomizeShowViewParameters -= CustomizeShowViewParameters;
+                    Frame.GetController<ListViewProcessCurrentObjectController>(controller => {
+                        controller.CustomProcessSelectedItem -= OnCustomProcessSelectedItem;
+                        controller.CustomizeShowViewParameters -= CustomizeShowViewParameters;
+                    });
                 }
             }
         }

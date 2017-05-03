@@ -14,8 +14,11 @@ namespace Xpand.Persistent.Base.General{
         }
 
         protected override void OnActivated(){
-            _linkController = Frame.GetController<DetailViewLinkController>();
-            if (_linkController != null) _linkController.ObjectReloaded += LinkController_ObjectReloaded;
+            Frame.GetController<DetailViewLinkController>(controller => {
+                    _linkController = controller;
+                    _linkController.ObjectReloaded += LinkController_ObjectReloaded;
+                }
+            );
         }
 
         protected override void OnDeactivated(){

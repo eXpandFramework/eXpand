@@ -50,26 +50,30 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            AppearanceController.AppearanceApplied -= AppearanceController_AppearanceApplied;
-            _stateMachineController.TransitionExecuted -= OnTransitionExecuted;
+            if (AppearanceController != null)
+                AppearanceController.AppearanceApplied -= AppearanceController_AppearanceApplied;
+            if (_stateMachineController != null) _stateMachineController.TransitionExecuted -= OnTransitionExecuted;
             ObjectSpace.ObjectChanged -= ObjectSpaceOnObjectChanged;
         }
 
         protected override void OnViewControllersActivated(){
             base.OnViewControllersActivated();
-            _stateMachineController = Frame.GetController<StateMachineController>();
-            var enabledStateMachines = GetEnabledStateMachines().ToArray();
-            if (enabledStateMachines.Any()) {
-                AppearanceController.AppearanceApplied += AppearanceController_AppearanceApplied;
-                ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
-                _stateMachineController.TransitionExecuted += OnTransitionExecuted;
-                var stateProperties = enabledStateMachines.Select(machine => machine.StatePropertyName);
-                _propertyEditors = View.GetItems<PropertyEditor>()
+            Frame.GetController<StateMachineController>(controller => {
+                _stateMachineController=controller;
+                var enabledStateMachines = GetEnabledStateMachines().ToArray();
+                if (enabledStateMachines.Any()) {
+                    AppearanceController.AppearanceApplied += AppearanceController_AppearanceApplied;
+                    ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
+                    _stateMachineController.TransitionExecuted += OnTransitionExecuted;
+                    var stateProperties = enabledStateMachines.Select(machine => machine.StatePropertyName);
+                    _propertyEditors = View.GetItems<PropertyEditor>()
                         .Where(editor => stateProperties.Contains(editor.PropertyName)).ToArray();
-                foreach (var item in _propertyEditors) {
-                    item.ControlCreated += ItemOnControlCreated;
+                    foreach (var item in _propertyEditors) {
+                        item.ControlCreated += ItemOnControlCreated;
+                    }
                 }
-            }
+            });
+            
         }
 
         void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs objectChangedEventArgs) {
@@ -162,36 +166,28 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected virtual void OnCustomStatePropertyIsEnabled(StatePropertyEventArgs e){
             var handler = CustomStatePropertyIsEnabled;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected virtual void OnCustomFilterEditorItems(StatePropertyFilterEditorItemsEventArgs e){
             var handler = CustomFilterEditorItems;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 
     public class StatePropertyFilterEditorItemsEventArgs : StatePropertyEventArgsBase {
-        private readonly PropertyEditor _propertyEditor;
-
         public StatePropertyFilterEditorItemsEventArgs(IStateMachine stateMachine, PropertyEditor propertyEditor) : base(stateMachine){
-            _propertyEditor = propertyEditor;
+            PropertyEditor = propertyEditor;
         }
 
-        public PropertyEditor PropertyEditor{
-            get { return _propertyEditor; }
-        }
+        public PropertyEditor PropertyEditor{ get; }
     }
 
     public abstract class StatePropertyEventArgsBase : HandledEventArgs{
-        private readonly IStateMachine _stateMachine;
-
         protected StatePropertyEventArgsBase(IStateMachine stateMachine){
-            _stateMachine = stateMachine;
+            StateMachine = stateMachine;
         }
-        public IStateMachine StateMachine{
-            get { return _stateMachine; }
-        }
+        public IStateMachine StateMachine{ get; }
     }
 
     public class StatePropertyEventArgs : StatePropertyEventArgsBase{
@@ -209,7 +205,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         private object EditorProperties(){
             var objectInstance = PropertyEditor.Control;
             var baseType = FindBaseType(objectInstance, "DevExpress.XtraEditors.BaseEdit");
-            if (baseType != null) return baseType.GetProperty("Properties").GetValue(objectInstance, null);
+            if (baseType != null) return baseType.GetProperty("Properties")?.GetValue(objectInstance, null);
             throw new NotImplementedException();
         }
 
@@ -247,7 +243,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             if (!PropertyEditor.Model.Application.IsHosted()) {
                 var value = EditorProperties();
                 var type = FindBaseType(value, "DevExpress.XtraEditors.Repository.RepositoryItemComboBox");
-                return ((IList)type.GetProperty("Items").GetValue(value, null));
+                return ((IList)type.GetProperty("Items")?.GetValue(value, null));
             }
             else {
                 var type = XafTypesInfo.Instance.FindTypeInfo("DevExpress.ExpressApp.Web.Editors.WebPropertyEditor").Type;
@@ -309,15 +305,11 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
     }
 
     internal abstract class StatePropertyFilter {
-        private readonly PropertyEditor _propertyEditor;
-
         protected StatePropertyFilter(PropertyEditor propertyEditor){
-            _propertyEditor = propertyEditor;
+            PropertyEditor = propertyEditor;
         }
 
-        public PropertyEditor PropertyEditor{
-            get { return _propertyEditor; }
-        }
+        public PropertyEditor PropertyEditor{ get; }
 
         public static StatePropertyFilter Create(PropertyEditor propertyEditor){
             return propertyEditor.MemberInfo.MemberTypeInfo.IsPersistent

@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.WorldCreator.Controllers;
 using Xpand.ExpressApp.WorldCreator.DBMapper.BusinessObjects;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 
@@ -16,11 +17,13 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            var assemblyToolsController = Frame.GetController<AssemblyToolsController>();
-            if (assemblyToolsController.SingleChoiceAction.Items.Find("MapDB") == null) {
-                assemblyToolsController.SingleChoiceAction.Items.Add(new ChoiceActionItem("Map Datastore", "MapDB"));
-                assemblyToolsController.SingleChoiceAction.Execute += AssemblyToolsControllerOnToolExecuted;
-            }
+            Frame.GetController<AssemblyToolsController>(assemblyToolsController => {
+                if (assemblyToolsController.SingleChoiceAction.Items.Find("MapDB") == null) {
+                    assemblyToolsController.SingleChoiceAction.Items.Add(new ChoiceActionItem("Map Datastore", "MapDB"));
+                    assemblyToolsController.SingleChoiceAction.Execute += AssemblyToolsControllerOnToolExecuted;
+                }
+            });
+            
         }
 
         void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
@@ -41,14 +44,15 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper.Controllers {
         }
 
         private void OnExecute(object sender, ActionBaseEventArgs actionBaseEventArgs){
-            var populateTablesController = actionBaseEventArgs.Action.Controller.Frame.GetController<ChooseDBObjectsController>();
-            populateTablesController.View.ObjectSpace.CommitChanges();
-            var dbLogonObject = ((DBLogonObject)populateTablesController.View.CurrentObject);
-            var persistentAssemblyInfo = ((IPersistentAssemblyInfo) View.CurrentObject);
-            ObjectSpace.Delete(persistentAssemblyInfo.PersistentClassInfos);
-            ObjectSpace.Delete(persistentAssemblyInfo.Attributes.OfType<IPersistentAssemblyDataStoreAttribute>().FirstOrDefault());
-            var assemblyGenerator = new AssemblyGenerator.AssemblyGenerator(dbLogonObject.ConnectionString, dbLogonObject.NavigationPath, persistentAssemblyInfo, populateTablesController.GetSelectedDBObjects());
-            assemblyGenerator.Create();
+            actionBaseEventArgs.Action.Controller.Frame.GetController<ChooseDBObjectsController>(chooseDBObjectsController => {
+                chooseDBObjectsController.View.ObjectSpace.CommitChanges();
+                var dbLogonObject = ((DBLogonObject)chooseDBObjectsController.View.CurrentObject);
+                var persistentAssemblyInfo = ((IPersistentAssemblyInfo)View.CurrentObject);
+                ObjectSpace.Delete(persistentAssemblyInfo.PersistentClassInfos);
+                ObjectSpace.Delete(persistentAssemblyInfo.Attributes.OfType<IPersistentAssemblyDataStoreAttribute>().FirstOrDefault());
+                var assemblyGenerator = new AssemblyGenerator.AssemblyGenerator(dbLogonObject.ConnectionString, dbLogonObject.NavigationPath, persistentAssemblyInfo, chooseDBObjectsController.GetSelectedDBObjects());
+                assemblyGenerator.Create();
+            });
         }
     }
 

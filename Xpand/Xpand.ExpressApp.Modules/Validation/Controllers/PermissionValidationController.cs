@@ -5,7 +5,7 @@ using DevExpress.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Validation.Controllers {
     public class PermissionValidationController : ViewController {
-        private PersistenceValidationController persistenceValidationController;
+        private PersistenceValidationController _persistenceValidationController;
 
         public PermissionValidationController() {
             TargetObjectType = typeof(IPersistentPermission);
@@ -20,16 +20,16 @@ namespace Xpand.ExpressApp.Validation.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            persistenceValidationController = Frame.GetController<PersistenceValidationController>();
-            if (persistenceValidationController != null)
-                persistenceValidationController.ContextValidating += controller_ContextValidating;
+            _persistenceValidationController = Frame.GetController<PersistenceValidationController>();
+            if (_persistenceValidationController != null)
+                _persistenceValidationController.ContextValidating += controller_ContextValidating;
         }
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (persistenceValidationController != null) {
-                persistenceValidationController.ContextValidating -= controller_ContextValidating;
-                persistenceValidationController = null;
+            if (_persistenceValidationController != null) {
+                _persistenceValidationController.ContextValidating -= controller_ContextValidating;
+                _persistenceValidationController = null;
             }
         }
     }

@@ -15,10 +15,12 @@ namespace Xpand.ExpressApp.SystemModule {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.Disposing += FrameOnDisposing;
-            var newObjectViewController = Frame.GetController<NewObjectViewController>();
-            newObjectViewController.CollectDescendantTypes += OnCollectDescendantTypes;
-            newObjectViewController.NewObjectAction.Executing+=NewObjectActionOnExecuting;
-            Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes += OnCollectDescendantPermissionTypes;
+            Frame.GetController<NewObjectViewController>(newObjectViewController => {
+                newObjectViewController.CollectDescendantTypes += OnCollectDescendantTypes;
+                newObjectViewController.NewObjectAction.Executing += NewObjectActionOnExecuting;
+            });
+
+            Frame.GetController<PermissionsController>(controller => controller.CollectDescendantPermissionTypes +=OnCollectDescendantPermissionTypes);
         }
 
         private void NewObjectActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
@@ -27,10 +29,12 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
-            var newObjectViewController = Frame.GetController<NewObjectViewController>();
-            newObjectViewController.CollectDescendantTypes -= OnCollectDescendantTypes;
-            newObjectViewController.NewObjectAction.Executing-=NewObjectActionOnExecuting;
-            Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes -= OnCollectDescendantPermissionTypes;
+            Frame.GetController<NewObjectViewController>(newObjectViewController => {
+                newObjectViewController.CollectDescendantTypes -= OnCollectDescendantTypes;
+                newObjectViewController.NewObjectAction.Executing -= NewObjectActionOnExecuting;
+            });
+
+            Frame.GetController<PermissionsController>(controller => controller.CollectDescendantPermissionTypes -= OnCollectDescendantPermissionTypes);
         }
 
         void OnCollectDescendantPermissionTypes(object sender, CollectTypesEventArgs collectTypesEventArgs) {
@@ -42,6 +46,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
             }
         }
+
         void OnCollectDescendantTypes(object sender, CollectTypesEventArgs collectTypesEventArgs) {
             List<ITypeInfo> removeGroupedTypes = RemoveGroupedTypes(collectTypesEventArgs.Types).ToList();
             ChoiceActionItemCollection choiceActionItemCollection = Frame.GetController<NewObjectViewController>().NewObjectAction.Items;

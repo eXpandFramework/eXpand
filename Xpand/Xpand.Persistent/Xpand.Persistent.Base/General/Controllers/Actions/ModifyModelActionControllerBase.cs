@@ -29,11 +29,6 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
 
         public ActionModifyModelController ActionModifyModelController => _actionModifyModelController;
 
-        protected override void OnFrameAssigned() {
-            base.OnFrameAssigned();
-            _actionModifyModelController = Frame.GetController<ActionModifyModelController>();
-        }
-
         protected abstract void ModifyModelActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e);
 
         protected override void OnDeactivated() {

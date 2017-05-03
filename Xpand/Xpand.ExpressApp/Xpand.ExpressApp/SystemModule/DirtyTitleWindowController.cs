@@ -36,17 +36,15 @@ namespace Xpand.ExpressApp.SystemModule {
             UpdateCaption();
         }
 
-        protected virtual void UpdateCaption() {
-            if (_windowTemplateController != null) {
-                _windowTemplateController.UpdateWindowCaption();
-            }
+        protected virtual void UpdateCaption(){
+            _windowTemplateController?.UpdateWindowCaption();
         }
 
         private void windowTemplateController_CustomizeWindowCaption(object sender, CustomizeWindowCaptionEventArgs e){
             if (Enabled() && e.WindowCaption.FirstPart != null){
                 e.WindowCaption.FirstPart = e.WindowCaption.FirstPart.TrimStart(DirtyMark);
                 if (Window.View.ObjectSpace.IsModified){
-                    e.WindowCaption.FirstPart = String.Format("{0} {1}", DirtyMark, e.WindowCaption.FirstPart);
+                    e.WindowCaption.FirstPart = $"{DirtyMark} {e.WindowCaption.FirstPart}";
                 }
             }
         }

@@ -3,6 +3,7 @@ using DevExpress.DashboardWin;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Dashboard;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
@@ -15,12 +16,12 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
     public class DashboardDesignerModelAdapterController:ModelAdapterController,IModelExtender {
         protected override void OnActivated(){
             base.OnActivated();
-            Frame.GetController<DashboardDesignerController>().DashboardDesignerOpening+=OnDashboardDesignerOpening;
+            Frame.GetController<DashboardDesignerController>(controller => controller.DashboardDesignerOpening += OnDashboardDesignerOpening);
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            Frame.GetController<DashboardDesignerController>().DashboardDesignerOpening -= OnDashboardDesignerOpening;
+            Frame.GetController<DashboardDesignerController>(controller => controller.DashboardDesignerOpening -= OnDashboardDesignerOpening);
         }
 
         private void OnDashboardDesignerOpening(object sender, Dashboard.Controllers.DashboardDesignerOpeningEventArgs e){

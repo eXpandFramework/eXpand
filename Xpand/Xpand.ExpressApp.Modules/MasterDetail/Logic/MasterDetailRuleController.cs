@@ -10,24 +10,25 @@ using Xpand.Utils.Linq;
 namespace Xpand.ExpressApp.MasterDetail.Logic {
     public class MasterDetailRuleController : ViewController {
         List<IMasterDetailRule> _masterDetailRules ;
-        LogicRuleViewController _logicRuleViewController;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             _masterDetailRules = new List<IMasterDetailRule>();
             Frame.Disposing+=FrameOnDisposing;
-            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += LogicRuleViewControllerOnLogicRuleExecute;
-            var masterDetailViewControllerBase = Frame.Controllers.Values.OfType<IMasterDetailViewController>().SingleOrDefault();
-            if (masterDetailViewControllerBase != null)
-                masterDetailViewControllerBase.RequestRules = frame1 => {
-                    var masterDetailRules = frame1.GetController<MasterDetailRuleController>()._masterDetailRules.DistinctBy(rule => rule.Id);
-                    return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null)).ToList();
-                };
+            Frame.GetController<LogicRuleViewController>(controller => {
+                controller.LogicRuleExecutor.LogicRuleExecute += LogicRuleViewControllerOnLogicRuleExecute;
+                var masterDetailViewControllerBase = Frame.Controllers.Values.OfType<IMasterDetailViewController>().SingleOrDefault();
+                if (masterDetailViewControllerBase != null)
+                    masterDetailViewControllerBase.RequestRules = frame1 => {
+                        var masterDetailRules = frame1.GetController<MasterDetailRuleController>()._masterDetailRules.DistinctBy(rule => rule.Id);
+                        return masterDetailRules.Select(rule => new MasterDetailRuleInfo(rule.ChildListView, rule.CollectionMember, rule.TypeInfo, null)).ToList();
+                    };
+            });
         }
 
-        void FrameOnDisposing(object sender, EventArgs eventArgs) {
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= LogicRuleViewControllerOnLogicRuleExecute;
+        void FrameOnDisposing(object sender, EventArgs eventArgs){
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute -=
+                LogicRuleViewControllerOnLogicRuleExecute);
         }
 
         protected override void OnDeactivated() {

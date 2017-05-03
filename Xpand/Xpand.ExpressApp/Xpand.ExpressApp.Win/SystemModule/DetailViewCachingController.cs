@@ -69,7 +69,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (winWindow != null) winWindow.Closing += OnClosing;
             if (_isVisible && Frame.Context == TemplateContext.ApplicationWindow) {
                 Application.DetailViewCreated += ApplicationOnDetailViewCreated;
-                Frame.GetController<CloseFormController>().Cancel += OnCancel;
+                Frame.GetController<CloseFormController>(controller => controller.Cancel += OnCancel);
                 Frame.TemplateChanged += FrameOnTemplateChanged;
 
             }
@@ -78,7 +78,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void FrameOnDisposing(object sender, EventArgs eventArgs) {
             if (Frame.Context == TemplateContext.ApplicationWindow){
-                Frame.GetController<CloseFormController>().Cancel -= OnCancel;
+                Frame.GetController<CloseFormController>(controller => controller.Cancel -= OnCancel);
             }
             Frame.Disposing -= FrameOnDisposing;
             Application.DetailViewCreated -= ApplicationOnDetailViewCreated;
@@ -114,11 +114,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                         winWindow.View.ObjectSpace.RollbackSilent();
                     winWindow.View.SetFieldValue("keyMemberValueForPendingLoading", null);
                     var currentObject = GetCurrentObject(e, winWindow);
-                    var winModificationsController = winWindow.GetController<WinModificationsController>();
-                    var modificationsCheckingMode = winModificationsController.ModificationsCheckingMode;
-                    winModificationsController.ModificationsCheckingMode=ModificationsCheckingMode.OnCloseOnly;
-                    winWindow.View.CurrentObject = currentObject;
-                    winModificationsController.ModificationsCheckingMode=modificationsCheckingMode;
+                    winWindow.GetController<WinModificationsController>(winModificationsController => {
+                        var modificationsCheckingMode = winModificationsController.ModificationsCheckingMode;
+                        winModificationsController.ModificationsCheckingMode = ModificationsCheckingMode.OnCloseOnly;
+                        winWindow.View.CurrentObject = currentObject;
+                        winModificationsController.ModificationsCheckingMode = modificationsCheckingMode;
+                    });
                 }
             }
         }

@@ -11,22 +11,21 @@ using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.Logic;
 using Fasterflect;
 using Xpand.Persistent.Base.AdditionalViewControls;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Logic {
     public abstract class AdditionalViewControlsRuleViewController:ViewController {
         Dictionary<string, object> _infoToLayoutMapCore;
-        LogicRuleViewController _logicRuleViewController;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            _logicRuleViewController = Frame.GetController<LogicRuleViewController>();
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute += OnLogicRuleExecute;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute += OnLogicRuleExecute);
             Frame.Disposing+=FrameOnDisposing;
         }
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
-            _logicRuleViewController.LogicRuleExecutor.LogicRuleExecute -= OnLogicRuleExecute;
+            Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute -= OnLogicRuleExecute);
         }
 
         protected bool HasRules => LogicRuleManager.HasRules<AdditionalViewControlsLogicInstaller>(View.ObjectTypeInfo);

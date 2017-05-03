@@ -23,7 +23,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.OnActivated();
             _preventDataLoadingController = Frame.GetController<PreventDataLoadingController>();
             _filterControlListViewController = Frame.GetController<FilterControlListViewController>();
-            _filterControlListViewController.CustomAssignFilterControlSourceControl += OnCustomAssignFilterControlSourceControl;
+            if (_filterControlListViewController != null)
+                _filterControlListViewController.CustomAssignFilterControlSourceControl +=
+                    OnCustomAssignFilterControlSourceControl;
         }
 
         protected override void OnViewControlsCreated(){

@@ -1,6 +1,7 @@
 using System;
 using DevExpress.ExpressApp;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
@@ -35,7 +36,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         void ObjectSpace_Committed(object sender, EventArgs e) {
             if (_objectChanged){
-                Frame.Application.MainWindow.GetController<DashboardNavigationController>().RecreateNavigationItems();
+                Frame.Application.MainWindow.GetController<DashboardNavigationController>(controller => controller.RecreateNavigationItems());
                 _objectChanged = false;
             }
         }

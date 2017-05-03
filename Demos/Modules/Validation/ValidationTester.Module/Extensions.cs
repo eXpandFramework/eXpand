@@ -6,7 +6,8 @@ using Xpand.Persistent.BaseImpl.Security;
 
 namespace ValidationTester.Module {
     public static class Extensions {
-        public static void ProjectSetup(this XafApplication application) {
+        public static void ProjectSetup(this XafApplication application){
+            application.OptimizedControllersCreation = true;
             application.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
             application.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
         }

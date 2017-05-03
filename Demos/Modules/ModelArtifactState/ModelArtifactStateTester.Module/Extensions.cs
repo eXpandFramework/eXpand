@@ -8,6 +8,7 @@ using Xpand.Persistent.BaseImpl.Security;
 namespace ModelArtifactStateTester.Module {
     public static class Extensions {
         public static void ProjectSetup(this XafApplication application) {
+            application.OptimizedControllersCreation = true;
             if (!InterfaceBuilder.IsDevMachine)
                 application.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
             application.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));

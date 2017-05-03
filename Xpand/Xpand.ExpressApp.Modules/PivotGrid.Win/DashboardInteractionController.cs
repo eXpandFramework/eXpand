@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.PivotGrid;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.XtraGrid;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
@@ -34,12 +35,12 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
     public class DashboardInteractionPivotController : ViewController<DashboardView>, IModelExtender {
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            Frame.GetController<DashboardInteractionController>().ListViewFiltered -= OnListViewFiltered;
+            Frame.GetController<DashboardInteractionController>(controller => controller.ListViewFiltered -= OnListViewFiltered);
         }
 
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<DashboardInteractionController>().ListViewFiltered += OnListViewFiltered;
+            Frame.GetController<DashboardInteractionController>(controller => controller.ListViewFiltered += OnListViewFiltered);
         }
 
         void OnListViewFiltered(object sender, ListViewFilteredArgs listViewFilteredArgs) {

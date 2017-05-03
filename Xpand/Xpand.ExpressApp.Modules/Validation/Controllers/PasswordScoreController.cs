@@ -9,6 +9,7 @@ using DevExpress.Persistent.Validation;
 using Xpand.Persistent.Base.Validation;
 using Xpand.Utils.Helpers;
 using System;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Validation.Controllers {
     [ModelAbstractClass]
@@ -20,14 +21,12 @@ namespace Xpand.ExpressApp.Validation.Controllers {
 
     public class PasswordScoreController:ObjectViewController,IModelExtender, IPasswordScoreController {
         IEnumerable<IModelMemberPasswordScore> _modelMemberPasswordScores;
-        PersistenceValidationController _persistenceValidationController;
 
         protected override void OnActivated() {
             base.OnActivated();
             _modelMemberPasswordScores = View.Model.ModelClass.AllMembers.Cast<IModelMemberPasswordScore>().Where(member => member.PasswordScore != null);
             if (_modelMemberPasswordScores.Any()) {
-                _persistenceValidationController = Frame.GetController<PersistenceValidationController>();
-                _persistenceValidationController.ContextValidating+=OnContextValidating;
+                Frame.GetController<PersistenceValidationController>(controller => controller.ContextValidating += OnContextValidating);
             }
         }
 
@@ -39,9 +38,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (_persistenceValidationController != null) {
-                _persistenceValidationController.ContextValidating-=OnContextValidating;
-            }
+            Frame.GetController<PersistenceValidationController>(controller => controller.ContextValidating -= OnContextValidating);
         }
 
         void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs args) {

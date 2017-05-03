@@ -10,15 +10,14 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule.Search {
     public class SearchFromDetailViewController : SearchFromViewController {
         IEnumerable<IMemberInfo> _searchAbleMemberInfos;
         readonly SimpleAction _searchAction;
 
-        public IEnumerable<IMemberInfo> SearchAbleMemberInfos {
-            get { return _searchAbleMemberInfos; }
-        }
+        public IEnumerable<IMemberInfo> SearchAbleMemberInfos => _searchAbleMemberInfos;
 
         public SearchFromDetailViewController() {
             _searchAction = new SimpleAction(this, "Search", PredefinedCategory.Search);
@@ -26,9 +25,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
             TargetViewType = ViewType.DetailView;
         }
 
-        public SimpleAction SearchAction {
-            get { return _searchAction; }
-        }
+        public SimpleAction SearchAction => _searchAction;
 
         protected override void OnActivated() {
             base.OnActivated();
@@ -50,7 +47,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         void CreateOrderProviderSource(IList objects) {
             var standaloneOrderProvider = new StandaloneOrderProvider(ObjectSpace, objects);
             var orderProviderSource = new OrderProviderSource { OrderProvider = standaloneOrderProvider };
-            Frame.GetController<RecordsNavigationController>().OrderProviderSource = orderProviderSource;
+            Frame.GetController<RecordsNavigationController>(controller => controller.OrderProviderSource = orderProviderSource);
         }
 
         GroupOperator GetCriteria() {

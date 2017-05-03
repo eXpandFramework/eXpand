@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Fasterflect;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelClassPreventDataLoading : IModelNode {
@@ -41,9 +42,11 @@ namespace Xpand.ExpressApp.SystemModule {
             if (ShouldPreventLoading()) {
                 PreventDataLoading();
             }
-            _filterController = Frame.GetController<FilterController>();
-            _filterController.SetFilterAction.Execute += SetFilterActionOnExecute;
-            _filterController.FullTextFilterAction.Execute += FullTextFilterAction_Execute;
+            Frame.GetController<FilterController>(controller => {
+                _filterController = controller;
+                _filterController.SetFilterAction.Execute += SetFilterActionOnExecute;
+                _filterController.FullTextFilterAction.Execute += FullTextFilterAction_Execute;
+            });
         }
         
         private void SetFilterActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){

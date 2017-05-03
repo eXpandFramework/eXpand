@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using System.Linq;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -28,11 +29,16 @@ namespace Xpand.ExpressApp.SystemModule {
             base.OnActivated();
             _previousObject = null;
             if (Enabled()) {
-                _newObjectViewController = Frame.GetController<NewObjectViewController>();
-                _newObjectViewController.ObjectCreating+=NewObjectViewControllerOnObjectCreating;
-                _newObjectViewController.ObjectCreated += newObjectViewController_ObjectCreated;
-                _modificationsController = Frame.GetController<ModificationsController>();
-                _modificationsController.SaveAndNewAction.Executing += SaveAndNewAction_Executing;
+                Frame.GetController<NewObjectViewController>(controller => {
+                    _newObjectViewController = controller;
+                    _newObjectViewController.ObjectCreating += NewObjectViewControllerOnObjectCreating;
+                    _newObjectViewController.ObjectCreated += newObjectViewController_ObjectCreated;
+                });
+                
+                Frame.GetController<ModificationsController>(controller => {
+                    _modificationsController=controller;
+                    _modificationsController.SaveAndNewAction.Executing += SaveAndNewAction_Executing;
+                });
             }
         }
 
@@ -45,9 +51,12 @@ namespace Xpand.ExpressApp.SystemModule {
             base.OnDeactivated();
             if (Enabled()) {
                 _previousObject = null;
-                _newObjectViewController.ObjectCreating += NewObjectViewControllerOnObjectCreating;
-                _newObjectViewController.ObjectCreated += newObjectViewController_ObjectCreated;
-                _modificationsController.SaveAndNewAction.Executing -= SaveAndNewAction_Executing;
+                if (_newObjectViewController != null){
+                    _newObjectViewController.ObjectCreating += NewObjectViewControllerOnObjectCreating;
+                    _newObjectViewController.ObjectCreated += newObjectViewController_ObjectCreated;
+                }
+                if (_modificationsController != null)
+                    _modificationsController.SaveAndNewAction.Executing -= SaveAndNewAction_Executing;
             }
         }
 

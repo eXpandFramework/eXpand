@@ -23,12 +23,12 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         void OnListViewFiltered(ListViewFilteredArgs e) {
             EventHandler<ListViewFilteredArgs> handler = ListViewFiltered;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         void OnListViewFiltering(ListViewFilteringArgs e) {
             EventHandler<ListViewFilteringArgs> handler = ListViewFiltering;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         readonly Dictionary<IModelListView, MasterDetailMode> _masterDetailModes = new Dictionary<IModelListView, MasterDetailMode>();
@@ -58,26 +58,22 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             base.OnViewControlsCreated();
             foreach (var viewItem in View.Items.OfType<DashboardViewItem>()) {
                 var frame = viewItem.Frame;
-                if (frame != null ){
-                    var listView = frame.View as ListView;
-                    if (listView != null){
-                        listView.SelectionChanged -= ListViewSelectionChangedHandler;
-                        listView.SelectionChanged += ListViewSelectionChangedHandler;
-                    }
+                var listView = frame?.View as ListView;
+                if (listView != null){
+                    listView.SelectionChanged -= ListViewSelectionChangedHandler;
+                    listView.SelectionChanged += ListViewSelectionChangedHandler;
                 }
             }
             ResetMasterDetailModes();
         }
 
         private void ListViewSelectionChangedHandler(object sender, EventArgs e){
-            if (View != null){
-                var viewItem = View.Items
-                    .OfType<DashboardViewItem>()
-                    .FirstOrDefault(v => v.Frame != null && v.Frame.View == sender);
+            var viewItem = View?.Items
+                .OfType<DashboardViewItem>()
+                .FirstOrDefault(v => v.Frame != null && v.Frame.View == sender);
 
-                if (viewItem != null)
-                    OnSelectionChanged(new SelectionChangedArgs((ListView) sender, viewItem));
-            }
+            if (viewItem != null)
+                OnSelectionChanged(new SelectionChangedArgs((ListView) sender, viewItem));
         }
 
         void AssignMasterDetailModes(IModelDashboardViewItemEx modelDashboardViewItem) {
@@ -92,12 +88,17 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         private void Template_Shown(object sender, EventArgs e){
             foreach (var item in View.GetItems<DashboardViewItem>().Where(item => item.Frame!=null)){
-                var controller = item.Frame.GetController<FocusDefaultDetailViewItemController>();
-                var defaultItem = controller.GetFieldValue("defaultItem");
-                if (defaultItem != null){
-                    controller.CallMethod("FocusDefaultItemControl");
+                bool focused = false;
+                item.Frame.GetController<FocusDefaultDetailViewItemController>(controller => {
+                    var defaultItem = controller.GetFieldValue("defaultItem");
+                    if (defaultItem != null) {
+                        controller.CallMethod("FocusDefaultItemControl");
+                        focused = true;
+                    }
+                });
+                if (focused)
                     break;
-                }
+
             }
         }
 
@@ -137,8 +138,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
         }
 
         IEnumerable<IDataSourceSelectionChanged> Controllers(IFrameContainer item) {
-            return item.Frame == null ? Enumerable.Empty<IDataSourceSelectionChanged>()
-                       : item.Frame.Controllers.Cast<Controller>().Where(controller => controller.Active).OfType<IDataSourceSelectionChanged>();
+            return item.Frame?.Controllers.Cast<Controller>().Where(controller => controller.Active).OfType<IDataSourceSelectionChanged>() ?? Enumerable.Empty<IDataSourceSelectionChanged>();
         }
 
         ListView DataSourceListView(IModelListView dataSourceView) {
@@ -148,7 +148,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
         }
 
         bool ViewMatch(DashboardViewItem item, IModelListView dataSourceView) {
-            return item.Frame != null && item.Frame.View != null && item.Frame.View.Model == dataSourceView;
+            return item.Frame?.View != null && item.Frame.View.Model == dataSourceView;
         }
 
         void LayoutManagerOnCustomizeAppearance(object sender, CustomizeAppearanceEventArgs customizeAppearanceEventArgs) {
@@ -184,65 +184,38 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
     }
 
     public class ListViewFilteredArgs : EventArgs {
-        readonly ListView _filterListView;
-
         public ListViewFilteredArgs(ListView filterListView) {
-            _filterListView = filterListView;
+            FilterListView = filterListView;
         }
 
-        public ListView FilterListView {
-            get { return _filterListView; }
-        }
+        public ListView FilterListView{ get; }
     }
 
     public class ListViewFilteringArgs : HandledEventArgs {
-        readonly DashboardViewItem _dashboardViewItem;
-        readonly IModelDashboardViewItemEx _model;
-        readonly ListView _dataSourceListView;
-
         public ListViewFilteringArgs(DashboardViewItem dashboardViewItem, IModelDashboardViewItemEx model, ListView dataSourceListView) {
-            _dashboardViewItem = dashboardViewItem;
-            _model = model;
-            _dataSourceListView = dataSourceListView;
+            DashboardViewItem = dashboardViewItem;
+            Model = model;
+            DataSourceListView = dataSourceListView;
         }
 
-        public DashboardViewItem DashboardViewItem {
-            get { return _dashboardViewItem; }
-        }
+        public DashboardViewItem DashboardViewItem{ get; }
 
-        public ListView DataSourceListView {
-            get { return _dataSourceListView; }
-        }
+        public ListView DataSourceListView{ get; }
 
-        public IModelDashboardViewItemEx Model {
-            get { return _model; }
-        }
+        public IModelDashboardViewItemEx Model{ get; }
     }
 
     public class SelectionChangedArgs : EventArgs {
-        readonly ListView _listView;
-        readonly DashboardViewItem _dashboardViewItem;
-
         public SelectionChangedArgs(ListView listView, DashboardViewItem dashboardViewItem) {
-            _listView = listView;
-            _dashboardViewItem = dashboardViewItem;
+            ListView = listView;
+            DashboardViewItem = dashboardViewItem;
         }
 
-        public ListView ListView {
-            get { return _listView; }
-        }
+        public ListView ListView{ get; }
 
-        public DashboardViewItem DashboardViewItem {
-            get {
-                return _dashboardViewItem;
-            }
-        }
+        public DashboardViewItem DashboardViewItem{ get; }
 
-        public IModelDashboardViewItemEx DashboardViewItemModel {
-            get {
-                return (IModelDashboardViewItemEx)_dashboardViewItem.GetModel((DashboardView)_dashboardViewItem.View);
-            }
-        }
+        public IModelDashboardViewItemEx DashboardViewItemModel => (IModelDashboardViewItemEx)DashboardViewItem.GetModel((DashboardView)DashboardViewItem.View);
     }
 }
 

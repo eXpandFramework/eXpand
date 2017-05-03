@@ -12,13 +12,13 @@ namespace Xpand.ExpressApp.ModelDifference.Security.Controllers {
         [CoverageExclude]
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<ShowNavigationItemController>().CustomShowNavigationItem += ControllerOnCustomShowNavigationItem;
+            Frame.GetController<ShowNavigationItemController>(controller => controller.CustomShowNavigationItem += ControllerOnCustomShowNavigationItem);
         }
 
         [CoverageExclude]
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            Frame.GetController<ShowNavigationItemController>().CustomShowNavigationItem -= ControllerOnCustomShowNavigationItem;
+            Frame.GetController<ShowNavigationItemController>(controller => controller.CustomShowNavigationItem -= ControllerOnCustomShowNavigationItem);
         }
 
         protected internal virtual void ControllerOnCustomShowNavigationItem(object sender, CustomShowNavigationItemEventArgs args) {

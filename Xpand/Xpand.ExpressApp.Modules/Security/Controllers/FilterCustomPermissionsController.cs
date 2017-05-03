@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
 using System.Linq;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Security.Controllers {
     public class FilterCustomPermissionsController : ViewController<ListView> {
@@ -20,12 +20,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             Frame.Disposing += FrameOnDisposing;
-            Frame.GetController<NewObjectViewController>().CollectDescendantTypes += OnCollectDescendantTypes;
-            Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes += OnCollectDescendantPermissionTypes;
-        }
-
-        void OnCollectDescendantPermissionTypes(object sender, CollectTypesEventArgs e) {
-
+            Frame.GetController<NewObjectViewController>(controller => controller.CollectDescendantTypes += OnCollectDescendantTypes);
         }
 
         void OnCollectDescendantTypes(object sender, CollectTypesEventArgs e) {
@@ -42,8 +37,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
 
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
-            Frame.GetController<NewObjectViewController>().CollectDescendantTypes -= OnCollectDescendantTypes;
-            Frame.GetController<PermissionsController>().CollectDescendantPermissionTypes -= OnCollectDescendantPermissionTypes;
+            Frame.GetController<NewObjectViewController>(controller => controller.CollectDescendantTypes -= OnCollectDescendantTypes);
         }
 
         protected override void OnActivated() {

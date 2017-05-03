@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -9,13 +8,13 @@ namespace Xpand.Persistent.Base.General.Controllers {
     public class HideFromNewMenuViewController : ViewController<ObjectView> {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            foreach (ITypeInfo type in GetHiddenTypes()) {
+            foreach (ITypeInfo typeInfo in GetHiddenTypes()) {
                 var attribute = View.ObjectTypeInfo.FindAttribute<HideFromNewMenuAttribute>();
                 if (attribute != null) {
-                    var controller = Frame.GetController<NewObjectViewController>();
-                    Type typeInfo = type.Type;
-                    var choiceActionItem =controller.NewObjectAction.Items.FirstOrDefault(item => ReferenceEquals(item.Data, typeInfo));
-                    controller.NewObjectAction.Items.Remove(choiceActionItem);
+                    Frame.GetController<NewObjectViewController>(controller => {
+                        var choiceActionItem = controller.NewObjectAction.Items.FirstOrDefault(item => ReferenceEquals(item.Data, typeInfo.Type));
+                        controller.NewObjectAction.Items.Remove(choiceActionItem);
+                    });
                 }
             }
         }

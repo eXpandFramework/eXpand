@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base.General;
 using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Xml;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Scheduler.Reminders {
     public interface IModelScheduler : IModelNode {
@@ -65,16 +66,17 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
 
         private void CreateAppoitments() {
             var reminderInfos = Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info != null);
-            var reminderController = Frame.GetController<ReminderController>();
-            var objectSpace = Application.CreateObjectSpace();
-            foreach (var modelMemberReminderInfo in reminderInfos) {
-                var criteriaOperator = reminderController.GetCriteria(modelMemberReminderInfo);
-                var reminderEvents =
-                    objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false)
-                        .Cast<IEvent>();
-                var appointments = reminderController.CreateAppoitments(reminderEvents);
-                reminderController.UpdateAppoitmentKey(appointments);
-            }
+            Frame.GetController<ReminderController>(controller => {
+                var objectSpace = Application.CreateObjectSpace();
+                foreach (var modelMemberReminderInfo in reminderInfos) {
+                    var criteriaOperator = controller.GetCriteria(modelMemberReminderInfo);
+                    var reminderEvents =
+                        objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false)
+                            .Cast<IEvent>();
+                    var appointments = controller.CreateAppoitments(reminderEvents);
+                    controller.UpdateAppoitmentKey(appointments);
+                }
+            });            
         }
 
 

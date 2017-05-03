@@ -16,13 +16,14 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
 
         protected override void OnActivated() {
             base.OnActivated();
-            IEnumerable<IMemberInfo> memberInfos = GetMemberInfos();
+            var memberInfos = GetMemberInfos().ToArray();
             if (memberInfos.Any()) {
                 AttachControllers(memberInfos);
             }
 
             View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
         }
+
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             var memberInfos = GetMemberInfos();
@@ -98,10 +99,12 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
         }
 
         void ActivateController<TController>() where TController : ViewController {
-            var dataBindController = Frame.GetController<TController>();
-            dataBindController.Active.Clear();
-            dataBindController.Active[""] = true;
-            dataBindController.TargetObjectType = View.ObjectTypeInfo.Type;
+            Frame.GetController<TController>(controller => {
+                controller.Active.Clear();
+                controller.Active[""] = true;
+                controller.TargetObjectType = View.ObjectTypeInfo.Type;
+            });
+            
         }
 
         protected virtual AssignCustomAnalysisDataSourceDetailViewController AttachAssignCustomAnalysisDataSourceDetailViewController() {
@@ -116,16 +119,16 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
 
         CriteriaOperator GetCriteria(IMemberInfo memberInfo) {
             IMemberInfo collectionMemberInfo = GetCollectionMemberInfo(memberInfo);
-            return collectionMemberInfo != null && collectionMemberInfo.AssociatedMemberInfo != null
-                       ? CriteriaOperator.Parse(string.Format("{0}.{1}=?", memberInfo.Owner.Name,
-                                                              collectionMemberInfo.ListElementTypeInfo.KeyMember.Name),
+            return collectionMemberInfo?.AssociatedMemberInfo != null
+                       ? CriteriaOperator.Parse(
+                    $"{memberInfo.Owner.Name}.{collectionMemberInfo.ListElementTypeInfo.KeyMember.Name}=?",
                                                 (Guid) ObjectSpace.GetKeyValue(View.CurrentObject))
                        : null;
         }
 
         IMemberInfo GetCollectionMemberInfo(IMemberInfo memberInfo) {
             var pivotedPropertyAttribute = memberInfo.FindAttribute<PivotedPropertyAttribute>();
-            return View != null ? View.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName) : null;
+            return View?.ObjectTypeInfo.FindMember(pivotedPropertyAttribute.CollectionName);
         }
 
         IEnumerable GetOrphanCollection(IMemberInfo memberInfo) {

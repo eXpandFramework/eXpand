@@ -40,8 +40,8 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (Enabled()&&AppearanceController != null)
-                AppearanceController.AppearanceEndUpdate();
+            if (Enabled())
+                AppearanceController?.AppearanceEndUpdate();
         }
 
         protected override void OnDeactivated() {

@@ -17,6 +17,7 @@ using DevExpress.XtraBars.Ribbon;
 using Fasterflect;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.Win.PropertyEditors;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
     public class ModelEditorTemplateViewController : ViewController<ObjectView> {
@@ -29,12 +30,12 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         protected override void OnActivated(){
             base.OnActivated();
             if (!UseOldTemplates&& ((IModelOptionsWin) Application.Model.Options).FormStyle==RibbonFormStyle.Ribbon)
-                Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Execute+=ProcessCurrentObjectActionOnExecute;
+                Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.ProcessCurrentObjectAction.Execute += ProcessCurrentObjectActionOnExecute);
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            Frame.GetController<ListViewProcessCurrentObjectController>().ProcessCurrentObjectAction.Execute -= ProcessCurrentObjectActionOnExecute;
+            Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.ProcessCurrentObjectAction.Execute -= ProcessCurrentObjectActionOnExecute);
         }
 
         private void ProcessCurrentObjectActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
@@ -112,8 +113,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (!UseOldTemplates && ((IModelOptionsWin)Application.Model.Options).FormStyle == RibbonFormStyle.Ribbon) {
-                var actionControlsSiteController = Frame.GetController<ActionControlsSiteController>();
-                actionControlsSiteController.CustomBindActionControlToAction+=OnCustomBindActionControlToAction;
+                Frame.GetController<ActionControlsSiteController>(controller => controller.CustomBindActionControlToAction += OnCustomBindActionControlToAction);
             }
         }
 

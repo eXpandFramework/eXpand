@@ -9,6 +9,7 @@ using Xpand.Persistent.BaseImpl.Security;
 namespace SystemTester.Module {
     public static class Extensions {
         public static void ProjectSetup(this XafApplication application){
+            application.OptimizedControllersCreation = true;
             if (application.GetEasyTestParameter("MySQL"))
                 application.ConnectionString = ConfigurationManager.ConnectionStrings["MySQL"].ConnectionString;
             else if (application.GetEasyTestParameter("SqlLite"))

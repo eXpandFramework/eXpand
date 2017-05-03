@@ -30,7 +30,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
                 }
             }
             var showViewParameters = e.ShowViewParameters;
-            Frame.GetController<ModelController>().SetView(showViewParameters);
+            Frame.GetController<ModelController>(controller => controller.SetView(showViewParameters));
         }
     }
 }

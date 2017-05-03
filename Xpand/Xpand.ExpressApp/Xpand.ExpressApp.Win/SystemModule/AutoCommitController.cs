@@ -1,20 +1,21 @@
 ﻿using System.ComponentModel;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.SystemModule.Actions;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
 
     public class AutoCommitController: ExpressApp.SystemModule.AutoCommitController {
-        private AvailableActionListController _availableActionListController;
 
         protected override void OnActivated(){
             base.OnActivated();
             if (((IModelObjectViewAutoCommit)View.Model).AutoCommit) {
-                _availableActionListController = Frame.GetController<AvailableActionListController>();
-                foreach (var action in _availableActionListController.AvailableActions){
-                    action.Executing+=ActionBaseOnExecuting;
-                }
-                _availableActionListController.AvailableActionListChanged += OnAvailableActionListChanged;
+                Frame.GetController<AvailableActionListController>(controller => {
+                    foreach (var action in controller.AvailableActions) {
+                        action.Executing += ActionBaseOnExecuting;
+                    }
+                    controller.AvailableActionListChanged += OnAvailableActionListChanged;
+                });
             }
         }
 
@@ -30,9 +31,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.OnDeactivated();
             if (((IModelObjectViewAutoCommit)View.Model).AutoCommit) {
                 CommitChanges();
-                foreach (var action in _availableActionListController.AvailableActions) {
-                    action.Executing -= ActionBaseOnExecuting;
-                }
+                Frame.GetController<AvailableActionListController>(controller => {
+                    foreach (var action in controller.AvailableActions){
+                        action.Executing -= ActionBaseOnExecuting;
+                    }
+                });
             }
         }
 
