@@ -6,11 +6,41 @@ using EnvDTE;
 using Microsoft.Win32;
 using Mono.Cecil;
 using VSLangProj;
+using Application = System.Windows.Forms.Application;
 using Project = EnvDTE.Project;
+using Thread = System.Threading.Thread;
 
 namespace Xpand.VSIX.Extensions {
 
     public static class SolutionExtension {
+        public static Boolean BuildSolution(this Solution solution) {
+            var dte = DteExtensions.DTE;
+            SolutionConfiguration previousSolutionConfiguration = solution.SolutionBuild.ActiveConfiguration;
+            var solutionConfiguration = solution.SolutionBuild.SolutionConfigurations.Cast<SolutionConfiguration>().First(configuration => configuration.Name=="EasyTest") ??
+                                                          solution.SolutionBuild.SolutionConfigurations.Cast<SolutionConfiguration>().First(configuration => configuration.Name == "Debug");
+            solutionConfiguration.Activate();
+            try {
+                dte.WriteToOutput($@"Build the following configuration: ""{dte.Solution.SolutionBuild.ActiveConfiguration.Name}"".");
+                dte.ExecuteCommand("Build.BuildSolution");
+                
+                while (dte.Solution.SolutionBuild.BuildState != vsBuildState.vsBuildStateDone) {
+                    Thread.Sleep(100);
+                    Application.DoEvents();
+                }
+            }
+            finally {
+                if (previousSolutionConfiguration != null) {
+                    dte.WriteToOutput($@"Restore the previous active configuration: ""{previousSolutionConfiguration.Name}"".");
+
+                    previousSolutionConfiguration.Activate();
+                }
+            }
+            dte.WriteToOutput("Get build result.");
+            Boolean isBuildSuccess = dte.Solution.SolutionBuild.LastBuildInfo == 0;
+            dte.WriteToOutput(!isBuildSuccess ? "Solution build failed." : "BuildSuccess.");
+            return isBuildSuccess;
+        }
+
         public static Reference[] GetReferences(this UIHierarchy uiHierarchy, Func<Reference, bool> isFiltered) {
             DteExtensions.DTE.SuppressUI = true;
             var references = ((UIHierarchyItem[]) uiHierarchy.SelectedItems).GetItems<UIHierarchyItem>(item => {

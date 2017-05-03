@@ -28,11 +28,8 @@ namespace Xpand.VSIX.Commands{
             var lastBuildStatusArgs = new LastBuildStatusArgs();
             OnQueryLastBuildStatus(lastBuildStatusArgs);
             try {
-                var uniqueName =_dte.Solution.FindStartUpProject().UniqueName;
                 _dte.WriteToOutput("Building EasyTest/Debug Configuration");
-                _dte.Solution.SolutionBuild.BuildProject("EasyTest", uniqueName,
-                    true);
-                if (_dte.Solution.SolutionBuild.LastBuildInfo==0) {
+                if (_dte.Solution.BuildSolution()) {
                     var activeFileName = _dte.ActiveDocument.FullName;
                     var testLogPath = Path.Combine(Path.GetDirectoryName(activeFileName) + "", "Testslog.xml");
                     if (File.Exists(testLogPath))

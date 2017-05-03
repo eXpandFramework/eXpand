@@ -79,7 +79,7 @@ namespace Xpand.VSIX.Extensions {
         public static OleMenuCommand EnableForActiveFile(this OleMenuCommand oleMenuCommand, params string[] extensions){
             oleMenuCommand.BeforeQueryStatus+= (sender, args) =>{
                 var activeDocument = DteExtensions.DTE.ActiveDocument;
-                oleMenuCommand.Enabled = activeDocument != null && extensions.Any(s => activeDocument.FullName.EndsWith(s));
+                oleMenuCommand.Enabled = activeDocument != null && (extensions.Any(s => activeDocument.FullName.EndsWith(s))||extensions.Length==0);
             };
             return oleMenuCommand;
         }
