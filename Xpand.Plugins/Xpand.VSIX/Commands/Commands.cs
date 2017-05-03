@@ -7,6 +7,7 @@ using EnvDTE;
 using EnvDTE90;
 using Microsoft.VisualStudio.CommandBars;
 using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.TextManager.Interop;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Options;
@@ -54,6 +55,9 @@ namespace Xpand.VSIX.Commands {
                 commandService.AddCommand(menuItem);
                 menuItem = new OleMenuCommand((sender, args) => FindInSolutionCommand.Find(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidFindInSolution));
                 menuItem.EnableForSolution();
+                commandService.AddCommand(menuItem);
+                menuItem = new OleMenuCommand((sender, args) => DuplicateLineCommand.DuplicateLine((IVsTextManager) ServiceProvider.GetService(typeof(SVsTextManager))), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDouplicateLine));
+                menuItem.EnableForActiveFile();
                 commandService.AddCommand(menuItem);
             }
         }

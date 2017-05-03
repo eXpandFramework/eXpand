@@ -26,6 +26,7 @@ namespace Xpand.VSIX.VSPackage
     /// </summary>
     internal sealed partial class PackageIds
     {
+        public const int cmdidDouplicateLine = 0x0116;
         public const int cmdidFindInSolution = 0x0115;
         public const int cmdidBuildSelection = 0x0114;
         public const int cmdidAddXpandReference = 0x0113;
