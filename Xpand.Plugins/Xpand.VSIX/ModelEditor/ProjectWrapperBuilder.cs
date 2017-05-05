@@ -42,7 +42,7 @@ namespace Xpand.VSIX.ModelEditor {
                     ModelFileName = Path.GetFileName(item.EvaluatedInclude),
                     OutputPath = GetEvaluatedValue(item, "OutputPath"),
                     OutputFileName = outputFileName,
-                    IsApplicationProject = Path.GetExtension(outputFileName) == "exe" || IsWeb(fullPath),
+                    IsApplicationProject = Path.GetExtension(outputFileName) == ".exe" || IsWeb(fullPath),
                     FullPath = fullPath,
                     UniqueName =Path.GetDirectoryName(fullPath) + @"\" +GetEvaluatedValue(item, "ProjectFileName"),
                     LocalPath = Path.GetDirectoryName(fullPath) + @"\" + item.EvaluatedInclude

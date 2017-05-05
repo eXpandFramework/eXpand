@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.ModelEditor {
             try {
                 var strings = args;
                 if (args.Length>4&&args[0]=="d"){
-                    MessageBox.Show("Attach to this proccess");
+                    MessageBox.Show($"Attach to {Path.GetFileName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase)}");
                     strings = args.Skip(1).ToArray();
                 }
                 var pathInfo = new PathInfo(strings);

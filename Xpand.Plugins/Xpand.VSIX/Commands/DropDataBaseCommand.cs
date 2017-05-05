@@ -25,7 +25,6 @@ namespace Xpand.VSIX.Commands {
         static void Drop() {
             _dte.InitOutputCalls("Dropdatabase");
             Task.Factory.StartNew(() => {
-
                 var startUpProject = _dte.Solution.FindStartUpProject();
                 var configItem = startUpProject.ProjectItems.Cast<ProjectItem>()
                     .FirstOrDefault(item => new[] { "app.config", "web.config" }.Contains(item.Name.ToLower()));
@@ -48,9 +47,7 @@ namespace Xpand.VSIX.Commands {
                         }
                     }
                 }
-
             },CancellationToken.None,TaskCreationOptions.None,TaskScheduler.Default);
-
         }
 
         private static ConnectionStringSettings GetConnectionStringSettings(ProjectItem item, string name) {

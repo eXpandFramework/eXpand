@@ -1,16 +1,19 @@
 using System;
+using System.ComponentModel.Design;
+using EnvDTE;
 using Microsoft.VisualStudio;
 using Xpand.VSIX.Extensions;
+using Xpand.VSIX.VSPackage;
 
 namespace Xpand.VSIX.Commands{
-    public class FindInSolutionCommand:IDTE2Provider{
-        public static bool Find(){
-            var findInSolutionCommand = new FindInSolutionCommand();
-            return findInSolutionCommand.FindCore();
+    public class FindInSolutionCommand:VSCommand{
+        private FindInSolutionCommand() : base((sender, args) =>Find(),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidFindInSolution) ){
+            BindCommand("Text Editor::Alt+Shift+L");
+            this.EnableForDXSolution();
         }
 
-        private bool FindCore(){
-            var dte2 = this.DTE2();
+        public static bool Find(){
+            var dte2 = DteExtensions.DTE;
             if (dte2.ActiveDocument != null) {
                 try {
                     var track =
@@ -19,16 +22,20 @@ namespace Xpand.VSIX.Commands{
                         track.Value = true;
                         track.Value = false;
                     }
+                    dte2.Windows.Item(Constants.vsWindowKindSolutionExplorer).Activate();
                     return true;
                 }
                 catch (Exception ex) {
                     if (ErrorHandler.IsCriticalException(ex))
                         throw;
                 }
-
             }
-
             return false;
+
+        }
+
+        public static void Init(){
+            new FindInSolutionCommand();
         }
     }
 }

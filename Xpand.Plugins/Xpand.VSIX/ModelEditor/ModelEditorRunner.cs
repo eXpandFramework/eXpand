@@ -23,9 +23,9 @@ namespace Xpand.VSIX.ModelEditor {
             foreach (var me in mePaths){
                 var assembly = Mono.Cecil.AssemblyDefinition.ReadAssembly(me.Path);
                 var versionMatch = assembly.VersionMatch();
-                _dte.WriteToOutput($"{me.Path} VersionMatch={versionMatch}");
-                if (versionMatch)
+                if (versionMatch){
                     return me.Path;
+                }
             }
             
             if (!mePaths.Any()){
@@ -58,7 +58,7 @@ namespace Xpand.VSIX.ModelEditor {
             
                 var destFileName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(path) + ""));
                 KillProcess(destFileName);
-                if (path.ToLower()!=destFileName.ToLower()){
+                if (!string.Equals(path, destFileName, StringComparison.OrdinalIgnoreCase)) {
                     File.Copy(path, destFileName,true);
                     var configPath = Path.Combine(Path.GetDirectoryName(path)+"",Path.GetFileName(path)+".config");
                     if (File.Exists(configPath))
@@ -68,6 +68,7 @@ namespace Xpand.VSIX.ModelEditor {
                 string arguments = String.Format("{0} {4} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectItemWrapper.LocalPath,projectItemWrapper.IsApplicationProject);
                 if (File.Exists(destFileName))
                     try{
+                        _dte.WriteToOutput($"Starting {destFileName} with arguments {arguments}");
                         Process.Start(destFileName, arguments);
                     }
                     catch (IOException){
