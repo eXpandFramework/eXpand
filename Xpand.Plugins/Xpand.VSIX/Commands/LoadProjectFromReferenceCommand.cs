@@ -6,7 +6,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
 using Mono.Cecil;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
@@ -14,13 +13,18 @@ using Xpand.VSIX.VSPackage;
 using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands {
-    public class LoadProjectFromReferenceCommand:OleMenuCommand{
-        public LoadProjectFromReferenceCommand(int commandId= PackageIds.cmdidLoadProjectFromreference) :base((sender, args) => LoadProjects(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, commandId)) {
+    public class LoadProjectFromReferenceCommand:VSCommand{
+        private LoadProjectFromReferenceCommand(int commandId) :base((sender, args) => LoadProjects(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, commandId)) {
             this.EnableForAssemblyReferenceSelection();
         }
+
+        public static void Init(){
+            var loadProjectFromReferenceCommand = new LoadProjectFromReferenceCommand(PackageIds.cmdidLoadProjectFromreference);
+            loadProjectFromReferenceCommand.BindCommand("Solution Explorer::Ctrl+Alt+Shift+L");
+            new LoadProjectFromReferenceCommand(PackageIds.cmdidLoadProjectFromreferenceTool);
+        }
+
         private static readonly DTE2 _dte = DteExtensions.DTE;
-
-
         private static void SkipBuild(Project project) {
             var solutionConfigurations = _dte.Solution.SolutionBuild.SolutionConfigurations.Cast<SolutionConfiguration>();
             var solutionContexts = solutionConfigurations.SelectMany(
@@ -29,7 +33,6 @@ namespace Xpand.VSIX.Commands {
             foreach (var solutionContext in solutionContexts) {
                 solutionContext.ShouldBuild = false;
             }
-
         }
 
         private static void ChangeActiveConfiguration(Project project) {

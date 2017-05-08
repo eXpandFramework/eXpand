@@ -4,16 +4,20 @@ using System.ComponentModel.Design;
 using System.IO;
 using System.Windows.Forms;
 using EnvDTE;
-using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.VSPackage;
 using ConfigurationProperty = Xpand.VSIX.Extensions.ConfigurationProperty;
 
 namespace Xpand.VSIX.Commands {
-    public class XAFErrorExplorerCommand :OleMenuCommand{
-        public XAFErrorExplorerCommand():base((sender, args) => Explore(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidExploreXAFErrors)){
+    public class XAFErrorExplorerCommand :VSCommand{
+        private XAFErrorExplorerCommand():base((sender, args) => Explore(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidExploreXAFErrors)){
             this.EnableForDXSolution();
         }
+
+        public static void Init(){
+            new XAFErrorExplorerCommand();
+        }
+
         public static void Explore(){
             Project startUpProject = DteExtensions.DTE.Solution.FindStartUpProject();
             Property outPut = startUpProject.ConfigurationManager.ActiveConfiguration.FindProperty(ConfigurationProperty.OutputPath);

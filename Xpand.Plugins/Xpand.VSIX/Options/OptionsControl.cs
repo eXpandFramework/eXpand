@@ -30,7 +30,6 @@ namespace Xpand.VSIX.Options {
             gridControlME.DataSource = OptionClass.Instance.MEs;
             gridControlAssemblyFolders.DataSource = OptionClass.Instance.ReferencedAssembliesFolders;
             gridControlExceptions.DataSource = OptionClass.Instance.Exceptions;
-
             Save();
         }
 
@@ -72,14 +71,14 @@ namespace Xpand.VSIX.Options {
 
 
         private void button1_Click(object sender, EventArgs e) {
-            button1.Enabled = false;
+            buttonSearchProjects.Enabled = false;
             var gridView = ((GridView)gridControlLoadProjectFromReferenceItem.MainView);
             for (int i = 0; i < gridView.RowCount; i++) {
                 var codeInfo = (SourceCodeInfo)gridView.GetRow(i);
                 StoreProjectPaths(codeInfo);
             }
             gridControlLoadProjectFromReferenceItem.RefreshDataSource();
-            button1.Enabled = true;
+            buttonSearchProjects.Enabled = true;
         }
 
         void StoreProjectPaths(SourceCodeInfo sourceCodeInfo) {

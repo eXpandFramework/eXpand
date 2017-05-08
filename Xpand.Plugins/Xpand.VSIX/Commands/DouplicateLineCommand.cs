@@ -1,9 +1,23 @@
 using System;
+using System.ComponentModel.Design;
 using Microsoft.VisualStudio.TextManager.Interop;
+using Xpand.VSIX.Extensions;
+using Xpand.VSIX.VSPackage;
 
 namespace Xpand.VSIX.Commands{
-    public class DuplicateLineCommand {
-        public static void DuplicateLine(IVsTextManager vsTextManager) {
+    public class DuplicateLineCommand:VSCommand {
+        private DuplicateLineCommand(IVsTextManager vsTextManager) : base((sender, args) => DuplicateLine(vsTextManager),
+            new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDouplicateLine)){
+            BindCommand("Text Editor::Ctrl+D");
+            this.EnableForActiveFile();
+        }
+
+        public static void Init(){
+            var vsTextManager = VSPackage.VSPackage.Instance.GetService(typeof(SVsTextManager));
+            new DuplicateLineCommand((IVsTextManager) vsTextManager);
+        }
+
+        static void DuplicateLine(IVsTextManager vsTextManager) {
             if (vsTextManager==null)
                 return;
             IVsTextView ppView;
@@ -63,7 +77,5 @@ namespace Xpand.VSIX.Commands{
                 ppView.SetSelection(anchorLine, anchorCol, endLine, endCol);
             }
         }
-
-
     }
 }

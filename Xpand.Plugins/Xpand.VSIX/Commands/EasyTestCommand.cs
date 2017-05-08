@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -9,22 +10,36 @@ using EnvDTE;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
+using Xpand.VSIX.VSPackage;
 using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands{
-    class LastBuildStatusArgs : EventArgs {
+    public class LastBuildStatusArgs : EventArgs {
         public bool Successed { get; set; }
     }
 
-    class EasyTest {
-        private readonly DTE2 _dte=DteExtensions.DTE;
-        public event EventHandler<LastBuildStatusArgs> QueryLastBuildStatus;
-        public void RunTest(bool debug) {
+    public class EasyTestCommand:VSCommand {
+        private EasyTestCommand(EventHandler invokeHandler, CommandID commandID) : base(invokeHandler, commandID){
+            this.EnableForDXSolution().EnableForActiveFile(".ets", ".inc");
+        }
+
+        public static void Init(){
+            var runEasyTest = new EasyTestCommand((sender, args) => RunTest(false),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidRunEasyTest));
+            runEasyTest.BindCommand("Text Editor::Alt+T");
+            var debugEasyTest = new EasyTestCommand((sender, args) => RunTest(false),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidDebugEasyTest));
+            debugEasyTest.BindCommand("Text Editor::Alt+D");
+        }
+
+        private static readonly DTE2 _dte=DteExtensions.DTE;
+
+        public static event EventHandler<LastBuildStatusArgs> QueryLastBuildStatus;
+
+        public static void RunTest(bool debug) {
             _dte.InitOutputCalls("RunTest");
             Task.Factory.StartNew(() => RunTestCore(debug),CancellationToken.None,TaskCreationOptions.None,TaskScheduler.Current);
         }
 
-        private void RunTestCore(bool debug) {
+        private static void RunTestCore(bool debug) {
             var lastBuildStatusArgs = new LastBuildStatusArgs();
             OnQueryLastBuildStatus(lastBuildStatusArgs);
             try {
@@ -71,7 +86,7 @@ namespace Xpand.VSIX.Commands{
             }
         }
 
-        private string WriteToOutput(bool debug,  string activeFileName){
+        private static string WriteToOutput(bool debug,  string activeFileName){
             string debugSwitch = null;
             if (debug){
                 debugSwitch = " -d:" + ((TextSelection) _dte.ActiveDocument.Selection).CurrentLine;
@@ -83,7 +98,7 @@ namespace Xpand.VSIX.Commands{
             return debugSwitch;
         }
 
-        private string GetTestExecutorPath() {
+        private static string GetTestExecutorPath() {
             
             var testExecutorPath = OptionClass.Instance.TestExecutorPath;
             if (string.IsNullOrWhiteSpace(testExecutorPath)) {
@@ -94,10 +109,8 @@ namespace Xpand.VSIX.Commands{
             return testExecutorPath;
         }
 
-        protected virtual void OnQueryLastBuildStatus(LastBuildStatusArgs e) {
-            var handler = QueryLastBuildStatus;
-            handler?.Invoke(this, e);
+        protected static void OnQueryLastBuildStatus(LastBuildStatusArgs e){
+            QueryLastBuildStatus?.Invoke(null, e);
         }
-
     }
 }

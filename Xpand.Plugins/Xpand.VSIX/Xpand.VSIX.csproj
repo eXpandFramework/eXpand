@@ -4,7 +4,8 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
@@ -59,11 +60,15 @@
     <Compile Include="..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs">
       <Link>Properties\XpandAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commands\NavigateWordCommand.cs" />
     <Compile Include="Commands\DouplicateLineCommand.cs" />
     <Compile Include="Commands\BuildSelectionCommand.cs" />
     <Compile Include="Commands\DropDataBaseCommand.cs" />
     <Compile Include="Commands\FindInSolutionCommand.cs" />
-    <Compile Include="Commands\IISExpress.cs" />
+    <Compile Include="Commands\KillIISExpressCommand.cs" />
+    <Compile Include="Commands\ShowModelsWindowCommand.cs" />
+    <Compile Include="Commands\AddXpandReferencesCommand.cs" />
+    <Compile Include="Commands\VSCommand.cs" />
     <Compile Include="Extensions\ConfigurationExtensions.cs" />
     <Compile Include="Extensions\IFullReference.cs" />
     <Compile Include="Commands\LoadProjectFromReferenceCommand.cs" />
@@ -84,7 +89,7 @@
     <Compile Include="Options\OptionClass.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Extensions\DteExtensions.cs" />
-    <Compile Include="Commands\EasyTest.cs" />
+    <Compile Include="Commands\EasyTestCommand.cs" />
     <Compile Include="Extensions\ShellExtensions.cs" />
     <Compile Include="Extensions\SolutionExtension.cs" />
     <Compile Include="Options\OptionsControl.cs">
@@ -372,7 +377,8 @@
   </Target>
 
   -->
-  <Target Name="BeforeBuild"></Target>
+  <Target Name="BeforeBuild">
+  </Target>
   <Import Project="..\..\Support\Build\Nuget.Targets" />
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets')" />
 </Project>

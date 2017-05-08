@@ -98,7 +98,7 @@ namespace Xpand.VSIX.Wizard {
             return true;
         }
 
-        public static void Show(object sender, EventArgs e){
+        public static void Show(){
             try{
                 var solutionWizard = new SolutionWizard(true);
                 var dte2 = solutionWizard.DTE2();

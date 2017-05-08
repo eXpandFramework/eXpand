@@ -49,6 +49,10 @@ namespace Xpand.VSIX.VSPackage {
             ToolboxUpgraded += (sender, args) => {RemoveToolboxItems();InstallToolboxItems(); };
         }
 
+        public new object GetService(Type type){
+            return base.GetService(type);
+        }
+
         private void RemoveToolboxItems() {
             var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
             
@@ -93,7 +97,7 @@ namespace Xpand.VSIX.VSPackage {
 
         protected override void Initialize() {
             base.Initialize();
-            Commands.Commands.Initialize(this);
+            Commands.Commands.Initialize();
         }
 
         #endregion

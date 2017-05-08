@@ -14,7 +14,7 @@ namespace Xpand.VSIX.Options{
         private static readonly string _path;
 
         static OptionClass() {
-            _path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs), "Xpand.VSIX.Options.xml");
+            _path = new Uri(Path.Combine(Path.GetDirectoryName(typeof(OptionClass).Assembly.CodeBase) + "", "Xpand.VSIX.Options.xml"),UriKind.Absolute).LocalPath;
             Instance = GetOptionClass();
         }
 
@@ -74,6 +74,8 @@ namespace Xpand.VSIX.Options{
 
         [XmlArray]
         public BindingList<SourceCodeInfo> SourceCodeInfos { get; set; } = new BindingList<SourceCodeInfo>();
+        [XmlArray]
+        public BindingList<DteCommand> DteCommands { get; set; } = new BindingList<DteCommand>();
 
         public bool DisableExceptions { get; set; }
 
@@ -84,6 +86,11 @@ namespace Xpand.VSIX.Options{
             new XmlSerializer(typeof(OptionClass)).Serialize(XmlWriter.Create(stringBuilder), Instance);
             File.WriteAllText(_path, stringBuilder.ToString());
         }
+    }
+
+    public class DteCommand:OptionClassBase{
+        public string Name{ get; set; }
+        public bool Bound{ get; set; }
     }
     public class ConnectionString : OptionClassBase {
         public string Name { get; set; }

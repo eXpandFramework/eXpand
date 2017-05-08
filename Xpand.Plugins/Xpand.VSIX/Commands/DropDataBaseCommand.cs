@@ -8,21 +8,30 @@ using System.Threading.Tasks;
 using DevExpress.DXCore.Controls.Xpo.DB.Helpers;
 using EnvDTE;
 using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Xpand.VSIX.VSPackage;
 using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands {
-    public class DropDataBaseCommand:OleMenuCommand {
+    public class DropDataBaseCommand:VSCommand {
         private static readonly DTE2 _dte=DteExtensions.DTE;
 
-        public DropDataBaseCommand():base((sender, args) => Drop(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDropDatabase)){
-            this.EnableForConfigFile();
+        private DropDataBaseCommand():base((sender, args) => Drop(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDropDatabase)){
+            this.EnableForSolution();
+            BindCommand("Global::Ctrl+Shift+Alt+D");
         }
 
+        public static void Init(){
+            new DropDataBaseCommand();
+        }
+            
         static void Drop() {
+            var activeDocument = DteExtensions.DTE.ActiveDocument;
+            string[] fileNames={"app.config","web.config"};
+            if (!(activeDocument != null && (fileNames.Any(s => activeDocument.FullName.EndsWith(s)) || fileNames.Length == 0)))
+                throw new NotSupportedException("Active document's project does not contain a config file");
+
             _dte.InitOutputCalls("Dropdatabase");
             Task.Factory.StartNew(() => {
                 var startUpProject = _dte.Solution.FindStartUpProject();

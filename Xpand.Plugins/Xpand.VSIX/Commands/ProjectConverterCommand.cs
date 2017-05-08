@@ -1,15 +1,14 @@
 ﻿using System.ComponentModel.Design;
 using System.IO;
 using EnvDTE80;
-using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Xpand.VSIX.VSPackage;
 using Process = System.Diagnostics.Process;
 
 namespace Xpand.VSIX.Commands {
-    public class ProjectConverterCommand:OleMenuCommand {
-        public ProjectConverterCommand():base((sender, args) => Convert(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidProjectConverter)){
+    public class ProjectConverterCommand:VSCommand {
+        private ProjectConverterCommand():base((sender, args) => Convert(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidProjectConverter)){
             this.EnableForDXSolution();
         }
         private static readonly DTE2 _dte =DteExtensions.DTE;
@@ -33,5 +32,8 @@ namespace Xpand.VSIX.Commands {
             }
         }
 
+        public static void Init(){
+            new ProjectConverterCommand();
+        }
     }
 }

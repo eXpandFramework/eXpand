@@ -76,10 +76,10 @@ namespace Xpand.VSIX.Extensions {
             return oleMenuCommand;
         }
 
-        public static OleMenuCommand EnableForActiveFile(this OleMenuCommand oleMenuCommand, params string[] extensions){
+        public static OleMenuCommand EnableForActiveFile(this OleMenuCommand oleMenuCommand, params string[] fileNames){
             oleMenuCommand.BeforeQueryStatus+= (sender, args) =>{
                 var activeDocument = DteExtensions.DTE.ActiveDocument;
-                oleMenuCommand.Enabled = activeDocument != null && (extensions.Any(s => activeDocument.FullName.EndsWith(s))||extensions.Length==0);
+                oleMenuCommand.Enabled = activeDocument != null && (fileNames.Any(s => activeDocument.FullName.EndsWith(s))||fileNames.Length==0);
             };
             return oleMenuCommand;
         }

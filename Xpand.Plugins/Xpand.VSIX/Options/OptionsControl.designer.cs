@@ -33,8 +33,6 @@ namespace Xpand.VSIX.Options
             this.General = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.specificVersionCheckEdit = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
-            this.labelControl13 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
-            this.labelControl14 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.EasyTests = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.labelControl6 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
@@ -54,7 +52,7 @@ namespace Xpand.VSIX.Options
             this.labelControl8 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.labelControl7 = new DevExpress.DXCore.Controls.XtraEditors.LabelControl();
             this.LoadProject = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonSearchProjects = new System.Windows.Forms.Button();
             this.gridControlLoadProjectFromReferenceItem = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
             this.gridColumnDirectory = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
@@ -150,8 +148,6 @@ namespace Xpand.VSIX.Options
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.specificVersionCheckEdit, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.labelControl13, 0, 2);
-            this.tableLayoutPanel4.Controls.Add(this.labelControl14, 0, 3);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -170,30 +166,8 @@ namespace Xpand.VSIX.Options
             this.specificVersionCheckEdit.Location = new System.Drawing.Point(3, 3);
             this.specificVersionCheckEdit.Name = "specificVersionCheckEdit";
             this.specificVersionCheckEdit.Properties.Caption = "When a new assembly is referenced use False Specific Version";
-            this.specificVersionCheckEdit.Size = new System.Drawing.Size(670, 18);
+            this.specificVersionCheckEdit.Size = new System.Drawing.Size(670, 19);
             this.specificVersionCheckEdit.TabIndex = 33;
-            // 
-            // labelControl13
-            // 
-            this.labelControl13.AllowHtmlString = true;
-            this.labelControl13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl13.Location = new System.Drawing.Point(3, 63);
-            this.labelControl13.Name = "labelControl13";
-            this.labelControl13.Size = new System.Drawing.Size(366, 13);
-            this.labelControl13.TabIndex = 34;
-            this.labelControl13.Text = "Assign a keyboard shortcut to the <b>CollapseAllItemsInSolutionExplorer</b>";
-            // 
-            // labelControl14
-            // 
-            this.labelControl14.AllowHtmlString = true;
-            this.labelControl14.AutoSizeMode = DevExpress.DXCore.Controls.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelControl14.Location = new System.Drawing.Point(3, 93);
-            this.labelControl14.Name = "labelControl14";
-            this.labelControl14.Size = new System.Drawing.Size(670, 13);
-            this.labelControl14.TabIndex = 35;
-            this.labelControl14.Text = "Assign a keyboard shortcut to the <b>ExploreXafErrors</b> to link the XAF log wit" +
-    "h R# explore stack trace feature";
             // 
             // EasyTests
             // 
@@ -410,7 +384,7 @@ namespace Xpand.VSIX.Options
             // 
             // LoadProject
             // 
-            this.LoadProject.Controls.Add(this.button1);
+            this.LoadProject.Controls.Add(this.buttonSearchProjects);
             this.LoadProject.Controls.Add(this.gridControlLoadProjectFromReferenceItem);
             this.LoadProject.Controls.Add(this.labelControl5);
             this.LoadProject.Controls.Add(this.labelControl4);
@@ -422,16 +396,16 @@ namespace Xpand.VSIX.Options
             this.LoadProject.Text = "Load referenced Projects ";
             this.LoadProject.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // buttonSearchProjects
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.Location = new System.Drawing.Point(3, 65);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(670, 23);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Search Selected";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSearchProjects.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSearchProjects.Location = new System.Drawing.Point(3, 65);
+            this.buttonSearchProjects.Name = "buttonSearchProjects";
+            this.buttonSearchProjects.Size = new System.Drawing.Size(670, 23);
+            this.buttonSearchProjects.TabIndex = 18;
+            this.buttonSearchProjects.Text = "Search Selected";
+            this.buttonSearchProjects.UseVisualStyleBackColor = true;
+            this.buttonSearchProjects.Click += new System.EventHandler(this.button1_Click);
             // 
             // gridControlLoadProjectFromReferenceItem
             // 
@@ -623,7 +597,7 @@ namespace Xpand.VSIX.Options
             this.checkEditKillModelEditor.Location = new System.Drawing.Point(3, 200);
             this.checkEditKillModelEditor.Name = "checkEditKillModelEditor";
             this.checkEditKillModelEditor.Properties.Caption = "Kill b4 build";
-            this.checkEditKillModelEditor.Size = new System.Drawing.Size(88, 18);
+            this.checkEditKillModelEditor.Size = new System.Drawing.Size(88, 19);
             this.checkEditKillModelEditor.TabIndex = 37;
             // 
             // labelControl12
@@ -651,7 +625,7 @@ namespace Xpand.VSIX.Options
             this.checkEditDebugME.Location = new System.Drawing.Point(3, 163);
             this.checkEditDebugME.Name = "checkEditDebugME";
             this.checkEditDebugME.Properties.Caption = "Debug";
-            this.checkEditDebugME.Size = new System.Drawing.Size(53, 18);
+            this.checkEditDebugME.Size = new System.Drawing.Size(53, 19);
             this.checkEditDebugME.TabIndex = 33;
             // 
             // labelControl15
@@ -801,7 +775,7 @@ namespace Xpand.VSIX.Options
             // gridControlExceptions
             // 
             this.gridControlExceptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlExceptions.Location = new System.Drawing.Point(3, 56);
+            this.gridControlExceptions.Location = new System.Drawing.Point(3, 57);
             this.gridControlExceptions.MainView = this.gridView5;
             this.gridControlExceptions.Name = "gridControlExceptions";
             this.gridControlExceptions.RepositoryItems.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItem[] {
@@ -858,7 +832,7 @@ namespace Xpand.VSIX.Options
             this.checkEditDisableExceptions.Location = new System.Drawing.Point(3, 32);
             this.checkEditDisableExceptions.Name = "checkEditDisableExceptions";
             this.checkEditDisableExceptions.Properties.Caption = "Disabled";
-            this.checkEditDisableExceptions.Size = new System.Drawing.Size(111, 18);
+            this.checkEditDisableExceptions.Size = new System.Drawing.Size(111, 19);
             this.checkEditDisableExceptions.TabIndex = 47;
             // 
             // OptionsControl
@@ -868,7 +842,6 @@ namespace Xpand.VSIX.Options
             this.Size = new System.Drawing.Size(684, 494);
             this.General.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).EndInit();
             this.EasyTests.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -925,7 +898,7 @@ namespace Xpand.VSIX.Options
         private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnName;
         private System.Windows.Forms.TabPage LoadProject;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonSearchProjects;
         private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControlLoadProjectFromReferenceItem;
         private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView2;
         private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnDirectory;
@@ -951,8 +924,6 @@ namespace Xpand.VSIX.Options
         private LabelControl labelControl11;
         private LabelControl labelControl12;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private LabelControl labelControl13;
-        private LabelControl labelControl14;
         private CheckEdit checkEditKillModelEditor;
         private LabelControl labelControl15;
         private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControlME;

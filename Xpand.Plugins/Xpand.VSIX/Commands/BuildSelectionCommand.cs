@@ -1,16 +1,21 @@
-using System;
+using System.ComponentModel.Design;
 using Xpand.VSIX.Extensions;
+using Xpand.VSIX.VSPackage;
 
 namespace Xpand.VSIX.Commands{
-    public class BuildSelectionCommand : IDTE2Provider{
-        public static void Build(object sender, EventArgs e){
-            new BuildSelectionCommand().Build();
+    public class BuildSelectionCommand : VSCommand{
+        private BuildSelectionCommand() : base((sender, args) =>Build() , new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidBuildSelection)){
+            this.EnableForSolution();
+            BindCommand("Global::Ctrl+Alt+Enter");
         }
 
-        private void Build(){
-            var dte2 = this.DTE2();
+        public static void Init(){
+            new BuildSelectionCommand();
+        }
+
+        private static void Build(){
             if (FindInSolutionCommand.Find())
-                dte2.ExecuteCommand("Build.BuildSelection");
+                DteExtensions.DTE.ExecuteCommand("Build.BuildSelection");
         }
     }
 }
