@@ -25,8 +25,8 @@ namespace Xpand.VSIX.Commands {
             BuildSelectionCommand.Init();
             FindInSolutionCommand.Init();
             DuplicateLineCommand.Init();
-            NavigatePreviousWordCommand.Init();
-            NavigateNextWordCommand.Init();
+            NavigatePreviousSubwordCommand.Init();
+            NavigateNextSubwordCommand.Init();
         }
 
         private static void DisableExceptions(){

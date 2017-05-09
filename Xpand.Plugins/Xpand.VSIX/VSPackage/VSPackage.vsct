@@ -84,16 +84,16 @@
             <ButtonText>Dou&amp;blicate Line</ButtonText>
           </Strings>
         </Button>
-        <Button guid="guidVSXpandPackageCmdSet" id="cmdidNextWord" priority="0x0103" type="Button">
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidNextSubword" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Next Word</ButtonText>
+            <ButtonText>Next Subword</ButtonText>
           </Strings>
         </Button>
-        <Button guid="guidVSXpandPackageCmdSet" id="cmdidPreviousWord" priority="0x0103" type="Button">
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidPreviousSubword" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
-            <ButtonText>Previous Word</ButtonText>
+            <ButtonText>Previous Subword</ButtonText>
           </Strings>
         </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidOptions" priority="0x0103" type="Button">
@@ -168,8 +168,8 @@
   <Symbols>
     <GuidSymbol value="{fa1289e0-6376-4d19-98c5-9d0c90dd3283}" name="guidVSXpandPackage" />
     <GuidSymbol value="{6c0bd9dc-4a51-4a9d-8952-c5a69f472eab}" name="guidVSXpandPackageCmdSet">
-      <IDSymbol value="280" name="cmdidPreviousWord" />
-      <IDSymbol value="279" name="cmdidNextWord" />
+      <IDSymbol value="280" name="cmdidPreviousSubword" />
+      <IDSymbol value="279" name="cmdidNextSubword" />
       <IDSymbol value="278" name="cmdidDouplicateLine" />
       <IDSymbol value="277" name="cmdidFindInSolution" />
       <IDSymbol value="276" name="cmdidBuildSelection" />
