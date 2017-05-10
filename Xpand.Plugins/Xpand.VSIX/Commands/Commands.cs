@@ -27,6 +27,7 @@ namespace Xpand.VSIX.Commands {
             DuplicateLineCommand.Init();
             NavigatePreviousSubwordCommand.Init();
             NavigateNextSubwordCommand.Init();
+            ShowOptionsCommand.Init();
         }
 
         private static void DisableExceptions(){

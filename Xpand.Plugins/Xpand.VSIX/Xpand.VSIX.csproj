@@ -68,6 +68,7 @@
     <Compile Include="Commands\KillIISExpressCommand.cs" />
     <Compile Include="Commands\ShowModelsWindowCommand.cs" />
     <Compile Include="Commands\AddXpandReferencesCommand.cs" />
+    <Compile Include="Commands\ShowOptionsCommand.cs" />
     <Compile Include="Commands\VSCommand.cs" />
     <Compile Include="Extensions\ConfigurationExtensions.cs" />
     <Compile Include="Extensions\IFullReference.cs" />

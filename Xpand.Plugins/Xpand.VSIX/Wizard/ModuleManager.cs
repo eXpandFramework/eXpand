@@ -25,7 +25,8 @@ namespace Xpand.VSIX.Wizard{
                 }
             }
         }
-        private static string GetXpandDLLPath() {
+
+        public static string GetXpandDLLPath() {
             try {
                 var softwareNode = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node") ?? Registry.LocalMachine.OpenSubKey("Software");
                 return Path.GetFullPath(softwareNode?.OpenSubKey(@"Microsoft\.NetFramework\AssemblyFolders\Xpand")?.GetValue(null) + "");

@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using DevExpress.DXCore.Controls.XtraEditors.Controls;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
@@ -68,46 +65,16 @@ namespace Xpand.VSIX.Options {
             }
         }
 
-
-
         private void button1_Click(object sender, EventArgs e) {
             buttonSearchProjects.Enabled = false;
             var gridView = ((GridView)gridControlLoadProjectFromReferenceItem.MainView);
             for (int i = 0; i < gridView.RowCount; i++) {
                 var codeInfo = (SourceCodeInfo)gridView.GetRow(i);
-                StoreProjectPaths(codeInfo);
+                codeInfo.AddProjectPaths();
             }
             gridControlLoadProjectFromReferenceItem.RefreshDataSource();
             buttonSearchProjects.Enabled = true;
         }
-
-        void StoreProjectPaths(SourceCodeInfo sourceCodeInfo) {
-            if (Directory.Exists(sourceCodeInfo.RootPath)){
-                var projectPaths = Directory.GetFiles(sourceCodeInfo.RootPath, "*.csproj", SearchOption.AllDirectories)
-                        .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", sourceCodeInfo.ProjectRegex));
-                var paths = projectPaths.Select(path => new ProjectInfo() {Path = path,OutputPath = GetOutPutPath(path)}).ToArray();
-                sourceCodeInfo.ProjectPaths.Clear();
-                sourceCodeInfo.ProjectPaths.AddRange(paths);
-            }
-        }
-
-        string GetOutPutPath(string projectPath) {
-            using (var fileStream = File.Open(projectPath, FileMode.Open)) {
-                var streamReader = new StreamReader(fileStream);
-                var readToEnd = streamReader.ReadToEnd();
-                Environment.CurrentDirectory = Path.GetDirectoryName(projectPath) + "";
-                var outPutPath = Path.GetFullPath(GetAttributeValue(readToEnd, "OutputPath"));
-                var assemblyName = GetAttributeValue(readToEnd, "AssemblyName");
-                return Path.Combine(outPutPath, assemblyName + ".dll");
-            }
-        }
-
-        string GetAttributeValue(string readToEnd, string attributeName) {
-            var regexObj = new Regex("<" + attributeName + ">([^<]*)</" + attributeName + ">");
-            Match matchResults = regexObj.Match(readToEnd);
-            return matchResults.Success ? matchResults.Groups[1].Value : null;
-        }
-
 
         void ShowDialog(string modelEditorPath, string fileName) {
             openFileDialog1.FileName = fileName;

@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
@@ -50,8 +49,5 @@ namespace Xpand.VSIX.Options{
 
         #endregion Properties
 
-        public static void Show(object sender, EventArgs e){
-            VSPackage.VSPackage.Instance.ShowOptionPage(typeof(OptionsPage));
-        }
     }
 }

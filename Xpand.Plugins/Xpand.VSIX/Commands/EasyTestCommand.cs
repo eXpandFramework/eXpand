@@ -26,7 +26,7 @@ namespace Xpand.VSIX.Commands{
         public static void Init(){
             var runEasyTest = new EasyTestCommand((sender, args) => RunTest(false),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidRunEasyTest));
             runEasyTest.BindCommand("Text Editor::Alt+T");
-            var debugEasyTest = new EasyTestCommand((sender, args) => RunTest(false),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidDebugEasyTest));
+            var debugEasyTest = new EasyTestCommand((sender, args) => RunTest(true),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidDebugEasyTest));
             debugEasyTest.BindCommand("Text Editor::Alt+D");
         }
 
