@@ -3,8 +3,13 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Forms;
 using SystemTester.Module;
+using SystemTester.Module.FunctionalTests;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win.EasyTest;
+using DevExpress.ExpressApp.Win.SystemModule;
+using DevExpress.XtraBars.Ribbon;
+using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Win {
     static class Program {
@@ -32,6 +37,11 @@ namespace SystemTester.Win {
                 winApplication.ProjectSetup();
                 winApplication.UseOldTemplates=false;
                 winApplication.Setup();
+                if (winApplication.GetEasyTestParameter(EasyTestParameter.Ribbon)) {
+                    var modelOptionsWin = ((IModelOptionsWin)winApplication.Model.Options);
+                    modelOptionsWin.FormStyle = RibbonFormStyle.Ribbon;
+                    modelOptionsWin.UIType = UIType.TabbedMDI;
+                }
                 winApplication.Start();
             }
             catch (Exception e) {

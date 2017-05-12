@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -20,17 +21,15 @@ namespace Xpand.Persistent.Base.General.Controllers {
         bool NavigationAlwaysVisibleOnStartup { get; set; }
     }
 
-    public class NavigationContainerController:ViewController,IModelExtender {
-        private readonly SimpleAction _toggleNavigation;
+    public class NavigationContainerController:WindowController,IModelExtender {
         public const string ToggleNavigationId = "ToggleNavigation";
 
         public NavigationContainerController() {
-            _toggleNavigation = new SimpleAction(this, ToggleNavigationId, "Hidden");
+            ToggleNavigation = new SimpleAction(this, ToggleNavigationId, "Hidden");
+            TargetWindowType=WindowType.Main;
         }
 
-        public SimpleAction ToggleNavigation        {
-            get { return _toggleNavigation; }
-        }
+        public SimpleAction ToggleNavigation{ get; }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             extenders.Add<IModelOptions,IModelOptionsNavigationContainer>();
@@ -47,36 +46,33 @@ namespace Xpand.Persistent.Base.General.Controllers {
     }
 
     public class NavigationContainerWinController : NavigationContainerController {
-        public NavigationContainerWinController(){
+        private DockPanel _navigationPanel;
+
+        public NavigationContainerWinController() {
             ToggleNavigation.Execute += ToggleNavigationOnExecute;
         }
 
-        protected override void OnFrameAssigned(){
+        protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
-            if (((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup.HasValue)
+            if (Frame.Context == TemplateContext.ApplicationWindow)
                 Application.CustomizeTemplate += Application_CustomizeTemplate;
         }
 
-        private void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
-            var navigationPanel = GetNavigationPanel((IDockManagerHolder)Application.MainWindow.Template);
-            navigationPanel.Visibility = navigationPanel.Visibility==DockVisibility.Visible ? DockVisibility.Hidden : DockVisibility.Visible;
+        private void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
+            _navigationPanel.Visibility = _navigationPanel.Visibility == DockVisibility.Visible ? DockVisibility.Hidden : DockVisibility.Visible;
             System.Windows.Forms.Application.DoEvents();
         }
 
         private void Application_CustomizeTemplate(object sender, CustomizeTemplateEventArgs e) {
-            if (Frame != null && ((Frame.Template == null || Frame.Template == e.Template) && e.Template is IDockManagerHolder)) {
-                Application.CustomizeTemplate -= Application_CustomizeTemplate;
-                var dockManagerHolder = ((IDockManagerHolder)e.Template);
-                var dockPanel = GetNavigationPanel(dockManagerHolder);
-                if (dockPanel != null){
-                    var hideNavigationOnStartup = ((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup;
-                    dockPanel.Visibility = hideNavigationOnStartup != null && hideNavigationOnStartup.Value?DockVisibility.AutoHide:DockVisibility.Visible;
-                }
-            }
+            Application.CustomizeTemplate -= Application_CustomizeTemplate;
+            var dockManagerHolder = ((IDockManagerHolder)e.Template);
+            dockManagerHolder.DockManager.Load += DockManagerOnLoad;
         }
 
-        private DockPanel GetNavigationPanel(IDockManagerHolder dockManagerHolder){
-            return dockManagerHolder.DockManager.Panels.FirstOrDefault(panel => panel.Name == "dockPanelNavigation");
+        private void DockManagerOnLoad(object sender, EventArgs eventArgs) {
+            _navigationPanel = ((DockManager)sender).Panels.First(panel => panel.Name == "dockPanelNavigation");
+            var hideNavigationOnStartup = ((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup;
+            _navigationPanel.Visibility = hideNavigationOnStartup != null && hideNavigationOnStartup.Value ? DockVisibility.AutoHide : DockVisibility.Visible;
         }
     }
 }

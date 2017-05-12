@@ -6,7 +6,7 @@
 			Name="SystemTester.Win"
 			FileName="[WinAppBin]\SystemTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100"/>
+			CommunicationPort="4100" Parameter="Ribbon"/>
     <!-- Web -->
     <Application
 			Name="SystemTester.Web"
