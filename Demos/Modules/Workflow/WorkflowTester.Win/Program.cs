@@ -41,8 +41,9 @@ namespace WorkflowTester.Win {
                 winApplication.LoggedOn += delegate{
                     if (workflowServerStarter == null){
                         workflowServerStarter = new WorkflowServerStarter();
-                        workflowServerStarter.OnCustomHandleException += delegate(object sender1, ExceptionEventArgs args1) {
-                            MessageBox.Show(args1.Message);
+                        workflowServerStarter.OnCustomHandleException += delegate(object sender1, ExceptionEventArgs args1){
+//                            MessageBox.Show("");
+//                            MessageBox.Show(args1.Message);
                         };
                         workflowServerStarter.Start<XpoWorkflowDefinition, XpoUserActivityVersion,WorkflowTesterWindowsFormsModule>(winApplication);
                     }
