@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.Web {
         public static IModelMemberViewItem Model(this GridViewDataColumn column,IModelListView modelListView){
             return !string.IsNullOrEmpty(column.UnboundExpression)? modelListView.Columns.OfType<IModelColumnUnbound>()
                     .FirstOrDefault(modelColumn => modelColumn.UnboundExpression == column.UnboundExpression)
-                : modelListView.Columns.FirstOrDefault(modelColumn => modelColumn.FieldName == column.FieldName);
+                : (modelListView.Columns.FirstOrDefault(modelColumn => modelColumn.FieldName == column.FieldName)?? modelListView.Columns.FirstOrDefault(modelColumn => modelColumn.PropertyName == column.FieldName));
         }
 
         public static DefaultHttpRequestManager NewHttpRequestManager(this WebApplication application) {

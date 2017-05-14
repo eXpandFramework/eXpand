@@ -16,13 +16,12 @@ namespace SecurityDemo.Module{
             InitializeComponent();
         }
 
-        public static string GetXpandDllPath(){
-            var xpandDLLPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
-            while (Directory.GetDirectories(xpandDLLPath).All(s => (new DirectoryInfo(s).Name + "").ToLower() != "xpand.dll")) {
-                xpandDLLPath = Path.GetFullPath(xpandDLLPath + @"..\");
+        public static string GetXpandDllPath(string path){
+            while (Directory.GetDirectories(path).All(s => !string.Equals((new DirectoryInfo(s).Name + ""), "xpand.dll", StringComparison.OrdinalIgnoreCase))) {
+                path = Path.GetFullPath(path + @"..\");
             }
-            xpandDLLPath += @"Xpand.dll";
-            return xpandDLLPath;
+            path += @"Xpand.dll";
+            return path;
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB){

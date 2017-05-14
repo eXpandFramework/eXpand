@@ -7,6 +7,6 @@
  User = Sam
 *Action Log On
 
-*AutoTest
+*XpandAutoTest
 
 

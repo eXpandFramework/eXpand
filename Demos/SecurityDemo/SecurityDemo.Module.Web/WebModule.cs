@@ -14,7 +14,7 @@ namespace SecurityDemo.Module.Web{
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            this.AddModules(SecurityDemoModule.GetXpandDllPath());
+            this.AddModules(SecurityDemoModule.GetXpandDllPath(AppDomain.CurrentDomain.SetupInformation.PrivateBinPath));
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB){
