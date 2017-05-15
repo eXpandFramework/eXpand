@@ -73,6 +73,8 @@ namespace Xpand.VSIX.ModelEditor
             this.gridView1.OptionsMenu.EnableGroupPanelMenu = false;
             this.gridView1.OptionsView.ShowAutoFilterRow = true;
             this.gridView1.OptionsView.ShowGroupPanel = false;
+            this.gridView1.SortInfo.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumnSortInfo[] {
+            new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumnSortInfo(this.gridColumnName, DevExpress.DXCore.Controls.Data.ColumnSortOrder.Ascending)});
             this.gridView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.gridView1_KeyUp);
             this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 

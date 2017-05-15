@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
+using EnvDTE80;
 using Microsoft.Win32;
 using Mono.Cecil;
 using VSLangProj;
@@ -64,9 +66,44 @@ namespace Xpand.VSIX.Extensions {
             return (string)registryKey?.GetValue("RootDirectory");
         }
 
-        public static Project[] Projects(this Solution solution){
-            return solution.Projects.Cast<Project>().Where(project => project.Kind!= Constants.vsProjectKindUnmodeled&&project.Language()!=Language.Unknown).ToArray();
+        public static IList<Project> Projects(this Solution solution) {
+            var projects = solution.Projects;
+            var list = new List<Project>();
+            var item = projects.GetEnumerator();
+            while (item.MoveNext()) {
+                var project = item.Current as Project;
+                if (project == null) {
+                    continue;
+                }
+
+                if (project.Kind == ProjectKinds.vsProjectKindSolutionFolder) {
+                    list.AddRange(GetSolutionFolderProjects(project));
+                }
+                else {
+                    list.Add(project);
+                }
+            }
+
+            return list;
         }
+
+        private static IEnumerable<Project> GetSolutionFolderProjects(Project solutionFolder) {
+            List<Project> list = new List<Project>();
+            for (var i = 1; i <= solutionFolder.ProjectItems.Count; i++) {
+                var subProject = solutionFolder.ProjectItems.Item(i).SubProject;
+                if (subProject == null) {
+                    continue;
+                }
+                if (subProject.Kind == ProjectKinds.vsProjectKindSolutionFolder) {
+                    list.AddRange(GetSolutionFolderProjects(subProject));
+                }
+                else {
+                    list.Add(subProject);
+                }
+            }
+            return list;
+        }
+    
 
         public static bool HasAuthentication(this Solution solution){
             return solution.Projects().Any(project => project.IsApplicationProject() && project.HasAuthentication());
