@@ -245,7 +245,6 @@
     <Compile Include="General\ModuleActivator.cs" />
     <Compile Include="General\TypeConverters\StringToModelMemberConverter.cs" />
     <Compile Include="General\TypeConverters\StringToModelViewConverter.cs" />
-    <Compile Include="General\WebGridDetailFrameSyncController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="General\Web\NavigationContainerWebController.cs">
