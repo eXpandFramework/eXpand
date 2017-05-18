@@ -14,6 +14,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
             if (TreeList != null){
                 TreeList.OptionsBehavior.EnableFiltering = true;
                 TreeList.OptionsFilter.AllowFilterEditor = true;
+                TreeList.OptionsFilter.FilterMode=FilterMode.Standard;
                 TreeList.ActiveFilterEnabled = true;
                 _filterByColumnController = Frame.GetController<FilterByColumnController>();
                 _filterByColumnController.CellFilterAction.Execute += CellFilterActionOnExecute;
