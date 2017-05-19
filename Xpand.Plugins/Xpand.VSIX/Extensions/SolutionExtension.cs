@@ -66,7 +66,7 @@ namespace Xpand.VSIX.Extensions {
             return (string)registryKey?.GetValue("RootDirectory");
         }
 
-        public static IList<Project> Projects(this Solution solution) {
+        public static Project[] Projects(this Solution solution) {
             var projects = solution.Projects;
             var list = new List<Project>();
             var item = projects.GetEnumerator();
@@ -84,11 +84,11 @@ namespace Xpand.VSIX.Extensions {
                 }
             }
 
-            return list;
+            return list.Where(project => project.Kind!=Constants.vsProjectKindMisc).ToArray();
         }
 
         private static IEnumerable<Project> GetSolutionFolderProjects(Project solutionFolder) {
-            List<Project> list = new List<Project>();
+            var list = new List<Project>();
             for (var i = 1; i <= solutionFolder.ProjectItems.Count; i++) {
                 var subProject = solutionFolder.ProjectItems.Item(i).SubProject;
                 if (subProject == null) {

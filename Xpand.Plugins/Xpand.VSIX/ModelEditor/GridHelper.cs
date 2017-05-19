@@ -45,7 +45,7 @@ namespace Xpand.VSIX.ModelEditor {
         private static IEnumerable<FileSystemWatcher> GetFileSystemWatchers(){
             var solution = DteExtensions.DTE.Solution;
             var fileSystemWatchers = new[]{CreateFileSystemWatcher(solution.FullName) }
-                .Concat(solution.Projects().Select(project =>CreateFileSystemWatcher(project.FullName))).ToArray();
+                .Concat(solution.Projects().Where(project => File.Exists(project.FullName)).Select(project =>CreateFileSystemWatcher(project.FullName))).ToArray();
             foreach (var fileSystemWatcher in fileSystemWatchers) {
                 fileSystemWatcher.Changed += SystemWatcherOnChanged;
             }
