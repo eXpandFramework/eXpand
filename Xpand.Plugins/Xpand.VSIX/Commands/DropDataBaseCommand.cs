@@ -27,11 +27,6 @@ namespace Xpand.VSIX.Commands {
         }
             
         static void Drop() {
-            var activeDocument = DteExtensions.DTE.ActiveDocument;
-            string[] fileNames={"app.config","web.config"};
-            if (!(activeDocument != null && (fileNames.Any(s => activeDocument.FullName.EndsWith(s)) || fileNames.Length == 0)))
-                throw new NotSupportedException("Active document's project does not contain a config file");
-
             _dte.InitOutputCalls("Dropdatabase");
             Task.Factory.StartNew(() => {
                 var startUpProject = _dte.Solution.FindStartUpProject();
@@ -56,6 +51,7 @@ namespace Xpand.VSIX.Commands {
                         }
                     }
                 }
+                _dte.WriteToOutput("Dropdatabase finished");
             },CancellationToken.None,TaskCreationOptions.None,TaskScheduler.Default);
         }
 
