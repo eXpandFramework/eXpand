@@ -245,8 +245,6 @@
     <Compile Include="General\ModuleActivator.cs" />
     <Compile Include="General\TypeConverters\StringToModelMemberConverter.cs" />
     <Compile Include="General\TypeConverters\StringToModelViewConverter.cs" />
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="General\Web\NavigationContainerWebController.cs">
       <SubType>Component</SubType>
     </Compile>

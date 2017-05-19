@@ -67,20 +67,12 @@ namespace Xpand.VSIX.Extensions {
             if (outputWindow == null)
                 return;
             try {
-                _outputWindowPane = outputWindow.OutputWindowPanes.Item("XpandAddIns");
+                _outputWindowPane = outputWindow.OutputWindowPanes.Item("Xpand");
             }
             catch {
-                _outputWindowPane = outputWindow.OutputWindowPanes.Add("XpandAddIns");
+                _outputWindowPane = outputWindow.OutputWindowPanes.Add("Xpand");
             }
         }
-//        public static IEnumerable<AssemblyReference> GetSelectedAssemblyReferences(this ProjectElement projectElement, string constants) {
-//            var assemblyReferences = projectElement.AssemblyReferences.OfType<AssemblyReference>();
-//            DTE dte = DevExpress.CodeRush.Core.CodeRush.ApplicationObject;
-//            var items = ((UIHierarchy)dte.Windows.Item(constants).Object).SelectedItems;
-//            var selectedItems = ((IEnumerable)items).OfType<UIHierarchyItem>().Select(item => item.Name);
-//            assemblyReferences = assemblyReferences.Where(reference => selectedItems.Contains(reference.Name));
-//            return assemblyReferences;
-//        }
 
     }
 }

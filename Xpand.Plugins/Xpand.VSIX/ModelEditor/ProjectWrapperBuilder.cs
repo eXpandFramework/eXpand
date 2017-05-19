@@ -20,8 +20,6 @@ namespace Xpand.VSIX.ModelEditor {
                     var configurationName = DteExtensions.DTE.Solution.Projects().First(project1 => string.Compare(project1.FullName,path,StringComparison.OrdinalIgnoreCase)==0).ConfigurationManager.ActiveConfiguration.ConfigurationName;
                     globalProperties.Add("Configuration", configurationName);
                     var projectCollection = new ProjectCollection(globalProperties);
-                    Debug.WriteLine(path);
-                    Debug.WriteLine(configurationName);
                     return new Project(path, null, null, projectCollection);
                 });
         }
