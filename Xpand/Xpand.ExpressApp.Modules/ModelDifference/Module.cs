@@ -66,7 +66,8 @@ namespace Xpand.ExpressApp.ModelDifference {
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             var types = new[]{
                 typeof(CloneObjectViewController), typeof(CombineActiveUserDiffsWithLastLayerController),
-                typeof(MergeDifferencesController),typeof(ModelDifferenceObjectsRuntimeMembersController),typeof(ReloadApplicationModelController)
+                typeof(MergeDifferencesController),typeof(ModelDifferenceObjectsRuntimeMembersController),typeof(ReloadApplicationModelController),
+                typeof(PopulateAspectsController)
             };
             return GetDeclaredControllerTypesCore(types);
         }

@@ -1,7 +1,6 @@
 using System;
 using DevExpress.ExpressApp;
 using Xpand.Persistent.Base;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.RuntimeMembers;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
