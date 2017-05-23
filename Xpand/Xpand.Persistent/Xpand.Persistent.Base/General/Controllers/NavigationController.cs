@@ -73,7 +73,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         private void DockManagerOnLoad(object sender, EventArgs eventArgs) {
             _navigationPanel = ((DockManager)sender).Panels.FirstOrDefault(panel => panel.Name == "dockPanelNavigation");
-			if (_navigationPanel == null)
+            if (_navigationPanel == null)
                 return;
             var hideNavigationOnStartup = ((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup;
             _navigationPanel.Visibility = hideNavigationOnStartup != null && hideNavigationOnStartup.Value ? DockVisibility.AutoHide : DockVisibility.Visible;
