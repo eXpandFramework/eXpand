@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
@@ -29,11 +30,17 @@ namespace Xpand.Persistent.Base.General {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
                 var typeToCreateOn = securityComplex.RoleType.IsInterface ? XpandModuleBase.RoleType : typeInfo.Type;
                 if (IsValidType(typeToCreateOn)) {
-                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember,  true, typeInfo.FullName.Replace(".","_") + association, propertyName, otherPartPropertyName);
+                    xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(typeToCreateOn, otherPartMember,  true, GetRoleAssociation(association, typeInfo), propertyName, otherPartPropertyName);
                     XafTypesInfo.Instance.RefreshInfo(typeToCreateOn);
                 }
             }
             return xpCustomMemberInfos;
+        }
+
+        private static string GetRoleAssociation(string association, ITypeInfo typeInfo){
+            return typeof(IPermissionPolicyRole).IsAssignableFrom(typeInfo.Type)
+                ? typeInfo.FullName.Replace(".", "_") + association
+                : association;
         }
 
         bool IsValidType(Type typeToCreateOn){
@@ -61,15 +68,22 @@ namespace Xpand.Persistent.Base.General {
 
         public List<XPMemberInfo> BuildUser(Type otherPartMember, string association, string propertyName, string otherPartPropertyName) {
             var xpCustomMemberInfos = new List<XPMemberInfo>();
-            if (_application.Security != null) {
-                if (XpandModuleBase.UserType != null) {
-                    if (IsValidType(XpandModuleBase.UserType)) {
-                        xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(XpandModuleBase.UserType, otherPartMember,  true, association, propertyName, otherPartPropertyName);
-                        XafTypesInfo.Instance.RefreshInfo(XpandModuleBase.UserType);
+            if (_application.Security != null){
+                var userType = XpandModuleBase.UserType;
+                if (userType != null) {
+                    if (IsValidType(userType)) {
+                        xpCustomMemberInfos = XafTypesInfo.Instance.CreateBothPartMembers(userType, otherPartMember,  true, GetUserAssociation(association, userType), propertyName, otherPartPropertyName);
+                        XafTypesInfo.Instance.RefreshInfo(userType);
                     }
                 }
             }
             return xpCustomMemberInfos;
+        }
+
+        private static string GetUserAssociation(string association, Type userType){
+            return typeof(IPermissionPolicyUser).IsAssignableFrom(userType)
+                ? userType.FullName.Replace(".", "_") + association
+                : association;
         }
 
         public void HideInDetailView(List<XPMemberInfo> xpMemberInfos, string name) {
