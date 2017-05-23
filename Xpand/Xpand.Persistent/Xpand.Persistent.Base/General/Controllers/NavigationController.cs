@@ -46,7 +46,6 @@ namespace Xpand.Persistent.Base.General.Controllers {
     }
 
     public class NavigationContainerWinController : NavigationContainerController {
-        private DockPanel _navigationPanel;
 
         public NavigationContainerWinController() {
             ToggleNavigation.Execute += ToggleNavigationOnExecute;
@@ -59,7 +58,9 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         private void ToggleNavigationOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            _navigationPanel.Visibility = _navigationPanel.Visibility == DockVisibility.Visible ? DockVisibility.Hidden : DockVisibility.Visible;
+            var dockManager = ((IDockManagerHolder) Application.MainWindow.Template).DockManager;
+            var dockPanel = dockManager.Panels.First(panel => panel.Name=="dockPanelNavigation");
+            dockPanel.Visibility = dockPanel.Visibility == DockVisibility.Visible ? DockVisibility.Hidden : DockVisibility.Visible;
             System.Windows.Forms.Application.DoEvents();
         }
 
@@ -70,9 +71,11 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         private void DockManagerOnLoad(object sender, EventArgs eventArgs) {
-            _navigationPanel = ((DockManager)sender).Panels.First(panel => panel.Name == "dockPanelNavigation");
             var hideNavigationOnStartup = ((IModelOptionsNavigationContainer)Application.Model.Options).HideNavigationOnStartup;
-            _navigationPanel.Visibility = hideNavigationOnStartup != null && hideNavigationOnStartup.Value ? DockVisibility.AutoHide : DockVisibility.Visible;
+            if (hideNavigationOnStartup != null && hideNavigationOnStartup.Value){
+                var navigationPanel = ((DockManager) sender).Panels.First(panel => panel.Name == "dockPanelNavigation");
+                navigationPanel.Visibility =  DockVisibility.AutoHide;
+            }
         }
     }
 }
