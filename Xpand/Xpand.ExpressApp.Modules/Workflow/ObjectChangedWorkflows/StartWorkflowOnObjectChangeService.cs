@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
                         }
                     } catch (Exception e) {
                         e.Data.Add("StartWorkflowOnObjectChangeService.ProcessRequestsToStartWorkflows.currentRequest",
-                                   string.Format("Key={0}, TargetObjectKey={1}, TargetWorkflowUniqueId={2}", objectSpace.GetKeyValue(request), request.TargetObjectKey, request.TargetWorkflowUniqueId));
+                            $"Key={objectSpace.GetKeyValue(request)}, TargetObjectKey={request.TargetObjectKey}, TargetWorkflowUniqueId={request.TargetWorkflowUniqueId}");
                         throw;
                     }
                 }

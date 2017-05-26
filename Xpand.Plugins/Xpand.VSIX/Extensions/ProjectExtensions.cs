@@ -62,7 +62,7 @@ namespace Xpand.VSIX.Extensions{
                 fileName = "WebApplication";
             }
             var path = Path.Combine(Path.GetDirectoryName(project.FullName) + "", $"{fileName}.{project.FileExtension()}");
-            return File.ReadAllLines(path).Any(s => s.Contains("Authentication"));
+            return File.Exists(path)&& File.ReadAllLines(path).Any(s => s.Contains("Authentication"));
         }
 
         public static bool IsApplicationProject(this Project project) {

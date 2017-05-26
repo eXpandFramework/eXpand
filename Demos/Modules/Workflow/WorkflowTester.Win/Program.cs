@@ -2,11 +2,15 @@ using System;
 using System.Configuration;
 using System.Windows.Forms;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Workflow.CommonServices;
+using DevExpress.ExpressApp.Workflow.Server;
 using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Workflow.Xpo;
 using WorkflowTester.Module;
 using WorkflowTester.Module.Win;
 using Xpand.ExpressApp.Workflow;
+using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
+using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 using Xpand.Persistent.Base.General;
 
 namespace WorkflowTester.Win {
@@ -37,19 +41,10 @@ namespace WorkflowTester.Win {
 #endif
 
             WorkflowServerStarter workflowServerStarter = null;
-            if (ApplicationHelper.Instance.Application.GetEasyTestParameter("WorldCreator")){
-                winApplication.LoggedOn += delegate{
-                    if (workflowServerStarter == null){
-                        workflowServerStarter = new WorkflowServerStarter();
-                        workflowServerStarter.OnCustomHandleException += delegate(object sender1, ExceptionEventArgs args1){
-//                            MessageBox.Show("");
-//                            MessageBox.Show(args1.Message);
-                        };
-                        workflowServerStarter.Start<XpoWorkflowDefinition, XpoUserActivityVersion,WorkflowTesterWindowsFormsModule>(winApplication);
-                    }
-                };
-            }
-
+            winApplication.LoggedOn += delegate {
+                workflowServerStarter = new WorkflowServerStarter();
+                workflowServerStarter.Start<WorkflowTesterWindowsFormsModule>(winApplication);
+            };
             try {
                 winApplication.UseOldTemplates=false;
                 winApplication.ProjectSetup();

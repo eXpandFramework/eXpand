@@ -1,4 +1,7 @@
 using System.ComponentModel.Design;
+using System.IO;
+using System.Linq;
+using EnvDTE;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.VSPackage;
 
@@ -14,8 +17,18 @@ namespace Xpand.VSIX.Commands{
         }
 
         private static void Build(){
-            if (FindInSolutionCommand.Find())
-                DteExtensions.DTE.ExecuteCommand("Build.BuildSelection");
+            var dte2 = DteExtensions.DTE;
+            if (!FindInSolutionCommand.Find())
+                dte2.Windows.Item(Constants.vsWindowKindSolutionExplorer).Activate();
+            var uihSolutionExplorer = dte2.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
+            if (uihSolutionExplorer != null){
+                var selectedHierarchyItems = ((UIHierarchyItem[]) uihSolutionExplorer.SelectedItems).ToArray();
+                var solutionName = Path.GetFileNameWithoutExtension(dte2.Solution.FileName);
+                if (selectedHierarchyItems.Length == 1 && selectedHierarchyItems.First().Name == Path.GetFileNameWithoutExtension(solutionName))
+                    dte2.ExecuteCommand("Build.BuildSolution");
+                else
+                    dte2.ExecuteCommand("Build.BuildSelection");
+            }
         }
     }
 }

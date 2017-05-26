@@ -1,5 +1,8 @@
 using System;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Workflow.CommonServices;
 using DevExpress.ExpressApp.Workflow.Server;
 using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
 using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
@@ -11,12 +14,19 @@ namespace Xpand.ExpressApp.Workflow {
         ScheduledWorkflowStartService _scheduledWorkflowStartService;
         ObjectChangedWorkflowStartService _objectChangedWorkflowStartService;
 
-        public XpandWorkflowServer(string baseUri)
-            : base(baseUri) {
+
+        public XpandWorkflowServer(string baseUri, IWorkflowDefinitionProvider workflowDefinitionProvider,
+            IObjectSpaceProvider objectSpaceProvider)
+            : this(baseUri, workflowDefinitionProvider, new BasicHttpBinding(), objectSpaceProvider, objectSpaceProvider){
+        }
+
+        public XpandWorkflowServer(string baseUri, IWorkflowDefinitionProvider workflowDefinitionProvider, Binding binding, IObjectSpaceProvider servicesObjectSpaceProvider, IObjectSpaceProvider activitiesObjectSpaceProvider)
+            : base(baseUri,binding,servicesObjectSpaceProvider,activitiesObjectSpaceProvider) {
+            WorkflowDefinitionProvider=workflowDefinitionProvider;
             CreateServices();
         }
 
-        void CreateServices() {
+        void CreateServices(){
             _startWorkflowOnObjectChangeService =
                 new StartWorkflowOnObjectChangeService(TimeSpan.FromSeconds(15));
             _objectChangedStartWorkflowService = new ObjectChangedStartWorkflowService();
@@ -24,12 +34,7 @@ namespace Xpand.ExpressApp.Workflow {
             _objectChangedWorkflowStartService = new ObjectChangedWorkflowStartService();
         }
 
-        public XpandWorkflowServer(string baseUri, IObjectSpaceProvider servicesObjectSpaceProvider, IObjectSpaceProvider activitiesObjectSpaceProvider)
-            : base(baseUri, servicesObjectSpaceProvider, activitiesObjectSpaceProvider) {
-            CreateServices();
-        }
-
-        internal void InitializeDefaults() {
+        void InitializeDefaults() {
             if (StartWorkflowOnObjectChangeService != null) {
                 ServiceProvider.AddService(StartWorkflowOnObjectChangeService);
             }
@@ -48,22 +53,12 @@ namespace Xpand.ExpressApp.Workflow {
             InitializeDefaults();
             base.Start();
         }
-        public ObjectChangedWorkflowStartService ObjectChangedWorkflowStartService {
-            get { return _objectChangedWorkflowStartService; }
-        }
+        public ObjectChangedWorkflowStartService ObjectChangedWorkflowStartService => _objectChangedWorkflowStartService;
 
-        public ScheduledWorkflowStartService ScheduledWorkflowStartService {
-            get { return _scheduledWorkflowStartService; }
-        }
+        public ScheduledWorkflowStartService ScheduledWorkflowStartService => _scheduledWorkflowStartService;
 
-        public StartWorkflowOnObjectChangeService StartWorkflowOnObjectChangeService {
-            get { return _startWorkflowOnObjectChangeService; }
-        }
+        public StartWorkflowOnObjectChangeService StartWorkflowOnObjectChangeService => _startWorkflowOnObjectChangeService;
 
-        public ObjectChangedStartWorkflowService ObjectChangedStartWorkflowService {
-            get { return _objectChangedStartWorkflowService; }
-        }
-
-
+        public ObjectChangedStartWorkflowService ObjectChangedStartWorkflowService => _objectChangedStartWorkflowService;
     }
 }

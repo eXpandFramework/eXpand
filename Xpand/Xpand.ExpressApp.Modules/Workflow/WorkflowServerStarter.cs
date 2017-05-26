@@ -1,18 +1,29 @@
 ﻿using System;
+using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Workflow;
 using DevExpress.ExpressApp.Workflow.CommonServices;
 using DevExpress.ExpressApp.Workflow.Server;
 using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
-using DevExpress.Xpo;
+using Fasterflect;
+using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
+using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Workflow{
     public  abstract class WorkflowServerStarter : MarshalByRefObject {
         public class ServerApplication : XafApplication {
+            public ServerApplication(){
+                DatabaseVersionMismatch+=OnDatabaseVersionMismatch;
+            }
+
+            private void OnDatabaseVersionMismatch(object o, DatabaseVersionMismatchEventArgs e){
+                e.Updater.Update();
+            }
+
             protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
                 args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection, true);
             }
@@ -21,15 +32,13 @@ namespace Xpand.ExpressApp.Workflow{
             }
         }
         private static WorkflowServerStarter _starter;
-        private WorkflowServer _server;
+        private XpandWorkflowServer _server;
         private AppDomain _domain;
-        void starter_OnCustomHandleException_(object sender, ExceptionEventArgs e){
+        void StarterOnOnServerDomainCustomHandleException(object sender, ExceptionEventArgs e){
             OnCustomHandleException?.Invoke(null, e);
         }
 
-        private void Start_<TWorkflowDefinition, TUserActivityVersion,TModulesProvider>(string connectionString, string applicationName, string url)
-            where TWorkflowDefinition : IWorkflowDefinitionSettings
-            where TUserActivityVersion : IUserActivityVersionBase where TModulesProvider:ModuleBase{
+        private void StartOnServerDomain<TModulesProvider>(string connectionString, string applicationName) where TModulesProvider:ModuleBase{
             var serverApplication = GetServerApplication();
             serverApplication.Modules.Add(Activator.CreateInstance<TModulesProvider>());
             serverApplication.ApplicationName = applicationName;
@@ -39,15 +48,12 @@ namespace Xpand.ExpressApp.Workflow{
             serverApplication.Logon();
 
             var objectSpaceProvider = serverApplication.ObjectSpaceProvider;
-            _server = new WorkflowServer(url, objectSpaceProvider, objectSpaceProvider){
-                WorkflowDefinitionProvider =
-                    new WorkflowVersionedDefinitionProvider<TWorkflowDefinition, TUserActivityVersion>(
-                        objectSpaceProvider, null),
-                StartWorkflowListenerService ={DelayPeriod = TimeSpan.FromSeconds(5)},
-                StartWorkflowByRequestService ={DelayPeriod = TimeSpan.FromSeconds(5)},
-                RefreshWorkflowDefinitionsService ={DelayPeriod = TimeSpan.FromSeconds(600)}
-            };
-            _server.CustomizeHost += delegate(object sender, CustomizeHostEventArgs e) {
+            Type[] workflowTypes = { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow), XpandModuleBase.GetDxBaseImplType("DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowDefinition") };
+            var xpoUserActivityVersionType = XpandModuleBase.GetDxBaseImplType("DevExpress.ExpressApp.Workflow.Versioning.XpoUserActivityVersion");
+            var engine=(WorkflowVersioningEngine) typeof(PersistentWorkflowVersioningEngine<>).MakeGenericType(xpoUserActivityVersionType).CreateInstance(objectSpaceProvider);
+            var workflowDefinitionProvider = (IWorkflowDefinitionProvider)typeof(XpandWorkflowDefinitionProvider<>).MakeGenericType(xpoUserActivityVersionType).CreateInstance(workflowTypes.ToList(),engine);
+            var xpandWorkflowServer = new XpandWorkflowServer("http://localhost:46232", workflowDefinitionProvider, objectSpaceProvider);
+            xpandWorkflowServer.CustomizeHost += delegate (object sender, CustomizeHostEventArgs e) {
                 // NOTE: Uncomment this section to use alternative workflow configuration.
                 //
                 // SqlWorkflowInstanceStoreBehavior
@@ -61,10 +67,10 @@ namespace Xpand.ExpressApp.Workflow{
                 //e.WorkflowIdleBehavior.TimeToUnload = TimeSpan.FromSeconds(10);
                 e.WorkflowInstanceStoreBehavior.WorkflowInstanceStore.RunnableInstancesDetectionPeriod = TimeSpan.FromSeconds(2);
             };
-
+            _server= xpandWorkflowServer;
             _server.CustomHandleException += delegate(object sender, CustomHandleServiceExceptionEventArgs e) {
                 Tracing.Tracer.LogError(e.Exception);
-                OnCustomHandleException_?.Invoke(this, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Exception.Message + "\r\n\r\n'" + e.Service.GetType() + "' service"));
+                OnServerDomainCustomHandleException?.Invoke(this, new ExceptionEventArgs("Exception occurs:\r\n\r\n" + e.Exception.Message + "\r\n\r\n'" + e.Service.GetType() + "' service"));
                 e.Handled = true;
             };
             _server.Start();
@@ -77,16 +83,15 @@ namespace Xpand.ExpressApp.Workflow{
         private void Stop_() {
             _server.Stop();
         }
-        public void Start<TWorkflowDefinition, TUserActivityVersion, TModuleProvider>(string connectionString, string applicationName,  string url)
-            where TWorkflowDefinition : IWorkflowDefinitionSettings
-            where TUserActivityVersion : IUserActivityVersionBase 
-            where TModuleProvider:ModuleBase{
+        public void Start<TModuleProvider>(string connectionString, string applicationName) where TModuleProvider:ModuleBase{
             try {
                 _domain = AppDomain.CreateDomain("ServerDomain");
                 _starter = (WorkflowServerStarter)_domain.CreateInstanceAndUnwrap(
                     Assembly.GetEntryAssembly().FullName, GetType().FullName);
-                _starter.OnCustomHandleException_ += starter_OnCustomHandleException_;
-                _starter.Start_<TWorkflowDefinition,TUserActivityVersion,TModuleProvider>(connectionString, applicationName,url);
+                _starter.OnServerDomainCustomHandleException += StarterOnOnServerDomainCustomHandleException;
+                var workflowServerEventArgs = new WorkflowServerEventArgs();
+                OnWorkflowServerRequested(workflowServerEventArgs);
+                _starter.StartOnServerDomain<TModuleProvider>(connectionString, applicationName);
             }
             catch (Exception e) {
                 Tracing.Tracer.LogError(e);
@@ -99,22 +104,29 @@ namespace Xpand.ExpressApp.Workflow{
                 AppDomain.Unload(_domain);
             }
         }
-        public event EventHandler<ExceptionEventArgs> OnCustomHandleException_;
+        event EventHandler<ExceptionEventArgs> OnServerDomainCustomHandleException;
         public event EventHandler<ExceptionEventArgs> OnCustomHandleException;
+        public event EventHandler<WorkflowServerEventArgs> WorkflowServerRequested;
 
-        public void Start<TWorkflowDefinition, TUserActivityVersion, TModuleProvider>(XafApplication application, string url = "http://localhost:46232")
-            where TWorkflowDefinition : IWorkflowDefinitionSettings
-            where TUserActivityVersion : IUserActivityVersionBase 
-            where  TModuleProvider:ModuleBase{
-                Start<TWorkflowDefinition, TUserActivityVersion,TModuleProvider>(application.ConnectionString, application.ApplicationName, url);
+        public void Start<TModuleProvider>(XafApplication application) where  TModuleProvider:ModuleBase{
+                Start<TModuleProvider>(application.ConnectionString, application.ApplicationName);
+        }
+
+        protected virtual void OnWorkflowServerRequested(WorkflowServerEventArgs e){
+            WorkflowServerRequested?.Invoke(this, e);
         }
     }
+
+    public class WorkflowServerEventArgs : EventArgs{
+        
+    }
+
     [Serializable]
     public class ExceptionEventArgs : EventArgs {
         public ExceptionEventArgs(string message) {
             Message = message;
         }
-        public string Message { get; private set; }
+        public string Message { get; }
     }
 
 }

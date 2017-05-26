@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -16,12 +17,12 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     [NavigationItem("Workflow")]
 
     public class ScheduledWorkflow : XpandCustomObject, IXpandWorkflowDefinition {
-        public const string InitialXaml = @"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.XafWorkflow"" 
+        public static readonly string InitialXaml = $@"<Activity mc:Ignorable=""sap"" x:Class=""DevExpress.Workflow.XafWorkflow"" 
     xmlns=""http://schemas.microsoft.com/netfx/2009/xaml/activities"" 
     xmlns:av=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"" 
-    xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v10.2"" 
-    xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v10.2"" 
-    xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v10.2"" 
+    xmlns:dx=""clr-namespace:DevExpress.Xpo;assembly=DevExpress.Xpo.v{AssemblyInfo.VersionShort}"" 
+    xmlns:dxh=""clr-namespace:DevExpress.Xpo.Helpers;assembly=DevExpress.Data.v{AssemblyInfo.VersionShort}"" 
+    xmlns:dxmh=""clr-namespace:DevExpress.Xpo.Metadata.Helpers;assembly=DevExpress.Xpo.v{AssemblyInfo.VersionShort}"" 
     xmlns:local=""clr-namespace:DevExpress.Workflow"" 
     xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006"" 
     xmlns:mv=""clr-namespace:Microsoft.VisualBasic;assembly=System"" 
@@ -58,14 +59,11 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
         #region Scheduled properties
 
         [Association("ScheduledWorkflow-LaunchScheduleItems"), Aggregated]
-        public XPCollection<ScheduledWorkflowLaunchSchedule> LaunchScheduleItems {
-            get { return GetCollection<ScheduledWorkflowLaunchSchedule>("LaunchScheduleItems"); }
-        }
+        public XPCollection<ScheduledWorkflowLaunchSchedule> LaunchScheduleItems => GetCollection<ScheduledWorkflowLaunchSchedule>("LaunchScheduleItems");
 
         [Association]
-        public XPCollection<ScheduledWorkflowLaunchHistory> LaunchHistoryItems {
-            get { return GetCollection<ScheduledWorkflowLaunchHistory>("LaunchHistoryItems"); }
-        }
+        [CollectionOperationSet(AllowAdd = false,AllowRemove = false), Aggregated]
+        public XPCollection<ScheduledWorkflowLaunchHistory> LaunchHistoryItems => GetCollection<ScheduledWorkflowLaunchHistory>("LaunchHistoryItems");
 
         #endregion
 
@@ -85,14 +83,10 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
         }
 
         [Browsable(false)]
-        public bool CanCompile {
-            get { return false; }
-        }
+        public bool CanCompile => false;
 
         [Browsable(false)]
-        public bool CanOpenHost {
-            get { return IsActive && !string.IsNullOrEmpty(Name); }
-        }
+        public bool CanOpenHost => IsActive && !string.IsNullOrEmpty(Name);
 
         public string Name {
             get { return GetPropertyValue<string>("Name"); }

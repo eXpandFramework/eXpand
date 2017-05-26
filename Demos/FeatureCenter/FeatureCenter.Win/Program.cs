@@ -2,12 +2,9 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Forms;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
-using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.BaseImpl.Security;
 
 namespace FeatureCenter.Win {
 

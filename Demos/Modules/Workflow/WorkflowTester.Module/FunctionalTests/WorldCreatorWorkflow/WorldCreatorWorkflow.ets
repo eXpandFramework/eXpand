@@ -31,7 +31,7 @@
 *FillForm
  Name = test
  Target Object Type = Test Class
-*Action Assign Xaml (WorldCreatorWorkflow)
+*Action Assign Xaml
 *SaveAndClose
 *XpandProcessRecord
  Target Object Type = Test Class

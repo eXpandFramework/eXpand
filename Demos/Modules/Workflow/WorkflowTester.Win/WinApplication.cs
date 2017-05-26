@@ -19,16 +19,10 @@ namespace WorkflowTester.Win {
         }
 
         private void WorkflowTesterWindowsFormsApplication_DatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
-#if EASYTEST
-			e.Updater.Update();
-			e.Handled = true;
-#else
-            if (true) {
-                e.Updater.Update();
-                e.Handled = true;
-            }
-#endif
+            e.Updater.Update();
+            e.Handled = true;
         }
+
         private void WorkflowTesterWindowsFormsApplication_CustomizeLanguagesList(object sender, CustomizeLanguagesListEventArgs e) {
             string userLanguageName = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
             if (userLanguageName != "en-US" && e.Languages.IndexOf(userLanguageName) == -1) {

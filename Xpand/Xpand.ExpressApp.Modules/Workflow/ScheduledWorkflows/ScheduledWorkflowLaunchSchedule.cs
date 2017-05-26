@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
@@ -32,10 +33,10 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
             set { SetPropertyValue("StartTime", value); }
         }
 
-        [ModelDefault("Caption", "Run if Missed")]
-        public bool RuntASAPIfScheduledStartIsMissed {
-            get { return GetPropertyValue<bool>("RuntASAPIfScheduledStartIsMissed"); }
-            set { SetPropertyValue("RuntASAPIfScheduledStartIsMissed", value); }
+        [ModelDefault("Caption", "Run if Missed")][Browsable(false)]
+        public bool RunASAPIfScheduledStartIsMissed {
+            get { return GetPropertyValue<bool>("RunASAPIfScheduledStartIsMissed"); }
+            set { SetPropertyValue("RunASAPIfScheduledStartIsMissed", value); }
         }
 
         [Appearance("RecurEveryDays", "StartMode <> 'Daily'", Visibility = ViewItemVisibility.Hide)]

@@ -25,7 +25,8 @@ namespace Xpand.ExpressApp.Workflow {
             using (IObjectSpace objectSpace = ObjectSpaceProvider.CreateObjectSpace()) {
                 foreach (T workflow in objectSpace.GetObjects<T>(new BinaryOperator("IsActive", true))) {
                     WorkflowHost host;
-                    if (HostManager.Hosts.TryGetValue(workflow.GetUniqueId(), out host)) {
+                    var uniqueId = workflow.GetUniqueId();
+                    if (HostManager.Hosts.TryGetValue(uniqueId, out host)) {
                         if (NeedToStartWorkflow(objectSpace, workflow)) {
                             Guid instanceHandle = host.StartWorkflow(new Dictionary<string, object>());
                             GetService<IRunningWorkflowInstanceInfoService>().CreateRunningWorkflowInstanceInfo(workflow.Name, host.ActivityUniqueId, null, instanceHandle);

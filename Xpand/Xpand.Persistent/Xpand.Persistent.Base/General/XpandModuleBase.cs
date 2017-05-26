@@ -397,17 +397,16 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
 
-        protected void LoadDxBaseImplType(string typeName) {
+        public static Type GetDxBaseImplType(string typeName){
             try {
-                if (RuntimeMode) {
+                if (InterfaceBuilder.RuntimeMode) {
                     AppDomain.CurrentDomain.AssemblyResolve += DXAssemblyResolve;
                     Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
-                    Application.TypesInfo.LoadTypes(assembly);
-                    var info = Application.TypesInfo.FindTypeInfo(typeName);
+                    XafTypesInfo.Instance.LoadTypes(assembly);
+                    var info = XafTypesInfo.Instance.FindTypeInfo(typeName);
                     if (info == null)
                         throw new FileNotFoundException();
-                    Type typeInfo = info.Type;
-                    AdditionalExportedTypes.Add(typeInfo);
+                    return info.Type;
                 }
             }
             catch (FileNotFoundException) {
@@ -417,6 +416,12 @@ namespace Xpand.Persistent.Base.General {
             finally {
                 AppDomain.CurrentDomain.AssemblyResolve -= DXAssemblyResolve;
             }
+            return null;
+        }
+
+        protected void LoadDxBaseImplType(string typeName){
+            var type = GetDxBaseImplType(typeName);
+            if (type != null) AdditionalExportedTypes.Add(type);
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
