@@ -38,25 +38,39 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                 var modelMemberOneToManyCollections = new List<IModelMemberOneToManyCollection>();
                 var xpObjectSpace = objectSpace as XPObjectSpace;
                 var modelMemberExs = GetMembersEx(model).ToArray();
+                var exceptions = new List<Exception>();
                 foreach (var memberEx in modelMemberExs) {
-                    var customCreateMemberArgs = new CustomCreateMemberArgs(memberEx);
-                    OnCustomCreateMember(customCreateMemberArgs);
-                    if (!customCreateMemberArgs.Handled) {
-                        var modelMemberOneToManyCollection = memberEx as IModelMemberOneToManyCollection;
-                        if (modelMemberOneToManyCollection == null) {
-                            CreateXpandCustomMemberInfo(memberEx, xpObjectSpace);
+                    try{
+                        var customCreateMemberArgs = new CustomCreateMemberArgs(memberEx);
+                        OnCustomCreateMember(customCreateMemberArgs);
+                        if (!customCreateMemberArgs.Handled) {
+                            var modelMemberOneToManyCollection = memberEx as IModelMemberOneToManyCollection;
+                            if (modelMemberOneToManyCollection == null) {
+                                CreateXpandCustomMemberInfo(memberEx, xpObjectSpace);
+                            }
+                            else {
+                                modelMemberOneToManyCollections.Add(modelMemberOneToManyCollection);
+                            }
                         }
-                        else {
-                            modelMemberOneToManyCollections.Add(modelMemberOneToManyCollection);
-                        }
+
+                    }
+                    catch (Exception e){
+                        exceptions.Add(new Exception($"Failed to create {memberEx.Name} on {memberEx.ModelClass.Name}",e));
                     }
                 }
+                foreach (var exception in exceptions){
+                    Tracing.Tracer.LogError(exception);
+                }
+                if (!SuppressException&&exceptions.Any())
+                    throw new AggregateException("Runtime members creation failed",exceptions);
                 RefreshTypes(XafTypesInfo.Instance, modelMemberExs.Select(ex => ex.ModelClass.TypeInfo).Distinct());
                 CreateAssociatedCollectionMembers(modelMemberOneToManyCollections, xpObjectSpace);
                 RefreshTypes(XafTypesInfo.Instance, modelMemberOneToManyCollections.Select(collection => collection.CollectionType.TypeInfo).Distinct());
             }
             Tracing.Tracer.LogVerboseSubSeparator("RuntimeMembers Creation finished");
         }
+
+        public static bool SuppressException{ get; set; }
 
         static void CreateAssociatedCollectionMembers(IEnumerable<IModelMemberOneToManyCollection> modelMemberOneToManyCollections, XPObjectSpace xpObjectSpace) {
             foreach (var modelMemberOneToManyCollection in modelMemberOneToManyCollections) {
