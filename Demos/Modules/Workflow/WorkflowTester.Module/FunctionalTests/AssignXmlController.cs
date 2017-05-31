@@ -1,6 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Workflow.Versioning;
+using DevExpress.ExpressApp.Workflow.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 
@@ -12,7 +12,7 @@ namespace WorkflowTester.Module.FunctionalTests {
         }
 
         private void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
-            var workflowDefinition = (View.CurrentObject) as WorkflowDefinition;
+            var workflowDefinition = (View.CurrentObject) as XpoWorkflowDefinition;
             if (workflowDefinition != null)
                 workflowDefinition.Xaml =
                     $@"<Activity mc:Ignorable=""sads sap"" x:Class=""DevExpress.Workflow.XafWorkflow""
