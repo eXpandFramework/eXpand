@@ -27,25 +27,30 @@ namespace Xpand.VSIX.Options{
                     KillModelEditor = true,
                     SpecificVersion = true
                 };
-                Instance.ConnectionStrings.Add(new ConnectionString() {Name = "ConnectionString"});
-                Instance.ConnectionStrings.Add(new ConnectionString() {Name = "WorldCreatorConnectionString"});
-                Instance.ConnectionStrings.Add(new ConnectionString() {Name = "EasyTestConnectionString" });
-                Instance.ConnectionStrings.Add(new ConnectionString() {Name = "NorthWind" });
-                var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\WOW6432node\DevExpress\Components\");
-                if (registryKey != null)
-                    foreach (var keyName in registryKey.GetSubKeyNames()){
-                        var directory = (string) registryKey.OpenSubKey(keyName)?.GetValue("RootDirectory");
-                        Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() { Folder = directory });
-                        var sourceCodeInfo = new SourceCodeInfo { ProjectRegex = "DevExpress.*csproj", RootPath = directory };
-                        sourceCodeInfo.AddProjectPaths();
-                        Instance.SourceCodeInfos.Add(sourceCodeInfo);
-                    }
-                Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() {Folder = ModuleManager.GetXpandDLLPath()});
-                Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(FileNotFoundException).FullName});
-                Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(SqlException).FullName});
-                Instance.DisableExceptions = false;
-                Instance.MEs.Add(new ME{Path = Path.Combine(ModuleManager.GetXpandDLLPath(), "Xpand.ExpressApp.ModelEditor.exe") });
-                Instance.SourceCodeInfos.Add(new SourceCodeInfo{ProjectRegex = "Xpand.*csproj",RootPath = ModuleManager.GetXpandDLLPath()});
+                try{
+                    Instance.ConnectionStrings.Add(new ConnectionString() {Name = "ConnectionString"});
+                    Instance.ConnectionStrings.Add(new ConnectionString() {Name = "WorldCreatorConnectionString"});
+                    Instance.ConnectionStrings.Add(new ConnectionString() {Name = "EasyTestConnectionString" });
+                    Instance.ConnectionStrings.Add(new ConnectionString() {Name = "NorthWind" });
+                    var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\WOW6432node\DevExpress\Components\");
+                    if (registryKey != null)
+                        foreach (var keyName in registryKey.GetSubKeyNames()){
+                            var directory = (string) registryKey.OpenSubKey(keyName)?.GetValue("RootDirectory");
+                            Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() { Folder = directory });
+                            var sourceCodeInfo = new SourceCodeInfo { ProjectRegex = "DevExpress.*csproj", RootPath = directory };
+                            sourceCodeInfo.AddProjectPaths();
+                            Instance.SourceCodeInfos.Add(sourceCodeInfo);
+                        }
+                    Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() {Folder = ModuleManager.GetXpandDLLPath()});
+                    Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(FileNotFoundException).FullName});
+                    Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(SqlException).FullName});
+                    Instance.DisableExceptions = false;
+                    Instance.MEs.Add(new ME{Path = Path.Combine(ModuleManager.GetXpandDLLPath(), "Xpand.ExpressApp.ModelEditor.exe") });
+                    Instance.SourceCodeInfos.Add(new SourceCodeInfo{ProjectRegex = "Xpand.*csproj",RootPath = ModuleManager.GetXpandDLLPath()});
+                }
+                catch (Exception e){
+                    _dte.LogError(e.ToString());
+                }
                 
             }
         }
@@ -161,19 +166,25 @@ namespace Xpand.VSIX.Options{
             if (Directory.Exists(RootPath)) {
                 var projectPaths = Directory.GetFiles(RootPath, "*.*", SearchOption.AllDirectories)
                     .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", ProjectRegex));
-                var paths = projectPaths.Select(path => new ProjectInfo() { Path = path, OutputPath = GetOutPutPath(path) }).ToArray();
+                var paths = projectPaths.Select(path => new ProjectInfo() { Path = path, OutputPath = GetOutPutPath(path) }).Where(info => File.Exists(info.OutputPath)).ToArray();
                 ProjectPaths.Clear();
                 ProjectPaths.AddRange(paths);
             }
         }
         string GetOutPutPath(string projectPath) {
-            using (var fileStream = File.Open(projectPath, FileMode.Open)) {
-                var streamReader = new StreamReader(fileStream);
-                var readToEnd = streamReader.ReadToEnd();
-                Environment.CurrentDirectory = Path.GetDirectoryName(projectPath) + "";
-                var outPutPath = Path.GetFullPath(GetAttributeValue(readToEnd, "OutputPath"));
-                var assemblyName = GetAttributeValue(readToEnd, "AssemblyName");
-                return Path.Combine(outPutPath, assemblyName + ".dll");
+            try{
+                using (var fileStream = File.Open(projectPath, FileMode.Open)) {
+                    var streamReader = new StreamReader(fileStream);
+                    var readToEnd = streamReader.ReadToEnd();
+                    Environment.CurrentDirectory = Path.GetDirectoryName(projectPath) + "";
+                    var outPutPath = Path.GetFullPath(GetAttributeValue(readToEnd, "OutputPath"));
+                    var assemblyName = GetAttributeValue(readToEnd, "AssemblyName");
+                    return Path.Combine(outPutPath, assemblyName + ".dll");
+                }
+
+            }
+            catch{
+                return null;
             }
         }
 
