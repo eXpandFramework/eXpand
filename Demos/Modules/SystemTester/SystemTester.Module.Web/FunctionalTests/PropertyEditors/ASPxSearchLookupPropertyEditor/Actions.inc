@@ -1,6 +1,6 @@
 ﻿;#IncludeFile .\Init.inc
 *SetWebMaxWaitTimeOut 600000
-*Navigate ASPx Search Lookup Property Editor Object
+*Navigate PropertyEditors.ASPx Search Lookup Property Editor Object
 *DeleteAllObjects
 *Action New
 *ToggleNavigation
@@ -34,7 +34,7 @@
  ASPx Search Lookup Property Editor Lookup = Bekiaris
 *SaveAndClose
 !ActionAvailable Save
-*Navigate ASPx Search Lookup Property Editor Object
+*Navigate PropertyEditors.ASPx Search Lookup Property Editor Object
 *CheckTable
  Columns = ASPx Search Lookup Property Editor Lookup
  Row = Bekiaris

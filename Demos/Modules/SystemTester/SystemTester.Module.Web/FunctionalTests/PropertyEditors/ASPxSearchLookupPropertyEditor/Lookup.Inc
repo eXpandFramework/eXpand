@@ -1,8 +1,8 @@
 ﻿;#IncludeFile .\Init.inc
 
-*Navigate ASPx Search Lookup Property Editor Lookup Object
+*Navigate PropertyEditors.ASPx Search Lookup Property Editor Lookup Object
 *DeleteAllObjects
-*Navigate ASPx Search Lookup Property Editor Object
+*Navigate PropertyEditors.ASPx Search Lookup Property Editor Object
 *DeleteAllObjects
 *ToggleNavigation = True
 *Action New
@@ -13,7 +13,7 @@
  Name = Tolis
 *SaveAndClose
 *ToggleNavigation = False
-*Navigate ASPx Search Lookup Property Editor Object
+*Navigate PropertyEditors.ASPx Search Lookup Property Editor Object
 *Action New
 *SendKeys oli
 *Sleep 2000

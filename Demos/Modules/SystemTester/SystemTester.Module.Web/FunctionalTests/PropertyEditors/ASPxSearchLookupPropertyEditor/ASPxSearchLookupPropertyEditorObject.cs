@@ -4,7 +4,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 
 namespace SystemTester.Module.Web.FunctionalTests.PropertyEditors.ASPxSearchLookupPropertyEditor{
-    [NavigationItem]
+    [NavigationItem("PropertyEditors")]
     public class ASPxSearchLookupPropertyEditorLookupObject : BaseObject{
         private string _name;
 
@@ -18,7 +18,7 @@ namespace SystemTester.Module.Web.FunctionalTests.PropertyEditors.ASPxSearchLook
         }
     }
 
-    [DefaultClassOptions]
+    [NavigationItem("PropertyEditors")]
     public class ASPxSearchLookupPropertyEditorObject : BaseObject{
         private ASPxSearchLookupPropertyEditorLookupObject _asPxSearchLookupPropertyEditorLookup;
 
