@@ -29,14 +29,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             _gridListEditor = ((ListView)View).Editor as WinColumnsListEditor;
-            if (_gridListEditor != null) {
-                GridView gridView = _gridListEditor.GridView();
-                if (gridView != null) gridView.MouseDown += GridView_MouseDown;
-            }
+            GridView gridView = _gridListEditor?.GridView();
+            if (gridView != null) gridView.MouseDown += GridView_MouseDown;
         }
 
         protected override void OnDeactivated() {
-            if (_gridListEditor != null && _gridListEditor.GridView() != null)
+            if (_gridListEditor?.GridView() != null)
                 _gridListEditor.GridView().MouseDown -= GridView_MouseDown;
             base.OnDeactivated();
         }
@@ -61,14 +59,13 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})";
 
         HyperLinkEdit _hyperlinkEdit;
+        private IObjectSpace _objectSpace;
 
         public HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem info)
             : base(objectType, info) {
         }
 
-        public new HyperLinkEdit Control {
-            get { return _hyperlinkEdit; }
-        }
+        public new HyperLinkEdit Control => _hyperlinkEdit;
 
         protected override RepositoryItem CreateRepositoryItem() {
             return new RepositoryItemHyperLinkEdit();
@@ -97,13 +94,18 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             e.EditValue = GetResolvedUrl(e.EditValue);
         }
 
+        public override void BreakLinksToControl(bool unwireEventsOnly){
+            base.BreakLinksToControl(unwireEventsOnly);
+            _objectSpace.Committing-=ObjectSpaceOnCommitting;
+        }
+
         public static string GetResolvedUrl(object value) {
             string url = Convert.ToString(value);
             if (!string.IsNullOrEmpty(url)) {
                 if (url.Contains("@") && IsValidUrl(url))
-                    return string.Format("mailto:{0}", url);
+                    return $"mailto:{url}";
                 if (!url.Contains("://"))
-                    url = string.Format("http://{0}", url);
+                    url = $"http://{url}";
                 if (IsValidUrl(url))
                     return url;
             }
@@ -115,14 +117,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         public void Setup(IObjectSpace objectSpace, XafApplication application){
+            _objectSpace = objectSpace;
             objectSpace.Committing+=ObjectSpaceOnCommitting;
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
-            if (_hyperlinkEdit != null)
-            {
-                cancelEventArgs.Cancel = !_hyperlinkEdit.MaskBox.IsMatch;
-            }
+            if (_hyperlinkEdit?.MaskBox != null) cancelEventArgs.Cancel = !_hyperlinkEdit.MaskBox.IsMatch;
         }
     }
 }
