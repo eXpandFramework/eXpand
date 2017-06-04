@@ -6,6 +6,7 @@ using SystemTester.Module;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.Web;
+using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Web {
     public class Global : HttpApplication {
@@ -23,6 +24,8 @@ namespace SystemTester.Web {
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }
+            if (WebApplication.Instance.GetEasyTestParameter("SwitchToNewStyle"))
+                WebApplication.Instance.SwitchToNewStyle();
 #if EASYTEST
             if(ConfigurationManager.ConnectionStrings["EasyTestConnectionString"] != null) {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["EasyTestConnectionString"].ConnectionString;

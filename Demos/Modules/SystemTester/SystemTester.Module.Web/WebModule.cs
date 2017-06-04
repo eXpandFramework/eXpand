@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using SystemTester.Module.Web.FunctionalTests.PropertyEditors.ASPxTokenListPropertyEditor;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using Xpand.ExpressApp.TreeListEditors.Web;
@@ -22,7 +23,7 @@ namespace SystemTester.Module.Web {
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
-            return ModuleUpdater.EmptyModuleUpdaters;
+            return new [] {new ASPxTokenListPropertyEditorUpdater(objectSpace, versionFromDB)};
         }
     }
 }

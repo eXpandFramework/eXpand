@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module.Web</RootNamespace>
     <AssemblyName>SystemTester.Module.Web</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -168,7 +170,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\MasterDetail\MasterDetailObjects.cs" />
+    <Compile Include="FunctionalTests\PropertyEditors\ASPxTokenListPropertyEditor\ASPxTokenListPropertyEditorObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditorObject.cs" />
+    <Compile Include="FunctionalTests\PropertyEditors\ASPxTokenListPropertyEditor\ASPxTokenListPropertyEditorUpdater.cs" />
     <Compile Include="WebModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -220,6 +224,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="FunctionalTests\MasterDetail\MasterDetail.ets" />
+    <None Include="FunctionalTests\PropertyEditors\ASPxTokenListPropertyEditor\ASPxTokenListPropertyEditor.ets" />
+    <None Include="FunctionalTests\PropertyEditors\ASPxTokenListPropertyEditor\ASPxTokenListPropertyEditor.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditor.ets" />
     <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditor.xafml">
       <SubType>Designer</SubType>
@@ -260,6 +268,7 @@
     <None Include="FunctionalTests\MasterDetail\Init.inc" />
     <Content Include="FunctionalTests\MasterDetail\Images\MasterDetail.web.mask.png" />
     <Content Include="FunctionalTests\MasterDetail\Images\MasterDetail.web.png" />
+    <Content Include="FunctionalTests\PropertyEditors\ASPxTokenListPropertyEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Config.xml" />
     <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Init.inc" />
     <None Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\Lookup.inc" />
