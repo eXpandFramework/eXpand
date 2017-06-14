@@ -12,20 +12,20 @@ namespace Xpand.ExpressApp.PivotChart {
         public event EventHandler<CriteriaOperatorArgs> ApplyingCollectionCriteria;
         public event EventHandler<AnalysisEditorArgs> DatasourceCreating;
 
-        public void InvokeDatasourceCreating(AnalysisEditorArgs e){
+        protected virtual void InvokeDatasourceCreating(AnalysisEditorArgs e){
             EventHandler<AnalysisEditorArgs> handler = DatasourceCreating;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
 
         protected virtual void InvokeApplyingCollectionCriteria(CriteriaOperatorArgs e) {
             EventHandler<CriteriaOperatorArgs> handler = ApplyingCollectionCriteria;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         protected virtual void InvokeDataSourceCreated(AnalysisEditorArgs e){
             EventHandler<AnalysisEditorArgs> handler = DataSourceCreated;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
 
@@ -68,23 +68,15 @@ namespace Xpand.ExpressApp.PivotChart {
 
     }
 
-    public class AnalysisEditorArgs : HandledEventArgs
-    {
-        readonly AnalysisEditorBase _analysisEditorBase;
-        readonly IAnalysisInfo _analysisInfo;
-
+    public class AnalysisEditorArgs : HandledEventArgs{
         public AnalysisEditorArgs(AnalysisEditorBase analysisEditorBase, IAnalysisInfo analysisInfo) {
-            _analysisEditorBase = analysisEditorBase;
-            _analysisInfo = analysisInfo;
+            AnalysisEditorBase = analysisEditorBase;
+            AnalysisInfo = analysisInfo;
         }
 
-        public AnalysisEditorBase AnalysisEditorBase {
-            get { return _analysisEditorBase; }
-        }
-        public IAnalysisInfo AnalysisInfo
-        {
-            get { return _analysisInfo; }
-        }
+        public AnalysisEditorBase AnalysisEditorBase{ get; }
+
+        public IAnalysisInfo AnalysisInfo{ get; }
 
         public object DataSource { get; set; }
     }
