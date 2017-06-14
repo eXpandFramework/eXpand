@@ -15,9 +15,11 @@ namespace Xpand.VSIX.ModelEditor {
         private static Events2 _events;
         private static SolutionEvents _eventsSolutionEvents;
         private static IEnumerable<FileSystemWatcher> _fileSystemWatchers;
+        private static TaskScheduler _currentSynchronizationContext;
 
         static void Setup(GridControl gridControl) {
             _gridControl = gridControl;
+            _currentSynchronizationContext = TaskScheduler.FromCurrentSynchronizationContext();
             SetGridDataSource();
             _events = (Events2) DteExtensions.DTE.Events;
             _eventsSolutionEvents = _events.SolutionEvents;
@@ -73,7 +75,6 @@ namespace Xpand.VSIX.ModelEditor {
 
         private static void SetGridDataSource(){
             List<ProjectItemWrapper> projectWrappers = new List<ProjectItemWrapper>();
-            
             Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList())
                 .ContinueWith(task1 => {
                     if (task1.Exception != null){
@@ -81,7 +82,7 @@ namespace Xpand.VSIX.ModelEditor {
                         DteExtensions.DTE.WriteToOutput(task1.Exception.ToString());
                     }
                     _gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers);
-                },TaskScheduler.FromCurrentSynchronizationContext());
+                },_currentSynchronizationContext);
         }
 
         public static void Init(GridControl gridControl) {

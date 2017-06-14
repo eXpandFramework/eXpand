@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Options;
+using Xpand.VSIX.Services;
 using Xpand.VSIX.Wizard;
 using Application = System.Windows.Forms.Application;
 
@@ -97,6 +98,7 @@ namespace Xpand.VSIX.VSPackage {
 
         protected override void Initialize() {
             base.Initialize();
+            ExternalToolsService.Init();
             Commands.Commands.Initialize();
         }
 

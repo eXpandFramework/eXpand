@@ -90,6 +90,15 @@ namespace Xpand.VSIX.Options
             this.repositoryItemCheckEdit4 = new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.gridColumnException = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
             this.checkEditDisableExceptions = new DevExpress.DXCore.Controls.XtraEditors.CheckEdit();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.gridControlExternal = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
+            this.gridView6 = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
+            this.gridColumn5 = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
+            this.gridColumn4 = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
+            this.Arguments = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
+            this.gridColumn6 = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
+            this.repositoryItemComboBox1 = new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemComboBox();
+            this.repositoryItemCheckEdit5 = new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.General.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
@@ -126,6 +135,11 @@ namespace Xpand.VSIX.Options
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditDisableExceptions.Properties)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlExternal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit5)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -507,6 +521,7 @@ namespace Xpand.VSIX.Options
             this.tabControl1.Controls.Add(this.ModelEditor);
             this.tabControl1.Controls.Add(this.AssemblyReferences);
             this.tabControl1.Controls.Add(this.Exceptions);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -835,6 +850,97 @@ namespace Xpand.VSIX.Options
             this.checkEditDisableExceptions.Size = new System.Drawing.Size(111, 19);
             this.checkEditDisableExceptions.TabIndex = 47;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.gridControlExternal);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(676, 468);
+            this.tabPage1.TabIndex = 8;
+            this.tabPage1.Text = "External";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // gridControlExternal
+            // 
+            this.gridControlExternal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridControlExternal.Location = new System.Drawing.Point(3, 3);
+            this.gridControlExternal.MainView = this.gridView6;
+            this.gridControlExternal.Name = "gridControlExternal";
+            this.gridControlExternal.RepositoryItems.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItem[] {
+            this.repositoryItemCheckEdit5,
+            this.repositoryItemComboBox1});
+            this.gridControlExternal.Size = new System.Drawing.Size(670, 462);
+            this.gridControlExternal.TabIndex = 18;
+            this.gridControlExternal.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
+            this.gridView6});
+            // 
+            // gridView6
+            // 
+            this.gridView6.Columns.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn5,
+            this.gridColumn4,
+            this.Arguments,
+            this.gridColumn6});
+            this.gridView6.GridControl = this.gridControlExternal;
+            this.gridView6.Name = "gridView6";
+            this.gridView6.OptionsCustomization.AllowColumnMoving = false;
+            this.gridView6.OptionsCustomization.AllowColumnResizing = false;
+            this.gridView6.OptionsCustomization.AllowGroup = false;
+            this.gridView6.OptionsFilter.AllowColumnMRUFilterList = false;
+            this.gridView6.OptionsFilter.AllowFilterEditor = false;
+            this.gridView6.OptionsFilter.AllowMRUFilterList = false;
+            this.gridView6.OptionsMenu.EnableColumnMenu = false;
+            this.gridView6.OptionsMenu.EnableFooterMenu = false;
+            this.gridView6.OptionsMenu.EnableGroupPanelMenu = false;
+            this.gridView6.OptionsView.NewItemRowPosition = DevExpress.DXCore.Controls.XtraGrid.Views.Grid.NewItemRowPosition.Top;
+            this.gridView6.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn5
+            // 
+            this.gridColumn5.Caption = "SolutionRegex";
+            this.gridColumn5.FieldName = "SolutionRegex";
+            this.gridColumn5.Name = "gridColumn5";
+            this.gridColumn5.Visible = true;
+            this.gridColumn5.VisibleIndex = 0;
+            // 
+            // gridColumn4
+            // 
+            this.gridColumn4.Caption = "Path";
+            this.gridColumn4.FieldName = "Path";
+            this.gridColumn4.Name = "gridColumn4";
+            this.gridColumn4.Visible = true;
+            this.gridColumn4.VisibleIndex = 1;
+            // 
+            // Arguments
+            // 
+            this.Arguments.Caption = "Arguments";
+            this.Arguments.FieldName = "Arguments";
+            this.Arguments.Name = "Arguments";
+            this.Arguments.Visible = true;
+            this.Arguments.VisibleIndex = 2;
+            // 
+            // gridColumn6
+            // 
+            this.gridColumn6.Caption = "Event";
+            this.gridColumn6.ColumnEdit = this.repositoryItemComboBox1;
+            this.gridColumn6.FieldName = "DTEEvent";
+            this.gridColumn6.Name = "gridColumn6";
+            this.gridColumn6.Visible = true;
+            this.gridColumn6.VisibleIndex = 3;
+            // 
+            // repositoryItemComboBox1
+            // 
+            this.repositoryItemComboBox1.AutoHeight = false;
+            this.repositoryItemComboBox1.Buttons.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.DXCore.Controls.XtraEditors.Controls.EditorButton(DevExpress.DXCore.Controls.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.repositoryItemComboBox1.Name = "repositoryItemComboBox1";
+            // 
+            // repositoryItemCheckEdit5
+            // 
+            this.repositoryItemCheckEdit5.AutoHeight = false;
+            this.repositoryItemCheckEdit5.Name = "repositoryItemCheckEdit5";
+            // 
             // OptionsControl
             // 
             this.Controls.Add(this.tabControl1);
@@ -879,6 +985,11 @@ namespace Xpand.VSIX.Options
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditDisableExceptions.Properties)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridControlExternal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit5)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -946,5 +1057,14 @@ namespace Xpand.VSIX.Options
         private LabelControl labelControl17;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private CheckEdit checkEditDisableExceptions;
+        private System.Windows.Forms.TabPage tabPage1;
+        private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControlExternal;
+        private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView6;
+        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumn5;
+        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumn4;
+        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn Arguments;
+        private DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEdit5;
+        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumn6;
+        private DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemComboBox repositoryItemComboBox1;
     }
 }

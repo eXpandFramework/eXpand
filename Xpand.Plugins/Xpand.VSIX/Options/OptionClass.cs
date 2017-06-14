@@ -15,14 +15,17 @@ using Xpand.VSIX.Wizard;
 
 namespace Xpand.VSIX.Options{
     public class OptionClass {
-        private static readonly DTE2 _dte = DteExtensions.DTE;
-        private static readonly string _path;
+        private static readonly DTE2 DTE = DteExtensions.DTE;
+        private static readonly string Path;
 
         static OptionClass() {
-            _path = new Uri(Path.Combine(Path.GetDirectoryName(typeof(OptionClass).Assembly.CodeBase) + "", "Xpand.VSIX.Options.xml"),UriKind.Absolute).LocalPath;
-            if (File.Exists(_path))
+            var directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Xpand\VSIX\";
+            Path = System.IO.Path.Combine(directory, "Xpand.VSIX.Options.xml");
+            if (File.Exists(Path))
                 Instance = GetOptionClass();
             else{
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
                 Instance = new OptionClass{
                     KillModelEditor = true,
                     SpecificVersion = true
@@ -35,7 +38,7 @@ namespace Xpand.VSIX.Options{
                     var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\WOW6432node\DevExpress\Components\");
                     if (registryKey != null)
                         foreach (var keyName in registryKey.GetSubKeyNames()){
-                            var directory = (string) registryKey.OpenSubKey(keyName)?.GetValue("RootDirectory");
+                            directory = (string) registryKey.OpenSubKey(keyName)?.GetValue("RootDirectory");
                             Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() { Folder = directory });
                             var sourceCodeInfo = new SourceCodeInfo { ProjectRegex = "DevExpress.*csproj", RootPath = directory };
                             sourceCodeInfo.AddProjectPaths();
@@ -45,11 +48,11 @@ namespace Xpand.VSIX.Options{
                     Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(FileNotFoundException).FullName});
                     Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(SqlException).FullName});
                     Instance.DisableExceptions = false;
-                    Instance.MEs.Add(new ME{Path = Path.Combine(ModuleManager.GetXpandDLLPath(), "Xpand.ExpressApp.ModelEditor.exe") });
+                    Instance.MEs.Add(new ME{Path = System.IO.Path.Combine(ModuleManager.GetXpandDLLPath(), "Xpand.ExpressApp.ModelEditor.exe") });
                     Instance.SourceCodeInfos.Add(new SourceCodeInfo{ProjectRegex = "Xpand.*csproj",RootPath = ModuleManager.GetXpandDLLPath()});
                 }
                 catch (Exception e){
-                    _dte.LogError(e.ToString());
+                    DTE.LogError(e.ToString());
                 }
                 
             }
@@ -77,7 +80,7 @@ namespace Xpand.VSIX.Options{
             var optionClass = new OptionClass();
             try {
                 var xmlSerializer = new XmlSerializer(typeof(OptionClass));
-                using (var stream = File.Open(_path, FileMode.OpenOrCreate)){
+                using (var stream = File.Open(Path, FileMode.OpenOrCreate)){
                     using (var streamReader = new StreamReader(stream)){
                         var allText = streamReader.ReadToEnd();
                         if (!string.IsNullOrWhiteSpace(allText)){
@@ -90,8 +93,8 @@ namespace Xpand.VSIX.Options{
                 
             }
             catch (Exception e) {
-                _dte.LogError(e.ToString());
-                _dte.WriteToOutput(e.ToString());
+                DTE.LogError(e.ToString());
+                DTE.WriteToOutput(e.ToString());
             }
             return optionClass;
 
@@ -105,6 +108,8 @@ namespace Xpand.VSIX.Options{
 
         [XmlArray]
         public BindingList<ExceptionsBreak> Exceptions { get; set; } = new BindingList<ExceptionsBreak>();
+        [XmlArray]
+        public BindingList<ExternalTools> ExternalTools { get; set; } = new BindingList<ExternalTools>();
 
         [XmlArray]
         public BindingList<ME> MEs { get; set; } = new BindingList<ME>();
@@ -121,7 +126,7 @@ namespace Xpand.VSIX.Options{
         public void Save() {
             var stringBuilder = new StringBuilder();
             new XmlSerializer(typeof(OptionClass)).Serialize(XmlWriter.Create(stringBuilder), Instance);
-            File.WriteAllText(_path, stringBuilder.ToString());
+            File.WriteAllText(Path, stringBuilder.ToString());
         }
     }
 
@@ -137,8 +142,25 @@ namespace Xpand.VSIX.Options{
 
         public string Folder { get; set; }
     }
-    public class ExceptionsBreak : OptionClassBase {
 
+    public class ExternalTools : OptionClassBase{
+        public string SolutionRegex{ get; set; }
+        public string Path{ get; set; }
+        public string Arguments{ get; set; }
+        public DTEEvent DTEEvent{ get; set; }
+    }
+
+    public enum DTEEvent{
+        SolutionOpen,
+        SolutionAfterClosing,
+        ReferenceRemoved,
+        ReferenceChanged,
+        ReferenceAdded,
+        BuildBegin,
+        DocumentSaved
+    }
+
+    public class ExceptionsBreak : OptionClassBase {
         public string Exception { get; set; }
 
         public bool Break { get; set; }

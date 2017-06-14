@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.DXCore.Controls.XtraEditors.Controls;
 using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
@@ -14,6 +15,7 @@ namespace Xpand.VSIX.Options {
             gridView3.KeyDown += GridViewOnKeyDown;
             gridView4.KeyDown += GridViewOnKeyDown;
             gridView5.KeyDown += GridViewOnKeyDown;
+            gridView6.KeyDown+=GridViewOnKeyDown;
             projectConverterPathButtonEdit.Text = OptionClass.Instance.ProjectConverterPath;
             testExecutorButtonEdit.Text = OptionClass.Instance.TestExecutorPath;
             publicTokenTextEdit.Text = OptionClass.Instance.Token;
@@ -27,6 +29,9 @@ namespace Xpand.VSIX.Options {
             gridControlME.DataSource = OptionClass.Instance.MEs;
             gridControlAssemblyFolders.DataSource = OptionClass.Instance.ReferencedAssembliesFolders;
             gridControlExceptions.DataSource = OptionClass.Instance.Exceptions;
+            gridControlExternal.DataSource = OptionClass.Instance.ExternalTools;
+            var collection = Enum.GetNames(typeof(DTEEvent)).Cast<object>().ToArray();
+            repositoryItemComboBox1.Items.AddRange(collection);
             Save();
         }
 
@@ -45,6 +50,7 @@ namespace Xpand.VSIX.Options {
             OptionClass.Instance.MEs = (BindingList<ME>) gridControlME.DataSource;
             OptionClass.Instance.ReferencedAssembliesFolders = (BindingList<ReferencedAssembliesFolder>) gridControlAssemblyFolders.DataSource;
             OptionClass.Instance.Exceptions = (BindingList<ExceptionsBreak>) gridControlExceptions.DataSource;
+            OptionClass.Instance.ExternalTools = (BindingList<ExternalTools>) gridControlExternal.DataSource;
             instance.Save();
         }
 
