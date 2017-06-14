@@ -48,7 +48,9 @@ namespace Xpand.ExpressApp.PivotChart {
             
             if (e.AnalysisInfo != null) {
                 if (!string.IsNullOrEmpty(e.AnalysisInfo.Criteria)) {
-                    userCriteria = CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(e.AnalysisInfo.Criteria,e.AnalysisInfo.DataType);
+                    using (ObjectSpace.CreateParseCriteriaScope()) {
+                        userCriteria = CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(e.AnalysisInfo.Criteria, e.AnalysisInfo.DataType);
+                    }
                 }
 
                 var analysisEditorBase = (AnalysisEditorBase)sender;

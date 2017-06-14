@@ -49,7 +49,7 @@ namespace Xpand.VSIX.Options{
                     Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(SqlException).FullName});
                     Instance.DisableExceptions = false;
                     Instance.MEs.Add(new ME{Path = System.IO.Path.Combine(ModuleManager.GetXpandDLLPath(), "Xpand.ExpressApp.ModelEditor.exe") });
-                    Instance.SourceCodeInfos.Add(new SourceCodeInfo{ProjectRegex = "Xpand.*csproj",RootPath = ModuleManager.GetXpandDLLPath()});
+                    Instance.SourceCodeInfos.Add(new SourceCodeInfo{ProjectRegex = "Xpand.*csproj",RootPath = ModuleManager.GetXpandDLLPath()+"\..\"});
                 }
                 catch (Exception e){
                     DTE.LogError(e.ToString());
