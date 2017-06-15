@@ -5,7 +5,6 @@ using DevExpress.DashboardWeb;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Web.Editors;
 using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
@@ -14,13 +13,12 @@ using Xpand.ExpressApp.Dashboard.Filter;
 namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
     [PropertyEditor(typeof(String), false)]
     public class DashboardDesignerEditor : WebPropertyEditor, IComplexViewItem {
-        private IObjectSpace _objectSpace;
         private XafApplication _application;
         private ASPxDashboard _dashboardDesigner;
 
         static DashboardDesignerEditor() {
-            DashboardConfigurator.Default.SetDashboardStorage(new DatabaseDashboardStorage());
             DashboardConfigurator.PassCredentials = true;
+            
         }
         public DashboardDesignerEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) {
         }
@@ -44,43 +42,17 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
                 IncludeDashboardIdToUrl = false,
                 IncludeDashboardStateToUrl = false
             };
-
-            UnSubscribe();
-            var dashboardDesignerStorage = DashboardConfigurator.Default.DashboardStorage;
-            DashboardConfigurator.Default.DataLoading += DashboardDesignerStorageOnDataLoading;
-            var databaseDashboardStorage = ((DatabaseDashboardStorage)dashboardDesignerStorage);
-            databaseDashboardStorage.RequestDashboardXml += OnRequestDashboardXml;
-            databaseDashboardStorage.RequestObjectSpace += DatabaseDashboardStorageOnRequestObjectSpace;
-            databaseDashboardStorage.RequestDashboardInfos += DatabaseDashboardStorageOnRequestDashboardInfos;
+            var dashboardStorage = new DatabaseDashboardStorage();
+            _dashboardDesigner.SetDashboardStorage(dashboardStorage);
+            dashboardStorage.RequestDashboardXml += OnRequestDashboardXml;
+            dashboardStorage.RequestObjectSpace += DatabaseDashboardStorageOnRequestObjectSpace;
+            dashboardStorage.RequestDashboardInfos += DatabaseDashboardStorageOnRequestDashboardInfos;
             return _dashboardDesigner;
         }
 
-        private void DashboardDesignerStorageOnDataLoading(object sender, DataLoadingWebEventArgs e) {
-            var modelApplication = (ModelApplicationBase)_application.Model;
-            var typeWrapper = Definition.DashboardTypes.FirstOrDefault(t => t.GetDefaultCaption(modelApplication) == e.DataSourceName);
-            if (typeWrapper != null) {
-                var dsType = typeWrapper.Type;
-                e.Data = _objectSpace.CreateDashboardDataSource(dsType);
-            }
-        }
 
         private string GetDashboardId() {
             return ObjectTypeInfo.KeyMember.GetValue(Definition).ToString().ToUpper();
-        }
-
-        private void UnSubscribe() {
-            DashboardConfigurator.Default.DataLoading -= DashboardDesignerStorageOnDataLoading;
-            var databaseDashboardStorage = ((DatabaseDashboardStorage)DashboardConfigurator.Default.DashboardStorage);
-            databaseDashboardStorage.RequestDashboardXml -= OnRequestDashboardXml;
-            databaseDashboardStorage.RequestObjectSpace -= DatabaseDashboardStorageOnRequestObjectSpace;
-            databaseDashboardStorage.RequestDashboardInfos -= DatabaseDashboardStorageOnRequestDashboardInfos;
-        }
-
-        public override void BreakLinksToControl(bool unwireEventsOnly) {
-            if (_dashboardDesigner != null && unwireEventsOnly) {
-                UnSubscribe();
-            }
-            base.BreakLinksToControl(unwireEventsOnly);
         }
 
         private void DatabaseDashboardStorageOnRequestDashboardInfos(object sender, RequestDashboardInfosArgs e) {
@@ -99,12 +71,17 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
 
 
 
-        private void OnRequestDashboardXml(object sender, RequestDashboardXmlArgs requestDashboardXmlArgs) {
+        private void OnRequestDashboardXml(object sender, RequestDashboardXmlArgs requestDashboardXmlArgs){
+            requestDashboardXmlArgs.Xml = GetDashboardXml();
+        }
+
+        private string GetDashboardXml(){
             string xml;
-            using (var objectSpace = _application.CreateObjectSpace(ObjectTypeInfo.Type)) {
-                xml = objectSpace.GetObject(Definition).GetXml(FilterEnabled.DesignTime, objectSpace.CreateDashboardDataSource, _application);
+            using (var objectSpace = _application.CreateObjectSpace(ObjectTypeInfo.Type)){
+                xml = objectSpace.GetObject(Definition).GetXml(FilterEnabled.DesignTime, objectSpace.CreateDashboardDataSource,
+                    _application);
             }
-            requestDashboardXmlArgs.Xml = xml;
+            return xml;
         }
 
         IDashboardDefinition Definition => CurrentObject as IDashboardDefinition;
@@ -122,7 +99,6 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
 
         public void Setup(IObjectSpace objectSpace, XafApplication application) {
             _application = application;
-            _objectSpace = objectSpace;
         }
     }
 }
