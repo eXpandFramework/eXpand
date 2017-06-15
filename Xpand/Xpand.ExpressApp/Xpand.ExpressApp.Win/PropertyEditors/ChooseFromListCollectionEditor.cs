@@ -11,6 +11,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using Xpand.Persistent.Base.General;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     /// <summary>
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     /// it will then look at what items are in the collection and set the checkstate.
     /// if the checkstate of an item changes, it will be added or removed from the collection.  
     /// </summary>
-    [PropertyEditor(typeof(IList<>), false)]
+    [PropertyEditor(typeof(IEnumerable), EditorAliases.ChooseFromList, false)]
     public class ChooseFromListCollectionEditor : WinPropertyEditor, IChooseFromListCollectionEditor {
         private CheckedComboBoxEdit _comboControl;
 
@@ -134,7 +135,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             foreach (CheckedListBoxItemWrapper item in _comboControl.Properties.Items) {
                 if (item.CheckState == CheckState.Checked) {
                     if (captionText.Length > 0) captionText += ", ";
-                    captionText += string.Format("{0}", item);
+                    captionText += $"{item}";
                 }
             }
             e.DisplayText = captionText;
@@ -192,6 +193,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// </summary>
         private void PopulateCheckComboBox() {
             _comboControl.Properties.Items.BeginUpdate();
+            _comboControl.Properties.Items.Clear();
             CheckedItems().ForEach(item => _comboControl.Properties.Items.Add(item));
             _comboControl.Properties.Items.EndUpdate();
         }
@@ -205,16 +207,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         class CheckedListBoxItemWrapper : CheckedListBoxItem {
-            readonly object _o;
-
             public CheckedListBoxItemWrapper(string formatedValue, object o, bool isChecked)
                 : base(formatedValue, isChecked) {
-                _o = o;
+                O = o;
             }
 
-            public object O {
-                get { return _o; }
-            }
+            public object O{ get; }
         }
         IEnumerable GetAvaliableItems() {
             var dataSourcePropertyAttribute = MemberInfo.FindAttribute<DataSourcePropertyAttribute>();

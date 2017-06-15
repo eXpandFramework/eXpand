@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.XtraDashboard.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.XtraDashboard.Win</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -205,7 +207,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="PropertyEditors\ChooseFromCollection.cs" />
+    <Compile Include="PropertyEditors\DashboardTypesEditor.cs" />
     <Compile Include="PropertyEditors\DashboardViewEditor.cs">
       <SubType>Component</SubType>
     </Compile>

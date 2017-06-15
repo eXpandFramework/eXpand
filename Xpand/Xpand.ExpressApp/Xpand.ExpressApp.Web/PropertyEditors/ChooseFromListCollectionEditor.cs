@@ -6,9 +6,10 @@ using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
-    [PropertyEditor(typeof(IList<>), false)]
+    [PropertyEditor(typeof(IEnumerable), EditorAliases.ChooseFromList, false)]
     public class ChooseFromListCollectionEditor : SerializedListPropertyEditor<object>, IChooseFromListCollectionEditor {
         public ChooseFromListCollectionEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {

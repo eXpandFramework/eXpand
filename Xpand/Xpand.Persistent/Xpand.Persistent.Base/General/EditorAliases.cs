@@ -1,5 +1,6 @@
 ﻿namespace Xpand.Persistent.Base.General {
     public struct EditorAliases {
+        public const string ChooseFromList = "ChooseFromList";
         public const string TokenList = "TokenList";
         public const string DashboardXMLEditor = "DashboardXMLEditor";
         public const string XpandTreeListEditor = "XpandTreeListEditor";
