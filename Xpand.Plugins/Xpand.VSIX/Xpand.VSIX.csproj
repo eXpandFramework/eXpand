@@ -4,8 +4,7 @@
   <PropertyGroup>
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
     <LangVersion>6</LangVersion>
   </PropertyGroup>
@@ -379,8 +378,7 @@
   </Target>
 
   -->
-  <Target Name="BeforeBuild">
-  </Target>
+  <Target Name="BeforeBuild"></Target>
   <Import Project="..\..\Support\Build\Nuget.Targets" />
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets')" />
 </Project>
