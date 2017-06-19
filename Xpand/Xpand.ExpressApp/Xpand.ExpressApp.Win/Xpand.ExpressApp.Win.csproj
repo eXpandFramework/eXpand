@@ -378,6 +378,9 @@
     <Compile Include="SystemModule\ApplicationExitController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\AutoScrollGridListEditorController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\LayoutControlGroupModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>

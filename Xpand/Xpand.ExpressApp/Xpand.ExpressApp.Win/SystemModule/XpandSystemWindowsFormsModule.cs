@@ -52,6 +52,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes = {
+                typeof(AutoScrollGridListEditorController),
                 typeof(EditModelController),
                 typeof(ApplicationMultiInstancesController),
                 typeof(AutoCommitController),

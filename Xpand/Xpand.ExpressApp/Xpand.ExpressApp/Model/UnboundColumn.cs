@@ -13,6 +13,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.General.Model.Options;
 
 namespace Xpand.ExpressApp.Model {
     [ModelInterfaceImplementor(typeof(IModelClassEnableUnboundColumnCreation), "ModelClass")]
@@ -48,7 +49,7 @@ namespace Xpand.ExpressApp.Model {
         [Category("eXpand.Unbound")]
         [Required]
         string UnboundExpression { get; set; }
-        [ModelBrowsable(typeof(ModelPropertyEditorTypeVisibilityCalculator))]
+        [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
         new string PropertyName { get; set; }
         [Localizable(true)]
         [Description("Specifies the caption of the current Property Editor.")]
