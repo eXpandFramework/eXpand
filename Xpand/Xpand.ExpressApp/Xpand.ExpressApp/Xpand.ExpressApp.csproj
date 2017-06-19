@@ -160,6 +160,9 @@
     <Compile Include="SystemModule\AutoCommitController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\AutoRefreshObjectViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ChangeLanguageController.cs">
       <SubType>Component</SubType>
     </Compile>
