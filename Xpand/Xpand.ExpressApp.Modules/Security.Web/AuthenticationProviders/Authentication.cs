@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using DevExpress.ExpressApp;
@@ -9,6 +10,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
+using Xpand.ExpressApp.Security.Web.Controllers;
 
 namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
 
@@ -42,27 +44,51 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
                 webApplication.CanAutomaticallyLogonWithStoredLogonParameters = true;
                 webApplication.LoggedOn+=WebApplicationOnLoggedOn;
             }
-            if (_anonymousAuthentication.Enabled) {
-                var authentication = ((SecurityStrategyBase)webApplication.Security).Authentication;
-                var anonymousAuthenticationStandard = authentication as AnonymousAuthenticationStandard;
-                if (anonymousAuthenticationStandard == null) {
-                    authentication=new AnonymousAuthenticationStandard(authentication.UserType, typeof(AnonymousLogonParameters));
+            if (_anonymousAuthentication.Enabled){
+                webApplication.CanAutomaticallyLogonWithStoredLogonParameters = true;
+                var cookie = HttpContext.Current.Request.Cookies.Get(AnonymousLogonController.CookieName);
+                Tracing.Tracer.LogText($"cookie={cookie}");
+                if (cookie == null) {
+                    var authenticationBase = ((SecurityStrategyBase) SecuritySystem.Instance).Authentication;
+                    authenticationBase.SetLogonParameters(new AuthenticationStandardLogonParameters(_anonymousAuthentication.AnonymousUser,null));
+                    var httpCookie = HttpCookie(_anonymousAuthentication.AnonymousUser, false);
+                                        
+                    HttpContext.Current.Response.Cookies.Add(httpCookie);
+                    AuthenticateThisRequest();
                 }
-                ((SecurityStrategyBase)webApplication.Security).Authentication = authentication;
-
-                var securityStrategyBase = (SecurityStrategyBase)webApplication.Security;
-                var anomymousLogonParameters = securityStrategyBase.LogonParameters as AnonymousLogonParameters;
-                if (anomymousLogonParameters == null) {
-                    securityStrategyBase.Authentication.SetLogonParameters(new AnonymousLogonParameters());
+                else{
+                    webApplication.LoggedOn += (o, args) => { AnonymousLogonController.InvalidateAnonymousCookie(); };
                 }
             }
         }
 
+        private void AuthenticateThisRequest() {
+            if (HttpContext.Current.User.Identity.IsAuthenticated) return;
+
+            var name = FormsAuthentication.FormsCookieName;
+            var cookie = HttpContext.Current.Response.Cookies[name];
+            if (cookie != null) {
+                var ticket = FormsAuthentication.Decrypt(cookie.Value);
+                if (ticket != null && !ticket.Expired) {
+                    string[] roles = (ticket.UserData ?? "").Split(',');
+                    HttpContext.Current.User = new GenericPrincipal(new FormsIdentity(ticket), roles);
+                }
+            }
+        }
+        protected virtual bool CanReadSecuredLogonParameters() {
+            return HttpContext.Current != null
+                   && HttpContext.Current.User != null
+                   && HttpContext.Current.User.Identity is FormsIdentity
+                   && HttpContext.Current.User.Identity.IsAuthenticated
+                   && ((FormsIdentity)HttpContext.Current.User.Identity).Ticket != null;
+        }
+
+
+
         private void WebApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs){
             var logonParameters = SecuritySystem.LogonParameters as XpandLogonParameters;
             if (logonParameters != null && logonParameters.RememberMe){
-                var logonParametersAsString = LogonParametersAsString();
-                var cookie = HttpCookie(logonParametersAsString, (WebApplication) sender);
+                var cookie = HttpCookie(SecuritySystem.CurrentUserName, ((WebApplication) sender).CanAutomaticallyLogonWithStoredLogonParameters);
                 HttpContext.Current.Response.Cookies.Add(cookie);
             }
         }
@@ -85,26 +111,29 @@ namespace Xpand.ExpressApp.Security.Web.AuthenticationProviders {
             return logonParametersAsString;
         }
 
-        HttpCookie HttpCookie(string logonParametersAsString, WebApplication webApplication) {
-            var cookie = FormsAuthentication.GetAuthCookie(SecuritySystem.CurrentUserName, webApplication.CanAutomaticallyLogonWithStoredLogonParameters,FormsAuthentication.FormsCookiePath);
+        HttpCookie HttpCookie(string userName, bool createPersistentCookie) {
+            var logonParametersAsString = LogonParametersAsString();
+            var cookie = FormsAuthentication.GetAuthCookie(userName, createPersistentCookie,FormsAuthentication.FormsCookiePath);
             FormsAuthenticationTicket formsTicket = FormsAuthentication.Decrypt(cookie.Value);
             if (formsTicket != null) {
-                var encryptedXafTicket = EncryptedXafTicket(formsTicket, logonParametersAsString);
-                if (encryptedXafTicket != null && encryptedXafTicket.Length < CookieContainer.DefaultCookieLengthLimit) {
-                    cookie.Value = encryptedXafTicket;
+                var ticket = EncryptTicket(formsTicket, logonParametersAsString);
+                
+                if (ticket != null && ticket.Length < CookieContainer.DefaultCookieLengthLimit) {
+                    cookie.Value = ticket;
                 } else {
-                    if (encryptedXafTicket != null)
+                    if (ticket != null)
                         Tracing.Tracer.LogWarning("Cannot cache a login information into a FormsAuthentication cookie: " +
-                                                  "the result length is '" + encryptedXafTicket.Length +
+                                                  "the result length is '" + ticket.Length +
                                                   "' bytes and it exceeds the maximum cookie length '" +
                                                   CookieContainer.DefaultCookieLengthLimit +
                                                   "' (see the 'System.Net.CookieContainer.DefaultCookieLengthLimit' property)");
                 }
+                return cookie;
             }
-            return cookie;
+            throw new NotImplementedException();
         }
 
-        string EncryptedXafTicket(FormsAuthenticationTicket formsTicket, string logonParametersAsString) {
+        string EncryptTicket(FormsAuthenticationTicket formsTicket, string logonParametersAsString) {
             DateTime ticketExpiration = formsTicket.Expiration;
             if (HttpContext.Current != null && HttpContext.Current.Session != null) {
                 TimeSpan ticketTimeout = formsTicket.Expiration - formsTicket.IssueDate;

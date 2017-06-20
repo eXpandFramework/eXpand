@@ -27,6 +27,8 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         [DefaultValue("Anonymous")]
         string AnonymousUser { get; set; }
+        [DefaultValue("Login"),Localizable(true),Required]
+        string LoginActionCaption{ get; set; }
     }
 
     public interface IModelOptionsAuthentication {

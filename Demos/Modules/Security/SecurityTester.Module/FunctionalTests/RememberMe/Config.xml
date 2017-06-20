@@ -2,7 +2,7 @@
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
   <Applications>
     <!-- Win -->
-    <Application Name="SecurityTester.Win"
+    <Application Name="SecurityTester.Win" Ignored="1"
 			FileName="[WinAppBin]\SecurityTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100" Model="RememberMe" Parameter="SqlServer"/>

@@ -1,5 +1,7 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Security.AuthenticationProviders;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.Security.Controllers {
@@ -10,13 +12,13 @@ namespace Xpand.ExpressApp.Security.Controllers {
         }
         protected override void OnActivated() {
             base.OnActivated();
-            if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())) {
-                var isGranted = SecuritySystem.IsGranted(new AnonymousLoginOperationRequest(new AnonymousLoginPermission(Modifier.Allow)));
-                Frame.GetController<LogoffController>().Active[typeof(AnonymousLoginPermission).Name] = !isGranted;
-                Active[typeof (AnonymousLoginPermission).Name] = isGranted;
-            }
-            else {
-                Active["IsAdmin"] = false;
+            var authentication = ((IModelOptionsAuthentication)Application.Model.Options).Athentication.AnonymousAuthentication;
+            if (authentication.Enabled){
+                var isGranted =SecuritySystem.IsGranted(new AnonymousLoginOperationRequest(new AnonymousLoginPermission(Modifier.Allow))) &&
+                    !SecuritySystem.IsGranted(new AdministrativePermissionRequest());
+                var logoffAction = Frame.GetController<LogoffController>().LogoffAction;
+            
+                logoffAction.Caption = isGranted? authentication.LoginActionCaption : logoffAction.Model.Caption;
             }
         }
     }

@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
                     : null;
             }
             set{
-                var dbServer = value!=null?value.Name:null;
+                var dbServer = value?.Name;
                 ((IDBServerParameter)this).DBServer = dbServer;
             }
         }
@@ -60,20 +60,14 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         }
 
         [Browsable(false)]
-        public bool AutoAuthentication {
-            get { return ApplicationHelper.Instance.Application != null && ((IModelOptionsAuthentication)ApplicationHelper.Instance.Application.Model.Options).Athentication.AutoAthentication.Enabled; }
-        }
+        public bool AutoAuthentication => ApplicationHelper.Instance.Application != null && ((IModelOptionsAuthentication)ApplicationHelper.Instance.Application.Model.Options).Athentication.AutoAthentication.Enabled;
 
         [Browsable(false)]
-        public bool ChooseDatabaseAtLogon {
-            get { return ApplicationHelper.Instance.Application != null && ((IModelOptionsChooseDatabaseAtLogon)ApplicationHelper.Instance.Application.Model.Options).ChooseDatabaseAtLogon; }
-        }
+        public bool ChooseDatabaseAtLogon => ApplicationHelper.Instance.Application != null && ((IModelOptionsChooseDatabaseAtLogon)ApplicationHelper.Instance.Application.Model.Options).ChooseDatabaseAtLogon;
 
         [Browsable(false)]
-        public SettingsStorage Storage {
-            get { return _storage; }
-        }
-        
+        public SettingsStorage Storage => _storage;
+
         void ICustomObjectSerialize.ReadPropertyValues(SettingsStorage storage) {
             ReadPropertyValuesCore(storage);
         }
