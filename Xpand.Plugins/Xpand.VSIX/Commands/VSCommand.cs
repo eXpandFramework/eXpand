@@ -26,9 +26,8 @@ namespace Xpand.VSIX.Commands{
                 DTE2.LogError($"bindings:{bindings+Environment.NewLine+e}");
                 if (!_errorMessage){
                     _errorMessage = true;
-                    MessageBox.Show($@"Errors during command binding, please check your %APPDATA%\Microsoft\VisualStudio\{DTE2.Version}\ActivityLog.xml");
+                    MessageBox.Show($@"Errors during {GetType().Name} binding, please check your %APPDATA%\Microsoft\VisualStudio\{DTE2.Version}\ActivityLog.xml");
                 }
-                throw;
             }
         }
 
