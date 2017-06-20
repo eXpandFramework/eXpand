@@ -22,11 +22,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     public class NotifyIconController : WindowController, IModelExtender {
         Container _container;
-        NotifyIcon _notifyIcon1;
+        NotifyIcon _notifyIcon;
 
         public NotifyIconController() {
             TargetWindowType = WindowType.Main;
         }
+
+        public NotifyIcon NotifyIcon => _notifyIcon;
 
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
@@ -39,9 +41,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         void FrameOnDisposing(object sender, EventArgs eventArgs) {
             Frame.Disposing-=FrameOnDisposing;
             Frame.TemplateChanged-=FrameOnTemplateChanged;
-            if (_notifyIcon1 != null) {
-                _notifyIcon1.Icon = null;
-                _notifyIcon1.Dispose();
+            if (_notifyIcon != null) {
+                _notifyIcon.Icon = null;
+                _notifyIcon.Dispose();
                 _container.Dispose();
             }
         }
@@ -59,16 +61,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                         strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "LogOut"), (o, eventArgs) => Application.LogOff()));
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"), (o, eventArgs) => Application.Exit()));
 
-                    _notifyIcon1 = new NotifyIcon(_container) { Visible = true, ContextMenuStrip = strip };
-                    SetIcon(_notifyIcon1);
-                    _notifyIcon1.DoubleClick += (o, eventArgs) => ChangeFormVisibility(form);
+                    _notifyIcon = new NotifyIcon(_container) { Visible = true, ContextMenuStrip = strip };
+                    SetIcon();
+                    _notifyIcon.DoubleClick += (o, eventArgs) => ChangeFormVisibility(form);
                 }
             }
         }
 
-        new WinApplication Application {
-            get { return (WinApplication) ApplicationHelper.Instance.Application; }
-        }
+        new WinApplication Application => (WinApplication) ApplicationHelper.Instance.Application;
 
         bool NotifyEnabled() {
             return ((IModelOptionsNotifyIconOptions)Application.Model.Options).NotifyIcon;
@@ -90,20 +90,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 form.Show();
         }
 
-        private void SetIcon(NotifyIcon notifyIcon1) {
+        public void SetIcon() {
             string path = Path.Combine(Path.GetDirectoryName(System.Windows.Forms.Application.ExecutablePath) + "", "ExpressApp.ico");
             if (File.Exists(path))
-                notifyIcon1.Icon = new Icon(path);
-            ImageInfo imageInfo = ImageLoader.Instance.GetImageInfo(Application.Model.Logo);
-            Image image = imageInfo.Image;
-            if (image != null) {
-                var bitmap = new Bitmap(image);
-                bitmap.SetResolution(16, 16);
-                notifyIcon1.Icon = Icon.FromHandle(bitmap.GetHicon());
-            } else {
-                Stream resourceStream = typeof(XpandSystemModule).Assembly.GetManifestResourceStream("Xpand.ExpressApp.Resources.ExpressApp.ico");
-                if (resourceStream != null) notifyIcon1.Icon = new Icon(resourceStream);
-            }
+                _notifyIcon.Icon = new Icon(path);
+            Stream resourceStream = typeof(XpandSystemModule).Assembly.GetManifestResourceStream("Xpand.ExpressApp.Resources.ExpressApp.ico");
+            if (resourceStream != null) _notifyIcon.Icon = new Icon(resourceStream);
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
