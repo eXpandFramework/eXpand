@@ -7,9 +7,7 @@ using DevExpress.Persistent.Base;
 namespace Xpand.Persistent.Base.General.CustomAttributes {
     [AttributeUsage(AttributeTargets.Property)]
     public class SequencePropertyAttribute : Attribute, ICustomAttribute {
-        string ICustomAttribute.Name {
-            get { return "PropertyEditorType"; }
-        }
+        string ICustomAttribute.Name => "PropertyEditorType";
 
         string ICustomAttribute.Value {
             get {
