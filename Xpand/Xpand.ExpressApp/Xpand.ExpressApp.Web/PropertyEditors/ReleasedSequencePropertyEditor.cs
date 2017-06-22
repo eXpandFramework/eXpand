@@ -17,28 +17,28 @@ using DevExpress.Persistent.Base;
 using DevExpress.Web;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 using PopupWindow = DevExpress.ExpressApp.Web.PopupWindow;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     public class ReleaseSequencePopupWindowHelper : ExpressApp.Editors.ReleaseSequencePopupWindowHelper {
         protected override void ShowObjectCore() {
 
-        }
+        }        
     }
 
-
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(string), false)]
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(int), false)]
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(double), false)]
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(float), false)]
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(long), false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(string), EditorAliases.ReleasedSequence, false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(int), EditorAliases.ReleasedSequence, false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(double), EditorAliases.ReleasedSequence, false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(float), EditorAliases.ReleasedSequence, false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(long), EditorAliases.ReleasedSequence, false)]
     public class ReleasedSequencePropertyEditor : ASPxObjectPropertyEditorBase, IRegisterClientScript, IReleasedSequencePropertyEditor {
 
         private ObjectEditorHelper _helper;
         private PopupWindowShowAction _objectWindowAction;
         private ASPxButtonEdit _control;
         private bool _buttonEditTextEnabled = true;
-        readonly ReleaseSequencePopupWindowHelper _popupWindowHelper = new ReleaseSequencePopupWindowHelper();
+        ReleaseSequencePopupWindowHelper _popupWindowHelper ;
         private void DialogController_Cancelling(object sender, EventArgs e) {
             var controller = ((DialogController)sender);
             controller.CanCloseWindow = true;
@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         private void objectWindowAction_OnExecute(Object sender, PopupWindowShowActionExecuteEventArgs args) {
             _popupWindowHelper.Assign(args, (ISupportSequenceObject)View.CurrentObject);
             string displayValue = GetPropertyDisplayValue();
-            ((PopupWindow)args.PopupWindow).ClosureScript = "if(window.opener != null) window.opener.resultObject = '" + (displayValue != null ? displayValue.Replace("'", "\\'") : "") + "';";
+            ((PopupWindow)args.PopupWindow).ClosureScript = "if(window.opener != null) window.opener.resultObject = '" + (displayValue?.Replace("'", "\\'") ?? "") + "';";
         }
         private void SetButtonEditTextEnabled(bool value) {
             if (_buttonEditTextEnabled != value) {
@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             ((Control)sender).Load -= buttonEdit_Load;
             string resultFunc = GetClientScript(editor);
             editor.Page.ClientScript.RegisterClientScriptBlock(GetType(), "ButtonEditScript" + editor.ClientID, resultFunc, true);
-            string handler = string.Format("function Add_{0}_ButtonClickHandler(sender, e)", MemberInfo.Name.Replace(".", ""));
+            string handler = $"function Add_{MemberInfo.Name.Replace(".", "")}_ButtonClickHandler(sender, e)";
 
             var callBackFuncName = HttpUtility.JavaScriptStringEncode(GetButtonEditProcessResultFunction());
             var script = application.PopupWindowManager.GetShowPopupWindowScript(_objectWindowAction, callBackFuncName, editor.ClientID, false, _objectWindowAction.IsSizeable);
@@ -110,7 +110,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             _control.Buttons.Add("");
             ASPxImageHelper.SetImageProperties(_control.Buttons[0].Image, "Editor_Edit");
             if (_control.Buttons[0].Image.IsEmpty) {
-                _control.Buttons[0].Text = "Edit";
+                _control.Buttons[0].Text = @"Edit";
             }
             _control.Enabled = true;
             _control.ReadOnly = true;
@@ -158,6 +158,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             base.Setup(space, app);
             if (_helper == null) {
                 _helper = new ObjectEditorHelper(MemberInfo.MemberTypeInfo, Model);
+                _popupWindowHelper=new ReleaseSequencePopupWindowHelper() {Model=(IModelPropertyEditor) Model};
             }
         }
         public override void BreakLinksToControl(bool unwireEventsOnly) {

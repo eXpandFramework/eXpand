@@ -22,6 +22,18 @@ using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
 
 namespace Xpand.Persistent.Base.General {
+    [AttributeUsage(AttributeTargets.Field|AttributeTargets.Property,AllowMultiple = true)]
+    public class SequenceGeneratorAttribute:Attribute {
+        public SequenceGeneratorAttribute(string sequenceName,bool releaseDeleted){
+            ReleaseDeleted = releaseDeleted;
+            SequenceName = sequenceName;
+        }
+
+        public bool ReleaseDeleted{ get; }
+
+        public string SequenceName{ get; set; }
+    }
+
     public interface ISequenceObject {
         string TypeName { get; set; }
         long NextSequence { get; set; }
@@ -46,28 +58,33 @@ namespace Xpand.Persistent.Base.General {
         public const int MinGenerationAttemptsDelay = 100;
         private readonly ExplicitUnitOfWork _explicitUnitOfWork;
         private ISequenceObject _sequence;
+        private static readonly object Locker=new object();
 
-        public SequenceGenerator(string fullName, string prefix) {
+        private SequenceGenerator(){
+            _explicitUnitOfWork = new ExplicitUnitOfWork(_defaultDataLayer);
+        }
+
+        public void Lock(){
             int count = MaxGenerationAttemptsCount;
             while (true) {
                 try {
-                    _explicitUnitOfWork = new ExplicitUnitOfWork(_defaultDataLayer);
-                    XPBaseObject obj = (XPBaseObject)_explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(fullName, prefix));
-                    if (obj != null) {
-                        //obj = (XPBaseObject)CreateSequenceObject(prefix+fullName, _explicitUnitOfWork);
-                        obj.Save();
-                        _explicitUnitOfWork.FlushChanges();
+                    var sequences = new XPCollection(PersistentCriteriaEvaluationBehavior.BeforeTransaction,_explicitUnitOfWork, _sequenceObjectType, null).Cast<ISessionProvider>();
+                    foreach (var seq in sequences) {
+                        seq.Session.Save(seq);
                     }
+                    _explicitUnitOfWork.FlushChanges();
                     break;
                 }
                 catch (LockingException) {
                     Close();
                     count--;
-                    if (count <= 0)
+                    if (count <= 0) {
                         throw;
+                    }
                     Thread.Sleep(MinGenerationAttemptsDelay * count);
                 }
             }
+
         }
 
         static SequenceGenerator() {
@@ -85,48 +102,53 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
-            if (_sequenceGenerator == null)
-                _sequenceGenerator = new SequenceGenerator(typeInfo.FullName,prefix);
-            var objectByKey = _sequenceGenerator._explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(typeInfo.FullName, prefix), true);
+            var objectByKey = _sequenceGenerator._explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(prefix+typeInfo.FullName), true);
             _sequenceGenerator._sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(prefix + typeInfo.FullName, _sequenceGenerator._explicitUnitOfWork);
             _sequenceGenerator._sequence.NextSequence = nextId;
             _sequenceGenerator._explicitUnitOfWork.FlushChanges();
             _sequenceGenerator.Accept();
         }
 
-        public long GetNextSequence(ITypeInfo typeInfo, string prefix) {
-            if (typeInfo == null)
-                throw new ArgumentNullException(nameof(typeInfo));
-            return GetNextSequence(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.GetClassInfo(typeInfo.Type), prefix);
+
+        long GetNextSequence(string sequenceType) {
+            if (sequenceType == null)
+                throw new ArgumentNullException(nameof(sequenceType));
+            lock (Locker){
+                Lock();
+                _sequence = GetNowSequence(sequenceType,  _explicitUnitOfWork);
+                long nextId = _sequence.NextSequence;
+                var sequenceReleasedObject = _sequence.SequenceReleasedObjects.Where(o => o!=null).ToArray().OrderBy(o => o.Sequence)
+                    .FirstOrDefault();
+                if (sequenceReleasedObject != null){
+                    nextId = sequenceReleasedObject.Sequence;
+                    _explicitUnitOfWork.Delete(sequenceReleasedObject);
+                }
+                else
+                    _sequence.NextSequence++;
+                _explicitUnitOfWork.FlushChanges();
+                return nextId;
+            }
         }
 
-        public long GetNextSequence(ITypeInfo typeInfo) {
-            return GetNextSequence(typeInfo, null);
+        private static ISequenceObject GetNowSequence(string sequenceType,  UnitOfWork unitOfWork) {
+            var obj = unitOfWork.FindObject(_sequenceObjectType, GetCriteria(sequenceType));
+            return obj != null ? GetSequenceObject(obj,unitOfWork) : CreateSequenceObject( sequenceType, unitOfWork);
         }
 
-        long GetNextSequence(XPClassInfo classInfo, string preFix) {
-            if (classInfo == null)
-                throw new ArgumentNullException(nameof(classInfo));
-            _sequence = GetNowSequence(classInfo, preFix, _explicitUnitOfWork);
-            long nextId = _sequence.NextSequence;
-            _sequence.NextSequence++;
-            _explicitUnitOfWork.FlushChanges();
-            return nextId;
+        private static ISequenceObject GetSequenceObject(object obj, UnitOfWork unitOfWork){
+            var sequenceObject = (ISequenceObject)obj;
+            unitOfWork.Reload(sequenceObject,true);
+            return sequenceObject;
         }
 
-        private static ISequenceObject GetNowSequence(XPClassInfo classInfo, string preFix, UnitOfWork unitOfWork) {
-            var obj = unitOfWork.FindObject(_sequenceObjectType, GetCriteria(classInfo.FullName, preFix));
-            return obj != null ? (ISequenceObject)obj : CreateSequenceObject(preFix + classInfo.FullName, unitOfWork);
-        }
-
-        private static CriteriaOperator GetCriteria(string typeFullName, string preFix) {
-            return CriteriaOperator.Parse("TypeName=?", preFix + typeFullName);
+        private static CriteriaOperator GetCriteria(string typeFullName) {
+            return CriteriaOperator.Parse("TypeName=?",  typeFullName);
         }
 
         public static long GetNowSequence(XPClassInfo classInfo, string prefix) {
             long nextSequence;
             using (var unitOfWork = new UnitOfWork(_defaultDataLayer)) {
-                nextSequence = GetNowSequence(classInfo, prefix, unitOfWork).NextSequence;
+                nextSequence = GetNowSequence(prefix+classInfo.FullName, unitOfWork).NextSequence;
             }
             return nextSequence;
         }
@@ -141,7 +163,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public long GetNextSequence(XPClassInfo classInfo) {
-            return GetNextSequence(classInfo, null);
+            return GetNextSequence(classInfo.FullName);
         }
 
         public void Close(){
@@ -160,11 +182,7 @@ namespace Xpand.Persistent.Base.General {
                         using (var uow = new UnitOfWork(_defaultDataLayer)) {
                             if (typeToExistsMap.ContainsKey(typeInfo.FullName)) continue;
                             CreateSequenceObject(typeInfo.FullName, unitOfWork);
-                            try {
-                                uow.CommitChanges();
-                            }
-                            catch (ConstraintViolationException) {
-                            }
+                            uow.CommitChanges();
                         }
                     }
                 }
@@ -208,43 +226,57 @@ namespace Xpand.Persistent.Base.General {
             return sequenceObject;
         }
 
-        public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
-            if (_defaultDataLayer == null || !((ISessionProvider)supportSequenceObject).Session.IsNewObject(supportSequenceObject) ||
-                (((ISessionProvider)supportSequenceObject).Session.ObjectLayer is SecuredSessionObjectLayer))
-                return;
-            if (!IsProviderSupported(supportSequenceObject)) {
-                if (ThrowProviderSupportedException)
-                    throw new NotSupportedException("Current provider does not support isolated transactions");
-                return;
+        public static long GenerateSequence( string sequenceName){
+            using (var objectSpace = ApplicationHelper.Instance.Application.CreateObjectSpace()){
+                long seq = 0;
+                GenerateSequence(objectSpace.Session(), sequenceName,l => seq=l);
+                return seq;
             }
-            if (_sequenceGenerator == null)
-                _sequenceGenerator = new SequenceGenerator(typeInfo.FullName, supportSequenceObject.Prefix);
-            long nextSequence = _sequenceGenerator.GetNextSequence(typeInfo, supportSequenceObject.Prefix);
-            if (IsNotNestedUnitOfWork(((ISessionProvider)supportSequenceObject).Session)) {
+        }
+
+        public static void GenerateSequence(ISessionProvider sessionProvider, string sequenceType,Action<long> seq){
+            if (sessionProvider.Session.IsNewObject(sessionProvider))
+                GenerateSequence(sessionProvider.Session, sequenceType, seq);
+        }
+
+        public static void GenerateSequence(Session session, string sequenceType,Action<long> seq){
+            if (CanGenerate(session) ) {
+                long nextSequence = _sequenceGenerator.GetNextSequence(sequenceType);
                 SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
                 sessionOnAfterCommitTransaction[0] = (sender, args) => {
-                    if (_sequenceGenerator != null) {
-                        try {
-                            _sequenceGenerator.Accept();
-                        }
-                        finally {
-                            ((ISessionProvider)supportSequenceObject).Session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
-                        }
+                    try {
+                        _sequenceGenerator.Accept();
                     }
-
+                    finally {
+                        session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
+                    }
                 };
-                ((ISessionProvider)supportSequenceObject).Session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
+                session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
+                seq( nextSequence);
             }
-            supportSequenceObject.Sequence = nextSequence;
         }
+
+        public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
+            if (((ISessionProvider)supportSequenceObject).Session.IsNewObject(supportSequenceObject))
+                GenerateSequence(((ISessionProvider) supportSequenceObject).Session,supportSequenceObject.Prefix+typeInfo.FullName,l => supportSequenceObject.Sequence=l);
+        }
+
+        private static bool CanGenerate(Session session){
+            if (_defaultDataLayer == null || 
+                (session.ObjectLayer is SecuredSessionObjectLayer) || session is NestedUnitOfWork)
+                return false;
+            if (!IsProviderSupported(session)) {
+                if (ThrowProviderSupportedException)
+                    throw new NotSupportedException("Current provider does not support isolated transactions");
+                return false;
+            }
+            return true;
+        }
+
         public static bool ThrowProviderSupportedException { get; set; }
 
-        private static bool IsProviderSupported(ISupportSequenceObject supportSequenceObject) {
-            return !(((XPBaseObject)supportSequenceObject).Session.DataLayer.ConnectionProvider(supportSequenceObject) is SQLiteConnectionProvider);
-        }
-
-        static bool IsNotNestedUnitOfWork(Session session) {
-            return !(session is NestedUnitOfWork);
+        private static bool IsProviderSupported(Session session) {
+            return !(session.DataLayer.ConnectionProvider(session) is SQLiteConnectionProvider);
         }
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject){
@@ -262,22 +294,34 @@ namespace Xpand.Persistent.Base.General {
             _sequenceObjectType = sequenceObjectType;
             _defaultDataLayer = dataLayer;
             RegisterSequences(ApplicationHelper.Instance.Application.TypesInfo.PersistentTypes);
+            _sequenceGenerator = new SequenceGenerator();
         }
 
         public static void Initialize(string connectionString, Type sequenceObjectType){
             Initialize(XpoDefault.GetDataLayer(connectionString, AutoCreateOption.None), sequenceObjectType);
         }
 
+
+
+        public static void ReleaseSequence(string sequenceName,long sequence){
+            using (var objectSpace = ApplicationHelper.Instance.Application.CreateObjectSpace()){
+                ReleaseSequence(objectSpace.Session(), sequenceName, sequence);
+                objectSpace.CommitChanges();
+            }
+        }
+
         public static void ReleaseSequence(ISupportSequenceObject supportSequenceObject) {
-            if (_defaultDataLayer == null)
-                return;
-            var objectSpace = (XPObjectSpace)XPObjectSpace.FindObjectSpaceByObject(supportSequenceObject);
             var typeName = supportSequenceObject.Prefix + supportSequenceObject.GetType().FullName;
-            var sequenceObject = objectSpace.QueryObject<ISequenceObject>(seq =>seq.TypeName==typeName, _sequenceObjectType);
-            if (sequenceObject != null) {
-                var objectFromInterface = objectSpace.Create<ISequenceReleasedObject>();
-                objectFromInterface.Sequence = supportSequenceObject.Sequence;
-                objectFromInterface.SequenceObject = sequenceObject;
+            var objectSpace = (XPObjectSpace)XPObjectSpace.FindObjectSpaceByObject(supportSequenceObject);
+            ReleaseSequence(objectSpace.Session, typeName, supportSequenceObject.Sequence);
+        }
+
+        public static void ReleaseSequence(Session session, string typeName, long sequence){
+            var sequenceObject = session.QueryObject<ISequenceObject>(seq => seq.TypeName == typeName, _sequenceObjectType);
+            if (sequenceObject != null){
+                var releasedObject = session.Create<ISequenceReleasedObject>();
+                releasedObject.Sequence = sequence;
+                releasedObject.SequenceObject = sequenceObject;
             }
         }
     }

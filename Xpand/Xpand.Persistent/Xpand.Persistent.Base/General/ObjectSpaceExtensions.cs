@@ -198,15 +198,26 @@ namespace Xpand.Persistent.Base.General {
             return classInfo;
         }
 
+        public static T QueryObject<T>(this Session session, Expression<Func<T, bool>> expression,
+            Type implType,
+            bool intransaction = true){
+            var criteriaOperator = session.GetCriteriaOperator(expression);
+            return (T)session.FindObject(implType, criteriaOperator, intransaction);
+        }
+
         public static T QueryObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,Type implType,
             bool intransaction = true){
-            var criteriaOperator = objectSpace.GetCriteriaOperator(expression);
-            return (T)objectSpace.FindObject(implType, criteriaOperator, intransaction);
+            return objectSpace.Session().QueryObject(expression, implType);
         }
 
         public static T QueryObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,bool intransaction=true){
             var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
             return objectSpace.QueryObject(expression, objectType, intransaction);
+        }
+
+        public static T Create<T>(this Session session){
+            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
+            return (T) objectType.CreateInstance(session);
         }
 
         public static T Create<T>(this IObjectSpace objectSpace){
@@ -215,18 +226,24 @@ namespace Xpand.Persistent.Base.General {
                 : objectSpace.CreateObject<T>();
         }
 
-        public static CriteriaOperator GetCriteriaOperator<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression){
-            if (expression!=null){
-                var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
-                if (typeof(T).IsInterface){
+        public static CriteriaOperator GetCriteriaOperator<T>(this Session session,
+            Expression<Func<T, bool>> expression){
+            if (expression != null) {
+                var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
+                if (typeof(T).IsInterface) {
                     var tranform = ExpressionConverter.Tranform(expression, objectType);
                     var genericType = typeof(XPQuery<>).MakeGenericType(objectType);
-                    var xpquery = Activator.CreateInstance(genericType, ((XPObjectSpace) objectSpace).Session);
-                    return (CriteriaOperator) xpquery.CallMethod("TransformExpression", tranform);
+                    var xpquery = Activator.CreateInstance(genericType, session);
+                    return (CriteriaOperator)xpquery.CallMethod("TransformExpression", tranform);
                 }
-                return new XPQuery<T>(((XPObjectSpace) objectSpace).Session).TransformExpression(expression);
+                return new XPQuery<T>(session).TransformExpression(expression);
             }
             return null;
+
+        }
+
+        public static CriteriaOperator GetCriteriaOperator<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression){
+            return objectSpace.Session().GetCriteriaOperator(expression);
         }
 
     }

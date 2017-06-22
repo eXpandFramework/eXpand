@@ -2,13 +2,13 @@
 <Options xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" TestRunTimeLimit="3" >
   <Applications>
     <!-- Win -->
-    <Application
+    <Application Ignored="0"
 			Name="SystemTester.Win"
 			FileName="[WinAppBin]\SystemTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
 			CommunicationPort="4100" Parameter="SqlServer"/>
     <!-- Web -->
-    <Application
+    <Application Ignored="0"
 			Name="SystemTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
@@ -28,5 +28,6 @@
     <Alias Name="WebAdapterFileName" Value="[ConfigPath]\..\..\..\..\..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <Alias Name="WinAppBin" Value="[ConfigPath]\..\..\..\SystemTester.Win\Bin\EasyTest" />
     <Alias Name="WebAppBin" Value="[ConfigPath]\..\..\..\SystemTester.Web" />
+    <Alias Name="WinReleaseEditorButton" Value="1004x120" />
   </Aliases>
 </Options>

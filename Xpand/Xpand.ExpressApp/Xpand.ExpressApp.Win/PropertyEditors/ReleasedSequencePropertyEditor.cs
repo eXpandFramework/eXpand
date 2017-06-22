@@ -14,27 +14,26 @@ using DevExpress.XtraEditors.Drawing;
 using DevExpress.XtraEditors.Registrator;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraEditors.ViewInfo;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
-
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(string), false)]
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(int), false)]
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(double), false)]
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(float), false)]
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(long), false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(string), EditorAliases.ReleasedSequence, false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(int), EditorAliases.ReleasedSequence, false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(double), EditorAliases.ReleasedSequence, false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(float), EditorAliases.ReleasedSequence, false)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(long), EditorAliases.ReleasedSequence, false)]
     public class ReleasedSequencePropertyEditor : DXPropertyEditor, IComplexViewItem, IReleasedSequencePropertyEditor {
         public ReleasedSequencePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
         }
-        private ObjectEditorHelper helper;
+        private ObjectEditorHelper _helper;
         private XafApplication _application;
         private IObjectSpace _objectSpace;
         protected override void SetupRepositoryItem(RepositoryItem item) {
             base.SetupRepositoryItem(item);
             var objectEditItem = (RepositoryItemObjectEdit)item;
-            objectEditItem.Init(_application, MemberInfo.MemberTypeInfo, helper.DisplayMember, _objectSpace, helper);
+            objectEditItem.Init(_application, MemberInfo.MemberTypeInfo, _helper.DisplayMember, _objectSpace, _helper);
         }
         protected override RepositoryItem CreateRepositoryItem() {
             return new RepositoryItemObjectEdit();
@@ -48,35 +47,32 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         public void Setup(IObjectSpace objectSpace, XafApplication application) {
-            if (helper == null) {
-                helper = new ObjectEditorHelper(MemberInfo.MemberTypeInfo, Model);
+            if (_helper == null){
+                _helper = new ObjectEditorHelper(MemberInfo.MemberTypeInfo, Model);                
             }
             _application = application;
             _objectSpace = objectSpace;
         }
         protected override object CreateControlCore() {
-            var releasedSequenceEdit = new ReleasedSequenceEdit();
-            return releasedSequenceEdit;
+            return new ReleasedSequenceEdit{PopupWindowHelper = {Model = (IModelPropertyEditor) Model}};
         }
 
 
-        public new ReleasedSequenceEdit Control {
-            get { return (ReleasedSequenceEdit)base.Control; }
-        }
+        public new ReleasedSequenceEdit Control => (ReleasedSequenceEdit)base.Control;
     }
     [ToolboxItem(false)]
     public class ReleasedSequenceEdit : ButtonEdit, IGridInplaceEdit {
 
 
-        ReleaseSequencePopupWindowHelper _popupWindowHelper;
+        ReleaseSequencePopupWindowHelper _popupWindowHelper=new ReleaseSequencePopupWindowHelper();
+
         protected override void CreateRepositoryItem() {
             base.CreateRepositoryItem();
-            _popupWindowHelper = new ReleaseSequencePopupWindowHelper();
             _popupWindowHelper.ViewShowing += PopupWindowHelperOnViewShowing;
         }
 
         void PopupWindowHelperOnViewShowing(object sender, EventArgs eventArgs) {
-            _popupWindowHelper.Init(Properties.ObjectSpace, (ISupportSequenceObject)EditingObject, Properties.Application);
+            _popupWindowHelper.Init(Properties.ObjectSpace, EditingObject, Properties.Application);
         }
 
         protected internal void UpdateText() {
@@ -112,17 +108,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
 
 
-        protected internal static string EditorName {
-            get { return typeof(ReleasedSequenceEdit).Name; }
-        }
+        protected internal static string EditorName => typeof(ReleasedSequenceEdit).Name;
 
-        public override string EditorTypeName {
-            get { return EditorName; }
-        }
+        public override string EditorTypeName => EditorName;
+
         public override object EditValue {
             get { return base.EditValue; }
             set {
-                if ((value != null) && (value != DBNull.Value) && !Properties.EditValueTypeInfo.Type.IsAssignableFrom(value.GetType())) {
+                if ((value != null) && (value != DBNull.Value) && !Properties.EditValueTypeInfo.Type.IsInstanceOfType(value)) {
                     throw new InvalidCastException(string.Format(
                         SystemExceptionLocalizer.GetExceptionMessage(ExceptionId.UnableToCast),
                         value.GetType(), Properties.EditValueTypeInfo.Type));
@@ -130,14 +123,16 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 base.EditValue = value;
             }
         }
-        public new RepositoryItemObjectEdit Properties {
-            get { return (RepositoryItemObjectEdit)base.Properties; }
-        }
-        public object EditingObject {
-            get { return BindingHelper.GetEditingObject(this); }
-        }
+        public new RepositoryItemObjectEdit Properties => (RepositoryItemObjectEdit)base.Properties;
+
+        public object EditingObject => BindingHelper.GetEditingObject(this);
 
         object IGridInplaceEdit.GridEditingObject { get; set; }
+
+        public ReleaseSequencePopupWindowHelper PopupWindowHelper{
+            get{ return _popupWindowHelper; }
+            set{ _popupWindowHelper = value; }
+        }
     }
 
     public class ReleaseSequencePopupWindowHelper : ExpressApp.Editors.ReleaseSequencePopupWindowHelper {
@@ -145,5 +140,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             var helper = new PopupWindowShowActionHelper(ShowObjectAction);
             helper.ShowPopupWindow();
         }
+
     }
 }

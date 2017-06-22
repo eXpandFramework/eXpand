@@ -1,6 +1,4 @@
-﻿using System;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
+﻿using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
@@ -9,42 +7,42 @@ using Xpand.Persistent.Base.General;
 namespace SystemTester.Module.FunctionalTests.SequenceGenerator{
     [DomainComponent]
     [NavigationItem("SequenceGenerator")]
-    public interface ISequenceGeneratorObject:ISupportSequenceObject {
-        new long Sequence { get; set; }     
+    public interface ISequenceGeneratorObject {
+        [SequenceGenerator("DCSequence",true)]
+         long Sequence { get; set; }     
     }
 
-    [DomainLogic(typeof(ISequenceGeneratorObject))]
-    public class SequenceGeneratorObjectLogic {
-        public static string Get_Prefix(ISequenceGeneratorObject sequenceGeneratorObject) {
-            return null;
-        }
-
-        public static void OnSaving(ISequenceGeneratorObject sequenceGeneratorObject, IObjectSpace objectSpace) {
-            Xpand.Persistent.Base.General.SequenceGenerator.GenerateSequence(sequenceGeneratorObject);
-        }
-    }
+   
 
     [NavigationItem("SequenceGenerator")]
-    public class SequenceGeneratorObject : BaseObject, ISupportSequenceObject{
-        private string _prefix;
+    public class SequenceGeneratorObject : BaseObject{
+        
         private long _sequence;
 
         public SequenceGeneratorObject(Session session) : base(session){
         }
 
+        string _name;
+
+        public string Name{
+            get{ return _name; }
+            set{ SetPropertyValue(nameof(Name), ref _name, value); }
+        }
+
+        [EditorAlias(EditorAliases.ReleasedSequence)]
         public long Sequence{
             get { return _sequence; }
             set { SetPropertyValue("Sequence", ref _sequence, value); }
         }
 
-        public string Prefix{
-            get { return _prefix; }
-            set { SetPropertyValue("Prefix", ref _prefix, value); }
+        protected override void OnDeleting(){
+            base.OnDeleting();
+            Xpand.Persistent.Base.General.SequenceGenerator.ReleaseSequence(Session, "SequenceA",Sequence);
         }
 
         protected override void OnSaving(){
             base.OnSaving();
-            Xpand.Persistent.Base.General.SequenceGenerator.GenerateSequence(this);
+            Xpand.Persistent.Base.General.SequenceGenerator.GenerateSequence(this, "SequenceA",l => Sequence=l);
         }
 
         [Association("SequenceGeneratorObject-SequenceGeneratorNestedObjects"), DevExpress.Xpo.Aggregated]
@@ -52,11 +50,10 @@ namespace SystemTester.Module.FunctionalTests.SequenceGenerator{
 
         [Action]
         public void UpdateSequence(){
-            Guid guid = Oid;
-            ClassInfo.KeyProperty.SetValue(this, Guid.Empty);
-            Xpand.Persistent.Base.General.SequenceGenerator.GenerateSequence(this);
-            ClassInfo.KeyProperty.SetValue(this, guid);
+            Xpand.Persistent.Base.General.SequenceGenerator.GenerateSequence(Session , "SequenceA",l => Sequence=l);
         }
+
+
     }
 
     public class SequenceGeneratorNestedObject : BaseObject, ISupportSequenceObject {

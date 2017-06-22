@@ -21,6 +21,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Exceptions;
+using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Microsoft.Win32;
 using Xpand.Persistent.Base.General.Controllers;
@@ -66,24 +67,24 @@ namespace Xpand.Persistent.Base.General {
         private static string _xpandPathInRegistry;
         private static string _dxPathInRegistry;
         public static string ManifestModuleName;
-        static readonly object _lockObject = new object();
+        static readonly object LockObject = new object();
         public static object Control;
         static Assembly _baseImplAssembly;
         static string _connectionString;
-        private static readonly object _syncRoot = new object();
+        private static readonly object SyncRoot = new object();
         protected Type DefaultXafAppType = typeof(XafApplication);
         static string _assemblyString;
         private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
-        private static readonly HashSet<Type> _disabledControllerTypes = new HashSet<Type>();
-        private static readonly object _disabledControllerTypesLock = new object();
+        private static readonly HashSet<Type> DisabledControllerTypes = new HashSet<Type>();
+        private static readonly object DisabledControllerTypesLock = new object();
         private ModuleType _moduleType;
         private List<KeyValuePair<string, ModelDifferenceStore>> _extraDiffStores;
         private bool _loggedOn;
-        private static readonly TypesInfo _additionalTypesTypesInfo;
+        private static readonly TypesInfo AdditionalTypesTypesInfo;
         public event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
 
         static XpandModuleBase(){
-            _additionalTypesTypesInfo=new TypesInfo();
+            AdditionalTypesTypesInfo=new TypesInfo();
         }
 
         protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
@@ -112,7 +113,7 @@ namespace Xpand.Persistent.Base.General {
         public static MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object> CallMonitor {
             get {
                 if (_callMonitor == null) {
-                    lock (_syncRoot) {
+                    lock (SyncRoot) {
                         if (_callMonitor == null) {
                             _callMonitor = ValueManager.GetValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>>("CallMonitor");
                         }
@@ -120,7 +121,7 @@ namespace Xpand.Persistent.Base.General {
                 }
                 if (_callMonitor.CanManageValue) {
                     if (_callMonitor.Value == null) {
-                        lock (_syncRoot) {
+                        lock (SyncRoot) {
                             if (_callMonitor.Value == null) {
                                 _callMonitor.Value = new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
                             }
@@ -133,18 +134,18 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void DisableControllers(params Type[] types) {
-            lock (_disabledControllerTypesLock) {
+            lock (DisabledControllerTypesLock) {
                 foreach (Type type in types) {
-                    if (!_disabledControllerTypes.Contains(type))
-                        _disabledControllerTypes.Add(type);
+                    if (!DisabledControllerTypes.Contains(type))
+                        DisabledControllerTypes.Add(type);
                 }
             }
         }
 
         private IEnumerable<Type> FilterDisabledControllers(IEnumerable<Type> controllers) {
             if (controllers == null) return null;
-            lock (_disabledControllerTypesLock) {
-                return controllers.Where(t => !_disabledControllerTypes.Contains(t)).ToArray();
+            lock (DisabledControllerTypesLock) {
+                return controllers.Where(t => !DisabledControllerTypes.Contains(t)).ToArray();
             }
         }
 
@@ -497,7 +498,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private IEnumerable<ITypeInfo> GetTypeInfos(Assembly assembly) {
-            var assemblyInfo = _additionalTypesTypesInfo.FindAssemblyInfo(assembly);
+            var assemblyInfo = AdditionalTypesTypesInfo.FindAssemblyInfo(assembly);
             if (!assemblyInfo.AllTypesLoaded)
                 assemblyInfo.LoadTypes();
             return assemblyInfo.Types;
@@ -760,13 +761,58 @@ namespace Xpand.Persistent.Base.General {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            lock (_lockObject) {
+            lock (LockObject) {
                 RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
                 if (Executed("ApplicationOnSetupComplete"))
                     return;
+                Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
                 Application.SetClientSideSecurity();
             }
         }
+
+        private void ApplicationOnObjectSpaceCreated(object sender1, ObjectSpaceCreatedEventArgs e) {
+            e.ObjectSpace.Disposed += ObjectSpaceOnDisposed;
+            e.ObjectSpace.Committing += ObjectSpaceOnCommitting;
+            e.ObjectSpace.ObjectDeleting += ObjectSpaceOnObjectDeleting;
+        }
+
+        private void ObjectSpaceOnDisposed(object sender1, EventArgs eventArgs) {
+            var objectSpace = ((IObjectSpace)sender1);
+            objectSpace.Disposed -= ObjectSpaceOnDisposed;
+            objectSpace.ObjectDeleting -= ObjectSpaceOnObjectDeleting;
+            objectSpace.Committing -= ObjectSpaceOnCommitting;
+        }
+
+        private void ObjectSpaceOnCommitting(object sender1, CancelEventArgs cancelEventArgs) {
+            var objectSpace = ((IObjectSpace)sender1);
+            var objects = objectSpace.ModifiedObjects.Cast<object>();
+            var typeGroups = objects.GroupBy(o => o.GetType());
+            foreach (var group in typeGroups) {
+                var memberInfos = group.Key.GetTypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
+                foreach (var memberInfo in memberInfos) {
+                    var attribute = memberInfo.FindAttribute<SequenceGeneratorAttribute>();
+                    var sessionProvider = ((ISessionProvider) @group.First());
+                    SequenceGenerator.GenerateSequence(sessionProvider, attribute.SequenceName, l => memberInfo.SetValue(sessionProvider, l));
+                }
+            }
+        }
+
+        private void ObjectSpaceOnObjectDeleting(object sender1, ObjectsManipulatingEventArgs e) {
+            var objectSpace = ((IObjectSpace)sender1);
+            var typeGroups = e.Objects.Cast<object>().GroupBy(o => o.GetType());
+            foreach (var group in typeGroups) {
+                var memberInfos = group.Key.GetTypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
+                foreach (var memberInfo in memberInfos) {
+                    var attribute = memberInfo.FindAttribute<SequenceGeneratorAttribute>();
+                    foreach (var obj in group) {
+                        SequenceGenerator.ReleaseSequence(objectSpace.Session(), attribute.SequenceName, (long)memberInfo.GetValue(obj));
+                    }
+                }
+            }
+        }
+
+
+
 
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {
             node.ClearValue(ex => ex.IsCustom);
@@ -836,15 +882,18 @@ namespace Xpand.Persistent.Base.General {
             XpandModuleBase.ObjectSpaceCreated = false;
             var xafApplication = ((XafApplication)sender);
             xafApplication.LoggedOff -= ApplicationOnLoggedOff;
-            if (!xafApplication.IsHosted())
-                Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+            if (!xafApplication.IsHosted()){
+                Application.ObjectSpaceCreated += ConnnectionStringActions;
+            }
             else
                 XpandModuleBase.RemoveCall(ConnectionStringHelperName, _xpandModuleBase.ModuleManager);
         }
 
-        void ApplicationOnObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs objectSpaceCreatedEventArgs) {
+
+        void ConnnectionStringActions(object sender, ObjectSpaceCreatedEventArgs e) {
             XpandModuleBase.ObjectSpaceCreated = true;
-            ((XafApplication)sender).ObjectSpaceCreated -= ApplicationOnObjectSpaceCreated;
+            var xafApplication = ((XafApplication)sender);
+            xafApplication.ObjectSpaceCreated -= ConnnectionStringActions;
             if (String.CompareOrdinal(_currentConnectionString, Application.ConnectionString) != 0) {
                 _currentConnectionString = Application.ConnectionString;
                 XpandModuleBase.ConnectionString = _xpandModuleBase.GetConnectionString();
@@ -859,7 +908,7 @@ namespace Xpand.Persistent.Base.General {
         public void Attach(XpandModuleBase moduleBase) {
             _xpandModuleBase = moduleBase;
             if (RuntimeMode && !Executed(ConnectionStringHelperName)) {
-                Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
+                Application.ObjectSpaceCreated += ConnnectionStringActions;
                 Application.LoggedOff += ApplicationOnLoggedOff;
                 Application.DatabaseVersionMismatch += ApplicationOnDatabaseVersionMismatch;
             }
@@ -874,7 +923,7 @@ namespace Xpand.Persistent.Base.General {
         void XafApplicationOnStatusUpdating(object sender, StatusUpdatingEventArgs statusUpdatingEventArgs) {
             if (statusUpdatingEventArgs.Context == ApplicationStatusMessageId.UpdateDatabaseData.ToString()) {
                 Application.StatusUpdating -= XafApplicationOnStatusUpdating;
-                ApplicationOnObjectSpaceCreated(Application, null);
+                ConnnectionStringActions(Application, null);
             }
         }
 
