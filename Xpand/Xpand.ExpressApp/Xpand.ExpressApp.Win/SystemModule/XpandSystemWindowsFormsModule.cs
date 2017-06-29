@@ -25,6 +25,7 @@ using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.Options;
+using ProcessDataLockingInfoController = Xpand.ExpressApp.Win.PropertyEditors.ProcessDataLockingInfoController;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     [ToolboxItem(true)]
@@ -52,6 +53,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes = {
+                typeof(ProcessDataLockingInfoController),
                 typeof(AutoScrollGridListEditorController),
                 typeof(EditModelController),
                 typeof(ApplicationMultiInstancesController),
