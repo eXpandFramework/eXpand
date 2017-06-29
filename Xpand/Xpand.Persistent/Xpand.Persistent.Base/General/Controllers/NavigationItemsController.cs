@@ -95,7 +95,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
                         var proxyCollection = (ProxyCollection)collectionSourceBase.Collection;
                         for (var index = 0; index < proxyCollection.Count; index++) {
                             var obj = proxyCollection[index];
-                            var caption = datasourceListView.Columns.First().ModelMember.MemberInfo.GetValue(obj) + "";
+                            var caption = datasourceListView.Columns.First(column => column.Index>-1).ModelMember.MemberInfo.GetValue(obj) + "";
                             var id = datasourceListView.ModelClass.TypeInfo.KeyMember.GetValue(obj) + "";
                             CreateChildNavigationItem(navigationItem, index, caption, id);
                         }

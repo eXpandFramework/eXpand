@@ -1,15 +1,17 @@
 #IncludeFile .\Init.inc
 
 *Action Navigation(Default.Navigation Items Object)
-*Action New(Navigation Items Object)
+*Action New
 *FillForm
  Name = Visible1
 *Action Save and Close
-*Action New(Navigation Items Object)
+*Action Navigation(Default.Navigation Items Object)
+*Action New
 *FillForm
  Name = Visible2
 *Action Save and Close
-*Action New(Navigation Items Object)
+*Action Navigation(Default.Navigation Items Object)
+*Action New
 *FillForm
  Name = Hidden
 *Action Save and Close
