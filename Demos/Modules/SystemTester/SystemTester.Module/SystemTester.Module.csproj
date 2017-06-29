@@ -11,8 +11,10 @@
     <RootNamespace>SystemTester.Module</RootNamespace>
     <AssemblyName>SystemTester.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>0d93d223</NuGetPackageImportStamp>
@@ -151,6 +153,10 @@
     <None Include="FunctionalTests\AutoCommit\ListView.inc" />
     <Compile Include="FunctionalTests\EasyTestParameter.cs" />
     <Compile Include="FunctionalTests\ModelAttributeValue\ModelAttributeValueObject.cs" />
+    <Compile Include="FunctionalTests\TrackModifiedProperties\TrackModifiedProperties.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FunctionalTests\TrackModifiedProperties\TrackModifiedPropertiesObject.cs" />
     <Compile Include="FunctionalTests\SupressConfirmation\SupressConfirmationObject.cs" />
     <Compile Include="FunctionalTests\NavigationItems\NavigationItemsObject.cs" />
     <Compile Include="FunctionalTests\Actions\Actions.cs">
@@ -223,6 +229,10 @@
     <None Include="FunctionalTests\ModelAttributeValue\ModelAttributeValue.xafml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="FunctionalTests\TrackModifiedProperties\TrackModifiedProperties.ets" />
+    <None Include="FunctionalTests\TrackModifiedProperties\TrackModifiedProperties.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\SupressConfirmation\SupressConfirmation.ets" />
     <None Include="FunctionalTests\SupressConfirmation\SupressConfirmation.xafml">
       <SubType>Designer</SubType>
@@ -245,6 +255,7 @@
     <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.win.mask.png" />
     <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.win.png" />
     <Content Include="FunctionalTests\ModelAttributeValue\Config.xml" />
+    <Content Include="FunctionalTests\TrackModifiedProperties\Config.xml" />
     <Content Include="FunctionalTests\SupressConfirmation\Config.xml" />
     <Content Include="FunctionalTests\NavigationItems\Config.xml">
       <SubType>Designer</SubType>
@@ -369,7 +380,8 @@
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Config.xml" />
     <Content Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Config.xml">
-      <SubType></SubType>
+      <SubType>
+      </SubType>
     </Content>
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Does not save a invalid url.inc" />
     <Content Include="FunctionalTests\PropertyEditors\HyperLinkPropertyEditor\Images\HyperLinkPropertyEditor.web.png" />

@@ -48,11 +48,21 @@ namespace Xpand.ExpressApp.SystemModule {
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (RuntimeMode) {
+                application.LoggedOn+=ApplicationOnLoggedOn;
                 application.CustomProcessShortcut+=ApplicationOnCustomProcessShortcut;
                 application.ListViewCreating+=ApplicationOnListViewCreating;
                 application.DetailViewCreating+=ApplicationOnDetailViewCreating;
                 application.CreateCustomCollectionSource += LinqCollectionSourceHelper.CreateCustomCollectionSource;
             }
+        }
+
+        private void ApplicationOnLoggedOn(object sender, EventArgs eventArgs){
+            var modelOptionsXpoSession = ((IModelOptionsXpoSession) Application.Model.Options);
+            var trackPropertiesModifications = modelOptionsXpoSession.TrackPropertiesModifications;
+            if (trackPropertiesModifications.HasValue)
+                XpoDefault.TrackPropertiesModifications = trackPropertiesModifications.Value;
+            if (modelOptionsXpoSession.OptimisticLockingReadBehavior.HasValue)
+                XpoDefault.OptimisticLockingReadBehavior = modelOptionsXpoSession.OptimisticLockingReadBehavior.Value;
         }
 
         void ApplicationOnCustomProcessShortcut(object sender, CustomProcessShortcutEventArgs args) {
