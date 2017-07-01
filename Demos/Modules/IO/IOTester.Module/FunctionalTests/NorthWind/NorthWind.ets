@@ -20,7 +20,7 @@
 
 ;----------------------export-------------------------------
 *Action Navigation(ImportExport.Serialization Configuration Group)
-*Action New(Serialization Configuration Group)
+*Action New
 *FillForm
  Name = PersistentAssemblyInfo
 *Action Serialization Configurations.New

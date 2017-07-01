@@ -14,7 +14,7 @@
 *Action Modify
 *XpandFillForm
  Name = anyName2
-*Save
+*Action Save
 *HandleDialog
  Respond = Merge
 *CheckFieldValues

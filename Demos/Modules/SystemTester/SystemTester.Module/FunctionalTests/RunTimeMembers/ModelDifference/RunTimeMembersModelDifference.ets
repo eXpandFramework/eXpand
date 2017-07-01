@@ -21,7 +21,7 @@
 *ReopenApplication
 *LogOn
 *Action Navigation(RuntimeMembers.ModelDifference)
-*Action New(Run Time Members Object)
+*Action New
 *XpandFillForm
  First Name = shared
  Shared Runtime = True
@@ -48,7 +48,7 @@
 *ReopenApplication
 *LogOn
 *Action Navigation(RuntimeMembers.ModelDifference)
-*Action New(Run Time Members Object)
+*Action New
 *XpandFillForm
  First Name = user
  User Runtime = True

@@ -3,7 +3,7 @@
 *ReopenApplication
 *LogOn
 *Action Navigation(Default.Project)
-*Action New(Project)
+*Action New
 *FillForm
  Name = eXpandFramework
 *Action Contributors.New

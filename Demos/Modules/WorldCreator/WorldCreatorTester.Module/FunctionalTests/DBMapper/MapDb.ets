@@ -2,7 +2,7 @@
 *SetWebMaxWaitTimeOut 160000
 ;----------------------Create Mapped Assembly----------------
 *Action Navigation(WorldCreator.Persistent Assembly Info)
-*Action New(Persistent Assembly Info)
+*Action New
 *XpandFillForm
  Name = MapLegacyDBAssembly
 *Action Tools(Map Datastore)
@@ -19,7 +19,7 @@
 *ReopenApplication
 *LogOn
 *Action Navigation(WCDBMapper.WCTestTable)
-*Action New(WCTest Table) 
+*Action New
 *XpandFillForm
  Name = Tolis
 *Action Save and Close

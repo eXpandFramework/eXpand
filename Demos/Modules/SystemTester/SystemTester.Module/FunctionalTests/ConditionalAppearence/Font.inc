@@ -1,5 +1,5 @@
 ﻿;#IncludeFile .\Init.inc
-*Action New(Conditional Appearence Object)
+*Action New
 *XpandFillForm
  Name = bold font
 *Action Save
@@ -8,7 +8,7 @@
  WebMaskRectangle = 107x214;59x16
 *SaveAndClose
 
-*Action New(Conditional Appearence Object)
+*Action New
 *XpandFillForm
  Name = 2nd bold font
 *Action Save
@@ -17,7 +17,7 @@
  WebMaskRectangle = 107x214;59x16
 *SaveAndClose
 
-*Action New(Conditional Appearence Object)
+*Action New
 *XpandFillForm
  Name = default font
 *XpandCompareScreenshot DetailView.DefaultFont.png

@@ -2,7 +2,7 @@
 
 
 *Action Navigation(Reports.Dashboard Definition)
-*Action New(Dashboard Definition)
+*Action New
 *XpandFillForm
  Name = New
 

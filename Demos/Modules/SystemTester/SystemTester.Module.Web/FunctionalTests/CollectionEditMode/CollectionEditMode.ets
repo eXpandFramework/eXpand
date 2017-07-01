@@ -1,6 +1,6 @@
 ﻿#IncludeFile .\Init.inc
 *Navigate ViewEditMode.View
-*Action New(View Edit Mode Object)
+*Action New
 *FillForm
  Name = View
 *SaveAndClose

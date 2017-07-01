@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.Editors {
             handler?.Invoke(this, e);
         }
 
-        public IModelPropertyEditor Model{ get; set; }
+        public IModelMemberViewItem Model { get; set; }
 
         void ShowObjectActionOnExecute(object sender, PopupWindowShowActionExecuteEventArgs popupWindowShowActionExecuteEventArgs) {
             Assign(popupWindowShowActionExecuteEventArgs, _supportSequenceObject);

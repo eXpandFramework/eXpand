@@ -8,7 +8,7 @@
 
 ;---------------create member------------------
 *Action Navigation(WorldCreator.Extended Core Type Member Info)
-*Action New(Extended Core Type Member Info)
+*Action New
 *XpandFillForm
  Data Type = String
  Owner = User

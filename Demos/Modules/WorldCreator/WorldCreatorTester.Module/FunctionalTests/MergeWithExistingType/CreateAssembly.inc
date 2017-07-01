@@ -1,12 +1,12 @@
 ﻿*Action Navigation(Merge.ExistingTypeToMergeWith)
-*Action New(Existing Type To Merge With)
+*Action New
 *FillForm
  First Name = Tolis
  Last Name = Bekiaris
 *SaveAndClose
 
 *Action Navigation(WorldCreator.Persistent Assembly Info)
-*Action New(Persistent Assembly Info)
+*Action New
 *FillForm
  Name = ExtendExistentTypeAssembly
 *Action Persistent Class Infos

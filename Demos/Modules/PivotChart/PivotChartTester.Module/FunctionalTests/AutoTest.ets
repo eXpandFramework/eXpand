@@ -7,7 +7,7 @@
 
 
 *Action Navigation(Reports.Analysis)
-*Action New(Analysis)
+*Action New
 *FillForm
  Name = test
  Data Type = Test Class

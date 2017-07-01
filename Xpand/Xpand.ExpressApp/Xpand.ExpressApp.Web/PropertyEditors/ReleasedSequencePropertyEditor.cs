@@ -158,7 +158,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             base.Setup(space, app);
             if (_helper == null) {
                 _helper = new ObjectEditorHelper(MemberInfo.MemberTypeInfo, Model);
-                _popupWindowHelper=new ReleaseSequencePopupWindowHelper() {Model=(IModelPropertyEditor) Model};
+                _popupWindowHelper=new ReleaseSequencePopupWindowHelper() {Model=Model};
             }
         }
         public override void BreakLinksToControl(bool unwireEventsOnly) {

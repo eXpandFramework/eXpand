@@ -95,7 +95,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (File.Exists(path))
                 _notifyIcon.Icon = new Icon(path);
             Stream resourceStream = typeof(XpandSystemModule).Assembly.GetManifestResourceStream("Xpand.ExpressApp.Resources.ExpressApp.ico");
-            if (resourceStream != null) _notifyIcon.Icon = new Icon(resourceStream);
+            if (resourceStream != null && _notifyIcon != null) _notifyIcon.Icon = new Icon(resourceStream);
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

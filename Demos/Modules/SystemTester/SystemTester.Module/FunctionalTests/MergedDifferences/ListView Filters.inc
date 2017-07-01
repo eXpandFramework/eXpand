@@ -1,11 +1,11 @@
 ﻿;#IncludeFile .\Init.inc
 
 *ActionAvailable Filter(Common Filter)
-*Action New(Merged Differences Object)
+*Action New
 *FillForm
  Name = Tolis
 *Action Save and Close
-*Action New(Merged Differences Object)
+*Action New
 *FillForm
  Name = Tolis Bekiaris
 *Action Save and Close

@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             _objectSpace = objectSpace;
         }
         protected override object CreateControlCore() {
-            return new ReleasedSequenceEdit{PopupWindowHelper = {Model = (IModelPropertyEditor) Model}};
+            return new ReleasedSequenceEdit{PopupWindowHelper = {Model =  Model}};
         }
 
 

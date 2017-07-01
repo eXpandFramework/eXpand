@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.Editors;
 
 namespace ViewVariantsTester.Module.Win.FunctionalTests {
@@ -6,8 +7,9 @@ namespace ViewVariantsTester.Module.Win.FunctionalTests {
         public override string ChangeColumnCaption(string caption) {
             base.ChangeColumnCaption(caption);
             var gridView = ((GridListEditor)((ListView)View).Editor).GridView;
-            var oldCaption = gridView.Columns[0].Caption;
-            gridView.Columns[0].Caption = caption;
+            var gridColumn = gridView.Columns.First(column => column.Visible);
+            var oldCaption = gridColumn.Caption;
+            gridColumn.Caption = caption;
             return oldCaption;
         }
     }

@@ -1,7 +1,7 @@
 ﻿#IncludeFile .\Init.inc 
 
 *Navigate Type As Serialization Key
-*Action New(Type As Serialization Key)
+*Action New
 *XpandFillForm
  Type Key = Type As Serialization Key
 *SaveAndClose

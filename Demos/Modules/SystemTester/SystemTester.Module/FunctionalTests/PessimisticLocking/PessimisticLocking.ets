@@ -7,7 +7,7 @@
 
 
 *Navigate Pessimistic Locking Object
-*Action New(Pessimistic Locking Object)
+*Action New
 
 ;Check when object changed
 *XpandFillForm 

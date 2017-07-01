@@ -1,7 +1,7 @@
 ﻿#IncludeFile .\Init.inc 
 
 *Navigate Simple IO
-*Action New(Simple IO)
+*Action New
 *XpandFillForm
  Do Not Serialize = No-Serialize
  Key = Key

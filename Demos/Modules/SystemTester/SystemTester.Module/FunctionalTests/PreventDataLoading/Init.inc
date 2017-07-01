@@ -6,7 +6,7 @@
 *ScreenCapture
 *Action Navigation(PreventDataLoading.Default)
 
-*Action New(Prevent Data Loading Object)
+*Action New
 *FillForm
  Name = Tolis Bekiaris
 *Action Save and New
