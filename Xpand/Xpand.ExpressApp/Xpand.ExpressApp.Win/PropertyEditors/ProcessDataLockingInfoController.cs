@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     public class ProcessDataLockingInfoController:DevExpress.ExpressApp.Win.SystemModule.ProcessDataLockingInfoController,IModelExtender {
         protected override ProcessDataLockingInfoDialogResult GetUserChoice(DataLockingInfo dataLockingInfo){
             var controller = Application.CreateController<ProcessDataLockingInfoDialogController>();
-            return dataLockingInfo.CanMerge? (!((IModelObjectViewAutoMergeOnConflict) View).AutoMergeOnConflict
+            return dataLockingInfo.CanMerge? (!((IModelObjectViewAutoMergeOnConflict) View.Model).AutoMergeOnConflict
                     ? controller.ShowMergeDialog(Application): ProcessDataLockingInfoDialogResult.Merge): controller.ShowRefreshDialog(Application);
         }
 
