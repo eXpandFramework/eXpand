@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.WorldCreator</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.WorldCreator</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -194,7 +196,7 @@
     <Compile Include="System\AssemblyManager.cs" />
     <Compile Include="System\AssemblyPathProvider.cs" />
     <Compile Include="System\DatastoreObjectSpaceProviderBuilder.cs" />
-    <Compile Include="System\CompatibilityCheckerApplication.cs">
+    <Compile Include="System\WorldCreatorApplication.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="System\DatabaseUpdate\ModuleUpdater.cs" />

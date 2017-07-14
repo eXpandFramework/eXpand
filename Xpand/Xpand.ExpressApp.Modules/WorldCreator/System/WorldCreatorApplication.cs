@@ -11,33 +11,30 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.WorldCreator.System {
-    class CompatibilityCheckerApplication : XafApplication, ITestXafApplication {
-        private static readonly object _locker = new object();
+    public class WorldCreatorApplication : XafApplication, ITestXafApplication {
+        private static readonly object Locker = new object();
 
-        public CompatibilityCheckerApplication(IObjectSpaceProvider objectSpaceProvider, IEnumerable<ModuleBase> moduleList) {
+        public WorldCreatorApplication(IObjectSpaceProvider objectSpaceProvider, IEnumerable<ModuleBase> moduleList) {
             objectSpaceProviders.Add(objectSpaceProvider);
             var moduleBases = moduleList.Select(m => m.GetType().CreateInstance()).Cast<ModuleBase>().OrderBy(m => m.Name).Distinct().ToArray();
             foreach (var moduleBase in moduleBases) {
                 if (Modules.FindModule(moduleBase.GetType()) == null)
                     Modules.Add(moduleBase);
             }
-
-            DatabaseVersionMismatch += OnDatabaseVersionMismatch;
         }
 
-
-        private void OnDatabaseVersionMismatch(object sender, DatabaseVersionMismatchEventArgs e) {
+        protected override void OnDatabaseVersionMismatch(DatabaseVersionMismatchEventArgs e){
             e.Updater.Update();
             e.Handled = true;
         }
 
-        public static void CheckCompatibility(XafApplication application) {
-            lock (_locker) {
+        internal static void CheckCompatibility(XafApplication application,Func<IObjectSpaceProvider, ModuleList, WorldCreatorApplication> func) {
+            lock (Locker) {
                 var objectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(application, false);
-                using (var compatibilityApplication = new CompatibilityCheckerApplication(objectSpaceProvider, application.Modules)) {
-                    compatibilityApplication.ApplicationName = application.ApplicationName;
+                using (var worldCreatorApplication = func(objectSpaceProvider, application.Modules)) {
+                    worldCreatorApplication.ApplicationName = application.ApplicationName;
                     try {
-                        compatibilityApplication.CheckCompatibility();
+                        worldCreatorApplication.CheckCompatibility();
                     }
                     catch (CompatibilityException e) {
                         if (e.Message.Contains("FK_TemplateInfo_ObjectType")) {

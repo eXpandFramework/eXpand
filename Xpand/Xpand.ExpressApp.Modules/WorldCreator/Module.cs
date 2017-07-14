@@ -30,7 +30,8 @@ namespace Xpand.ExpressApp.WorldCreator {
 
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class WorldCreatorModule : XpandModuleBase, IAdditionalModuleProvider {
+    public sealed class WorldCreatorModule : XpandModuleBase, IAdditionalModuleProvider{
+        public event EventHandler<CustomWorldCreatorApplicationArgs> CustomWorldCreatorApplication;
         public const string BaseImplNameSpace = "Xpand.Persistent.BaseImpl.PersistentMetaData";
 
         public WorldCreatorModule() {
@@ -60,11 +61,11 @@ namespace Xpand.ExpressApp.WorldCreator {
         }
 
         void AddPersistentModules(ApplicationModulesManager applicationModulesManager) {
-
-            CompatibilityCheckerApplication.CheckCompatibility(Application);
+            WorldCreatorApplication.CheckCompatibility(Application, GetWorldCreatorApplication);
 
             if (!string.IsNullOrEmpty(ConnectionString)) {
                 lock (_locker) {
+                    
                     var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(Application, false);
                     using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()) {
                         var codeValidator = new CodeValidator(new Compiler(AssemblyPathProvider.Instance.GetPath(Application)), new AssemblyValidator());
@@ -86,6 +87,16 @@ namespace Xpand.ExpressApp.WorldCreator {
                 }
             }
             XpoObjectMerger.MergeTypes(this);
+        }
+
+        private WorldCreatorApplication GetWorldCreatorApplication(IObjectSpaceProvider provider, ModuleList list){
+            var customWorldCreatorApplicationArgs =
+                new CustomWorldCreatorApplicationArgs{
+                    ObjectSpaceProvider = provider,
+                    Modules = list
+                };
+            OnCustomWorldCreatorApplication(customWorldCreatorApplicationArgs);
+            return customWorldCreatorApplicationArgs.WorldCreatorApplication??new WorldCreatorApplication(provider, list);
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
@@ -138,6 +149,16 @@ namespace Xpand.ExpressApp.WorldCreator {
             base.RegisterEditorDescriptors(editorDescriptorsFactory);
             editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), false)));
         }
+
+        private void OnCustomWorldCreatorApplication(CustomWorldCreatorApplicationArgs e){
+            CustomWorldCreatorApplication?.Invoke(this, e);
+        }
+    }
+
+    public class CustomWorldCreatorApplicationArgs : EventArgs{
+        public WorldCreatorApplication WorldCreatorApplication{ internal get; set; }
+        public IObjectSpaceProvider ObjectSpaceProvider{ get; internal set; }
+        public ModuleList Modules{ get; internal set; }
     }
 }
 
