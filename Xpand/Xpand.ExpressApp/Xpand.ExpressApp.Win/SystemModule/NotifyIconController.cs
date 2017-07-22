@@ -59,7 +59,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                     var logoffAction = Frame.GetController<LogoffController>().LogoffAction;
                     if (logoffAction.Active)
                         strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "LogOut"), (o, eventArgs) => Application.LogOff()));
-                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"), (o, eventArgs) => Application.Exit()));
+                    strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"),
+                        (o, eventArgs) => {
+                            Window.Close();
+                            Application.Exit();
+                        }));
 
                     _notifyIcon = new NotifyIcon(_container) { Visible = true, ContextMenuStrip = strip };
                     SetIcon();
