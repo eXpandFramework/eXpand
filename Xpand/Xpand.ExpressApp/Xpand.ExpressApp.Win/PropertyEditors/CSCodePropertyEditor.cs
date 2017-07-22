@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
+using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 

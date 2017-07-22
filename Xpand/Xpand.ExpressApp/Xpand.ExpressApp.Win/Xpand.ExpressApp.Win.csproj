@@ -353,13 +353,13 @@
     <Compile Include="PropertyEditors\RichEdit\RichEditContainer.Designer.cs">
       <DependentUpon>RichEditContainer.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\ModelAdapters\RichEditModelAdapterController.cs" />
     <Compile Include="PropertyEditors\RichEdit\RichEditToolbarController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PropertyEditors\RichEdit\RichEditWinPropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PropertyEditors\RichEdit\RichEditWinPropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializableObjectPropertyEditor.cs" />
+    <Compile Include="SystemModule\ModelAdapters\LabelControlModelAdapterController.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\LabelControlPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\MemoPropertyEditor.cs" />
     <Compile Include="PropertyEditors\StringPropertyEditors\StringPropertyEditorBase.cs" />
@@ -430,7 +430,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Model\IModelRootNavigationItemsAutoSelectedGroupItem.cs" />
-    <Compile Include="SystemModule\CriteriaPropertyEditorViewModeController.cs" />
+    <Compile Include="SystemModule\ModelAdapters\CriteriaPropertyEditorControlAdapterController.cs" />
     <Compile Include="SystemModule\PreventDataLoadingGridViewController.cs">
       <SubType>Component</SubType>
     </Compile>

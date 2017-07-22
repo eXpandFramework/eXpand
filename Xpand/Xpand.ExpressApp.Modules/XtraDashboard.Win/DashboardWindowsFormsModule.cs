@@ -3,7 +3,7 @@ using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
-using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
+using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win {

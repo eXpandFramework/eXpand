@@ -8,7 +8,7 @@ using DevExpress.XtraFilterEditor;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
 
-namespace Xpand.ExpressApp.Win.SystemModule {
+namespace Xpand.ExpressApp.Win.SystemModule.ModelAdapters {
 
      [ModelAbstractClass]
     public interface IModelMemberViewItemFilterControl: IModelMemberViewItem {

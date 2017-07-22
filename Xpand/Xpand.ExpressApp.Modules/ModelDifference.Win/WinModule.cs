@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.ExpressApp.Win.SystemModule;
+using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using AssemblyHelper = DevExpress.ExpressApp.Utils.Reflection.AssemblyHelper;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
