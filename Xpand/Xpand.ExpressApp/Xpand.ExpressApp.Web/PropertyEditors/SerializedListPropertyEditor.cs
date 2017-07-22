@@ -39,9 +39,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         private string _dropDownId;
         private char _separatorChar = ',';
 
-        public char SeparatorChar {
-            get { return _separatorChar; }
-        }
+        public char SeparatorChar => _separatorChar;
 
         public void InstantiateIn(Control container) {
             InitClientSideEvents();
@@ -100,7 +98,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
     }
 
-    public abstract class SerializedListPropertyEditor<T> : ASPxPropertyEditor, IComplexViewItem {
+    public abstract class SerializedListPropertyEditor<T> : ASPxPropertyEditor, IComplexViewItem,IDependentPropertyEditor {
         public class ListBoxItem {
             public string DisplayText { get; set; }
             public object Value { get; set; }
@@ -137,9 +135,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         public LookupEditorHelper Helper { get; private set; }
 
         private SerializedListBoxTemplate _listBoxTemplate;
-        public SerializedListBoxTemplate ListBoxTemplate {
-            get { return _listBoxTemplate ?? (_listBoxTemplate = new SerializedListBoxTemplate()); }
-        }
+        public SerializedListBoxTemplate ListBoxTemplate => _listBoxTemplate ?? (_listBoxTemplate = new SerializedListBoxTemplate());
 
         private void PopulateListBoxItems() {
             ListBoxTemplate.Items.Clear();
@@ -205,5 +201,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                 base.Dispose(disposing);
             }
         }
+
+        IList<string> IDependentPropertyEditor.MasterProperties => Helper.MasterProperties;
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 
 namespace Xpand.Persistent.Base.General {
     public interface IPropertyEditor{
@@ -10,7 +11,7 @@ namespace Xpand.Persistent.Base.General {
         IMemberInfo MemberInfo { get; }
     }
 
-    public interface IChooseFromListCollectionEditor : IPropertyEditor{
+    public interface IChooseFromListCollectionEditor : IPropertyEditor,IDependentPropertyEditor {
         
     }
 }

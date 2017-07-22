@@ -21,9 +21,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
     /// if the checkstate of an item changes, it will be added or removed from the collection.  
     /// </summary>
     [PropertyEditor(typeof(IEnumerable), EditorAliases.ChooseFromList, false)]
-    public class ChooseFromListCollectionEditor : WinPropertyEditor, IChooseFromListCollectionEditor {
+    public class ChooseFromListCollectionEditor : WinPropertyEditor, IChooseFromListCollectionEditor,IComplexViewItem {
         private CheckedComboBoxEdit _comboControl;
-
+        private LookupEditorHelper _lookupEditorHelper;
 
 
         public ChooseFromListCollectionEditor(Type objectType, IModelMemberViewItem info)
@@ -219,8 +219,13 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             if (dataSourcePropertyAttribute != null) {
                 return (IEnumerable)MemberInfo.Owner.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(CurrentObject);
             }
-            return new List<object>();
+            return (IEnumerable) MemberInfo.GetValue(View.CurrentObject);
         }
         #endregion
+
+        IList<string> IDependentPropertyEditor.MasterProperties => _lookupEditorHelper.MasterProperties;
+        public void Setup(IObjectSpace objectSpace, XafApplication application){
+            _lookupEditorHelper = new LookupEditorHelper(application,objectSpace, ObjectTypeInfo, Model);
+        }
     }
 }
