@@ -79,6 +79,7 @@ namespace Xpand.ExpressApp {
             if (objectKeyString.CanChange(((XPObjectSpace) objectSpace).GetObjectKeyType(type))) {
                 try {
                     return objectSpace.GetObjectKey(type, objectKeyString);
+                    // ReSharper disable once EmptyGeneralCatchClause
                 } catch {
                 }    
             }
@@ -113,7 +114,7 @@ namespace Xpand.ExpressApp {
             var recordsNavigationController = e.TargetFrame.GetController<RecordsNavigationController>();
             if (recordsNavigationController==null)return;
             var objectSpace = _application.ObjectSpaceProvider.CreateObjectSpace();
-            IList objects = objectSpace.GetObjects(_detailView.ObjectTypeInfo.Type);
+            IList objects = objectSpace.GetObjects(_detailView.Model.ModelClass.TypeInfo.Type);
             var standaloneOrderProvider = new StandaloneOrderProvider(objectSpace, objects);
             var orderProviderSource = new OrderProviderSource { OrderProvider = standaloneOrderProvider };
             recordsNavigationController.OrderProviderSource = orderProviderSource;
