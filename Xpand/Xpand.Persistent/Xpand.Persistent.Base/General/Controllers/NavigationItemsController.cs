@@ -107,6 +107,8 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         private IEnumerable<IModelNavigationItemDataSource> NavigationItemDataSources{
             get{
+                if (Application==null)
+                    return Enumerable.Empty<IModelNavigationItemDataSource>();
                 return ((IModelApplicationNavigationItems) Application.Model).NavigationItems.Items
                         .GetItems<IModelNavigationItemDataSource>(source => source.Items).Where(source => source.DatasourceListView != null);
             }
