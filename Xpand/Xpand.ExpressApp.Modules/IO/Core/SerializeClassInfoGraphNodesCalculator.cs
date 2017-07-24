@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -21,11 +22,11 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         ISerializationConfiguration GetConfiguration(Type type) {
-            
-            var configuration = _objectSpace.QueryObject<ISerializationConfiguration>(
-                serializationConfiguration =>
-                    serializationConfiguration.SerializationConfigurationGroup == _serializationConfigurationGroup &&
-                    serializationConfiguration.TypeToSerialize == type);
+            var bussinessObjectType = _objectSpace.TypesInfo.FindBussinessObjectType<ISerializationConfiguration>();
+            var configuration = (ISerializationConfiguration) _objectSpace.FindObject(bussinessObjectType,
+                CriteriaOperator.Parse(
+                    $"{nameof(ISerializationConfiguration.SerializationConfigurationGroup)}=? AND {nameof(ISerializationConfiguration.TypeToSerialize)}=?",
+                    _serializationConfigurationGroup, type));
 
             if (configuration == null){
                 configuration = _objectSpace.Create<ISerializationConfiguration>();

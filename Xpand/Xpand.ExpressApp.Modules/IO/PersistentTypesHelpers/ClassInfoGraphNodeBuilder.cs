@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Xpo;
@@ -69,8 +70,11 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         void Generate(IObjectSpace objectSpace, Type typeToSerialize) {
-            var configuration = objectSpace.QueryObject<ISerializationConfiguration>(serializationConfiguration => serializationConfiguration.SerializationConfigurationGroup == _serializationConfigurationGroup &&
-                                                                                                    serializationConfiguration.TypeToSerialize == typeToSerialize);
+            var bussinessObjectType = objectSpace.TypesInfo.FindBussinessObjectType<ISerializationConfiguration>();
+            var configuration = (ISerializationConfiguration)objectSpace.FindObject(bussinessObjectType, 
+                CriteriaOperator.Parse(
+                    $"{nameof(ISerializationConfiguration.SerializationConfigurationGroup)}=? AND {nameof(ISerializationConfiguration.TypeToSerialize)}=?",
+                    _serializationConfigurationGroup, typeToSerialize));
             if (configuration==null) {
                 var serializationConfiguration = objectSpace.Create<ISerializationConfiguration>();
                 serializationConfiguration.SerializationConfigurationGroup = _serializationConfigurationGroup;
