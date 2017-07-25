@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
             }
             foreach (Mapping mapping in ImportMap.Mappings){
 
-                XPMemberInfo prop = props.Single(p => p.Name == mapping.MapedTo);
+                XPMemberInfo prop = props.First(p => p.Name == mapping.MapedTo);
 
                 try{
                     Cell val = excelRow[mapping.Column];

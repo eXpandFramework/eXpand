@@ -24,14 +24,9 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             set { SetPropertyValue("Name", ref _name, value); }
         }
 
-        [Association("SerializationConfigurationGroup-SerializationConfigurations")]
-        public XPCollection<SerializationConfiguration> SerializationConfigurations {
-            get{ return GetCollection<SerializationConfiguration>("SerializationConfigurations");}
-        }
+        [Association("SerializationConfigurationGroup-SerializationConfigurations"), Aggregated]
+        public XPCollection<SerializationConfiguration> SerializationConfigurations => GetCollection<SerializationConfiguration>("SerializationConfigurations");
 
-        IList<ISerializationConfiguration> ISerializationConfigurationGroup.Configurations {
-            get { return new ListConverter<ISerializationConfiguration, SerializationConfiguration>(SerializationConfigurations); }
-        }
-
+        IList<ISerializationConfiguration> ISerializationConfigurationGroup.Configurations => new ListConverter<ISerializationConfiguration, SerializationConfiguration>(SerializationConfigurations);
     }
 }
