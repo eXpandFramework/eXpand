@@ -9,11 +9,14 @@ using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
 
-    [PropertyEditor(typeof(string),EditorAliases.LabelPropertyEditor,false)]
+    [PropertyEditor(typeof(object),EditorAliases.LabelPropertyEditor,false)]
     public class LabelControlPropertyEditor : WinPropertyEditor, IPropertyEditor{
+
         public LabelControlPropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model){
             ControlBindingProperty = "Text";
         }
+
+        public override bool CanFormatPropertyValue => true;
 
         protected override object CreateControlCore(){
             var labelControl = new LabelControl{
@@ -21,7 +24,13 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
                 AutoSizeMode = LabelAutoSizeMode.None,
                 ShowLineShadow = false
             };
+
             return labelControl;
+        }
+
+        protected override void ReadValueCore(){
+            base.ReadValueCore();
+            Control.Text = string.Format(PropertyValue+"", DisplayFormat);
         }
 
         void IPropertyEditor.SetValue(string value){
