@@ -20,7 +20,6 @@ using Xpand.ExpressApp.Win.Model;
 using Xpand.ExpressApp.Win.Model.NodeUpdaters;
 using Xpand.ExpressApp.Win.PropertyEditors;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
-using Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors;
 using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.General;
@@ -55,6 +54,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes = {
                 typeof(ProcessDataLockingInfoController),
+                typeof(DatabaseMaintenanceController),
                 typeof(AutoScrollGridListEditorController),
                 typeof(EditModelController),
                 typeof(ApplicationMultiInstancesController),

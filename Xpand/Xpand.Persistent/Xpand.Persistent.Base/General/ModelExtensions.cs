@@ -19,9 +19,18 @@ using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;
 using Fasterflect;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.Persistent.Base.General {
     public static class ModelNodeExtensions {
+        public static IModelList<IModelClass> ModelClasses(this IModelNode modelNode, Type assignableFromType) {
+            var modelClasses = modelNode.Application.BOModel.Where(modelClass
+                => assignableFromType.IsAssignableFrom(modelClass.TypeInfo.Type) && !modelClass.TypeInfo.IsAbstract &&
+                   new[] { typeof(ISecurityRelated), typeof(ISecurityPermisssionPolicyRelated) }.Any(
+                       type => type.IsAssignableFrom(modelClass.TypeInfo.Type)));
+            return new CalculatedModelNodeList<IModelClass>(modelClasses);
+        }
+
         public static void UpdateValue<T>(this T targetNode,IModelNode sourceNode, params Expression<Func<T, object>>[] expressions) where T:IModelNode {
             foreach (var expression in expressions){
                 var attributeName = targetNode.GetPropertyName(expression);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -8,6 +7,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using System.Linq;
 using DevExpress.ExpressApp.Security;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Registration {
@@ -73,12 +73,5 @@ namespace Xpand.ExpressApp.Security.Registration {
             return modelRegistration.ModelClasses(typeof (ISecurityRole));
         }
 
-        public static IModelList<IModelClass> ModelClasses(this IModelNode modelRegistration, Type assignableFromType){
-            var modelClasses = modelRegistration.Application.BOModel.Where(modelClass
-                =>assignableFromType.IsAssignableFrom(modelClass.TypeInfo.Type) && !modelClass.TypeInfo.IsAbstract &&
-                new[]{typeof(ISecurityRelated), typeof(ISecurityPermisssionPolicyRelated)}.Any(
-                    type => type.IsAssignableFrom(modelClass.TypeInfo.Type)));
-            return new CalculatedModelNodeList<IModelClass>(modelClasses);
-        }
     }
 }
