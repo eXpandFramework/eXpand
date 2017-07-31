@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
@@ -20,11 +21,31 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Utils.Helpers;
 using Xpand.Xpo.DB;
 using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
 
 namespace Xpand.Persistent.Base.General {
     public static class WebXafApplicationExtenions{
+        public static void SendMail(this Exception exception) {
+            using (var smtpClient = new SmtpClient()) {
+                var errorMailReceipients = ConfigurationManager.AppSettings["ErrorMailReceipients"];
+                if (errorMailReceipients == null)
+                    throw new NullReferenceException("Configuation AppSeetings ErrorMailReceipients entry is missing");
+                var mailSettingsSection = ConfigurationManager.GetSection("mailSettings");
+                if (mailSettingsSection == null)
+                    throw new NullReferenceException("Configuation mailSettings Section is missing");
+                var email = new MailMessage {
+                    IsBodyHtml = true,
+                    Subject = $"{ApplicationHelper.Instance.Application.Title} Exception - {exception.Message}",
+                    Body = exception.ToString()
+                };
+                errorMailReceipients.Split(';').Each(s => email.To.Add(s));
+                email.ReplyToList.Add($"noreply@{ApplicationHelper.Instance.Application.Title}.com");
+                smtpClient.Send(email);
+            }
+        }
+
         public static IXpoDataStoreProvider CachedInstance(this IXpoDataStoreProvider dataStoreProvider) {
             if (dataStoreProvider.ConnectionString == InMemoryDataStoreProvider.ConnectionString)
                 dataStoreProvider=new MemoryDataStoreProvider();
