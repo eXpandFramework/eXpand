@@ -27,24 +27,6 @@ using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
 
 namespace Xpand.Persistent.Base.General {
     public static class WebXafApplicationExtenions{
-        public static void SendMail(this Exception exception) {
-            using (var smtpClient = new SmtpClient()) {
-                var errorMailReceipients = ConfigurationManager.AppSettings["ErrorMailReceipients"];
-                if (errorMailReceipients == null)
-                    throw new NullReferenceException("Configuation AppSeetings ErrorMailReceipients entry is missing");
-                var mailSettingsSection = ConfigurationManager.GetSection("mailSettings");
-                if (mailSettingsSection == null)
-                    throw new NullReferenceException("Configuation mailSettings Section is missing");
-                var email = new MailMessage {
-                    IsBodyHtml = true,
-                    Subject = $"{ApplicationHelper.Instance.Application.Title} Exception - {exception.Message}",
-                    Body = exception.ToString()
-                };
-                errorMailReceipients.Split(';').Each(s => email.To.Add(s));
-                email.ReplyToList.Add($"noreply@{ApplicationHelper.Instance.Application.Title}.com");
-                smtpClient.Send(email);
-            }
-        }
 
         public static IXpoDataStoreProvider CachedInstance(this IXpoDataStoreProvider dataStoreProvider) {
             if (dataStoreProvider.ConnectionString == InMemoryDataStoreProvider.ConnectionString)
@@ -57,8 +39,29 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     public static class XafApplicationExtensions {
+
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+
+        public static void SendMail(this Exception exception) {
+            using (var smtpClient = new SmtpClient()) {
+                var appSettings = ConfigurationManager.AppSettings;
+                var errorMailReceipients = appSettings["ErrorMailReceipients"];
+                if (errorMailReceipients == null)
+                    throw new NullReferenceException("Configuation AppSettings ErrorMailReceipients entry is missing");
+                var mailSettingsSection = ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+                if (mailSettingsSection == null)
+                    throw new NullReferenceException("Configuation system.net/mailSettings/smtp Section is missing");
+                var email = new MailMessage {
+                    IsBodyHtml = true,
+                    Subject = $"{ApplicationHelper.Instance.Application.Title} Exception - {exception.Message}",
+                    Body = exception.ToString()
+                };
+                errorMailReceipients.Split(';').Each(s => email.To.Add(s));
+                email.ReplyToList.Add($"noreply@{ApplicationHelper.Instance.Application.Title}.com");
+                smtpClient.Send(email);
+            }
         }
 
         public static ListView CreateListView<T>(this XafApplication application, IObjectSpace objectSpace,bool isRoot=true){
