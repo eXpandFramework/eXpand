@@ -15,10 +15,7 @@
 *XpandCheckFieldValues
  User Name = NewUser
  Email = newuser@mail.com
-*CheckTable Roles
- Columns = Name
- Row[0] = Protected Content
- Row[1] = Protected Content
+!Action Navigation (Roles)
 *LogOff
 *LogOn Admin
 *Navigate User

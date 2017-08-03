@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -35,9 +34,8 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         [Persistent]
         [Size(SizeAttribute.Unlimited)] protected string TypeNameToSerialize;
         [Association]
-        public XPCollection<ClassInfoGraphNode> SerializationGraph {
-            get { return GetCollection<ClassInfoGraphNode>("SerializationGraph"); }
-        }
+        public XPCollection<ClassInfoGraphNode> SerializationGraph => GetCollection<ClassInfoGraphNode>("SerializationGraph");
+
         [RuleRequiredField]
         [Association("SerializationConfigurationGroup-SerializationConfigurations")]
         [VisibleInDetailView(false)]
@@ -50,11 +48,6 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             set { SerializationConfigurationGroup = value as SerializationConfigurationGroup; }
         }
 
-        IList<IClassInfoGraphNode> ISerializationConfiguration.SerializationGraph {
-            get {
-                return new ListConverter<IClassInfoGraphNode, ClassInfoGraphNode>(SerializationGraph);
-
-            }
-        }
+        IList<IClassInfoGraphNode> ISerializationConfiguration.SerializationGraph => new ListConverter<IClassInfoGraphNode, ClassInfoGraphNode>(SerializationGraph);
     }
 }

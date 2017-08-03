@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
@@ -8,7 +7,7 @@ using PropertyChanged;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.Base {
-    [Serializable]
+    
     [NonPersistent]
     [DoNotNotify]
     public abstract class XpandBaseCustomObject : XpandCustomObject {
@@ -16,6 +15,12 @@ namespace Xpand.Persistent.Base {
         private XPMemberInfo _defaultPropertyMemberInfo;
         protected XpandBaseCustomObject(Session session) : base(session) {
         }
+
+        public override void AfterConstruction(){
+            base.AfterConstruction();
+            Oid = XpoDefault.NewGuid();
+        }
+
         public override string ToString() {
             if (!_isDefaultPropertyAttributeInit) {
                 string defaultPropertyName = string.Empty;
@@ -33,14 +38,8 @@ namespace Xpand.Persistent.Base {
                 }
                 _isDefaultPropertyAttributeInit = true;
             }
-            if (_defaultPropertyMemberInfo != null) {
-                object obj = _defaultPropertyMemberInfo.GetValue(this);
-                if (obj != null) {
-                    return obj.ToString();
-                }
-            }
-            return base.ToString();
-
+            object obj = _defaultPropertyMemberInfo?.GetValue(this);
+            return obj?.ToString() ?? base.ToString();
         }
     }
 }

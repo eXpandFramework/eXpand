@@ -30,14 +30,13 @@ namespace Xpand.Xpo {
         private XPMemberInfo _defaultPropertyMemberInfo;
 
         protected override void OnSaving() {
-            base.OnSaving();
             if (TrucateStrings)
                 DoTrucateStrings();
-            if (!(Session is NestedUnitOfWork) && Session.IsNewObject(this) && _oid == Guid.Empty) {
-                _oid = XpoDefault.NewGuid();
-            }
+            base.OnSaving();
+            if (Session is NestedUnitOfWork || !Session.IsNewObject(this) || !_oid.Equals(Guid.Empty))
+                return;
+            _oid = XpoDefault.NewGuid();
         }
-
 
         public override string ToString() {
             if (!_isDefaultPropertyAttributeInit) {
@@ -47,11 +46,9 @@ namespace Xpand.Xpo {
                 }
                 _isDefaultPropertyAttributeInit = true;
             }
-            if (_defaultPropertyMemberInfo != null) {
-                object obj = _defaultPropertyMemberInfo.GetValue(this);
-                if (obj != null) {
-                    return obj.ToString();
-                }
+            object obj = _defaultPropertyMemberInfo?.GetValue(this);
+            if (obj != null) {
+                return obj.ToString();
             }
             return base.ToString();
         }
@@ -64,9 +61,7 @@ namespace Xpand.Xpo {
 
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
-        public bool IsNewObject {
-            get { return Session.IsNewObject(this); }
-        }
+        public bool IsNewObject => Session.IsNewObject(this);
 
         [ValueConverter(typeof(NullValueConverter)), Persistent, Browsable(false)]
         [Size(1)]
