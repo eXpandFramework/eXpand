@@ -28,9 +28,10 @@ namespace Xpand.VSIX.ModelEditor {
         }
 
         private static void EventsSolutionEventsOnAfterClosing(){
-            foreach (var fileSystemWatcher in _fileSystemWatchers) {
-                fileSystemWatcher.Changed -= SystemWatcherOnChanged;
-            }
+            if (_fileSystemWatchers != null)
+                foreach (var fileSystemWatcher in _fileSystemWatchers){
+                    fileSystemWatcher.Changed -= SystemWatcherOnChanged;
+                }
         }
 
         private static void EventsSolutionEventsOnOpened(){

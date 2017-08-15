@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,7 +16,7 @@ namespace Xpand.VSIX.ModelEditor {
                 .Where(projectInSolution => projectInSolution.ProjectType == SolutionProjectType.KnownToBeMSBuildFormat)
                 .Select(solution => Path.GetFullPath(solution.AbsolutePath)).Select(path => {
                     var globalProperties = new Dictionary<string, string>();
-                    var configurationName = DteExtensions.DTE.Solution.Projects().First(project1 => string.Compare(project1.FullName,path,StringComparison.OrdinalIgnoreCase)==0).ConfigurationManager.ActiveConfiguration.ConfigurationName;
+                    var configurationName = DteExtensions.DTE.Solution.Projects().FirstOrDefault(project1 => string.Compare(project1.FullName,path,StringComparison.OrdinalIgnoreCase)==0)?.ConfigurationManager.ActiveConfiguration.ConfigurationName??"Debug";
                     globalProperties.Add("Configuration", configurationName);
                     var projectCollection = new ProjectCollection(globalProperties);
                     return new Project(path, null, null, projectCollection);
