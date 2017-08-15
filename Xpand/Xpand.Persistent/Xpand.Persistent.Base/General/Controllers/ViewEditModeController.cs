@@ -37,7 +37,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
             var detailView = e.View as DetailView;
             if (detailView != null){
                 UpdateView(detailView);
-                if (!Application.IsHosted() && ((IModelDetailViewViewEditMode)detailView.Model).ViewEditMode.HasValue) {
+                if (Application.GetPlatform()==Platform.Win && ((IModelDetailViewViewEditMode)detailView.Model).ViewEditMode.HasValue) {
                     UpdateEditableActions(detailView);
                     detailView.ObjectSpace.Reloaded += (o, args) => UpdateEditableActions(detailView);
                 }
@@ -66,7 +66,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         protected virtual void UpdateViewAllowEditState(DetailView view) {
-            if (!Application.IsHosted()) {
+            if (Application.GetPlatform()==Platform.Win) {
                 view.AllowEdit[ViewActiveKey] = view.ViewEditMode == ViewEditMode.Edit;
             }
         }

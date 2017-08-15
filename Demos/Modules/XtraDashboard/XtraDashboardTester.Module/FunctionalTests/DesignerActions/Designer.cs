@@ -31,7 +31,7 @@ namespace XtraDashboardTester.Module.FunctionalTests.DesignerActions {
             if (selectedChoiceActionItem.Caption == SetNewDashboardFields){
                 var dashboardDefinition = ((DashboardDefinition)View.CurrentObject);
                 _dashboardTypesEditor.SetValue("Customer;Person");
-                if (Application.IsHosted())
+                if (Application.GetPlatform()==Platform.Web)
                     dashboardDefinition.Xml = GetType().GetResourceString("NewDashboard.xml");
             }
         }

@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.Security {
                 typeof(XpandLinkToListViewController),
                 typeof(ModifyObjectSpaceController)
             };
-            return GetDeclaredControllerTypesCore(types).Concat(types);
+            return FilterDisabledControllers(GetDeclaredControllerTypesCore(types).Concat(types));
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {

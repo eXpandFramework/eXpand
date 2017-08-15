@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.WorldCreator.System{
                 reflectionDictionary.CollectClassInfos(assembly);
                 AssemblyXpoTypeInfoSource.CreateSource(assembly);
                 yield return new XPObjectSpaceProvider(connectionStringDataStoreProvider,
-                    moduleInfo.Module.Application.TypesInfo, AssemblyXpoTypeInfoSource.AssemblyInstance[assembly], moduleInfo.Module.Application.IsHosted());
+                    moduleInfo.Module.Application.TypesInfo, AssemblyXpoTypeInfoSource.AssemblyInstance[assembly]);
                     
             }
         }

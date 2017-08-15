@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            var isHosted = Application.IsHosted();
+            var isHosted = Application.GetPlatform()==Platform.Web;
             _generateGraphAction.Active["Hosted"] = isHosted;
             ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
         }

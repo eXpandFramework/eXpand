@@ -205,12 +205,12 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModelApplicationBaseExtensions {
-        public static bool IsHosted(this IModelApplication application){
-            return ((IModelSources) application).Modules.AreHosted();
+        public static Platform GetPlatform(this IModelApplication application){
+            return ((IModelSources) application).Modules.GetPlatform();
         }
 
-        public static bool IsHosted(this ModelApplicationBase applicationBase){
-            return ((IModelApplication) applicationBase).IsHosted();
+        public static Platform GetPlatform(this ModelApplicationBase applicationBase){
+            return ((IModelApplication) applicationBase).GetPlatform();
         }
 
         static ModelApplicationBase _strategiesModel;

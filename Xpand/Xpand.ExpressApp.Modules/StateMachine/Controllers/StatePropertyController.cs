@@ -218,7 +218,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         public void Init(){
-            if (!PropertyEditor.Model.Application.IsHosted()){
+            if (PropertyEditor.Model.Application.GetPlatform()==Platform.Win){
                 var editorItems = GetEditorItems();
                 editorItems.Clear();
                 var editorProperties = EditorProperties();
@@ -240,19 +240,20 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         private IList GetEditorItems(){
-            if (!PropertyEditor.Model.Application.IsHosted()) {
+            var platform = PropertyEditor.Model.Application.GetPlatform();
+            if (platform==Platform.Win) {
                 var value = EditorProperties();
                 var type = FindBaseType(value, "DevExpress.XtraEditors.Repository.RepositoryItemComboBox");
                 return ((IList)type.GetProperty("Items")?.GetValue(value, null));
             }
-            else {
+            if (platform==Platform.Web) {
                 var type = XafTypesInfo.Instance.FindTypeInfo("DevExpress.ExpressApp.Web.Editors.WebPropertyEditor").Type;
                 var propertyInfo = type.Property("Editor");
                 var delegateForGetPropertyValue = propertyInfo.DelegateForGetPropertyValue();
                 var value = delegateForGetPropertyValue(PropertyEditor);
                 return (IList) value.GetPropertyValue("Items");
             }
-
+            return new List<object>();
         }
     }
 

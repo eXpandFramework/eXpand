@@ -23,11 +23,12 @@ namespace Xpand.ExpressApp.WorldCreator.System{
         }
 
         public WorldCreatorObjectSpaceProvider()
-            : this(IsHosted()) {
+            : this(GetThreadSafeDefaults()) {
         }
 
-        private static bool IsHosted(){
-            return !InterfaceBuilder.IsDBUpdater && ApplicationHelper.Instance.Application.IsHosted();
+        private static bool GetThreadSafeDefaults(){
+            return !InterfaceBuilder.IsDBUpdater &&
+                   ApplicationHelper.Instance.Application.GetPlatform() != Platform.Win;
         }
 
         protected override XPObjectSpace CreateUpdatingObjectSpaceCore(bool allowUpdateSchema){

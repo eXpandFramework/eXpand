@@ -20,7 +20,7 @@ namespace Xpand.Persistent.Base.General {
         public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
         public new IXpoDataStoreProxy DataStoreProvider { get; set; }
 
-        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISecurityStrategyBase security,bool threadSafe=false)
+        public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISecurityStrategyBase security, bool threadSafe = false)
             : base(provider, threadSafe) {
             _security = security;
             DataStoreProvider = provider;

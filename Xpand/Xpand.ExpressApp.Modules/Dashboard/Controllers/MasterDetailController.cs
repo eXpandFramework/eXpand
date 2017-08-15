@@ -107,7 +107,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (Application.IsHosted())
+            if (Application.GetPlatform()==Platform.Web)
                 Frame.Controllers.Cast<Controller>().First(controller => controller.GetType().Name == "ActionsFastCallbackHandlerController").Active[GetType().FullName] = false;
             View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
         }
@@ -201,7 +201,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         private void DisableListViewFastCallbackHandlerController(Frame frame){
-            if (Application.IsHosted()){
+            if (Application.GetPlatform()==Platform.Web){
                 frame.Controllers.Cast<Controller>()
                     .First(controller => controller.GetType().Name == "ListViewFastCallbackHandlerController")
                     .Active[GetType().FullName] = false;

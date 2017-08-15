@@ -70,7 +70,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 }
             var listView = View as ListView;
             if (listView!=null){
-                if (Application.IsHosted()  && listView.AllowEdit){
+                if (Application.GetPlatform()==Platform.Web  && listView.AllowEdit){
                     var listViewEditor = listView.Editor as ComplexWebListEditor;
                     if (listViewEditor != null){
                         var propertyEditors = listViewEditor.PropertyEditors.OfType<TPropertyEditor>().Cast<PropertyEditor>();
@@ -119,7 +119,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         protected virtual object GetPropertyEditorControl(TPropertyEditor item){
             object control = item.GetPropertyValue("Control",Flags.AllMembers|Flags.TrimExplicitlyImplemented);
-            return !Application.IsHosted() ? control
+            return Application.GetPlatform()==Platform.Win ? control
                 : ((Control) control).FindNestedControls(GetControlType()).FirstOrDefault();
         }
 

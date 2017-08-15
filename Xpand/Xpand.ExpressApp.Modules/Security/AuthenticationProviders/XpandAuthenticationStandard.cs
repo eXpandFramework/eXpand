@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         public override bool AskLogonParametersViaUI {
             get {
                 var application = ApplicationHelper.Instance.Application;
-                if (!application.IsHosted()){
+                if (application.GetPlatform()==Platform.Win){
                     application.ReadLastLogonParameters();
                     var xpandLogonParameters = LogonParameters as XpandLogonParameters;
                     var ask = xpandLogonParameters == null || (!xpandLogonParameters.RememberMe || !(!(string.IsNullOrEmpty(

@@ -60,7 +60,8 @@ namespace Xpand.Persistent.Base.General {
         None,
         Agnostic,
         Win,
-        Web
+        Web,
+        Mobile
     }
     [ToolboxItem(false)]
     public class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter, IXpandModuleBase {
@@ -142,7 +143,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        private IEnumerable<Type> FilterDisabledControllers(IEnumerable<Type> controllers) {
+        protected IEnumerable<Type> FilterDisabledControllers(IEnumerable<Type> controllers) {
             if (controllers == null) return null;
             lock (DisabledControllerTypesLock) {
                 return controllers.Where(t => !DisabledControllerTypes.Contains(t)).ToArray();
@@ -231,8 +232,9 @@ namespace Xpand.Persistent.Base.General {
 
         public bool Executed(string name, ModuleType moduleType) {
             if (RuntimeMode){
-                var isHosted = Application.IsHosted();
-                if ((moduleType == ModuleType.Web&&isHosted) || (moduleType == ModuleType.Win&&!isHosted))
+                var platform = Application.GetPlatform();
+                if ((moduleType == ModuleType.Web&&platform==Platform.Web) || (moduleType == ModuleType.Win&&platform==Platform.Win))
+//                if ((moduleType == ModuleType.Web&&platform) || (moduleType == ModuleType.Win&&!platform))
                     return ExecutedCore(name, moduleType);
             }
             return (ModuleType != moduleType) || ExecutedCore(name,moduleType);
@@ -250,6 +252,8 @@ namespace Xpand.Persistent.Base.General {
                             _moduleType = ModuleType.Web;
                         else if (toolboxTabNameAttribute.TabName == XpandAssemblyInfo.TabWinWebModules)
                             _moduleType = ModuleType.Agnostic;
+                        else if (toolboxTabNameAttribute.TabName == XpandAssemblyInfo.TabMobileModules)
+                            _moduleType = ModuleType.Mobile;
                     }
                 }
                 return _moduleType;
@@ -598,7 +602,7 @@ namespace Xpand.Persistent.Base.General {
             IEnumerable<string> models = Directory.GetFiles(BinDirectory, "*.Xpand.xafml", SearchOption.TopDirectoryOnly);
             models = models.Concat(Directory.GetFiles(BinDirectory, "model.user*.xafml", SearchOption.TopDirectoryOnly))
                     .Where(s => !s.ToLowerInvariant().EndsWith("model.user.xafml"));
-            if (Application.IsHosted()) {
+            if (Application.GetPlatform()==Platform.Web) {
                 models = models.Concat(Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
                         "model.user*.xafml", SearchOption.TopDirectoryOnly));
             }
@@ -610,7 +614,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static string BinDirectory => ApplicationHelper.Instance.Application.IsHosted() ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        public static string BinDirectory => ApplicationHelper.Instance.Application.GetPlatform()==Platform.Web ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
 
         public static bool ObjectSpaceCreated { get; internal set; }
         [Browsable(false)]
@@ -882,7 +886,7 @@ namespace Xpand.Persistent.Base.General {
             XpandModuleBase.ObjectSpaceCreated = false;
             var xafApplication = ((XafApplication)sender);
             xafApplication.LoggedOff -= ApplicationOnLoggedOff;
-            if (!xafApplication.IsHosted()){
+            if (xafApplication.GetPlatform()==Platform.Win){
                 Application.ObjectSpaceCreated += ConnnectionStringActions;
             }
             else

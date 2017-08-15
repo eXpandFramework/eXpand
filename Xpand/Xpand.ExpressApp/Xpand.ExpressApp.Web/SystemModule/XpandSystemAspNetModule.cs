@@ -82,7 +82,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 typeof(ImmediatePostDataRestoreFocusController),
                 typeof(UpperCaseController)
             };
-            return GetDeclaredControllerTypesCore(controllerTypes);
+            return FilterDisabledControllers(GetDeclaredControllerTypesCore(controllerTypes));
         }
 
         public override void Setup(XafApplication application){

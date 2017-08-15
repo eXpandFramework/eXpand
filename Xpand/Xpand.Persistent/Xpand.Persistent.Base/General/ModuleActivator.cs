@@ -12,7 +12,7 @@ using Xpand.Utils.Linq;
 namespace Xpand.Persistent.Base.General {
     public static class ModuleActivator {
         // ReSharper disable once UnusedMember.Local
-        private static readonly Destructor _finalise = new Destructor();
+        private static readonly Destructor Finalise = new Destructor();
         private sealed class Destructor {
             ~Destructor() {
                 AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomainOnAssemblyResolve;
@@ -23,12 +23,16 @@ namespace Xpand.Persistent.Base.General {
         static ModuleActivator(){
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
         }
-        public static void AddModules(this ModuleBase moduleBase, string xpandDLLPath){
-            var filter = moduleBase.ModuleManager.Modules.AreHosted() ? XpandAssemblyInfo.TabAspNetModules: XpandAssemblyInfo.TabWinModules;
-            var moduleBases = CreateInstances(xpandDLLPath, filter).OrderBy(m => m.GetType().FullName).ToArray();
-            ModuleBase first = null;
-//            first = moduleBases[35];
-            foreach (var module in moduleBases.Where(m => m!=first)) {
+        public static void AddModules(this ModuleBase moduleBase, string xpandDllPath){
+            string filter;
+            if (moduleBase.ModuleManager.Modules.GetPlatform() == Platform.Web)
+                filter = XpandAssemblyInfo.TabAspNetModules;
+            else if (moduleBase.ModuleManager.Modules.GetPlatform() == Platform.Win)
+                filter = XpandAssemblyInfo.TabWinModules;
+            else
+                filter = XpandAssemblyInfo.TabWinModules;
+            var moduleBases = CreateInstances(xpandDllPath, filter).OrderBy(m => m.GetType().FullName).ToArray();
+            foreach (var module in moduleBases) {
                 moduleBase.ModuleManager.AddModule(moduleBase.Application, module);
             }
         }
@@ -59,7 +63,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        static readonly Dictionary<string,Assembly> _loadedAssemblies=new Dictionary<string,Assembly>();
+        static readonly Dictionary<string,Assembly> LoadedAssemblies=new Dictionary<string,Assembly>();
         private static Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args){
             var name = args.Name;
             var fileName = Path.GetFileName(args.Name) + "";
@@ -68,9 +72,9 @@ namespace Xpand.Persistent.Base.General {
             
             var path = Path.Combine(_path,fileName);
             if (File.Exists(path)){
-                if (!_loadedAssemblies.ContainsKey(fileName))
-                    _loadedAssemblies.Add(fileName, Assembly.LoadFile(path));
-                return _loadedAssemblies[fileName];
+                if (!LoadedAssemblies.ContainsKey(fileName))
+                    LoadedAssemblies.Add(fileName, Assembly.LoadFile(path));
+                return LoadedAssemblies[fileName];
             }
             return null;
         }

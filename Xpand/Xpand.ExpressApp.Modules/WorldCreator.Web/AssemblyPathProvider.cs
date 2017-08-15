@@ -8,7 +8,7 @@ namespace Xpand.ExpressApp.WorldCreator.Web {
     public class AssemblyPathProvider: System.AssemblyPathProvider {
         public override string GetPath(XafApplication application){
             return HttpContext.Current != null? application.GetStorageFolder(WorldCreatorModule.WCAssembliesPath)
-                : (application.IsHosted() ? Path.GetDirectoryName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase): null);
+                : (application.GetPlatform()==Platform.Web ? Path.GetDirectoryName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase): null);
         }
     }
 }

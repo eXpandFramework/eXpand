@@ -109,7 +109,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(RepositoryItemModelAdapterController),
                 typeof(AdvBandedViewModelAdapterController)
             };
-            return GetDeclaredControllerTypesCore(controllerTypes);
+            return FilterDisabledControllers(GetDeclaredControllerTypesCore(controllerTypes));
         }
 
         public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator){

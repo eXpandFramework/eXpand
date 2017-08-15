@@ -12,7 +12,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            if (Application.IsHosted()) {
+            if (Application.GetPlatform()==Platform.Web) {
                 foreach (var result in View.Items.OfType<DashboardViewItem>()) {
                     result.ControlCreated += ResultOnControlCreated;
                 }
@@ -23,11 +23,9 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             var viewItem = (DashboardViewItem)sender;
             viewItem.ControlCreated-=ResultOnControlCreated;
             var listView = viewItem.InnerView as ListView;
-            if (listView != null) {
-                var editor = listView.Editor as ASPxGridListEditor;
-                if (editor != null) {
-                    editor.ControlsCreated += editor_ControlsCreated;
-                }
+            var editor = listView?.Editor as ASPxGridListEditor;
+            if (editor != null) {
+                editor.ControlsCreated += editor_ControlsCreated;
             }
         }
 

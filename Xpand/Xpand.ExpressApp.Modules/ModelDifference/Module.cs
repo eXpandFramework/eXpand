@@ -69,7 +69,7 @@ namespace Xpand.ExpressApp.ModelDifference {
                 typeof(MergeDifferencesController),typeof(ModelDifferenceObjectsRuntimeMembersController),typeof(ReloadApplicationModelController),
                 typeof(PopulateAspectsController)
             };
-            return GetDeclaredControllerTypesCore(types);
+            return FilterDisabledControllers(GetDeclaredControllerTypesCore(types));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
