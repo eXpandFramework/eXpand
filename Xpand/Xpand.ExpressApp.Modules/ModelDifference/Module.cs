@@ -18,6 +18,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Validation;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
+using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
@@ -116,10 +117,9 @@ namespace Xpand.ExpressApp.ModelDifference {
             dynamicSecuritySystemObjects.HideInDetailView(xpMemberInfos, "RoleModelDifferenceObjects");
         }
 
-        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
-            var modelCombineRequestProcessor = new ModelCombineRequestProcessor(customizeRequestProcessorsEventArgs.Permissions);
-            var keyValuePair = new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(ModelCombinePermissionRequest), modelCombineRequestProcessor);
-            customizeRequestProcessorsEventArgs.Processors.Add(keyValuePair);
+        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e) {
+            var keyValuePair = new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(ModelCombinePermissionRequest), e.Permissions.GetProcessor<ModelCombineRequestProcessor>());
+            e.Processors.Add(keyValuePair);
         }
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);

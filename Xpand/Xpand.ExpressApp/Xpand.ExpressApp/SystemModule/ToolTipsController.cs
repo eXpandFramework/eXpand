@@ -58,6 +58,12 @@ namespace Xpand.ExpressApp.SystemModule {
             if (View is ListView) SetListViewToolTips();
             if (View is DetailView) SetDetailViewToolTips();
         }
+
+        protected override void OnDeactivated(){
+            base.OnDeactivated();
+            TooltipCalculator = null;
+        }
+
         protected virtual void SetListViewToolTips() { }
         protected virtual void SetDetailViewToolTips() { }
 

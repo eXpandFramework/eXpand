@@ -27,15 +27,12 @@ namespace Xpand.ExpressApp.Security.Permissions{
     }
 
     public class NavigationItemPermissionRequestProcessor :
-        PermissionRequestProcessorBase<NavigationItemPermissionRequest>{
-        private readonly IPermissionDictionary _permissions;
-
-        public NavigationItemPermissionRequestProcessor(IPermissionDictionary permissions){
-            _permissions = permissions;
-        }
+        PermissionRequestProcessorBase<NavigationItemPermissionRequest>,ICustomPermissionRequestProccesor{
 
         public override bool IsGranted(NavigationItemPermissionRequest permissionRequest){
-            return _permissions.GetPermissions<NavigationItemPermission>().All(permission => permission.HiddenNavigationItem != permissionRequest.NavigationItem);
+            return Permissions.GetPermissions<NavigationItemPermission>().All(permission => permission.HiddenNavigationItem != permissionRequest.NavigationItem);
         }
+
+        public IPermissionDictionary Permissions{ get; set; }
     }
 }

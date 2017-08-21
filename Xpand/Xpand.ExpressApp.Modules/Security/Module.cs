@@ -111,15 +111,17 @@ namespace Xpand.ExpressApp.Security {
             }
                 
             var keyValuePairs = new[]{
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), new MyDetailsRequestProcessor(customPermissions)),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), new AnonymousLoginRequestProcessor(customPermissions)),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), new IsAdministratorPermissionRequestProcessor(customPermissions)),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(NavigationItemPermissionRequest), new NavigationItemPermissionRequestProcessor(e.Permissions.WithHiddenNavigationItemPermissions()))
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), customPermissions.GetProcessor<MyDetailsRequestProcessor>()),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), customPermissions.GetProcessor<AnonymousLoginRequestProcessor>()),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), customPermissions.GetProcessor<IsAdministratorPermissionRequestProcessor>()),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(NavigationItemPermissionRequest), customPermissions.WithHiddenNavigationItemPermissions().GetProcessor<NavigationItemPermissionRequestProcessor>())
             };
             foreach (var keyValuePair in keyValuePairs) {
                 e.Processors.Add(keyValuePair);
             }
         }
+
+        
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);

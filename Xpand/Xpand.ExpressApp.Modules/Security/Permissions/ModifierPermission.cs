@@ -26,17 +26,16 @@ namespace Xpand.ExpressApp.Security.Permissions {
         public Modifier Modifier { get; set; }
     }
 
-    public abstract class ModifierRequestProcessor<TModifierPermission> : PermissionRequestProcessorBase<ModifierOperationRequest> where TModifierPermission : ModifierPermission {
-        protected readonly IPermissionDictionary Permissions;
-
-        protected ModifierRequestProcessor(IPermissionDictionary permissions) {
-            Permissions = permissions;
-        }
-
+    public abstract class ModifierRequestProcessor<TModifierPermission> : PermissionRequestProcessorBase<ModifierOperationRequest>, ICustomPermissionRequestProccesor where TModifierPermission : ModifierPermission {
+        public IPermissionDictionary Permissions{ get; set; }
         public override bool IsGranted(ModifierOperationRequest modifierOperationRequest) {
             var permission = Permissions.FindFirst<TModifierPermission>();
             return permission != null && permission.Modifier == modifierOperationRequest.Modifier;
         }
+    }
+
+    public interface ICustomPermissionRequestProccesor{
+        IPermissionDictionary Permissions { get; set; }
     }
 
 

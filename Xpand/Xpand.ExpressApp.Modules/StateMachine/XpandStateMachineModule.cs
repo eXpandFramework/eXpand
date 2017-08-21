@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.Validation;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
@@ -76,8 +77,9 @@ namespace Xpand.ExpressApp.StateMachine {
             if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
         }
 
-        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
-            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionOperationRequest), new StateMachineTransitionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions.WithCustomPermissions())));
+        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e){
+            var keyValuePair = new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionOperationRequest), e.Permissions.WithCustomPermissions().GetProcessor<StateMachineTransitionRequestProcessor>());
+            e.Processors.Add(keyValuePair);
         }
 
     }

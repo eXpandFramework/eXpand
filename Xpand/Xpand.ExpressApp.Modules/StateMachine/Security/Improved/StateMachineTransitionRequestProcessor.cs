@@ -1,16 +1,13 @@
 using DevExpress.ExpressApp.Security;
 using System.Linq;
+using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.StateMachine.Security.Improved {
-    public class StateMachineTransitionRequestProcessor : PermissionRequestProcessorBase<StateMachineTransitionOperationRequest> {
-        readonly IPermissionDictionary _permissions;
+    public class StateMachineTransitionRequestProcessor : PermissionRequestProcessorBase<StateMachineTransitionOperationRequest>,ICustomPermissionRequestProccesor {
 
-        public StateMachineTransitionRequestProcessor(IPermissionDictionary permissions) {
-            _permissions = permissions;
-        }
 
         public override bool IsGranted(StateMachineTransitionOperationRequest permissionRequest){
-            var permissions = _permissions.GetPermissions<StateMachineTransitionPermission>().ToArray();
+            var permissions = Permissions.GetPermissions<StateMachineTransitionPermission>().ToArray();
             return (permissions.Any(permission => TransitionMatch(permission, permissionRequest)));
         }
 
@@ -18,5 +15,7 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
             return permissionRequest.Hide==permission.Hide&& permissionRequest.StateCaption == permission.StateCaption &&
                    permissionRequest.StateMachineName == permission.StateMachineName;
         }
+
+        public IPermissionDictionary Permissions{ get; set; }
     }
 }

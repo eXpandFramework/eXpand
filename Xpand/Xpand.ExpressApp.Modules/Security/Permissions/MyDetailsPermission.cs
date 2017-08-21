@@ -33,9 +33,6 @@ namespace Xpand.ExpressApp.Security.Permissions {
     }
 
     public class MyDetailsRequestProcessor : ModifierRequestProcessor<MyDetailsPermission> {
-        public MyDetailsRequestProcessor(IPermissionDictionary permissions)
-            : base(permissions) {
-        }
     }
 
 }

@@ -31,6 +31,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 foreach (var containerHolder in _containerHolders){
                     containerHolder.Style[HtmlTextWriterStyle.Display] = _visibility;    
                 }
+                _containerHolders = null;
             }
         }
     }

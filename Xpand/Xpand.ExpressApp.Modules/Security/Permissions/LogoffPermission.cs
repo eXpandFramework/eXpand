@@ -33,9 +33,6 @@ namespace Xpand.ExpressApp.Security.Permissions {
     }
 
     public class AnonymousLoginRequestProcessor : ModifierRequestProcessor<AnonymousLoginPermission> {
-        public AnonymousLoginRequestProcessor(IPermissionDictionary permissions)
-            : base(permissions) {
-        }
     }
 
 }
