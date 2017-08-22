@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
         public DocumentFormat.OpenXml.Spreadsheet.Sheet OXmlSheet { get; set; }
         public int? ColumnHeaderRow { get; set; }
         public StringValue Name { get { return OXmlSheet.Name; } }
-        public string Dimension { get; set; }
+        public int ColumnsCount { get; set; }
         public int? PreviewRowCount { get; set; }
     }
 
@@ -216,9 +216,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
                 OXmlSheet = p,
                 WorkbookPart = spreadsheet.WorkbookPart,
                 WorkSheetPart = spreadsheet.WorkSheet(p),
-                Dimension = spreadsheet.WorkSheet(p)
-                    .RootElement.Descendants<DocumentFormat.OpenXml.Spreadsheet.SheetDimension>()
-                    .First().Reference
+                ColumnsCount = spreadsheet.WorkSheet(p).RootElement.Descendants<Columns>().First().Count()
             });
         }
 
@@ -234,7 +232,7 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
             if (sheet == null)
                 yield return null;
             else {
-                for (var i = 0; i < sheet.Dimentions().ColumnCount; i++) {
+                for (var i = 0; i < sheet.ColumnsCount; i++) {
                     var col = new Column { ColumnIndex = i };
                     int? columnHeaderRow = sheet.ColumnHeaderRow;
                     if (columnHeaderRow == null || columnHeaderRow == 0)
@@ -298,9 +296,6 @@ namespace Xpand.ExpressApp.ImportWizard.Core {
             };
         }
 
-        public static SheetDimension Dimentions(this Sheet sheet) {
-            return new SheetDimension(sheet.Dimension);
-        }
 
         public static DataTable DataPreviewTable(this Sheet sheet, int previewRowCount) {
             var dt = new DataTable("Preview Table");
