@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using DevExpress.Data.Filtering;
+using DevExpress.Entity.Model;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -15,6 +17,8 @@ using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.RuntimeMembers;
+using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
@@ -76,6 +80,9 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             }
         }
 
+        /// <summary>
+        /// For interal use only, use the ModifyModel method instead or the XmlContent property
+        /// </summary>
         public ModelApplicationBase GetModel(ModelApplicationBase master) {
             if (!master.IsMaster) {
                 throw new ArgumentException("IsNotMaster", nameof(master));
@@ -146,6 +153,9 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             get { return _dateCreated; }
             set { SetPropertyValue(nameof(DateCreated), ref _dateCreated, value); }
         }
+        /// <summary>
+        /// For interal use only, use the ModifyModel method instead or the XmlContent property
+        /// </summary>
         [Size(SizeAttribute.Unlimited)]
         [NonCloneable]
         [NonPersistent, VisibleInListView(false)][ImmediatePostData]
@@ -271,6 +281,39 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         string GetAspectName(string name) {
             return name == "" ? CaptionHelper.DefaultLanguage : name;
+        }
+
+        public void ModifyModel(ModelDifferenceObject modelDifferenceObject, Action<IModelApplication> action) {
+            var xafApplication = ApplicationHelper.Instance.Application;
+            var existingMembers = xafApplication.Model.BOModel.SelectMany(modelClass => modelClass.OwnMembers).OfType<IModelMemberEx>().ToArray();
+            var modelApplicationBase = ((ModelApplicationBase)xafApplication.Model);
+            var lastLayer = modelApplicationBase.LastLayer;
+            ModelApplicationHelper.RemoveLayer(modelApplicationBase);
+            var afterSetupLayer = modelApplicationBase.CreatorInstance.CreateModelApplication();
+            afterSetupLayer.Id = "After Setup";
+            ModelApplicationHelper.AddLayer(modelApplicationBase, afterSetupLayer);
+            var mdoModel = modelDifferenceObject.GetModel(modelApplicationBase);
+            ModelApplicationHelper.RemoveLayer(modelApplicationBase);
+            var modelApplication = (IModelApplication)mdoModel;
+            action(modelApplication);
+            var modelMemberExs = modelApplication.BOModel.SelectMany(modelClass => modelClass.OwnMembers).OfType<IModelMemberEx>();
+            var newMembers = modelMemberExs.Except(existingMembers).ToArray();
+            if (newMembers.Any()) {
+                var objectSpaceProviders = xafApplication.ObjectSpaceProviders;
+                var nonThreadSafeProviders = objectSpaceProviders.OfType<XPObjectSpaceProvider>().Any(provider => !provider.ThreadSafe);
+                var xpandObjectSpaceProviders = objectSpaceProviders.OfType<XpandObjectSpaceProvider>().Any();
+                if (!nonThreadSafeProviders && !xpandObjectSpaceProviders)
+                    throw new ProviderNotSupportedException($"Use a non ThreadSafe {nameof(XPObjectSpaceProvider)} or the {nameof(XpandObjectSpaceProvider)}");
+            }
+            foreach (var modelMemberEx in newMembers) {
+                if (string.IsNullOrEmpty(modelMemberEx.Id()))
+                    modelMemberEx.SetValue("Id", "Test");
+                modelMemberEx.SetValue("IsCustom", "True");
+                modelMemberEx.CreatedAtDesignTime = false;
+            }
+
+            RuntimeMemberBuilder.CreateRuntimeMembers(modelApplication);
+            ModelApplicationHelper.AddLayer(modelApplicationBase, lastLayer);
         }
 
         AspectObject GetActiveAspect(ModelApplicationBase modelApplicationBase) {
