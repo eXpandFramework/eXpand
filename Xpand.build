@@ -19,6 +19,7 @@
 	<DefineConstants Condition=" '$(DefineConstants)'==''" >DEBUG;TRACE</DefineConstants>
     <TwitterTool>$(_third_party_assemblies)\XTwitter.exe</TwitterTool>
 	  <BatchCall>false</BatchCall>
+	  <LibsOnly>false</LibsOnly>
     <ExecCommand></ExecCommand>
     <ExecCommandWorkingDirectory></ExecCommandWorkingDirectory>
   
@@ -124,16 +125,16 @@
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" />
-    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="DeployExtension=$(DeployExtension);Configuration=$(Configuration);OutputPath=$(XpandDLLPath)\Plugins;DefineConstants=$(DefineConstants);RestorePackages=false" ContinueOnError="$(BatchCall)" />
-    <CallTarget Targets="BuildVSIX"/>
+    <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="DeployExtension=$(DeployExtension);Configuration=$(Configuration);OutputPath=$(XpandDLLPath)\Plugins;DefineConstants=$(DefineConstants);RestorePackages=false" ContinueOnError="$(BatchCall)" Condition="'$(LibsOnly)'=='false'"/>
+    <CallTarget Targets="BuildVSIX" Condition="'$(LibsOnly)'=='false'"/>
     <MSBuild Projects="@(ModuleProjects)" Targets="Build" Properties="Configuration=$(RecompiledDXSources);OutputPath=$(XpandDLLPath);RestorePackages=false" />
-    <CallTarget Targets="BuildNH"/>
-    <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" />
+    <CallTarget Targets="BuildNH" Condition="'$(LibsOnly)'=='false'"/>
+    <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" Condition="'$(LibsOnly)'=='false'"/>
     
-    <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false" />
-    <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
-    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" />
-    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" />
+    <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false" Condition="'$(LibsOnly)'=='false'"/>
+    <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" Condition="'$(LibsOnly)'=='false'"/>
+    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" Condition="'$(LibsOnly)'=='false'"/>
+    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" Condition="'$(LibsOnly)'=='false'"/>
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\**\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
