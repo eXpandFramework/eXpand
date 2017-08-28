@@ -58,7 +58,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void OnCancel(object sender, CancelEventArgs cancelEventArgs) {
-            _applicationWindowClosing = Frame.Template == Application.MainWindow.Template;
+            _applicationWindowClosing = ((Controller)sender).Frame.Template == Application?.MainWindow?.Template;
         }
 
         protected override void OnFrameAssigned() {
