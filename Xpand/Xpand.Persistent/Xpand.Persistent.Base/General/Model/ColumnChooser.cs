@@ -17,7 +17,11 @@ namespace Xpand.Persistent.Base.General.Model{
     public class ColumnChooserListViewVisibilityCalulator : IModelIsVisible {
         public bool IsVisible(IModelNode node, string propertyName){
             var modelMember = (node as IModelMember);
-            var memberInfo = modelMember?.MemberInfo ?? ((IModelColumn) node).ModelMember.MemberInfo;
+            var memberInfo = modelMember != null
+                ? (modelMember.MemberInfo ?? ((IModelColumn) node).ModelMember.MemberInfo)
+                : ((IModelColumn) node).ModelMember?.MemberInfo;
+            if (memberInfo == null)
+                return false;
             return node.Application.BOModel.GetClass(memberInfo.MemberTypeInfo.Type) != null;
         }
     }
