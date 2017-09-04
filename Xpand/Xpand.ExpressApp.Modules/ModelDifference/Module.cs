@@ -32,6 +32,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
         [CriteriaOptions("MDOTypeInfo")]
+        [Description("The MDO object that fits in this crierion it will be updated with the model.xafml contents on each application restart")]
         string ModelToUpdateFromFileCriteria { get; set; }
         [Browsable(false)]
         ITypeInfo  MDOTypeInfo { get; }
@@ -45,7 +46,7 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         public static string Get_ModelToUpdateFromFileCriteria(IModelOptionsModelDifference modelDifference) {
             return new XPQuery<ModelDifferenceObject>(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary).TransformExpression(
-                    o =>o.DifferenceType == DifferenceType.Model && o.Name.Contains(modelDifference.Application.Title) && !o.Disabled).ToString();
+                    o =>o.DifferenceType == DifferenceType.Model && o.Name.Contains("Create a new MDO object") && !o.Disabled).ToString();
         }
 
     }
