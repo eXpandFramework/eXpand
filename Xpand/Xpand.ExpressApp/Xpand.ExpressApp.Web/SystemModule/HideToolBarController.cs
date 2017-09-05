@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Templates;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Templates.ActionContainers;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.Utils.Web;
@@ -9,6 +12,23 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     public class HideToolBarController : ExpressApp.SystemModule.HideToolBarController {
         private IEnumerable<ActionContainerHolder> _containerHolders;
         private string _visibility;
+        protected override void OnActivated(){
+            base.OnActivated();
+            if (WebApplicationStyleManager.IsNewStyle){
+                Application.CustomizeTemplate+=ApplicationOnCustomizeTemplate;
+            }
+        }
+
+
+        private void ApplicationOnCustomizeTemplate(object sender, CustomizeTemplateEventArgs e){
+            if (e.Context == TemplateContext.NestedFrame) {
+                var modelViewHideViewToolBar = ((IModelClassHideViewToolBar)View.Model);
+                if (modelViewHideViewToolBar.HideToolBar.HasValue && modelViewHideViewToolBar.HideToolBar.Value){
+                    var template = e.Template as ISupportActionsToolbarVisibility;
+                    template?.SetVisible(false);
+                }
+            }
+        }
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -27,6 +47,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
+            Application.CustomizeTemplate -= ApplicationOnCustomizeTemplate;
             if (_containerHolders != null){
                 foreach (var containerHolder in _containerHolders){
                     containerHolder.Style[HtmlTextWriterStyle.Display] = _visibility;    
