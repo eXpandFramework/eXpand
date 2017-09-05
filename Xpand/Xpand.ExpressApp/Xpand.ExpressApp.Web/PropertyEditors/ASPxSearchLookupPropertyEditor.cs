@@ -39,11 +39,12 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         private ListView _listView;
         private object _newObject;
         private IObjectSpace _newObjectSpace;
-        private NewObjectViewController _newObjectViewController;
+        
         private PopupWindowShowAction _newObjectWindowAction;
         private IObjectSpace _objectSpace;
         private ASPxSearchDropDownEdit _searchDropDownEdit;
         private PopupWindowShowAction _showFindSelectWindowAction;
+        private NewObjectViewController _newObjectViewController;
 
         public ASPxSearchLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model){
@@ -100,9 +101,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
                                             WebLookupEditorHelper.LookupObjectType,
                                             _listView.CollectionSource, out diagnosticInfo);
                 if (control.AddingEnabled)
-                    if (_newObjectViewController != null)
-                        control.AddingEnabled = _newObjectViewController.NewObjectAction.Active &&
-                                                _newObjectViewController.NewObjectAction.Enabled;
+                    control.AddingEnabled = _listView.AllowNew;
             }
         }
 
@@ -187,8 +186,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         private void UpdateDropDownLookup(WebControl editor){
             var dropDownEdit = editor as ASPxSearchDropDownEdit;
             if (dropDownEdit != null){
-                if (_newObjectViewController != null)
-                    dropDownEdit.NewActionCaption = _newObjectViewController.NewObjectAction.Caption;
+                
+                dropDownEdit.NewActionCaption = Model.Application.ActionDesign.Actions["New"].Caption;
                 UpdateDropDownLookupControlAddButton(dropDownEdit);
                 if (_application != null){
                     var callBackFuncName = HttpUtility.JavaScriptStringEncode(dropDownEdit.GetProcessNewObjFunction());
@@ -218,11 +217,13 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         }
 
         private void newObjectViewController_ObjectCreating(object sender, ObjectCreatingEventArgs e){
+            _newObjectViewController.ObjectCreating-=newObjectViewController_ObjectCreating;
             e.ShowDetailView = false;
             if (e.ObjectSpace is INestedObjectSpace) e.ObjectSpace = _application.CreateObjectSpace(e.ObjectType);
         }
 
         private void newObjectViewController_ObjectCreated(object sender, ObjectCreatedEventArgs e){
+            _newObjectViewController.ObjectCreated-=newObjectViewController_ObjectCreated;
             _newObject = e.CreatedObject;
             _newObjectSpace = e.ObjectSpace;
             _createdObjectSpaces.Add(_newObjectSpace);
@@ -231,11 +232,13 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         private void newObjectWindowAction_OnCustomizePopupWindowParams(object sender,
             CustomizePopupWindowParamsEventArgs args){
             if (!DataSource.AllowAdd) throw new InvalidOperationException();
-            if (_newObjectViewController != null){
-                OnViewShowingNotification();
-                _newObjectViewController.NewObjectAction.DoExecute(_newObjectViewController.NewObjectAction.Items[0]);
-                args.View = _application.CreateDetailView(_newObjectSpace, _newObject, _listView);
-            }
+            Frame.SetView(_listView);
+            _newObjectViewController = Frame.GetController<NewObjectViewController>();
+            _newObjectViewController.ObjectCreating+=newObjectViewController_ObjectCreating;
+            _newObjectViewController.ObjectCreated+=newObjectViewController_ObjectCreated;
+            OnViewShowingNotification();
+            _newObjectViewController.NewObjectAction.DoExecute(_newObjectViewController.NewObjectAction.Items[0]);
+            args.View = _application.CreateDetailView(_newObjectSpace, _newObject, _listView);
         }
 
         private void newObjectWindowAction_OnExecute(object sender, PopupWindowShowActionExecuteEventArgs args){
@@ -252,7 +255,6 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
             if ((ViewEditMode == ViewEditMode.Edit) && (!ifNotCreatedOnly || (_listView == null))){
                 _listView = null;
                 if (CurrentObject != null) _listView = WebLookupEditorHelper.CreateListView(CurrentObject);
-                Frame.SetView(_listView);
             }
         }
 
