@@ -35,6 +35,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 DevExpress.ExpressApp.Web.SystemModule.FindPopupController.EnablePaging = _enablePaging;
         }
 
+        protected override void OnViewControlsCreated(){
+            base.OnViewControlsCreated();
+            if (IsFindPopup&& ((IModelListViewHideLoopupSearch)View.Model).HideLookupSearch) {
+                ((BaseXafPage)Frame.Template).InnerContentPlaceHolder.Controls.OfType<FindDialogTemplateContentNew>()
+                    .First().IsSearchEnabled = false;
+            }
+        }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             extenders.Add<IModelListView,IModelListViewHideLoopupSearch>();
