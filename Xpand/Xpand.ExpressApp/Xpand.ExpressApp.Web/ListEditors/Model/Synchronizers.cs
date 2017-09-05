@@ -42,15 +42,17 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
             foreach (var viewDataColumnWithInfo in dataColumnWithInfos.Where(column => column.FieldName != "ProtectedContentColumn ED6F4AF3-F04C-45EB-B8C1-6CEE05D395B2")) {
                 var modelColumnOptionsGridView = ((IModelColumnOptionsGridView) viewDataColumnWithInfo.Model(Model));
                 var modelGridColumnModelAdapters = modelColumnOptionsGridView.OptionModelAdapters;
-                foreach (var modelAdapter in modelGridColumnModelAdapters.Select(adapter => adapter.ModelAdapter)){
+                foreach (var modelAdapter in modelGridColumnModelAdapters.Select(adapter => adapter.ModelAdapter).Where(view => view.NodeEnabled)){
                     ApplyModel(modelAdapter, viewDataColumnWithInfo, ApplyValues);
                 }
                 if (modelGridColumnModelAdapters.AlwaysApplyDefault ||
-                    !modelGridColumnModelAdapters.Any()){
+                    !modelGridColumnModelAdapters.Any(adapter => adapter.NodeEnabled)){
                     var modelOptionsColumnGridView = ((IModelApplicationModelAdapterContexts)Model.Application).ModelAdapterContexts
-                        .GetAdapters<IModelOptionsColumnGridView>().FirstOrDefault();
+                        .GetAdapters<IModelOptionsColumnGridView>().FirstOrDefault(view => view.NodeEnabled);
                     ApplyModel(modelOptionsColumnGridView, viewDataColumnWithInfo, ApplyValues);
                 }
+                if (modelColumnOptionsGridView.NodeEnabled)
+                    ApplyModel(modelColumnOptionsGridView.OptionsColumnGridView, viewDataColumnWithInfo, ApplyValues);
             }
         }
 
