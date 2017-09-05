@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Web.UI.WebControls;
@@ -22,18 +23,29 @@ namespace Xpand.Persistent.Base.General.Web{
 
 
     public class CustomizeASPxPopupController : ModelAdapterController,IModelExtender {
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            var popupWindowControl = ((BaseXafPage)WebWindow.CurrentRequestPage).XafPopupWindowControl;
-            popupWindowControl.CustomizePopupWindowSize +=XafPopupWindowControl_CustomizePopupWindowSize;
-            popupWindowControl.CustomizePopupControl+=PopupWindowControlOnCustomizePopupControl;
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
+            if (Frame.Context == TemplateContext.LookupWindow){
+                var popupWindowControl = ((BaseXafPage)WebWindow.CurrentRequestPage).XafPopupWindowControl;
+                popupWindowControl.CustomizePopupWindowSize += XafPopupWindowControl_CustomizePopupWindowSize;
+                popupWindowControl.CustomizePopupControl += PopupWindowControlOnCustomizePopupControl;
+                Frame.Disposing+=FrameOnDisposing;
+            }
+        }
+
+        private void FrameOnDisposing(object sender, EventArgs eventArgs){
+            ((Frame) sender).Disposing-=FrameOnDisposing;
         }
 
         private void PopupWindowControlOnCustomizePopupControl(object sender, CustomizePopupControlEventArgs e){
+            var popupWindowControl = ((XafPopupWindowControl)sender);
+            popupWindowControl.CustomizePopupControl -= PopupWindowControlOnCustomizePopupControl;
             new ObjectModelSynchronizer(e.PopupControl, ((IModelViewPopup) View.Model).PopupControl).ApplyModel();
         }
 
         private void XafPopupWindowControl_CustomizePopupWindowSize(object sender, CustomizePopupWindowSizeEventArgs e) {
+            var popupWindowControl = ((XafPopupWindowControl) sender);
+            popupWindowControl.CustomizePopupWindowSize -= XafPopupWindowControl_CustomizePopupWindowSize;
             var popupControl = ((IModelViewPopup)View.Model).PopupControl;
             var height = popupControl.GetValue<Unit>("Height");
             var width = popupControl.GetValue<Unit>("Width");
