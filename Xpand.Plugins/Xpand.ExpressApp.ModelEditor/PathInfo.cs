@@ -11,17 +11,16 @@ namespace Xpand.ExpressApp.ModelEditor {
             IsApplicationModel = Convert.ToBoolean(args[0].Trim());
         }
 
-        public bool IsApplicationModel { get;  }
+        public bool IsApplicationModel{ get; set; }
 
         public override string ToString() {
-            return
-                $"AssemblyPath={AssemblyPath}{Environment.NewLine}FullPath={FullPath}{Environment.NewLine}LocalPath={LocalPath}";
+            return string.Format("AssemblyPath={0}{1}FullPath={2}{3}LocalPath={4}", AssemblyPath, Environment.NewLine, FullPath, Environment.NewLine, LocalPath);
         }
 
         public string AssemblyPath { get; set; }
 
-        public string FullPath { get; }
+        public string FullPath{ get; set; }
 
-        public string LocalPath { get; }
+        public string LocalPath{ get; set; }
     }
 }

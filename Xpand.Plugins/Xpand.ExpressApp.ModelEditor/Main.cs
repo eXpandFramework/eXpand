@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.ModelEditor {
             if (!File.Exists(pathInfo.AssemblyPath)) {
                 pathInfo.AssemblyPath = Path.Combine(Environment.CurrentDirectory, pathInfo.AssemblyPath);
                 if (!File.Exists(pathInfo.AssemblyPath)) {
-                    throw new Exception($"The file '{pathInfo.AssemblyPath}' couldn't be found.");
+                    throw new Exception(string.Format("The file '{0}' couldn't be found.", pathInfo.AssemblyPath));
                 }
             }
         }
@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.ModelEditor {
             try {
                 var strings = args;
                 if (args.Length>4&&args[0]=="d"){
-                    MessageBox.Show($"Attach to {Path.GetFileName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase)}");
+                    MessageBox.Show(string.Format("Attach to {0}", Path.GetFileName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase)));
                     strings = args.Skip(1).ToArray();
                 }
                 var pathInfo = new PathInfo(strings);
