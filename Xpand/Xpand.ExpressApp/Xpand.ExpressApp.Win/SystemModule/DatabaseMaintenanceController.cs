@@ -118,10 +118,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnActivated(){
             base.OnActivated();
             var databaseMaintanance = ((IModelOptionsDatabaseMaintanence) Application.Model.Options).DatabaseMaintanance;
-            Execute(databaseMaintanance, (session, database) => {
-                Update(databaseMaintanance.RecoveryModel, database, session);
-                Update(databaseMaintanance.Autogrowth, session, database);
-                Update(databaseMaintanance.InitialSize, session, database);
+            Task.Factory.StartNew(() => {
+                Execute(databaseMaintanance, (session, database) => {
+                    Update(databaseMaintanance.RecoveryModel, database, session);
+                    Update(databaseMaintanance.Autogrowth, session, database);
+                    Update(databaseMaintanance.InitialSize, session, database);
+                });
             });
         }
 
@@ -201,7 +203,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 if (!Directory.Exists(databaseMaintanance.BackupDirectory))
                     Directory.CreateDirectory(databaseMaintanance.BackupDirectory);
                 Execute(databaseMaintanance, (session, database) => {
-                    var backupFiles = Directory.GetFiles(databaseMaintanance.BackupDirectory,$"{database}*.bak").OrderByDescending(s => new FileInfo(s).CreationTime);
+                    var backupFiles = Directory.GetFiles(databaseMaintanance.BackupDirectory,$"{database}*.bak").OrderByDescending(s => new FileInfo(s).CreationTime).ToArray();
                     if (!backupFiles.Any()){
                         BackupTask(database, databaseMaintanance).ContinueWith(task => _timer.Start());
                     }
