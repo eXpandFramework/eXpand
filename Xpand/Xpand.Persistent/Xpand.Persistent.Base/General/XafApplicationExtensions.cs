@@ -40,7 +40,7 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public enum Platform{
-        Win,Web,Mobile
+        Agnostic,Win, Web,Mobile,
     }
     public static class XafApplicationExtensions {
 
@@ -59,7 +59,7 @@ namespace Xpand.Persistent.Base.General {
                     throw new NullReferenceException("Configuation system.net/mailSettings/smtp Section is missing");
                 var email = new MailMessage {
                     IsBodyHtml = true,
-                    Subject = $"{ApplicationHelper.Instance.Application.Title} Exception - {exception.Message}",
+                    Subject = $"{ApplicationHelper.Instance.Application.Title} Exception - {exception.GetType().FullName}",
                     Body = exception.ToString()
                 };
                 errorMailReceipients.Split(';').Each(s => email.To.Add(s));
@@ -99,7 +99,7 @@ namespace Xpand.Persistent.Base.General {
                 return Platform.Win;
             if (CheckPlatform(modules, mobilePlatformString, webPlatformString, winPlatformString))
                 return Platform.Mobile;
-            throw new NotImplementedException();
+            return Platform.Agnostic;
         }
 
         private static bool CheckPlatform(ModuleBase[] modules, params string[] platformStrings){
