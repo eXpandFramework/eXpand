@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing.Design;
 using System.Globalization;
 using DevExpress.ExpressApp;
@@ -41,8 +42,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         new Type Type { get; set; }
         [ModelBrowsable(typeof(DesignerOnlyCalculatorForExMembers))]
         new bool IsCustom { get; set; }
-        [Browsable(false)]
-        object Tag { get; set; }
+        
         [Browsable(false)]
         bool? CreatedAtDesignTime { get; set; }
 
@@ -99,6 +99,8 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
         protected static IMemberInfo GetMemberInfo(TModelMember modelMemberEx, Action<TModelMember, XPClassInfo> createXpandCustomMemberInfo, Func<TModelMember, bool> validState) {
             var customMemberInfo = FindXPClassInfo(modelMemberEx).FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
+            if (customMemberInfo==null)
+                Debug.WriteLine("");
             if (ValidState(modelMemberEx, customMemberInfo,validState)) {
                 var xpClassInfo = FindXPClassInfo(modelMemberEx);
                 var xpandCustomMemberInfo = (XpandCustomMemberInfo)xpClassInfo.FindMember(modelMemberEx.Name);
@@ -119,24 +121,36 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
             return createdAtDesignTime || modelMemberEx.Application.Id() == ModelApplicationLayerIds.Generator;
         }
 
-        protected static bool CheckTag(TModelMember modelMemberEx) {
-            if (Equals(true, modelMemberEx.Tag)) {
-                modelMemberEx.ClearValue(member => member.Tag);
+        protected static bool CheckTag(TModelMember modelMemberEx){
+            InitMemberTags(modelMemberEx);
+            if (MemberTags[modelMemberEx.Application][modelMemberEx]){
+                 TagMember(modelMemberEx, false);
                 return true;
             }
             return false;
         }
 
+        private static void InitMemberTags(TModelMember modelMemberEx){
+            if (!MemberTags.ContainsKey(modelMemberEx.Application)) {
+                MemberTags.Add(modelMemberEx.Application, new LightDictionary<TModelMember, bool> { { modelMemberEx, false } });
+            }
+        }
+
+        static readonly LightDictionary<IModelApplication,LightDictionary<TModelMember,bool>> MemberTags=new LightDictionary<IModelApplication, LightDictionary<TModelMember, bool>>();
         protected static bool ValidState(TModelMember modelMemberEx, XPCustomMemberInfo memberInfo,Func<TModelMember,bool> validState) {
             if (CheckTag(modelMemberEx)) return false;
-            if (memberInfo == null && !String.IsNullOrEmpty(modelMemberEx.Name)) {
-                modelMemberEx.Tag = true;
-                if (modelMemberEx.Type != null && (validState.Invoke(modelMemberEx))) {
-                    modelMemberEx.ClearValue(member => member.Tag);
+            if (memberInfo == null && !String.IsNullOrEmpty(modelMemberEx.Name)){
+                TagMember(modelMemberEx, true);
+                if (modelMemberEx.Type != null && (validState.Invoke(modelMemberEx))){
+                    TagMember(modelMemberEx, false);
                     return true;
                 }
             }
             return false;
+        }
+
+        private static void TagMember(TModelMember modelMemberEx, bool tag){
+            MemberTags[modelMemberEx.Application][modelMemberEx] = tag;
         }
 
         protected static XPClassInfo FindXPClassInfo(TModelMember modelMemberEx) {
