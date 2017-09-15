@@ -27,7 +27,6 @@ namespace Xpand.ExpressApp.SystemModule {
             base.OnActivated();
             var interval = ((IModelObjectViewAutoRefresh) View.Model).AutoRefreshInterval;
             if (interval > TimeSpan.Zero){
-                // ReSharper disable once SuspiciousTypeConversion.Global
                 _timer = new Timer(interval.TotalMilliseconds){SynchronizingObject = (ISynchronizeInvoke)Application.MainWindow.Template};
                 _timer.Elapsed += timer_Elapsed;
                 _timer.Start();
@@ -35,7 +34,8 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e){
-            ObjectSpace.Refresh();
+            if (!ObjectSpace.IsModified)
+                ObjectSpace.Refresh();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
