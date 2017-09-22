@@ -15,7 +15,8 @@
     <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <OutputPath>..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -133,6 +134,7 @@
     <Compile Include="Threading\Progress.cs" />
     <Compile Include="Threading\Synchronizer.cs" />
     <Compile Include="Threading\TaskExtensions.cs" />
+    <Compile Include="Win32\WindowFinder.cs" />
     <Compile Include="Win32\Win32Constants.cs" />
     <Compile Include="Win32\Win32Declares.cs" />
     <Compile Include="Win32\Win32Types.cs" />
@@ -203,7 +205,8 @@
   </Target>
   
   -->
-  <Target Name="AfterBuild"></Target>
+  <Target Name="AfterBuild">
+  </Target>
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
