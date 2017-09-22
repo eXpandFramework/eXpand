@@ -55,7 +55,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         string _assemblyName;
         static bool _loadFromPath;
         static bool _fileExistInPath;
-        static readonly Dictionary<string, Assembly> _assemblies = new Dictionary<string, Assembly>();
+        static readonly Dictionary<string, Assembly> Assemblies = new Dictionary<string, Assembly>();
 
         public InterfaceBuilder(ModelInterfaceExtenders extenders)
             : this(){
@@ -108,8 +108,8 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 return Assembly.LoadFile(assemblyFilePath);
             }
             _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
-            if (!RuntimeMode && _assemblies.ContainsKey(_assemblyName + "")){
-                return _assemblies[_assemblyName];
+            if (!RuntimeMode && Assemblies.ContainsKey(_assemblyName + "")){
+                return Assemblies[_assemblyName];
             }
 
             TraceBuildReason(assemblyFilePath);
@@ -121,7 +121,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             string[] references = _referencesCollector.References.ToArray();
 
             var compileAssemblyFromSource = CompileAssemblyFromSource(source, references, false, assemblyFilePath);
-            _assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
+            Assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
             return compileAssemblyFromSource;
         }
 
@@ -319,20 +319,15 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         string GetAttributesCode(DynamicModelPropertyInfo property){
             var attributes = property.GetCustomAttributes(false).OfType<Attribute>().ToList();
-            var codeList = attributes.Select(attribute => GetAttributeCode(attribute, property))
+            var codeList = attributes.Select(GetAttributeCode)
                     .Where(attributeCode => !string.IsNullOrEmpty(attributeCode));
             return codeList.Aggregate<string, string>(null,
                 (current, attributeCode) => current + $"   [{attributeCode}]{Environment.NewLine}");
         }
 
-        string GetAttributeCode(object attribute, DynamicModelPropertyInfo info){
+        string GetAttributeCode(object attribute){
             if (attribute == null){
                 return string.Empty;
-            }
-            var localizableAttribute = attribute as LocalizableAttribute;
-            if (localizableAttribute != null && info.PropertyType == typeof(string)){
-                string arg = (localizableAttribute).IsLocalizable.ToString(CultureInfo.InvariantCulture).ToLower();
-                return string.Format("{1}({0})", arg, TypeToString(attribute.GetType()));
             }
             if (attribute.GetType() == typeof(CategoryAttribute)){
                 string arg = ((CategoryAttribute) attribute).Category;
@@ -358,7 +353,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 if (!(typeConverterAttribute).ConverterTypeName.Contains(".Design.") &&
                     !(typeConverterAttribute).ConverterTypeName.EndsWith(".Design")){
                     var type = Type.GetType((typeConverterAttribute).ConverterTypeName);
-                    if (type != null && type.IsPublic && !type.FullName.Contains(".Design."))
+                    if (type != null && type.IsPublic && !(type.FullName+"").Contains(".Design."))
                         return string.Format("{1}(typeof({0}))", TypeToString(type), TypeToString(attribute.GetType()));
                 }
                 return null;
@@ -626,7 +621,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         class PropertyInfoEqualityComparer : IEqualityComparer<PropertyInfo>{
             public bool Equals(PropertyInfo x, PropertyInfo y){
-                return x.Name.Equals(y.Name);
+                return y != null && (x != null && x.Name.Equals(y.Name));
             }
 
             public int GetHashCode(PropertyInfo obj){
