@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes ={
                 typeof(FindPopupController),
-                typeof(AutoRefreshObjectViewController),
+                typeof(RefreshObjectViewController),
                 typeof(ASPxSpinEditModelAdapter),
                 typeof(ASPxHyperLinkControlModelAdapter),
                 typeof(ASPxDateEditModelAdapter),

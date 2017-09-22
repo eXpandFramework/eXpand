@@ -6,16 +6,18 @@ using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
-    
-    public interface IModelObjectViewAutoRefresh:IModelObjectView{
+    public interface IModelObjectViewRefresh:IModelObjectView{
         [Category(AttributeCategoryNameProvider.Xpand)]
         TimeSpan AutoRefreshInterval{ get; set; }
+        [Category(AttributeCategoryNameProvider.Xpand)]
+        bool RefreshObjectSpaceOnCommit { get; set; }
     }
 
-    public class AutoRefreshObjectViewController:ViewController<ObjectView>,IModelExtender {
+    public class RefreshObjectViewController:ViewController<ObjectView>,IModelExtender {
         private Timer _timer;
         protected override void OnDeactivated() {
             base.OnDeactivated();
+            ObjectSpace.Committed-=ObjectSpaceOnCommitted;
             if (_timer!=null){
                 _timer.Elapsed -= timer_Elapsed;
                 _timer.Stop();
@@ -23,9 +25,18 @@ namespace Xpand.ExpressApp.SystemModule {
                 _timer = null;
             }
         }
+
+        private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
+            ObjectSpace.Refresh();
+        }
+
         protected override void OnActivated(){
             base.OnActivated();
-            var interval = ((IModelObjectViewAutoRefresh) View.Model).AutoRefreshInterval;
+            var modelObjectViewRefresh = ((IModelObjectViewRefresh) View.Model);
+            if (modelObjectViewRefresh.RefreshObjectSpaceOnCommit){
+                ObjectSpace.Committed += ObjectSpaceOnCommitted;
+            }
+            var interval = modelObjectViewRefresh.AutoRefreshInterval;
             if (interval > TimeSpan.Zero){
                 _timer = new Timer(interval.TotalMilliseconds){SynchronizingObject = (ISynchronizeInvoke)Application.MainWindow.Template};
                 _timer.Elapsed += timer_Elapsed;
@@ -33,14 +44,15 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
+
         private void timer_Elapsed(object sender, ElapsedEventArgs e){
             if (!ObjectSpace.IsModified)
                 ObjectSpace.Refresh();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
-            extenders.Add<IModelListView,IModelObjectViewAutoRefresh>();
-            extenders.Add<IModelDetailView,IModelObjectViewAutoRefresh>();
+            extenders.Add<IModelListView,IModelObjectViewRefresh>();
+            extenders.Add<IModelDetailView,IModelObjectViewRefresh>();
         }
     }
 }

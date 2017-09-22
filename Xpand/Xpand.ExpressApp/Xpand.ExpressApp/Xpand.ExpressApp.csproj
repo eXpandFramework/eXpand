@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -160,7 +161,7 @@
     <Compile Include="SystemModule\AutoCommitController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AutoRefreshObjectViewController.cs">
+    <Compile Include="SystemModule\RefreshObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ChangeLanguageController.cs">
