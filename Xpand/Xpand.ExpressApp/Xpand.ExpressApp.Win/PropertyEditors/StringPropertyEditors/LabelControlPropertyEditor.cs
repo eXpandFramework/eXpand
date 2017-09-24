@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors {
 
         protected override void ReadValueCore(){
             base.ReadValueCore();
-            Control.Text = string.Format(PropertyValue+"", DisplayFormat);
+            Control.Text = string.Format(DisplayFormat,PropertyValue);
         }
 
         void IPropertyEditor.SetValue(string value){

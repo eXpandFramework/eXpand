@@ -22,10 +22,26 @@ using Xpand.ExpressApp.Web.SystemModule.ModelAdapters;
 using Xpand.ExpressApp.Web.SystemModule.WebShortcuts;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.Options;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.TreeNode;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
+    public interface IModelOptionsWebApplicationStyleManager{
+        IModelWebApplicationStyleManager WebApplicationStyleManager{ get; }
+    }
+
+    public interface IModelWebApplicationStyleManager:IModelNode{
+        [DefaultValue(true)]
+        bool EnableUpperCase{ get; set; }
+        [DefaultValue(true)]
+        bool EnableNavigationGroupsUpperCase{ get; set; }
+        [DefaultValue(true)]
+        bool EnableGridColumnsUpperCase{ get; set; }
+        [DefaultValue(true)]
+        bool EnableGroupUpperCase{ get; set; }
+    }
+
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
     [Description("Overrides Controllers from the SystemModule and supplies additional basic Controllers that are specific for ASP.NET applications.")]
@@ -88,7 +104,18 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         public override void Setup(XafApplication application){
             base.Setup(application);
+            application.SetupComplete+=ApplicationOnSetupComplete;
             application.CreateCustomLogonWindowControllers+=ApplicationOnCreateCustomLogonWindowControllers;
+        }
+
+        private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
+            var applicationStyleManager = ((IModelOptionsWebApplicationStyleManager) Application.Model.Options).WebApplicationStyleManager;
+            if (WebApplicationStyleManager.IsNewStyle&&!InterfaceBuilder.IsDBUpdater){
+                WebApplicationStyleManager.EnableUpperCase = applicationStyleManager.EnableUpperCase;
+                WebApplicationStyleManager.EnableGridColumnsUpperCase = applicationStyleManager.EnableGridColumnsUpperCase;
+                WebApplicationStyleManager.EnableGroupUpperCase = applicationStyleManager.EnableGroupUpperCase;
+                WebApplicationStyleManager.EnableNavigationGroupsUpperCase =applicationStyleManager.EnableNavigationGroupsUpperCase;
+            }
         }
 
         private void ApplicationOnCreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e){
@@ -103,6 +130,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelOptions, IModelOptionsQueryStringParameter>();
+            extenders.Add<IModelOptions, IModelOptionsWebApplicationStyleManager>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemRelativeDate>();
             extenders.Add<IModelListView, IModelListViewTwoDimensionListEditor>();
             extenders.Add<IModelColumnSummaryItem, IModelColumnSummaryItemTwoDimensionListEditor>();

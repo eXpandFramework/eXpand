@@ -28,7 +28,7 @@
 *Navigate Application Settings
 *XpandProcessRecord 
  Name = ModelDifferenceTester.Web
- Persistent Application = ModelDifferenceTester.Web
+ Persistent Application = ModelDifferenceTester.Web-All
  Action = Edit
 *Action Xml Content
 *FillForm
