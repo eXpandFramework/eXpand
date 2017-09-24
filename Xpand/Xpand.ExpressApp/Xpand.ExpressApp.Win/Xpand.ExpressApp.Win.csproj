@@ -17,7 +17,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -407,6 +408,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\SelectedItemSumController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\SplitLayoutListViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SystemModule\SplitLayoutControlModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\XafLayoutControlModelAdapterController.cs">

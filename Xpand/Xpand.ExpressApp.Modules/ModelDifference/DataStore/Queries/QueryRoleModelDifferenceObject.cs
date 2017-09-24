@@ -1,47 +1,43 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Persistent.Base.Security;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
     public class QueryRoleModelDifferenceObject : QueryDifferenceObject<RoleModelDifferenceObject> {
         public QueryRoleModelDifferenceObject(Session session)
             : base(session) {
         }
-        public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name) {
+        public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name, DeviceCategory deviceCategory=DeviceCategory.All) {
             var userWithRoles = SecuritySystem.CurrentUser as IUserWithRoles;
-            var collection = Collection(userWithRoles);
+            var collection = GetRoles(userWithRoles);
             if (collection != null) {
-                Type roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
-                ITypeInfo roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.First(info => info.Type == roleType);
+                var roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
+                var roleTypeInfo = XafTypesInfo.Instance.PersistentTypes.First(info => info.Type == roleType);
                 var criteria = new ContainsOperator("Roles", new InOperator(roleTypeInfo.KeyMember.Name, collection.ToList()));
-
-                var roleAspectObjects = base.GetActiveModelDifferences(applicationName, name).ToList();
+                var roleAspectObjects = base.GetActiveModelDifferences(applicationName, name,deviceCategory).ToArray();
                 return roleAspectObjects.Where(aspectObject => aspectObject.Fit(criteria.ToString())).AsQueryable();
             }
-            return base.GetActiveModelDifferences(applicationName, name).OfType<RoleModelDifferenceObject>().AsQueryable();
+            return base.GetActiveModelDifferences(applicationName, name,deviceCategory).OfType<RoleModelDifferenceObject>().AsQueryable();
         }
 
-        static IEnumerable<object> Collection(IUserWithRoles userWithRoles) {
-            IEnumerable<object> collection = null;
+        IEnumerable<object> GetRoles(IUserWithRoles userWithRoles) {
+            IEnumerable<object> roles = null;
             if (userWithRoles != null) {
-                collection = userWithRoles.Roles.OfType<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
+                roles = userWithRoles.Roles.OfType<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
             }
-            if (collection == null) {
+            if (roles == null) {
                 var securityUserWithRoles = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
                 if (securityUserWithRoles != null) {
-                    collection =
-                        securityUserWithRoles.Roles.OfType<XPBaseObject>()
-                                             .Select(role => role.ClassInfo.KeyProperty.GetValue(role));
+                    roles =securityUserWithRoles.Roles.OfType<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
                 }
             }
-            return collection;
+            return roles;
         }
     }
 }

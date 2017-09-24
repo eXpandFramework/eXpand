@@ -1,3 +1,4 @@
+#Timeout 160
 #DropDB XpandSecurityDemoEasyTest
 #DropDB XpandSecurityDemoWC
 #Application SecurityDemo.UiLevel.Web

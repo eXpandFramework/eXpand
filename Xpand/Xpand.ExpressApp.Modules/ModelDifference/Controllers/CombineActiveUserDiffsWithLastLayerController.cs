@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.Controllers {
     public class CombineActiveUserDiffsWithLastLayerController : ViewController<DetailView> {
@@ -17,7 +18,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             base.OnActivated();
             var userModelDifferenceObject = ((UserModelDifferenceObject)View.CurrentObject);
             if (userModelDifferenceObject != null)
-                if ( ReferenceEquals(GetDifference(Application.GetType().FullName, userModelDifferenceObject.Name), userModelDifferenceObject)){
+                if ( ReferenceEquals(GetDifference(Application.GetType().FullName, userModelDifferenceObject.Name, userModelDifferenceObject.DeviceCategory), userModelDifferenceObject)){
                     var lastLayer = ((ModelApplicationBase)Application.Model).LastLayer;
                     userModelDifferenceObject.CreateAspectsCore(lastLayer);
                     ObjectSpace.CommitChanges();
@@ -32,7 +33,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
 
         private void ObjectSpaceOnObjectSaved(object sender, ObjectManipulatingEventArgs args){
             var userModelDifferenceObject = args.Object as UserModelDifferenceObject;
-            if (userModelDifferenceObject != null &&ReferenceEquals(GetDifference(Application.GetType().FullName, userModelDifferenceObject.Name),userModelDifferenceObject)){
+            if (userModelDifferenceObject != null &&ReferenceEquals(GetDifference(Application.GetType().FullName, userModelDifferenceObject.Name, userModelDifferenceObject.DeviceCategory),userModelDifferenceObject)){
                 var applicationModel = (ModelApplicationBase) Application.Model;
                 var model = applicationModel.CreatorInstance.CreateModelApplication();
                 model.Id = applicationModel.LastLayer.Id;
@@ -46,8 +47,8 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
         }
 
 
-        protected virtual ModelDifferenceObject GetDifference(string applicationName, string name) {
-            return new QueryUserModelDifferenceObject(((XPObjectSpace)View.ObjectSpace).Session).GetActiveModelDifference(applicationName, name);
+        protected virtual ModelDifferenceObject GetDifference(string applicationName, string name, DeviceCategory deviceCategory) {
+            return new QueryUserModelDifferenceObject(((XPObjectSpace)View.ObjectSpace).Session).GetActiveModelDifference(applicationName, name,deviceCategory);
 
         }
 

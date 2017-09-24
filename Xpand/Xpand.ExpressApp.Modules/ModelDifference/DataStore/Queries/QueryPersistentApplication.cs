@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries{
 
         public PersistentApplication Find(string uniqueName)
         {
-            return new XPQuery<PersistentApplication>(_session).Where(application => application.UniqueName==uniqueName).FirstOrDefault();
+            return new XPQuery<PersistentApplication>(_session).FirstOrDefault(application => application.UniqueName==uniqueName);
         }
     }
 }

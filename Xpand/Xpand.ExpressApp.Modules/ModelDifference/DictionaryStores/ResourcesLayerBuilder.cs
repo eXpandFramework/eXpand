@@ -52,14 +52,14 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                 var xpBaseCollection = ((XPBaseCollection)modelDifferenceObject.GetMemberValue("Roles"));
                 xpBaseCollection.BaseAdd(findObject);
             }
-            modelDifferenceObject.InitializeMembers(resourceName, _xafApplication.Title, _xafApplication.GetType().FullName);
+            modelDifferenceObject.InitializeMembers(resourceName, _xafApplication.Title, _xafApplication.GetType().FullName,DeviceCategory.All);
             return modelDifferenceObject;
         }
 
         ModelDifferenceObject FindDifferenceObject(string resourceName, string prefix) {
             if (prefix == XpoModelDictionaryDifferenceStore.ModelApplicationPrefix)
-                return _xpoModelDictionaryDifferenceStore.GetActiveDifferenceObject(resourceName);
-            return new QueryRoleModelDifferenceObject(_objectSpace.Session).GetActiveModelDifference(resourceName, _xafApplication);
+                return _xpoModelDictionaryDifferenceStore.GetActiveDifferenceObject(resourceName,DeviceCategory.All);
+            return new QueryRoleModelDifferenceObject(_objectSpace.Session).GetActiveModelDifference(resourceName, _xafApplication,DeviceCategory.All);
         }
 
         ModelDifferenceObjectInfo GetModelDifferenceObjectInfo(string prefix, Dictionary<string, ModelDifferenceObjectInfo> loadedModelDifferenceObjectInfos, string resourceName, ModelApplicationBase model) {

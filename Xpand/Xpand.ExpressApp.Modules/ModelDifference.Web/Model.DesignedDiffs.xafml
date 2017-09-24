@@ -17,82 +17,91 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
-          <TabbedGroup Id="TabContainer" RelativeSize="99.86666666666666">
+          <TabbedGroup Id="TabContainer" RelativeSize="99.927272727272722">
             <LayoutGroup Id="Xml Content" Index="0" />
             <LayoutGroup Id="General" Index="1">
-              <LayoutItem Id="Name" RelativeSize="4.577968526466381" ViewItem="Name" />
-              <LayoutItem Id="PersistentApplication.Name" RelativeSize="3.4334763948497855" ViewItem="PersistentApplication.Name" />
-              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91.988555078683831">
-                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="46.473029045643152">
-                  <LayoutItem Id="Disabled" RelativeSize="4.6656298600311041" ViewItem="Disabled" />
-                  <LayoutItem Id="DateCreated" RelativeSize="95.3343701399689" ViewItem="DateCreated" />
+              <LayoutItem Id="Name" RelativeSize="3.004694835680751" ViewItem="Name" />
+              <LayoutItem Id="PersistentApplication.Name" RelativeSize="2.2535211267605635" ViewItem="PersistentApplication.Name" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="94.741784037558688">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="46.415373244641536">
+                  <LayoutItem Id="Disabled" RelativeSize="2.8741328047571852" ViewItem="Disabled" />
+                  <LayoutItem Id="DeviceCategory" ViewItem="DeviceCategory" Index="1" RelativeSize="2.3785926660059467" IsNewNode="True" />
+                  <LayoutItem Id="DateCreated" RelativeSize="94.747274529236861" ViewItem="DateCreated" Index="2" />
                 </LayoutGroup>
-                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="53.526970954356848">
-                  <LayoutItem Id="CombineOrder" RelativeSize="4.6656298600311041" ViewItem="CombineOrder" />
-                  <LayoutItem Id="NonPersistent" RelativeSize="95.3343701399689" ViewItem="" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="53.584626755358464">
+                  <LayoutItem Id="CombineOrder" RelativeSize="2.9732408325074333" ViewItem="CombineOrder" />
+                  <LayoutItem Id="PreferredAspect" RelativeSize="2.3785926660059467" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="94.648166501486614" ViewItem="" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="Model" Removed="True" />
           </TabbedGroup>
-          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.13333333333333333" ViewItem="" />
+          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.072727272727272724" ViewItem="" />
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="ModelDifferenceObject_DetailView">
-      <Items>
-        <PropertyEditor Id="XmlContent">
-          <SyntaxHighlight Mode="xml" />
-        </PropertyEditor>
-      </Items>
-    </DetailView>
+    <ListView Id="MDO_ListView">
+      <Columns>
+        <ColumnInfo Id="DeviceCategory" Index="1" />
+        <ColumnInfo Id="CombineOrder" Index="2" />
+        <ColumnInfo Id="PersistentApplication" Index="3" />
+        <ColumnInfo Id="DifferenceType" SortOrder="Ascending" Index="4" />
+        <ColumnInfo Id="Disabled" Index="5" />
+        <ColumnInfo Id="DateCreated" Index="6" />
+      </Columns>
+    </ListView>
     <DetailView Id="RDO_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
-          <TabbedGroup Id="TabContainer" RelativeSize="99.86666666666666">
+          <TabbedGroup Id="TabContainer" RelativeSize="99.927272727272722">
             <LayoutGroup Id="Xml Content" Index="0" />
             <LayoutGroup Id="General" Index="1">
-              <LayoutItem Id="Name" RelativeSize="4.577968526466381" ViewItem="Name" />
-              <LayoutItem Id="PersistentApplication.Name" RelativeSize="3.4334763948497855" ViewItem="PersistentApplication.Name" />
-              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91.988555078683831">
-                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="46.473029045643152">
-                  <LayoutItem Id="Disabled" RelativeSize="4.6656298600311041" ViewItem="Disabled" />
-                  <LayoutItem Id="DateCreated" RelativeSize="95.3343701399689" ViewItem="DateCreated" />
+              <LayoutItem Id="Name" RelativeSize="3.004694835680751" ViewItem="Name" />
+              <LayoutItem Id="PersistentApplication.Name" RelativeSize="2.2535211267605635" ViewItem="PersistentApplication.Name" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="94.741784037558688">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="46.415373244641536">
+                  <LayoutItem Id="Disabled" RelativeSize="2.8741328047571852" ViewItem="Disabled" />
+                  <LayoutItem Id="DeviceCategory" ViewItem="DeviceCategory" Index="1" RelativeSize="2.3785926660059467" IsNewNode="True" />
+                  <LayoutItem Id="DateCreated" RelativeSize="94.747274529236861" ViewItem="DateCreated" Index="2" />
                 </LayoutGroup>
-                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="53.526970954356848">
-                  <LayoutItem Id="CombineOrder" RelativeSize="4.6656298600311041" ViewItem="CombineOrder" />
-                  <LayoutItem Id="NonPersistent" RelativeSize="95.3343701399689" ViewItem="" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="53.584626755358464">
+                  <LayoutItem Id="CombineOrder" RelativeSize="2.9732408325074333" ViewItem="CombineOrder" />
+                  <LayoutItem Id="PreferredAspect" RelativeSize="2.3785926660059467" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="94.648166501486614" ViewItem="" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="Roles" Index="2" />
           </TabbedGroup>
-          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.13333333333333333" ViewItem="" />
+          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.072727272727272724" ViewItem="" />
         </LayoutGroup>
       </Layout>
     </DetailView>
     <DetailView Id="UDO_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
-          <TabbedGroup Id="TabContainer" RelativeSize="99.86666666666666">
+          <TabbedGroup Id="TabContainer" RelativeSize="99.927272727272722">
             <LayoutGroup Id="Xml Content" Index="0" />
             <LayoutGroup Id="General" Index="1">
-              <LayoutItem Id="Name" RelativeSize="4.577968526466381" ViewItem="Name" />
-              <LayoutItem Id="PersistentApplication.Name" RelativeSize="3.4334763948497855" ViewItem="PersistentApplication.Name" />
-              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91.988555078683831">
-                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="44.398340248962654">
-                  <LayoutItem Id="Disabled" RelativeSize="4.6656298600311041" ViewItem="Disabled" />
-                  <LayoutItem Id="DateCreated" RelativeSize="95.3343701399689" ViewItem="DateCreated" />
+              <LayoutItem Id="Name" RelativeSize="3.004694835680751" ViewItem="Name" />
+              <LayoutItem Id="PersistentApplication.Name" RelativeSize="2.2535211267605635" ViewItem="PersistentApplication.Name" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="94.741784037558688">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="44.2719881744272">
+                  <LayoutItem Id="Disabled" RelativeSize="2.8741328047571852" ViewItem="Disabled" />
+                  <LayoutItem Id="DeviceCategory" ViewItem="DeviceCategory" Index="1" RelativeSize="2.3785926660059467" IsNewNode="True" />
+                  <LayoutItem Id="DateCreated" RelativeSize="94.747274529236861" ViewItem="DateCreated" Index="2" />
                 </LayoutGroup>
-                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="55.601659751037346">
-                  <LayoutItem Id="CombineOrder" RelativeSize="4.6656298600311041" ViewItem="CombineOrder" />
-                  <LayoutItem Id="NonPersistent" RelativeSize="95.3343701399689" ViewItem="NonPersistent" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="55.7280118255728">
+                  <LayoutItem Id="CombineOrder" RelativeSize="2.9732408325074333" ViewItem="CombineOrder" />
+                  <LayoutItem Id="PreferredAspect" RelativeSize="2.3785926660059467" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="94.648166501486614" ViewItem="NonPersistent" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="Users" Index="2" />
           </TabbedGroup>
-          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.13333333333333333" ViewItem="" />
+          <LayoutItem Id="LockHeightEmptySpace" RelativeSize="0.072727272727272724" ViewItem="" />
         </LayoutGroup>
       </Layout>
     </DetailView>

@@ -17,6 +17,11 @@ namespace Xpand.Utils.Helpers {
         public static double Round(this double d, int decimals = 0) {
             return Math.Round(d, decimals);
         }
+
+        public static decimal RoundNumber(this decimal d, int decimals = 0) {
+            return Math.Round(d, decimals);
+        }
+
         public static int ValInt32(this string x) {
             var regex = new Regex("[-+]?\\b\\d+\\b", RegexOptions.Compiled);
             Match match = regex.Match(x + "");

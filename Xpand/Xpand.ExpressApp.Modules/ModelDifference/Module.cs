@@ -21,13 +21,14 @@ using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.Security;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
     public interface IModelOptionsModelDifference:IModelNode{
+
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
-        [DefaultValue("Autocreated at {0} For {1}")]
         string UserModelDifferenceObjectSubjectTemplate { get; set; }
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
@@ -36,19 +37,52 @@ namespace Xpand.ExpressApp.ModelDifference {
         string ModelToUpdateFromFileCriteria { get; set; }
         [Browsable(false)]
         ITypeInfo  MDOTypeInfo { get; }
+        [Category(ModelDifferenceModule.ModelDifferenceCategory)]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [CriteriaOptions("MDOTypeInfo")]
+        [Description("The MDO object that fits in this criterion it will be updated with the Model.Desktop.xafml contents on each application restart")]
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
+        string ModelToUpdateFromDesktopFileCriteria { get; set; }
+        [Category(ModelDifferenceModule.ModelDifferenceCategory)]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [CriteriaOptions("MDOTypeInfo")]
+        [Description("The MDO object that fits in this criterion it will be updated with the Model.Tablet.xafml contents on each application restart")]
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
+        string ModelToUpdateFromTabletFileCriteria { get; set; }
+        [DefaultValue(true)]
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
+        bool UserMobileModels { get; set; }
+        [Category(ModelDifferenceModule.ModelDifferenceCategory)]
+        [DefaultValue(true)]
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
+        bool ApplicationMobileModels { get; set; }
+        
     }
 
     [DomainLogic(typeof(IModelOptionsModelDifference))]
     public class ModelOptionsModelDifferenceLogic {
+        public static string Get_UserModelDifferenceObjectSubjectTemplate(IModelOptionsModelDifference modelDifference) {
+            var autocreatedATFor = "Autocreated at {0} For {1}";
+            if (new WebOnlyVisibilityCalculator().IsVisible(modelDifference, null))
+                autocreatedATFor += " - {2}";
+            return autocreatedATFor;
+        }
+
         public static ITypeInfo Get_MDOTypeInfo(IModelOptionsModelDifference modelDifference){
             return modelDifference.Application.BOModel.GetClass(typeof(ModelDifferenceObject)).TypeInfo;
         }
 
         public static string Get_ModelToUpdateFromFileCriteria(IModelOptionsModelDifference modelDifference) {
-            return new XPQuery<ModelDifferenceObject>(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary).TransformExpression(
-                    o =>o.DifferenceType == DifferenceType.Model && o.Name.Contains("Create a new MDO object") && !o.Disabled).ToString();
+            return GetCriteria();
+        }
+        public static string Get_ModelToUpdateFromMobileFileCriteria(IModelOptionsModelDifference modelDifference) {
+            return GetCriteria();
         }
 
+        private static string GetCriteria() {
+            return new XPQuery<ModelDifferenceObject>(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary)
+                .TransformExpression(o => o.DifferenceType == DifferenceType.Model && o.Name.Contains("Create a new MDO object") && !o.Disabled).ToString();
+        }
     }
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]

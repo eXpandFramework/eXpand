@@ -14,6 +14,7 @@ using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [HideFromNewMenu, ModelDefault("Caption", "User Settings"), VisibleInReports(false)]
@@ -31,15 +32,17 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _nonPersistent, value); }
         }
         [Browsable(false)]
-        public bool IsCurrentUserModel => ReferenceEquals(new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(ApplicationHelper.Instance.Application.GetType().FullName, Name), this);
+        public bool IsCurrentUserModel => ReferenceEquals(new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(ApplicationHelper.Instance.Application.GetType().FullName, Name,DeviceCategory), this);
 
         public override void AfterConstruction() {
             base.AfterConstruction();
             DifferenceType = DifferenceType.User;
         }
-        public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
-            ModelDifferenceObject modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName);
-            modelDifferenceObject.Name = string.Format(((IModelOptionsModelDifference) ApplicationHelper.Instance.Application.Model.Options).UserModelDifferenceObjectSubjectTemplate, DateTime.Now, GetUserName());
+        public override ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName, DeviceCategory deviceCategory = DeviceCategory.All) {
+            var modelDifferenceObject = base.InitializeMembers(name, applicationTitle, uniqueName,deviceCategory);
+            modelDifferenceObject.Name =string.Format(
+                    ((IModelOptionsModelDifference) ApplicationHelper.Instance.Application.Model.Options)
+                    .UserModelDifferenceObjectSubjectTemplate, DateTime.Now, GetUserName(),deviceCategory);
             return modelDifferenceObject;
         }
 
@@ -57,7 +60,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             }
         }
         public override IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master) {
-            IQueryable<ModelDifferenceObject> differenceObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null).Cast<ModelDifferenceObject>();
+            var differenceObjects = new QueryRoleModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null).Cast<ModelDifferenceObject>();
             differenceObjects = differenceObjects.Concat(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(PersistentApplication.UniqueName, null));
             return GetAllLayers(differenceObjects, master);
         }

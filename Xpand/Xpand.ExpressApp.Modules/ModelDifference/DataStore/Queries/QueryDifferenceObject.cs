@@ -5,7 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base;
-using Xpand.Utils.Linq;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
     public abstract class QueryDifferenceObject<TDifferenceObject> : IQueryDifferenceObject<TDifferenceObject> where TDifferenceObject : ModelDifferenceObject {
@@ -15,40 +15,33 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
             _session = session;
         }
 
-        public Session Session {
-            get { return _session; }
-        }
+        public Session Session => _session;
 
-        public virtual IQueryable<TDifferenceObject> GetActiveModelDifferences(string uniqueApplicationName, string name) {
+        public virtual IQueryable<TDifferenceObject> GetActiveModelDifferences(string uniqueApplicationName, string name, DeviceCategory deviceCategory=DeviceCategory.All) {
             var differenceObjects = new XPQuery<TDifferenceObject>(_session);
-            IQueryable<TDifferenceObject> differences = GetDifferences(differenceObjects, uniqueApplicationName, name);
+            IQueryable<TDifferenceObject> differences = GetDifferences(differenceObjects, uniqueApplicationName, name,deviceCategory);
             if (typeof(TDifferenceObject) == typeof(ModelDifferenceObject))
                 differences = differences.Where(o => o.DifferenceType == DifferenceType.Model);
             return differences;
         }
 
-        protected IQueryable<TDifferenceObject> GetDifferences(IOrderedQueryable<TDifferenceObject> differenceObjects, string uniqueApplicationName, string name) {
-            IQueryable<TDifferenceObject> queryable = differenceObjects.Where(IsActiveExpressionCore(uniqueApplicationName));
+        protected IQueryable<TDifferenceObject> GetDifferences(IOrderedQueryable<TDifferenceObject> differenceObjects, string uniqueApplicationName, string name, DeviceCategory deviceCategory=DeviceCategory.All) {
+            IQueryable<TDifferenceObject> queryable = differenceObjects.Where(IsActiveExpressionCore(uniqueApplicationName,deviceCategory));
             if (!(string.IsNullOrEmpty(name))) {
                 queryable = queryable.Where(o => o.Name == name);
             }
             return queryable.OrderBy(o => o.CombineOrder);
         }
 
-        public static Expression<Func<TDifferenceObject, bool>> IsActiveExpression(string uniqueApplicationName) {
-            Expression<Func<TDifferenceObject, bool>> isActiveExpressionCore = IsActiveExpressionCore(uniqueApplicationName);
-            return isActiveExpressionCore.And(IsActiveExpressionCore());
+        Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore(string uniqueApplicationName, DeviceCategory deviceCategory) {
+            return o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false&&o.DeviceCategory==deviceCategory;
+        }
+        public virtual TDifferenceObject GetActiveModelDifference(string name,XafApplication application,DeviceCategory deviceCategory=DeviceCategory.All) {
+            return GetActiveModelDifference(application.GetType().FullName, name,deviceCategory);
         }
 
-        static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore(string uniqueApplicationName) {
-            return o => o.PersistentApplication.UniqueName == uniqueApplicationName && o.Disabled == false;
-        }
-        public virtual TDifferenceObject GetActiveModelDifference(string name,XafApplication application) {
-            return GetActiveModelDifference(application.GetType().FullName, name);
-        }
-
-        public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string name) {
-            return GetActiveModelDifferences(applicationName, name).Where(IsActiveExpressionCore()).FirstOrDefault();
+        public virtual TDifferenceObject GetActiveModelDifference(string applicationName, string name,DeviceCategory deviceCategory=DeviceCategory.All) {
+            return GetActiveModelDifferences(applicationName, name,deviceCategory).Where(IsActiveExpressionCore()).FirstOrDefault();
         }
 
         static Expression<Func<TDifferenceObject, bool>> IsActiveExpressionCore() {

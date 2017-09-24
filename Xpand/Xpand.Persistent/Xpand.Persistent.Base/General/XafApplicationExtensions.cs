@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -23,6 +24,7 @@ using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.DB;
+using DeviceCategory = Xpand.Persistent.Base.ModelDifference.DeviceCategory;
 using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
 
 namespace Xpand.Persistent.Base.General {
@@ -66,6 +68,12 @@ namespace Xpand.Persistent.Base.General {
                 email.ReplyToList.Add($"noreply@{ApplicationHelper.Instance.Application.Title}.com");
                 smtpClient.Send(email);
             }
+        }
+
+        public static DeviceCategory GetDeviceCategory(this XafApplication application){
+            return application.GetPlatform() == Platform.Win
+                ? DeviceCategory.All: (DeviceCategory) Enum.Parse(typeof(DeviceCategory),
+                    DeviceDetector.Instance.GetDeviceCategory().ToString());
         }
 
         public static ListView CreateListView<T>(this XafApplication application, IObjectSpace objectSpace,bool isRoot=true){

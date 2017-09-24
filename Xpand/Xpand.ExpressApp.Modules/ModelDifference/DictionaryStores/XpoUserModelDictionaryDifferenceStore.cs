@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base.Security;
+using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
@@ -25,16 +26,18 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         public override DifferenceType DifferenceType => DifferenceType.User;
 
-        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name) {
-            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName, Application);
+        protected override bool DeviceModelsEnabled => Application.UserDeviceModelsEnabled();
+
+        protected internal override ModelDifferenceObject GetActiveDifferenceObject(string name, DeviceCategory deviceCategory) {
+            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifference(Application.GetType().FullName, Application,deviceCategory);
         }
 
-        protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects() {
-            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>();
+        protected internal IQueryable<ModelDifferenceObject> GetActiveDifferenceObjects(DeviceCategory deviceCategory) {
+            return new QueryUserModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null,deviceCategory).Cast<ModelDifferenceObject>();
         }
 
-        protected internal IQueryable<ModelDifferenceObject> GetActiveRoleDifferenceObjects() {
-            return new QueryRoleModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null).Cast<ModelDifferenceObject>();
+        protected internal IQueryable<ModelDifferenceObject> GetActiveRoleDifferenceObjects(DeviceCategory deviceCategory) {
+            return new QueryRoleModelDifferenceObject(ObjectSpace.Session).GetActiveModelDifferences(Application.GetType().FullName, null,deviceCategory).Cast<ModelDifferenceObject>();
         }
 
 
@@ -114,14 +117,19 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             var model = (ModelApplicationBase)Application.Model;
             var userDiff = model.LastLayer;
             ModelApplicationHelper.RemoveLayer(model);
-            foreach (var roleModel in GetActiveRoleDifferenceObjects())
+            var modelDifferenceObjects = GetActiveRoleDifferenceObjects(DeviceCategory.All);
+            if (DeviceModelsEnabled)
+                modelDifferenceObjects=modelDifferenceObjects.Concat(GetActiveRoleDifferenceObjects(Application.GetDeviceCategory()));
+            foreach (var roleModel in modelDifferenceObjects)
                 roleModel.GetModel(model);
             ModelApplicationHelper.AddLayer(model, userDiff);
             LoadCore(userDiff);
         }
 
         private void LoadCore(ModelApplicationBase userDiff){
-            var modelDifferenceObjects = GetActiveDifferenceObjects().ToList();
+            var modelDifferenceObjects = GetActiveDifferenceObjects(DeviceCategory.All);
+            if (DeviceModelsEnabled)
+                modelDifferenceObjects=modelDifferenceObjects.Concat(GetActiveDifferenceObjects(Application.GetDeviceCategory()));
             if (!modelDifferenceObjects.Any()){
                 SaveDifference(userDiff);
                 return;

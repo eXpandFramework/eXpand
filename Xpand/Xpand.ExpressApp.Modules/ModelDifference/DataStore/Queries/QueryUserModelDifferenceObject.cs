@@ -5,6 +5,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Persistent.Base.ModelDifference;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
     public class QueryUserModelDifferenceObject : QueryDifferenceObject<UserModelDifferenceObject> {
@@ -23,14 +24,16 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
             }
         }
 
-        public override IQueryable<UserModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name) {
+        public override IQueryable<UserModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name, DeviceCategory deviceCategory = DeviceCategory.All) {
             return new XPCollection<UserModelDifferenceObject>(Session, new GroupOperator(UsersContainsOperator,
-                new GroupOperator(new BinaryOperator("PersistentApplication.UniqueName", applicationName), new BinaryOperator("Disabled", false))),
-                new[] { new SortProperty("CombineOrder", SortingDirection.Ascending) }).AsQueryable();
+                    new GroupOperator(new BinaryOperator("PersistentApplication.UniqueName", applicationName),
+                        new BinaryOperator("Disabled", false),
+                        new BinaryOperator(nameof(ModelDifferenceObject.DeviceCategory), deviceCategory))),
+                new SortProperty("CombineOrder", SortingDirection.Ascending)).AsQueryable();
         }
 
-        public override UserModelDifferenceObject GetActiveModelDifference(string applicationName, string name) {
-            return GetActiveModelDifferences(applicationName, name).FirstOrDefault();
+        public override UserModelDifferenceObject GetActiveModelDifference(string applicationName, string name,DeviceCategory deviceCategory = DeviceCategory.All) {
+            return GetActiveModelDifferences(applicationName, name,deviceCategory).FirstOrDefault();
         }
 
     }

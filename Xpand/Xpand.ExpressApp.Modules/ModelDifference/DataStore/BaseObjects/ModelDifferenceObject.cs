@@ -16,12 +16,16 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
+    
+
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, "Name,PersistentApplication")]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [ModelDefault("Caption", Caption), ModelDefault("IsClonable", "True"), VisibleInReports(false)]
@@ -53,7 +57,15 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         public XPCollection<AspectObject> AspectObjects => GetCollection<AspectObject>("AspectObjects");
 
         public virtual IEnumerable<ModelApplicationBase> GetAllLayers(ModelApplicationBase master) {
-            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(_persistentApplication.UniqueName, null).Where(differenceObject => differenceObject.Oid != Oid), master);
+            return GetAllLayers(new QueryModelDifferenceObject(Session).GetActiveModelDifferences(_persistentApplication.UniqueName, null)
+                    .Where(differenceObject => differenceObject.Oid != Oid), master);
+        }
+
+        DeviceCategory  _deviceCategory ;
+        [InvisibleInAllViews]
+        public DeviceCategory  DeviceCategory {
+            get{ return _deviceCategory ; }
+            set{ SetPropertyValue(nameof(DeviceCategory ), ref _deviceCategory , value); }
         }
 
         protected IEnumerable<ModelApplicationBase> GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects, ModelApplicationBase master) {
@@ -200,18 +212,19 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
 
-        public virtual ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName) {
+        public virtual ModelDifferenceObject InitializeMembers(string name, string applicationTitle, string uniqueName,DeviceCategory deviceCategory=DeviceCategory.All) {
             PersistentApplication = new QueryPersistentApplication(Session).Find(uniqueName) ??
                                     new PersistentApplication(Session) { Name = applicationTitle, UniqueName = uniqueName };
             DateCreated = DateTime.Now;
             Name = name;
+            DeviceCategory=deviceCategory;
             var aspectObject = new AspectObject(Session) { Name = CaptionHelper.DefaultLanguage };
             AspectObjects.Add(aspectObject);
             return this;
         }
 
-        public ModelDifferenceObject InitializeMembers(string name, XafApplication application) {
-            return InitializeMembers(name, application.Title, application.GetType().FullName);
+        public ModelDifferenceObject InitializeMembers(string name, XafApplication application,DeviceCategory deviceCategory=DeviceCategory.All) {
+            return InitializeMembers(name, application.Title, application.GetType().FullName,deviceCategory);
         }
 
 
@@ -239,7 +252,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             Tracing.Tracer.LogVerboseValue("applicationfodler",applicationFolder);
             var fileModelStore = new FileModelStore(applicationFolder, diffDefaultName);
             var aspects = fileModelStore.GetAspects().Concat(new[] { "" }).ToArray();
-            Tracing.Tracer.LogVerboseValue("aspects.count", aspects.Count());
+            Tracing.Tracer.LogVerboseValue("aspects.count", aspects.Length);
             foreach (var aspect in aspects) {
                 var aspectFileName = Path.Combine(applicationFolder, fileModelStore.GetFileNameForAspect(aspect));
                 Tracing.Tracer.LogVerboseValue("aspectFileName", aspectFileName);

@@ -23,12 +23,12 @@ using PropertyChangingEventArgs = DevExpress.ExpressApp.Win.Core.ModelEditor.Pro
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
     [PropertyEditor(typeof(ModelApplicationBase), true)]
     public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexViewItem{
-        private static readonly LightDictionary<ModelApplicationBase, ITypesInfo> _modelApplicationBases;
-        private static readonly ITypesInfo _typeInfo;
+        private static readonly LightDictionary<ModelApplicationBase, ITypesInfo> ModelApplicationBases;
+        private static readonly ITypesInfo TypeInfo;
 
         static ModelEditorPropertyEditor(){
-            _typeInfo = XafTypesInfo.Instance;
-            _modelApplicationBases = new LightDictionary<ModelApplicationBase, ITypesInfo>();
+            TypeInfo = XafTypesInfo.Instance;
+            ModelApplicationBases = new LightDictionary<ModelApplicationBase, ITypesInfo>();
         }
 
         #region Constructor
@@ -91,8 +91,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
 
         private ModelApplicationBase GetMasterModel(bool recreate){
             var modelApplicationBase = GetMasterModelCore(recreate);
-            _modelApplicationBases.Add(modelApplicationBase, XafTypesInfo.Instance);
-            _typeInfo.AssignAsInstance();
+            ModelApplicationBases.Add(modelApplicationBase, XafTypesInfo.Instance);
+            TypeInfo.AssignAsInstance();
             return modelApplicationBase;
         }
 
@@ -141,12 +141,12 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
         }
 
         private void FormOnActivated(object sender, EventArgs eventArgs){
-            var typesInfo = _modelApplicationBases[MasterModel];
+            var typesInfo = ModelApplicationBases[MasterModel];
             typesInfo.AssignAsInstance();
         }
 
         private void FormOnDeactivate(object sender, EventArgs eventArgs){
-            _typeInfo.AssignAsInstance();
+            TypeInfo.AssignAsInstance();
         }
 
         private void modelEditorControl_OnDisposing(object sender, EventArgs e){
@@ -154,7 +154,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
                 _form.Deactivate -= FormOnDeactivate;
                 _form.Activated -= FormOnActivated;
             }
-            _modelApplicationBases.Remove(MasterModel);
+            ModelApplicationBases.Remove(MasterModel);
             Control.OnDisposing -= modelEditorControl_OnDisposing;
 
             DisposeController();
@@ -172,7 +172,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
             }
             finally{
                 base.Dispose(disposing);
-                _typeInfo.AssignAsInstance();
+                TypeInfo.AssignAsInstance();
             }
         }
 
@@ -223,9 +223,9 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
             foreach (var layer in allLayers){
                 ModelApplicationHelper.AddLayer(MasterModel, layer);
             }
-            _modelApplicationBases[MasterModel].AssignAsInstance();
+            ModelApplicationBases[MasterModel].AssignAsInstance();
             RuntimeMemberBuilder.CreateRuntimeMembers((IModelApplication) MasterModel);
-            _typeInfo.AssignAsInstance();
+            TypeInfo.AssignAsInstance();
 
             DisposeController();
 
