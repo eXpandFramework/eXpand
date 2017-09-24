@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
 
             private void OnLeave(object sender, EventArgs eventArgs) {
                 try {
-                    if (_propertyEditor.ControlValue!=_propertyEditor.MemberInfo.GetValue(View.CurrentObject)){
+                    if (View != null && _propertyEditor.ControlValue!=_propertyEditor.MemberInfo.GetValue(View.CurrentObject)){
                         _propertyEditor.MemberInfo.SetValue(View.CurrentObject, _propertyEditor.ControlValue);
                         _propertyEditor.MemberInfo.SetValue(View.CurrentObject, _propertyEditor.ControlValue);
                         Validator.RuleSet.Validate(ObjectSpace, View.CurrentObject, XmlContentCodeRule.MDOXmlContentContext);
