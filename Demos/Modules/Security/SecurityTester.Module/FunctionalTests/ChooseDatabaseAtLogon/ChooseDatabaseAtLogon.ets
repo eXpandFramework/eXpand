@@ -27,7 +27,12 @@
  Database = SecurityTesterEasyTest1
 *SaveAndClose
 
+#IfDef SecurityTester.Web
 *Action Log Off
+#EndIf
+#IfDef SecurityTester.Win
+*ReopenApplication
+#EndIf
 
 *XpandFillForm 
  DBServer = DB2

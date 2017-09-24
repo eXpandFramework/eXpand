@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
@@ -16,6 +17,7 @@ using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.Security.Win.Permissions;
 using Xpand.Persistent.Base.Security;
+using ChooseDatabaseAtLogonController = Xpand.ExpressApp.Security.Win.Controllers.ChooseDatabaseAtLogonController;
 
 namespace Xpand.ExpressApp.Security.Win {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
@@ -44,6 +46,13 @@ namespace Xpand.ExpressApp.Security.Win {
         private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
             Application.CreateCustomLogonParameterStore+=ApplicationOnCreateCustomLogonParameterStore;
             Application.LastLogonParametersWriting+=ApplicationOnLastLogonParametersWriting;
+        }
+
+        protected override IEnumerable<Type> GetDeclaredControllerTypes() {
+            var types = new[]{
+                typeof(ChooseDatabaseAtLogonController),
+            };
+            return FilterDisabledControllers(GetDeclaredControllerTypesCore(types).Concat(types));
         }
 
         private void ApplicationOnLastLogonParametersWriting(object sender, LastLogonParametersWritingEventArgs e){
