@@ -75,10 +75,6 @@
       <Name>System</Name>
       <Private>False</Private>
     </Reference>
-    <Reference Include="WorldCreatorTester.Module, Version=1.0.5560.27347, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\WorldCreatorTester.Module.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.ModelDifference">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
