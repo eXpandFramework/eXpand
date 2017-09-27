@@ -98,6 +98,10 @@
     <Reference Include="DevExpress.ExpressApp.CloneObject.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\DevExpress 17.1\Components\Bin\Framework\DevExpress.ExpressApp.ConditionalAppearance.v17.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v17.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -126,6 +130,10 @@
     <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ViewVariants, Version=17.1.6.5, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
@@ -178,6 +186,7 @@
     </Compile>
     <Compile Include="Core\Extensions.cs" />
     <Compile Include="Core\ModelApplicationLoader.cs" />
+    <Compile Include="DatabaseUpdate\DeviceCategoryUpdater.cs" />
     <Compile Include="DataStore\Validation\XmlContentCodeRule.cs" />
     <Compile Include="NodeUpdaters\BOModelNodesUpdater.cs" />
     <Compile Include="CreateCustomModelDifferenceStoreEventArgs.cs" />
@@ -219,7 +228,7 @@
     <Compile Include="DictionaryStores\XpoUserModelDictionaryDifferenceStore.cs" />
     <Compile Include="DataStore\Queries\QueryModelDifferenceObject.cs" />
     <Compile Include="DataStore\Queries\QueryUserModelDifferenceObject.cs" />
-    <Compile Include="Updater.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

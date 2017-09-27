@@ -118,9 +118,6 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DeviceCategoryController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="ModelDifferenceAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>

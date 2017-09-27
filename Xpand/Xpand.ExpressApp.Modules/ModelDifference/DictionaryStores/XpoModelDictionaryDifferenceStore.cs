@@ -75,7 +75,10 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                     modelOptionsModelDifference.ModelToUpdateFromTabletFileCriteria),
                 new KeyValuePair<KeyValuePair<DeviceCategory?, string>, string>(
                     new KeyValuePair<DeviceCategory?, string>(DeviceCategory.Desktop, AppDiffDefaultDesktopName),
-                    modelOptionsModelDifference.ModelToUpdateFromDesktopFileCriteria)
+                    modelOptionsModelDifference.ModelToUpdateFromDesktopFileCriteria),
+                new KeyValuePair<KeyValuePair<DeviceCategory?, string>, string>(
+                    new KeyValuePair<DeviceCategory?, string>(DeviceCategory.Mobile, AppDiffDefaultMobileName),
+                    modelOptionsModelDifference.ModelToUpdateFromMobileFileCriteria)
             };
             foreach (var keyValuePair in keyValuePairs) {
                 var valuePair = objectInfos.FirstOrDefault(pair => IsUpdateableFromFile(pair, keyValuePair));
@@ -111,7 +114,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
             var application = CreateModelApplication(model, DifferenceType,deviceCategory);
             model.AddLayerBeforeLast(application);
-            var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(application.Id, Application,deviceCategory);
+            var modelDifferenceObject = ObjectSpace.CreateObject<ModelDifferenceObject>().InitializeMembers(Application.Title, Application,deviceCategory);
             modelDifferenceObject.CreateAspectsFromPath(Application.GetDiffDefaultName(PathHelper.GetApplicationFolder()));
             CreateUserModelDifferenceXPObjectType();
             var modelDifferenceObjectInfo = new ModelDifferenceObjectInfo(modelDifferenceObject, application);

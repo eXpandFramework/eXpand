@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.Controllers;
+using Xpand.ExpressApp.ModelDifference.DatabaseUpdate;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Validation;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
@@ -23,12 +26,14 @@ using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.Security;
+using Updater = Xpand.ExpressApp.ModelDifference.DatabaseUpdate.Updater;
 
 
 namespace Xpand.ExpressApp.ModelDifference {
     public interface IModelOptionsModelDifference:IModelNode{
 
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
+        [DefaultValue("Autocreated at {0} For {1}")]
         string UserModelDifferenceObjectSubjectTemplate { get; set; }
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
@@ -49,6 +54,11 @@ namespace Xpand.ExpressApp.ModelDifference {
         [Description("The MDO object that fits in this criterion it will be updated with the Model.Tablet.xafml contents on each application restart")]
         [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         string ModelToUpdateFromTabletFileCriteria { get; set; }
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [CriteriaOptions("MDOTypeInfo")]
+        [Description("The MDO object that fits in this criterion it will be updated with the Model.Mobile.xafml contents on each application restart")]
+        [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
+        string ModelToUpdateFromMobileFileCriteria { get; set; }
         [DefaultValue(true)]
         [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         bool UserMobileModels { get; set; }
@@ -61,12 +71,6 @@ namespace Xpand.ExpressApp.ModelDifference {
 
     [DomainLogic(typeof(IModelOptionsModelDifference))]
     public class ModelOptionsModelDifferenceLogic {
-        public static string Get_UserModelDifferenceObjectSubjectTemplate(IModelOptionsModelDifference modelDifference) {
-            var autocreatedATFor = "Autocreated at {0} For {1}";
-            if (new WebOnlyVisibilityCalculator().IsVisible(modelDifference, null))
-                autocreatedATFor += " - {2}";
-            return autocreatedATFor;
-        }
 
         public static ITypeInfo Get_MDOTypeInfo(IModelOptionsModelDifference modelDifference){
             return modelDifference.Application.BOModel.GetClass(typeof(ModelDifferenceObject)).TypeInfo;
@@ -75,6 +79,13 @@ namespace Xpand.ExpressApp.ModelDifference {
         public static string Get_ModelToUpdateFromFileCriteria(IModelOptionsModelDifference modelDifference) {
             return GetCriteria();
         }
+        public static string Get_ModelToUpdateFromDesktopCriteria(IModelOptionsModelDifference modelDifference) {
+            return GetCriteria();
+        }
+        public static string Get_ModelToUpdateFromTabletCriteria(IModelOptionsModelDifference modelDifference) {
+            return GetCriteria();
+        }
+
         public static string Get_ModelToUpdateFromMobileFileCriteria(IModelOptionsModelDifference modelDifference) {
             return GetCriteria();
         }
@@ -92,6 +103,8 @@ namespace Xpand.ExpressApp.ModelDifference {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+            RequiredModuleTypes.Add(typeof(ViewVariants.XpandViewVariantsModule));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
@@ -142,6 +155,11 @@ namespace Xpand.ExpressApp.ModelDifference {
 
         void ApplicationOnSettingUp(object sender, EventArgs eventArgs) {
             BuildSecuritySystemObjects();
+        }
+
+        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB){
+            yield return new Updater(objectSpace, versionFromDB);
+            yield return new DeviceCategoryUpdater(objectSpace, versionFromDB);
         }
 
         void BuildSecuritySystemObjects() {

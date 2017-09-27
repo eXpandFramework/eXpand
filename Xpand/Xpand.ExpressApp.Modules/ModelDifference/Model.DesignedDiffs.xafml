@@ -18,6 +18,15 @@
       </AppearanceRules>
     </Class>
   </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="ModelDifferenceObject_ListView" ViewId="MDO_ListView" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
   <SchemaModules IsNewNode="True">
     <SchemaModule Name="CloneObjectModule" Version="16.2.4.0" IsNewNode="True" />
     <SchemaModule Name="DevExpress.ExpressApp.SystemModule.AutoFilterRowListViewController" Version="9.2.4.0" IsNewNode="True" />
@@ -35,7 +44,7 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" Caption="Main" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Direction="Horizontal">
-          <TabbedGroup Id="TabContainer" CaptionLocation="Top" Index="0" RelativeSize="99.852507374631273" IsNewNode="True">
+          <TabbedGroup Id="TabContainer" CaptionLocation="Top" Index="0" RelativeSize="99.926308032424473" IsNewNode="True">
             <LayoutGroup Id="Model" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Model" ImageName="Action_EditModel" IsNewNode="True">
               <LayoutItem Id="Model" ViewItem="Model" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
             </LayoutGroup>
@@ -43,22 +52,23 @@
               <LayoutItem Id="XmlContent" ShowCaption="False" ViewItem="XmlContent" SizeConstraintsType="Default" Index="0" RelativeSize="100" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="General" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" RelativeSize="100" ImageName="Action_AboutInfo" IsNewNode="True">
-              <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="4.3656207366984994" IsNewNode="True" />
-              <LayoutItem Id="PersistentApplication.Name" ViewItem="PersistentApplication.Name" SizeConstraintsType="Default" Index="1" RelativeSize="3.2742155525238745" IsNewNode="True" />
-              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" ShowCaption="False" Caption="Auto09355baf-2d40-41e7-a368-f29de0afe90d(6)" Direction="Horizontal" Index="2" RelativeSize="92.360163710777627" IsNewNode="True">
-                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" ShowCaption="False" Caption="Auto1f221998-367f-4858-819b-a3a0988b83bf(7)" Index="0" RelativeSize="46.330275229357795" IsNewNode="True">
-                  <LayoutItem Id="Disabled" ViewItem="Disabled" SizeConstraintsType="Default" Index="0" RelativeSize="4.431314623338257" IsNewNode="True" />
-                  <LayoutItem Id="DateCreated" ViewItem="DateCreated" SizeConstraintsType="Default" Index="1" RelativeSize="95.568685376661747" IsNewNode="True" />
+              <LayoutItem Id="Name" ViewItem="Name" SizeConstraintsType="Default" Index="0" RelativeSize="3.004694835680751" IsNewNode="True" />
+              <LayoutItem Id="PersistentApplication.Name" ViewItem="PersistentApplication.Name" SizeConstraintsType="Default" Index="1" RelativeSize="2.2535211267605635" IsNewNode="True" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" ShowCaption="False" Caption="Auto09355baf-2d40-41e7-a368-f29de0afe90d(6)" Direction="Horizontal" Index="2" RelativeSize="94.741784037558688" IsNewNode="True">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" ShowCaption="False" Caption="Auto1f221998-367f-4858-819b-a3a0988b83bf(7)" Index="0" RelativeSize="46.292134831460672" IsNewNode="True">
+                  <LayoutItem Id="Disabled" ViewItem="Disabled" SizeConstraintsType="Default" Index="0" RelativeSize="2.9732408325074333" IsNewNode="True" />
+                  <LayoutItem Id="DeviceCategory" ViewItem="DeviceCategory" Index="1" RelativeSize="2.3785926660059467" IsNewNode="True" />
+                  <LayoutItem Id="DateCreated" ViewItem="DateCreated" SizeConstraintsType="Default" Index="2" RelativeSize="94.648166501486614" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" ShowCaption="False" Caption="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b(10)" Index="1" RelativeSize="53.669724770642205" IsNewNode="True">
-                  <LayoutItem Id="CombineOrder" ViewItem="CombineOrder" SizeConstraintsType="Default" Index="0" RelativeSize="4.431314623338257" IsNewNode="True" />
-                  <LayoutItem Id="PreferredAspect" ViewItem="PreferredAspect" Index="1" RelativeSize="3.5450516986706058" IsNewNode="True" />
-                  <LayoutItem Id="NonPersistent" SizeConstraintsType="Default" Index="2" RelativeSize="92.023633677991143" ShowCaption="False" ViewItem="" IsNewNode="True" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" ShowCaption="False" Caption="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b(10)" Index="1" RelativeSize="53.707865168539328" IsNewNode="True">
+                  <LayoutItem Id="CombineOrder" ViewItem="CombineOrder" SizeConstraintsType="Default" Index="0" RelativeSize="2.9732408325074333" IsNewNode="True" />
+                  <LayoutItem Id="PreferredAspect" ViewItem="PreferredAspect" Index="1" RelativeSize="2.3785926660059467" IsNewNode="True" />
+                  <LayoutItem Id="NonPersistent" SizeConstraintsType="Default" Index="2" RelativeSize="94.648166501486614" ShowCaption="False" ViewItem="" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
           </TabbedGroup>
-          <LayoutItem Id="LockHeightEmptySpace" ShowCaption="False" SizeConstraintsType="Custom" MinSize="1, 300" MaxSize="1, 300" Index="1" RelativeSize="0.14749262536873156" ViewItem="" IsNewNode="True" />
+          <LayoutItem Id="LockHeightEmptySpace" ShowCaption="False" SizeConstraintsType="Custom" MinSize="1, 300" MaxSize="1, 300" Index="1" RelativeSize="0.07369196757553427" ViewItem="" IsNewNode="True" />
           <LayoutGroup Id="SimpleEditors" Caption="SimpleEditors" ImageName="" CaptionLocation="Default" CaptionWordWrap="Default" CaptionHorizontalAlignment="Default" CaptionVerticalAlignment="Default" RelativeSize="100" Direction="Horizontal" Removed="True">
             <LayoutGroup Id="ModelDifferenceObject" Removed="True" />
             <LayoutGroup Id="UserModelDifferenceObject" Removed="True" />
@@ -69,10 +79,102 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="MDO_ListView">
+    <ListView Id="MDO_ListView" Criteria="[DeviceCategory] = ##Enum#Xpand.Persistent.Base.ModelDifference.DeviceCategory,All#">
       <Columns>
-        <ColumnInfo Id="DifferenceType" GroupIndex="0" />
+        <ColumnInfo Id="DeviceCategory" Index="-1" />
+        <ColumnInfo Id="CombineOrder" Index="1" />
+        <ColumnInfo Id="PersistentApplication" Index="2" />
+        <ColumnInfo Id="Disabled" Index="3" />
+        <ColumnInfo Id="DifferenceType" GroupIndex="0" SortOrder="Ascending" />
+        <ColumnInfo Id="DateCreated" Index="5" />
       </Columns>
+      <Filters CurrentFilterId="All settings">
+        <Filter Id="All settings" Index="0" IsNewNode="True" />
+        <Filter Id="Application settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Model#" Index="1" IsNewNode="True" />
+        <Filter Id="User settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,User#" Index="2" IsNewNode="True" />
+        <Filter Id="Role settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Role#" IsNewNode="True" />
+      </Filters>
+      <HiddenActions>
+        <ActionLink ActionId="ModifyModel" IsNewNode="True" />
+      </HiddenActions>
+      <Variants Current="Agnostic">
+        <Variant Id="Agnostic" ViewID="MDO_ListView" Caption="Device agnostic" Index="0" IsNewNode="True" />
+        <Variant Id="All" ViewID="MDO_ListView_All" Caption="All devices" Index="1" IsNewNode="True" />
+        <Variant Id="Desktop" ViewID="MDO_ListView_Desktop" Caption="Desktop devices" Index="2" IsNewNode="True" />
+        <Variant Id="Tablet" ViewID="MDO_ListView_Tablet" Caption="Tablet devices" Index="3" IsNewNode="True" />
+        <Variant Id="Mobile " ViewID="MDO_ListView_Mobile" Caption="Mobile devices" Index="4" IsNewNode="True" />
+      </Variants>
+    </ListView>
+    <ListView Id="MDO_ListView_All">
+      <Columns>
+        <ColumnInfo Id="DifferenceType" SortOrder="Ascending" GroupIndex="0" />
+      </Columns>
+      <Filters CurrentFilterId="All settings">
+        <Filter Id="All settings" Index="0" IsNewNode="True" />
+        <Filter Id="Application settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Model#" Index="1" IsNewNode="True" />
+        <Filter Id="User settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,User#" Index="2" IsNewNode="True" />
+        <Filter Id="Role settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Role#" IsNewNode="True" />
+      </Filters>
+      <HiddenActions>
+        <ActionLink ActionId="ModifyModel" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <ListView Id="MDO_ListView_Desktop" Criteria="[DeviceCategory] = ##Enum#Xpand.Persistent.Base.ModelDifference.DeviceCategory,Desktop#">
+      <Columns>
+        <ColumnInfo Id="DeviceCategory" Index="-1" />
+        <ColumnInfo Id="CombineOrder" Index="1" />
+        <ColumnInfo Id="PersistentApplication" Index="2" />
+        <ColumnInfo Id="DifferenceType" Index="3" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="Disabled" Index="4" />
+        <ColumnInfo Id="DateCreated" Index="5" />
+      </Columns>
+      <Filters CurrentFilterId="All settings">
+        <Filter Id="All settings" Index="0" IsNewNode="True" />
+        <Filter Id="Application settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Model#" Index="1" IsNewNode="True" />
+        <Filter Id="User settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,User#" Index="2" IsNewNode="True" />
+        <Filter Id="Role settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Role#" IsNewNode="True" />
+      </Filters>
+      <HiddenActions>
+        <ActionLink ActionId="ModifyModel" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <ListView Id="MDO_ListView_Mobile" Criteria="[DeviceCategory] = ##Enum#Xpand.Persistent.Base.ModelDifference.DeviceCategory,Mobile#">
+      <Columns>
+        <ColumnInfo Id="DeviceCategory" Index="-1" />
+        <ColumnInfo Id="CombineOrder" Index="1" />
+        <ColumnInfo Id="PersistentApplication" Index="2" />
+        <ColumnInfo Id="Disabled" Index="3" />
+        <ColumnInfo Id="DifferenceType" Index="4" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="DateCreated" Index="5" />
+      </Columns>
+      <Filters CurrentFilterId="All settings">
+        <Filter Id="All settings" Index="0" IsNewNode="True" />
+        <Filter Id="Application settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Model#" Index="1" IsNewNode="True" />
+        <Filter Id="User settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,User#" Index="2" IsNewNode="True" />
+        <Filter Id="Role settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Role#" IsNewNode="True" />
+      </Filters>
+      <HiddenActions>
+        <ActionLink ActionId="ModifyModel" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <ListView Id="MDO_ListView_Tablet" Criteria="[DeviceCategory] = ##Enum#Xpand.Persistent.Base.ModelDifference.DeviceCategory,Tablet#">
+      <Columns>
+        <ColumnInfo Id="DeviceCategory" Index="-1" />
+        <ColumnInfo Id="CombineOrder" Index="1" />
+        <ColumnInfo Id="PersistentApplication" Index="2" />
+        <ColumnInfo Id="DifferenceType" Index="3" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="Disabled" Index="4" />
+        <ColumnInfo Id="DateCreated" Index="5" />
+      </Columns>
+      <Filters CurrentFilterId="All settings">
+        <Filter Id="All settings" Index="0" IsNewNode="True" />
+        <Filter Id="Application settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Model#" Index="1" IsNewNode="True" />
+        <Filter Id="User settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,User#" Index="2" IsNewNode="True" />
+        <Filter Id="Role settings" Criteria="[DifferenceType] = ##Enum#Xpand.Persistent.Base.DifferenceType,Role#" IsNewNode="True" />
+      </Filters>
+      <HiddenActions>
+        <ActionLink ActionId="ModifyModel" IsNewNode="True" />
+      </HiddenActions>
     </ListView>
     <DetailView Id="RDO_DetailView">
       <Layout>

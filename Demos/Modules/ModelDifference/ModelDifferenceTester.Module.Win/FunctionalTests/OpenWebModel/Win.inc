@@ -3,11 +3,11 @@
 #IfDef ModelDifferenceTester.Win
 *Navigate Application Settings
 *XpandProcessRecord
- Name = ModelDifferenceTester.Win-All
+ Name = ModelDifferenceTester.Win
  Persistent Application = ModelDifferenceTester.Win
 *SaveAndClose
 *XpandProcessRecord
- Name = ModelDifferenceTester.Web-All
+ Name = ModelDifferenceTester.Web
  Persistent Application = ModelDifferenceTester.Web
 *SaveAndClose
 *XpandProcessRecord

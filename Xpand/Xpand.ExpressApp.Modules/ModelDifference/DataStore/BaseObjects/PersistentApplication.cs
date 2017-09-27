@@ -15,9 +15,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         [Association(Associations.PersistentApplicationModelDifferenceObjects)]
-        public XPCollection<ModelDifferenceObject> ModelDifferenceObjects {
-            get { return GetCollection<ModelDifferenceObject>(MethodBase.GetCurrentMethod().Name.Replace("get_", "")); }
-        }
+        public XPCollection<ModelDifferenceObject> ModelDifferenceObjects => GetCollection<ModelDifferenceObject>(MethodBase.GetCurrentMethod().Name.Replace("get_", ""));
+
         #region IPersistentApplication Members
         [DevExpress.Xpo.DisplayName("Application Name")]
         [RuleRequiredField(null, DefaultContexts.Save)]

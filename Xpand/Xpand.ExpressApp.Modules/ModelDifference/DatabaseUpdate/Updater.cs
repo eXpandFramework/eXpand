@@ -12,7 +12,7 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Utils.GeneralDataStructures;
 
-namespace Xpand.ExpressApp.ModelDifference {
+namespace Xpand.ExpressApp.ModelDifference.DatabaseUpdate {
     public class Updater : ModuleUpdater {
         public Updater(IObjectSpace objectSpace, Version currentDBVersion)
             : base(objectSpace, currentDBVersion) {
@@ -66,21 +66,21 @@ namespace Xpand.ExpressApp.ModelDifference {
             aspects = aspects.OrderBy(s => s).ToList();
 
             xml = xml.Replace("&#165;", "¥");
-            xml = removeSpaces(xml);
+            xml = RemoveSpaces(xml);
             string defaultAspectValuesWhenNoOtherAspectExist = Regex.Replace(xml, "\":([^\"\xA5]*)\"", "\"$1\"");
             string removedAspectsWithNoDefaultAspects = defaultAspectValuesWhenNoOtherAspectExist;
             if (!string.IsNullOrEmpty(aspects[0])) {
                 string defaultAspectWhenOtherAspectExists = Regex.Replace(defaultAspectValuesWhenNoOtherAspectExist, @""":([^""\xA5]*)\xA5" + aspects[0] + @":([^""]*)""", "\"$1\"");
-                removedAspectsWithNoDefaultAspects = aspects.Aggregate(defaultAspectWhenOtherAspectExists, (current, aspect) => removeAttributesWithNoDefaultValue(aspect, current));
+                removedAspectsWithNoDefaultAspects = aspects.Aggregate(defaultAspectWhenOtherAspectExists, (current, aspect) => RemoveAttributesWithNoDefaultValue(aspect, current));
             }
             return removedAspectsWithNoDefaultAspects;
         }
 
-        private string removeSpaces(string aspects) {
+        private string RemoveSpaces(string aspects) {
             return aspects.Replace(" >", ">");
         }
 
-        private string removeAttributesWithNoDefaultValue(string aspect, string value) {
+        private string RemoveAttributesWithNoDefaultValue(string aspect, string value) {
             return Regex.Replace(value, "( [^=\"]*=\"" + aspect + ":([^\"]*)\")", "");
         }
     }

@@ -27,7 +27,7 @@
 
 *Navigate Application Settings
 *XpandProcessRecord 
- Name = ModelDifferenceTester.Web-All
+ Name = ModelDifferenceTester.Web
  Persistent Application = ModelDifferenceTester.Web
  Action = Edit
 *Action Xml Content
@@ -39,7 +39,7 @@
 #IfDef ModelDifferenceTester.Win
 *Navigate Application Settings
 *XpandProcessRecord 
- Name = ModelDifferenceTester.Web-All
+ Name = ModelDifferenceTester.Web
  Persistent Application = ModelDifferenceTester.Web
 *Action Xml Content
 *XpandCheckFieldValues

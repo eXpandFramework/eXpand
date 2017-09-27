@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Win", "..\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj", "{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Utils", "..\..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj", "{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -191,6 +193,12 @@ Global
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Test|Any CPU.Build.0 = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

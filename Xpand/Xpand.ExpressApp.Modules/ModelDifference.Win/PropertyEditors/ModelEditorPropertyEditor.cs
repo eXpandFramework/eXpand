@@ -218,7 +218,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
 
         private void CreateModelEditorController(string aspect){
             var allLayers = CurrentObject.GetAllLayers(MasterModel).ToList();
-            _currentObjectModel = allLayers.Single(@base => @base.Id == CurrentObject.Name);
+            _currentObjectModel = allLayers.First(@base => @base.Id == $"{CurrentObject.Name}-{CurrentObject.DeviceCategory}");
             MasterModel = GetMasterModel(true);
             foreach (var layer in allLayers){
                 ModelApplicationHelper.AddLayer(MasterModel, layer);

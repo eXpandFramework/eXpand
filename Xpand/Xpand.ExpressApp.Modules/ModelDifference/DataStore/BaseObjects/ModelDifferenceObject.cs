@@ -6,6 +6,7 @@ using System.Text;
 using DevExpress.Data.Filtering;
 using DevExpress.Entity.Model;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
@@ -16,7 +17,6 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers;
@@ -26,11 +26,18 @@ using Xpand.Xpo;
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     
 
-    [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, "Name,PersistentApplication")]
+    [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, nameof(Name)+"," +nameof(PersistentApplication)+","+nameof(DeviceCategory))]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [ModelDefault("Caption", Caption), ModelDefault("IsClonable", "True"), VisibleInReports(false)]
     [CloneView(CloneViewType.DetailView, "MDO_DetailView",true)]
-    [CloneView(CloneViewType.ListView, "MDO_ListView",true)]
+    [CloneView(CloneViewType.ListView, "MDO_ListView_Tablet",true)]
+    [CloneView(CloneViewType.ListView, "MDO_ListView_Desktop",true)]
+    [CloneView(CloneViewType.ListView, "MDO_ListView_Mobile",true)]
+    [CloneView(CloneViewType.ListView, "MDO_ListView_All",true)]
+    [CloneView(CloneViewType.ListView, "MDO_ListView", true)]
+    [Appearance("Disable DeviceCategory for win models", AppearanceItemType.ViewItem,
+        "EndsWith([" + nameof(PersistentApplication) + "." + nameof(BaseObjects.PersistentApplication.ExecutableName) +"], '.exe')", 
+        Enabled = false, TargetItems = nameof(DeviceCategory))]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference, ISupportSequenceObject {
         public  const string DefaultListViewName="MDO_ListView";
         public const string DefaultDetailViewName = "MDO_DetailView";
@@ -62,7 +69,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         DeviceCategory  _deviceCategory ;
-        [InvisibleInAllViews]
         public DeviceCategory  DeviceCategory {
             get{ return _deviceCategory ; }
             set{ SetPropertyValue(nameof(DeviceCategory ), ref _deviceCategory , value); }
@@ -103,7 +109,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
                 throw new ArgumentException("master.LastLayer", master.LastLayer.Id);
             Guard.ArgumentNotNull(Name, "Name");
             var layer = master.CreatorInstance.CreateModelApplication();
-            layer.Id = Name;
+            layer.Id = $"{Name}-{DeviceCategory}";
             master.AddLayerBeforeLast(layer);
             var modelXmlReader = new ModelXmlReader();
             foreach (var aspectObject in AspectObjects) {
