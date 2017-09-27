@@ -410,6 +410,9 @@
     <Compile Include="SystemModule\SelectedItemSumController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\SplitLayoutControlModelAdapterController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\XafLayoutControlModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
