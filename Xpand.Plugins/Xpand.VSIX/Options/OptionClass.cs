@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,52 +11,73 @@ using System.Xml;
 using System.Xml.Serialization;
 using EnvDTE80;
 using Microsoft.Win32;
+using Mono.Cecil;
 using Xpand.VSIX.Extensions;
+using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Wizard;
 
 namespace Xpand.VSIX.Options{
     public class OptionClass {
         private static readonly DTE2 DTE = DteExtensions.DTE;
-        private static readonly string Path;
+        public static readonly string Path;
 
         static OptionClass() {
-            var directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Xpand\VSIX\";
-            Path = System.IO.Path.Combine(directory, "Xpand.VSIX.Options.xml");
-            if (File.Exists(Path))
-                Instance = GetOptionClass();
-            else{
-                if (!Directory.Exists(directory))
-                    Directory.CreateDirectory(directory);
-                Instance = new OptionClass{
-                    KillModelEditor = true,
-                    SpecificVersion = true
-                };
-                try{
-                    Instance.ConnectionStrings.Add(new ConnectionString() {Name = "ConnectionString"});
-                    Instance.ConnectionStrings.Add(new ConnectionString() {Name = "WorldCreatorConnectionString"});
-                    Instance.ConnectionStrings.Add(new ConnectionString() {Name = "EasyTestConnectionString" });
-                    Instance.ConnectionStrings.Add(new ConnectionString() {Name = "NorthWind" });
+            try{
+                var directory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\Xpand\VSIX\";
+                Path = System.IO.Path.Combine(directory, "Xpand.VSIX.Options.xml");
+                if (File.Exists(Path))
+                    Instance = GetOptionClass();
+                else{
+                    if (!Directory.Exists(directory))
+                        Directory.CreateDirectory(directory);
+                    Instance = new OptionClass{
+                        KillModelEditor = true,
+                        SpecificVersion = true
+                    };
+                    Instance.ConnectionStrings.Add(new ConnectionString() { Name = "ConnectionString" });
+                    Instance.ConnectionStrings.Add(new ConnectionString() { Name = "WorldCreatorConnectionString" });
+                    Instance.ConnectionStrings.Add(new ConnectionString() { Name = "EasyTestConnectionString" });
+                    Instance.ConnectionStrings.Add(new ConnectionString() { Name = "NorthWind" });
                     var registryKey = Registry.LocalMachine.OpenSubKey(@"Software\WOW6432node\DevExpress\Components\");
                     if (registryKey != null)
-                        foreach (var keyName in registryKey.GetSubKeyNames()){
-                            directory = (string) registryKey.OpenSubKey(keyName)?.GetValue("RootDirectory");
+                        foreach (var keyName in registryKey.GetSubKeyNames()) {
+                            directory = (string)registryKey.OpenSubKey(keyName)?.GetValue("RootDirectory");
                             Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() { Folder = directory });
                             var sourceCodeInfo = new SourceCodeInfo { ProjectRegex = "DevExpress.*csproj", RootPath = directory };
                             sourceCodeInfo.AddProjectPaths();
                             Instance.SourceCodeInfos.Add(sourceCodeInfo);
                         }
-                    Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() {Folder = ModuleManager.GetXpandDLLPath()});
-                    Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(FileNotFoundException).FullName});
-                    Instance.Exceptions.Add(new ExceptionsBreak() {Break = false,Exception = typeof(SqlException).FullName});
+                    Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() { Folder = ModuleManager.GetXpandDLLPath() });
+                    Instance.Exceptions.Add(new ExceptionsBreak() { Break = false, Exception = typeof(FileNotFoundException).FullName });
+                    Instance.Exceptions.Add(new ExceptionsBreak() { Break = false, Exception = typeof(SqlException).FullName });
                     Instance.DisableExceptions = false;
-                    Instance.MEs.Add(new ME{Path = System.IO.Path.Combine(ModuleManager.GetXpandDLLPath(), "Xpand.ExpressApp.ModelEditor.exe") });
-                    Instance.SourceCodeInfos.Add(new SourceCodeInfo{ProjectRegex = "Xpand.*csproj",RootPath = ModuleManager.GetXpandDLLPath()+@"\..\"});
+                    Instance.SourceCodeInfos.Add(new SourceCodeInfo { ProjectRegex = "Xpand.*csproj", RootPath = ModuleManager.GetXpandDLLPath() + @"\..\" });                
                 }
-                catch (Exception e){
-                    DTE.LogError(e.ToString());
-                }
-                
+                ExtractME();
+
             }
+            catch (Exception e){
+                DTE.LogError(e.ToString());
+                throw;
+            }
+        }
+
+        private static void ExtractME(){
+            var resourceStream = typeof(ModelToolWindow).Assembly.GetManifestResourceStream("Xpand.VSIX.ModelEditor.Xpand.ExpressApp.ModelEditor.exe");
+            var mePath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Path) + "", "Xpand.ExpressApp.ModelEditor.exe");
+            var exists = File.Exists(mePath);
+            if (exists && AssemblyDefinition.ReadAssembly(mePath).Name.Version <
+                new Version(XpandAssemblyInfo.FileVersion)) {
+                File.Delete(mePath);
+            }
+            if (!exists) {
+                Debug.Assert(resourceStream != null, "resourceStream != null");
+                byte[] bytes = new byte[(int)resourceStream.Length];
+                resourceStream.Read(bytes, 0, bytes.Length);
+                File.WriteAllBytes(mePath, bytes);
+            }
+            if (!Instance.MEs.Any())
+                Instance.MEs.Add(new ME { Path = mePath });
         }
 
         public static OptionClass Instance { get; }
