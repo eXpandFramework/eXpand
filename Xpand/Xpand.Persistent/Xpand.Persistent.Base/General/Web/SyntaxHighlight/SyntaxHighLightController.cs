@@ -61,12 +61,14 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight {
 
         private void ConfigureAceEditor(WebPropertyEditor propertyEditor){
             var aceEditorNeighborControl = GetAceEditorNeighborControl(propertyEditor);
-            var aceEditor = new AceEditor();
-            var literalControl = GetParentControlCollection(aceEditorNeighborControl,propertyEditor.ViewEditMode).OfType<Literal>().First();
-            literalControl.Text = aceEditor.CreateContainer(aceEditorNeighborControl.ClientID, (string) propertyEditor.PropertyValue);
-            var syntaxHighLight = ((IModelPropertyEditorSyntaxHighlight) propertyEditor.Model).SyntaxHighlight;
-            var allowEdit = View.ViewEditMode == ViewEditMode.Edit && propertyEditor.AllowEdit;
-            aceEditor.Configure(aceEditorNeighborControl.ClientID, syntaxHighLight, allowEdit,(string) propertyEditor.PropertyValue);
+            if (aceEditorNeighborControl!=null){
+                var aceEditor = new AceEditor();
+                var literalControl = GetParentControlCollection(aceEditorNeighborControl,propertyEditor.ViewEditMode).OfType<Literal>().First();
+                literalControl.Text = aceEditor.CreateContainer(aceEditorNeighborControl.ClientID, (string) propertyEditor.PropertyValue);
+                var syntaxHighLight = ((IModelPropertyEditorSyntaxHighlight) propertyEditor.Model).SyntaxHighlight;
+                var allowEdit = View.ViewEditMode == ViewEditMode.Edit && propertyEditor.AllowEdit;
+                aceEditor.Configure(aceEditorNeighborControl.ClientID, syntaxHighLight, allowEdit,(string) propertyEditor.PropertyValue);
+            }
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
