@@ -2,6 +2,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
 
@@ -16,7 +17,8 @@ namespace Xpand.ExpressApp.Win.SystemModule{
     }
 
     public class ApplicationExitController:WindowController, IModelExtender{
-        private CloseFormController _closeFormController;
+        private bool _isLoggingOff;
+        private bool _isEditingModel;
 
         public ApplicationExitController(){
             TargetWindowType=WindowType.Main;
@@ -24,44 +26,55 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         protected override void OnActivated(){
             base.OnActivated();
-            _closeFormController = Frame.GetController<CloseFormController>();
-            _closeFormController.Close+=OnClose;
-            _closeFormController.Cancel+=OnCancel;
+            Frame.GetController<LogoffController>().LogoffAction.Executing+=LogoffActionOnExecuting;
+            Frame.GetController<EditModelController>().EditModelAction.Executing+=EditModelActionOnExecuting;
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            _closeFormController.Close -= OnClose;
-            _closeFormController.Cancel -= OnCancel;
+            Frame.GetController<LogoffController>().LogoffAction.Executing -= LogoffActionOnExecuting;
+            Frame.GetController<EditModelController>().EditModelAction.Executing -= EditModelActionOnExecuting;
         }
 
-        private void OnCancel(object sender, CancelEventArgs e){
-            var options = ((IModelOptionsApplicationExit)Application.Model.Options);
-            if ((options.PromptOnExit || options.MinimizeOnExit || options.HideOnExit))
-                e.Cancel = true;
+        private void EditModelActionOnExecuting(object o, CancelEventArgs e){
+            _isEditingModel = !e.Cancel;
         }
 
-        private void OnClose(object sender, CancelEventArgs e) {
-            var modelOptionsApplicationExit = ((IModelOptionsApplicationExit)Application.Model.Options);
-            var minimizeOnClose = MinimizeOnClose(modelOptionsApplicationExit);
-            var hideOnClose = HideOnClose(modelOptionsApplicationExit);
-            if (hideOnClose||minimizeOnClose) {
-                e.Cancel = true;
-            }
-            else if (modelOptionsApplicationExit.PromptOnExit){
-                e.Cancel = PromptOnExit();
+        private void LogoffActionOnExecuting(object o, CancelEventArgs e){
+            _isLoggingOff = !e.Cancel;
+        }
+
+        protected override void OnFrameAssigned(){
+            base.OnFrameAssigned();
+            if (Frame.Context == TemplateContext.ApplicationWindowContextName){
+                Frame.TemplateChanged += (sender, args) => ((Form) Frame.Template).Closing += OnClosing;
             }
         }
 
-        private  bool PromptOnExit() {
-            var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
-            var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
-            return WinApplication.Messaging.GetUserChoice(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo) != DialogResult.Yes;
+        private void OnClosing(object sender, CancelEventArgs e){
+            if (!_isLoggingOff&&!_isEditingModel){
+                var applicationExit = ((IModelOptionsApplicationExit)Application.Model.Options);
+                e.Cancel = MinimizeOnClose(applicationExit);
+                if (!e.Cancel)
+                    e.Cancel = HideOnClose(applicationExit);
+                if (!e.Cancel) {
+                    e.Cancel = PromptOnExit(applicationExit);
+                }
+            }
+        }
+
+        private bool PromptOnExit(IModelOptionsApplicationExit applicationExit) {
+            if (applicationExit.PromptOnExit){
+                var promptOnExitTitle = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitTitle");
+                var promptOnExitMessage = CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "PromptOnExitMessage");
+                return WinApplication.Messaging.GetUserChoice(promptOnExitMessage, promptOnExitTitle, MessageBoxButtons.YesNo) != DialogResult.Yes;
+            }
+            return false;
         }
 
         private bool HideOnClose(IModelOptionsApplicationExit modelOptionsApplicationExit) {
             if (modelOptionsApplicationExit.HideOnExit) {
-                _closeFormController.Form.Hide();
+                ((Form) Application.MainWindow.Template).Hide();
                 return true;
             }
             return false;
@@ -69,7 +82,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         private bool MinimizeOnClose(IModelOptionsApplicationExit modelOptionsApplicationExit) {
             if (modelOptionsApplicationExit.MinimizeOnExit) {
-                _closeFormController.Form.WindowState = FormWindowState.Minimized;
+                ((Form)Application.MainWindow.Template).WindowState = FormWindowState.Minimized;
                 return true;
             }
             return false;
