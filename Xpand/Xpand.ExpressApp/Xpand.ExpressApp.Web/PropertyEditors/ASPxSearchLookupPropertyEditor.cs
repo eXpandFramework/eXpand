@@ -32,19 +32,15 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         ISupportViewShowing, IFrameContainer{
         private static int _windowWidth = 800;
         private static int _windowHeight = 480;
-        private readonly List<IObjectSpace> _createdObjectSpaces = new List<IObjectSpace>();
         private WebApplication _application;
         private string _editorId;
         private NestedFrame _frame;
         private ListView _listView;
-        private object _newObject;
-        private IObjectSpace _newObjectSpace;
         
         private PopupWindowShowAction _newObjectWindowAction;
         private IObjectSpace _objectSpace;
         private ASPxSearchDropDownEdit _searchDropDownEdit;
         private PopupWindowShowAction _showFindSelectWindowAction;
-        private NewObjectViewController _newObjectViewController;
 
         public ASPxSearchLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model){
@@ -216,29 +212,15 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
             return WebLookupEditorHelper.GetObjectByKey(CurrentObject, key);
         }
 
-        private void newObjectViewController_ObjectCreating(object sender, ObjectCreatingEventArgs e){
-            _newObjectViewController.ObjectCreating-=newObjectViewController_ObjectCreating;
-            e.ShowDetailView = false;
-            if (e.ObjectSpace is INestedObjectSpace) e.ObjectSpace = _application.CreateObjectSpace(e.ObjectType);
-        }
 
-        private void newObjectViewController_ObjectCreated(object sender, ObjectCreatedEventArgs e){
-            _newObjectViewController.ObjectCreated-=newObjectViewController_ObjectCreated;
-            _newObject = e.CreatedObject;
-            _newObjectSpace = e.ObjectSpace;
-            _createdObjectSpaces.Add(_newObjectSpace);
-        }
 
         private void newObjectWindowAction_OnCustomizePopupWindowParams(object sender,
             CustomizePopupWindowParamsEventArgs args){
             if (!DataSource.AllowAdd) throw new InvalidOperationException();
-            Frame.SetView(_listView);
-            _newObjectViewController = Frame.GetController<NewObjectViewController>();
-            _newObjectViewController.ObjectCreating+=newObjectViewController_ObjectCreating;
-            _newObjectViewController.ObjectCreated+=newObjectViewController_ObjectCreated;
             OnViewShowingNotification();
-            _newObjectViewController.NewObjectAction.DoExecute(_newObjectViewController.NewObjectAction.Items[0]);
-            args.View = _application.CreateDetailView(_newObjectSpace, _newObject, _listView);
+            var nestedObjectSpace = _application.CreateNestedObjectSpace(objectSpace);
+            var newObject = nestedObjectSpace.CreateObject(Helper.LookupObjectType);
+            args.View = _application.CreateDetailView(nestedObjectSpace, newObject, _listView);
         }
 
         private void newObjectWindowAction_OnExecute(object sender, PopupWindowShowActionExecuteEventArgs args){
@@ -398,11 +380,6 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
                         DisposeAction(_newObjectWindowAction);
                         _newObjectWindowAction = null;
                     }
-                    if (_newObjectViewController != null){
-                        _newObjectViewController.ObjectCreating -= newObjectViewController_ObjectCreating;
-                        _newObjectViewController.ObjectCreated -= newObjectViewController_ObjectCreated;
-                        _newObjectViewController = null;
-                    }
                     if (_frame != null){
                         _frame.SetView(null);
                         _frame.Dispose();
@@ -412,11 +389,6 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
                         _listView.Dispose();
                         _listView = null;
                     }
-                    foreach (var createdObjectSpace in _createdObjectSpaces)
-                        if (!createdObjectSpace.IsDisposed) createdObjectSpace.Dispose();
-                    _createdObjectSpaces.Clear();
-                    _newObject = null;
-                    _newObjectSpace = null;
                 }
             }
             finally{
@@ -471,11 +443,6 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         public void InitializeFrame(){
             if (_frame == null){
                 _frame = WebLookupEditorHelper.Application.CreateNestedFrame(this, TemplateContext.LookupControl);
-                _newObjectViewController = _frame.GetController<NewObjectViewController>();
-                if (_newObjectViewController != null){
-                    _newObjectViewController.ObjectCreating += newObjectViewController_ObjectCreating;
-                    _newObjectViewController.ObjectCreated += newObjectViewController_ObjectCreated;
-                }
             }
         }
 
@@ -708,7 +675,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
             Helper = (WebLookupEditorHelper) helper;
             SearchButton.Visible = helper.IsSearchEditorMode();
             if (Helper.DisplayMember == null)
-                throw new NullReferenceException("DisplayMember");
+                throw new NullReferenceException("DisplayMember is not set for "+Helper.LookupObjectType.FullName);
             DropDown.TextField = Helper.DisplayMember.Name;
             DropDown.ValueField = Helper.LookupObjectTypeInfo.KeyMember.Name;
             foreach (var visibleColumn in Helper.LookupListViewModel.Columns.GetVisibleColumns()){
