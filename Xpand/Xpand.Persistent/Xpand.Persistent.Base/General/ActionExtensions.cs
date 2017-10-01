@@ -25,6 +25,21 @@ namespace Xpand.Persistent.Base.General {
             var nodePath = choiceActionItem.GetIdPath();
             return (IModelBaseChoiceActionItem) modelAction.ChoiceActionItems.FindNodeByPath(nodePath);
         }
+        public static void CloneParameter(this ActionBase clone, ActionBase ori) {
+            if (ori.GetType() != clone.GetType())
+                return;
+            var scaclone = clone as SingleChoiceAction;
+            if (scaclone != null) {
+                var scaori = ori as SingleChoiceAction;
+                scaclone.SelectedItem = scaori?.SelectedItem;
+                return;
+            }
+            var parclone = clone as ParametrizedAction;
+            if (parclone != null) {
+                var parori = ori as ParametrizedAction;
+                parclone.Value = parori?.Value;
+            }
+        }
 
         public static bool DoExecute(this ActionBase actionBase) {
             if (!actionBase.Active||!actionBase.Enabled)

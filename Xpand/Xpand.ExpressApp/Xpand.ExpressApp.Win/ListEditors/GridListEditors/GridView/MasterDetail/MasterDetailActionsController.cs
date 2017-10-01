@@ -162,12 +162,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         WinColumnsListEditor GridListEditor => View?.Editor as WinColumnsListEditor;
 
         void PushExecutionToNestedFrameCore(ActionBase action, Action cancelAction) {
-            var xpandXafGridView = GridListEditor?.Grid.FocusedView as IMasterDetailColumnView;
+            var xpandXafGridView = (IMasterDetailColumnView) GridListEditor?.Grid.FocusedView;
             if (xpandXafGridView?.MasterFrame != null) {
                 var controller = Controller(action.Controller, xpandXafGridView);
                 if (controller != action.Controller) {
                     cancelAction.Invoke();
-                    (controller.Actions[action.Id]).DoExecute();
+                    ActionBase a = controller.Actions[action.Id];
+                    a.CloneParameter(action);
+                    a.DoExecute();
                 }
             }
         }
