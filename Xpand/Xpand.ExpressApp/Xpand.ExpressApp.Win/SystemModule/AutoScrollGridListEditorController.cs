@@ -40,9 +40,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e){
-            var gridListEditor = ((GridListEditor)View.Editor);
-            if (gridListEditor?.Grid != null && ( (!gridListEditor.Grid.IsFocused|| !((IModelListViewAutoScrollGridListEditor)View.Model).AutoScrollToTopWhenNotFocused)))
-                gridListEditor.GridView.FocusedRowHandle = 0;
+            if (!ObjectSpace.IsModified){
+                var gridListEditor = ((GridListEditor)View.Editor);
+                if (gridListEditor?.Grid != null && ( (!gridListEditor.Grid.IsFocused|| !((IModelListViewAutoScrollGridListEditor)View.Model).AutoScrollToTopWhenNotFocused)))
+                    gridListEditor.GridView.FocusedRowHandle = 0;
+            }
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
