@@ -2,6 +2,7 @@ using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Persistent.Base.General;
 
 namespace WorldCreatorTester.Win {
     public partial class WorldCreatorTesterWindowsFormsApplication : WinApplication {
@@ -18,7 +19,7 @@ namespace WorldCreatorTester.Win {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs e){
-            e.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(e.ConnectionString));
+            e.ObjectSpaceProviders.Add(new XpandObjectSpaceProvider(new MultiDataStoreProvider(e.ConnectionString),Security ));
             e.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
 

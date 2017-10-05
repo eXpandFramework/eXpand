@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Win;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.Security;
 
 
@@ -19,11 +20,11 @@ namespace FeatureCenter.Win {
             this.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard), typeof(AuthenticationStandardLogonParameters));
         }
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
-            args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
+            args.ObjectSpaceProviders.Add(new XpandObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString), this.Security, false));
+            //args.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(args.ConnectionString));
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider());
         }
-
         //        protected override ShowViewStrategyBase CreateShowViewStrategy() {
         //            return new ShowInSingleWindowStrategy(this);
         //        }

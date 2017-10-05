@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
     public class DataStoreAttribute : Xpand.Xpo.DB.DataStoreAttribute {
-        static readonly Dictionary<string,Type> _dictionary=new Dictionary<string, Type>(); 
+        static readonly Dictionary<string,Type> Dictionary=new Dictionary<string, Type>(); 
         public DataStoreAttribute(Type nameSpaceType, string dataStoreName)
             : base(nameSpaceType, dataStoreName) {
         }
@@ -15,22 +16,22 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public DataStoreAttribute(string connectionString, string nameSpaceType)
-            : base(null, null) {
-            _connectionString = connectionString;
+            : base(FindType(nameSpaceType), null) {
+            ConnectionString = connectionString;
         }
 
         private static Type FindType(string nameSpaceType){
-            if (_dictionary.ContainsKey(nameSpaceType))
-                return _dictionary[nameSpaceType];
-            var type = ReflectionHelper.FindType(nameSpaceType);
+            if (Dictionary.ContainsKey(nameSpaceType))
+                return Dictionary[nameSpaceType];
+            var type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes()).FirstOrDefault(type1 => type1.FullName==nameSpaceType);
             if (type != null)
-                _dictionary[nameSpaceType] = type;
+                Dictionary[nameSpaceType] = type;
             return type;
         }
 
         public DataStoreAttribute(string connectionString, string nameSpaceType, bool isLegacy)
-            : base(null, null, isLegacy) {
-            _connectionString = connectionString;
+            : base(FindType(nameSpaceType), null, isLegacy) {
+            ConnectionString = connectionString;
         }
     }
 }
