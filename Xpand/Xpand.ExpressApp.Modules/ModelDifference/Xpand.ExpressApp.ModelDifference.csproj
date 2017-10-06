@@ -94,7 +94,7 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\DevExpress 17.1\Components\Bin\Framework\DevExpress.ExpressApp.ConditionalAppearance.v17.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v17.1">
       <SpecificVersion>False</SpecificVersion>
