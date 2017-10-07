@@ -8,7 +8,7 @@ namespace FeatureCenter.Module.Navigation {
         Captions.ViewMessageHideFromNewMenu, Position.Bottom)]
     [NonPersistent]
     [HideFromNewMenu]
-    [XpandNavigationItem("Navigation/Hide From New Menu", "HideFromNewMenuObject_DetailView")]
+//    [XpandNavigationItem("Navigation/Hide From New Menu", "HideFromNewMenuObject_DetailView")]
     public class HideFromNewMenuObject {
     }
 }
