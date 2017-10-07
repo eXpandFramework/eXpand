@@ -218,7 +218,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
             CustomizePopupWindowParamsEventArgs args){
             if (!DataSource.AllowAdd) throw new InvalidOperationException();
             OnViewShowingNotification();
-            var nestedObjectSpace = _application.CreateNestedObjectSpace(objectSpace);
+            var nestedObjectSpace = _application.CreateObjectSpace();
             var newObject = nestedObjectSpace.CreateObject(Helper.LookupObjectType);
             args.View = _application.CreateDetailView(nestedObjectSpace, newObject, _listView);
         }
