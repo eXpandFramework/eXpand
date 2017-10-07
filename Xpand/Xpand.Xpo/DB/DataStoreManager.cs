@@ -9,38 +9,23 @@ using DevExpress.Xpo.Metadata;
 
 namespace Xpand.Xpo.DB {
     public class DataStoreInfo {
-        readonly List<DBTable> _dbTables = new List<DBTable>();
-        bool _isLegacy = true;
+        public List<DBTable> DbTables{ get; } = new List<DBTable>();
 
-        public List<DBTable> DbTables {
-            get { return _dbTables; }
-        }
-
-        public bool IsLegacy {
-            get { return _isLegacy; }
-            set { _isLegacy = value; }
-        }
+        public bool IsLegacy{ get; set; } = true;
     }
 
     public struct KeyInfo {
-        readonly bool _isLegacy;
-        readonly string _key;
-
         public KeyInfo(bool isLegacy, string key) {
-            _isLegacy = isLegacy;
-            _key = key;
+            IsLegacy = isLegacy;
+            Key = key;
         }
 
-        public bool IsLegacy {
-            get { return _isLegacy; }
-        }
+        public bool IsLegacy{ get; }
 
-        public string Key {
-            get { return _key; }
-        }
+        public string Key{ get; }
     }
     public class DataStoreManager {
-        public const string StrDefault = "Default";
+        public const string DefaultDictionaryKey = "Default";
         readonly Dictionary<KeyInfo, ReflectionDictionary> _reflectionDictionaries = new Dictionary<KeyInfo, ReflectionDictionary>();
         readonly Dictionary<string, DataStoreManagerSimpleDataLayer> _simpleDataLayers = new Dictionary<string, DataStoreManagerSimpleDataLayer>();
         readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
@@ -56,7 +41,7 @@ namespace Xpand.Xpo.DB {
         public KeyInfo GetKeyInfo(Type type) {
             var nameSpace = (type.Namespace + "");
             var dataStoreAttribute = _dataStoreAttributes.FirstOrDefault(attribute => nameSpace.StartsWith(attribute.NameSpace));
-            return dataStoreAttribute == null ? new KeyInfo(false, StrDefault) : new KeyInfo(dataStoreAttribute.IsLegacy, (dataStoreAttribute.DataStoreName ?? dataStoreAttribute.ConnectionString));
+            return dataStoreAttribute == null ? new KeyInfo(false, DefaultDictionaryKey) : new KeyInfo(dataStoreAttribute.IsLegacy, (dataStoreAttribute.DataStoreName ?? dataStoreAttribute.ConnectionString));
         }
 
         KeyInfo GetKeyInfo(XPClassInfo xpClassInfo) {
@@ -78,6 +63,8 @@ namespace Xpand.Xpo.DB {
             XPClassInfo xpClassInfo = GetXPClassInfo(type);
             return GetDictionary(xpClassInfo);
         }
+
+        public Dictionary<KeyInfo, ReflectionDictionary> ReflectionDictionaries => _reflectionDictionaries;
 
         XPClassInfo GetXPClassInfo(Type type) {
             var xpClassInfos = _reflectionDictionaries.Select(pair => pair.Value).SelectMany(dictionary => dictionary.Classes.OfType<XPClassInfo>());
@@ -111,12 +98,12 @@ namespace Xpand.Xpo.DB {
         }
 
         public string GetConnectionString(string key) {
-            if (key == StrDefault)
+            if (key == DefaultDictionaryKey)
                 return _connectionString;
             if (key.StartsWith(DataStoreBase.XpoProviderTypeParameterName))
                 return key;
             ConnectionStringSettings connectionStringSettings =
-                ConfigurationManager.ConnectionStrings[string.Format("{0}ConnectionString", key)];
+                ConfigurationManager.ConnectionStrings[$"{key}ConnectionString"];
             if (connectionStringSettings != null) {
                 return connectionStringSettings.ConnectionString;
             }
@@ -124,11 +111,10 @@ namespace Xpand.Xpo.DB {
             var sql = connectionProvider as ConnectionProviderSql;
             if (sql != null) {
                 IDbConnection dbConnection = sql.Connection;
-                return _connectionString == null ? AccessConnectionProvider.GetConnectionString(key)
-                                              : _connectionString.Replace(dbConnection.Database, String.Format("{0}{1}.mdb", dbConnection.Database, key));
+                return _connectionString?.Replace(dbConnection.Database, $"{dbConnection.Database}{key}.mdb") ?? AccessConnectionProvider.GetConnectionString(key);
 
             }
-            throw new NoNullAllowedException(string.Format("{0}ConnectionString not found ", key));
+            throw new NoNullAllowedException($"{key}ConnectionString not found ");
         }
 
         public IDataStore GetConnectionProvider(string key) {
@@ -145,9 +131,9 @@ namespace Xpand.Xpo.DB {
             var selectMany = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly =>
                 assembly.GetCustomAttributes(typeof (DataStoreAttribute), false).Cast<DataStoreAttribute>(),
                 (assembly, dataStoreAttribute) => new{assembly, dataStoreAttribute});
-            return selectMany.Where(@t =>@t.dataStoreAttribute.ConnectionString != null ||
-                            ConfigurationManager.ConnectionStrings[String.Format("{0}ConnectionString",@t.dataStoreAttribute.DataStoreName)] != null)
-                    .Select(@t => @t.dataStoreAttribute);
+            return selectMany.Where(t =>t.dataStoreAttribute.ConnectionString != null ||
+                            ConfigurationManager.ConnectionStrings[$"{t.dataStoreAttribute.DataStoreName}ConnectionString"] != null)
+                    .Select(t => t.dataStoreAttribute);
         }
 
         public Dictionary<string, DataStoreManagerSimpleDataLayer> GetDataLayers(IDataStore defaultStore) {
@@ -165,9 +151,9 @@ namespace Xpand.Xpo.DB {
         public DataStoreManagerSimpleDataLayer GetDataLayer(string key,IDataStore defaultStore){
             if (!_simpleDataLayers.ContainsKey(key)){
                 var keyValuePair = _reflectionDictionaries.First(info => info.Key.Key==key);
-                var connectionProvider = keyValuePair.Key.Key==StrDefault?defaultStore:GetConnectionProvider(keyValuePair.Key.Key);
+                var connectionProvider = keyValuePair.Key.Key==DefaultDictionaryKey?defaultStore:GetConnectionProvider(keyValuePair.Key.Key);
                 var simpleDataLayer = new DataStoreManagerSimpleDataLayer(keyValuePair.Value, connectionProvider,
-                    keyValuePair.Key.Key == StrDefault, keyValuePair.Key.IsLegacy);
+                    keyValuePair.Key.Key == DefaultDictionaryKey, keyValuePair.Key.IsLegacy);
                 _simpleDataLayers.Add(keyValuePair.Key.Key, simpleDataLayer);
             }
             return _simpleDataLayers[key];
@@ -195,9 +181,9 @@ namespace Xpand.Xpo.DB {
 
         public string GetKey(string tableName) {
             if (tableName == typeof(XPObjectType).Name)
-                return StrDefault;
+                return DefaultDictionaryKey;
             var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName)).ToList();
-            string key = StrDefault;
+            string key = DefaultDictionaryKey;
             if (keyValuePairs.Any())
                 key = keyValuePairs[0].Key;
             return key;
@@ -211,22 +197,14 @@ namespace Xpand.Xpo.DB {
     }
 
     public class DataStoreManagerSimpleDataLayer : SimpleDataLayer {
-        readonly bool _isMainLayer;
-        readonly bool _isLegacy;
-
-
         public DataStoreManagerSimpleDataLayer(XPDictionary dictionary, IDataStore provider, bool isMainLayer, bool isLegacy)
             : base(dictionary, provider) {
-            _isMainLayer = isMainLayer;
-            _isLegacy = isLegacy;
+            IsMainLayer = isMainLayer;
+            IsLegacy = isLegacy;
         }
 
-        public bool IsLegacy {
-            get { return _isLegacy; }
-        }
+        public bool IsLegacy{ get; }
 
-        public bool IsMainLayer {
-            get { return _isMainLayer; }
-        }
+        public bool IsMainLayer{ get; }
     }
 }

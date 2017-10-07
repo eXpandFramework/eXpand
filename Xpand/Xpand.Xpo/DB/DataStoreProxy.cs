@@ -26,13 +26,10 @@ namespace Xpand.Xpo.DB {
             return proxy._dataStoreCore as ConnectionProviderSql;
         }
 
-        public IDataStore DataStore {
-            get { return _dataStoreCore; }
-        }
+        public IDataStore DataStore => _dataStoreCore;
 
-        public AutoCreateOption AutoCreateOption {
-            get { return _dataStoreCore.AutoCreateOption; }
-        }
+        public AutoCreateOption AutoCreateOption => _dataStoreCore.AutoCreateOption;
+
         public virtual ModificationResult ModifyData(params ModificationStatement[] dmlStatements) {
             var args = new DataStoreModifyDataEventArgs(dmlStatements);
             OnDataStoreModifyData(args);
@@ -58,20 +55,14 @@ namespace Xpand.Xpo.DB {
             return _dataStoreCore.UpdateSchema(false, args.Tables);
         }
         #endregion
-        protected void OnDataStoreModifyData(DataStoreModifyDataEventArgs args) {
-            if (DataStoreModifyData != null) {
-                DataStoreModifyData(this, args);
-            }
+        protected void OnDataStoreModifyData(DataStoreModifyDataEventArgs args){
+            DataStoreModifyData?.Invoke(this, args);
         }
-        protected void OnDataStoreSelectData(DataStoreSelectDataEventArgs args) {
-            if (DataStoreSelectData != null) {
-                DataStoreSelectData(this, args);
-            }
+        protected void OnDataStoreSelectData(DataStoreSelectDataEventArgs args){
+            DataStoreSelectData?.Invoke(this, args);
         }
-        protected void OnDataStoreUpdateSchema(DataStoreUpdateSchemaEventArgs args) {
-            if (DataStoreUpdateSchema != null) {
-                DataStoreUpdateSchema(this, args);
-            }
+        protected void OnDataStoreUpdateSchema(DataStoreUpdateSchemaEventArgs args){
+            DataStoreUpdateSchema?.Invoke(this, args);
         }
         public event EventHandler<DataStoreModifyDataEventArgs> DataStoreModifyData;
         public event EventHandler<DataStoreSelectDataEventArgs> DataStoreSelectData;
@@ -80,7 +71,7 @@ namespace Xpand.Xpo.DB {
         public IDbConnection Connection {
             get {
                 var sqlDataStore = (_dataStoreCore as ISqlDataStore);
-                return sqlDataStore != null ? sqlDataStore.Connection : null;
+                return sqlDataStore?.Connection;
             }
         }
 
@@ -92,6 +83,10 @@ namespace Xpand.Xpo.DB {
             if (_dataLayerCore == null)
                 _dataLayerCore = new SimpleDataLayer(_dataStoreCore);
             return ((ICommandChannel)_dataLayerCore).Do(command, args);
+        }
+
+        public virtual void Init(){
+            throw new NotImplementedException();
         }
     }
 }

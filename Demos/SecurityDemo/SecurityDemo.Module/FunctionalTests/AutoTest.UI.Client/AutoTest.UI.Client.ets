@@ -3,7 +3,7 @@
 #DropDB XpandSecurityDemoWC
 #Application SecurityDemo.UiLevel.Web
 #Application SecurityDemo.UiLevel.Win
-
+*SetWebMaxWaitTimeOut 120000
 *FillForm
  User = Sam
 *Action Log On

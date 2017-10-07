@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.ExpressApp.Xpo;
 using WorldCreatorTester.Module;
 using WorldCreatorTester.Module.Web;
+using Xpand.Persistent.Base.General;
 
 namespace WorldCreatorTester.Web {
     public class WorldCreatorTesterAspNetApplication : WebApplication {
@@ -37,7 +38,10 @@ namespace WorldCreatorTester.Web {
         }
 #endif
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs e) {
-            e.ObjectSpaceProviders.Add(new XPObjectSpaceProvider(e.ConnectionString));
+            var easyTestParameter = this.GetEasyTestParameter("DBMapper");
+            e.ObjectSpaceProviders.Add(easyTestParameter
+                ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(e.ConnectionString), Security)
+                : new XPObjectSpaceProvider(e.ConnectionString));
             e.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -16,7 +15,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public DataStoreAttribute(string connectionString, string nameSpaceType)
-            : base(FindType(nameSpaceType), null) {
+            : base(FindType(nameSpaceType), null,true) {
             ConnectionString = connectionString;
         }
 

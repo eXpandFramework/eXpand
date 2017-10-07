@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
@@ -7,18 +9,77 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
+using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Xpo;
+using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
-    public class XpandObjectSpaceProvider : XPObjectSpaceProvider, IXpandObjectSpaceProvider {
+    public class XpandObjectSpaceProvider : XPObjectSpaceProvider, IXpandObjectSpaceProvider, IDatabaseSchemaChecker{
+        
         readonly ISecurityStrategyBase _security;
         IDataLayer _dataLayer;
         bool _allowICommandChannelDoWithSecurityContext;
         ClientSideSecurity? _clientSideSecurity;
         public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
         public new IXpoDataStoreProxy DataStoreProvider { get; set; }
+
+        DatabaseSchemaState IDatabaseSchemaChecker.CheckDatabaseSchemaCompatibility(out Exception exception){
+            DatabaseSchemaState result = DatabaseSchemaState.SchemaRequiresUpdate;
+            exception = null;
+            if (DataStoreProvider != null) {
+                try {
+                    IDisposable[] disposableObjects;
+                    IDataStore dataStore = DataStoreProvider.CreateSchemaCheckingStore(out disposableObjects);
+                    if (dataStore != null) {
+                        if (dataStore is InMemoryDataStore){
+                            var explorer = dataStore as IDataStoreSchemaExplorer;{
+                                string[] tablesList = explorer.GetStorageTablesList(true);
+                                if (tablesList.Length > 0) {
+                                    result = DatabaseSchemaState.SchemaExists;
+                                }
+                            }
+                        }
+                        else {
+                            using (UnitOfWork unitOfWork = CreateUnitOfWork(dataStore, disposableObjects)) {
+                                if (UpdateSchemaResult.SchemaExists == unitOfWork.UpdateSchema(true, GetPersistentClasses())) {
+                                    result = DatabaseSchemaState.SchemaExists;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (UnableToOpenDatabaseException e) {
+                    exception = e;
+                    result = DatabaseSchemaState.DatabaseMissing;
+                }
+                catch (SchemaCorrectionNeededException e) {
+                    exception = e;
+                    result = DatabaseSchemaState.SchemaRequiresUpdate;
+                }
+                catch (Exception e) {
+                    exception = e;
+                }
+            }
+            return result;
+        }
+
+        private XPClassInfo[] GetPersistentClasses() {
+            ICollection xpoClasses = XPDictionary.Classes;
+            List<XPClassInfo> persistentClasses = new List<XPClassInfo>(xpoClasses.Count);
+            foreach (XPClassInfo classInfo in xpoClasses) {
+                if (classInfo.IsPersistent) {
+                    persistentClasses.Add(classInfo);
+                }
+            }
+            var multiDataStoreProxy = DataStoreProvider.Proxy as MultiDataStoreProxy;
+            if (multiDataStoreProxy!=null){
+                var xpClassInfos = multiDataStoreProxy.DataStoreManager.ReflectionDictionaries[new KeyInfo(false, DataStoreManager.DefaultDictionaryKey)].Classes.OfType<XPClassInfo>().Select(info => info.ClassType).ToArray();
+                return persistentClasses.Where(info => xpClassInfos.Contains(info.ClassType)).ToArray();
+            }
+            return persistentClasses.ToArray();
+        }
 
         public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISecurityStrategyBase security, bool threadSafe = false)
             : base(provider, threadSafe) {

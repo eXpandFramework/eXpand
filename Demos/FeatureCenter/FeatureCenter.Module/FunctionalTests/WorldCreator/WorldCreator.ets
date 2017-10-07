@@ -5,7 +5,8 @@
 #DropDB XpandFeatureCenterWorldCreatorWin
 #Application FeatureCenter.Win
 #Application FeatureCenter.Web
- 
+
+*SetWebMaxWaitTimeOut 120000
 *ScreenCapture
 *LogOn
 

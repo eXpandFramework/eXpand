@@ -31,9 +31,11 @@ namespace Xpand.Persistent.Base.General {
             
         }
 
-        public DataStoreManager DataStoreManager {
-            get { return _dataStoreManager; }
+        public override void Init(){
+            FillDictionaries(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
         }
+
+        public DataStoreManager DataStoreManager => _dataStoreManager;
 
         void FillDictionaries(XPDictionary xpDictionary) {
             foreach (XPClassInfo queryClassInfo in xpDictionary.Classes.OfType<XPClassInfo>().Where(info => !(info is IntermediateClassInfo))) {
@@ -64,7 +66,7 @@ namespace Xpand.Persistent.Base.General {
                     var dataLayer = simpleDataLayer.Value;
                     if (!TypeExists(dataLayer, insertStatement)) {
                         if (!dataLayer.IsMainLayer) {
-                            _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.GetDataLayer(DataStoreManager.StrDefault,DataStore));
+                            _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.GetDataLayer(DataStoreManager.DefaultDictionaryKey,DataStore));
                         }
                         var modifyData = dataLayer.ModifyData(dmlStatements);
                         if (modifyData.Identities.Any())

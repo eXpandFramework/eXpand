@@ -1,4 +1,5 @@
 using System.Threading;
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
@@ -19,7 +20,10 @@ namespace WorldCreatorTester.Win {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs e){
-            e.ObjectSpaceProviders.Add(new XpandObjectSpaceProvider(new MultiDataStoreProvider(e.ConnectionString),Security ));
+            var easyTestParameter = this.GetEasyTestParameter("DBMapper");
+            e.ObjectSpaceProviders.Add(easyTestParameter
+                ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(e.ConnectionString), Security)
+                : new XPObjectSpaceProvider(e.ConnectionString));
             e.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
 
