@@ -19,24 +19,22 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         public LayoutViewListEditor(IModelListView model)
             : base(model) {
         }
-        public new IModelListViewOptionsLayoutView Model {
-            get { return (IModelListViewOptionsLayoutView)base.Model; }
-        }
+        public new IModelListViewOptionsLayoutView Model => (IModelListViewOptionsLayoutView)base.Model;
 
         protected virtual void OnCustomGridViewCreate(CustomGridViewCreateEventArgs e) {
             EventHandler<CustomGridViewCreateEventArgs> handler = CustomGridViewCreate;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
         protected override List<IModelSynchronizable> CreateModelSynchronizers() {
             List<IModelSynchronizable> result = base.CreateModelSynchronizers();
+            result.Add(new LayoutViewLayoutStoreSynchronizer(this));
             result.Add(new FilterModelSynchronizer(this, Model));
             result.Add(new LayoutViewListEditorSynchronizer(this));
             result.Add(new LayoutViewOptionsSynchronizer(this));
             result.Add(new LayoutColumnOptionsSynchroniser(this));
             result.Add(new RepositoryItemColumnViewSynchronizer(ColumnView, Model));
-            result.Add(new LayoutViewLayoutStoreSynchronizer(this));
             return result;
         }
 
@@ -89,11 +87,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             : base(layoutViewListEditor.Grid) {
         }
 
-        protected override bool IsDesignMode {
-            get {
-                return OverrideViewDesignMode || base.IsDesignMode;
-            }
-        }
+        protected override bool IsDesignMode => OverrideViewDesignMode || base.IsDesignMode;
+
         protected override BaseView CreateInstance() {
             return new XpandXafLayoutView(GridControl);
         }
