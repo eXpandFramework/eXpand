@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
                 hideIfCriteriaDoNotFit =targetState.GetMemberValue(HideIfCriteriaDoNotFit) as bool?;
             }
 
-            if (hideIfCriteriaDoNotFit.HasValue && hideIfCriteriaDoNotFit.Value){
+            if (hideIfCriteriaDoNotFit.HasValue && hideIfCriteriaDoNotFit.Value && View.CurrentObject != null) {
                 var ruleSetValidationResult = _stateMachineLogic.ValidateTransition(iTransition.TargetState, View.CurrentObject);
                 return ruleSetValidationResult.State != ValidationState.Invalid;
             }
