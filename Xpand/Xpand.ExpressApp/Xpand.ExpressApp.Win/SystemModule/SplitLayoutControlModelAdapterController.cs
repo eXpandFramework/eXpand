@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -20,14 +21,15 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             }
         }
 
-        protected override void OnViewControlsDestroying(){
-            base.OnViewControlsDestroying();
+        protected override void OnDeactivated(){
+            base.OnDeactivated();
             var listView = ((ListView)View);
             var splitContainerControl = ((listView.LayoutManager)).Container as SplitContainerControl;
-            if (splitContainerControl != null){
-                var modelListViewSplitContainerControl = ((IModelListViewSplitContainerControl) listView.Model.SplitLayout);
-                if (modelListViewSplitContainerControl.GetValue<SplitCollapsePanel>(nameof(SplitContainerControl.CollapsePanel))!=SplitCollapsePanel.None)
-                    modelListViewSplitContainerControl.SetValue(nameof(SplitContainerControl.Collapsed),splitContainerControl.Collapsed);
+            if (splitContainerControl != null) {
+                var modelListViewSplitContainerControl = ((IModelListViewSplitContainerControl)listView.Model.SplitLayout).SplitContainerControl;
+                var splitCollapsePanel = modelListViewSplitContainerControl.GetValue<SplitCollapsePanel?>(nameof(SplitContainerControl.CollapsePanel));
+                if (splitCollapsePanel.HasValue&& splitCollapsePanel != SplitCollapsePanel.None)
+                    modelListViewSplitContainerControl.SetValue(nameof(SplitContainerControl.Collapsed), new bool?(splitContainerControl.Collapsed));
             }
         }
 
