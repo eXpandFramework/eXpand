@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -19,6 +20,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
     public class ApplicationExitController:WindowController, IModelExtender{
         private bool _isLoggingOff;
         private bool _isEditingModel;
+        private bool _isTrayExit;
 
         public ApplicationExitController(){
             TargetWindowType=WindowType.Main;
@@ -28,10 +30,16 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             base.OnActivated();
             Frame.GetController<LogoffController>().LogoffAction.Executing+=LogoffActionOnExecuting;
             Frame.GetController<EditModelController>().EditModelAction.Executing+=EditModelActionOnExecuting;
+            Frame.GetController<NotifyIconController>().TrayExitAction.Executing+=TrayExitActionOnExecuting;
+        }
+
+        private void TrayExitActionOnExecuting(object o, CancelEventArgs cancelEventArgs){
+            _isTrayExit = true;
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
+            Frame.GetController<NotifyIconController>().TrayExitAction.Executing -= TrayExitActionOnExecuting;
             Frame.GetController<LogoffController>().LogoffAction.Executing -= LogoffActionOnExecuting;
             Frame.GetController<EditModelController>().EditModelAction.Executing -= EditModelActionOnExecuting;
         }
@@ -73,7 +81,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         }
 
         private bool HideOnClose(IModelOptionsApplicationExit modelOptionsApplicationExit) {
-            if (modelOptionsApplicationExit.HideOnExit) {
+            if (modelOptionsApplicationExit.HideOnExit&&!_isTrayExit) {
                 ((Form) Application.MainWindow.Template).Hide();
                 return true;
             }

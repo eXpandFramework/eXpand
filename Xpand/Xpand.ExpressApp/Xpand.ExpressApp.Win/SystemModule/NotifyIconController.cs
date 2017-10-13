@@ -4,10 +4,12 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
+using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.General;
@@ -23,10 +25,20 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     public class NotifyIconController : WindowController, IModelExtender {
         Container _container;
         NotifyIcon _notifyIcon;
+        private readonly SimpleAction _trayExitAction;
 
         public NotifyIconController() {
             TargetWindowType = WindowType.Main;
+            _trayExitAction= new SimpleAction(this,"TrayExit",PredefinedCategory.Unspecified);
+            _trayExitAction.Execute+=TrayExitActionOnExecute;
         }
+
+        private void TrayExitActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
+            Application.MainWindow.Close();
+            Application.Exit();
+        }
+
+        public SimpleAction TrayExitAction => _trayExitAction;
 
         public NotifyIcon NotifyIcon => _notifyIcon;
 
@@ -61,8 +73,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                         strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "LogOut"), (o, eventArgs) => Application.LogOff()));
                     strip.Items.Add(GetMenuItem(CaptionHelper.GetLocalizedText(XpandSystemWindowsFormsModule.XpandWin, "Exit"),
                         (o, eventArgs) => {
-                            Window.Close();
-                            Application.Exit();
+                            _trayExitAction.DoExecute();
                         }));
 
                     _notifyIcon = new NotifyIcon(_container) { Visible = true, ContextMenuStrip = strip };
