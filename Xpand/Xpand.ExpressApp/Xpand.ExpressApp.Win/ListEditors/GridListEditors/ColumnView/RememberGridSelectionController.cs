@@ -24,9 +24,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
             }
         }
 
-        IModelListViewRememberGridSelection Model {
-            get { return ((IModelListViewRememberGridSelection)View.Model); }
-        }
+        IModelListViewRememberGridSelection Model => ((IModelListViewRememberGridSelection)View.Model);
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
@@ -45,6 +43,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView {
                 columnView.OptionsSelection.MultiSelectMode = GridMultiSelectMode.RowSelect;
                 foreach (var row in selectedRows.Split(',')) {
                     var rowHandle = Convert.ToInt32(row);
+                    columnView.FocusedRowHandle = rowHandle;
                     columnView.SelectRow(rowHandle);
                 }
             }
