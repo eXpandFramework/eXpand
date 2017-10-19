@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.ModelEditor {
                 var modelEditorViewController = modelControllerBuilder.GetController(pathInfo);
                 Tracing.Tracer.LogText("modelEditorViewController");
                 _modelEditorForm = new ModelEditorForm(modelEditorViewController, settingsStorageOnRegistry);
-                _modelEditorForm.Disposed += (sender, eventArgs) => ((IModelEditorSettings)_modelEditorForm).ModelEditorSaveSettings();
+                _modelEditorForm.Disposed += (sender, eventArgs) => ((IModelEditorSettings)sender).ModelEditorSaveSettings();
                 _modelEditorForm.SetCaption(Path.GetFileName(pathInfo.LocalPath));
 
                 Application.Run(_modelEditorForm);

@@ -55,10 +55,13 @@ namespace Xpand.VSIX.Extensions {
             return references;
         }
 
-        public static bool VersionMatch(this AssemblyDefinition assemblyDefinition) {
-            var dxVersion = DteExtensions.DTE.Solution.GetDXVersion();
-            var dxAssemblies = assemblyDefinition.MainModule.AssemblyReferences.Where(name => name.Name.StartsWith("DevExpress")).ToArray();
-            return !dxAssemblies.Any() || dxAssemblies.Any(name => name.Name.Contains(dxVersion));
+        public static bool VersionMatch(this AssemblyDefinition assemblyDefinition,bool major=true) {
+            var dxVersion = DteExtensions.DTE.Solution.GetDXVersion(major);
+            if (major){
+                var dxAssemblies = assemblyDefinition.MainModule.AssemblyReferences.Where(name => name.Name.StartsWith("DevExpress")).ToArray();
+                return !dxAssemblies.Any() || dxAssemblies.Any(name => name.Name.Contains(dxVersion));
+            }
+            return assemblyDefinition.MainModule.AssemblyReferences.Any(reference => reference.Name.StartsWith("DevExpress")&&$"{reference.Version.Major}.{reference.Version.Minor}.{reference.Version.Build}"==dxVersion);
         }
 
         public static string GetDXRootDirectory(this Solution solution) {
@@ -109,14 +112,19 @@ namespace Xpand.VSIX.Extensions {
             return solution.Projects().Any(project => project.IsApplicationProject() && project.HasAuthentication());
         }
 
-        public static string GetDXVersion(this Solution solution) {
+        public static string GetDXVersion(this Solution solution,bool major=true) {
             return solution.DTE.Solution.Projects()
                 .Select(project => project.Object)
                 .OfType<VSProject>()
                 .SelectMany(project => project.References.Cast<Reference>()).Select(reference => {
                     var matchResults = Regex.Match(reference.Name, @"DevExpress(.*)(v[^.]*\.[.\d])");
-                    return matchResults.Success ? matchResults.Groups[2].Value : null;
+                    return matchResults.Success ? (major?matchResults.Groups[2].Value: GetRevisionVersion(reference)) : null;
                 }).FirstOrDefault(version => version != null);
+        }
+
+        private static string GetRevisionVersion(Reference reference){
+            var version = AssemblyDefinition.ReadAssembly(reference.Path).Name.Version;
+            return version.Major+"."+version.Minor+"."+version.Build;
         }
 
         public static Project FindProjectFromUniqueName(this Solution solution, string projectName) {

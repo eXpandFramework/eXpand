@@ -22,7 +22,7 @@ namespace Xpand.VSIX.ModelEditor {
             var mePaths = OptionClass.Instance.MEs.Where(me => File.Exists(me.Path)).ToArray();
             foreach (var me in mePaths){
                 var assembly = Mono.Cecil.AssemblyDefinition.ReadAssembly(me.Path);
-                var versionMatch = assembly.VersionMatch();
+                var versionMatch = assembly.VersionMatch(false);
                 if (versionMatch){
                     return me.Path;
                 }
@@ -72,10 +72,10 @@ namespace Xpand.VSIX.ModelEditor {
                         Process.Start(destFileName, arguments);
                     }
                     catch (IOException){
-                        MessageBox.Show("You have probably open the same model from another ME instance. If not please report this with reproduction details in eXpandFramework bugs forum");
+                        MessageBox.Show(@"You have probably open the same model from another ME instance. If not please report this with reproduction details in eXpandFramework bugs forum");
                     }
                 else
-                    MessageBox.Show($"Model editor not found at {destFileName}");
+                    MessageBox.Show($@"Model editor not found at {destFileName}");
             }
             catch (Exception e){
                 MessageBox.Show(e.ToString());
