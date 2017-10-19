@@ -95,7 +95,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         void OnFocusedViewChanged(object sender, ViewFocusEventArgs e) {
-            if (GridListEditor != null) {
+            if (GridListEditor != null&& GridListEditor.Grid.FocusedView!=null) {
                 Frame frame = Frame;
                 var activeBoolLists = new Dictionary<string, BoolList>();
                 var enableBoolLists = new Dictionary<string, BoolList>();

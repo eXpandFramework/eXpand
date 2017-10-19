@@ -215,8 +215,13 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
         }
 
         void CloseNestedWindow(IMasterDetailColumnView baseView) {
-            var window = baseView?.Window as WinWindow;
-            window?.Form?.Close();
+            try{
+                var window = baseView?.Window as WinWindow;
+                window?.Form?.Close();
+            }
+            catch{
+                // ignored
+            }
         }
     }
 
