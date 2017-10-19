@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win;
-using DevExpress.Persistent.Base;
 using DevExpress.XtraEditors;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.Persistent.Base.General;
@@ -29,7 +28,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         public NotifyIconController() {
             TargetWindowType = WindowType.Main;
-            _trayExitAction= new SimpleAction(this,"TrayExit",PredefinedCategory.Unspecified);
+            _trayExitAction= new SimpleAction(this,"TrayExit","Hidden");
             _trayExitAction.Execute+=TrayExitActionOnExecute;
         }
 

@@ -27,13 +27,7 @@ namespace Xpand.ExpressApp.Editors {
 
         public event EventHandler Executed;
 
-        public IModelViewItem Model
-        {
-            get
-            {
-                return _model;
-            }
-        }
+        public IModelViewItem Model => _model;
 
         public override string Caption {
             get {
@@ -44,7 +38,7 @@ namespace Xpand.ExpressApp.Editors {
 
         protected void InvokeExecuted(EventArgs e) {
             EventHandler handler = Executed;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
 }
