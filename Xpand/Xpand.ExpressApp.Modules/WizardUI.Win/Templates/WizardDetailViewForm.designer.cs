@@ -32,12 +32,12 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
         /// </summary>
         private void InitializeComponent()
         {
-            this.wizardControl = new DevExpress.XtraWizard.WizardControl();
+            this.WizardControl = new DevExpress.XtraWizard.WizardControl();
             this.completionWizardPage1 = new DevExpress.XtraWizard.CompletionWizardPage();
             this.showRecordAfterCompletion = new DevExpress.XtraEditors.CheckEdit();
             this._ViewSitePanel = new DevExpress.XtraEditors.PanelControl();
-            ((System.ComponentModel.ISupportInitialize)(this.wizardControl)).BeginInit();
-            this.wizardControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.WizardControl)).BeginInit();
+            this.WizardControl.SuspendLayout();
             this.completionWizardPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.showRecordAfterCompletion.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._ViewSitePanel)).BeginInit();
@@ -49,15 +49,15 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
             // 
             // wizardControl
             // 
-            this.wizardControl.Controls.Add(this.completionWizardPage1);
-            this.wizardControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wizardControl.Image = global::Xpand.ExpressApp.WizardUI.Win.Properties.Resources.wizard_image;
-            this.wizardControl.Location = new System.Drawing.Point(0, 0);
-            this.wizardControl.Name = "wizardControl";
-            this.wizardControl.Pages.AddRange(new DevExpress.XtraWizard.BaseWizardPage[] {
+            this.WizardControl.Controls.Add(this.completionWizardPage1);
+            this.WizardControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.WizardControl.Image = global::Xpand.ExpressApp.WizardUI.Win.Properties.Resources.wizard_image;
+            this.WizardControl.Location = new System.Drawing.Point(0, 0);
+            this.WizardControl.Name = "WizardControl";
+            this.WizardControl.Pages.AddRange(new DevExpress.XtraWizard.BaseWizardPage[] {
             this.completionWizardPage1});
-            this.wizardControl.Size = new System.Drawing.Size(792, 566);
-            this.wizardControl.UseAcceptButton = false;
+            this.WizardControl.Size = new System.Drawing.Size(792, 566);
+            this.WizardControl.UseAcceptButton = false;
             // 
             // completionWizardPage1
             // 
@@ -87,11 +87,11 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 566);
-            this.Controls.Add(this.wizardControl);
+            this.Controls.Add(this.WizardControl);
             this.Name = "WizardDetailViewForm";
             this.Text = "SimpleForm";
-            ((System.ComponentModel.ISupportInitialize)(this.wizardControl)).EndInit();
-            this.wizardControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.WizardControl)).EndInit();
+            this.WizardControl.ResumeLayout(false);
             this.completionWizardPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.showRecordAfterCompletion.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._ViewSitePanel)).EndInit();
@@ -100,7 +100,6 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
         }
         #endregion
 
-        private DevExpress.XtraWizard.WizardControl wizardControl;
         private DevExpress.XtraEditors.CheckEdit showRecordAfterCompletion;
         private DevExpress.XtraWizard.CompletionWizardPage completionWizardPage1;
         private PanelControl _ViewSitePanel;

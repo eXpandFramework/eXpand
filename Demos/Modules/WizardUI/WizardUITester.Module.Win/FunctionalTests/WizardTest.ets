@@ -7,6 +7,12 @@
 *Navigate Wizard Object
 *Action New
 
+;----Check Page1 ActionContainer-------------------
+*Action Page 1 Action
+*HandleDialog
+ Caption = Page 1 Action
+ Respond = OK
+
 ;----Check validation-------
 *HandleDialog
  Caption = Wizard Object
@@ -23,6 +29,13 @@
 *HandleDialog
  Caption = Wizard Object
  Respond = Next >
+
+;----Check Page1 ActionContainer-------------------
+*Action Page 2 Action
+*HandleDialog
+ Caption = Page 2 Action
+ Respond = OK
+
 ;-----check that it is the final page----
 !HandleDialog
  Caption = Wizard Object
@@ -44,6 +57,8 @@
 *HandleDialog
  Caption = Wizard Object
  Respond = Finish
+
+*Action Refresh
 
 *CheckTable
  Columns = Page 1, Page 2

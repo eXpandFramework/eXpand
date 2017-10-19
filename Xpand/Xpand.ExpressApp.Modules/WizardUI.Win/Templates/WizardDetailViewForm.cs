@@ -33,9 +33,7 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates {
         /// <summary>
         /// Gets the WizardControl
         /// </summary>
-        public WizardControl WizardControl {
-            get { return wizardControl; }
-        }
+        public WizardControl WizardControl{ get; private set; }
 
         /// <summary>
         /// Gets a value indicating whether [show record after completion].
@@ -43,11 +41,7 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates {
         /// <value>
         /// <c>true</c> if [show record after completion]; otherwise, <c>false</c>.
         /// </value>
-        public bool ShowRecordAfterCompletion {
-            get {
-                return showRecordAfterCompletion.Checked;
-            }
-        }
+        public bool ShowRecordAfterCompletion => showRecordAfterCompletion.Checked;
 
         #endregion
 

@@ -1,42 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <SchemaModules>
-    <SchemaModule Name="SystemModule" Version="13.1.6.0" IsNewNode="True" />
-    <SchemaModule Name="SystemWindowsFormsModule" Version="13.1.6.0" IsNewNode="True" />
-    <SchemaModule Name="WizardUIWindowsFormsModule" Version="13.1.6.9" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="17.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="17.1.7.0" IsNewNode="True" />
+    <SchemaModule Name="WizardUIWindowsFormsModule" Version="17.1.7.5" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="17.1.7.5" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemWindowsFormsModule" Version="17.1.7.5" IsNewNode="True" />
   </SchemaModules>
   <Views>
     <DetailView Id="Page1" ClassName="WizardUITester.Module.BusinessObjects.TestClass" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Page1" PropertyName="Page1" IsNewNode="True" />
+        <ActionContainerViewItem Id="Page1ActionContainer" ActionContainer="Page1" Caption="Page1ActionContainer(3)" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" IsNewNode="True">
-          <LayoutItem Id="Page1" ViewItem="Page1" Index="0" IsNewNode="True" />
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="2.9780564263322886" IsNewNode="True">
+          <LayoutItem Id="Page1" ViewItem="Page1" Index="0" RelativeSize="100" IsNewNode="True" />
         </LayoutGroup>
+        <LayoutItem Id="Page1ActionContainer" ViewItem="Page1ActionContainer" Index="1" RelativeSize="97.021943573667713" IsNewNode="True" />
       </Layout>
-      <Wizard IsNewNode="True">
-        <WizardPage Id="Page1" ViewID="TestClass_DetailView" IsNewNode="True" />
-      </Wizard>
     </DetailView>
     <DetailView Id="Page2" ClassName="WizardUITester.Module.BusinessObjects.TestClass" IsNewNode="True">
       <Items IsNewNode="True">
         <PropertyEditor Id="Page2" PropertyName="Page2" IsNewNode="True" />
+        <ActionContainerViewItem Id="Page2ActionContainer" ActionContainer="Page2" Caption="Page2ActionContainer(3)" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
-        <LayoutGroup Id="Main" IsNewNode="True">
-          <LayoutItem Id="Page2" ViewItem="Page2" Index="0" IsNewNode="True" />
+        <LayoutGroup Id="Main" ShowCaption="False" Index="0" RelativeSize="100" Caption="Page 2" IsNewNode="True">
+          <LayoutItem Id="Page2" ViewItem="Page2" Index="0" RelativeSize="2.5078369905956115" IsNewNode="True" />
+          <LayoutItem Id="Page2ActionContainer" ViewItem="Page2ActionContainer" Index="1" RelativeSize="97.4921630094044" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
-      <Wizard IsNewNode="True">
-        <WizardPage Id="Page1" ViewID="TestClass_DetailView" IsNewNode="True" />
-      </Wizard>
     </DetailView>
     <DetailView Id="TestClass_DetailView">
       <Wizard ShowCompletionWizardPage="True" ShowInWizard="True">
         <WizardPage Id="Page1" ViewID="Page1" Index="0" IsNewNode="True" />
         <WizardPage Id="Page2" ViewID="Page2" IsNewNode="True" />
       </Wizard>
+    </DetailView>
+    <DetailView Id="WizardObject_Page1_DetailView">
+      <Items>
+        <ActionContainerViewItem Id="Page1ActionContainer" ActionContainer="Page1" Caption="Page1ActionContainer(6)" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="2.9780564263322886" />
+        <LayoutItem Id="Page1ActionContainer" ViewItem="Page1ActionContainer" Index="1" RelativeSize="97.021943573667713" IsNewNode="True" />
+      </Layout>
+    </DetailView>
+    <DetailView Id="WizardObject_Page2_DetailView">
+      <Items>
+        <ActionContainerViewItem Id="Page2ActionContainer" ActionContainer="Page2" Caption="Page2ActionContainer(7)" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="2.9780564263322886" />
+        <LayoutItem Id="Page2ActionContainer" ViewItem="Page2ActionContainer" Index="1" RelativeSize="97.021943573667713" IsNewNode="True" />
+      </Layout>
     </DetailView>
   </Views>
 </Application>
