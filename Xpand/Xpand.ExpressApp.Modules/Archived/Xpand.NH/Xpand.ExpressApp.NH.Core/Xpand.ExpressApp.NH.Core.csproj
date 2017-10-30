@@ -41,47 +41,47 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v17.1.Core">
+    <Reference Include="DevExpress.Charts.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v17.1">
+    <Reference Include="DevExpress.CodeParser.v17.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Data.v17.1">
+    <Reference Include="DevExpress.Data.v17.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Images.v17.1">
+    <Reference Include="DevExpress.Images.v17.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Office.v17.1.Core">
+    <Reference Include="DevExpress.Office.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v17.1.Core">
+    <Reference Include="DevExpress.PivotGrid.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.1.Export">
+    <Reference Include="DevExpress.RichEdit.v17.2.Export">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Printing.v17.1.Core">
+    <Reference Include="DevExpress.Printing.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.1.Core">
+    <Reference Include="DevExpress.RichEdit.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v17.1.Core">
+    <Reference Include="DevExpress.Sparkline.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.1">
+    <Reference Include="DevExpress.Utils.v17.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>

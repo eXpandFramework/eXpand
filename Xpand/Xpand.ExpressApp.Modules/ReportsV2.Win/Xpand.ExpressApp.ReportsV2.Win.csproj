@@ -46,58 +46,64 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ReportsV2.v17.1">
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ReportsV2.Win.v17.1">
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.Win.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.1.Export">
+    <Reference Include="DevExpress.RichEdit.v17.2.Export">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v17.1.Core">
+    <Reference Include="DevExpress.Office.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v17.1">
+    <Reference Include="DevExpress.RichEdit.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v17.1">
+    <Reference Include="DevExpress.Printing.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v17.1">
+    <Reference Include="DevExpress.Data.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.1">
+    <Reference Include="DevExpress.ExpressApp.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v17.1">
+    <Reference Include="DevExpress.Persistent.Base.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Charts.v17.1.Core">
+    <Reference Include="DevExpress.Utils.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v17.1.Wizard">
+    <Reference Include="DevExpress.XtraPrinting.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v17.1">
+    <Reference Include="DevExpress.Charts.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v17.1.Core">
+    <Reference Include="DevExpress.XtraCharts.v17.2.Wizard">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v17.1.Core">
+    <Reference Include="DevExpress.XtraCharts.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v17.1">
+    <Reference Include="DevExpress.PivotGrid.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.1.UI">
+    <Reference Include="DevExpress.Sparkline.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v17.1">
+    <Reference Include="DevExpress.CodeParser.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v17.1.Extensions">
+    <Reference Include="DevExpress.Utils.v17.2.UI">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v17.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v17.2.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">

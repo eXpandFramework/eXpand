@@ -69,79 +69,79 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v17.1">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v17.1">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Web.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Validation.Web.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.1.Export">
+    <Reference Include="DevExpress.RichEdit.v17.2.Export">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v17.1.Core">
+    <Reference Include="DevExpress.Printing.v17.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v17.1">
+    <Reference Include="DevExpress.Data.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Images.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Images.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Objects.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Security.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v17.1">
+    <Reference Include="DevExpress.ExpressApp.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Web.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v17.1">
+    <Reference Include="DevExpress.Persistent.Base.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v17.1">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v17.1.Core">
+    <Reference Include="DevExpress.Office.v17.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.1.Core">
+    <Reference Include="DevExpress.RichEdit.v17.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v17.1">
+    <Reference Include="DevExpress.Web.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v17.1">
+    <Reference Include="DevExpress.Xpo.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>

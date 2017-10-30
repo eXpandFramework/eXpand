@@ -73,67 +73,67 @@
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v17.1">
+    <Reference Include="DevExpress.CodeParser.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v17.1">
+    <Reference Include="DevExpress.Data.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v17.1">
+    <Reference Include="DevExpress.ExpressApp.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v17.1">
+    <Reference Include="DevExpress.ExpressApp.Win.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v17.1">
+    <Reference Include="DevExpress.Persistent.Base.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v17.1">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.1.Export">
+    <Reference Include="DevExpress.RichEdit.v17.2.Export">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v17.1.Core">
+    <Reference Include="DevExpress.Printing.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v17.1.Core">
+    <Reference Include="DevExpress.Office.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.1.Core">
+    <Reference Include="DevExpress.RichEdit.v17.2.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.1">
+    <Reference Include="DevExpress.Utils.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v17.1">
+    <Reference Include="DevExpress.Xpo.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v17.1">
+    <Reference Include="DevExpress.XtraBars.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v17.1">
+    <Reference Include="DevExpress.XtraEditors.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v17.1">
+    <Reference Include="DevExpress.XtraPrinting.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v17.1">
+    <Reference Include="DevExpress.XtraGrid.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v17.1">
+    <Reference Include="DevExpress.XtraLayout.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v17.1">
+    <Reference Include="DevExpress.XtraNavBar.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v17.1">
+    <Reference Include="DevExpress.XtraRichEdit.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v17.1.Extensions">
+    <Reference Include="DevExpress.XtraRichEdit.v17.2.Extensions">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
