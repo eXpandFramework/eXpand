@@ -35,9 +35,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         bool IColumnViewEditor.OverrideViewDesignMode { get; set; }
 
-        public new IModelListViewOptionsGridView Model {
-            get { return (IModelListViewOptionsGridView)base.Model; }
-        }
+        public new IModelListViewOptionsGridView Model => (IModelListViewOptionsGridView)base.Model;
 
         protected override List<IModelSynchronizable> CreateModelSynchronizers() {
             var listEditorSynchronizer = new XpandGridListEditorSynchronizer(this);
@@ -49,14 +47,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         #region modelDetailViews
         private void OnCustomGetSelectedObjects(CustomGetSelectedObjectsArgs e) {
             EventHandler<CustomGetSelectedObjectsArgs> customGetSelectedObjectsHandler = CustomGetSelectedObjects;
-            if (customGetSelectedObjectsHandler != null) customGetSelectedObjectsHandler(this, e);
+            customGetSelectedObjectsHandler?.Invoke(this, e);
         }
 
         public event EventHandler<CustomGridCreateEventArgs> CustomGridCreate;
 
         protected virtual void OnCustomGridViewCreate(CustomGridViewCreateEventArgs e) {
             EventHandler<CustomGridViewCreateEventArgs> handler = CustomGridViewCreate;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
         public override object FocusedObject {
@@ -64,11 +62,13 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
                 object result = null;
                 if (GridView != null) {
                     var focusedGridView = GetFocusedGridView(GridView);
-                    result = GetFocusedRowObject(focusedGridView);
-                    var masterDetailXafGridView = ((IMasterDetailColumnView) GridView);
-                    Window window = masterDetailXafGridView.Window;
-                    if (window != null)
-                        result = masterDetailXafGridView.Window.View.ObjectSpace.GetObject(result);
+                    if (focusedGridView != null){
+                        result = GetFocusedRowObject(focusedGridView);
+                        var masterDetailXafGridView = ((IMasterDetailColumnView) GridView);
+                        Window window = masterDetailXafGridView.Window;
+                        if (window != null)
+                            result = masterDetailXafGridView.Window.View.ObjectSpace.GetObject(result);
+                    }
                 }
                 return result;
             }
@@ -94,7 +94,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         DevExpress.XtraGrid.Views.Base.ColumnView GetFocusedGridView(DevExpress.XtraGrid.Views.Base.ColumnView view) {
             Frame masterFrame = ((IMasterDetailColumnView) view).MasterFrame;
-            return masterFrame != null && masterFrame.View != null ? GetFocusedGridView(masterFrame) : view;
+            return masterFrame?.View != null ? GetFocusedGridView(masterFrame) : view;
         }
 
         DevExpress.XtraGrid.Views.Base.ColumnView GetFocusedGridView(Frame masterFrame) {
@@ -103,7 +103,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 
         public void OnCustomGridCreate(CustomGridCreateEventArgs e) {
             EventHandler<CustomGridCreateEventArgs> handler = CustomGridCreate;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
 
