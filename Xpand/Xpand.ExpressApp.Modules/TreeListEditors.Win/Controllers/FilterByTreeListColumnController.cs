@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.XtraTreeList;
@@ -12,13 +13,15 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Controllers {
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
             if (TreeList != null){
-                TreeList.OptionsBehavior.EnableFiltering = true;
-                TreeList.OptionsFilter.AllowFilterEditor = true;
-                TreeList.OptionsFilter.FilterMode=FilterMode.Standard;
-                TreeList.ActiveFilterEnabled = true;
-                _filterByColumnController = Frame.GetController<FilterByColumnController>();
-                _filterByColumnController.CellFilterAction.Execute += CellFilterActionOnExecute;
-                TreeList.FocusedColumnChanged += ObjectTreeListOnFocusedColumnChanged;
+                if (TreeList.Columns.Any(column => ((IModelColumnCellFilter) ((TreeListColumnTag) column.Tag).Model).CellFilter)){
+                    TreeList.OptionsBehavior.EnableFiltering = true;
+                    TreeList.OptionsFilter.AllowFilterEditor = true;
+                    TreeList.OptionsFilter.FilterMode=FilterMode.Standard;
+                    TreeList.ActiveFilterEnabled = true;
+                    _filterByColumnController = Frame.GetController<FilterByColumnController>();
+                    _filterByColumnController.CellFilterAction.Execute += CellFilterActionOnExecute;
+                    TreeList.FocusedColumnChanged += ObjectTreeListOnFocusedColumnChanged;
+                }
             }
         }
 
