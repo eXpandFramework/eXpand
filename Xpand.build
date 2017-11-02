@@ -4,7 +4,7 @@
   <PropertyGroup>
     <DeployExtension>false</DeployExtension>
     <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
-    <DXVersion>17.1</DXVersion>
+    <DXVersion>17.2</DXVersion>
     <DXPath>C:\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
     <ProjectConverterPath>$(DXPath)\Components\Tools\Components</ProjectConverterPath>
