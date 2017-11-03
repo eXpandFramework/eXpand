@@ -4,9 +4,13 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Web;
 using DevExpress.Web.ASPxTreeList;
+using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.TreeListEditors.Web.Model {
     public class TreeListModelAdapterController : TreeListEditors.Model.TreeListModelAdapterController {
+        protected override bool FilterTreeList(DynamicModelPropertyInfo info){
+            return base.FilterTreeList(info)&&info.PropertyType!=TreeListType();
+        }
 
         protected override ModelSynchronizer ModelSynchronizer() {
             return new TreeListEditorDynamicModelSynchronizer(((ASPxTreeListEditor) ((ListView) View).Editor));

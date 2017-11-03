@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Dashboard {
     public static class Extensions {
@@ -28,11 +29,15 @@ namespace Xpand.ExpressApp.Dashboard {
         }
     }
 
-    public class ParameterLessProxyCollection:ProxyCollection{
-        public ParameterLessProxyCollection(IObjectSpace objectSpace, ITypeInfo typeInfo, object collection) : base(objectSpace, typeInfo, collection){
-        }
-        public ParameterLessProxyCollection() : base(ObjectSpaceInMemory.CreateNew(), XafTypesInfo.Instance.FindTypeInfo(typeof(ParameterLessProxyCollection)), new object [0]){
+    public class ParameterLessProxyCollection : ProxyCollection {
+        public ParameterLessProxyCollection(IObjectSpace objectSpace, ITypeInfo typeInfo, object collection) : base(objectSpace, typeInfo, collection) {
         }
 
+        public ParameterLessProxyCollection(string type) : base(CreateObjectSpace(), XafTypesInfo.Instance.FindTypeInfo(type), CreateObjectSpace().GetObjects(XafTypesInfo.Instance.FindTypeInfo(type).Type)) {
+        }
+
+        private static IObjectSpace CreateObjectSpace() {
+            return ApplicationHelper.Instance.Application.CreateObjectSpace();
+        }
     }
 }

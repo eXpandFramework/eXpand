@@ -36,9 +36,10 @@ namespace Xpand.ExpressApp.SystemModule.Search {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            var filterController = Frame.GetController<FilterController>();
-            filterController.CustomGetFullTextSearchProperties -= OnCustomGetFullTextSearchProperties;
-            filterController.FullTextFilterAction.Executing -= FullTextFilterActionOnExecuting;
+            Frame.GetController<FilterController>(filterController => {
+                filterController.CustomGetFullTextSearchProperties -= OnCustomGetFullTextSearchProperties;
+                filterController.FullTextFilterAction.Executing -= FullTextFilterActionOnExecuting;
+            });
         }
 
         void OnCustomGetFullTextSearchProperties(object sender, CustomGetFullTextSearchPropertiesEventArgs customGetFullTextSearchPropertiesEventArgs) {

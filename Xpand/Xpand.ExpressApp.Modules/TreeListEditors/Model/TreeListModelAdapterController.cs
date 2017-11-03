@@ -65,11 +65,15 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {
             yield return new InterfaceBuilderData(TreeListType()) {
-                Act = info => info.DXFilter(GetTreeListFilterTypes(),typeof(object))
+                Act = info => FilterTreeList(info)
             };
             yield return new InterfaceBuilderData(TreeListColumnType()) {
                 Act = info => info.DXFilter()
             };
+        }
+
+        protected virtual bool FilterTreeList(DynamicModelPropertyInfo info){
+            return info.DXFilter(GetTreeListFilterTypes(),typeof(object));
         }
 
         protected virtual IList<Type> GetTreeListFilterTypes(){
