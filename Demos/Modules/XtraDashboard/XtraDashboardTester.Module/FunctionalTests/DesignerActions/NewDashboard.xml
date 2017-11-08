@@ -4,9 +4,17 @@
   <DataSources>
     <ObjectDataSource ComponentName="dataSource1">
       <Name>Customer</Name>
+      <DataSource Type="Xpand.ExpressApp.Dashboard.ParameterLessProxyCollection, Xpand.ExpressApp.Dashboard, Version=17.1.7.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+      <Constructor>
+        <Parameter Name="type" Type="System.String">XtraDashboardTester.Module.BusinessObjects.Customer</Parameter>
+      </Constructor>
     </ObjectDataSource>
     <ObjectDataSource ComponentName="dataSource2">
       <Name>Person</Name>
+      <DataSource Type="Xpand.ExpressApp.Dashboard.ParameterLessProxyCollection, Xpand.ExpressApp.Dashboard, Version=17.1.7.8, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958" />
+      <Constructor>
+        <Parameter Name="type" Type="System.String">DevExpress.Persistent.BaseImpl.Person</Parameter>
+      </Constructor>
     </ObjectDataSource>
   </DataSources>
   <Items>

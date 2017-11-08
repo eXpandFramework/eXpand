@@ -6,11 +6,13 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using DevExpress.DashboardCommon;
 using DevExpress.Data.Filtering;
+using DevExpress.DataAccess.ObjectBinding;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
+using DevExpress.Xpo;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
@@ -39,12 +41,13 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                     => new { wrapper.Type, Caption = wrapper.GetDefaultCaption((ModelApplicationBase)xafApplication.Model) })) {
                     var wrapper = typeWrapper;
                     var dsource = dashboard.DataSources.FirstOrDefault(source => source.Name.Equals(wrapper.Caption));
-                    object objects = dashboardDatasource(typeWrapper.Type);
+                    ProxyCollection objects = (ProxyCollection) dashboardDatasource(typeWrapper.Type);
                     if (dsource != null) {
                         dsource.Data = objects;
                     }
-                    else if (!dashboard.DataSources.Contains(ds => ds.Name.Equals(wrapper.Caption))) {
-                        dashboard.DataSources.Add(new DashboardObjectDataSource(typeWrapper.Caption,objects));
+                    else if (!dashboard.DataSources.Contains(ds => ds.Name.Equals(wrapper.Caption))){
+                        var dataSource = new DashboardObjectDataSource(typeWrapper.Caption,objects) {Constructor = new ObjectConstructorInfo(new Parameter("type",typeof(string),typeWrapper.Type.FullName))};
+                        dashboard.DataSources.Add(dataSource);
                     }
                 }
             }
