@@ -67,6 +67,7 @@ namespace Xpand.ExpressApp.WorldCreator.System {
             }
 
             protected override IList<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, IList<IModuleInfo> versionInfoList) {
+                var moduleUpdaters = base.GetModuleUpdaters(objectSpace, versionInfoList);
                 List<ModuleUpdater> dbUpdaters = new List<ModuleUpdater>();
                 var moduleUpdaterTypes = XafTypesInfo.Instance.FindTypeInfo(typeof(WorldCreatorModuleUpdater))
                     .Descendants.Where(info => !info.IsAbstract).ToArray();

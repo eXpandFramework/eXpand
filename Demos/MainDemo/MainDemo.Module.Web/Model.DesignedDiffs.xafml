@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Options CollectionsEditMode="Edit" />
+  <ActionDesign>
+    <Actions>
+      <Action Id="FindBySubjectAction" PaintStyle="Image" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.Note">
+      <OwnMembers>
+        <Member Name="Text" PropertyEditorType="DevExpress.ExpressApp.HtmlPropertyEditor.Web.ASPxHtmlPropertyEditor" />
+      </OwnMembers>
+    </Class>
+    <Class Name="MainDemo.Module.BusinessObjects.Contact" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" />
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SchedulerAspNetModule" Version="13.2.0.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerModuleBase" Version="13.2.0.0" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="13.2.0.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.2.0.0" />
+    <SchemaModule Name="ValidationModule" Version="13.2.0.0" />
+    <SchemaModule Name="ViewVariantsModule" Version="13.2.0.0" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="Department_DetailRow_Contacts_ListView" ClassName="MainDemo.Module.BusinessObjects.Contact" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Address1" PropertyName="Address1" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Address2" PropertyName="Address2" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Anniversary" PropertyName="Anniversary" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Birthday" PropertyName="Birthday" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Department" PropertyName="Department" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="DisplayName" PropertyName="DisplayName" Width="400" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Email" PropertyName="Email" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="FirstName" PropertyName="FirstName" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="LastName" PropertyName="LastName" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Manager" PropertyName="Manager" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="MiddleName" PropertyName="MiddleName" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="NickName" PropertyName="NickName" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Notes" PropertyName="Notes" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Photo" PropertyName="Photo" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="SpouseName" PropertyName="SpouseName" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="TitleOfCourtesy" PropertyName="TitleOfCourtesy" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="WebPageAddress" PropertyName="WebPageAddress" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="FullName" PropertyName="FullName" Width="400" SortIndex="0" SortOrder="Ascending" Index="0" IsNewNode="True" />
+        <ColumnInfo Id="Position" PropertyName="Position" Width="70" Index="1" IsNewNode="True" />
+      </Columns>
+    </ListView>
+    <DetailView Id="Department_DetailRowView" ClassName="MainDemo.Module.BusinessObjects.Department" IsNewNode="True">
+      <Items IsNewNode="True">
+        <PropertyEditor Id="Contacts" PropertyName="Contacts" View="Department_DetailRow_Contacts_ListView" IsNewNode="True" />
+        <PropertyEditor Id="Office" PropertyName="Office" IsNewNode="True" />
+        <PropertyEditor Id="Positions" PropertyName="Positions" View="Department_Positions_ListView" IsNewNode="True" />
+        <PropertyEditor Id="Title" PropertyName="Title" IsNewNode="True" />
+      </Items>
+      <Layout IsNewNode="True">
+        <LayoutGroup Id="Main" Index="0" ShowCaption="False" RelativeSize="100" IsNewNode="True">
+          <LayoutGroup Id="SimpleEditors" Index="0" ShowCaption="False" RelativeSize="50" IsNewNode="True">
+            <LayoutGroup Id="Department" Index="0" ShowCaption="False" Caption="Department" RelativeSize="100" Direction="Horizontal" IsNewNode="True" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" Index="1" RelativeSize="50" IsNewNode="True">
+            <LayoutGroup Id="Contacts" Index="0" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Contacts" ViewItem="Contacts" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Positions" Index="1" ShowCaption="True" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="Positions" ViewItem="Positions" ShowCaption="False" Index="0" RelativeSize="100" IsNewNode="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Department_ListView" DetailRowMode="DetailView" DetailRowView="Department_DetailRowView" />
+    <DetailView Id="Contact_DetailView">
+      <Items>
+        <PropertyEditor Id="Location" PropertyEditorType="DevExpress.ExpressApp.Maps.Web.WebMapsPropertyEditor" />
+      </Items>
+    </DetailView>
+    <ListView Id="Contact_ListView_Map" EditorTypeName="DevExpress.ExpressApp.Maps.Web.WebMapsListEditor" ClassName="MainDemo.Module.BusinessObjects.Contact" IsGroupPanelVisible="True" AutoExpandAllGroups="True" Caption="Contacts on Map" IsNewNode="True">
+      <Columns IsNewNode="True">
+        <ColumnInfo Id="Address1" PropertyName="Address1" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Address2" PropertyName="Address2" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Anniversary" PropertyName="Anniversary" Index="-1" View="" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Birthday" PropertyName="Birthday" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="DisplayName" PropertyName="DisplayName" Width="400" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="FirstName" PropertyName="FirstName" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="FullName" PropertyName="FullName" Index="-1" View="" Width="400" IsNewNode="True" />
+        <ColumnInfo Id="Manager" PropertyName="Manager" Index="-1" View="" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="MiddleName" PropertyName="MiddleName" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="NickName" PropertyName="NickName" Index="-1" View="" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Notes" PropertyName="Notes" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="Photo" PropertyName="Photo" Width="70" Index="-1" IsNewNode="True" />
+        <ColumnInfo Id="SpouseName" PropertyName="SpouseName" Index="-1" View="" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="TitleOfCourtesy" PropertyName="TitleOfCourtesy" Index="-1" View="" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="WebPageAddress" PropertyName="WebPageAddress" Index="-1" View="" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="LastName" PropertyName="LastName" Index="0" View="" Width="100" SortIndex="0" SortOrder="Ascending" IsNewNode="True" />
+        <ColumnInfo Id="Position" PropertyName="Position" Index="1" View="" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Department" PropertyName="Department" Index="2" View="" Width="70" GroupIndex="0" IsNewNode="True" />
+        <ColumnInfo Id="Email" PropertyName="Email" Index="3" View="" Width="70" IsNewNode="True" />
+        <ColumnInfo Id="Location" PropertyName="Location" Width="70" Index="9" IsNewNode="True" />
+        <ColumnInfo Id="Title" PropertyName="Title" Width="70" Index="10" IsNewNode="True" />
+        <ColumnInfo Id="Latitude" PropertyName="Latitude" Width="50" Index="11" IsNewNode="True" />
+        <ColumnInfo Id="Longitude" PropertyName="Longitude" Width="50" Index="12" IsNewNode="True" />
+      </Columns>
+      <Filters CurrentFilterId="AllContacts" IsNewNode="True">
+        <Filter Id="AllContacts" Caption="All Contacts" IsNewNode="True" />
+        <Filter Id="Developers" Criteria="Position.Title = 'Developer'" IsNewNode="True" />
+        <Filter Id="Development Department Contacts" Criteria="[Department.Title] = 'Development Department' " IsNewNode="True" />
+      </Filters>
+    </ListView>
+    <ListView Id="Contact_ListView_Varied" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor">
+      <Variants>
+        <Variant Id="Map" Caption="Map" Index="2" ViewID="Contact_ListView_Map" IsNewNode="True" />
+      </Variants>
+    </ListView>
+    <ListView Id="Contact_LookupListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" />
+    <DetailView Id="Contact_DetailView">
+      <Items>
+        <PropertyEditor Id="Location">
+          <MapSettings Height="150" Width="150" ControlsEnabled="False" />
+        </PropertyEditor>
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Contact">
+              <LayoutGroup Id="Contact_col1">
+                <LayoutItem Id="TitleOfCourtesy" Index="0" />
+                <LayoutItem Id="NickName" Index="1" />
+                <LayoutItem Id="SpouseName" />
+                <LayoutItem Id="Anniversary" />
+                <LayoutItem Id="Location" ViewItem="Location" Index="4" RelativeSize="23.529411764705884" IsNewNode="True" />
+                <LayoutItem Id="WebPageAddress" RelativeSize="15" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Contact_col2">
+                <LayoutItem Id="Department" Index="0" />
+                <LayoutItem Id="Department.Office" />
+                <LayoutItem Id="Position" />
+                <LayoutItem Id="Manager" />
+                <LayoutItem Id="WebPageAddress" ViewItem="WebPageAddress" Index="4" RelativeSize="23.529411764705884" IsNewNode="True" />
+                <LayoutItem Id="Location" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Person">
+              <LayoutGroup Id="Person_col1">
+                <LayoutItem Id="FirstName" />
+                <LayoutItem Id="MiddleName" />
+                <LayoutItem Id="LastName" />
+                <LayoutItem Id="FullName" />
+                <LayoutItem Id="Email" />
+                <LayoutItem Id="Birthday" />
+                <LayoutItem Id="Address1" />
+                <LayoutItem Id="Address2" />
+                <LayoutItem Id="DisplayName" />
+              </LayoutGroup>
+              <LayoutGroup Id="Person_col2">
+                <LayoutItem Id="Photo" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors">
+            <LayoutItem Id="Notes" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="DemoTask_Contacts_ListView" EditorTypeName="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxGridListEditor" />
+  </Views>
+</Application>

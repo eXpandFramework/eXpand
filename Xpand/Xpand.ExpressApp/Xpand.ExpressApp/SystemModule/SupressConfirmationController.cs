@@ -21,7 +21,9 @@ namespace Xpand.ExpressApp.SystemModule {
 
         protected override void OnActivated(){
             base.OnActivated();
-            if (((IModelObjectViewSupressConfirmation)View.Model).SupressConfirmation) {
+            var active = Application.GetPlatform()!=Platform.Mobile;
+            Active[nameof(Platform)] = active;
+            if (((IModelObjectViewSupressConfirmation)View.Model).SupressConfirmation&&active) {
                 Frame.GetController<ModificationsController>(controller => {
                     _modificationsController = controller;
                     _modificationsHandlingMode = controller.ModificationsHandlingMode;

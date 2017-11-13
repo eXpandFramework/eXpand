@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="Contact_ListView" Index="0" />
+          <Item Id="DemoTask_ListView" Index="1" />
+          <Item Id="Department_ListView" Index="2" />
+          <Item Id="Event_ListView" Index="3" />
+          <Item Id="MyDetails" Index="4" />
+          <Item Id="Note" Index="5" />
+          <Item Id="Payment_ListView" Index="6" />
+          <Item Id="Position_ListView" Index="7" />
+          <Item Id="Resume_ListView" Index="8" />
+          <Item Id="PermissionPolicyRole_ListView" Index="9" />
+          <Item Id="PermissionPolicyUser_ListView" Index="10" />
+        </Items>
+      </Item>
+      <Item Id="Reports">
+        <Items>
+          <Item Id="Analysis_ListView" Index="0" />
+          <Item Id="ReportsV2" Index="1" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="SchedulerModuleBase" Version="13.2.0.0" />
+    <SchemaModule Name="SchedulerWindowsFormsModule" Version="13.2.0.0" />
+    <SchemaModule Name="SystemModule" Version="13.2.0.0" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="13.2.0.0" />
+    <SchemaModule Name="ValidationModule" Version="13.2.0.0" />
+    <SchemaModule Name="ViewVariantsModule" Version="13.2.0.0" />
+  </SchemaModules>
+</Application>

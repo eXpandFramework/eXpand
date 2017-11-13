@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <ActionDesign>
+    <Actions>
+      <Action Id ="DemoTask.Postpone" ImageName="clock"  />
+      <Action Id ="ShowNotesAction" ImageName="comment" />
+      <Action Id ="SetTaskAction" ImageName="event" />
+    </Actions>
+  </ActionDesign>
+  <BOModel>
+    <Class Name="DevExpress.ExpressApp.Security.AuthenticationStandardLogonParameters" />
+    <Class Name="MainDemo.Module.BusinessObjects.Contact" ObjectCaptionFormat="{0:FullName}" EditorTypeName="DevExpress.ExpressApp.Mobile.Editors.MobileListEditor" />
+    <Class Name="MainDemo.Module.BusinessObjects.DemoTask" >
+      <AppearanceRules>
+        <AppearanceRule Id ="FontColorRed" TargetItems="Subject"  FontColor="#f05b41"/>
+        <AppearanceRule Id = "PriorityBackColorPink" Context="DetailView"/>
+      </AppearanceRules>
+    </Class>
+  </BOModel>
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="Contact_ListView" ViewId="Contact_ListView" Index="1" ImageName="BO_Contact_Mobile"/>
+          <Item Id="Contact_ListView_Map" Index="2" ImageName="BO_Contact_Map_Mobile" Caption="Contacts on Map" ViewId="Contact_ListView_Map" IsNewNode="True" />
+          <Item Id="DemoTask_ListView"  Index="3" ImageName="BO_Task_Mobile"/>
+          <Item Id="Department_ListView"  Index="4" ImageName="BO_Department_Mobile"/>
+          <Item Id="Event_ListView" ImageName ="BO_Event_Mobile"  Index="5" />
+          <Item Id="Note"  ImageName ="BO_Note_Mobile" Index="6" />
+          <Item Id="Payment_ListView" ImageName ="BO_Payment_Mobile"  Index="7" />
+          <Item Id="Position_ListView"  ImageName ="BO_Position_Mobile" Index="8" />
+          <Item Id="Resume_ListView"  ImageName ="BO_Resume_Mobile" Index="9" />
+          <Item Id="ReportsV2" Index="13" ViewId="ReportDataV2_ListView" ObjectKey="" ImageName ="BO_ReportV2_Mobile"  Caption="Reports" IsNewNode="True" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <Views>
+    <ListView Id="Contact_ListView_Map" EditorTypeName="DevExpress.ExpressApp.Maps.Mobile.Editors.MobileMapsListEditor" ClassName="MainDemo.Module.BusinessObjects.Contact" IsGroupPanelVisible="True" AutoExpandAllGroups="True" Caption="Map" IsNewNode="True">
+    </ListView>
+    <DetailView Id="Department_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Positions" ShowCaption="False"/>
+            <LayoutGroup Id="Contacts" ShowCaption="False"/>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="DemoTask_DetailView">
+      <Items>
+        <PropertyEditor Id="AssignedTo" LookupProperty="FullName"/>
+        <PropertyEditor Id="Priority"  VariantShowItem="CaptionAndImage"  />
+        <PropertyEditor Id="Status" VariantShowItem="CaptionAndImage"/>
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="DemoTask">
+              <LayoutItem Id="Priority" Removed="True" />
+              <LayoutItem Id="EstimatedWork" Removed="True" />
+              <LayoutItem Id="ActualWork" Removed="True" />
+              <LayoutItem Id="Subject" Index ="0" IsNewNode="True" />
+              <!--<LayoutItem Id="AssignedTo" Index ="1" IsNewNode="True" />-->
+            </LayoutGroup>
+            <LayoutGroup Id="Task"  Direction="Vertical" ShowCaption="False">
+              <LayoutGroup Id="Task_col1" RelativeSize="50">
+                <LayoutItem Id="Subject" Removed="True" />
+                <LayoutItem Id="DueDate" Removed="True" />
+                <LayoutItem Id="AssignedTo" Removed="True" />
+                <LayoutItem Id="Priority" Index ="0" IsNewNode="True" />
+                <LayoutItem Id="StartDate" Index ="1" />
+                <LayoutItem Id="EstimatedWork"  Index ="2" IsNewNode="True" />
+                <LayoutItem Id="PercentCompleted"  Index ="3" IsNewNode="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Task_col2" RelativeSize="50">
+                <LayoutItem Id="PercentCompleted" Removed="True" />
+                <LayoutItem Id="Status" Index="0"/>
+                <LayoutItem Id="DueDate" Index="1" IsNewNode="True" />
+                <LayoutItem Id="ActualWork" Index="2" IsNewNode="True" />
+                <LayoutItem Id="DateCompleted" Index="3"/>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors">
+            <LayoutItem Id="Description"/>
+          </LayoutGroup>
+          <LayoutGroup Id="Contacts_Group" ShowCaption="False">
+            <LayoutItem Id="Contacts" ShowCaption="False" RelativeSize="100" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+
+    </DetailView>
+    <DetailView Id="AuthenticationStandardLogonParameters_DetailView_Demo" Caption="MainDemo" >
+      <Items>
+        <PropertyEditor Id="Password" ToolTip="Leave empty"/>
+        <PropertyEditor Id="UserName" ToolTip="Sam or John" />
+        <StaticImage Id="LogonImage"  ImageName="Security_Image_Mobile" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" VerticalAlign="Middle">
+          <LayoutGroup Id="RootGroup" Direction="Vertical">
+            <LayoutGroup Id="ImageGroup" HorizontalAlign="Center">
+            </LayoutGroup>
+            <LayoutGroup Id="EditorsGroup">
+              <LayoutGroup Id="Text" Removed="True">
+                <LayoutItem Id="LogonText" FontSize="15px" />
+              </LayoutGroup>
+              <LayoutGroup Id="Editors" >
+                <LayoutItem Id="PasswordHint" Removed="True"/>
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+
+    <DetailView Id="Position_DetailView" >
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="Departments_Group" Removed="True"/>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <!--<DetailView Id="ChangePasswordParameters_DetailView" MobileVisible="true">
+    </DetailView>-->
+    <DetailView Id="Note_LookupListView" MobileVisible="True"></DetailView>
+  </Views>
+  <Validation>
+    <Rules>
+      <RuleRange Id="RulePercentCompleted" MinimumValue="0" MaximumValue="100" TargetContextIDs="SaveAndClose" ResultType="Error" TargetPropertyName="PercentCompleted" TargetType="MainDemo.Module.BusinessObjects.DemoTask" IsNewNode="True" />
+    </Rules>
+  </Validation>
+</Application>

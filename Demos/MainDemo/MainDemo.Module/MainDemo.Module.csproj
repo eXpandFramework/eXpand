@@ -1,0 +1,428 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <OwnerKey>{FE3BBBB6-72D5-11d2-9ACE-00C04F79A2A4}</OwnerKey>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D7B72244-7C11-414B-ABE5-A3EB78567D93}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>MainDemo.Module</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MainDemo.Module</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn>
+    </NoWarn>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;EASYTEST</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Notifications.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v17.2.Core">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ReportsV2.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v17.2.Core">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v17.2.Core">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPivotGrid.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v17.2.Extensions">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Objects.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Security.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.Validation.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.Base.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Persistent.BaseImpl.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <Name>System.Drawing</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Name>System.Windows.Forms</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AuditTrail">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.AuditTrail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Dashboard">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Email">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Email.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ImportWizard">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ImportWizard.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.IO.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.JobScheduler">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.JobScheduler.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Reports">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Reports.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Scheduler">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Scheduler.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.StateMachine">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.StateMachine.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ViewVariants">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Workflow.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BusinessObjects\Department.cs" />
+    <Compile Include="BusinessObjects\Location.cs" />
+    <Compile Include="BusinessObjects\PortfolioFileData.cs" />
+    <Compile Include="BusinessObjects\Position.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Controllers\ClearContactTasksController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\ClearContactTasksController.Designer.cs">
+      <DependentUpon>ClearContactTasksController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Contact.cs" />
+    <Compile Include="Controllers\FindBySubjectController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\FindBySubjectController.Designer.cs">
+      <DependentUpon>FindBySubjectController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainDemoModule.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MainDemoModule.Designer.cs">
+      <DependentUpon>MainDemoModule.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Payment.cs" />
+    <Compile Include="Controllers\PopupNotesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\PopupNotesController.Designer.cs">
+      <DependentUpon>PopupNotesController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BusinessObjects\Resume.cs" />
+    <Compile Include="Controllers\TaskActionsController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controllers\TaskActionsController.Designer.cs">
+      <DependentUpon>TaskActionsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BusinessObjects\Task.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Reports\ContactsReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ContactsReport.Designer.cs">
+      <DependentUpon>ContactsReport.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Controllers\FindBySubjectController.resx">
+      <DependentUpon>FindBySubjectController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Model.DesignedDiffs.xafml">
+      <Subtype>Designer</Subtype>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\PopupNotesController.resx">
+      <DependentUpon>PopupNotesController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ContactsReport.resx">
+      <DependentUpon>ContactsReport.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Model.DesignedDiffs.Localization.de.xafml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <Subtype>Designer</Subtype>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controllers\TaskActionsController.resx">
+      <DependentUpon>TaskActionsController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controllers\ClearContactTasksController.resx">
+      <DependentUpon>ClearContactTasksController.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainDemoModule.resx">
+      <DependentUpon>MainDemoModule.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BusinessObjects\ReadMe.txt" />
+    <Content Include="Controllers\ReadMe.txt" />
+    <EmbeddedResource Include="DatabaseUpdate\EmployeesWithPhoto.xml" />
+    <Content Include="DatabaseUpdate\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+  </PropertyGroup>
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
+</Project>

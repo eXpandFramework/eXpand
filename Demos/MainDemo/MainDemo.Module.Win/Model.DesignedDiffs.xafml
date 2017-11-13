@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Logo="ExpressAppLogo">
+  <BOModel>
+    <Class Name="DevExpress.Persistent.BaseImpl.Note">
+      <OwnMembers>
+        <Member Name="Text" PropertyEditorType="DevExpress.ExpressApp.HtmlPropertyEditor.Win.HtmlPropertyEditor" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="SchedulerModuleBase" Version="13.2.0.0" IsNewNode="True" />
+    <SchemaModule Name="SchedulerWindowsFormsModule" Version="13.2.0.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="13.2.0.0" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="13.2.0.0" IsNewNode="True" />
+    <SchemaModule Name="ValidationModule" Version="13.2.0.0" />
+    <SchemaModule Name="ViewVariantsModule" Version="13.2.0.0" />
+  </SchemaModules>
+</Application>

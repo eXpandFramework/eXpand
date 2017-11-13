@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application PreferredLanguage="(User language)">
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="MyDetails" Index="0" ImageName="MyDetails_icon" />
+          <Item Id="PermissionPolicyRole_ListView" ImageName="BO_Role_Mobile" Index="10" />
+          <Item Id="PermissionPolicyUser_ListView" ImageName="BO_User_Mobile" Index="11" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="17.2.1.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="17.2.1.0" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <DetailView Id="Contact_DetailView">
+      <Items>
+        <PropertyEditor Id="Department.Office" PropertyName="Department.Office" AllowEdit="False" />
+        <PropertyEditor Id="Location" PropertyEditorType="DevExpress.ExpressApp.Maps.Mobile.Editors.MobileMapsPropertyEditor">
+          <MobileMapSettings Height="150" ControlsEnabled="False" />
+        </PropertyEditor>
+        <PropertyEditor Id="Photo" ImageEditorFixedHeight="0" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutItem Id="Photo" ViewItem="Photo" ShowCaption="False" Index="0" IsNewNode="True" />
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Person" ShowCaption="False" Index="1">
+              <LayoutGroup Id="Person_col1" RelativeSize="100">
+                <LayoutItem Id="Address1" ViewItem="Address1" Removed="True" />
+                <LayoutItem Id="Address2" ViewItem="Address2" Removed="True" />
+                <LayoutItem Id="DisplayName" ViewItem="DisplayName" Removed="True" />
+                <LayoutItem Id="MiddleName" ViewItem="MiddleName" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Person_col2" Removed="True">
+                <LayoutItem Id="Photo" ViewItem="Photo" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+            <LayoutGroup Id="Contact" ShowCaption="False" Index="2" Direction="Vertical">
+              <LayoutGroup Id="Contact_col1">
+                <LayoutItem Id="NickName" ViewItem="NickName" Removed="True" />
+                <LayoutItem Id="SpouseName" ViewItem="SpouseName" Removed="True" />
+                <LayoutItem Id="WebPageAddress" ViewItem="WebPageAddress" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="Contact_col2">
+                <LayoutItem Id="Department" Index="0" ViewItem="Department" />
+                <LayoutItem Id="Department.Office" Index="1" ViewItem="Department.Office" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="SizeableEditors" RelativeSize="3.5675675675675675">
+            <LayoutItem Id="Notes" RelativeSize="100" ViewItem="Notes" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs" RelativeSize="54.7027027027027">
+            <LayoutGroup Id="Tasks" ShowCaption="False" />
+            <LayoutGroup Id="PhoneNumbers" ShowCaption="False" />
+            <LayoutGroup Id="ChangeHistory" Removed="True" />
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="Contact_ListView">
+      <Columns>
+        <ColumnInfo Id="Photo" ImageEditorFixedHeight="90" />
+      </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="Refresh" IsNewNode="True" />
+      </HiddenActions>
+      <RowLayout>
+        <LayoutItem Id="FullName" ViewItem="FullName" Removed="True" />
+        <LayoutGroup Id="ItemContactListMain" VerticalAlign="Middle" Direction="Horizontal" IsNewNode="True">
+          <LayoutItem Id="Photo" RelativeSize="30" ShowCaption="False" Index="0" ViewItem="Photo" IsNewNode="True" />
+          <LayoutGroup Id="ItemContactList" ShowCaption="False" RelativeSize="70" Index="1" IsNewNode="True">
+            <LayoutItem Id="FullName" ViewItem="FullName" FontSize="20px" Index="0" ShowCaption="False" IsNewNode="True" />
+            <LayoutItem Id="Position" ViewItem="Position" Index="1" FontColor="129, 129, 129" ShowCaption="False" IsNewNode="True" />
+          </LayoutGroup>
+        </LayoutGroup>
+      </RowLayout>
+    </ListView>
+    <ListView Id="DemoTask_ListView">
+      <Columns>
+        <ColumnInfo Id="StartDate" VariantShowItem="CaptionAndImage" />
+        <ColumnInfo Id="Priority" VariantShowItem="Image" />
+      </Columns>
+      <RowLayout>
+        <LayoutItem Id="Subject" FontSize="20px" FontWeight="bold" Index="0" ShowCaption="False" ViewItem="" />
+        <LayoutGroup Id="ItemDemo_TaskListMain" IsNewNode="True">
+          <LayoutGroup Id="Row" ShowCaption="False" Direction="Horizontal" Index="1" FontSize="10" VerticalAlign="Middle" IsNewNode="True">
+            <LayoutItem Id="Priority" ViewItem="Priority" ShowCaption="False" FontSize="14px" IsNewNode="True" />
+            <LayoutItem Id="StartDate" ViewItem="StartDate" ShowCaption="False" FontSize="14px" FontColor="83, 83, 83" IsNewNode="True" />
+          </LayoutGroup>
+          <LayoutItem Id="Description" ViewItem="Description" Index="2" FontSize="14px" FontColor="83, 83, 83" ShowCaption="False" MaxSize="0, 200" IsNewNode="True" />
+        </LayoutGroup>
+      </RowLayout>
+    </ListView>
+    <DetailView Id="Event_DetailView">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Event">
+              <LayoutGroup Id="Event_col2">
+                <LayoutItem Id="ReminderTime" ViewItem="ReminderTime" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PermissionPolicyUser_DetailView" MobileVisible="True">
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="PermissionPolicyUser">
+              <LayoutItem Id="ChangePasswordOnFirstLogon" ViewItem="ChangePasswordOnFirstLogon" Removed="True" />
+              <LayoutItem Id="IsActive" ViewItem="IsActive" Removed="True" />
+              <LayoutGroup Id="SimpleEditorsLocation" CaptionLocation="Left" IsNewNode="True">
+                <LayoutItem Id="ChangePasswordOnFirstLogon" CaptionLocation="Left" ViewItem="ChangePasswordOnFirstLogon" IsNewNode="True" />
+                <LayoutItem Id="IsActive" ViewItem="IsActive" IsNewNode="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutGroup Id="Roles_Group" ShowCaption="False" />
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

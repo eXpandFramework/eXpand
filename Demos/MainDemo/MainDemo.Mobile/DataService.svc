@@ -1,0 +1,2 @@
+﻿<%@ ServiceHost CodeBehind="" Language="C#" Factory="System.Data.Services.DataServiceHostFactory, 
+            Microsoft.Data.Services, Version=5.7.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Service="MainDemo.Mobile.DataService" %>

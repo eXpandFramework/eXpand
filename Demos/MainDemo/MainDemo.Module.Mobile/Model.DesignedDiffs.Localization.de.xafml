@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<Application Title="MainDemo - Outlook in 60 Minuten!" Subtitle="eXpressApp Framework Demo-Anwendung" ProtectedContentText="Geschützter Inhalt">
+  <NavigationItems>
+    <Items>
+      <Item Id="Default">
+        <Items>
+          <Item Id="Contact_ListView_Map" Caption="Kontakte auf der Karte" />
+        </Items>
+      </Item>
+    </Items>
+  </NavigationItems>
+</Application>
