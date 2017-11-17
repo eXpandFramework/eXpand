@@ -3,7 +3,7 @@
     TagPrefix="cc2" %>
 <%@ Register Assembly="DevExpress.ExpressApp.Web.v17.2" Namespace="DevExpress.ExpressApp.Web.Templates.Controls"
     TagPrefix="tc" %>
-<%@ Register Assembly="DevExpress.ExpressApp.Web.v17.2, Version=17.2.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" 
+<%@ Register Assembly="DevExpress.ExpressApp.Web.v17.2, Version=17.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" 
     Namespace="DevExpress.ExpressApp.Web.Controls" TagPrefix="cc4" %>
 <%@ Register Assembly="DevExpress.ExpressApp.Web.v17.2" Namespace="DevExpress.ExpressApp.Web.Templates"
     TagPrefix="cc3" %>

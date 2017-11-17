@@ -129,6 +129,10 @@
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v17.2">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.XtraGrid.v17.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
@@ -146,6 +150,10 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraScheduler.v17.2.Core">
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v17.2.Reporting.Extensions">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
