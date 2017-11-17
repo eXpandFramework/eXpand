@@ -387,7 +387,7 @@ Global
 		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|.NET.ActiveCfg = Release|Any CPU
-		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.RecompiledDxSources|.NET.ActiveCfg = Release|Any CPU
 		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
@@ -420,7 +420,7 @@ Global
 		{6AA39C0B-2F33-4514-A445-A0BC670C94D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6AA39C0B-2F33-4514-A445-A0BC670C94D4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{6AA39C0B-2F33-4514-A445-A0BC670C94D4}.EasyTest|.NET.ActiveCfg = Release|Any CPU
-		{6AA39C0B-2F33-4514-A445-A0BC670C94D4}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{6AA39C0B-2F33-4514-A445-A0BC670C94D4}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{6AA39C0B-2F33-4514-A445-A0BC670C94D4}.EasyTest|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6AA39C0B-2F33-4514-A445-A0BC670C94D4}.RecompiledDxSources|.NET.ActiveCfg = Release|Any CPU
 		{6AA39C0B-2F33-4514-A445-A0BC670C94D4}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
@@ -435,7 +435,7 @@ Global
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|.NET.ActiveCfg = Release|Any CPU
-		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|.NET.ActiveCfg = Release|Any CPU
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
