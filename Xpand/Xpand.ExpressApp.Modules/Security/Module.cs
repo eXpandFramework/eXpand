@@ -97,16 +97,23 @@ namespace Xpand.ExpressApp.Security {
                                     processor is NavigationPermissionRequestProcessor);
             foreach (var processor in requestProcessors){
                 IPermissionRequestProcessor requestProcessor;
-                if (processor is NavigationPermissionRequestProcessor)
+                if (processor is NavigationPermissionRequestProcessor){
                     requestProcessor = processor;
+                    var enumerable = ((IEnumerable<IEnumerable<IOperationPermission>>)requestProcessor.GetFieldValue(fieldName)).Select(permissions => new PermissionDictionary(permissions).WithSecurityOperationAttributePermissions().GetPermissions<IOperationPermission>());
+                    requestProcessor.SetFieldValue(fieldName, enumerable);
+                    customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(enumerable.SelectMany(permissions => permissions)));
+                }
                 else {
                     requestProcessor = (IPermissionRequestProcessor)processor.GetFieldValue("requestProcessor");
-                    if (requestProcessor is ServerPermissionRequestProcessor)
+                    if (requestProcessor is ServerPermissionRequestProcessor){
                         fieldName = "permissionsDictionary";
+                        var processorDictionary = ((IPermissionDictionary)requestProcessor.GetFieldValue(fieldName))
+                            .WithSecurityOperationAttributePermissions();
+                        requestProcessor.SetFieldValue(fieldName, processorDictionary);
+                        var operationPermissions = processorDictionary.GetPermissions<IOperationPermission>().ToList();
+                        customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(operationPermissions));
+                    }
                 }
-                var enumerable = ((IEnumerable<IEnumerable<IOperationPermission>>) requestProcessor.GetFieldValue(fieldName)).Select(permissions => new PermissionDictionary(permissions).WithSecurityOperationAttributePermissions().GetPermissions<IOperationPermission>());
-                requestProcessor.SetFieldValue(fieldName, enumerable);
-                customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(enumerable.SelectMany(permissions => permissions)));
             }
                 
             var keyValuePairs = new[]{
