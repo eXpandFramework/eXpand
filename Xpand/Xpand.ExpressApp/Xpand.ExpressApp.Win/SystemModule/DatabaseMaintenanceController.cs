@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -243,13 +244,19 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void Execute(IModelDatabaseMaintanance databaseMaintanance,Action<Session,string>action){
             using (var objectSpace = Application.CreateObjectSpace()){
-                var isObjectFitForCriteria = objectSpace.IsObjectFitForCriteria(SecuritySystem.CurrentUser, databaseMaintanance.UserCriteria);
+                var isObjectFitForCriteria = IsObjectFitForCriteria(databaseMaintanance, objectSpace);
                 if (SecuritySystem.CurrentUser == null || (isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value)){
                     var parser = new ConnectionStringParser(Application.ConnectionString);
                     var database = parser.GetPartByName("Initial Catalog");
                     action(objectSpace.Session(), database);
                 }
             }
+        }
+
+        private bool? IsObjectFitForCriteria(IModelDatabaseMaintanance databaseMaintanance, IObjectSpace objectSpace){
+            var user = objectSpace.GetObject(SecuritySystem.CurrentUser);
+            var isObjectFitForCriteria = objectSpace.IsObjectFitForCriteria(user, CriteriaOperator.Parse(databaseMaintanance.UserCriteria));
+            return isObjectFitForCriteria;
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
