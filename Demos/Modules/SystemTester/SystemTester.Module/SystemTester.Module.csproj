@@ -154,8 +154,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="FunctionalTests\UnboundColumn\UnboundColumnObject.cs" />
     <Compile Include="FunctionalTests\AutoCommit\AutoCommitObject.cs" />
     <None Include="FunctionalTests\Actions\ClientScript.inc" />
+    <None Include="FunctionalTests\UnboundColumn\UnboundColumn.ets" />
     <None Include="FunctionalTests\AutoCommit\ListView.inc" />
     <Compile Include="FunctionalTests\EasyTestParameter.cs" />
     <Compile Include="FunctionalTests\ModelAttributeValue\ModelAttributeValueObject.cs" />
@@ -257,6 +259,8 @@
     </None>
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.ets" />
     <None Include="FunctionalTests\EndUserAppearanceRule\EndUserAppearanceRule.xafml" />
+    <Content Include="FunctionalTests\UnboundColumn\Config.xml" />
+    <None Include="FunctionalTests\UnboundColumn\Init.inc" />
     <Content Include="FunctionalTests\AutoCommit\Config.xml" />
     <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.win.mask.png" />
     <Content Include="FunctionalTests\HideNavigationOnStartup\Images\Navigation.win.png" />
@@ -304,6 +308,9 @@
     </None>
     <None Include="FunctionalTests\SequenceGenerator\SequenceGenerator.ets" />
     <None Include="FunctionalTests\SqlLite\SqlLite.ets" />
+    <None Include="FunctionalTests\UnboundColumn\UnboundColumn.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ViewEditMode\DetailView\ViewEditMode.xafml">
       <SubType>Designer</SubType>
     </None>

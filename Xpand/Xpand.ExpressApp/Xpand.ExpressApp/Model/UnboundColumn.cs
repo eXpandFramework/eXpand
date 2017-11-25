@@ -10,8 +10,10 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
+using DevExpress.Utils;
 using DevExpress.Xpo;
 using Fasterflect;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.Options;
 
@@ -50,6 +52,7 @@ namespace Xpand.ExpressApp.Model {
         [Required]
         string UnboundExpression { get; set; }
         [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
+        [Category("eXpand.Unbound")]
         new string PropertyName { get; set; }
         [Localizable(true)]
         [Description("Specifies the caption of the current Property Editor.")]
@@ -59,6 +62,8 @@ namespace Xpand.ExpressApp.Model {
         [Category("eXpand.Unbound")]
         [RefreshProperties(RefreshProperties.All)]
         UnboundType UnboundType { get; set; }
+        [Category("eXpand.Unbound")]
+        FormatType FormatType{ get; set; }
     }
 
     public enum UnboundType {
@@ -118,13 +123,13 @@ namespace Xpand.ExpressApp.Model {
     }
     [DomainLogic(typeof(IModelColumnUnbound))]
     public class ModelColumnUnboundLogic {
-        static readonly UnboundColumnInfoCalculator _unboundColumnInfoCalculator=new UnboundColumnInfoCalculator();
+        static readonly UnboundColumnInfoCalculator UnboundColumnInfoCalculator=new UnboundColumnInfoCalculator();
         public static Type Get_UnboundPropertyEditorType(IModelColumnUnbound columnUnbound) {
-            return _unboundColumnInfoCalculator.GetEditorType(columnUnbound);
+            return UnboundColumnInfoCalculator.GetEditorType(columnUnbound);
         }
 
         public static IEnumerable<Type> Get_UnboundPropertyEditorTypes(IModelColumnUnbound modelMember) {
-            return _unboundColumnInfoCalculator.GetEditorsType(modelMember);
+            return UnboundColumnInfoCalculator.GetEditorsType(modelMember);
         }
 
         public static string Get_PropertyName(IModelColumnUnbound columnUnbound) {
@@ -145,6 +150,7 @@ namespace Xpand.ExpressApp.Model {
             var showViewParameters = simpleActionExecuteEventArgs.ShowViewParameters;
             var objectSpace = Application.CreateObjectSpace();
             var detailView = Application.CreateDetailView(objectSpace, new UnboundColumnParemeter());
+            detailView.ViewEditMode=ViewEditMode.Edit;
             showViewParameters.CreatedView=detailView;
             showViewParameters.TargetWindow=TargetWindow.NewModalWindow;
             var dialogController = new DialogController{SaveOnAccept = true};
@@ -152,16 +158,26 @@ namespace Xpand.ExpressApp.Model {
             showViewParameters.Controllers.Add(dialogController);
         }
 
-        void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
+        void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs e) {
             var view = ((SimpleAction) sender).Controller.Frame.View;
-            Validator.RuleSet.Validate(view.ObjectSpace, simpleActionExecuteEventArgs.CurrentObject, ContextIdentifier.Save);
+            Validator.RuleSet.Validate(view.ObjectSpace, e.CurrentObject, ContextIdentifier.Save);
+            if (Application.GetPlatform()==Platform.Web)
+                View.ControlsCreated+= (o, args) =>  AddColumn(e);
+            else{
+                AddColumn(e);
+            }
+        }
+
+        private void AddColumn(SimpleActionExecuteEventArgs simpleActionExecuteEventArgs){
             var unboundColumnParemeter = ((UnboundColumnParemeter) simpleActionExecuteEventArgs.CurrentObject);
             var modelColumnUnbound = View.Model.Columns.AddNode<IModelColumnUnbound>(unboundColumnParemeter.ColumnName);
             modelColumnUnbound.Caption = unboundColumnParemeter.ColumnName;
-            modelColumnUnbound.UnboundExpression = " ";
+            modelColumnUnbound.UnboundExpression = unboundColumnParemeter.Expression;
+            modelColumnUnbound.DisplayFormat = unboundColumnParemeter.DisplayFormat;
             modelColumnUnbound.ShowUnboundExpressionMenu = true;
             modelColumnUnbound.Index = 0;
-            modelColumnUnbound.UnboundType=unboundColumnParemeter.UnboundType;
+            modelColumnUnbound.UnboundType = unboundColumnParemeter.UnboundType;
+            modelColumnUnbound.FormatType = unboundColumnParemeter.FormatType;
             AddColumn(modelColumnUnbound);
         }
 
@@ -186,6 +202,10 @@ namespace Xpand.ExpressApp.Model {
             [RuleRequiredField]
             public string ColumnName { get; set; }
             public UnboundType UnboundType { get; set; }
+            [Size(SizeAttribute.Unlimited)]
+            public string Expression{ get; set; }
+            public string DisplayFormat{ get; set; }
+            public FormatType FormatType{ get; set; }
         }
     }
 }

@@ -59,6 +59,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 column.OptionsColumn.AllowEdit = false;
                 column.ShowUnboundExpressionMenu = modelColumnUnbound.ShowUnboundExpressionMenu;
                 column.UnboundExpression = modelColumnUnbound.UnboundExpression;
+                column.DisplayFormat.FormatString = modelColumnUnbound.DisplayFormat;
+                column.DisplayFormat.FormatType = modelColumnUnbound.FormatType;
             }
         }
 
