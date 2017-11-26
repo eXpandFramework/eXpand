@@ -15,26 +15,30 @@ using Xpand.Utils.Fastreflect;
 
 namespace Xpand.ExpressApp.SystemModule.Appearance {
     public class AppearanceController : ViewController, IModelExtender {
-        private DevExpress.ExpressApp.ConditionalAppearance.AppearanceController _appearanceController;
+        
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            _appearanceController.CustomApplyAppearance -= AppearanceControllerOnCustomApplyAppearance;
-            _appearanceController.CustomCreateAppearanceRule -= AppearanceControllerOnCustomCreateAppearanceRule;
-            _appearanceController.CustomGetIsRulePropertiesEmpty -= AppearanceControllerOnCustomGetIsRulePropertiesEmpty;
+            Frame.GetController<DevExpress.ExpressApp.ConditionalAppearance.AppearanceController>(controller => {
+                controller.CustomApplyAppearance -= AppearanceControllerOnCustomApplyAppearance;
+                controller.CustomCreateAppearanceRule -= AppearanceControllerOnCustomCreateAppearanceRule;
+                controller.CustomGetIsRulePropertiesEmpty -= AppearanceControllerOnCustomGetIsRulePropertiesEmpty;
+            });
         }
 
         protected override void OnActivated() {
             base.OnActivated();
-            _appearanceController = Frame.GetController<DevExpress.ExpressApp.ConditionalAppearance.AppearanceController>();
-            _appearanceController.CustomApplyAppearance += AppearanceControllerOnCustomApplyAppearance;
-            _appearanceController.CustomCreateAppearanceRule += AppearanceControllerOnCustomCreateAppearanceRule;
-            _appearanceController.CustomGetIsRulePropertiesEmpty += AppearanceControllerOnCustomGetIsRulePropertiesEmpty;
+            Frame.GetController<DevExpress.ExpressApp.ConditionalAppearance.AppearanceController>(controller => {
+                controller.CustomApplyAppearance += AppearanceControllerOnCustomApplyAppearance;
+                controller.CustomCreateAppearanceRule += AppearanceControllerOnCustomCreateAppearanceRule;
+                controller.CustomGetIsRulePropertiesEmpty += AppearanceControllerOnCustomGetIsRulePropertiesEmpty;
+            });
+            
         }
 
         private void AppearanceControllerOnCustomApplyAppearance(object sender, ApplyAppearanceEventArgs e) {
             var appearanceRules =(List<DevExpress.ExpressApp.ConditionalAppearance.AppearanceRule>)
-                    _appearanceController.CallMethod("GetAppearanceRules",new[]{typeof (IViewInfo), typeof (string), typeof (string), typeof (object)}, 
+                ((DevExpress.ExpressApp.ConditionalAppearance.AppearanceController) sender).CallMethod("GetAppearanceRules",new[]{typeof (IViewInfo), typeof (string), typeof (string), typeof (object)}, 
                      e.ViewInfo, e.ItemType, e.ItemName, e.Item);
             foreach (var result in appearanceRules.OfType<AppearanceRule>()) {
                 var conditionalAppearanceItems = result.Validate(e.ContextObjects, e.EvaluatorContextDescriptor);
@@ -63,16 +67,12 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
     }
 
     public class AppearanceRule : DevExpress.ExpressApp.ConditionalAppearance.AppearanceRule {
-        private readonly CachedAppearanceRuleProperties _properties;
-
         public AppearanceRule(CachedAppearanceRuleProperties properties, IObjectSpace objectSpace)
             : base(properties, objectSpace) {
-            _properties = properties;
+            Properties = properties;
         }
 
-        public new CachedAppearanceRuleProperties Properties {
-            get { return _properties; }
-        }
+        public new CachedAppearanceRuleProperties Properties{ get; }
 
         internal IList<IConditionalAppearanceItem> Validate(object[] contextObjects, EvaluatorContextDescriptor evaluatorContextDescriptor) {
             var ruleValid = (bool)this.CallMethod("GetRuleValid", new[] { typeof(object[]), typeof(EvaluatorContextDescriptor) }, contextObjects, evaluatorContextDescriptor);
@@ -101,11 +101,7 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
                 _modelAppearanceFont = value;
             }
         }
-        public override bool IsCombineValue {
-            get {
-                return true;
-            }
-        }
+        public override bool IsCombineValue => true;
 
         protected override void ApplyCore(object targetItem) {
             var appearanceFormat = targetItem as IAppearanceFormat;
@@ -149,18 +145,14 @@ namespace Xpand.ExpressApp.SystemModule.Appearance {
     }
 
     public class CachedAppearanceRuleProperties : DevExpress.ExpressApp.ConditionalAppearance.CachedAppearanceRuleProperties {
-        private readonly IXpandAppearanceRuleProperties _properties;
-
         public CachedAppearanceRuleProperties(IXpandAppearanceRuleProperties properties)
             : base(properties) {
             FontName = properties.FontName;
             Size = Size;
-            _properties = properties;
+            Properties = properties;
         }
 
-        public IXpandAppearanceRuleProperties Properties {
-            get { return _properties; }
-        }
+        public IXpandAppearanceRuleProperties Properties{ get; }
 
         public string FontName { get; set; }
 
