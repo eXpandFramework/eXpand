@@ -52,7 +52,7 @@ namespace Xpand.EasyTest {
     }
 
     public static class Extensions {
-        private static readonly string[] _navigationControlPossibleNames = { "ViewsNavigation.Navigation", "Navigation" };
+        private static readonly string[] NavigationControlPossibleNames = { "ViewsNavigation.Navigation", "Navigation" };
 
         public static IntPtr GetMainWindowHandle(this ICommandAdapter adapter){
             var mainWindowHandle = ((IXpandEasyTestCommandAdapter)adapter).MainWindowHandle;
@@ -74,11 +74,11 @@ namespace Xpand.EasyTest {
 
         public static ITestControl GetNavigationTestControl(this ICommandAdapter adapter) {
             string controlNames = "";
-            for (int i = 0; i < _navigationControlPossibleNames.Length; i++) {
-                if (adapter.IsControlExist(TestControlType.Action, _navigationControlPossibleNames[i])) {
+            for (int i = 0; i < NavigationControlPossibleNames.Length; i++) {
+                if (adapter.IsControlExist(TestControlType.Action, NavigationControlPossibleNames[i])) {
                     try {
                         var testControl = adapter.CreateTestControl(TestControlType.Action,
-                            _navigationControlPossibleNames[i]);
+                            NavigationControlPossibleNames[i]);
                         var gridBaseInterface = testControl.GetInterface<IGridBase>();
                         int itemsCount = gridBaseInterface.GetRowCount();
                         if (itemsCount > 0) {
@@ -88,9 +88,9 @@ namespace Xpand.EasyTest {
                     catch (WarningException) {
                     }
                 }
-                controlNames += (i <= _navigationControlPossibleNames.Length)
-                    ? _navigationControlPossibleNames[i] + " or "
-                    : _navigationControlPossibleNames[i];
+                controlNames += (i <= NavigationControlPossibleNames.Length)
+                    ? NavigationControlPossibleNames[i] + " or "
+                    : NavigationControlPossibleNames[i];
             }
             throw new WarningException($"Cannot find the '{controlNames}' control");
         }
@@ -185,7 +185,9 @@ namespace Xpand.EasyTest {
                         socket.Connect(ipAddress, uri.Port);
                         return true;
                     }
-                    catch { }
+                    catch{
+                        // ignored
+                    }
                 }
             }
             return false;
@@ -206,7 +208,7 @@ namespace Xpand.EasyTest {
         }
 
         public static void DropDatabases(this TestApplication application){
-            var databases = (application.ParameterValue<string>(ApplicationParams.DropDatabase) + "").Split(';');
+            var databases = (application.ParameterValue<string>(ApplicationParams.DropDatabase) + "").Split(';').Where(s => !string.IsNullOrEmpty(s));
             foreach (var database in databases){
                 SqlDropDatabaseCommand.Dropdatabase(database);
             }

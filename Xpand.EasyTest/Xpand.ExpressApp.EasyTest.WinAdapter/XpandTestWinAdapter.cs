@@ -116,7 +116,8 @@ namespace Xpand.ExpressApp.EasyTest.WinAdapter {
             DeleteLogonParametersFile(testApplication);
             RunAdditionalApps(testApplication);
             base.RunApplication(testApplication,connectionString);
-            _winEasyTestCommandAdapter.MainWindowHandle=new IntPtr(mainProcess.Id);
+            if (!mainProcess.HasExited)
+                _winEasyTestCommandAdapter.MainWindowHandle=new IntPtr(mainProcess.Id);
         }
 
         private void RunAdditionalApps(TestApplication testApplication) {

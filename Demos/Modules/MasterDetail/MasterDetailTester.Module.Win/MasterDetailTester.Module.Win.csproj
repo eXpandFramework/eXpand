@@ -135,6 +135,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="FunctionalTests\FromPermission\FromPermission.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\MasterDetail.cs">
       <SubType>Component</SubType>
     </Compile>

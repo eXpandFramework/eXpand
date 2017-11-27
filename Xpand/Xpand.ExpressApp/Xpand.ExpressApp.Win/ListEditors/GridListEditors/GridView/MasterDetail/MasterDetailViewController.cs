@@ -152,17 +152,21 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail
 
         void ViewOnMasterRowGetRelationName(object sender, MasterRowGetRelationNameEventArgs e) {
             if (e.RelationIndex > -1) {
-                var currentObject = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRow(e.RowHandle);
-                var masterDetailRuleInfo = GetRule(e.RelationIndex, currentObject, GetFrame(sender as IMasterDetailColumnView));
-                if (masterDetailRuleInfo != null) e.RelationName = masterDetailRuleInfo.CollectionMember.Name;
+                if (e.RowHandle!=GridControl.InvalidRowHandle){
+                    var currentObject = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRow(e.RowHandle);
+                    var masterDetailRuleInfo = GetRule(e.RelationIndex, currentObject, GetFrame(sender as IMasterDetailColumnView));
+                    if (masterDetailRuleInfo != null) e.RelationName = masterDetailRuleInfo.CollectionMember.Name;
+                }
             }
         }
 
         void MasterRowGetRelationDisplayCaption(object sender, MasterRowGetRelationNameEventArgs e) {
             if (e.RelationIndex > -1) {
-                var currentObject = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRow(e.RowHandle);
-                var masterDetailRule = FilterRules(currentObject, GetFrame(sender as IMasterDetailColumnView))[e.RelationIndex];
-                e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.TypeInfo, masterDetailRule.CollectionMember.Name);
+                if (e.RowHandle != GridControl.InvalidRowHandle) {
+                    var currentObject = ((DevExpress.XtraGrid.Views.Grid.GridView)sender).GetRow(e.RowHandle);
+                    var masterDetailRule = FilterRules(currentObject, GetFrame(sender as IMasterDetailColumnView))[e.RelationIndex];
+                    e.RelationName = CaptionHelper.GetMemberCaption(masterDetailRule.TypeInfo, masterDetailRule.CollectionMember.Name);
+                }
             }
         }
 

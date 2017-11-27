@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win.EasyTest;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraBars.Ribbon;
+using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Win {

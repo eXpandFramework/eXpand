@@ -12,9 +12,19 @@ namespace Xpand.Persistent.BaseImpl.MasterDetail {
             : base(session) {
         }
 
-        public string ChildListView { get; set; }
+        string _childListView ;
 
-        public string CollectionMember { get; set; }
+        public string ChildListView {
+            get{ return _childListView ; }
+            set{ SetPropertyValue(nameof(ChildListView ), ref _childListView , value); }
+        }
+
+        string _collectionMember ;
+
+        public string CollectionMember {
+            get{ return _collectionMember ; }
+            set{ SetPropertyValue(nameof(CollectionMember ), ref _collectionMember , value); }
+        }
 
         IModelListView IMasterDetailRule.ChildListView {
             get { return (IModelListView) CaptionHelper.ApplicationModel.Views[ChildListView]; }

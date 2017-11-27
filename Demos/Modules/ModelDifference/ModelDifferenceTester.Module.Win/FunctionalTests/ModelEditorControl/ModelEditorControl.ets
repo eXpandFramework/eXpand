@@ -1,4 +1,4 @@
-﻿
+﻿#DropDB ModelDifferenceTesterEasyTest
 #Application ModelDifferenceTester.Win
 *LogOn
 *ScreenCapture
