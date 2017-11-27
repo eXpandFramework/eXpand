@@ -17,7 +17,8 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(typeof(DBLogonObject));
+            if (RuntimeMode)
+                WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(typeof(DBLogonObject));
         }
     }
 }

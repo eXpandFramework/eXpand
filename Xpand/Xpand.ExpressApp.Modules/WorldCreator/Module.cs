@@ -103,12 +103,14 @@ namespace Xpand.ExpressApp.WorldCreator {
             base.CustomizeTypesInfo(typesInfo);
             CheckIfSupported();
             AddToAdditionalExportedTypes(BaseImplNameSpace);
-            var classInfos = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.Classes.OfType<XPClassInfo>().Where(info => info.IsPersistent &&
-                            WorldCreatorTypeInfoSource.Instance.RegisteredEntities.Contains(info.ClassType));
-            foreach (var xpClassInfo in classInfos) {
-                xpClassInfo.AddAttribute(new NonPersistentAttribute());
+            if (RuntimeMode){
+                var classInfos = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.Classes.OfType<XPClassInfo>().Where(info => info.IsPersistent &&
+                                                                                                                                    WorldCreatorTypeInfoSource.Instance.RegisteredEntities.Contains(info.ClassType));
+                foreach (var xpClassInfo in classInfos) {
+                    xpClassInfo.AddAttribute(new NonPersistentAttribute());
+                }
+                ExistentTypesMemberCreator.CreateMembers(this);
             }
-            ExistentTypesMemberCreator.CreateMembers(this);
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
