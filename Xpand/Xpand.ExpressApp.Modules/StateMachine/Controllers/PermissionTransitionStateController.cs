@@ -1,4 +1,5 @@
 ﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
@@ -33,7 +34,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
                 StateMachineName = iTransition.TargetState.StateMachine.Name,
                 Hide = hide,
             };
-            return SecuritySystem.IsGranted(new StateMachineTransitionOperationRequest(permission));
+            return SecuritySystem.IsGranted(new NoCacheablePermissionRequest(new StateMachineTransitionOperationRequest(permission)));
         }
 
         void RequestActiveState(object sender, ChoiceActionItemArgs choiceActionItemArgs) {
