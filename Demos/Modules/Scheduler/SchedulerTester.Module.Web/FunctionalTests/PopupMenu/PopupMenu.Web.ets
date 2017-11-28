@@ -8,4 +8,4 @@
 
 *XpandCompareScreenshot GoToDateDialog.png
  ToggleNavigation = False
- MaskRectangle = 422x305;222x131
+ MaskRectangle = 372x270;37x152

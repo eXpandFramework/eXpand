@@ -4,7 +4,11 @@
 *LogOn
 *ScreenCapture
 
+
 ;---------update shared model xml with runtime member data-----------------------
+*Navigate Model Difference
+*Navigate Model Difference
+
 *Navigate Model Difference
 *XpandProcessRecord 
  User Name = Shared Model Difference
