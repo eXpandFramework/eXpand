@@ -55,8 +55,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
     [PropertyEditor(typeof(String), EditorAliases.HyperLinkPropertyEditor, false)]
     public class HyperLinkPropertyEditor : StringPropertyEditor,IComplexViewItem {
-        public const string UrlEmailMask =
-            @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})";
+        public const string UrlEmailMask = @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,100})";
 
         HyperLinkEdit _hyperlinkEdit;
         private IObjectSpace _objectSpace;

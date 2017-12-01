@@ -15,10 +15,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
     public class HyperLinkPropertyEditor : ASPxPropertyEditor {
         private bool _cancelClickEventPropagation;
 
-        public const string UrlEmailMask =
-            @"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6})";
+		public const string UrlEmailMask =
+			@"(((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*)|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,100})";
 
-        public HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem info)
+		public HyperLinkPropertyEditor(Type objectType, IModelMemberViewItem info)
             : base(objectType, info){
             _cancelClickEventPropagation = true;
         }

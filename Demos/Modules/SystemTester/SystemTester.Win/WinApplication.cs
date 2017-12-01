@@ -7,10 +7,11 @@ using DevExpress.ExpressApp.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Win {
-    public partial class SystemTesterWindowsFormsApplication : WinApplication {
+    public sealed partial class SystemTesterWindowsFormsApplication : WinApplication {
         public SystemTesterWindowsFormsApplication() {
             InitializeComponent();
             LastLogonParametersReading += OnLastLogonParametersReading;
+	        IsDelayedDetailViewDataLoadingEnabled = true;
         }
 
         private void OnLastLogonParametersReading(object sender, LastLogonParametersReadingEventArgs e) {
