@@ -71,7 +71,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
         void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs args) {
             if (!(args.View is XpandDetailView))
-                args.View = ViewFactory.CreateDetailView((XafApplication) sender, args.ViewID, args.ObjectSpace, args.Obj, args.IsRoot);
+                args.View = ViewFactory.CreateDetailView((XafApplication) sender, args.ViewID, args.ObjectSpace, args.Obj, args.IsRoot,args.EnableDelayedObjectLoading);
         }
 
         void ApplicationOnListViewCreating(object sender, ListViewCreatingEventArgs args) {

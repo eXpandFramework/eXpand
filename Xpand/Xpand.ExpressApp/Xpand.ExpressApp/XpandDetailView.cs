@@ -8,19 +8,6 @@ using Xpand.Persistent.Base.MemberLevelSecurity;
 
 namespace Xpand.ExpressApp {
     public class XpandDetailView : DetailView {
-        public override object CurrentObject {
-            get {
-                return base.CurrentObject;
-            }
-            set {
-                var xpandObjectSpace = ObjectSpace as XpandObjectSpace;
-                if (xpandObjectSpace!=null&& value != null && XafTypesInfo.Instance.FindTypeInfo(value.GetType()).FindAttribute<SessionLessPersistentAttribute>() != null)
-                    ((XpandObjectSpace) ObjectSpace).GetObjectAction = o => o;
-                base.CurrentObject = value;
-                if (xpandObjectSpace!=null)
-                    ((XpandObjectSpace) ObjectSpace).GetObjectAction = null;
-            }
-        }
         public XpandDetailView(IModelDetailView info, IObjectSpace objectSpace, object obj, XafApplication application, bool isRoot)
             : base(info, objectSpace, obj, application, isRoot) {
             this.UpdateLayoutManager();

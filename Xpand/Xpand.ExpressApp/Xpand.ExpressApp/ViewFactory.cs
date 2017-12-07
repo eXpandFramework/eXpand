@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.ExpressApp {
     public class ViewFactory {
@@ -31,7 +32,7 @@ namespace Xpand.ExpressApp {
             return result;
         }
 
-        public static DetailView CreateDetailView(XafApplication xafApplication, string viewId, IObjectSpace objectSpace, object obj, bool isRoot) {
+        public static DetailView CreateDetailView(XafApplication xafApplication, string viewId, IObjectSpace objectSpace, object obj, bool isRoot, bool enableDelayedObjectLoading) {
 
             if (obj != null) {
                 CheckDetailViewId(viewId, obj.GetType());
@@ -43,10 +44,16 @@ namespace Xpand.ExpressApp {
                     "A '{0}' node was passed while a '{1}' node was expected. Node id: '{2}'",
                     null, typeof(IModelDetailView).Name, viewId));
             }
-            
-            var detailView = new XpandDetailView(objectSpace, obj, xafApplication, isRoot) { DelayedItemsInitialization = xafApplication.DelayedViewItemsInitialization };
-            detailView.SetModel(modelView);
-            return detailView;
+	        DetailView result;
+	        if (enableDelayedObjectLoading) {
+				result = new XpandDetailView(objectSpace, null, xafApplication, isRoot);
+				new DetailViewCurrentObjectInitializer(result, obj);
+			}
+			else {
+				result = new DetailView(objectSpace, objectSpace.GetObject(obj), xafApplication, isRoot);
+			}
+	        result.SetModel(modelView);
+            return result;
         }
     }
 }
