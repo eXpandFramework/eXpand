@@ -23,9 +23,8 @@ namespace Xpand.ExpressApp {
             }
             var modelListView = ((IModelListView)modelView);
             if (modelListView == null) {
-                throw new ArgumentException(string.Format(
-                    "A '{0}' node was passed while a '{1}' node was expected. Node id: '{2}'",
-                    typeof(IModelDetailView).Name, typeof(IModelListView).Name, modelListView.Id));
+                throw new ArgumentException(
+	                $"A '{typeof(IModelDetailView).Name}' node was passed while a '{typeof(IModelListView).Name}' node was expected. Node id: '{modelListView.Id}'");
             }
             var result = new XpandListView(collectionSource, xafApplication, isRoot);
             result.SetModel(modelListView);
@@ -40,17 +39,17 @@ namespace Xpand.ExpressApp {
 
             IModelView modelView = xafApplication.FindModelView(viewId);
             if (!(modelView is IModelDetailView)) {
-                throw new ArgumentException(string.Format(
-                    "A '{0}' node was passed while a '{1}' node was expected. Node id: '{2}'",
-                    null, typeof(IModelDetailView).Name, viewId));
+                throw new ArgumentException(
+	                $"A '{null}' node was passed while a '{typeof(IModelDetailView).Name}' node was expected. Node id: '{viewId}'");
             }
 	        DetailView result;
 	        if (enableDelayedObjectLoading) {
 				result = new XpandDetailView(objectSpace, null, xafApplication, isRoot);
+		        // ReSharper disable once ObjectCreationAsStatement
 				new DetailViewCurrentObjectInitializer(result, obj);
 			}
 			else {
-				result = new DetailView(objectSpace, objectSpace.GetObject(obj), xafApplication, isRoot);
+				result = new XpandDetailView(objectSpace, objectSpace.GetObject(obj), xafApplication, isRoot);
 			}
 	        result.SetModel(modelView);
             return result;
