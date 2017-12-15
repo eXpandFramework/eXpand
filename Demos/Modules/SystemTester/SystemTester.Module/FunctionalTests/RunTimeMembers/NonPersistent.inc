@@ -1,4 +1,4 @@
-﻿;#IncludeFile .\Init.inc
+﻿#IncludeFile .\Init.inc
 *Navigate RuntimeMembers.RunTimeMembers
 *XpandProcessRecord
  Full Name = Apostolis Bekiaris
@@ -15,5 +15,5 @@
 #EndIf
 #IfDef SystemTester.Web
 *CheckFieldValues
- Non Persistent = False
+ Non Persistent = 'Null'
 #EndIf

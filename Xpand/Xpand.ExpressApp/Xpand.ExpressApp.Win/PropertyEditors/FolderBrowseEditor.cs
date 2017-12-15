@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             if (e.Button.Kind == ButtonPredefines.Right) {
                 Process.Start(_folderPath.Text);
             } else {
-                var dialog = new FolderBrowserDialog { Description = "Select folder..." };
+                var dialog = new FolderBrowserDialog { Description = @"Select folder..." };
                 if (dialog.ShowDialog() != DialogResult.Cancel) {
                     _folderPath.Text = dialog.SelectedPath;
                 }
@@ -40,7 +40,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
 
         private void FolderPathEditValueChanged(object sender, EventArgs e) {
-            PropertyValue = _folderPath.Text;
+			if (!string.IsNullOrEmpty(_folderPath.Text))
+				PropertyValue = _folderPath.Text;
             if (!IsValueReading)
                 OnControlValueChanged();
         }
@@ -49,7 +50,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             _folderPath = new ButtonEdit();
             _openFolderButton = new EditorButton(ButtonPredefines.Right) { Visible = false ,Caption = "Browse"};
             var editorButtonCollection = _folderPath.Properties.Buttons;
-            var editorButton = editorButtonCollection.OfType<EditorButton>().First(button => button.IsDefaultButton);
+            var editorButton = editorButtonCollection.First(button => button.IsDefaultButton);
             editorButton.Caption = "Dialog";
             editorButtonCollection.Add(_openFolderButton);
             _folderPath.TextChanged += FolderPathOnTextChanged;

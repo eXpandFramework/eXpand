@@ -28,11 +28,9 @@ namespace Xpand.Persistent.Base.General.Controllers {
             _unlockObjectShipAction.Active[PessimisticLocking] = false;
         }
 
-        public SimpleAction UnlockObjectShipAction {
-            get { return _unlockObjectShipAction; }
-        }
+        public SimpleAction UnlockObjectShipAction => _unlockObjectShipAction;
 
-        void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
+	    void SimpleActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
             _pessimisticLocker.UnLock(true);
             View.AllowEdit[PessimisticLocking] = true;
             _unlockObjectShipAction.Active[PessimisticLocking] = false;
@@ -40,14 +38,27 @@ namespace Xpand.Persistent.Base.General.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (View.ObjectTypeInfo.FindAttribute<PessimisticLockingAttribute>() != null) {
-                _pessimisticLocker = new PessimisticLocker(((XPObjectSpace)ObjectSpace).Session.DataLayer, View.CurrentObject);
-                UpdateViewAllowEditState();   
-                SubscribeToEvents();
-            }
+			if (View.CurrentObject==null)
+				View.CurrentObjectChanged += View_CurrentObjectChanged;
+			else{
+				Initalize();
+			}
         }
 
-        void ViewOnAllowEditChanged(object sender, EventArgs eventArgs) {
+		private void View_CurrentObjectChanged(object sender, EventArgs e){
+			View.CurrentObjectChanged -= View_CurrentObjectChanged;
+			Initalize();
+		}
+
+	    private void Initalize(){
+		    if (View.ObjectTypeInfo.FindAttribute<PessimisticLockingAttribute>() != null){
+			    _pessimisticLocker = new PessimisticLocker(((XPObjectSpace) ObjectSpace).Session.DataLayer, View.CurrentObject);
+			    UpdateViewAllowEditState();
+			    SubscribeToEvents();
+		    }
+	    }
+
+	    void ViewOnAllowEditChanged(object sender, EventArgs eventArgs) {
             _unlockObjectShipAction.Active[PessimisticLocking] = !View.AllowEdit[PessimisticLocking];
         }
 
@@ -155,11 +166,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
             return _session.GetObjectByKey(SecuritySystem.UserType, keyValue);
         }
 
-        XPMemberInfo LockingMemberInfo {
-            get {
-                return _session.GetClassInfo(_currentObject).GetMember(PessimisticLockingViewController.LockedUser);
-            }
-        }
+        XPMemberInfo LockingMemberInfo => _session.GetClassInfo(_currentObject).GetMember(PessimisticLockingViewController.LockedUser);
     }
 
 }
