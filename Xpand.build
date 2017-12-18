@@ -402,12 +402,13 @@
   </ItemGroup>
   <Target Name="NuGetPackage" Inputs="@(NuspecFile)" Outputs="NotUsedOutput">
 	<CallTarget Targets="BuildHelperAfterBuild"/>
+    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\ModifyNuspecs.ps1&apos; } &quot;" ConsoleToMSBuild="true" />
     <CreateItem Include="$(XpandDLLPath)\*.pdb;$(XpandDLLPath)\*.dll">
       <Output ItemName="files" TaskParameter="Include" />
     </CreateItem>
     <Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
     <MakeDir Directories="$(BuildPath)\NuGet" />
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) pack %(NuspecFile.Identity) -OutputDirectory $(BuildPath)\NuGet -Version $(Version) -BasePath $(MSBuildProjectDirectory)" />
+    <!-- <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) pack $(MSBuildProjectDirectory)\%(NuspecFile.Identity) -OutputDirectory $(BuildPath)\NuGet -Version $(Version) -BasePath $(MSBuildProjectDirectory)" /> -->
     <CreateItem Include="Build\NuGet\*.nupkg" >
       <Output TaskParameter="Include" ItemName="NuGetFile"/>
     </CreateItem>
