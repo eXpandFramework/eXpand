@@ -1,4 +1,4 @@
-﻿#IncludeFile .\Init.inc
+﻿;#IncludeFile .\Init.inc
 *Navigate RuntimeMembers.RunTimeMembers
 *XpandProcessRecord
  Full Name = Apostolis Bekiaris
