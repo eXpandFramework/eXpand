@@ -29,13 +29,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
         protected override List<IModelSynchronizable> CreateModelSynchronizers() {
             List<IModelSynchronizable> result = base.CreateModelSynchronizers();
-            result.Add(new LayoutViewLayoutStoreSynchronizer(this));
+            
             result.Add(new FilterModelSynchronizer(this, Model));
             result.Add(new LayoutViewListEditorSynchronizer(this));
             result.Add(new LayoutViewOptionsSynchronizer(this));
             result.Add(new LayoutColumnOptionsSynchroniser(this));
             result.Add(new RepositoryItemColumnViewSynchronizer(ColumnView, Model));
-            return result;
+	        result.Add(new LayoutViewLayoutStoreSynchronizer(this));
+			return result;
         }
 
         [Browsable(false)]
