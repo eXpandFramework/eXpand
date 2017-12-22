@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using DevExpress.Data.Filtering;
@@ -83,7 +84,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             foreach (var keyValuePair in keyValuePairs) {
                 var valuePair = objectInfos.FirstOrDefault(pair => IsUpdateableFromFile(pair, keyValuePair));
                 if (!Equals(valuePair, default(KeyValuePair<string, ModelDifferenceObjectInfo>))) {
-                    valuePair.Value.ModelDifferenceObject.CreateAspectsFromPath(keyValuePair.Key.Value);
+	                if (((IModelOptionsModelDifference)model.Application.Options).ModelUpdateMode == ModelUpdateMode.Never)
+		                throw new NotSupportedException($"You cannot modify a model while {nameof(IModelOptionsModelDifference.ModelUpdateMode)}={ModelUpdateMode.Never}");
+					valuePair.Value.ModelDifferenceObject.CreateAspectsFromPath(keyValuePair.Key.Value);
                     Tracing.Tracer.LogVerboseValue("ObjectSpace.ModifiedObjects", ObjectSpace.ModifiedObjects.Count);
                 }
             }
@@ -111,6 +114,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         Dictionary<string, ModelDifferenceObjectInfo> CreateNew(ModelApplicationBase model, DeviceCategory deviceCategory) {
+			if (((IModelOptionsModelDifference) model.Application.Options).ModelUpdateMode==ModelUpdateMode.Never)
+				throw new NotSupportedException($"You cannot create a new application model while {nameof(IModelOptionsModelDifference.ModelUpdateMode)}={ModelUpdateMode.Never}");
             var modelDifferenceObjectInfos = new Dictionary<string, ModelDifferenceObjectInfo>();
             var application = CreateModelApplication(model, DifferenceType,deviceCategory);
             model.AddLayerBeforeLast(application);

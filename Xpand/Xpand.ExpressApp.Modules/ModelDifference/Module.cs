@@ -31,7 +31,9 @@ using Updater = Xpand.ExpressApp.ModelDifference.DatabaseUpdate.Updater;
 
 namespace Xpand.ExpressApp.ModelDifference {
     public interface IModelOptionsModelDifference:IModelNode{
-
+	    [Category(ModelDifferenceModule.ModelDifferenceCategory)]
+//		[ModelBrowsable(typeof(DesignerOnlyCalculator))]
+		ModelUpdateMode ModelUpdateMode{ get; set; }
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
         [DefaultValue("Autocreated at {0} For {1}")]
         string UserModelDifferenceObjectSubjectTemplate { get; set; }
@@ -69,7 +71,12 @@ namespace Xpand.ExpressApp.ModelDifference {
         
     }
 
-    [DomainLogic(typeof(IModelOptionsModelDifference))]
+	public enum ModelUpdateMode{
+		Always,
+		Never
+	}
+
+	[DomainLogic(typeof(IModelOptionsModelDifference))]
     public class ModelOptionsModelDifferenceLogic {
 
         public static ITypeInfo Get_MDOTypeInfo(IModelOptionsModelDifference modelDifference){
