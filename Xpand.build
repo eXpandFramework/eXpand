@@ -408,7 +408,7 @@
     </CreateItem>
     <Copy SourceFiles="@(files)" DestinationFolder="$(TempPath)" />
     <MakeDir Directories="$(BuildPath)\NuGet" />
-    <!-- <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) pack $(MSBuildProjectDirectory)\%(NuspecFile.Identity) -OutputDirectory $(BuildPath)\NuGet -Version $(Version) -BasePath $(MSBuildProjectDirectory)" /> -->
+    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(NuGetTool) pack $(MSBuildProjectDirectory)\%(NuspecFile.Identity) -OutputDirectory $(BuildPath)\NuGet -Version $(Version) -BasePath $(MSBuildProjectDirectory)" />
     <CreateItem Include="Build\NuGet\*.nupkg" >
       <Output TaskParameter="Include" ItemName="NuGetFile"/>
     </CreateItem>
