@@ -51,6 +51,7 @@ namespace Xpand.ExpressApp {
 			else {
 				result = new XpandDetailView(objectSpace, objectSpace.GetObject(obj), xafApplication, isRoot);
 			}
+	        result.DelayedItemsInitialization = xafApplication.DelayedViewItemsInitialization;
 	        result.SetModel(modelView);
             return result;
         }
