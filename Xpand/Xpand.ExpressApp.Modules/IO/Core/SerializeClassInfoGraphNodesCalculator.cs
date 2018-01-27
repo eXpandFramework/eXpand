@@ -21,23 +21,19 @@ namespace Xpand.ExpressApp.IO.Core {
             _objectSpace = objectSpace;
         }
 
-        ISerializationConfiguration GetConfiguration(Type type) {
-            var bussinessObjectType = _objectSpace.TypesInfo.FindBussinessObjectType<ISerializationConfiguration>();
-            var configuration = (ISerializationConfiguration) _objectSpace.FindObject(bussinessObjectType,
-                CriteriaOperator.Parse(
-                    $"{nameof(ISerializationConfiguration.SerializationConfigurationGroup)}=? AND {nameof(ISerializationConfiguration.TypeToSerialize)}=?",
-                    _serializationConfigurationGroup, type));
+	    ISerializationConfiguration GetConfiguration(Type type) {
+		    var configuration = _serializationConfigurationGroup.Configurations.FirstOrDefault(config => config.TypeToSerialize == type);
 
-            if (configuration == null){
-                configuration = _objectSpace.Create<ISerializationConfiguration>();
-                configuration.SerializationConfigurationGroup = _serializationConfigurationGroup;
-                configuration.TypeToSerialize = type;
-                new ClassInfoGraphNodeBuilder().Generate(configuration);
-            }
-            return configuration;
-        }
+		    if (configuration == null) {
+			    configuration = _objectSpace.Create<ISerializationConfiguration>();
+			    configuration.SerializationConfigurationGroup = _serializationConfigurationGroup;
+			    configuration.TypeToSerialize = type;
+			    new ClassInfoGraphNodeBuilder().Generate(configuration);
+		    }
+		    return configuration;
+	    }
 
-        public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes( object theObject, string typeName) {
+		public IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes( object theObject, string typeName) {
             var type = ReflectionHelper.GetType(typeName);
             ISerializationConfiguration configuration = GetConfiguration(type);
             return GetSerializedClassInfoGraphNodes(configuration);
@@ -48,12 +44,10 @@ namespace Xpand.ExpressApp.IO.Core {
             return GetSerializedClassInfoGraphNodes(configuration);
         }
 
-        IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(ISerializationConfiguration serializationConfiguration) {
-            return ((IEnumerable)((XPBaseObject)serializationConfiguration).GetMemberValue(serializationConfiguration.GetPropertyName(x => x.SerializationGraph))).
-                OfType<IClassInfoGraphNode>().Where(
-                    node => (node.NodeType == NodeType.Simple && node.SerializationStrategy != SerializationStrategy.DoNotSerialize) ||
-                            node.NodeType != NodeType.Simple).OrderBy(graphNode => graphNode.NodeType);
-        }
-
+	    IEnumerable<IClassInfoGraphNode> GetSerializedClassInfoGraphNodes(ISerializationConfiguration serializationConfiguration) {
+		    return serializationConfiguration.SerializationGraph.Where(
+			    node => (node.NodeType == NodeType.Simple && node.SerializationStrategy != SerializationStrategy.DoNotSerialize) ||
+			            node.NodeType != NodeType.Simple).OrderBy(graphNode => graphNode.NodeType);
+	    }
     }
 }
