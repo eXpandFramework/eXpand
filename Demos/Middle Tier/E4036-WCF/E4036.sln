@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuritySystemExample.Modul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecuritySystemExample.Win", "SecuritySystemExample.Win\SecuritySystemExample.Win.csproj", "{C85FE9E6-4674-4278-8326-11C36281E077}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Security", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj", "{B964E541-EBA2-4971-B104-A99ABBD95D36}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,11 +47,6 @@ Global
 		{C85FE9E6-4674-4278-8326-11C36281E077}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.Test|Any CPU.Build.0 = EasyTest|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B964E541-EBA2-4971-B104-A99ABBD95D36}.Test|Any CPU.ActiveCfg = Test|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

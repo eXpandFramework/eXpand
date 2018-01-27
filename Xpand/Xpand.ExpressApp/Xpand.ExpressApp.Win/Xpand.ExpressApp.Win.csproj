@@ -258,6 +258,7 @@
     <Compile Include="ListEditors\GridListEditors\GridView\Design\GridViewPropertyEditor.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ListEditors\GridListEditors\GridView\GridViewDataRowDoubleClickAdapter.cs" />
     <Compile Include="ListEditors\GridListEditors\GridView\MasterDetail\Interfaces.cs">
       <SubType>Code</SubType>
     </Compile>

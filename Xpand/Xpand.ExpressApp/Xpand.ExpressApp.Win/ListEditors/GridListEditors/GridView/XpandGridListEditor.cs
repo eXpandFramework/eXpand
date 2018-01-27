@@ -9,11 +9,13 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Editors;
+using DevExpress.ExpressApp.Win.Editors.Grid.Internal;
 using DevExpress.LookAndFeel;
 using DevExpress.Utils;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Filtering;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.FilterEditor;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
@@ -26,7 +28,7 @@ using Xpand.Persistent.Base.General.Model.Options;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
-    [ListEditor(typeof(object), false)]
+	[ListEditor(typeof(object), false)]
     public class XpandGridListEditor : GridListEditor, IColumnViewEditor, IDXPopupMenuHolder {
         public XpandGridListEditor(IModelListView model)
             : base(model) {
@@ -34,8 +36,11 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
 
         bool IColumnViewEditor.OverrideViewDesignMode { get; set; }
+	    protected override IGridViewDataRowDoubleClickAdapter CreateGridViewDataRowDoubleClickAdapter(GridControl grid, DevExpress.XtraGrid.Views.Grid.GridView gridView){
+		    return new GridViewDataRowDoubleClickAdapter(grid, gridView);
+	    }
 
-        public new IModelListViewOptionsGridView Model => (IModelListViewOptionsGridView)base.Model;
+	    public new IModelListViewOptionsGridView Model => (IModelListViewOptionsGridView)base.Model;
 
         protected override List<IModelSynchronizable> CreateModelSynchronizers() {
             var listEditorSynchronizer = new XpandGridListEditorSynchronizer(this);
