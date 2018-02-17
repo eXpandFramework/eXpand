@@ -446,6 +446,8 @@ namespace Xpand.Persistent.Base.General {
             return difference => new ModelMergedDifferenceInfo(difference, difference.GetViewId(modulesDifferences));
         }
     }
+
+	[AttributeUsage(AttributeTargets.Class,AllowMultiple = true)]
     public class ModelMergedDifferencesAttribute : Attribute {
 
         public ModelMergedDifferencesAttribute(string targetView, string sourceView, string strategy=MergedDifferencesStrategiesGenerator.Everything) {
@@ -657,17 +659,15 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public class ModelMergedViewValueInfosNodeGenerator : ModelNodesGeneratorBase {
-        static readonly HashSet<string> _invalidValueInfoNames = new HashSet<string> { "AsObjectView", "Id", "Index", "IsNewNode", "Removed" };
-
-        static ModelMergedViewValueInfosNodeGenerator() {
+	    static ModelMergedViewValueInfosNodeGenerator() {
             foreach (var excludedNodeMember in ModelAdapter.ModelSynchronizer<object, IModelNode>.ExcludedNodeMembers) {
                 InvalidValueInfoNames.Add(excludedNodeMember);
             }
         }
 
-        public static HashSet<string> InvalidValueInfoNames => _invalidValueInfoNames;
+        public static HashSet<string> InvalidValueInfoNames{ get; } = new HashSet<string> { "AsObjectView", "Id", "Index", "IsNewNode", "Removed" };
 
-        protected override void GenerateNodesCore(ModelNode node) {
+	    protected override void GenerateNodesCore(ModelNode node) {
             var modelViewValueInfos = ((IModelViewValueInfos)node);
             var modelValueInfos = GetModelValueInfos(modelViewValueInfos, IsValid).OrderBy(info => info.Name).Select(info => info.Name);
             foreach (var valueInfo in modelValueInfos) {
@@ -691,7 +691,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         static bool IsValid(ModelValueInfo modelValueInfo) {
-            return !_invalidValueInfoNames.Contains(modelValueInfo.Name) && !typeof(IModelNode).IsAssignableFrom(modelValueInfo.PropertyType);
+            return !InvalidValueInfoNames.Contains(modelValueInfo.Name) && !typeof(IModelNode).IsAssignableFrom(modelValueInfo.PropertyType);
         }
     }
 
