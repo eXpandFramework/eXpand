@@ -22,14 +22,18 @@ namespace Xpand.ExpressApp.Security.Permissions {
                         }
                     }
                 }
-                if (_instanceValueManager.Value == null) {
-                    lock (SyncRoot) {
-                        if (_instanceValueManager.Value == null) {
-                            _instanceValueManager.Value = new Dictionary<Type, IPermissionRequestProcessor>();
-                        }
-                    }
-                }
-                return _instanceValueManager.Value;
+	            if (_instanceValueManager.CanManageValue){
+
+		            if (_instanceValueManager.Value == null) {
+			            lock (SyncRoot) {
+				            if (_instanceValueManager.Value == null) {
+					            _instanceValueManager.Value = new Dictionary<Type, IPermissionRequestProcessor>();
+				            }
+			            }
+		            }
+		            return _instanceValueManager.Value;
+	            }
+	            return new Dictionary<Type, IPermissionRequestProcessor>();
             }
         }
 
