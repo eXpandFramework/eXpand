@@ -11,16 +11,39 @@ using ProjectItem = Microsoft.Build.Evaluation.ProjectItem;
 namespace Xpand.VSIX.ModelEditor {
     public class ProjectWrapperBuilder {
         static IEnumerable<Project> GetProjects(){
-            var solutionFile = SolutionFile.Parse(DteExtensions.DTE.Solution.FullName);
-            return solutionFile.ProjectsInOrder
-                .Where(projectInSolution => projectInSolution.ProjectType == SolutionProjectType.KnownToBeMSBuildFormat)
-                .Select(solution => Path.GetFullPath(solution.AbsolutePath)).Select(path => {
-                    var globalProperties = new Dictionary<string, string>();
-                    var configurationName = DteExtensions.DTE.Solution.Projects().FirstOrDefault(project1 => string.Compare(project1.FullName,path,StringComparison.OrdinalIgnoreCase)==0)?.ConfigurationManager.ActiveConfiguration.ConfigurationName??"Debug";
-                    globalProperties.Add("Configuration", configurationName);
-                    var projectCollection = new ProjectCollection(globalProperties);
-                    return new Project(path, null, null, projectCollection);
-                });
+            var solutionFullName = DteExtensions.DTE.Solution.FullName;
+            if (!string.IsNullOrEmpty(solutionFullName)){
+                var solutionFile = SolutionFile.Parse(solutionFullName);
+                var projects = solutionFile.ProjectsInOrder
+                    .Where(projectInSolution => projectInSolution.ProjectType == SolutionProjectType.KnownToBeMSBuildFormat)
+                    .Select(solution => Path.GetFullPath(solution.AbsolutePath)).Select(path => {
+                        try{
+                            var globalProperties = new Dictionary<string, string>();
+                            var configurationName =DteExtensions.DTE.Solution.Projects()
+                                    .FirstOrDefault(project1 => GetFullName(project1, path) == 0)?.ConfigurationManager
+                                    .ActiveConfiguration.ConfigurationName ?? "Debug";
+                            globalProperties.Add("Configuration", configurationName);
+                            var projectCollection = new ProjectCollection(globalProperties);
+                            return new Project(path, null, null, projectCollection);
+                        }
+                        catch (Exception e){
+                            DteExtensions.DTE.LogError($"Path={path}{Environment.NewLine}{e}");
+                            DteExtensions.DTE.WriteToOutput($"Path={path}{Environment.NewLine}{e}");
+                            return null;
+                        }
+                    }).Where(project => project!=null).ToArray();
+                return projects;
+            }
+            return Enumerable.Empty<Project>();
+        }
+
+        private static int GetFullName(EnvDTE.Project project1, string path){
+            try{
+                return string.Compare(project1.FullName,path,StringComparison.OrdinalIgnoreCase);
+            }
+            catch (Exception){
+                return 1;
+            }
         }
 
         static bool IsWeb(string fullPath) {

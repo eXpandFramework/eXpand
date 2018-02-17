@@ -41,7 +41,6 @@ namespace Xpand.VSIX.ModelEditor {
             }
             catch (Exception e){
                 DteExtensions.DTE.WriteToOutput(e.ToString());
-                throw;
             }
         }
 
@@ -70,7 +69,6 @@ namespace Xpand.VSIX.ModelEditor {
             }
             catch (Exception exception){
                 DteExtensions.DTE.WriteToOutput(exception.ToString());
-                throw;
             }
         }
 

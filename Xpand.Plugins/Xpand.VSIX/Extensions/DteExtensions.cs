@@ -26,7 +26,7 @@ namespace Xpand.VSIX.Extensions {
         }
 
         public static IEnumerable<IFullReference> GetReferences(this Solution solution) {
-            return solution.Projects().SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
+            return solution.Projects().Where(project => project.Object!=null).SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
                 reference.SpecificVersion && (reference.Identity.StartsWith("Xpand") || reference.Identity.StartsWith("DevExpress"))).ToArray();
         }
 
