@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Timers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -27,7 +28,7 @@ namespace Xpand.ExpressApp.SystemModule {
         }
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs) {
-            ObjectSpace.Refresh();
+            View.RefreshDataSource();
         }
 
         protected override void OnActivated(){
@@ -44,13 +45,21 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-
-        private void timer_Elapsed(object sender, ElapsedEventArgs e){
-            if (!ObjectSpace.IsModified)
-                ObjectSpace.Refresh();
+        protected virtual void Refresh(){
+            try{
+                View.RefreshDataSource();
+            }
+            catch (Exception e){
+                Tracing.Tracer.LogError(e);
+            }
         }
 
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+        private void timer_Elapsed(object sender, ElapsedEventArgs e){
+            if (ObjectSpace != null && !ObjectSpace.IsModified)
+                Refresh();
+        }
+
+        public virtual void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
             extenders.Add<IModelListView,IModelObjectViewRefresh>();
             extenders.Add<IModelDetailView,IModelObjectViewRefresh>();
         }

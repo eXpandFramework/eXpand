@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void timer_Elapsed(object sender, ElapsedEventArgs e){
-            if (!ObjectSpace.IsModified){
+            if (ObjectSpace != null && !ObjectSpace.IsModified){
                 var gridListEditor = ((GridListEditor)View.Editor);
                 if (gridListEditor?.Grid != null && ( (!gridListEditor.Grid.IsFocused|| !((IModelListViewAutoScrollGridListEditor)View.Model).AutoScrollToTopWhenNotFocused)))
                     gridListEditor.GridView.FocusedRowHandle = 0;
