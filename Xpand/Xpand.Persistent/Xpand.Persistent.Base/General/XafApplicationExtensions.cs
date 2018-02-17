@@ -22,7 +22,6 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
-using Xpand.Utils.Helpers;
 using Xpand.Xpo.DB;
 using DeviceCategory = Xpand.Persistent.Base.ModelDifference.DeviceCategory;
 using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
@@ -50,31 +49,37 @@ namespace Xpand.Persistent.Base.General {
             DisableObjectSpaceProderCreation = true;
         }
 
-	    public static void SendMail(this string body,string subject=null){
-		    if (subject == null)
-			    subject = ApplicationHelper.Instance.Application.Title;
-			using (var smtpClient = new SmtpClient()) {
-			    var appSettings = ConfigurationManager.AppSettings;
-			    var errorMailReceipients = appSettings["ErrorMailReceipients"];
-			    if (errorMailReceipients == null)
-				    throw new NullReferenceException("Configuation AppSettings ErrorMailReceipients entry is missing");
-			    var mailSettingsSection = ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-			    if (mailSettingsSection == null)
-				    throw new NullReferenceException("Configuation system.net/mailSettings/smtp Section is missing");
-			    var email = new MailMessage {
-				    IsBodyHtml = true,
-				    Subject = subject,
-				    Body = body
-			    };
-			    errorMailReceipients.Split(';').Each(s => email.To.Add(s));
-			    email.ReplyToList.Add($"noreply@{ApplicationHelper.Instance.Application.Title}.com");
-			    smtpClient.Send(email);
-		    }
-		}
+        public static void SendMail(this string body,string subject=null,bool isBodyHtml=false){
+            if (subject == null)
+                subject = ApplicationHelper.Instance.Application.Title;
+            using (var smtpClient = new SmtpClient()) {
+                var appSettings = ConfigurationManager.AppSettings;
+                var errorMailReceipients = appSettings["ErrorMailReceipients"];
+                if (errorMailReceipients == null)
+                    throw new NullReferenceException("Configuation AppSettings ErrorMailReceipients entry is missing");
+                var mailSettingsSection = ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+                if (mailSettingsSection == null)
+                    throw new NullReferenceException("Configuation system.net/mailSettings/smtp Section is missing");
+                using (var email = new MailMessage{
+                    IsBodyHtml = isBodyHtml,
+                    Subject = subject,
+                    Body = body
+                }){
+                    foreach (var s in errorMailReceipients.Split(';')){
+                        email.To.Add(s);
+                    }
 
-		public static void SendMail(this Exception exception) {
-			exception.ToString().SendMail($"{ApplicationHelper.Instance.Application.Title} Exception - {exception.GetType().FullName}");
+                    var title = ApplicationHelper.Instance?.Application?.Title;
+                    if (title!=null)
+                        email.ReplyToList.Add($"noreply@{title}.com");
+                    smtpClient.Send(email);
+                }
+            }
         }
+
+        public static void SendMail(this Exception exception){
+		    exception.ToString().SendMail($"{ApplicationHelper.Instance?.Application?.Title} Exception - {exception.GetType().FullName}");
+		}
 
         public static DeviceCategory GetDeviceCategory(this XafApplication application){
             return application.GetPlatform() == Platform.Win
