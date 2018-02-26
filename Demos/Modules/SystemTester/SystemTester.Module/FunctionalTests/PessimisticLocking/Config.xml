@@ -6,13 +6,13 @@
 			Name="SystemTester.Win"
 			FileName="[WinAppBin]\SystemTester.Win.exe"
       AdapterFileName="[WinAdapterFileName]"
-			CommunicationPort="4100" Parameter="SqlServer"/>
+			CommunicationPort="4100" Parameter="SqlServer;PessimisticLocking"/>
     <!-- Web -->
     <Application Ignored="1" 
 			Name="SystemTester.Web"
 			Url="http://localhost:4030"
 			PhysicalPath="[WebAppBin]"
-      AdapterFileName="[WebAdapterFileName]" Parameter="SqlServer"
+      AdapterFileName="[WebAdapterFileName]" Parameter="SqlServer;PessimisticLocking"
 />
     <!-- For IIS -->
     <!--Application

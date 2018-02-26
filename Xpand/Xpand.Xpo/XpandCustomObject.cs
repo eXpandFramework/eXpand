@@ -8,7 +8,7 @@ using Xpand.Xpo.Converters.ValueConverters;
 namespace Xpand.Xpo {
     [Serializable]
     [NonPersistent]
-    public abstract class XpandCustomObject : XPCustomObject, ISupportChangedMembers {
+    public abstract class XpandCustomObject : XPCustomObject {
         public const string ChangedPropertiesName = "ChangedProperties";
 #if MediumTrust
 		private Guid oid = Guid.Empty;
@@ -92,14 +92,6 @@ namespace Xpand.Xpo {
                     }
                 }
             }
-        }
-        protected override void OnSaved() {
-            base.OnSaved();
-            ChangedMemberCollector.CollectOnSave(this);
-        }
-        protected override void OnChanged(string propertyName, object oldValue, object newValue) {
-            base.OnChanged(propertyName, oldValue, newValue);
-            ChangedMemberCollector.Collect(this, propertyName);
         }
         string TruncateValue(XPMemberInfo xpMemberInfo, string value) {
             if (xpMemberInfo.HasAttribute(typeof(SizeAttribute))) {

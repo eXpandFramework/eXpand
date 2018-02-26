@@ -1,9 +1,12 @@
 #if !EASYTEST
 using System;
 #endif
+using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace SystemTester.Win {
@@ -20,14 +23,32 @@ namespace SystemTester.Win {
             }
         }
 
-        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            if (args.ConnectionString==InMemoryDataStoreProvider.ConnectionString)
-                args.ObjectSpaceProvider = new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString)); 
-            else
-                this.CreateCustomObjectSpaceprovider(args, null);
+        protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
+            if (args.ConnectionString == InMemoryDataStoreProvider.ConnectionString)
+                args.ObjectSpaceProvider =
+                    new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(args.ConnectionString));
+            else{
+                var doNotTrackModifiedObjects = this.GetEasyTestParameter("PessimisticLocking");
+                args.ObjectSpaceProvider =
+                    new XpandObjectSpaceProvider(new MultiDataStoreProvider(args.ConnectionString), Security,doNotTrackModifiedObjects);
+            }
+
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider( ));
         }
 
+        class XpandObjectSpaceProvider:Xpand.Persistent.Base.General.XpandObjectSpaceProvider{
+            private readonly bool _doNotTrackModifiedObjects;
+
+            public XpandObjectSpaceProvider(IXpoDataStoreProxy provider, ISecurityStrategyBase security, bool doNotTrackModifiedObjects) : base(provider, security){
+                _doNotTrackModifiedObjects = doNotTrackModifiedObjects;
+            }
+
+            protected override UnitOfWork CreateUnitOfWork(IDataLayer dataLayer){
+                var unitOfWork = base.CreateUnitOfWork(dataLayer);
+                unitOfWork.TrackPropertiesModifications = !_doNotTrackModifiedObjects;
+                return unitOfWork;
+            }
+        }
         private void SystemTesterWindowsFormsApplication_CustomizeLanguagesList(object sender, CustomizeLanguagesListEventArgs e) {
             string userLanguageName = System.Threading.Thread.CurrentThread.CurrentUICulture.Name;
             if (userLanguageName != "en-US" && e.Languages.IndexOf(userLanguageName) == -1) {

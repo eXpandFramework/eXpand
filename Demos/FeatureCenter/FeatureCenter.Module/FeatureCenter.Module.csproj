@@ -12,7 +12,8 @@
     <AssemblyName>FeatureCenter.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <OutputPath>bin\Debug\</OutputPath>
@@ -302,7 +303,6 @@
     <Compile Include="RuntimeFields\FromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\OrphanedCollectionFromModel\AttributeRegistrator.cs" />
     <Compile Include="RuntimeFields\UnboundColumn\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\UpdateOnlyChangeFields\UOCFCustomer.cs"></Compile>
     <Compile Include="Updater.cs" />
     <Compile Include="ViewVariants\AttributeRegistrator.cs" />
     <Compile Include="Welcome\WelcomeObject.cs" />
@@ -410,9 +410,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Miscellaneous\MultipleDataStore\MDO_MultipleDataStore.xafml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Miscellaneous\UpdateOnlyChangeFields\MDO_UpdateOnlyChangeFields.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Welcome\MDO_Welcome.xafml">
