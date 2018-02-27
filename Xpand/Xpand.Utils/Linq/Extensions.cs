@@ -6,6 +6,29 @@ using System.Reflection;
 
 namespace Xpand.Utils.Linq{
     public static class Extensions{
+        public static IEnumerable<T> TakeLast<T>(this IEnumerable<T> source, int takeCount){
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (takeCount < 0) throw new ArgumentOutOfRangeException(nameof(takeCount), "must not be negative");
+            if (takeCount == 0) yield break;
+
+            var result = new T[takeCount];
+            var i = 0;
+
+            var sourceCount = 0;
+            foreach (var element in source){
+                result[i] = element;
+                i = (i + 1) % takeCount;
+                sourceCount++;
+            }
+
+            if (sourceCount < takeCount){
+                takeCount = sourceCount;
+                i = 0;
+            }
+
+            for (var j = 0; j < takeCount; ++j) yield return result[(i + j) % takeCount];
+        }
+
         public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> list, int parts) {
             int i = 0;
             return list.GroupBy(item => i++%parts).Select(part => part.AsEnumerable());
