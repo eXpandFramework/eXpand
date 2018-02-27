@@ -162,6 +162,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\LockListEditorDataUpdatesController.cs" />
+    <Compile Include="SystemModule\NestedListViewNonPersistentObjectSpaceController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\RefreshObjectViewController.cs">
       <SubType>Component</SubType>
     </Compile>

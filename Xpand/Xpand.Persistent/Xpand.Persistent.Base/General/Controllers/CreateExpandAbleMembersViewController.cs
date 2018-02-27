@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
 
 namespace Xpand.Persistent.Base.General.Controllers {
@@ -35,8 +36,9 @@ namespace Xpand.Persistent.Base.General.Controllers {
                     var expandObjectMembersAttribute = memberInfo.FindAttribute<ExpandObjectMembersAttribute>();
                     if (expandObjectMembersAttribute != null &&
                         expandObjectMembersAttribute.ExpandingMode != ExpandObjectMembers.Never) {
-                        if (memberInfo.GetValue(View.CurrentObject) == null) {
-                            memberInfo.SetValue(View.CurrentObject, ObjectSpace.CreateObject(memberInfo.MemberType));
+                        if (memberInfo.GetValue(View.CurrentObject) == null){
+                            var value =ObjectSpace.CanInstantiate(memberInfo.MemberType)? ObjectSpace.CreateObject(memberInfo.MemberType):memberInfo.MemberType.CreateInstance();
+                            memberInfo.SetValue(View.CurrentObject, value);
                         }
                     }
                 }
