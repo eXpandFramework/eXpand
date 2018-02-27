@@ -356,6 +356,9 @@
     <Compile Include="PropertyEditors\RichEdit\RichEditContainer.Designer.cs">
       <DependentUpon>RichEditContainer.cs</DependentUpon>
     </Compile>
+    <Compile Include="SystemModule\ActiveDocumentViewController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\DatabaseMaintenanceController.cs" />
     <Compile Include="SystemModule\DragNDropImageController.cs" />
     <Compile Include="SystemModule\LockListEditorDataUpdatesController.cs">

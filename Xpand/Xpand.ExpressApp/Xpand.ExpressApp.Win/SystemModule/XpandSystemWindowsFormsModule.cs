@@ -64,6 +64,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(AutoCommitController),
                 typeof(AutoExpandNewRowController),
                 typeof(ApplicationExitController),
+                typeof(ActiveDocumentViewController),
                 typeof(LayoutControlGroupModelAdapterController),
                 typeof(FilterByGridViewColumnController),
                 typeof(DetailViewCachingController),

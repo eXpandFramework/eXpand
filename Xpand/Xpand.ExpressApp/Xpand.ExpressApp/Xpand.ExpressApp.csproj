@@ -151,6 +151,7 @@
     <Compile Include="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\ActiveDocumentViewController.cs" />
     <Compile Include="SystemModule\Appearance\AppearanceController.cs">
       <SubType>Component</SubType>
     </Compile>
