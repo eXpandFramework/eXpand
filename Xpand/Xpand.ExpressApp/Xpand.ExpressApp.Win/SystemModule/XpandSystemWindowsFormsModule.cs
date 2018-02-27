@@ -91,6 +91,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(HideGridPopUpMenuViewController),
                 typeof(HideToolBarController),
                 typeof(HighlightFocusedLayoutItemDetailViewController),
+                typeof(LockListEditorDataUpdatesController),
                 typeof(LoadWithWindowsController),
                 typeof(CloseFormController),
                 typeof(NotifyIconController),

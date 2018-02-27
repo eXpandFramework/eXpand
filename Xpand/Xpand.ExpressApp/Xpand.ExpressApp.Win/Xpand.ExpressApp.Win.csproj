@@ -358,6 +358,9 @@
     </Compile>
     <Compile Include="SystemModule\DatabaseMaintenanceController.cs" />
     <Compile Include="SystemModule\DragNDropImageController.cs" />
+    <Compile Include="SystemModule\LockListEditorDataUpdatesController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SystemModule\ModelAdapters\RichEditModelAdapterController.cs" />
     <Compile Include="PropertyEditors\RichEdit\RichEditToolbarController.cs">
       <SubType>Component</SubType>
