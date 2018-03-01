@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.SystemModule{
 
         private void ApplicationOnCreateCustomPropertyCollectionSource(object sender, CreateCustomPropertyCollectionSourceEventArgs e){
             var modelListVIew = ((IModelListViewNonPersistentObjectSpace) Application.Model.Views[e.ListViewID]);
-            if (!modelListVIew.ModelClass.TypeInfo.IsPersistent&&modelListVIew.UseNonPersistentObjectSpaceWhenNested){
+            if (modelListVIew != null && (!modelListVIew.ModelClass.TypeInfo.IsPersistent&&modelListVIew.UseNonPersistentObjectSpaceWhenNested)){
                 var objectSpace = Application.CreateObjectSpace(e.MemberInfo.ListElementType);
                 e.PropertyCollectionSource=new PropertyCollectionSource(objectSpace,e.MasterObjectType, e.MasterObject, e.MemberInfo);
             }

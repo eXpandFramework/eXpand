@@ -206,6 +206,8 @@
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
     <Content Include="FunctionalTests\FilterByColumn\Config.xml" />
     <Content Include="FunctionalTests\FilterByColumn\Images\FilterEditorTop.win.png" />
+    <Content Include="FunctionalTests\NestedListViewNonPersistentObjectSpace\Config.xml" />
+    <Content Include="FunctionalTests\NestedListViewNonPersistentObjectSpace\Init.inc" />
     <Content Include="FunctionalTests\MasterObjectView\Config.xml" />
     <Content Include="FunctionalTests\FolderBrowseEditor\Config.xml" />
     <Content Include="FunctionalTests\FolderBrowseEditor\Init.inc" />
@@ -234,6 +236,10 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="FunctionalTests\FilterByColumn\Init.inc" />
+    <None Include="FunctionalTests\NestedListViewNonPersistentObjectSpace\NestedListViewNonPersistentObjectSpace.ets" />
+    <None Include="FunctionalTests\NestedListViewNonPersistentObjectSpace\NestedListViewNonPersistentObjectSpace.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\MasterObjectView\MasterObjectView.ets" />
     <None Include="FunctionalTests\MasterObjectView\MasterObjectView.xafml">
       <SubType>Designer</SubType>
@@ -278,6 +284,9 @@
     <Content Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\New objects.inc" />
     <Compile Include="FunctionalTests\FilterByColumn\FilterByColumnObject.cs" />
+    <Compile Include="FunctionalTests\NestedListViewNonPersistentObjectSpace\NestedListViewNonPersistentObjectSpaceMaster.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\MasterObjectView\MasterObjectViewMaster.cs" />
     <Compile Include="FunctionalTests\FilterEditor\FilterEditorObject.cs" />
     <Compile Include="FunctionalTests\FolderBrowseEditor\FolderBrowseEditorObject.cs" />
