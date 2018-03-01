@@ -4,7 +4,7 @@
 
 *Action New
 *XpandCompareScreenshot DetailView.png
- WinMaskRectangle = 36x63;73x17
+ WinMaskRectangle = 50x82;196x18
  WebMaskRectangle = 13x83;983x24
  
 

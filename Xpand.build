@@ -381,7 +381,7 @@
     <Copy SourceFiles="$(TempPath)\index.out" DestinationFiles="$(DeploymentFolder)\index.htm" />
   </Target>
   <Target Name="Twitter">
-    <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;" />
+    <!-- <MSBuild Projects="$(MSBuildProjectFile)" Targets="ExecuteCommand" Properties="ExecCommand=$(TwitterTool) &quot;$(TwitterConsumerKey)&quot; &quot;$(TwitterConsumerSecret)&quot; &quot;$(TwitterAccessToken)&quot; &quot;$(TwitterAccessTokenSecret)&quot;  &quot;new@expandframework v$(Version): http://goo.gl/g9wRy @DevExpress_XAF #dotnet #opensource #software #LOB #business #application #framework&quot;" /> -->
   </Target>
   <Target Name="_Version">
     <Time Format="yyyy-MM-dd HH:mm">
