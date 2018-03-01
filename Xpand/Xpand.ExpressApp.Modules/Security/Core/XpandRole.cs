@@ -22,6 +22,7 @@ namespace Xpand.ExpressApp.Security.Core {
     [ImageName("BO_Role"), System.ComponentModel.DisplayName("Role")]
     [MapInheritance(MapInheritanceType.ParentTable)]
     [Appearance("HideHiddenNavigationItemsForAdministrators", AppearanceItemType = "LayoutItem", TargetItems = "HiddenNavigationItems", Visibility = ViewItemVisibility.Hide, Criteria = "IsAdministrative")]
+    [OverallCustomizationAllowed]
     public class XpandRole : SecuritySystemRole,ISecurityRelated, IXpandRoleCustomPermissions, ISupportHiddenNavigationItems{
         public XpandRole(Session session)
             : base(session) {

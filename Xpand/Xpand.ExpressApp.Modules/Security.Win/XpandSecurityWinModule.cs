@@ -101,7 +101,7 @@ namespace Xpand.ExpressApp.Security.Win {
             Type[] types = Application == null ? policyRoleTypes.Concat(new[] {typeof(XpandRole)}).ToArray() : new[] { RoleType };
             foreach (var type in types){
                 var typeInfo = typesInfo.FindTypeInfo(type);
-                if (typeInfo != null && typeInfo.FindMember("ModifyLayout") == null)
+                if (typeInfo?.FindAttribute<OverallCustomizationAllowedAttribute>() != null && typeInfo.FindMember("ModifyLayout") == null)
                     typeInfo.CreateMember("ModifyLayout", typeof(bool));
             }
         }

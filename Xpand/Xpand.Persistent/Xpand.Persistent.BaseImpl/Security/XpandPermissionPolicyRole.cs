@@ -5,6 +5,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Core;
+using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base.Security;
 using IOperationPermissionProvider = Xpand.ExpressApp.Security.Permissions.IOperationPermissionProvider;
 
@@ -13,6 +14,7 @@ namespace Xpand.Persistent.BaseImpl.Security{
     [MapInheritance(MapInheritanceType.ParentTable)]
     [Appearance("HideHiddenNavigationItemsForAdministrators", AppearanceItemType = nameof(ViewItem),
         TargetItems = nameof(HiddenNavigationItems), Enabled = false, Criteria = nameof(IsAdministrative))]
+    [OverallCustomizationAllowed]
     public class XpandPermissionPolicyRole : PermissionPolicyRole, ISecurityPermisssionPolicyRelated,
         IXpandRoleCustomPermissions, ISupportHiddenNavigationItems{
         private string _hiddenNavigationItems;
