@@ -196,6 +196,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FunctionalTests\AutoRefresh\AutoRefresh.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="FunctionalTests\ActiveDocumentView\ActiveDocumentView.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -207,6 +210,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
+    <Content Include="FunctionalTests\AutoRefresh\Config.xml" />
+    <Content Include="FunctionalTests\AutoRefresh\Init.inc" />
     <Content Include="FunctionalTests\ActiveDocumentView\Config.xml" />
     <Content Include="FunctionalTests\ActiveDocumentView\Init.inc" />
     <Content Include="FunctionalTests\FilterByColumn\Config.xml" />
@@ -236,6 +241,10 @@
     <Content Include="FunctionalTests\ViewEditMode.Win\ViewMode.Win\Config.xml">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="FunctionalTests\AutoRefresh\AutoRefresh.ets" />
+    <None Include="FunctionalTests\AutoRefresh\AutoRefresh.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\ActiveDocumentView\ActiveDocumentView.ets" />
     <None Include="FunctionalTests\ActiveDocumentView\ActiveDocumentView.xafml">
       <SubType>Designer</SubType>
