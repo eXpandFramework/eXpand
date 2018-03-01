@@ -206,6 +206,7 @@
     <Compile Include="FunctionalTests\DetailViewCaching\DetailViewCachingObject.cs" />
     <Content Include="FunctionalTests\FilterByColumn\Config.xml" />
     <Content Include="FunctionalTests\FilterByColumn\Images\FilterEditorTop.win.png" />
+    <Content Include="FunctionalTests\MasterObjectView\Config.xml" />
     <Content Include="FunctionalTests\FolderBrowseEditor\Config.xml" />
     <Content Include="FunctionalTests\FolderBrowseEditor\Init.inc" />
     <Content Include="FunctionalTests\GridView\GridViewOptions.inc" />
@@ -218,6 +219,7 @@
     <Content Include="FunctionalTests\LayoutViewListEditor\Images\Layout.win.png" />
     <Content Include="FunctionalTests\LayoutViewListEditor\Init.inc" />
     <Content Include="FunctionalTests\LayoutViewListEditor\Layout.inc" />
+    <Content Include="FunctionalTests\MasterObjectView\Init.inc" />
     <Content Include="FunctionalTests\PropertyEditors\RichEdit\CheckToolBarIsNotVisible.inc" />
     <Content Include="FunctionalTests\PropertyEditors\RichEdit\CheckToolBarIsVisible.inc" />
     <Content Include="FunctionalTests\PropertyEditors\RichEdit\RibbonTabbedMDI\Config.xml" />
@@ -232,6 +234,10 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="FunctionalTests\FilterByColumn\Init.inc" />
+    <None Include="FunctionalTests\MasterObjectView\MasterObjectView.ets" />
+    <None Include="FunctionalTests\MasterObjectView\MasterObjectView.xafml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="FunctionalTests\FolderBrowseEditor\FolderBrowserEditor.xafml" />
     <None Include="FunctionalTests\FolderBrowseEditor\FolderBrowseEditor.ets" />
     <None Include="FunctionalTests\DetailViewCaching\TabbedMDI.xafml">
@@ -272,6 +278,7 @@
     <Content Include="FunctionalTests\DetailViewCaching\Existing objects.inc" />
     <Content Include="FunctionalTests\DetailViewCaching\New objects.inc" />
     <Compile Include="FunctionalTests\FilterByColumn\FilterByColumnObject.cs" />
+    <Compile Include="FunctionalTests\MasterObjectView\MasterObjectViewMaster.cs" />
     <Compile Include="FunctionalTests\FilterEditor\FilterEditorObject.cs" />
     <Compile Include="FunctionalTests\FolderBrowseEditor\FolderBrowseEditorObject.cs" />
     <Compile Include="FunctionalTests\FullTextContains\FullTextContains.cs">
