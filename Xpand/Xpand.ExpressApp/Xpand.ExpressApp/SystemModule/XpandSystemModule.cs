@@ -7,7 +7,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Updating;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Xpo;
@@ -16,7 +15,7 @@ using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.PropertyEditors;
-using Xpand.ExpressApp.TranslatorProviders;
+
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Actions;
@@ -40,7 +39,6 @@ namespace Xpand.ExpressApp.SystemModule {
 
         static XpandSystemModule() {
             ParametersFactory.RegisterParameter(new MonthAgoParameter());
-            TranslatorProvider.RegisterProvider(new GoogleTranslatorProvider());
             if (!InterfaceBuilder.RuntimeMode)
                 new XpandXpoTypeInfoSource((TypesInfo)XafTypesInfo.Instance).AssignAsPersistentEntityStore();
         }
