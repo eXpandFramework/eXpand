@@ -99,8 +99,6 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
         protected static IMemberInfo GetMemberInfo(TModelMember modelMemberEx, Action<TModelMember, XPClassInfo> createXpandCustomMemberInfo, Func<TModelMember, bool> validState) {
             var customMemberInfo = FindXPClassInfo(modelMemberEx).FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
-            if (customMemberInfo==null)
-                Debug.WriteLine("");
             if (ValidState(modelMemberEx, customMemberInfo,validState)) {
                 var xpClassInfo = FindXPClassInfo(modelMemberEx);
                 var xpandCustomMemberInfo = (XpandCustomMemberInfo)xpClassInfo.FindMember(modelMemberEx.Name);
