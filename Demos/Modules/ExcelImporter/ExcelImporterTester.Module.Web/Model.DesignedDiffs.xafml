@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Options CollectionsEditMode="Edit">
+    <WebApplicationStyleManager EnableUpperCase="False" EnableNavigationGroupsUpperCase="False" EnableGroupUpperCase="False" EnableGridColumnsUpperCase="False" />
+  </Options>
+  <ViewItems>
+    <PropertyEditor Name="PropertyEditors">
+      <RegisteredPropertyEditor PropertyType="System.Drawing.Color" EditorType="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxColorPickerPropertyEditor" />
+    </PropertyEditor>
+  </ViewItems>
+  <Views>
+    <ListView Id="Customer_ListView">
+      <GridViewOptions>
+        <SettingsPager Mode="ShowAllRecords" />
+      </GridViewOptions>
+    </ListView>
+  </Views>
+</Application>
