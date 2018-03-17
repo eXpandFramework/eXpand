@@ -22,10 +22,8 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         public event EventHandler<NeedToValidateObjectEventArgs> NeedToValidateObject;
         public event EventHandler<ContextValidatingEventArgs> ContextValidating;
 
-        protected virtual void OnContextValidating(ContextValidatingEventArgs args) {
-            if (ContextValidating != null) {
-                ContextValidating(this, args);
-            }
+        protected virtual void OnContextValidating(ContextValidatingEventArgs args){
+            ContextValidating?.Invoke(this, args);
         }
 
         private void CustomizeDeleteValidationException(ValidationCompletedEventArgs args) {
@@ -38,7 +36,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
             if (Enabled){
                 if (Validator.RuleSet != null) Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
                 foreach (var actionBase in _actionBases){
-                    actionBase.Executed -= ActionOnExecuted;
+                    actionBase.Executing-=ActionBaseOnExecuting;
                 }
             }
         }
@@ -49,27 +47,25 @@ namespace Xpand.ExpressApp.Validation.Controllers {
                 Validator.RuleSet.ValidationCompleted+=RuleSetOnValidationCompleted;
                 _actionBases = Frame.Actions().Where(@base => !new[] { "Save", "Delete","Validate" }.Contains(@base.Id)).ToArray();
                 foreach (var actionBase in _actionBases){
-                    actionBase.Executed+=ActionOnExecuted;
+                    actionBase.Executing+=ActionBaseOnExecuting;
                 }
             }
         }
 
-        private bool Enabled{
-            get{
-                return ((IModelValidationContextsActions) ((IModelApplicationValidation) Application.Model).Validation.Contexts).ActionContexts;
+        private ValidationTargetObjectSelector CreateSaveContextTargetObjectSelector() {
+            if((View != null) && (View is ListView) 
+                              && (View.Model != null) && (View.Model is IModelListView) && (((IModelListView)View.Model).MasterDetailMode == MasterDetailMode.ListViewOnly)) {
+                return new SaveContextTargetObjectSelectorModifiedOnly();
             }
+            return new SaveContextTargetObjectSelector();
         }
 
-        void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs validationCompletedEventArgs) {
-            _otherValidationContextFailed = !validationCompletedEventArgs.Successful;
-        }
-
-        void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
+        private void ActionBaseOnExecuting(object sender, CancelEventArgs cancelEventArgs){
             if (View != null && View.ObjectTypeInfo.Type != typeof(ValidationResults)) {
-                ValidationTargetObjectSelector deleteSelector = new ActionExecuteContextTargetObjectSelector();
-                SubscribeSelectorEvents(deleteSelector);
-                var selectedObjects = ((SimpleActionExecuteEventArgs)actionBaseEventArgs).SelectedObjects;
-                var context = actionBaseEventArgs.Action.Id;
+                var selector = CreateSaveContextTargetObjectSelector();
+                SubscribeSelectorEvents(selector);
+                var selectedObjects = selector.GetObjectsToValidate(ObjectSpace, View.CurrentObject);
+                var context = ((ActionBase) sender).Id;
                 var contextValidatingEventArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
                 OnContextValidating(contextValidatingEventArgs);
                 if (View.ObjectTypeInfo.IsPersistent && CanAccessDeletedObjects(context)&&!_otherValidationContextFailed)
@@ -78,20 +74,23 @@ namespace Xpand.ExpressApp.Validation.Controllers {
             }
         }
 
+        private bool Enabled => ((IModelValidationContextsActions) ((IModelApplicationValidation) Application.Model).Validation.Contexts).ActionContexts;
+
+        void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs validationCompletedEventArgs) {
+            _otherValidationContextFailed = !validationCompletedEventArgs.Successful;
+        }
+
+
         bool CanAccessDeletedObjects(string context) {
             return !(context == "Delete" && !ObjectSpace.IsDeletionDeferredType(View.ObjectTypeInfo.Type));
         }
 
-        private void OnSelectorCustomGetAggregatedObjectsToValidate(object sender, CustomGetAggregatedObjectsToValidateEventArgs args) {
-            if (CustomGetAggregatedObjectsToValidate != null) {
-                CustomGetAggregatedObjectsToValidate(this, args);
-            }
+        private void OnSelectorCustomGetAggregatedObjectsToValidate(object sender, CustomGetAggregatedObjectsToValidateEventArgs args){
+            CustomGetAggregatedObjectsToValidate?.Invoke(this, args);
         }
 
-        private void OnSelectorNeedToValidateObject(object sender, NeedToValidateObjectEventArgs args) {
-            if (NeedToValidateObject != null) {
-                NeedToValidateObject(this, args);
-            }
+        private void OnSelectorNeedToValidateObject(object sender, NeedToValidateObjectEventArgs args){
+            NeedToValidateObject?.Invoke(this, args);
         }
 
         private void SubscribeSelectorEvents(ValidationTargetObjectSelector selector) {
