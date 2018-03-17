@@ -20,6 +20,7 @@ namespace IOTester.Web {
         }
         protected void Session_Start(Object sender, EventArgs e) {
             WebApplication.SetInstance(Session, new IOTesterAspNetApplication());
+            WebApplication.Instance.SwitchToNewStyle();
             if (ConfigurationManager.ConnectionStrings["ConnectionString"] != null) {
                 WebApplication.Instance.ConnectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
             }

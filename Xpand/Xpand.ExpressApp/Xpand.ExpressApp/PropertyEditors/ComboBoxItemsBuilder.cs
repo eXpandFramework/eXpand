@@ -72,9 +72,9 @@ namespace Xpand.ExpressApp.PropertyEditors {
             BuildFromDataSourceWhenCurrentObjectChanges(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, propertyChangedEventHandler);
 
             var b = itemsCalculating.Invoke();
-            if (!b) {
+            if (!b){
                 var boxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
-                itemsCalculated.Invoke(boxItems, false);
+                if (boxItems != null) itemsCalculated.Invoke(boxItems, false);
             }
         }
 
@@ -99,9 +99,9 @@ namespace Xpand.ExpressApp.PropertyEditors {
         void BuildFromDatasourceCore(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating, string propertyName) {
             if (_propertyEditor.PropertyName != propertyName) {
                 var invoke = itemsCalculating.Invoke();
-                if (!invoke) {
+                if (!invoke){
                     var comboBoxItems = GetComboBoxItemsCore(dataSourcePropertyAttribute);
-                    itemsCalculated.Invoke(comboBoxItems, true);
+                    if (comboBoxItems != null) itemsCalculated.Invoke(comboBoxItems, true);
                 }
             }
         }

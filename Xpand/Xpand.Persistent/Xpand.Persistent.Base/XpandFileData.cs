@@ -8,13 +8,14 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Fasterflect;
 using PropertyChanged;
+using Xpand.Persistent.Base.General.CustomAttributes;
 
 
 namespace Xpand.Persistent.Base {
     [DomainComponent]
     [DefaultProperty("FileName")]
     [ImplementPropertyChanged]
-    public class XpandFileData :  IFileData, IEmptyCheckable {
+    public class XpandFileData :  IFileData, IEmptyCheckable,INotifyPropertyChanged,ISupportFullName {
         private byte[] _content;
         public int Size { get; set; }
 
@@ -41,9 +42,10 @@ namespace Xpand.Persistent.Base {
         public override string ToString() {
             return FileName;
         }
+
         [Size(260)]
-        public string FileName{
-            get; set; }
+        public string FileName{ get; set; }
+
         [Persistent, Delayed,
          ValueConverter(typeof(CompressionConverter)),
          MemberDesignTimeVisibility(false)]
@@ -61,5 +63,10 @@ namespace Xpand.Persistent.Base {
         public bool IsEmpty => string.IsNullOrEmpty(FileName);
 
         #endregion
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        [InvisibleInAllViews]
+        [Size(SizeAttribute.Unlimited)]
+        public string FullName{ get; set; }
     }
 }

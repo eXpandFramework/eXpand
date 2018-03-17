@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application Description="aaa">
+  <BOModel>
+    <Class Name="Xpand.ExpressApp.ExcelImporter.BusinessObjects.ExcelImport" ImageName="TemplatesV2Images.Action_Export_ToExcel" />
+  </BOModel>
+  <Validation>
+    <Contexts ActionContexts="True" />
+  </Validation>
+  <Views>
+    <DetailView Id="ExcelImport_DetailView" ViewEditMode="Edit">
+      <Items>
+        <ActionContainerViewItem Id="ExcelImport" ActionContainer="ExcelImport" Caption="ExcelImport(17)" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main" RelativeSize="100">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="10.617760617760618" Direction="Horizontal">
+            <LayoutGroup Id="Auto00224b34-7006-4108-b0c5-3487562c098d" ShowCaption="False" Caption="Auto00224b34-7006-4108-b0c5-3487562c098d(3)" Index="0" RelativeSize="49.716713881019828" IsNewNode="True">
+              <LayoutItem Id="File" ViewItem="File" Index="0" RelativeSize="29.09090909090909" IsNewNode="True" />
+              <LayoutItem Id="SheetName" ViewItem="SheetName" Index="1" RelativeSize="21.818181818181817" IsNewNode="True" />
+              <LayoutItem Id="ColumnMappingRegexPattern" ViewItem="ColumnMappingRegexPattern" Index="2" RelativeSize="21.818181818181817" IsNewNode="True" />
+              <LayoutItem Id="ColumnMappingReplacement" ViewItem="ColumnMappingReplacement" Index="3" RelativeSize="27.272727272727273" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf" ShowCaption="False" Caption="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf(6)" Index="1" RelativeSize="50.283286118980172" IsNewNode="True">
+              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="29.09090909090909" IsNewNode="True" />
+              <LayoutItem Id="HeaderRows" ViewItem="HeaderRows" Index="1" RelativeSize="21.818181818181817" IsNewNode="True" />
+              <LayoutItem Id="UseHeaderRows" ViewItem="UseHeaderRows" Index="2" RelativeSize="21.818181818181817" IsNewNode="True" />
+              <LayoutItem Id="Type" ViewItem="Type" Index="3" RelativeSize="27.272727272727273" IsNewNode="True" />
+            </LayoutGroup>
+            <LayoutGroup Id="ExcelImport" Index="1" RelativeSize="36.507936507936506" Removed="True">
+              <LayoutGroup Id="ExcelImport_col1" RelativeSize="50" Caption="ExcelImport_col1" Direction="Horizontal">
+                <LayoutItem Id="SheetName" Index="1" RelativeSize="50" ViewItem="SheetName" Removed="True" />
+                <LayoutItem Id="HeaderRows" RelativeSize="100" ViewItem="HeaderRows" Removed="True" />
+                <LayoutItem Id="Name" ViewItem="Name" Removed="True" />
+              </LayoutGroup>
+              <LayoutGroup Id="ExcelImport_col2" RelativeSize="50" Caption="ExcelImport_col2" Direction="Horizontal">
+                <LayoutItem Id="UseHeaderRows" RelativeSize="100" Index="0" ViewItem="UseHeaderRows" Removed="True" />
+                <LayoutItem Id="File" RelativeSize="50" ViewItem="File" Removed="True" />
+              </LayoutGroup>
+            </LayoutGroup>
+          </LayoutGroup>
+          <LayoutItem Id="ExcelImport" ViewItem="ExcelImport" Index="1" RelativeSize="2.5096525096525095" IsNewNode="True" />
+          <TabbedGroup Id="Tabs" RelativeSize="86.872586872586879" Index="2">
+            <LayoutGroup Id="ExcelColumnMaps" RelativeSize="100">
+              <LayoutItem Id="ExcelColumnMaps" RelativeSize="100" ViewItem="ExcelColumnMaps" />
+            </LayoutGroup>
+            <LayoutGroup Id="FailedResultList.FailedResults" RelativeSize="100">
+              <LayoutItem Id="FailedResultList.FailedResults" RelativeSize="100" ViewItem="FailedResultList.FailedResults" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <ListView Id="ExcelImport_ExcelColumnMaps_ListView">
+      <Columns>
+        <ColumnInfo Id="ExcelColumnName" AllowEdit="False" />
+        <ColumnInfo Id="PropertyName" Width="92" />
+      </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <ListView Id="FailedResultList_FailedResults_ListView" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="ExcelColumnName" Width="126" />
+        <ColumnInfo Id="ExcelColumnValue" Index="1" Width="112" />
+        <ColumnInfo Id="Index" SortOrder="Ascending" GroupIndex="0" />
+        <ColumnInfo Id="ImportedObject" Index="3" Width="99" />
+      </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+  </Views>
+</Application>

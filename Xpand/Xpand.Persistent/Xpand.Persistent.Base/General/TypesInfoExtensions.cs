@@ -42,6 +42,10 @@ namespace Xpand.Persistent.Base.General {
             SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
         }
 
+        public static ITypeInfo GetTypeInfo(this object obj){
+            return obj.GetType().GetTypeInfo();
+        }
+
         public static ITypeInfo GetTypeInfo(this Type type){
             return XafTypesInfo.Instance.FindTypeInfo(type);
         }

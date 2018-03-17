@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -63,7 +64,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
                 items.Clear();
                 ComboBoxItemsBuilder.Create()
                 .WithPropertyEditor(this)
-                .Build((enumerable, b) => items.AddRange(enumerable.Select(s => new ListEditItem(s)).ToList()), () => {
+                .Build((enumerable, b) => {
+                        items.Clear();
+                        items.AddRange(enumerable.Select(s => new ListEditItem(s)).ToList());
+                        Debug.WriteLine("");
+                    }, () => {
                     var handledEventArgs = new HandledEventArgs();
                     OnItemsCalculating(handledEventArgs);
                     return handledEventArgs.Handled;

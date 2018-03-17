@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Options>
+    <LayoutManagerOptions RequiredFieldMark="*" />
+  </Options>
+  <SchemaModules>
+    <SchemaModule Name="CloneObjectModule" Version="17.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="ExcelImporterModule" Version="1.0.6650.26707" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="17.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="17.2.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemAspNetModule" Version="17.2.6.1" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="17.2.6.1" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="17.2.6.1" IsNewNode="True" />
+  </SchemaModules>
+  <Views>
+    <ListView Id="ExcelImport_ExcelColumnMaps_ListView" InlineEditMode="Batch">
+      <GridViewOptions>
+        <SettingsPager Visible="True" Mode="ShowAllRecords" />
+      </GridViewOptions>
+      <HiddenActions>
+        <ActionLink ActionId="Cancel" IsNewNode="True" />
+        <ActionLink ActionId="Edit" IsNewNode="True" />
+        <ActionLink ActionId="InlineEdit" IsNewNode="True" />
+        <ActionLink ActionId="Save" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+  </Views>
+</Application>
