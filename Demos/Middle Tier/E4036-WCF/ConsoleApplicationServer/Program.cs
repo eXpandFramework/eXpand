@@ -12,6 +12,7 @@ using Xpand.Persistent.Base.MiddleTier;
 
 namespace ConsoleApplicationServer {
     class Program {
+
         static void Main() {
             try {
                 
@@ -21,7 +22,8 @@ namespace ConsoleApplicationServer {
 
                 Console.WriteLine("Starting...");
 
-                var serverApplication = new ConsoleApplicationServerServerApplication(new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard())) {
+                var securityStrategyComplex = new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard());
+                var serverApplication = new ConsoleApplicationServerServerApplication(securityStrategyComplex) {
                     ConnectionString = connectionString
                 };
                 Console.WriteLine("Setup...");
@@ -32,7 +34,7 @@ namespace ConsoleApplicationServer {
                 serverApplication.Dispose();
 
                 Console.WriteLine("Starting server...");
-                QueryRequestSecurityStrategyHandler securityProviderHandler =() =>   new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard());;
+                QueryRequestSecurityStrategyHandler securityProviderHandler =() =>   securityStrategyComplex;;
 
                 var dataServer = new XpandSecuredDataServer(connectionString, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, securityProviderHandler);
 

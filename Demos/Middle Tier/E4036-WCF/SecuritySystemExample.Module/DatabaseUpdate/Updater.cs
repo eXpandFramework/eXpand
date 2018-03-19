@@ -18,6 +18,8 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.ExpressApp.Security;
 using SecuritySystemExample.Module.BusinessObjects;
 using DevExpress.ExpressApp.Security.Strategy;
+using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using Xpand.ExpressApp.ModelDifference.Security;
 
 namespace SecuritySystemExample.Module.DatabaseUpdate {
     public class Updater : ModuleUpdater {
@@ -41,6 +43,8 @@ namespace SecuritySystemExample.Module.DatabaseUpdate {
                 adminUser.SetPassword("");
                 adminUser.Roles.Add(adminRole);
             }
+            var modelRole = (SecuritySystemRole)ObjectSpace.GetDefaultModelRole("ModelRole");
+            
             // A role whith type-level permissions
             SecuritySystemRole contactsManagerRole =
                 ObjectSpace.FindObject<SecuritySystemRole>(
@@ -66,6 +70,7 @@ namespace SecuritySystemExample.Module.DatabaseUpdate {
                 userSam.UserName = "Sam";
                 userSam.SetPassword("");
                 userSam.Roles.Add(contactsManagerRole);
+                userSam.Roles.Add(modelRole);
             }
             // A role with object-level permissions
             SecuritySystemRole basicUserRole =
@@ -93,6 +98,7 @@ namespace SecuritySystemExample.Module.DatabaseUpdate {
                 userJohn.UserName = "John";
                 userJohn.SetPassword("");
                 userJohn.Roles.Add(basicUserRole);
+                userJohn.Roles.Add(modelRole);
             }
             // A role with member-level permissions
             SecuritySystemRole contactViewerRole =
@@ -120,6 +126,7 @@ namespace SecuritySystemExample.Module.DatabaseUpdate {
                 userBill.UserName = "Bill";
                 userBill.SetPassword("");
                 userBill.Roles.Add(contactViewerRole);
+                userBill.Roles.Add(modelRole);
             }
             // Contact objects are created for demo purposes
             Contact contactMary = ObjectSpace.FindObject<Contact>(
