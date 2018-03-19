@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -44,7 +45,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v17.2, Version=17.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
@@ -88,16 +89,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ExcelImporter.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Security, Version=17.2.6.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.Security">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=17.2.6.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.BaseImpl, Version=17.2.6.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.BaseImpl">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

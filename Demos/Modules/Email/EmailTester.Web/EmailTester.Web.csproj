@@ -237,6 +237,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  
   <Import Project="..\..\..\..\Support\Build\Nuget.Targets" />
 </Project>

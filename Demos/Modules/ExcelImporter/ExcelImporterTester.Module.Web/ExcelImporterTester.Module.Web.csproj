@@ -11,10 +11,8 @@
     <RootNamespace>ExcelImporterTester.Module.Web</RootNamespace>
     <AssemblyName>ExcelImporterTester.Module.Web</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -59,7 +57,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v17.2, Version=17.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Printing.v17.2.Core">
@@ -104,11 +102,11 @@
     <Reference Include="System.Xml">
       <Private>False</Private>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.ExcelImporter.Web, Version=1.0.6649.41692, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Xpand.ExpressApp.ExcelImporter.Web">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ExcelImporter.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=17.2.6.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>

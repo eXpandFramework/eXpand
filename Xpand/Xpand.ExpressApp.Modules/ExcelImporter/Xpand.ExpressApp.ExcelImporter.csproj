@@ -11,14 +11,11 @@
     <RootNamespace>Xpand.ExpressApp.ExcelImporter</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ExcelImporter</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,7 +46,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.2, Version=17.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.2">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\DevExpress 17.2\Components\Bin\Framework\DevExpress.ExpressApp.ConditionalAppearance.v17.2.dll</HintPath>
     </Reference>
@@ -105,7 +102,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.Persistent.Base, Version=17.2.6.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
@@ -144,7 +141,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>Module.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
