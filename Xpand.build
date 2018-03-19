@@ -133,7 +133,7 @@
     <MSBuild Projects="@(EFProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false"/>
     
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false"/>
-    <MSBuild Projects="Demos\WorkflowDemo\WorkflowDemo.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false,WorkFlowDemo=$(WorkFlowDemo)"/>
+    <MSBuild Projects="Demos\WorkflowDemo\WorkflowDemo.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false" Condition="'$(WorkFlowDemo)'=='true'"/>
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false"/>
     <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"/>
     <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"/>
