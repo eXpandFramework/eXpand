@@ -48,11 +48,11 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\DevExpress 17.2\Components\Bin\Framework\DevExpress.ExpressApp.ConditionalAppearance.v17.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v17.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\DevExpress 17.2\Components\Bin\Framework\DevExpress.ExpressApp.Validation.v17.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
       <SpecificVersion>False</SpecificVersion>

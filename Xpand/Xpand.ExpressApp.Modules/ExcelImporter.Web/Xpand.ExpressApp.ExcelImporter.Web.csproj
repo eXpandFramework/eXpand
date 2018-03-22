@@ -56,7 +56,7 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v17.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\DevExpress.ExpressApp.Web.v17.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
       <SpecificVersion>False</SpecificVersion>
@@ -74,9 +74,17 @@
     <Reference Include="DevExpress.Persistent.Base.v17.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="DevExpress.Office.v17.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+      
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v17.2.Core">
+      <SpecificVersion>False</SpecificVersion>
+      
+    </Reference>
     <Reference Include="DevExpress.Web.v17.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\DevExpress 17.2\Components\Bin\Framework\DevExpress.Web.v17.2.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.Xpo.v17.2">
       <SpecificVersion>False</SpecificVersion>
