@@ -65,7 +65,7 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
 
         private void Application_CustomizeTemplate(object sender, CustomizeTemplateEventArgs e) {
-            Application.CustomizeTemplate -= Application_CustomizeTemplate;
+            ((XafApplication) sender).CustomizeTemplate -= Application_CustomizeTemplate;
             var dockManagerHolder = ((IDockManagerHolder)e.Template);
             dockManagerHolder.DockManager.Load += DockManagerOnLoad;
         }
