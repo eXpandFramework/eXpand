@@ -34,7 +34,7 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <LangVersion>6</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
     <NuGetPackageImportStamp></NuGetPackageImportStamp>
   </PropertyGroup>
@@ -48,7 +48,7 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <LangVersion>6</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -59,7 +59,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <LangVersion>6</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugGAC|AnyCPU' ">
@@ -70,7 +70,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <LangVersion>6</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
@@ -81,7 +81,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-    <LangVersion>6</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -378,7 +378,7 @@
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
-    <LangVersion>6</LangVersion>
+    <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <Import Project="..\..\..\Support\Build\Nuget.Targets" />
@@ -386,7 +386,7 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-      <LangVersion>6</LangVersion>
+      <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
   </Target>
