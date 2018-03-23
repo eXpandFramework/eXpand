@@ -19,13 +19,15 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 	public class RefreshObjectViewController : ExpressApp.SystemModule.RefreshObjectViewController{
 	    protected override void OnActivated(){
 	        base.OnActivated();
-	        Application.MainWindow.GetController<ActiveDocumentViewController>().ActiveViewChanged+=OnActiveViewChanged;
+	        if (Application.MainWindow != null)
+	            Application.MainWindow.GetController<ActiveDocumentViewController>().ActiveViewChanged +=OnActiveViewChanged;
 	    }
 
 	    protected override void OnDeactivated(){
 	        base.OnDeactivated();
-	        Application.MainWindow.GetController<ActiveDocumentViewController>(controller => controller.ActiveViewChanged -=
-	            OnActiveViewChanged);
+	        Application.MainWindow?.GetController<ActiveDocumentViewController>(controller =>
+	            controller.ActiveViewChanged -=
+	                OnActiveViewChanged);
 	    }
 
 	    private void OnActiveViewChanged(object sender, ActiveViewChangedEventArgs e){
