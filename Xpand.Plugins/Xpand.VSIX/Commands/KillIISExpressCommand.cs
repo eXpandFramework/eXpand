@@ -7,7 +7,7 @@ using Xpand.VSIX.VSPackage;
 namespace Xpand.VSIX.Commands{
     public class KillIISExpressCommand:VSCommand{
         private KillIISExpressCommand() : base((sender, args) => Kill(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidKillIISExpress)) {
-            BindCommand("Global::Ctrl+Alt+Shift+I");
+//            BindCommand("Global::Ctrl+Alt+Shift+I");
         }
 
         public static void Init(){

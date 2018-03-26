@@ -9,7 +9,7 @@ namespace Xpand.VSIX.Commands{
         private DuplicateLineCommand(IVsTextManager vsTextManager) : base((sender, args) => DuplicateLine(vsTextManager),
             new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDouplicateLine)){
             BindCommand("Text Editor::Ctrl+D");
-            this.EnableForActiveFile();
+//            this.EnableForActiveFile();
         }
 
         public static void Init(){

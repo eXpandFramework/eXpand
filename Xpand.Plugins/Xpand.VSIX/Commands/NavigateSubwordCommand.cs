@@ -7,7 +7,7 @@ using Xpand.VSIX.VSPackage;
 namespace Xpand.VSIX.Commands {
     public abstract class SubwordNavigateCommand: VSCommand {
         protected SubwordNavigateCommand(EventHandler invokeHandler, CommandID commandID) : base(invokeHandler, commandID){
-            this.EnableForActiveFile();
+//            this.EnableForActiveFile();
         }
 
         protected static void Navigate(bool previous){

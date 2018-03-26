@@ -9,7 +9,7 @@ namespace Xpand.VSIX.Commands{
     public class FindInSolutionCommand:VSCommand{
         private FindInSolutionCommand() : base((sender, args) =>Find(),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidFindInSolution) ){
             BindCommand("Text Editor::Alt+Shift+L");
-            this.EnableForSolution();
+//            this.EnableForSolution();
         }
 
         public static bool Find(){
