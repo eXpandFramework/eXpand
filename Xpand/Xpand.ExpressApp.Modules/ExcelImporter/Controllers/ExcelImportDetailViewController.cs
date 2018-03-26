@@ -79,10 +79,13 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     using (var dataSet = GetDataSet(excelDataReader,ExcelImport)){
                         index = 0;
                         var importToTypeInfo = ExcelImport.Type.GetTypeInfo();
+                        var columnMembers = ExcelImport.ExcelColumnMaps.Select(map => (column: map.ExcelColumnName,
+                            memberInfo: importToTypeInfo.Members.First(info =>!string.IsNullOrEmpty(info.DisplayName)
+                                    ? info.DisplayName == map.PropertyName: info.Name == map.PropertyName))).ToArray();
                         foreach (var dataRow in dataSet.Tables.Cast<DataTable>().First().Rows.Cast<DataRow>()){
                             index++;
                             var importToObject = ObjectSpace.CreateObject(importToTypeInfo.Type);
-                            Import(ExcelImport, importToTypeInfo, dataRow, importToObject, index);
+                            Import(ExcelImport, dataRow, importToObject, index,columnMembers);
                         }
                     }
                     View.FindItem($"{nameof(BusinessObjects.ExcelImport.FailedResultList)}.{nameof(FailedResultList.FailedResults)}").Refresh();
@@ -124,20 +127,19 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             return excelDataReader.AsDataSet(excelDataSetConfiguration);
         }
 
-        private void Import(ExcelImport excelImport, ITypeInfo importToTypeInfo, DataRow dataRow,
-            object importToObject, int index){
+        private void Import(ExcelImport excelImport, DataRow dataRow,
+            object importToObject, int index, IEnumerable<(string column, IMemberInfo memberInfo)> columnMembers){
 
-            List<FailedResult> results=new List<FailedResult>();
-            foreach (var columnMap in excelImport.ExcelColumnMaps){
-                var memberInfo = importToTypeInfo.FindMember(columnMap.PropertyName);
-                var columnValue = dataRow[columnMap.ExcelColumnName];
-                if (!Imported(columnValue, memberInfo,importToObject)){
+            var results=new List<FailedResult>();
+            foreach (var columnMember in columnMembers){
+                var columnValue = dataRow[columnMember.column];
+                if (!Imported(columnValue, columnMember.memberInfo,importToObject)){
                     var importResult = new FailedResult{
                         ExcelColumnValue = columnValue?.ToString(),
-                        ExcelColumnName = columnMap.ExcelColumnName
+                        ExcelColumnName = columnMember.column
                     };
                     results.Add(importResult);   
-                }
+                }                
             }
 
             foreach (var failedResult in results){
