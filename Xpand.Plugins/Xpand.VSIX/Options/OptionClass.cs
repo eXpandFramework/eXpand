@@ -68,7 +68,12 @@ namespace Xpand.VSIX.Options{
             var exists = File.Exists(mePath);
             if (exists && AssemblyDefinition.ReadAssembly(mePath).Name.Version <
                 new Version(XpandAssemblyInfo.FileVersion)) {
-                File.Delete(mePath);
+                try{
+                    File.Delete(mePath);
+                }
+                catch (Exception e){
+                    DTE.LogError(e.ToString());
+                }
             }
             if (!exists) {
                 Debug.Assert(resourceStream != null, "resourceStream != null");
