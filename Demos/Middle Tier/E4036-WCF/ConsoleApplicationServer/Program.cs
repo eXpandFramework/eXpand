@@ -20,10 +20,10 @@ namespace ConsoleApplicationServer {
 
                 ValueManager.ValueManagerType = typeof(MultiThreadValueManager<>).GetGenericTypeDefinition();
 
-                Console.WriteLine("Starting...");
+                Console.WriteLine(@"Starting...");
 
-                var securityStrategyComplex = new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard());
-                var serverApplication = new ConsoleApplicationServerServerApplication(securityStrategyComplex) {
+                
+                var serverApplication = new ConsoleApplicationServerServerApplication(new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard())) {
                     ConnectionString = connectionString
                 };
                 Console.WriteLine("Setup...");
@@ -34,9 +34,9 @@ namespace ConsoleApplicationServer {
                 serverApplication.Dispose();
 
                 Console.WriteLine("Starting server...");
-                QueryRequestSecurityStrategyHandler securityProviderHandler =() =>   securityStrategyComplex;;
+                IDataServerSecurity SecurityProviderHandler() => new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard());
 
-                var dataServer = new XpandSecuredDataServer(connectionString, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, securityProviderHandler);
+                var dataServer = new XpandSecuredDataServer(connectionString, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, SecurityProviderHandler);
 
                 var serviceHost = new ServiceHost(new WcfSecuredDataServer(dataServer));
                 var defaultBinding = (WSHttpBinding)WcfDataServerHelper.CreateDefaultBinding();
@@ -44,14 +44,14 @@ namespace ConsoleApplicationServer {
                 serviceHost.AddServiceEndpoint(typeof(IWcfSecuredDataServer), defaultBinding, "http://localhost:1451/DataServer");
                 serviceHost.Open();
 
-                Console.WriteLine("Server is started. Press Enter to stop.");
+                Console.WriteLine(@"Server is started. Press Enter to stop.");
                 Console.ReadLine();
-                Console.WriteLine("Stopping...");
+                Console.WriteLine(@"Stopping...");
                 serviceHost.Close();
-                Console.WriteLine("Server is stopped.");
+                Console.WriteLine(@"Server is stopped.");
             } catch (Exception e) {
-                Console.WriteLine("Exception occurs: " + e.Message);
-                Console.WriteLine("Press Enter to close.");
+                Console.WriteLine(@"Exception occurs: " + e.Message);
+                Console.WriteLine(@"Press Enter to close.");
                 Console.ReadLine();
             }
         }

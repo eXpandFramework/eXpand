@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.ClientServer;
 using Xpand.ExpressApp.Security.Permissions;
 
 namespace Xpand.ExpressApp.Security.Controllers {
@@ -17,6 +17,8 @@ namespace Xpand.ExpressApp.Security.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
+            if (Application.Security is ServerSecurityClient)
+                return ;
             if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())) {
                 var isGranted = !SecuritySystem.IsGranted(new MyDetailsOperationRequest(new MyDetailsPermission(Modifier.Deny)));
                 _myDetailsController = Frame.GetController<MyDetailsController>();
@@ -38,7 +40,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
         }
         private ChoiceActionItem FindMyDetailsItem(IEnumerable<ChoiceActionItem> items) {
             foreach (ChoiceActionItem item in items) {
-                if (item.Id == MyDetailsController.MyDetailsNavigationItemId)
+                if (item.Id == DevExpress.ExpressApp.Security.MyDetailsController.MyDetailsNavigationItemId)
                     return item;
                 ChoiceActionItem t = FindMyDetailsItem(item.Items);
                 if (t != null)

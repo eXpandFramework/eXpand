@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.StateMachine;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.StateMachine.Security.Improved;
@@ -10,6 +11,8 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
+            if (Application.Security is ServerSecurityClient)
+                return ;
             if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())){
                 Frame.GetController<StateMachineController>(controller => controller.TransitionExecuting += OnTransitionExecuting);
                 Frame.GetController<ChangeStateActionController>(controller => controller.RequestActiveState += RequestActiveState);

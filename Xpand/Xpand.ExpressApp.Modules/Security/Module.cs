@@ -89,7 +89,11 @@ namespace Xpand.ExpressApp.Security {
             if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
         }
 
-        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e) {
+        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e){
+            CustomizeRequestProcessors(e);
+        }
+
+        public static void CustomizeRequestProcessors(CustomizeRequestProcessorsEventArgs e){
             var customPermissions = e.Permissions.WithCustomPermissions();
             var fieldName = "permissionsGroupedByRole";
             var requestProcessors = e.Processors.Select(pair => pair.Value)
@@ -99,35 +103,44 @@ namespace Xpand.ExpressApp.Security {
                 IPermissionRequestProcessor requestProcessor;
                 if (processor is NavigationPermissionRequestProcessor){
                     requestProcessor = processor;
-                    var enumerable = ((IEnumerable<IEnumerable<IOperationPermission>>)requestProcessor.GetFieldValue(fieldName)).Select(permissions => new PermissionDictionary(permissions).WithSecurityOperationAttributePermissions().GetPermissions<IOperationPermission>());
+                    var enumerable =
+                        ((IEnumerable<IEnumerable<IOperationPermission>>) requestProcessor.GetFieldValue(fieldName)).Select(
+                            permissions => new PermissionDictionary(permissions).WithSecurityOperationAttributePermissions()
+                                .GetPermissions<IOperationPermission>());
                     requestProcessor.SetFieldValue(fieldName, enumerable);
-                    customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(enumerable.SelectMany(permissions => permissions)));
+                    customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>()
+                        .Concat(enumerable.SelectMany(permissions => permissions)));
                 }
-                else {
-                    requestProcessor = (IPermissionRequestProcessor)processor.GetFieldValue("requestProcessor");
+                else{
+                    requestProcessor = (IPermissionRequestProcessor) processor.GetFieldValue("requestProcessor");
                     if (requestProcessor is ServerPermissionRequestProcessor){
                         fieldName = "permissionsDictionary";
-                        var processorDictionary = ((IPermissionDictionary)requestProcessor.GetFieldValue(fieldName))
+                        var processorDictionary = ((IPermissionDictionary) requestProcessor.GetFieldValue(fieldName))
                             .WithSecurityOperationAttributePermissions();
                         requestProcessor.SetFieldValue(fieldName, processorDictionary);
                         var operationPermissions = processorDictionary.GetPermissions<IOperationPermission>().ToList();
-                        customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>().Concat(operationPermissions));
+                        customPermissions = new PermissionDictionary(customPermissions.GetPermissions<IOperationPermission>()
+                            .Concat(operationPermissions));
                     }
                 }
             }
-                
+
             var keyValuePairs = new[]{
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (MyDetailsOperationRequest), customPermissions.GetProcessor<MyDetailsRequestProcessor>()),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (AnonymousLoginOperationRequest), customPermissions.GetProcessor<AnonymousLoginRequestProcessor>()),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof (IsAdministratorPermissionRequest), customPermissions.GetProcessor<IsAdministratorPermissionRequestProcessor>()),
-                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(NavigationItemPermissionRequest), customPermissions.WithHiddenNavigationItemPermissions().GetProcessor<NavigationItemPermissionRequestProcessor>())
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(MyDetailsOperationRequest),
+                    customPermissions.GetProcessor<MyDetailsRequestProcessor>()),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(AnonymousLoginOperationRequest),
+                    customPermissions.GetProcessor<AnonymousLoginRequestProcessor>()),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(IsAdministratorPermissionRequest),
+                    customPermissions.GetProcessor<IsAdministratorPermissionRequestProcessor>()),
+                new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(NavigationItemPermissionRequest),
+                    customPermissions.WithHiddenNavigationItemPermissions()
+                        .GetProcessor<NavigationItemPermissionRequestProcessor>())
             };
-            foreach (var keyValuePair in keyValuePairs) {
+            foreach (var keyValuePair in keyValuePairs){
                 e.Processors.Add(keyValuePair);
             }
         }
 
-        
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);

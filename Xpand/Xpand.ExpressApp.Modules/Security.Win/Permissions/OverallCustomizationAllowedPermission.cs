@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Xpo.Helpers;
 using Xpand.ExpressApp.Security.Core;
@@ -60,6 +61,8 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
 
         static void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
             var xafApplication = ((XafApplication)sender);
+            if (((XafApplication) sender).Security is ServerSecurityClient)
+                return;
             var modelWinLayoutManagerOptions = ((IModelWinLayoutManagerOptions)xafApplication.Model.Options.LayoutManagerOptions);
             modelWinLayoutManagerOptions.CustomizationEnabled = SecuritySystem.IsGranted(new OverallCustomizationAllowedPermissionRequest());
         }
