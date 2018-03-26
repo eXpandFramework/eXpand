@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using DevExpress.ExpressApp;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.Persistent.Base;
@@ -38,8 +40,16 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
             if (e.PropertyName==nameof(XpandFileData.FullName)){
                 if (File.Exists(ExcelImport.File.FullName)){
                     ExcelImport.FullName = ExcelImport.File.FullName;
-                    using (var fileStream = File.OpenRead(ExcelImport.FullName)){
-                        ParseFile(fileStream, ExcelImport);
+                    try{
+                        using (var fileStream = File.Open(ExcelImport.FullName,FileMode.Open,FileAccess.Read,FileShare.Read)){
+                            ParseFile(fileStream, ExcelImport);
+                        }
+                    }
+                    catch {
+                        ExcelImport.File=new XpandFileData();
+                        ExcelImport.File.PropertyChanged-=FileOnPropertyChanged;
+                        ExcelImport.File.PropertyChanged+=FileOnPropertyChanged;
+                        throw;
                     }
                 }
             }
