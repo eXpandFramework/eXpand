@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp.ExcelImporter.Controllers;
+using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.ValueConverters;
@@ -69,10 +71,26 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             get{
                 if (Type != null)
                     return Type.GetTypeInfo().Members
-                        .Where(info => info.IsPersistent && !info.IsService && info.Name != GCRecordField.StaticName)
+                        .Where(IsMappable)
                         .Select(info => string.IsNullOrEmpty(info.DisplayName) ? info.Name : info.DisplayName).ToList();
                 return new List<string>();
             }
+        }
+
+        private static bool IsMappable(IMemberInfo info){
+            var isMappable = info.IsPersistent && !info.IsService && info.Name != GCRecordField.StaticName;
+            if (isMappable){
+                var browsableAttribute = info.FindAttribute<BrowsableAttribute>();
+                var isBrowsable = browsableAttribute == null || browsableAttribute.Browsable;
+                var visibleInLookupListViewAttribute = info.FindAttribute<VisibleInLookupListViewAttribute>();
+                var visibleInLookup = visibleInLookupListViewAttribute == null ||(bool) visibleInLookupListViewAttribute.Value;
+                var visibleInListViewAttribute = info.FindAttribute<VisibleInListViewAttribute>();
+                var visibleInListView= visibleInListViewAttribute == null ||(bool) visibleInListViewAttribute.Value;
+                var visibleInExcelMapAttribute = info.FindAttribute<VisibleInExcelMapAttribute>();
+                var visibleInExcelMap = visibleInExcelMapAttribute == null ||visibleInExcelMapAttribute.Visible;
+                return isBrowsable && visibleInLookup && visibleInListView && visibleInExcelMap;
+            }
+            return false;
         }
 
         public override void AfterConstruction(){
@@ -104,7 +122,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(File), ref _file, value);
         }
 
-        [Association("ExcelImport-ExcelColumnMaps")][Aggregated]
+        [Association("ExcelImport-ExcelColumnMaps")][DevExpress.Xpo.Aggregated]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
         [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName)]
         public XPCollection<ExcelColumnMap> ExcelColumnMaps => GetCollection<ExcelColumnMap>(nameof(ExcelColumnMaps));

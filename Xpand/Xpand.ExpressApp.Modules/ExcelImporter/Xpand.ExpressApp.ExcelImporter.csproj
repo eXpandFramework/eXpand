@@ -122,6 +122,7 @@
     <Compile Include="BusinessObjects\ExcelImport.cs" />
     <Compile Include="BusinessObjects\FailedResult.cs" />
     <Compile Include="BusinessObjects\FailedResultList.cs" />
+    <Compile Include="Services\VisibleInExcelMapAttribute.cs" />
     <Compile Include="Controllers\ExcelImportDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
