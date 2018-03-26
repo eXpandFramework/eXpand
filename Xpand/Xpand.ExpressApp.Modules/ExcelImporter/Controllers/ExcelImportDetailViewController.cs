@@ -10,7 +10,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -22,7 +21,7 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public class ExcelImportDetailViewController : ObjectViewController<DetailView,ExcelImport>{
-        private IModelMember _propertyNameModelMember;
+        
         public const string ExcelMappingActionName = "ExcelMapping";
         public const string ImportExcelActionName = "ImportExcel";
         public SimpleAction ExcelMappingAction{ get; }
@@ -39,7 +38,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         protected override void OnActivated(){
             base.OnActivated();
             ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
-            _propertyNameModelMember = Application.Model.BOModel.GetClass(typeof(ExcelColumnMap)).FindMember(nameof(ExcelColumnMap.PropertyName));
+            
         }
 
         protected override void OnDeactivated(){
@@ -53,8 +52,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 e.PropertyName != nameof(BusinessObjects.ExcelImport.SheetNames)){
 
                 ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
-                _propertyNameModelMember.PredefinedValues = string.Join(";", ExcelImport.TypePropertyNames);
+                TypeChange();
             }
+        }
+
+        protected virtual void TypeChange(){
         }
 
         private void ImportActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){

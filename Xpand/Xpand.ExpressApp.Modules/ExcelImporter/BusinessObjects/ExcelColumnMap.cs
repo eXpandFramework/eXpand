@@ -23,8 +23,9 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         }
 
         string _propertyName;
-        [EditorAlias(EditorAliases.StringPropertyEditor)]
+
         [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName)]
+        [EditorAlias(EditorAliases.StringPropertyEditor)]
         public string PropertyName{
             get => _propertyName;
             set => SetPropertyValue(nameof(PropertyName), ref _propertyName, value);

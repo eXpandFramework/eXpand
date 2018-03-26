@@ -19,10 +19,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Win {
 
         protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory){
             base.RegisterEditorDescriptors(editorDescriptorsFactory);
-//            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.StringPropertyEditor, typeof(string), false)));
-//            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(
-//                new EditorTypeRegistration(EditorAliases.StringPropertyEditor, typeof(string),
-//                    typeof(StringPropertyEditor), false)));
             editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.StringLookupPropertyEditor, typeof(string), false)));
             editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(
                 new EditorTypeRegistration(EditorAliases.StringLookupPropertyEditor, typeof(string),

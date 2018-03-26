@@ -146,7 +146,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         FailedResultList _failedResultList;
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        [VisibleInListView(true)]
+        [VisibleInListView(false)]
         
         public FailedResultList FailedResultList{
             get => _failedResultList;

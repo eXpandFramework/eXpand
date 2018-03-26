@@ -1,5 +1,10 @@
-﻿<?xml version="1.0" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <Views>
-  </Views>
+  <BOModel>
+    <Class Name="Xpand.ExpressApp.ExcelImporter.BusinessObjects.ExcelColumnMap">
+      <OwnMembers>
+        <Member Name="PropertyName" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
 </Application>

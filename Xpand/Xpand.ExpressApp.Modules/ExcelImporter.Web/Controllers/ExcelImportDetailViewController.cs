@@ -4,15 +4,24 @@ using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.FileAttachments.Web;
+using DevExpress.ExpressApp.Model;
 using ExcelDataReader;
+using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 
 namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
     public class ExcelImportDetailViewController:ExcelImporter.Controllers.ExcelImportDetailViewController{
+        private IModelMember _propertyNameModelMember;
         protected override void OnActivated(){
             base.OnActivated();
             if (View is DetailView detailView){
                 detailView.GetItems<FileDataPropertyEditor>().First().ControlCreated += OnControlCreated;
+                _propertyNameModelMember = Application.Model.BOModel.GetClass(typeof(ExcelColumnMap)).FindMember(nameof(ExcelColumnMap.PropertyName));
             }
+        }
+
+        protected override void TypeChange(){
+            base.TypeChange();
+            _propertyNameModelMember.PredefinedValues = string.Join(";", ExcelImport.TypePropertyNames);
         }
 
         private void OnControlCreated(object sender, EventArgs eventArgs){
