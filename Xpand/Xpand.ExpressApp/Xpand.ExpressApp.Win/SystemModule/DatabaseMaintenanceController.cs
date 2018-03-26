@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -87,8 +88,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         [Browsable(false)]
         IModelList<IModelClass> UserClasses { get; }
-
+        [DefaultValue(600)]
+        int BackupTimeout{ get; set; }
         string BackupDirectory{ get; set; }
+        
     }
 
     [DomainLogic(typeof(IModelDatabaseMaintanance))]
@@ -120,11 +123,16 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             base.OnActivated();
             var databaseMaintanance = ((IModelOptionsDatabaseMaintanence) Application.Model.Options).DatabaseMaintanance;
             Task.Factory.StartNew(() => {
-                Execute(databaseMaintanance, (session, database) => {
-                    Update(databaseMaintanance.RecoveryModel, database, session);
-                    Update(databaseMaintanance.Autogrowth, session, database);
-                    Update(databaseMaintanance.InitialSize, session, database);
-                });
+                try{
+                    Execute(databaseMaintanance, (session, database) => {
+                        Update(databaseMaintanance.RecoveryModel, database);
+                        Update(databaseMaintanance.Autogrowth, database);
+                        Update(databaseMaintanance.InitialSize, session, database);
+                    });
+                }
+                catch (Exception e){
+                    Tracing.Tracer.LogError(e);
+                }
             });
         }
 
@@ -135,17 +143,27 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 var size = Convert.ToDouble(result.Substring(0, result.IndexOf(" ", StringComparison.Ordinal)));
                 if (size<initialSize.Value){
                     text = $"ALTER DATABASE [{database}] MODIFY FILE ( NAME = N'{database}', SIZE = {initialSize.Value.Convert(SystemExtensions.SizeDefinition.Megabyte,SystemExtensions.SizeDefinition.Kilobyte )}KB )";
-                    ExecuteNonQuery(session, text);
+                    ExecuteNonQuery(text);
                 }
             }
         }
 
-        private void ExecuteNonQuery(Session session, string text){
-            session.ExecuteNonQuery(text);
+        private void ExecuteNonQuery(string text,int timeout=30){
+            var parser = new ConnectionStringParser(XpandModuleBase.ConnectionString);
+            parser.RemovePartByName("xpodatastorepool");
+            using (var connection = new SqlConnection(parser.GetConnectionString())){
+                connection.Open();
+                using (var dbCommand = connection.CreateCommand()){
+                    dbCommand.CommandTimeout = timeout;
+                    dbCommand.CommandText = text;
+                    dbCommand.ExecuteNonQuery();
+                }
+            }
+
             Tracing.Tracer.LogValue(GetType().Namespace,text);
         }
 
-        private void Update(IModelAutogrowth autogrowth, Session session, string database){
+        private void Update(IModelAutogrowth autogrowth, string database){
             var autogrowthEnabled = autogrowth.Enabled;
             if (autogrowthEnabled.HasValue){
                 string fileGrowth = ", FILEGROWTH =";
@@ -158,14 +176,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                     if (autogrowth.MaximumFileSizeMode == MaximumFileSizeMode.Limited)
                         fileGrowth +=$", MAXSIZE = {autogrowth.MaximumFileSize.Convert(SystemExtensions.SizeDefinition.Megabyte, SystemExtensions.SizeDefinition.Kilobyte)}KB";
                 }
-                ExecuteNonQuery(session, $"ALTER DATABASE [{database}] MODIFY FILE ( NAME = N'{database}' {fileGrowth})");
+                ExecuteNonQuery($"ALTER DATABASE [{database}] MODIFY FILE ( NAME = N'{database}' {fileGrowth})");
             }
         }
 
-        private  void Update(RecoveryModel? recoveryModel, string database,Session session){
+        private  void Update(RecoveryModel? recoveryModel, string database){
             if (recoveryModel.HasValue){
                 string text =$"ALTER DATABASE [{database}] SET RECOVERY {recoveryModel} WITH NO_WAIT";
-                ExecuteNonQuery(session, text);
+                ExecuteNonQuery(text);
             }
         }
 
@@ -232,13 +250,17 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private Task BackupTask(string database, IModelDatabaseMaintanance databaseMaintanance){
             return Task.Factory.StartNew(() => {
-                using (var objectSpace = Application.CreateObjectSpace()) {
-                    var dateTime = DateTime.Now.ToString("yyyy.MMMM.dd-HH.mm.ss");
-                    string text = $@"BACKUP DATABASE [{database}] TO  DISK = N'{databaseMaintanance.BackupDirectory}\{database}-{dateTime
-                        }.bak' WITH NOFORMAT, NOINIT,  NAME = N'{database}-Full Database Backup on {dateTime}', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
-                    ExecuteNonQuery(objectSpace.Session(),text);
-                }
-            },TaskCreationOptions.LongRunning|TaskCreationOptions.AttachedToParent);
+                    try{
+                        var dateTime = DateTime.Now.ToString("yyyy.MMMM.dd-HH.mm.ss");
+                        string text = $@"BACKUP DATABASE [{database}] TO  DISK = N'{databaseMaintanance.BackupDirectory}\{database}-{dateTime
+                            }.bak' WITH NOFORMAT, NOINIT,  NAME = N'{database}-Full Database Backup on {dateTime}', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
+                        ExecuteNonQuery(text,databaseMaintanance.BackupTimeout);
+
+                    }
+                    catch (Exception e){
+                        Tracing.Tracer.LogError(e);
+                    }
+                },TaskCreationOptions.LongRunning|TaskCreationOptions.AttachedToParent);
             
         }
 
