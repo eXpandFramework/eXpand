@@ -13,18 +13,19 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="10.617760617760618" Direction="Horizontal">
-            <LayoutGroup Id="Auto00224b34-7006-4108-b0c5-3487562c098d" ShowCaption="False" Caption="Auto00224b34-7006-4108-b0c5-3487562c098d(3)" Index="0" RelativeSize="49.716713881019828" IsNewNode="True">
-              <LayoutItem Id="File" ViewItem="File" Index="0" RelativeSize="29.09090909090909" IsNewNode="True" />
-              <LayoutItem Id="SheetName" ViewItem="SheetName" Index="1" RelativeSize="21.818181818181817" IsNewNode="True" />
-              <LayoutItem Id="ColumnMappingRegexPattern" ViewItem="ColumnMappingRegexPattern" Index="2" RelativeSize="21.818181818181817" IsNewNode="True" />
-              <LayoutItem Id="ColumnMappingReplacement" ViewItem="ColumnMappingReplacement" Index="3" RelativeSize="27.272727272727273" IsNewNode="True" />
+          <LayoutGroup Id="SimpleEditors" RelativeSize="12.934362934362934" Direction="Horizontal">
+            <LayoutGroup Id="Auto00224b34-7006-4108-b0c5-3487562c098d" ShowCaption="False" Caption="Auto00224b34-7006-4108-b0c5-3487562c098d(3)" Index="0" RelativeSize="49.557522123893804" IsNewNode="True">
+              <LayoutItem Id="File" ViewItem="File" Index="0" RelativeSize="23.880597014925375" IsNewNode="True" />
+              <LayoutItem Id="SheetName" ViewItem="SheetName" Index="1" RelativeSize="17.910447761194028" IsNewNode="True" />
+              <LayoutItem Id="ImportStrategy" ViewItem="ImportStrategy" Index="2" RelativeSize="17.910447761194028" IsNewNode="True" />
+              <LayoutItem Id="ColumnMappingRegexPattern" ViewItem="ColumnMappingRegexPattern" Index="3" RelativeSize="17.910447761194028" IsNewNode="True" />
+              <LayoutItem Id="ColumnMappingReplacement" ViewItem="ColumnMappingReplacement" Index="4" RelativeSize="22.388059701492537" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf" ShowCaption="False" Caption="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf(6)" Index="1" RelativeSize="50.283286118980172" IsNewNode="True">
-              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="29.09090909090909" IsNewNode="True" />
-              <LayoutItem Id="HeaderRows" ViewItem="HeaderRows" Index="1" RelativeSize="21.818181818181817" IsNewNode="True" />
-              <LayoutItem Id="UseHeaderRows" ViewItem="UseHeaderRows" Index="2" RelativeSize="21.818181818181817" IsNewNode="True" />
-              <LayoutItem Id="Type" ViewItem="Type" Index="3" RelativeSize="27.272727272727273" IsNewNode="True" />
+            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf" ShowCaption="False" Caption="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf(6)" Index="1" RelativeSize="50.442477876106196" IsNewNode="True">
+              <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="23.880597014925375" IsNewNode="True" />
+              <LayoutItem Id="HeaderRows" ViewItem="HeaderRows" Index="1" RelativeSize="17.910447761194028" IsNewNode="True" />
+              <LayoutItem Id="UseHeaderRows" ViewItem="UseHeaderRows" Index="2" RelativeSize="17.910447761194028" IsNewNode="True" />
+              <LayoutItem Id="Type" ViewItem="Type" Index="3" RelativeSize="40.298507462686565" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="ExcelImport" Index="1" RelativeSize="36.507936507936506" Removed="True">
               <LayoutGroup Id="ExcelImport_col1" RelativeSize="50" Caption="ExcelImport_col1" Direction="Horizontal">
@@ -39,7 +40,7 @@
             </LayoutGroup>
           </LayoutGroup>
           <LayoutItem Id="ExcelImport" ViewItem="ExcelImport" Index="1" RelativeSize="2.5096525096525095" IsNewNode="True" />
-          <TabbedGroup Id="Tabs" RelativeSize="86.872586872586879" Index="2">
+          <TabbedGroup Id="Tabs" RelativeSize="84.555984555984551" Index="2">
             <LayoutGroup Id="ExcelColumnMaps" RelativeSize="100">
               <LayoutItem Id="ExcelColumnMaps" RelativeSize="100" ViewItem="ExcelColumnMaps" />
             </LayoutGroup>

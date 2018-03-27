@@ -21,6 +21,13 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         public ExcelImport(Session session) : base(session){
         }
 
+        ImportStrategy _importStrategy;
+
+        public ImportStrategy ImportStrategy{
+            get => _importStrategy;
+            set => SetPropertyValue(nameof(ImportStrategy), ref _importStrategy, value);
+        }
+
         int _headerRows;
         [RuleValueComparison(ValueComparisonType.GreaterThan, 0,TargetCriteria = nameof(UseHeaderRows)+"=True",TargetContextIDs = ExcelImportDetailViewController.ExcelMappingActionName)]
         public int HeaderRows{
@@ -132,6 +139,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         [ValueConverter(typeof(TypeValueConverter))]
         [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ExcelMappingActionName+";"+ExcelImportDetailViewController.ImportExcelActionName)]
         [ImmediatePostData]
+        [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
         public Type Type{
             get => _type;
             set => SetPropertyValue(nameof(Type), ref _type, value);
@@ -160,5 +168,11 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             get => _columnMappingReplacement;
             set => SetPropertyValue(nameof(ColumnMappingReplacement), ref _columnMappingReplacement, value);
         }
+    }
+
+    public enum ImportStrategy{
+        CreateAlways,
+        UpdateOrCreate,
+        SkipOrCreate
     }
 }

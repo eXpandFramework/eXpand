@@ -49,7 +49,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e){
             if (Equals(e.Object, ExcelImport) && e.PropertyName != nameof(BusinessObjects.ExcelImport.Name) &&
                 e.PropertyName != nameof(BusinessObjects.ExcelImport.File) &&
-                e.PropertyName != nameof(BusinessObjects.ExcelImport.SheetNames)){
+                e.PropertyName != nameof(BusinessObjects.ExcelImport.SheetNames)&&
+                e.PropertyName != nameof(BusinessObjects.ExcelImport.ImportStrategy)){
 
                 ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
                 TypeChange();
@@ -84,10 +85,13 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                         var columnMembers = ExcelImport.ExcelColumnMaps.Select(map => (column: map.ExcelColumnName,
                             memberInfo: importToTypeInfo.Members.First(info =>!string.IsNullOrEmpty(info.DisplayName)
                                     ? info.DisplayName == map.PropertyName: info.Name == map.PropertyName))).ToArray();
+                        if (ExcelImport.ImportStrategy!=ImportStrategy.CreateAlways&&importToTypeInfo.DefaultMember==null)
+                            throw new UserFriendlyException($"{Application.Model.BOModel.GetClass(importToTypeInfo.Type)} DefaultMember is not set, please use the {nameof(ImportStrategy.CreateAlways)} strategy instead.");
                         foreach (var dataRow in dataSet.Tables.Cast<DataTable>().First().Rows.Cast<DataRow>()){
                             index++;
-                            var importToObject = ObjectSpace.CreateObject(importToTypeInfo.Type);
-                            Import(ExcelImport, dataRow, importToObject, index,columnMembers);
+                            var importToObject = GetImportToObject(importToTypeInfo,columnMembers,dataRow);
+                            if (importToObject != null)
+                                Import(ExcelImport, dataRow, importToObject, index, columnMembers);
                         }
                     }
                     View.FindItem($"{nameof(BusinessObjects.ExcelImport.FailedResultList)}.{nameof(FailedResultList.FailedResults)}").Refresh();
@@ -95,6 +99,19 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 }
 
             }
+        }
+
+        private object GetImportToObject(ITypeInfo importToTypeInfo,(string column, IMemberInfo memberInfo)[] columnNames, DataRow dataRow){
+            if (ExcelImport.ImportStrategy==ImportStrategy.CreateAlways)
+                return ObjectSpace.CreateObject(importToTypeInfo.Type);
+            var valueTuple = columnNames.First(tuple => tuple.memberInfo==importToTypeInfo.DefaultMember);
+            var o = dataRow[valueTuple.column];
+            var importToObject = ObjectSpace.FindObject(importToTypeInfo.Type,CriteriaOperator.Parse($"{valueTuple.memberInfo.Name}=?", o));
+            if (ExcelImport.ImportStrategy==ImportStrategy.UpdateOrCreate){
+                return importToObject ?? ObjectSpace.CreateObject(importToTypeInfo.Type);
+            }
+
+            return importToObject != null ? null : ObjectSpace.CreateObject(importToTypeInfo.Type);
         }
 
         private void DisplayResultMessage(int index){
