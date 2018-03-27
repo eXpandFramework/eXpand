@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -12,15 +13,21 @@ using Xpand.ExpressApp.ExcelImporter.Controllers;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [DefaultClassOptions]
-    public class ExcelImport : XpandBaseCustomObject{
+    [DefaultProperty(nameof(Name))]
+    public class ExcelImport : XpandBaseCustomObject,IObjectSpaceLink{
         public ExcelImport(Session session) : base(session){
         }
 
+        [Association("ExcelImport-AutoImportedFiles")]
+        [InvisibleInAllViews][DevExpress.Xpo.Aggregated]
+        [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
+        public XPCollection<AutoImportedFile> AutoImportedFiles => GetCollection<AutoImportedFile>(nameof(AutoImportedFiles));
         ImportStrategy _importStrategy;
 
         public ImportStrategy ImportStrategy{
@@ -35,6 +42,26 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(HeaderRows), ref _headerRows, value);
         }
 
+        string _validationContexts;
+
+        public string ValidationContexts{
+            get => _validationContexts;
+            set => SetPropertyValue(nameof(ValidationContexts), ref _validationContexts, value);
+        }
+
+        string _autoImportFrom;
+        [InvisibleInAllViews]
+        public string AutoImportFrom{
+            get => _autoImportFrom;
+            set => SetPropertyValue(nameof(AutoImportFrom), ref _autoImportFrom, value);
+        }
+
+        string _autoImportRegex;
+        [RuleRequiredField]
+        public string AutoImportRegex{
+            get => _autoImportRegex;
+            set => SetPropertyValue(nameof(AutoImportRegex), ref _autoImportRegex, value);
+        }
 
         string _name;
         [RuleRequiredField]
@@ -84,7 +111,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             }
         }
 
-        private static bool IsMappable(IMemberInfo info){
+        private  bool IsMappable(IMemberInfo info){
             var isMappable = info.IsPersistent && !info.IsService && info.Name != GCRecordField.StaticName;
             if (isMappable){
                 var browsableAttribute = info.FindAttribute<BrowsableAttribute>();
@@ -95,13 +122,15 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
                 var visibleInListView= visibleInListViewAttribute == null ||(bool) visibleInListViewAttribute.Value;
                 var visibleInExcelMapAttribute = info.FindAttribute<VisibleInExcelMapAttribute>();
                 var visibleInExcelMap = visibleInExcelMapAttribute == null ||visibleInExcelMapAttribute.Visible;
-                return isBrowsable && visibleInLookup && visibleInListView && visibleInExcelMap;
+                return (isBrowsable && visibleInLookup && visibleInListView) || visibleInExcelMap;
             }
             return false;
         }
 
         public override void AfterConstruction(){
             base.AfterConstruction();
+            AutoImportRegex = ".*xlsx|.*xls|.*csv|.*txt";
+            ColumnMappingRegexPattern = "( *)";
             HeaderRows = 1;
             File=new XpandFileData();
             FailedResultList=new FailedResultList();
@@ -168,6 +197,35 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             get => _columnMappingReplacement;
             set => SetPropertyValue(nameof(ColumnMappingReplacement), ref _columnMappingReplacement, value);
         }
+        [Browsable(false)]
+        public IObjectSpace ObjectSpace{ get; set; }
+
+        bool _stopAutoImportOnFailure;
+        [InvisibleInAllViews]
+        public bool StopAutoImportOnFailure{
+            get => _stopAutoImportOnFailure;
+            set => SetPropertyValue(nameof(StopAutoImportOnFailure), ref _stopAutoImportOnFailure, value);
+        }
+
+        SearchOption _autoImportSearchType;
+
+        public SearchOption AutoImportSearchType{
+            get => _autoImportSearchType;
+            set => SetPropertyValue(nameof(AutoImportSearchType), ref _autoImportSearchType, value);
+        }
+
+        AutoImportNotification _autoImportNotification;
+
+        public AutoImportNotification AutoImportNotification{
+            get => _autoImportNotification;
+            set => SetPropertyValue(nameof(AutoImportNotification), ref _autoImportNotification, value);
+        }
+    }
+
+    public enum AutoImportNotification{
+        Always,
+        Failures,
+        Never
     }
 
     public enum ImportStrategy{

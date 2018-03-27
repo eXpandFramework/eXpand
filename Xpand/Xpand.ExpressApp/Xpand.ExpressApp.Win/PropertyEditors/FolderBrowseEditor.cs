@@ -40,8 +40,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
 
         private void FolderPathEditValueChanged(object sender, EventArgs e) {
-			if (!string.IsNullOrEmpty(_folderPath.Text))
-				PropertyValue = _folderPath.Text;
+			PropertyValue = _folderPath.Text;
             if (!IsValueReading)
                 OnControlValueChanged();
         }

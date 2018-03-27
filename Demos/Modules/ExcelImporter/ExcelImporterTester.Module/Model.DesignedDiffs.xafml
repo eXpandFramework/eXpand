@@ -1,2 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="ExcelImporterTester" />
+<Application Title="ExcelImporterTester">
+  <Views>
+    <ListView Id="Customer_ListView" IsFooterVisible="True">
+      <Columns>
+        <ColumnInfo Id="ImportName1">
+          <Summary>
+            <ColumnSummaryItem Id="@c849daff-89d2-4e73-b1ee-31662eac1ead" SummaryType="Count" IsNewNode="True" />
+          </Summary>
+        </ColumnInfo>
+      </Columns>
+    </ListView>
+  </Views>
+</Application>

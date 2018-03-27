@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
+using Xpand.ExpressApp.ExcelImporter.Controllers;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
@@ -31,7 +32,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
             base.OnViewControlsCreated();
             if (!ExcelImport.IsNewObject){
                 var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
-                    editor.MemberInfo.Name == nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
+                    editor.MemberInfo.Name == nameof(ExcelImport.ExcelColumnMaps));
                 ((GridListEditor) listPropertyEditor.ListView.Editor).ControlsCreated+=OnControlsCreated;
             }
         }
@@ -53,7 +54,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
 
         private void PopulatePropertyNames(){
             var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
-                editor.MemberInfo.Name == nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
+                editor.MemberInfo.Name == nameof(ExcelImport.ExcelColumnMaps));
             var gridView = ((GridListEditor) listPropertyEditor.ListView.Editor).GridView;
             var repositoryItem = (RepositoryItemComboBox) gridView.Columns[nameof(ExcelColumnMap.PropertyName)].ColumnEdit;
             repositoryItem.Items.Clear();
@@ -86,7 +87,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
 
         private void ParseFile(FileStream fileStream, ExcelImport excelImport){
             using (var excelDataReader = ExcelReaderFactory.CreateReader(fileStream)){
-                using (var dataSet = GetDataSet(excelDataReader, excelImport)){
+                using (var dataSet = excelDataReader.GetDataSet( excelImport)){
                     excelImport.SheetNames = dataSet.Tables.Cast<DataTable>().Select(table => table.TableName).ToList();
                 }
             }

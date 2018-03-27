@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.FileAttachments.Web;
 using DevExpress.ExpressApp.Model;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
+using Xpand.ExpressApp.ExcelImporter.Controllers;
 
 namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
     public class ExcelImportDetailViewController:ExcelImporter.Controllers.ExcelImportDetailViewController{
@@ -30,7 +31,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
 
         private  void ParseStream(Stream stream){
             using (var excelDataReader = ExcelReaderFactory.CreateReader(stream)){
-                using (var dataSet = GetDataSet(excelDataReader, ExcelImport)){
+                using (var dataSet = excelDataReader.GetDataSet( ExcelImport)){
                     ExcelImport.SheetNames = dataSet.Tables.Cast<DataTable>().Select(table => table.TableName).ToList();
                 }
             }

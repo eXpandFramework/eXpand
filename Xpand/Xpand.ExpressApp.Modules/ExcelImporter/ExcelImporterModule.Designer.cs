@@ -36,6 +36,7 @@ namespace Xpand.ExpressApp.ExcelImporter {
 			this.RequiredModuleTypes.Add(typeof(ValidationModule));
 			this.RequiredModuleTypes.Add(typeof(XpandValidationModule));
 			this.RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Notifications.NotificationsModule));
 		}
 
 		#endregion

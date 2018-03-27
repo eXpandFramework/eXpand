@@ -1,31 +1,8 @@
-﻿using DevExpress.ExpressApp.DC;
-using System.ComponentModel;
-using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.Xpo;
-using DevExpress.Utils;
-using Xpand.Persistent.Base.General;
 
-namespace Xpand.ExpressApp.ExcelImporter {
-    [ToolboxItem(true)]
-    [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed partial class ExcelImporterModule : XpandModuleBase {
-        public ExcelImporterModule() {
-            InitializeComponent();
-        }
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
-            base.CustomizeTypesInfo(typesInfo);
-            CalculatedPersistentAliasHelper.CustomizeTypesInfo(typesInfo);
-        }
-
-
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters){
-            base.AddGeneratorUpdaters(updaters);
-            updaters.Add(new ExcelImporterLocalizationUpdater());
-        }
-    }
-
+namespace Xpand.ExpressApp.ExcelImporter.Services{
     public class ExcelImporterLocalizationUpdater:ModelNodesGeneratorUpdater<ModelLocalizationGroupGenerator>{
         public const string ExcelImport = "eXpand.ExcelImport";
         public const string ImportFailed = "ImportFailed";
