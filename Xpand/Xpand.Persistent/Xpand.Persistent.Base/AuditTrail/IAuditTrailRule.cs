@@ -11,7 +11,6 @@ namespace Xpand.Persistent.Base.AuditTrail {
     }
 
     public enum ObjectAuditingMode{
-        [Browsable(false)]
         None = -1,
         Full,
         Lightweight,

@@ -21,6 +21,7 @@ namespace Xpand.ExpressApp.AuditTrail {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandAuditTrailModule :XpandModuleBase,ISecurityModuleUser {
         public XpandAuditTrailModule() {
+            AuditTrailService.Instance.CustomCreateObjectAuditProcessorsFactory += OnCustomCreateObjectAuditProcessorsFactory;
             RequiredModuleTypes.Add(typeof (AuditTrailModule));
             LogicInstallerManager.RegisterInstaller(new AuditTrailLogicInstaller(this));
         }
@@ -39,7 +40,7 @@ namespace Xpand.ExpressApp.AuditTrail {
         private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
             AuditTrailService.Instance.SaveAuditTrailData += OnSaveAuditTrailData;
             AuditTrailService.Instance.AuditDataStore = new XpandAuditDataStore();
-            AuditTrailService.Instance.CustomCreateObjectAuditProcessorsFactory += OnCustomCreateObjectAuditProcessorsFactory;
+            
             var auditTrailModule = Application.FindModule<AuditTrailModule>();
             auditTrailModule.AuditDataItemPersistentType = typeof(XpandAuditDataItemPersistent);
         }

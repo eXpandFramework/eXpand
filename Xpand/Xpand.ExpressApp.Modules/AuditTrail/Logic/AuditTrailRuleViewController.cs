@@ -80,19 +80,17 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
             Frame.GetController<LogicRuleViewController>(controller => controller.LogicRuleExecutor.LogicRuleExecute -= LogicRuleExecutorOnLogicRuleExecute);
         }
 
-        void LogicRuleExecutorOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs logicRuleExecuteEventArgs) {
-            var logicRuleInfo = logicRuleExecuteEventArgs.LogicRuleInfo;
-            var auditTrailRule = logicRuleInfo.Rule as IAuditTrailRule;
-            if (auditTrailRule != null) {
+        void LogicRuleExecutorOnLogicRuleExecute(object sender, LogicRuleExecuteEventArgs e) {
+            var logicRuleInfo = e.LogicRuleInfo;
+            if (logicRuleInfo.Rule is IAuditTrailRule auditTrailRule&&logicRuleInfo.Active) {
                 ApplyCustomization(auditTrailRule);
-                var auditingOptionsEventArgs = logicRuleInfo.EventArgs as CustomizeSessionAuditingOptionsEventArgs;
-                if (auditingOptionsEventArgs != null){
+                if (logicRuleInfo.EventArgs is CustomizeSessionAuditingOptionsEventArgs auditingOptionsEventArgs){
                     if (auditTrailRule.AuditingMode.HasValue)
                         auditingOptionsEventArgs.ObjectAuditingMode = (DevExpress.Persistent.AuditTrail.ObjectAuditingMode) auditTrailRule.AuditingMode.Value;
                     auditingOptionsEventArgs.AuditTrailStrategy = auditTrailRule.AuditTrailStrategy;
                 }
-                var handledEventArgs = logicRuleInfo.EventArgs as HandledEventArgs;
-                if (handledEventArgs != null) handledEventArgs.Handled = true;
+
+                if (logicRuleInfo.EventArgs is HandledEventArgs args) args.Handled = true;
             }
         }
 
