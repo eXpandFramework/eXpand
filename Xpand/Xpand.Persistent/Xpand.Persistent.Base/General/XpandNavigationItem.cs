@@ -8,36 +8,38 @@ using DevExpress.ExpressApp.SystemModule;
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = true)]
     public class XpandNavigationItemAttribute : Attribute, ISupportViewId {
-        readonly int _index = -1;
-        readonly string _path;
-        readonly string _viewId;
-
-        public XpandNavigationItemAttribute(string path, string viewId=null, int index = -1) {
-            _path = path;
-            _viewId = viewId;
-            _index = index;
-        }
+        public XpandNavigationItemAttribute(string path, string viewId=null, int index = -1) 
+            : this(path, viewId, null, index) {}
 
         public XpandNavigationItemAttribute(string path, string viewId, string objectKey, int index = -1) {
-            _path = path;
-            _viewId = viewId;
-            _index = index;
+            Path = path;
+            Index = -1;
+            ViewId = viewId;
+            Index = index;
             ObjectKey = objectKey;
+			
+            var paths = Path.Split('/');
+            Id = paths[0];
         }
+        
+        public XpandNavigationItemAttribute(string path, string viewId, string objectKey,  string id, int index = -1) {
+            Path = path;
+            Index = -1;
+            ViewId = viewId;
+            Index = index;
+            ObjectKey = objectKey;
+            Id =  id;
+        }
+		
+        public string Id { get; set; }
+		
+        public int Index{ get; }
 
-        public int Index {
-            get { return _index; }
-        }
-
-        public string Path {
-            get { return _path; }
-        }
+        public string Path{ get; }
 
         public string ObjectKey { get; set; }
 
-        public string ViewId {
-            get { return _viewId; }
-        }
+        public string ViewId{ get; }
     }
 
     public class XpandNavigationItemNodeUpdater : ModelNodesGeneratorUpdater<NavigationItemNodeGenerator> {
@@ -55,7 +57,7 @@ namespace Xpand.Persistent.Base.General {
         string[] ViewIds(XpandNavigationItemAttribute itemAttribute, IModelClass modelClass) {
             var ns = modelClass.TypeInfo.Type.Namespace;
             var viewId = itemAttribute.ViewId??modelClass.DefaultListView.Id;
-            return new[] { string.Format("{0}.{1}", ns, viewId), viewId };
+            return new[] {$"{ns}.{viewId}", viewId };
         }
 
         void AddNodes(IModelNavigationItems navigationItems, List<string> strings, string[] viewIds, string objectKey, int index) {
