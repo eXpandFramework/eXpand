@@ -7,12 +7,12 @@ namespace Xpand.Persistent.Base.General.Controllers {
         private string _criteria;
 
         protected override void OnActivated(){
-            base.OnActivated();
             var collectionSource = View.CollectionSource as PropertyCollectionSource;
             var criteriaAttribute = collectionSource?.MemberInfo.FindAttribute<DataSourceCriteriaAttribute>();
             if (criteriaAttribute != null){
                 _criteria = criteriaAttribute.DataSourceCriteria;
             }
+            base.OnActivated();
         }
 
         protected override void UpdateMasterObject(object masterObject){
@@ -30,11 +30,9 @@ namespace Xpand.Persistent.Base.General.Controllers {
         }
         protected override void OnActivated() {
             base.OnActivated();
-            var collectionSource = View.CollectionSource as PropertyCollectionSource;
-            if (collectionSource != null) {
+            if (View.CollectionSource is PropertyCollectionSource collectionSource) {
                 collectionSource.MasterObjectChanged += OnMasterObjectChanged;
-                var masterObject = collectionSource.MasterObject as TMasterObject;
-                if (masterObject != null)
+                if (collectionSource.MasterObject is TMasterObject masterObject)
                     UpdateMasterObject(masterObject);
             }
         }
@@ -42,15 +40,13 @@ namespace Xpand.Persistent.Base.General.Controllers {
         protected abstract void UpdateMasterObject(TMasterObject masterObject);
 
         void OnMasterObjectChanged(object sender, EventArgs e){
-	        var masterObject =  ((PropertyCollectionSource)sender).MasterObject as TMasterObject;
-	        if (masterObject != null){
+            if (((PropertyCollectionSource)sender).MasterObject is TMasterObject masterObject){
 	            UpdateMasterObject(masterObject);
 	        }
         }
 
         protected override void OnDeactivated() {
-            var collectionSource = View.CollectionSource as PropertyCollectionSource;
-            if (collectionSource != null) {
+            if (View.CollectionSource is PropertyCollectionSource collectionSource) {
                 collectionSource.MasterObjectChanged -= OnMasterObjectChanged;
             }
             base.OnDeactivated();
