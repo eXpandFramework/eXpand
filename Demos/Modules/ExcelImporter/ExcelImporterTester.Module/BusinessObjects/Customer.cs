@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ExcelImporter.Services;
 
@@ -20,6 +21,7 @@ namespace ExcelImporterTester.Module.BusinessObjects{
             set => SetPropertyValue("Gender", ref _gender, value);
         }
         [DevExpress.Xpo.DisplayName("ImportName")]
+        [RuleUniqueValue]
         public string ImportName1{
             get => _importName;
             set => SetPropertyValue("ImportName", ref _importName, value);

@@ -1,15 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Validation;
-using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base.General;
@@ -102,33 +98,16 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         private void ExcelMappingActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
             ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
-            
-            using (var memoryStream = new MemoryStream(ExcelImport.File.Content)){
-                using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)){
-                    using (var dataSet = excelDataReader.GetDataSet(ExcelImport )){
-                        foreach (var dataColumn in dataSet.Tables.Cast<DataTable>().First(table => table.TableName==ExcelImport.SheetName).Columns.Cast<DataColumn>()){
-                            var excelColumnMap = ObjectSpace.CreateObject<ExcelColumnMap>();
-                            ExcelImport.ExcelColumnMaps.Add(excelColumnMap);
-                            excelColumnMap.ExcelColumnName = dataColumn.ColumnName;
-                            excelColumnMap.PropertyName= ExcelImport.TypePropertyNames.FirstOrDefault(s => s.ToLower()==GetColumnName(excelColumnMap).ToLower());
-                            var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor => editor.MemberInfo.Name==nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
-                            listPropertyEditor.ListView.CollectionSource.Add(excelColumnMap);
-                        }
-                    }
 
-                    
-                    View.FindItem(nameof(BusinessObjects.ExcelImport.ExcelColumnMaps)).Refresh();
-                    
-                }
+            var excelImport = ExcelImport;
+            excelImport.Map();
+            var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
+                editor.MemberInfo.Name == nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
+            foreach (var columnMap in excelImport.ExcelColumnMaps){
+                listPropertyEditor.ListView.CollectionSource.Add(columnMap);    
             }
+            View.FindItem(nameof(BusinessObjects.ExcelImport.ExcelColumnMaps)).Refresh();
         }
 
-        private static string GetColumnName(ExcelColumnMap excelColumnMap){
-            return !string.IsNullOrWhiteSpace(excelColumnMap.ExcelImport.ColumnMappingRegexPattern)
-                ? Regex.Replace(excelColumnMap.ExcelColumnName,
-                    excelColumnMap.ExcelImport.ColumnMappingRegexPattern,
-                    excelColumnMap.ExcelImport.ColumnMappingReplacement)
-                : excelColumnMap.ExcelColumnName;
-        }
     }
 }

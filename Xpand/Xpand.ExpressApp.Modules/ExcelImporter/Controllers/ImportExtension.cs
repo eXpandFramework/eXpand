@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
+using DevExpress.Persistent.Validation;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.Persistent.Base.General;
@@ -40,7 +42,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                         ExcelColumnName = columnMember.column
                     };
                     results.Add(importResult);   
-                }                
+                }
             }
 
             foreach (var failedResult in results){
@@ -94,6 +96,33 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             return excelDataReader.AsDataSet(excelDataSetConfiguration);
         }
 
+        private static string GetColumnName(ExcelColumnMap excelColumnMap){
+            return !string.IsNullOrWhiteSpace(excelColumnMap.ExcelImport.ColumnMappingRegexPattern)
+                ? Regex.Replace(excelColumnMap.ExcelColumnName,
+                    excelColumnMap.ExcelImport.ColumnMappingRegexPattern,
+                    excelColumnMap.ExcelImport.ColumnMappingReplacement+"")
+                : excelColumnMap.ExcelColumnName;
+        }
+
+        public static void Map(this ExcelImport excelImport){
+            using (var memoryStream = new MemoryStream(excelImport.File.Content)){
+                using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)){
+                    using (var dataSet = excelDataReader.GetDataSet(excelImport)){
+                        foreach (var dataColumn in dataSet.Tables.Cast<DataTable>()
+                            .First(table => table.TableName == excelImport.SheetName).Columns.Cast<DataColumn>()){
+                            var excelColumnMap = excelImport.ObjectSpace.CreateObject<ExcelColumnMap>();
+                            excelImport.ExcelColumnMaps.Add(excelColumnMap);
+                            excelColumnMap.ExcelColumnName = dataColumn.ColumnName;
+                            excelColumnMap.PropertyName =
+                                excelImport.TypePropertyNames.FirstOrDefault(s =>
+                                    s.ToLower() == GetColumnName(excelColumnMap).ToLower());
+                            
+                        }
+                    }
+                }
+            }
+        }
+
         public static int Import(this ExcelImport excelImport,byte[] bytes=null){
             bytes = bytes ?? excelImport.File.Content;
             excelImport.FailedResultList.FailedResults.Clear();
@@ -116,6 +145,9 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                         }
                     }
 
+                    if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts))
+                        Validator.RuleSet.ValidateAll(excelImport.ObjectSpace, excelImport.ObjectSpace.ModifiedObjects,
+                            excelImport.ValidationContexts);
                     return index;
                 }
             }
