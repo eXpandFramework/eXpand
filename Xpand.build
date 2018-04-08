@@ -354,7 +354,7 @@
   </Target>
   <Target Name="BuildVSIX" Condition="'$(BuildVSIXCondition)'=='true'">
     <MSBuild Projects="@(VSAddons)" Targets="Build" Properties="DeployExtension=$(DeployExtension);Configuration=$(Configuration);OutputPath=$(XpandDLLPath)\Plugins;DefineConstants=$(DefineConstants);RestorePackages=false" ContinueOnError="$(BatchCall)"/>
-    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\BuildVSIX.ps1&apos; &apos;$(MSBuildProjectDirectory)&apos; &apos;$(MSBuildBinPath)\msbuild.exe&apos; &apos;$(Version)&apos; } &quot;" ConsoleToMSBuild="true"  />
+    <!-- <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\BuildVSIX.ps1&apos; &apos;$(MSBuildProjectDirectory)&apos; &apos;$(MSBuildBinPath)\msbuild.exe&apos; &apos;$(Version)&apos; } &quot;" ConsoleToMSBuild="true"  /> -->
   </Target>
   <Target Name="DeployUpdate">
     <MakeDir Directories="$(DeploymentFolder);" />
