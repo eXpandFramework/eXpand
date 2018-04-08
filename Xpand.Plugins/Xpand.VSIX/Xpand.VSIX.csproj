@@ -82,7 +82,7 @@
       <Link>Properties\XpandAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Commands\NavigateSubwordCommand.cs" />
-    <Compile Include="Commands\DouplicateLineCommand.cs" />
+    <Compile Include="Commands\DuplicateLineCommand.cs" />
     <Compile Include="Commands\BuildSelectionCommand.cs" />
     <Compile Include="Commands\DropDataBaseCommand.cs" />
     <Compile Include="Commands\FindInSolutionCommand.cs" />

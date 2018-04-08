@@ -15,7 +15,7 @@ namespace Xpand.VSIX.Commands {
         }
 
         public static void Init(){
-            new XAFErrorExplorerCommand();
+            var unused = new XAFErrorExplorerCommand();
         }
 
         public static void Explore(){
@@ -26,12 +26,14 @@ namespace Xpand.VSIX.Commands {
             string path = Path.Combine(fullPath, outPut.Value.ToString()) + "";
             if (isWeb)
                 path = Path.GetDirectoryName(startUpProject.FullName);
-            Func<Stream> streamSource = () => {
+
+            Stream StreamSource(){
                 var path1 = path + "";
                 File.Copy(Path.Combine(path1, "expressAppFrameWork.log"), Path.Combine(path1, "expressAppFrameWork.locked"), true);
                 return File.Open(Path.Combine(path1, "expressAppFrameWork.locked"), FileMode.Open, FileAccess.Read, FileShare.Read);
-            };
-            var reader = new ReverseLineReader(streamSource);
+            }
+
+            var reader = new ReverseLineReader(StreamSource);
             var stackTrace = new List<string>();
             foreach (var readline in reader) {
                 stackTrace.Add(readline);

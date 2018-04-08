@@ -19,23 +19,25 @@ namespace Xpand.VSIX.Commands{
     }
 
     public class EasyTestCommand:VSCommand {
-        private EasyTestCommand(EventHandler invokeHandler, CommandID commandID) : base(invokeHandler, commandID){
+        private EasyTestCommand(EventHandler invokeHandler, CommandID commandID,string name) : base(invokeHandler, commandID){
             this.EnableForDXSolution().EnableForActiveFile(".ets", ".inc");
+            var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == name);
+            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
+                BindCommand(dteCommand.Shortcut);
         }
 
         public static void Init(){
-            var runEasyTest = new EasyTestCommand((sender, args) => RunTest(false),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidRunEasyTest));
-            runEasyTest.BindCommand("Text Editor::Alt+T");
-            var debugEasyTest = new EasyTestCommand((sender, args) => RunTest(true),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidDebugEasyTest));
-            debugEasyTest.BindCommand("Text Editor::Alt+D");
+            var unused = new EasyTestCommand((sender, args) => RunTest(false),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidRunEasyTest),$"Run{nameof(EasyTestCommand)}");
+            // ReSharper disable once ObjectCreationAsStatement
+            new EasyTestCommand((sender, args) => RunTest(true),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidDebugEasyTest),$"Debug{nameof(EasyTestCommand)}");
         }
 
-        private static readonly DTE2 _dte=DteExtensions.DTE;
+        private static readonly DTE2 DTE=DteExtensions.DTE;
 
         public static event EventHandler<LastBuildStatusArgs> QueryLastBuildStatus;
 
         public static void RunTest(bool debug) {
-            _dte.InitOutputCalls("RunTest");
+            DTE.InitOutputCalls("RunTest");
             Task.Factory.StartNew(() => RunTestCore(debug),CancellationToken.None,TaskCreationOptions.None,TaskScheduler.Current);
         }
 
@@ -43,9 +45,9 @@ namespace Xpand.VSIX.Commands{
             var lastBuildStatusArgs = new LastBuildStatusArgs();
             OnQueryLastBuildStatus(lastBuildStatusArgs);
             try {
-                _dte.WriteToOutput("Building EasyTest/Debug Configuration");
-                if (_dte.Solution.BuildSolution()) {
-                    var activeFileName = _dte.ActiveDocument.FullName;
+                DTE.WriteToOutput("Building EasyTest/Debug Configuration");
+                if (DTE.Solution.BuildSolution()) {
+                    var activeFileName = DTE.ActiveDocument.FullName;
                     var testLogPath = Path.Combine(Path.GetDirectoryName(activeFileName) + "", "Testslog.xml");
                     if (File.Exists(testLogPath))
                         File.Delete(testLogPath);
@@ -71,29 +73,29 @@ namespace Xpand.VSIX.Commands{
                             document.Descendants().FirstOrDefault(element => element.Name.LocalName == "Error");
                         if (errorElement != null) {
                             var messageElement = errorElement.Descendants("Message").First();
-                            _dte.WriteToOutput(messageElement.Value);
+                            DTE.WriteToOutput(messageElement.Value);
                         }
                         else
-                            _dte.WriteToOutput("EasyTest Passed!");
+                            DTE.WriteToOutput("EasyTest Passed!");
                     }
                 }
                 else {
-                    _dte.WriteToOutput("EasyTest build failed");
+                    DTE.WriteToOutput("EasyTest build failed");
                 }
             }
             catch (Exception e) {
-                _dte.WriteToOutput(e.ToString());
+                DTE.WriteToOutput(e.ToString());
             }
         }
 
         private static string WriteToOutput(bool debug,  string activeFileName){
             string debugSwitch = null;
             if (debug){
-                debugSwitch = " -d:" + ((TextSelection) _dte.ActiveDocument.Selection).CurrentLine;
-                _dte.WriteToOutput("Debug will start at line " + ((TextSelection) _dte.ActiveDocument.Selection).CurrentLine);
+                debugSwitch = " -d:" + ((TextSelection) DTE.ActiveDocument.Selection).CurrentLine;
+                DTE.WriteToOutput("Debug will start at line " + ((TextSelection) DTE.ActiveDocument.Selection).CurrentLine);
             }
             else{
-                _dte.WriteToOutput("EasyTesting " + activeFileName);
+                DTE.WriteToOutput("EasyTesting " + activeFileName);
             }
             return debugSwitch;
         }
@@ -102,8 +104,8 @@ namespace Xpand.VSIX.Commands{
             
             var testExecutorPath = OptionClass.Instance.TestExecutorPath;
             if (string.IsNullOrWhiteSpace(testExecutorPath)) {
-                var version = _dte.Solution.GetDXVersion();
-                var dxRootDirectory = _dte.Solution.GetDXRootDirectory();
+                var version = DTE.Solution.GetDXVersion();
+                var dxRootDirectory = DTE.Solution.GetDXRootDirectory();
                 return Path.Combine(dxRootDirectory + @"\Tools\eXpressAppFramework\EasyTest", "TestExecutor." + version + ".exe");
             }
             return testExecutorPath;

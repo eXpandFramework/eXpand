@@ -9,11 +9,13 @@ namespace Xpand.VSIX.Commands{
     public class BuildSelectionCommand : VSCommand{
         private BuildSelectionCommand() : base((sender, args) =>Build() , new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidBuildSelection)){
             this.EnableForSolution();
-//            BindCommand("Global::Ctrl+Alt+Enter");
+            var dteCommand = Options.OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
+            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
+                BindCommand(dteCommand.Shortcut);
         }
 
         public static void Init(){
-            new BuildSelectionCommand();
+            var unused = new BuildSelectionCommand();
         }
 
         private static void Build(){

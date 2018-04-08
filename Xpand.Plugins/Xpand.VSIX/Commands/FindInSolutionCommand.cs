@@ -1,15 +1,19 @@
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using EnvDTE;
 using Microsoft.VisualStudio;
 using Xpand.VSIX.Extensions;
+using Xpand.VSIX.Options;
 using Xpand.VSIX.VSPackage;
 
 namespace Xpand.VSIX.Commands{
     public class FindInSolutionCommand:VSCommand{
         private FindInSolutionCommand() : base((sender, args) =>Find(),new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidFindInSolution) ){
-            BindCommand("Text Editor::Alt+Shift+L");
-//            this.EnableForSolution();
+            var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
+            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
+                BindCommand(dteCommand.Shortcut);
+            this.EnableForSolution();
         }
 
         public static bool Find(){
@@ -18,7 +22,7 @@ namespace Xpand.VSIX.Commands{
                 try {
                     var track =
                         dte2.Properties["Environment", "ProjectsAndSolution"].Item("TrackFileSelectionInExplorer");
-                    if (track.Value is bool && !((bool)track.Value)) {
+                    if (track.Value is bool b && !b) {
                         track.Value = true;
                         track.Value = false;
                     }

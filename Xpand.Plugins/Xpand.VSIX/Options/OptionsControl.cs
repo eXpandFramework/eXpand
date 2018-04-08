@@ -30,6 +30,7 @@ namespace Xpand.VSIX.Options {
             gridControlAssemblyFolders.DataSource = OptionClass.Instance.ReferencedAssembliesFolders;
             gridControlExceptions.DataSource = OptionClass.Instance.Exceptions;
             gridControlExternal.DataSource = OptionClass.Instance.ExternalTools;
+            gridControlCmdBindings.DataSource = OptionClass.Instance.DteCommands;
             var collection = Enum.GetNames(typeof(DTEEvent)).Cast<object>().ToArray();
             repositoryItemComboBox1.Items.AddRange(collection);
             Save();
@@ -45,6 +46,7 @@ namespace Xpand.VSIX.Options {
             instance.KillModelEditor = checkEditKillModelEditor.Checked;
             instance.DisableExceptions = checkEditDisableExceptions.Checked;
 
+            OptionClass.Instance.DteCommands = (BindingList<DteCommand>) gridControlCmdBindings.DataSource;
             OptionClass.Instance.ConnectionStrings = (BindingList<ConnectionString>) gridControlConnectionStrings.DataSource;
             OptionClass.Instance.SourceCodeInfos = (BindingList<SourceCodeInfo>) gridControlLoadProjectFromReferenceItem.DataSource;
             OptionClass.Instance.MEs = (BindingList<ME>) gridControlME.DataSource;

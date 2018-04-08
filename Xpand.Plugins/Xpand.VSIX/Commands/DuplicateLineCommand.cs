@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.VSPackage;
@@ -8,34 +9,29 @@ namespace Xpand.VSIX.Commands{
     public class DuplicateLineCommand:VSCommand {
         private DuplicateLineCommand(IVsTextManager vsTextManager) : base((sender, args) => DuplicateLine(vsTextManager),
             new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDouplicateLine)){
-            BindCommand("Text Editor::Ctrl+D");
-//            this.EnableForActiveFile();
+            var dteCommand = Options.OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
+            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
+                BindCommand(dteCommand.Shortcut);
+            this.EnableForActiveFile();
         }
 
         public static void Init(){
             var vsTextManager = VSPackage.VSPackage.Instance.GetService(typeof(SVsTextManager));
-            new DuplicateLineCommand((IVsTextManager) vsTextManager);
+            var unused = new DuplicateLineCommand((IVsTextManager) vsTextManager);
         }
 
         static void DuplicateLine(IVsTextManager vsTextManager) {
             if (vsTextManager==null)
                 return;
-            IVsTextView ppView;
-            vsTextManager.GetActiveView(1, null, out ppView);
+            vsTextManager.GetActiveView(1, null, out var ppView);
             if (ppView != null) {
                 int line;
                 int bottomCol;
                 string newText;
-                int anchorLine;
-                int anchorCol;
-                int endLine;
-                int endCol;
-                ppView.GetSelection(out anchorLine, out anchorCol, out endLine, out endCol);
+                ppView.GetSelection(out var anchorLine, out var anchorCol, out var endLine, out var endCol);
                 if ((anchorLine == endLine) && (anchorCol == endCol)) {
-                    IVsTextLines lines;
-                    int num7;
-                    ppView.GetBuffer(out lines);
-                    lines.GetLineCount(out num7);
+                    ppView.GetBuffer(out var lines);
+                    lines.GetLineCount(out var num7);
                     if (anchorLine < (num7 - 1)) {
                         line = anchorLine + 1;
                         bottomCol = 0;

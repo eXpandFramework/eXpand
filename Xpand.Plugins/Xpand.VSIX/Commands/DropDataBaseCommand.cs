@@ -15,25 +15,27 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands {
     public class DropDataBaseCommand:VSCommand {
-        private static readonly DTE2 _dte=DteExtensions.DTE;
+        private static readonly DTE2 DTE=DteExtensions.DTE;
 
         private DropDataBaseCommand():base((sender, args) => Drop(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDropDatabase)){
             this.EnableForSolution();
-            BindCommand("Global::Ctrl+Shift+Alt+D");
+            var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
+            if (dteCommand!=null)
+                BindCommand(dteCommand.Shortcut);
         }
 
         public static void Init(){
-            new DropDataBaseCommand();
+            var unused = new DropDataBaseCommand();
         }
             
         static void Drop() {
-            _dte.InitOutputCalls("Dropdatabase");
+            DTE.InitOutputCalls("Dropdatabase");
             Task.Factory.StartNew(() => {
-                var startUpProject = _dte.Solution.FindStartUpProject();
+                var startUpProject = DTE.Solution.FindStartUpProject();
                 var configItem = startUpProject.ProjectItems.Cast<ProjectItem>()
                     .FirstOrDefault(item => new[] { "app.config", "web.config" }.Contains(item.Name.ToLower()));
                 if (configItem == null) {
-                    _dte.WriteToOutput("Startup project " + startUpProject.Name + " does not contain a config file");
+                    DTE.WriteToOutput("Startup project " + startUpProject.Name + " does not contain a config file");
                     return;
                 }
                 foreach (ConnectionString optionsConnectionString in OptionClass.Instance.ConnectionStrings) {
@@ -46,12 +48,12 @@ namespace Xpand.VSIX.Commands {
                                 }
                             }
                             catch (Exception e) {
-                                _dte.WriteToOutput(connectionStringSettings.ConnectionString + Environment.NewLine + e);
+                                DTE.WriteToOutput(connectionStringSettings.ConnectionString + Environment.NewLine + e);
                             }
                         }
                     }
                 }
-                _dte.WriteToOutput("Dropdatabase finished");
+                DTE.WriteToOutput("Dropdatabase finished");
             },CancellationToken.None,TaskCreationOptions.None,TaskScheduler.Default);
         }
 
@@ -64,7 +66,7 @@ namespace Xpand.VSIX.Commands {
         }
 
         private static void DropSqlServerDatabase(ConnectionStringSettings connectionStringSettings) {
-            _dte.WriteToOutput("Attempting connection with " + connectionStringSettings.ConnectionString);
+            DTE.WriteToOutput("Attempting connection with " + connectionStringSettings.ConnectionString);
             var parser = new ConnectionStringParser(connectionStringSettings.ConnectionString.ToLower());
             parser.RemovePartByName("xpoprovider");
             var database = parser.GetPartByName("initial catalog");
@@ -76,7 +78,7 @@ namespace Xpand.VSIX.Commands {
                     sqlCommand.ExecuteNonQuery();
                     sqlCommand.CommandText = $"DROP DATABASE [{database}]";
                     sqlCommand.ExecuteNonQuery();
-                    _dte.WriteToOutput(database + " dropped successfully");
+                    DTE.WriteToOutput(database + " dropped successfully");
                 }
             }
         }
@@ -86,7 +88,7 @@ namespace Xpand.VSIX.Commands {
             var database = parser.GetPartByName("initial catalog");
             parser.RemovePartByName("initial catalog");
             parser.RemovePartByName("xpoprovider");
-            _dte.WriteToOutput("ConnectionStrings name:" + connectionStringSettings.Name + " data source: " + parser.GetPartByName("data source"));
+            DTE.WriteToOutput("ConnectionStrings name:" + connectionStringSettings.Name + " data source: " + parser.GetPartByName("data source"));
             using (var connection = new SqlConnection(parser.GetConnectionString())) {
                 connection.Open();
                 object result;
@@ -96,7 +98,7 @@ namespace Xpand.VSIX.Commands {
                 }
                 var exists = result != null && int.Parse(result + "") > 0;
                 string doesNot = exists ? null : " does not";
-                _dte.WriteToOutput("Database " + database + doesNot + " exists");
+                DTE.WriteToOutput("Database " + database + doesNot + " exists");
                 return exists;
             }
         }

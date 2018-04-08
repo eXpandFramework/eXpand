@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using EnvDTE;
 using Xpand.VSIX.Extensions;
+using Xpand.VSIX.Options;
 using Xpand.VSIX.VSPackage;
 
 namespace Xpand.VSIX.Commands {
@@ -49,7 +51,9 @@ namespace Xpand.VSIX.Commands {
         private NavigateNextSubwordCommand() : base(
              (sender, args) => Navigate( false),
             new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidNextSubword)){
-            BindCommand("Text Editor::ALT+Right Arrow");
+            var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
+            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
+                BindCommand(dteCommand.Shortcut);
         }
 
         public static void Init() {
@@ -61,7 +65,9 @@ namespace Xpand.VSIX.Commands {
         private NavigatePreviousSubwordCommand() : base(
              (sender, args) => Navigate( true),
             new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidPreviousSubword)){
-            BindCommand("Text Editor::ALT+Left Arrow");
+            var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
+            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
+                BindCommand(dteCommand.Shortcut);
         }
 
         public static void Init() {

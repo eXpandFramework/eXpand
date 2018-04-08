@@ -12,6 +12,7 @@ using System.Xml.Serialization;
 using EnvDTE80;
 using Microsoft.Win32;
 using Mono.Cecil;
+using Xpand.VSIX.Commands;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Wizard;
@@ -34,6 +35,7 @@ namespace Xpand.VSIX.Options{
                         KillModelEditor = true,
                         SpecificVersion = true
                     };
+                    
                     Instance.ConnectionStrings.Add(new ConnectionString() { Name = "ConnectionString" });
                     Instance.ConnectionStrings.Add(new ConnectionString() { Name = "WorldCreatorConnectionString" });
                     Instance.ConnectionStrings.Add(new ConnectionString() { Name = "EasyTestConnectionString" });
@@ -54,6 +56,21 @@ namespace Xpand.VSIX.Options{
                     Instance.SourceCodeInfos.Add(new SourceCodeInfo { ProjectRegex = "Xpand.*csproj", RootPath = ModuleManager.GetXpandDLLPath() + @"\..\" });                
                 }
                 ExtractME();
+                if (!Instance.DteCommandsBindings){
+                    Instance.DteCommandsBindings = true;
+                    Instance.DteCommands.Add(new DteCommand(){Command = nameof(BuildSelectionCommand),Shortcut = "Global::Ctrl+Alt+Enter"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = nameof(DuplicateLineCommand),Shortcut = "Text Editor::Ctrl+D"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = nameof(DropDataBaseCommand),Shortcut = "Global::Ctrl+Shift+Alt+D"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"Run{nameof(EasyTestCommand)}",Shortcut = "Text Editor::Alt+T"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"Debug{nameof(EasyTestCommand)}",Shortcut = "Text Editor::Alt+D"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(FindInSolutionCommand)}",Shortcut = "Text Editor::Alt+Shift+L"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(KillIISExpressCommand)}",Shortcut = "Global::Ctrl+Alt+Shift+I"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(LoadProjectFromReferenceCommand)}",Shortcut = "Solution Explorer::Ctrl+Alt+Shift+L"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(NavigateNextSubwordCommand)}",Shortcut = "Text Editor::ALT+Right Arrow"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(NavigatePreviousSubwordCommand)}",Shortcut = "Text Editor::ALT+Left Arrow"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(ShowModelsWindowCommand)}",Shortcut = "Global::Ctrl+Alt+Shift+M"});
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(ShowOptionsCommand)}",Shortcut = "Global::Alt+Shift+0"});
+                }
 
             }
             catch (Exception e){
@@ -61,6 +78,8 @@ namespace Xpand.VSIX.Options{
                 throw;
             }
         }
+
+        public bool DteCommandsBindings{ get; set; }
 
         private static void ExtractME(){
             var resourceStream = typeof(ModelToolWindow).Assembly.GetManifestResourceStream("Xpand.VSIX.ModelEditor.Xpand.ExpressApp.ModelEditor.exe");
@@ -155,11 +174,13 @@ namespace Xpand.VSIX.Options{
             new XmlSerializer(typeof(OptionClass)).Serialize(XmlWriter.Create(stringBuilder), Instance);
             File.WriteAllText(Path, stringBuilder.ToString());
         }
+
+
     }
 
     public class DteCommand:OptionClassBase{
-        public string Name{ get; set; }
-        public bool Bound{ get; set; }
+        public string Command{ get; set; }
+        public string Shortcut{ get; set; }
     }
     public class ConnectionString : OptionClassBase {
         public string Name { get; set; }

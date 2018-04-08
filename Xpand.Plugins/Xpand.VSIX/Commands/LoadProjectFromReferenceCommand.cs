@@ -14,15 +14,17 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands {
     public class LoadProjectFromReferenceCommand:VSCommand{
-        private LoadProjectFromReferenceCommand(int commandId) :base((sender, args) => LoadProjects(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, commandId)) {
+        private LoadProjectFromReferenceCommand(int commandId,string name) :base((sender, args) => LoadProjects(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, commandId)) {
             this.EnableForAssemblyReferenceSelection();
+            var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == name);
+            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
+                BindCommand(dteCommand.Shortcut);
         }
 
         public static void Init(){
-            var loadProjectFromReferenceCommand = new LoadProjectFromReferenceCommand(PackageIds.cmdidLoadProjectFromreference);
-            loadProjectFromReferenceCommand.BindCommand("Solution Explorer::Ctrl+Alt+Shift+L");
+            var unused = new LoadProjectFromReferenceCommand(PackageIds.cmdidLoadProjectFromreference,nameof(LoadProjectFromReferenceCommand));
             // ReSharper disable once ObjectCreationAsStatement
-            new LoadProjectFromReferenceCommand(PackageIds.cmdidLoadProjectFromreferenceTool);
+            new LoadProjectFromReferenceCommand(PackageIds.cmdidLoadProjectFromreferenceTool,null);
         }
 
         private static readonly DTE2 DTE = DteExtensions.DTE;
