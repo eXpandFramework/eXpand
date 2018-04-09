@@ -50,13 +50,13 @@
 #IfDef ExcelImporterTester.Win
 *CheckTable 
  RowCount = 48
- Columns = Import Name, Gender
+ Columns = ImportName, Gender
  Row[0] = 'Aayush  ', 'Male'
 #EndIf
 #IfDef ExcelImporterTester.Web
 *CheckTable 
  RowCount = 48
- Columns = Import Name, Gender
+ Columns = ImportName, Gender
  Row[0] = 'Aayush', 'Male'
 #EndIf
 *Action Navigation(Default.Excel Import)
