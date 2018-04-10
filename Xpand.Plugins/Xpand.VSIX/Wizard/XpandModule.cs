@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -17,8 +18,10 @@ namespace Xpand.VSIX.Wizard{
         [Browsable(false)]
         public TypeDefinition TypeDefinition { get; }
 
+        public Version DotNetVersion{ get; }
 
-        public XpandModule(TypeDefinition typeDefinition){
+
+        public XpandModule(TypeDefinition typeDefinition, Version dotNetVersion){
             var toolboxAttribute = typeDefinition.CustomAttributes.First(
                     attribute => attribute.AttributeType.Name == typeof(ToolboxTabNameAttribute).Name);
             var platform = toolboxAttribute.ConstructorArguments[0].Value.ToString();
@@ -26,11 +29,12 @@ namespace Xpand.VSIX.Wizard{
                 Platform = platform.Contains("Win") ? Platform.Win : Platform.Web;
             Module = Regex.Replace(typeDefinition.Name, "(Xpand)?((?<name>.*))(WindowsFormsModule)|(WinModule)|(WindowsModule)|(Xpand)|(AspNet)|(Web)|(Module)", "${name}", RegexOptions.IgnoreCase);
             TypeDefinition = typeDefinition;
+            DotNetVersion = dotNetVersion;
             IsSecurity = typeDefinition.Name.Contains("Security");
             if (IsSecurity)
                 Install = true;
             IsWorldCreator = typeDefinition.Name.Contains("WorldCreator");
-            AssemblyPath = TypeDefinition.Module.FullyQualifiedName;
+            AssemblyPath = TypeDefinition.Module.FileName;
             IsModelDifference = Path.GetFileNameWithoutExtension(AssemblyPath)== "Xpand.ExpressApp.ModelDifference";
         }
 

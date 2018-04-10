@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reactive.Concurrency;
+using System.Reactive.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -37,8 +41,7 @@ namespace Xpand.VSIX.Wizard{
                 var addition = Modules.Any(module => module.Install)&&!Modules.All(module => module.Install);
                 foreach (var selectedRow in gridView.GetSelectedRows()){
                     if (!gridView.IsGroupRow(selectedRow)){
-                        var xpandModule = gridView.GetRow(selectedRow) as XpandModule;
-                        if (xpandModule != null) {
+                        if (gridView.GetRow(selectedRow) is XpandModule xpandModule) {
                             xpandModule.Install =addition || !xpandModule.Install;
                         }
                     }
@@ -56,8 +59,40 @@ namespace Xpand.VSIX.Wizard{
             Visible = false;
             Application.DoEvents();
             DialogResult = DialogResult.OK;
-            ModulesInstaller.Install(Modules.Where(module => module.Install),ExistingSolution);
+            var modules = Modules.Where(module => module.Install).ToArray();
+            ModulesInstaller.Install(modules,ExistingSolution);
             this.DTE2().ExecuteCommand("File.SaveAll");
+            var dotNetVersion = modules.Max(module => module.DotNetVersion);
+            if (dotNetVersion > GetCurrentDotNetVersion()){
+                UpdateDotNetVersion(dotNetVersion);
+            }
+            
+        }
+
+        private void UpdateDotNetVersion(Version version){
+            foreach (var project in DteExtensions.DTE.Solution.Projects()){
+                var name = project.FileName;
+                var allText = File.ReadAllText(name);
+                allText=Regex.Replace(allText, "<TargetFrameworkVersion>v(.*)</TargetFrameworkVersion>",
+                    $"<TargetFrameworkVersion>v{version}</TargetFrameworkVersion>",
+                    RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+                File.WriteAllText(name,allText);    
+            }
+
+            var solutionFile = this.DTE2().Solution.FileName;
+            Observable.Return(solutionFile).Delay(TimeSpan.FromMilliseconds(1000)).ObserveOn(NewThreadScheduler.Default).Subscribe(
+                s => {
+                    this.DTE2().Solution.Open(s);
+                });
+            this.DTE2().Solution.Close();
+            
+        }
+
+        private Version GetCurrentDotNetVersion(){
+            var name = DteExtensions.DTE.Solution.Projects().First().FileName;
+            var allText = File.ReadAllText(name);
+            var regexObj = new Regex("<TargetFrameworkVersion>v(.*)</TargetFrameworkVersion>", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+            return new Version(regexObj.Match(allText).Groups[1].Value); 
         }
 
         public IList<XpandModule> Modules { get; set; }

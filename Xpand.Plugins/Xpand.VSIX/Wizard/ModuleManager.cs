@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
+using System.Text.RegularExpressions;
 using DevExpress.DXCore.Controls.Utils;
 using Microsoft.Win32;
 using Mono.Cecil;
@@ -16,10 +19,10 @@ namespace Xpand.VSIX.Wizard{
         static ModuleManager(){
             var xpandPath = GetXpandDLLPath();
             if (!Directory.Exists(xpandPath)) {
-                DteExtensions.DTE.WriteToOutput(@"Xpand not found that check HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory");
+                throw new DirectoryNotFoundException(@"Xpand not found that check HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory");
             }
             else{
-                var fileNames = Directory.GetFiles(xpandPath, "Xpand.ExpressApp.*.dll");
+                var fileNames = Directory.GetFiles(xpandPath, "Xpand.ExpressApp.*.dll").Where(s => s.Contains("Excel"));
                 foreach (var fileName in fileNames) {
                     Register(fileName);
                 }
@@ -47,8 +50,14 @@ namespace Xpand.VSIX.Wizard{
             var typeDefinition =assemblyDefinition.MainModule.Types.FirstOrDefault(
                 definition =>definition.CustomAttributes.Any(attribute => attribute.AttributeType.Name == typeof(ToolboxTabNameAttribute).Name));
             if (typeDefinition != null){
-                
-                var xpandModule = new XpandModule(typeDefinition);
+                var targetFramework = assemblyDefinition.CustomAttributes.First(attribute => attribute.AttributeType.Name==nameof(TargetFrameworkAttribute));
+                var property = targetFramework.Properties.First(argument => argument.Name==nameof(TargetFrameworkAttribute.FrameworkDisplayName));
+                var frameworkName = property.Argument.Value.ToString();
+                Regex regexObj = new Regex(@"\.NET\ Framework\ (.*)", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
+                var value = regexObj.Match(frameworkName).Groups[1].Value;
+                if (value.Length == 1)
+                    value += ".0";
+                var xpandModule = new XpandModule(typeDefinition,new Version(value));
                 Instance.Modules.Add(xpandModule);
             }
         }
