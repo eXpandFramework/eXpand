@@ -1,5 +1,5 @@
 ﻿namespace Xpand.ExpressApp.ExcelImporter.Web {
-	partial class WebModule {
+	partial class ExcelImporterWebModule {
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>

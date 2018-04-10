@@ -29,7 +29,7 @@
             this.RequiredModuleTypes.Add(typeof(ExcelImporterTester.Module.ExcelImporterTesterModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ScriptRecorder.Web.ScriptRecorderAspNetModule));
-            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ExcelImporter.Web.WebModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ExcelImporter.Web.ExcelImporterWebModule));
         }
 
         #endregion

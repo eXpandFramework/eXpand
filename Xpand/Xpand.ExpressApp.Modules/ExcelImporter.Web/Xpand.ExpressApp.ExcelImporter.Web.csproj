@@ -137,11 +137,11 @@
     <Compile Include="Controllers\ExcelImportDetailViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WebModule.cs">
+    <Compile Include="ExcelImporterWebModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WebModule.Designer.cs">
-      <DependentUpon>WebModule.cs</DependentUpon>
+    <Compile Include="ExcelImporterWebModule.Designer.cs">
+      <DependentUpon>ExcelImporterWebModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -149,9 +149,9 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WebModule.resx">
+    <EmbeddedResource Include="ExcelImporterWebModule.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>WebModule.cs</DependentUpon>
+      <DependentUpon>ExcelImporterWebModule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
