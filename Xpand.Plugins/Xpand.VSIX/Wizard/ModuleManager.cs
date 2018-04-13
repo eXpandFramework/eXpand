@@ -22,7 +22,7 @@ namespace Xpand.VSIX.Wizard{
                 throw new DirectoryNotFoundException(@"Xpand not found that check HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory");
             }
             else{
-                var fileNames = Directory.GetFiles(xpandPath, "Xpand.ExpressApp.*.dll").Where(s => s.Contains("Excel"));
+                var fileNames = Directory.GetFiles(xpandPath, "Xpand.ExpressApp.*.dll");
                 foreach (var fileName in fileNames) {
                     Register(fileName);
                 }
