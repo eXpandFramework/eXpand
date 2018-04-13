@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.AuditTrail;
 using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.AuditTrail {
@@ -29,7 +30,8 @@ namespace Xpand.ExpressApp.AuditTrail {
             auditTrailSettings.SetXPDictionary(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary);
             foreach (var auditTrailClassInfo in settings.TypesToAudit) {
                 var auditTrailMemberInfos = auditTrailClassInfo.Properties;
-                auditTrailSettings.AddType(auditTrailClassInfo.ClassInfo.ClassType, auditTrailMemberInfos.Select(info => info.Name).ToArray());
+                if (!(auditTrailClassInfo.ClassInfo is IntermediateClassInfo))
+                    auditTrailSettings.AddType(auditTrailClassInfo.ClassInfo.ClassType, auditTrailMemberInfos.Select(info => info.Name).ToArray());
             }
             return mode == (ObjectAuditingMode)Persistent.Base.AuditTrail.ObjectAuditingMode.None ? new NoAuditProccesor(session, auditTrailSettings) : base.CreateAuditProcessor(mode, session, auditTrailSettings);
         }
