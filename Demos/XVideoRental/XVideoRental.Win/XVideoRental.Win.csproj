@@ -68,94 +68,94 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.DataAccess.v17.2.UI">
+    <Reference Include="DevExpress.DataAccess.v18.1.UI">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v17.2.Core">
+    <Reference Include="DevExpress.Sparkline.v18.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v17.2.Core">
+    <Reference Include="DevExpress.Dashboard.v18.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.2.UI">
+    <Reference Include="DevExpress.Utils.v18.1.UI">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v17.2.Win">
+    <Reference Include="DevExpress.Dashboard.v18.1.Win">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v17.2">
+    <Reference Include="DevExpress.Data.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v17.2">
+    <Reference Include="DevExpress.DataAccess.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Chart.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Chart.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v17.2">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.v17.2">
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v17.2">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v17.2">
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v17.2">
+    <Reference Include="DevExpress.ExpressApp.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v17.2">
+    <Reference Include="DevExpress.Persistent.Base.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v17.2">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.2">
+    <Reference Include="DevExpress.Utils.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v17.2">
+    <Reference Include="DevExpress.Xpo.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v17.2">
+    <Reference Include="DevExpress.XtraBars.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v17.2">
+    <Reference Include="DevExpress.XtraEditors.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v17.2">
+    <Reference Include="DevExpress.XtraNavBar.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">

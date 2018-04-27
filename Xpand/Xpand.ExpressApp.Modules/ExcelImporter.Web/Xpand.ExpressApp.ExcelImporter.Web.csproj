@@ -46,47 +46,47 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v17.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v17.2">
+    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Web.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Web.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v18.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="DevExpress.Printing.v17.2.Core">
+    <Reference Include="DevExpress.Printing.v18.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v17.2">
+    <Reference Include="DevExpress.Data.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v17.2">
+    <Reference Include="DevExpress.ExpressApp.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v17.2">
+    <Reference Include="DevExpress.Persistent.Base.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v17.2.Core">
+    <Reference Include="DevExpress.Office.v18.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.2.Core">
+    <Reference Include="DevExpress.RichEdit.v18.1.Core">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Web.v17.2">
+    <Reference Include="DevExpress.Web.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v17.2">
+    <Reference Include="DevExpress.Xpo.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="ExcelDataReader, Version=3.4.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">

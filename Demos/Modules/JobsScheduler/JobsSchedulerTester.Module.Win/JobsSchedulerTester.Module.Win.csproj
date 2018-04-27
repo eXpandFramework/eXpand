@@ -47,19 +47,19 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v17.2">
+    <Reference Include="DevExpress.ExpressApp.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System">

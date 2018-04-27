@@ -66,175 +66,175 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v17.2.Core">
+    <Reference Include="DevExpress.Charts.v18.1.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Win.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.BonusSkins.v17.2">
+    <Reference Include="DevExpress.BonusSkins.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v17.2">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Win.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Office.v17.2.Core">
+    <Reference Include="DevExpress.Office.v18.1.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v17.2.Core">
+    <Reference Include="DevExpress.PivotGrid.v18.1.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.2.Export">
+    <Reference Include="DevExpress.RichEdit.v18.1.Export">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Printing.v17.2.Core">
+    <Reference Include="DevExpress.Printing.v18.1.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Data.v17.2">
+    <Reference Include="DevExpress.Data.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Images.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Images.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Objects.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Objects.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v17.2">
+    <Reference Include="DevExpress.ExpressApp.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v17.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v17.2">
+    <Reference Include="DevExpress.Persistent.Base.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v17.2">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v17.2.Core">
+    <Reference Include="DevExpress.Sparkline.v18.1.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.2">
+    <Reference Include="DevExpress.Utils.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v17.2">
+    <Reference Include="DevExpress.Xpo.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v17.2">
+    <Reference Include="DevExpress.XtraBars.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v17.2.Wizard">
+    <Reference Include="DevExpress.XtraCharts.v18.1.Wizard">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v17.2">
+    <Reference Include="DevExpress.XtraCharts.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraCharts.v17.2.UI">
+    <Reference Include="DevExpress.XtraCharts.v18.1.UI">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v17.2">
+    <Reference Include="DevExpress.XtraEditors.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v17.2">
+    <Reference Include="DevExpress.XtraGrid.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraLayout.v17.2">
+    <Reference Include="DevExpress.XtraLayout.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v17.2">
+    <Reference Include="DevExpress.XtraNavBar.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v17.2">
+    <Reference Include="DevExpress.XtraPrinting.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v17.2.Core">
+    <Reference Include="DevExpress.RichEdit.v18.1.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v17.2">
+    <Reference Include="DevExpress.CodeParser.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.Utils.v17.2.UI">
+    <Reference Include="DevExpress.Utils.v18.1.UI">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v17.2.Extensions">
+    <Reference Include="DevExpress.XtraReports.v18.1.Extensions">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraReports.v17.2">
+    <Reference Include="DevExpress.XtraReports.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v17.2">
+    <Reference Include="DevExpress.XtraRichEdit.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v17.2.Core">
+    <Reference Include="DevExpress.XtraScheduler.v18.1.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v17.2.Reporting.Extensions">
+    <Reference Include="DevExpress.XtraScheduler.v18.1.Reporting.Extensions">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraScheduler.v17.2">
+    <Reference Include="DevExpress.XtraScheduler.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v17.2">
+    <Reference Include="DevExpress.XtraTreeList.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraVerticalGrid.v17.2">
+    <Reference Include="DevExpress.XtraVerticalGrid.v18.1">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>

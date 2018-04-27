@@ -12,5 +12,8 @@ namespace MainDemo.Mobile {
         protected void Application_BeginRequest(object sender, EventArgs e) {
             CorsSupport.HandlePreflightRequest(HttpContext.Current);
         }
+        protected void Application_Start(Object sender, EventArgs e) {
+            DevExpress.XtraReports.Web.WebDocumentViewer.DefaultWebDocumentViewerContainer.Register<DevExpress.XtraReports.Web.WebDocumentViewer.IWebDocumentViewerReportResolver, DevExpress.ExpressApp.ReportsV2.Mobile.XafReportsResolver<MainDemoMobileApplication>>();
+        }
     }
 }
