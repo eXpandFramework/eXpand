@@ -72,7 +72,7 @@ namespace Xpand.VSIX.Commands {
                         if (
                             DTE.Solution.Projects()
                                 .All(project => project.FullName != projectInfo.Path)){
-                            var project = DTE.Solution.AddFromFile(projectInfo.Path);
+                            var project = DTE.Solution.AddFromFile(Path.GetFullPath(projectInfo.Path));
                             SkipBuild(project);
                             ChangeActiveConfiguration(project);
                         }
