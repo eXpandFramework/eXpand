@@ -10,9 +10,12 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ExcelImporter.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ExcelImporter.Win</AssemblyName>
+	<AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
@@ -163,9 +166,7 @@
     <Compile Include="Controllers\AutoImportController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ExcelImportDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\ExcelImportDetailViewController.cs" />
     <Compile Include="ExcelImporterWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
