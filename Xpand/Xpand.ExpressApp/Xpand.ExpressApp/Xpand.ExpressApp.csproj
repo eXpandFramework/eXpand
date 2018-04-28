@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -158,16 +159,12 @@
     <Compile Include="SystemModule\Appearance\AppearanceRuleObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\AutoCommitController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\AutoCommitController.cs" />
     <Compile Include="SystemModule\LockListEditorDataUpdatesController.cs" />
     <Compile Include="SystemModule\NestedListViewNonPersistentObjectSpaceController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\RefreshObjectViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\RefreshObjectViewController.cs" />
     <Compile Include="SystemModule\ChangeLanguageController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -175,22 +172,12 @@
     <Compile Include="SystemModule\DirtyTitleWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\CloneMemberValueViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\SupressConfirmationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\CloneMemberValueViewController.cs" />
+    <Compile Include="SystemModule\SupressConfirmationController.cs" />
     <Compile Include="SystemModule\Filtering\FilteringCriteria.cs" />
-    <Compile Include="SystemModule\Filtering\ApplyFilterCriteriaToListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ListViewShowViewStrategyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\NewObjectCreateGroupController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\Filtering\ApplyFilterCriteriaToListViewController.cs" />
+    <Compile Include="SystemModule\ListViewShowViewStrategyController.cs" />
+    <Compile Include="SystemModule\NewObjectCreateGroupController.cs" />
     <Compile Include="SystemModule\PositionInListViewController.cs" />
     <Compile Include="SystemModule\ProccessListViewSelectedItemController.cs" />
     <Compile Include="SystemModule\ReloadObjectController.cs">
@@ -198,21 +185,15 @@
     </Compile>
     <Compile Include="SystemModule\Search\DetailViewFullTextSearchController.cs" />
     <Compile Include="SystemModule\Search\FullTextContainsController.cs" />
-    <Compile Include="SystemModule\XpoSessionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\XpoSessionController.cs" />
     <Compile Include="SystemModule\UpdateFastManyToManyActionsController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\NewObjectSessionLessPersistentObjectController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\ParentObjectSpaceCommitChangesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\AssignMasterDetailToNestedViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\ParentObjectSpaceCommitChangesController.cs" />
+    <Compile Include="SystemModule\AssignMasterDetailToNestedViewController.cs" />
     <Compile Include="SystemModule\ToolTipsController.cs" />
     <Compile Include="Updater.cs" />
     <Compile Include="Editors\ActionButtonDetailItem.cs">
@@ -228,35 +209,21 @@
     <Compile Include="Core\LinqCollectionSourceHelper.cs" />
     <Compile Include="Core\LinqCollectionSource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SystemModule\ActionButtonDetailItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\AllowEditDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\Actions\DisableActionsLinqListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\ActionButtonDetailItemController.cs" />
+    <Compile Include="SystemModule\AllowEditDetailViewController.cs" />
+    <Compile Include="SystemModule\Actions\DisableActionsLinqListViewController.cs" />
     <Compile Include="SystemModule\ConnectionInfoStatusMessageController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\Search\DisableFullTextForMemoFieldsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\PreventDataLoadingController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\Search\DisableFullTextForMemoFieldsController.cs" />
+    <Compile Include="SystemModule\PreventDataLoadingController.cs" />
     <Compile Include="SystemModule\FilterByPropertyPathViewController.cs" />
-    <Compile Include="SystemModule\FKViolationViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\FKViolationViewController.cs" />
     <Compile Include="SystemModule\HideToolBarController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewControllerBase.cs" />
-    <Compile Include="SystemModule\ListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\ListViewController.cs" />
     <Compile Include="SystemModule\LookUpListSearchAlwaysEnableController.cs">
       <SubType>Component</SubType>
     </Compile>
