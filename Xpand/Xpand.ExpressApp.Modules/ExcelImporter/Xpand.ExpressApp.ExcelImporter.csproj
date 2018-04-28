@@ -11,11 +11,15 @@
     <RootNamespace>Xpand.ExpressApp.ExcelImporter</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ExcelImporter</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+	<AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -151,9 +155,7 @@
     <Compile Include="Services\ObservableFileSystemWatcher.cs" />
     <Compile Include="Services\FileDropWatcher.cs" />
     <Compile Include="Services\VisibleInExcelMapAttribute.cs" />
-    <Compile Include="Controllers\ExcelImportDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\ExcelImportDetailViewController.cs" />
     <Compile Include="Controllers\ExcelImportListViewController.cs" />
     <Compile Include="Controllers\PopulatePropertyNamesController.cs" />
     <Compile Include="ExcelImporterModule.cs">
