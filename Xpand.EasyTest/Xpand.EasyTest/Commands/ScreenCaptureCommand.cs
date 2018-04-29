@@ -40,7 +40,7 @@ namespace Xpand.EasyTest.Commands{
             var frameInterval = this.ParameterValue("FrameInterval",1000);
             _screenCaptureStream = new ScreenCaptureStream(new Rectangle(_topLeft, _size), frameInterval);
             _screenCaptureStream.NewFrame+=ScreenCaptureStreamOnNewFrame;
-            _screenCaptureStream.Start();
+//            _screenCaptureStream.Start();
         }
 
         private void ScreenCaptureStreamOnNewFrame(object sender, NewFrameEventArgs e){
