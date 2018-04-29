@@ -6,7 +6,7 @@
 *SetWebMaxWaitTimeOut 120000
 *FillForm
  User = Sam
-*Action Log On
+*Action Log In
 
 *AutoTest
 

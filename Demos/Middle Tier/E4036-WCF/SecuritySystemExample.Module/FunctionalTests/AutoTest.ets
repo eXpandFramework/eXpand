@@ -5,7 +5,7 @@
 *ScreenCapture
 *FillForm
  User Name = Administrator
-*Action Log On
+*Action Log In
 
 *XpandAutoTest
 

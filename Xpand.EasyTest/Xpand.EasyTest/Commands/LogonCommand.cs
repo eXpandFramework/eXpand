@@ -11,7 +11,7 @@ namespace Xpand.EasyTest.Commands{
 
         private void LogOn(ICommandAdapter adapter){
             var actionCommand = new ActionCommand();
-            actionCommand.Parameters.MainParameter = new MainParameter("Log On");
+            actionCommand.Parameters.MainParameter = new MainParameter("Log In");
             actionCommand.Parameters.ExtraParameter = new MainParameter();
             actionCommand.Execute(adapter);
         }

@@ -4,7 +4,7 @@
 
 *FillForm
  User Name = Sam
-*Action Log On
+*Action Log In
 
 *Action Navigation(Note)
 

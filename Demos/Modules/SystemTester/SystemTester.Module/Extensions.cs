@@ -22,6 +22,8 @@ namespace SystemTester.Module {
                     application.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
                 }
             }
+
+//            application.ConnectionString = InMemoryDataStoreProvider.ConnectionString;
             application.NewSecurityStrategyComplexV2<XpandPermissionPolicyUser, XpandPermissionPolicyRole>(typeof(AuthenticationStandard),typeof(AuthenticationStandardLogonParameters));
         }
     }
