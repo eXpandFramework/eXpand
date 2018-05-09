@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -26,66 +27,71 @@ using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Helpers;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
-namespace Xpand.ExpressApp.WorldCreator {
-
+namespace Xpand.ExpressApp.WorldCreator{
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class WorldCreatorModule : XpandModuleBase, IAdditionalModuleProvider{
         public event EventHandler<CustomWorldCreatorApplicationArgs> CustomWorldCreatorApplication;
         public const string BaseImplNameSpace = "Xpand.Persistent.BaseImpl.PersistentMetaData";
 
-        public WorldCreatorModule() {
+        public WorldCreatorModule(){
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
         }
+
         private readonly object _locker = new object();
         public const string WCAssembliesPath = "WCAssembliesPath";
 
         public ModuleBase[] DynamicModules => ModuleManager.Modules.Where(
-            module => module.GetType().Assembly.ManifestModule.ScopeName.EndsWith(Compiler.XpandExtension))
+                module => module.GetType().Assembly.ManifestModule.ScopeName.EndsWith(Compiler.XpandExtension))
             .ToArray();
 
-        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters){
             base.AddGeneratorUpdaters(updaters);
             updaters.Add(new ImageSourcesUpdater(DynamicModules));
         }
 
 
-        private void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
+        private void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs){
             AddDynamicModulesObjectSpaceProviders();
         }
 
-        private void AddDynamicModulesObjectSpaceProviders() {
+        private void AddDynamicModulesObjectSpaceProviders(){
             var providerBuilder = new DatastoreObjectSpaceProviderBuilder(DynamicModules);
             providerBuilder.CreateProviders().Each(provider => Application.AddObjectSpaceProvider(provider));
         }
 
-        void AddPersistentModules(ApplicationModulesManager applicationModulesManager) {
+        void AddPersistentModules(ApplicationModulesManager applicationModulesManager){
             WorldCreatorApplication.CheckCompatibility(Application, GetWorldCreatorApplication);
 
-            if (!string.IsNullOrEmpty(ConnectionString)) {
-                lock (_locker) {
-                    
+            if (!string.IsNullOrEmpty(ConnectionString)){
+                lock (_locker){
                     var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(Application, false);
-                    using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()) {
-                        var codeValidator = new CodeValidator(new Compiler(AssemblyPathProvider.Instance.GetPath(Application)), new AssemblyValidator());
+                    using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()){
+                        var codeValidator =
+                            new CodeValidator(new Compiler(AssemblyPathProvider.Instance.GetPath(Application)),
+                                new AssemblyValidator());
                         var assemblyManager = new AssemblyManager(objectSpace, codeValidator);
-                        foreach (var assembly in assemblyManager.LoadAssemblies()) {
-                            var moduleType = assembly.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type));
-                            applicationModulesManager.AddModule(Application, (ModuleBase)moduleType.CreateInstance());
+                        foreach (var assembly in assemblyManager.LoadAssemblies()){
+                            var moduleType = assembly.GetTypes()
+                                .First(type => typeof(ModuleBase).IsAssignableFrom(type));
+                            applicationModulesManager.AddModule(Application, (ModuleBase) moduleType.CreateInstance());
                         }
+
                         worldCreatorObjectSpaceProvider.ResetThreadSafe();
                     }
                 }
             }
-            else {
+            else{
                 var assemblies =
                     AppDomain.CurrentDomain.GetAssemblies()
                         .Where(assembly => assembly.ManifestModule.ScopeName.EndsWith(Compiler.XpandExtension));
-                foreach (var assembly1 in assemblies) {
-                    applicationModulesManager.AddModule(assembly1.GetTypes().First(type => typeof(ModuleBase).IsAssignableFrom(type)));
+                foreach (var assembly1 in assemblies){
+                    applicationModulesManager.AddModule(assembly1.GetTypes()
+                        .First(type => typeof(ModuleBase).IsAssignableFrom(type)));
                 }
             }
+
             XpoObjectMerger.MergeTypes(this);
         }
 
@@ -96,60 +102,80 @@ namespace Xpand.ExpressApp.WorldCreator {
                     Modules = list
                 };
             OnCustomWorldCreatorApplication(customWorldCreatorApplicationArgs);
-            return customWorldCreatorApplicationArgs.WorldCreatorApplication??new WorldCreatorApplication(provider, list);
+            return customWorldCreatorApplicationArgs.WorldCreatorApplication ??
+                   new WorldCreatorApplication(provider, list);
         }
 
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo){
             base.CustomizeTypesInfo(typesInfo);
             CheckIfSupported();
             AddToAdditionalExportedTypes(BaseImplNameSpace);
             if (RuntimeMode){
-                var classInfos = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.Classes.OfType<XPClassInfo>().Where(info => info.IsPersistent &&
-                                                                                                                                    WorldCreatorTypeInfoSource.Instance.RegisteredEntities.Contains(info.ClassType));
-                foreach (var xpClassInfo in classInfos) {
+                var classInfos = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.Classes.OfType<XPClassInfo>()
+                    .Where(info => info.IsPersistent &&
+                                   WorldCreatorTypeInfoSource.Instance.RegisteredEntities.Contains(info.ClassType));
+                foreach (var xpClassInfo in classInfos){
                     xpClassInfo.AddAttribute(new NonPersistentAttribute());
                 }
+
                 ExistentTypesMemberCreator.CreateMembers(this);
             }
         }
 
-        public override void Setup(ApplicationModulesManager moduleManager) {
+        public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
             CheckIfSupported();
             AddToAdditionalExportedTypes(BaseImplNameSpace);
-            ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleClassInfoMerge), typeof(IRuleBaseProperties));
-            ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleValidCodeIdentifier), typeof(IRuleBaseProperties));
-            if (Application != null && (RuntimeMode || !string.IsNullOrEmpty(ConnectionString))) {
+            ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleClassInfoMerge),
+                typeof(IRuleBaseProperties));
+            ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleValidCodeIdentifier),
+                typeof(IRuleBaseProperties));
+            if (Application != null && (RuntimeMode || !string.IsNullOrEmpty(ConnectionString))){
                 AddPersistentModules(moduleManager);
                 RegisterDerivedTypes();
                 Application.LoggedOn += ApplicationOnLoggedOn;
+                Application.SetupComplete += ApplicationOnSetupComplete;
             }
         }
 
-        void IAdditionalModuleProvider.AddAdditionalModules(ApplicationModulesManager applicationModulesManager) {
+        private void ApplicationOnSetupComplete(object sender, EventArgs e){
+            var reportsModule = Application.Modules.FirstOrDefault(module => module.Name == "ReportsModuleV2");
+            if (reportsModule != null){
+                var type =
+                    reportsModule.GetType().Assembly
+                        .GetType("DevExpress.ExpressApp.ReportsV2.ApplicationReportObjectSpaceProvider");
+                type.GetProperties().First(info => info.Name == "ContextApplication").SetValue(null, Application, null);
+            }
+        }
+
+        void IAdditionalModuleProvider.AddAdditionalModules(ApplicationModulesManager applicationModulesManager){
             AddToAdditionalExportedTypes(BaseImplNameSpace);
             AddPersistentModules(applicationModulesManager);
         }
 
-        private void CheckIfSupported() {
-            var dataServerObjectSpaceProvider = Application?.ObjectSpaceProvider as DataServerObjectSpaceProvider;
-            if (dataServerObjectSpaceProvider != null)
+        private void CheckIfSupported(){
+            if (Application?.ObjectSpaceProvider is DataServerObjectSpaceProvider)
                 throw new NotSupportedException(Application.ObjectSpaceProvider.GetType().FullName);
         }
 
-        private void RegisterDerivedTypes() {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly => new[] { "System", "DevExpress" }.All(s => !assembly.GetName().Name.StartsWith(s)));
+        private void RegisterDerivedTypes(){
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly =>
+                new[]{"System", "DevExpress"}.All(s => !assembly.GetName().Name.StartsWith(s)));
             var types = assemblies.SelectMany(assembly => assembly.GetTypes());
-            var additionalTypes = AdditionalExportedTypes.Where(type => type.Namespace != null && type.Namespace.StartsWith(BaseImplNameSpace)).ToArray();
-            types = types.Where(type => type.Assembly != BaseImplAssembly && additionalTypes.Any(type1 => type1.IsAssignableFrom(type)));
-            foreach (var type in types) {
+            var additionalTypes = AdditionalExportedTypes
+                .Where(type => type.Namespace != null && type.Namespace.StartsWith(BaseImplNameSpace)).ToArray();
+            types = types.Where(type =>
+                type.Assembly != BaseImplAssembly && additionalTypes.Any(type1 => type1.IsAssignableFrom(type)));
+            foreach (var type in types){
                 WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(type);
             }
         }
 
-        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory) {
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory){
             base.RegisterEditorDescriptors(editorDescriptorsFactory);
-            editorDescriptorsFactory.List.Add(new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string), false)));
+            editorDescriptorsFactory.List.Add(
+                new PropertyEditorDescriptor(new AliasRegistration(EditorAliases.CSCodePropertyEditor, typeof(string),
+                    false)));
         }
 
         private void OnCustomWorldCreatorApplication(CustomWorldCreatorApplicationArgs e){
@@ -163,4 +189,3 @@ namespace Xpand.ExpressApp.WorldCreator {
         public ModuleList Modules{ get; internal set; }
     }
 }
-
