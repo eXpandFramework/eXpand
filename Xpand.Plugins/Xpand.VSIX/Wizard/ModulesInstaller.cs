@@ -48,7 +48,7 @@ namespace Xpand.VSIX.Wizard {
             var path = Path.Combine(projectDirectory, "web.config");
             if (!File.Exists(path))
                 path = Path.Combine(projectDirectory, "app.config");
-            string connectionString=$@"<add name=""WorldCreatorConnectionString"" connectionString=""Integrated Security = SSPI; Pooling = false; Data Source = (localdb)\mssqllocaldb; Initial Catalog = {Path.GetFileNameWithoutExtension(DteExtensions.DTE.Solution.FullName)}WorldCreator""/>";
+            string connectionString=$@"<add name=""WorldCreatorConnectionString"" connectionString=""Integrated Security=SSPI;Pooling=false;Data Source=(localdb)\mssqllocaldb;Initial Catalog={Path.GetFileNameWithoutExtension(DteExtensions.DTE.Solution.FullName)}WorldCreator""/>";
             var text = File.ReadAllText(path);
             text = Regex.Replace(text, "(.*<connectionStrings>.*)", $@"$1{Environment.NewLine}    {connectionString}");
             File.WriteAllText(path,text);

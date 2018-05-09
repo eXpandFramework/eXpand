@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using EnvDTE;
@@ -61,18 +62,16 @@ namespace Xpand.VSIX.Wizard {
             }
         }
 
+        private  string GetAssemblyLocalPath(){
+            string codebase = GetType().Assembly.CodeBase;
+            var uri = new Uri(codebase, UriKind.Absolute);
+            return Path.GetDirectoryName(uri.LocalPath);
+        }
+
         private void RunXAFWizard(Dictionary<string, string> replacementsDictionary, Language language, DTE2 dte){
             try{
-                string templatePath;
-                string templateName = language == Language.VisualBasic ? "WizardSolutionVB.zip" : "WizardSolutionCS.zip";
-                var version = new Version(XpandAssemblyInfo.Version);
-                string fullTemplateName = $@"{templateName}\WizardSolution.v{$"{version.Major}.{version.Minor}"}.vstemplate";
-                try{
-                    templatePath = ((Solution2) dte.Solution).GetProjectTemplate(fullTemplateName, language.ToString());
-                }
-                catch{
-                    throw new WizardCancelledException("The XAF Solution template is not installed.");
-                }
+                string templateName = language == Language.VisualBasic ? "vb" : "cs";
+                string templatePath = $@"{GetAssemblyLocalPath()}\ProjectTemplates\xaf.{templateName}.vstemplate";
                 var projectName = replacementsDictionary["$projectname$"];
                 var destination = replacementsDictionary["$destinationdirectory$"];
                 var solutionPath = Path.GetFullPath(destination + @"\..\");

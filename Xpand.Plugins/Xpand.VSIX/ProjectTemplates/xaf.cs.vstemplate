@@ -1,0 +1,22 @@
+﻿<VSTemplate Version="3.0.0" Type="ProjectGroup" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name></Name>
+    <Description></Description>
+    <ProjectType>CSharp</ProjectType>
+    <DefaultName>Solution</DefaultName>
+    <SortOrder>0</SortOrder>
+    <RequiredFrameworkVersion>4.0</RequiredFrameworkVersion>
+  </TemplateData>
+  <TemplateContent>
+    <ProjectCollection>
+    </ProjectCollection>
+    <CustomParameters>
+      <CustomParameter Name="$lang$" Value="CSharp" />
+      <CustomParameter Name="$PreserveVersion$" Value="True" />
+    </CustomParameters>
+  </TemplateContent>
+  <WizardExtension>
+    <Assembly>DevExpress.ExpressApp.TemplateWizard.v18.1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</Assembly>
+    <FullClassName>DevExpress.ExpressApp.TemplateWizard.NewXafSolutionWizard</FullClassName>
+  </WizardExtension>
+</VSTemplate>
