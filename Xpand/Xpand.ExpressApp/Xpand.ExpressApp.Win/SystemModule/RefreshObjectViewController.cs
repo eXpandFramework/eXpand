@@ -26,8 +26,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 	    protected override void OnDeactivated(){
 	        base.OnDeactivated();
 	        Application.MainWindow?.GetController<ActiveDocumentViewController>(controller =>
-	            controller.ActiveViewChanged -=
-	                OnActiveViewChanged);
+	            controller.ActiveViewChanged -=OnActiveViewChanged);
 	    }
 
 	    private void OnActiveViewChanged(object sender, ActiveViewChangedEventArgs e){
@@ -44,7 +43,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 				return;
 	        if (((IModelOptionsWin) Application.Model.Options).UIType == UIType.TabbedMDI &&
 	            ((IModelListViewAutoRefreshWhenNotFocus) View.Model).AutoRefreshWhenDocumentManagerPageIsActive&&_activeDocumentView!=null){
-	            if (View is ListView && _activeDocumentView is DetailView &&!((IModelDetailView) _activeDocumentView.Model).Items.OfType<IModelPropertyEditor>()
+	            if (View is ListView && _activeDocumentView is DetailView &&!((IModelDetailView) _activeDocumentView.Model).GetModelPropertyEditors()
 	                .Any(editor =>editor.ModelMember.MemberInfo.IsList && editor.View.Id == View.Id) )
 		            return;
                 if (View is ListView && _activeDocumentView is ListView&&View!=_activeDocumentView)

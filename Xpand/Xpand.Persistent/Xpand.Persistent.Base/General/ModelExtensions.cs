@@ -23,6 +23,27 @@ using Xpand.Persistent.Base.Security;
 
 namespace Xpand.Persistent.Base.General {
     public static class ModelNodeExtensions {
+        public static IEnumerable<IModelPropertyEditor> GetModelPropertyEditors(this IModelDetailView modelDetailView){
+            var modelPropertyEditors = modelDetailView.Items.OfType<IModelPropertyEditor>();
+            foreach (var modelPropertyEditor in modelPropertyEditors){
+                if (modelPropertyEditor.ModelMember.MemberInfo.IsList){
+                    if (modelPropertyEditor.View is IModelListView modelListView){
+                        if (modelListView.MasterDetailMode==MasterDetailMode.ListViewAndDetailView){
+                            foreach (var propertyEditor in modelListView.MasterDetailView.GetModelPropertyEditors()){
+                                yield return propertyEditor;
+                            }
+                        }
+                        else{
+                            yield return modelPropertyEditor;
+                        }
+                    }
+                }
+                else{
+                    yield return modelPropertyEditor;
+                }
+            }
+        }
+
         public static IModelList<IModelClass> ModelClasses(this IModelNode modelNode, Type assignableFromType) {
             var modelClasses = modelNode.Application.BOModel.Where(modelClass
                 => assignableFromType.IsAssignableFrom(modelClass.TypeInfo.Type) && !modelClass.TypeInfo.IsAbstract &&
