@@ -300,12 +300,8 @@
     <Compile Include="BusinessObjects\Rent\RentEvent.cs" />
     <Compile Include="Controllers\DiscountlevelSummaryValue.cs" />
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="Controllers\KPICustomersByDatesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\StatisticsTopCustomersController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\KPICustomersByDatesController.cs" />
+    <Compile Include="Controllers\StatisticsTopCustomersController.cs" />
     <Compile Include="Reports\ActiveCustomers.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -509,6 +505,10 @@
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
     <Content Include="FunctionalTests\ReadMe.txt" />
+    <None Include="UnusableNodes2.xml">
+      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

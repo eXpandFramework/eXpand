@@ -8,24 +8,26 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Utils;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.ModelAdapter;
 
-namespace Xpand.ExpressApp.ExcelImporter {
+namespace Xpand.ExpressApp.ExcelImporter{
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed partial class ExcelImporterModule : XpandModuleBase {
+    public sealed partial class ExcelImporterModule : XpandModuleBase{
         private NotificationsModule _notificationsModule;
 
-        public ExcelImporterModule() {
+        public ExcelImporterModule(){
             InitializeComponent();
         }
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
+
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo){
             base.CustomizeTypesInfo(typesInfo);
             CalculatedPersistentAliasHelper.CustomizeTypesInfo(typesInfo);
         }
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            if (Application != null){
+            if (InterfaceBuilder.RuntimeMode){
                 _notificationsModule = Application.FindModule<NotificationsModule>();
                 _notificationsModule.NotificationsRefreshInterval = TimeSpan.FromSeconds(5);
             }

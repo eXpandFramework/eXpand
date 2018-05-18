@@ -16,7 +16,8 @@ namespace SecurityDemo.Win {
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] arguments) {
+        static void Main(string[] arguments){
+            DevExpress.Xpo.SimpleDataLayer.SuppressReentrancyAndThreadSafetyCheck = true;
 #if EasyTest
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif
