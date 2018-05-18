@@ -434,5 +434,5 @@
   <PropertyGroup>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\Support\Build\Nuget.Targets')" />
 </Project>

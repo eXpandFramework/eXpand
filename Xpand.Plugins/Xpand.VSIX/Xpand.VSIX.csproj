@@ -453,8 +453,8 @@
 
   -->
   <Target Name="BeforeBuild"></Target>
-  <Import Project="..\..\Support\Build\Nuget.Targets" />
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\dotnet\Fody.targets')" />
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Threading.Analyzers.15.6.46\build\Microsoft.VisualStudio.Threading.Analyzers.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Threading.Analyzers.15.6.46\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" />
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.targets')" />
+  <Import Project="..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\Support\Build\Nuget.Targets')" />
 </Project>

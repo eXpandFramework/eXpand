@@ -136,5 +136,5 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\Support\Build\Nuget.Targets')" />
 </Project>

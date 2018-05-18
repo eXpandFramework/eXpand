@@ -244,7 +244,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
   <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -253,4 +252,5 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
   </Target>
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\Support\Build\Nuget.Targets')" />
 </Project>

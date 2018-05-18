@@ -194,10 +194,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\..\Support\Build\Nuget.Targets" />
   <PropertyGroup>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\Support\Build\Nuget.Targets')" />
 </Project>

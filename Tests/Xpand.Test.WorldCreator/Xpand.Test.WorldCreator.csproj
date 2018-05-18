@@ -194,7 +194,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\Support\Build\Nuget.Targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
@@ -202,4 +201,5 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
+  <Import Project="..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\Support\Build\Nuget.Targets')" />
 </Project>
