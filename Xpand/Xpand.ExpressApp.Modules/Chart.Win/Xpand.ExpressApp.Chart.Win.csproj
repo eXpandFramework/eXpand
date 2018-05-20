@@ -155,9 +155,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ChartControlController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Model\ChartControlController.cs" />
     <Compile Include="Model\ChartModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
