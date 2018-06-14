@@ -8,17 +8,28 @@ using Fasterflect;
 
 namespace Xpand.Xpo.DB {
     public static class DataStoreExtensions {
-        public static ConnectionProviderSql ConnectionProviderSql(this IDataStore dataStore) {
-            var dataStoreProxy = dataStore as DataStoreProxy;
-            return dataStoreProxy ?? (ConnectionProviderSql)dataStore;
+        public static void DoWithConnectionProviderSql(this IDataStore dataStore,Action<ConnectionProviderSql> action){
+            if (dataStore is DataStoreProxy dataStoreProxy){
+                action(dataStoreProxy);
+            }
+            else if (dataStore is ConnectionProviderSql sql)
+                action(sql);
+            else if (dataStore is DataStorePool pool){
+                var provider = (ConnectionProviderSql) pool.AcquireChangeProvider();
+                action(provider);
+                pool.ReleaseChangeProvider(provider);
+            }
+            else{
+                throw new NotImplementedException(dataStore.GetType().ToString());
+            }
         }
 
         public static void CreateForeignKey(this IDataStore dataStore, XPMemberInfo xpMemberInfo,bool throwUnableToCreateDBObjectException = false) {
-            dataStore.ConnectionProviderSql().CreateForeignKey(xpMemberInfo,throwUnableToCreateDBObjectException);
+            dataStore.DoWithConnectionProviderSql(sql => sql.CreateForeignKey(xpMemberInfo,throwUnableToCreateDBObjectException));
         }
 
         public static void CreateColumn(this IDataStore dataStore, XPMemberInfo xpMemberInfo,bool throwUnableToCreateDBObjectException=false) {
-            dataStore.ConnectionProviderSql().CreateColumn(xpMemberInfo);
+            dataStore.DoWithConnectionProviderSql(sql => sql.CreateColumn(xpMemberInfo));
         }
 
         public static void CreateForeignKey(this ConnectionProviderSql connectionProviderSql, XPMemberInfo xpMemberInfo,
