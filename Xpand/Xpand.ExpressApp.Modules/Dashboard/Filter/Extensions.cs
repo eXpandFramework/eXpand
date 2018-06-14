@@ -12,7 +12,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
-using DevExpress.Xpo;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
@@ -62,7 +61,10 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
             var dashboard = new DevExpress.DashboardCommon.Dashboard();
             using (var me = new MemoryStream()) {
                 var sw = new StreamWriter(me);
-                sw.Write(dashboardDefinition.Xml);
+                var xml = dashboardDefinition.Xml;
+                xml=Regex.Replace(xml,$"({typeof(ParameterLessProxyCollection).FullName}, {typeof(ParameterLessProxyCollection).Namespace}, Version=)([^,]*)",
+                    "${1}"+XpandAssemblyInfo.Version, RegexOptions.IgnoreCase);
+                sw.Write(xml);
                 sw.Flush();
                 me.Seek(0, SeekOrigin.Begin);
                 dashboard.LoadFromXml(me);
@@ -75,8 +77,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
         public static void SynchronizeModel(this DevExpress.DashboardCommon.Dashboard dashboard,  IDashboardDefinition template,XafApplication application) {
             var dataSources = GetDataSources(dashboard, FilterEnabled.Always, template,application.Model);
             foreach (var dataSource in dataSources){
-                var filter = dataSource.ModelDataSource as IModelDashboardDataSourceFilter;
-                if (filter != null)
+                if (dataSource.ModelDataSource is IModelDashboardDataSourceFilter filter)
                     dataSource.DataSource.Filter = filter.SynchronizeFilter(dataSource.DataSource.Filter);
             }
         }
@@ -104,8 +105,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
         public static void ApplyModel(this DevExpress.DashboardCommon.Dashboard dashboard, FilterEnabled filterEnabled, IDashboardDefinition template, IModelApplication model) {
             var dataSources = GetDataSources(dashboard, filterEnabled, template,model);
             foreach (var adapter in dataSources) {
-                var filter = adapter.ModelDataSource as  IModelDashboardDataSourceFilter;
-                if (filter != null) adapter.DataSource.Filter = filter.ApplyFilter(adapter.DataSource.Filter);
+                if (adapter.ModelDataSource is IModelDashboardDataSourceFilter filter) adapter.DataSource.Filter = filter.ApplyFilter(adapter.DataSource.Filter);
                 var parameter = adapter.ModelDataSource as IModelDashboardDataSourceParameter;
                 parameter?.ApplyValue(dashboard.Parameters[parameter.ParameterName]);
             }
@@ -144,8 +144,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter {
                 }
             }
             else {
-                object result;
-                var tryToChange = parameter.ParameterValue.TryToChange(dashboardParameter.Type, out result);
+                var tryToChange = parameter.ParameterValue.TryToChange(dashboardParameter.Type, out var result);
                 if (tryToChange)
                     dashboardParameter.Value = result;
             }
