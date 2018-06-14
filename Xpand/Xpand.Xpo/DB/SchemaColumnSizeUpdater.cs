@@ -11,7 +11,7 @@ namespace Xpand.Xpo.DB {
             Disabled = true;
         }
 
-        static readonly HashSet<string> _hashSet=new HashSet<string>();
+        static readonly HashSet<string> HashSet=new HashSet<string>();
         public static bool Disabled { get; set; }
 
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
@@ -32,8 +32,8 @@ namespace Xpand.Xpo.DB {
         }
 
         private void UpdateColumnSize(IEnumerable<DBTable> tables, ConnectionProviderSql sqlDataStore) {
-            foreach (var table in tables.Where(table => !_hashSet.Contains(table.Name))) {
-                _hashSet.Add(table.Name);
+            foreach (var table in tables.Where(table => !HashSet.Contains(table.Name))) {
+                HashSet.Add(table.Name);
                 DBTable actualTable = null;
                 foreach (var column in table.Columns.Where(col => col.ColumnType == DBColumnType.String)) {
                     if (actualTable == null) {
@@ -57,7 +57,7 @@ namespace Xpand.Xpo.DB {
                                  "alter table {0} {3} {1} {2}",
                                  sqlDataStore.FormatTableSafe(table),
                                  sqlDataStore.FormatColumnSafe(column.Name),
-                                 sqlDataStore.GetSqlCreateColumnFullAttributes(table, column),
+                                 sqlDataStore.GetSqlCreateColumnFullAttributes(table, column,true),
                                  (sqlDataStore is BaseOracleConnectionProvider || sqlDataStore is MySqlConnectionProvider) ? "modify" : "alter column");
         }
 
@@ -67,7 +67,7 @@ namespace Xpand.Xpo.DB {
             return (actualColumn != null) &&
                    (actualColumn.ColumnType == DBColumnType.String) &&
                    (actualColumn.Size != column.Size) &&
-                   (column.DBTypeName != string.Format("varchar({0})", actualColumn.Size));
+                   (column.DBTypeName != $"varchar({actualColumn.Size})");
         }
 
     }
