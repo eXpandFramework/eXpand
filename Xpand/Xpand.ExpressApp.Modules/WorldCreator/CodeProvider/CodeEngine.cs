@@ -245,8 +245,8 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
             var regex =
                 new Regex(
                     persistentAssemblyInfo.CodeDomProvider == CodeDomProvider.CSharp
-                        ? "(using [^;]*;\r\n)"
-                        : "(Imports [^\r\n]*\r\n)", RegexOptions.IgnorePatternWhitespace);
+                        ? "^using .*;"
+                        : "^Imports .*;", RegexOptions.Multiline);
             return regex.Matches(code).OfType<Match>().Aggregate("", (current, match) => current + match.Value + "\n");
         }
 
