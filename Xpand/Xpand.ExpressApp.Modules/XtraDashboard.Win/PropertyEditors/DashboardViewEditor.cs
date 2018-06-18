@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
             var template = CurrentObject as IDashboardDefinition;
             if (template != null) {
                 Control.HandleCreated -= ControlOnHandleCreated;
-                Control.BeginInvoke(new Action(() =>DashboardViewer.Dashboard =template.CreateDashBoard(FilterEnabled.Runtime,
+                Control.BeginInvoke(new Action(() =>DashboardViewer.Dashboard =template.CreateDashBoard(RuleMode.Runtime,
                                     type => ObjectSpace.CreateDashboardDataSource(type),_application)));
             }
         }

@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers {
             base.DashboardEditExecute(sender, e);
             var definition = ((IDashboardDefinition) View.CurrentObject);
             if (string.IsNullOrWhiteSpace((definition.Xml+"").Trim())) {
-                var dashBoard = definition.CreateDashBoard(FilterEnabled.Runtime, type => ObjectSpace.CreateDashboardDataSource(type), Application);
+                var dashBoard = definition.CreateDashBoard(RuleMode.Runtime, type => ObjectSpace.CreateDashboardDataSource(type), Application);
                 definition.Xml = dashBoard.GetDashboardXml();
             }
             ObjectSpace.CommitChanges();

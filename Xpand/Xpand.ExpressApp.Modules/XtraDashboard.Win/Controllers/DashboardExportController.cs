@@ -141,7 +141,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
                 Width = ((Form)Application.MainWindow.Template).Width,
                 Height = ((Form)Application.MainWindow.Template).Height
             };
-            ((Control) Frame.Template).BeginInvoke(new Action(() => dashboardViewer.Dashboard = ((IDashboardDefinition)View.CurrentObject).CreateDashBoard(FilterEnabled.Runtime,
+            ((Control) Frame.Template).BeginInvoke(new Action(() => dashboardViewer.Dashboard = ((IDashboardDefinition)View.CurrentObject).CreateDashBoard(RuleMode.Runtime,
                 type => ObjectSpace.CreateDashboardDataSource(type), Application)));
             return dashboardViewer;
         }

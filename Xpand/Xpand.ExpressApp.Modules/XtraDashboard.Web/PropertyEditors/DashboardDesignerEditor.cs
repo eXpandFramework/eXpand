@@ -78,7 +78,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
         private string GetDashboardXml(){
             string xml;
             using (var objectSpace = _application.CreateObjectSpace(ObjectTypeInfo.Type)){
-                xml = objectSpace.GetObject(Definition).GetXml(FilterEnabled.DesignTime, objectSpace.CreateDashboardDataSource,
+                xml = objectSpace.GetObject(Definition).GetXml(RuleMode.DesignTime, objectSpace.CreateDashboardDataSource,
                     _application);
             }
             return xml;
