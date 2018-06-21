@@ -156,9 +156,7 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="FunctionalTests\DesignerActions\Designer.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\DesignerActions\Designer.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>

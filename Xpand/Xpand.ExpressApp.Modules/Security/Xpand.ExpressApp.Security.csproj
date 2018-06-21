@@ -165,9 +165,7 @@
     <Compile Include="Controllers\AnonymousLoginPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\ChooseDatabaseAtLogonController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\ChooseDatabaseAtLogonController.cs" />
     <Compile Include="Controllers\MyDetailsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -178,15 +176,11 @@
     <Compile Include="Core\XpandUser.cs" />
     <Compile Include="Permissions\OverallCustomizationAllowedAttribute.cs" />
     <Compile Include="Permissions\NavigationItemPermission.cs" />
-    <Compile Include="Registration\ManageUsersOnLogonController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Registration\ManageUsersOnLogonController.cs" />
     <Compile Include="Controllers\MyDetailsPermissionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\FilterCustomPermissionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\FilterCustomPermissionsController.cs" />
     <Compile Include="Controllers\DefaultRolePermissionsController.cs">
       <SubType>Component</SubType>
     </Compile>

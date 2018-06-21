@@ -186,9 +186,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\DashboardExportController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\DashboardExportController.cs" />
     <Compile Include="Controllers\DashboardDesignerController.cs">
       <SubType>Component</SubType>
     </Compile>

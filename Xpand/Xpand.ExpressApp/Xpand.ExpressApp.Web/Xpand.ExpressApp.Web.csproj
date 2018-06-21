@@ -135,9 +135,7 @@
     <Compile Include="FriendlyUrl\FriendlyUrlHelper.cs" />
     <Compile Include="ListEditors\MultiEditASPxGridListEditor.cs" />
     <Compile Include="ListEditors\EditableTabEnabledListEditor\EditableTabEnabledListEditor.cs" />
-    <Compile Include="ListEditors\EditableTabEnabledListEditor\EditableTabEnabledListEditorController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListEditors\EditableTabEnabledListEditor\EditableTabEnabledListEditorController.cs" />
     <Compile Include="ListEditors\EditableTabEnabledListEditor\Model.cs" />
     <Compile Include="ListEditors\TwoDimensionListEditor\Model.cs" />
     <Compile Include="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.cs">
@@ -155,15 +153,9 @@
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
     <Compile Include="PropertyEditors\WebPropertyEditorsExtensions.cs" />
-    <Compile Include="SystemModule\AutoCommitController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\FindPopupController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\ImmediatePostDataRestoreFocusController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\AutoCommitController.cs" />
+    <Compile Include="SystemModule\FindPopupController.cs" />
+    <Compile Include="SystemModule\ImmediatePostDataRestoreFocusController.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxDateTimeModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxTokenBoxModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxSpinEditModelAdapter.cs" />
@@ -171,41 +163,27 @@
     <Compile Include="SystemModule\ModelAdapters\ASPxLookupFindEditControlModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxLookupDropDownEditControlModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxSearchDropDownEditControlModelAdapter.cs" />
-    <Compile Include="SystemModule\OpenDetailViewInNewTabController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\UpperCaseController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\OpenDetailViewInNewTabController.cs" />
+    <Compile Include="SystemModule\UpperCaseController.cs" />
     <Compile Include="SystemModule\WebProcessDataLockingInfoController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\ColumnChooser.cs" />
-    <Compile Include="SystemModule\MasterDetail\NestedListViewAutoCommitController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\MasterDetail\MasterDetailKeyFieldController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\MasterDetail\NestedListViewAutoCommitController.cs" />
+    <Compile Include="SystemModule\MasterDetail\MasterDetailKeyFieldController.cs" />
     <Compile Include="SystemModule\MasterDetail\RegisterCallbackPanelScriptsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\LayoutStyleController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\LayoutStyleController.cs" />
     <Compile Include="SystemModule\RegisterScriptsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\MasterDetail\DisableProcessCurrentObjectController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\MasterDetail\DisableProcessCurrentObjectController.cs" />
     <Compile Include="SystemModule\MasterDetail\UpdateVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editors\ActionButtonDetailItem.cs" />
-    <Compile Include="SystemModule\SupressConfirmationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\SupressConfirmationController.cs" />
     <Compile Include="Templates\ASPxMenuNavicationControl.cs" />
     <Compile Include="Templates\ASPxMenuNavigationActionContainer.cs" />
     <Compile Include="XpandHttpRequestManager.cs" />
@@ -242,12 +220,8 @@
     <Compile Include="PropertyEditors\UriEditor.cs" />
     <Compile Include="SystemModule\NullTextController.cs" />
     <Compile Include="SystemModule\PreviewRowDetailViewController.cs" />
-    <Compile Include="SystemModule\UnboundColumnController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SystemModule\PessimisticLockingViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\UnboundColumnController.cs" />
+    <Compile Include="SystemModule\PessimisticLockingViewController.cs" />
     <Compile Include="SystemModule\WebShortcuts\WebShortcutsController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -257,15 +231,11 @@
     <Compile Include="SystemModule\XpandSystemAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\FilterByPropertyPathViewController.cs" />
     <Compile Include="SystemModule\HideToolBarController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs" />
     <Compile Include="Templates\XpandBaseXafPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
