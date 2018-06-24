@@ -126,15 +126,19 @@ namespace Xpand.ExpressApp.Dashboard.Filter{
             IDashboardDefinition template, IModelApplication model){
             var dataSources = GetDataSources(dashboard, ruleMode, template, model);
             foreach (var adapter in dataSources){
-                if (adapter.ModelDataSource is IModelDashboardDataSourceFilter filter)
-                    adapter.DataSource.Filter = filter.ApplyFilter(adapter.DataSource.Filter);
+                if (adapter.ModelDataSource is IModelDashboardDataSourceFilter filter){
+                    var criteria = filter.ApplyFilter(adapter.DataSource.Filter,template);
+                    adapter.DataSource.Filter = criteria.ToString();
+                    if ((adapter.DataSource.Data) is ProxyCollection proxyCollection){
+                        ((XPBaseCollection) proxyCollection.OriginalCollection).Criteria = criteria;
+                    }
+                }
                 else if (adapter.ModelDataSource is IModelDashboardDataSourceParameter parameter){
                     parameter.ApplyValue(dashboard.Parameters[parameter.ParameterName]);
                 }
                 else if (adapter.ModelDataSource is IModelDashboardRecordsCount modelDashboardRecordsCount){
                     if ((adapter.DataSource.Data) is ProxyCollection proxyCollection)
-                        ((XPBaseCollection) proxyCollection.OriginalCollection).TopReturnedObjects =
-                            modelDashboardRecordsCount.RecordsCount;
+                        ((XPBaseCollection) proxyCollection.OriginalCollection).TopReturnedObjects = modelDashboardRecordsCount.RecordsCount;
                 }
             }
         }
@@ -192,7 +196,8 @@ namespace Xpand.ExpressApp.Dashboard.Filter{
             }
         }
 
-        public static string ApplyFilter(this IModelDashboardDataSourceFilter modelDataSource, string filterString){
+        public static CriteriaOperator ApplyFilter(this IModelDashboardDataSourceFilter modelDataSource, string filterString,
+            IDashboardDefinition template){
             string criteria = null;
             if (!string.IsNullOrEmpty(modelDataSource.Filter)){
                 var criteriaOperator = CriteriaOperator.Parse(modelDataSource.Filter);
@@ -203,7 +208,7 @@ namespace Xpand.ExpressApp.Dashboard.Filter{
                     criteria = " and " + criteria;
             }
 
-            return filterString + criteria;
+            return CriteriaOperator.Parse(filterString + criteria);
         }
     }
 

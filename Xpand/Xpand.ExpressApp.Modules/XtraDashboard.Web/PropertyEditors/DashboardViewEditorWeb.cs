@@ -76,20 +76,12 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
             }
         }
 
-        IDashboardDefinition Definition {
-            get { return CurrentObject as IDashboardDefinition; }
-        }
+        IDashboardDefinition Definition => CurrentObject as IDashboardDefinition;
 
-        public ASPxDashboardViewer DashboardViewer {
-            get { return (ASPxDashboardViewer)Control; }
-        }
+        public ASPxDashboardViewer DashboardViewer => _asPxDashboardViewer;
 
-        public IObjectSpace ObjectSpace {
-            get { return _objectSpace; }
-        }
+        public IObjectSpace ObjectSpace => _objectSpace;
 
-        public XafApplication Application {
-            get { return _application; }
-        }
+        public XafApplication Application => _application;
     }
 }
