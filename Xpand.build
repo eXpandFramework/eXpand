@@ -169,6 +169,7 @@
 	<RemoveDir Directories="@(ModelAdaptorDllFolders)"/>
 	<RemoveDir Directories="$(XpandDLLPath)"/>
 	<RemoveDir Directories="$(_third_party_assemblies)\Packages\" />
+  <MakeDir Directories="$(XpandDLLPath)"/>
   </Target>
   <Target Name="Copy" DependsOnTargets="Build">
     <MakeDir Directories="$(BuildPath);$(TempPath)" />

@@ -111,6 +111,7 @@
     <Compile Include="Helpers\DateTimeUtils.cs" />
     <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\ListExtensions.cs" />
     <Compile Include="Helpers\PasswordAdvisor.cs" />
     <Compile Include="Helpers\Retry.cs" />
     <Compile Include="Helpers\StreamExtensions.cs" />

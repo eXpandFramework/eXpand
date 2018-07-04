@@ -496,9 +496,11 @@ namespace Xpand.Persistent.Base.General {
             AdditionalExportedTypes.AddRange(collection);
         }
 
-        protected void AddToAdditionalExportedTypes(string nameSpaceName, Assembly assembly) {
+        protected Type[] AddToAdditionalExportedTypes(string nameSpaceName, Assembly assembly) {
             var types = GetTypeInfos(assembly).Where(type1 => String.Join("", type1.Type.Namespace).StartsWith(nameSpaceName));
-            AdditionalExportedTypes.AddRange(types.Select(info => info.Type));
+            var objects = types.Select(info => info.Type).ToArray();
+            AdditionalExportedTypes.AddRange(objects);
+            return objects;
         }
 
         private IEnumerable<ITypeInfo> GetTypeInfos(Assembly assembly) {
@@ -508,8 +510,8 @@ namespace Xpand.Persistent.Base.General {
             return assemblyInfo.Types;
         }
 
-        protected internal void AddToAdditionalExportedTypes(string nameSpaceName) {
-            AddToAdditionalExportedTypes(nameSpaceName, BaseImplAssembly);
+        protected internal Type[] AddToAdditionalExportedTypes(string nameSpaceName) {
+            return AddToAdditionalExportedTypes(nameSpaceName, BaseImplAssembly);
         }
 
         protected void CreateWeaklyTypedCollection(ITypesInfo typesInfo, Type classType, string propertyName) {
