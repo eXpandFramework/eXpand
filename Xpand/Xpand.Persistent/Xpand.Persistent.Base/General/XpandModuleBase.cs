@@ -432,7 +432,7 @@ namespace Xpand.Persistent.Base.General {
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
             var declaredExportedTypes = base.GetDeclaredExportedTypes().ToArray();
             declaredExportedTypes = !Executed<IModifyModelActionUser>("GetDeclaredExportedTypes")
-                ? declaredExportedTypes.Concat(new[] { typeof(ModelConfiguration), SequenceObjectType }).Where(type => type != null).ToArray()
+                ? declaredExportedTypes.Concat(new[] { typeof(ModelConfiguration), SequenceObjectType ,typeof(RuleInfoObject)}).Where(type => type != null).ToArray()
                 : declaredExportedTypes;
             if (Application != null && (Application.Security?.UserType == null))
                 return declaredExportedTypes.Where(type => !typeof(ISecurityRelated).IsAssignableFrom(type));

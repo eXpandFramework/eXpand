@@ -1,12 +1,11 @@
-﻿using System.Linq;
+﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Xpand.Utils.Threading{
-    using System;
-    using System.Diagnostics;
-    using System.Threading;
-    using System.Threading.Tasks;
-
     public static class TaskExtensions{
         /// <summary>
         ///     Starts the periodic task.
@@ -14,8 +13,8 @@ namespace Xpand.Utils.Threading{
         /// <param name="taskFactory"></param>
         /// <param name="action">The action.</param>
         /// <param name="taskScheduler"></param>
-        /// <param name="intervalInMilliseconds">The interval in milliseconds.</param>
-        /// <param name="delayInMilliseconds">The delay in milliseconds, i.e. how long it waits to kick off the timer.</param>
+        /// <param name="interval">The interval in milliseconds.</param>
+        /// <param name="delay">The delay in milliseconds, i.e. how long it waits to kick off the timer.</param>
         /// <param name="duration">
         ///     The duration.
         ///     <example>If the duration is set to 10 seconds, the maximum time this task is allowed to run is 10 seconds.</example>
@@ -36,27 +35,28 @@ namespace Xpand.Utils.Threading{
         ///     will not be
         ///     bubbled up to the periodic task.
         /// </remarks>
-        public static Task StartNewPeriodic(this TaskFactory taskFactory, Action action, TaskScheduler taskScheduler,
-            int intervalInMilliseconds = Timeout.Infinite,
-            int delayInMilliseconds = 0,
+        public static Task StartNewPeriodic(this TaskFactory taskFactory, Action action, TaskScheduler taskScheduler=null,
+            int interval = Timeout.Infinite,
+            int delay = 0,
             int duration = Timeout.Infinite,
             int maxIterations = -1,
             bool synchronous = false,
             CancellationToken cancelToken = new CancellationToken(),
-            TaskCreationOptions periodicTaskCreationOptions = TaskCreationOptions.None) {
+            TaskCreationOptions periodicTaskCreationOptions = TaskCreationOptions.None){
+
+            taskScheduler = taskScheduler ?? TaskScheduler.Default;
             var stopWatch = new Stopwatch();
-            Action wrapperAction = () => {
+
+            void WrapperAction(){
                 CheckIfCancelled(cancelToken);
                 action();
-            };
+            }
 
-            Action mainAction =
-                () => {
-                    MainPeriodicTaskAction(intervalInMilliseconds, delayInMilliseconds, duration, maxIterations,
-                        cancelToken, stopWatch, synchronous, wrapperAction, periodicTaskCreationOptions, taskScheduler);
-                };
+            void MainAction(){
+                MainPeriodicTaskAction(interval, delay, duration, maxIterations, cancelToken, stopWatch, synchronous, WrapperAction, periodicTaskCreationOptions, taskScheduler);
+            }
 
-            return Task.Factory.StartNew(mainAction, cancelToken, TaskCreationOptions.LongRunning, taskScheduler);
+            return Task.Factory.StartNew(MainAction, cancelToken, TaskCreationOptions.LongRunning, taskScheduler);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Xpand.Utils.Threading{
             switch (source.Status){
                 case TaskStatus.RanToCompletion:{
                     var task = source as Task<TResult>;
-                    proxy.TrySetResult((task == null) ? default(TResult) : task.Result);
+                    proxy.TrySetResult((task == null) ? default : task.Result);
                     break;
                 }
                 case TaskStatus.Canceled:

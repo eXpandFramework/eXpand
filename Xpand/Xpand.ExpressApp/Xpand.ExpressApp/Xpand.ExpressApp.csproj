@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -97,6 +98,9 @@
     </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Design" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Trading\XAFCryptoTrader\packages\System.ValueTuple.4.5.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -163,6 +167,7 @@
     <Compile Include="SystemModule\NestedListViewNonPersistentObjectSpaceController.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SystemModule\PurgingRulesController.cs" />
     <Compile Include="SystemModule\RefreshObjectViewController.cs" />
     <Compile Include="SystemModule\ChangeLanguageController.cs">
       <SubType>Component</SubType>

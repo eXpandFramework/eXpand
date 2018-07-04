@@ -221,6 +221,7 @@
     <Compile Include="AdditionalViewControls\IContextAdditionalViewControlsRule.cs" />
     <Compile Include="AuditTrail\IAuditTrailRule.cs" />
     <Compile Include="AuditTrail\IContextAuditTrailRule.cs" />
+    <Compile Include="RuleInfoObject.cs" />
     <Compile Include="DifferenceType.cs" />
     <Compile Include="Email\IContextEmailRule.cs" />
     <Compile Include="Email\IEmailOperationPermissionData.cs" />
