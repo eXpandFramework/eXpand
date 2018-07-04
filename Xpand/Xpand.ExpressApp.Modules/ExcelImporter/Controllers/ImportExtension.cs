@@ -137,7 +137,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                                 ? info.DisplayName == map.PropertyName
                                 : info.Name == map.PropertyName))).ToArray();
                         
-                        foreach (var dataRow in dataSet.Tables.Cast<DataTable>().First(table => table.TableName == excelImport.SheetName).Rows.Cast<DataRow>()){
+                        foreach (var dataRow in dataSet.Tables.Cast<DataTable>().Where(table => table.TableName == excelImport.SheetName).SelectMany(table => table.Rows.Cast<DataRow>())){
                             index++;
                             var importToObject = GetImportToObject(importToTypeInfo, columnMembers, dataRow, excelImport);
                             if (importToObject != null)
