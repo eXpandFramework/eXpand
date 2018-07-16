@@ -8,13 +8,15 @@ using DevExpress.DashboardWin;
 using DevExpress.DashboardWin.Bars;
 using DevExpress.DashboardWin.Native;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Dashboards;
+using DevExpress.Persistent.Base;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using Fasterflect;
 using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.ExpressApp.Dashboard.Filter;
+using Xpand.ExpressApp.Dashboard.Services;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
     public partial class DashboardDesignerForm : XtraForm {
@@ -25,8 +27,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         private BarButtonItem _barButtonItemSave;
         private BarButtonItem _barButtonItemSaveAndClose;
 
-        public DevExpress.DashboardCommon.Dashboard Dashboard { get { return _dashboardDesigner.Dashboard; } }
-        public bool SaveDashboard { get { return _saveDashboard; } }
+        public DevExpress.DashboardCommon.Dashboard Dashboard => _dashboardDesigner.Dashboard;
+        public bool SaveDashboard => _saveDashboard;
 
         public DashboardDesignerForm() {
             InitializeComponent();
@@ -45,13 +47,9 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
         }
 
 
-        public DashboardDesigner Designer {
-            get { return _dashboardDesigner; }
-        }
+        public DashboardDesigner Designer => _dashboardDesigner;
 
-        public IDashboardDefinition Template {
-            get { return _template; }
-        }
+        public IDashboardDefinition Template => _template;
 
         public IObjectSpace ObjectSpace { get; set; }
 
@@ -92,7 +90,13 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         public void LoadTemplate(IDashboardDefinition dashboardDefinition,XafApplication application) {
             _template = dashboardDefinition;
-            Designer.Dashboard = _template.CreateDashBoard(RuleMode.DesignTime,ObjectSpace.CreateDashboardDataSource, application);
+            dashboardDefinition.GetDashboard(application, RuleMode.DesignTime,null,null,null,() => {});
+            var dashboardCollectionDataSourceFillService =(IXpandDashboardDataSourceFillService)((XpandDashboardDataProvider) DashboardsModule.DataProvider)
+                .AttachService(Designer.ServiceContainer, (IDashboardData) dashboardDefinition);
+            dashboardCollectionDataSourceFillService.FillService.LoadBeforeParameters += (sender, args) =>
+                args.Handled = new[]{RuleMode.Always, RuleMode.DesignTime}.Contains(dashboardDefinition.EditParameters);
+            Designer.Dashboard = dashboardDefinition.GetDashboard(application, RuleMode.DesignTime,dashboardCollectionDataSourceFillService, Designer.DataSourceOptions,
+                dashboard => Designer.DashboardChanged += (sender, args) => Designer.ShowDashboardParametersForm());
             _editHistory.Changed += _EditHistory_Changed;
         }
 
@@ -135,7 +139,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         private BarButtonItem AddButton(string button, string glyph,Keys keys) {
             var ribbonControl = ((RibbonControl)_dashboardDesigner.MenuManager);
-            var ribbonPage = ribbonControl.Pages.Cast<RibbonPage>().First();
+            var ribbonPage = ribbonControl.Pages.First();
             var barButtonItem = new BarButtonItem(ribbonControl.Manager, button) {
                 Enabled = false,
                 Glyph = GetImage(glyph),ItemShortcut = new BarShortcut(keys)

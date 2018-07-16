@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Dashboard {
     public static class Extensions {
@@ -22,22 +19,14 @@ namespace Xpand.ExpressApp.Dashboard {
 
         }
 
-        public static ProxyCollection CreateDashboardDataSource(this IObjectSpace objectSpace, Type objectType) {
-            var proxyCollection = new ParameterLessProxyCollection(objectSpace, objectSpace.TypesInfo.FindTypeInfo(objectType), objectSpace.GetObjects(objectType));
-            proxyCollection.DisplayableMembers = string.Join(";", proxyCollection.DisplayableMembers.Split(';').Where(s => !s.EndsWith("!")));
-            return proxyCollection;
-        }
     }
 
-    public class ParameterLessProxyCollection : ProxyCollection {
-        public ParameterLessProxyCollection(IObjectSpace objectSpace, ITypeInfo typeInfo, object collection) : base(objectSpace, typeInfo, collection) {
+    public class ParameterLessProxyCollection  {
+
+        public ParameterLessProxyCollection(string type){
+            Type = XafTypesInfo.Instance.FindTypeInfo(type).Type;
         }
 
-        public ParameterLessProxyCollection(string type) : base(CreateObjectSpace(), XafTypesInfo.Instance.FindTypeInfo(type), CreateObjectSpace().GetObjects(XafTypesInfo.Instance.FindTypeInfo(type).Type)) {
-        }
-
-        private static IObjectSpace CreateObjectSpace() {
-            return ApplicationHelper.Instance.Application.CreateObjectSpace();
-        }
+        public Type Type{ get; }
     }
 }

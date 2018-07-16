@@ -16,17 +16,11 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         public event EventHandler<DashboardDesignerOpeningEventArgs> DashboardDesignerOpening;
 
-        public SimpleAction DashboardEdit {
-            get { return _dashboardEdit; }
-        }
+        public SimpleAction DashboardEdit => _dashboardEdit;
 
-        public SimpleAction DashboardExportXml {
-            get { return _dashboardExportXml; }
-        }
+        public SimpleAction DashboardExportXml => _dashboardExportXml;
 
-        public SimpleAction DashboardImportXml {
-            get { return _dashboardImportXml; }
-        }
+        public SimpleAction DashboardImportXml => _dashboardImportXml;
 
         protected override void OnActivated() {
             base.OnActivated();
@@ -48,8 +42,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             _dashboardEdit.Active["SecurityIsGranted"] = true;
             _dashboardExportXml.Active["SecurityIsGranted"] = true;
             _dashboardImportXml.Active["SecurityIsGranted"] = true;
-            var detailView = View as DetailView;
-            if (detailView != null){
+            if (View is DetailView){
                 _dashboardEdit.Active["ViewEditMode"] = true;
                 _dashboardImportXml.Active["ViewEditMode"] = true;
             }
@@ -66,8 +59,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                 _dashboardExportXml.Active["SecurityIsGranted"] = isGranted;
                 _dashboardImportXml.Active["SecurityIsGranted"] = isGranted;
             }
-            var detailView = View as DetailView;
-            if (detailView != null) {
+
+            if (View is DetailView detailView) {
                 _dashboardEdit.Active["ViewEditMode"] = detailView.AllowEdit;
                 _dashboardImportXml.Active["ViewEditMode"] = detailView.AllowEdit;
             }
@@ -93,13 +86,10 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         protected virtual void OnDashboardDesignerOpening(DashboardDesignerOpeningEventArgs e){
             var handler = DashboardDesignerOpening;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
     }
     public class DashboardDesignerOpeningEventArgs : EventArgs {
-        public DashboardDesignerOpeningEventArgs() {
-        }
-
     }
 
 }

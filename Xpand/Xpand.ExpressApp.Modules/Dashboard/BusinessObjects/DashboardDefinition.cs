@@ -7,13 +7,17 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.Dashboard.Services;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
-    public interface IDashboardDefinition {
+    public interface IDashboardDefinition{
+        bool DataViewService{ get; set; }
+        RuleMode EditParameters{ get; set; }
         int Index { get; set; }
         string Name { get; set; }
         bool Active { get; set; }
@@ -28,13 +32,18 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [NavigationItem("Reports")]
     [CloneView(CloneViewType.DetailView, DashboardViewerDetailView)]
     [CloneView(CloneViewType.DetailView, DashboardDesignerDetailView)]
-    public class DashboardDefinition : XpandCustomObject, IDashboardDefinition{
+    public class DashboardDefinition : XpandCustomObject, IDashboardDefinition,IDashboardData{
         public const string DashboardViewerDetailView = "DashboardDefinitionViewer_DetailView";
         public const string DashboardDesignerDetailView = "DashboardDesigner_DetailView";
         bool _active;
         BindingList<ITypeWrapper> _dashboardTypes;
         int _index;
-
+        bool _dataViewService;
+        [InvisibleInAllViews]
+        public bool DataViewService{
+            get => _dataViewService;
+            set => SetPropertyValue(nameof(DataViewService), ref _dataViewService, value);
+        }
         string _name;
         [Size(SizeAttribute.Unlimited)]
         [Persistent("TargetObjectTypes")]
@@ -44,6 +53,13 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         public DashboardDefinition(Session session)
             : base(session) {
             _active = true;
+        }
+
+        RuleMode _editParameters;
+
+        public RuleMode EditParameters{
+            get => _editParameters;
+            set => SetPropertyValue(nameof(EditParameters), ref _editParameters, value);
         }
 
         [Browsable(false)]
@@ -56,30 +72,33 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
                                                        .ToList());
             }
         }
+
         [Index(1)]
-        public int Index {
-            get { return _index; }
-            set { SetPropertyValue("Index", ref _index, value); }
+        public int Index{
+            get => _index;
+            set => SetPropertyValue("Index", ref _index, value);
         }
+
         [Index(0)]
         [RuleRequiredField]
-        public string Name {
-            get { return _name; }
-            set { SetPropertyValue("Name", ref _name, value); }
+        public string Name{
+            get => _name;
+            set => SetPropertyValue("Name", ref _name, value);
         }
+
         [Index(2)]
-        public bool Active {
-            get { return _active; }
-            set { SetPropertyValue("Active", ref _active, value); }
+        public bool Active{
+            get => _active;
+            set => SetPropertyValue("Active", ref _active, value);
         }
 
         [Size(SizeAttribute.Unlimited)]
         [Delayed]
         [VisibleInDetailView(false)]
         [EditorAlias(EditorAliases.DashboardXMLEditor)]
-        public string Xml {
-            get{ return GetDelayedPropertyValue<String>("Xml");}
-            set { SetDelayedPropertyValue("Xml", value); }
+        public string Xml{
+            get => GetDelayedPropertyValue<string>("Xml");
+            set => SetDelayedPropertyValue("Xml", value);
         }
 
         [DataSourceProperty("Types")]
@@ -139,6 +158,15 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
                 OnChanged("TargetObjectTypes");
             }
         }
+
+        string IDashboardData.Title{ get; set; }
+
+        string IDashboardData.Content{
+            get => Xml;
+            set => Xml = value;
+        }
+
+        bool IDashboardData.SynchronizeTitle{ get; set; }
     }
 
 

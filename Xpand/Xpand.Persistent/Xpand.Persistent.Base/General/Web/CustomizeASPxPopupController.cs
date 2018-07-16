@@ -25,13 +25,10 @@ namespace Xpand.Persistent.Base.General.Web{
     public class CustomizeASPxPopupController : ModelAdapterController,IModelExtender {
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            if (Frame.Context == TemplateContext.LookupWindow){
-                var popupWindowControl = ((BaseXafPage)WebWindow.CurrentRequestPage).XafPopupWindowControl;
-                popupWindowControl.CustomizePopupWindowSize += XafPopupWindowControl_CustomizePopupWindowSize;
-                popupWindowControl.CustomizePopupControl += PopupWindowControlOnCustomizePopupControl;
-                Frame.Disposing+=FrameOnDisposing;
-            }
-        }
+            var popupWindowControl = ((BaseXafPage)WebWindow.CurrentRequestPage).XafPopupWindowControl;
+            popupWindowControl.CustomizePopupWindowSize += XafPopupWindowControl_CustomizePopupWindowSize;
+            popupWindowControl.CustomizePopupControl += PopupWindowControlOnCustomizePopupControl;
+            Frame.Disposing+=FrameOnDisposing;        }
 
         private void FrameOnDisposing(object sender, EventArgs eventArgs){
             ((Frame) sender).Disposing-=FrameOnDisposing;

@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.Dashboard</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Dashboard</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -73,6 +75,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Dashboards.v18.1, Version=18.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files (x86)\DevExpress 18.1\Components\Bin\Framework\DevExpress.ExpressApp.Dashboards.v18.1.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -119,6 +125,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.ValueTuple.4.5.0\lib\portable-net40+sl4+win8+wp8\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
       <Private>False</Private>
@@ -143,6 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessObjects\DashboardDatasourceFilter.cs" />
     <Compile Include="BusinessObjects\DashboardDefinition.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -167,13 +177,18 @@
     </Compile>
     <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="Filter\Extensions.cs" />
-    <Compile Include="Filter\Model.cs" />
+    <Compile Include="Services\Extensions.cs" />
+    <Compile Include="Services\IXpandDashboardDataSourceFillService.cs" />
+    <Compile Include="Services\Model.cs" />
     <Compile Include="Module.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditors\DashboardViewEditor.cs" />
+    <Compile Include="Services\XpandDashboardCollectionDataSourceFillService.cs" />
+    <Compile Include="Services\XpandDashboardDataProvider.cs" />
+    <Compile Include="Services\XpandDashboardDataSourceFillService.cs" />
+    <Compile Include="Services\XpandDashboardViewDataSourceFillService.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -225,6 +240,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

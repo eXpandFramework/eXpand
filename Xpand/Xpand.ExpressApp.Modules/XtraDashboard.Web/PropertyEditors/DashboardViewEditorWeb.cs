@@ -1,87 +1,29 @@
-﻿using System.Web.UI.WebControls;
-using DevExpress.DashboardWeb;
-using DevExpress.ExpressApp;
+﻿using DevExpress.DashboardWeb;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Web.Editors;
 using System;
-using System.Linq;
-using Xpand.ExpressApp.Dashboard;
-using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.ExpressApp.Dashboard.Filter;
+using DevExpress.DashboardCommon;
+using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Dashboard.PropertyEditors;
+using Xpand.ExpressApp.Dashboard.Services;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
     public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
         protected override Type GetControlType() {
-            return typeof(ASPxDashboardViewer);
+            return typeof(ASPxDashboard);
         }
     }
 
     [PropertyEditor(typeof(String), false)]
-    public class DashboardViewEditorWeb : WebPropertyEditor, IComplexViewItem,IDashboardViewEditor {
-        ASPxDashboardViewer _asPxDashboardViewer;
-        XafApplication _application;
-        IObjectSpace _objectSpace;
+    public class DashboardViewEditorWeb : DashboardDesignerEditor,IDashboardViewEditor {
 
         public DashboardViewEditorWeb(Type objectType, IModelMemberViewItem model) : base(objectType, model) { }
-
-        public void Setup(IObjectSpace objectSpace, XafApplication application) {
-            _objectSpace = objectSpace;
-            _application = application;
+        protected override IObjectDataSourceCustomFillService AttachService(XpandDashboardDataProvider xpandDashboardDataProvider){
+            return xpandDashboardDataProvider.AttachViewService(Control.ServiceContainer,(IDashboardData) Definition);
         }
 
-        protected override WebControl CreateViewModeControlCore() {
-            _asPxDashboardViewer = CreateDashboardViewer();
-            return _asPxDashboardViewer;
+        protected override WorkingMode GetWorkingMode(){
+            return WorkingMode.ViewerOnly;
         }
-
-        protected override WebControl CreateEditModeControlCore() {
-            _asPxDashboardViewer = CreateDashboardViewer();
-            return _asPxDashboardViewer;
-        }
-
-        protected override void ReadEditModeValueCore() { }
-
-        protected override object GetControlValueCore() {
-            return null;
-        }
-
-        private ASPxDashboardViewer CreateDashboardViewer() {
-            var control = new ASPxDashboardViewer{ DashboardId = Definition.Name, Width = Unit.Percentage(100)};
-            control.DashboardLoading += DashboardLoading;
-            control.DataLoading += DataLoading;
-            return control;
-        }
-
-        public override void BreakLinksToControl(bool unwireEventsOnly) {
-            if (_asPxDashboardViewer != null && unwireEventsOnly) {
-                _asPxDashboardViewer.DashboardLoading -= DashboardLoading;
-                _asPxDashboardViewer.DataLoading -= DataLoading;
-            }
-            base.BreakLinksToControl(unwireEventsOnly);
-        }
-
-        void DashboardLoading(object sender, DashboardLoadingEventArgs e) {
-            e.DashboardXml = Definition.GetXml(RuleMode.Runtime,_objectSpace.CreateDashboardDataSource, _application);
-        }
-
-        void DataLoading(object sender, DataLoadingWebEventArgs e) {
-            if (e.Data == null){
-                var typeWrapper = Definition.DashboardTypes.FirstOrDefault(t => t.GetDefaultCaption() == e.DataSourceName);
-                if (typeWrapper != null){
-                    var dsType = typeWrapper.Type;
-                    e.Data = _objectSpace.CreateDashboardDataSource(dsType);
-                }
-            }
-        }
-
-        IDashboardDefinition Definition => CurrentObject as IDashboardDefinition;
-
-        public ASPxDashboardViewer DashboardViewer => _asPxDashboardViewer;
-
-        public IObjectSpace ObjectSpace => _objectSpace;
-
-        public XafApplication Application => _application;
     }
 }

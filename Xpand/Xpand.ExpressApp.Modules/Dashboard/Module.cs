@@ -2,12 +2,13 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Dashboards;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.ExpressApp.Dashboard.Filter;
+using Xpand.ExpressApp.Dashboard.Services;
 using Xpand.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
@@ -28,6 +29,7 @@ namespace Xpand.ExpressApp.Dashboard {
         public DashboardModule(){
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
+            DashboardsModule.DataProvider=new XpandDashboardDataProvider();
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
@@ -49,8 +51,13 @@ namespace Xpand.ExpressApp.Dashboard {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSetupComplete;
+                application.LoggedOn+=ApplicationOnLoggedOn;
             }
             AddToAdditionalExportedTypes(typeof(DashboardDefinition).Namespace, GetType().Assembly);
+        }
+
+        private void ApplicationOnLoggedOn(object sender, LogonEventArgs e){
+            DashboardsModule.DataProvider.ContextApplication = (XafApplication) sender;
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {

@@ -68,14 +68,9 @@ namespace XtraDashboardTester.Web{
 
         private void XtraDashboardTesterAspNetApplication_DatabaseVersionMismatch(object sender,
             DatabaseVersionMismatchEventArgs e){
-#if EASYTEST
-			e.Updater.Update();
-			e.Handled = true;
-#else
             e.Updater.Update();
             e.Handled = true;
-            
-#endif
+
         }
 
         private void InitializeComponent(){

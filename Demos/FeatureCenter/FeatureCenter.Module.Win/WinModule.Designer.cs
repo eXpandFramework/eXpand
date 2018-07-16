@@ -57,6 +57,7 @@ namespace FeatureCenter.Module.Win {
             this.RequiredModuleTypes.Add(typeof(ImportWizardWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Workflow.Win.WorkflowWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.Win.XpandValidationWinModule));
+            this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule));
 
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Security.Win.XpandSecurityWinModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule));
@@ -64,6 +65,7 @@ namespace FeatureCenter.Module.Win {
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule));
             this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule));
+
         }
 
         #endregion

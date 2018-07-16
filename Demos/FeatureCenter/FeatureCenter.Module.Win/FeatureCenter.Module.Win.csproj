@@ -11,7 +11,8 @@
     <RootNamespace>FeatureCenter.Module.Win</RootNamespace>
     <AssemblyName>FeatureCenter.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <IsWebBootstrapper>false</IsWebBootstrapper>
@@ -233,6 +234,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.WorldCreator.Win.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.XtraDashboard.Win, Version=18.1.4.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
@@ -273,9 +278,7 @@
     <Compile Include="ApplicationDifferences\ExternalApplication\AttributeRegistrator.cs" />
     <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationKeyParameter.cs" />
     <Compile Include="ApplicationDifferences\ExternalApplication\ExternalApplicationModelStore.cs" />
-    <Compile Include="ApplicationDifferences\ExternalApplication\StartExternalApplicationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ApplicationDifferences\ExternalApplication\StartExternalApplicationController.cs" />
     <Compile Include="ApplicationDifferences\ExternalApplication\Updater.cs" />
     <Compile Include="ConditionalViewControlsPositioning\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\MasterDetail\AutoExpandNewRow\AttributeRegistrator.cs" />
@@ -286,9 +289,7 @@
     <Compile Include="ImportExport\ImportWizard\TestGroupObject.cs" />
     <Compile Include="ImportExport\ImportWizard\TestImportObject.cs" />
     <Compile Include="ListViewControl\LayoutViewGridListEditor\AttributeRegistrator.cs" />
-    <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ListViewControl\LoadWhenFiltered\LoadWhenFilteredController.cs" />
     <Compile Include="ListViewControl\TreeList\RecursiveView\RVItem.cs" />
     <Compile Include="ListViewControl\TreeList\RecursiveView\RVCategory.cs" />
     <Compile Include="ListViewControl\TreeList\RecursiveView\Updater.cs" />
@@ -297,9 +298,7 @@
     <Compile Include="Miscellaneous\ApplicationMultipleInstances\AMIObject.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Miscellaneous\ApplicationMultipleInstances\ShowAnotherInstanceController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Miscellaneous\ApplicationMultipleInstances\ShowAnotherInstanceController.cs" />
     <Compile Include="FooterMessagePanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -308,9 +307,7 @@
     <Compile Include="ListViewControl\TreeList\RecursiveFiltering\Updater.cs" />
     <Compile Include="Miscellaneous\ConnectionInfoStatus\AttributeRegistrator.cs" />
     <Compile Include="Miscellaneous\LookUpListSearch\AttributeRegistrator.cs" />
-    <Compile Include="Miscellaneous\PessimisticLocking\ShowNewInstanceController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Miscellaneous\PessimisticLocking\ShowNewInstanceController.cs" />
     <Compile Include="Navigation\LogOut\LOCustomer.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Navigation\CursorPosition\AttributeRegistrator.cs" />
@@ -321,12 +318,8 @@
     <Compile Include="ControllingXtraGrid\GuessAutoFilterRowValues\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\HidePopupMenu\AttributeRegistrator.cs" />
     <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\AttributeRegistrator.cs" />
-    <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\OrderLinesNewItemRowPosition.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\OrdersNewItemRowPosition.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\OrderLinesNewItemRowPosition.cs" />
+    <Compile Include="ControllingXtraGrid\MasterDetail\AtAnyLevel\OrdersNewItemRowPosition.cs" />
     <Compile Include="PropertyEditors\ChooseFromListCollectionEditor\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditors\NullAble\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditors\NullAble\PENACustomer.cs" />

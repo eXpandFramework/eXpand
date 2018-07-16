@@ -12,7 +12,8 @@
     <AssemblyName>FeatureCenter.Module</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <OutputPath>bin\Debug\</OutputPath>
@@ -119,6 +120,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Dashboard, Version=18.1.4.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.FileAttachment">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.FileAttachment.dll</HintPath>
@@ -207,9 +212,7 @@
   <ItemGroup>
     <Compile Include="ApplicationDifferences\AttributeRegistrator.cs" />
     <Compile Include="ApplicationDifferences\RoleDifference\AttributeRegistrator.cs" />
-    <Compile Include="DetailViewControl\ActionButtonViewItem\ActionButtonViewItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="DetailViewControl\ActionButtonViewItem\ActionButtonViewItemController.cs" />
     <Compile Include="DetailViewControl\ActionButtonViewItem\AttributeRegistrator.cs" />
     <Compile Include="AdditionalViewControls\ConditionalControlAndMessage\AttributeRegistrator.cs" />
     <Compile Include="ExpandAbleMembers\EAMCustomer.cs" />
@@ -224,9 +227,7 @@
     <Compile Include="ControllingSearch\FullTextForMemoFields\AttributeRegistrator.cs" />
     <Compile Include="ControllingSearch\ListView\AttributeRegistrator.cs" />
     <Compile Include="DetailViewControl\DisableEditDetailView\AttributeRegistrator.cs" />
-    <Compile Include="DisplayFeatureModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="DisplayFeatureModelController.cs" />
     <Compile Include="MessageBox\AttributeRegistrator.cs" />
     <Compile Include="MessageBox\ShowMessageBoxController.cs">
       <SubType>Component</SubType>
@@ -257,9 +258,7 @@
     <Compile Include="PivotChart\HideChart\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\HidePivot\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\InPlaceEdit\AttributeRegistrator.cs" />
-    <Compile Include="PivotChart\PivotChart.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="PivotChart\PivotChart.cs" />
     <Compile Include="PivotChart\PivotGroupInterval\AttributeRegistrator.cs" />
     <Compile Include="PivotChart\ShowInAnalysis\AttributeRegistrator.cs" />
     <Compile Include="PropertyEditor\CascadingEditors\AttributeRegistrator.cs" />
@@ -274,9 +273,7 @@
     <Compile Include="RuntimeFields\OrphanedCollectionWithCode\CreateRuntimeOrphanedCollectionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuntimeFields\FromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="RuntimeFields\FromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs" />
     <Compile Include="ApplicationDifferences\Updater.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Customer.cs" />

@@ -8,33 +8,30 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.SystemModule;
-using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Dashboard.Controllers;
-using Xpand.ExpressApp.Dashboard.Filter;
+using Xpand.ExpressApp.Dashboard.Services;
 using Xpand.ExpressApp.XtraDashboard.Web.BusinessObjects;
-using Xpand.Persistent.Base.General.Web;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers {
     public class DashboarDesignerController : DashboardDesignerController {
         protected override void DashboardEditExecute(object sender, SimpleActionExecuteEventArgs e){
             base.DashboardEditExecute(sender, e);
             var definition = ((IDashboardDefinition) View.CurrentObject);
-            if (string.IsNullOrWhiteSpace((definition.Xml+"").Trim())) {
-                var dashBoard = definition.CreateDashBoard(RuleMode.Runtime, type => ObjectSpace.CreateDashboardDataSource(type), Application);
-                definition.Xml = dashBoard.GetDashboardXml();
-            }
-            ObjectSpace.CommitChanges();
-            var objectSpace = Application.CreateObjectSpace();
-            definition = (IDashboardDefinition)objectSpace.GetObject(View.CurrentObject);
-            var showViewParameters = e.ShowViewParameters;
+            var dashboard = definition.GetDashboard(Application, RuleMode.DesignTime,modeParametersEdited: EditDashboard);
+            if (dashboard!=null)
+                EditDashboard();
+            
+        }
+
+        private void EditDashboard(){
             var modelView = (IModelDetailView) Application.Model.Views[DashboardDefinition.DashboardDesignerDetailView];
-            showViewParameters.Controllers.Add(Application.CreateController<CustomizeASPxPopupController>());
+            var objectSpace = Application.CreateObjectSpace();
+            var definition = (IDashboardDefinition) objectSpace.GetObject(View.CurrentObject);
+            var detailView = Application.CreateDetailView(objectSpace, modelView, true, definition);
             
-            showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, modelView,true,definition);
-            showViewParameters.CreatedView.Closed+=CreatedViewOnClosed;
-            showViewParameters.TargetWindow=TargetWindow.NewModalWindow;
-            
+            detailView.Closed+=CreatedViewOnClosed;
+            Application.ShowViewStrategy.ShowViewInPopupWindow(detailView);
         }
 
         private void CreatedViewOnClosed(object sender, EventArgs eventArgs){

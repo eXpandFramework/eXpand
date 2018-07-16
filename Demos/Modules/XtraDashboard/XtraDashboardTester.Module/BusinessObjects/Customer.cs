@@ -12,6 +12,12 @@ namespace XtraDashboardTester.Module.BusinessObjects{
         public Customer(Session session) : base(session){
         }
 
+        string _test;
+
+        public string Test{
+            get{ return _test; }
+            set{ SetPropertyValue(nameof(Test), ref _test, value); }
+        }
         public PermissionPolicyUser User{
             get { return _user; }
             set { SetPropertyValue("User", ref _user, value); }

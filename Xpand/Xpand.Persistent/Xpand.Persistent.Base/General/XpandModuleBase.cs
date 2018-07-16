@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
@@ -323,9 +324,9 @@ namespace Xpand.Persistent.Base.General {
 
         public static XpoTypeInfoSource XpoTypeInfoSource => XpoTypesInfoHelper.GetXpoTypeInfoSource();
 
-        public static string ConnectionString {
-            get { return _connectionString != null || !InterfaceBuilder.RuntimeMode ? _connectionString : null; }
-            internal set { _connectionString = value; }
+        public static string ConnectionString{
+            get => _connectionString != null || !InterfaceBuilder.RuntimeMode ? _connectionString : null;
+            internal set => _connectionString = value;
         }
 
         [SecuritySafeCritical]
@@ -445,8 +446,7 @@ namespace Xpand.Persistent.Base.General {
 
         void AssignSecurityEntities() {
             if (Application != null) {
-                var roleTypeProvider = Application.Security as IRoleTypeProvider;
-                if (roleTypeProvider != null) {
+                if (Application.Security is IRoleTypeProvider roleTypeProvider) {
                     RoleType =XafTypesInfo.Instance.PersistentTypes.First(info => info.Type == roleTypeProvider.RoleType).Type;
                     if (RoleType.IsInterface)
                         RoleType = XpoTypeInfoSource.GetGeneratedEntityType(RoleType);
@@ -771,7 +771,13 @@ namespace Xpand.Persistent.Base.General {
                     return;
                 Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
                 Application.SetClientSideSecurity();
+                if (Application is WebApplication webApplication)
+                    webApplication.PopupWindowManager.PopupShowing += PopupWindowManagerOnPopupShowing;
             }
+        }
+
+        private void PopupWindowManagerOnPopupShowing(object sender, PopupShowingEventArgs e){
+            e.SourceFrame.RegisterController(Application.CreateController<CustomizeASPxPopupController>());
         }
 
         private void ApplicationOnObjectSpaceCreated(object sender1, ObjectSpaceCreatedEventArgs e) {
@@ -795,7 +801,7 @@ namespace Xpand.Persistent.Base.General {
                 var memberInfos = group.Key.GetTypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
                 foreach (var memberInfo in memberInfos) {
                     var attribute = memberInfo.FindAttribute<SequenceGeneratorAttribute>();
-                    var sessionProvider = ((ISessionProvider) @group.First());
+                    var sessionProvider = ((ISessionProvider) group.First());
                     SequenceGenerator.GenerateSequence(sessionProvider, attribute.SequenceName, l => memberInfo.SetValue(sessionProvider, l));
                 }
             }

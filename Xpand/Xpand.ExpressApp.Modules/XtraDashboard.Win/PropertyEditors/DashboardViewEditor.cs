@@ -5,8 +5,6 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.DashboardWin;
-using Xpand.ExpressApp.Dashboard;
-using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.Dashboard.PropertyEditors;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
@@ -47,11 +45,11 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
         }
 
         void ControlOnHandleCreated(object sender, EventArgs eventArgs) {
-            var template = CurrentObject as IDashboardDefinition;
-            if (template != null) {
+            if (CurrentObject is IDashboardDefinition template) {
                 Control.HandleCreated -= ControlOnHandleCreated;
-                Control.BeginInvoke(new Action(() =>DashboardViewer.Dashboard =template.CreateDashBoard(RuleMode.Runtime,
-                                    type => ObjectSpace.CreateDashboardDataSource(type),_application)));
+                Control.BeginInvoke(new Action(() => {
+                    DashboardViewer.Show(Application, template);
+                }));
             }
         }
     }

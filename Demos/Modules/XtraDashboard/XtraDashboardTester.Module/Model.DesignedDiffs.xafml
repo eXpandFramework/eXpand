@@ -9,8 +9,9 @@
   </ActionDesign>
   <DashboardModule>
     <DataSources>
-      <DashboardDataSourceFilter Id="Filter" DataSourceName="FilteredDataSource" Filter="Customer.User=CurrentUserId()" IsNewNode="True" />
-      <DashboardDataSourceParameter Id="Parameter" DataSourceName="FilteredDataSource" ParameterName="Parameter1" IsCustomFunction="True" ParameterValue="CurrentUserName()" IsNewNode="True" />
+      <DashboardDataSourceFilter Id="Object" Filter="" ShowInPopupView="True" TopReturnedRecords="1" NodeEnabled="True" DatasourceType="object" IsNewNode="True" />
+      <DashboardDataSourceParameter Id="Parameter" DataSourceName="FilteredDataSource" ParameterName="Parameter1" IsCustomFunction="True" ParameterValue="CurrentUserName()" NodeEnabled="True" IsNewNode="True" />
+      <DashboardDataSourceFilter Id="SQL Table Filter" DataSourceName=".*" Filter="Customer.User=CurrentUserId()" NodeEnabled="True" ShowInPopupView="True" DatasourceType="SQL" IsNewNode="True" />
     </DataSources>
   </DashboardModule>
 </Application>

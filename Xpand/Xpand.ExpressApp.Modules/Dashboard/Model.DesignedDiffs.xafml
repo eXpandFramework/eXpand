@@ -1,25 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
+    <ListView Id="DashboardDatasourceFilterList_Filters_ListView" AutoExpandAllGroups="True" AllowEdit="True">
+      <Columns>
+        <ColumnInfo Id="ShowPersistentMembersOnly" Index="0" Width="41" ToolTip="Show Persistent Members Only" Caption="M" />
+        <ColumnInfo Id="TopReturnedRecords" Index="1" Width="35" Caption="R" ToolTip="Top Returned Records" />
+        <ColumnInfo Id="DataSourceName" Index="2" Width="122" SortIndex="-1" SortOrder="Ascending" GroupIndex="0" AllowEdit="False" />
+        <ColumnInfo Id="ID" Index="3" SortIndex="0" SortOrder="Ascending" AllowEdit="False" />
+        <ColumnInfo Id="Filter" Width="620" Index="4" />
+      </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
     <DetailView Id="DashboardDefinition_DetailView">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
-          <LayoutGroup Id="SimpleEditors" RelativeSize="9.0666666666666664">
+          <LayoutGroup Id="SimpleEditors" RelativeSize="6.8532818532818531">
             <LayoutGroup Id="DashboardDefinition" Caption="DashboardDefinition" RelativeSize="100">
-              <LayoutGroup Id="Auto5ae7f049-6d40-4358-afae-e1bb7d78a941" ShowCaption="False" Caption="Auto5ae7f049-6d40-4358-afae-e1bb7d78a941(4)" Direction="Horizontal" Index="0" RelativeSize="51.470588235294116" IsNewNode="True">
-                <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="49.866666666666667" IsNewNode="True" />
-                <LayoutItem Id="DashboardTypes" ViewItem="DashboardTypes" Index="1" RelativeSize="50.133333333333333" IsNewNode="True" />
+              <LayoutGroup Id="Auto5ae7f049-6d40-4358-afae-e1bb7d78a941" ShowCaption="False" Caption="Auto5ae7f049-6d40-4358-afae-e1bb7d78a941(4)" Direction="Horizontal" Index="0" RelativeSize="49.29577464788732" IsNewNode="True">
+                <LayoutItem Id="Name" ViewItem="Name" Index="0" RelativeSize="49.735449735449734" IsNewNode="True" />
+                <LayoutItem Id="DashboardTypes" ViewItem="DashboardTypes" Index="1" RelativeSize="50.264550264550266" IsNewNode="True" />
               </LayoutGroup>
-              <LayoutGroup Id="Autodf10b81e-66a2-41fc-b350-d38f2d8727b1" ShowCaption="False" Caption="Autodf10b81e-66a2-41fc-b350-d38f2d8727b1(5)" Direction="Horizontal" Index="1" RelativeSize="48.529411764705884" IsNewNode="True">
-                <LayoutItem Id="Index" ViewItem="Index" Index="0" RelativeSize="49.733333333333334" IsNewNode="True" />
-                <LayoutItem Id="Active" ViewItem="Active" Index="1" RelativeSize="50.266666666666666" IsNewNode="True" />
+              <LayoutGroup Id="Autodf10b81e-66a2-41fc-b350-d38f2d8727b1" ShowCaption="False" Caption="Autodf10b81e-66a2-41fc-b350-d38f2d8727b1(5)" Direction="Horizontal" Index="1" RelativeSize="50.70422535211268" IsNewNode="True">
+                <LayoutGroup Id="Auto59efc432-9b5a-4cf8-b4b2-182dfc59949e" ShowCaption="False" Caption="Auto59efc432-9b5a-4cf8-b4b2-182dfc59949e(8)" Index="0" RelativeSize="49.629629629629626" Direction="Horizontal" IsNewNode="True">
+                  <LayoutItem Id="Index" ViewItem="Index" Index="0" RelativeSize="49.680170575692962" IsNewNode="True" />
+                  <LayoutItem Id="Active" ViewItem="Active" Index="1" RelativeSize="50.319829424307038" IsNewNode="True" />
+                </LayoutGroup>
+                <LayoutItem Id="EditParameters" ViewItem="EditParameters" Index="1" RelativeSize="25.185185185185187" IsNewNode="True" />
+                <LayoutItem Id="DataViewService" ViewItem="DataViewService" Index="2" RelativeSize="25.185185185185187" IsNewNode="True" />
               </LayoutGroup>
               <LayoutItem Id="Active" ViewItem="Active" Removed="True" />
+              <LayoutItem Id="EditParameters" ViewItem="EditParameters" Removed="True" />
               <LayoutItem Id="Index" ViewItem="Index" Removed="True" />
               <LayoutItem Id="Name" RelativeSize="51.612903225806448" ViewItem="Name" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="90.933333333333337" IsNewNode="True">
+          <TabbedGroup Id="Item1" CaptionLocation="Top" Index="1" RelativeSize="93.146718146718143" IsNewNode="True">
             <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" Caption="Xml" IsNewNode="True">
               <LayoutItem Id="Xml" ViewItem="Xml" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
             </LayoutGroup>
@@ -33,7 +50,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="DashboardDesigner_DetailView" ViewEditMode="View">
+    <DetailView Id="DashboardDefinitionViewer_DetailView" AllowEdit="False" ViewEditMode="View">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100" Direction="Vertical" Caption="SimpleEditors">
@@ -51,7 +68,7 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <DetailView Id="DashboardDefinitionViewer_DetailView" AllowEdit="False" ViewEditMode="View">
+    <DetailView Id="DashboardDesigner_DetailView" ViewEditMode="View">
       <Layout>
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100" Direction="Vertical" Caption="SimpleEditors">
@@ -75,19 +92,19 @@
           <LayoutGroup Id="SimpleEditors" RelativeSize="7.4235807860262009">
             <LayoutGroup Id="PermissionPolicyRoleBase" RelativeSize="100">
               <LayoutGroup Id="Auto88d1eb3e-834f-46ae-80f6-a7bf68cb9ec8">
-                <LayoutItem Id="PermissionPolicy" RelativeSize="31.611410948342328" />
-                <LayoutItem Id="IsAdministrative" RelativeSize="17.964533538936006" />
-                <LayoutItem Id="CanEditModel" RelativeSize="50.424055512721665" />
+                <LayoutItem Id="PermissionPolicy" RelativeSize="31.611410948342328" ViewItem="PermissionPolicy" />
+                <LayoutItem Id="IsAdministrative" RelativeSize="17.964533538936006" ViewItem="IsAdministrative" />
+                <LayoutItem Id="CanEditModel" RelativeSize="50.424055512721665" ViewItem="CanEditModel" />
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="XpandPermissionPolicyRole" Caption="Dashboard Operation" Direction="Horizontal" Index="1" RelativeSize="91.435768261964739" Removed="True">
-              <LayoutItem Id="DashboardOperation" Removed="True" />
+              <LayoutItem Id="DashboardOperation" ViewItem="DashboardOperation" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
           <TabbedGroup Id="Tabs" RelativeSize="92.5764192139738">
             <LayoutGroup Id="DashboardDefinitions" RelativeSize="100" Caption="Dashboard Definitions">
               <LayoutItem Id="DashboardOperation" ViewItem="DashboardOperation" Index="0" RelativeSize="3.9751552795031055" IsNewNode="True" />
-              <LayoutItem Id="DashboardDefinitions" Index="1" RelativeSize="96.0248447204969" />
+              <LayoutItem Id="DashboardDefinitions" Index="1" RelativeSize="96.0248447204969" ViewItem="DashboardDefinitions" />
             </LayoutGroup>
             <LayoutGroup Id="TypePermissions" Index="4" />
           </TabbedGroup>

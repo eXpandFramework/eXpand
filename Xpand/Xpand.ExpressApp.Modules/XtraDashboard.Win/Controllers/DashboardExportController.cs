@@ -8,22 +8,18 @@ using DevExpress.DashboardWin.Native;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.Persistent.Base;
-using DevExpress.XtraBars;
-using Xpand.ExpressApp.Dashboard;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
-using Xpand.ExpressApp.Dashboard.Filter;
 using Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
-    public class DashboardExportController : ViewController<ListView> {
+    public class DashboardExportController : ObjectViewController<ListView,IDashboardDefinition> {
         private readonly SingleChoiceAction _exportDashboardAction;
         private DashboardViewEditor _dashboardViewEditor;
         private const string ExportToPdf = "PDF";
         private const string ExportToImage = "Image";
         private const string PrintPreview = "PrintPreview";
         public DashboardExportController() {
-            TargetObjectType = typeof(IDashboardDefinition);
             _exportDashboardAction = new SingleChoiceAction(this, "ExportDashboardTo", PredefinedCategory.Export) { Caption = "Export Dashboard To" };
             _exportDashboardAction.Items.Add(new ChoiceActionItem(PrintPreview, PrintPreview) { ImageName = "Action_Printing_Preview" });
             _exportDashboardAction.Items.Add(new ChoiceActionItem(ExportToPdf, ExportToPdf) { ImageName = "Action_Export_ToPDF" });
@@ -43,8 +39,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
             base.OnViewControlsCreated();
             if (View.Id== "DashboardDefinitionViewer_DetailView") {
                 var xmlViewItem = View.FindItem("Xml");
-                var item = xmlViewItem as DashboardViewEditor;
-                if (item != null) {
+                if (xmlViewItem is DashboardViewEditor item) {
                     _dashboardViewEditor = item;
                     _dashboardViewEditor.DashboardViewer.PopupMenuShowing += DashboardViewer_PopupMenuShowing;
                 }
@@ -67,8 +62,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
                     typeof(DashboardItemMouseHitTestEventArgs).GetField("dashboardItemViewer",
                         BindingFlags.NonPublic | BindingFlags.Instance);
                 var obj = fi?.GetValue(e);
-                var dashboardItemViewer = obj as DashboardItemViewer;
-                if (dashboardItemViewer != null){
+                if (obj is DashboardItemViewer dashboardItemViewer){
                     itemViewer = dashboardItemViewer;
                 }
 
@@ -78,37 +72,19 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
 
 
                 var printPreviewItemBarItem = new PrintPreviewItemBarItem();
-                ItemClickEventHandler printPreviewItemBarItemDelegate = delegate{
-                    ((IDashboardViewerCommandBarItem) printPreviewItemBarItem)
-                        .ExecuteCommand(viewer, itemViewer);
-                };
-                printPreviewItemBarItem.ItemClick += printPreviewItemBarItemDelegate;
+                printPreviewItemBarItem.ItemClick += (o, args) =>((IDashboardViewerCommandBarItem) printPreviewItemBarItem).ExecuteCommand(viewer, itemViewer);
                 e.Menu.AddItem(printPreviewItemBarItem);
 
                 var exportItemToPdfBarItem = new ExportItemToPdfBarItem();
-                ItemClickEventHandler exportItemToPdfBarItemDelegate = delegate{
-                    ((IDashboardViewerCommandBarItem) exportItemToPdfBarItem)
-                        .ExecuteCommand(viewer, itemViewer);
-                };
-                exportItemToPdfBarItem.ItemClick += exportItemToPdfBarItemDelegate;
+                exportItemToPdfBarItem.ItemClick += (o, args) =>((IDashboardViewerCommandBarItem) exportItemToPdfBarItem).ExecuteCommand(viewer, itemViewer);
                 e.Menu.AddItem(exportItemToPdfBarItem);
 
                 var exportItemToImageBarItem = new ExportItemToImageBarItem();
-                ItemClickEventHandler exportItemToImageBarItemDelegate =
-                    delegate{
-                        ((IDashboardViewerCommandBarItem) exportItemToImageBarItem)
-                            .ExecuteCommand(viewer, itemViewer);
-                    };
-                exportItemToImageBarItem.ItemClick += exportItemToImageBarItemDelegate;
+                exportItemToImageBarItem.ItemClick += (o, args) => ((IDashboardViewerCommandBarItem) exportItemToImageBarItem).ExecuteCommand(viewer, itemViewer);
                 e.Menu.AddItem(exportItemToImageBarItem);
 
                 var exportItemToExcelBarItem = new ExportItemToExcelBarItem();
-                ItemClickEventHandler exportItemToExcelBarItemDelegate =
-                    delegate{
-                        ((IDashboardViewerCommandBarItem) exportItemToExcelBarItem)
-                            .ExecuteCommand(viewer, itemViewer);
-                    };
-                exportItemToExcelBarItem.ItemClick += exportItemToExcelBarItemDelegate;
+                exportItemToExcelBarItem.ItemClick += (o, args) => ((IDashboardViewerCommandBarItem) exportItemToExcelBarItem).ExecuteCommand(viewer, itemViewer);
                 e.Menu.AddItem(exportItemToExcelBarItem);
             }
         }
@@ -141,8 +117,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Controllers {
                 Width = ((Form)Application.MainWindow.Template).Width,
                 Height = ((Form)Application.MainWindow.Template).Height
             };
-            ((Control) Frame.Template).BeginInvoke(new Action(() => dashboardViewer.Dashboard = ((IDashboardDefinition)View.CurrentObject).CreateDashBoard(RuleMode.Runtime,
-                type => ObjectSpace.CreateDashboardDataSource(type), Application)));
+            ((Control) Frame.Template).BeginInvoke(new Action(() => dashboardViewer.Show(Application, (IDashboardDefinition) View.CurrentObject)));
             return dashboardViewer;
         }
 
