@@ -20,8 +20,7 @@ namespace Xpand.VSIX.Commands {
         private DropDataBaseCommand():base((sender, args) => Drop(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDropDatabase)){
             this.EnableForSolution();
             var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
-            if (dteCommand!=null)
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
         }
 
         public static void Init(){

@@ -10,8 +10,7 @@ namespace Xpand.VSIX.Commands{
         private DuplicateLineCommand(IVsTextManager vsTextManager) : base((sender, args) => DuplicateLine(vsTextManager),
             new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidDouplicateLine)){
             var dteCommand = Options.OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
-            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
             this.EnableForActiveFile();
         }
 

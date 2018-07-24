@@ -9,8 +9,7 @@ namespace Xpand.VSIX.Commands{
     public class KillIISExpressCommand:VSCommand{
         private KillIISExpressCommand() : base((sender, args) => Kill(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidKillIISExpress)) {
             var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
-            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
         }
 
         public static void Init(){

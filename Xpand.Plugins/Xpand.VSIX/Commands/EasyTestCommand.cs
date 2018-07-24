@@ -22,8 +22,7 @@ namespace Xpand.VSIX.Commands{
         private EasyTestCommand(EventHandler invokeHandler, CommandID commandID,string name) : base(invokeHandler, commandID){
             this.EnableForDXSolution().EnableForActiveFile(".ets", ".inc");
             var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == name);
-            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
         }
 
         public static void Init(){

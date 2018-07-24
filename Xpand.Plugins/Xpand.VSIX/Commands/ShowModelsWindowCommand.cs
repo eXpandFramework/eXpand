@@ -10,8 +10,7 @@ namespace Xpand.VSIX.Commands {
         private ShowModelsWindowCommand() : base((sender, args) => VSPackage.VSPackage.Instance.ShowToolWindow<ModelToolWindow>(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidShowMEToolbox)){
             this.EnableForDXSolution();
             var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
-            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
         }
 
         public static void Init(){

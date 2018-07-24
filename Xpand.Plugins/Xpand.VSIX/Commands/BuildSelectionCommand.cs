@@ -10,8 +10,7 @@ namespace Xpand.VSIX.Commands{
         private BuildSelectionCommand() : base((sender, args) =>Build() , new CommandID(PackageGuids.guidVSXpandPackageCmdSet,PackageIds.cmdidBuildSelection)){
             this.EnableForSolution();
             var dteCommand = Options.OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
-            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
         }
 
         public static void Init(){

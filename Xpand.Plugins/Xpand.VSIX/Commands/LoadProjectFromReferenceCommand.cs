@@ -17,8 +17,7 @@ namespace Xpand.VSIX.Commands {
         private LoadProjectFromReferenceCommand(int commandId,string name) :base((sender, args) => LoadProjects(), new CommandID(PackageGuids.guidVSXpandPackageCmdSet, commandId)) {
             this.EnableForAssemblyReferenceSelection();
             var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == name);
-            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
         }
 
         public static void Init(){

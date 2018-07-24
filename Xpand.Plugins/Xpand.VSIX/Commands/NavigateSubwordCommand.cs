@@ -13,8 +13,7 @@ namespace Xpand.VSIX.Commands {
         }
 
         protected static void Navigate(bool previous){
-            var textSelection = DteExtensions.DTE.ActiveDocument.Selection as TextSelection;
-            if (textSelection != null && textSelection.IsEmpty){
+            if (DteExtensions.DTE.ActiveDocument.Selection is TextSelection textSelection && textSelection.IsEmpty){
                 int column = 0;
                 if (previous){
                     textSelection.WordLeft(true);
@@ -52,8 +51,7 @@ namespace Xpand.VSIX.Commands {
              (sender, args) => Navigate( false),
             new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidNextSubword)){
             var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
-            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
         }
 
         public static void Init() {
@@ -66,8 +64,7 @@ namespace Xpand.VSIX.Commands {
              (sender, args) => Navigate( true),
             new CommandID(PackageGuids.guidVSXpandPackageCmdSet, PackageIds.cmdidPreviousSubword)){
             var dteCommand = OptionClass.Instance.DteCommands.FirstOrDefault(command => command.Command == GetType().Name);
-            if (!string.IsNullOrWhiteSpace(dteCommand?.Shortcut))
-                BindCommand(dteCommand.Shortcut);
+            BindCommand(dteCommand);
         }
 
         public static void Init() {
