@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Xpo;
 using System.ServiceModel;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
 using Xpand.ExpressApp.Security.ClientServer;
+using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.MiddleTier;
 
 namespace ConsoleApplicationServer {
@@ -27,6 +28,7 @@ namespace ConsoleApplicationServer {
                     ConnectionString = connectionString
                 };
                 Console.WriteLine("Setup...");
+                var worldCreatorTypeInfoSource = WorldCreatorTypeInfoSource.Instance;
                 serverApplication.Setup();
                 Console.WriteLine("CheckCompatibility...");
                 serverApplication.CheckCompatibility();

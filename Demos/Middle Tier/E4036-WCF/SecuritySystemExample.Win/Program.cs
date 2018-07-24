@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
+using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.MiddleTier;
 
 namespace SecuritySystemExample.Win {
@@ -41,6 +42,7 @@ namespace SecuritySystemExample.Win {
                     };
 
                 winApplication.UseOldTemplates=false;
+                var worldCreatorTypeInfoSource = WorldCreatorTypeInfoSource.Instance;
                 winApplication.Setup();
                 winApplication.Start();
                 clientDataServer.Close();

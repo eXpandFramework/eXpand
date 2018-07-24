@@ -11,6 +11,7 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DebugGAC|Any CPU = DebugGAC|Any CPU
 		EasyTest|Any CPU = EasyTest|Any CPU
 		RecompiledDxSources|Any CPU = RecompiledDxSources|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -19,6 +20,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{C32112FB-6A65-43CC-84DE-A01A7C88F2EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C32112FB-6A65-43CC-84DE-A01A7C88F2EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C32112FB-6A65-43CC-84DE-A01A7C88F2EB}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{C32112FB-6A65-43CC-84DE-A01A7C88F2EB}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
 		{C32112FB-6A65-43CC-84DE-A01A7C88F2EB}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{C32112FB-6A65-43CC-84DE-A01A7C88F2EB}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{C32112FB-6A65-43CC-84DE-A01A7C88F2EB}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,6 +32,8 @@ Global
 		{C32112FB-6A65-43CC-84DE-A01A7C88F2EB}.Test|Any CPU.Build.0 = EasyTest|Any CPU
 		{46D3A775-7395-4B9B-8B1D-77A2E152339A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{46D3A775-7395-4B9B-8B1D-77A2E152339A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46D3A775-7395-4B9B-8B1D-77A2E152339A}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{46D3A775-7395-4B9B-8B1D-77A2E152339A}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
 		{46D3A775-7395-4B9B-8B1D-77A2E152339A}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{46D3A775-7395-4B9B-8B1D-77A2E152339A}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{46D3A775-7395-4B9B-8B1D-77A2E152339A}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +44,8 @@ Global
 		{46D3A775-7395-4B9B-8B1D-77A2E152339A}.Test|Any CPU.Build.0 = EasyTest|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C85FE9E6-4674-4278-8326-11C36281E077}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{C85FE9E6-4674-4278-8326-11C36281E077}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.EasyTest|Any CPU.Build.0 = EasyTest|Any CPU
 		{C85FE9E6-4674-4278-8326-11C36281E077}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU

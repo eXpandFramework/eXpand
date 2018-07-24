@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -64,7 +63,7 @@ namespace Xpand.ExpressApp.WorldCreator{
         void AddPersistentModules(ApplicationModulesManager applicationModulesManager){
             WorldCreatorApplication.CheckCompatibility(Application, GetWorldCreatorApplication);
 
-            if (!string.IsNullOrEmpty(ConnectionString)){
+            if (!string.IsNullOrEmpty(ConnectionString)||Application.ObjectSpaceProviders.OfType<DataServerObjectSpaceProvider>().Any()){
                 lock (_locker){
                     var worldCreatorObjectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(Application, false);
                     using (var objectSpace = worldCreatorObjectSpaceProvider.CreateObjectSpace()){
@@ -154,8 +153,8 @@ namespace Xpand.ExpressApp.WorldCreator{
         }
 
         private void CheckIfSupported(){
-            if (Application?.ObjectSpaceProvider is DataServerObjectSpaceProvider)
-                throw new NotSupportedException(Application.ObjectSpaceProvider.GetType().FullName);
+//            if (Application?.ObjectSpaceProvider is DataServerObjectSpaceProvider)
+//                throw new NotSupportedException(Application.ObjectSpaceProvider.GetType().FullName);
         }
 
         private void RegisterDerivedTypes(){
