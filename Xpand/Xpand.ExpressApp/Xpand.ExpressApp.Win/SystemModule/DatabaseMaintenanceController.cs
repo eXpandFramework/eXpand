@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using DevExpress.Data.Filtering;
+using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -16,6 +17,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.CustomFunctions;
 using Xpand.Utils.Helpers;
 using Timer = System.Timers.Timer;
 
@@ -82,7 +84,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         [CriteriaOptions(nameof(UserModelClass)+".TypeInfo")]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
-        [DefaultValue("[" +nameof(ISecurityUser.UserName) +  "] = 'Service'")]
+        [DefaultValue(EvaluateExpressionOperator.OperatorName +"('new Regex(\".*\").IsMatch(Environment.MachineName)')")]
         [Category("User")]
         string UserCriteria { get; set; }
 
@@ -133,7 +135,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 catch (Exception e){
                     Tracing.Tracer.LogError(e);
                 }
-            });
+            },TaskCreationOptions.LongRunning);
         }
 
         private void Update(int? initialSize, Session session, string database){
@@ -201,7 +203,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void FrameOnTemplateChanged(object sender, EventArgs eventArgs){
             Frame.TemplateChanged-=FrameOnTemplateChanged;
-            _timer=new Timer(10000) {SynchronizingObject = (ISynchronizeInvoke) Frame.Template};
+            _timer=new Timer(10000) {SynchronizingObject = (ISynchronizeInvoke) Frame.Template,AutoReset = true};
             _timer.Elapsed+=TimerOnElapsed;
             _timer.Start();
         }
@@ -219,9 +221,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         private void Backup(){
             var databaseMaintanance = ((IModelOptionsDatabaseMaintanence)Application.Model.Options).DatabaseMaintanance;
             try{
-                if (!Directory.Exists(databaseMaintanance.BackupDirectory))
-                    Directory.CreateDirectory(databaseMaintanance.BackupDirectory);
+                
                 Execute(databaseMaintanance, (session, database) => {
+                    if (!Directory.Exists(databaseMaintanance.BackupDirectory))
+                        Directory.CreateDirectory(databaseMaintanance.BackupDirectory);
                     var backupFiles = Directory.GetFiles(databaseMaintanance.BackupDirectory,$"{database}*.bak").OrderByDescending(s => new FileInfo(s).CreationTime).ToArray();
                     if (!backupFiles.Any()){
                         BackupTask(database, databaseMaintanance).ContinueWith(task => _timer.Start());
@@ -267,7 +270,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         private void Execute(IModelDatabaseMaintanance databaseMaintanance,Action<Session,string>action){
             using (var objectSpace = Application.CreateObjectSpace()){
                 var isObjectFitForCriteria = IsObjectFitForCriteria(databaseMaintanance, objectSpace);
-                if (SecuritySystem.CurrentUser == null || (isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value)){
+                if ((isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value)){
                     var parser = new ConnectionStringParser(Application.ConnectionString);
                     var database = parser.GetPartByName("Initial Catalog");
                     action(objectSpace.Session(), database);
@@ -277,8 +280,16 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private bool? IsObjectFitForCriteria(IModelDatabaseMaintanance databaseMaintanance, IObjectSpace objectSpace){
             var user = objectSpace.GetObject(SecuritySystem.CurrentUser);
-            var isObjectFitForCriteria = objectSpace.IsObjectFitForCriteria(user, CriteriaOperator.Parse(databaseMaintanance.UserCriteria));
-            return isObjectFitForCriteria;
+            CriteriaOperator criteriaOperator;
+            var typeInfo = databaseMaintanance.UserModelClass?.TypeInfo;
+            var targetObjectType = typeInfo?.Type;
+            using(objectSpace.CreateParseCriteriaScope()){
+                
+                criteriaOperator = CriteriaWrapper.ParseCriteriaWithReadOnlyParameters(databaseMaintanance.UserCriteria, targetObjectType);
+            }
+
+            var fit = objectSpace.GetExpressionEvaluator(new EvaluatorContextDescriptorDefault(typeInfo==null?typeof(object):targetObjectType), criteriaOperator).Fit(typeInfo==null?new object():user);
+            return fit;
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){

@@ -11,7 +11,7 @@ namespace Xpand.Utils.Helpers{
     }
 
     public static class ListExtensions{
-        public static void Shuffle<T>(this IList<T> list){
+        public static IList<T> Shuffle<T>(this IList<T> list){
             var n = list.Count;
             while (n > 1){
                 n--;
@@ -20,6 +20,8 @@ namespace Xpand.Utils.Helpers{
                 list[k] = list[n];
                 list[n] = value;
             }
+
+            return list;
         }
     }
 }
