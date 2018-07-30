@@ -79,6 +79,7 @@ namespace Xpand.ExpressApp.WorldCreator{
 
                         worldCreatorObjectSpaceProvider.ResetThreadSafe();
                     }
+                    worldCreatorObjectSpaceProvider.SchemaUpdateMode=SchemaUpdateMode.None;
                 }
             }
             else{
@@ -107,7 +108,6 @@ namespace Xpand.ExpressApp.WorldCreator{
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo){
             base.CustomizeTypesInfo(typesInfo);
-            CheckIfSupported();
             AddToAdditionalExportedTypes(BaseImplNameSpace);
             if (RuntimeMode){
                 var classInfos = XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.Classes.OfType<XPClassInfo>()
@@ -123,7 +123,6 @@ namespace Xpand.ExpressApp.WorldCreator{
 
         public override void Setup(ApplicationModulesManager moduleManager){
             base.Setup(moduleManager);
-            CheckIfSupported();
             AddToAdditionalExportedTypes(BaseImplNameSpace);
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleClassInfoMerge),
                 typeof(IRuleBaseProperties));
@@ -152,10 +151,6 @@ namespace Xpand.ExpressApp.WorldCreator{
             AddPersistentModules(applicationModulesManager);
         }
 
-        private void CheckIfSupported(){
-//            if (Application?.ObjectSpaceProvider is DataServerObjectSpaceProvider)
-//                throw new NotSupportedException(Application.ObjectSpaceProvider.GetType().FullName);
-        }
 
         private void RegisterDerivedTypes(){
             var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly =>

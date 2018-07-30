@@ -16,7 +16,7 @@
         <PropertyEditor Id="Model" IsNewNode="True" PropertyName="Model" />
         <PropertyEditor Id="Name" IsNewNode="True" PropertyName="Name" />
         <PropertyEditor Id="PersistentApplication.Name" IsNewNode="True" PropertyName="PersistentApplication.Name" />
-        <PropertyEditor Id="XmlContent" IsNewNode="True" PropertyName="XmlContent" />
+        <PropertyEditor Id="XmlContent" IsNewNode="True" PropertyName="XmlContent" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor"  />
       </Items>
       <Layout IsNewNode="True" Width="1127" Height="777">
         <TabbedGroup Id="5553961c-0806-4ee9-9ecd-d99d869bf4c6" IsNewNode="True" Index="0" RelativeSize="100">
