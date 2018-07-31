@@ -70,19 +70,19 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
-        public Type TargetObjectType {
-            get { return _targetObjectType; }
-            set { SetPropertyValue("TargetObjectType", ref _targetObjectType, value); }
+        public Type TargetObjectType{
+            get => _targetObjectType;
+            set => SetPropertyValue("TargetObjectType", ref _targetObjectType, value);
+        }
+        [ToolTip("Regex")]
+        public string PropertyName{
+            get => _propertyName;
+            set => SetPropertyValue("PropertyName", ref _propertyName, value);
         }
 
-        public string PropertyName {
-            get { return _propertyName; }
-            set { SetPropertyValue("PropertyName", ref _propertyName, value); }
-        }
-
-        public ExecutionDomain ExecutionDomain {
-            get { return _executionDomain; }
-            set { SetPropertyValue("ExecutionDomain", ref _executionDomain, value); }
+        public ExecutionDomain ExecutionDomain{
+            get => _executionDomain;
+            set => SetPropertyValue("ExecutionDomain", ref _executionDomain, value);
         }
         #region IXpandWorkflowDefinition Members
         public string GetActivityTypeName() {
@@ -101,33 +101,29 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         }
 
         [Browsable(false)]
-        public bool CanCompile {
-            get { return false; }
-        }
+        public bool CanCompile => false;
 
         public bool CanCompileForDesigner { get; set; }
 
 
         public bool IsActive {
-            get { return GetPropertyValue<bool>("IsActive"); }
-            set { SetPropertyValue("IsActive", value); }
+            get => GetPropertyValue<bool>("IsActive");
+            set => SetPropertyValue("IsActive", value);
         }
 
         [Browsable(false)]
-        public bool CanOpenHost {
-            get { return IsActive && !string.IsNullOrEmpty(Name); }
-        }
+        public bool CanOpenHost => IsActive && !string.IsNullOrEmpty(Name);
 
         public string Name {
-            get { return GetPropertyValue<string>("Name"); }
-            set { SetPropertyValue("Name", value); }
+            get => GetPropertyValue<string>("Name");
+            set => SetPropertyValue("Name", value);
         }
 
         [Size(SizeAttribute.Unlimited)]
         [ModelDefault("PropertyEditorType", "DevExpress.ExpressApp.Workflow.Win.WorkflowPropertyEditor")]
         public string Xaml {
-            get { return GetPropertyValue<string>("Xaml"); }
-            set { SetPropertyValue("Xaml", value); }
+            get => GetPropertyValue<string>("Xaml");
+            set => SetPropertyValue("Xaml", value);
         }
         #endregion
     }

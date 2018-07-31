@@ -61,10 +61,10 @@ namespace Xpand.Persistent.Base.General {
                 withController(controller);
         }
 
-        public static Controller GetController(this Frame frame, Type controllerType){
-            return (Controller)frame.CallMethod(new[] { controllerType }, "GetController");
-//            if (controller!=null)
-//                action(controller);
+        public static void GetController(this Frame frame, Type controllerType,Action<Controller> action){
+            var controller = (Controller)frame.CallMethod(new[] { controllerType }, "GetController");
+            if (controller!=null)
+                action(controller);
         }
 
         public static Controller GetController(this Frame frame, Type controllerType){

@@ -12,7 +12,7 @@ namespace Xpand.Persistent.Base.General.Controllers{
         protected override void OnFrameAssigned() {
             base.OnFrameAssigned();
             foreach (var type in _types){
-                Frame.GetController(type).Active[GetType().Name] = false;
+                Frame.GetController(type,controller => controller.Active[GetType().Name] = false);
             }
         }
     }

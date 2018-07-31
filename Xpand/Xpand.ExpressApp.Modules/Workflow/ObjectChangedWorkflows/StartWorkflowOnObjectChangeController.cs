@@ -8,6 +8,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using System.Linq;
+using System.Text.RegularExpressions;
 using DevExpress.Persistent.Base;
 
 
@@ -59,7 +60,9 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         }
 
         ObjectChangedEventArgs GetObjectChangedEventArgs(ObjectChangedWorkflow objectChangedWorkflow) {
-            ObjectChangedEventArgs objectChangedEventArgs = _objectChangedEventArgses.FirstOrDefault(args => args.PropertyName == objectChangedWorkflow.PropertyName && args.Object.GetType() == objectChangedWorkflow.TargetObjectType);
+            var objectChangedEventArgs = _objectChangedEventArgses.FirstOrDefault(args =>
+                new Regex(objectChangedWorkflow.PropertyName).IsMatch(args.PropertyName) &&
+                args.Object.GetType() == objectChangedWorkflow.TargetObjectType);
             return objectChangedEventArgs;
         }
 
