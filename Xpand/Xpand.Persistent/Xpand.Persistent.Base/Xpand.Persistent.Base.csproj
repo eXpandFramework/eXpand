@@ -459,6 +459,7 @@
     <Compile Include="General\TypesInfoExtensions.cs" />
     <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
     <Compile Include="General\SessionLessPersistentAttribute.cs" />
+    <Compile Include="Xpo\CachedDataStoreProvider.cs" />
     <Compile Include="Xpo\XpandXpoTypeInfoSource.cs" />
     <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
     <Compile Include="ImportExport\FailReason.cs" />
