@@ -14,7 +14,7 @@ namespace Xpand.Persistent.Base.General {
 
         public static ILayoutManager LayoutManager {
             get {
-                var typeInfo =ReflectionHelper.FindTypeDescendants(ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo(typeof (ILayoutManager))).FirstOrDefault();
+                var typeInfo =ReflectionHelper.FindTypeDescendants(Xpand.Persistent.Base.General.ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo(typeof (Xpand.Persistent.Base.General.ILayoutManager))).LastOrDefault();
                 return (ILayoutManager) typeInfo?.Type.CreateInstance();
             }
         }
