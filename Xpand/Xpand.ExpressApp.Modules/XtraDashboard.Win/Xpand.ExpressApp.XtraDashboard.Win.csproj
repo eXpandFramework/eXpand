@@ -84,14 +84,14 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Dashboards.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 18.1\Components\Bin\Framework\DevExpress.ExpressApp.Dashboards.Win.v18.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.Win.v18.1">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v18.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Program Files (x86)\DevExpress 18.1\Components\Bin\Framework\DevExpress.Persistent.Base.v18.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.RichEdit.v18.1.Core">
       <SpecificVersion>False</SpecificVersion>

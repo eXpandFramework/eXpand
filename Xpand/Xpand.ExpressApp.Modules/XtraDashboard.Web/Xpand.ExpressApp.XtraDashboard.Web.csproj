@@ -75,7 +75,7 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Dashboards.v18.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\DevExpress.ExpressApp.Dashboards.v18.1.dll</HintPath>
+      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Dashboards.Web.v18.1">
       <SpecificVersion>False</SpecificVersion>
