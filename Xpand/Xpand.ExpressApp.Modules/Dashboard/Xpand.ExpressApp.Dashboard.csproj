@@ -75,7 +75,6 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Dashboards.v18.1">
       <SpecificVersion>False</SpecificVersion>
-      
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v18.1">
       <SpecificVersion>False</SpecificVersion>
