@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Xpo.Helpers;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Win.Permissions {
     public class OverallCustomizationAllowedPermission : IOperationPermission, IPermissionInfo {
@@ -47,8 +47,7 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
         }
 
         static void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
-            if (securityStrategy != null) {
+            if (((XafApplication)sender).Security is SecurityStrategy securityStrategy) {
                 ((XafApplication)sender).LoggedOn += ApplicationOnLoggedOn;
                 (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
             }
@@ -61,7 +60,7 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
 
         static void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
             var xafApplication = ((XafApplication)sender);
-            if (((XafApplication) sender).Security is ServerSecurityClient)
+            if (((XafApplication) sender).Security.IsRemoteClient())
                 return;
             var modelWinLayoutManagerOptions = ((IModelWinLayoutManagerOptions)xafApplication.Model.Options.LayoutManagerOptions);
             modelWinLayoutManagerOptions.CustomizationEnabled = SecuritySystem.IsGranted(new OverallCustomizationAllowedPermissionRequest());

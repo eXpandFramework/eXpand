@@ -49,8 +49,7 @@ namespace Xpand.ExpressApp.Security {
                     AddToAdditionalExportedTypes(BaseImplNameSpace);
                 Application.SetupComplete += ApplicationOnSetupComplete;
                 Application.LogonFailed += (o, eventArgs) => {
-                    var logonParameters = SecuritySystem.LogonParameters as IXpandLogonParameters;
-                    if (logonParameters != null && logonParameters.RememberMe) {
+                    if (SecuritySystem.LogonParameters is IXpandLogonParameters logonParameters && logonParameters.RememberMe) {
                         logonParameters.RememberMe = false;
                         ObjectSerializer.WriteObjectPropertyValues(null, logonParameters.Storage, logonParameters);
                     }
@@ -85,8 +84,7 @@ namespace Xpand.ExpressApp.Security {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
-            if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            if (((XafApplication)sender).Security is SecurityStrategy securityStrategy) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e){

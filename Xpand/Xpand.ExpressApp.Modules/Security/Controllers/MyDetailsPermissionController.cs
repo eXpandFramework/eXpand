@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Security.ClientServer;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Controllers {
     public class MyDetailsPermissionController : WindowController{
@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (Application.Security is ServerSecurityClient)
+            if (Application.Security.IsRemoteClient())
                 return ;
             if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())) {
                 var isGranted = !SecuritySystem.IsGranted(new MyDetailsOperationRequest(new MyDetailsPermission(Modifier.Deny)));
