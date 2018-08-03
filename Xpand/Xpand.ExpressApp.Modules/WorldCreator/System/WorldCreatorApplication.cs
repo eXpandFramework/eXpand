@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Updating;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.WorldCreator.System {
     public class WorldCreatorApplication : XafApplication, ITestXafApplication {
@@ -30,6 +31,8 @@ namespace Xpand.ExpressApp.WorldCreator.System {
 
         internal static void CheckCompatibility(XafApplication application,Func<IObjectSpaceProvider, ModuleList, WorldCreatorApplication> func) {
             lock (Locker) {
+                if (application.Security.IsRemoteClient())
+                    return;
                 var objectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(application, false);
                 using (var worldCreatorApplication = func(objectSpaceProvider, application.Modules)) {
                     worldCreatorApplication.ApplicationName = application.ApplicationName;

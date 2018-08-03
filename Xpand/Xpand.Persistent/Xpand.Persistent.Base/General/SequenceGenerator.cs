@@ -17,6 +17,7 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
+using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
@@ -262,6 +263,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private static bool CanGenerate(Session session){
+            if (ApplicationHelper.Instance.Application != null && ApplicationHelper.Instance.Application.Security.IsRemoteClient())
+                return false;
             if (_defaultDataLayer == null || 
                 (session.ObjectLayer is SecuredSessionObjectLayer) || session is NestedUnitOfWork)
                 return false;
