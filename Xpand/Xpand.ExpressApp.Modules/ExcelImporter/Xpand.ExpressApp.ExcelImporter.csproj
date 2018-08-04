@@ -104,8 +104,8 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Reactive, Version=4.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.Reactive.4.1.0-preview.84\lib\net46\System.Reactive.dll</HintPath>
+    <Reference Include="System.Reactive, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.Reactive.4.0.0\lib\net46\System.Reactive.dll</HintPath>
     </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
@@ -147,7 +147,6 @@
     <Compile Include="Services\VisibleInExcelMapAttribute.cs" />
     <Compile Include="Controllers\ExcelImportDetailViewController.cs" />
     <Compile Include="Controllers\ExcelImportListViewController.cs" />
-    <Compile Include="Controllers\PopulatePropertyNamesController.cs" />
     <Compile Include="ExcelImporterModule.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -166,7 +165,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
