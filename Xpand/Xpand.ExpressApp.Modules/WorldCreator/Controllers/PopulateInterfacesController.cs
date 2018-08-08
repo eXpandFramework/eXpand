@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Utils.Helpers;
 
@@ -53,15 +54,16 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
             string assemblyName = interfaceInfo.GetPropertyInfo(x => x.Assembly).Name;
             string name = interfaceInfo.GetPropertyInfo(x => x.Name).Name;
             foreach (Type type in GetInterfaces()) {
-                if (ObjectSpace.FindObject(View.ObjectTypeInfo.Type, CriteriaOperator.Parse(string.Format("{0}=? AND {1}=?", assemblyName, name),
+                if (ObjectSpace.FindObject(View.ObjectTypeInfo.Type, CriteriaOperator.Parse(
+                        $"{assemblyName}=? AND {name}=?",
                     new AssemblyName(type.Assembly.FullName + "").Name, type.FullName)) == null) {
-                    createInterfaceInfo(type, collectionSourceBase);
+                    CreateInterfaceInfo(type, collectionSourceBase);
                 }
             }
             ObjectSpace.CommitChanges();
         }
 
-        void createInterfaceInfo(Type type, CollectionSourceBase collectionSourceBase) {
+        void CreateInterfaceInfo(Type type, CollectionSourceBase collectionSourceBase) {
             var info = (IInterfaceInfo)ObjectSpace.CreateObject(View.ObjectTypeInfo.Type);
             info.Name = type.FullName;
             info.Assembly = new AssemblyName(type.Assembly.FullName + "").Name;
@@ -70,9 +72,9 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
 
         IEnumerable<Type> GetInterfaces() {
             var assemblyNames = ((IModelApplicationInterfaceInfoSource)Application.Model).InterfaceSources.Select(node => node.AssemblyName);
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToAssemblyDefinition();
             return assemblies.Where(assembly=> assemblyNames.Contains(new AssemblyName(assembly.FullName + "").Name)).SelectMany(assembly 
-                    => assembly.GetTypes()).Where(type => type.IsInterface);
+                    => assembly.MainModule.Types).Where(type => type.IsInterface).Select(definition => AppDomain.CurrentDomain.FindType(definition));
         }
 
         void IModelExtender.ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

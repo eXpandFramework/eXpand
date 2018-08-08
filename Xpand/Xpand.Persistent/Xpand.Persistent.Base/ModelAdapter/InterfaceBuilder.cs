@@ -80,7 +80,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 }
                 return _runtimeMode.Value;
             }
-            set { _runtimeMode = value; }
+            set => _runtimeMode = value;
         }
 
         public ModelInterfaceExtenders Extenders => _extenders;
@@ -89,8 +89,8 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                                                   -1;
 
         public static bool LoadFromPath{
-            get { return RuntimeMode && _fileExistInPath || _loadFromPath; }
-            set { _loadFromPath = value; }
+            get => RuntimeMode && _fileExistInPath || _loadFromPath;
+            set => _loadFromPath = value;
         }
 
         public static bool SkipAssemblyCleanup { get; set; }
@@ -336,20 +336,20 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             if (attribute is RequiredAttribute){
                 return $@"{TypeToString(attribute.GetType())}()";
             }
-            var editorAttribute = attribute as EditorAttribute;
-            if (editorAttribute != null){
+
+            if (attribute is EditorAttribute editorAttribute){
                 string arg1 = (editorAttribute).EditorTypeName;
                 string arg2 = (editorAttribute).EditorBaseTypeName;
                 return string.Format(@"{2}(""{0}"", ""{1}"")", arg1, arg2, TypeToString(attribute.GetType()));
             }
-            var refreshPropertiesAttribute = attribute as RefreshPropertiesAttribute;
-            if (refreshPropertiesAttribute != null){
+
+            if (attribute is RefreshPropertiesAttribute refreshPropertiesAttribute){
                 string arg = TypeToString(refreshPropertiesAttribute.RefreshProperties.GetType()) + "." +
                              refreshPropertiesAttribute.RefreshProperties.ToString();
                 return string.Format(@"{1}({0})", arg, TypeToString(attribute.GetType()));
             }
-            var typeConverterAttribute = attribute as TypeConverterAttribute;
-            if (typeConverterAttribute != null){
+
+            if (attribute is TypeConverterAttribute typeConverterAttribute){
                 if (!(typeConverterAttribute).ConverterTypeName.Contains(".Design.") &&
                     !(typeConverterAttribute).ConverterTypeName.EndsWith(".Design")){
                     var type = Type.GetType((typeConverterAttribute).ConverterTypeName);
@@ -441,7 +441,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         public Type CalcType(Type extenderType, Assembly assembly){
             if (!extenderType.IsInterface){
-                var type = assembly.GetTypes().SingleOrDefault(type1 => AttributeLocatorMatches(extenderType, type1));
+                var type = assembly.GetTypes().FirstOrDefault(type1 => AttributeLocatorMatches(extenderType, type1));
                 if (type == null){
                     throw new NullReferenceException("Cannot locate the dynamic interface for " + extenderType.FullName);
                 }
@@ -707,9 +707,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         public override bool CanWrite { get; }
 
-        public override PropertyAttributes Attributes{
-            get { throw new NotImplementedException(); }
-        }
+        public override PropertyAttributes Attributes => throw new NotImplementedException();
 
         public override Type ReflectedType => _targetPropertyInfo.ReflectedType;
 

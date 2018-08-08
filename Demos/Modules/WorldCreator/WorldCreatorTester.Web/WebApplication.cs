@@ -40,8 +40,8 @@ namespace WorldCreatorTester.Web {
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs e) {
             var easyTestParameter = this.GetEasyTestParameter("DBMapper");
             e.ObjectSpaceProviders.Add(easyTestParameter
-                ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(e.ConnectionString), Security)
-                : new XPObjectSpaceProvider(e.ConnectionString));
+                ? new XpandObjectSpaceProvider(new MultiDataStoreProvider(e.ConnectionString), Security,true)
+                : new XPObjectSpaceProvider(new ConnectionStringDataStoreProvider(e.ConnectionString),true));
             e.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
 

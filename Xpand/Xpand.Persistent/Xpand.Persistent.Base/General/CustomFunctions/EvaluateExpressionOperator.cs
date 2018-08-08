@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using CSScriptLibrary;
 using DevExpress.Data.Filtering;
 
 namespace Xpand.Persistent.Base.General.CustomFunctions{
@@ -28,7 +27,8 @@ namespace Xpand.Persistent.Base.General.CustomFunctions{
                              $"         return {string.Join("",operands)};" +
                              "     }" +
                              "}";
-            dynamic o = CSScript.LoadCode(scriptText).CreateObject("*");
+
+            dynamic o = CSScriptLibrary.CSScript.LoadCode(scriptText).CreateObject("*");
             return o.Evaluate();
         }
 

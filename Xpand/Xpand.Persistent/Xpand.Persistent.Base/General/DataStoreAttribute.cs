@@ -22,10 +22,16 @@ namespace Xpand.Persistent.Base.General {
         private static Type FindType(string nameSpaceType){
             if (Dictionary.ContainsKey(nameSpaceType))
                 return Dictionary[nameSpaceType];
-            var type = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes()).FirstOrDefault(type1 => type1.FullName==nameSpaceType);
-            if (type != null)
-                Dictionary[nameSpaceType] = type;
-            return type;
+            var typeDefinition = AppDomain.CurrentDomain
+                .GetAssemblies()
+                .ToAssemblyDefinition()
+                .SelectMany(definition => definition.MainModule.Types)
+                .FirstOrDefault(definition => definition.FullName==nameSpaceType);
+            if (typeDefinition!=null){
+                var assembly = AppDomain.CurrentDomain.GetAssemblies().First(_ => _.FullName==typeDefinition.Module.Assembly.FullName);
+                Dictionary[nameSpaceType] = assembly.GetType(typeDefinition.FullName);
+            }
+            return null;
         }
 
         public DataStoreAttribute(string connectionString, string nameSpaceType, bool isLegacy)

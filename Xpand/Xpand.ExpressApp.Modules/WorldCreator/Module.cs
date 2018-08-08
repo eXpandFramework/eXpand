@@ -14,6 +14,7 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
+using Mono.Cecil;
 using Xpand.ExpressApp.Validation;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects.Validation;
 using Xpand.ExpressApp.WorldCreator.CodeProvider;
@@ -153,15 +154,18 @@ namespace Xpand.ExpressApp.WorldCreator{
 
 
         private void RegisterDerivedTypes(){
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(assembly =>
-                new[]{"System", "DevExpress"}.All(s => !assembly.GetName().Name.StartsWith(s)));
-            var types = assemblies.SelectMany(assembly => assembly.GetTypes());
-            var additionalTypes = AdditionalExportedTypes
-                .Where(type => type.Namespace != null && type.Namespace.StartsWith(BaseImplNameSpace)).ToArray();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies().ToAssemblyDefinition().Where(assembly =>
+                new[]{"System", "DevExpress"}.All(s => !assembly.Name.Name.StartsWith(s)));
+            var types = assemblies.SelectMany(assembly => assembly.MainModule.Types);
+            var additionExportedTypeDefinitions = AdditionalExportedTypes.GroupBy(type => AssemblyDefinition.ReadAssembly(type.Assembly.Location))
+                .SelectMany(grouping => grouping.Key.MainModule.Types.Where(definition =>
+                    AdditionalControllerTypes.Select(type => type).Any(type => type.FullName == definition.FullName)))
+                .Where(definition => definition.Namespace!=null&&definition.Namespace.StartsWith(BaseImplNameSpace)).ToArray();
+
             types = types.Where(type =>
-                type.Assembly != BaseImplAssembly && additionalTypes.Any(type1 => type1.IsAssignableFrom(type)));
+                type.Module.Assembly.FullName != BaseImplAssembly.FullName && additionExportedTypeDefinitions.Any(type.IsSubclassOf));
             foreach (var type in types){
-                WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(type);
+                WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(AppDomain.CurrentDomain.FindType(type));
             }
         }
 
