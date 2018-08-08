@@ -19,7 +19,11 @@ namespace Xpand.ExpressApp.Workflow {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     [ToolboxBitmap(typeof(WorkflowModule), "Resources.Toolbox_Module_Workflow.ico")]
-    public sealed class XpandWorkFlowModule : XpandModuleBase {
+    public sealed class XpandWorkFlowModule : XpandModuleBase{
+        public static Type[] WorkflowTypes = {
+            typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow),
+            GetDxBaseImplType("DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowDefinition")
+        };
         public XpandWorkFlowModule() {
             RequiredModuleTypes.Add(typeof(WorkflowModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));

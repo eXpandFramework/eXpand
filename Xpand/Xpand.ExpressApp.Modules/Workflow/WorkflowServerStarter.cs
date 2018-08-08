@@ -9,8 +9,6 @@ using DevExpress.ExpressApp.Workflow.Versioning;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Fasterflect;
-using Xpand.ExpressApp.Workflow.ObjectChangedWorkflows;
-using Xpand.ExpressApp.Workflow.ScheduledWorkflows;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.Workflow{
@@ -48,10 +46,9 @@ namespace Xpand.ExpressApp.Workflow{
             serverApplication.Logon();
 
             var objectSpaceProvider = serverApplication.ObjectSpaceProvider;
-            Type[] workflowTypes = { typeof(ScheduledWorkflow), typeof(ObjectChangedWorkflow), XpandModuleBase.GetDxBaseImplType("DevExpress.ExpressApp.Workflow.Xpo.XpoWorkflowDefinition") };
             var xpoUserActivityVersionType = XpandModuleBase.GetDxBaseImplType("DevExpress.ExpressApp.Workflow.Versioning.XpoUserActivityVersion");
             var engine=(WorkflowVersioningEngine) typeof(PersistentWorkflowVersioningEngine<>).MakeGenericType(xpoUserActivityVersionType).CreateInstance(objectSpaceProvider);
-            var workflowDefinitionProvider = (IWorkflowDefinitionProvider)typeof(XpandWorkflowDefinitionProvider<>).MakeGenericType(xpoUserActivityVersionType).CreateInstance(workflowTypes.ToList(),engine);
+            var workflowDefinitionProvider = (IWorkflowDefinitionProvider)typeof(XpandWorkflowDefinitionProvider<>).MakeGenericType(xpoUserActivityVersionType).CreateInstance(XpandWorkFlowModule.WorkflowTypes.ToList(),engine);
             var xpandWorkflowServer = new XpandWorkflowServer("http://localhost:46232", workflowDefinitionProvider, objectSpaceProvider);
             xpandWorkflowServer.CustomizeHost += delegate (object sender, CustomizeHostEventArgs e) {
                 // NOTE: Uncomment this section to use alternative workflow configuration.
@@ -85,9 +82,9 @@ namespace Xpand.ExpressApp.Workflow{
         }
         public void Start<TModuleProvider>(string connectionString, string applicationName) where TModuleProvider:ModuleBase{
             try {
-                _domain = AppDomain.CreateDomain("ServerDomain");
+                _domain = AppDomain.CreateDomain("Server");
                 _starter = (WorkflowServerStarter)_domain.CreateInstanceAndUnwrap(
-                    Assembly.GetEntryAssembly().FullName, GetType().FullName);
+                    Assembly.GetEntryAssembly().FullName, GetType().FullName ?? throw new InvalidOperationException());
                 _starter.OnServerDomainCustomHandleException += StarterOnOnServerDomainCustomHandleException;
                 var workflowServerEventArgs = new WorkflowServerEventArgs();
                 OnWorkflowServerRequested(workflowServerEventArgs);

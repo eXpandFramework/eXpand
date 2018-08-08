@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
 
         void InvokeOnClient(ObjectChangedEventArgs objectChangedEventArgs, ObjectChangedWorkflow objectChangedWorkflow, object targetObjectKey) {
             Activity activity = ActivityXamlServices.Load(new StringReader(objectChangedWorkflow.Xaml));
-            var dictionary = ObjectChangedStartWorkflowService.Dictionary(targetObjectKey, objectChangedEventArgs.PropertyName, objectChangedEventArgs.OldValue);
+            var dictionary = StartWorkflowOnObjectChangeService.Dictionary(targetObjectKey, objectChangedEventArgs.PropertyName, objectChangedEventArgs.OldValue);
             WorkflowInvoker invoker = new WorkflowInvoker(activity);
             invoker.Extensions.Add(Application.ObjectSpaceProvider);
             invoker.Invoke(dictionary);
@@ -44,6 +44,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
             var o = objectChangedEventArgs.Object;
             ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(o.GetType());
             object targetObjectKey = typeInfo.KeyMember.GetValue(o);
+
             if (objectChangedWorkflow.ExecutionDomain == ExecutionDomain.Server) {
                 CreateServerRequest(objectChangedEventArgs, objectChangedWorkflow, targetObjectKey, typeInfo);
             } else {

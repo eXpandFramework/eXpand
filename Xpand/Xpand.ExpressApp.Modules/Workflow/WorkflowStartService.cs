@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Workflow.Server;
-using DevExpress.Workflow;
 
 namespace Xpand.ExpressApp.Workflow {
     public abstract class WorkflowStartService<T> : BaseTimerService where T : IXpandWorkflowDefinition {
@@ -24,9 +23,8 @@ namespace Xpand.ExpressApp.Workflow {
         public override void OnTimer() {
             using (IObjectSpace objectSpace = ObjectSpaceProvider.CreateObjectSpace()) {
                 foreach (T workflow in objectSpace.GetObjects<T>(new BinaryOperator("IsActive", true))) {
-                    WorkflowHost host;
                     var uniqueId = workflow.GetUniqueId();
-                    if (HostManager.Hosts.TryGetValue(uniqueId, out host)) {
+                    if (HostManager.Hosts.TryGetValue(uniqueId, out var host)) {
                         if (NeedToStartWorkflow(objectSpace, workflow)) {
                             Guid instanceHandle = host.StartWorkflow(new Dictionary<string, object>());
                             GetService<IRunningWorkflowInstanceInfoService>().CreateRunningWorkflowInstanceInfo(workflow.Name, host.ActivityUniqueId, null, instanceHandle);

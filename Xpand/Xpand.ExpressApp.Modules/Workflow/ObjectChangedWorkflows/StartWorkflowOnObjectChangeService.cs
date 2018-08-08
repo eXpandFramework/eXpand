@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ServiceModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Workflow.CommonServices;
 using DevExpress.ExpressApp.Workflow.Server;
@@ -19,6 +20,24 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         protected virtual void OnRequestProcessed(IObjectSpace objectSpace, ObjectChangedXpoStartWorkflowRequest request) {
 
         }
+
+        public virtual bool StartWorkflow(string targetWorkflowName, string targetWorkflowUniqueId, object targetObjectKey,
+            string propertyName, object oldValue) {
+            if (!HostManager.Hosts.ContainsKey(targetWorkflowUniqueId) || HostManager.Hosts[targetWorkflowUniqueId].State != CommunicationState.Opened) {
+                return false;
+            }
+            var workflowHost = HostManager.Hosts[targetWorkflowUniqueId];
+            var dictionary = Dictionary(targetObjectKey, propertyName, oldValue);
+            Guid instanceHandle = workflowHost.StartWorkflow(dictionary);
+            var runningWorkflowInstanceInfoService = GetService<IRunningWorkflowInstanceInfoService>();
+            runningWorkflowInstanceInfoService.CreateRunningWorkflowInstanceInfo(targetWorkflowName, workflowHost.ActivityUniqueId, targetObjectKey, instanceHandle);
+            return true;
+        }
+
+        public static Dictionary<string, object> Dictionary(object targetObjectKey, string propertyName, object oldValue) {
+            return new Dictionary<string, object> { { "targetObjectId", targetObjectKey }, { "propertyName", propertyName }, { "oldValue", oldValue } };
+        }
+
         public virtual void ProcessRequestsToStartWorkflows() {
             var objectChangedXpoStartWorkflowRequests = new List<ObjectChangedXpoStartWorkflowRequest>();
             using (IObjectSpace objectSpace = ObjectSpaceProvider.CreateObjectSpace()) {
@@ -26,7 +45,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
                     try {
                         var definition = GetService<IWorkflowDefinitionProvider>().FindDefinition(request.TargetWorkflowUniqueId);
                         if (definition != null && definition.CanOpenHost) {
-                            if (GetService<ObjectChangedStartWorkflowService>().StartWorkflow(definition.Name, request.TargetWorkflowUniqueId, request.TargetObjectKey, request.PropertyName, request.OldValue)) {
+                            if (StartWorkflow(definition.Name, request.TargetWorkflowUniqueId, request.TargetObjectKey, request.PropertyName, request.OldValue)) {
                                 OnRequestProcessed(objectSpace, request);
                                 objectChangedXpoStartWorkflowRequests.Add(request);
                             }
