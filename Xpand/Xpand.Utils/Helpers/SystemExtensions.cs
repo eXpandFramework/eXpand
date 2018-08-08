@@ -4,11 +4,16 @@ using System.Linq;
 
 namespace Xpand.Utils.Helpers{
     public static class SystemExtensions{
+
         public enum SizeDefinition{
             Byte = 1,
             Kilobyte = 2,
             Megabyte = 3,
             Gigabyte = 4
+        }
+
+        public static T As<T>(this object obj){
+            return obj is T variable ? variable : default;
         }
 
         public static double Convert(long amount, SizeDefinition from, SizeDefinition to){
