@@ -216,7 +216,8 @@ namespace Xpand.ExpressApp.MapView.Web
                     .Replace("\n", lineBreak)
                     .Replace("\r", lineBreak);
             }
-            return html.Replace("'", "''");
+
+            return System.Web.HttpUtility.JavaScriptStringEncode(html);
         }
 
 
