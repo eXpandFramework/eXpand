@@ -91,6 +91,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         [Browsable(false)]
         IModelList<IModelClass> UserClasses { get; }
         [DefaultValue(600)]
+        [Description("SQL Command timeout in sec")]
         int BackupTimeout{ get; set; }
         string BackupDirectory{ get; set; }
         

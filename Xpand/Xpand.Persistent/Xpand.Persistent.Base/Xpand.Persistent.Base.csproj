@@ -88,9 +88,6 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CSScriptLibrary, Version=3.10.0.0, Culture=neutral, PublicKeyToken=70fcc3d18c749033, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\CS-Script.bin.3.10.0.0\lib\net40\CSScriptLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v18.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
