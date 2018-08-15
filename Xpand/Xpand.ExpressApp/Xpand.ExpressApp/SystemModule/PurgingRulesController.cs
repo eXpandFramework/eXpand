@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.SystemModule{
     public interface IModelPurgingRule:IModelNode{
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
         [CriteriaOptions("TypeInfo")]
-        [DefaultValue(EvaluateExpressionOperator.OperatorName+"('new Regex(\".*\").IsMatch(Environment.MachineName)')")]
+        [DefaultValue(EvaluateCSharpOperator.OperatorName+"('new Regex(\".*\").IsMatch(Environment.MachineName)')")]
         string Criteria{ get; set; }
         [Browsable(false)]
         [ModelValueCalculator("((IModelClass) Parent.Parent).TypeInfo")]
@@ -46,7 +46,9 @@ namespace Xpand.ExpressApp.SystemModule{
         }
     }
 
-    public class PurgingController:Controller,IModelExtender{
+    public class PurgingController:Controller
+        ,IModelExtender{
+
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (Frame.Context == TemplateContext.ApplicationWindow){

@@ -3,13 +3,12 @@ using System.CodeDom.Compiler;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp.Utils.CodeGeneration;
+using System.Runtime.Serialization;
 using Fasterflect;
 using Microsoft.CSharp;
 
-namespace Xpand.Persistent.Base.General.CustomFunctions{
-    class ExpressionEvaluator{
+namespace Xpand.Utils.Helpers{
+    public class CSharpEvaluator{
         public static List<string> Usings = new List<string>{
             "System",
             "System.Xml",
@@ -62,7 +61,7 @@ namespace Xpand.Persistent.Base.General.CustomFunctions{
                             "}";
             var compilerResults = codeProvider.CompileAssemblyFromSource(compilerParameters,source);
             if (compilerResults.Errors.Count > 0){
-                throw new CompilerErrorException(compilerResults, source,string.Join(Environment.NewLine, compilerResults.Errors));
+                throw new CompilerException(compilerResults, source,string.Join(Environment.NewLine, compilerResults.Errors));
             }
 
             return compilerResults.CompiledAssembly;
@@ -75,25 +74,28 @@ namespace Xpand.Persistent.Base.General.CustomFunctions{
         }
 
     }
-
-    public class EvaluateExpressionOperator:ICustomFunctionOperator{
-        public List<string> Usings=new List<string>();
-
-        public const string OperatorName = "EvaluateExpression";
-
-        public static EvaluateExpressionOperator Instance{ get; } = new EvaluateExpressionOperator();
-
-        public Type ResultType(params Type[] operands){
-            return typeof(object);
+    [Serializable]
+    public class CompilerException : Exception {
+        [Serializable]
+        private struct CompilerErrorExceptionState : ISafeSerializationData {
+            public CompilerResults CompilerResults { get; set; }
+            public String SourceCode { get; set; }
+            void ISafeSerializationData.CompleteDeserialization(Object obj) {
+                CompilerException exception = (CompilerException)obj;
+                exception._state = this;
+            }
         }
-
-        public object Evaluate(params object[] operands){
-            var csCode = string.Join("",operands);
-            var usings = string.Join(Environment.NewLine,Usings);
-            var eval = ExpressionEvaluator.Eval(csCode, usings);
-            return eval;
+        [NonSerialized]
+        private CompilerErrorExceptionState _state;
+        public CompilerException(CompilerResults compilerResults, String source, String errors)
+            : base(
+                $"Cannot compile the generated code. Please inspect the generated code via this exception's SourceCode property. The following errors occurred: \r\n{errors}") {
+            _state.SourceCode = source;
+            _state.CompilerResults = compilerResults;
+            SerializeObjectState += (exception, eventArgs) => eventArgs.AddSerializedState(_state);
         }
-
-        public string Name => OperatorName;
+        public CompilerResults CompilerResults => _state.CompilerResults;
+        public String SourceCode => _state.SourceCode;
     }
+
 }

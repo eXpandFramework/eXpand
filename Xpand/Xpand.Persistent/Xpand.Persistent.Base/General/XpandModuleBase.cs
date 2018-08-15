@@ -676,7 +676,7 @@ namespace Xpand.Persistent.Base.General {
                 }
                 CreateXpandDefaultProperty(typesInfo);
                 ModelValueOperator.Instance.Register();
-                EvaluateExpressionOperator.Instance.Register();
+                EvaluateCSharpOperator.Instance.Register();
                 ConvertInvisibleInAllViewsAttrbiute(typesInfo);
 
                 AssignSecurityEntities();

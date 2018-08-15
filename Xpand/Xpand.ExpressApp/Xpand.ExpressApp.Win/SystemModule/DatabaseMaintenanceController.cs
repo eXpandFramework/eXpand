@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         [CriteriaOptions(nameof(UserModelClass)+".TypeInfo")]
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafApplication.CurrentVersion, typeof(System.Drawing.Design.UITypeEditor))]
-        [DefaultValue(EvaluateExpressionOperator.OperatorName +"('new Regex(\".*\").IsMatch(Environment.MachineName)')")]
+        [DefaultValue(EvaluateCSharpOperator.OperatorName +"('new Regex(\".*\").IsMatch(Environment.MachineName)')")]
         [Category("User")]
         string UserCriteria { get; set; }
 
