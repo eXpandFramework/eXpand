@@ -29,7 +29,7 @@ namespace Xpand.Persistent.Base.General {
             if (Disable || ModelUpdating())
                 return;
             var modulesDifferences = node.Application.GetModuleDifferences();
-            var mergingEnabled = MergingEnabled(modulesDifferences);
+            var mergingEnabled = MergingEnabled(modulesDifferences,node.Application);
             if (!mergingEnabled)
                 return;
             var modelViews = ((IModelViews) node);
@@ -52,10 +52,11 @@ namespace Xpand.Persistent.Base.General {
             return DesignerOnlyCalculator.IsRunFromDesigner&&Environment.StackTrace.Split(Environment.NewLine.ToCharArray()).Any(s => s.Contains("DevExpress.ExpressApp.Design.ModelUpdater.UpdateModel"));
         }
 
-        private bool MergingEnabled(IEnumerable<ModelApplicationBase> modelApplicationBases){
+        private bool MergingEnabled(IEnumerable<ModelApplicationBase> modelApplicationBases,
+            IModelApplication modelApplication){
             var modelViews = modelApplicationBases.Cast<IModelApplication>().SelectMany(application => application.Views);
             var mergedDifferenceses = modelViews.Where(view => view != null).OfType<IModelObjectView>().Cast<IModelObjectViewMergedDifferences>();
-            return mergedDifferenceses.Any(ShouldMerged);
+            return mergedDifferenceses.Any(ShouldMerged)||modelApplication.BOModel.Any(modelClass => modelClass.TypeInfo.FindAttributes<ModelMergedDifferencesAttribute>().Any());
         }
 
         private bool ShouldMerged(IModelObjectViewMergedDifferences differences) {
