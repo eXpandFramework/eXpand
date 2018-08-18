@@ -6,28 +6,28 @@ using System.Reflection;
 
 namespace Xpand.Utils.Linq{
     public static class Extensions{
-        public static IEnumerable<T> TakeLast<T>(this IEnumerable<T> source, int takeCount){
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (takeCount < 0) throw new ArgumentOutOfRangeException(nameof(takeCount), "must not be negative");
-            if (takeCount == 0) yield break;
-
-            var result = new T[takeCount];
-            var i = 0;
-
-            var sourceCount = 0;
-            foreach (var element in source){
-                result[i] = element;
-                i = (i + 1) % takeCount;
-                sourceCount++;
-            }
-
-            if (sourceCount < takeCount){
-                takeCount = sourceCount;
-                i = 0;
-            }
-
-            for (var j = 0; j < takeCount; ++j) yield return result[(i + j) % takeCount];
-        }
+//        public static IEnumerable<T> TakeLast<T>(this IEnumerable<T> source, int takeCount){
+//            if (source == null) throw new ArgumentNullException(nameof(source));
+//            if (takeCount < 0) throw new ArgumentOutOfRangeException(nameof(takeCount), "must not be negative");
+//            if (takeCount == 0) yield break;
+//
+//            var result = new T[takeCount];
+//            var i = 0;
+//
+//            var sourceCount = 0;
+//            foreach (var element in source){
+//                result[i] = element;
+//                i = (i + 1) % takeCount;
+//                sourceCount++;
+//            }
+//
+//            if (sourceCount < takeCount){
+//                takeCount = sourceCount;
+//                i = 0;
+//            }
+//
+//            for (var j = 0; j < takeCount; ++j) yield return result[(i + j) % takeCount];
+//        }
 
         public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> list, int parts) {
             int i = 0;
@@ -35,18 +35,19 @@ namespace Xpand.Utils.Linq{
         }
 
         public static IEnumerable<T> SkipLastN<T>(this IEnumerable<T> source, int n) {
-            var it = source.GetEnumerator();
-            bool hasRemainingItems;
-            var cache = new Queue<T>(n + 1);
+            using (var it = source.GetEnumerator()){
+                bool hasRemainingItems;
+                var cache = new Queue<T>(n + 1);
 
-            do{
-                var b = hasRemainingItems = it.MoveNext();
-                if (b) {
-                    cache.Enqueue(it.Current);
-                    if (cache.Count > n)
-                        yield return cache.Dequeue();
-                }
-            } while (hasRemainingItems);
+                do{
+                    var b = hasRemainingItems = it.MoveNext();
+                    if (b) {
+                        cache.Enqueue(it.Current);
+                        if (cache.Count > n)
+                            yield return cache.Dequeue();
+                    }
+                } while (hasRemainingItems);
+            }
         }
         public static IEnumerable<TResult> SelectNonNull<T, TResult>(this IEnumerable<T> sequence,
             Func<T, TResult> projection) where TResult : class{
@@ -68,10 +69,9 @@ namespace Xpand.Utils.Linq{
         }
 
         private static Expression NullSafeEvalWrapper(Expression expr, Expression defaultValue){
-            Expression obj;
             Expression safe = expr;
 
-            while (!IsNullSafe(expr, out obj)){
+            while (!IsNullSafe(expr, out var obj)){
                 BinaryExpression isNull = Expression.Equal(obj, Expression.Constant(null));
 
                 safe =
@@ -135,12 +135,12 @@ namespace Xpand.Utils.Linq{
         }
 
         private static class NullChecker<T> where T : class {
-            private static readonly List<Func<T, bool>> _checkers;
-            private static readonly List<string> _names;
+            private static readonly List<Func<T, bool>> Checkers;
+            private static readonly List<string> Names;
 
             static NullChecker() {
-                _checkers = new List<Func<T, bool>>();
-                _names = new List<string>();
+                Checkers = new List<Func<T, bool>>();
+                Names = new List<string>();
                 // We can't rely on the order of the properties, but we 
                 // can rely on the order of the constructor parameters 
                 // in an anonymous type - and that there'll only be 
@@ -148,27 +148,27 @@ namespace Xpand.Utils.Linq{
                 var constructorInfo = typeof(T).GetConstructors().FirstOrDefault();
                 if (constructorInfo != null)
                     foreach (string name in constructorInfo.GetParameters().Select(p => p.Name)) {
-                        _names.Add(name);
+                        Names.Add(name);
                         PropertyInfo property = typeof(T).GetProperty(name);
                         // I've omitted a lot of error checking, but here's 
                         // at least one bit... 
-                        if (property.PropertyType.IsValueType) {
+                        if (property != null && property.PropertyType.IsValueType) {
                             throw new ArgumentException
                                 ("Property " + property + " is a value type");
                         }
                         ParameterExpression param = Expression.Parameter(typeof(T), "container");
-                        Expression propertyAccess = Expression.Property(param, property);
+                        Expression propertyAccess = Expression.Property(param, property ?? throw new InvalidOperationException());
                         Expression nullValue = Expression.Constant(null, property.PropertyType);
                         Expression equality = Expression.Equal(propertyAccess, nullValue);
                         var lambda = Expression.Lambda<Func<T, bool>>(equality, param);
-                        _checkers.Add(lambda.Compile());
+                        Checkers.Add(lambda.Compile());
                     }
             }
 
             internal static void Check(T item) {
-                for (int i = 0; i < _checkers.Count; i++) {
-                    if (_checkers[i](item)) {
-                        throw new ArgumentNullException(_names[i]);
+                for (int i = 0; i < Checkers.Count; i++) {
+                    if (Checkers[i](item)) {
+                        throw new ArgumentNullException(Names[i]);
                     }
                 }
             }
