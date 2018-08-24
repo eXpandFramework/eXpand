@@ -655,11 +655,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\BurntToast.psm1" />
+    <EmbeddedResource Include="Resources\config.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Content>
+    <EmbeddedResource Include="Resources\Microsoft.Toolkit.Uwp.Notifications.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

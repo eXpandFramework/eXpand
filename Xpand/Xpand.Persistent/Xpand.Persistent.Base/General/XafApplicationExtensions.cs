@@ -4,9 +4,11 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
@@ -22,6 +24,7 @@ using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Utils.Helpers;
 using Xpand.Xpo.DB;
 using DeviceCategory = Xpand.Persistent.Base.ModelDifference.DeviceCategory;
 using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
@@ -47,6 +50,37 @@ namespace Xpand.Persistent.Base.General {
 
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
+        }
+        private static readonly object Locker=new object();
+
+        public static Task<int> ShowToastAsync(this XafApplication application, string text=null) {
+            lock (Locker) {
+                var path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\WindowsPowerShell\Modules\BurntToast";
+                bool needsCleanup = false;
+                if (!Directory.Exists(path)) {
+                    needsCleanup = true;
+                    Directory.CreateDirectory(path);
+                    
+                    var stream = typeof(XafApplicationExtensions).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.BurntToast.psm1");
+                    stream.SaveToFile(Path.Combine(path,"BurntToast.psm1"));
+                    stream = typeof(XafApplicationExtensions).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.config.json");
+                    stream.SaveToFile(Path.Combine(path,"config.json"));
+                    stream = typeof(XafApplicationExtensions).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.Microsoft.Toolkit.Uwp.Notifications.dll");
+                    stream.SaveToFile(Path.Combine($@"{path}\lib\Microsoft.Toolkit.Uwp.Notifications\","Microsoft.Toolkit.Uwp.Notifications.dll"));
+                }
+                var processStartInfo =
+                    new ProcessStartInfo("powershell", $@"-command ""& {{ &'New-BurntToastNotification' -Text ""{text}}}""") {
+                        WindowStyle = ProcessWindowStyle.Hidden
+                    };
+
+                var process = new Process {StartInfo = processStartInfo};
+                return process.RunProcessAsync().ContinueWith(task => {
+                    if (needsCleanup)
+                        Directory.Delete(path,true);
+                    return task.Result;
+                });
+                
+            }
         }
 
         public static void SendMail(this string body,string subject=null,bool isBodyHtml=false){
