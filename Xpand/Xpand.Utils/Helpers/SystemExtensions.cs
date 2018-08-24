@@ -1,9 +1,21 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Xpand.Utils.Helpers{
     public static class SystemExtensions{
+        public static Task<int> RunProcessAsync(this Process process) {
+            process.EnableRaisingEvents = true;
+            var tcs = new TaskCompletionSource<int>();
+            process.Exited += (sender, args) => {
+                tcs.SetResult(process.ExitCode);
+                process.Dispose();
+            };
+            process.Start();
+            return tcs.Task;
+        }
 
         public enum SizeDefinition{
             Byte = 1,
@@ -23,6 +35,12 @@ namespace Xpand.Utils.Helpers{
         public static double Convert(this int amount, SizeDefinition from, SizeDefinition to){
             return ConvertCore(amount, from, to);
         }
+
+        public static double RoundToSignificantDigits(this double d, int digits) {
+            if (d.NearlyEquals(0)) return d;
+            var scale = Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(d))) + 1);
+            return scale * Math.Round(d / scale, digits);
+        }  
 
         public static double Convert(this double amount, SizeDefinition from, SizeDefinition to){
             return ConvertCore(amount, from, to);

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
+using System.Windows;
 using DevExpress.DXCore.Controls.Utils;
 using Microsoft.Win32;
 using Mono.Cecil;
@@ -18,10 +19,10 @@ namespace Xpand.VSIX.Wizard{
 
         static ModuleManager(){
             var xpandPath = GetXpandDLLPath();
-            if (!Directory.Exists(xpandPath)) {
-                throw new DirectoryNotFoundException(@"Xpand not found that check HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory");
-            }
-            else{
+            if (!Directory.Exists(xpandPath))
+                MessageBox.Show(
+                    @"Xpand not found that check HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory",typeof(ModuleManager).Namespace);
+            else {
                 var fileNames = Directory.GetFiles(xpandPath, "Xpand.ExpressApp.*.dll");
                 foreach (var fileName in fileNames) {
                     Register(fileName);

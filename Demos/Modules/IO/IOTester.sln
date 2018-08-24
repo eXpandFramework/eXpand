@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IOTester.Module", "IOTester.Module\IOTester.Module.csproj", "{7794EC1D-F5E0-4A1D-9013-AD91F680A691}"
 EndProject
@@ -33,6 +33,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj", "{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Xpo", "..\..\..\Xpand\Xpand.Xpo\Xpand.Xpo.csproj", "{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp", "..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj", "{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.TreeListEditors.Win", "..\..\..\Xpand\Xpand.ExpressApp.Modules\TreeListEditors.Win\Xpand.ExpressApp.TreeListEditors.Win.csproj", "{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Win", "..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj", "{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -194,6 +200,24 @@ Global
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Test|Any CPU.Build.0 = Test|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.EasyTest|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934}.Test|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}.Test|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -209,5 +233,11 @@ Global
 		{38E16F8A-517C-4CA9-9775-56F598F25534} = {66A5B4EC-7C0B-4976-822C-3B5189E76643}
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE} = {50BD1C79-0957-4303-870B-6A37351336B0}
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6} = {50BD1C79-0957-4303-870B-6A37351336B0}
+		{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78} = {50BD1C79-0957-4303-870B-6A37351336B0}
+		{4AC47CF2-DA60-48BB-AAD5-CDA3D3C6A934} = {50BD1C79-0957-4303-870B-6A37351336B0}
+		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D} = {50BD1C79-0957-4303-870B-6A37351336B0}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C90CB0C-F153-4EAA-AFCC-053C78772F51}
 	EndGlobalSection
 EndGlobal

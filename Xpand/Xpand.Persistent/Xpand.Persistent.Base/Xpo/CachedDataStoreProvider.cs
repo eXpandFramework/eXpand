@@ -5,8 +5,12 @@ using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.Xpo{
 	public class CachedDataStoreProvider : ConnectionStringDataStoreProvider, IXpoDataStoreProvider{
+	    static CachedDataStoreProvider() {
+	        Factory = () => null;
+	    }
+
 	    private static readonly Lazy<CachedDataStoreProvider> Lazy =
-	        new Lazy<CachedDataStoreProvider>(() => Factory()??new CachedDataStoreProvider(XpandModuleBase.ConnectionString));
+	        new Lazy<CachedDataStoreProvider>(() => Factory() ?? new CachedDataStoreProvider(XpandModuleBase.ConnectionString));
 
 	    public static Func<CachedDataStoreProvider> Factory{ get; set; }
 

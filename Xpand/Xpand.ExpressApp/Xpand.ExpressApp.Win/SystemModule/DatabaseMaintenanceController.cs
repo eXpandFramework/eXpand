@@ -18,6 +18,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB.Helpers;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomFunctions;
+using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
 using Timer = System.Timers.Timer;
 
@@ -68,7 +69,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         Limited
     }
 
-    public interface IModelDatabaseMaintanance:IModelNode{
+    public interface IModelDatabaseMaintanance:IModelNodeEnabled{
         [Description("In MB")]
         int? InitialSize { get; set; }
         IModelAutogrowth Autogrowth{ get; }
@@ -195,7 +196,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (Frame.Context==TemplateContext.ApplicationWindowContextName){
                 var databaseMaintanance = ((IModelOptionsDatabaseMaintanence)Application.Model.Options).DatabaseMaintanance;
                 var backupInterval = databaseMaintanance.BackupInterval;
-                if (backupInterval.HasValue){
+                if (backupInterval.HasValue&&databaseMaintanance.NodeEnabled){
                     Frame.TemplateChanged+=FrameOnTemplateChanged;
                     Frame.Disposing+=FrameOnDisposing;
                 }
@@ -221,6 +222,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void Backup(){
             var databaseMaintanance = ((IModelOptionsDatabaseMaintanence)Application.Model.Options).DatabaseMaintanance;
+
             try{
                 
                 Execute(databaseMaintanance, (session, database) => {
