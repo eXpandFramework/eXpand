@@ -39,10 +39,10 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e){
-            if (Equals(e.Object, ExcelImport) && e.PropertyName == nameof(BusinessObjects.ExcelImport.FullName) ||
-                e.PropertyName == nameof(BusinessObjects.ExcelImport.SheetName) ||
-                e.PropertyName == nameof(BusinessObjects.ExcelImport.UseHeaderRows)||
-                e.PropertyName == nameof(BusinessObjects.ExcelImport.Type)){
+            if (Equals(e.Object, ExcelImport) && (e.PropertyName == nameof(BusinessObjects.ExcelImport.FullName) ||
+                                                  e.PropertyName == nameof(BusinessObjects.ExcelImport.SheetName) ||
+                                                  e.PropertyName == nameof(BusinessObjects.ExcelImport.UseHeaderRows)||
+                                                  e.PropertyName == nameof(BusinessObjects.ExcelImport.Type))){
 
                 ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
                 TypeChange();
