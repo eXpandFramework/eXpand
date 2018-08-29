@@ -1,5 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
+  <BOModel>
+    <Class Name="Xpand.ExpressApp.ExcelImporter.BusinessObjects.ExcelColumnMap">
+      <OwnMembers>
+        <Member Name="PropertyName" PredefinedValues="1;2" />
+      </OwnMembers>
+    </Class>
+  </BOModel>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
