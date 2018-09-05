@@ -142,12 +142,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AutoExpandAllTreeNodes.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\FilterByTreeListColumnController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\AutoExpandAllTreeNodes.cs" />
+    <Compile Include="Controllers\FilterByTreeListColumnController.cs" />
     <Compile Include="Controllers\HideICategorizedItemController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -160,9 +156,7 @@
     <Compile Include="Controllers\RecursiveFilteringViewController.Designer.cs">
       <DependentUpon>RecursiveFilteringViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\TreeListInplaceEditViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\TreeListInplaceEditViewController.cs" />
     <Compile Include="Controllers\TreeNodeExtensions.cs"></Compile>
     <Compile Include="ListEditors\XpandTreeListEditor.cs" />
     <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
