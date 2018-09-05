@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.Dashboard.Services{
         }
 
         static DevExpress.DashboardCommon.Dashboard GetDashboard(this IDashboardDefinition dashboardDefinition){
-            var dashboard = LoadFromXml(dashboardDefinition);
+            var dashboard = dashboardDefinition.ToDashboard();
             MigrateDatasourceTypes(dashboard);
             AddNewDataSources(dashboardDefinition, dashboard);
 
@@ -119,7 +119,8 @@ namespace Xpand.ExpressApp.Dashboard.Services{
             }
         }
 
-        public static DevExpress.DashboardCommon.Dashboard LoadFromXml(this IDashboardDefinition dashboardDefinition){
+        
+        public static DevExpress.DashboardCommon.Dashboard ToDashboard(this IDashboardDefinition dashboardDefinition) {
             var dashboard = new DevExpress.DashboardCommon.Dashboard();
             if (!string.IsNullOrWhiteSpace(dashboardDefinition.Xml)){
                 using (var me = new MemoryStream()){
@@ -138,6 +139,11 @@ namespace Xpand.ExpressApp.Dashboard.Services{
                 
             }
             return dashboard;
+        }
+
+        [Obsolete("use "+nameof(ToDashboard))]
+        public static DevExpress.DashboardCommon.Dashboard LoadFromXml(this IDashboardDefinition dashboardDefinition){
+            throw new NotImplementedException();
         }
 
         public static void ApplyModel(this DevExpress.DashboardCommon.Dashboard dashboard, RuleMode ruleMode,
