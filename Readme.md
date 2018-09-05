@@ -6,7 +6,7 @@ _eXpandFramework_ was started and is led by [Tolis Bekiaris](http://apobekiaris.
 
 The _eXpandFramework_ is an extension of XAF and operates within the **Microsoft Public License (Ms-PL)**. Although _XAF_ is not an open source product it can be purchased directly from DevExpress.
 
-The _eXpandFramework_ team have extended the capabilities of the _eXpressApp Framework_ to include **61 cutting-edge assemblies** containing tools and modules that target numerous business scenarios.
+The _eXpandFramework_ team have extended the capabilities of the _eXpressApp Framework_ to include **70 cutting-edge assemblies** containing tools and modules that target numerous business scenarios.
 
 The main idea _behind eXpandFramework_ is to offer as many features as possible to developers/business users  through a declarative approach (configuring files rather than writing code). Please go through each of the following brief descriptions and find out how _eXpandFramework_ can help you accomplish your complex development tasks with easy declarative programming. Below you can see some descriptions and screenshots of our basic modules (screenshots taken from eXpand FeatureCenter application that comes along with the download). In the folder _Demos_ you can find a list of demos like _XVideoRental_, _SecurityDemo_, _MiddleTier_, _Workflow_ and _installation helper solutions for each module_.
 
