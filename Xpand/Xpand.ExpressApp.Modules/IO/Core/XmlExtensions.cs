@@ -6,99 +6,99 @@ using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.IO.Core {
-    public static class XmlExtensions
-    {
-        public static IEnumerable<XElement> KeyElements(this IEnumerable<XElement> element, string name) {
-            return element.Descendants("Key").Where(xElement => xElement.GetAttributeValue("name") == name);
-        }
-//        public static XElement ObjectNaturalKeyProperty(this XElement element)
-//        {
-//            return element.Descendants("Property").Where(xElement => xElement.GetAttributeValue("isNaturalKey") == "true").FirstOrDefault();
-//        }
-
-        public static IEnumerable<XElement> ObjectKeyProperties(this XElement element)
-        {
-            return element.Descendants("Property").Where(xElement => xElement.GetAttributeValue("isKey") == "true");
+    public static class XmlExtensions{
+        public static IEnumerable<XElement> KeyElements(this IEnumerable<XElement> element, string name,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return element.Descendants(elementSchema.Key).Where(xElement => xElement.GetAttributeValue(elementSchema.Name) == name);
         }
 
-        public static IEnumerable<XElement> Properties(this IEnumerable<XElement> elements, NodeType nodeType)
-        {
-            return elements.Descendants("Property").Where(xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower());
+        public static IEnumerable<XElement> ObjectKeyProperties(this XElement element,bool minifyOutput){
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return element.Descendants(elementSchema.Property).Where(xElement => xElement.GetAttributeValue(elementSchema.IsKey) == "true");
         }
 
-        public static IEnumerable<XElement> Properties(this XElement element) {
-            return element.Descendants("Property");
+        public static IEnumerable<XElement> Properties(this IEnumerable<XElement> elements, NodeType nodeType,bool minifyOutput){
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return elements.Descendants(elementSchema.Property).Where(xElement => xElement.GetTypeAttributeValue(minifyOutput) == nodeType.ToString().MakeFirstCharLower());
         }
 
-        public static IEnumerable<XElement> Properties(this XElement element, NodeType nodeType) {
-            return element.Properties().Where(xElement => xElement.GetAttributeValue("type") == nodeType.ToString().MakeFirstCharLower());
+        public static IEnumerable<XElement> Properties(this XElement element,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return element.Descendants(elementSchema.Property);
         }
 
-
-        public static XElement Property(this XElement element, string name) {
-            return element.Properties().Where(xElement => xElement.GetAttributeValue("name") == name).FirstOrDefault();
+        public static string GetTypeAttributeValue(this XElement element, bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            var value = element.GetAttributeValue(elementSchema.Type);
+            return string.IsNullOrEmpty(value) ? NodeType.Simple.ToString().MakeFirstCharLower() : value;
         }
 
-        public static XElement Property(this IEnumerable<XElement> properties, string name) {
-            return properties.Where(element => element.GetAttributeValue("name") == name).FirstOrDefault();
+        public static IEnumerable<XElement> Properties(this XElement element, NodeType nodeType,bool minifyOutput) {
+            return element.Properties(minifyOutput).Where(xElement => xElement.GetTypeAttributeValue(minifyOutput) == nodeType.ToString().MakeFirstCharLower());
         }
 
-        public static XElement ObjectProperty(this XElement element, string name) {
-            return element.Descendants("Property").Where(xElement =>xElement.GetAttributeValue("name") ==name).FirstOrDefault();
+        public static XElement Property(this XElement element, string name,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return element.Properties(minifyOutput).FirstOrDefault(xElement => xElement.GetAttributeValue(elementSchema.Name) == name);
         }
 
-
-        public static IEnumerable<XElement> SerializedObjects(this XElement element, Type type)
-        {
-            return SerializedObjects(element, type.Name);
+        public static XElement Property(this IEnumerable<XElement> properties, string name,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return properties.FirstOrDefault(element => element.GetAttributeValue(elementSchema.Name) == name);
         }
 
-        public static IEnumerable<XElement> SerializedObjectRefs(this IEnumerable<XElement> elements, SerializationStrategy serializationStrategy) {
-            return elements.Where(element => element.GetAttributeValue("strategy")==serializationStrategy.ToString());
+        public static XElement ObjectProperty(this XElement element, string name,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return element.Descendants(elementSchema.Property).FirstOrDefault(xElement => xElement.GetAttributeValue(elementSchema.Name) ==name);
         }
 
-
-        public static IEnumerable<XElement> SerializedObjectRefs(this XElement element, Type type)
-        {
-            return SerializedObjectRefs(element).Where(xElement => xElement.GetAttributeValue("type")==type.Name);
+        public static IEnumerable<XElement> SerializedObjects(this XElement element, Type type,bool minifyOutput){
+            return SerializedObjects(element, type.Name,minifyOutput);
         }
 
-        public static IEnumerable<XElement> SerializedObjectRefs(this IEnumerable<XElement> elements) {
-            return elements.Descendants("SerializedObjectRef");
+        public static IEnumerable<XElement> SerializedObjectRefs(this IEnumerable<XElement> elements, SerializationStrategy serializationStrategy,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return elements.Where(element => element.GetAttributeValue(elementSchema.Strategy)==serializationStrategy.ToString());
         }
 
-        public static IEnumerable<XElement> SerializedObjectRefs(this XElement element) {
-            return element.Descendants("SerializedObjectRef");
+        public static IEnumerable<XElement> SerializedObjectRefs(this XElement element, Type type,bool minifyOutput){
+            return SerializedObjectRefs(element,minifyOutput).Where(xElement => xElement.GetTypeAttributeValue(minifyOutput)==type.Name);
         }
 
-        public static IEnumerable<XElement> SerializedObjects(this XElement element) {
-            return element.Descendants("SerializedObject");
+        public static IEnumerable<XElement> SerializedObjectRefs(this IEnumerable<XElement> elements,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return elements.Descendants(elementSchema.SerializedObjectRef);
         }
 
-        public static IEnumerable<XElement> SerializedObjects(this XElement element, string typeName)
-        {
-            return element.SerializedObjects().Where(xElement => xElement.GetAttributeValue("type") == typeName);
+        public static IEnumerable<XElement> SerializedObjectRefs(this XElement element,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return element.Descendants(elementSchema.SerializedObjectRef);
         }
 
-        public static XElement FindObjectFromRefenceElement(this XElement xElement) {
-            var typeValue = xElement.GetAttributeValue("type");
-            var infos = xElement.Descendants("Key").Select(
-                element1 => new { Element = element1, Name = element1.GetAttributeValue("name"), element1.Value });
-            if (xElement.Document != null && xElement.Document.Root != null)
-            {
-                var @select =
-                    xElement.Document.Root.SerializedObjects().Where(
-                        element => element.GetAttributeValue("type") == typeValue).Descendants("Property").Where(
-                        xElement1 => xElement1.GetAttributeValue("isKey") == "true").
-                        Select(element1 =>
-                        new { Element = element1.Parent, Name = element1.GetAttributeValue("name"), element1.Value });
-                return
-                    @select.Where(
-                        arg => infos.Where(arg1 => arg.Name == arg1.Name && arg.Value == arg1.Value).Count() > 0).
-                        Select(arg2 => arg2.Element).FirstOrDefault();
-            }
-            return null;
+        public static IEnumerable<XElement> SerializedObjects(this XElement element,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            return element.Descendants(elementSchema.SerializedObject);
+        }
 
+        public static IEnumerable<XElement> SerializedObjects(this XElement element, string typeName,bool minifyOutput){
+            return element.SerializedObjects(minifyOutput).Where(xElement => xElement.GetTypeAttributeValue(minifyOutput) == typeName);
+        }
+
+        public static XElement FindObjectFromRefenceElement(this XElement xElement,bool minifyOutput) {
+            var elementSchema = ElementSchema.Get(minifyOutput);
+            var typeValue = xElement.GetTypeAttributeValue(minifyOutput);
+            var infos = xElement.Descendants(elementSchema.Key).Select(
+                element1 => new { Element = element1, Name = element1.GetAttributeValue(elementSchema.Name), element1.Value });
+            var select =
+                xElement.Document?.Root?.SerializedObjects(minifyOutput).Where(
+                        element => element.GetTypeAttributeValue(minifyOutput) == typeValue).Descendants(elementSchema.Property).Where(
+                        xElement1 => xElement1.GetAttributeValue(elementSchema.IsKey) == "true").
+                    Select(element1 =>
+                        new { Element = element1.Parent, Name = element1.GetAttributeValue(elementSchema.Name), element1.Value });
+            return
+                select?.Where(
+                        arg => infos.Any(arg1 => arg.Name == arg1.Name && arg.Value == arg1.Value)).
+                    Select(arg2 => arg2.Element).FirstOrDefault();
         }
     }
 }

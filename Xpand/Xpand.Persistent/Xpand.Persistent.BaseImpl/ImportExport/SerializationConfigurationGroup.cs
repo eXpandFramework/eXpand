@@ -17,16 +17,26 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             : base(session) {
         }
 
+        [Association("SerializationConfigurationGroup-SerializationConfigurations")]
+        [Aggregated]
+        public XPCollection<SerializationConfiguration> SerializationConfigurations =>
+            GetCollection<SerializationConfiguration>("SerializationConfigurations");
+
+        bool _minifyOutput;
+
+        public bool MinifyOutput {
+            get => _minifyOutput;
+            set => SetPropertyValue(nameof(MinifyOutput), ref _minifyOutput, value);
+        }
+
         [RuleUniqueValue(DefaultContexts.Save)]
         [RuleRequiredField]
         public string Name {
-            get { return _name; }
-            set { SetPropertyValue("Name", ref _name, value); }
+            get => _name;
+            set => SetPropertyValue("Name", ref _name, value);
         }
 
-        [Association("SerializationConfigurationGroup-SerializationConfigurations"), Aggregated]
-        public XPCollection<SerializationConfiguration> SerializationConfigurations => GetCollection<SerializationConfiguration>("SerializationConfigurations");
-
-        IList<ISerializationConfiguration> ISerializationConfigurationGroup.Configurations => new ListConverter<ISerializationConfiguration, SerializationConfiguration>(SerializationConfigurations);
+        IList<ISerializationConfiguration> ISerializationConfigurationGroup.Configurations =>
+            new ListConverter<ISerializationConfiguration, SerializationConfiguration>(SerializationConfigurations);
     }
 }

@@ -63,13 +63,13 @@ namespace Xpand.ExpressApp.IO.Controllers {
         }
 
         void AcceptActionOnExecuteCompleted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
-            Export(((SimpleActionExecuteEventArgs)actionBaseEventArgs).CurrentObject);
+            Export((ISerializationConfigurationGroup) ((SimpleActionExecuteEventArgs)actionBaseEventArgs).CurrentObject);
             ((ActionBase)sender).Model.SetValue("IsPostBackRequired", false);
         }
 
-        public virtual void Export(object selectedObject) {
+        public virtual void Export(ISerializationConfigurationGroup selectedObject) {
             var exportEngine = new ExportEngine(selectedObject.XPObjectSpace());
-            var document = exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), (ISerializationConfigurationGroup) selectedObject);
+            var document = exportEngine.Export(View.SelectedObjects.OfType<XPBaseObject>(), selectedObject);
             Save(document);
         }
 
