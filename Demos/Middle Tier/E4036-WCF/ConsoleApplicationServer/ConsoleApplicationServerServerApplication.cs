@@ -1,5 +1,6 @@
 ﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using SecuritySystemExample.Module;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.MiddleTier;
@@ -13,7 +14,8 @@ namespace ConsoleApplicationServer {
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
-            this.CreateCustomObjectSpaceprovider(args,null);
+            args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
+//            this.CreateCustomObjectSpaceprovider(args,null);
         }
 
     }

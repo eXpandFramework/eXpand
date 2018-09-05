@@ -6,9 +6,12 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.ExpressApp.Xpo;
 using System.ServiceModel;
+using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
-using Xpand.ExpressApp.Security.ClientServer;
+using DevExpress.Xpo;
+using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.MiddleTier;
 
 namespace ConsoleApplicationServer {
@@ -27,15 +30,16 @@ namespace ConsoleApplicationServer {
                 var serverApplication = new ConsoleApplicationServerServerApplication(new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard())) {
                     ConnectionString = connectionString
                 };
-                Console.WriteLine("Setup...");
+                Console.WriteLine(@"Setup...");
                 var worldCreatorTypeInfoSource = WorldCreatorTypeInfoSource.Instance;
                 serverApplication.Setup();
-                Console.WriteLine("CheckCompatibility...");
+                XpandModuleBase.SequenceObjectType = null;
+                Console.WriteLine(@"CheckCompatibility...");
                 serverApplication.CheckCompatibility();
                 XpandWcfDataServerHelper.AddKnownTypesForAll(serverApplication);
                 serverApplication.Dispose();
 
-                Console.WriteLine("Starting server...");
+                Console.WriteLine(@"Starting server...");
                 IDataServerSecurity SecurityProviderHandler() => new SecurityStrategyComplex(typeof(SecuritySystemUser), typeof(SecuritySystemRole), new AuthenticationStandard());
 
                 var dataServer = new XpandSecuredDataServer(connectionString, XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, SecurityProviderHandler);
@@ -56,6 +60,41 @@ namespace ConsoleApplicationServer {
                 Console.WriteLine(@"Press Enter to close.");
                 Console.ReadLine();
             }
+        }
+
+        
+    }
+
+    class XpandSecuredDataServer:Xpand.ExpressApp.Security.ClientServer.XpandSecuredDataServer {
+        public XpandSecuredDataServer(IServerSecurity serverSecurity, ISecuredSerializableObjectLayer securedSerializableObjectLayer) : base(serverSecurity, securedSerializableObjectLayer){
+        }
+
+        public XpandSecuredDataServer(IDataLayer dataLayer, QueryRequestSecurityStrategyHandler querySecurityEnvironmentHandler, ILogger logger, EventHandler<DataServiceOperationEventArgs> committingDelegate, bool allowICommandChannelDoWithSecurityContext) : base(dataLayer, querySecurityEnvironmentHandler, logger, committingDelegate, allowICommandChannelDoWithSecurityContext){
+        }
+
+        public XpandSecuredDataServer(IDataLayer dataLayer, QueryRequestSecurityStrategyHandler querySecurityEnvironmentHandler, ILogger logger) : base(dataLayer, querySecurityEnvironmentHandler, logger){
+        }
+
+        public XpandSecuredDataServer(IDataLayer dataLayer, QueryRequestSecurityStrategyHandler querySecurityEnvironmentHandler) : base(dataLayer, querySecurityEnvironmentHandler){
+        }
+
+        public XpandSecuredDataServer(string connectionString, XPDictionary dictionary, QueryRequestSecurityStrategyHandler securityEnvironmentProvider, ILogger logger, EventHandler<DataServiceOperationEventArgs> committingDelegate) : base(connectionString, dictionary, securityEnvironmentProvider, logger, committingDelegate){
+        }
+
+        public XpandSecuredDataServer(string connectionString, XPDictionary dictionary, QueryRequestSecurityStrategyHandler securityEnvironmentProvider, ILogger logger) : base(connectionString, dictionary, securityEnvironmentProvider, logger){
+        }
+
+        public XpandSecuredDataServer(string connectionString, XPDictionary dictionary, QueryRequestSecurityStrategyHandler securityEnvironmentProvider) : base(connectionString, dictionary, securityEnvironmentProvider){
+        }
+
+        protected override ISecuredSerializableObjectLayer CreateDefaultSecuredSerializableObjectLayer(IDataLayer dataLayer,
+            RequestSecurityStrategyProvider securityStrategyProvider, EventHandler<DataServiceOperationEventArgs> committingDelegate,
+            bool allowICommandChannelDoWithSecurityContext) {
+            SecuredSerializableObjectLayer objectLayer = new SecuredSerializableObjectLayer(dataLayer, securityStrategyProvider, allowICommandChannelDoWithSecurityContext);
+            objectLayer.Committing += delegate (object sender, DataServiceOperationEventArgs args) {
+                committingDelegate?.Invoke(this, args);
+            };
+            return objectLayer;
         }
     }
 }
