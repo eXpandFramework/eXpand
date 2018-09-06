@@ -12,6 +12,11 @@ namespace ConsoleApplicationServer {
             Modules.Add(new SecuritySystemExampleModule());
         }
 
+        protected override void OnDatabaseVersionMismatch(DatabaseVersionMismatchEventArgs args) {
+            args.Handled = true;
+            args.Updater.Update();
+        }
+
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args) {
             args.ObjectSpaceProvider = new XPObjectSpaceProvider(args.ConnectionString, args.Connection);
         }

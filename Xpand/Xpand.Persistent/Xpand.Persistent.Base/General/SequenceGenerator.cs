@@ -14,6 +14,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
+using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
@@ -21,7 +22,6 @@ using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
-using MSSqlConnectionProvider = DevExpress.Xpo.DB.MSSqlConnectionProvider;
 using MySqlConnectionProvider = DevExpress.Xpo.DB.MySqlConnectionProvider;
 using OracleConnectionProvider = DevExpress.Xpo.DB.OracleConnectionProvider;
 
@@ -293,7 +293,12 @@ namespace Xpand.Persistent.Base.General {
             GenerateSequence(supportSequenceObject, typeInfo);
         }
 
-        public static List<Type> SupportedProviders { get; } = new List<Type>(){typeof(MSSqlConnectionProvider),typeof(MySqlConnectionProvider),typeof(OracleConnectionProvider)};
+        public static Dictionary<Type, Type> SupportedFactories { get; } = new Dictionary<Type, Type> {{
+                typeof(MSSqlProviderFactory), typeof(MSSqlCEConnectionProvider)}, {
+                typeof(MySqlProviderFactory), typeof(MySqlConnectionProvider)}, {
+                typeof(OracleProviderFactory), typeof(OracleConnectionProvider)
+            }
+        };
 
         public static void Initialize(IDataLayer dataLayer, Type sequenceObjectType) {
             Guard.ArgumentNotNull(dataLayer,"datalayer");
@@ -301,16 +306,33 @@ namespace Xpand.Persistent.Base.General {
             _sequenceGenerator = null;
             _sequenceObjectType = sequenceObjectType;
             _defaultDataLayer = dataLayer;
-            if (dataLayer is BaseDataLayer baseDataLayer && SupportedProviders.Contains(baseDataLayer.ConnectionProvider.GetType())){
-                RegisterSequences(ApplicationHelper.Instance.Application.TypesInfo.PersistentTypes);
-                _sequenceGenerator = new SequenceGenerator();
+            RegisterSequences(ApplicationHelper.Instance.Application.TypesInfo.PersistentTypes);
+            _sequenceGenerator = new SequenceGenerator();
+        }
+
+
+        public static void Initialize(string connectionString, Type sequenceObjectType) {
+            if (IsFactorySupported(connectionString)) {
+                var dataLayer = XpoDefault.GetDataLayer(connectionString, AutoCreateOption.None);
+                Initialize(dataLayer, sequenceObjectType);
             }
         }
 
-        public static void Initialize(string connectionString, Type sequenceObjectType){
-            Initialize(XpoDefault.GetDataLayer(connectionString, AutoCreateOption.None), sequenceObjectType);
+        public static bool IsFactorySupported(Type connectionProviderType) {
+            return SupportedFactories.ContainsValue(connectionProviderType);
         }
 
+        public static bool IsFactorySupported(string connectionString){
+            var factory = GetProviderFactory(connectionString);
+            return factory == null || SupportedFactories.ContainsKey(factory.GetType());
+        }
+
+        private static ProviderFactory GetProviderFactory(string connectionString){
+            var connectionStringParser = new ConnectionStringParser(connectionString);
+            var xpoProvider = connectionStringParser.GetPartByName(DataStoreBase.XpoProviderTypeParameterName);
+            var factory = DataStoreBase.Factories.FirstOrDefault(_ => _.ProviderKey == xpoProvider);
+            return factory;
+        }
 
 
         public static void ReleaseSequence(string sequenceName,long sequence){

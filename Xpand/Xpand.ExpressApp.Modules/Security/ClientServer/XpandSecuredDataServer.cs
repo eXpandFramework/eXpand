@@ -48,9 +48,9 @@ namespace Xpand.ExpressApp.Security.ClientServer{
         bool allowICommandChannelDoWithSecurityContext) {
             var connectionProvider = ((BaseDataLayer) dataLayer).ConnectionProvider;
             string connectionString = String.IsNullOrEmpty(_connectionstring) ? ((ConnectionProviderSql)connectionProvider).ConnectionString : _connectionstring;
-            var provider =SequenceGenerator.SupportedProviders.Contains(connectionProvider.GetType())? new MultiDataStoreProxy(connectionString):connectionProvider;
-            var threadSafeDataLayer = new ThreadSafeDataLayer(dataLayer.Dictionary, provider);
-            return new SecuredSerializableObjectLayer(threadSafeDataLayer, securityStrategyProvider, allowICommandChannelDoWithSecurityContext);
+            var isFactorySupported = SequenceGenerator.IsFactorySupported(connectionProvider.GetType());
+            var dataStore =isFactorySupported? new MultiDataStoreProxy(connectionString):connectionProvider;
+            return new SecuredSerializableObjectLayer(new ThreadSafeDataLayer(dataLayer.Dictionary, dataStore), securityStrategyProvider, allowICommandChannelDoWithSecurityContext);
         }
     }
 }
