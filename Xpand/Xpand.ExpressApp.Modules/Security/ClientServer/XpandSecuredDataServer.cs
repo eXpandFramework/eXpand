@@ -46,9 +46,10 @@ namespace Xpand.ExpressApp.Security.ClientServer{
         protected override ISecuredSerializableObjectLayer CreateDefaultSecuredSerializableObjectLayer(IDataLayer dataLayer,
         RequestSecurityStrategyProvider securityStrategyProvider, EventHandler<DataServiceOperationEventArgs> committingDelegate,
         bool allowICommandChannelDoWithSecurityContext) {
-            string connectionString = String.IsNullOrEmpty(_connectionstring) ? ((ConnectionProviderSql)((BaseDataLayer)dataLayer).ConnectionProvider).ConnectionString : _connectionstring;
-
-            var threadSafeDataLayer = new ThreadSafeDataLayer(dataLayer.Dictionary, new MultiDataStoreProxy(connectionString));
+            var connectionProvider = ((BaseDataLayer) dataLayer).ConnectionProvider;
+            string connectionString = String.IsNullOrEmpty(_connectionstring) ? ((ConnectionProviderSql)connectionProvider).ConnectionString : _connectionstring;
+            var provider =SequenceGenerator.SupportedProviders.Contains(connectionProvider.GetType())? new MultiDataStoreProxy(connectionString):connectionProvider;
+            var threadSafeDataLayer = new ThreadSafeDataLayer(dataLayer.Dictionary, provider);
             return new SecuredSerializableObjectLayer(threadSafeDataLayer, securityStrategyProvider, allowICommandChannelDoWithSecurityContext);
         }
     }

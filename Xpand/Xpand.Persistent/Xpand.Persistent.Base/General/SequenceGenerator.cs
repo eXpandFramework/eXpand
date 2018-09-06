@@ -21,6 +21,9 @@ using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
+using MSSqlConnectionProvider = DevExpress.Xpo.DB.MSSqlConnectionProvider;
+using MySqlConnectionProvider = DevExpress.Xpo.DB.MySqlConnectionProvider;
+using OracleConnectionProvider = DevExpress.Xpo.DB.OracleConnectionProvider;
 
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Field|AttributeTargets.Property,AllowMultiple = true)]
@@ -290,14 +293,18 @@ namespace Xpand.Persistent.Base.General {
             GenerateSequence(supportSequenceObject, typeInfo);
         }
 
+        public static List<Type> SupportedProviders { get; } = new List<Type>(){typeof(MSSqlConnectionProvider),typeof(MySqlConnectionProvider),typeof(OracleConnectionProvider)};
+
         public static void Initialize(IDataLayer dataLayer, Type sequenceObjectType) {
             Guard.ArgumentNotNull(dataLayer,"datalayer");
             Guard.ArgumentNotNull(sequenceObjectType, "sequenceObjectType");
             _sequenceGenerator = null;
             _sequenceObjectType = sequenceObjectType;
             _defaultDataLayer = dataLayer;
-            RegisterSequences(ApplicationHelper.Instance.Application.TypesInfo.PersistentTypes);
-            _sequenceGenerator = new SequenceGenerator();
+            if (dataLayer is BaseDataLayer baseDataLayer && SupportedProviders.Contains(baseDataLayer.ConnectionProvider.GetType())){
+                RegisterSequences(ApplicationHelper.Instance.Application.TypesInfo.PersistentTypes);
+                _sequenceGenerator = new SequenceGenerator();
+            }
         }
 
         public static void Initialize(string connectionString, Type sequenceObjectType){
@@ -370,8 +377,7 @@ namespace Xpand.Persistent.Base.General {
 
         private IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(XPObjectSpace xpObjectSpace) {
             var connectionProvider = ((BaseDataLayer)xpObjectSpace.Session.DataLayer).ConnectionProvider;
-            var multiDataStoreProxy = connectionProvider as MultiDataStoreProxy;
-            if (multiDataStoreProxy != null)
+            if (connectionProvider is MultiDataStoreProxy multiDataStoreProxy)
                 return (IDataStoreSchemaExplorer)multiDataStoreProxy.DataStore;
             return connectionProvider as IDataStoreSchemaExplorer;
         }
@@ -386,8 +392,8 @@ namespace Xpand.Persistent.Base.General {
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static Type SequenceObjectType {
-            get { return XpandModuleBase.SequenceObjectType; }
-            set { XpandModuleBase.SequenceObjectType = value; }
+            get => XpandModuleBase.SequenceObjectType;
+            set => XpandModuleBase.SequenceObjectType = value;
         }
 
         public void InitializeSequenceGenerator() {

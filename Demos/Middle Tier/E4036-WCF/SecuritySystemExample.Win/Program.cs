@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
 using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.MiddleTier;
 
 namespace SecuritySystemExample.Win {
