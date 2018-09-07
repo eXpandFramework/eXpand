@@ -21,12 +21,14 @@ namespace Xpand.ExpressApp.IO.Core {
                 return memberValue == null;
             if (memberInfo.MemberTypeInfo.Type == typeof(string))
                 return memberValue==null;
-            return memberInfo.MemberTypeInfo.Type.CreateInstance() == memberValue;
+            if (memberInfo.MemberTypeInfo.Type.IsValueType)
+                return memberInfo.MemberTypeInfo.Type.CreateInstance() == memberValue;
+            return memberValue == null;
         }
 
         public static bool IsMinified(this XDocument document) {
             var value = document.Root.GetAttributeValue(ElementSchema.Minified);
-            return !string.IsNullOrEmpty(value);
+            return value=="true";
         }
 
 
@@ -37,7 +39,7 @@ namespace Xpand.ExpressApp.IO.Core {
                 OmitXmlDeclaration = true,
                 Indent = true,
                 NewLineChars = "\r\n",
-                CloseOutput = true,
+                CloseOutput = false,
             };
             if (minifyOutput) {
                 xmlWriterSettings.Indent = false;

@@ -29,6 +29,13 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             set => SetPropertyValue(nameof(MinifyOutput), ref _minifyOutput, value);
         }
 
+        bool _zipOutput;
+
+        public bool ZipOutput {
+            get => _zipOutput;
+            set => SetPropertyValue(nameof(ZipOutput), ref _zipOutput, value);
+        }
+
         [RuleUniqueValue(DefaultContexts.Save)]
         [RuleRequiredField]
         public string Name {

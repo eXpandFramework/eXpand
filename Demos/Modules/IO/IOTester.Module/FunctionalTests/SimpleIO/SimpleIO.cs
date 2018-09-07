@@ -6,6 +6,7 @@ using DevExpress.Xpo;
 namespace IOTester.Module.FunctionalTests.SimpleIO{
     [DefaultClassOptions]
     [DefaultProperty("Key")]
+    [DeferredDeletion(false)]
     public class SimpleIO : BaseObject {
         private string _doNotSerialize;
         private string _key;

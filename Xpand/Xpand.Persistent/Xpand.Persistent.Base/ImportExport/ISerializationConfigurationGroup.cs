@@ -5,6 +5,7 @@ namespace Xpand.Persistent.Base.ImportExport {
         string Name { get; set; }
         IList<ISerializationConfiguration> Configurations { get; }
         bool MinifyOutput { get; set; }
+        bool ZipOutput { get; set; }
     }
 
 

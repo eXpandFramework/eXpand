@@ -1,9 +1,8 @@
+using System;
 using System.IO;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Linq;
+using Ionic.Zip;
 using Xpand.ExpressApp.IO.Controllers;
-using Xpand.ExpressApp.IO.Core;
 
 namespace Xpand.ExpressApp.IO.Win.Controllers {
     public partial class IOViewController : IOViewControllerBase {
@@ -12,26 +11,31 @@ namespace Xpand.ExpressApp.IO.Win.Controllers {
             RegisterActions(components);
         }
 
-        protected string GetFilePath() {
+        protected string GetFilePath(bool isZipped) {
             var openFileDialog = new SaveFileDialog {
                 CheckFileExists = false,
                 AddExtension = true,
-                Filter = @"Xml files (*.xml)|*.xml"
+                Filter =isZipped?@"Zip files (*.zip)|*.zip": @"Xml files (*.xml)|*.xml"
             };
             var dialogResult = openFileDialog.ShowDialog();
             return dialogResult == DialogResult.OK ? openFileDialog.FileName : null;
         }
 
-        protected override void Save(XDocument document) {
-            var filePath = GetFilePath();
-            if (filePath != null) {
-                var minifyOutput = document.IsMinified();
-                var fileStream = new FileStream(filePath, FileMode.Create);
-                using (var textWriter = XmlWriter.Create(fileStream, ExportEngine.GetXMLWriterSettings(minifyOutput))) {
-                    document.Save(textWriter);
-                    textWriter.Close();
+        protected override void Save(MemoryStream memoryStream) {
+            var buffer = memoryStream.ToArray();
+            Save(stream => stream.Write(buffer, 0, buffer.Length),false);
+        }
+
+        protected override void Save(ZipFile zipFile) {
+            Save(zipFile.Save, true);
+        }
+
+        private void Save(Action<Stream> write, bool isZipped){
+            var filePath = GetFilePath(isZipped);
+            if (filePath != null){
+                using (var fileStream = new FileStream(filePath, FileMode.Create)){
+                    write(fileStream);
                 }
-                
             }
         }
     }

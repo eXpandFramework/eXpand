@@ -11,7 +11,7 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
     [ImplementPropertyChanged]
     public class FileChooser :  IFileChooser {
 
-        [FileTypeFilter("Strong Keys", 1, "*.xml")]
+//        [FileTypeFilter("Strong Keys", 1, "*.xml")]
         public XpandFileData FileData{get; set; }
 
 

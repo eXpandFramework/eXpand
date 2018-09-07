@@ -1,25 +1,34 @@
 using System.IO;
 using System.Web;
-using System.Xml;
-using System.Xml.Linq;
-using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web.SystemModule;
+using Ionic.Zip;
 using Xpand.ExpressApp.IO.Controllers;
-using Xpand.ExpressApp.IO.Core;
 
 namespace Xpand.ExpressApp.IO.Web.Controllers {
     public class IOViewController : IOViewControllerBase {
+        protected override void Save(MemoryStream memoryStream) {
+            Save(memoryStream, false);
+        }
 
-        protected override void Save(XDocument document) {
-            var stream = new MemoryStream();
-            
-            using (var textWriter = XmlWriter.Create(stream, ExportEngine.GetXMLWriterSettings(document.IsMinified()))) {
-                document.Save(textWriter);
-                textWriter.Close();
+        private void Save(MemoryStream memoryStream, bool isZipped){
+            var response = HttpContext.Current.Response;
+            response.ClearHeaders();
+            response.Clear();
+            response.BufferOutput = false;
+            var fileName = GetFileName(isZipped);
+            response.ContentType = $"application/{GetExtension(isZipped)}";
+
+            response.AddHeader("content-disposition", "filename=" + fileName);
+
+            ResponseWriter.WriteFileToResponse(memoryStream, fileName);
+        }
+
+        protected override void Save(ZipFile zipFile) {
+            using (var outputStream = new MemoryStream()){
+                zipFile.Save(outputStream);
+                outputStream.Position = 0;
+                Save(outputStream,true);
             }
-
-            HttpContext.Current.Response.ClearHeaders();
-            ResponseWriter.WriteFileToResponse(stream, CaptionHelper.GetClassCaption(View.ObjectTypeInfo.Type.FullName) + ".xml");
         }
     }
 }
