@@ -3,7 +3,7 @@ using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.BaseImpl.Security;
 
 namespace XtraDashboardTester.Win {
-    partial class XtraDashboardTesterWindowsFormsApplication {
+    sealed partial class XtraDashboardTesterWindowsFormsApplication {
         /// <summary> 
         /// Required designer variable.
         /// </summary>

@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers{
         private void TestDashboradAssemblyBindings(){
             var dashboardDefinition = ((IDashboardDefinition) View.CurrentObject);
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
-            dashboardDefinition.ToDashboard();
+            dashboardDefinition?.ToDashboard();
             AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomainOnAssemblyResolve;
         }
 

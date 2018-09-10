@@ -7,10 +7,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Xpo;
 namespace XtraDashboardTester.Win{
-    public partial class XtraDashboardTesterWindowsFormsApplication : WinApplication{
+    public sealed partial class XtraDashboardTesterWindowsFormsApplication : WinApplication{
         public XtraDashboardTesterWindowsFormsApplication(){
             InitializeComponent();
             DelayedViewItemsInitialization = true;
+            IsDelayedDetailViewDataLoadingEnabled = true;
             LastLogonParametersReading += OnLastLogonParametersReading;
         }
 
