@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Win.Core;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
+using DevExpress.ExpressApp.Win.Templates.ActionControls.Binding;
 using DevExpress.Persistent.Base;
 
 
@@ -24,7 +25,7 @@ namespace Xpand.ExpressApp.ModelEditor {
             if (!File.Exists(pathInfo.AssemblyPath)) {
                 pathInfo.AssemblyPath = Path.Combine(Environment.CurrentDirectory, pathInfo.AssemblyPath);
                 if (!File.Exists(pathInfo.AssemblyPath)) {
-                    throw new Exception(string.Format("The file '{0}' couldn't be found.", pathInfo.AssemblyPath));
+                    throw new Exception($"The file '{pathInfo.AssemblyPath}' couldn't be found.");
                 }
             }
         }
@@ -36,7 +37,8 @@ namespace Xpand.ExpressApp.ModelEditor {
             try {
                 var strings = args;
                 if (args.Length>4&&args[0]=="d"){
-                    MessageBox.Show(string.Format("Attach to {0}", Path.GetFileName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase)));
+                    MessageBox.Show(
+                        $"Attach to {Path.GetFileName(AppDomain.CurrentDomain.SetupInformation.ApplicationBase)}");
                     strings = args.Skip(1).ToArray();
                 }
                 var pathInfo = new PathInfo(strings);
@@ -48,6 +50,10 @@ namespace Xpand.ExpressApp.ModelEditor {
                 var settingsStorageOnRegistry = new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor");
                 var modelEditorViewController = modelControllerBuilder.GetController(pathInfo);
                 Tracing.Tracer.LogText("modelEditorViewController");
+                WinSimpleActionBinding.Register();
+                WinSingleChoiceActionBinding.Register();
+                WinParametrizedActionBinding.Register();
+                PopupWindowShowActionBinding.Register();
                 _modelEditorForm = new ModelEditorForm(modelEditorViewController, settingsStorageOnRegistry);
                 _modelEditorForm.Disposed += (sender, eventArgs) => ((IModelEditorSettings)sender).ModelEditorSaveSettings();
                 _modelEditorForm.SetCaption(Path.GetFileName(pathInfo.LocalPath));
