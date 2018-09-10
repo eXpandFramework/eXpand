@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
@@ -51,8 +52,18 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             return new List<Type>();
         }
 
+        public override void Setup(XafApplication application) {
+            base.Setup(application);
+            application.SetupComplete+=ApplicationOnSetupComplete;
+        }
+
+        private void ApplicationOnSetupComplete(object sender, EventArgs e) {
+            CurrentProcessController.ApplyConfig(Application.Model.Options);
+        }
+
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes = {
+                typeof(CurrentProcessController),
                 typeof(RefreshObjectViewController),
                 typeof(DragNDropImageController),
                 typeof(RibbonFromModelController),
