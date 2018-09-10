@@ -22,6 +22,7 @@ using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
+using MSSqlConnectionProvider = DevExpress.Xpo.DB.MSSqlConnectionProvider;
 using MySqlConnectionProvider = DevExpress.Xpo.DB.MySqlConnectionProvider;
 using OracleConnectionProvider = DevExpress.Xpo.DB.OracleConnectionProvider;
 
@@ -294,9 +295,9 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static Dictionary<Type, Type> SupportedFactories { get; } = new Dictionary<Type, Type> {{
-                typeof(MSSqlProviderFactory), typeof(MSSqlCEConnectionProvider)}, {
-                typeof(MySqlProviderFactory), typeof(MySqlConnectionProvider)}, {
-                typeof(OracleProviderFactory), typeof(OracleConnectionProvider)
+                typeof(MSSqlConnectionProvider),typeof(MSSqlProviderFactory)}, {
+                typeof(MySqlConnectionProvider),typeof(MySqlProviderFactory)}, {
+                typeof(OracleConnectionProvider),typeof(OracleProviderFactory)
             }
         };
 
@@ -319,12 +320,12 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool IsFactorySupported(Type connectionProviderType) {
-            return SupportedFactories.ContainsValue(connectionProviderType);
+            return SupportedFactories.Any(pair => pair.Key.IsAssignableFrom(connectionProviderType));
         }
 
         public static bool IsFactorySupported(string connectionString){
             var factory = GetProviderFactory(connectionString);
-            return factory == null || SupportedFactories.ContainsKey(factory.GetType());
+            return factory == null || SupportedFactories.Any(pair => pair.Value.IsInstanceOfType(factory));
         }
 
         private static ProviderFactory GetProviderFactory(string connectionString){
