@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata.Helpers;
+using ICSharpCode.SharpZipLib.Core;
+using ICSharpCode.SharpZipLib.Zip;
 using Xpand.ExpressApp.ExcelImporter.Controllers;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
@@ -127,9 +130,36 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             return false;
         }
 
+        public MemoryStream GetXlsContent(string fileName,byte[] bytes){
+            if (fileName.EndsWith("zip")) {
+                using (var memoryStream = new MemoryStream(bytes)){
+                    using (var zipFile = new ZipFile(memoryStream)){
+                        var zipEntry = zipFile.Cast<ZipEntry>().FirstOrDefault(entry => Regex.IsMatch(entry.Name, AutoImportRegex));
+                        if (zipEntry != null) {
+                            byte[] buffer = new byte[4096];
+                            using (var zipStream = zipFile.GetInputStream(zipEntry)){
+                                var outStream = new MemoryStream();
+                                StreamUtils.Copy(zipStream, outStream, buffer);
+                                File.FileName = zipEntry.Name;
+                                if (File.FullName != null) {
+                                    File.FullName = Path.Combine($"{Path.GetDirectoryName(File.FullName)}",zipEntry.Name);
+                                    FullName = File.FullName;
+                                }
+                                File.Content = outStream.ToArray();
+                                outStream.Position = 0;
+                                return outStream;
+                            }
+                        }
+                        throw new InvalidOperationException($"Zip file does not contain a file with extension {AutoImportRegex}");
+                    }
+                }
+            }
+            return new MemoryStream(bytes);
+        }
+
         public override void AfterConstruction(){
             base.AfterConstruction();
-            AutoImportRegex = ".*xlsx|.*xls|.*csv|.*txt";
+            AutoImportRegex = ".*xlsx|.*xls|.*csv|.*txt|.*zip";
             ColumnMappingRegexPattern = "( *)";
             HeaderRows = 1;
             File=new XpandFileData();

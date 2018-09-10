@@ -51,16 +51,18 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
             ((FileDataPropertyEditor) sender).Editor.FileDataLoading+=OnFileDataLoading;
         }
 
-        private  void ParseStream(Stream stream){
-            using (var excelDataReader = ExcelReaderFactory.CreateReader(stream)){
-                using (var dataSet = excelDataReader.GetDataSet( ExcelImport)){
-                    ExcelImport.SheetNames = dataSet.Tables.Cast<DataTable>().Select(table => table.TableName).ToList();
+        private  void ParseStream(UploadedFile uploadedFile) {
+            using (var stream = ExcelImport.GetXlsContent(uploadedFile.FileName, uploadedFile.FileBytes)){
+                using (var excelDataReader = ExcelReaderFactory.CreateReader(stream)){
+                    using (var dataSet = excelDataReader.GetDataSet( ExcelImport)){
+                        ExcelImport.SheetNames = dataSet.Tables.Cast<DataTable>().Select(table => table.TableName).ToList();
+                    }
                 }
             }
         }
 
         private void OnFileDataLoading(object sender, FileDataLoadingEventArgs e){
-            ParseStream(e.UploadedFile.FileContent);
+            ParseStream(e.UploadedFile);
         }
     }
 }

@@ -70,11 +70,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
             if (e.PropertyName == nameof(XpandFileData.FullName)){
                 if (File.Exists(ExcelImport.File.FullName))
                     ExcelImport.FullName = ExcelImport.File.FullName;
-                try{
-                    using (var fileStream = File.Open(ExcelImport.FullName, FileMode.Open, FileAccess.Read,
-                        FileShare.Read)){
-                        ParseFile(fileStream, ExcelImport);
-                    }
+                try {
+                    ParseStream();
                 }
                 catch{
                     ExcelImport.File = new XpandFileData();
@@ -85,14 +82,22 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
             }
         }
 
-        private void ParseFile(FileStream fileStream, ExcelImport excelImport){
-            using (var excelDataReader = ExcelReaderFactory.CreateReader(fileStream)){
-                using (var dataSet = excelDataReader.GetDataSet( excelImport)){
-                    excelImport.SheetNames = dataSet.Tables.Cast<DataTable>().Select(table => table.TableName).ToList();
+        private void ParseStream(){
+            using (var fileStream = File.Open(ExcelImport.FullName, FileMode.Open, FileAccess.Read,
+                FileShare.Read)){
+                byte[] bytes;
+                using (var memoryStream = new MemoryStream()){
+                    fileStream.CopyTo(memoryStream);
+                    bytes = memoryStream.ToArray();
+                }
+
+                var content = ExcelImport.GetXlsContent(ExcelImport.FullName, bytes);
+                using (var excelDataReader = ExcelReaderFactory.CreateReader(content)){
+                    using (var dataSet = excelDataReader.GetDataSet(ExcelImport)){
+                        ExcelImport.SheetNames = dataSet.Tables.Cast<DataTable>().Select(table => table.TableName).ToList();
+                    }
                 }
             }
         }
-
-
     }
 }
