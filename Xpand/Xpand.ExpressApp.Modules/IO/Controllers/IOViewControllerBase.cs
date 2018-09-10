@@ -172,8 +172,9 @@ namespace Xpand.ExpressApp.IO.Controllers {
         }
 
         private IObjectSpace CreateObjectSpace(ITypeInfo typeInfo){
+            var typeInfoType = typeInfo?.Type??XafTypesInfo.Instance.FindBussinessObjectType<IIOError>();
             return Application.ObjectSpaceProviders.First(
-                    provider => provider.EntityStore.RegisteredEntities.Contains(typeInfo.Type)).CreateObjectSpace();
+                    provider => provider.EntityStore.RegisteredEntities.Contains(typeInfoType)).CreateObjectSpace();
         }
 
         protected string GetFileName(bool isZipped){

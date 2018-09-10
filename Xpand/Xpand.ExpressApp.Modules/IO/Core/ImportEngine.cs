@@ -25,6 +25,7 @@ namespace Xpand.ExpressApp.IO.Core {
         readonly Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object> _importedObjects = new Dictionary<KeyValuePair<ITypeInfo, CriteriaOperator>, object>();
         readonly ErrorHandling _errorHandling;
         private IObjectSpace _objectSpace;
+        private IObjectSpace _errorObjectSpace;
 
         public ImportEngine(ErrorHandling errorHandling) {
             _errorHandling = errorHandling;
@@ -33,7 +34,7 @@ namespace Xpand.ExpressApp.IO.Core {
         public ImportEngine() {
         }
 
-        public int ImportObjects(string xml, Func<ITypeInfo, IObjectSpace> objectSpaceQuery) {
+        public int ImportObjects(string xml, Func<ITypeInfo, IObjectSpace> objectSpaceQuery,IObjectSpace errorObjectSpace=null) {
             
             var xmlTextReader = new XmlTextReader(new MemoryStream(Encoding.UTF8.GetBytes(xml))) { WhitespaceHandling = WhitespaceHandling.Significant };
             var document = XDocument.Load(xmlTextReader, LoadOptions.PreserveWhitespace | LoadOptions.SetLineInfo);
@@ -43,11 +44,13 @@ namespace Xpand.ExpressApp.IO.Core {
         int ImportObjects(XDocument document, Func<ITypeInfo, IObjectSpace> objectSpaceQuery) {
             if (document.Root != null) {
                 var elementInfo = ElementSchema.Get(document);
+                _errorObjectSpace = _errorObjectSpace ?? objectSpaceQuery(null);
                 foreach (var element in document.Root.Nodes().OfType<XElement>()) {
-                    var typeInfo = GetTypeInfo(element,elementInfo);
+                    var typeInfo = GetTypeInfo(element,elementInfo,_errorObjectSpace);
                     _objectSpace = _objectSpace ?? objectSpaceQuery(typeInfo);
+                    
                     var keys = GetKeys(element,elementInfo);
-                    CriteriaOperator objectKeyCriteria = GetObjectKeyCriteria(typeInfo, keys,elementInfo);
+                    var objectKeyCriteria = GetObjectKeyCriteria(typeInfo, keys,elementInfo);
                     if (!ReferenceEquals(objectKeyCriteria, null)){
                         CreateObject(element, typeInfo, objectKeyCriteria,elementInfo);
                     }
@@ -110,9 +113,9 @@ namespace Xpand.ExpressApp.IO.Core {
         void ImportComplexProperties(XElement element, Action<object, XElement> instance, NodeType nodeType,
             ElementSchema elementSchema) {
             var objectElements = GetObjectRefElements(element, nodeType,elementSchema);
-            var typeInfo = GetTypeInfo(element,elementSchema);
+            var typeInfo = GetTypeInfo(element,elementSchema,_errorObjectSpace);
             foreach (var objectElement in objectElements) {
-                var memberTypeInfo = GetTypeInfo(objectElement,elementSchema);
+                var memberTypeInfo = GetTypeInfo(objectElement,elementSchema,_errorObjectSpace);
                 if (memberTypeInfo != null) {
                     var refObjectKeyCriteria = GetObjectKeyCriteria(memberTypeInfo, objectElement.Descendants(elementSchema.Key),elementSchema);
                     object xpBaseObject = null;
@@ -138,7 +141,8 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
 
-        void HandleError(XElement element, FailReason failReason,ElementSchema elementSchema) {
+        void HandleError(XElement element, FailReason failReason,ElementSchema elementSchema,IObjectSpace objectSpace=null) {
+            objectSpace = objectSpace ?? _objectSpace;
             string innerXml = null;
             string elementXml;
             var firstOrDefault = element.Ancestors(elementSchema.SerializedObject).FirstOrDefault();
@@ -148,12 +152,17 @@ namespace Xpand.ExpressApp.IO.Core {
             } else {
                 elementXml = element.ToString();
             }
+
             if (_errorHandling == ErrorHandling.CreateErrorObjects) {
-                var errorInfoObject = _objectSpace.Create<IIOError>();
+                var errorInfoObject = objectSpace.Create<IIOError>();
                 errorInfoObject.Reason = failReason;
                 errorInfoObject.ElementXml = elementXml;
                 errorInfoObject.InnerXml = innerXml;
-            } else if (_errorHandling == ErrorHandling.ThrowException) {
+                objectSpace.CommitChanges();
+                throw new UserFriendlyException("Import failed check IOError list for details.");
+            }
+
+            if (_errorHandling == ErrorHandling.ThrowException) {
                 throw new UserFriendlyException(new Exception("ImportFailed", new Exception("Reason=" + failReason + "ELEMENTXML=" + elementXml + " INNERXML=" + innerXml)));
             }
         }
@@ -200,10 +209,10 @@ namespace Xpand.ExpressApp.IO.Core {
             return !string.IsNullOrEmpty(simpleElement.Value) ? XpandReflectionHelper.ChangeType(simpleElement.Value, type, CultureInfo.InvariantCulture) : null;
         }
 
-        ITypeInfo GetTypeInfo(XElement element,ElementSchema elementSchema) {
+        ITypeInfo GetTypeInfo(XElement element,ElementSchema elementSchema,IObjectSpace objectSpace) {
             var typeInfo = ReflectionHelper.FindTypeInfoByName(element.GetAttributeValue(elementSchema.Type));
             if (typeInfo == null)
-                HandleError(element, FailReason.TypeNotFound,elementSchema);
+                HandleError(element, FailReason.TypeNotFound,elementSchema,objectSpace);
             return typeInfo;
         }
 
