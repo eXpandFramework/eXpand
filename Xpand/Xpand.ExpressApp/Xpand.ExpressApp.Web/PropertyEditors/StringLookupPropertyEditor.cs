@@ -19,13 +19,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
 
         protected virtual void OnItemsCalculating(HandledEventArgs e) {
             EventHandler<HandledEventArgs> handler = ItemsCalculating;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
-        public IObjectSpace ObjectSpace {
-            get { return Helper.ObjectSpace; }
-        }
-        
+        public IObjectSpace ObjectSpace => Helper.ObjectSpace;
+
         protected LookupEditorHelper Helper;
         Label _viewModeLabelControl;
 
@@ -47,7 +45,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             return _viewModeLabelControl;
         }
         protected override WebControl CreateEditModeControlCore() {
-            var asPxComboBox = new ASPxComboBox { ReadOnly = !AllowEdit, AutoPostBack = Model.ImmediatePostData };
+            var asPxComboBox = new ASPxComboBox {
+                ReadOnly = !AllowEdit
+            };
+            ImmediatePostData = Model.ImmediatePostData;
             asPxComboBox.ValueChanged += AsPxComboBoxOnValueChanged;
             RenderHelper.SetupASPxWebControl(asPxComboBox);
             return asPxComboBox;
