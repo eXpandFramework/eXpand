@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Xpo {
     [Serializable]
@@ -22,8 +21,8 @@ namespace Xpand.Xpo {
         private Guid _oid = Guid.Empty;
         [Persistent("Oid"), Key(true), Browsable(false), MemberDesignTimeVisibility(false)]
         public Guid Oid {
-            get { return _oid; }
-            set { _oid = value; }
+            get => _oid;
+            set => _oid = value;
         }
 #endif
         private bool _isDefaultPropertyAttributeInit;
@@ -40,8 +39,7 @@ namespace Xpand.Xpo {
 
         public override string ToString() {
             if (!_isDefaultPropertyAttributeInit) {
-                var attrib = ClassInfo.FindAttributeInfo(typeof(DefaultPropertyAttribute)) as DefaultPropertyAttribute;
-                if (attrib != null) {
+                if (ClassInfo.FindAttributeInfo(typeof(DefaultPropertyAttribute)) is DefaultPropertyAttribute attrib) {
                     _defaultPropertyMemberInfo = ClassInfo.FindMember(attrib.Name);
                 }
                 _isDefaultPropertyAttributeInit = true;
@@ -63,8 +61,8 @@ namespace Xpand.Xpo {
         [MemberDesignTimeVisibility(false)]
         public bool IsNewObject => Session.IsNewObject(this);
 
-        [ValueConverter(typeof(NullValueConverter)), Persistent, Browsable(false)]
-        [Size(1)]
+        [Obsolete("Use XpandUnitOfWork instead")]
+        [NonPersistent]
         public HashSet<string> ChangedProperties { get; set; }
 
         protected override void TriggerObjectChanged(ObjectChangeEventArgs args) {
@@ -85,8 +83,7 @@ namespace Xpand.Xpo {
         private void DoTrucateStrings() {
             foreach (XPMemberInfo xpMemberInfo in ClassInfo.PersistentProperties) {
                 if (xpMemberInfo.MemberType == typeof(string)) {
-                    var value = xpMemberInfo.GetValue(this) as string;
-                    if (value != null) {
+                    if (xpMemberInfo.GetValue(this) is string value) {
                         value = TruncateValue(xpMemberInfo, value);
                         xpMemberInfo.SetValue(this, value);
                     }
