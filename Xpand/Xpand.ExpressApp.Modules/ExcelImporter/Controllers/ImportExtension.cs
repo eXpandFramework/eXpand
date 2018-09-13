@@ -11,6 +11,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
+using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
@@ -53,17 +54,23 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             }
         }
 
+        public static IMemberInfo GetKeyMember(this ITypeInfo typeInfo) {
+            var keyAttribute = typeInfo.FindAttribute<ExcelImportKeyAttribute>();
+            return keyAttribute != null ? typeInfo.FindMember(keyAttribute.MemberName) : typeInfo.DefaultMember;
+        }
+
         private static bool Imported(object columnValue, IMemberInfo memberInfo, object importToObject,
             IObjectSpace objectSpace){
             var memberTypeInfo = memberInfo.MemberTypeInfo;
             object result;
             if (memberTypeInfo.IsPersistent){
                 var type = memberTypeInfo.Type;
-                if (columnValue.TryToChange(memberTypeInfo.DefaultMember.MemberType, out result)){
+                var keyMember = memberTypeInfo.GetKeyMember();
+                if (columnValue.TryToChange(keyMember.MemberType, out result)){
                     try{
-                        var referenceObject =objectSpace.FindObject(type,CriteriaOperator.Parse($"{memberTypeInfo.DefaultMember.Name}=?", result), true) ??
+                        var referenceObject =objectSpace.FindObject(type,CriteriaOperator.Parse($"{keyMember.Name}=?", result), true) ??
                                              objectSpace.CreateObject(type);
-                        memberTypeInfo.DefaultMember.SetValue(referenceObject,result);
+                        keyMember.SetValue(referenceObject,result);
                         memberInfo.SetValue(importToObject,referenceObject);
                     }
                     catch (Exception e){
