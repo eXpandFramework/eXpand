@@ -34,6 +34,12 @@ namespace Xpand.ExpressApp.IO.Controllers {
             _ioAction.Execute += IoActionOnExecute;
         }
 
+        protected override void OnActivated() {
+            base.OnActivated();
+            var bussinessObjectType = XafTypesInfo.Instance.FindBussinessObjectType(typeof(ISerializationConfigurationGroup));
+            _ioAction.Active["Security"] =DataManipulationRight.CanRead(bussinessObjectType, null, null, null, ObjectSpace);
+        }
+
         void IoActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
             if (ReferenceEquals(singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data, "export")) {
                 ShowSerializationView(singleChoiceActionExecuteEventArgs);
