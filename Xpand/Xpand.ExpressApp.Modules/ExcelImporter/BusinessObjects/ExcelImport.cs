@@ -168,8 +168,8 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         
         protected override void OnLoaded(){
             base.OnLoaded();
-            File=new XpandFileData();
-            FailedResultList=new FailedResultList();
+            _file=new XpandFileData();
+            _failedResultList=new FailedResultList();
         }
 
         string _fullName;

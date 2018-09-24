@@ -70,14 +70,14 @@ namespace Xpand.ExpressApp.Validation.Controllers {
                 OnContextValidating(contextValidatingEventArgs);
                 if (View.ObjectTypeInfo.IsPersistent && CanAccessDeletedObjects(context)&&!_otherValidationContextFailed)
                     Validator.RuleSet.ValidateAll(ObjectSpace, contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
-                _otherValidationContextFailed = false;
             }
+            _otherValidationContextFailed = false;
         }
 
         private bool Enabled => ((IModelValidationContextsActions) ((IModelApplicationValidation) Application.Model).Validation.Contexts).ActionContexts;
 
         void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs validationCompletedEventArgs) {
-            _otherValidationContextFailed = !validationCompletedEventArgs.Successful;
+//            _otherValidationContextFailed = !validationCompletedEventArgs.Successful;
         }
 
 
