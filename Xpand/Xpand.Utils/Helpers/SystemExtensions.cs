@@ -1,11 +1,16 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Xpand.Utils.Helpers{
     public static class SystemExtensions{
+        public static bool IsDefault<T> (this T value) where T : struct {
+            return (EqualityComparer<T>.Default.Equals(value, default));
+        }
+
         public static Task<int> RunProcessAsync(this Process process) {
             process.EnableRaisingEvents = true;
             var tcs = new TaskCompletionSource<int>();

@@ -641,12 +641,6 @@
         <Band Id="General" Caption="General" Index="3" IsNewNode="True" />
       </BandsLayout>
       <OptionsAdvBandedView>
-        <GridBands>
-          <GridBand Id="Photo" Index="0" Caption="Photo" Width="43" IsNewNode="True" />
-          <GridBand Id="PersonalInfo" Index="1" Caption="PersonalInfo" Width="867" IsNewNode="True" />
-          <GridBand Id="Address" Index="2" Caption="Address" Width="247" IsNewNode="True" />
-          <GridBand Id="General" Caption="General" Index="3" Width="202" IsNewNode="True" />
-        </GridBands>
         <OptionsView ShowBands="False" />
       </OptionsAdvBandedView>
     </ListView>
@@ -771,9 +765,6 @@
         <ActionLink ActionId="SaveAndClose" IsNewNode="True" />
       </HiddenActions>
       <OptionsAdvBandedView>
-        <GridBands>
-          <GridBand Id="MainBand" Index="0" Width="459" IsNewNode="True" />
-        </GridBands>
         <OptionsView ShowColumnHeaders="False" />
       </OptionsAdvBandedView>
       <SplitLayout SplitterPosition="274" />
@@ -1091,12 +1082,6 @@
         <Band Id="General" Caption="" Index="3" IsNewNode="True" />
       </BandsLayout>
       <OptionsAdvBandedView>
-        <GridBands>
-          <GridBand Id="Photo" Index="0" Visible="True" Width="59" IsNewNode="True" />
-          <GridBand Id="Movie" Index="1" Visible="True" Width="335" IsNewNode="True" />
-          <GridBand Id="Awards" Index="2" Visible="True" Width="293" IsNewNode="True" />
-          <GridBand Id="General" Index="3" Visible="True" Width="363" IsNewNode="True" />
-        </GridBands>
         <OptionsView ShowBands="False" />
       </OptionsAdvBandedView>
       <SplitLayout SplitterPosition="1085" />

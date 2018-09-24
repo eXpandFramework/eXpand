@@ -61,6 +61,10 @@ namespace Xpand.Persistent.Base.General {
         public static Session Session(this IObjectSpace objectSpace){
             return ((XPObjectSpace) objectSpace).Session;
         }
+        [DebuggerStepThrough]
+        public static UnitOfWork UnitOfWork(this IObjectSpace objectSpace){
+            return (UnitOfWork) ((XPObjectSpace) objectSpace).Session;
+        }
 
         public static T GetObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,
             bool intransaction = true) where T : class{
