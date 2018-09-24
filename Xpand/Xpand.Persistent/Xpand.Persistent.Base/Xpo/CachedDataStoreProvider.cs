@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.Xpo{
 	public class CachedDataStoreProvider : ConnectionStringDataStoreProvider, IXpoDataStoreProvider{
@@ -22,12 +23,26 @@ namespace Xpand.Persistent.Base.Xpo{
 	    public CachedDataStoreProvider(string connectionString) : base(connectionString){
 		}
 
-		IDataStore IXpoDataStoreProvider.CreateWorkingStore(out IDisposable[] disposableObjects){
-			if (_root == null){
-				var baseDataStore = base.CreateWorkingStore(out _rootDisposableObjects);
-				_root = new DataCacheRoot(baseDataStore);
-			}
+	    public static Func<(IDisposable[] rootDisposables,IDataStore dataStore)> CreateStore;
 
+	    public new IDataStore CreateWorkingStore(out IDisposable[] disposableObjects) {
+	        return ((IXpoDataStoreProvider) this).CreateWorkingStore(out disposableObjects);
+	    }
+
+	    IDataStore IXpoDataStoreProvider.CreateWorkingStore(out IDisposable[] disposableObjects){
+			if (_root == null){
+			    var tuple = CreateStore();
+			    IDataStore baseDataStore;
+                if (tuple.IsDefault()) {
+                    baseDataStore = base.CreateWorkingStore(out _rootDisposableObjects);
+                }
+                else {
+                    baseDataStore = tuple.dataStore;
+                    _rootDisposableObjects = tuple.rootDisposables;
+                }
+
+			    _root = new DataCacheRoot(baseDataStore);
+			}
 			disposableObjects = new IDisposable[0];
 			return new DataCacheNode(_root);
 		}
