@@ -13,11 +13,11 @@ using System.Collections.Generic;
 ﻿using DevExpress.Persistent.Base.Security;
 ﻿using DevExpress.Xpo;
 ﻿using Fasterflect;
+using Xpand.Utils.Helpers;
 ﻿using Xpand.ExpressApp.Security.AuthenticationProviders;
 ﻿using Xpand.ExpressApp.Security.Permissions;
 ﻿using Xpand.Persistent.Base.General;
-﻿using Xpand.Utils.Helpers;
-﻿using IOperationPermissionProvider = DevExpress.ExpressApp.Security.IOperationPermissionProvider;
+using IOperationPermissionProvider = DevExpress.ExpressApp.Security.IOperationPermissionProvider;
 
 namespace Xpand.ExpressApp.Security.Core {
     [AttributeUsage(AttributeTargets.Class)]
@@ -70,8 +70,7 @@ namespace Xpand.ExpressApp.Security.Core {
         public static ISecurityRole GetDefaultRole(this IObjectSpace objectSpace, string roleName) {
             var defaultRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(defaultRole)) {
-                var securitySystemRoleBase = defaultRole as SecuritySystemRoleBase;
-                if (securitySystemRoleBase != null){
+                if (defaultRole is SecuritySystemRoleBase securitySystemRoleBase){
                     securitySystemRoleBase.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()",SecurityOperations.ReadOnlyAccess);
                     securitySystemRoleBase.AddMemberAccessPermission(SecuritySystem.UserType,"ChangePasswordOnFirstLogon,StoredPassword", SecurityOperations.Write, "[Oid] = CurrentUserId()");
                     securitySystemRoleBase.GrandObjectAccessRecursively();
@@ -97,18 +96,27 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         public static PermissionDictionary WithSecurityOperationAttributePermissions(this IPermissionDictionary permissionDictionary){
-            var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<IXpandRoleCustomPermissions>().SelectMany(role => role.SecurityOperationAttributePermissions());
-            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            if (SecuritySystem.CurrentUser != null){
+                var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<IXpandRoleCustomPermissions>().SelectMany(role => role.SecurityOperationAttributePermissions());
+                return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            }
+            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>());
         }
 
         public static PermissionDictionary WithHiddenNavigationItemPermissions(this IPermissionDictionary permissionDictionary){
-            var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<ISupportHiddenNavigationItems>().SelectMany(role => role.GetHiddenNavigationItemPermissions());
-            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            if (SecuritySystem.CurrentUser != null){
+                var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<ISupportHiddenNavigationItems>().SelectMany(role => role.GetHiddenNavigationItemPermissions());
+                return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            }
+            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>());
         }
 
         public static PermissionDictionary WithCustomPermissions(this IPermissionDictionary permissionDictionary) {
-            var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<IXpandRoleCustomPermissions>().SelectMany(role => role.GetCustomPermissions());
-            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            if (SecuritySystem.CurrentUser != null){
+                var permissions = ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).Roles.OfType<IXpandRoleCustomPermissions>().SelectMany(role => role.GetCustomPermissions());
+                return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>().Concat(permissions));
+            }
+            return new PermissionDictionary(permissionDictionary.GetPermissions<IOperationPermission>());
         }
 
         public static ISecurityUserWithRoles GetAnonymousUser(this XpandRole systemRole) {
@@ -148,8 +156,7 @@ namespace Xpand.ExpressApp.Security.Core {
             var administratorRole = (ISecurityRole)objectSpace.FindObject(roleType, new BinaryOperator("Name", roleName));
             if (administratorRole == null) {
                 administratorRole = (ISecurityRole) objectSpace.CreateObject(roleType);
-                var systemRoleBase = administratorRole as SecuritySystemRoleBase;
-                if (systemRoleBase != null){
+                if (administratorRole is SecuritySystemRoleBase systemRoleBase){
                     systemRoleBase.Name = roleName;
                     systemRoleBase.IsAdministrative = true;
                 }
@@ -187,8 +194,7 @@ namespace Xpand.ExpressApp.Security.Core {
             var securityDemoRole = (ISecurityRole)objectSpace.FindObject(roleType, new BinaryOperator("Name", roleName));
             if (securityDemoRole == null) {
                 securityDemoRole = (ISecurityRole)objectSpace.CreateObject(roleType);
-                var systemRoleBase = securityDemoRole as SecuritySystemRoleBase;
-                if (systemRoleBase != null){
+                if (securityDemoRole is SecuritySystemRoleBase systemRoleBase){
                     systemRoleBase.Name = roleName;
                     if (selfReadOnlyPermissions) {
                         systemRoleBase.GrandObjectAccessRecursively();
@@ -233,8 +239,7 @@ namespace Xpand.ExpressApp.Security.Core {
 
         public static SecuritySystemTypePermissionObject AddNewTypePermission(this ISecurityRole role, Type targetType){
             var objectSpace = XPObjectSpace.FindObjectSpaceByObject(role);
-            var systemRole = role as SecuritySystemRoleBase;
-            if (systemRole!=null){
+            if (role is SecuritySystemRoleBase systemRole){
                 var permissionObject = objectSpace.CreateObject<SecuritySystemTypePermissionObject>();
                 permissionObject.TargetType = targetType;
                 systemRole.TypePermissions.Add(permissionObject);
@@ -260,8 +265,7 @@ namespace Xpand.ExpressApp.Security.Core {
             return AddNewMemberPermission(securitySystemTypePermissionObject, action, defaultAllowValues);
         }
 
-        public static SecuritySystemMemberPermissionsObject AddNewMemberPermission(this SecuritySystemTypePermissionObject securitySystemTypePermissionObject, Action<SecuritySystemMemberPermissionsObject> action, bool defaultAllowValues = true)
-        {
+        public static SecuritySystemMemberPermissionsObject AddNewMemberPermission(this SecuritySystemTypePermissionObject securitySystemTypePermissionObject, Action<SecuritySystemMemberPermissionsObject> action, bool defaultAllowValues = true){
             IObjectSpace objectSpace = XPObjectSpace.FindObjectSpaceByObject(securitySystemTypePermissionObject);
             var permission = objectSpace.CreateObject<SecuritySystemMemberPermissionsObject>();
             permission.AllowRead = defaultAllowValues;
@@ -329,8 +333,7 @@ namespace Xpand.ExpressApp.Security.Core {
         }
 
         public static bool IsGranted(IPermission permission, bool isGrantedForNonExistent) {
-            var securityComplex = (SecuritySystem.Instance as SecurityBase);
-            if (securityComplex != null) {
+            if (SecuritySystem.Instance is SecurityBase securityComplex) {
                 bool isGrantedForNonExistentPermission = securityComplex.IsGrantedForNonExistentPermission;
                 securityComplex.IsGrantedForNonExistentPermission = isGrantedForNonExistent;
                 bool granted = SecuritySystem.IsGranted(permission);
@@ -343,17 +346,14 @@ namespace Xpand.ExpressApp.Security.Core {
         public static List<IOperationPermission> GetPermissions(this ISecurityUserWithRoles securityUserWithRoles) {
             var permissions = new List<IOperationPermission>();
             foreach (ISecurityRole securityRole in securityUserWithRoles.Roles) {
-                var operationPermissionProvider = (securityRole as IOperationPermissionProvider);
-                if (operationPermissionProvider != null){
+                if (securityRole is IOperationPermissionProvider operationPermissionProvider){
                     var operationPermissions = operationPermissionProvider.GetPermissions();
                     permissions.AddRange(operationPermissions);
                 }
                 if (securityRole is IPermissionPolicyRole){
-                    var xpandRoleCustomPermissions = securityRole as IXpandRoleCustomPermissions;
-                    if (xpandRoleCustomPermissions != null)
+                    if (securityRole is IXpandRoleCustomPermissions xpandRoleCustomPermissions)
                         permissions.AddRange(xpandRoleCustomPermissions.GetCustomPermissions());
-                    var supportHiddenNavigationItems = securityRole as ISupportHiddenNavigationItems;
-                    if (supportHiddenNavigationItems != null)
+                    if (securityRole is ISupportHiddenNavigationItems supportHiddenNavigationItems)
                         permissions.AddRange(supportHiddenNavigationItems.GetHiddenNavigationItemPermissions());
                 }
             }
