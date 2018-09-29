@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data;
-using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -8,6 +7,7 @@ using DevExpress.ExpressApp.FileAttachments.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
 using ExcelDataReader;
+using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Controllers;
 
 namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
@@ -33,8 +33,9 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
         }
 
         private void ASPxGridListEditorOnControlsCreated(object sender, EventArgs e) {
-            var items = _asPxGridListEditor.Grid.Columns
-                .OfType<GridViewDataComboBoxColumn>().First().PropertiesComboBox.Items;
+            var dataComboBoxColumn = _asPxGridListEditor.Grid.Columns
+                .OfType<GridViewDataComboBoxColumn>().First(column => column.FieldName==nameof(ExcelColumnMap.PropertyName));
+            var items = dataComboBoxColumn.PropertiesComboBox.Items;
             items.Clear();
             items.AddRange(ExcelImport.TypePropertyNames);
         }

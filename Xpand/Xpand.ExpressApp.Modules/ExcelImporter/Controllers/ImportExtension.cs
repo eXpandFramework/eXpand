@@ -18,26 +18,30 @@ using Xpand.Utils.Helpers;
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public static class ImportExtension{
         private static object GetImportToObject(ITypeInfo importToTypeInfo,
-            (string column, IMemberInfo memberInfo)[] columnNames, DataRow dataRow, ExcelImport excelImport){
+            (string column, IMemberInfo memberInfo, PersistentTypesImportStrategy ImportStrategy)[] columnNames, DataRow dataRow, ExcelImport excelImport){
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
                 return excelImport.ObjectSpace.CreateObject(importToTypeInfo.Type);
             var valueTuple = columnNames.First(tuple => tuple.memberInfo==importToTypeInfo.GetKeyMember());
             var o = dataRow[valueTuple.column];
             var importToObject = excelImport.ObjectSpace.FindObject(importToTypeInfo.Type,CriteriaOperator.Parse($"{valueTuple.memberInfo.Name}=?", o));
+            if (excelImport.ImportStrategy == ImportStrategy.UpdateOnly) {
+                return importToObject;
+            }
             if (excelImport.ImportStrategy==ImportStrategy.UpdateOrCreate){
                 return importToObject ?? excelImport.ObjectSpace.CreateObject(importToTypeInfo.Type);
             }
-
             return importToObject != null ? null : excelImport.ObjectSpace.CreateObject(importToTypeInfo.Type);
         }
 
         private static void Import(ExcelImport excelImport, DataRow dataRow,
-            object importToObject, int index, IEnumerable<(string column, IMemberInfo memberInfo)> columnMembers){
+            object importToObject, int index, (string column, IMemberInfo memberInfo, PersistentTypesImportStrategy ImportStrategy)[] columnMembers){
 
             var results=new List<FailedResult>();
             foreach (var columnMember in columnMembers){
                 var columnValue = dataRow[columnMember.column];
-                if (!Imported(columnValue, columnMember.memberInfo,importToObject,excelImport.ObjectSpace)){
+                var notSkipEmpty = columnMember.memberInfo.MemberTypeInfo.IsPersistent&& (columnMember.ImportStrategy == PersistentTypesImportStrategy.SkipEmpty &&
+                                    (columnValue == DBNull.Value || ReferenceEquals(columnValue, string.Empty)));
+                if (!notSkipEmpty && !Imported(columnValue, columnMember.memberInfo,importToObject,excelImport.ObjectSpace,columnMember.ImportStrategy)){
                     var importResult = new FailedResult{
                         ExcelColumnValue = columnValue?.ToString(),
                         ExcelColumnName = columnMember.column
@@ -60,7 +64,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         private static bool Imported(object columnValue, IMemberInfo memberInfo, object importToObject,
-            IObjectSpace objectSpace){
+            IObjectSpace objectSpace, PersistentTypesImportStrategy importStrategy){
             var memberTypeInfo = memberInfo.MemberTypeInfo;
             object result;
             if (memberTypeInfo.IsPersistent){
@@ -68,10 +72,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 var keyMember = memberTypeInfo.GetKeyMember();
                 if (columnValue.TryToChange(keyMember.MemberType, out result)){
                     try{
-                        var referenceObject =objectSpace.FindObject(type,CriteriaOperator.Parse($"{keyMember.Name}=?", result), true) ??
-                                             objectSpace.CreateObject(type);
-                        keyMember.SetValue(referenceObject,result);
-                        memberInfo.SetValue(importToObject,referenceObject);
+                        var referenceObject = GetReferenceObject(objectSpace, importStrategy, type, keyMember, result);
+                        if (referenceObject != null) {
+                            keyMember.SetValue(referenceObject, result);
+                            memberInfo.SetValue(importToObject, referenceObject);
+                        }
                     }
                     catch (Exception e){
                         Tracing.Tracer.LogError(e);
@@ -86,6 +91,26 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             var tryToChange = columnValue.TryToChange(memberInfo.MemberType, out result);
             memberInfo.SetValue(importToObject,result);
             return tryToChange;
+        }
+
+        private static object GetReferenceObject(IObjectSpace objectSpace, PersistentTypesImportStrategy importStrategy,
+            Type type, IMemberInfo keyMember, object result) {
+            if (importStrategy == PersistentTypesImportStrategy.CreateAlways)
+                return objectSpace.CreateObject(type);
+            var criteria = CriteriaOperator.Parse($"{keyMember.Name}=?", result);
+            var referenceObject = objectSpace.FindObject(type, criteria, true);
+            if (importStrategy == PersistentTypesImportStrategy.FailEmpty) {
+                if (referenceObject == null)
+                    throw new ReferenceObjectNotFoundException(type, criteria);
+                return referenceObject;
+            }
+            if (importStrategy == PersistentTypesImportStrategy.SkipOrCreate) {
+                return referenceObject != null ? null : objectSpace.CreateObject(type);
+            }
+            if (importStrategy == PersistentTypesImportStrategy.UpdateOnly) {
+                return referenceObject;
+            }
+            return referenceObject ?? objectSpace.CreateObject(type);
         }
 
         public static DataSet GetDataSet(this IExcelDataReader excelDataReader, ExcelImport excelImport){
@@ -139,10 +164,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     using (var dataSet = excelDataReader.GetDataSet(excelImport)){
                         index = 0;
                         var importToTypeInfo = excelImport.Type.GetTypeInfo();
-                        var columnMembers = excelImport.ExcelColumnMaps.Select(map => (column: map.ExcelColumnName,
-                            memberInfo: importToTypeInfo.Members.First(info => !string.IsNullOrEmpty(info.DisplayName)
-                                ? info.DisplayName == map.PropertyName
-                                : info.Name == map.PropertyName))).ToArray();
+                        var columnMembers = excelImport.ExcelColumnMaps.Select(map => {
+                            var memberInfo = importToTypeInfo.Members.First(info => !string.IsNullOrEmpty(info.DisplayName)
+                                ? info.DisplayName == map.PropertyName: info.Name == map.PropertyName);
+                            return (column: map.ExcelColumnName, memberInfo,map.ImportStrategy);
+                        }).ToArray();
                         
                         foreach (var dataRow in dataSet.Tables.Cast<DataTable>().Where(table => table.TableName == excelImport.SheetName).SelectMany(table => table.Rows.Cast<DataRow>())){
                             index++;
@@ -153,12 +179,24 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     }
 
                     if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts))
-                        Validator.RuleSet.ValidateAll(excelImport.ObjectSpace, excelImport.ObjectSpace.ModifiedObjects,
-                            excelImport.ValidationContexts);
+                        Validator.RuleSet.ValidateAll(excelImport.ObjectSpace, excelImport.ObjectSpace.ModifiedObjects,excelImport.ValidationContexts);
                     return index;
                 }
             }
         }
+
+    }
+
+    public class ReferenceObjectNotFoundException : Exception {
+        public CriteriaOperator Criteria{ get; }
+
+        public ReferenceObjectNotFoundException(Type type, CriteriaOperator criteria):base($"{type} for {criteria} not found") {
+            Criteria = criteria;
+            Type = type;
+        }
+
+        public Type Type { get; }
+
 
     }
 }

@@ -29,6 +29,13 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         public string PropertyName{
             get => _propertyName;
             set => SetPropertyValue(nameof(PropertyName), ref _propertyName, value);
+        }        
+
+        PersistentTypesImportStrategy _importStrategy ;
+        
+        public PersistentTypesImportStrategy ImportStrategy {
+            get => _importStrategy;
+            set => SetPropertyValue(nameof(ImportStrategy), ref _importStrategy, value);
         }
 
         [Association("ExcelImport-ExcelColumnMaps")]

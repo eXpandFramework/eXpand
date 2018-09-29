@@ -33,6 +33,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         public XPCollection<AutoImportedFile> AutoImportedFiles => GetCollection<AutoImportedFile>(nameof(AutoImportedFiles));
         ImportStrategy _importStrategy;
 
+        [ToolTip("Controls how main objects are created")]
         public ImportStrategy ImportStrategy{
             get => _importStrategy;
             set => SetPropertyValue(nameof(ImportStrategy), ref _importStrategy, value);
@@ -258,9 +259,19 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         Never
     }
 
+    public enum PersistentTypesImportStrategy {
+        UpdateOrCreate,
+        SkipEmpty,
+        CreateAlways,
+        SkipOrCreate,
+        FailEmpty,
+        UpdateOnly
+    }
+
     public enum ImportStrategy{
         CreateAlways,
         UpdateOrCreate,
-        SkipOrCreate
+        SkipOrCreate,
+        UpdateOnly
     }
 }

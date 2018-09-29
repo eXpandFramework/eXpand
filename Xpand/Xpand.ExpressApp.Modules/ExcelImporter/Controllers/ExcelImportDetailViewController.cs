@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -80,18 +81,24 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         private void DisplayResultMessage(int index){
             var failedResults = ExcelImport.FailedResultList.FailedResults;
             string message;
+            var informationType = InformationType.Success;
             if (failedResults.Any()){
-                
+                informationType = InformationType.Error;
                 message = string.Format(CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
                     ExcelImporterLocalizationUpdater.ImportFailed), failedResults.GroupBy(r => r.Index).Count(), index);
             }
             else{
-                message =
-                    string.Format(
-                        CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
-                            ExcelImporterLocalizationUpdater.ImportSucceded), index);
+                message =string.Format(CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,ExcelImporterLocalizationUpdater.ImportSucceded), index);
             }
-            throw new UserFriendlyException(message);
+
+            var messageOptions = new MessageOptions {
+                Message = message,
+                Type = informationType,
+                Duration = Int32.MaxValue,
+                Win = {Type = WinMessageType.Alert},
+                Web = {Position = InformationPosition.Bottom, CanCloseOnOutsideClick = false, CanCloseOnClick = true}
+            };
+            Application.ShowViewStrategy.ShowMessage(messageOptions);
         }
 
         public SimpleAction ImportAction{ get;  }
