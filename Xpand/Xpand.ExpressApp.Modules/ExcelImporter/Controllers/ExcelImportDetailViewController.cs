@@ -67,7 +67,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         private void ImportActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
             var importToTypeInfo = ExcelImport.Type.GetTypeInfo();
-            if (ExcelImport.ImportStrategy != ImportStrategy.CreateAlways && importToTypeInfo.DefaultMember == null)
+            if (ExcelImport.ImportStrategy != ImportStrategy.CreateAlways && importToTypeInfo.GetKeyMember() == null)
                 throw new UserFriendlyException(
                     $"{Application.Model.BOModel.GetClass(importToTypeInfo.Type)} DefaultMember is not set, please use the {nameof(ImportStrategy.CreateAlways)} strategy instead.");
             var index = ExcelImport.Import();

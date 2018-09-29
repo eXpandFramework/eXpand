@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             (string column, IMemberInfo memberInfo)[] columnNames, DataRow dataRow, ExcelImport excelImport){
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
                 return excelImport.ObjectSpace.CreateObject(importToTypeInfo.Type);
-            var valueTuple = columnNames.First(tuple => tuple.memberInfo==importToTypeInfo.DefaultMember);
+            var valueTuple = columnNames.First(tuple => tuple.memberInfo==importToTypeInfo.GetKeyMember());
             var o = dataRow[valueTuple.column];
             var importToObject = excelImport.ObjectSpace.FindObject(importToTypeInfo.Type,CriteriaOperator.Parse($"{valueTuple.memberInfo.Name}=?", o));
             if (excelImport.ImportStrategy==ImportStrategy.UpdateOrCreate){
