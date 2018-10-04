@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Validation;
 using DevExpress.Persistent.Validation;
 
 namespace Xpand.ExpressApp.Validation.Controllers {
@@ -7,7 +8,11 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         public const string ObjectSpaceObjectChanged = "ObjectSpaceObjectChanged";
         protected override void OnActivated(){
             base.OnActivated();
-            ObjectSpace.ObjectChanged += ObjectSpaceOnObjectChanged;
+            var rulesForContext = ((IModelApplicationValidation) Application.Model).Validation.Rules.Any(rule =>
+                rule is IRuleBaseProperties properties && properties.TargetType == View.ObjectTypeInfo.Type &&
+                properties.TargetContextIDs == ObjectSpaceObjectChanged);
+            if (rulesForContext)
+                ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
         }
 
         protected override void OnDeactivated(){
@@ -22,7 +27,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         }
 
         protected void ValidateControlValueChangedContext(object currentObject) {
-            Validator.RuleSet.ValidateAll(ObjectSpace, new List<object> { currentObject }, ObjectSpaceObjectChanged);
+            Validator.RuleSet.ValidateTarget(ObjectSpace, currentObject, ObjectSpaceObjectChanged);
         }
 
     }
