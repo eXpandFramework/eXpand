@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -137,6 +138,7 @@
     <Compile Include="Model\UnboundColumn.cs" />
     <Compile Include="Model\ProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
+    <Compile Include="Editors\ProgressBarViewItem.cs" />
     <Compile Include="PropertyEditors\ComboBoxItemsBuilder.cs" />
     <Compile Include="PropertyEditors\ISerializableObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\IStringPropertyEditor.cs" />

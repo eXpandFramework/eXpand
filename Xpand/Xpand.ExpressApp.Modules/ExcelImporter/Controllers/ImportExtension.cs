@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -65,6 +66,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         private static bool Imported(object columnValue, IMemberInfo memberInfo, object importToObject,
             IObjectSpace objectSpace, PersistentTypesImportStrategy importStrategy){
+
             var memberTypeInfo = memberInfo.MemberTypeInfo;
             object result;
             if (memberTypeInfo.IsPersistent){
@@ -155,36 +157,73 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             }
         }
 
-        public static int Import(this ExcelImport excelImport,byte[] bytes=null){
-            bytes = bytes ?? excelImport.File.Content;
-            excelImport.FailedResultList.FailedResults.Clear();
-            using (var memoryStream = new MemoryStream(bytes)){
-                using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)){
-                    int index;
-                    using (var dataSet = excelDataReader.GetDataSet(excelImport)){
-                        index = 0;
-                        var importToTypeInfo = excelImport.Type.GetTypeInfo();
-                        var columnMembers = excelImport.ExcelColumnMaps.Select(map => {
-                            var memberInfo = importToTypeInfo.Members.First(info => !string.IsNullOrEmpty(info.DisplayName)
-                                ? info.DisplayName == map.PropertyName: info.Name == map.PropertyName);
-                            return (column: map.ExcelColumnName, memberInfo,map.ImportStrategy);
-                        }).ToArray();
-                        
-                        foreach (var dataRow in dataSet.Tables.Cast<DataTable>().Where(table => table.TableName == excelImport.SheetName).SelectMany(table => table.Rows.Cast<DataRow>())){
-                            index++;
-                            var importToObject = GetImportToObject(importToTypeInfo, columnMembers, dataRow, excelImport);
-                            if (importToObject != null)
-                                Import(excelImport, dataRow, importToObject, index, columnMembers);
-                        }
-                    }
+        public struct CalculationProgress{
+            public int Progress { get; }
+            public string ProgressText { get; }
 
-                    if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts))
-                        Validator.RuleSet.ValidateAll(excelImport.ObjectSpace, excelImport.ObjectSpace.ModifiedObjects,excelImport.ValidationContexts);
-                    return index;
+            public CalculationProgress(int progress, string progressText): this(){
+                Progress = progress;
+                ProgressText = progressText;
+            }
+        }
+
+        public static int Import(this ExcelImport excelImport, DataSet dataSet,
+            IObserver<ImportProgress> progress = null) {
+            var index = 0;
+            try {
+                var importToTypeInfo = excelImport.Type.GetTypeInfo();
+                var columnMembers = excelImport.ExcelColumnMaps.Select(map => {
+                    var memberInfo = importToTypeInfo.Members.First(info => !string.IsNullOrEmpty(info.DisplayName)
+                        ? info.DisplayName == map.PropertyName: info.Name == map.PropertyName);
+                    return (column: map.ExcelColumnName, memberInfo,map.ImportStrategy);
+                }).ToArray();
+                var dataRows = dataSet.Tables.Cast<DataTable>().Where(table => table.TableName == excelImport.SheetName).SelectMany(table => table.Rows.Cast<DataRow>()).ToArray();
+                var dataRowsLength = dataRows.Length;
+                var importProgressStart = new ImportProgressStart(excelImport.Oid){Total=dataRowsLength};
+                progress?.OnNext(importProgressStart);
+                foreach (var dataRow in dataRows){
+                    index++;
+                    var percentage = index*100/dataRowsLength;
+                    progress?.OnNext(new ImportDataRowProgress(excelImport.Oid,percentage){DataRow=dataRow});
+                    var importToObject = GetImportToObject(importToTypeInfo, columnMembers, dataRow, excelImport);
+                    if (importToObject != null) {
+                        progress?.OnNext(new ImportObjectProgress(excelImport.Oid,percentage){ObjectToImport=importToObject});
+                        Import(excelImport, dataRow, importToObject, index, columnMembers);
+                    }
+                }
+            }
+            catch (Exception e) {
+                progress?.OnNext(new ImportProgressException(excelImport.Oid,e, index, excelImport.FailedResultList.FailedResults.Count));
+                throw;
+            }
+            progress?.OnNext(new ImportProgressComplete(excelImport.Oid,index,0));
+            return index;
+        }
+
+        public static IObservable<T> Where<T>(this IObservable<T> source, ExcelImport excelImport) where T:ImportProgress{
+            return source.Where(progress => progress.ExcelImportKey == excelImport.Oid);
+        }
+
+        public static DataSet GetDataSet(this ExcelImport excelImport, byte[] bytes = null) {
+            bytes = bytes ?? excelImport.File.Content;
+            using (var memoryStream = new MemoryStream(bytes)){
+                using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)) {
+                    return excelDataReader.GetDataSet(excelImport);
                 }
             }
         }
 
+        public static int Import(this ExcelImport excelImport,byte[] bytes=null,IObserver<ImportProgress> progress=null){
+            excelImport.FailedResultList.FailedResults.Clear();
+            int index;
+            using (var dataSet = excelImport.GetDataSet(bytes)){
+                index = excelImport.Import(dataSet, progress);
+            }
+
+            if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts))
+                Validator.RuleSet.ValidateAll(excelImport.ObjectSpace, excelImport.ObjectSpace.ModifiedObjects,excelImport.ValidationContexts);
+            return index;
+        }
     }
 
     public class ReferenceObjectNotFoundException : Exception {

@@ -10,9 +10,7 @@
   </ViewItems>
   <Views>
     <ListView Id="Customer_ListView">
-      <GridViewOptions>
-        <SettingsPager Mode="ShowAllRecords" />
-      </GridViewOptions>
+      
     </ListView>
   </Views>
 </Application>

@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
+using System.Threading;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
@@ -13,6 +15,8 @@ using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
     public class ExcelImportDetailViewController : ExcelImporter.Controllers.ExcelImportDetailViewController{
+        private SynchronizationContext _synchronizationContext;
+
         protected override void OnActivated(){
             base.OnActivated();
 
@@ -30,11 +34,16 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
 
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
+            _synchronizationContext = SynchronizationContext.Current;
             if (!ExcelImport.IsNewObject){
                 var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
                     editor.MemberInfo.Name == nameof(ExcelImport.ExcelColumnMaps));
                 ((GridListEditor) listPropertyEditor.ListView.Editor).ControlsCreated+=OnControlsCreated;
             }
+        }
+
+        protected override IObservable<T> Synchronise<T>(T i) {
+            return base.Synchronise(i).ObserveOn(_synchronizationContext);
         }
 
         private void OnControlsCreated(object sender, EventArgs eventArgs){

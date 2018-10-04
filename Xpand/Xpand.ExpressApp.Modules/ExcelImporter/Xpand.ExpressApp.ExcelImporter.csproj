@@ -12,11 +12,14 @@
     <AssemblyName>Xpand.ExpressApp.ExcelImporter</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -89,6 +92,9 @@
     <Reference Include="ExcelDataReader.DataSet, Version=3.4.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\ExcelDataReader.DataSet.3.4.0\lib\net45\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
+    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -117,6 +123,10 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="WindowsBase" />
+    <Reference Include="Xpand.ExpressApp, Version=18.1.6.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Validation">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
@@ -140,6 +150,7 @@
     <Compile Include="BusinessObjects\ExcelImport.cs" />
     <Compile Include="BusinessObjects\FailedResult.cs" />
     <Compile Include="BusinessObjects\FailedResultList.cs" />
+    <Compile Include="Controllers\ImportProgress.cs" />
     <Compile Include="Services\ExcelImportKeyAttribute.cs" />
     <Compile Include="Controllers\ImportExtension.cs" />
     <Compile Include="Services\ExcelImporterLocalizationUpdater.cs" />
@@ -155,6 +166,7 @@
       <DependentUpon>ExcelImporterModule.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EventToObservable.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

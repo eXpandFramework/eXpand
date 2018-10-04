@@ -31,6 +31,7 @@
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.FileAttachments.Win.FileAttachmentsWindowsFormsModule));
 			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule));
 			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.ExcelImporter.ExcelImporterModule));
+			this.RequiredModuleTypes.Add(typeof(Xpand.ExpressApp.Validation.Win.XpandValidationWinModule));
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.Win.ValidationWindowsFormsModule));
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Notifications.Win.NotificationsWindowsFormsModule));
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule));

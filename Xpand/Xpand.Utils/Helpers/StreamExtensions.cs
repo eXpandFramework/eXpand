@@ -31,7 +31,7 @@ namespace Xpand.Utils.Helpers {
             return type.Assembly.GetManifestResourceStream(type, name).ReadToEndAsString();
         }
 
-        public static byte[] ReadFully(Stream input) {
+        public static byte[] ReadFully(this Stream input) {
             byte[] buffer = new byte[16 * 1024];
             using (MemoryStream ms = new MemoryStream()) {
                 int read;

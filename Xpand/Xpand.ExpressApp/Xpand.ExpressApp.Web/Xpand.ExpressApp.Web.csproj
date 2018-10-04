@@ -150,6 +150,7 @@
     <Compile Include="PropertyEditors\ASPxLabelPropertyEditor.cs" />
     <Compile Include="PropertyEditors\ASPxLookupPropertyEditorWithEdit.cs" />
     <Compile Include="PropertyEditors\ASPxTokenListPropertyEditor.cs" />
+    <Compile Include="PropertyEditors\WebProgressPropertyEditor .cs" />
     <Compile Include="PropertyEditors\CSCodePropertyEditor\CSCodePropertyEditor.cs" />
     <Compile Include="PropertyEditors\SerializedListPropertyEditor.cs" />
     <Compile Include="PropertyEditors\WebPropertyEditorsExtensions.cs" />

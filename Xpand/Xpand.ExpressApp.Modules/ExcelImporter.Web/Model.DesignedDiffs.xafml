@@ -20,6 +20,28 @@
     <SchemaModule Name="XpandValidationModule" Version="17.2.6.1" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <DetailView Id="ExcelImport_DetailView">
+      <Items>
+        <ProgressViewItem Id="ProgressViewItem" IsNewNode="True" />
+      </Items>
+      <Layout>
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf">
+              <LayoutItem Id="UseHeaderRows" RelativeSize="20.90909090909091" />
+              <LayoutItem Id="Type" RelativeSize="28.181818181818183" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="ExcelColumnMaps">
+              <LayoutItem Id="ExcelColumnMaps" RelativeSize="82.940108892921955" />
+              <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="2" RelativeSize="4.3557168784029034" IsNewNode="True" />
+              <LayoutItem Id="Progress" Index="3" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
     <ListView Id="ExcelImport_ExcelColumnMaps_ListView" InlineEditMode="Batch">
       <GridViewOptions>
         <SettingsPager Visible="True" Mode="ShowAllRecords" />

@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Validation;
+using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base.General;
@@ -14,7 +18,7 @@ using Xpand.Persistent.Base.Validation;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public class ExcelImportDetailViewController : ObjectViewController<DetailView,ExcelImport>{
-        
+        protected Subject<Unit> Terminator=new Subject<Unit>();
         public const string ExcelMappingActionName = "ExcelMapping";
         public const string ImportExcelActionName = "ImportExcel";
         public SimpleAction ExcelMappingAction{ get; }
@@ -36,6 +40,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
+            Terminator.OnNext(Unit.Default);
             ObjectSpace.ObjectChanged-=ObjectSpaceOnObjectChanged;
         }
 
@@ -71,34 +76,81 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             if (ExcelImport.ImportStrategy != ImportStrategy.CreateAlways && importToTypeInfo.GetKeyMember() == null)
                 throw new UserFriendlyException(
                     $"{Application.Model.BOModel.GetClass(importToTypeInfo.Type)} DefaultMember is not set, please use the {nameof(ImportStrategy.CreateAlways)} strategy instead.");
-            var index = ExcelImport.Import();
-            View.FindItem(
-                    $"{nameof(BusinessObjects.ExcelImport.FailedResultList)}.{nameof(FailedResultList.FailedResults)}")
-                .Refresh();
-            DisplayResultMessage(index);
+
+            var progressBarViewItem = View.GetItems<ProgressViewItem>().First();
+            progressBarViewItem.Start();
+            var progressObserver = GetProgressObserver(ExcelImport,progressBarViewItem);
+            ObjectSpace.SetModified(View.CurrentObject);
+            Observable.Start(async () => {
+                var space = Application.CreateObjectSpace(ExcelImport.GetType());
+                var excelImport = space.GetObjectByKey<ExcelImport>(ExcelImport.Oid);
+                excelImport.Import(ExcelImport.File.Content, progressObserver);
+                await ObjectSpace.WhenCommiting().FirstAsync();
+                return space;
+            })
+            .SelectMany(task => task)
+            .Subscribe(space => {
+                    space.CommitChanges();
+                    space.Dispose();
+                });
         }
 
-        private void DisplayResultMessage(int index){
+        protected virtual IObserver<ImportProgress> GetProgressObserver(ExcelImport excelImport,ProgressViewItem progressBarViewItem) {
+            var progress = Subject.Synchronize(new Subject<ImportProgress>());
+            var resultMessage = (CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
+                    ExcelImporterLocalizationUpdater.ImportSucceded),CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
+                ExcelImporterLocalizationUpdater.ImportFailed));
+            var dataRowProgress = progress.OfType<ImportDataRowProgress>().Where(excelImport);
+            
+            var progressEnd = ProgressEnd(excelImport, progressBarViewItem, progress, resultMessage);
+            Observable
+                .Interval(TimeSpan.FromMilliseconds(progressBarViewItem.PollingInterval))
+                .WithLatestFrom(dataRowProgress, (l, importProgress) => ( importProgress.Percentage))
+                .Select(Synchronise).Concat( )
+                .Finally(() => OnSetPosition(progressBarViewItem, 0))
+                .TakeUntil(progressEnd)
+                .Subscribe(percentage => OnSetPosition(progressBarViewItem, percentage),exception => {} );
+            return progress;
+        }
+
+        protected  virtual IObservable<T> Synchronise<T>(T i) {
+            return Observable.Return(i);
+        }
+
+        protected virtual IObservable<Unit> ProgressEnd(ExcelImport excelImport, ProgressViewItem progressBarViewItem,
+            ISubject<ImportProgress> progress, (string successMsg, string failedMsg) resultMessage) {
+            Terminator.OnNext(Unit.Default);
+            return progress.OfType<ImportProgressComplete>().Where(excelImport).FirstAsync()
+                .Select(Synchronise).Concat()
+                .Do(_ => progressBarViewItem.SetFinishOptions(GetFinishOptions(_, resultMessage)))
+                .ToUnit()
+                .Merge(Terminator);
+        }
+
+        protected virtual void OnSetPosition(ProgressViewItem progressBarViewItem, int percentage){
+            progressBarViewItem.SetPosition ( percentage);
+        }
+
+        protected virtual MessageOptions GetFinishOptions(ImportProgressComplete progressComplete,
+            (string successMsg, string failedMsg) resultMessage){
             var failedResults = ExcelImport.FailedResultList.FailedResults;
             string message;
-            var informationType = InformationType.Success;
+            var informationType=InformationType.Success;
             if (failedResults.Any()){
                 informationType = InformationType.Error;
-                message = string.Format(CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
-                    ExcelImporterLocalizationUpdater.ImportFailed), failedResults.GroupBy(r => r.Index).Count(), index);
+                message = string.Format(resultMessage.successMsg, failedResults.GroupBy(r => r.Index).Count(), progressComplete.FailedRecordsCount);
             }
             else{
-                message =string.Format(CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,ExcelImporterLocalizationUpdater.ImportSucceded), index);
+                message =string.Format(resultMessage.successMsg, progressComplete.TotalRecordsCount);
             }
-
             var messageOptions = new MessageOptions {
                 Message = message,
                 Type = informationType,
                 Duration = Int32.MaxValue,
                 Win = {Type = WinMessageType.Alert},
-                Web = {Position = InformationPosition.Bottom, CanCloseOnOutsideClick = false, CanCloseOnClick = true}
+                Web = {Position = InformationPosition.Top, CanCloseOnOutsideClick = false, CanCloseOnClick = true}
             };
-            Application.ShowViewStrategy.ShowMessage(messageOptions);
+            return messageOptions;
         }
 
         public SimpleAction ImportAction{ get;  }

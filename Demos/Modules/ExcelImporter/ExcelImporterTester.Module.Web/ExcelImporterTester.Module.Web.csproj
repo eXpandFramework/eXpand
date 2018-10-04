@@ -11,8 +11,10 @@
     <RootNamespace>ExcelImporterTester.Module.Web</RootNamespace>
     <AssemblyName>ExcelImporterTester.Module.Web</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
@@ -108,9 +110,19 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Reactive, Version=4.0.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\System.Reactive.4.0.0\lib\net46\System.Reactive.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Private>False</Private>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xpand.ExpressApp, Version=18.1.6.2, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ExcelImporter.Web">
       <SpecificVersion>False</SpecificVersion>
@@ -155,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\ReadMe.txt" />
+    <None Include="packages.config" />
     <None Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>

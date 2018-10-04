@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.ExcelImporter {
 			// 
 			// ExcelImporterModule
 			// 
-			this.RequiredModuleTypes.Add(typeof(SystemModule));
+			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
 			this.RequiredModuleTypes.Add(typeof(ValidationModule));
 			this.RequiredModuleTypes.Add(typeof(XpandValidationModule));
 			this.RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));

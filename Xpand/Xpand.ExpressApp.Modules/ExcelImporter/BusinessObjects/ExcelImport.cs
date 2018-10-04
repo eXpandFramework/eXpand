@@ -19,6 +19,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Xpo.Converters.ValueConverters;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [DefaultClassOptions]
