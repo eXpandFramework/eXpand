@@ -1,5 +1,6 @@
 ﻿namespace Xpand.Persistent.Base.General {
     public struct EditorAliases {
+        public const string ProgressBarEditor = "ProgressBarEditor";
         public const string FileBrowserEditor = "FileBrowserEditor";
         public const string ReleasedSequence = "ReleasedSequence";
         public const string ChooseFromList = "ChooseFromList";

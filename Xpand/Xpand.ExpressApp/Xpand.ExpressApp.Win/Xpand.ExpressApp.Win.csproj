@@ -17,7 +17,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -171,6 +172,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Editors\ProgressViewItem.cs" />
+    <Compile Include="Editors\WinProgressPropertyEditor.cs" />
     <Compile Include="Editors\XpandFilterControl.cs" />
     <Compile Include="Editors\EnumEdit.cs" />
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">
