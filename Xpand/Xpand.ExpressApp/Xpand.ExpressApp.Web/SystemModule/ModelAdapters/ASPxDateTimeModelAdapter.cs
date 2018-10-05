@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.Persistent.Base.General;
 using DevExpress.Web;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -43,6 +44,11 @@ namespace Xpand.ExpressApp.Web.SystemModule.ModelAdapters {
     }
 
     public class ASPxDateEditModelAdapter : PropertyEditorControlAdapterController<IModelMemberViewItemASPxDateEdit,IModelASPxDateEditControl, ASPxDateTimePropertyEditor> {
+        protected override void OnActivated() {
+            base.OnActivated();
+            Active["ReportViewer_DetailView"] = typeof(IReportData).IsAssignableFrom(View.ObjectTypeInfo.Type);
+        }
+
         protected override Expression<Func<IModelMemberViewItemASPxDateEdit, IModelModelAdapter>> GetControlModel(IModelMemberViewItemASPxDateEdit modelPropertyEditorFilterControl){
             return edit => edit.ASPxDateEditControl;
         }
