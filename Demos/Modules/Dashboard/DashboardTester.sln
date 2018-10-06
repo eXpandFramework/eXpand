@@ -1,7 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{085BAC32-6784-49D5-A593-730EC10D10DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{2E39B82F-6EA7-4496-B4B5-838F980252DE}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardTester.Module", "DashboardTester.Module\DashboardTester.Module.csproj", "{2EFF77FC-D108-4E52-8471-82EEB95005BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardTester.Module.Win", "DashboardTester.Module.Win\DashboardTester.Module.Win.csproj", "{49F7F09E-1F18-429A-9C3A-329585197A4A}"
@@ -15,10 +19,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Dashboard", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Dashboard\Xpand.ExpressApp.Dashboard.csproj", "{56242176-A728-4B97-BC0A-58B7D80FF412}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{085BAC32-6784-49D5-A593-730EC10D10DD}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{2E39B82F-6EA7-4496-B4B5-838F980252DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.EasyTest", "..\..\..\Xpand.EasyTest\Xpand.EasyTest\Xpand.EasyTest.csproj", "{80DC8CB8-C285-4953-871F-E49002FA10E8}"
 EndProject
@@ -82,10 +82,13 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{2E39B82F-6EA7-4496-B4B5-838F980252DE} = {085BAC32-6784-49D5-A593-730EC10D10DD}
 		{56242176-A728-4B97-BC0A-58B7D80FF412} = {085BAC32-6784-49D5-A593-730EC10D10DD}
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {085BAC32-6784-49D5-A593-730EC10D10DD}
-		{2E39B82F-6EA7-4496-B4B5-838F980252DE} = {085BAC32-6784-49D5-A593-730EC10D10DD}
 		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {2E39B82F-6EA7-4496-B4B5-838F980252DE}
 		{38E16F8A-517C-4CA9-9775-56F598F25534} = {2E39B82F-6EA7-4496-B4B5-838F980252DE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D1A47E8B-93E2-44B7-AC8B-5FC58434535D}
 	EndGlobalSection
 EndGlobal

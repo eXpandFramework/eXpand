@@ -2,10 +2,12 @@
 <Project DefaultTargets="build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="14.0">
 
   <PropertyGroup>
+    <SkipClean></SkipClean>
     <DeployExtension>false</DeployExtension>
     <WorkFlowDemo>false</WorkFlowDemo>
     <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
     <DXVersion>18.1</DXVersion>
+    <NuGetSource>https://api.nuget.org/v3/index.json</NuGetSource>
     <DXPath>C:\Program Files (x86)\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
     <ProjectConverterPath>$(DXPath)\Components\Tools\Components</ProjectConverterPath>
@@ -105,11 +107,11 @@
   </UsingTask> 
   <Target Name="BuildHelperB4Build" Condition="$(SkipBuildHelper)!=true">
     <MSBuild Projects=".\Support\BuildHelper\BuildHelper.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
-    <Exec Command="$(XpandDLLPath)\BuildHelper.exe"/>
+    <Exec Command="$(XpandDLLPath)\BuildHelper.exe --DXHintPath $(DXHintPath)"/>
   </Target>
   <Target Name="BuildHelperAfterBuild" Condition="$(SkipBuildHelper)!=true">
     <MSBuild Projects=".\Support\BuildHelper\BuildHelper.csproj" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants)"/>
-    <Exec Command="$(XpandDLLPath)\BuildHelper.exe --afterbuild"/>
+    <Exec Command="$(XpandDLLPath)\BuildHelper.exe --afterbuild --DXHintPath $(DXHintPath)" />
   </Target>
   <!-- 
 	 Solution redirects. Every VS project normally knows how to support these targets
@@ -123,7 +125,7 @@
     </CreateItem>
     <Copy SourceFiles="@(FilesToCopy)" DestinationFolder="$(XpandDLLPath)\%(FilesToCopy.RecursiveDir)"  />
   </Target>
-  <Target Name="Build" DependsOnTargets="Clean;Copy3rdPartyAssemblies;BuildHelperB4Build;Restore-Nuget">
+  <Target Name="Build" DependsOnTargets="Clean;Copy3rdPartyAssemblies;BuildHelperB4Build">
     <MSBuild Projects="@(CoreProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <MSBuild Projects="@(HelperProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=$(DefineConstants);RestorePackages=false" />
@@ -135,8 +137,8 @@
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false"/>
     <MSBuild Projects="Demos\WorkflowDemo\WorkflowDemo.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false" Condition="'$(WorkFlowDemo)'=='true'"/>
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false"/>
-    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"/>
-    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"/>
+    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"  Condition="'$(Configuration)'=='EasyTest'"/>
+    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"  Condition="'$(Configuration)'=='EasyTest'"/>
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\**\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
@@ -146,7 +148,7 @@
   <Target Name="BuildNH">
 	<MSBuild Projects="@(NHProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath)" />
   </Target>
-  <Target Name="Clean" >
+  <Target Name="Clean" Condition="'$(SkipClean)'==''">
     <MSBuild Projects="@(CoreProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(EasyTestProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
     <MSBuild Projects="@(HelperProjects)" Targets="Clean" Properties="Configuration=$(Configuration)" />
@@ -332,9 +334,7 @@
     <Message Text="This sub-solution does not need configuration" />
   </Target>
   
-  <Target Name="Restore-Nuget">
-    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\Restore-Nuget.ps1&apos; } &quot;" ConsoleToMSBuild="true" />
-  </Target>
+  
   <Target Name="Build-Demos">
    <PropertyGroup>
     <ScriptLocation Condition=" '$(ScriptLocation)'=='' ">.\Support\Build\Build-Demos.ps1</ScriptLocation>
@@ -407,6 +407,6 @@
 
   
   <Target Name="NuGet"   >
-    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\Publish-Nuget.ps1&apos;  &apos;$(NuGetApiKey)&apos;} &quot;" ConsoleToMSBuild="true" />
+    <Exec Command="$(PowerShellExe) -NonInteractive -executionpolicy Unrestricted -command &quot;&amp; { &amp;&apos;.\Support\Build\Publish-Nuget.ps1&apos;  &apos;$(NuGetApiKey)&apos;&apos;$(NuGetSource)&apos;} &quot;" ConsoleToMSBuild="true" />
   </Target>
 </Project>

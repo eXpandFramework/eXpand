@@ -1,7 +1,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{11042D5C-55F3-4E86-9919-1A2DB435BF7F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{8FFAA096-165E-420E-A133-859A8EED7C2B}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobsSchedulerTester.Module", "JobsSchedulerTester.Module\JobsSchedulerTester.Module.csproj", "{5CA9F04D-4E54-4F7B-902E-316D0F8F6BF8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobsSchedulerTester.Module.Web", "JobsSchedulerTester.Module.Web\JobsSchedulerTester.Module.Web.csproj", "{3B5D650B-A2BE-4EB1-9B0E-F2C8BC57984A}"
@@ -18,13 +22,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.JobSchedul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{11042D5C-55F3-4E86-9919-1A2DB435BF7F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj", "{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Quartz.Server", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj", "{09082B9A-906C-4A17-A2E5-6C947DAC7C85}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{8FFAA096-165E-420E-A133-859A8EED7C2B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.EasyTest", "..\..\..\Xpand.EasyTest\Xpand.EasyTest\Xpand.EasyTest.csproj", "{80DC8CB8-C285-4953-871F-E49002FA10E8}"
 EndProject
@@ -144,14 +144,17 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{8FFAA096-165E-420E-A133-859A8EED7C2B} = {11042D5C-55F3-4E86-9919-1A2DB435BF7F}
 		{F41CAE34-DE81-4B3F-8590-FB7F8FC193D8} = {11042D5C-55F3-4E86-9919-1A2DB435BF7F}
 		{40450919-27CC-4693-84DB-3BA16C44633B} = {11042D5C-55F3-4E86-9919-1A2DB435BF7F}
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {11042D5C-55F3-4E86-9919-1A2DB435BF7F}
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE} = {11042D5C-55F3-4E86-9919-1A2DB435BF7F}
 		{09082B9A-906C-4A17-A2E5-6C947DAC7C85} = {11042D5C-55F3-4E86-9919-1A2DB435BF7F}
-		{8FFAA096-165E-420E-A133-859A8EED7C2B} = {11042D5C-55F3-4E86-9919-1A2DB435BF7F}
 		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {8FFAA096-165E-420E-A133-859A8EED7C2B}
 		{38E16F8A-517C-4CA9-9775-56F598F25534} = {8FFAA096-165E-420E-A133-859A8EED7C2B}
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD} = {8FFAA096-165E-420E-A133-859A8EED7C2B}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EA0113F4-9AD5-4C03-A3EF-4B4093D9F30F}
 	EndGlobalSection
 EndGlobal
