@@ -37,16 +37,21 @@ namespace Xpand.ExpressApp.SystemModule {
             }
         }
 
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            if (ShouldPreventLoading()) {
-                PreventDataLoading();
-            }
+        protected override void OnActivated() {
+            base.OnActivated();
             Frame.GetController<FilterController>(controller => {
                 _filterController = controller;
                 _filterController.SetFilterAction.Execute += SetFilterActionOnExecute;
                 _filterController.FullTextFilterAction.Execute += FullTextFilterAction_Execute;
             });
+        }
+
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
+            if (ShouldPreventLoading()) {
+                PreventDataLoading();
+            }
+            
         }
         
         private void SetFilterActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
@@ -72,7 +77,11 @@ namespace Xpand.ExpressApp.SystemModule {
             View.CollectionSource.Criteria[PreventDataLoadingKey] = GetPreventLoadingDataCriteria();
         }
 
-        bool ShouldPreventLoading(){
+        protected virtual bool ShouldPreventLoading(){
+            
+            if (!ReferenceEquals(View.CollectionSource.Criteria[FilterController.FullTextSearchCriteriaName],null)) {
+                return false;
+            }
             var preventDataLoading = ((IModelListViewPreventDataLoading)View.Model);
             if (preventDataLoading.PreventDataLoading == SystemModule.PreventDataLoading.FilterEmpty)
                 return string.IsNullOrEmpty(View.Model.Filter);
