@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         protected virtual string GetViewId(object currentObject){
-            return Application.FindDetailViewId(currentObject.GetType(), View);
+            return Application.FindDetailViewId(currentObject, View);
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
