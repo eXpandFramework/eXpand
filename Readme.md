@@ -1,6 +1,6 @@
+LAB:     [![Build Status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-%20Nightly)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=3)
+STABLE:  [![Build status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-Release)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=7)
 # About
-LAB: [![Build Status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-%20Nightly)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=3)
-
 _eXpandFramework_ is the first open source project based on the _DevExpress eXpressApp Framework (XAF)_. The _eXpressApp Framework_ ships with _DXperience Universal_ and can be evaluated free of charge (30 day trial) at: <https://www.devexpress.com/ClientCenter/Downloads.>
 
 _eXpandFramework_ was started and is led by [Tolis Bekiaris](http://apobekiaris.blogspot.com/). _Tolis_ has made a huge contribution to _XAF_ over the years receiving great recognition from _DevExpress_ and the whole _XAF_ community. In _April 2011 Tolis_ was honoured to be hired as **Technical Evangelist for DevExpress frameworks**!
