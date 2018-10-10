@@ -158,22 +158,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ModelDifference.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\ClientScript\ClientScript.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\ModelDifference.cs" />
+    <Compile Include="FunctionalTests\ClientScript\ClientScript.cs" />
     <Compile Include="FunctionalTests\ClientScript\ClientScriptObject.cs" />
-    <Compile Include="FunctionalTests\ColumnChooser\ColumnChooserController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\ColumnChooser\ColumnChooserController.cs" />
     <Compile Include="FunctionalTests\ColumnChooser\ColumnChooserObject.cs" />
     <Compile Include="FunctionalTests\ASPXGridViewOptions\ASPxGridVIewObject.cs" />
     <Compile Include="FunctionalTests\LayoutStyle\LayoutStyleObjects.cs" />
-    <Compile Include="FunctionalTests\MasterDetail\MasterDetail.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\MasterDetail\MasterDetail.cs" />
     <Compile Include="FunctionalTests\MasterDetail\MasterDetailObjects.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ASPxTokenListPropertyEditor\ASPxTokenListPropertyEditorObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ASPxSearchLookupPropertyEditor\ASPxSearchLookupPropertyEditorObject.cs" />

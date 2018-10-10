@@ -101,14 +101,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\LayoutStyleController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\LayoutStyleController.cs" />
     <Compile Include="FunctionalTests\Anonymous\AnonymousObject.cs" />
     <Compile Include="FunctionalTests\Anonymous\AnonymousRoleUpdater.cs" />
-    <Compile Include="FunctionalTests\NewUserActivation\NewUserActivationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\NewUserActivation\NewUserActivationController.cs" />
     <Compile Include="FunctionalTests\NewUserActivation\NewUserActivationObject.cs" />
     <Compile Include="FunctionalTests\NewUserActivation\NewUserActivationUpdater.cs" />
     <Compile Include="Updater.cs" />

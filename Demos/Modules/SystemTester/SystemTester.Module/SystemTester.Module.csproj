@@ -161,9 +161,7 @@
     <None Include="FunctionalTests\AutoCommit\ListView.inc" />
     <Compile Include="FunctionalTests\EasyTestParameter.cs" />
     <Compile Include="FunctionalTests\ModelAttributeValue\ModelAttributeValueObject.cs" />
-    <Compile Include="FunctionalTests\TrackModifiedProperties\TrackModifiedProperties.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\TrackModifiedProperties\TrackModifiedProperties.cs" />
     <Compile Include="FunctionalTests\TrackModifiedProperties\TrackModifiedPropertiesObject.cs" />
     <Compile Include="FunctionalTests\SupressConfirmation\SupressConfirmationObject.cs" />
     <Compile Include="FunctionalTests\NavigationItems\NavigationItemsObject.cs" />
@@ -177,13 +175,9 @@
     <Compile Include="FunctionalTests\HideToolBar\HideToolBarObject.cs" />
     <Compile Include="FunctionalTests\MergedDifferences\MergedDifferencesObject.cs" />
     <Compile Include="FunctionalTests\MySql\MySqlObject.cs" />
-    <Compile Include="FunctionalTests\PessimisticLocking\PessimisticLocking.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\PessimisticLocking\PessimisticLocking.cs" />
     <Compile Include="FunctionalTests\PessimisticLocking\PessimisticLockingObject.cs" />
-    <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoading.cs" />
     <Compile Include="FunctionalTests\PreventDataLoading\PreventDataLoadingObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\ChooseFromListCollectionEditor\ChooseFromListCollectionEditorObject.cs" />
     <Compile Include="FunctionalTests\PropertyEditors\FilterableEnumPropertyEditor\FilterableEnumPropertyEditorObject.cs" />
@@ -192,9 +186,7 @@
     <Compile Include="FunctionalTests\RunTimeMembers\RuntimeMembersUpdater.cs" />
     <Compile Include="FunctionalTests\SequenceGenerator\SequenceGeneratorObject.cs" />
     <Compile Include="FunctionalTests\SqlLite\SqliteObject.cs" />
-    <Compile Include="FunctionalTests\ViewEditMode\ViewEditMode.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\ViewEditMode\ViewEditMode.cs" />
     <Compile Include="FunctionalTests\ViewEditMode\ViewEditModeObject.cs" />
     <Compile Include="FunctionalTests\XpandEasyTestController.cs">
       <SubType>Component</SubType>

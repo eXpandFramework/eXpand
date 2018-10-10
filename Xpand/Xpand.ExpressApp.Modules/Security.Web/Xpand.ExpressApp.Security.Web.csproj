@@ -146,9 +146,7 @@
     <Compile Include="AuthenticationProviders\AnonymousAuthenticationStandard.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\AnonymousLogonWindowsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\AnonymousLogonWindowsController.cs" />
     <Compile Include="Registration\ManageUsersOnLogonController.cs">
       <SubType>Component</SubType>
     </Compile>
