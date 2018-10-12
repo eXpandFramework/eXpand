@@ -20,7 +20,6 @@ using DevExpress.Xpo.Metadata;
 using Fasterflect;
 using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
-using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
 using MSSqlConnectionProvider = DevExpress.Xpo.DB.MSSqlConnectionProvider;
 using MySqlConnectionProvider = DevExpress.Xpo.DB.MySqlConnectionProvider;
@@ -372,7 +371,7 @@ namespace Xpand.Persistent.Base.General {
             if (SequenceGenerator.UseGuidKey) {
                 var classInfo = XafTypesInfo.CastTypeToTypeInfo(XpandModuleBase.SequenceObjectType).QueryXPClassInfo();
                 var dbTable = GetDbTable(classInfo.TableName);
-                var typeNamePropertyName = GetSequenceObject().GetPropertyName(o => o.TypeName);
+                var typeNamePropertyName = nameof(ISequenceObject.TypeName);
                 if (dbTable != null && dbTable.PrimaryKey.Columns.Contains(typeNamePropertyName)) {
                     if (SequenceGeneratorHelper.IsMySql())
                         throw new NotImplementedException("Set SequenceGenerator.UseGuidKey=false or update the set Oid as key property manually");
@@ -392,10 +391,6 @@ namespace Xpand.Persistent.Base.General {
             var xpObjectSpace = ObjectSpace as XPObjectSpace;
             var dataStoreSchemaExplorer = GetDataStoreSchemaExplorer(xpObjectSpace);
             return dataStoreSchemaExplorer?.GetStorageTables().FirstOrDefault(table => table.Name.ToLower()==name.ToLower()&& table.PrimaryKey != null);
-        }
-
-        private ISequenceObject GetSequenceObject() {
-            return null;
         }
 
         private IDataStoreSchemaExplorer GetDataStoreSchemaExplorer(XPObjectSpace xpObjectSpace) {
@@ -471,7 +466,8 @@ namespace Xpand.Persistent.Base.General {
                     Application.LoggedOff += ApplicationOnLoggedOff;
                     var helper = new ConnectionStringHelper();
                     helper.Attach(_xpandModuleBase);
-                    helper.ConnectionStringUpdated += (sender, args) => InitializeSequenceGenerator();
+                    if (((IModelOptionsSequenceGenerator) xpandModuleBase.Application.Model).EnableSequenceGenerator)
+                        helper.ConnectionStringUpdated += (sender, args) => InitializeSequenceGenerator();
                 }
             }
         }
