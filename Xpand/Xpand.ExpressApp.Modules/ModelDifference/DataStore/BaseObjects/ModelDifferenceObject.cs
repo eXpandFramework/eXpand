@@ -38,7 +38,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [Appearance("Disable DeviceCategory for win models", AppearanceItemType.ViewItem,
         "EndsWith([" + nameof(PersistentApplication) + "." + nameof(BaseObjects.PersistentApplication.ExecutableName) +"], '.exe')", 
         Enabled = false, TargetItems = nameof(DeviceCategory))]
-    public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference, ISupportSequenceObject {
+    [RuleCombinationOfPropertiesIsUnique(nameof(PersistentApplication)+","+nameof(DifferenceType)+","+nameof(CombineOrder))]
+    public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference {
         public  const string DefaultListViewName="MDO_ListView";
         public const string DefaultDetailViewName = "MDO_DetailView";
         public const string Caption = "Application Settings";
@@ -70,8 +71,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
 
         DeviceCategory  _deviceCategory ;
         public DeviceCategory  DeviceCategory {
-            get{ return _deviceCategory ; }
-            set{ SetPropertyValue(nameof(DeviceCategory ), ref _deviceCategory , value); }
+            get => _deviceCategory;
+            set => SetPropertyValue(nameof(DeviceCategory ), ref _deviceCategory , value);
         }
 
         protected IEnumerable<ModelApplicationBase> GetAllLayers(IEnumerable<ModelDifferenceObject> differenceObjects, ModelApplicationBase master) {
@@ -92,10 +93,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [NonPersistent]
         [NonCloneable]
         public string PreferredAspect {
-            get { return _preferredAspect ?? CaptionHelper.DefaultLanguage; }
-            set {
-                SetPropertyValue("PreferredAspect", ref _preferredAspect, value);
-            }
+            get => _preferredAspect ?? CaptionHelper.DefaultLanguage;
+            set => SetPropertyValue("PreferredAspect", ref _preferredAspect, value);
         }
 
         /// <summary>
@@ -128,48 +127,45 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [NonPersistent]
         public ModelApplicationBase Model => _currentModel;
 
-
         public int CombineOrder {
-            get { return _combineOrder; }
-            set { SetPropertyValue(nameof(CombineOrder), ref _combineOrder, value); }
+            get => _combineOrder;
+            set => SetPropertyValue(nameof(CombineOrder), ref _combineOrder, value);
         }
+
+
         [NonCloneable]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [RuleRequiredField(null, DefaultContexts.Save)]
         [Association(Associations.PersistentApplicationModelDifferenceObjects)]
         public PersistentApplication PersistentApplication {
-            get { return _persistentApplication; }
-            set {
-                SetPropertyValue(nameof(PersistentApplication), ref _persistentApplication, value);
-            }
+            get => _persistentApplication;
+            set => SetPropertyValue(nameof(PersistentApplication), ref _persistentApplication, value);
         }
 
         #region IXpoModelDifference Members
 
         [ModelDefault("GroupIndex", "0"), NonCloneable, VisibleInDetailView(false)]
         public DifferenceType DifferenceType {
-            get { return _differenceType; }
-            set { SetPropertyValue("DifferenceType", ref _differenceType, value); }
+            get => _differenceType;
+            set => SetPropertyValue("DifferenceType", ref _differenceType, value);
         }
 
 
         [RuleRequiredField("ModelDiffsObject_Req_Name", DefaultContexts.Save)]
         public string Name {
-            get { return _name; }
-            set {
-                SetPropertyValue(nameof(Name), ref _name, value);
-            }
+            get => _name;
+            set => SetPropertyValue(nameof(Name), ref _name, value);
         }
 
         public bool Disabled {
-            get { return _disabled; }
-            set { SetPropertyValue(nameof(Disabled), ref _disabled, value); }
+            get => _disabled;
+            set => SetPropertyValue(nameof(Disabled), ref _disabled, value);
         }
 
         [ModelDefault("AllowEdit", "false"), RuleRequiredField(null, DefaultContexts.Save)]
         public DateTime DateCreated {
-            get { return _dateCreated; }
-            set { SetPropertyValue(nameof(DateCreated), ref _dateCreated, value); }
+            get => _dateCreated;
+            set => SetPropertyValue(nameof(DateCreated), ref _dateCreated, value);
         }
         /// <summary>
         /// For interal use only, use the ModifyModel method instead or the XmlContent property
@@ -206,12 +202,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             return AspectObjects.SingleOrDefault(o => o.Name == preferredAspect);
         }
         #endregion
-        protected override void OnSaving() {
-            base.OnSaving();
-            if (Session.IsNewObject(this)) {
-                SequenceGenerator.GenerateSequence(this);
-            }
-        }
         public override void AfterConstruction() {
             base.AfterConstruction();
             _differenceType = DifferenceType.Model;
@@ -338,12 +328,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         AspectObject GetActiveAspect(ModelApplicationBase modelApplicationBase) {
             return AspectObjects.FirstOrDefault(o => o.Name == GetAspectName(modelApplicationBase.CurrentAspect));
         }
-
-        long ISupportSequenceObject.Sequence {
-            get { return _combineOrder; }
-            set { _combineOrder = (int)value; }
-        }
-
-        string ISupportSequenceObject.Prefix => null;
+        
     }
 }
