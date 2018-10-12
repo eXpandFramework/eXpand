@@ -1,6 +1,6 @@
 |  | Build | Nuget
 |----------|--------|--------
-Stable|[![Build status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-Release)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=7)|& .\nuget.exe list author:eXpandFramework
+Stable|[![Build status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-Release)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=7)|https://api-v2v3search-0.nuget.org/query?q=eXpandFramework</br>OR</br> & .\nuget.exe list author:eXpandFramework
 Lab|[![Build Status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-%20Nightly)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=3)|https://xpandnugetserver.azurewebsites.net
 
 # About
