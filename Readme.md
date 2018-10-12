@@ -1,5 +1,7 @@
-LAB:     [![Build Status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-%20Nightly)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=3)
-STABLE:  [![Build status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-Release)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=7)
+| Stable | Lab 
+|----------|--------
+[![Build status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-Release)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=7)|[![Build Status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-%20Nightly)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=3)
+
 # About
 _eXpandFramework_ is the first open source project based on the _DevExpress eXpressApp Framework (XAF)_. The _eXpressApp Framework_ ships with _DXperience Universal_ and can be evaluated free of charge (30 day trial) at: <https://www.devexpress.com/ClientCenter/Downloads.>
 
