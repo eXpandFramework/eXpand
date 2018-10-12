@@ -49,6 +49,11 @@ using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttr
 using TypeInfo = DevExpress.ExpressApp.DC.TypeInfo;
 
 namespace Xpand.Persistent.Base.General {
+    public interface IModelOptionsSequenceGenerator {
+        [Category("eXpand")]
+        [DefaultValue(true)]
+        bool EnableSequenceGenerator { get; set; }
+    }
     public interface IXpandModuleBase {
         event EventHandler<GeneratorUpdaterEventArgs> CustomAddGeneratorUpdaters;
         event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
@@ -287,6 +292,7 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
                 extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
                 extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();
+                extenders.Add<IModelOptions, IModelOptionsSequenceGenerator>();
             }
 
             if (!Executed("ExtendModelInterfaces", ModuleType.Web)) {
