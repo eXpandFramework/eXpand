@@ -19,8 +19,11 @@ namespace Xpand.Persistent.Base.General.Web{
     }
 
     public interface IModelWebPopupControl:IModelNode{
+        [Category("eXpand")]
+        PopupTemplateType? PopupTemplateType { get; set; }
+        [Category("eXpand")]
+        ShowPopupMode? ShowPopupMode { get; set; }
     }
-
 
     public class CustomizeASPxPopupController : ModelAdapterController,IModelExtender {
         protected override void OnFrameAssigned(){
@@ -48,6 +51,13 @@ namespace Xpand.Persistent.Base.General.Web{
             var width = popupControl.GetValue<Unit>("Width");
             if (!height.IsEmpty && !width.IsEmpty){
                 e.Size = new Size((int) height.Value, (int) width.Value);
+                e.Handled = true;
+            }
+            if (popupControl.ShowPopupMode.HasValue)
+                e.ShowPopupMode=popupControl.ShowPopupMode.Value;
+            if (popupControl.PopupTemplateType.HasValue)
+                e.PopupTemplateType=popupControl.PopupTemplateType.Value;
+            if (!e.Handled && popupControl.ShowPopupMode.HasValue || popupControl.ShowPopupMode.HasValue) {
                 e.Handled = true;
             }
         }
