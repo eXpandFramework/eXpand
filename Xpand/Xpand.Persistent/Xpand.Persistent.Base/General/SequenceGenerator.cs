@@ -466,8 +466,10 @@ namespace Xpand.Persistent.Base.General {
                     Application.LoggedOff += ApplicationOnLoggedOff;
                     var helper = new ConnectionStringHelper();
                     helper.Attach(_xpandModuleBase);
-                    if (((IModelOptionsSequenceGenerator) xpandModuleBase.Application.Model).EnableSequenceGenerator)
-                        helper.ConnectionStringUpdated += (sender, args) => InitializeSequenceGenerator();
+                    helper.ConnectionStringUpdated += (sender, args) => {
+                        if (((IModelOptionsSequenceGenerator) Application.Model.Options).EnableSequenceGenerator)
+                            InitializeSequenceGenerator();
+                    };
                 }
             }
         }
