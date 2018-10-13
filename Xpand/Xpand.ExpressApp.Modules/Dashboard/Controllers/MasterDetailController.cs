@@ -72,6 +72,9 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         bool MasterDetail { get; set; }
         [Category(AttributeCategoryNameProvider.Xpand+"."+nameof(DashboardModule) )]
         [ModelBrowsable(typeof(ModelDashboardViewMasterDetailVisibilityCalculator))]
+        bool AutoCommitB4CurrentObjectChanged { get; set; }
+        [Category(AttributeCategoryNameProvider.Xpand+"."+nameof(DashboardModule) )]
+        [ModelBrowsable(typeof(ModelDashboardViewMasterDetailVisibilityCalculator))]
         IModelDashboardDetailViewObjectTypeLinkGroup DetailViewObjectTypeLinkGroup { get; set; }
     }
 
@@ -155,6 +158,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
                     _detailViewdashboardViewItem.Frame.SetView(_detailView, true, Frame);
                 }
                 else{
+                    if (((IModelDashoardViewMasterDetail) View.Model).AutoCommitB4CurrentObjectChanged)
+                        _detailView.ObjectSpace.CommitChanges();
                     _detailView.CurrentObject = _detailView.ObjectSpace.GetObject(e.InnerArgs.CurrentObject);
                 }
             }
