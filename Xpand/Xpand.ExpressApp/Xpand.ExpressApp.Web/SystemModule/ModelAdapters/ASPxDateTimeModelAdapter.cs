@@ -46,7 +46,8 @@ namespace Xpand.ExpressApp.Web.SystemModule.ModelAdapters {
     public class ASPxDateEditModelAdapter : PropertyEditorControlAdapterController<IModelMemberViewItemASPxDateEdit,IModelASPxDateEditControl, ASPxDateTimePropertyEditor> {
         protected override void OnActivated() {
             base.OnActivated();
-            Active["ReportViewer_DetailView"] = typeof(IReportData).IsAssignableFrom(View.ObjectTypeInfo.Type);
+            if (View.ObjectTypeInfo != null)
+                Active["ReportViewer_DetailView"] = typeof(IReportData).IsAssignableFrom(View.ObjectTypeInfo.Type);
         }
 
         protected override Expression<Func<IModelMemberViewItemASPxDateEdit, IModelModelAdapter>> GetControlModel(IModelMemberViewItemASPxDateEdit modelPropertyEditorFilterControl){
