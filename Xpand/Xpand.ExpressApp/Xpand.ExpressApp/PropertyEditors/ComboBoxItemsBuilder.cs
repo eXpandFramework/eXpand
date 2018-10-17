@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Xpo;
@@ -59,17 +60,16 @@ namespace Xpand.ExpressApp.PropertyEditors {
         }
 
         void BuildFromDatasource(DataSourcePropertyAttribute dataSourcePropertyAttribute, Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating) {
-            PropertyChangedEventHandler propertyChangedEventHandler = (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
+            void Handler(object sender, PropertyChangedEventArgs args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
 
             if (_propertyEditor.ObjectTypeInfo.IsPersistent) {
                 ((IObjectSpaceHolder)_propertyEditor).ObjectSpace.ObjectChanged += (sender, args) => BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, args.PropertyName);
             } else {
-                var currentObject = _propertyEditor.CurrentObject as INotifyPropertyChanged;
-                if (currentObject != null)
-                    ((INotifyPropertyChanged)_propertyEditor.CurrentObject).PropertyChanged += propertyChangedEventHandler;
+                if (_propertyEditor.CurrentObject is INotifyPropertyChanged changed)
+                    changed.PropertyChanged += Handler;
             }
 
-            BuildFromDataSourceWhenCurrentObjectChanges(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, propertyChangedEventHandler);
+            BuildFromDataSourceWhenCurrentObjectChanges(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, Handler);
 
             var b = itemsCalculating.Invoke();
             if (!b){
@@ -83,15 +83,13 @@ namespace Xpand.ExpressApp.PropertyEditors {
                                                          Action<IEnumerable<string>, bool> itemsCalculated, Func<bool> itemsCalculating,
                                                          PropertyChangedEventHandler propertyChangedEventHandler) {
             _propertyEditor.CurrentObjectChanged += (sender, args) => {
-                var currentObject = _propertyEditor.CurrentObject as INotifyPropertyChanged;
-                if (!_propertyEditor.ObjectTypeInfo.IsPersistent && currentObject != null)
+                if (!_propertyEditor.ObjectTypeInfo.IsPersistent && _propertyEditor.CurrentObject is INotifyPropertyChanged currentObject)
                     currentObject.PropertyChanged += propertyChangedEventHandler;
                 BuildFromDatasourceCore(dataSourcePropertyAttribute, itemsCalculated, itemsCalculating, null);
             };
 
             _propertyEditor.CurrentObjectChanging += (sender, args) => {
-                var currentObject = _propertyEditor.CurrentObject as INotifyPropertyChanged;
-                if (!_propertyEditor.ObjectTypeInfo.IsPersistent && currentObject != null)
+                if (!_propertyEditor.ObjectTypeInfo.IsPersistent && _propertyEditor.CurrentObject is INotifyPropertyChanged currentObject)
                     currentObject.PropertyChanged -= propertyChangedEventHandler;
             };
         }
@@ -108,7 +106,11 @@ namespace Xpand.ExpressApp.PropertyEditors {
 
 
         IEnumerable<string> GetComboBoxItemsCore(DataSourcePropertyAttribute dataSourcePropertyAttribute) {
-            return ((IEnumerable<string>)_propertyEditor.ObjectTypeInfo.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(_propertyEditor.CurrentObject));
+            var objectTypeInfo = _propertyEditor.ObjectTypeInfo;
+            if (_propertyEditor.MemberInfo is MemberPathInfo memberInfo) {
+                objectTypeInfo = memberInfo.LastMember.Owner;
+            }
+            return ((IEnumerable<string>)objectTypeInfo.FindMember(dataSourcePropertyAttribute.DataSourceProperty).GetValue(_propertyEditor.CurrentObject));
         }
 
     }
