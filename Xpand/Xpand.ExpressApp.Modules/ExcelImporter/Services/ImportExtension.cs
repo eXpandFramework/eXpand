@@ -54,9 +54,18 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
                 return objectSpace.CreateObject(importToTypeInfo.Type);
             var valueTuple = columnNames.First(tuple => tuple.MemberInfo==importToTypeInfo.GetKeyMember());
-            var o = dataRow[valueTuple.Map.ExcelColumnName];
-            var importToObject = objectSpace.FindObject(importToTypeInfo.Type,CriteriaOperator.Parse($"{valueTuple.MemberInfo.Name}=?", o));
+            var columnValue = dataRow[valueTuple.Map.ExcelColumnName];
+            var criteria = CriteriaOperator.Parse($"{valueTuple.MemberInfo.Name}=?", columnValue);
+            var importToObject = objectSpace.FindObject(importToTypeInfo.Type,criteria);
             if (excelImport.ImportStrategy == ImportStrategy.UpdateOnly) {
+                return importToObject;
+            }
+            if (excelImport.ImportStrategy == ImportStrategy.FailNotFound) {
+                if (importToObject == null) {
+                    excelImport.FailedResultList.FailedResults.Add(new FailedResult() {
+                        ExcelColumnValue = $"{columnValue}",Index =index ,Reason = $"{nameof(ImportStrategy)}.{nameof(ImportStrategy.FailNotFound)} with criteria:{criteria}"
+                    });
+                }
                 return importToObject;
             }
             if (excelImport.ImportStrategy==ImportStrategy.UpdateOrCreate){
