@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace Xpand.ExpressApp.ExcelImporter.Controllers{
+namespace Xpand.ExpressApp.ExcelImporter.Services{
     public abstract class ImportProgress {
         protected ImportProgress(Guid excelImportKey) {
             ExcelImportKey = excelImportKey;

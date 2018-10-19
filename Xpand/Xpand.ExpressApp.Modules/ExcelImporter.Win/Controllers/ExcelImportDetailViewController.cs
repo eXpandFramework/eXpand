@@ -5,12 +5,15 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading;
+using System.Threading.Tasks;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
-using Xpand.ExpressApp.ExcelImporter.Controllers;
+using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
@@ -28,8 +31,16 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
 
                 ExcelImport.File.FileName = Path.GetFileName(ExcelImport.FullName);
             }
+        }
 
-            ObjectSpace.Committing += ObjectSpaceOnCommitting;
+        protected override void ShowMapConfigView(ShowViewParameters parameters) {
+            base.ShowMapConfigView(parameters);
+            parameters.CreatedView.Disposing += (sender, args) => {
+                Observable.FromAsync(async () => await Task.Delay(100))
+                    .ObserveOn(SynchronizationContext.Current)
+                    .Do(unit => Frame.GetController<RefreshController>().RefreshAction.DoExecute())
+                    .Subscribe();
+            };
         }
 
         protected override void OnViewControlsCreated(){
@@ -38,8 +49,15 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
             if (!ExcelImport.IsNewObject){
                 var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
                     editor.MemberInfo.Name == nameof(ExcelImport.ExcelColumnMaps));
-                ((GridListEditor) listPropertyEditor.ListView.Editor).ControlsCreated+=OnControlsCreated;
+                
+                listPropertyEditor.FrameChanged+=ListPropertyEditorOnFrameChanged;
             }
+        }
+
+        private void ListPropertyEditorOnFrameChanged(object sender, EventArgs e) {
+            var listPropertyEditor = ((ListPropertyEditor) sender);
+            listPropertyEditor.FrameChanged-=ListPropertyEditorOnFrameChanged;
+            ((GridListEditor) listPropertyEditor.ListView.Editor).ControlsCreated+=OnControlsCreated;
         }
 
         protected override IObservable<T> Synchronise<T>(T i) {
@@ -52,7 +70,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
-            ObjectSpace.Committing -= ObjectSpaceOnCommitting;
             ExcelImport.File.PropertyChanged -= FileOnPropertyChanged;
         }
 
@@ -67,13 +84,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
             var gridView = ((GridListEditor) listPropertyEditor.ListView.Editor).GridView;
             var repositoryItem = (RepositoryItemComboBox) gridView.Columns[nameof(ExcelColumnMap.PropertyName)].ColumnEdit;
             repositoryItem.Items.Clear();
-            repositoryItem.Items.AddRange(ExcelImport.TypePropertyNames);
+            repositoryItem.Items.AddRange(ExcelImport.TypePropertyNames.ToArray());
         }
-
-        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs){
-            ValidateFile();
-        }
-
 
         private void FileOnPropertyChanged(object sender, PropertyChangedEventArgs e){
             if (e.PropertyName == nameof(XpandFileData.FullName)){

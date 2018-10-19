@@ -8,6 +8,7 @@ using System.Reactive.Subjects;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.Editors;
@@ -19,23 +20,79 @@ using Xpand.Persistent.Base.Validation;
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public class ExcelImportDetailViewController : ObjectViewController<DetailView,ExcelImport>{
         protected Subject<Unit> Terminator=new Subject<Unit>();
-        public const string ExcelMappingActionName = "ExcelMapping";
+
+        public const string ExcelMapActionName = "ExcelMap";
         public const string ImportExcelActionName = "ImportExcel";
-        public SimpleAction ExcelMappingAction{ get; }
+        
+        public SingleChoiceAction MapAction{ get; }
 
         public ExcelImportDetailViewController(){
-            ExcelMappingAction = new SimpleAction(this,ExcelMappingActionName,"ExcelImport"){Caption = "Map"};
-            ExcelMappingAction.Execute+=ExcelMappingActionOnExecute;
-            
+            MapAction = new SingleChoiceAction(this, ExcelMapActionName, "ExcelImport") {
+                Caption = "Map", ItemType = SingleChoiceActionItemType.ItemIsOperation
+            };
+            MapAction.Items.Add(new ChoiceActionItem("Map", "Map"));
+            MapAction.Items.Add(new ChoiceActionItem("Configure", "Configure"));
+            MapAction.Execute+=ExcelMappingActionOnExecute;
             ImportAction = new SimpleAction(this,ImportExcelActionName,"ExcelImport"){Caption = "Import"};
             ImportAction.Execute+=ImportActionOnExecute;
             ImportAction.Executing+=ImportActionOnExecuting;
         }
 
+        private void ExcelMappingActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
+            if ((string) e.SelectedChoiceActionItem.Data=="Configure") {
+                if (!ExcelImport.ExcelColumnMaps.Any())
+                    Map();
+                ObjectSpace.CommitChanges();
+                var parameters = e.ShowViewParameters;
+                var dialogController = new DialogController();
+                parameters.Controllers.Add(dialogController);
+                parameters.CreatedView=Application.CreateDashboardView(Application.CreateObjectSpace(), "ExcelColumnMapMasterDetail", true);
+                parameters.TargetWindow=TargetWindow.NewModalWindow;
+                ShowMapConfigView(parameters);
+            }
+            else {
+                Map();
+            }
+
+        }
+
+        protected virtual void ShowMapConfigView(ShowViewParameters parameters) {
+            
+        }
+
+        protected virtual DashboardView CreateView() {
+            var dashboardView = Application.CreateDashboardView(Application.CreateObjectSpace(), "ExcelColumnMapMasterDetail", true);
+            dashboardView.Disposing+= (o, args) => {
+                Frame.GetController<RefreshController>().RefreshAction.DoExecute();
+//                Observable.Start(async () => await Task.Delay(3000))
+//                    .Do(unit => Frame.GetController<RefreshController>().RefreshAction.DoExecute())
+//                    .Subscribe();
+
+            };
+            return dashboardView;
+        }
+
+
+        private void Map() {
+            ValidateFile();
+            
+            ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
+
+            var excelImport = ExcelImport;
+            excelImport.Map();
+            var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
+                editor.MemberInfo.Name == nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
+            foreach (var columnMap in excelImport.ExcelColumnMaps){
+                listPropertyEditor.ListView.CollectionSource.Add(columnMap);    
+            }
+            View.FindItem(nameof(BusinessObjects.ExcelImport.ExcelColumnMaps)).Refresh();
+
+            
+        }
+
         protected override void OnActivated(){
             base.OnActivated();
             ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
-            
         }
 
         protected override void OnDeactivated(){
@@ -154,19 +211,5 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         public SimpleAction ImportAction{ get;  }
-
-        private void ExcelMappingActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
-            ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
-
-            var excelImport = ExcelImport;
-            excelImport.Map();
-            var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
-                editor.MemberInfo.Name == nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
-            foreach (var columnMap in excelImport.ExcelColumnMaps){
-                listPropertyEditor.ListView.CollectionSource.Add(columnMap);    
-            }
-            View.FindItem(nameof(BusinessObjects.ExcelImport.ExcelColumnMaps)).Refresh();
-        }
-
     }
 }

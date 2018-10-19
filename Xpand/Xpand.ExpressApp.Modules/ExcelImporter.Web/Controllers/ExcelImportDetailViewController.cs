@@ -4,11 +4,12 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.FileAttachments.Web;
+using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
-using Xpand.ExpressApp.ExcelImporter.Controllers;
+using Xpand.ExpressApp.ExcelImporter.Services;
 
 namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
     public class ExcelImportDetailViewController:ExcelImporter.Controllers.ExcelImportDetailViewController{
@@ -26,6 +27,24 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
             }
         }
 
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            if (_listPropertyEditor != null) {
+                _fileDataPropertyEditor.ControlCreated-=FileDataPropertyEditorOnControlCreated;
+                _listPropertyEditor.ControlCreated-=ListPropertyEditorOnControlCreated;
+            }
+        }
+
+        protected override void ShowMapConfigView(ShowViewParameters parameters) {
+            base.ShowMapConfigView(parameters);
+            parameters.Controllers.OfType<DialogController>().First().Disposed +=
+                (sender, args) => ObjectSpace.Refresh();
+        }
+
+        private void FileDataPropertyEditorOnControlCreated(object sender, EventArgs eventArgs){
+            ((FileDataPropertyEditor) sender).Editor.FileDataLoading+=OnFileDataLoading;
+        }
+
         private void ListPropertyEditorOnControlCreated(object sender, EventArgs e) {
             _asPxGridListEditor = ((ASPxGridListEditor) _listPropertyEditor.ListView.Editor);
             _asPxGridListEditor.ControlsCreated+=ASPxGridListEditorOnControlsCreated;
@@ -33,23 +52,25 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
         }
 
         private void ASPxGridListEditorOnControlsCreated(object sender, EventArgs e) {
+            _asPxGridListEditor.Grid.BatchUpdate += (o, args) => {
+                View.ObjectSpace.CommitChanges();
+                var viewShortcut = View.CreateShortcut();
+                if(Frame.SetView(null)) {
+                    Frame.SetView(Application.ProcessShortcut(viewShortcut));
+                }
+            };
+                
+            PopulatePropertyNames();
+        }
+
+        private void PopulatePropertyNames(){
             var dataComboBoxColumn = _asPxGridListEditor.Grid.Columns
-                .OfType<GridViewDataComboBoxColumn>().First(column => column.FieldName==nameof(ExcelColumnMap.PropertyName));
-            var items = dataComboBoxColumn.PropertiesComboBox.Items;
+                .OfType<GridViewDataComboBoxColumn>().First(column => column.FieldName == nameof(ExcelColumnMap.PropertyName));
+            var comboBox = dataComboBoxColumn.PropertiesComboBox;
+            comboBox.DropDownStyle = DropDownStyle.DropDownList;
+            var items = comboBox.Items;
             items.Clear();
-            items.AddRange(ExcelImport.TypePropertyNames);
-        }
-
-        protected override void OnDeactivated() {
-            base.OnDeactivated();
-            if (_listPropertyEditor != null) {
-                _listPropertyEditor.ControlCreated -= ListPropertyEditorOnControlCreated;
-                _fileDataPropertyEditor.ControlCreated-=FileDataPropertyEditorOnControlCreated;
-            }
-        }
-
-        private void FileDataPropertyEditorOnControlCreated(object sender, EventArgs eventArgs){
-            ((FileDataPropertyEditor) sender).Editor.FileDataLoading+=OnFileDataLoading;
+            items.AddRange(ExcelImport.TypePropertyNames.ToArray());
         }
 
         private  void ParseStream(UploadedFile uploadedFile) {

@@ -1,56 +1,59 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <BOModel>
-    <Class Name="Xpand.ExpressApp.ExcelImporter.BusinessObjects.ExcelColumnMap">
-      <OwnMembers>
-        <Member Name="PropertyName" PredefinedValues="1;2" />
-      </OwnMembers>
-    </Class>
+    
   </BOModel>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
   <SchemaModules>
-    <SchemaModule Name="CloneObjectModule" Version="17.2.6.0" IsNewNode="True" />
-    <SchemaModule Name="ExcelImporterModule" Version="1.0.6650.26707" IsNewNode="True" />
-    <SchemaModule Name="SystemAspNetModule" Version="17.2.6.0" IsNewNode="True" />
-    <SchemaModule Name="SystemModule" Version="17.2.6.0" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemAspNetModule" Version="17.2.6.1" IsNewNode="True" />
-    <SchemaModule Name="XpandSystemModule" Version="17.2.6.1" IsNewNode="True" />
-    <SchemaModule Name="XpandValidationModule" Version="17.2.6.1" IsNewNode="True" />
+    <SchemaModule Name="CloneObjectModule" Version="18.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="DashboardModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="ExcelImporterModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="ExcelImporterWebModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="SystemAspNetModule" Version="18.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="18.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemAspNetModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationWebModule" Version="18.1.6.2" IsNewNode="True" />
   </SchemaModules>
   <Views>
+    <ListView Id="ExcelColumnMap_ListView" ShowSelectionColumn="False">
+      <GridViewOptions>
+        <SettingsPager Mode="ShowAllRecords" Visible="False" />
+      </GridViewOptions>
+      <HiddenActions>
+        <ActionLink ActionId="Edit" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <ListView Id="ExcelColumnMap_MemberTypeValues_ListView" InlineEditMode="Batch" ShowSelectionColumn="False">
+      <GridViewOptions>
+        <Settings ShowStatusBar="Hidden" />
+        <SettingsPager Mode="ShowAllRecords" />
+      </GridViewOptions>
+      <HiddenActions>
+        <ActionLink ActionId="Edit" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
+    <DashboardView Id="ExcelColumnMapMasterDetail">
+      <PopupControl Maximized="True" ShowPopupMode="Centered" />
+    </DashboardView>
     <DetailView Id="ExcelImport_DetailView">
       <Items>
         <ProgressViewItem Id="ProgressViewItem" IsNewNode="True" />
       </Items>
-      <Layout>
-        <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf">
-              <LayoutItem Id="UseHeaderRows" RelativeSize="20.90909090909091" />
-              <LayoutItem Id="Type" RelativeSize="28.181818181818183" />
-            </LayoutGroup>
-          </LayoutGroup>
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="ExcelColumnMaps">
-              <LayoutItem Id="ExcelColumnMaps" RelativeSize="82.940108892921955" />
-              <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="2" RelativeSize="4.3557168784029034" IsNewNode="True" />
-              <LayoutItem Id="Progress" Index="3" />
-            </LayoutGroup>
-          </TabbedGroup>
-        </LayoutGroup>
-      </Layout>
     </DetailView>
-    <ListView Id="ExcelImport_ExcelColumnMaps_ListView" InlineEditMode="Batch">
+    <ListView Id="ExcelImport_ExcelColumnMaps_ListView" InlineEditMode="Batch" HideToolBar="" AutoCommitWhenNested="True">
+      <Columns>
+        <ColumnInfo Id="PropertyName" PropertyEditorType="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxStringPropertyEditor" />
+      </Columns>
       <GridViewOptions>
-        <SettingsPager Visible="True" Mode="ShowAllRecords" />
+        <SettingsPager Mode="ShowAllRecords" />
       </GridViewOptions>
       <HiddenActions>
-        <ActionLink ActionId="Cancel" IsNewNode="True" />
         <ActionLink ActionId="Edit" IsNewNode="True" />
-        <ActionLink ActionId="InlineEdit" IsNewNode="True" />
-        <ActionLink ActionId="Save" IsNewNode="True" />
       </HiddenActions>
     </ListView>
   </Views>
