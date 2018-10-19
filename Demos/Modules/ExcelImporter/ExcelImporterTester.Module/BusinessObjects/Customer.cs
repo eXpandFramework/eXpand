@@ -10,21 +10,21 @@ namespace ExcelImporterTester.Module.BusinessObjects{
     [DefaultProperty(nameof(ImportName1))]
     public class Customer : BaseObject{
         // Fields...
-        private GenderObject _gender;
-        private string _importName;
+        private GenderBase _gender;
+        private string _importName1;
 
         public Customer(Session session) : base(session){
         }
 
-        public GenderObject Gender{
+        public GenderBase Gender{
             get => _gender;
-            set => SetPropertyValue("Gender", ref _gender, value);
+            set => SetPropertyValue("Gender1", ref _gender, value);
         }
         [DevExpress.Xpo.DisplayName("ImportName")]
         [RuleUniqueValue]
         public string ImportName1{
-            get => _importName;
-            set => SetPropertyValue("ImportName", ref _importName, value);
+            get => _importName1;
+            set => SetPropertyValue("ImportName1", ref _importName1, value);
         }
 
         string _hidden1;

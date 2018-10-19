@@ -26,26 +26,7 @@
         }
     </style>
     <script>
-        function EndEdit(s,e){
-            var GenderColumn = s.GetColumnByField('Key');
-            if (!e.rowValues.hasOwnProperty(GenderColumn.index))
-                return;
-            var cellInfoGender = e.rowValues[GenderColumn.index];
-            cellInfoGender.value = Gender.GetValue();
-            cellInfoGender.text = Gender.GetText();
-            Gender.SetValue(null);
-        };
-        function StartEdit(s,e){
-            var GenderColumn = s.GetColumnByField('Key');
-            if (!e.rowValues.hasOwnProperty(GenderColumn.index))
-                return;
-            var cellInfoGender = e.rowValues[GenderColumn.index];
-            Gender.SetText(cellInfoGender.text);
-            Gender.SetValue(cellInfoGender.value);
-            Gender['grid'] = s;
-            if (e.focusedColumn === GenderColumn) {
-                Gender.SetFocus();
-            };};
+        
     </script>
 </head>
 <body class="VerticalTemplate">

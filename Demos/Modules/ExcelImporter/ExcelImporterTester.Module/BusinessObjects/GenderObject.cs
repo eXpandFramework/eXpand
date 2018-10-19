@@ -4,10 +4,27 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 
 namespace ExcelImporterTester.Module.BusinessObjects{
-    [DefaultProperty("Gender")]
+    [DefaultProperty("Gender1")]
+    public abstract class GenderBase:BaseObject {
+        protected GenderBase(Session session) : base(session){
+        }
+        private string _gender1;
+        [DevExpress.Xpo.DisplayName("Gender")]
+        public string Gender1{
+            get => _gender1;
+            set => SetPropertyValue("Gender1", ref _gender1, value);
+        }
+    }
     [DefaultClassOptions]
-    public class GenderObject : BaseObject{
-        private string _gender;
+    public class GenderSuper:GenderBase {
+        public GenderSuper(Session session) : base(session){
+        }
+        
+    }
+    
+    [DefaultClassOptions]
+    public class GenderObject : GenderBase{
+        
 
         public GenderObject(Session session) : base(session){
         }
@@ -15,9 +32,6 @@ namespace ExcelImporterTester.Module.BusinessObjects{
         // Fields...
 
 
-        public string Gender{
-            get => _gender;
-            set => SetPropertyValue("Gender", ref _gender, value);
-        }
+        
     }
 }
