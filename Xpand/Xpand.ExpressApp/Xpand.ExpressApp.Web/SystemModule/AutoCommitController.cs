@@ -10,8 +10,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             base.OnViewControlsCreated();
             var listView =  View as ListView;
             if (((IModelObjectViewAutoCommit)View.Model).AutoCommit) {
-                ASPxGridListEditor gridListEditor = listView?.Editor as ASPxGridListEditor;
-                if (gridListEditor != null) {
+                if (listView?.Editor is ASPxGridListEditor gridListEditor) {
                     if (gridListEditor.IsBatchMode) {
                         ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(GridViewClientSideEvents.Init), GetInitScript(), "grid.Init");
                         ClientSideEventsHelper.AssignClientHandlerSafe(gridListEditor.Grid, nameof(GridViewClientSideEvents.BatchEditStartEditing), "function(s, e) { clearTimeout(s.timerHandle); }", "grid.BatchEditStartEditing");
@@ -28,7 +27,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                         for (var i = 0; i < s.GetColumnsCount() ; i++) {
                             var editor = s.GetEditor(i);
 				            if (!!editor)
-				                ASPxClientUtils.AttachEventToElement(editor.GetMainElement(), ""mouseleave"", function(){s.batchEditApi.EndEdit();s.UpdateEdit();});
+				                ASPxClientUtils.AttachEventToElement(editor.GetMainElement(), ""onblur"", function(){s.batchEditApi.EndEdit();s.UpdateEdit();});
                         }
                     }";
         }
