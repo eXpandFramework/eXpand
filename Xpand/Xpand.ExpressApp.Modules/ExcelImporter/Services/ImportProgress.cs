@@ -1,7 +1,9 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Data;
+using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 
-namespace Xpand.ExpressApp.ExcelImporter.Controllers{
+namespace Xpand.ExpressApp.ExcelImporter.Services{
     public abstract class ImportProgress {
         protected ImportProgress(Guid excelImportKey) {
             ExcelImportKey = excelImportKey;
@@ -14,19 +16,19 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         public Exception Exception{ get; }
 
         public ImportProgressException(Guid excelImportKey, Exception exception, int totalRecordsCount,
-            int failedRecordsCount) : base(excelImportKey,totalRecordsCount,failedRecordsCount) {
+            BindingList<FailedResult> failedRecordsCount) : base(excelImportKey,totalRecordsCount,failedRecordsCount) {
             Exception = exception;
         }
     }
 
     public class ImportProgressComplete:ImportProgress {
-        public ImportProgressComplete(Guid excelImportKey, int totalRecordsCount, int failedRecordsCount) : base(excelImportKey) {
+        public ImportProgressComplete(Guid excelImportKey, int totalRecordsCount, BindingList<FailedResult> failedResults) : base(excelImportKey) {
             TotalRecordsCount = totalRecordsCount;
-            FailedRecordsCount = failedRecordsCount;
+            FailedResults = failedResults;
         }
 
         public int TotalRecordsCount { get; }
-        public int FailedRecordsCount { get; }
+        public BindingList<FailedResult> FailedResults { get; }
     }
 
     public abstract class ImportProgressPercentage:ImportProgress {

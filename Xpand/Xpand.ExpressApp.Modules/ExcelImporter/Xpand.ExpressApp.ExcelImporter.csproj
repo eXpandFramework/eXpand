@@ -12,14 +12,11 @@
     <AssemblyName>Xpand.ExpressApp.ExcelImporter</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
+    <FileUpgradeFlags></FileUpgradeFlags>
+    <UpgradeBackupLocation></UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -127,6 +124,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
+    <Reference Include="Xpand.ExpressApp.Dashboard">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Validation">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
@@ -147,18 +148,20 @@
   <ItemGroup>
     <Compile Include="BusinessObjects\AutoImportedFile.cs" />
     <Compile Include="BusinessObjects\ExcelColumnMap.cs" />
+    <Compile Include="BusinessObjects\ExcelColumnMapMemberTypeValue.cs" />
+    <Compile Include="Controllers\ExcelColumnMapController.cs" />
     <Compile Include="BusinessObjects\ExcelImport.cs" />
     <Compile Include="BusinessObjects\FailedResult.cs" />
     <Compile Include="BusinessObjects\FailedResultList.cs" />
-    <Compile Include="Controllers\ImportProgress.cs" />
+    <Compile Include="Controllers\ExcelColumnMapMemberTypeValueController.cs" />
+    <Compile Include="Services\ImportProgress.cs" />
     <Compile Include="Services\ExcelImportKeyAttribute.cs" />
-    <Compile Include="Controllers\ImportExtension.cs" />
+    <Compile Include="Services\ImportExtension.cs" />
     <Compile Include="Services\ExcelImporterLocalizationUpdater.cs" />
     <Compile Include="Services\ObservableFileSystemWatcher.cs" />
     <Compile Include="Services\FileDropWatcher.cs" />
     <Compile Include="Services\VisibleInExcelMapAttribute.cs" />
     <Compile Include="Controllers\ExcelImportDetailViewController.cs" />
-    <Compile Include="Controllers\ExcelImportListViewController.cs" />
     <Compile Include="ExcelImporterModule.cs">
       <SubType>Component</SubType>
     </Compile>

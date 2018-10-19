@@ -5,11 +5,9 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using DevExpress.Xpo.Metadata.Helpers;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using Xpand.ExpressApp.ExcelImporter.Controllers;
@@ -22,14 +20,17 @@ using Xpand.Xpo.Converters.ValueConverters;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
+    
     [DefaultClassOptions]
     [DefaultProperty(nameof(Name))]
-    public class ExcelImport : XpandBaseCustomObject,IObjectSpaceLink{
+    public class ExcelImport : XpandBaseCustomObject {
+        private const string TargetContextIDs = ExcelImportDetailViewController.ExcelMapActionName + ";" +
+                                            ExcelImportDetailViewController.ImportExcelActionName+";Save";
         public ExcelImport(Session session) : base(session){
         }
 
         [Association("ExcelImport-AutoImportedFiles")]
-        [InvisibleInAllViews][DevExpress.Xpo.Aggregated]
+        [InvisibleInAllViews][Aggregated]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
         public XPCollection<AutoImportedFile> AutoImportedFiles => GetCollection<AutoImportedFile>(nameof(AutoImportedFiles));
         ImportStrategy _importStrategy;
@@ -40,8 +41,11 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(ImportStrategy), ref _importStrategy, value);
         }
 
+        [Browsable(false)]
+        public bool CanImport => ExcelColumnMaps.All(map => map.MemberTypeValues.Count > 0);
+
         int _headerRows;
-        [RuleValueComparison(ValueComparisonType.GreaterThan, 0,TargetCriteria = nameof(UseHeaderRows)+"=True",TargetContextIDs = ExcelImportDetailViewController.ExcelMappingActionName)]
+        [RuleValueComparison(ValueComparisonType.GreaterThan, 0,TargetCriteria = nameof(UseHeaderRows)+"=True",TargetContextIDs = ExcelImportDetailViewController.ExcelMapActionName)]
         public int HeaderRows{
             get => _headerRows;
             set => SetPropertyValue(nameof(HeaderRows), ref _headerRows, value);
@@ -62,14 +66,14 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         }
 
         string _autoImportRegex;
-        [RuleRequiredField]
+        [RuleRequiredField(TargetContextIDs = TargetContextIDs)]
         public string AutoImportRegex{
             get => _autoImportRegex;
             set => SetPropertyValue(nameof(AutoImportRegex), ref _autoImportRegex, value);
         }
 
         string _name;
-        [RuleRequiredField]
+        [RuleRequiredField(TargetContextIDs = TargetContextIDs)]
         public string Name{
             get => _name;
             set => SetPropertyValue(nameof(Name), ref _name, value);
@@ -78,7 +82,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         string _sheetName;
         [EditorAlias(EditorAliases.StringLookupPropertyEditor)]
         [DataSourceProperty(nameof(SheetNames))]
-        [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ExcelMappingActionName)]
+        [RuleRequiredField(TargetContextIDs = TargetContextIDs)]
         [ImmediatePostData]
         public string SheetName{
             get => _sheetName;
@@ -105,32 +109,17 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(ColumnMappingRegexPattern), ref _columnMappingRegexPattern, value);
         }
 
+
         [Browsable(false)]
         public List<string> TypePropertyNames{
-            get{
+            get {
                 if (Type != null)
-                    return Type.GetTypeInfo().Members
-                        .Where(IsMappable)
+                    return Type.GetTypeInfo().Members.WhereMapable()
                         .Select(info => string.IsNullOrEmpty(info.DisplayName) ? info.Name : info.DisplayName).ToList();
                 return new List<string>();
             }
         }
 
-        private  bool IsMappable(IMemberInfo info){
-            var isMappable = info.IsPersistent && !info.IsService && info.Name != GCRecordField.StaticName;
-            if (isMappable){
-                var browsableAttribute = info.FindAttribute<BrowsableAttribute>();
-                var isBrowsable = browsableAttribute == null || browsableAttribute.Browsable;
-                var visibleInLookupListViewAttribute = info.FindAttribute<VisibleInLookupListViewAttribute>();
-                var visibleInLookup = visibleInLookupListViewAttribute == null ||(bool) visibleInLookupListViewAttribute.Value;
-                var visibleInListViewAttribute = info.FindAttribute<VisibleInListViewAttribute>();
-                var visibleInListView= visibleInListViewAttribute == null ||(bool) visibleInListViewAttribute.Value;
-                var visibleInExcelMapAttribute = info.FindAttribute<VisibleInExcelMapAttribute>();
-                var visibleInExcelMap = visibleInExcelMapAttribute == null ||visibleInExcelMapAttribute.Visible;
-                return (isBrowsable && visibleInLookup && visibleInListView) || visibleInExcelMap;
-            }
-            return false;
-        }
 
         public MemoryStream GetXlsContent(string fileName,byte[] bytes){
             if (fileName.EndsWith("zip")) {
@@ -190,17 +179,18 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(File), ref _file, value);
         }
 
-        [Association("ExcelImport-ExcelColumnMaps")][DevExpress.Xpo.Aggregated]
+        [Association("ExcelImport-ExcelColumnMaps")][Aggregated]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
         [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName)]
+
         public XPCollection<ExcelColumnMap> ExcelColumnMaps => GetCollection<ExcelColumnMap>(nameof(ExcelColumnMaps));
 
          Type _type;
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
-        [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ExcelMappingActionName+";"+ExcelImportDetailViewController.ImportExcelActionName)]
+        [RuleRequiredField(TargetContextIDs = TargetContextIDs)]
         [ImmediatePostData]
-        [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
+        [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type Type{
             get => _type;
             set => SetPropertyValue(nameof(Type), ref _type, value);
@@ -229,8 +219,6 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             get => _columnMappingReplacement;
             set => SetPropertyValue(nameof(ColumnMappingReplacement), ref _columnMappingReplacement, value);
         }
-        [Browsable(false)]
-        public IObjectSpace ObjectSpace{ get; set; }
 
         bool _stopAutoImportOnFailure;
         [InvisibleInAllViews]
@@ -265,7 +253,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         SkipEmpty,
         CreateAlways,
         SkipOrCreate,
-        FailEmpty,
+        FailNotFound,
         UpdateOnly
     }
 

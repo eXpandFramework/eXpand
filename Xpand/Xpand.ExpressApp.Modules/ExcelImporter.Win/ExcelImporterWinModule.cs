@@ -11,7 +11,5 @@ namespace Xpand.ExpressApp.ExcelImporter.Win {
         public ExcelImporterWinModule() {
             InitializeComponent();
         }
-
-
     }
 }

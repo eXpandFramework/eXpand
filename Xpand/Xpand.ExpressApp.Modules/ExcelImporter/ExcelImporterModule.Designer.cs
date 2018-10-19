@@ -2,6 +2,8 @@
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Validation;
+using Xpand.ExpressApp.Dashboard;
+using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Validation;
 
 namespace Xpand.ExpressApp.ExcelImporter {
@@ -34,8 +36,10 @@ namespace Xpand.ExpressApp.ExcelImporter {
 			// 
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
 			this.RequiredModuleTypes.Add(typeof(ValidationModule));
+			this.RequiredModuleTypes.Add(typeof(XpandSystemModule));
 			this.RequiredModuleTypes.Add(typeof(XpandValidationModule));
 			this.RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+			this.RequiredModuleTypes.Add(typeof(DashboardModule));
 			this.RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Notifications.NotificationsModule));
 		}
 

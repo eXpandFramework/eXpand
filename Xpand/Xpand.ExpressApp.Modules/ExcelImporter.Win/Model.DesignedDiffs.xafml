@@ -7,7 +7,20 @@
       </OwnMembers>
     </Class>
   </BOModel>
+  <SchemaModules>
+    <SchemaModule Name="DashboardModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="ExcelImporterModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="ExcelImporterWinModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="SystemModule" Version="18.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="SystemWindowsFormsModule" Version="18.1.6.0" IsNewNode="True" />
+    <SchemaModule Name="XpandSecurityModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="XpandSystemWindowsFormsModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationModule" Version="18.1.6.2" IsNewNode="True" />
+    <SchemaModule Name="XpandValidationWinModule" Version="18.1.6.2" IsNewNode="True" />
+  </SchemaModules>
   <Views>
+    <DashboardView Id="ExcelColumnMapMasterDetail" PopupWindowState="Maximized" />
     <DetailView Id="ExcelImport_DetailView">
       <Items>
         <PropertyEditor Id="AutoImportFrom" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.FolderBrowseEditor" />
@@ -16,43 +29,42 @@
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren">
           <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Auto00224b34-7006-4108-b0c5-3487562c098d" RelativeSize="49.239543726235745" />
-            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf" RelativeSize="50.760456273764255">
-              <LayoutItem Id="Type" RelativeSize="21.818181818181817" Index="1" ViewItem="Type" />
-              <LayoutItem Id="UseHeaderRows" RelativeSize="21.818181818181817" Index="2" ViewItem="UseHeaderRows" />
-              <LayoutItem Id="HeaderRows" Index="3" RelativeSize="27.272727272727273" ViewItem="HeaderRows" />
+            <LayoutGroup Id="Auto00224b34-7006-4108-b0c5-3487562c098d" RelativeSize="49.133858267716533" />
+            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf" RelativeSize="50.866141732283467">
+              <LayoutItem Id="Type" RelativeSize="17.910447761194028" Index="1" ViewItem="Type" />
             </LayoutGroup>
           </LayoutGroup>
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="ExcelColumnMaps" TextAlignMode="AlignWithChildren">
-              <LayoutGroup Id="Auto3f9370ef-a097-4959-a578-a87542b54092" Caption="Auto3f9370ef-a097-4959-a578-a87542b54092(16)" RelativeSize="6.8965517241379306">
-                <LayoutItem Id="ColumnMappingRegexPattern" RelativeSize="49.6" ViewItem="ColumnMappingRegexPattern" />
-                <LayoutItem Id="ColumnMappingReplacement" RelativeSize="50.4" ViewItem="ColumnMappingReplacement" />
-              </LayoutGroup>
-              <LayoutItem Id="ExcelColumnMaps" TextAlignMode="AutoSize" RelativeSize="87.295825771324857" ViewItem="ExcelColumnMaps" />
-              <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="2" RelativeSize="5.8076225045372052" IsNewNode="True" />
-              <LayoutItem Id="Progress" Removed="True" />
+          <TabbedGroup Id="Tabs" Index="2" RelativeSize="84.555984555984551">
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="0" Caption="Columns Map" TextAlignMode="AlignWithChildren" RelativeSize="100" IsNewNode="True">
+              <LayoutItem Id="ExcelColumnMaps" ViewItem="ExcelColumnMaps" Index="0" RelativeSize="96.172248803827756" TextAlignMode="AutoSize" IsNewNode="True" />
+              <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="1" RelativeSize="3.8277511961722488" IsNewNode="True" />
             </LayoutGroup>
-            <LayoutGroup Id="FailedResultList.FailedResults" TextAlignMode="AlignWithChildren">
+            <LayoutGroup Id="FailedResultList.FailedResults" TextAlignMode="AlignWithChildren" Index="1">
               <LayoutItem Id="FailedResultList.FailedResults" TextAlignMode="AutoSize" ViewItem="FailedResultList.FailedResults" />
             </LayoutGroup>
             <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="2" Caption="Auto Import" RelativeSize="100" TextAlignMode="AlignWithChildren" IsNewNode="True">
-              <LayoutGroup Id="Auto70704ce9-c4ff-4970-9e05-d7069fbf2d43" ShowCaption="False" Caption="Auto70704ce9-c4ff-4970-9e05-d7069fbf2d43(23)" Direction="Horizontal" Index="0" RelativeSize="15.607985480943739" IsNewNode="True">
-                <LayoutGroup Id="Auto8063d2d7-52e5-4af4-80e6-c26a5cd44210" ShowCaption="False" Caption="Auto8063d2d7-52e5-4af4-80e6-c26a5cd44210(24)" Index="0" RelativeSize="50" IsNewNode="True">
+              <LayoutGroup Id="Auto70704ce9-c4ff-4970-9e05-d7069fbf2d43" ShowCaption="False" Caption="Auto70704ce9-c4ff-4970-9e05-d7069fbf2d43(23)" Direction="Horizontal" Index="0" RelativeSize="10.287081339712918" IsNewNode="True">
+                <LayoutGroup Id="Auto8063d2d7-52e5-4af4-80e6-c26a5cd44210" ShowCaption="False" Caption="Auto8063d2d7-52e5-4af4-80e6-c26a5cd44210(24)" Index="0" RelativeSize="49.917898193760266" IsNewNode="True">
                   <LayoutItem Id="AutoImportFrom" ViewItem="AutoImportFrom" Index="0" RelativeSize="37.2093023255814" IsNewNode="True" />
                   <LayoutItem Id="AutoImportRegex" ViewItem="AutoImportRegex" Index="1" RelativeSize="27.906976744186046" IsNewNode="True" />
                   <LayoutItem Id="AutoImportSearchType" ViewItem="AutoImportSearchType" Index="2" RelativeSize="34.883720930232556" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutGroup Id="Auto1ee1d623-d266-4e51-bf36-70f63320c967" ShowCaption="False" Caption="Auto1ee1d623-d266-4e51-bf36-70f63320c967(28)" Index="1" RelativeSize="50" IsNewNode="True">
+                <LayoutGroup Id="Auto1ee1d623-d266-4e51-bf36-70f63320c967" ShowCaption="False" Caption="Auto1ee1d623-d266-4e51-bf36-70f63320c967(28)" Index="1" RelativeSize="50.082101806239734" IsNewNode="True">
                   <LayoutItem Id="StopAutoImportOnFailure" ViewItem="StopAutoImportOnFailure" Index="0" RelativeSize="37.2093023255814" IsNewNode="True" />
                   <LayoutItem Id="AutoImportNotification" ViewItem="AutoImportNotification" Index="1" RelativeSize="62.7906976744186" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="AutoImportedFiles" ViewItem="AutoImportedFiles" Index="1" RelativeSize="84.392014519056261" IsNewNode="True" />
+              <LayoutItem Id="AutoImportedFiles" ViewItem="AutoImportedFiles" Index="1" RelativeSize="89.712918660287087" IsNewNode="True" />
+              <LayoutItem Id="ExcelColumnMaps" Index="1" RelativeSize="47.727272727272727" Removed="True" />
             </LayoutGroup>
           </TabbedGroup>
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="ExcelImport_ExcelColumnMaps_ListView">
+      <Columns>
+        <ColumnInfo Id="PropertyType" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.LabelControlPropertyEditor" />
+      </Columns>
+    </ListView>
   </Views>
 </Application>

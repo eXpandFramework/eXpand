@@ -10,7 +10,7 @@ namespace Xpand.Persistent.Base {
     
     [NonPersistent]
     [DoNotNotify]
-    public abstract class XpandBaseCustomObject : XpandCustomObject {
+    public abstract class XpandBaseCustomObject : XpandCustomObject,IObjectSpaceLink {
         private bool _isDefaultPropertyAttributeInit;
         private XPMemberInfo _defaultPropertyMemberInfo;
         protected XpandBaseCustomObject(Session session) : base(session) {
@@ -41,5 +41,7 @@ namespace Xpand.Persistent.Base {
             object obj = _defaultPropertyMemberInfo?.GetValue(this);
             return obj?.ToString() ?? base.ToString();
         }
+
+        IObjectSpace IObjectSpaceLink.ObjectSpace { get; set; }
     }
 }
