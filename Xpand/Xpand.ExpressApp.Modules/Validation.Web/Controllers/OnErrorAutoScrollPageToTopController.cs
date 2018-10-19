@@ -81,7 +81,8 @@ namespace Xpand.ExpressApp.Validation.Web.Controllers {
         void ScrollWindowToTop() {
             var scriptKey = DateTime.Now.ToString(CultureInfo.InvariantCulture);
             const string script = "window.scrollTo(0, 0);";
-            WebWindow.CurrentRequestWindow.RegisterClientScript(scriptKey, script);
+            if (WebWindow.CurrentRequestWindow != null)
+                WebWindow.CurrentRequestWindow.RegisterClientScript(scriptKey, script);
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
