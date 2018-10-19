@@ -8,6 +8,6 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             FailedResults = new BindingList<FailedResult>();
         }
 
-        public BindingList<FailedResult> FailedResults{ get; }
+        public BindingList<FailedResult> FailedResults{ get; set; }
     }
 }

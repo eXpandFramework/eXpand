@@ -14,7 +14,6 @@ using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Validation;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
@@ -59,19 +58,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         protected virtual void ShowMapConfigView(ShowViewParameters parameters) {
             
         }
-
-        protected virtual DashboardView CreateView() {
-            var dashboardView = Application.CreateDashboardView(Application.CreateObjectSpace(), "ExcelColumnMapMasterDetail", true);
-            dashboardView.Disposing+= (o, args) => {
-                Frame.GetController<RefreshController>().RefreshAction.DoExecute();
-//                Observable.Start(async () => await Task.Delay(3000))
-//                    .Do(unit => Frame.GetController<RefreshController>().RefreshAction.DoExecute())
-//                    .Subscribe();
-
-            };
-            return dashboardView;
-        }
-
 
         private void Map() {
             ValidateFile();
@@ -129,11 +115,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         private void ImportActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
-            var importToTypeInfo = ExcelImport.Type.GetTypeInfo();
-            if (ExcelImport.ImportStrategy != ImportStrategy.CreateAlways && importToTypeInfo.GetKeyMember() == null)
-                throw new UserFriendlyException(
-                    $"{Application.Model.BOModel.GetClass(importToTypeInfo.Type)} DefaultMember is not set, please use the {nameof(ImportStrategy.CreateAlways)} strategy instead.");
-
             var progressBarViewItem = View.GetItems<ProgressViewItem>().First();
             progressBarViewItem.Start();
             var progressObserver = GetProgressObserver(ExcelImport,progressBarViewItem);
@@ -179,7 +160,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             Terminator.OnNext(Unit.Default);
             return progress.OfType<ImportProgressComplete>().Where(excelImport).FirstAsync()
                 .Select(Synchronise).Concat()
-                .Do(_ => progressBarViewItem.SetFinishOptions(GetFinishOptions(_, resultMessage)))
+                .Do(_ => {
+                    ExcelImport.FailedResultList.FailedResults = _.FailedResults;
+                    View.FindItem($"{nameof(BusinessObjects.ExcelImport.FailedResultList)}.{nameof(FailedResultList.FailedResults)}").Refresh();
+                    progressBarViewItem.SetFinishOptions(GetFinishOptions(_, resultMessage));
+                })
                 .ToUnit()
                 .Merge(Terminator);
         }
@@ -190,12 +175,12 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         protected virtual MessageOptions GetFinishOptions(ImportProgressComplete progressComplete,
             (string successMsg, string failedMsg) resultMessage){
-            var failedResults = ExcelImport.FailedResultList.FailedResults;
+            var failedResults = progressComplete.FailedResults;
             string message;
             var informationType=InformationType.Success;
             if (failedResults.Any()){
                 informationType = InformationType.Error;
-                message = string.Format(resultMessage.successMsg, failedResults.GroupBy(r => r.Index).Count(), progressComplete.FailedRecordsCount);
+                message = string.Format(resultMessage.failedMsg, failedResults.GroupBy(r => r.Index).Count(), progressComplete.FailedResults.Count);
             }
             else{
                 message =string.Format(resultMessage.successMsg, progressComplete.TotalRecordsCount);
