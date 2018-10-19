@@ -63,6 +63,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes = {
+                typeof(PopupWindowStateController),
                 typeof(CurrentProcessController),
                 typeof(RefreshObjectViewController),
                 typeof(DragNDropImageController),
