@@ -12,6 +12,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
+using Fasterflect;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -141,35 +142,40 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         private DetailView _detailView;
 
         private void ProcessSelectedItem(Object sender, CustomProcessListViewSelectedItemEventArgs e) {
-            if (e.InnerArgs.CurrentObject != null) {
+            var innerArgsCurrentObject = e.InnerArgs.CurrentObject;
+            if (innerArgsCurrentObject != null) {
                 e.Handled = true;
-                var detailViewModel = GetDetailViewModel(e);
-                if (detailViewModel!=_detailView.Model){
-                    if (_detailView.ObjectSpace != null)
-                        _detailView.ObjectSpace.Committed -= DetailViewObjectSpaceCommitted;
-
-                    _detailView.Close();
-                    _detailViewdashboardViewItem.Frame.SetView(null);
-                    var objectSpace = Application.CreateObjectSpace();
-
-                    var currentObject = objectSpace.GetObject(e.InnerArgs.CurrentObject);    
-                    _detailView = Application.CreateDetailView(objectSpace, detailViewModel.Id, true, currentObject);
-                    ConfigureDetailView(_detailView);
-                    _detailViewdashboardViewItem.Frame.SetView(_detailView, true, Frame);
-                }
-                else{
-                    if (((IModelDashoardViewMasterDetail) View.Model).AutoCommitB4CurrentObjectChanged)
-                        _detailView.ObjectSpace.CommitChanges();
-                    _detailView.CurrentObject = _detailView.ObjectSpace.GetObject(e.InnerArgs.CurrentObject);
-                }
+                ProcessSelectedItem(innerArgsCurrentObject);
             }
         }
 
-        private IModelDetailView GetDetailViewModel(CustomProcessListViewSelectedItemEventArgs e){
+        private void ProcessSelectedItem(object innerArgsCurrentObject){
+            var detailViewModel = GetDetailViewModel(innerArgsCurrentObject.GetType());
+            if (detailViewModel != _detailView.Model){
+                if (_detailView.ObjectSpace != null)
+                    _detailView.ObjectSpace.Committed -= DetailViewObjectSpaceCommitted;
+
+                _detailView.Close();
+                _detailViewdashboardViewItem.Frame.SetView(null);
+                var objectSpace = Application.CreateObjectSpace();
+
+                var currentObject = objectSpace.GetObject(innerArgsCurrentObject);
+                _detailView = Application.CreateDetailView(objectSpace, detailViewModel.Id, true, currentObject);
+                ConfigureDetailView(_detailView);
+                _detailViewdashboardViewItem.Frame.SetView(_detailView, true, Frame);
+            }
+            else{
+                if (((IModelDashoardViewMasterDetail) View.Model).AutoCommitB4CurrentObjectChanged&&_detailView.ObjectSpace.ModifiedObjects.Cast<object>().Any())
+                    _detailView.ObjectSpace.CommitChanges();
+                _detailView.CurrentObject = _detailView.ObjectSpace.GetObject(innerArgsCurrentObject);
+            }
+        }
+
+        private IModelDetailView GetDetailViewModel(Type currentObjectType){
             var detailViewModel = _detailView.Model;
             var linkGroup = ((IModelDashoardViewMasterDetail) View.Model).DetailViewObjectTypeLinkGroup;
             if (linkGroup != null){
-                var currentObjectModelClass = Application.Model.BOModel.GetClass(e.InnerArgs.CurrentObject.GetType());
+                var currentObjectModelClass = Application.Model.BOModel.GetClass(currentObjectType);
                 var modelDetailView =
                     linkGroup.DashboardDetailViewObjectTypeLinks.Where(link => link.ModelClass == currentObjectModelClass)
                         .Select(link => link.DetailView)
@@ -203,6 +209,15 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             _listView = (ListView)_listViewDashboardViewItem.InnerView;
             _listView.ObjectSpace.Committed -= ListViewObjectSpaceCommitted;
             _listView.ObjectSpace.Committed += ListViewObjectSpaceCommitted;
+            if (Application.GetPlatform()==Platform.Win) {
+                _listView.CurrentObjectChanged-=ListViewOnCurrentObjectChanged;
+                _listView.CurrentObjectChanged+=ListViewOnCurrentObjectChanged;
+            }
+        }
+
+        private void ListViewOnCurrentObjectChanged(object sender, EventArgs e) {
+            var listView = ((ListView) sender);
+            listView.Editor.CallMethod("OnProcessSelectedItem");
         }
 
         private void DisableListViewFastCallbackHandlerController(Frame frame){
@@ -315,8 +330,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             var viewShortcut = choiceActionItem.Data as ViewShortcut;
             if (viewShortcut != null) {
                 var viewId = viewShortcut.ViewId;
-                var modelDashboardView = Application.Model.Views[viewId] as IModelDashboardView;
-                if (modelDashboardView != null && ((IModelDashoardViewMasterDetail)modelDashboardView).MasterDetail) {
+                if (Application.Model.Views[viewId] is IModelDashboardView modelDashboardView && ((IModelDashoardViewMasterDetail)modelDashboardView).MasterDetail) {
                     var type = modelDashboardView.Items.OfType<IModelDashboardViewItem>().Select(item => item.View.AsObjectView.ModelClass.TypeInfo.Type).First();
                     return SecuritySystem.CurrentUser != null && !SecuritySystem.IsGranted(ObjectSpace, type, SecurityOperations.ReadOnlyAccess, null, null);
                 }
