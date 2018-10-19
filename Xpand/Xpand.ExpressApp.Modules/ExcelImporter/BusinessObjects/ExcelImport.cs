@@ -163,6 +163,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             HeaderRows = 1;
             File=new XpandFileData();
             FailedResultList=new FailedResultList();
+            ImportStrategy=ImportStrategy.UpdateOrCreate;
         }
         
         protected override void OnLoaded(){
@@ -268,6 +269,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         CreateAlways,
         UpdateOrCreate,
         SkipOrCreate,
-        UpdateOnly
+        UpdateOnly,
+        FailNotFound
     }
 }
