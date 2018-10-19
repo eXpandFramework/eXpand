@@ -38,17 +38,19 @@
         <LayoutGroup Id="Main" RelativeSize="100">
           <LayoutGroup Id="SimpleEditors" RelativeSize="100">
             <LayoutGroup Id="ExcelColumnMap" Caption="ExcelColumnMap" RelativeSize="100" Direction="Horizontal">
-              <LayoutGroup Id="Auto8a7854fc-5e90-453f-a4e3-2305ac9c6bf9" ShowCaption="False" Caption="Auto8a7854fc-5e90-453f-a4e3-2305ac9c6bf9(4)" Index="0" RelativeSize="45.84592145015106" IsNewNode="True">
+              <LayoutGroup Id="Auto8a7854fc-5e90-453f-a4e3-2305ac9c6bf9" ShowCaption="False" Caption="Auto8a7854fc-5e90-453f-a4e3-2305ac9c6bf9(4)" Index="0" RelativeSize="49.448818897637793" IsNewNode="True">
                 <LayoutItem Id="ExcelColumnName" ViewItem="ExcelColumnName" Index="0" RelativeSize="3.0888030888030888" IsNewNode="True" />
                 <LayoutGroup Id="Auto19fa7d4f-4627-4a41-87ba-9ed9495a2109" ShowCaption="False" Caption="Auto19fa7d4f-4627-4a41-87ba-9ed9495a2109(6)" Direction="Vertical" Index="1" RelativeSize="96.91119691119691" IsNewNode="True">
                   <LayoutItem Id="PropertyName" ViewItem="PropertyName" Index="0" RelativeSize="2.9880478087649402" IsNewNode="True" />
-                  <LayoutItem Id="ImportStrategy" ViewItem="ImportStrategy" Index="1" RelativeSize="97.011952191235054" IsNewNode="True" />
+                  <LayoutItem Id="ImportStrategy" ViewItem="ImportStrategy" Index="1" RelativeSize="2.3904382470119523" IsNewNode="True" />
+                  <LayoutItem Id="SkipEmpty" ViewItem="SkipEmpty" Index="2" RelativeSize="94.621513944223111" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
               <LayoutItem Id="ExcelColumnName" ViewItem="ExcelColumnName" Index="0" RelativeSize="51.612903225806448" Removed="True" />
               <LayoutItem Id="ImportStrategy" Index="1" RelativeSize="48.387096774193552" Removed="True" />
-              <LayoutItem Id="MemberTypeValues" ViewItem="MemberTypeValues" Index="1" RelativeSize="54.15407854984894" IsNewNode="True" />
+              <LayoutItem Id="MemberTypeValues" ViewItem="MemberTypeValues" Index="1" RelativeSize="50.551181102362207" IsNewNode="True" />
               <LayoutItem Id="PropertyName" Removed="True" />
+              <LayoutItem Id="SkipEmpty" Removed="True" />
             </LayoutGroup>
           </LayoutGroup>
           <LayoutGroup Id="MemberTypeValues_Group" Direction="Horizontal" RelativeSize="91.023166023166027" Caption="Member Type Values" Removed="True">
@@ -168,8 +170,8 @@
       <Columns>
         <ColumnInfo Id="ExcelColumnName" Width="126" />
         <ColumnInfo Id="ExcelColumnValue" Index="1" Width="112" />
-        <ColumnInfo Id="Index" SortOrder="Ascending" GroupIndex="0" />
         <ColumnInfo Id="ImportedObject" Index="3" Width="99" />
+        <ColumnInfo Id="Index" SortOrder="Ascending" GroupIndex="0" />
       </Columns>
       <HiddenActions>
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />

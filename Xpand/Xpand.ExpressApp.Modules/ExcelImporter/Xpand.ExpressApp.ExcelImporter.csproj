@@ -149,7 +149,6 @@
     <Compile Include="BusinessObjects\AutoImportedFile.cs" />
     <Compile Include="BusinessObjects\ExcelColumnMap.cs" />
     <Compile Include="BusinessObjects\ExcelColumnMapMemberTypeValue.cs" />
-    <Compile Include="Controllers\ExcelColumnMapController.cs" />
     <Compile Include="BusinessObjects\ExcelImport.cs" />
     <Compile Include="BusinessObjects\FailedResult.cs" />
     <Compile Include="BusinessObjects\FailedResultList.cs" />

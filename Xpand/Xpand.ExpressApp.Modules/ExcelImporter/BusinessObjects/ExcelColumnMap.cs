@@ -29,9 +29,17 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             
         }
 
+        bool _skipEmpty;
+
+        public bool SkipEmpty {
+            get => _skipEmpty;
+            set => SetPropertyValue(nameof(SkipEmpty), ref _skipEmpty, value);
+        }
+
         public override void AfterConstruction() {
             base.AfterConstruction();
             ImportStrategy=PersistentTypesImportStrategy.UpdateOrCreate;
+            SkipEmpty = true;
         }
 
 

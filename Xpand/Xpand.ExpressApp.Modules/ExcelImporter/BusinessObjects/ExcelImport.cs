@@ -251,7 +251,6 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
     public enum PersistentTypesImportStrategy {
         UpdateOrCreate,
-        SkipEmpty,
         CreateAlways,
         FailNotFound,
         UpdateOnly
