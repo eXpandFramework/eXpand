@@ -88,6 +88,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 var columnValue = dataRow[importParameter.Map.ExcelColumnName];
                 var notSkipEmpty = importParameter.MemberInfo.MemberTypeInfo.IsPersistent&& (importParameter.Map.ImportStrategy == PersistentTypesImportStrategy.SkipEmpty &&
                                     (columnValue == DBNull.Value || ReferenceEquals(columnValue, string.Empty)));
+
                 var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
                 if (!notSkipEmpty ){
                     var failedResult = Import(columnValue, importParameter, importToObject, objectSpace);
@@ -161,12 +162,10 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                     throw new ReferenceObjectNotFoundException(type, criteria);
                 return referenceObject;
             }
-            if (importStrategy == PersistentTypesImportStrategy.SkipOrCreate) {
-                return referenceObject != null ? null : objectSpace.CreateObject(type);
-            }
             if (importStrategy == PersistentTypesImportStrategy.UpdateOnly) {
                 return referenceObject;
             }
+
             return referenceObject ?? objectSpace.CreateObject(type);
         }
 

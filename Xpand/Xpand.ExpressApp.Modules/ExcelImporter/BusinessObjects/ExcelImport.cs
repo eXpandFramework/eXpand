@@ -253,7 +253,6 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         UpdateOrCreate,
         SkipEmpty,
         CreateAlways,
-        SkipOrCreate,
         FailNotFound,
         UpdateOnly
     }

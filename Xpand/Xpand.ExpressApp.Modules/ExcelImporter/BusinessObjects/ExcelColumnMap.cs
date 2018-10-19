@@ -29,8 +29,11 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             
         }
 
-        
-        
+        public override void AfterConstruction() {
+            base.AfterConstruction();
+            ImportStrategy=PersistentTypesImportStrategy.UpdateOrCreate;
+        }
+
 
         bool _isAbstract;
 
