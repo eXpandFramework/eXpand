@@ -86,11 +86,10 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             var results=new List<FailedResult>();
             foreach (var importParameter in importParameterses){
                 var columnValue = dataRow[importParameter.Map.ExcelColumnName];
-                var notSkipEmpty = importParameter.MemberInfo.MemberTypeInfo.IsPersistent&& (importParameter.Map.ImportStrategy == PersistentTypesImportStrategy.SkipEmpty &&
+                var skipEmpty = importParameter.MemberInfo.MemberTypeInfo.IsPersistent&& (importParameter.Map.SkipEmpty &&
                                     (columnValue == DBNull.Value || ReferenceEquals(columnValue, string.Empty)));
-
-                var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
-                if (!notSkipEmpty ){
+                if (!skipEmpty ){
+                    var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
                     var failedResult = Import(columnValue, importParameter, importToObject, objectSpace);
                     if (failedResult!=null) {
                         results.Add(failedResult);
@@ -155,7 +154,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             var importStrategy = importParameter.Map.ImportStrategy;
             if (importStrategy == PersistentTypesImportStrategy.CreateAlways)
                 return objectSpace.CreateObject(type);
-            var criteria = CriteriaOperator.Parse($"{keyMember.Name}=?", result);
+            var criteria =result==null?new NullOperator(keyMember.Name) : CriteriaOperator.Parse($"{keyMember.Name}=?", result);
             var referenceObject = objectSpace.FindObject(type, criteria, true);
             if (importStrategy == PersistentTypesImportStrategy.FailNotFound) {
                 if (referenceObject == null)
