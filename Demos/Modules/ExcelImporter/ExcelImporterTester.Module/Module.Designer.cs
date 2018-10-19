@@ -1,4 +1,4 @@
-﻿namespace ExcelImporterTester.Module {
+namespace ExcelImporterTester.Module {
 	partial class ExcelImporterTesterModule {
 		/// <summary> 
 		/// Required designer variable.

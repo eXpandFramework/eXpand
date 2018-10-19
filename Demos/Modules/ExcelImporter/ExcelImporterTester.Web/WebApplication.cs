@@ -26,8 +26,7 @@ namespace ExcelImporterTester.Web{
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
-            args.ObjectSpaceProvider =
-                new XPObjectSpaceProvider(GetDataStoreProvider(args.ConnectionString, args.Connection), true);
+            args.ObjectSpaceProvider =new XPObjectSpaceProvider(GetDataStoreProvider(args.ConnectionString, args.Connection), true);
             args.ObjectSpaceProviders.Add(new NonPersistentObjectSpaceProvider(TypesInfo, null));
         }
 

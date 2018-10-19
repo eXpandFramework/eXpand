@@ -52,7 +52,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
                     var calculate = modelNode.GetValue(propertyName);
                     if (calculate != null && calculate.GetType().IsEnum) {
                         var propertyType = node.GetValueInfo(propertyName).PropertyType;
-                        if (IsNullableType(propertyType)) {
+                        if (propertyType.IsNullableType()) {
                             var genericArgument = propertyType.GetGenericArguments()[0];
                             if (genericArgument != calculate.GetType())
                                 return Enum.Parse(genericArgument, ((int)calculate).ToString(CultureInfo.InvariantCulture));
@@ -63,13 +63,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             }
             throw new NotImplementedException(propertyName);
         }
-        public bool IsNullableType(Type theType) {
-            if (theType.IsGenericType) {
-                var genericTypeDefinition = theType.GetGenericTypeDefinition();
-                if (genericTypeDefinition != null) return (genericTypeDefinition == typeof(Nullable<>));
-            }
-            return false;
-        }
+        
     }
 
     public interface IModelApplicationModelAdapterContexts:IModelApplication{
