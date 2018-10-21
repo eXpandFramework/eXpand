@@ -1,3 +1,12 @@
+[![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expand/expandframeowork/releases/latest) 
+[![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues)
+[![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/network)
+
+
+
+
+
 |  | Build | Nuget
 |----------|--------|--------
 Stable|[![Build status](https://dev.azure.com/eXpandDevOps/eXpandFramework/_apis/build/status/eXpandFramework-Release)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=7)|https://api-v2v3search-0.nuget.org/query?q=eXpandFramework</br>OR</br>nuget.exe list author:eXpandFramework
