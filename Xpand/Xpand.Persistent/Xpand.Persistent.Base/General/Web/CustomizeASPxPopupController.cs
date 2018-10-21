@@ -40,25 +40,28 @@ namespace Xpand.Persistent.Base.General.Web{
         private void PopupWindowControlOnCustomizePopupControl(object sender, CustomizePopupControlEventArgs e){
             var popupWindowControl = ((XafPopupWindowControl)sender);
             popupWindowControl.CustomizePopupControl -= PopupWindowControlOnCustomizePopupControl;
-            new ObjectModelSynchronizer(e.PopupControl, ((IModelViewPopup) View.Model).PopupControl).ApplyModel();
+            if (View != null)
+                new ObjectModelSynchronizer(e.PopupControl, ((IModelViewPopup) View.Model).PopupControl).ApplyModel();
         }
 
         private void XafPopupWindowControl_CustomizePopupWindowSize(object sender, CustomizePopupWindowSizeEventArgs e) {
             var popupWindowControl = ((XafPopupWindowControl) sender);
             popupWindowControl.CustomizePopupWindowSize -= XafPopupWindowControl_CustomizePopupWindowSize;
-            var popupControl = ((IModelViewPopup)View.Model).PopupControl;
-            var height = popupControl.GetValue<Unit>("Height");
-            var width = popupControl.GetValue<Unit>("Width");
-            if (!height.IsEmpty && !width.IsEmpty){
-                e.Size = new Size((int) height.Value, (int) width.Value);
-                e.Handled = true;
-            }
-            if (popupControl.ShowPopupMode.HasValue)
-                e.ShowPopupMode=popupControl.ShowPopupMode.Value;
-            if (popupControl.PopupTemplateType.HasValue)
-                e.PopupTemplateType=popupControl.PopupTemplateType.Value;
-            if (!e.Handled && popupControl.ShowPopupMode.HasValue || popupControl.ShowPopupMode.HasValue) {
-                e.Handled = true;
+            if (View != null){
+                var popupControl = ((IModelViewPopup)View.Model).PopupControl;
+                var height = popupControl.GetValue<Unit>("Height");
+                var width = popupControl.GetValue<Unit>("Width");
+                if (!height.IsEmpty && !width.IsEmpty){
+                    e.Size = new Size((int) height.Value, (int) width.Value);
+                    e.Handled = true;
+                }
+                if (popupControl.ShowPopupMode.HasValue)
+                    e.ShowPopupMode=popupControl.ShowPopupMode.Value;
+                if (popupControl.PopupTemplateType.HasValue)
+                    e.PopupTemplateType=popupControl.PopupTemplateType.Value;
+                if (!e.Handled && popupControl.ShowPopupMode.HasValue || popupControl.ShowPopupMode.HasValue) {
+                    e.Handled = true;
+                }
             }
         }
 
