@@ -7,7 +7,6 @@ using System.Threading;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
@@ -57,7 +56,6 @@ namespace Xpand.Persistent.Base.General {
         public static bool UseGuidKey = true;
         static Type _sequenceObjectType;
         static IDataLayer _defaultDataLayer;
-        static SequenceGenerator _sequenceGenerator;
         public const int MaxGenerationAttemptsCount = 10;
         public const int MinGenerationAttemptsDelay = 100;
         private readonly ExplicitUnitOfWork _explicitUnitOfWork;
@@ -106,11 +104,11 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void SetNextSequence(ITypeInfo typeInfo, string prefix, long nextId) {
-            var objectByKey = _sequenceGenerator._explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(prefix+typeInfo.FullName), true);
-            _sequenceGenerator._sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(prefix + typeInfo.FullName, _sequenceGenerator._explicitUnitOfWork);
-            _sequenceGenerator._sequence.NextSequence = nextId;
-            _sequenceGenerator._explicitUnitOfWork.FlushChanges();
-            _sequenceGenerator.Accept();
+            var objectByKey = Instance._explicitUnitOfWork.FindObject(_sequenceObjectType, GetCriteria(prefix+typeInfo.FullName), true);
+            Instance._sequence = objectByKey != null ? (ISequenceObject)objectByKey : CreateSequenceObject(prefix + typeInfo.FullName, Instance._explicitUnitOfWork);
+            Instance._sequence.NextSequence = nextId;
+            Instance._explicitUnitOfWork.FlushChanges();
+            Instance.Accept();
         }
 
 
@@ -234,6 +232,7 @@ namespace Xpand.Persistent.Base.General {
             using (var objectSpace = ApplicationHelper.Instance.Application.CreateObjectSpace()){
                 long seq = 0;
                 GenerateSequence(objectSpace.Session(), sequenceName,l => seq=l);
+                Instance.Accept();
                 return seq;
             }
         }
@@ -245,19 +244,16 @@ namespace Xpand.Persistent.Base.General {
 
         public static void GenerateSequence(Session session, string sequenceType,Action<long> seq){
             if (CanGenerate(session) ) {
-                long nextSequence = _sequenceGenerator.GetNextSequence(sequenceType);
-                SessionManipulationEventHandler[] sessionOnAfterCommitTransaction = { null };
-                sessionOnAfterCommitTransaction[0] = (sender, args) => {
-                    try {
-                        _sequenceGenerator.Accept();
-                    }
-                    finally {
-                        session.AfterCommitTransaction -= sessionOnAfterCommitTransaction[0];
-                    }
-                };
-                session.AfterCommitTransaction += sessionOnAfterCommitTransaction[0];
+                long nextSequence = Instance.GetNextSequence(sequenceType);
+                session.AfterCommitTransaction += SessionOnAfterCommitTransaction;
                 seq( nextSequence);
             }
+        }
+
+        private static void SessionOnAfterCommitTransaction(object sender, SessionManipulationEventArgs e) {
+            ((Session) sender).AfterCommitTransaction -= SessionOnAfterCommitTransaction;
+            Instance.Accept();
+
         }
 
         public static void GenerateSequence(ISupportSequenceObject supportSequenceObject, ITypeInfo typeInfo) {
@@ -268,8 +264,7 @@ namespace Xpand.Persistent.Base.General {
         private static bool CanGenerate(Session session){
             if (ApplicationHelper.Instance.Application != null && ApplicationHelper.Instance.Application.Security.IsRemoteClient())
                 return false;
-            if (_defaultDataLayer == null || 
-                (session.ObjectLayer is SecuredSessionObjectLayer) || session is NestedUnitOfWork)
+            if (_defaultDataLayer == null ||  session is NestedUnitOfWork)
                 return false;
             if (!IsProviderSupported(session)) {
                 if (ThrowProviderSupportedException)
@@ -303,13 +298,14 @@ namespace Xpand.Persistent.Base.General {
         public static void Initialize(IDataLayer dataLayer, Type sequenceObjectType) {
             Guard.ArgumentNotNull(dataLayer,"datalayer");
             Guard.ArgumentNotNull(sequenceObjectType, "sequenceObjectType");
-            _sequenceGenerator = null;
+            Instance = null;
             _sequenceObjectType = sequenceObjectType;
             _defaultDataLayer = dataLayer;
             RegisterSequences(ApplicationHelper.Instance.Application.TypesInfo.PersistentTypes);
-            _sequenceGenerator = new SequenceGenerator();
+            Instance = new SequenceGenerator();
         }
 
+        private static SequenceGenerator Instance { get; set; }
 
         public static void Initialize(string connectionString, Type sequenceObjectType) {
             if (IsFactorySupported(connectionString)) {
