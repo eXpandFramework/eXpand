@@ -38,6 +38,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [Appearance("Disable DeviceCategory for win models", AppearanceItemType.ViewItem,
         "EndsWith([" + nameof(PersistentApplication) + "." + nameof(BaseObjects.PersistentApplication.ExecutableName) +"], '.exe')", 
         Enabled = false, TargetItems = nameof(DeviceCategory))]
+    [RuleCombinationOfPropertiesIsUnique(nameof(PersistentApplication)+","+nameof(DifferenceType)+","+nameof(CombineOrder))]
     public class ModelDifferenceObject : XpandCustomObject, IXpoModelDifference {
         public  const string DefaultListViewName="MDO_ListView";
         public const string DefaultDetailViewName = "MDO_DetailView";
@@ -126,12 +127,12 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [NonPersistent]
         public ModelApplicationBase Model => _currentModel;
 
-        [RuleUniqueValue]
-        [Indexed(Unique = true)]
         public int CombineOrder {
             get => _combineOrder;
             set => SetPropertyValue(nameof(CombineOrder), ref _combineOrder, value);
         }
+
+
         [NonCloneable]
         [ExpandObjectMembers(ExpandObjectMembers.Never)]
         [RuleRequiredField(null, DefaultContexts.Save)]

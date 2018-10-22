@@ -154,8 +154,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         }
 
         private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
-            var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
-            if (securityStrategy != null) {
+            if (((XafApplication)sender).Security is SecurityStrategy securityStrategy) {
                 (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
             }
         }
@@ -167,6 +166,7 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB){
             yield return new Updater(objectSpace, versionFromDB);
             yield return new DeviceCategoryUpdater(objectSpace, versionFromDB);
+            yield return new CombineOrderUpdater(objectSpace, versionFromDB);
         }
 
         void BuildSecuritySystemObjects() {

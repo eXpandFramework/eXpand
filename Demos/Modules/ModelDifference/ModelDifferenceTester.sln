@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelDifferenceTester.Module", "ModelDifferenceTester.Module\ModelDifferenceTester.Module.csproj", "{C7BC3285-7F52-461A-B9B2-F99EF12068BF}"
 EndProject
@@ -33,6 +33,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Win", "..\..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj", "{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj", "{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Utils", "..\..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj", "{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,6 +193,12 @@ Global
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Test|Any CPU.ActiveCfg = Release|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Test|Any CPU.Build.0 = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -206,5 +214,9 @@ Global
 		{3A83F2D3-A5DD-438A-AD03-041883B1D6AD} = {90AEAF1A-44B4-4A42-B55B-FE02896FA290}
 		{C88FF08D-3819-41C0-A1F2-F4FF0CDFE99D} = {919B3C45-7119-4307-81B0-3B245789129E}
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE} = {919B3C45-7119-4307-81B0-3B245789129E}
+		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7} = {919B3C45-7119-4307-81B0-3B245789129E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F79287E9-7327-4480-81A6-A2985D075B3D}
 	EndGlobalSection
 EndGlobal

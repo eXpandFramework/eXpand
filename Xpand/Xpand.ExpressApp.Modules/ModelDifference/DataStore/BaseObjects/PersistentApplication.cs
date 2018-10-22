@@ -22,25 +22,25 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         [RuleRequiredField(null, DefaultContexts.Save)]
         [Persistent]
         public string Name {
-            get { return _name; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _name, value); }
+            get => _name;
+            set => SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _name, value);
         }
 
         [RuleUniqueValue(null, DefaultContexts.Save)]
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
         public string UniqueName {
-            get { return _uniqueName; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _uniqueName, value); }
+            get => _uniqueName;
+            set => SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _uniqueName, value);
         }
 
         [RuleUniqueValue(null, DefaultContexts.Save)]
         [Browsable(false)]
         [MemberDesignTimeVisibility(false)]
         public string ExecutableName {
-            get { return _executableName; }
+            get => _executableName;
 
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _executableName, value); }
+            set => SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _executableName, value);
         }
         #endregion
         public override void AfterConstruction() {
