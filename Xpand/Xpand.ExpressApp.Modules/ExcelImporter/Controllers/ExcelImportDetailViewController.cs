@@ -27,10 +27,9 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         public ExcelImportDetailViewController(){
             MapAction = new SingleChoiceAction(this, ExcelMapActionName, "ExcelImport") {
-                Caption = "Map", ItemType = SingleChoiceActionItemType.ItemIsOperation
+                 ItemType = SingleChoiceActionItemType.ItemIsOperation
             };
-            MapAction.Items.Add(new ChoiceActionItem("Map", "Map"));
-            MapAction.Items.Add(new ChoiceActionItem("Configure", "Configure"));
+            UpdateMapAction();
             MapAction.Execute+=ExcelMappingActionOnExecute;
             ImportAction = new SimpleAction(this,ImportExcelActionName,"ExcelImport"){Caption = "Import"};
             ImportAction.Execute+=ImportActionOnExecute;
@@ -52,7 +51,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             else {
                 Map();
             }
-
         }
 
         protected virtual void ShowMapConfigView(ShowViewParameters parameters) {
@@ -61,9 +59,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         private void Map() {
             ValidateFile();
-            
             ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
-
             var excelImport = ExcelImport;
             excelImport.Map();
             var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
@@ -72,13 +68,30 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 listPropertyEditor.ListView.CollectionSource.Add(columnMap);    
             }
             View.FindItem(nameof(BusinessObjects.ExcelImport.ExcelColumnMaps)).Refresh();
-
-            
+            UpdateMapAction();
         }
 
         protected override void OnActivated(){
             base.OnActivated();
+            if (ExcelImport.ExcelColumnMaps.Any()) {
+                UpdateMapAction();
+            }
             ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
+        }
+
+        private void UpdateMapAction(){
+            if (View == null||!ExcelImport.ExcelColumnMaps.Any()) {
+                MapAction.Items.Clear();
+                MapAction.Items.Add(new ChoiceActionItem("Map", "Map"));
+                MapAction.Items.Add(new ChoiceActionItem("Configure", "Configure"));
+                MapAction.Caption = MapAction.Items.First().Caption;
+            }
+            else if (ExcelImport.ExcelColumnMaps.Any(map => map.IsAbstract&&!map.MemberTypeValues.Any())) {
+                MapAction.Items.Clear();
+                MapAction.Items.Add(new ChoiceActionItem("Configure", "Configure"));
+                MapAction.Items.Add(new ChoiceActionItem("Map", "Map"));
+                MapAction.Caption = MapAction.Items.First().Caption;
+            }
         }
 
         protected override void OnDeactivated(){
@@ -99,6 +112,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         protected virtual void TypeChange(){
+            UpdateMapAction();
         }
 
         private void ImportActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){

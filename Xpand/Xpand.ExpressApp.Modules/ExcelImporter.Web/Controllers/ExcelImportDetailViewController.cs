@@ -52,14 +52,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
         }
 
         private void ASPxGridListEditorOnControlsCreated(object sender, EventArgs e) {
-            _asPxGridListEditor.Grid.BatchUpdate += (o, args) => {
-                View.ObjectSpace.CommitChanges();
-                var viewShortcut = View.CreateShortcut();
-                if(Frame.SetView(null)) {
-                    Frame.SetView(Application.ProcessShortcut(viewShortcut));
-                }
-            };
-                
             PopulatePropertyNames();
         }
 

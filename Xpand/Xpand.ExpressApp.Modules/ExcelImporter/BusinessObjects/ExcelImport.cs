@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -24,8 +23,6 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     
     [DefaultClassOptions]
     [DefaultProperty(nameof(Name))]
-    [Appearance("Disable import if abstracts on column maps", AppearanceItemType.Action, nameof(CanImport) + "=False",
-        TargetItems = ExcelImportDetailViewController.ImportExcelActionName, Enabled = false)]
     public class ExcelImport : XpandBaseCustomObject {
         private const string TargetContextIDs = ExcelImportDetailViewController.ExcelMapActionName + ";" +
                                             ExcelImportDetailViewController.ImportExcelActionName+";Save";
@@ -112,11 +109,6 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(ColumnMappingRegexPattern), ref _columnMappingRegexPattern, value);
         }
 
-        [Browsable(false)]
-        [RuleFromBoolProperty(TargetContextIDs = "Save;"+ExcelImportDetailViewController.ImportExcelActionName)]
-        public bool ValidMap {
-            get { return ExcelColumnMaps.Any()&& ExcelColumnMaps.All(map => map.PropertyType != null); }
-        }
 
         [Browsable(false)]
         public List<string> TypePropertyNames{
@@ -191,6 +183,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         [Association("ExcelImport-ExcelColumnMaps")][Aggregated]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
         [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName)]
+
         public XPCollection<ExcelColumnMap> ExcelColumnMaps => GetCollection<ExcelColumnMap>(nameof(ExcelColumnMaps));
 
          Type _type;

@@ -16,14 +16,13 @@ using Xpand.Persistent.Base.General.ValueConverters;
 using EditorAliases = DevExpress.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
-    [Appearance("Abstract Types", AppearanceItemType.ViewItem,
-        nameof(IsAbstract) + "=True AND " + nameof(MemberTypeValues) + ".Count=0", TargetItems = nameof(PropertyType), FontColor = "Red",
-        Context = "ListView")]
-    [Appearance("keyMember", AppearanceItemType.ViewItem,
-        nameof(KeyMemberExists) + "=False" , TargetItems = nameof(PropertyName), FontColor = "Red",FontStyle = FontStyle.Bold|FontStyle.Strikeout,
-        Context = "ListView")]
+    [Appearance("Abstract Types", AppearanceItemType.ViewItem,criteria: AbstractCriteria, TargetItems = nameof(PropertyType), FontColor = "Red",Context = "ListView")]
+    [Appearance("keyMember", AppearanceItemType.ViewItem,nameof(KeyMemberExists) + "=False" , TargetItems = nameof(PropertyName), FontColor = "Red",FontStyle = FontStyle.Bold|FontStyle.Strikeout,Context = "ListView")]
     [XafDefaultProperty(nameof(PropertyName))]
-    public class ExcelColumnMap : XpandBaseCustomObject{
+
+    public class ExcelColumnMap : XpandBaseCustomObject {
+        public const string AbstractCriteria =
+            nameof(IsAbstract) + "=True AND " + nameof(MemberTypeValues) + ".Count=0";
         private ExcelImport _excelImport;
 
         public ExcelColumnMap(Session session) : base(session){
@@ -45,6 +44,9 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
 
         bool _isAbstract;
+
+        [RuleFromBoolProperty(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName,
+            InvertResult = true, TargetCriteria = AbstractCriteria, CustomMessageTemplate = "Abstract type found. Please configure the map to select a different type.",UsedProperties = nameof(PropertyType))]
         [InvisibleInAllViews]
         public bool IsAbstract {
             get => _isAbstract;

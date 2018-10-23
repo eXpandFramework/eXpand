@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Description="aaa">
+<Application>
   <BOModel>
     <Class Name="Xpand.ExpressApp.ExcelImporter.BusinessObjects.ExcelColumnMap">
       <OwnMembers>
@@ -75,6 +75,9 @@
         <ColumnInfo Id="Type" Index="0" />
         <ColumnInfo Id="RegexValue" Width="149" Index="1" />
       </Columns>
+      <HiddenActions>
+        <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
+      </HiddenActions>
     </ListView>
     <DashboardView Id="ExcelColumnMapMasterDetail" AutoCommitB4CurrentObjectChanged="True" Caption="Map columns to members" IsNewNode="True">
       <Items IsNewNode="True">
@@ -139,10 +142,12 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
-    <ListView Id="ExcelImport_ExcelColumnMaps_ListView" HideToolBar="True" AutoCommit="True">
+    <ListView Id="ExcelImport_ExcelColumnMaps_ListView" HideToolBar="True" AutoCommit="True" AllowEdit="True">
       <Columns>
         <ColumnInfo Id="ExcelColumnName" AllowEdit="False" Index="0" />
         <ColumnInfo Id="PropertyName" Width="92" Index="1" />
+        <ColumnInfo Id="PropertyType" AllowEdit="False" Index="2" />
+        <ColumnInfo Id="SkipEmpty" Index="3" />
       </Columns>
       <HiddenActions>
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />

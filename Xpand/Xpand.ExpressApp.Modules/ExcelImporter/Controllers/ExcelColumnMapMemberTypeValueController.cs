@@ -13,11 +13,14 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         protected IEnumerable<Type> GetTypes(){
-            var propertyType = ExcelColumnMap.PropertyType;
-            var types = new[]{propertyType}
-                .Concat(propertyType.GetTypeInfo().Descendants.Select(info => info.Type))
-                .Where(type => !type.IsAbstract);
-            return types;
+            if (ExcelColumnMap != null){
+                var propertyType = ExcelColumnMap.PropertyType;
+                var types = new[]{propertyType}
+                    .Concat(propertyType.GetTypeInfo().Descendants.Select(info => info.Type))
+                    .Where(type => !type.IsAbstract);
+                return types;
+            }
+            return Enumerable.Empty<Type>();
         }
 
         protected override void OnActivated() {

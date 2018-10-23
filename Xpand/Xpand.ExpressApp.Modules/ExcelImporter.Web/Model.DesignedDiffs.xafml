@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
-  <BOModel>
-    
-  </BOModel>
   <Options>
     <LayoutManagerOptions RequiredFieldMark="*" />
   </Options>
@@ -50,6 +47,7 @@
         <ColumnInfo Id="PropertyName" PropertyEditorType="DevExpress.ExpressApp.Web.Editors.ASPx.ASPxStringPropertyEditor" />
       </Columns>
       <GridViewOptions>
+        <Settings ShowStatusBar="Hidden" />
         <SettingsPager Mode="ShowAllRecords" />
       </GridViewOptions>
       <HiddenActions>
