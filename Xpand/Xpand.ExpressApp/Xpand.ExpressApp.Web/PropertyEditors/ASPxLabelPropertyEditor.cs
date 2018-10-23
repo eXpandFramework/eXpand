@@ -12,9 +12,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         protected override WebControl CreateEditModeControlCore(){
-            var textEdit = (ASPxTextEdit)base.CreateEditModeControlCore();
+            var textEdit = (ASPxTextBox)base.CreateEditModeControlCore();
             textEdit.ReadOnlyStyle.Border.BorderWidth = 0;
-            textEdit.ReadOnly = true;    
+            textEdit.ReadOnly = true;
+            textEdit.DisplayFormatString = Model.DisplayFormat;
+            textEdit.MaskSettings.Mask = Model.EditMask;
             return textEdit;
         }
     }
