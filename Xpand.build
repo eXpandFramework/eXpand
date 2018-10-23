@@ -139,8 +139,8 @@
     <MSBuild Projects="@(DemoSolutions)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false"/>
     <MSBuild Projects="Demos\WorkflowDemo\WorkflowDemo.sln" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);DefineConstants=CodeFirst;RestorePackages=false" Condition="'$(WorkFlowDemo)'=='true'"/>
     <MSBuild Projects="@(DemoTesterProjects)" Targets="Build" Properties="Configuration=$(Configuration);OutputPath=$(XpandDLLPath);RestorePackages=false"/>
-    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"  Condition="'$(Configuration)'=='EasyTest'"/>
-    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"  Condition="'$(Configuration)'=='EasyTest'"/>
+    <MSBuild Projects="Support\XpandTestExecutor\XpandTestExecutor.sln" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false"  />
+    <MSBuild Projects="Support\XpandTestExecutor\RDClient\RDClient.csproj" Targets="Build" Properties="Configuration=Debug;OutputPath=$(XpandDLLPath);RestorePackages=false" />
     <ItemGroup>
       <DxAssemblies Include="$(XpandDLLPath)\**\DevExpress*.*" ></DxAssemblies>
     </ItemGroup>
@@ -309,7 +309,7 @@
     <Copy SourceFiles="@(EasytestReqs)" DestinationFolder="%(EasyTests.RelativeDir)"/>
   </Target>
   <Target Name="RunEasyTests">
-	<CallTarget Targets='BuildEasyTest' ></CallTarget>
+	  <CallTarget Targets='BuildEasyTest' ></CallTarget>
     <Delete Files="@(EasyTestLogs)"/>	
     <CallTarget Targets="CopyEasyTestReqs"/>
     <WriteLinesToFile File="$(XpandDLLPath)\easytests.txt" Lines="@(EasyTests)" Overwrite="true"></WriteLinesToFile>
