@@ -12,7 +12,17 @@ namespace Xpand.Persistent.Base {
         private static readonly Type[] Types;
 
         static AllTypesLocalizedClassInfoTypeConverter() {
-            Types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetTypes()).ToArray();
+            Types = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => {
+                Type[] types=Type.EmptyTypes;
+                try {
+                    types = assembly.GetTypes();
+                }
+                catch (Exception) {
+                    // ignored
+                }
+
+                return types;
+            }).ToArray();
         }
 
 
