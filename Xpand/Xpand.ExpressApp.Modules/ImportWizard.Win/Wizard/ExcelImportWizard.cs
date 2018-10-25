@@ -637,7 +637,7 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard {
 
             _cancellationTokenSource = new CancellationTokenSource();
             CancellationToken token = _cancellationTokenSource.Token;
-            var progress = new Progress<string>();
+            var progress = new Utils.Threading.Progress<string>();
             progress.ProgressReported += NotifyProgress;
             var stopwatch = new Stopwatch();
             stopwatch.Start();

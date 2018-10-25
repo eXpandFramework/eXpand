@@ -14,7 +14,7 @@ using Xpand.Utils.Threading;
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{
     public partial class ExcelImportWizard{
         public static int TransactionSize = 100;
-        public void ProccesExcellRows(XPObjectSpace objectSpace, Row[] rows, Type type, int? headerRows,  CancellationToken token, IProgress<string> progress) {
+        public void ProccesExcellRows(XPObjectSpace objectSpace, Row[] rows, Type type, int? headerRows,  CancellationToken token, Utils.Threading.IProgress<string> progress) {
             
             var records = rows;
             int i = 0;

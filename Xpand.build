@@ -6,7 +6,7 @@
     <DeployExtension>false</DeployExtension>
     <WorkFlowDemo>false</WorkFlowDemo>
     <PowerShellExe Condition=" '$(PowerShellExe)'=='' ">%WINDIR%\System32\WindowsPowerShell\v1.0\powershell.exe</PowerShellExe>
-    <DXVersion>18.1</DXVersion>
+    <DXVersion>18.2</DXVersion>
     <NuGetSource>https://api.nuget.org/v3/index.json</NuGetSource>
     <DXPath>C:\Program Files (x86)\DevExpress $(DXVersion)</DXPath>
     <DBUpdaterPath>$(DXPath)\Components\Tools\eXpressAppFramework\DBUpdater</DBUpdaterPath>
