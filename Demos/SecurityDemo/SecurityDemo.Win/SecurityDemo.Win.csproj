@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SecurityDemo.Win</RootNamespace>
     <AssemblyName>SecurityDemo.Win</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
     <FileUpgradeFlags></FileUpgradeFlags>

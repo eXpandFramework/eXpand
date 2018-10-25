@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ModelDifferenceTester.Module</RootNamespace>
     <AssemblyName>ModelDifferenceTester.Module</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <LangVersion>latest</LangVersion>
     <TargetFrameworkProfile />
     <Prefer32Bit>false</Prefer32Bit>
