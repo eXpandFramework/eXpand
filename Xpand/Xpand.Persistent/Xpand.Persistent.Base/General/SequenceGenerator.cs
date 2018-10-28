@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Threading;
@@ -463,7 +464,8 @@ namespace Xpand.Persistent.Base.General {
                     var helper = new ConnectionStringHelper();
                     helper.Attach(_xpandModuleBase);
                     helper.ConnectionStringUpdated += (sender, args) => {
-                        if (((IModelOptionsSequenceGenerator) Application.Model.Options).EnableSequenceGenerator)
+                        var disable = ConfigurationManager.AppSettings["DisableSequenceGenerator"];
+                        if (string.IsNullOrEmpty(disable)||!disable.Contains("true"))
                             InitializeSequenceGenerator();
                     };
                 }
