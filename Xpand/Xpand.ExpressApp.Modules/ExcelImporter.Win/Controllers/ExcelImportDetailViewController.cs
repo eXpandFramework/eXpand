@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
             var gridView = ((GridListEditor) listPropertyEditor.ListView.Editor).GridView;
             var repositoryItem = (RepositoryItemComboBox) gridView.Columns[nameof(ExcelColumnMap.PropertyName)].ColumnEdit;
             repositoryItem.Items.Clear();
-            repositoryItem.Items.AddRange(ExcelImport.TypePropertyNames.ToArray());
+            repositoryItem.Items.AddRange(ExcelImport.TypePropertyNames.Cast<object>().ToArray());
         }
 
         private void FileOnPropertyChanged(object sender, PropertyChangedEventArgs e){

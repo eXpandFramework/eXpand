@@ -19,9 +19,10 @@ using Xpand.Persistent.Base.Validation;
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public class ExcelImportDetailViewController : ObjectViewController<DetailView,ExcelImport>{
         protected Subject<Unit> Terminator=new Subject<Unit>();
+        private readonly Subject<ISubject<ImportProgress>> _progressObsverveCreated=new Subject<ISubject<ImportProgress>>();
 
-        public const string ExcelMapActionName = "ExcelMap";
-        public const string ImportExcelActionName = "ImportExcel";
+        private const string ExcelMapActionName = "ExcelMap";
+        private const string ImportExcelActionName = "ImportExcel";
         
         public SingleChoiceAction MapAction{ get; }
 
@@ -101,13 +102,13 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e){
-            if (Equals(e.Object, ExcelImport) && (e.PropertyName == nameof(BusinessObjects.ExcelImport.FullName) ||
-                                                  e.PropertyName == nameof(BusinessObjects.ExcelImport.SheetName) ||
-                                                  e.PropertyName == nameof(BusinessObjects.ExcelImport.UseHeaderRows)||
-                                                  e.PropertyName == nameof(BusinessObjects.ExcelImport.Type))){
-
-                ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
-                TypeChange();
+            if (Equals(e.Object, ExcelImport) ){
+                if ((e.PropertyName == nameof(BusinessObjects.ExcelImport.SheetName) ||
+                     e.PropertyName == nameof(BusinessObjects.ExcelImport.UseHeaderRows) ||
+                     e.PropertyName == nameof(BusinessObjects.ExcelImport.Type)))
+                    ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
+                if (e.PropertyName == nameof(BusinessObjects.ExcelImport.Type))
+                    TypeChange();
             }
         }
 
@@ -117,15 +118,17 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         private void ImportActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
             ValidateFile();
+            ExcelImport.ValidateForImport();
         }
 
         protected ExcelImport ExcelImport => ((ExcelImport) View.CurrentObject);
-        protected void ValidateFile(){
+        protected virtual void ValidateFile(){
             if (ExcelImport.File.Content == null){
                 var result = Validator.RuleSet.NewRuleSetValidationMessageResult(ObjectSpace, "Invalid file", "Save",
                     View.CurrentObject, View.ObjectTypeInfo.Type, new List<string>{nameof(ExcelImport.File)});
                 throw new ValidationException("", result);
             }
+            
         }
 
         private void ImportActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
@@ -133,6 +136,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             progressBarViewItem.Start();
             var progressObserver = GetProgressObserver(ExcelImport,progressBarViewItem);
             ObjectSpace.SetModified(View.CurrentObject);
+            
             Observable.Start(async () => {
                 var space = Application.CreateObjectSpace(ExcelImport.GetType());
                 var excelImport = space.GetObjectByKey<ExcelImport>(ExcelImport.Oid);
@@ -148,10 +152,16 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         protected virtual IObserver<ImportProgress> GetProgressObserver(ExcelImport excelImport,ProgressViewItem progressBarViewItem) {
-            var progress = Subject.Synchronize(new Subject<ImportProgress>());
+            var progress = CreateProgressObserver();
+            _progressObsverveCreated.OnNext(progress);
             var resultMessage = (CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
                     ExcelImporterLocalizationUpdater.ImportSucceded),CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
                 ExcelImporterLocalizationUpdater.ImportFailed));
+            progress.OfType<ImportProgressStart>()
+                .Where(excelImport)
+                .Do(OnStart)
+                .Select(start => new ImportDataRowProgress(start.ExcelImportKey, 0))
+                .Concat(progress.OfType<ImportDataRowProgress>().Where(excelImport));
             var dataRowProgress = progress.OfType<ImportDataRowProgress>().Where(excelImport);
             
             var progressEnd = ProgressEnd(excelImport, progressBarViewItem, progress, resultMessage);
@@ -161,8 +171,18 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 .Select(Synchronise).Concat( )
                 .Finally(() => OnSetPosition(progressBarViewItem, 0))
                 .TakeUntil(progressEnd)
-                .Subscribe(percentage => OnSetPosition(progressBarViewItem, percentage),exception => {} );
+                .Do(percentage => OnSetPosition(progressBarViewItem, percentage))
+                .Subscribe();
             return progress;
+        }
+
+        protected virtual void OnStart(ImportProgressStart importProgressStart) {
+            
+        }
+
+        public IObservable<ISubject<ImportProgress>> ProgressObsverveCreated => _progressObsverveCreated;
+        protected virtual ISubject<ImportProgress> CreateProgressObserver(){
+            return Subject.Synchronize(new Subject<ImportProgress>());
         }
 
         protected  virtual IObservable<T> Synchronise<T>(T i) {
@@ -199,9 +219,18 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             else{
                 message =string.Format(resultMessage.successMsg, progressComplete.TotalRecordsCount);
             }
-            var messageOptions = new MessageOptions {
-                Message = message,
-                Type = informationType,
+            var messageOptions = NewMessageOptions( );
+            messageOptions.Type=informationType;
+            messageOptions.Message=message;
+            if (progressComplete is ImportProgressException progressException) {
+                messageOptions.Type=InformationType.Error;
+                messageOptions.Message = progressException.Exception.Message;
+            }
+            return messageOptions;
+        }
+
+        protected virtual MessageOptions NewMessageOptions(){
+            var messageOptions = new MessageOptions{
                 Duration = Int32.MaxValue,
                 Win = {Type = WinMessageType.Alert},
                 Web = {Position = InformationPosition.Top, CanCloseOnOutsideClick = false, CanCloseOnClick = true}

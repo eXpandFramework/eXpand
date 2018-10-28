@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         public ImportProgressStart(Guid excelImportKey) : base(excelImportKey){
         }
 
-        public int Total { get; set; }
+        public DataTable DataTable { get; set; }
     }
 
     public class ImportObjectProgress : ImportProgressPercentage {

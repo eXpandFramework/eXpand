@@ -8,7 +8,6 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.ExcelImporter.Controllers;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General.CustomAttributes;
@@ -19,7 +18,6 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [Appearance("Abstract Types", AppearanceItemType.ViewItem,criteria: AbstractCriteria, TargetItems = nameof(PropertyType), FontColor = "Red",Context = "ListView")]
     [Appearance("keyMember", AppearanceItemType.ViewItem,nameof(KeyMemberExists) + "=False" , TargetItems = nameof(PropertyName), FontColor = "Red",FontStyle = FontStyle.Bold|FontStyle.Strikeout,Context = "ListView")]
     [XafDefaultProperty(nameof(PropertyName))]
-
     public class ExcelColumnMap : XpandBaseCustomObject {
         public const string AbstractCriteria =
             nameof(IsAbstract) + "=True AND " + nameof(MemberTypeValues) + ".Count=0";
@@ -42,11 +40,16 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             SkipEmpty = true;
         }
 
+        
+        [Browsable(false)]
+        public IMemberInfo MemberInfo => this.FindMember() ;
 
         bool _isAbstract;
 
-        [RuleFromBoolProperty(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName,
-            InvertResult = true, TargetCriteria = AbstractCriteria, CustomMessageTemplate = "Abstract type found. Please configure the map to select a different type.",UsedProperties = nameof(PropertyType))]
+        [RuleFromBoolProperty(TargetContextIDs = ExcelImport.ImportingContext,
+            InvertResult = true, TargetCriteria = AbstractCriteria,
+            CustomMessageTemplate = "Abstract type found. Please configure the map to select a different type.",
+            UsedProperties = nameof(PropertyType))]
         [InvisibleInAllViews]
         public bool IsAbstract {
             get => _isAbstract;
@@ -64,7 +67,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
                 if (newValue != null) {
                     var boTypes = GetPropertyNameTypes();
                     if (boTypes.Any()) {
-                        var member = ExcelImport.FindMember(PropertyName);
+                        var member = MemberInfo;
                         _isAbstract = member.MemberTypeInfo.IsAbstract;
                         PropertyType = member.MemberType;
                         _isPersistentBO = member.MemberTypeInfo.IsPersistent;
@@ -80,8 +83,8 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         }
 
         [Browsable(false)]
-        [RuleFromBoolProperty(TargetContextIDs = "Save;"+ExcelImportDetailViewController.ImportExcelActionName)]
-        public bool KeyMemberExists => !IsPersistentBO || ExcelImport.FindMember(PropertyName).MemberTypeInfo.GetKeyMember() != null;
+        [RuleFromBoolProperty(TargetContextIDs = "Save;"+ExcelImport.ImportingContext)]
+        public bool KeyMemberExists => !IsPersistentBO || MemberInfo.MemberTypeInfo.GetKeyMember() != null;
 
         bool _isPersistentBO;
         [Browsable(false)]
@@ -91,7 +94,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         }
 
         private List<ITypeInfo> GetPropertyNameTypes() {
-            var memberTypeInfo = ExcelImport?.FindMember(PropertyName)?.MemberTypeInfo;
+            var memberTypeInfo = MemberInfo?.MemberTypeInfo;
             return memberTypeInfo != null? (!memberTypeInfo.IsPersistent? new[] {memberTypeInfo}.ToList()
                 : GetMembers(memberTypeInfo).ToList()): new List<ITypeInfo>();
         }
@@ -103,14 +106,14 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         string _excelColumnName;
         [EditorAlias(EditorAliases.StringPropertyEditor)]
-        [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName)]
+        [RuleRequiredField(TargetContextIDs = ExcelImport.ImportingContext)]
         public string ExcelColumnName{
             get => _excelColumnName;
             set => SetPropertyValue(nameof(ExcelColumnName), ref _excelColumnName, value);
         }
 
 
-        [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName)]
+        [RuleRequiredField(TargetContextIDs = ExcelImport.ImportingContext)]
         [EditorAlias(Persistent.Base.General.EditorAliases.StringLookupPropertyEditor)]
         [DataSourceProperty(nameof(ExcelImport)+"."+nameof(BusinessObjects.ExcelImport.TypePropertyNames))]
         [ImmediatePostData]

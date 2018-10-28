@@ -10,7 +10,6 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
-using Xpand.ExpressApp.ExcelImporter.Controllers;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
@@ -24,8 +23,9 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [DefaultClassOptions]
     [DefaultProperty(nameof(Name))]
     public class ExcelImport : XpandBaseCustomObject {
-        private const string TargetContextIDs = ExcelImportDetailViewController.ExcelMapActionName + ";" +
-                                            ExcelImportDetailViewController.ImportExcelActionName+";Save";
+        public const string MappingContext = "Mapping";
+        public const string ImportingContext = "Importing";
+        private const string TargetContextIDs = MappingContext + ";" +ImportingContext+";Save";
         public ExcelImport(Session session) : base(session){
         }
 
@@ -45,7 +45,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         public bool CanImport => ExcelColumnMaps.All(map => map.MemberTypeValues.Count > 0);
 
         int _headerRows;
-        [RuleValueComparison(ValueComparisonType.GreaterThan, 0,TargetCriteria = nameof(UseHeaderRows)+"=True",TargetContextIDs = ExcelImportDetailViewController.ExcelMapActionName)]
+        [RuleValueComparison(ValueComparisonType.GreaterThan, 0,TargetCriteria = nameof(UseHeaderRows)+"=True",TargetContextIDs = MappingContext)]
         public int HeaderRows{
             get => _headerRows;
             set => SetPropertyValue(nameof(HeaderRows), ref _headerRows, value);
@@ -182,7 +182,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         [Association("ExcelImport-ExcelColumnMaps")][Aggregated]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
-        [RuleRequiredField(TargetContextIDs = ExcelImportDetailViewController.ImportExcelActionName)]
+        [RuleRequiredField(TargetContextIDs = ImportingContext)]
 
         public XPCollection<ExcelColumnMap> ExcelColumnMaps => GetCollection<ExcelColumnMap>(nameof(ExcelColumnMaps));
 

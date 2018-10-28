@@ -23,6 +23,10 @@ using Type = System.Type;
 namespace Xpand.ExpressApp.ExcelImporter.Services{
     public static class ImportExtension{
 
+        public static IMemberInfo FindMember(this ExcelColumnMap excelColumnMap) {
+            return excelColumnMap.ExcelImport?.FindMember(excelColumnMap.PropertyName);
+        }
+
         public static IMemberInfo FindMember(this ExcelImport excelImport,string member) {
             return excelImport?.Type.GetTypeInfo().Members.WhereMapable().FirstOrDefault(info =>
                 CaptionHelper.GetMemberCaption(info.Owner, info.Name).Equals(member, StringComparison.OrdinalIgnoreCase));
@@ -120,7 +124,10 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 if (columnValue.TryToChange(keyMember.MemberType, out result)){
                     try {
                         var type=importParameter.Map.MemberTypeValues.Select(value => value.RegexValue == ".*" ? value.PropertyType :
-                            Regex.Match(columnValue.ToString(), value.RegexValue).Success ? value.PropertyType :null).WhereNotNull().First();
+                            Regex.Match(columnValue.ToString(), value.RegexValue).Success ? value.PropertyType :null).WhereNotNull().FirstOrDefault();
+                        if (type == null) {
+                            throw new InvalidOperationException($"Cannot match {nameof(ExcelColumnMap.ExcelColumnName)} {importParameter.Map.ExcelColumnName} against column value: {columnValue}");
+                        }
                         var referenceObject = GetReferenceObject(objectSpace, importParameter, type, keyMember, result);
                         if (referenceObject != null) {
                             keyMember.SetValue(referenceObject, result);
@@ -192,7 +199,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 : excelColumnMap.ExcelColumnName;
         }
 
-        public static void Map(this ExcelImport excelImport){
+        public static void Map(this ExcelImport excelImport) {
+            Validator.RuleSet.Validate(((IObjectSpaceLink) excelImport).ObjectSpace, excelImport,ExcelImport.MappingContext);
             using (var memoryStream = new MemoryStream(excelImport.File.Content)){
                 using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)){
                     using (var dataSet = excelDataReader.GetDataSet(excelImport)){
@@ -222,19 +230,15 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             }
         }
 
-        public static int Import(this ExcelImport excelImport, DataSet dataSet,
+        public static int Import(this ExcelImport excelImport, DataTable dataTable,
             IObserver<ImportProgress> progress = null) {
             var index = 0;
             try {
                 var importToTypeInfo = excelImport.Type.GetTypeInfo();
                 var columnMembers = GetImportParameters(excelImport, importToTypeInfo);
-                var dataRows = dataSet.Tables.Cast<DataTable>().Where(table => table.TableName == excelImport.SheetName).SelectMany(table => table.Rows.Cast<DataRow>()).ToArray();
-                var dataRowsLength = dataRows.Length;
-                var importProgressStart = new ImportProgressStart(excelImport.Oid){Total=dataRowsLength};
-                progress?.OnNext(importProgressStart);
-                foreach (var dataRow in dataRows){
+                foreach (var dataRow in dataTable.Rows.Cast<DataRow>()){
                     index++;
-                    var percentage = index*100/dataRowsLength;
+                    var percentage = index*100/dataTable.Rows.Count;
                     progress?.OnNext(new ImportDataRowProgress(excelImport.Oid,percentage){DataRow=dataRow});
                     var importToObject = GetImportToObject(importToTypeInfo, columnMembers, dataRow, excelImport,index);
                     if (importToObject != null) {
@@ -245,7 +249,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             }
             catch (Exception e) {
                 progress?.OnNext(new ImportProgressException(excelImport.Oid,e, index, excelImport.FailedResultList.FailedResults));
-                throw;
+                Tracing.Tracer.LogError(e);
+                return index;
             }
             progress?.OnNext(new ImportProgressComplete(excelImport.Oid,index,excelImport.FailedResultList.FailedResults));
             return index;
@@ -272,15 +277,27 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             }
         }
 
-        public static int Import(this ExcelImport excelImport,byte[] bytes=null,IObserver<ImportProgress> progress=null){
+        public static void ValidateForImport(this ExcelImport excelImport) {
+            var ruleSet = Validator.RuleSet;
+            var objects = new[] {excelImport}.Cast<object>().Concat(second: excelImport.ExcelColumnMaps)
+                .Concat(excelImport.ExcelColumnMaps.SelectMany(map => map.MemberTypeValues)).ToArray();
+
+            ruleSet.ValidateAll(((IObjectSpaceLink) excelImport).ObjectSpace,objects ,ExcelImport.ImportingContext);
+        }
+
+        public static int Import(this ExcelImport excelImport,byte[] bytes=null,IObserver<ImportProgress> progress=null) {
+            var targetObjectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
             excelImport.FailedResultList.FailedResults.Clear();
             int index;
             using (var dataSet = excelImport.GetDataSet(bytes)){
-                index = excelImport.Import(dataSet, progress);
+                var dataTable = dataSet.Tables.Cast<DataTable>().First(table => table.TableName == excelImport.SheetName);
+                var importProgressStart = new ImportProgressStart(excelImport.Oid){DataTable=dataTable};
+                progress?.OnNext(importProgressStart);
+                index = excelImport.Import(dataTable, progress);
             }
 
             if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts)) {
-                var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
+                var objectSpace = targetObjectSpace;
                 Validator.RuleSet.ValidateAll(objectSpace, objectSpace.ModifiedObjects,excelImport.ValidationContexts);
             }
 
