@@ -8,12 +8,16 @@ using System.Reactive.Subjects;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.Localization;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Validation;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
@@ -136,11 +140,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             progressBarViewItem.Start();
             var progressObserver = GetProgressObserver(ExcelImport,progressBarViewItem);
             ObjectSpace.SetModified(View.CurrentObject);
-            
+            var importParameters = ExcelImport.GetImportParameters();
             Observable.Start(async () => {
                 var space = Application.CreateObjectSpace(ExcelImport.GetType());
                 var excelImport = space.GetObjectByKey<ExcelImport>(ExcelImport.Oid);
-                excelImport.Import(ExcelImport.File.Content, progressObserver);
+                excelImport.Import(ExcelImport.File.Content, progressObserver,importParameters);
                 await ObjectSpace.WhenCommiting().FirstAsync();
                 return space;
             })
@@ -164,7 +168,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 .Concat(progress.OfType<ImportDataRowProgress>().Where(excelImport));
             var dataRowProgress = progress.OfType<ImportDataRowProgress>().Where(excelImport);
             
-            var progressEnd = ProgressEnd(excelImport, progressBarViewItem, progress, resultMessage);
+            var progressEnd = ProgressEnd(excelImport, progressBarViewItem, progress, resultMessage,Application.Model.BOModel.ToDictionary(c => c.TypeInfo.FullName,c => c.Caption));
             Observable
                 .Interval(TimeSpan.FromMilliseconds(progressBarViewItem.PollingInterval))
                 .WithLatestFrom(dataRowProgress, (l, importProgress) => ( importProgress.Percentage))
@@ -190,14 +194,16 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         protected virtual IObservable<Unit> ProgressEnd(ExcelImport excelImport, ProgressViewItem progressBarViewItem,
-            ISubject<ImportProgress> progress, (string successMsg, string failedMsg) resultMessage) {
+            ISubject<ImportProgress> progress, (string successMsg, string failedMsg) resultMessage,
+            Dictionary<string, string> boCaptions) {
             Terminator.OnNext(Unit.Default);
+            var boModel = Application.Model.BOModel;
             return progress.OfType<ImportProgressComplete>().Where(excelImport).FirstAsync()
                 .Select(Synchronise).Concat()
                 .Do(_ => {
                     ExcelImport.FailedResultList.FailedResults = _.FailedResults;
                     View.FindItem($"{nameof(BusinessObjects.ExcelImport.FailedResultList)}.{nameof(FailedResultList.FailedResults)}").Refresh();
-                    progressBarViewItem.SetFinishOptions(GetFinishOptions(_, resultMessage));
+                    progressBarViewItem.SetFinishOptions(GetFinishOptions(_, resultMessage,boModel));
                 })
                 .ToUnit()
                 .Merge(Terminator);
@@ -208,7 +214,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         protected virtual MessageOptions GetFinishOptions(ImportProgressComplete progressComplete,
-            (string successMsg, string failedMsg) resultMessage){
+            (string successMsg, string failedMsg) resultMessage, IModelBOModel boModel ){
             var failedResults = progressComplete.FailedResults;
             string message;
             var informationType=InformationType.Success;
@@ -225,6 +231,15 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             if (progressComplete is ImportProgressException progressException) {
                 messageOptions.Type=InformationType.Error;
                 messageOptions.Message = progressException.Exception.Message;
+                if (progressException.Exception is MemberNotFoundException memberNotFoundException) {
+                    var exceptionMessage = SystemExceptionLocalizer.GetExceptionMessage(ExceptionId.CannotFindThePropertyWithinTheClass, memberNotFoundException.MemberName, boModel[memberNotFoundException.TypeName]);
+                    messageOptions.Message=exceptionMessage;
+                }
+                if (progressException.Exception is KeyMemberNotMappedException keyMemberNotMappedException) {
+                    var memberInfo = keyMemberNotMappedException.Type.GetTypeInfo().GetKeyMember();
+                    var modelClass = boModel.GetClass(memberInfo.Owner.Type);
+                    messageOptions.Message=$"Default member {modelClass.FindMember(memberInfo.Name).Caption} for {modelClass.Caption} not exists in column map";
+                }
             }
             return messageOptions;
         }

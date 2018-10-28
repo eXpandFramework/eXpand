@@ -117,6 +117,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         [EditorAlias(Persistent.Base.General.EditorAliases.StringLookupPropertyEditor)]
         [DataSourceProperty(nameof(ExcelImport)+"."+nameof(BusinessObjects.ExcelImport.TypePropertyNames))]
         [ImmediatePostData]
+
         public string PropertyName{
             get => _propertyName;
             set => SetPropertyValue(nameof(PropertyName), ref _propertyName, value);

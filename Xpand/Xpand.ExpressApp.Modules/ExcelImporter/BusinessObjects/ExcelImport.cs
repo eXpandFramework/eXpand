@@ -113,10 +113,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         [Browsable(false)]
         public List<string> TypePropertyNames{
             get {
-                if (Type != null)
-                    return Type.GetTypeInfo().Members.WhereMapable()
-                        .Select(info => string.IsNullOrEmpty(info.DisplayName) ? info.Name : info.DisplayName).ToList();
-                return new List<string>();
+                return Type != null ? Type.GetTypeInfo().Members.WhereMapable().Select(info => info.Caption()).ToList() : new List<string>();
             }
         }
 

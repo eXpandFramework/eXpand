@@ -28,8 +28,15 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         public static IMemberInfo FindMember(this ExcelImport excelImport,string member) {
-            return excelImport?.Type.GetTypeInfo().Members.WhereMapable().FirstOrDefault(info =>
-                CaptionHelper.GetMemberCaption(info.Owner, info.Name).Equals(member, StringComparison.OrdinalIgnoreCase));
+            return excelImport?.Type.GetTypeInfo().Members.WhereMapable().FirstOrDefault(info =>info.IsMatch( member));
+        }
+
+        public static string Caption(this IMemberInfo info) {
+            return CaptionHelper.GetMemberCaption(info);
+        }
+
+        public static bool IsMatch(this IMemberInfo info,string member){
+            return CaptionHelper.GetMemberCaption(info).Equals(member, StringComparison.OrdinalIgnoreCase);
         }
 
         public static IEnumerable<IMemberInfo> WhereMapable(this IEnumerable<IMemberInfo> memberInfos) {
@@ -52,12 +59,14 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return false;
         }
 
-        private static object GetImportToObject(ITypeInfo importToTypeInfo,
-            ImportParameter[] columnNames, DataRow dataRow, ExcelImport excelImport, int index){
+        private static object GetImportToObject(ImportParameter[] importParameters, DataRow dataRow, ExcelImport excelImport, int index){
+            var importToTypeInfo = excelImport.Type.GetTypeInfo();
             var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
                 return objectSpace.CreateObject(importToTypeInfo.Type);
-            var valueTuple = columnNames.First(tuple => tuple.MemberInfo==importToTypeInfo.GetKeyMember());
+            var valueTuple = importParameters.FirstOrDefault(tuple => tuple.MemberInfo.Caption()==importToTypeInfo.GetKeyMember().Caption());
+            if (valueTuple.IsDefault())
+                throw new KeyMemberNotMappedException(importToTypeInfo.Type);
             var columnValue = dataRow[valueTuple.Map.ExcelColumnName];
             var criteria = CriteriaOperator.Parse($"{valueTuple.MemberInfo.Name}=?", columnValue);
             var importToObject = objectSpace.FindObject(importToTypeInfo.Type,criteria);
@@ -80,7 +89,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             throw new NotImplementedException(excelImport.ImportStrategy.ToString());
         }
 
-        struct ImportParameter {
+        public struct ImportParameter {
             public IMemberInfo MemberInfo { get; set; }
             public ExcelColumnMap Map { get; set; }
         }
@@ -231,19 +240,20 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         public static int Import(this ExcelImport excelImport, DataTable dataTable,
-            IObserver<ImportProgress> progress = null) {
+            IObserver<ImportProgress> progress = null,ImportParameter[] importParameters=null) {
             var index = 0;
             try {
-                var importToTypeInfo = excelImport.Type.GetTypeInfo();
-                var columnMembers = GetImportParameters(excelImport, importToTypeInfo);
-                foreach (var dataRow in dataTable.Rows.Cast<DataRow>()){
+                importParameters =importParameters?? excelImport.GetImportParameters();
+                foreach (var dataRow in dataTable.Rows.Cast<DataRow>()) {
                     index++;
-                    var percentage = index*100/dataTable.Rows.Count;
-                    progress?.OnNext(new ImportDataRowProgress(excelImport.Oid,percentage){DataRow=dataRow});
-                    var importToObject = GetImportToObject(importToTypeInfo, columnMembers, dataRow, excelImport,index);
+                    var percentage = index * 100 / dataTable.Rows.Count;
+                    progress?.OnNext(new ImportDataRowProgress(excelImport.Oid, percentage) {DataRow = dataRow});
+                    var importToObject =
+                        GetImportToObject( importParameters, dataRow, excelImport, index);
                     if (importToObject != null) {
-                        progress?.OnNext(new ImportObjectProgress(excelImport.Oid,percentage){ObjectToImport=importToObject});
-                        Import(excelImport, dataRow, importToObject, index, columnMembers);
+                        progress?.OnNext(new ImportObjectProgress(excelImport.Oid, percentage)
+                            {ObjectToImport = importToObject});
+                        Import(excelImport, dataRow, importToObject, index, importParameters);
                     }
                 }
             }
@@ -256,10 +266,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return index;
         }
 
-        private static ImportParameter[] GetImportParameters(ExcelImport excelImport, ITypeInfo importToTypeInfo){
+        public static ImportParameter[] GetImportParameters(this ExcelImport excelImport){
             return excelImport.ExcelColumnMaps.Select(map => {
-                var memberInfo = importToTypeInfo.Members.First(info => !string.IsNullOrEmpty(info.DisplayName)
-                    ? info.DisplayName == map.PropertyName: info.Name == map.PropertyName);
+                var memberInfo = excelImport.Type.GetTypeInfo().Members.FirstOrDefault(info => map.PropertyName==info.Caption());
+                if (memberInfo==null)
+                    throw new MemberNotFoundException(excelImport.GetTypeInfo().Type,map.PropertyName);
                 return new ImportParameter(){MemberInfo=memberInfo,Map=map};
             }).ToArray();
         }
@@ -285,7 +296,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             ruleSet.ValidateAll(((IObjectSpaceLink) excelImport).ObjectSpace,objects ,ExcelImport.ImportingContext);
         }
 
-        public static int Import(this ExcelImport excelImport,byte[] bytes=null,IObserver<ImportProgress> progress=null) {
+        public static int Import(this ExcelImport excelImport,byte[] bytes=null,IObserver<ImportProgress> progress=null,ImportParameter[] importParameters=null) {
             var targetObjectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
             excelImport.FailedResultList.FailedResults.Clear();
             int index;
@@ -293,7 +304,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 var dataTable = dataSet.Tables.Cast<DataTable>().First(table => table.TableName == excelImport.SheetName);
                 var importProgressStart = new ImportProgressStart(excelImport.Oid){DataTable=dataTable};
                 progress?.OnNext(importProgressStart);
-                index = excelImport.Import(dataTable, progress);
+                index = excelImport.Import(dataTable, progress,importParameters);
             }
 
             if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts)) {
@@ -304,7 +315,16 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return index;
         }
     }
+    [Serializable]
+    public class KeyMemberNotMappedException : Exception {
+        public Type Type{ get; }
 
+        public KeyMemberNotMappedException(Type type) {
+            Type = type;
+        }
+    }
+
+    [Serializable]
     public class ReferenceObjectNotFoundException : Exception {
         public CriteriaOperator Criteria{ get; }
 
