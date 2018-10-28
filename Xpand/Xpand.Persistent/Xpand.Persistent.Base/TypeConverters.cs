@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base {
     public class AllTypesLocalizedClassInfoTypeConverter : ReferenceConverter {
@@ -44,13 +45,25 @@ namespace Xpand.Persistent.Base {
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object val,
             Type destType) {
             if (destType == typeof(string)) {
-                var classInfo = val as Type;
-                if (classInfo != null)
-                    return CaptionHelper.GetClassCaption(classInfo.FullName);
+                var type = val as Type;
+                if (type != null) {
+                    var boModel = CaptionHelper.ApplicationModel?.BOModel;
+                    if(boModel == null) {
+                        return GetTypeName(type: type);
+                    }
+                    var modelClass = boModel[type.FullName];
+                    return modelClass != null ? modelClass.Caption : GetTypeName(type);
+                }
                 return CaptionHelper.NoneValue;
             }
 
             return base.ConvertTo(context, culture, val, destType);
+        }
+
+        private  string GetTypeName(Type type){
+            if (type.IsNullableType())
+                return $"{typeof(Nullable<>)}[{type.GenericTypeArguments[0].Name}";
+            return type.Name;
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object val) {

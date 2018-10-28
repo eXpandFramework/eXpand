@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
@@ -12,13 +13,19 @@ namespace ExcelImporterTester.Module.BusinessObjects{
         // Fields...
         private GenderBase _gender;
         private string _importName1;
+        int? _nullAbleInt;
+
+        public int? NullAbleInt {
+            get => _nullAbleInt;
+            set => SetPropertyValue(nameof(NullAbleInt), ref _nullAbleInt, value);
+        }
 
         public Customer(Session session) : base(session){
         }
 
         public GenderBase Gender{
             get => _gender;
-            set => SetPropertyValue("Gender1", ref _gender, value);
+            set => SetPropertyValue("Gender", ref _gender, value);
         }
         [DevExpress.Xpo.DisplayName("ImportName")]
         [RuleUniqueValue]
@@ -47,6 +54,13 @@ namespace ExcelImporterTester.Module.BusinessObjects{
         public string Hidden2{
             get => _hidden2;
             set => SetPropertyValue(nameof(Hidden2), ref _hidden2, value);
+        }
+
+        DateTime? _nullAbleDate;
+
+        public DateTime? NullAbleDate {
+            get => _nullAbleDate;
+            set => SetPropertyValue(nameof(NullAbleDate), ref _nullAbleDate, value);
         }
 
         string _hidden3;
