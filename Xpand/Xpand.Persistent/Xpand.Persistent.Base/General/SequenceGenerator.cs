@@ -365,7 +365,7 @@ namespace Xpand.Persistent.Base.General {
 
         public override void UpdateDatabaseBeforeUpdateSchema() {
             base.UpdateDatabaseBeforeUpdateSchema();
-            if (SequenceGenerator.UseGuidKey) {
+            if (SequenceGenerator.UseGuidKey && XpandModuleBase.SequenceObjectType != null) {
                 var classInfo = XafTypesInfo.CastTypeToTypeInfo(XpandModuleBase.SequenceObjectType).QueryXPClassInfo();
                 var dbTable = GetDbTable(classInfo.TableName);
                 var typeNamePropertyName = nameof(ISequenceObject.TypeName);

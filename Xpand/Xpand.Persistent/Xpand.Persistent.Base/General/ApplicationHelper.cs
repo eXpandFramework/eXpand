@@ -5,21 +5,21 @@ namespace Xpand.Persistent.Base.General {
     public class ApplicationHelper {
         private const string ValueManagerKey = "ApplicationHelper";
         private static volatile IValueManager<ApplicationHelper> _instanceValueManager;
-        private static readonly object _syncRoot = new object();
+        private static readonly object SyncRoot = new object();
         private XafApplication _application;
         private ApplicationHelper() {
         }
         public static ApplicationHelper Instance {
             get {
                 if (_instanceValueManager == null) {
-                    lock (_syncRoot) {
+                    lock (SyncRoot) {
                         if (_instanceValueManager == null) {
                             _instanceValueManager = ValueManager.GetValueManager<ApplicationHelper>(ValueManagerKey);
                         }
                     }
                 }
                 if (_instanceValueManager.Value == null) {
-                    lock (_syncRoot) {
+                    lock (SyncRoot) {
                         if (_instanceValueManager.Value == null) {
                             _instanceValueManager.Value = new ApplicationHelper();
                         }
@@ -28,11 +28,10 @@ namespace Xpand.Persistent.Base.General {
                 return _instanceValueManager.Value;
             }
         }
-        public XafApplication Application { get { return _application; } }
+        public XafApplication Application => _application;
 
         public void Initialize(XafApplication application) {
-            if (_application==null)
-                _application = application;
+            _application = application;
         }
     }
 }
