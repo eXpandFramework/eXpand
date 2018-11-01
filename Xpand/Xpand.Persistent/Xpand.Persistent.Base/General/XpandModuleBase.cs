@@ -287,7 +287,6 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
                 extenders.Add<IModelObjectView, IModelObjectViewMergedDifferences>();
                 extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();
-                extenders.Add<IModelOptions, IModelOptionsSequenceGenerator>();
             }
 
             if (!Executed("ExtendModelInterfaces", ModuleType.Web)) {
@@ -550,14 +549,16 @@ namespace Xpand.Persistent.Base.General {
             }
             base.Setup(application);
             CheckApplicationTypes();
+            if (Executed("Setup"))
+                return;
             if (RuntimeMode) {
                 ApplicationHelper.Instance.Initialize(application);
                 var generatorHelper = new SequenceGeneratorHelper();
                 generatorHelper.Attach(this);
             }
 
-            if (Executed("Setup"))
-                return;
+            
+            application.Disposed+=ApplicationOnDisposed;
             if (ManifestModuleName == null)
                 ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
             application.CreateCustomUserModelDifferenceStore += OnCreateCustomUserModelDifferenceStore;
@@ -570,6 +571,11 @@ namespace Xpand.Persistent.Base.General {
                     _loggedOn = true;
                 };
             }
+        }
+
+        private void ApplicationOnDisposed(object sender, EventArgs e) {
+            ((XafApplication) sender).Disposed-=ObjectSpaceOnDisposed;
+            CallMonitor.Clear();
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
