@@ -46,7 +46,7 @@ namespace FeatureCenter.Module {
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(SequenceObject)), IsExportedType));
             AdditionalExportedTypes.AddRange(ModuleHelper.CollectExportedTypesFromAssembly(Assembly.GetAssembly(typeof(Customer)), IsExportedType));
 
-            var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.SingleOrDefault(mbase => mbase is ModelDifferenceBaseModule);
+            var modelDifferenceBaseModule = (ModelDifferenceModule)moduleManager.Modules.SingleOrDefault(mbase => mbase is ModelDifferenceModule);
             if (modelDifferenceBaseModule != null)
                 modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
         }

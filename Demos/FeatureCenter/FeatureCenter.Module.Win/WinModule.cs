@@ -25,7 +25,7 @@ namespace FeatureCenter.Module.Win {
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            var modelDifferenceBaseModule = (ModelDifferenceBaseModule)moduleManager.Modules.FirstOrDefault(mbase => mbase is ModelDifferenceBaseModule);
+            var modelDifferenceBaseModule = (ModelDifferenceModule)moduleManager.Modules.FirstOrDefault(mbase => mbase is ModelDifferenceModule);
             if (modelDifferenceBaseModule != null)
                 modelDifferenceBaseModule.CreateCustomModelDifferenceStore += ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore;
         }
