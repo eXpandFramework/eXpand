@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
@@ -16,15 +17,18 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.Controllers;
+using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DatabaseUpdate;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Validation;
+using Xpand.ExpressApp.ModelDifference.DictionaryStores;
 using Xpand.ExpressApp.ModelDifference.NodeUpdaters;
 using Xpand.ExpressApp.ModelDifference.Security.Improved;
 using Xpand.ExpressApp.Security.Permissions;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
+using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.Security;
 using Updater = Xpand.ExpressApp.ModelDifference.DatabaseUpdate.Updater;
 
@@ -144,13 +148,78 @@ namespace Xpand.ExpressApp.ModelDifference {
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(XmlContentCodeRule), typeof(IRuleBaseProperties));
         }
 
+        XpoUserModelDictionaryDifferenceStore _userModelDictionaryDifferenceStore;
+
+        public event EventHandler<CreateCustomModelDifferenceStoreEventArgs> CreateCustomModelDifferenceStore;
+
+        internal void OnCreateCustomModelDifferenceStore(CreateCustomModelDifferenceStoreEventArgs e) {
+            var handler = CreateCustomModelDifferenceStore;
+            handler?.Invoke(this, e);
+        }
+
         public override void Setup(XafApplication application) {
             base.Setup(application);
             if (application != null && !DesignMode) {
                 application.SettingUp += ApplicationOnSettingUp;
                 application.SetupComplete+=ApplicationOnSetupComplete;
             }
+            Application.UserDifferencesLoaded += OnUserDifferencesLoaded;
+            Application.CreateCustomUserModelDifferenceStore += ApplicationOnCreateCustomUserModelDifferenceStore;
             AddToAdditionalExportedTypes(typeof(ModelDifferenceObject).Namespace, GetType().Assembly);
+            if (application is ServerApplication serverApplication) {
+                if ((serverApplication is IModelDifferenceServerModels serverModels)) {
+                    serverApplication.SetupComplete += (sender, args) => {
+                        serverApplication.TypesInfo.RegisterEntity(typeof(XPObjectType));
+                        using (var objectSpace = application.CreateObjectSpace()){
+                            var modelDifferenceObjects = objectSpace.GetObjectsQuery<ModelDifferenceObject>();
+                            foreach (var modelDifferenceObject in serverModels.Where(modelDifferenceObjects)){
+                                modelDifferenceObject.GetModel((ModelApplicationBase)application.Model);
+                            }
+                        }
+                        LoadModels();
+
+                    };
+                    return;
+                }
+                throw new NotSupportedException($"Your {serverApplication.GetType().FullName} must implement the {nameof(IModelDifferenceServerModels)}");
+            }
+        }
+
+         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
+            createCustomModelDifferenceStoreEventArgs.Handled = true;
+            _userModelDictionaryDifferenceStore =_userModelDictionaryDifferenceStore?? new XpoUserModelDictionaryDifferenceStore(Application);
+            createCustomModelDifferenceStoreEventArgs.Store = _userModelDictionaryDifferenceStore;
+        }
+
+        void OnUserDifferencesLoaded(object sender, EventArgs eventArgs) {
+            LoadModels();
+        }
+
+        public void LoadModels() {
+            var model = (ModelApplicationBase)Application.Model;
+            LoadApplicationModels(model);
+            if (Application.Security is ISecurityComplex)
+                _userModelDictionaryDifferenceStore?.Load();
+            RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
+        }
+
+        void LoadApplicationModels(ModelApplicationBase model) {
+            var userDiffLayers = new List<ModelApplicationBase>();
+            while (model.LastLayer != null && model.LastLayer.Id != "After Setup"){
+                userDiffLayers.Add(model.LastLayer);
+                ModelApplicationHelper.RemoveLayer(model);
+            }
+            if (model.LastLayer == null)
+                throw new ArgumentException("Model.LastLayer null");
+            var customModelDifferenceStoreEventArgs = new CreateCustomModelDifferenceStoreEventArgs();
+            OnCreateCustomModelDifferenceStore(customModelDifferenceStoreEventArgs);
+            if (!customModelDifferenceStoreEventArgs.Handled){
+                new XpoModelDictionaryDifferenceStore(Application, customModelDifferenceStoreEventArgs.ExtraDiffStores).Load(model);
+            }
+            userDiffLayers.Reverse();
+            foreach (var layer in userDiffLayers){
+                ModelApplicationHelper.AddLayer((ModelApplicationBase)Application.Model, layer);
+            }
         }
 
         private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
