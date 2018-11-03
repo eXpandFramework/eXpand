@@ -84,7 +84,13 @@ namespace Xpand.ExpressApp.Security {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            if (((XafApplication)sender).Security is SecurityStrategy securityStrategy) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            var xafApplication = ((XafApplication)sender);
+            if (xafApplication.Security is SecurityStrategy securityStrategy) {
+                if (((IModelOptionsChooseDatabaseAtLogon) xafApplication.Model.Options).ChooseDatabaseAtLogon) {
+                    securityStrategy.AnonymousAllowedTypes.Add(typeof(StringObject));
+                }
+                (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            }
         }
 
         void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e){
