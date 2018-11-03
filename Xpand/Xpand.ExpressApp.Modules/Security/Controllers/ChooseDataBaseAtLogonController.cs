@@ -20,16 +20,16 @@ namespace Xpand.ExpressApp.Security.Controllers {
 
     public class ChooseDatabaseAtLogonController : ObjectViewController<DetailView, IDBServerParameter>, IModelExtender {
         public const string DBServer = "DBServer";
-        private static readonly string[] _dbServers;
+        private static readonly string[] DBServers;
         private const string LogonDBServer = "LogonDBServer";
 
         static ChooseDatabaseAtLogonController(){
-            _dbServers = GetConnectionStringSettings().Select(GetDbServerName).ToArray();
+            DBServers = GetConnectionStringSettings().Select(GetDbServerName).ToArray();
         }
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (!_dbServers.Any())
+            if (!DBServers.Any())
                 throw new Exception("No connectionstring with the "+LogonDBServer+" prefix found");
         }
 
@@ -56,8 +56,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
         }
 
         private void ApplicationOnLoggingOn(object sender, LogonEventArgs logonEventArgs) {
-            var parameter = logonEventArgs.LogonParameters as IDBServerParameter;
-            if (parameter != null) {
+            if (logonEventArgs.LogonParameters is IDBServerParameter parameter) {
                 Validator.RuleSet.Validate(ObjectSpace, logonEventArgs.LogonParameters, DBServer);
                 var connectionString = GetConnectionStringSettings().First(settings
                     => GetDbServerName(settings) == parameter.DBServer).ConnectionString;
