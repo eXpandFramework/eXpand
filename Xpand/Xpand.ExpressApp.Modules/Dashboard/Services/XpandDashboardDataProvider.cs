@@ -10,7 +10,7 @@ namespace Xpand.ExpressApp.Dashboard.Services{
         }
 
         private static IObjectDataSourceCustomFillService CreateServiceCore(IDashboardData dashboardData){
-            return ((IDashboardDefinition) dashboardData).DataViewService?(IObjectDataSourceCustomFillService) new XpandDashboardViewDataSourceFillService() : new XpandDashboardCollectionDataSourceFillService();
+            return dashboardData != null && ((IDashboardDefinition) dashboardData).DataViewService?(IObjectDataSourceCustomFillService) new XpandDashboardViewDataSourceFillService() : new XpandDashboardCollectionDataSourceFillService();
         }
 
         protected override IObjectDataSourceCustomFillService CreateViewService(IDashboardData dashboardData){
