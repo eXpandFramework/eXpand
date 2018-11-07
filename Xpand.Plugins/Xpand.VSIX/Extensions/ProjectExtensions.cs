@@ -49,7 +49,12 @@ namespace Xpand.VSIX.Extensions{
         }
 
         private static bool References(Project project, string assemblyName) {
-            return ((VSProject)project.Object).References.Cast<Reference>().Any(reference => reference.Name.Contains(assemblyName));
+            try {
+                return ((VSProject)project.Object).References.Cast<Reference>().Any(reference => reference.Name.Contains(assemblyName));
+            }
+            catch (Exception) {
+                return false;
+            }
         }
 
         public static Platform GetPlatform(this Project project) {
