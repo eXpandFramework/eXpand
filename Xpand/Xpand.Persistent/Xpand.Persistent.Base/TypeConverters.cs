@@ -60,10 +60,11 @@ namespace Xpand.Persistent.Base {
             return base.ConvertTo(context, culture, val, destType);
         }
 
-        private  string GetTypeName(Type type){
-            if (type.IsNullableType())
-                return $"{typeof(Nullable<>)}[{type.GenericTypeArguments[0].Name}";
-            return type.Name;
+        private  string GetTypeName(Type type) {
+            return type.IsNullableType()
+                ? type.GenericTypeArguments.Any() ? $"{typeof(Nullable<>)}[{type.GenericTypeArguments[0].Name}" :
+                $"{typeof(Nullable<>)}"
+                : type.Name;
         }
 
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object val) {
