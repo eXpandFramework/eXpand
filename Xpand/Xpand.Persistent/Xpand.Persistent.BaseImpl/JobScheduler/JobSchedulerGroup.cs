@@ -2,6 +2,7 @@
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.JobScheduler;
+using Xpand.Persistent.BaseImpl.JobScheduler.Triggers;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler {
@@ -9,6 +10,9 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler {
         public JobSchedulerGroup(Session session)
             : base(session) {
         }
+
+        [Association("JobSchedulerGroup-JobSchedulerGroupLinks")]
+        public XPCollection<JobSchedulerGroupTriggerLink> JobSchedulerGroupTriggerLinks => GetCollection<JobSchedulerGroupTriggerLink>(nameof(JobSchedulerGroupTriggerLinks));
         private string _name;
         [RuleRequiredField]
         [RuleUniqueValue(null, DefaultContexts.Save)]

@@ -10,7 +10,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
             : base(session) {
         }
         private JobSchedulerGroup _jobSchedulerGroup;
-        [ProvidedAssociation("JobSchedulerGroup-JobSchedulerGroupLinks")]
+        [Association("JobSchedulerGroup-JobSchedulerGroupLinks")]
         public JobSchedulerGroup JobSchedulerGroup {
             get {
                 return _jobSchedulerGroup;
