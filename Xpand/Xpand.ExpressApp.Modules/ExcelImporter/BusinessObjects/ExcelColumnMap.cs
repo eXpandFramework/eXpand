@@ -19,8 +19,9 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [Appearance("keyMember", AppearanceItemType.ViewItem,nameof(KeyMemberExists) + "=False" , TargetItems = nameof(PropertyName), FontColor = "Red",FontStyle = FontStyle.Bold|FontStyle.Strikeout,Context = "ListView")]
     [XafDefaultProperty(nameof(PropertyName))]
     public class ExcelColumnMap : XpandBaseCustomObject {
-        public const string AbstractCriteria =
-            nameof(IsAbstract) + "=True AND " + nameof(MemberTypeValues) + ".Count=0";
+        public const string AbstractCriteria =nameof(IsAbstract) + "=True AND " + nameof(MemberTypeValues) + ".Count=0 AND " +
+                                              "[" + nameof(ImportStrategy) +"] In ('" + nameof(PersistentTypesImportStrategy.UpdateOrCreate) + "','" +
+                                              nameof(PersistentTypesImportStrategy.CreateAlways) + "')";
         private ExcelImport _excelImport;
 
         public ExcelColumnMap(Session session) : base(session){
@@ -137,6 +138,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(PropertyType), ref _propertyType, value);
         }
 
+        
         PersistentTypesImportStrategy _importStrategy ;
         
         public PersistentTypesImportStrategy ImportStrategy {
