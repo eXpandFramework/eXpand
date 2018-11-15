@@ -138,8 +138,6 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
     public class MasterDetailController : ViewController<DashboardView>, IModelExtender {
         private DashboardViewItem _listViewDashboardViewItem;
         private DashboardViewItem _detailViewdashboardViewItem;
-        private ListView _listView;
-        private DetailView _detailView;
 
         private void ProcessSelectedItem(Object sender, CustomProcessListViewSelectedItemEventArgs e) {
             var innerArgsCurrentObject = e.InnerArgs.CurrentObject;
@@ -149,30 +147,34 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             }
         }
 
+        public ListView ListView { get; private set; }
+
+        public DetailView DetailView { get; private set; }
+
         private void ProcessSelectedItem(object innerArgsCurrentObject){
             var detailViewModel = GetDetailViewModel(innerArgsCurrentObject.GetType());
-            if (detailViewModel != _detailView.Model){
-                if (_detailView.ObjectSpace != null)
-                    _detailView.ObjectSpace.Committed -= DetailViewObjectSpaceCommitted;
+            if (detailViewModel != DetailView.Model){
+                if (DetailView.ObjectSpace != null)
+                    DetailView.ObjectSpace.Committed -= DetailViewObjectSpaceCommitted;
 
-                _detailView.Close();
+                DetailView.Close();
                 _detailViewdashboardViewItem.Frame.SetView(null);
                 var objectSpace = Application.CreateObjectSpace();
 
                 var currentObject = objectSpace.GetObject(innerArgsCurrentObject);
-                _detailView = Application.CreateDetailView(objectSpace, detailViewModel.Id, true, currentObject);
-                ConfigureDetailView(_detailView);
-                _detailViewdashboardViewItem.Frame.SetView(_detailView, true, Frame);
+                DetailView = Application.CreateDetailView(objectSpace, detailViewModel.Id, true, currentObject);
+                ConfigureDetailView(DetailView);
+                _detailViewdashboardViewItem.Frame.SetView(DetailView, true, Frame);
             }
             else{
-                if (((IModelDashoardViewMasterDetail) View.Model).AutoCommitB4CurrentObjectChanged&&_detailView.ObjectSpace.ModifiedObjects.Cast<object>().Any())
-                    _detailView.ObjectSpace.CommitChanges();
-                _detailView.CurrentObject = _detailView.ObjectSpace.GetObject(innerArgsCurrentObject);
+                if (((IModelDashoardViewMasterDetail) View.Model).AutoCommitB4CurrentObjectChanged&&DetailView.ObjectSpace.ModifiedObjects.Cast<object>().Any())
+                    DetailView.ObjectSpace.CommitChanges();
+                DetailView.CurrentObject = DetailView.ObjectSpace.GetObject(innerArgsCurrentObject);
             }
         }
 
         private IModelDetailView GetDetailViewModel(Type currentObjectType){
-            var detailViewModel = _detailView.Model;
+            var detailViewModel = DetailView.Model;
             var linkGroup = ((IModelDashoardViewMasterDetail) View.Model).DetailViewObjectTypeLinkGroup;
             if (linkGroup != null){
                 var currentObjectModelClass = Application.Model.BOModel.GetClass(currentObjectType);
@@ -187,18 +189,18 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         private void DetailViewObjectSpaceCommitted(Object sender, EventArgs e) {
-            if (((IObjectSpace)sender).IsDeletedObject(_detailView.CurrentObject)) {
-                _detailView.CurrentObject = null;
+            if (((IObjectSpace)sender).IsDeletedObject(DetailView.CurrentObject)) {
+                DetailView.CurrentObject = null;
             }
-            _listView.ObjectSpace.Refresh();
+            ListView.ObjectSpace.Refresh();
         }
 
         private void ListViewObjectSpaceCommitted(Object sender, EventArgs e) {
             IObjectSpace listViewObjectSpace = ((IObjectSpace)sender);
-            if (listViewObjectSpace.IsDeletedObject(listViewObjectSpace.GetObject(_detailView.CurrentObject))) {
-                _detailView.CurrentObject = null;
+            if (listViewObjectSpace.IsDeletedObject(listViewObjectSpace.GetObject(DetailView.CurrentObject))) {
+                DetailView.CurrentObject = null;
             }
-            _detailView.ObjectSpace.Refresh();
+            DetailView.ObjectSpace.Refresh();
         }
 
         private void ListViewDashboardViewItemControlCreated(Object sender, EventArgs e) {
@@ -206,12 +208,12 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             var listViewProcessCurrentObjectController = _listViewDashboardViewItem.Frame.GetController<ListViewProcessCurrentObjectController>();
             listViewProcessCurrentObjectController.CustomProcessSelectedItem -= ProcessSelectedItem;
             listViewProcessCurrentObjectController.CustomProcessSelectedItem += ProcessSelectedItem;
-            _listView = (ListView)_listViewDashboardViewItem.InnerView;
-            _listView.ObjectSpace.Committed -= ListViewObjectSpaceCommitted;
-            _listView.ObjectSpace.Committed += ListViewObjectSpaceCommitted;
+            ListView = (ListView)_listViewDashboardViewItem.InnerView;
+            ListView.ObjectSpace.Committed -= ListViewObjectSpaceCommitted;
+            ListView.ObjectSpace.Committed += ListViewObjectSpaceCommitted;
             if (Application.GetPlatform()==Platform.Win) {
-                _listView.CurrentObjectChanged-=ListViewOnCurrentObjectChanged;
-                _listView.CurrentObjectChanged+=ListViewOnCurrentObjectChanged;
+                ListView.CurrentObjectChanged-=ListViewOnCurrentObjectChanged;
+                ListView.CurrentObjectChanged+=ListViewOnCurrentObjectChanged;
             }
         }
 
@@ -249,7 +251,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         }
 
         private void ConfigureDetailView(DetailView detailView) {
-            _detailView = detailView;
+            DetailView = detailView;
             foreach (var listPropertyEditor in detailView.GetItems<ListPropertyEditor>()){
                 listPropertyEditor.ControlCreated+=ListPropertyEditorOnControlCreated;
 
@@ -294,10 +296,10 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             if (_detailViewdashboardViewItem != null) {
                 _detailViewdashboardViewItem.ControlCreated -= DetailViewdashboardViewItemControlCreated;
             }
-            if (_detailView?.ObjectSpace != null)
-                _detailView.ObjectSpace.Committed -= DetailViewObjectSpaceCommitted;
-            if (_listView != null) {
-                _listView.ObjectSpace.Committed -= ListViewObjectSpaceCommitted;
+            if (DetailView?.ObjectSpace != null)
+                DetailView.ObjectSpace.Committed -= DetailViewObjectSpaceCommitted;
+            if (ListView != null) {
+                ListView.ObjectSpace.Committed -= ListViewObjectSpaceCommitted;
             }
             base.OnDeactivated();
         }

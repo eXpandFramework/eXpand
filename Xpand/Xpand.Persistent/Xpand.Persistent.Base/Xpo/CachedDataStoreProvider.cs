@@ -8,6 +8,7 @@ namespace Xpand.Persistent.Base.Xpo{
 	public class CachedDataStoreProvider : ConnectionStringDataStoreProvider, IXpoDataStoreProvider{
 	    static CachedDataStoreProvider() {
 	        Factory = () => null;
+	        CreateStore = () => (null, null);
 	    }
 
 	    private static readonly Lazy<CachedDataStoreProvider> Lazy =

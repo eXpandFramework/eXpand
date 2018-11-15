@@ -41,7 +41,7 @@ namespace Xpand.Persistent.Base {
             object obj = _defaultPropertyMemberInfo?.GetValue(this);
             return obj?.ToString() ?? base.ToString();
         }
-
-        IObjectSpace IObjectSpaceLink.ObjectSpace { get; set; }
+        [Browsable(false)]
+        public IObjectSpace ObjectSpace { get; set; }
     }
 }
