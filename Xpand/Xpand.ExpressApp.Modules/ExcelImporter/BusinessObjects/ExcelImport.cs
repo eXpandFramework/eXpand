@@ -203,8 +203,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         FailedResultList _failedResultList;
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        [VisibleInListView(false)]
-        
+        [InvisibleInAllViews]
         public FailedResultList FailedResultList{
             get => _failedResultList;
             set => SetPropertyValue(nameof(FailedResultList), ref _failedResultList, value);

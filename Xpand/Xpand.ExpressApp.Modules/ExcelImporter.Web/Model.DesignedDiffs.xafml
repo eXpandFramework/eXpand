@@ -43,16 +43,25 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main">
-          <LayoutGroup Id="SimpleEditors">
-            <LayoutGroup Id="Auto00224b34-7006-4108-b0c5-3487562c098d" RelativeSize="48.892405063291136" />
-            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf" RelativeSize="51.107594936708864" />
-          </LayoutGroup>
-          <TabbedGroup Id="Tabs">
-            <LayoutGroup Id="Item1">
-              <LayoutItem Id="ExcelColumnMaps" RelativeSize="96.172248803827756" />
-              <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="1" RelativeSize="3.8277511961722488" IsNewNode="True" />
+          <TabbedGroup Id="Tabs" RelativeSize="25.024154589371982">
+            <LayoutGroup Id="ExcelColumnMaps">
+              <LayoutItem Id="Name" RelativeSize="14.611872146118721" />
+              <LayoutGroup Id="Auto522ba927-1152-4a6b-b490-a53424ee6e44" Caption="Auto522ba927-1152-4a6b-b490-a53424ee6e44(5)" RelativeSize="15.068493150684931" />
+              <LayoutGroup Id="Auto2052741a-7263-4e83-ba7f-3ae8ecca4784" Caption="Auto2052741a-7263-4e83-ba7f-3ae8ecca4784(8)" RelativeSize="54.794520547945204">
+                <LayoutGroup Id="Autobf0eebb3-5181-4b52-8219-a5c46fb7ef0d" Caption="Autobf0eebb3-5181-4b52-8219-a5c46fb7ef0d(9)" RelativeSize="27.5" />
+                <LayoutGroup Id="Autob438c641-5874-44cb-a3b8-e3b3eab8bec9" Caption="Autob438c641-5874-44cb-a3b8-e3b3eab8bec9(12)" RelativeSize="72.5">
+                  <LayoutItem Id="ValidationContexts" RelativeSize="31.03448275862069" />
+                  <LayoutGroup Id="Autoc85a82de-a7bf-4510-8662-51ac74f121ea" Caption="Autoc85a82de-a7bf-4510-8662-51ac74f121ea(14)" RelativeSize="68.965517241379317">
+                    <LayoutGroup Id="Auto4fb56bfb-f672-4dcc-b9fb-86da9671221c" Caption="Auto4fb56bfb-f672-4dcc-b9fb-86da9671221c(15)" />
+                    <LayoutGroup Id="Autode98b9a6-e470-409c-9e3e-9bdc7e82a8e7" Caption="Autode98b9a6-e470-409c-9e3e-9bdc7e82a8e7(18)" />
+                  </LayoutGroup>
+                </LayoutGroup>
+              </LayoutGroup>
+              <LayoutItem Id="ExcelImport" RelativeSize="15.525114155251142" />
             </LayoutGroup>
           </TabbedGroup>
+          <LayoutItem Id="Item1" Index="1" RelativeSize="71.8840579710145" IsNewNode="True" />
+          <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="2" RelativeSize="3.0917874396135265" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>

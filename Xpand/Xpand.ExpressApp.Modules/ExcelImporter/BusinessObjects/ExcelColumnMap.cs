@@ -11,13 +11,16 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.ValueConverters;
 using EditorAliases = DevExpress.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [Appearance("Abstract Types", AppearanceItemType.ViewItem,criteria: AbstractCriteria, TargetItems = nameof(PropertyType), FontColor = "Red",Context = "ListView")]
     [Appearance("keyMember", AppearanceItemType.ViewItem,nameof(KeyMemberExists) + "=False" , TargetItems = nameof(PropertyName), FontColor = "Red",FontStyle = FontStyle.Bold|FontStyle.Strikeout,Context = "ListView")]
-    [XafDefaultProperty(nameof(PropertyName))]
+    [XafDefaultProperty(nameof(DefaultProperty))]
+    [CloneView(CloneViewType.ListView, nameof(ExcelColumnMap)+"_Configuration_ListView")]
+    [FriendlyKeyProperty(nameof(DefaultProperty))]
     public class ExcelColumnMap : XpandBaseCustomObject {
         public const string AbstractCriteria =nameof(IsAbstract) + "=True AND " + nameof(MemberTypeValues) + ".Count=0 AND " +
                                               "[" + nameof(ImportStrategy) +"] In ('" + nameof(PersistentTypesImportStrategy.UpdateOrCreate) + "','" +
@@ -29,7 +32,8 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         }
 
         bool _skipEmpty;
-
+        [InvisibleInAllViews]
+        public string DefaultProperty => $"{ExcelColumnName}-{PropertyName}";
         public bool SkipEmpty {
             get => _skipEmpty;
             set => SetPropertyValue(nameof(SkipEmpty), ref _skipEmpty, value);
@@ -85,7 +89,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         [Browsable(false)]
         [RuleFromBoolProperty(TargetContextIDs = "Save;"+ExcelImport.ImportingContext)]
-        public bool KeyMemberExists => !IsPersistentBO || MemberInfo.MemberTypeInfo.GetKeyMember() != null;
+        public bool KeyMemberExists => !IsPersistentBO || MemberInfo?.MemberTypeInfo.GetKeyMember() != null;
 
         bool _isPersistentBO;
         [Browsable(false)]

@@ -7,12 +7,8 @@ using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Win.Editors;
-using DevExpress.XtraEditors.Repository;
 using ExcelDataReader;
-using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
 
@@ -46,45 +42,17 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
             _synchronizationContext = SynchronizationContext.Current;
-            if (!ExcelImport.IsNewObject){
-                var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
-                    editor.MemberInfo.Name == nameof(ExcelImport.ExcelColumnMaps));
-                
-                listPropertyEditor.FrameChanged+=ListPropertyEditorOnFrameChanged;
-            }
         }
-
-        private void ListPropertyEditorOnFrameChanged(object sender, EventArgs e) {
-            var listPropertyEditor = ((ListPropertyEditor) sender);
-            listPropertyEditor.FrameChanged-=ListPropertyEditorOnFrameChanged;
-            ((GridListEditor) listPropertyEditor.ListView.Editor).ControlsCreated+=OnControlsCreated;
-        }
+    
 
         protected override IObservable<T> Synchronise<T>(T i) {
             return base.Synchronise(i).ObserveOn(_synchronizationContext);
         }
 
-        private void OnControlsCreated(object sender, EventArgs eventArgs){
-            PopulatePropertyNames();
-        }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
             ExcelImport.File.PropertyChanged -= FileOnPropertyChanged;
-        }
-
-        protected override void TypeChange(){
-            base.TypeChange();
-            PopulatePropertyNames();
-        }
-
-        private void PopulatePropertyNames(){
-            var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
-                editor.MemberInfo.Name == nameof(ExcelImport.ExcelColumnMaps));
-            var gridView = ((GridListEditor) listPropertyEditor.ListView.Editor).GridView;
-            var repositoryItem = (RepositoryItemComboBox) gridView.Columns[nameof(ExcelColumnMap.PropertyName)].ColumnEdit;
-            repositoryItem.Items.Clear();
-            repositoryItem.Items.AddRange(ExcelImport.TypePropertyNames.Cast<object>().ToArray());
         }
 
         private void FileOnPropertyChanged(object sender, PropertyChangedEventArgs e){

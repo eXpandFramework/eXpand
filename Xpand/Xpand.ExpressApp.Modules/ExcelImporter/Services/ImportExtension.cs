@@ -212,9 +212,10 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             Validator.RuleSet.Validate(((IObjectSpaceLink) excelImport).ObjectSpace, excelImport,ExcelImport.MappingContext);
             using (var memoryStream = new MemoryStream(excelImport.File.Content)){
                 using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)){
-                    using (var dataSet = excelDataReader.GetDataSet(excelImport)){
-                        foreach (var dataColumn in dataSet.Tables.Cast<DataTable>()
-                            .First(table => table.TableName == excelImport.SheetName).Columns.Cast<DataColumn>()){
+                    using (var dataSet = excelDataReader.GetDataSet(excelImport)) {
+                        var dataColumns = dataSet.Tables.Cast<DataTable>()
+                            .First(table => table.TableName == excelImport.SheetName).Columns.Cast<DataColumn>();
+                        foreach (var dataColumn in dataColumns){
                             var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
                             var excelColumnMap = objectSpace.CreateObject<ExcelColumnMap>();
                             excelImport.ExcelColumnMaps.Add(excelColumnMap);

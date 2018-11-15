@@ -7,7 +7,6 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
@@ -25,6 +24,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         protected Subject<Unit> Terminator=new Subject<Unit>();
         private readonly Subject<ISubject<ImportProgress>> _progressObsverveCreated=new Subject<ISubject<ImportProgress>>();
 
+        
+
         private const string ExcelMapActionName = "ExcelMap";
         private const string ImportExcelActionName = "ImportExcel";
         
@@ -34,7 +35,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             MapAction = new SingleChoiceAction(this, ExcelMapActionName, "ExcelImport") {
                  ItemType = SingleChoiceActionItemType.ItemIsOperation
             };
-            UpdateMapAction();
+            MapAction.Items.Add(new ChoiceActionItem("Map", "Map"));
+            MapAction.Items.Add(new ChoiceActionItem("Reset", "Reset"));
             MapAction.Execute+=ExcelMappingActionOnExecute;
             ImportAction = new SimpleAction(this,ImportExcelActionName,"ExcelImport"){Caption = "Import"};
             ImportAction.Execute+=ImportActionOnExecute;
@@ -42,7 +44,12 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         private void ExcelMappingActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
-            if ((string) e.SelectedChoiceActionItem.Data=="Configure") {
+            if ((string) e.SelectedChoiceActionItem.Data == "Reset") {
+                ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
+                ObjectSpace.CommitChanges();
+                MapAction.DoExecute(MapAction.FindItemByIdPath("Map"));
+            }
+            else {
                 if (!ExcelImport.ExcelColumnMaps.Any())
                     Map();
                 ObjectSpace.CommitChanges();
@@ -52,10 +59,14 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 parameters.CreatedView=Application.CreateDashboardView(Application.CreateObjectSpace(), "ExcelColumnMapMasterDetail", true);
                 parameters.TargetWindow=TargetWindow.NewModalWindow;
                 ShowMapConfigView(parameters);
+                dialogController.AcceptAction.Executed+=AcceptActionOnExecuted;
             }
-            else {
-                Map();
-            }
+            
+        }
+
+        private void AcceptActionOnExecuted(object sender, ActionBaseEventArgs e) {
+            ((IObjectSpaceLink) ExcelImport).ObjectSpace.ReloadObject(ExcelImport);
+            ExcelImport.ValidateForImport();
         }
 
         protected virtual void ShowMapConfigView(ShowViewParameters parameters) {
@@ -64,61 +75,15 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         private void Map() {
             ValidateFile();
-            ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
             var excelImport = ExcelImport;
-            excelImport.Map();
-            var listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor =>
-                editor.MemberInfo.Name == nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
-            foreach (var columnMap in excelImport.ExcelColumnMaps){
-                listPropertyEditor.ListView.CollectionSource.Add(columnMap);    
-            }
-            View.FindItem(nameof(BusinessObjects.ExcelImport.ExcelColumnMaps)).Refresh();
-            UpdateMapAction();
-        }
-
-        protected override void OnActivated(){
-            base.OnActivated();
-            if (ExcelImport.ExcelColumnMaps.Any()) {
-                UpdateMapAction();
-            }
-            ObjectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
-        }
-
-        private void UpdateMapAction(){
-            if (View == null||!ExcelImport.ExcelColumnMaps.Any()) {
-                MapAction.Items.Clear();
-                MapAction.Items.Add(new ChoiceActionItem("Map", "Map"));
-                MapAction.Items.Add(new ChoiceActionItem("Configure", "Configure"));
-                MapAction.Caption = MapAction.Items.First().Caption;
-            }
-            else if (ExcelImport.ExcelColumnMaps.Any(map => map.IsAbstract&&!map.MemberTypeValues.Any())) {
-                MapAction.Items.Clear();
-                MapAction.Items.Add(new ChoiceActionItem("Configure", "Configure"));
-                MapAction.Items.Add(new ChoiceActionItem("Map", "Map"));
-                MapAction.Caption = MapAction.Items.First().Caption;
-            }
+            excelImport.Map();   
         }
 
         protected override void OnDeactivated(){
             base.OnDeactivated();
             Terminator.OnNext(Unit.Default);
-            ObjectSpace.ObjectChanged-=ObjectSpaceOnObjectChanged;
         }
 
-        private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e){
-            if (Equals(e.Object, ExcelImport) ){
-                if ((e.PropertyName == nameof(BusinessObjects.ExcelImport.SheetName) ||
-                     e.PropertyName == nameof(BusinessObjects.ExcelImport.UseHeaderRows) ||
-                     e.PropertyName == nameof(BusinessObjects.ExcelImport.Type)))
-                    ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
-                if (e.PropertyName == nameof(BusinessObjects.ExcelImport.Type))
-                    TypeChange();
-            }
-        }
-
-        protected virtual void TypeChange(){
-            UpdateMapAction();
-        }
 
         private void ImportActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
             ValidateFile();
@@ -255,4 +220,20 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         public SimpleAction ImportAction{ get;  }
     }
+
+//    public class MapDialogController : DialogController {
+//        public MapDialogController() {
+//            var resetMapAction = new SimpleAction(this,"ResetMap",PredefinedCategory.PopupActions);resetMapAction.Execute+=ResetMapActionOnExecute;
+//            resetMapAction.Execute+=ResetMapActionOnExecute;
+//        }
+//
+//        public ExcelImport ExcelImport { get; set; }
+//
+//        private void ResetMapActionOnExecute(object sender, SimpleActionExecuteEventArgs e) {
+//            ExcelImport.ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
+//            ExcelImport.Map();
+//            ExcelImport.ObjectSpace.CommitChanges();
+//            Frame.GetController<MasterDetailController>().ListView.ObjectSpace.Refresh();
+//        }
+//    }
 }

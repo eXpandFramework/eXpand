@@ -15,10 +15,12 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         protected IEnumerable<Type> GetTypes(){
             if (ExcelColumnMap != null){
                 var propertyType = ExcelColumnMap.PropertyType;
-                var types = new[]{propertyType}
-                    .Concat(propertyType.GetTypeInfo().Descendants.Select(info => info.Type))
-                    .Where(type => !type.IsAbstract);
-                return types;
+                if (propertyType != null){
+                    var types = new[]{propertyType}
+                        .Concat(propertyType.GetTypeInfo().Descendants.Select(info => info.Type))
+                        .Where(type => !type.IsAbstract);
+                    return types;
+                }
             }
             return Enumerable.Empty<Type>();
         }
@@ -45,10 +47,12 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         protected ExcelColumnMap ExcelColumnMap => ((ExcelColumnMap) ((PropertyCollectionSource) View.CollectionSource).MasterObject);
 
         protected virtual void OnMasterObjectChanged(object sender, EventArgs e) {
-            View.AllowEdit[nameof(ExcelColumnMapMemberTypeValueController)] = ExcelColumnMap.IsPersistentBO;
-            View.AllowDelete[nameof(ExcelColumnMapMemberTypeValueController)] = ExcelColumnMap.IsPersistentBO;
-            View.AllowNew[nameof(ExcelColumnMapMemberTypeValueController)] = ExcelColumnMap.IsPersistentBO;
-            PopulateTypes();
+            if (ExcelColumnMap != null) {
+                View.AllowEdit[nameof(ExcelColumnMapMemberTypeValueController)] = ExcelColumnMap.IsPersistentBO;
+                View.AllowDelete[nameof(ExcelColumnMapMemberTypeValueController)] = ExcelColumnMap.IsPersistentBO;
+                View.AllowNew[nameof(ExcelColumnMapMemberTypeValueController)] = ExcelColumnMap.IsPersistentBO;
+                PopulateTypes();
+            }
         }
 
     }
