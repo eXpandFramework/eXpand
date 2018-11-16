@@ -188,7 +188,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         public static DataSet GetDataSet(this IExcelDataReader excelDataReader, ExcelImport excelImport){
             var excelDataSetConfiguration = new ExcelDataSetConfiguration{
                 ConfigureDataTable = reader => new ExcelDataTableConfiguration(){
-                    UseHeaderRow = excelImport.UseHeaderRows,
+                    UseHeaderRow = excelImport.HeaderRows>0,
                     ReadHeaderRow= dataReader => {
                         for (int i = 1; i < excelImport.HeaderRows; i++){
                             dataReader.Read();
@@ -211,21 +211,46 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         public static void Map(this ExcelImport excelImport) {
             Validator.RuleSet.Validate(((IObjectSpaceLink) excelImport).ObjectSpace, excelImport,ExcelImport.MappingContext);
             using (var memoryStream = new MemoryStream(excelImport.File.Content)){
-                using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)){
-                    using (var dataSet = excelDataReader.GetDataSet(excelImport)) {
-                        var dataColumns = dataSet.Tables.Cast<DataTable>()
-                            .First(table => table.TableName == excelImport.SheetName).Columns.Cast<DataColumn>();
-                        foreach (var dataColumn in dataColumns){
-                            var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
-                            var excelColumnMap = objectSpace.CreateObject<ExcelColumnMap>();
-                            excelImport.ExcelColumnMaps.Add(excelColumnMap);
-                            excelColumnMap.ExcelColumnName = dataColumn.ColumnName;
-                            var member = excelImport.FindMember(excelColumnMap.GetColumnName());
-                            if (member != null)
-                                excelColumnMap.PropertyName =
-                                    CaptionHelper.GetMemberCaption(member.Owner.Type, member.Name);
-                        }
+                using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)) {
+                    foreach (var dataColumn in excelDataReader.Columns(excelImport: excelImport)) {
+                        var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
+                        var excelColumnMap = objectSpace.CreateObject<ExcelColumnMap>();
+                        excelImport.ExcelColumnMaps.Add(newObject: excelColumnMap);
+                        excelColumnMap.ExcelColumnName = dataColumn;
+                        var member = excelImport.FindMember(excelColumnMap.GetColumnName());
+                        if (member != null)
+                            excelColumnMap.PropertyName =
+                                CaptionHelper.GetMemberCaption(objectType: member.Owner.Type, memberName: member.Name);
                     }
+                }                
+            }
+        }
+
+        public static IEnumerable<string> Sheets(this IExcelDataReader reader) {
+            do {
+                yield return reader.Name;
+            } while (reader.NextResult());
+        }
+
+        public static IEnumerable<string> Columns(this IExcelDataReader reader,ExcelImport excelImport) {
+            return reader.Sheets().SelectMany(s => {
+                int row = 0;
+                while (excelImport.HeaderRows > row) {
+                    row++;
+                    reader.Read();
+                }
+
+                return GetColumnNames(reader, excelImport);
+            });
+
+        }
+
+        private static IEnumerable<string> GetColumnNames(IExcelDataReader reader, ExcelImport excelImport){
+            for (int i = 0; i < reader.FieldCount; i++){
+                if (excelImport.HeaderRows > 0)
+                    yield return reader.GetString(i);
+                else{
+                    yield return  $"{i + 1}";
                 }
             }
         }
