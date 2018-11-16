@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -71,20 +70,10 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
             }
         }
 
-        private void ParseStream(){
-            using (var fileStream = File.Open(ExcelImport.FullName, FileMode.Open, FileAccess.Read,
-                FileShare.Read)){
-                byte[] bytes;
-                using (var memoryStream = new MemoryStream()){
-                    fileStream.CopyTo(memoryStream);
-                    bytes = memoryStream.ToArray();
-                }
-
-                var content = ExcelImport.GetXlsContent(ExcelImport.FullName, bytes);
-                using (var excelDataReader = ExcelReaderFactory.CreateReader(content)){
-                    using (var dataSet = excelDataReader.GetDataSet(ExcelImport)){
-                        ExcelImport.SheetNames = dataSet.Tables.Cast<DataTable>().Select(table => table.TableName).ToList();
-                    }
+        private void ParseStream() {
+            using (var stream = ExcelImport.GetXlsContent(ExcelImport.FullName, ExcelImport.File.Content)){
+                using (var excelDataReader = ExcelReaderFactory.CreateReader(stream)){
+                    ExcelImport.SheetNames = excelDataReader.Sheets().ToList();
                 }
             }
         }

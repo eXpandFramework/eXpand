@@ -41,11 +41,17 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(ImportStrategy), ref _importStrategy, value);
         }
 
+        protected override void OnChanged(string propertyName, object oldValue, object newValue) {
+            base.OnChanged(propertyName, oldValue, newValue);
+            if (propertyName==nameof(HeaderRows))
+                Session.Delete(ExcelColumnMaps);
+        }
+
         [Browsable(false)]
         public bool CanImport => ExcelColumnMaps.All(map => map.MemberTypeValues.Count > 0);
 
         int _headerRows;
-        [RuleValueComparison(ValueComparisonType.GreaterThan, 0,TargetCriteria = nameof(UseHeaderRows)+"=True",TargetContextIDs = MappingContext)]
+        
         public int HeaderRows{
             get => _headerRows;
             set => SetPropertyValue(nameof(HeaderRows), ref _headerRows, value);
@@ -158,6 +164,12 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         protected override void OnLoaded(){
             base.OnLoaded();
             _file=new XpandFileData();
+            if (System.IO.File.Exists(FullName)) {
+                using (var fileStream = System.IO.File.OpenRead(FullName)){
+                    _file.LoadFromStream(Path.GetFileName(FullName), fileStream);
+                }
+            }
+
             _failedResultList=new FailedResultList();
         }
 
@@ -194,12 +206,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(Type), ref _type, value);
         }
 
-        bool _useHeaderRows;
-        [ImmediatePostData]
-        public bool UseHeaderRows{
-            get => _useHeaderRows;
-            set => SetPropertyValue(nameof(UseHeaderRows), ref _useHeaderRows, value);
-        }
+
 
         FailedResultList _failedResultList;
         [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
@@ -238,6 +245,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(AutoImportNotification), ref _autoImportNotification, value);
         }
     }
+
 
     public enum AutoImportNotification{
         Always,
