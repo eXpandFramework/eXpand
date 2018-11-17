@@ -5,8 +5,8 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.Dashboard.Services{
     public class XpandDashboardDataProvider : DashboardDataProvider {
-        protected override IObjectDataSourceCustomFillService CreateService(IDashboardData dashboardData){
-            return CreateServiceCore(dashboardData);
+        protected override IObjectDataSourceCustomFillService CreateService(IDashboardData dashboardData) {
+            return dashboardData is IDashboardDefinition ? CreateServiceCore(dashboardData) : base.CreateService(dashboardData);
         }
 
         private static IObjectDataSourceCustomFillService CreateServiceCore(IDashboardData dashboardData){
