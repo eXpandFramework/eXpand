@@ -132,12 +132,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 var keyMember = memberTypeInfo.GetKeyMember();
                 if (columnValue.TryToChange(keyMember.MemberType, out result)){
                     try {
-                        var type=importParameter.Map.MemberTypeValues.Select(value => value.RegexValue == ".*" ? value.PropertyType :
-                            Regex.Match(columnValue.ToString(), value.RegexValue).Success ? value.PropertyType :null).WhereNotNull().FirstOrDefault();
-                        if (type == null) {
-                            throw new InvalidOperationException($"Cannot match {nameof(ExcelColumnMap.ExcelColumnName)} {importParameter.Map.ExcelColumnName} against column value: {columnValue}");
-                        }
-                        var referenceObject = GetReferenceObject(objectSpace, importParameter, type, keyMember, result);
+                        var referenceObject = GetReferenceObject(objectSpace, importParameter,  keyMember, result);
                         if (referenceObject != null) {
                             keyMember.SetValue(referenceObject, result);
                             importParameter.MemberInfo.SetValue(importToObject, referenceObject);
@@ -166,22 +161,31 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         private static object GetReferenceObject(IObjectSpace objectSpace, ImportParameter importParameter,
-            Type type, IMemberInfo keyMember, object result) {
+             IMemberInfo keyMember, object result) {
             var importStrategy = importParameter.Map.ImportStrategy;
             if (importStrategy == PersistentTypesImportStrategy.CreateAlways)
-                return objectSpace.CreateObject(type);
+                return CreateObject(objectSpace: objectSpace, importParameter,result);
             var criteria =result==null?new NullOperator(keyMember.Name) : CriteriaOperator.Parse($"{keyMember.Name}=?", result);
-            var referenceObject = objectSpace.FindObject(type, criteria, true);
+            var referenceObject = objectSpace.FindObject(importParameter.MemberInfo.MemberType, criteria, true);
             if (importStrategy == PersistentTypesImportStrategy.FailNotFound) {
                 if (referenceObject == null)
-                    throw new ReferenceObjectNotFoundException(type, criteria);
+                    throw new ReferenceObjectNotFoundException(importParameter.MemberInfo.MemberType, criteria);
                 return referenceObject;
             }
             if (importStrategy == PersistentTypesImportStrategy.UpdateOnly) {
                 return referenceObject;
             }
 
-            return referenceObject ?? objectSpace.CreateObject(type);
+            return referenceObject ?? CreateObject(objectSpace, importParameter, result);
+        }
+
+        private static object CreateObject(IObjectSpace objectSpace, ImportParameter importParameter, object result){
+            var type=importParameter.Map.MemberTypeValues.Select(value => value.RegexValue == ".*" ? value.PropertyType :
+                Regex.Match(result.ToString(), value.RegexValue).Success ? value.PropertyType :null).WhereNotNull().FirstOrDefault();
+            if (type == null) {
+                throw new InvalidOperationException($"Cannot match {nameof(ExcelColumnMap.ExcelColumnName)} {importParameter.Map.ExcelColumnName} against column value: {result}");
+            }
+            return objectSpace.CreateObject(type);
         }
 
 

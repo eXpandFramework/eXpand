@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.SystemModule;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
     public class ExcelImportDetailViewController : ExcelImporter.Controllers.ExcelImportDetailViewController{
@@ -71,7 +72,12 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
         }
 
         private void ParseStream() {
-            using (var stream = ExcelImport.GetXlsContent(ExcelImport.FullName, ExcelImport.File.Content)){
+            byte[] bytes;
+            using (var fileStream = new FileStream(ExcelImport.FullName, FileMode.Open)) {
+                bytes = fileStream.ReadFully();
+            }
+
+            using (var stream = ExcelImport.GetXlsContent(ExcelImport.FullName, bytes)){
                 using (var excelDataReader = ExcelReaderFactory.CreateReader(stream)){
                     ExcelImport.SheetNames = excelDataReader.Sheets().ToList();
                 }
