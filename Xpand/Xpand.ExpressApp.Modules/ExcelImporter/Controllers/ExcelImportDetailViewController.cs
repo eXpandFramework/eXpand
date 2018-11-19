@@ -54,6 +54,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     Map();
                 ObjectSpace.CommitChanges();
                 var parameters = e.ShowViewParameters;
+                var mapDialogController = new MapDialogController(ExcelImport);
+                parameters.Controllers.Add(mapDialogController);
                 var dialogController = new DialogController();
                 parameters.Controllers.Add(dialogController);
                 parameters.CreatedView=Application.CreateDashboardView(Application.CreateObjectSpace(), "ExcelColumnMapMasterDetail", true);
@@ -220,20 +222,4 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         public SimpleAction ImportAction{ get;  }
     }
-
-//    public class MapDialogController : DialogController {
-//        public MapDialogController() {
-//            var resetMapAction = new SimpleAction(this,"ResetMap",PredefinedCategory.PopupActions);resetMapAction.Execute+=ResetMapActionOnExecute;
-//            resetMapAction.Execute+=ResetMapActionOnExecute;
-//        }
-//
-//        public ExcelImport ExcelImport { get; set; }
-//
-//        private void ResetMapActionOnExecute(object sender, SimpleActionExecuteEventArgs e) {
-//            ExcelImport.ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
-//            ExcelImport.Map();
-//            ExcelImport.ObjectSpace.CommitChanges();
-//            Frame.GetController<MasterDetailController>().ListView.ObjectSpace.Refresh();
-//        }
-//    }
 }
