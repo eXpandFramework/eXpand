@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Dashboard.Services{
         }
 
         protected override IObjectDataSourceCustomFillService CreateViewService(IDashboardData dashboardData){
-            return CreateServiceCore(dashboardData);
+            return dashboardData is IDashboardDefinition ? CreateServiceCore(dashboardData) : base.CreateViewService(dashboardData);
         }
     }
 }
