@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp.Model;
@@ -20,9 +20,22 @@ namespace Xpand.Persistent.Base.General {
 			
             var paths = Path.Split('/');
             Id = paths[0];
+            Caption = Id;
         }
         
-        public XpandNavigationItemAttribute(string path, string viewId, string objectKey,  string id, int index = -1) {
+        //Note #1 : No need for this construction any IMHO
+        //should be 
+        //public XpandNavigationItemAttribute(string path, string viewId, string objectKey, string , int index = -1) {
+        //    Path = path;
+        //    Index = -1;
+        //    ViewId = viewId;
+        //    Index = index;
+        //    ObjectKey = objectKey;
+        //    Id = paths[0];
+        //    Caption = caption;
+        //}
+        // But what about method signature and differant functionality   
+        public XpandNavigationItemAttribute(string path, string viewId, string objectKey, string id, int index = -1) {
             Path = path;
             Index = -1;
             ViewId = viewId;
@@ -30,9 +43,22 @@ namespace Xpand.Persistent.Base.General {
             ObjectKey = objectKey;
             Id =  id;
         }
-		
+        
+        //Note #2 : If you applied note #1 then also no need for this construction        
+        public XpandNavigationItemAttribute(string path, string viewId, string objectKey, string id, string caption, int index = -1) {
+            Path = path;
+            Index = -1;
+            ViewId = viewId;
+            Index = index;
+            ObjectKey = objectKey;
+            Id = id;
+            Caption = caption;
+        }
+
         public string Id { get; set; }
-		
+
+        public string Caption { get; set; }
+
         public int Index{ get; }
 
         public string Path{ get; }
@@ -48,10 +74,27 @@ namespace Xpand.Persistent.Base.General {
             foreach (var modelClass in modelClasses) {
                 var navigationItemAttributes = modelClass.TypeInfo.FindAttributes<XpandNavigationItemAttribute>();
                 foreach (var itemAttribute in navigationItemAttributes) {
-                    var paths = itemAttribute.Path.Split('/');
-                    AddNodes(((IModelRootNavigationItems)node).Items, paths.ToList(), ViewIds(itemAttribute, modelClass), itemAttribute.ObjectKey, itemAttribute.Index);
+                    var paths = itemAttribute.Path.Split('/').ToList();
+                    if (paths.Count > 0) paths.RemoveAt(paths.Count -1);
+                    var parentItems = GetParentNavigationItems(((IModelRootNavigationItems)node).Items, paths);
+                    AddNavigationItem(parentItems, ViewIds(itemAttribute, modelClass), itemAttribute);
                 }
             }
+        }
+
+        private IModelNavigationItems GetParentNavigationItems(IModelNavigationItems rootItems, List<string> paths) {
+            var parentNavigationItems = rootItems;
+            foreach (var path in paths) {
+                if (parentNavigationItems[path] != null) {
+                    parentNavigationItems = parentNavigationItems[path].Items;
+                }
+                else {
+                    var navigationItem = parentNavigationItems.AddNode<IModelNavigationItem>(path);
+                    navigationItem.Index = parentNavigationItems.Count;
+                    parentNavigationItems = navigationItem.Items;
+                }
+            }
+            return parentNavigationItems;
         }
 
         string[] ViewIds(XpandNavigationItemAttribute itemAttribute, IModelClass modelClass) {
@@ -60,35 +103,21 @@ namespace Xpand.Persistent.Base.General {
             return new[] {$"{ns}.{viewId}", viewId };
         }
 
-        void AddNodes(IModelNavigationItems navigationItems, List<string> strings, string[] viewIds, string objectKey, int index) {
-            if (strings.Count == 0) {
-                var modelView = navigationItems.Application.Views[viewIds[0]];
-                if (modelView == null) {
-                    modelView = navigationItems.Application.Views[viewIds[1]];
-                    if (modelView == null)
-                        throw new NullReferenceException(string.Join("/", viewIds) + " not found in Application.Views");
-                }
-                ((IModelNavigationItem)navigationItems.Parent).View = modelView;
-                return;
+        void AddNavigationItem(IModelNavigationItems navigationItems, string[] viewIds, XpandNavigationItemAttribute itemAttribute) {
+            var modelView = navigationItems.Application.Views[viewIds[0]];
+            if (modelView == null) {
+                modelView = navigationItems.Application.Views[viewIds[1]];
+                if (modelView == null)
+                    throw new NullReferenceException(string.Join("/", viewIds) + " not found in Application.Views");
             }
-            var id = strings[0];
-            IModelNavigationItem navigationItem = GetNavigationItem(navigationItems, id, objectKey, strings.Count == 1 ? index : -1);
-            strings.RemoveAt(0);
-            AddNodes(navigationItem.Items, strings, viewIds, objectKey, index);
-        }
+            
+            var navigationItem = navigationItems.AddNode<IModelNavigationItem>(itemAttribute.Id);
+            navigationItem.Caption = itemAttribute.Caption;
+            navigationItem.ObjectKey = itemAttribute.ObjectKey;
+            navigationItem.View = modelView;
+            if (itemAttribute.Index > -1)
+                navigationItem.Index = itemAttribute.Index;
 
-        IModelNavigationItem GetNavigationItem(IModelNavigationItems navigationItems, string id, string objectKey, int index) {
-            IModelNavigationItem navigationItem;
-            if (navigationItems[id] != null)
-                navigationItem = navigationItems[id];
-            else {
-                navigationItem = navigationItems.AddNode<IModelNavigationItem>(id);
-                navigationItem.Caption = id;
-                navigationItem.ObjectKey = objectKey;
-                if (index > -1)
-                    navigationItem.Index = index;
-            }
-            return navigationItem;
         }
     }
 }
