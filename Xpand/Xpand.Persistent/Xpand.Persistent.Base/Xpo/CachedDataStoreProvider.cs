@@ -7,8 +7,9 @@ using Xpand.Utils.Helpers;
 namespace Xpand.Persistent.Base.Xpo{
 	public class CachedDataStoreProvider : ConnectionStringDataStoreProvider, IXpoDataStoreProvider{
 	    static CachedDataStoreProvider() {
-	        Factory = () => null;
-	        CreateStore = () => (null, null);
+	        Factory = () => default;
+	        CreateStore = () => default;
+	        CustomCreateUpdatingStore = () => default;
 	    }
 
 	    private static readonly Lazy<CachedDataStoreProvider> Lazy =
@@ -24,12 +25,22 @@ namespace Xpand.Persistent.Base.Xpo{
 	    public CachedDataStoreProvider(string connectionString) : base(connectionString){
 		}
 
+	    public static Func<(bool allowUpdateSchema,IDisposable[] rootDisposables,IDataStore dataStore)> CustomCreateUpdatingStore;
 	    public static Func<(IDisposable[] rootDisposables,IDataStore dataStore)> CreateStore;
 
 	    public new IDataStore CreateWorkingStore(out IDisposable[] disposableObjects) {
 	        return ((IXpoDataStoreProvider) this).CreateWorkingStore(out disposableObjects);
 	    }
 
+	    IDataStore IXpoDataStoreProvider.CreateUpdatingStore(bool allowUpdateSchema, out IDisposable[] disposableObjects) {
+	        var store = CustomCreateUpdatingStore();
+	        if (store.IsDefault()) {
+	            return base.CreateUpdatingStore(allowUpdateSchema, out disposableObjects);
+	        }
+
+	        disposableObjects = store.rootDisposables;
+	        return store.dataStore;
+	    }
 	    IDataStore IXpoDataStoreProvider.CreateWorkingStore(out IDisposable[] disposableObjects){
 			if (_root == null){
 			    var tuple = CreateStore();
