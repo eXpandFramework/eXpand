@@ -574,6 +574,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private void ApplicationOnDisposed(object sender, EventArgs e) {
+            ObjectSpaceCreated = false;
+            _baseImplAssembly = null;
             ((XafApplication) sender).Disposed-=ObjectSpaceOnDisposed;
             CallMonitor.Clear();
         }
@@ -903,17 +905,17 @@ namespace Xpand.Persistent.Base.General {
             var xafApplication = ((XafApplication)sender);
             xafApplication.LoggedOff -= ApplicationOnLoggedOff;
             if (xafApplication.GetPlatform()==Platform.Win){
-                Application.ObjectSpaceCreated += ConnnectionStringActions;
+                Application.ObjectSpaceCreated += ConnectionStringActions;
             }
             else
                 XpandModuleBase.RemoveCall(ConnectionStringHelperName, _xpandModuleBase.ModuleManager);
         }
 
 
-        void ConnnectionStringActions(object sender, ObjectSpaceCreatedEventArgs e) {
+        void ConnectionStringActions(object sender, ObjectSpaceCreatedEventArgs e) {
             XpandModuleBase.ObjectSpaceCreated = true;
             var xafApplication = ((XafApplication)sender);
-            xafApplication.ObjectSpaceCreated -= ConnnectionStringActions;
+            xafApplication.ObjectSpaceCreated -= ConnectionStringActions;
             if (String.CompareOrdinal(_currentConnectionString, Application.ConnectionString) != 0) {
                 _currentConnectionString = Application.ConnectionString;
                 XpandModuleBase.ConnectionString = _xpandModuleBase.GetConnectionString();
@@ -928,7 +930,7 @@ namespace Xpand.Persistent.Base.General {
         public void Attach(XpandModuleBase moduleBase) {
             _xpandModuleBase = moduleBase;
             if (RuntimeMode && !Executed(ConnectionStringHelperName)) {
-                Application.ObjectSpaceCreated += ConnnectionStringActions;
+                Application.ObjectSpaceCreated += ConnectionStringActions;
                 Application.LoggedOff += ApplicationOnLoggedOff;
                 Application.DatabaseVersionMismatch += ApplicationOnDatabaseVersionMismatch;
             }
@@ -943,7 +945,7 @@ namespace Xpand.Persistent.Base.General {
         void XafApplicationOnStatusUpdating(object sender, StatusUpdatingEventArgs statusUpdatingEventArgs) {
             if (statusUpdatingEventArgs.Context == ApplicationStatusMessageId.UpdateDatabaseData.ToString()) {
                 Application.StatusUpdating -= XafApplicationOnStatusUpdating;
-                ConnnectionStringActions(Application, null);
+                ConnectionStringActions(Application, null);
             }
         }
 
