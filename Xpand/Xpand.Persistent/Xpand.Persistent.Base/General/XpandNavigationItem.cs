@@ -23,18 +23,6 @@ namespace Xpand.Persistent.Base.General {
             Caption = Id;
         }
         
-        //Note #1 : No need for this construction any IMHO
-        //should be 
-        //public XpandNavigationItemAttribute(string path, string viewId, string objectKey, string , int index = -1) {
-        //    Path = path;
-        //    Index = -1;
-        //    ViewId = viewId;
-        //    Index = index;
-        //    ObjectKey = objectKey;
-        //    Id = paths[0];
-        //    Caption = caption;
-        //}
-        // But what about method signature and differant functionality   
         public XpandNavigationItemAttribute(string path, string viewId, string objectKey, string id, int index = -1) {
             Path = path;
             Index = -1;
@@ -44,7 +32,6 @@ namespace Xpand.Persistent.Base.General {
             Id =  id;
         }
         
-        //Note #2 : If you applied note #1 then also no need for this construction        
         public XpandNavigationItemAttribute(string path, string viewId, string objectKey, string id, string caption, int index = -1) {
             Path = path;
             Index = -1;
