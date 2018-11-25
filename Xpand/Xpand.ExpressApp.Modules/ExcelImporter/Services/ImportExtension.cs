@@ -126,7 +126,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         private static FailedResult Import(object columnValue,ImportParameter importParameter,  object importToObject,
             IObjectSpace objectSpace){
             var failedResult = new FailedResult(){ExcelColumnName = importParameter.Map.ExcelColumnName,ExcelColumnValue = $"{columnValue}",ImportedObject = $"{importToObject}"};
-            var memberTypeInfo = importParameter.MemberInfo.MemberTypeInfo;
+            var memberTypeInfo = importParameter.Map.GetObjectType(columnValue).GetTypeInfo();
             object result;
             if (memberTypeInfo.IsPersistent){
                 var keyMember = memberTypeInfo.GetKeyMember();
@@ -161,31 +161,38 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         private static object GetReferenceObject(IObjectSpace objectSpace, ImportParameter importParameter,
-             IMemberInfo keyMember, object result) {
+             IMemberInfo keyMember, object columnValue) {
             var importStrategy = importParameter.Map.ImportStrategy;
             if (importStrategy == PersistentTypesImportStrategy.CreateAlways)
-                return CreateObject(objectSpace: objectSpace, importParameter,result);
-            var criteria =result==null?new NullOperator(keyMember.Name) : CriteriaOperator.Parse($"{keyMember.Name}=?", result);
-            var referenceObject = objectSpace.FindObject(importParameter.MemberInfo.MemberType, criteria, true);
+                return CreateObject(objectSpace, importParameter,columnValue);
+            var criteria =columnValue==null?new NullOperator(keyMember.Name) : CriteriaOperator.Parse($"{keyMember.Name}=?", columnValue);
+            var type = importParameter.Map.GetObjectType(columnValue);
+            var referenceObject = objectSpace.FindObject(type, criteria, true);
             if (importStrategy == PersistentTypesImportStrategy.FailNotFound) {
                 if (referenceObject == null)
-                    throw new ReferenceObjectNotFoundException(importParameter.MemberInfo.MemberType, criteria);
+                    throw new ReferenceObjectNotFoundException($"{CaptionHelper.GetClassCaption(type.FullName)}: {importParameter.MemberInfo.Caption()}", criteria);
                 return referenceObject;
             }
             if (importStrategy == PersistentTypesImportStrategy.UpdateOnly) {
                 return referenceObject;
             }
 
-            return referenceObject ?? CreateObject(objectSpace, importParameter, result);
+            return referenceObject ?? CreateObject(objectSpace, importParameter, columnValue);
         }
 
-        private static object CreateObject(IObjectSpace objectSpace, ImportParameter importParameter, object result){
-            var type=importParameter.Map.MemberTypeValues.Select(value => value.RegexValue == ".*" ? value.PropertyType :
-                Regex.Match(result.ToString(), value.RegexValue).Success ? value.PropertyType :null).WhereNotNull().FirstOrDefault();
-            if (type == null) {
-                throw new InvalidOperationException($"Cannot match {nameof(ExcelColumnMap.ExcelColumnName)} {importParameter.Map.ExcelColumnName} against column value: {result}");
-            }
+        private static object CreateObject(IObjectSpace objectSpace, ImportParameter importParameter, object columnValue){
+            var type = importParameter.Map.GetObjectType(columnValue);
             return objectSpace.CreateObject(type);
+        }
+
+        public static Type GetObjectType(this ExcelColumnMap map,object columnValue){
+            var type = map.MemberTypeValues.Select(value => value.RegexValue == ".*" ? value.PropertyType :
+                    Regex.Match(columnValue.ToString(), value.RegexValue).Success ? value.PropertyType : null).WhereNotNull()
+                .FirstOrDefault();
+            if (type == null) {
+                throw new InvalidOperationException($"Cannot match {nameof(ExcelColumnMap.ExcelColumnName)} {map.ExcelColumnName} against column value: {columnValue}");
+            }
+            return type;
         }
 
 
@@ -358,12 +365,12 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
     public class ReferenceObjectNotFoundException : Exception {
         public CriteriaOperator Criteria{ get; }
 
-        public ReferenceObjectNotFoundException(Type type, CriteriaOperator criteria):base($"{type} for {criteria} not found") {
+        public ReferenceObjectNotFoundException(string caption, CriteriaOperator criteria):base($"{caption} for {criteria} not found") {
             Criteria = criteria;
-            Type = type;
+            Caption = caption;
         }
 
-        public Type Type { get; }
+        public string Caption { get; }
 
 
     }
