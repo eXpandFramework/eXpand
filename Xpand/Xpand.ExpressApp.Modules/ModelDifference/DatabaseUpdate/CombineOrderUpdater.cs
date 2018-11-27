@@ -11,7 +11,16 @@ namespace Xpand.ExpressApp.ModelDifference.DatabaseUpdate {
         public override void UpdateDatabaseBeforeUpdateSchema() {
             base.UpdateDatabaseBeforeUpdateSchema();
             if (CurrentDBVersion<new Version(18,1,604,0))
-                DropIndex(nameof(ModelDifferenceObject),"iCombineOrder_ModelDifferenceObject");
+                SafeDropIndex();
+        }
+
+        private void SafeDropIndex(){
+            try {
+                DropIndex(nameof(ModelDifferenceObject), "iCombineOrder_ModelDifferenceObject");
+            }
+            catch {
+                // ignored
+            }
         }
     }
 }
