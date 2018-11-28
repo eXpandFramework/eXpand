@@ -17,7 +17,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -294,6 +295,7 @@
     <EmbeddedResource Include="Layout\XpandHelper.js" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Styles\CommonStyle.css" />
   </ItemGroup>
   <ItemGroup>
@@ -304,10 +306,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="PropertyEditors\CSCodePropertyEditor\CodeFormatter.css" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Images\Eye-icon.png" />
-    <EmbeddedResource Include="Images\Eye-icon_32x32.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -13,6 +13,7 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Localization;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
@@ -297,6 +298,13 @@ namespace Xpand.Persistent.Base.General {
 
         public static Type RoleType { get; set; }
 
+        class CommonModelUpdater:ModelNodesGeneratorUpdater<ImageSourceNodesGenerator> {
+            public override void UpdateNode(ModelNode node) {
+                node.Application.Logo = "eXpand-Logo";
+                ((IModelImageSources) node).AddNode<IModelAssemblyResourceImageSource>(
+                    GetType().Assembly.GetName().Name);
+            }
+        }
         public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
             base.AddGeneratorUpdaters(updaters);
             OnCustomAddGeneratorUpdaters(new GeneratorUpdaterEventArgs(updaters));
@@ -306,6 +314,7 @@ namespace Xpand.Persistent.Base.General {
             }
             if (Executed("AddGeneratorUpdaters"))
                 return;
+            updaters.Add(new CommonModelUpdater());
             updaters.Add(new ToggleNavigationActionUpdater());
             updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new MergedDifferencesUpdater());
@@ -623,6 +632,7 @@ namespace Xpand.Persistent.Base.General {
                 var fileModelStore = new FileModelStore(storePath, fileNameTemplate);
                 yield return new KeyValuePair<string, ModelDifferenceStore>(fileNameTemplate, fileModelStore);
             }
+
         }
 
         public static string BinDirectory => ApplicationHelper.Instance.Application.GetPlatform()==Platform.Web ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
