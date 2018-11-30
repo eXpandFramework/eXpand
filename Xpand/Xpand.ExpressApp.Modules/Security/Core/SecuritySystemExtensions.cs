@@ -175,6 +175,7 @@ namespace Xpand.ExpressApp.Security.Core {
                 objectSpace.CreateModifierPermission<MyDetailsOperationPermissionData>(Modifier.Allow),
                 objectSpace.CreateModifierPermission<AnonymousLoginOperationPermissionData>(Modifier.Allow)
             });
+            anonymousRole.AddObjectAccessPermission(SecuritySystem.UserType, "[Oid] = CurrentUserId()",SecurityOperations.ReadOnlyAccess);
             return  anonymousRole;
         }
 
