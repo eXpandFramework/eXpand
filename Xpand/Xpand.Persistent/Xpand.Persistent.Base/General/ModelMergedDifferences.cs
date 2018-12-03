@@ -100,10 +100,13 @@ namespace Xpand.Persistent.Base.General {
             }
 
             var list = ((IList<ModelNode>) master.GetPropertyValue("Layers"));
-            return FindIndex(list, node => {
-                var newId = Regex.Replace(node.Id, "(.*assembly ')([^',]*)(.*)", "$2");
-                return newId == assemblyName;
-            });
+            var layerIndex = FindIndex(list, node => assemblyName==Regex.Replace(node.Id, "(.*assembly ')([^',]*)(.*)", "$2"));
+            if (layerIndex == -1) {
+                if (!InterfaceBuilder.RuntimeMode)
+                    return master.LayersCount;
+                throw new InvalidOperationException($"{modelMergedDifferenceInfo}");
+            }
+            return layerIndex;
         }
 
         static int FindIndex<T>(IList<T> list, Predicate<T> predicate) {
