@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Reflection;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -21,6 +20,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         string _associationName;
         PersistentClassInfo _elementClassInfo;
         Type _elementType;
+        bool _useAssociationNameAsIntermediateTableName ;
         string _elementTypeFullName;
 
 
@@ -29,24 +29,29 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         }
 
         public RelationType RelationType{
-            get { return _relationType; }
-            set { SetPropertyValue("RelationType", ref _relationType, value); }
+            get => _relationType;
+            set => SetPropertyValue("RelationType", ref _relationType, value);
         }
 
         [VisibleInListView(true)]
         [RuleRequiredField(null, DefaultContexts.Save)]
         [Size(SizeAttribute.Unlimited)]
         public string AssociationName {
-            get { return _associationName; }
-            set { SetPropertyValue("AssociationName", ref _associationName, value); }
+            get => _associationName;
+            set => SetPropertyValue("AssociationName", ref _associationName, value);
         }
 
+        [AttributeInfo]
+        public bool UseAssociationNameAsIntermediateTableName  {
+            get => _useAssociationNameAsIntermediateTableName ;
+            set => SetPropertyValue(nameof(UseAssociationNameAsIntermediateTableName ), ref _useAssociationNameAsIntermediateTableName , value);
+        }
 
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type ElementType {
-            get { return _elementType; }
+            get => _elementType;
             set {
                 SetPropertyValue("ElementType", ref _elementType, value);
                 if (_elementType != null)
@@ -57,7 +62,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         }
 
         public PersistentClassInfo ElementClassInfo {
-            get { return _elementClassInfo; }
+            get => _elementClassInfo;
             set {
                 SetPropertyValue("ElementClassInfo", ref _elementClassInfo, value);
                 if (_elementClassInfo?.PersistentAssemblyInfo != null) {
@@ -70,23 +75,22 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         [Size(SizeAttribute.Unlimited)]
         [Browsable(false)]
         public string ElementTypeFullName {
-            get { return _elementTypeFullName; }
-            set { SetPropertyValue("ElementTypeFullName", ref _elementTypeFullName, value); }
+            get => _elementTypeFullName;
+            set => SetPropertyValue("ElementTypeFullName", ref _elementTypeFullName, value);
         }
 
 
         public override AttributeInfoAttribute Create() {
             if (!string.IsNullOrEmpty(ElementTypeFullName))
                 return GetElementTypeDefinedAttributeInfo();
-            ConstructorInfo constructorInfo = typeof(AssociationAttribute).GetConstructor(new[] { typeof(string) });
-            return new AttributeInfoAttribute(constructorInfo, AssociationName);
+            var constructorInfo = typeof(AssociationAttribute).GetConstructor(new[] { typeof(string) });
+            return new AttributeInfoAttribute(constructorInfo, AssociationName){Instance = this};
         }
 
         AttributeInfoAttribute GetElementTypeDefinedAttributeInfo() {
             var type = ReflectionHelper.GetType(ElementTypeFullName);
-            ConstructorInfo constructorInfo =
-                typeof(AssociationAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
-            return new AttributeInfoAttribute(constructorInfo, AssociationName, type);
+            var constructorInfo =typeof(AssociationAttribute).GetConstructor(new[] { typeof(string), typeof(string), typeof(string) });
+            return new AttributeInfoAttribute(constructorInfo, AssociationName, type){Instance = this};
         }
     }
 }
