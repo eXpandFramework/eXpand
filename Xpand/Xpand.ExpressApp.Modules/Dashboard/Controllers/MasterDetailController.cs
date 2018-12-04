@@ -91,7 +91,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             var dashboardViewItems = ((IModelDashoardViewMasterDetail)node).Items.OfType<IModelDashboardViewItem>().ToArray();
             var modelObjectViews = dashboardViewItems.Select(item => item.View).OfType<IModelObjectView>().ToArray();
             return modelObjectViews.Length == 2 && modelObjectViews.Length == dashboardViewItems.Length &&
-                   modelObjectViews.GroupBy(view => view.ModelClass).Count() == 1;
+                   modelObjectViews.GroupBy(view => view.ModelClass).Count() == 1&&modelObjectViews.First().GetType()!=modelObjectViews.Last().GetType();
         }
     }
 
@@ -233,8 +233,8 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
 
         private void DetailViewdashboardViewItemControlCreated(Object sender, EventArgs e) {
             var frame = ((IFrameContainer)_detailViewdashboardViewItem).Frame;
-            frame.GetController<MasterDetailActionsController>().Active[MasterDetailActionsController.ActiveKey] = true;
-            frame.GetController<NewObjectViewController>().ObjectCreating += OnObjectCreating;
+            frame.GetController<MasterDetailActionsController>(controller => Active[MasterDetailActionsController.ActiveKey] = true);
+            frame.GetController<NewObjectViewController>(controller => controller.ObjectCreating += OnObjectCreating);
             ConfigureDetailView((DetailView)_detailViewdashboardViewItem.InnerView);
         }
 
