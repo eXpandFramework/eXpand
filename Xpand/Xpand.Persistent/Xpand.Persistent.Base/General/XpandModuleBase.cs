@@ -283,6 +283,7 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelColumn, IModelColumnDetailViews>();
                 extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
                 extenders.Add<IModelApplication, IModelApplicationModule>();
+                extenders.Add<IModelApplication, IModelApplicationLayers>();
                 extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
                 extenders.Add<IModelApplication, IModelApplicationViews>();
                 extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();

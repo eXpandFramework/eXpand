@@ -17,6 +17,13 @@ using Xpand.Persistent.Base.ModelDifference;
 using ResourcesModelStore = DevExpress.ExpressApp.ResourcesModelStore;
 
 namespace Xpand.Persistent.Base.General {
+    
+    public interface IModelApplicationLayers {
+        [Browsable(false)]
+        string ModelLayers { get; set; }
+    }
+
+
     public class MergedDifferencesUpdater : ModelNodesGeneratorUpdater<ModelViewsNodesGenerator>{
         public static bool Disable;
         public override void UpdateCachedNode(ModelNode node){
@@ -46,6 +53,10 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public override void UpdateNode(ModelNode node){
+            var values = ((IList<ModelNode>) ((ModelApplicationBase) node.Application).Master.GetPropertyValue("Layers"))
+                .Select(_ => Regex.Replace(_.Id, "(.*assembly ')([^',]*)(.*)", "$2"));
+            var modelLayers = string.Join(",",values);
+            ((IModelApplicationLayers) node.Application).ModelLayers= modelLayers;
             UpdateNodeCore(node);
         }
 
@@ -83,14 +94,15 @@ namespace Xpand.Persistent.Base.General {
             foreach (var mergedDifferenceInfo in mergedDifferenceses) {
                 CollectModulesDifferences(modulesDifferences, mergedDifferenceInfo, (s, application, modelMergedDifferenceInfo) => {
                     var modelApplicationBase = CreateInheritanceLayer(node, (ModelApplicationBase)application, modelMergedDifferenceInfo, master);
-                    var layerIndex = FindLayerIndex(modelMergedDifferenceInfo, master);
+                    var layerIndex = FindLayerIndex(modelMergedDifferenceInfo, master, ((IModelApplicationLayers) node.Application).ModelLayers);
                     master.InsertLayer(layerIndex, modelApplicationBase);
                 });
             }
             master.CallMethod("EnsureNodes");
         }
 
-        private static int FindLayerIndex(ModelMergedDifferenceInfo modelMergedDifferenceInfo, ModelApplicationBase master){
+        private static int FindLayerIndex(ModelMergedDifferenceInfo modelMergedDifferenceInfo,
+            ModelApplicationBase master, string layers){
             var assemblyName = modelMergedDifferenceInfo.AssemblyName;
             if (assemblyName==null) {
                 var id = modelMergedDifferenceInfo.ModelMergedDifference.Root.Id();
@@ -99,12 +111,12 @@ namespace Xpand.Persistent.Base.General {
                 assemblyName = module!=null ? module.AssemblyName : modules.First(_ => id.StartsWith(_.AssemblyName)).AssemblyName;
             }
 
-            var list = ((IList<ModelNode>) master.GetPropertyValue("Layers"));
-            var layerIndex = FindIndex(list, node => assemblyName==Regex.Replace(node.Id, "(.*assembly ')([^',]*)(.*)", "$2"));
+            var list = $"{layers}".Split(',');
+            var layerIndex = FindIndex(list, _ => assemblyName==_);
             if (layerIndex == -1) {
                 if (!InterfaceBuilder.RuntimeMode)
                     return master.LayersCount;
-                throw new InvalidOperationException($"{modelMergedDifferenceInfo}");
+                throw new InvalidOperationException($"{modelMergedDifferenceInfo}{Environment.NewLine}{list}");
             }
             return layerIndex;
         }
