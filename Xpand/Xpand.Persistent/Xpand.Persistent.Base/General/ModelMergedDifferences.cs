@@ -75,7 +75,7 @@ namespace Xpand.Persistent.Base.General {
             return differences.MergedDifferences != null && differences.MergedDifferences.Any();
         }
 
-        IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
+        private static IEnumerable<IModelObjectView> AddNewViews(IModelViews modelViews, IEnumerable<ModelApplicationBase> modulesDifferences) {
             var objectViews = modulesDifferences.Cast<IModelApplication>().SelectMany(application =>
                 application.Views.OfType<IModelObjectView>()).Where(view => view.IsNewNode());
             foreach (var objectView in objectViews.Where(view => view.ModelClass != null && modelViews[view.Id] == null)) {
@@ -89,7 +89,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        void AddDifferenceLayers(ModelNode node, IEnumerable<ModelMergedDifferenceInfo> mergedDifferenceses, List<ModelApplicationBase> modulesDifferences) {
+        private void AddDifferenceLayers(ModelNode node, IEnumerable<ModelMergedDifferenceInfo> mergedDifferenceses, List<ModelApplicationBase> modulesDifferences) {
             var master = (ModelApplicationBase)((ModelApplicationBase)node.Application).Master;
             foreach (var mergedDifferenceInfo in mergedDifferenceses) {
                 CollectModulesDifferences(modulesDifferences, mergedDifferenceInfo, (s, application, modelMergedDifferenceInfo) => {
@@ -116,12 +116,12 @@ namespace Xpand.Persistent.Base.General {
             if (layerIndex == -1) {
                 if (!InterfaceBuilder.RuntimeMode)
                     return master.LayersCount;
-                throw new InvalidOperationException($"{modelMergedDifferenceInfo}{Environment.NewLine}{list}");
+                throw new InvalidOperationException($"{modelMergedDifferenceInfo}{Environment.NewLine}{string.Join(Environment.NewLine,list)}");
             }
             return layerIndex;
         }
 
-        static int FindIndex<T>(IList<T> list, Predicate<T> predicate) {
+        private static int FindIndex<T>(IList<T> list, Predicate<T> predicate) {
             for(int i = 0; i < list.Count; i++)
                 if(predicate(list[i]))
                     return i;
