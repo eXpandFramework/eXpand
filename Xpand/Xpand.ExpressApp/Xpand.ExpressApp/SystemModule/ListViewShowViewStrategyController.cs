@@ -50,7 +50,7 @@ namespace Xpand.ExpressApp.SystemModule {
         void ActionOnExecuted(object sender, ActionBaseEventArgs actionBaseEventArgs) {
             var showViewParameters = actionBaseEventArgs.ShowViewParameters;
             var createdView = showViewParameters.CreatedView;
-            if (createdView!=null) {
+            if (createdView!=null&&View!=createdView) {
                 if (_listViewShowViewStrategy.OpenViewWhenNestedStrategy == OpenViewWhenNestedStrategy.InMainWindow &&
                     !View.IsRoot) {
                     showViewParameters.CreatedView = null;
