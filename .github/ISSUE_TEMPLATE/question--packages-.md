@@ -1,14 +1,14 @@
 ---
-name: Question issue template
-about: Ask question
+name: Question (Packages)
+about: Ask questtion
 title: ''
-labels: Question
+labels: Packages, Question
 assignees: apobekiaris
 
 ---
 
 **Question**
-A clear and concise description of what the bug is
+A clear and concise description
 
 **Additional context**
 Add any other context or screenshots about the feature request here.
