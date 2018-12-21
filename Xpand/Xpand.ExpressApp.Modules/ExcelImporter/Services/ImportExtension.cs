@@ -64,7 +64,10 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
                 return objectSpace.CreateObject(importToTypeInfo.Type);
-            var valueTuple = importParameters.FirstOrDefault(tuple => tuple.MemberInfo.Caption()==importToTypeInfo.GetKeyMember().Caption());
+            var valueTuple = importParameters.FirstOrDefault(tuple => {
+                var keyMember = importToTypeInfo.GetKeyMember();
+                return keyMember != null && tuple.MemberInfo.Caption() == keyMember.Caption();
+            });
             if (valueTuple.IsDefault())
                 throw new KeyMemberNotMappedException(importToTypeInfo.Type);
             var columnValue = dataRow[valueTuple.Map.ExcelColumnName];
@@ -327,7 +330,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
 
         public static void ValidateForImport(this ExcelImport excelImport) {
             var ruleSet = Validator.RuleSet;
-            var objects = new[] {excelImport}.Cast<object>().Concat(second: excelImport.ExcelColumnMaps)
+            var objects = new[] {excelImport}.Cast<object>().Concat(excelImport.ExcelColumnMaps)
                 .Concat(excelImport.ExcelColumnMaps.SelectMany(map => map.MemberTypeValues)).ToArray();
 
             ruleSet.ValidateAll(((IObjectSpaceLink) excelImport).ObjectSpace,objects ,ExcelImport.ImportingContext);

@@ -203,9 +203,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     messageOptions.Message=exceptionMessage;
                 }
                 if (progressException.Exception is KeyMemberNotMappedException keyMemberNotMappedException) {
-                    var memberInfo = keyMemberNotMappedException.Type.GetTypeInfo().GetKeyMember();
-                    var modelClass = boModel.GetClass(memberInfo.Owner.Type);
-                    messageOptions.Message=$"Default member {modelClass.FindMember(memberInfo.Name).Caption} for {modelClass.Caption} not exists in column map";
+                    var modelClass = boModel.GetClass(keyMemberNotMappedException.Type);
+                    messageOptions.Message=$"Default member for {modelClass.Caption} is missing";
                 }
             }
             return messageOptions;
