@@ -10,19 +10,9 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Core {
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class SecurityOperationsAttribute : Attribute {
-        public SecurityOperationsAttribute(string collectionName, string operationProviderProperty) {
-            CollectionName = collectionName;
-            OperationProviderProperty = operationProviderProperty;
-        }
-
-        public string CollectionName { get; }
-
-        public string OperationProviderProperty { get; }
-    }
 
     public enum SecurityOperationsEnum {
         Read,

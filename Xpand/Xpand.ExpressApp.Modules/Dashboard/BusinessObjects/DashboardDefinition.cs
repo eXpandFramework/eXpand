@@ -8,10 +8,10 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Dashboard.Services;
-using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.Persistent.Base.Security;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Dashboard.BusinessObjects {

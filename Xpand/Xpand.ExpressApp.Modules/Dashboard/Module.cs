@@ -9,7 +9,6 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Dashboard.Services;
-using Xpand.ExpressApp.Security;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 
@@ -27,7 +26,6 @@ namespace Xpand.ExpressApp.Dashboard {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class DashboardModule : XpandModuleBase,IDashboardInteractionUser {
         public DashboardModule(){
-            RequiredModuleTypes.Add(typeof(XpandSecurityModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
             DashboardsModule.DataProvider=new XpandDashboardDataProvider();
         }

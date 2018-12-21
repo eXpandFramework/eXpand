@@ -344,6 +344,7 @@
     <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentModelDefaultAttribute.cs" />
     <Compile Include="Security\EncryptedSettingsStorage.cs" />
     <Compile Include="Security\ISecurityRelated.cs" />
+    <Compile Include="Security\SecurityOperationsAttribute.cs" />
     <Compile Include="StateMachine\IStateMachineTransitionPermission.cs" />
     <Compile Include="StateMachine\StateMachineTransitionModifier.cs" />
     <Compile Include="TreeNode\ColumnChooser.cs" />
