@@ -21,6 +21,7 @@ using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
+using DevExpress.XAF.Modules.ModelViewIneritance;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Helpers;
@@ -111,6 +112,7 @@ namespace Xpand.Persistent.Base.General {
 
         public XpandModuleBase() {
             AdditionalExportedTypes.Add(typeof(MessageBoxTextMessage));
+            RequiredModuleTypes.Add(typeof(ModelViewIneritanceModule));
         }
 
         public static MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object> CallMonitor {
@@ -277,13 +279,11 @@ namespace Xpand.Persistent.Base.General {
 
             if (!Executed("ExtendModelInterfaces")){
                 extenders.Add<IModelNode, IModelNodePath>();
-                extenders.Add<IModelOptions, IModelOptionsMergedDifferenceStrategy>();
                 extenders.Add<IModelClass, IModelClassEx>();
                 extenders.Add<IModelClass, IModelClassDefaultCriteria>();
                 extenders.Add<IModelColumn, IModelColumnDetailViews>();
                 extenders.Add<IModelMember, IModelMemberDataStoreForeignKeyCreated>();
                 extenders.Add<IModelApplication, IModelApplicationModule>();
-                extenders.Add<IModelApplication, IModelApplicationLayers>();
                 extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
                 extenders.Add<IModelApplication, IModelApplicationViews>();
                 extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
@@ -318,7 +318,6 @@ namespace Xpand.Persistent.Base.General {
             updaters.Add(new CommonModelUpdater());
             updaters.Add(new ToggleNavigationActionUpdater());
             updaters.Add(new ModelViewClonerUpdater());
-            updaters.Add(new MergedDifferencesUpdater());
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 

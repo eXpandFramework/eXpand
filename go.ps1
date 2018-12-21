@@ -18,4 +18,4 @@ $msbuildPath=join-Path $msbuildPath MSBuild\15.0\Bin\MSBuild.exe
 $assemblyInfo="$PSScriptRoot\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs"
 $version=(Get-Content $assemblyInfo -ErrorAction Stop | Select-String 'public const string Version = \"([^\"]*)')[0].Matches.Groups[1].Value
 $params ="$PSScriptRoot\Xpand.Build", "/fl", "/t:Release", "/p:Version=$version;Configuration=$configuration"
-& $msbuild $params
+& $msbuildPath $params

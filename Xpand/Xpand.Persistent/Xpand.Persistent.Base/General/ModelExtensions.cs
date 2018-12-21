@@ -13,13 +13,12 @@ using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
-using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;
 using Fasterflect;
 using Xpand.Persistent.Base.Security;
+using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.General {
     public static class ModelNodeExtensions {
@@ -94,7 +93,7 @@ namespace Xpand.Persistent.Base.General {
             var propertyDescriptors = descendants.SelectMany(info => info.Members).DistinctBy(info => info.Name).Select(info => new XafPropertyDescriptor(info,info.Name)).Cast<PropertyDescriptor>().ToArray();
             var evaluatorContextDescriptor = new EvaluatorContextDescriptorDefault(new PropertyDescriptorCollection(propertyDescriptors));
             return new ExpressionEvaluator(evaluatorContextDescriptor, criteriaOperator, false,
-                XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary.CustomFunctionOperators);    
+                ((TypesInfo) XafTypesInfo.Instance).EntityStores.OfType<XpoTypeInfoSource>().First().XPDictionary.CustomFunctionOperators);    
         }
 
         public static IEnumerable<T> GetNodes<T>(this IEnumerable<T> modelNodes, string criteria) where T:IModelNode{
@@ -110,10 +109,8 @@ namespace Xpand.Persistent.Base.General {
             return ((XpoTypeInfoSource) ((TypeInfo) modelMember.ModelClass.TypeInfo).Source).XPDictionary.GetClassInfo(
                     modelMember.ModelClass.TypeInfo.Type).FindMember(modelMember.Name);
         }
-
         public static TNode GetParent<TNode>(this IModelNode modelNode) where TNode : class, IModelNode{
-            var node = modelNode as TNode;
-            if (node != null)
+            if (modelNode is TNode node)
                 return node;
             var parent = modelNode.Parent;
             while (!(parent is TNode)) {
@@ -226,58 +223,13 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModelApplicationBaseExtensions {
+
         public static Platform GetPlatform(this IModelApplication application){
             return ((IModelSources) application).Modules.GetPlatform();
         }
 
         public static Platform GetPlatform(this ModelApplicationBase applicationBase){
             return ((IModelApplication) applicationBase).GetPlatform();
-        }
-
-        static ModelApplicationBase _strategiesModel;
-        public static ModelApplicationBase StrategiesModel(this IModelApplication application, IEnumerable<ModelApplicationBase> modelApplicationBases) {
-            if (_strategiesModel == null) {
-                var strategies = ((IModelOptionsMergedDifferenceStrategy)application.Application.Options).MergedDifferenceStrategies;
-                var xml = $"<Application><Options>{((ModelNode) strategies).Xml}</Options></Application>";
-                var modelApplicationBase = ((ModelApplicationBase) application).CreatorInstance.CreateModelApplication();
-                new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-                ReadFromOtherLayers(modelApplicationBases, modelApplicationBase);
-                UpdateRemovedNodes(modelApplicationBase);
-                _strategiesModel = modelApplicationBase;
-            }
-            return _strategiesModel;
-        }
-
-        static void ReadFromOtherLayers(IEnumerable<ModelApplicationBase> modelApplicationBases,ModelApplicationBase modelApplicationBase) {
-            foreach (var applicationBase in modelApplicationBases.Cast<IModelApplication>()){
-                var mergedDifferenceStrategy = ((IModelOptionsMergedDifferenceStrategy) applicationBase.Options);
-                var xml = mergedDifferenceStrategy?.Xml();
-                if (!string.IsNullOrEmpty(xml)){
-                    xml = $"<Application>{xml}</Application>";
-                    new ModelXmlReader().ReadFromString(modelApplicationBase, "", xml);
-                }
-            }
-        }
-
-        static void UpdateRemovedNodes(IModelNode modelNode) {
-            for (int i = modelNode.NodeCount - 1; i >= 0; i--) {
-                var node = modelNode.GetNode(i);
-                var modelNode1 = ((ModelNode)node);
-                if (CanBeRemoved(modelNode1))
-                    node.Remove();
-                UpdateRemovedNodes(node);
-            }
-        }
-
-        static bool CanBeRemoved(ModelNode modelNode1) {
-            if (modelNode1.IsRemovedNode) {
-                for (int i = modelNode1.NodeCount - 1; i >= 0; i--) {
-                    if (!CanBeRemoved(modelNode1.GetNode(i)))
-                        return false;
-                }
-                return !modelNode1.IsNewNode;
-            }
-            return false;
         }
 
         public static void RemoveLayer(this ModelApplicationBase application){
@@ -324,7 +276,7 @@ namespace Xpand.Persistent.Base.General {
         public static void AddLayerBeforeLast(this ModelApplicationBase application, ModelApplicationBase layer) {
             ModelApplicationBase lastLayer = application.LastLayer;
             if (lastLayer.Id != "After Setup" && lastLayer.Id != "UserDiff")
-                throw new ArgumentException("LastLayer.Id", lastLayer.Id);
+                throw new ArgumentException(@"LastLayer.Id", lastLayer.Id);
             ModelApplicationHelper.RemoveLayer(application);
             ModelApplicationHelper.AddLayer(application, layer);
             ModelApplicationHelper.AddLayer(application, lastLayer);
