@@ -9,7 +9,7 @@ using PropertyChanged;
 using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.Wizard{
-    [ImplementPropertyChanged]
+    [AddINotifyPropertyChangedInterface]
     public class XpandModule{
         
         public bool IsSecurity { get; }

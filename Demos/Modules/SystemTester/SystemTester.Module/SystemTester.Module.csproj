@@ -51,9 +51,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommandLine">
-      <HintPath>..\..\..\..\Support\_third_party_assemblies\CommandLine.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.ExpressApp.CloneObject.v18.2">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>

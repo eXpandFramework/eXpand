@@ -3,13 +3,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
-using PropertyChanged;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.Base {
     
     [NonPersistent]
-    [DoNotNotify]
     public abstract class XpandBaseCustomObject : XpandCustomObject,IObjectSpaceLink {
         private bool _isDefaultPropertyAttributeInit;
         private XPMemberInfo _defaultPropertyMemberInfo;

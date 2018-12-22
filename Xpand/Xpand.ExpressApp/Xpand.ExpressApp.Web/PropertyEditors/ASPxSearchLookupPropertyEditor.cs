@@ -44,7 +44,6 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
 
         public ASPxSearchLookupPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model){
-            skipEditModeDataBind = true;
             NullText = "";
         }
 
@@ -53,13 +52,13 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         protected CollectionSourceBase DataSource => _listView?.CollectionSource;
 
         public int WindowWidth{
-            get { return _windowWidth; }
-            set { _windowWidth = value; }
+            get => _windowWidth;
+            set => _windowWidth = value;
         }
 
         public int WindowHeight{
-            get { return _windowHeight; }
-            set { _windowHeight = value; }
+            get => _windowHeight;
+            set => _windowHeight = value;
         }
 
         internal WebLookupEditorHelper Helper => WebLookupEditorHelper;
@@ -73,8 +72,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         #region ISupportViewShowing Members
 
         event EventHandler<EventArgs> ISupportViewShowing.ViewShowingNotification{
-            add { ViewShowingNotification += value; }
-            remove { ViewShowingNotification -= value; }
+            add => ViewShowingNotification += value;
+            remove => ViewShowingNotification -= value;
         }
 
         #endregion
@@ -90,12 +89,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         private void UpdateDropDownLookupControlAddButton(ASPxSearchDropDownEdit control){
             control.AddingEnabled = false;
             if (CurrentObject != null){
-                string diagnosticInfo;
                 RecreateListView(true);
                 control.AddingEnabled = AllowEdit &&
                                         DataManipulationRight.CanCreate(_listView,
                                             WebLookupEditorHelper.LookupObjectType,
-                                            _listView.CollectionSource, out diagnosticInfo);
+                                            _listView.CollectionSource, out _);
                 if (control.AddingEnabled)
                     control.AddingEnabled = _listView.AllowNew;
             }
@@ -111,8 +109,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
 
         private void UpdateFindButtonScript(ASPxSearchDropDownEdit findEdit, PopupWindowManager popupWindowManager){
             if ((findEdit != null) && (popupWindowManager != null)){
-                var callbackManagerHolder = WebWindow.CurrentRequestPage as ICallbackManagerHolder;
-                var immediatePostDataScript = Model.ImmediatePostData && (callbackManagerHolder != null)
+                var immediatePostDataScript = Model.ImmediatePostData && (WebWindow.CurrentRequestPage is ICallbackManagerHolder callbackManagerHolder)
                     ? callbackManagerHolder.CallbackManager.GetScript().Replace("'", @"\\\\\\""")
                     : string.Empty;
                 var processFindResultFunc = "xafFindLookupProcessFindObject('" + findEdit.UniqueID + "', '" +
@@ -180,8 +177,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         }
 
         private void UpdateDropDownLookup(WebControl editor){
-            var dropDownEdit = editor as ASPxSearchDropDownEdit;
-            if (dropDownEdit != null){
+            if (editor is ASPxSearchDropDownEdit dropDownEdit){
                 
                 dropDownEdit.NewActionCaption = Model.Application.ActionDesign.Actions["New"].Caption;
                 UpdateDropDownLookupControlAddButton(dropDownEdit);
@@ -512,14 +508,14 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         public Control Hidden => _hidden;
 
         public string Value{
-            get { return _hidden.Value; }
-            set { _hidden.Value = value; }
+            get => _hidden.Value;
+            set => _hidden.Value = value;
         }
 
         public ASPxComboBox DropDown { get; }
 
         public bool ReadOnly{
-            get { return DropDown.ReadOnly; }
+            get => DropDown.ReadOnly;
             set{
                 DropDown.ReadOnly = value;
                 DropDown.Enabled = !value;
@@ -531,7 +527,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         public WebLookupEditorHelper Helper { get; set; }
 
         public bool AddingEnabled{
-            get { return _addingEnabled; }
+            get => _addingEnabled;
             set{
                 _addingEnabled = value;
                 if (_newButton != null){
@@ -542,7 +538,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors{
         }
 
         public string NewActionCaption{
-            get { return _newButton.Text; }
+            get => _newButton.Text;
             set{
                 _newButton.ToolTip = value;
                 if (_newButton.Image.IsEmpty) _newButton.Text = value;

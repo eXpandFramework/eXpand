@@ -1,15 +1,12 @@
 #if !EASYTEST
 using System;
 using System.Diagnostics;
-using System.Windows.Forms;
-using Xpand.Persistent.Base.General;
 #endif
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Win;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.Security;
 
 

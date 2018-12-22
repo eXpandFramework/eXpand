@@ -3,7 +3,7 @@ using PropertyChanged;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.BusinessObjects{
-    [ImplementPropertyChanged]
+    [AddINotifyPropertyChangedInterface]
     public class DashboardFileData {
 
         [FileTypeFilter("Dashboard xml", 1, "*.xml")]

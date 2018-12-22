@@ -74,7 +74,7 @@ namespace Xpand.Persistent.Base.General{
             Debug.Assert(parentInterfaceDef.IsInterface);
             return childTypeDef
                 .Interfaces
-                .Any(ifaceDef => DoesSpecificInterfaceImplementInterface(ifaceDef.Resolve(), parentInterfaceDef));
+                .Any(ifaceDef => DoesSpecificInterfaceImplementInterface(ifaceDef.InterfaceType.Resolve(), parentInterfaceDef));
         }
 
         /// <summary>

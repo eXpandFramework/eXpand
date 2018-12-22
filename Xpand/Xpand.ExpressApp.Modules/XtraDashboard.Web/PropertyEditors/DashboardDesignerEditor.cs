@@ -59,7 +59,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
             var dashboardStorage = new XpandDataSourceStorage(_application.Model);
             _dashboardDesigner.SetDataSourceStorage(dashboardStorage);
             _dashboardDesigner.CustomJSProperties += DashboardDesigner_CustomJSProperties;
-            _dashboardDesigner.ClientSideEvents.DashboardChanged =
+            _dashboardDesigner.ClientSideEvents.DashboardInitialized =
                 @"function(dashboardControl, e) {
                     if (dashboardControl.cpDashboardHasParameters)
                         dashboardControl.ShowParametersDialog();                                                                                                                        

@@ -46,14 +46,12 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             base.OnActivated();
             _layoutStyleProvider = new LayoutStyleProvider();
             View.LayoutManager.LayoutCreated += LayoutManager_LayoutCreated;
-            var layoutManager = View.LayoutManager as IWebLayoutManager;
-            if (layoutManager != null) { ((IWebLayoutManager)View.LayoutManager).Instantiated += OnInstantiated; }
+            if (View.LayoutManager is IWebLayoutManager layoutManager) { layoutManager.Instantiated += OnInstantiated; }
             foreach (var item in View.GetItems<WebPropertyEditor>()) {
                 item.ControlCreated += ItemOnControlCreated;
             }
             var listView = View as ListView;
-            var asPxGridListEditor = listView?.Editor as ASPxGridListEditor;
-            if (asPxGridListEditor != null) {
+            if (listView?.Editor is ASPxGridListEditor asPxGridListEditor) {
                 asPxGridListEditor.CustomCreateCellControl += AsPxGridListEditorOnCustomCreateCellControl;
             }
         }
@@ -99,9 +97,8 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            var layoutManager = View.LayoutManager as IWebLayoutManager;
-            if (layoutManager != null)
-                ((IWebLayoutManager)View.LayoutManager).Instantiated -= OnInstantiated;
+            if (View.LayoutManager is IWebLayoutManager layoutManager)
+                layoutManager.Instantiated -= OnInstantiated;
         }
 
         TableCell ContainerCell(WebPropertyEditor item) {
@@ -110,13 +107,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         void OnInstantiated(object sender, TemplateInstantiatedEventArgs templateInstantiatedEventArgs) {
-            var layoutItemTemplateContainer = templateInstantiatedEventArgs.Container as LayoutItemTemplateContainer;
-            if (layoutItemTemplateContainer != null) {
+
+            if (templateInstantiatedEventArgs.Container is LayoutItemTemplateContainer layoutItemTemplateContainer) {
                 _layoutStyleProvider.ApplyCaptionControlStyle(layoutItemTemplateContainer);
                 _layoutStyleProvider.ApplyContainerControlStyle(layoutItemTemplateContainer);
             }
-            var layoutGroupTemplateContainer = templateInstantiatedEventArgs.Container as LayoutGroupTemplateContainer;
-            if (layoutGroupTemplateContainer != null) {
+
+            if (templateInstantiatedEventArgs.Container is LayoutGroupTemplateContainer layoutGroupTemplateContainer) {
                 _layoutStyleProvider.ApplyGroupControlStyle(layoutGroupTemplateContainer);
             }
         }
@@ -130,23 +127,25 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     }
 
     public class LayoutStyleProvider {
-        static readonly string _backColorPropertyName;
-        static readonly string _fontColorPropertyName;
-        static readonly string _fontStylePropertyName;
-        static readonly string _stylePropertyName;
-        static readonly string _cssClassPropertyName;
+        static readonly string BackColorPropertyName;
+        static readonly string FontColorPropertyName;
+        static readonly string FontStylePropertyName;
+        static readonly string StylePropertyName;
+        static readonly string CssClassPropertyName;
 
         static LayoutStyleProvider() {
-            _backColorPropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.BackColor);
-            _fontColorPropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.FontColor);
-            _fontStylePropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.FontStyle);
-            _stylePropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.Style);
-            _cssClassPropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.CssClass);
+            BackColorPropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.BackColor);
+            FontColorPropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.FontColor);
+            FontStylePropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.FontStyle);
+            StylePropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.Style);
+            CssClassPropertyName = ReflectionExtensions.GetPropertyName<IModelLayoutStyle>(style => style.CssClass);
         }
 
         public void ApplyContainerControlStyle(LayoutItemTemplateContainer layoutItemTemplateContainer) {
             var containerControl = layoutItemTemplateContainer.Controls.OfType<Panel>().FirstOrDefault();
+#pragma warning disable 618
             if (containerControl != null && layoutItemTemplateContainer.LayoutItemControl != containerControl) {
+#pragma warning restore 618
                 var layoutStyle = ((IModelLayoutViewItemStyle)layoutItemTemplateContainer.Model).LayoutStyle;
                 if (layoutStyle != null)
                     ApplyStyle(layoutStyle.ContainerPanel, containerControl);
@@ -166,7 +165,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         T GetValue<T>(IModelLayoutStyle modelLayoutStyle, string name) {
             var value = modelLayoutStyle.GetValue<T>(name);
-            return !IsDefault(value) ? value : default(T);
+            return !IsDefault(value) ? value : default;
         }
 
         bool IsDefault<T>(T value) {
@@ -176,7 +175,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public void ApplyStyle(IModelLayoutStyle layoutStyle, WebControl webControl) {
             ApplyColors(layoutStyle, webControl);
 
-            var fontStyle = GetValue<FontStyle>(layoutStyle, _fontStylePropertyName);
+            var fontStyle = GetValue<FontStyle>(layoutStyle, FontStylePropertyName);
             if (fontStyle != FontStyle.Regular)
                 webControl.Style.Add(HtmlTextWriterStyle.FontStyle, fontStyle.ToString());
 
@@ -184,22 +183,22 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         void ApplyCssClassAndInlineStyle(IModelLayoutStyle layoutStyle, WebControl webControl) {
-            var value = GetValue<string>(layoutStyle, _cssClassPropertyName);
+            var value = GetValue<string>(layoutStyle, CssClassPropertyName);
             if (!string.IsNullOrEmpty(value))
                 webControl.CssClass = value;
 
-            value = GetValue<string>(layoutStyle, _stylePropertyName);
+            value = GetValue<string>(layoutStyle, StylePropertyName);
             if (!string.IsNullOrEmpty(value))
                 webControl.Style.Value += ";" + value;
         }
 
         void ApplyColors(IModelLayoutStyle layoutStyle, WebControl webControl) {
-            var color = GetValue<Color>(layoutStyle, _backColorPropertyName);
+            var color = GetValue<Color>(layoutStyle, BackColorPropertyName);
             if (color != Color.Empty) {
                 webControl.Style.Add(HtmlTextWriterStyle.BackgroundColor, ColorTranslator.ToHtml(color));
             }
 
-            color = GetValue<Color>(layoutStyle, _fontColorPropertyName);
+            color = GetValue<Color>(layoutStyle, FontColorPropertyName);
             if (color != Color.Empty) {
                 webControl.Style.Add(HtmlTextWriterStyle.Color, ColorTranslator.ToHtml(color));
             }
@@ -222,8 +221,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
         LayoutGroupTemplateContainer LayoutGroupTemplateContainer(WebControl containerControl, int cellIndex) {
-            var tableRow = containerControl.Controls[0] as TableRow;
-            return tableRow != null && tableRow.Cells.Cast<TableCell>().Any()&& tableRow.Cells[cellIndex].Controls.Cast<object>().Any() ? tableRow.Cells[cellIndex].Controls[0] as LayoutGroupTemplateContainer : null;
+            return containerControl.Controls[0] is TableRow tableRow && tableRow.Cells.Cast<TableCell>().Any()&& tableRow.Cells[cellIndex].Controls.Cast<object>().Any() ? tableRow.Cells[cellIndex].Controls[0] as LayoutGroupTemplateContainer : null;
         }
 
         public void ApplyControlStyle(WebControl webControl, ILayoutStyle layoutStyle) {

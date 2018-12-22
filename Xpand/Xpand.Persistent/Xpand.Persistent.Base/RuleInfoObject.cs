@@ -6,7 +6,6 @@ namespace Xpand.Persistent.Base{
     public enum RuleScheduleType{
         Purging
     }
-
     public class RuleInfoObject:XpandCustomObject{
         RuleScheduleType _ruleScheduleType;
         string _ruleId;

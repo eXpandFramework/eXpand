@@ -17,7 +17,6 @@ namespace SecurityDemo.Win {
         /// </summary>
         [STAThread]
         static void Main(string[] arguments){
-            DevExpress.Xpo.SimpleDataLayer.SuppressReentrancyAndThreadSafetyCheck = true;
 #if EasyTest
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif

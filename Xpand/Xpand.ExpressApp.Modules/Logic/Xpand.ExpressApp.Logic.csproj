@@ -200,9 +200,7 @@
     <Compile Include="Security\LogicRulePermission.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Security\PopulateControllers.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Security\PopulateControllers.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

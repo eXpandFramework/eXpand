@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
@@ -15,7 +14,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects{
     }
     [NonPersistent]
     [DomainComponent]
-    public class DashboardDatasourceFilter:XpandBaseCustomObject,IObjectSpaceLink{
+    public class DashboardDatasourceFilter:XpandBaseCustomObject{
         public DashboardDatasourceFilter(Session session) : base(session){
         }
 
@@ -38,8 +37,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects{
             get => _dataSourceName;
             set => SetPropertyValue(nameof(DataSourceName), ref _dataSourceName, value);
         }
-        [Browsable(false)]
-        public IObjectSpace ObjectSpace{ get; set; }
+        
 
         int _topReturnedRecords;
 

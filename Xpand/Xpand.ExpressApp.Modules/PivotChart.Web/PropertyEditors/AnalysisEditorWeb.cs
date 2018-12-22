@@ -20,9 +20,7 @@ namespace Xpand.ExpressApp.PivotChart.Web.PropertyEditors {
         public AnalysisEditorWeb(Type objectType, IModelMemberViewItem info)
             : base(objectType, info) {
         }
-        public new DevExpress.ExpressApp.PivotChart.Web.AnalysisControlWeb Control {
-            get { return base.Control; }
-        }
+        public new DevExpress.ExpressApp.PivotChart.Web.AnalysisControlWeb Control => base.Control;
 
         ITestable[] ITestableContainer.GetTestableControls() {
             return new ITestable[0];
@@ -38,7 +36,9 @@ namespace Xpand.ExpressApp.PivotChart.Web.PropertyEditors {
         }
 
         private void AnalysisControlOnUnload(object sender, EventArgs eventArgs){
+#pragma warning disable 618
             OnControlInitialized(sender as Control);
+#pragma warning restore 618
         }
 
         void AnalysisControlOnPreRender(object sender, EventArgs eventArgs) {
@@ -48,8 +48,7 @@ namespace Xpand.ExpressApp.PivotChart.Web.PropertyEditors {
 
         void AnalysisControlOnLoad(object sender, EventArgs eventArgs) {
             ((IPopupFilterControlOwner)Control.PivotGrid).SettingsLoadingPanel.Enabled = ((IModelPropertyEditorLoadingPanel)Model).LoadingPanel;
-            var info = CurrentObject as IAnalysisInfo;
-            if ((info != null && info.DataType != null)||!(CurrentObject is IAnalysisInfo)) {
+            if ((CurrentObject is IAnalysisInfo info && info.DataType != null)||!(CurrentObject is IAnalysisInfo)) {
                 ReadValue();
                 Control.DataBind();
                 Printable = (IPrintable) this.CallMethod("GetPrintable");
@@ -57,9 +56,9 @@ namespace Xpand.ExpressApp.PivotChart.Web.PropertyEditors {
         }
 
 
-        void IComplexViewItem.Setup(IObjectSpace objectSpace, XafApplication application){
-            Setup(objectSpace, application);
-            _objectSpace = objectSpace;
+        void IComplexViewItem.Setup(IObjectSpace space, XafApplication application){
+            Setup(space, application);
+            _objectSpace = space;
         }
     }
 }

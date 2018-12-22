@@ -143,10 +143,8 @@
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="PropertyChanged">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.1.53.0\lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
-      <Private>True</Private>
-      <Private>False</Private>
+    <Reference Include="PropertyChanged, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.2.5\lib\net452\PropertyChanged.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -259,13 +257,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Import Project="..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\Support\Build\Nuget.Targets')" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.3\build\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.3\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
       <LangVersion>latest</LangVersion>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.2.0.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.3\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.3\build\Fody.targets'))" />
   </Target>
-  <Import Project="..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\Support\Build\Nuget.Targets')" />
 </Project>

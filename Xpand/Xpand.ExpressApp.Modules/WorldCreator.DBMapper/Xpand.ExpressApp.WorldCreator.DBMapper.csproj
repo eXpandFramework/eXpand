@@ -131,12 +131,8 @@
     <Compile Include="AssemblyGenerator\ClassAtrributeGenerator.cs" />
     <Compile Include="AssemblyGenerator\ClassGenerator.cs" />
     <Compile Include="BusinessObjects\DBLogonObject.cs" />
-    <Compile Include="Controllers\ChooseDBObjectsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Controllers\MapDBController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Controllers\ChooseDBObjectsController.cs" />
+    <Compile Include="Controllers\MapDBController.cs" />
     <Compile Include="AssemblyGenerator\MemberAttributeGenerator.cs" />
     <Compile Include="AssemblyGenerator\MemberGenerator.cs" />
     <Compile Include="Module.cs">

@@ -9,7 +9,7 @@ namespace WizardUITester.Module.BusinessObjects {
         public TestClass(Session session) : base(session) {
         }
         // Fields...
-        private string _PropertyName;
+        
         private string _page2;
         private string _page1;
 

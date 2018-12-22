@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Web.UI;
 using DevExpress.ExpressApp;
@@ -41,10 +40,13 @@ namespace Xpand.ExpressApp.MapView.Web {
                 page.ClientScript.RegisterClientScriptInclude("GoogleMaps", uriBuilder.Uri.ToString());
             }
         }
-        protected override void RegisterEditorDescriptors(List<EditorDescriptor> editorDescriptors) {
-            editorDescriptors.Add(new ListEditorDescriptor(new AliasRegistration("MapListEditor", typeof(object), false)));
-            editorDescriptors.Add(new ListEditorDescriptor(new EditorTypeRegistration("MapListEditor", typeof(object), typeof(MapListEditor), false)));
+
+        protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory) {
+            base.RegisterEditorDescriptors(editorDescriptorsFactory);
+            editorDescriptorsFactory.List.Add(new ListEditorDescriptor(new AliasRegistration("MapListEditor", typeof(object), false)));
+            editorDescriptorsFactory.List.Add(new ListEditorDescriptor(new EditorTypeRegistration("MapListEditor", typeof(object), typeof(MapListEditor), false)));
         }
+
     }
 
 

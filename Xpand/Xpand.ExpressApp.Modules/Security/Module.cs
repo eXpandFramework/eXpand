@@ -20,6 +20,7 @@ using Xpand.ExpressApp.Security.Permissions;
 using Xpand.ExpressApp.Security.Registration;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using MyDetailsController = Xpand.ExpressApp.Security.Controllers.MyDetailsController;

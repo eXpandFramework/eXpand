@@ -8,6 +8,7 @@
     <ProjectGuid>{7964F87D-BC5D-4C4E-8B2F-71E89739AA97}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
+	<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <RootNamespace>ExcelImporterTester.Module.Win</RootNamespace>
     <AssemblyName>ExcelImporterTester.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>

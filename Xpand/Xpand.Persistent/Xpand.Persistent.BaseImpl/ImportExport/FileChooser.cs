@@ -8,7 +8,7 @@ using Xpand.Persistent.Base.ImportExport;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
     [DomainComponent]
-    [ImplementPropertyChanged]
+    [AddINotifyPropertyChangedInterfaceAttribute]
     public class FileChooser :  IFileChooser {
 
 //        [FileTypeFilter("Strong Keys", 1, "*.xml")]
@@ -20,8 +20,8 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
 
         #region IFileChooser Members
         IFileData IFileChooser.FileData {
-            get { return FileData; }
-            set { FileData = value as XpandFileData; }
+            get => FileData;
+            set => FileData = value as XpandFileData;
         }
         #endregion
     }

@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using DevExpress.DXCore.Controls.XtraEditors;
 using DevExpress.DXCore.Controls.XtraGrid;
 using DevExpress.DXCore.Controls.XtraGrid.Columns;
@@ -11,7 +12,7 @@ namespace Xpand.VSIX.ModelEditor
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components;
+        private System.ComponentModel.IContainer components=new Container();
 
 
 

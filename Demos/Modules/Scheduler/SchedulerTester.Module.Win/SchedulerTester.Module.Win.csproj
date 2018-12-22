@@ -73,9 +73,6 @@
     <Reference Include="DevExpress.XtraEditors.v18.2">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="InputManager">
-      <HintPath>..\..\..\..\..\OS\InputManager\InputManager.dll</HintPath>
-    </Reference>
     <Reference Include="System">
       <Name>System</Name>
       <Private>False</Private>

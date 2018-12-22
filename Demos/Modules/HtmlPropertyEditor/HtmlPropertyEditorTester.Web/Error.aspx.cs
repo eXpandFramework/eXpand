@@ -29,7 +29,7 @@ public partial class ErrorPage : System.Web.UI.Page {
         testScriptsManager.RegisterControl(JSLabelTestControl.ClassName, "RequestUrl", TestControlType.Field, "RequestUrl");
         testScriptsManager.RegisterControl(JSLabelTestControl.ClassName, "DescriptionTextBox", TestControlType.Field, "Description");
         testScriptsManager.RegisterControl(JSDefaultTestControl.ClassName, "ReportButton", TestControlType.Action, "Report");
-        testScriptsManager.AllControlRegistered("");
+        testScriptsManager.AllControlRegistered();
         if (WebApplication.Instance != null) {
             ApplicationTitle.Text = WebApplication.Instance.Title;
         } else {

@@ -152,7 +152,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
         public ReleasedSequencePropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
-            skipEditModeDataBind = true;
+            
         }
         public override void Setup(IObjectSpace space, XafApplication app) {
             base.Setup(space, app);

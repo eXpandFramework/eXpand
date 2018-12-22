@@ -14,8 +14,8 @@ using Xpand.Persistent.Base.General.CustomAttributes;
 namespace Xpand.Persistent.Base {
     [DomainComponent]
     [DefaultProperty("FileName")]
-    [ImplementPropertyChanged]
-    public class XpandFileData :  IFileData, IEmptyCheckable,INotifyPropertyChanged,ISupportFullName {
+    [AddINotifyPropertyChangedInterface]
+    public class XpandFileData :  IFileData, IEmptyCheckable,ISupportFullName {
         private byte[] _content;
         public int Size { get; set; }
 
@@ -51,7 +51,7 @@ namespace Xpand.Persistent.Base {
          MemberDesignTimeVisibility(false)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
         public byte[] Content {
-            get { return _content; }
+            get => _content;
             set {
                 Size = value?.Length ?? 0;
                 _content = value;
@@ -64,9 +64,10 @@ namespace Xpand.Persistent.Base {
 
         #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
         [InvisibleInAllViews]
         [Size(SizeAttribute.Unlimited)]
         public string FullName{ get; set; }
+
+        
     }
 }
