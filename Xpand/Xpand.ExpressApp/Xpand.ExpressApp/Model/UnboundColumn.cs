@@ -102,10 +102,6 @@ namespace Xpand.ExpressApp.Model {
             return ((IModelSources)modelNode.Application).EditorDescriptors.PropertyEditorRegistrations;
         }
 
-        protected override bool IsCompatibleEditorDescriptor(EditorDescriptor editorDescriptor) {
-            return editorDescriptor is PropertyEditorDescriptor;
-        }
-
         internal static bool GetIsDefaultEditor(IAliasRegistration aliasRegistration) {
             if (aliasRegistration != null) {
                 return aliasRegistration.ElementType == typeof(Object) && (aliasRegistration.IsDefaultAlias || !aliasRegistration.HasCompatibleDelegate);
@@ -113,11 +109,10 @@ namespace Xpand.ExpressApp.Model {
             return false;
         }
 
-        protected override Type GetDefaultEditorTypeFromModel(IEditorTypeRegistration registration, IAliasRegistration aliasRegistration,
-                                                              IModelNode modelNode) {
+        protected override Type GetDefaultEditorTypeFromModel(IAliasRegistration aliasRegistration, IModelNode modelNode) {
             var memberEditorInfoCalculator = new MemberEditorInfoCalculator();
-            var parameterTypes = new[]{typeof (IEditorTypeRegistration), typeof (IAliasRegistration),typeof(IModelNode)};
-            var callMethod = memberEditorInfoCalculator.CallMethod("GetDefaultEditorTypeFromModel", parameterTypes,Flags.NonPublic|Flags.Instance,registration,aliasRegistration,modelNode);
+            var parameterTypes = new[]{typeof (IAliasRegistration),typeof(IModelNode)};
+            var callMethod = memberEditorInfoCalculator.CallMethod("GetDefaultEditorTypeFromModel", parameterTypes,Flags.NonPublic|Flags.Instance,aliasRegistration,modelNode);
             return (Type) callMethod;
         }
     }
