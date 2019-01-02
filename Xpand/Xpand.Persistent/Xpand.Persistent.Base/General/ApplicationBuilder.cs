@@ -77,6 +77,7 @@ namespace Xpand.Persistent.Base.General {
                 var findTypeDescendants = ReflectionHelper.FindTypeDescendants(assemblyInfo, findTypeInfo, false);
                 var securityInstance = SecuritySystem.Instance;
                 var info = XafTypesInfo.Instance;
+                var application = ApplicationHelper.Instance.Application;
                 typesInfo.AssignAsInstance();
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance());
                 SecuritySystem.SetInstance(securityInstance);
@@ -86,6 +87,7 @@ namespace Xpand.Persistent.Base.General {
                     objectSpaceProviders.Add(new MyClass(xafApplication));
                 }
                 info.AssignAsInstance();
+                ApplicationHelper.Instance.Initialize(application);
                 return xafApplication;
             } finally {
                 ReflectionHelper.RemoveResolvePath(_assemblyPath);

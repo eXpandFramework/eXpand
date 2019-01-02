@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.Persistent.Base;
@@ -18,7 +19,7 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
 
         void KeepOnlyCurrentVersionDXAssemblies() {
             var applicationFolder = PathHelper.GetApplicationFolder();
-            var files = Directory.GetFiles(applicationFolder, "DevExpress*.dll");
+            var files = Directory.GetFiles(applicationFolder, "DevExpress*.dll").Where(s => !s.Contains(".XAF."));
             foreach (var file in files) {
                 if (!FileVersionInfo.GetVersionInfo(file).FileVersion.StartsWith(AssemblyInfo.VersionShort))
                     File.Delete(file);
