@@ -48,9 +48,11 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.18.2.3\lib\net452\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Web.18.2.3\lib\net452\DevExpress.ExpressApp.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
@@ -96,5 +98,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\..\Support\Build\Nuget.Targets')" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

@@ -11,7 +11,8 @@
     <RootNamespace>MainDemo.Module.Web</RootNamespace>
     <AssemblyName>MainDemo.Module.Web</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -64,130 +65,162 @@
     <Reference Include="DevExpress.ExpressApp.Scheduler.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Scheduler.18.2.3\lib\net452\DevExpress.ExpressApp.Scheduler.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.Web.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Validation.Web.18.2.3\lib\net452\DevExpress.ExpressApp.Validation.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.Xpo.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Security.Xpo.18.2.3\lib\net452\DevExpress.ExpressApp.Security.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Xpo.18.2.3\lib\net452\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Printing.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Printing.Core.18.2.3\lib\net452\DevExpress.Printing.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Data.18.2.3\lib\net452\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.AuditTrail.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.AuditTrail.18.2.3\lib\net452\DevExpress.ExpressApp.AuditTrail.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.HtmlPropertyEditor.Web.18.2.3\lib\net452\DevExpress.ExpressApp.HtmlPropertyEditor.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotChart.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotChart.18.2.3\lib\net452\DevExpress.ExpressApp.PivotChart.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotChart.Web.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotChart.Web.18.2.3\lib\net452\DevExpress.ExpressApp.PivotChart.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.18.2.3\lib\net452\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.FileAttachment.Web.18.2.3\lib\net452\DevExpress.ExpressApp.FileAttachment.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Images.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Images.18.2.3\lib\net452\DevExpress.ExpressApp.Images.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Objects.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Objects.18.2.3\lib\net452\DevExpress.ExpressApp.Objects.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Scheduler.Web.18.2.3\lib\net452\DevExpress.ExpressApp.Scheduler.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Security.18.2.3\lib\net452\DevExpress.ExpressApp.Security.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Validation.18.2.3\lib\net452\DevExpress.ExpressApp.Validation.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Web.18.2.3\lib\net452\DevExpress.ExpressApp.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Persistent.Base.18.2.3\lib\net452\DevExpress.Persistent.Base.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Persistent.BaseImpl.18.2.3\lib\net452\DevExpress.Persistent.BaseImpl.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Web.ASPxPivotGrid.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Web.18.2.3\lib\net452\DevExpress.Web.ASPxPivotGrid.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Maps.Web.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Maps.Web.18.2.3\lib\net452\DevExpress.ExpressApp.Maps.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Office.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Office.Core.18.2.3\lib\net452\DevExpress.Office.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.RichEdit.Core.18.2.3\lib\net452\DevExpress.RichEdit.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Web.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Web.18.2.3\lib\net452\DevExpress.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Xpo.18.2.3\lib\net452\DevExpress.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.PivotGrid.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.PivotGrid.Core.18.2.3\lib\net452\DevExpress.PivotGrid.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.3\lib\net452\DevExpress.XtraPrinting.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Charts.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Charts.Core.18.2.3\lib\net452\DevExpress.Charts.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v18.2.Wizard">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.Charts.18.2.3\lib\net452\DevExpress.XtraCharts.v18.2.Wizard.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Charts.18.2.3\lib\net452\DevExpress.XtraCharts.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.3\lib\net452\DevExpress.XtraPivotGrid.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
@@ -306,5 +339,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\Support\Build\Nuget.Targets')" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

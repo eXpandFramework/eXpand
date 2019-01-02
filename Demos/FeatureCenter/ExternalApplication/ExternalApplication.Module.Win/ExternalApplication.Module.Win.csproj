@@ -11,7 +11,8 @@
     <RootNamespace>ExternalApplication.Module.Win</RootNamespace>
     <AssemblyName>ExternalApplication.Module.Win</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
@@ -42,7 +43,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -53,7 +53,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -64,37 +63,45 @@
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Kpi.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Kpi.18.2.3\lib\net452\DevExpress.ExpressApp.Kpi.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Data.18.2.3\lib\net452\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Security.Xpo.18.2.3\lib\net452\DevExpress.ExpressApp.Security.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Xpo.18.2.3\lib\net452\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.18.2.3\lib\net452\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Security.18.2.3\lib\net452\DevExpress.ExpressApp.Security.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Win.18.2.3\lib\net452\DevExpress.ExpressApp.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Persistent.BaseImpl.18.2.3\lib\net452\DevExpress.Persistent.BaseImpl.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Xpo.18.2.3\lib\net452\DevExpress.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp">
       <SpecificVersion>False</SpecificVersion>
@@ -198,5 +205,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\..\..\Support\Build\Nuget.Targets" Condition="Exists('..\..\..\..\Support\Build\Nuget.Targets')" />
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
 </Project>

@@ -9,8 +9,6 @@ using DevExpress.ExpressApp.Kpi;
 using DevExpress.ExpressApp.Objects;
 using DevExpress.ExpressApp.PivotChart;
 using DevExpress.ExpressApp.PivotChart.Web;
-using DevExpress.ExpressApp.Reports;
-using DevExpress.ExpressApp.Reports.Web;
 using DevExpress.ExpressApp.Scheduler;
 using DevExpress.ExpressApp.Scheduler.Web;
 using DevExpress.ExpressApp.ScriptRecorder;
@@ -68,8 +66,6 @@ namespace FeatureCenter.Web.ApplicationCode{
 
         private WorkflowModule _workflowModule1;
         private HtmlPropertyEditorAspNetModule _htmlPropertyEditorAspNetModule1;
-        private ReportsModule _reportsModule1;
-        private ReportsAspNetModule _reportsAspNetModule1;
         private TreeListEditorsAspNetModule _treeListEditorsAspNetModule1;
         private SchedulerModuleBase _schedulerModuleBase1;
         private SchedulerAspNetModule _schedulerAspNetModule1;
@@ -131,8 +127,6 @@ namespace FeatureCenter.Web.ApplicationCode{
             _kpiModule1 = new KpiModule();
             _workflowModule1 = new WorkflowModule();
             _htmlPropertyEditorAspNetModule1 = new HtmlPropertyEditorAspNetModule();
-            _reportsModule1 = new ReportsModule();
-            _reportsAspNetModule1 = new ReportsAspNetModule();
             _treeListEditorsAspNetModule1 = new TreeListEditorsAspNetModule();
             _schedulerModuleBase1 = new SchedulerModuleBase();
             _schedulerAspNetModule1 = new SchedulerAspNetModule();
@@ -187,8 +181,7 @@ namespace FeatureCenter.Web.ApplicationCode{
             // 
             // reportsModule1
             // 
-            _reportsModule1.EnableInplaceReports = true;
-            _reportsModule1.ReportDataType = typeof(ReportData);
+
             // 
             // stateMachineModule1
             // 
@@ -215,8 +208,7 @@ namespace FeatureCenter.Web.ApplicationCode{
             Modules.Add(_pivotChartAspNetModule1);
             Modules.Add(_fileAttachmentsAspNetModule1);
             Modules.Add(_htmlPropertyEditorAspNetModule1);
-            Modules.Add(_reportsModule1);
-            Modules.Add(_reportsAspNetModule1);
+            
             Modules.Add(_treeListEditorsModuleBase2);
             Modules.Add(_treeListEditorsAspNetModule1);
             Modules.Add(_schedulerModuleBase1);
