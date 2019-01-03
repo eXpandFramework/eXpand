@@ -71,83 +71,83 @@
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Charts.Core.18.2.3\lib\net452\DevExpress.Charts.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Charts.Core.18.2.4\lib\net452\DevExpress.Charts.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Data.18.2.3\lib\net452\DevExpress.Data.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Data.18.2.4\lib\net452\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Chart.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Chart.18.2.3\lib\net452\DevExpress.ExpressApp.Chart.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Chart.18.2.4\lib\net452\DevExpress.ExpressApp.Chart.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Chart.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Chart.Win.18.2.3\lib\net452\DevExpress.ExpressApp.Chart.Win.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Chart.Win.18.2.4\lib\net452\DevExpress.ExpressApp.Chart.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotGrid.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotGrid.18.2.3\lib\net452\DevExpress.ExpressApp.PivotGrid.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotGrid.18.2.4\lib\net452\DevExpress.ExpressApp.PivotGrid.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotGrid.Win.18.2.3\lib\net452\DevExpress.ExpressApp.PivotGrid.Win.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotGrid.Win.18.2.4\lib\net452\DevExpress.ExpressApp.PivotGrid.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.18.2.3\lib\net452\DevExpress.ExpressApp.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.18.2.4\lib\net452\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Win.18.2.3\lib\net452\DevExpress.ExpressApp.Win.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Win.18.2.4\lib\net452\DevExpress.ExpressApp.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v18.2.Export">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.RichEdit.Export.18.2.3\lib\net452\DevExpress.RichEdit.v18.2.Export.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.RichEdit.Export.18.2.4\lib\net452\DevExpress.RichEdit.v18.2.Export.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Office.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Office.Core.18.2.3\lib\net452\DevExpress.Office.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Office.Core.18.2.4\lib\net452\DevExpress.Office.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.RichEdit.Core.18.2.3\lib\net452\DevExpress.RichEdit.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.RichEdit.Core.18.2.4\lib\net452\DevExpress.RichEdit.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Printing.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Printing.Core.18.2.3\lib\net452\DevExpress.Printing.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Printing.Core.18.2.4\lib\net452\DevExpress.Printing.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.PivotGrid.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.PivotGrid.Core.18.2.3\lib\net452\DevExpress.PivotGrid.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.PivotGrid.Core.18.2.4\lib\net452\DevExpress.PivotGrid.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Utils.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Utils.18.2.3\lib\net452\DevExpress.Utils.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Utils.18.2.4\lib\net452\DevExpress.Utils.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v18.2.Wizard">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.Charts.18.2.3\lib\net452\DevExpress.XtraCharts.v18.2.Wizard.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.Charts.18.2.4\lib\net452\DevExpress.XtraCharts.v18.2.Wizard.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Charts.18.2.3\lib\net452\DevExpress.XtraCharts.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Charts.18.2.4\lib\net452\DevExpress.XtraCharts.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.3\lib\net452\DevExpress.XtraPrinting.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.4\lib\net452\DevExpress.XtraPrinting.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v18.2.UI">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.Charts.18.2.3\lib\net452\DevExpress.XtraCharts.v18.2.UI.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.Charts.18.2.4\lib\net452\DevExpress.XtraCharts.v18.2.UI.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.3\lib\net452\DevExpress.XtraEditors.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.4\lib\net452\DevExpress.XtraEditors.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.3\lib\net452\DevExpress.XtraPivotGrid.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.4\lib\net452\DevExpress.XtraPivotGrid.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <Private>True</Private>

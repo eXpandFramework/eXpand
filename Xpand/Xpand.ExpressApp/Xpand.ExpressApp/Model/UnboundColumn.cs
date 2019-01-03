@@ -102,9 +102,13 @@ namespace Xpand.ExpressApp.Model {
             return ((IModelSources)modelNode.Application).EditorDescriptors.PropertyEditorRegistrations;
         }
 
-        protected override bool IsCompatibleEditorDescriptor(EditorDescriptor editorDescriptor) {
-            return editorDescriptor is PropertyEditorDescriptor;
+        protected override Type GetDefaultEditorTypeFromModel(IAliasRegistration aliasRegistration, IModelNode modelNode) {
+            var memberEditorInfoCalculator = new MemberEditorInfoCalculator();
+            var parameterTypes = new[]{typeof (IEditorTypeRegistration), typeof (IAliasRegistration),typeof(IModelNode)};
+            var callMethod = memberEditorInfoCalculator.CallMethod("GetDefaultEditorTypeFromModel", parameterTypes,Flags.NonPublic|Flags.Instance,aliasRegistration,aliasRegistration,modelNode);
+            return (Type) callMethod;
         }
+
 
         internal static bool GetIsDefaultEditor(IAliasRegistration aliasRegistration) {
             if (aliasRegistration != null) {
@@ -113,13 +117,6 @@ namespace Xpand.ExpressApp.Model {
             return false;
         }
 
-        protected override Type GetDefaultEditorTypeFromModel(IEditorTypeRegistration registration, IAliasRegistration aliasRegistration,
-                                                              IModelNode modelNode) {
-            var memberEditorInfoCalculator = new MemberEditorInfoCalculator();
-            var parameterTypes = new[]{typeof (IEditorTypeRegistration), typeof (IAliasRegistration),typeof(IModelNode)};
-            var callMethod = memberEditorInfoCalculator.CallMethod("GetDefaultEditorTypeFromModel", parameterTypes,Flags.NonPublic|Flags.Instance,registration,aliasRegistration,modelNode);
-            return (Type) callMethod;
-        }
     }
     [DomainLogic(typeof(IModelColumnUnbound))]
     public class ModelColumnUnboundLogic {
