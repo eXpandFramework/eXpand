@@ -10,15 +10,15 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
 
 
         [Persistent]
-        [Size(255)]
+        [Size(SizeAttribute.Unlimited)]
         [VisibleInDetailView(false)]
         public string Name => GetType().Name + ": " + ToString();
 
         public abstract AttributeInfoAttribute Create();
 
         IPersistentTypeInfo IPersistentAttributeInfo.Owner {
-            get { return Owner; }
-            set { Owner = value as PersistentTypeInfo; }
+            get => Owner;
+            set => Owner = value as PersistentTypeInfo;
         }
         PersistentTypeInfo _owner;
 
@@ -27,8 +27,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         [VisibleInListView(false)]
         [VisibleInLookupListView(false)]
         public PersistentTypeInfo Owner {
-            get { return _owner; }
-            set { SetPropertyValue("Owner", ref _owner, value); }
+            get => _owner;
+            set => SetPropertyValue("Owner", ref _owner, value);
         }
     }
 }
