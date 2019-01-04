@@ -191,8 +191,8 @@
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.String.18.2.401\lib\net461\DevExpress.XAF.Extensions.String.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XAF.Modules.ModelViewIneritance">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Modules.ModelViewIneritance.18.2.401\lib\net461\DevExpress.XAF.Modules.ModelViewIneritance.dll</HintPath>
+    <Reference Include="DevExpress.XAF.Modules.ModelViewInheritance">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Modules.ModelViewInheritance.18.2.401\lib\net461\DevExpress.XAF.Modules.ModelViewInheritance.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
