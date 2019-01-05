@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -55,7 +56,8 @@ namespace Xpand.Persistent.Base {
             set {
                 Size = value?.Length ?? 0;
                 _content = value;
-                this.CallMethod("OnPropertyChanged", "Size");
+                var methodInfo = GetType().Methods().First(info => info.Name.EndsWith("OnPropertyChanged"));
+                methodInfo.Call(this,new PropertyChangedEventArgs("Size"));
             }
         }
         #region IEmptyCheckable Members

@@ -12,11 +12,14 @@
     <AssemblyName>Xpand.ExpressApp.ExcelImporter</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -162,7 +165,9 @@
     <Compile Include="BusinessObjects\FailedResult.cs" />
     <Compile Include="BusinessObjects\FailedResultList.cs" />
     <Compile Include="Controllers\ExcelColumnMapMemberTypeValueController.cs" />
-    <Compile Include="Controllers\MapDialogController.cs" />
+    <Compile Include="Controllers\MapDialogController.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Services\ImportProgress.cs" />
     <Compile Include="Services\ExcelImportKeyAttribute.cs" />
     <Compile Include="Services\ImportExtension.cs" />
