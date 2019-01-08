@@ -17,8 +17,7 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
+    <FileUpgradeFlags></FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -38,8 +37,7 @@
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <NuGetPackageImportStamp></NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,8 +50,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NoWarn>
-    </NoWarn>
+    <NoWarn></NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -174,17 +171,21 @@
       <Private>False</Private>
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Web.18.2.4\lib\net452\DevExpress.Web.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XAF.Extensions, Version=18.2.402.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XAF.Extensions">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.18.2.402\lib\net461\DevExpress.XAF.Extensions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XAF.Extensions.Model, Version=18.2.402.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XAF.Extensions.Model">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.Model.18.2.402\lib\net461\DevExpress.XAF.Extensions.Model.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XAF.Extensions.TypesInfo, Version=18.2.402.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XAF.Extensions.TypesInfo">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.TypesInfo.18.2.402\lib\net461\DevExpress.XAF.Extensions.TypesInfo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XAF.Modules.ModelViewInheritance, Version=18.2.402.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+    <Reference Include="DevExpress.XAF.Modules.ModelViewInheritance">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Modules.ModelViewInheritance.18.2.402\lib\net461\DevExpress.XAF.Modules.ModelViewInheritance.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
