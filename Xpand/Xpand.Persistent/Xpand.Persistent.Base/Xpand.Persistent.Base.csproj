@@ -17,7 +17,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -37,7 +38,8 @@
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +52,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NoWarn></NoWarn>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -171,20 +174,20 @@
       <Private>False</Private>
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Web.18.2.4\lib\net452\DevExpress.Web.v18.2.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XAF.Extensions">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.18.2.402\lib\net461\DevExpress.XAF.Extensions.dll</HintPath>
+    <Reference Include="DevExpress.XAF.Extensions, Version=18.2.403.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.18.2.403\lib\net461\DevExpress.XAF.Extensions.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XAF.Extensions.Model">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.Model.18.2.402\lib\net461\DevExpress.XAF.Extensions.Model.dll</HintPath>
+    <Reference Include="DevExpress.XAF.Extensions.Model, Version=18.2.403.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.Model.18.2.403\lib\net461\DevExpress.XAF.Extensions.Model.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XAF.Extensions.TypesInfo">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.TypesInfo.18.2.402\lib\net461\DevExpress.XAF.Extensions.TypesInfo.dll</HintPath>
+    <Reference Include="DevExpress.XAF.Extensions.TypesInfo, Version=18.2.403.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Extensions.TypesInfo.18.2.403\lib\net461\DevExpress.XAF.Extensions.TypesInfo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XAF.Modules.ModelViewInheritance">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Modules.ModelViewInheritance.18.2.402\lib\net461\DevExpress.XAF.Modules.ModelViewInheritance.dll</HintPath>
+    <Reference Include="DevExpress.XAF.Modules.ModelViewInheritance, Version=18.2.403.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.XAF.Modules.ModelViewInheritance.18.2.403\lib\net461\DevExpress.XAF.Modules.ModelViewInheritance.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
@@ -257,8 +260,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Security" />
-    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.5.24.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.Threading.Tasks.Dataflow.4.5.24\lib\portable-net45+win8+wpa81\System.Threading.Tasks.Dataflow.dll</HintPath>
+    <Reference Include="System.Threading.Tasks.Dataflow, Version=4.6.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.Threading.Tasks.Dataflow.4.9.0\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
     </Reference>
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
@@ -758,7 +761,7 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
       <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props'))" />
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.4\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets'))" />
   </Target>
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.4\build\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.4\build\Fody.targets')" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets')" />
 </Project>
