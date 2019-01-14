@@ -87,7 +87,7 @@ namespace Xpand.Persistent.Base.General {
                     objectSpaceProviders.Add(new MyClass(xafApplication));
                 }
                 info.AssignAsInstance();
-                ApplicationHelper.Instance.Initialize(application);
+                if (application != null) ApplicationHelper.Instance.Initialize(application);
                 return xafApplication;
             } finally {
                 ReflectionHelper.RemoveResolvePath(_assemblyPath);
