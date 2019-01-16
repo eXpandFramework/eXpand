@@ -2,7 +2,7 @@
 name: 'XAF: Bug report'
 about: Only for the eXpandFramework/XAF project
 title: ''
-labels: Bug, Packages
+labels: Bug, XAF
 assignees: apobekiaris
 
 ---

@@ -2,7 +2,7 @@
 name: 'XAF: Question'
 about: Only for the eXpandFramework/XAF project
 title: ''
-labels: Packages, Question
+labels: Question, XAF
 assignees: apobekiaris
 
 ---

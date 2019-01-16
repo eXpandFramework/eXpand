@@ -2,7 +2,7 @@
 name: 'XAF: Feature request'
 about: Only for the eXpandFramework/XAF project
 title: ''
-labels: Enhancement, Packages
+labels: Enhancement, XAF
 assignees: apobekiaris
 
 ---
