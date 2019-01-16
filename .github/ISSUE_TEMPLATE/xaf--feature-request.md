@@ -1,6 +1,6 @@
 ---
 name: 'XAF: Feature request'
-about: Suggest an idea for this project
+about: Only for the eXpandFramework/XAF project
 title: ''
 labels: Enhancement, Packages
 assignees: apobekiaris

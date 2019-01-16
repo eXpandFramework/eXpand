@@ -1,6 +1,6 @@
 ---
 name: 'XAF: Question'
-about: Ask questtion
+about: Only for the eXpandFramework/XAF project
 title: ''
 labels: Packages, Question
 assignees: apobekiaris

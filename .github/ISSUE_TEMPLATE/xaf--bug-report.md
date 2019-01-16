@@ -1,6 +1,6 @@
 ---
 name: 'XAF: Bug report'
-about: Create a report to help us improve
+about: Only for the eXpandFramework/XAF project
 title: ''
 labels: Bug, Packages
 assignees: apobekiaris
