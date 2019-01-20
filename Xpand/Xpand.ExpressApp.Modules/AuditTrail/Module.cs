@@ -14,6 +14,7 @@ using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.Security;
+using Xpand.XAF.Modules.ModelViewInheritance;
 
 namespace Xpand.ExpressApp.AuditTrail {
     [ToolboxBitmap(typeof(AuditTrailModule))]
@@ -24,6 +25,7 @@ namespace Xpand.ExpressApp.AuditTrail {
             AuditTrailService.Instance.CustomCreateObjectAuditProcessorsFactory += OnCustomCreateObjectAuditProcessorsFactory;
             RequiredModuleTypes.Add(typeof (AuditTrailModule));
             LogicInstallerManager.RegisterInstaller(new AuditTrailLogicInstaller(this));
+            RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
         }
         
         public override void Setup(ApplicationModulesManager moduleManager) {

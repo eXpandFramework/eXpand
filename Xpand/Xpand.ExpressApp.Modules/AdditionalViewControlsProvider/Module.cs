@@ -9,6 +9,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Model;
 using Xpand.ExpressApp.Logic;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
+using Xpand.XAF.Modules.ModelViewInheritance;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
     [ToolboxBitmap(typeof(AdditionalViewControlsModule))]
@@ -18,6 +19,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider {
 
         public AdditionalViewControlsModule() {
             LogicInstallerManager.RegisterInstaller(new AdditionalViewControlsLogicInstaller(this));
+            RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
         }
 
         public override void Setup(ApplicationModulesManager moduleManager){

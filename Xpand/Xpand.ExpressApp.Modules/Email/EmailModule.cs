@@ -13,6 +13,7 @@ using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Validation;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
+using Xpand.XAF.Modules.ModelViewInheritance;
 
 namespace Xpand.ExpressApp.Email {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules), ToolboxBitmap(typeof (EmailModule)), ToolboxItem(true)]
@@ -22,6 +23,7 @@ namespace Xpand.ExpressApp.Email {
         public EmailModule() {
             RequiredModuleTypes.Add(typeof (XpandValidationModule));
             LogicInstallerManager.RegisterInstaller(new EmailLogicInstaller(this));
+            RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
         }
 
         public IRazorEngineService RazorEngineService => _razorEngineService ?? (_razorEngineService = CreateRazorEngine());

@@ -1,7 +1,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{B65206A6-4AC4-4DBF-B57C-CB0504B592FF}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalViewControlProviderTester.Module", "AdditionalViewControlProviderTester.Module\AdditionalViewControlProviderTester.Module.csproj", "{CA2BC9F6-76BE-47EC-BB1E-D7FF2DC3C8A0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdditionalViewControlProviderTester.Module.Web", "AdditionalViewControlProviderTester.Module.Web\AdditionalViewControlProviderTester.Module.Web.csproj", "{024EFA52-3D72-46CC-883E-9053C5651CCD}"
@@ -23,8 +25,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Security", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Security\Xpand.ExpressApp.Security.csproj", "{B964E541-EBA2-4971-B104-A99ABBD95D36}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Utils", "..\..\..\Xpand\Xpand.Utils\Xpand.Utils.csproj", "{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{B65206A6-4AC4-4DBF-B57C-CB0504B592FF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.AdditionalViewControlsProvider.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\AdditionalViewControlsProvider.Web\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.csproj", "{D33DA85F-C92D-4A13-9880-B6A5343B957D}"
 EndProject
@@ -194,5 +194,8 @@ Global
 		{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7} = {B65206A6-4AC4-4DBF-B57C-CB0504B592FF}
 		{D33DA85F-C92D-4A13-9880-B6A5343B957D} = {B65206A6-4AC4-4DBF-B57C-CB0504B592FF}
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE} = {B65206A6-4AC4-4DBF-B57C-CB0504B592FF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {040632E3-B2DC-4AE9-A01C-DCDE3CE1E121}
 	EndGlobalSection
 EndGlobal

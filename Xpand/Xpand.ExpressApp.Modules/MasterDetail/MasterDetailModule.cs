@@ -6,6 +6,7 @@ using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.MasterDetail.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
+using Xpand.XAF.Modules.ModelViewInheritance;
 
 namespace Xpand.ExpressApp.MasterDetail {
     [ToolboxItem(true)]
@@ -14,6 +15,7 @@ namespace Xpand.ExpressApp.MasterDetail {
 
         public MasterDetailModule() {
             LogicInstallerManager.RegisterInstaller(new MasterDetailLogicInstaller(this));
+            RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
         }
 
         public override void Setup(ApplicationModulesManager moduleManager){

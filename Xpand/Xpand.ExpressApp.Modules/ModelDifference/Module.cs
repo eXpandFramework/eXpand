@@ -30,6 +30,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.Security;
+using Xpand.XAF.Modules.ModelViewInheritance;
 using Updater = Xpand.ExpressApp.ModelDifference.DatabaseUpdate.Updater;
 
 
@@ -111,6 +112,7 @@ namespace Xpand.ExpressApp.ModelDifference {
     public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser,ISecurityModuleUser{
         public const string ModelDifferenceCategory = "eXpand.ModelDifference";
         public ModelDifferenceModule() {
+            RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.CloneObject.CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.XpandSecurityModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));

@@ -108,9 +108,7 @@
     <Compile Include="BusinessObjects\Customer.cs" />
     <Compile Include="BusinessObjects\Project.cs" />
     <Compile Include="Extensions.cs" />
-    <Compile Include="FunctionalTests\EmailFromAction\EmailFromAction.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\EmailFromAction\EmailFromAction.cs" />
     <Compile Include="FunctionalTests\EmailObjectController.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -156,12 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseUpdate\Updater.cs" />
-    <Compile Include="FunctionalTests\FromPermission\FromPermission.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="FunctionalTests\MasterDetail.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="FunctionalTests\FromPermission\FromPermission.cs" />
+    <Compile Include="FunctionalTests\MasterDetail.cs" />
     <Compile Include="FunctionalTests\Project.cs" />
     <Compile Include="WinModule.cs">
       <SubType>Component</SubType>

@@ -23,6 +23,7 @@ using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Persistent.Base.Xpo.MetaData;
+using Xpand.XAF.Modules.ModelViewInheritance;
 using MyDetailsController = Xpand.ExpressApp.Security.Controllers.MyDetailsController;
 
 namespace Xpand.ExpressApp.Security {
@@ -33,6 +34,7 @@ namespace Xpand.ExpressApp.Security {
         public const string BaseImplNameSpace = "Xpand.Persistent.BaseImpl.Security";
         public const string XpandSecurity = "eXpand.Security";
         public XpandSecurityModule() {
+            RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
             RequiredModuleTypes.Add(typeof(SecurityModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));

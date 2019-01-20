@@ -14,6 +14,7 @@ using Xpand.ExpressApp.ModelArtifactState.ObjectViews.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Security;
+using Xpand.XAF.Modules.ModelViewInheritance;
 
 namespace Xpand.ExpressApp.ModelArtifactState {
     [ToolboxBitmap(typeof(ModelArtifactStateModule))]
@@ -21,6 +22,7 @@ namespace Xpand.ExpressApp.ModelArtifactState {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public class ModelArtifactStateModule : XpandModuleBase, IModelXmlConverter,ISecurityModuleUser {
         public ModelArtifactStateModule() {
+            RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
             RequiredModuleTypes.Add(typeof(Validation.XpandValidationModule));
             LogicInstallerManager.RegisterInstallers(new ILogicInstaller[]{
                 new ActionStateLogicInstaller(this),

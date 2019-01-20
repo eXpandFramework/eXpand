@@ -25,6 +25,7 @@ using Xpand.ExpressApp.WorldCreator.System.NodeUpdaters;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Utils.Helpers;
+using Xpand.XAF.Modules.ModelViewInheritance;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.WorldCreator{
@@ -37,6 +38,7 @@ namespace Xpand.ExpressApp.WorldCreator{
         public WorldCreatorModule(){
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+            RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
         }
 
         private readonly object _locker = new object();
