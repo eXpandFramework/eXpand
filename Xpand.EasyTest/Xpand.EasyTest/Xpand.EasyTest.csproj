@@ -71,11 +71,9 @@
     </Reference>
     <Reference Include="DevExpress.Data.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\DevExpress.Data.18.2.4\lib\net452\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.EasyTest.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\DevExpress.EasyTest.18.2.4\lib\net452\DevExpress.EasyTest.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

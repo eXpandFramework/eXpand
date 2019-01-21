@@ -67,127 +67,96 @@
   <ItemGroup>
     <Reference Include="DevExpress.DataAccess.v18.2.UI">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.DataAccess.UI.18.2.4\lib\net452\DevExpress.DataAccess.v18.2.UI.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Sparkline.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Sparkline.Core.18.2.4\lib\net452\DevExpress.Sparkline.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Dashboard.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Dashboard.Core.18.2.4\lib\net452\DevExpress.Dashboard.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Utils.v18.2.UI">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Utils.UI.18.2.4\lib\net452\DevExpress.Utils.v18.2.UI.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Dashboard.v18.2.Win">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.Dashboard.18.2.4\lib\net452\DevExpress.Dashboard.v18.2.Win.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Data.18.2.4\lib\net452\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.DataAccess.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.DataAccess.18.2.4\lib\net452\DevExpress.DataAccess.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Chart.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Chart.18.2.4\lib\net452\DevExpress.ExpressApp.Chart.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Chart.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Chart.Win.18.2.4\lib\net452\DevExpress.ExpressApp.Chart.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.ConditionalAppearance.18.2.4\lib\net452\DevExpress.ExpressApp.ConditionalAppearance.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotChart.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotChart.18.2.4\lib\net452\DevExpress.ExpressApp.PivotChart.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotChart.Win.18.2.4\lib\net452\DevExpress.ExpressApp.PivotChart.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotGrid.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotGrid.18.2.4\lib\net452\DevExpress.ExpressApp.PivotGrid.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.PivotGrid.Win.18.2.4\lib\net452\DevExpress.ExpressApp.PivotGrid.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Scheduler.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Scheduler.18.2.4\lib\net452\DevExpress.ExpressApp.Scheduler.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Scheduler.Win.18.2.4\lib\net452\DevExpress.ExpressApp.Scheduler.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Security.18.2.4\lib\net452\DevExpress.ExpressApp.Security.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.TreeListEditors.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.TreeListEditors.18.2.4\lib\net452\DevExpress.ExpressApp.TreeListEditors.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Validation.18.2.4\lib\net452\DevExpress.ExpressApp.Validation.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.ViewVariantsModule.18.2.4\lib\net452\DevExpress.ExpressApp.ViewVariantsModule.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Win.18.2.4\lib\net452\DevExpress.ExpressApp.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Security.Xpo.18.2.4\lib\net452\DevExpress.ExpressApp.Security.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.Xpo.18.2.4\lib\net452\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.ExpressApp.18.2.4\lib\net452\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Persistent.Base.18.2.4\lib\net452\DevExpress.Persistent.Base.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Persistent.BaseImpl.18.2.4\lib\net452\DevExpress.Persistent.BaseImpl.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Utils.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Utils.18.2.4\lib\net452\DevExpress.Utils.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Xpo.18.2.4\lib\net452\DevExpress.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraBars.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.4\lib\net452\DevExpress.XtraBars.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.4\lib\net452\DevExpress.XtraEditors.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraNavBar.v18.2">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DevExpress.Win.18.2.4\lib\net452\DevExpress.XtraNavBar.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
