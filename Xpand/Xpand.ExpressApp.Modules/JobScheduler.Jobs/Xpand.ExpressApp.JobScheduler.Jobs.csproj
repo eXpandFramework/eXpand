@@ -12,13 +12,19 @@
     <RootNamespace>Xpand.ExpressApp.JobScheduler.Jobs</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.JobScheduler.Jobs</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <SccProjectName></SccProjectName>
-    <SccLocalPath></SccLocalPath>
-    <SccAuxPath></SccAuxPath>
-    <SccProvider></SccProvider>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -80,18 +86,23 @@
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="Quartz, Version=2.2.4.400, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -194,7 +205,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
     <LangVersion>latest</LangVersion>

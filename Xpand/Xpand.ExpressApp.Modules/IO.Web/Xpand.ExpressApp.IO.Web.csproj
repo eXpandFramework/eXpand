@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.IO.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.IO.Web</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -71,27 +73,35 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.FileAttachment.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.TreeListEditors.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.TreeListEditors.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Office.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DotNetZip, Version=1.11.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\DotNetZip.1.11.0\lib\net20\DotNetZip.dll</HintPath>
@@ -131,7 +141,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs"></Compile>
+    <Compile Include="Updater.cs">
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

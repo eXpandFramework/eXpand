@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.Scheduler.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Scheduler.Web</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -72,36 +74,47 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Scheduler.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Scheduler.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Data.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Scheduler.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Scheduler.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Utils.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Web.ASPxScheduler.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.ASPxScheduler.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Office.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraScheduler.v18.2.Core">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraScheduler.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />

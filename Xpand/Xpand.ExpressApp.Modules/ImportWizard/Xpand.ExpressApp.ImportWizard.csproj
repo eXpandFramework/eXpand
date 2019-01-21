@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ImportWizard</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ImportWizard</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -70,15 +72,19 @@
   <ItemGroup>
     <Reference Include="DevExpress.Data.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DocumentFormat.OpenXml, Version=2.7.2.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

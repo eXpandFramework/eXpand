@@ -48,12 +48,15 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Win.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

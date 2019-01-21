@@ -8,10 +8,13 @@
     <ProjectGuid>{D7B72244-7C11-414B-ABE5-A3EB78567D93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon></ApplicationIcon>
-    <AssemblyKeyContainerName></AssemblyKeyContainerName>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
     <AssemblyName>MainDemo.Module</AssemblyName>
-    <AssemblyOriginatorKeyFile></AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -19,9 +22,12 @@
     <OutputType>Library</OutputType>
     <RootNamespace>MainDemo.Module</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject></StartupObject>
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <StartupObject>
+    </StartupObject>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkProfile />
@@ -47,13 +53,16 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile></ConfigurationOverrideFile>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn></NoWarn>
+    <NoWarn>
+    </NoWarn>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -68,13 +77,16 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile></ConfigurationOverrideFile>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile></DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn></NoWarn>
+    <NoWarn>
+    </NoWarn>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -99,110 +111,137 @@
     <Reference Include="DevExpress.Data.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Notifications.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Notifications.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.PivotChart.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.PivotChart.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Charts.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Charts.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ReportsV2.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ReportsV2.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.Xpo.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Printing.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Printing.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v18.2.Wizard">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraCharts.v18.2.Wizard.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraCharts.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraCharts.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.PivotGrid.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.PivotGrid.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraPivotGrid.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraPivotGrid.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraReports.v18.2.Extensions">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraReports.v18.2.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Sparkline.v18.2.Core">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Sparkline.v18.2.Core.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.CodeParser.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.CodeParser.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Utils.v18.2.UI">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v18.2.UI.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraReports.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraReports.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.XtraPrinting.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraPrinting.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Objects.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Objects.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ViewVariantsModule.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.BaseImpl.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

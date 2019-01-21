@@ -48,18 +48,23 @@
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v18.2">
       <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v18.2.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>
