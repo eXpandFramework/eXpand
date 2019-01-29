@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.WorldCreator.System {
 
                     }
                 }
-                objectSpaceProvider.ResetThreadSafe();
+                objectSpaceProvider.MakeThreadSafe();
             }
         }
 

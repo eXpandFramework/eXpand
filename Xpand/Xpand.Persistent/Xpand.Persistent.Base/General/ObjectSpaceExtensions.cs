@@ -22,7 +22,11 @@ using MySqlConnectionProvider = DevExpress.Xpo.DB.MySqlConnectionProvider;
 using OracleConnectionProvider = DevExpress.Xpo.DB.OracleConnectionProvider;
 
 namespace Xpand.Persistent.Base.General {
-
+    public static class ObjectSpaceProviderExtensions {
+        public static void MakeThreadSafe(this IObjectSpaceProvider objectSpaceProvider) {
+            objectSpaceProvider.SetFieldValue("threadSafe", true);
+        }
+    }
     public static class ObjectSpaceExtensions {
         public static ConnectionProviderType GetProviderType(this IObjectSpaceProvider provider) {
             var helper = new ConnectionStringParser(provider.ConnectionString+"");

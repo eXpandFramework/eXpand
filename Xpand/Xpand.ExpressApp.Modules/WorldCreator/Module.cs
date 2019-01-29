@@ -80,7 +80,7 @@ namespace Xpand.ExpressApp.WorldCreator{
                             applicationModulesManager.AddModule(Application, (ModuleBase) moduleType.CreateInstance());
                         }
 
-                        worldCreatorObjectSpaceProvider.ResetThreadSafe();
+                        worldCreatorObjectSpaceProvider.MakeThreadSafe();
                     }
                     worldCreatorObjectSpaceProvider.SchemaUpdateMode=SchemaUpdateMode.None;
                 }

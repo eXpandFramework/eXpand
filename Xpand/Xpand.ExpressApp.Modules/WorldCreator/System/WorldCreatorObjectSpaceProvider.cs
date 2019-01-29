@@ -13,7 +13,6 @@ namespace Xpand.ExpressApp.WorldCreator.System{
     public class WorldCreatorObjectSpaceProvider : XPObjectSpaceProvider{
         private const string WorldCreatorConnectionString = "WorldCreatorConnectionString";
         private readonly AssemblyRevisionUpdater _assemblyRevisionUpdater=new AssemblyRevisionUpdater();
-        private bool _threadSafe;
 
         public WorldCreatorObjectSpaceProvider(bool threadSafe, IXpoDataStoreProvider xpoDataStoreProvider,ITypesInfo typesInfo)
             : base(GetConnectionStringDataStoreProvider(xpoDataStoreProvider), typesInfo, WorldCreatorTypeInfoSource.Instance,threadSafe){
@@ -59,7 +58,6 @@ namespace Xpand.ExpressApp.WorldCreator.System{
         public static WorldCreatorObjectSpaceProvider Create(XafApplication application,bool threadSafe){
             var worldCreatorObjectSpaceProvider = application.ObjectSpaceProviders.OfType<WorldCreatorObjectSpaceProvider>().SingleOrDefault();
             if (worldCreatorObjectSpaceProvider != null){
-                worldCreatorObjectSpaceProvider._threadSafe=threadSafe;
                 worldCreatorObjectSpaceProvider.threadSafe=threadSafe;
                 return worldCreatorObjectSpaceProvider;
             }
@@ -67,8 +65,6 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             return Create(application,threadSafe);
         }
 
-        public void ResetThreadSafe(){
-            threadSafe=_threadSafe;    
-        }
+        
     }
 }
