@@ -11,8 +11,12 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
     public static class AssemblyInfoExtensions {
         public static Version Version(this IPersistentAssemblyInfo info) {
             var xpandVersion = new Version(XpandAssemblyInfo.Version);
+            var revision = $"{xpandVersion.Revision}";
+            if (revision == "-1") {
+                revision = null;
+            }
             return new Version(xpandVersion.Major, xpandVersion.Minor,
-                int.Parse(xpandVersion.Build.ToString() + xpandVersion.Revision), info.Revision);
+                int.Parse(xpandVersion.Build + revision), info.Revision);
         }
 
         public static void CreateMissingAssociations(this IPersistentAssemblyInfo assemblyInfo){
@@ -23,8 +27,7 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
                     .Where(attribute => attribute.RelationType != RelationType.Undefined);
             foreach (var attribute in attributes){
                 if (attribute.RelationType == RelationType.OneToMany){
-                    var persistentReferenceMemberInfo = attribute.Owner as IPersistentReferenceMemberInfo;
-                    if (persistentReferenceMemberInfo != null)
+                    if (attribute.Owner is IPersistentReferenceMemberInfo persistentReferenceMemberInfo)
                         persistentReferenceMemberInfo.GetAssociatedCollection(attribute.ElementTypeFullName);
                     else{
                         ((IPersistentCollectionMemberInfo) attribute.Owner).GetAssociatedReference(attribute.ElementTypeFullName);
