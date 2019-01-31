@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.Dashboard.Services{
                             modeParametersEdited();
                         });
                 }
-                return null;
+                return dashboard;
             }
             ConfigureDashboard(dashboardDefinition, ruleMode, dashboardDataSourceFillService, options, editParameters, datasourceFilterList,dashboard);
             return dashboard;
