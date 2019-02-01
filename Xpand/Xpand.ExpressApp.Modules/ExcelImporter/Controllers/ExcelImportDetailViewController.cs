@@ -16,7 +16,6 @@ using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Validation;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
@@ -116,6 +115,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 return space;
             })
             .SelectMany(task => task)
+            .Catch<IObjectSpace,Exception>(exception => Synchronise(0).Select(i => Observable.Throw<IObjectSpace>(exception)).Concat())
             .Subscribe(space => {
                     space.CommitChanges();
                     space.Dispose();
@@ -156,7 +156,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             return Subject.Synchronize(new Subject<ImportProgress>());
         }
 
-        protected  virtual IObservable<T> Synchronise<T>(T i) {
+        protected  virtual IObservable<T> Synchronise<T>(T i=default) {
             return Observable.Return(i);
         }
 

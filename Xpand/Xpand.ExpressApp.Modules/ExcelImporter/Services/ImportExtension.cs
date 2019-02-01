@@ -283,6 +283,14 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             IObserver<ImportProgress> progress = null,ImportParameter[] importParameters=null) {
             var index = 0;
             try {
+                if (progress!=null) {
+                    var importProgressStart = new ImportProgressStart(excelImport.Oid){DataTable=dataTable};
+                    progress.OnNext(importProgressStart);
+                }
+
+                if (dataTable == null) {
+                    throw new InvalidOperationException($"Sheet {excelImport.SheetName} not found");
+                }
                 importParameters =importParameters?? excelImport.GetImportParameters();
                 foreach (var dataRow in dataTable.Rows.Cast<DataRow>()) {
                     index++;
@@ -341,9 +349,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             excelImport.FailedResultList.FailedResults.Clear();
             int index;
             using (var dataSet = excelImport.GetDataSet(bytes)){
-                var dataTable = dataSet.Tables.Cast<DataTable>().First(table => table.TableName == excelImport.SheetName);
-                var importProgressStart = new ImportProgressStart(excelImport.Oid){DataTable=dataTable};
-                progress?.OnNext(importProgressStart);
+                var dataTable = dataSet.Tables.Cast<DataTable>().FirstOrDefault(table => table.TableName == excelImport.SheetName);
                 index = excelImport.Import(dataTable, progress,importParameters);
             }
 
