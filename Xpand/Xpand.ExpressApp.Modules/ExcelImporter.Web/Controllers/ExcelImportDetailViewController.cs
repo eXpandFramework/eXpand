@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Data;
 using System.IO;
 using System.Linq;
-using System.Security.AccessControl;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.FileAttachments.Web;
@@ -69,7 +67,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
 
         private  void ParseStream(UploadedFile uploadedFile) {
             using (var stream = ExcelImport.GetXlsContent(uploadedFile.FileName, uploadedFile.FileBytes)){
-                var temp = new DirectoryInfo(System.IO.Path.GetTempPath());
+                var temp = new DirectoryInfo(Path.GetTempPath());
                 temp = temp.CreateSubdirectory(Application.Title);
                 var path = Path.Combine(temp.FullName,$"{ExcelImport.Oid}{Path.GetExtension(uploadedFile.FileName)}");
                 using (var fileStream = File.Create(path)){
