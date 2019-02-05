@@ -17,6 +17,7 @@ namespace Xpand.Persistent.Base.PersistentMetaData {
         int CompileOrder { get; set; }
         IList<IPersistentAssemblyAttributeInfo> Attributes { get; }
         int Revision { get; set; }
+        string GeneratedCode { get; }
     }
     public enum CodeDomProvider {
         CSharp

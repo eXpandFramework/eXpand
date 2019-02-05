@@ -73,7 +73,7 @@ namespace Xpand.ExpressApp.WorldCreator.System{
 
         private ValidatorResult Validate(IPersistentAssemblyInfo info){
             var strongKeyBytes = info.StrongKeyFileData.GetBytes();
-            var code = info.GenerateCode();
+            var code = info.GeneratedCode;
             var validatorResult = CodeValidator.Validate(code, strongKeyBytes);
             info.Errors = validatorResult.Message;
             if (!validatorResult.Valid){
