@@ -16,11 +16,10 @@ using Xpand.Xpo;
 using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
-    public class XpandObjectSpaceProvider : XPObjectSpaceProvider, IXpandObjectSpaceProvider, IDatabaseSchemaChecker{
+    public class XpandObjectSpaceProvider : XPObjectSpaceProvider, IXpandObjectSpaceProvider, IDatabaseSchemaChecker,INonsecuredObjectSpaceProvider{
         
         readonly ISecurityStrategyBase _security;
         IDataLayer _dataLayer;
-        bool _allowICommandChannelDoWithSecurityContext;
         ClientSideSecurity? _clientSideSecurity;
         public event EventHandler<CreatingWorkingDataLayerArgs> CreatingWorkingDataLayer;
         public new IXpoDataStoreProxy DataStoreProvider { get; set; }
@@ -30,8 +29,7 @@ namespace Xpand.Persistent.Base.General {
             exception = null;
             if (DataStoreProvider != null) {
                 try {
-                    IDisposable[] disposableObjects;
-                    IDataStore dataStore = DataStoreProvider.CreateSchemaCheckingStore(out disposableObjects);
+                    IDataStore dataStore = DataStoreProvider.CreateSchemaCheckingStore(out var disposableObjects);
                     if (dataStore != null) {
                         if (dataStore is InMemoryDataStore){
                             var explorer = dataStore as IDataStoreSchemaExplorer;{
@@ -73,8 +71,8 @@ namespace Xpand.Persistent.Base.General {
                     persistentClasses.Add(classInfo);
                 }
             }
-            var multiDataStoreProxy = DataStoreProvider.Proxy as MultiDataStoreProxy;
-            if (multiDataStoreProxy!=null){
+
+            if (DataStoreProvider.Proxy is MultiDataStoreProxy multiDataStoreProxy){
                 var xpClassInfos = multiDataStoreProxy.DataStoreManager.ReflectionDictionaries[new KeyInfo(false, DataStoreManager.DefaultDictionaryKey)].Classes.OfType<XPClassInfo>().Select(info => info.ClassType).ToArray();
                 return persistentClasses.Where(info => xpClassInfos.Contains(info.ClassType)).ToArray();
             }
@@ -91,7 +89,7 @@ namespace Xpand.Persistent.Base.General {
         public IDataLayer WorkingDataLayer => _dataLayer;
 
         string IObjectSpaceProvider.ConnectionString{
-            get { return ConnectionString; }
+            get => ConnectionString;
             set{
                 var multiDataStoreProvider = new MultiDataStoreProvider(value);
                 DataStoreProvider=multiDataStoreProvider;
@@ -99,31 +97,31 @@ namespace Xpand.Persistent.Base.General {
             }
         }
         
-        public bool AllowICommandChannelDoWithSecurityContext {
-            get { return _allowICommandChannelDoWithSecurityContext; }
-            set { _allowICommandChannelDoWithSecurityContext = value; }
-        }
+        public bool AllowICommandChannelDoWithSecurityContext { get; set; }
 
         protected override IObjectSpace CreateObjectSpaceCore() {
             return new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, () => (XpandUnitOfWork) CreateUnitOfWork(DataLayer));
         }
 
         IObjectSpace IObjectSpaceProvider.CreateUpdatingObjectSpace(bool allowUpdateSchema){
-            IDisposable[] disposableObjects;
-            var dataStore =  DataStoreProvider.CreateUpdatingStore(allowUpdateSchema, out disposableObjects);
+            var dataStore =  DataStoreProvider.CreateUpdatingStore(allowUpdateSchema, out var disposableObjects);
             return new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, () => CreateUnitOfWork(dataStore, disposableObjects));
         }
 
+        private SessionObjectLayer GetSecuredObjectLayer(XpandUnitOfWork unitOfWork) {
+            IObjectSpace directObjectSpace = new XpandObjectSpace(TypesInfo, XpoTypeInfoSource, () => unitOfWork);
+            unitOfWork.Disposed += (s, e) => directObjectSpace.Dispose();
+            var securityRuleProvider = new SecurityRuleProvider(XPDictionary, ((ISelectDataSecurityProvider) _security).CreateSelectDataSecurity(directObjectSpace));
+            var currentObjectLayer = new SecuredSessionObjectLayer(AllowICommandChannelDoWithSecurityContext, unitOfWork, true, null, securityRuleProvider, null);
+            return currentObjectLayer;
+        }
+
         protected override UnitOfWork CreateUnitOfWork(IDataLayer dataLayer){
-            var uow = new XpandUnitOfWork(dataLayer);
-            var securedObjectLayer = _security as ISelectDataSecurityProvider;
-            if (securedObjectLayer != null &&
-                (_clientSideSecurity.HasValue && _clientSideSecurity.Value != ClientSideSecurity.UIlevel)){
-                var securityRuleProvider = new SecurityRuleProvider(XPDictionary,securedObjectLayer.CreateSelectDataSecurity());
-                var currentObjectLayer = new SecuredSessionObjectLayer(_allowICommandChannelDoWithSecurityContext, uow,true, null, securityRuleProvider, null);
-                return new XpandUnitOfWork(currentObjectLayer, uow);
+            var directBaseUow = new XpandUnitOfWork(dataLayer);
+            if (_security is ISelectDataSecurityProvider &&(_clientSideSecurity.HasValue && _clientSideSecurity.Value != ClientSideSecurity.UIlevel)){
+                return new XpandUnitOfWork(GetSecuredObjectLayer(directBaseUow),directBaseUow);
             }
-            return uow;
+            return directBaseUow;
         }
 
         private XpandUnitOfWork CreateUnitOfWork(IDataStore dataStore, IEnumerable<IDisposable> disposableObjects){
@@ -158,6 +156,12 @@ namespace Xpand.Persistent.Base.General {
                 : new SimpleDataLayer(XPDictionary, dataStore);
         }
 
+        public IObjectSpace CreateNonsecuredObjectSpace() {
+            return CreateObjectSpace(CreateNonsecuredObjectSpaceCore);
+        }
+        private IObjectSpace CreateNonsecuredObjectSpaceCore() {
+            return CreateObjectSpaceCore(base.CreateUnitOfWork);
+        }
     }
 
 
