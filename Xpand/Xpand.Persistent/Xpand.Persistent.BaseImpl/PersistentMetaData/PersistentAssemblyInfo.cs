@@ -41,10 +41,11 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             set => SetPropertyValue("StrongKeyFile", ref _strongKeyFile, value);
         }
         [Persistent(nameof(GeneratedCode))]
+        [Size(SizeAttribute.Unlimited)]
         private string _generatedCode;
         [Index(6)]
         [ModelDefault("AllowEdit", "false")]
-        [Size(SizeAttribute.Unlimited)]
+        
         [EditorAlias(EditorAliases.CSCodePropertyEditor)]
         [PersistentAlias(nameof(_generatedCode))]
         public string GeneratedCode => this.GenerateCode();
