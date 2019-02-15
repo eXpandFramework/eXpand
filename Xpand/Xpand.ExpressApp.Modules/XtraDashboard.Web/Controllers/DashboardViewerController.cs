@@ -1,13 +1,26 @@
 ﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Dashboard.Services;
+using Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors;
 using ShowNavigationItemController = Xpand.ExpressApp.Security.Controllers.ShowNavigationItemController;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers{
+    public class Class1:ViewController {
+        public Class1() {
+            TargetViewId = DashboardDefinition.DashboardViewerDetailView;
+        }
+
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
+            var asPxDashboard = ((DetailView) View).GetItems<DashboardViewEditorWeb>().First().Control;
+//            asPxDashboard.ClientSideEvents.
+        }
+    }
     public class DashboardViewerController : WindowController{
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
