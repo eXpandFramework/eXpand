@@ -19,6 +19,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
                 var logoffAction = Frame.GetController<LogoffController>().LogoffAction;
             
                 logoffAction.Caption = isGranted? authentication.LoginActionCaption : logoffAction.Model.Caption;
+                logoffAction.ToolTip = isGranted ? authentication.LoginActionTooltip : logoffAction.Model.ToolTip;
             }
         }
     }

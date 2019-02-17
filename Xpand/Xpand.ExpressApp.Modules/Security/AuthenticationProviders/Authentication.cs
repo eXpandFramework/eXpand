@@ -29,6 +29,8 @@ namespace Xpand.ExpressApp.Security.AuthenticationProviders {
         string AnonymousUser { get; set; }
         [DefaultValue("Login"),Localizable(true),Required]
         string LoginActionCaption{ get; set; }
+        [DefaultValue("Login"), Localizable(true)]
+        string LoginActionTooltip { get; set; }
     }
 
     public interface IModelOptionsAuthentication {
