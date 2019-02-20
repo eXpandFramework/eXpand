@@ -21,7 +21,7 @@ namespace Xpand.VSIX.Wizard{
             var xpandPath = GetXpandDLLPath();
             if (!Directory.Exists(xpandPath))
                 MessageBox.Show(
-                    @"Xpand not found that check HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFoldersEx\Xpand points to the Xpand.DLL directory",typeof(ModuleManager).Namespace);
+                    @"Xpand not found that check HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory",typeof(ModuleManager).Namespace);
             else {
                 var fileNames = Directory.GetFiles(xpandPath, "Xpand.ExpressApp.*.dll");
                 foreach (var fileName in fileNames) {
@@ -33,7 +33,7 @@ namespace Xpand.VSIX.Wizard{
         public static string GetXpandDLLPath() {
             try {
                 var softwareNode = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node") ?? Registry.LocalMachine.OpenSubKey("Software");
-                return Path.GetFullPath(softwareNode?.OpenSubKey(@"Microsoft\.NetFramework\AssemblyFoldersEx\Xpand")?.GetValue(null) + "");
+                return Path.GetFullPath(softwareNode?.OpenSubKey(@"Microsoft\.NetFramework\AssemblyFolders\Xpand")?.GetValue(null) + "");
             }
             catch {
                 return null;
