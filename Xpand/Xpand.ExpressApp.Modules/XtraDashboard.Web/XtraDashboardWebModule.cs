@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web {
         }
 
         protected override IEnumerable<Type> GetDeclaredControllerTypesCore(IEnumerable<Type> declaredControllerTypes){
-            return new[]{typeof(SupressConfirmationController),typeof(DashboarDesignerController),typeof(DashboardViewerController),typeof(WebEditDashboardController)};
+            return new[]{typeof(SupressConfirmationController),typeof(DashboarDesignerController),typeof(DashboardViewerController),typeof(WebEditDashboardController),typeof(DisplayViewInNewTabController)};
         }
     }
 }

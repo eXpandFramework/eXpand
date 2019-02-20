@@ -258,6 +258,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\DashboardFileData.cs" />
+    <Compile Include="Controllers\DisplayViewInNewTabController.cs" />
     <Compile Include="Controllers\DashboarDesignerController.cs">
       <SubType>Component</SubType>
     </Compile>
