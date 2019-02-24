@@ -42,43 +42,30 @@ namespace Xpand.ExpressApp.Win.Editors {
             ShowDropDown = ShowDropDown.SingleClick;
         }
 
-        public override string EditorTypeName {
-            get { return EditorName; }
-        }
+        public override string EditorTypeName => EditorName;
 
-        public XafApplication Application {
-            get { return _application; }
-        }
+        public XafApplication Application => _application;
 
-        public IObjectSpace ObjectSpace {
-            get { return _objectSpace; }
-        }
+        public IObjectSpace ObjectSpace => _objectSpace;
 
-        public IModelMemberViewItem Model {
-            get { return _model; }
-        }
+        public IModelMemberViewItem Model => _model;
 
-        public IMemberInfo PropertyMemberInfo {
-            get { return _propertyMemberInfo; }
-        }
+        public IMemberInfo PropertyMemberInfo => _propertyMemberInfo;
 
-        public IMemberInfo DataSourceMemberInfo {
-            get { return _dataSourceMemberInfo; }
-        }
+        public IMemberInfo DataSourceMemberInfo => _dataSourceMemberInfo;
 
         ITypeInfo GetObjectTypeInfo(IModelMemberViewItem model) {
-            var objectView = model.ParentView as IModelObjectView;
-            return objectView != null ? objectView.ModelClass.TypeInfo : null;
+            return model.ParentView is IModelObjectView objectView ? objectView.ModelClass.TypeInfo : null;
         }
 
         internal static void Register() {
             if (!EditorRegistrationInfo.Default.Editors.Contains(EditorName)) {
                 EditorRegistrationInfo.Default.Editors.Add(new EditorClassInfo(EditorName, typeof(XafEnumEdit),
-                                                                               typeof(RepositoryItemXafEnumEdit),
-                                                                               typeof(ImageComboBoxEditViewInfo),
-                                                                               new ImageComboBoxEditPainter(), true,
-                                                                               EditImageIndexes.ImageComboBoxEdit,
-                                                                               typeof(PopupEditAccessible)));
+                    typeof(RepositoryItemXafEnumEdit),
+                    typeof(ImageComboBoxEditViewInfo),
+                    new ImageComboBoxEditPainter(), true,
+                    EditImageIndexes.ImageComboBoxEdit,
+                    typeof(PopupEditAccessible)));
             }
         }
 
@@ -87,14 +74,14 @@ namespace Xpand.ExpressApp.Win.Editors {
         }
 
         public override void Assign(RepositoryItem item) {
-            var source = item as RepositoryItemXafEnumEdit;
-            if (source != null) {
+            if (item is RepositoryItemXafEnumEdit source) {
                 _application = source._application;
                 _objectSpace = source._objectSpace;
                 _model = source._model;
                 _propertyMemberInfo = source._propertyMemberInfo;
                 _dataSourceMemberInfo = source._dataSourceMemberInfo;
             }
+
             base.Assign(item);
         }
 
@@ -105,7 +92,7 @@ namespace Xpand.ExpressApp.Win.Editors {
         public void Init(Type type) {
             var loader = new EnumImagesLoader(type);
             Items.AddRange(loader.GetImageComboBoxItems());
-            if (loader.Images.Images.Count > 0) {
+            if (loader.Images?.Images.Count > 0) {
                 SmallImages = loader.Images;
             }
         }
@@ -126,6 +113,7 @@ namespace Xpand.ExpressApp.Win.Editors {
                     builder.Insert(0, ".").Insert(0, path[index].Name);
                 _dataSourceMemberInfo = typeInfo.FindMember(builder.ToString());
             }
+
             Init(_propertyMemberInfo.MemberType);
         }
     }
@@ -146,28 +134,19 @@ namespace Xpand.ExpressApp.Win.Editors {
             Height = WinPropertyEditor.TextControlHeight;
         }
 
-        protected static PropertyDescriptorCollection ImageComboBoxItemProperties {
-            get {
-                return _imageComboBoxItemProperties ??
-                       (_imageComboBoxItemProperties = TypeDescriptor.GetProperties(typeof(ImageComboBoxItem)));
-            }
-        }
+        protected static PropertyDescriptorCollection ImageComboBoxItemProperties =>
+            _imageComboBoxItemProperties ??
+            (_imageComboBoxItemProperties = TypeDescriptor.GetProperties(typeof(ImageComboBoxItem)));
 
-        public override string EditorTypeName {
-            get { return RepositoryItemXafEnumEdit.EditorName; }
-        }
+        public override string EditorTypeName => RepositoryItemXafEnumEdit.EditorName;
 
-        public object EditingObject {
-            get { return BindingHelper.GetEditingObject(this); }
-        }
+        public object EditingObject => BindingHelper.GetEditingObject(this);
 
-        public new RepositoryItemXafEnumEdit Properties {
-            get { return (RepositoryItemXafEnumEdit)base.Properties; }
-        }
+        public new RepositoryItemXafEnumEdit Properties => (RepositoryItemXafEnumEdit) base.Properties;
 
-        public override object EditValue{
-            get { return _editValue; }
-            set{
+        public override object EditValue {
+            get => _editValue;
+            set {
                 if (value == null || GetDataSource(EditingObject).Contains(value))
                     _editValue = value;
             }
@@ -177,9 +156,7 @@ namespace Xpand.ExpressApp.Win.Editors {
 
         public IObjectSpace ObjectSpace { get; set; }
 
-        public new XafEnumEditPopupForm PopupForm {
-            get { return (XafEnumEditPopupForm)base.PopupForm; }
-        }
+        public new XafEnumEditPopupForm PopupForm => (XafEnumEditPopupForm) base.PopupForm;
 
         internal IList GetDataSource(object forObject) {
             CriteriaOperator criteria = null;
@@ -199,19 +176,21 @@ namespace Xpand.ExpressApp.Win.Editors {
                     if (propertyDataSource.Contains(item.Value))
                         dataSource.Add(item);
                 }
+
             string criteriaString = Properties.Model.DataSourceCriteria;
             if (!String.IsNullOrEmpty(criteriaString))
                 criteria = CriteriaOperator.Parse(criteriaString);
             if (!ReferenceEquals(criteria, null)) {
                 criteria.Accept(new EnumCriteriaParser(
-                                    Properties.PropertyMemberInfo.Name,
-                                    Properties.PropertyMemberInfo.MemberType));
+                    Properties.PropertyMemberInfo.Name,
+                    Properties.PropertyMemberInfo.MemberType));
                 ICollection filteredDataSource =
                     new ExpressionEvaluator(ImageComboBoxItemProperties, criteria, true).Filter(dataSource);
                 dataSource.Clear();
                 foreach (ImageComboBoxItem item in filteredDataSource)
                     dataSource.Add(item);
             }
+
             return dataSource;
         }
 
@@ -219,6 +198,7 @@ namespace Xpand.ExpressApp.Win.Editors {
             if (e.KeyCode == Keys.Enter) {
                 ClosePopup();
             }
+
             base.OnKeyDown(e);
         }
 
@@ -232,6 +212,7 @@ namespace Xpand.ExpressApp.Win.Editors {
             if (disposing) {
                 ObjectSpace = null;
             }
+
             base.Dispose(disposing);
         }
 
@@ -242,21 +223,14 @@ namespace Xpand.ExpressApp.Win.Editors {
 
 
     public class XafEnumEditPopupForm : PopupImageComboBoxEditListBoxForm {
-
-
         public XafEnumEditPopupForm(XafEnumEdit ownerEdit)
             : base(ownerEdit) {
         }
 
 
+        public new XafEnumEdit OwnerEdit => (XafEnumEdit) base.OwnerEdit;
 
-        public new XafEnumEdit OwnerEdit {
-            get { return (XafEnumEdit)base.OwnerEdit; }
-        }
-
-        public new RepositoryItemXafEnumEdit Properties {
-            get { return (RepositoryItemXafEnumEdit)base.Properties; }
-        }
+        public new RepositoryItemXafEnumEdit Properties => (RepositoryItemXafEnumEdit) base.Properties;
 
         protected override void OnBeforeShowPopup() {
             UpdateDataSource();
@@ -266,9 +240,9 @@ namespace Xpand.ExpressApp.Win.Editors {
         protected override void SetupListBoxOnShow() {
             base.SetupListBoxOnShow();
             var visibleItems = ListBox.DataSource as IList;
-            var currentItem = (ImageComboBoxItem)OwnerEdit.SelectedItem;
+            var currentItem = (ImageComboBoxItem) OwnerEdit.SelectedItem;
             bool currentItemInVisibleItems = visibleItems == null || visibleItems.Contains(currentItem);
-            var selectedItem = (ImageComboBoxItem)ListBox.SelectedItem;
+            var selectedItem = (ImageComboBoxItem) ListBox.SelectedItem;
             if (selectedItem != currentItem || !currentItemInVisibleItems)
                 selectedItem = null;
 
