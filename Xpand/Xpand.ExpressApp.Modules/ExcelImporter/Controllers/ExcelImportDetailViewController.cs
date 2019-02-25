@@ -115,7 +115,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 return space;
             })
             .SelectMany(task => task)
-            .Catch<IObjectSpace,Exception>(exception => Synchronise(0).Select(i => Observable.Throw<IObjectSpace>(exception)).Concat())
+            .Catch<IObjectSpace,Exception>(exception => Synchronize(0).Select(i => Observable.Throw<IObjectSpace>(exception)).Concat())
             .Subscribe(space => {
                     space.CommitChanges();
                     space.Dispose();
@@ -139,7 +139,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             Observable
                 .Interval(TimeSpan.FromMilliseconds(progressBarViewItem.PollingInterval))
                 .WithLatestFrom(dataRowProgress, (l, importProgress) => ( importProgress.Percentage))
-                .Select(Synchronise).Concat( )
+                .Select(Synchronize).Concat( )
                 .Finally(() => OnSetPosition(progressBarViewItem, 0))
                 .TakeUntil(progressEnd)
                 .Do(percentage => OnSetPosition(progressBarViewItem, percentage))
@@ -156,7 +156,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             return Subject.Synchronize(new Subject<ImportProgress>());
         }
 
-        protected  virtual IObservable<T> Synchronise<T>(T i=default) {
+        protected  virtual IObservable<T> Synchronize<T>(T i=default) {
             return Observable.Return(i);
         }
 
@@ -166,7 +166,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             Terminator.OnNext(Unit.Default);
             var boModel = Application.Model.BOModel;
             return progress.OfType<ImportProgressComplete>().Where(excelImport).FirstAsync()
-                .Select(Synchronise).Concat()
+                .Select(Synchronize).Concat()
                 .Do(_ => {
                     ExcelImport.FailedResultList.FailedResults = _.FailedResults;
                     View.FindItem($"{nameof(BusinessObjects.ExcelImport.FailedResultList)}.{nameof(FailedResultList.FailedResults)}").Refresh();
