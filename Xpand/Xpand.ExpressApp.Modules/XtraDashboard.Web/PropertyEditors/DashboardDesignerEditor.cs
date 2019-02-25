@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -45,7 +46,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
                 AllowCreateNewDashboard = false,
                 IncludeDashboardIdToUrl = false,
                 IncludeDashboardStateToUrl = false,
-                WorkingMode = GetWorkingMode()
+                WorkingMode = GetWorkingMode(),
+                MobileLayoutEnabled = ((IModelDashboardModuleASPxDashboard) ((IModelApplicationDashboardModule) Model.Application).DashboardModule).MobileLayoutEnabled
             };
             var xpandDashboardDataProvider = ((XpandDashboardDataProvider) DashboardsModule.DataProvider);
             var dashboardCollectionDataSourceFillService =(IXpandDashboardDataSourceFillService)AttachService(xpandDashboardDataProvider);
@@ -127,5 +129,10 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
             _objsectSpace = objectSpace;
             _application = application;
         }
+    }
+
+    public interface IModelDashboardModuleASPxDashboard {
+        [DefaultValue(MobileLayoutMode.Always)]
+        MobileLayoutMode MobileLayoutEnabled { get; set; }
     }
 }
