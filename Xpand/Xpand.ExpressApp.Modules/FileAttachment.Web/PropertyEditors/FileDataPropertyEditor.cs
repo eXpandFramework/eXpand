@@ -13,7 +13,7 @@ using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 namespace Xpand.ExpressApp.FileAttachment.Web.PropertyEditors{
     public interface IModelMemberViewItemFileData{
         [Category(AttributeCategoryNameProvider.Xpand)]
-        [ModelBrowsable(typeof(EditorTypeVisibilityCalculator<FileDataPropertyEditorController, IModelDetailView>))]
+        [ModelBrowsable(typeof(EditorTypeVisibilityCalculator<FileDataPropertyEditor, IModelMemberViewItem>))]
         string AttachmentImage { get; set; }
     }
     public class FileDataPropertyEditorController:Controller,IModelExtender {
@@ -26,9 +26,7 @@ namespace Xpand.ExpressApp.FileAttachment.Web.PropertyEditors{
         public FileDataPropertyEditor(Type objectType, IModelMemberViewItem info) : base(objectType, info){
         }
 
-        private IFileData FileData{
-            get { return MemberInfo.GetValue(CurrentObject) as IFileData; }
-        }
+        private IFileData FileData => MemberInfo.GetValue(CurrentObject) as IFileData;
 
         protected override WebControl CreateEditModeControlCore(){
             if (!string.IsNullOrWhiteSpace(((IModelMemberViewItemFileData)Model).AttachmentImage)){
