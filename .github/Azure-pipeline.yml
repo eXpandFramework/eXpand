@@ -1,0 +1,50 @@
+# https://aka.ms/yaml
+variables:
+  - group: Keys
+trigger: 
+   branches:
+     include:
+       - 18.2
+pool:
+  vmImage: vs2017-win2016
+steps:
+- checkout: self
+  clean: true
+  submodules: true
+  persistCredentials: true
+- powershell: |
+   $repository="$(Build.Repository.Name)"
+   if ($repository -like "*/lab"){
+      "Finding Version.."
+      $version=(& $(System.DefaultWorkingDirectory)\Support\build\go.ps1)|Select-Object -Last 1
+      $publishNugetFeed="https://xpandnugetserver.azurewebsites.net/nuget"
+   }
+   elseif ($repository -like "*/eXpand"){
+      $version="$(Build.BuildNumber)"
+      $publishNugetFeed="https://api.nuget.org/v3/index.json"
+   }
+   else{
+      throw $repository
+   }
+   Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
+   "Start build.."
+   $sources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$(DXApiFeed)")   
+   $(System.DefaultWorkingDirectory)\support\build\go.ps1 -packageSources $sources -configuration "Release" -msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe" -taskList @("Release","PublishNuget") -nugetApiKey $(NuGetApiKey) -version $version -publishNugetFeed $publishNugetFeed -Repository $repository
+   if ($LastExitCode){
+      exit $LastExitCode
+   }
+   Get-ChildItem "$(System.DefaultWorkingDirectory)\Build\_Package\$Version" -Recurse |ForEach-Object{
+      Copy-Item $_.FullName -Destination $(Build.artifactstagingdirectory)
+   }
+   Copy-Item $(System.DefaultWorkingDirectory)\Build\Installer\eXpandFramework-$version.exe -Destination $(Build.artifactstagingdirectory)
+  failOnStderr: true
+  displayName: Build
+- task: PublishPipelineArtifact@0
+  displayName: 'Publish Pipeline Artifact'
+  inputs:
+    artifactName: Xpand.v$(Build.BuildNumber)
+    targetPath: $(Build.ArtifactStagingDirectory)
+
+
+
+
