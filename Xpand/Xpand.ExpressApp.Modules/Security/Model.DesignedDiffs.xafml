@@ -38,7 +38,7 @@
               <LayoutGroup Id="Editors" Caption="Editors" RelativeSize="93">
                 <LayoutGroup Id="4d5fc467-a437-4a79-b542-732e1cd37682" ShowCaption="False" Caption="4d5fc467-a437-4a79-b542-732e1cd37682(12)" Direction="Vertical" Index="0" RelativeSize="14" IsNewNode="True">
                   <LayoutGroup Id="Item3" ShowCaption="False" Caption="Item3" CaptionLocation="Top" Direction="Horizontal" Index="0" RelativeSize="100" IsNewNode="True">
-                    <LayoutGroup Id="Item2" ShowCaption="False" Caption="Item2" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="77" IsNewNode="True">
+                    <LayoutGroup Id="Item2" ShowCaption="False" Caption="Item2" CaptionLocation="Top" Direction="Vertical" Index="0" RelativeSize="100" IsNewNode="True">
                       <LayoutItem Id="UserName" ViewItem="UserName" Index="0" RelativeSize="43" IsNewNode="True" />
                       <LayoutItem Id="Password" ViewItem="Password" Index="1" RelativeSize="35" IsNewNode="True" />
                       <LayoutItem Id="Item5" ShowCaption="False" ViewItem="" Index="2" RelativeSize="21" IsNewNode="True" />
