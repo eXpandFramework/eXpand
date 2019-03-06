@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
@@ -7,27 +9,34 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using Xpand.Persistent.Base.General.CustomAttributes;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
-    [PropertyEditor(typeof(Enum), true)]
-    public class EnumPropertyEditor : DXPropertyEditor {
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(Enum),EditorAliases.EnumPropertyEditor,true)]
+    public class EnumPropertyEditor : DevExpress.ExpressApp.Win.Editors.EnumPropertyEditor,IComplexViewItem,IEnumPropertyEditor {
         EnumDescriptor _enumDescriptor;
         object _noneValue;
+        private IObjectSpace _objectSpace;
+        private ImageComboBoxItem[] _startitems;
 
         public EnumPropertyEditor(Type objectType, IModelMemberViewItem model)
-            : base(objectType, model) {
-            ImmediatePostData = model.ImmediatePostData;
+            : base(objectType, model) {            
+            CurrentObjectChanged+=OnCurrentObjectChanged;
+        }
+
+        private void OnCurrentObjectChanged(object sender, EventArgs e) {
+            if (Control != null) FilterRepositoryItem((RepositoryItemEnumEdit) Control.Properties);
         }
 
         bool TypeHasFlagsAttribute() {
             return GetUnderlyingType().GetCustomAttributes(typeof(FlagsAttribute), true).Length > 0;
         }
 
-        public new PopupBaseEdit Control {
-            get { return (PopupBaseEdit)base.Control; }
-        }
+        public new PopupBaseEdit Control => base.Control;
+
         protected override object CreateControlCore() {
-            return TypeHasFlagsAttribute() ? (object)new CheckedComboBoxEdit() : new EnumEdit(MemberInfo.MemberType);
+            return TypeHasFlagsAttribute() ? new CheckedComboBoxEdit() : base.CreateControlCore();
         }
 
         protected override RepositoryItem CreateRepositoryItem() {
@@ -44,17 +53,22 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 checkedItem.BeginUpdate();
                 checkedItem.Items.Clear();
                 _noneValue = GetNoneValue();
-                //checkedItem.SelectAllItemVisible = false;
-                //Dennis: this is required to show localized items in the editor.
                 foreach (object value in _enumDescriptor.Values)
                     if (!IsNoneValue(value))
                         checkedItem.Items.Add(value, _enumDescriptor.GetCaption(value), CheckState.Unchecked, true);
-                //Dennis: use this method if you don't to show localized items in the editor.
-                //checkedItem.SetFlags(GetUnderlyingType());
                 checkedItem.EndUpdate();
                 checkedItem.ParseEditValue += checkedEdit_ParseEditValue;
                 checkedItem.CustomDisplayText += checkedItem_CustomDisplayText;
             }
+
+            _startitems = ((RepositoryItemComboBox) item).Items.Cast<ImageComboBoxItem>().ToArray();
+            if (item is RepositoryItemEnumEdit repositoryItemEnumEdit) {
+                FilterRepositoryItem(repositoryItemEnumEdit);
+            }
+        }
+
+        private void FilterRepositoryItem(RepositoryItemEnumEdit repositoryItemEnumEdit){
+            this.SetupDataSource(_startitems,repositoryItemEnumEdit.Items, item => item.Value);
         }
 
         void checkedEdit_ParseEditValue(object sender, ConvertEditValueEventArgs e) {
@@ -69,18 +83,36 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             e.DisplayText = _enumDescriptor.GetCaption(e.Value);
         }
 
+        public override void BreakLinksToControl(bool unwireEventsOnly) {
+            base.BreakLinksToControl(unwireEventsOnly);
+            CurrentObjectChanged-=OnCurrentObjectChanged;
+            _objectSpace.Committed-=ObjectSpaceOnCommitted;
+        }
+
         bool IsNoneValue(object value) {
             if (value is string) return false;
             int result = int.MinValue;
             try {
                 result = Convert.ToInt32(value);
-            } catch {
             }
+            catch {
+                // ignored
+            }
+
             return 0.Equals(result);
         }
 
         object GetNoneValue() {
             return Enum.ToObject(GetUnderlyingType(), 0);
+        }
+
+        public void Setup(IObjectSpace objectSpace, XafApplication application) {
+            _objectSpace = objectSpace;
+            _objectSpace.Committed+=ObjectSpaceOnCommitted;
+        }
+
+        private void ObjectSpaceOnCommitted(object sender, EventArgs e) {
+            FilterRepositoryItem((RepositoryItemEnumEdit) Control.Properties);
         }
     }
 }

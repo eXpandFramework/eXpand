@@ -1,4 +1,6 @@
-﻿namespace Xpand.Persistent.Base.General {
+﻿using System;
+
+namespace Xpand.Persistent.Base.General {
     public struct EditorAliases {
         public const string ProgressBarEditor = "ProgressBarEditor";
         public const string FileBrowserEditor = "FileBrowserEditor";
@@ -9,7 +11,9 @@
         public const string XpandTreeListEditor = "XpandTreeListEditor";
         public const string HyperLinkPropertyEditor = "HyperLinkPropertyEditor";
         public const string CriteriaPropertyEditorEx = "CriteriaPropertyEditorEx";
+        [Obsolete("Remove this alias to default to Xpand.ExpressApp.Win.PropertyEditors.EnumPropertyEditor instead",true)]
         public const string FilterableEnumPropertyEditor = "FilterableEnumPropertyEditor";
+        public const string EnumPropertyEditor = "FilterableEnumPropertyEditor";
         public const string ASPxSearchLookupPropertyEditor = "ASPxSearchLookupPropertyEditor";
         public const string FastSearchPropertyEditor = "FastSearchPropertyEditor";
         public const string RichEditRftPropertyEditor = "RichEditRftPropertyEditor";
