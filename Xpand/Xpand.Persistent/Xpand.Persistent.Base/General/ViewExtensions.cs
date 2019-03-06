@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using Xpand.Utils.Helpers;
 using Fasterflect;
@@ -34,16 +35,24 @@ namespace Xpand.Persistent.Base.General {
             frame.CleanDetailView();
         }
 
-        public static ILayoutManager LayoutManager {
-            get {
-                var typeInfo =ReflectionHelper.FindTypeDescendants(ApplicationHelper.Instance.Application.TypesInfo.FindTypeInfo(typeof (ILayoutManager))).LastOrDefault();
-                return (ILayoutManager) typeInfo?.Type.CreateInstance();
+        private static ILayoutManager GetLayoutManager(bool isLayoutSimple,bool delayedViewItemsInitialization){
+            var application = ApplicationHelper.Instance.Application;
+            var typeInfo = ReflectionHelper
+                .FindTypeDescendants(application.TypesInfo.FindTypeInfo(typeof(ILayoutManager)))
+                .LastOrDefault();
+            if (typeInfo != null){
+                if (application.GetPlatform()==Platform.Web) {
+                    return (ILayoutManager) typeInfo.Type.CreateInstance(isLayoutSimple,delayedViewItemsInitialization, WebApplicationStyleManager.IsNewStyle);
+                }
+                return (ILayoutManager) typeInfo.Type.CreateInstance(isLayoutSimple,delayedViewItemsInitialization);
             }
+
+            return null;
         }
-        
+
         public static void UpdateLayoutManager(this CompositeView compositeView) {
             if (!(compositeView.LayoutManager is ILayoutManager)) {
-                var layoutManager = LayoutManager;
+                var layoutManager = GetLayoutManager(compositeView is ListView,compositeView.DelayedItemsInitialization);
                 if (layoutManager != null)
                     compositeView.SetPropertyInfoBackingFieldValue(view => compositeView.LayoutManager, compositeView, layoutManager);
             }

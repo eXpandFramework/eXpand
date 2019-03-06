@@ -36,6 +36,9 @@ namespace Xpand.ExpressApp.Web.Layout {
         private static readonly List<Tuple<Type, Type>> _listControlAdapters = new List<Tuple<Type, Type>>();
         private ViewItemsCollection _detailViewItems;
 
+        public XpandLayoutManager(bool simple, bool delayedItemsInitialization, bool newStyle) : base(simple, delayedItemsInitialization, newStyle){
+        }
+
         protected virtual void OnInstantiated(TemplateInstantiatedEventArgs e) {
             var handler = Instantiated;
             handler?.Invoke(this, e);
