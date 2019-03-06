@@ -12,13 +12,12 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            var gridControl = View.Editor.Control as GridControl;
-            if (gridControl != null) {
+            if (View.Editor.Control is GridControl gridControl) {
                 _gridView = gridControl.FocusedView as GridView;
                 if (_gridView != null) {
                     foreach (GridColumn gridColumn in _gridView.Columns.Where(column => column.ColumnEdit!=null)){
                         var modelColumn = gridColumn.Model();
-                        if (modelColumn.ImmediatePostData){
+                        if (modelColumn != null && modelColumn.ImmediatePostData){
                             gridColumn.ColumnEdit.EditValueChanged+=ColumnEdit_EditValueChanged;
                         }
                     }
