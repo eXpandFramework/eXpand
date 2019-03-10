@@ -17,11 +17,9 @@ steps:
    if ($repository -like "*/lab"){
       "Finding Version.."
       $version=(& $(System.DefaultWorkingDirectory)\Support\build\go.ps1)|Select-Object -Last 1
-      $publishNugetFeed="https://xpandnugetserver.azurewebsites.net/nuget"
    }
    elseif ($repository -like "*/eXpand"){
       $version="$(Build.BuildNumber)"
-      $publishNugetFeed="https://api.nuget.org/v3/index.json"
    }
    else{
       throw $repository
@@ -29,7 +27,7 @@ steps:
    Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
    "Start build.."
    $sources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$(DXApiFeed)")   
-   $(System.DefaultWorkingDirectory)\support\build\go.ps1 -packageSources $sources -configuration "Release" -msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe" -taskList @("Release","PublishNuget") -nugetApiKey $(NuGetApiKey) -version $version -publishNugetFeed $publishNugetFeed -Repository $repository
+   $(System.DefaultWorkingDirectory)\support\build\go.ps1 -packageSources $sources -configuration "Release" -msbuild "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe" -taskList @("Release") -nugetApiKey $(NuGetApiKey) -version $version -Repository $repository
    if ($LastExitCode){
       exit $LastExitCode
    }
@@ -44,6 +42,12 @@ steps:
   inputs:
     artifactName: Xpand.v$(Build.BuildNumber)
     targetPath: $(Build.ArtifactStagingDirectory)
+  enabled: false
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Xpand.v$(Build.BuildNumber)'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    ArtifactName: 'Xpand.v$(Build.BuildNumber)'
 
 
 
