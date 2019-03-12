@@ -18,7 +18,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         EnumDescriptor _enumDescriptor;
         object _noneValue;
         private IObjectSpace _objectSpace;
-        private ImageComboBoxItem[] _startitems;
+        private ImageComboBoxItem[] _startItems;
+        private CheckedListBoxItem[] _startCheckedItems;
 
         public EnumPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {            
@@ -59,16 +60,23 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 checkedItem.EndUpdate();
                 checkedItem.ParseEditValue += checkedEdit_ParseEditValue;
                 checkedItem.CustomDisplayText += checkedItem_CustomDisplayText;
+                _startCheckedItems  = ((RepositoryItemCheckedComboBoxEdit) item).Items.ToArray();
             }
-
-            _startitems = ((RepositoryItemComboBox) item).Items.Cast<ImageComboBoxItem>().ToArray();
+            else {
+                _startItems = ((RepositoryItemComboBox) item).Items.Cast<ImageComboBoxItem>().ToArray();
+            }
             if (item is RepositoryItemEnumEdit repositoryItemEnumEdit) {
                 FilterRepositoryItem(repositoryItemEnumEdit);
             }
         }
 
         private void FilterRepositoryItem(RepositoryItemEnumEdit repositoryItemEnumEdit){
-            this.SetupDataSource(_startitems,repositoryItemEnumEdit.Items, item => item.Value);
+            if (_startItems!=null) {
+                this.SetupDataSource(_startItems,repositoryItemEnumEdit.Items, item => item.Value);
+            }
+            else {
+                this.SetupDataSource(_startCheckedItems,repositoryItemEnumEdit.Items, item => item.Value);
+            }
         }
 
         void checkedEdit_ParseEditValue(object sender, ConvertEditValueEventArgs e) {
@@ -86,7 +94,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         public override void BreakLinksToControl(bool unwireEventsOnly) {
             base.BreakLinksToControl(unwireEventsOnly);
             CurrentObjectChanged-=OnCurrentObjectChanged;
-            _objectSpace.Committed-=ObjectSpaceOnCommitted;
+            if (_objectSpace != null) _objectSpace.Committed -= ObjectSpaceOnCommitted;
         }
 
         bool IsNoneValue(object value) {
@@ -112,7 +120,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs e) {
-            FilterRepositoryItem((RepositoryItemEnumEdit) Control.Properties);
+            if (Control != null) FilterRepositoryItem((RepositoryItemEnumEdit) Control.Properties);
         }
     }
 }
