@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -12,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.DXCore.Controls.XtraGrid;
 using DevExpress.DXCore.Controls.XtraGrid.Columns;
+using Microsoft.Build.Construction;
 using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.Wizard{
@@ -63,10 +63,48 @@ namespace Xpand.VSIX.Wizard{
             ModulesInstaller.Install(modules,ExistingSolution);
             this.DTE2().ExecuteCommand("File.SaveAll");
             var dotNetVersion = modules.Max(module => module.DotNetVersion);
+            bool needsReload = false;
             if (dotNetVersion > GetCurrentDotNetVersion()){
                 UpdateDotNetVersion(dotNetVersion);
+                needsReload = true;
             }
-            
+            if (modules.Any(module => module.IsWorldCreator)) {
+                InstallMonoCecil();
+                needsReload = true;
+            }
+            if (needsReload) {
+                ReloadSolution();
+            }
+        }
+
+        void ReloadSolution() {
+            var solutionFile = this.DTE2().Solution.FileName;
+            Observable.Return(solutionFile).Delay(TimeSpan.FromMilliseconds(1000)).Subscribe(
+                s => this.DTE2().Solution.Open(s));
+            this.DTE2().Solution.Close();
+        }
+        private void InstallMonoCecil() {
+            var msBuildProjects = DteExtensions.DTE.Solution.GetMsBuildProjects().ToArray();
+            foreach (var dteProject in DteExtensions.DTE.Solution.Projects().Where(project => project.IsApplicationProject())) {
+                var project = msBuildProjects.First(_ => _.FullPath==dteProject.FileName);
+                var reference = project.Xml.ItemGroups
+                    .SelectMany(element => element.Items)
+                    .First(_ => _.ElementName=="Reference" &&_.Include.StartsWith("Xpand"));
+                
+                var projectItemGroupElement = ((ProjectItemGroupElement) reference.Parent);
+                foreach (var s in new[] {"", ".Mdb", ".Pdb", ".Rocks"}) {
+                    projectItemGroupElement.AddItem("Reference",$"Mono.Cecil{s}, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL")
+                        .AddMetadata("HintPath", $@"..\packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil{s}.dll");
+                }
+                var itemGroup = (ProjectItemGroupElement)project.Xml.ItemGroups
+                    .SelectMany(element => element.Items)
+                    .First(_ => _.ElementName=="Compile").Parent;
+                itemGroup.AddItem("None", "packages.config");
+                project.Save();
+                var text =@"<?xml version=""1.0"" encoding=""utf-8""?><packages><package id=""Mono.Cecil"" version=""0.10.1"" targetFramework=""net461"" /></packages>";
+                var projectDirectory = $"{Path.GetDirectoryName(dteProject.FileName)}";
+                File.WriteAllText(Path.Combine(projectDirectory,"packages.config"),text);
+            }
         }
 
         private void UpdateDotNetVersion(Version version){
@@ -78,14 +116,6 @@ namespace Xpand.VSIX.Wizard{
                     RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
                 File.WriteAllText(name,allText);    
             }
-
-            var solutionFile = this.DTE2().Solution.FileName;
-            Observable.Return(solutionFile).Delay(TimeSpan.FromMilliseconds(1000)).ObserveOn(NewThreadScheduler.Default).Subscribe(
-                s => {
-                    this.DTE2().Solution.Open(s);
-                });
-            this.DTE2().Solution.Close();
-            
         }
 
         private Version GetCurrentDotNetVersion(){
