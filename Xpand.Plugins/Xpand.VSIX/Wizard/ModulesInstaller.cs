@@ -30,8 +30,9 @@ namespace Xpand.VSIX.Wizard {
                         RegisterModules(platformModules, project, platform);
                     }
                     else{
-                        if (_allModules.Any(module => module.IsWorldCreator))
+                        if (_allModules.Any(module => module.IsWorldCreator)) {
                             AddWorldCreatorConnectionString(project);
+                        }
                     }
                     var assembliesPath = Path.GetDirectoryName(platformModules.First().AssemblyPath)+"";
                     var references = ((VSProject)project.Object).References;
@@ -42,6 +43,7 @@ namespace Xpand.VSIX.Wizard {
             if (_allModules.Any(module => module.IsSecurity))
                 SecurityInstaller.Install(_allModules,existingSolution);
         }
+
 
         private void AddWorldCreatorConnectionString(Project project){
             var projectDirectory = Path.GetDirectoryName(project.FileName) + "";

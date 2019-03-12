@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using EnvDTE;
 using EnvDTE80;
+using Microsoft.Build.Construction;
+using Microsoft.Build.Evaluation;
 using Microsoft.Win32;
 using Mono.Cecil;
 using VSLangProj;
@@ -15,6 +18,41 @@ using Thread = System.Threading.Thread;
 namespace Xpand.VSIX.Extensions {
 
     public static class SolutionExtension {
+        public static Microsoft.Build.Evaluation.Project[] GetMsBuildProjects(this Solution  solution) {
+            var solutionFullName = solution.FullName;
+            if (!string.IsNullOrEmpty(solutionFullName)) {
+                var solutionFile = SolutionFile.Parse(solutionFullName);
+                var projects = solutionFile.ProjectsInOrder
+                    .Where(projectInSolution => projectInSolution.ProjectType == SolutionProjectType.KnownToBeMSBuildFormat)
+                    .Select(project => Path.GetFullPath(project.AbsolutePath)).Select(path => {
+                        try {
+                            var globalProperties = new Dictionary<string, string>();
+                            var configurationName = DteExtensions.DTE.Solution.Projects()
+                                                        .FirstOrDefault(project1 => GetFullName(project1, path) == 0)?.ConfigurationManager
+                                                        .ActiveConfiguration.ConfigurationName ?? "Debug";
+                            globalProperties.Add("Configuration", configurationName);
+                            var projectCollection = new ProjectCollection(globalProperties);
+                            return new Microsoft.Build.Evaluation.Project(path, null, null, projectCollection);
+                        }
+                        catch (Exception e) {
+                            DteExtensions.DTE.LogError($"Path={path}{Environment.NewLine}{e}");
+                            DteExtensions.DTE.WriteToOutput($"Path={path}{Environment.NewLine}{e}");
+                            return null;
+                        }
+                    }).Where(project => project != null).ToArray();
+                return projects;
+            }
+            return Enumerable.Empty<Microsoft.Build.Evaluation.Project>().ToArray();
+        }
+        private static int GetFullName(Project project1, string path) {
+            try {
+                return string.Compare(project1.FullName, path, StringComparison.OrdinalIgnoreCase);
+            }
+            catch (Exception) {
+                return 1;
+            }
+        }
+
         public static Boolean BuildSolution(this Solution solution) {
             var dte = DteExtensions.DTE;
             SolutionConfiguration previousSolutionConfiguration = solution.SolutionBuild.ActiveConfiguration;
