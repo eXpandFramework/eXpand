@@ -86,7 +86,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         public override void BreakLinksToControl(bool unwireEventsOnly) {
             base.BreakLinksToControl(unwireEventsOnly);
             CurrentObjectChanged-=OnCurrentObjectChanged;
-            _objectSpace.Committed-=ObjectSpaceOnCommitted;
+            if (_objectSpace != null) _objectSpace.Committed -= ObjectSpaceOnCommitted;
         }
 
         bool IsNoneValue(object value) {
@@ -112,7 +112,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs e) {
-            FilterRepositoryItem((RepositoryItemEnumEdit) Control.Properties);
+            if (Control != null) FilterRepositoryItem((RepositoryItemEnumEdit) Control.Properties);
         }
     }
 }
