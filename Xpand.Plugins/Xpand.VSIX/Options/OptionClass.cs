@@ -49,11 +49,11 @@ namespace Xpand.VSIX.Options{
                             sourceCodeInfo.AddProjectPaths();
                             Instance.SourceCodeInfos.Add(sourceCodeInfo);
                         }
-                    Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() { Folder = ModuleManager.GetXpandDLLPath() });
+                    Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() { Folder = ModuleManager.GetXpandDllPath() });
                     Instance.Exceptions.Add(new ExceptionsBreak() { Break = false, Exception = typeof(FileNotFoundException).FullName });
                     Instance.Exceptions.Add(new ExceptionsBreak() { Break = false, Exception = typeof(SqlException).FullName });
                     Instance.DisableExceptions = false;
-                    Instance.SourceCodeInfos.Add(new SourceCodeInfo { ProjectRegex = "Xpand.*csproj", RootPath = ModuleManager.GetXpandDLLPath() + @"\..\" });                
+                    Instance.SourceCodeInfos.Add(new SourceCodeInfo { ProjectRegex = "Xpand.*csproj", RootPath = ModuleManager.GetXpandDllPath() + @"\..\" });                
                 }
                 ExtractME();
                 if (!Instance.DteCommandsBindings){
