@@ -12,25 +12,28 @@ using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.Wizard{
     public class ModuleManager{
+        private readonly IList<XpandModule> _modules;
+
         public static XpandModule[] GetModules(Platform platform){
             return Instance.Modules.Where(module => !module.HasPlatformVersion)
                 .Concat(Instance.Modules.Where(module => module.Platform==platform)).ToArray();
         }
 
-        static ModuleManager(){
-            var xpandPath = GetXpandDLLPath();
+        private static void RegisterAllModules(){
+            var xpandPath = GetXpandDllPath();
             if (!Directory.Exists(xpandPath))
                 MessageBox.Show(
-                    @"Xpand not found that check HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory",typeof(ModuleManager).Namespace);
-            else {
+                    @"Xpand not found check that HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory",
+                    typeof(ModuleManager).Namespace);
+            else{
                 var fileNames = Directory.GetFiles(xpandPath, "Xpand.ExpressApp.*.dll");
-                foreach (var fileName in fileNames) {
+                foreach (var fileName in fileNames){
                     Register(fileName);
                 }
             }
         }
 
-        public static string GetXpandDLLPath() {
+        public static string GetXpandDllPath() {
             try {
                 var softwareNode = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node") ?? Registry.LocalMachine.OpenSubKey("Software");
                 return Path.GetFullPath(softwareNode?.OpenSubKey(@"Microsoft\.NetFramework\AssemblyFolders\Xpand")?.GetValue(null) + "");
@@ -41,7 +44,7 @@ namespace Xpand.VSIX.Wizard{
         }
 
         ModuleManager(){
-            Modules = new List<XpandModule>();
+            _modules = new List<XpandModule>();
         }
 
         public static ModuleManager Instance { get; } = new ModuleManager();
@@ -63,6 +66,13 @@ namespace Xpand.VSIX.Wizard{
             }
         }
 
-        public IList<XpandModule> Modules { get; }
+        public IList<XpandModule> Modules {
+            get {
+                if (!_modules.Any()) {
+                    RegisterAllModules();
+                }
+                return _modules;
+            }
+        }
     }
 }
