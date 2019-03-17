@@ -41,4 +41,3 @@ if ($LastExitCode){
 Get-ChildItem "$WorkingDirectory\Build\_Package\$Version" -Recurse |ForEach-Object{
    Copy-Item $_.FullName -Destination $artifactstagingdirectory
 }
-Copy-Item $WorkingDirectory\Build\Installer\eXpandFramework-$version.exe -Destination $artifactstagingdirectory
