@@ -1,7 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Design;
-using System.Reactive.Concurrency;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -46,45 +46,58 @@ namespace Xpand.VSIX.VSPackage {
         public const string PackageGuidString = "fa1289e0-6376-4d19-98c5-9d0c90dd3283";
         public VSPackage() {
             _instance = this;
-            ToolboxInitialized += (sender, args) => InstallToolboxItems();
-            ToolboxUpgraded += (sender, args) => {RemoveToolboxItems();InstallToolboxItems(); };
+            
+            ToolboxInitialized += (sender, args) => InstallToolBoxItems();
+            ToolboxUpgraded += (sender, args) =>  UpgradeToolBoxItems();
+        }
+
+        private void UpgradeToolBoxItems(){
+            var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
+            ModifyToolboxItems(module => {
+                var assembly = Assembly.LoadFile(module.AssemblyPath);
+                var toolboxItems = ToolboxService.GetToolboxItems(assembly, null).Cast<ToolboxItem>().ToArray();
+                foreach (var item in toolboxItems){
+                    tbxService.RemoveToolboxItem(item);
+                    this.DTE2().StatusBar.Text =
+                        $"{item.DisplayName} removed from the toolbox category Xpand.{module.Platform}";
+                }
+
+                return toolboxItems.FirstOrDefault();
+            });
+            InstallToolBoxItems();
+        }
+
+        private void InstallToolBoxItems(){
+            var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
+            ModifyToolboxItems(module => {
+                var toolboxItem =new ToolboxItem(Assembly.LoadFile(module.AssemblyPath).GetType(module.TypeDefinition.FullName));
+                tbxService.AddToolboxItem(toolboxItem, $"Xpand.{module.Platform}");
+                this.DTE2().StatusBar.Text = $"{module.TypeDefinition.FullName} added in the toolbox category Xpand.{module.Platform}";
+                return toolboxItem;
+            });
         }
 
         public new object GetService(Type type){
             return base.GetService(type);
         }
 
-        private void RemoveToolboxItems() {
-            var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
-            
-            var modules = ModuleManager.Instance.Modules;
-            modules.ToObservable(CurrentThreadScheduler.Instance).Subscribe(module => {
-                var assembly = Assembly.LoadFile(module.AssemblyPath);
-                foreach (ToolboxItem item in ToolboxService.GetToolboxItems(assembly, null)) {
-                    tbxService.RemoveToolboxItem(item);
-                    this.DTE2().StatusBar.Text = $"{item.DisplayName} added in the toolbox category {module.Platform}";
-                    tbxService.Refresh();
-                    Application.DoEvents();
-                }
-            });
-        }
 
-        private void InstallToolboxItems() {
-            try{
-                var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
-                ModuleManager.Instance.Modules.ToObservable(CurrentThreadScheduler.Instance).Subscribe(module =>{
-                    var toolboxItem =new ToolboxItem(Assembly.LoadFile(module.AssemblyPath).GetType(module.TypeDefinition.FullName));
-                    tbxService.AddToolboxItem(toolboxItem, $"Xpand.{module.Platform}");
-                    this.DTE2().StatusBar.Text = $"{toolboxItem.DisplayName} added in the toolbox category {module.Platform}";
+        private void ModifyToolboxItems(Func<XpandModule,ToolboxItem> selector) {
+            var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
+            ModuleManager.Instance.Modules
+                .ToObservable()
+                .Publish().RefCount()
+                .Select(selector)
+                .Do(item => {
                     tbxService.Refresh();
                     Application.DoEvents();
-                });
-            }
-            catch (Exception e){
-                this.DTE2().LogError(e.ToString());
-                this.DTE2().WriteToOutput(e.ToString());
-                throw;
-            }
+                })              
+                .Catch<ToolboxItem,Exception>(e => {
+                    this.DTE2().WriteToOutput(e.ToString());
+                    return Observable.Never<ToolboxItem>();
+                })
+                .Finally(() => tbxService.Refresh())
+                .Subscribe();
         }
 
         public static VSPackage Instance => _instance;

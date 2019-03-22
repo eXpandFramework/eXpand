@@ -62,7 +62,7 @@ namespace Xpand.VSIX.Wizard{
                 if (value.Length == 1)
                     value += ".0";
                 var xpandModule = new XpandModule(typeDefinition,new Version(value));
-                Instance.Modules.Add(xpandModule);
+                Instance._modules.Add(xpandModule);
             }
         }
 
