@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -20,6 +21,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         private IObjectSpace _objectSpace;
         private ImageComboBoxItem[] _startItems;
         private CheckedListBoxItem[] _startCheckedItems;
+        private object _control;
 
         public EnumPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {            
@@ -27,17 +29,18 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private void OnCurrentObjectChanged(object sender, EventArgs e) {
-            if (Control != null) FilterRepositoryItem((RepositoryItemEnumEdit) Control.Properties);
+            if (Control != null) FilterRepositoryItem( Control.Properties);
         }
 
         bool TypeHasFlagsAttribute() {
             return GetUnderlyingType().GetCustomAttributes(typeof(FlagsAttribute), true).Length > 0;
         }
 
-        public new PopupBaseEdit Control => base.Control;
+        public new PopupBaseEdit Control => (PopupBaseEdit) _control;
 
         protected override object CreateControlCore() {
-            return TypeHasFlagsAttribute() ? new CheckedComboBoxEdit() : base.CreateControlCore();
+            _control = (Control) (TypeHasFlagsAttribute() ? new CheckedComboBoxEdit() : base.CreateControlCore());
+            return _control;
         }
 
         protected override RepositoryItem CreateRepositoryItem() {
@@ -65,17 +68,18 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             else {
                 _startItems = ((RepositoryItemComboBox) item).Items.Cast<ImageComboBoxItem>().ToArray();
             }
-            if (item is RepositoryItemEnumEdit repositoryItemEnumEdit) {
-                FilterRepositoryItem(repositoryItemEnumEdit);
-            }
+            FilterRepositoryItem(item);
         }
 
-        private void FilterRepositoryItem(RepositoryItemEnumEdit repositoryItemEnumEdit){
+        private void FilterRepositoryItem(RepositoryItem repositoryItem) {
+            var controlItems = ((IEnumerable<object>) (repositoryItem is RepositoryItemEnumEdit edit
+                ? (object) edit.Items
+                : ((RepositoryItemCheckedComboBoxEdit) repositoryItem).Items)).ToList();
             if (_startItems!=null) {
-                this.SetupDataSource(_startItems,repositoryItemEnumEdit.Items, item => item.Value);
+                this.SetupDataSource(_startItems,controlItems, item => item.Value);
             }
             else {
-                this.SetupDataSource(_startCheckedItems,repositoryItemEnumEdit.Items, item => item.Value);
+                this.SetupDataSource(_startCheckedItems,controlItems, item => item.Value);
             }
         }
 
@@ -120,7 +124,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs e) {
-            if (Control != null) FilterRepositoryItem((RepositoryItemEnumEdit) Control.Properties);
+            if (Control != null) FilterRepositoryItem(Control.Properties);
         }
     }
 }

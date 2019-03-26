@@ -26,8 +26,7 @@ namespace Xpand.Persistent.Base.General.CustomAttributes {
 
             foreach (var attribute in propertyEditor.ObjectTypeInfo.FindAttributes<EnumFilterAttribute>()){
                 if (attribute.PropertyName == propertyEditor.PropertyName){
-                    var isObjectFitForCriteria = attribute.Criteria == null
-                        ? true
+                    var isObjectFitForCriteria = attribute.Criteria == null? true
                         : propertyEditor.View.ObjectSpace.IsObjectFitForCriteria(propertyEditor.MemberInfo.MemberType, propertyEditor.CurrentObject,
                             CriteriaOperator.Parse(attribute.Criteria));
                     if (isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value){
