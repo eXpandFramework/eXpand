@@ -6,10 +6,10 @@ param(
 )
 $VerbosePreference="continue"
 $WorkingDirectory="$PSScriptRoot\.."
-if ($repository -like "*/lab"){
+if ($repository -like "*/eXpand.lab"){
    "Finding Version.."
    $version=(& $WorkingDirectory\Support\build\go.ps1)|Select-Object -Last 1
-   $repository="lab"
+   $repository="eXpand.lab"
 }
 elseif ($repository -like "*/eXpand"){
    $file=Get-Content "$WorkingDirectory\build.ps1" -Raw
