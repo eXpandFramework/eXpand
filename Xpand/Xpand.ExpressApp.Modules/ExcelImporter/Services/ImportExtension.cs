@@ -318,7 +318,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return excelImport.ExcelColumnMaps.Select(map => {
                 var memberInfo = excelImport.Type.GetTypeInfo().Members.FirstOrDefault(info => map.PropertyName==info.Caption());
                 if (memberInfo==null)
-                    throw new MemberNotFoundException(excelImport.GetTypeInfo().Type,map.PropertyName);
+                    throw new MemberNotFoundException(excelImport.Type,map.PropertyName);
                 return new ImportParameter(){MemberInfo=memberInfo,Map=map};
             }).ToArray();
         }
