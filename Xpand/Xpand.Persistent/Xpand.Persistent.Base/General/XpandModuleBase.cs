@@ -848,8 +848,8 @@ namespace Xpand.Persistent.Base.General {
             node.ClearValue(ex => ex.IsCalculated);
         }
 
-        public static void RemoveCall(string name, ApplicationModulesManager applicationModulesManager){
-            CallMonitor?.Remove(new KeyValuePair<string, ApplicationModulesManager>(name, applicationModulesManager));
+        public static void RemoveCall(string name, ApplicationModulesManager applicationModulesManager) {
+            CallMonitor?.TryRemove(new KeyValuePair<string, ApplicationModulesManager>(name, applicationModulesManager),out _);
         }
     }
 
