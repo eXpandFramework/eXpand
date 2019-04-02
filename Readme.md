@@ -23,6 +23,7 @@ The _eXpandFramework_ team have extended the capabilities of the _eXpressApp Fra
 The main idea _behind eXpandFramework_ is to offer as many features as possible to developers/business users  through a declarative approach (configuring files rather than writing code). Please go through each of the following brief descriptions and find out how _eXpandFramework_ can help you accomplish your complex development tasks with easy declarative programming. Below you can see some descriptions and screenshots of our basic modules (screenshots taken from eXpand FeatureCenter application that comes along with the download). In the folder _Demos_ you can find a list of demos like _XVideoRental_, _SecurityDemo_, _MiddleTier_, _Workflow_ and _installation helper solutions for each module_.
 
 ## Modules
+Additional modules that may not distributed from this repository but only as Nuget packages can be found at [DevExpresss.XAF](https://github.com/eXpandFramework/DevExpress.XAF) repository.
 
 Examples of those modules include (in the two right columns you can see the supported platform):
 
