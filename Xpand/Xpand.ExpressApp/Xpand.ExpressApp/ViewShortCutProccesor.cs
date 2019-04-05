@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp {
         }
 
         object GetObjectKeyCore(IObjectSpace objectSpace, Type type, string objectKeyString) {
-            if (objectKeyString.CanChange(((XPObjectSpace) objectSpace).GetObjectKeyType(type))) {
+            if (objectKeyString.CanChange(objectSpace.GetObjectKeyType(type))) {
                 try {
                     return objectSpace.GetObjectKey(type, objectKeyString);
                     // ReSharper disable once EmptyGeneralCatchClause
