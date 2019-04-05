@@ -96,7 +96,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(PreventDataLoadingGridViewController),
                 typeof(NewObjectCollectCreatableItemTypesDataSource),
                 typeof(PessimisticLockingViewController),
-                typeof(SwitchToEditModeController),
                 typeof(SelectFirstNavigationItemController),
                 typeof(FilterByPropertyPathViewController),
                 typeof(FilterControlListViewController),
