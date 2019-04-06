@@ -1,16 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props')" />
+  <Import Project="..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" />
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.props" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.props')" />
   <PropertyGroup>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <UseCodebase>true</UseCodebase>
     <LangVersion>latest</LangVersion>
     <TargetFrameworkProfile />
-    <FileUpgradeFlags></FileUpgradeFlags>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <OldToolsVersion>14.0</OldToolsVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -325,25 +328,30 @@
       <HintPath>..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Validation.15.3.32\lib\net45\Microsoft.VisualStudio.Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Cecil, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil.dll</HintPath>
+    <Reference Include="Mono.Cecil, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\..\Support\_third_party_assemblies\Packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="PropertyChanged, Version=2.6.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\lib\net452\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=2.6.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\lib\net452\PropertyChanged.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <EmbedInteropTypes>False</EmbedInteropTypes>
@@ -368,32 +376,48 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Management" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Reactive.Core">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Core.3.1.1\lib\net45\System.Reactive.Core.dll</HintPath>
+    <Reference Include="System.Reactive, Version=4.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.4.1.3\lib\net46\System.Reactive.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.Interfaces">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+    <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Core.4.1.3\lib\net46\System.Reactive.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.Linq">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Linq.3.1.1\lib\net45\System.Reactive.Linq.dll</HintPath>
+    <Reference Include="System.Reactive.Interfaces, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Interfaces.4.1.3\lib\net46\System.Reactive.Interfaces.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.PlatformServices">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.PlatformServices.3.1.1\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Linq.4.1.3\lib\net46\System.Reactive.Linq.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Reactive.Windows.Threading">
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
+    <Reference Include="System.Reactive.PlatformServices, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.PlatformServices.4.1.3\lib\net46\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Windows.Threading, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Reactive.Windows.Threading.4.1.3\lib\net46\System.Reactive.Windows.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Threading.Thread, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\Support\_third_party_assemblies\Packages\System.Threading.Thread.4.3.0\lib\net46\System.Threading.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\..\Support\_third_party_assemblies\Packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
@@ -446,8 +470,8 @@
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Threading.Analyzers.15.6.46\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Threading.Analyzers.15.6.46\build\Microsoft.VisualStudio.Threading.Analyzers.targets'))" />
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.props'))" />
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.targets'))" />
-    <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props'))" />
-    <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -455,8 +479,9 @@
   </Target>
 
   -->
-  <Target Name="BeforeBuild"></Target>
+  <Target Name="BeforeBuild">
+  </Target>
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Threading.Analyzers.15.6.46\build\Microsoft.VisualStudio.Threading.Analyzers.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Threading.Analyzers.15.6.46\build\Microsoft.VisualStudio.Threading.Analyzers.targets')" />
   <Import Project="..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Microsoft.VSSDK.BuildTools.15.6.170\build\Microsoft.VSSDK.BuildTools.targets')" />
-  <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets')" />
+  <Import Project="..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets')" />
 </Project>

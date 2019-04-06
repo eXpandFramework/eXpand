@@ -1,11 +1,15 @@
+
+[![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers) **Star the project if you think it deserves it.**
+
+[![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/network)    **Fork the project to extend it or contribute.**
 <img src="http://expandframework.com/images/site/logo.png" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
 |--------|--------
 [![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expandframework/expand/releases/latest)|```nuget.exe list author:eXpandFramework```
-[![](https://img.shields.io/azure-devops/build/eXpandDevOps/dc0010e5-9ecf-45ac-b89d-2d51897f3855/32/18.2.svg?label=Lab%20build&style=flat)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=32&branchName=18.2)|```nuget.exe list Xpand -source https://xpandnugetserver.azurewebsites.net/nuget```
+![GitHub release](https://img.shields.io/github/release/expandframework/expand.lab.svg?color=yellow&label=lab)|```nuget.exe list Xpand -source https://xpandnugetserver.azurewebsites.net/nuget```
 <sub><sup>[How do I set up a package source in Visual Studio?](https://go.microsoft.com/fwlink/?linkid=698608)</sup></sub>
 
-[![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers) 
- [![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/network) ![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)
+
+ ![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)
 [![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues)
 [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
 

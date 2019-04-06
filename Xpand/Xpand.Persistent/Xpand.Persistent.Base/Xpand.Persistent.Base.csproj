@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props')" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -17,7 +17,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
@@ -37,7 +38,8 @@
     <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +52,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NoWarn></NoWarn>
+    <NoWarn>
+    </NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -201,20 +204,25 @@
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Microsoft.VisualStudio.Setup.Configuration.Interop.1.16.30\lib\net35\Microsoft.VisualStudio.Setup.Configuration.Interop.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Mono.Cecil, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil.dll</HintPath>
+    <Reference Include="Mono.Cecil, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+    <Reference Include="Mono.Cecil.Mdb, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+    <Reference Include="Mono.Cecil.Pdb, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+    <Reference Include="Mono.Cecil.Rocks, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="PropertyChanged, Version=2.6.0.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\lib\net452\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=2.6.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\lib\net452\PropertyChanged.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable, Version=1.2.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -739,8 +747,8 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
       <LangVersion>latest</LangVersion>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.0\build\PropertyChanged.Fody.props'))" />
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props'))" />
   </Target>
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.3.3.5\build\Fody.targets')" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets')" />
 </Project>
