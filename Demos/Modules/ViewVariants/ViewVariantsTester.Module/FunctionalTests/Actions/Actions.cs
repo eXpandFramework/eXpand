@@ -21,17 +21,17 @@ namespace ViewVariantsTester.Module.FunctionalTests.Actions {
             get { return _actionsAction; }
         }
 
-        public XpandEasyTestController EasyTestControler {
+        public XpandEasyTestController EasyTestController {
             get { return Frame.GetController<XpandEasyTestController>(); }
         }
 
         private void ActionsActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
             if (e.SelectedChoiceActionItem.Id == RestoreColumnCaption) {
-                EasyTestControler.ChangeColumnCaption(_columnCaption);
+                EasyTestController.ChangeColumnCaption(_columnCaption);
                 _columnCaption = null;
             }
             else if (e.SelectedChoiceActionItem.Id == ChangeColumnCaption) {
-                _columnCaption = EasyTestControler.ChangeColumnCaption("Changed");
+                _columnCaption = EasyTestController.ChangeColumnCaption("Changed");
             }
         }
     }

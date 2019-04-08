@@ -12,7 +12,8 @@
     <AssemblyName>FeatureCenter.Module</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <OutputPath>bin\Debug\</OutputPath>
@@ -287,7 +288,7 @@
     <Compile Include="RuntimeFields\OrphanedCollectionWithCode\CreateRuntimeOrphanedCollectionController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RuntimeFields\FromModel\AddRecordsToAddRuntimeFieldsFromModelObjectControler.cs" />
+    <Compile Include="RuntimeFields\FromModel\AddRecordsToAddRuntimeFieldsFromModelObjectController.cs" />
     <Compile Include="ApplicationDifferences\Updater.cs" />
     <Compile Include="Captions.cs" />
     <Compile Include="Customer.cs" />

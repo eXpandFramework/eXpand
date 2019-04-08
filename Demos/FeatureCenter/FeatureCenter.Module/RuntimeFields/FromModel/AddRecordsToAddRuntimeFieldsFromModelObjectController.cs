@@ -1,8 +1,8 @@
 ﻿using DevExpress.ExpressApp;
 
 namespace FeatureCenter.Module.RuntimeFields.FromModel {
-    public class AddRecordsToAddRuntimeFieldsFromModelObjectControler : ViewController<ListView> {
-        public AddRecordsToAddRuntimeFieldsFromModelObjectControler() {
+    public class AddRecordsToAddRuntimeFieldsFromModelObjectController : ViewController<ListView> {
+        public AddRecordsToAddRuntimeFieldsFromModelObjectController() {
             TargetObjectType = typeof(Customer);
             TargetViewId = "RuntimeFieldsFromModel_ListView";
         }

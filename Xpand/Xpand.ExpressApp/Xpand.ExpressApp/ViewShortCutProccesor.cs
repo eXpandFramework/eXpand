@@ -127,10 +127,10 @@ namespace Xpand.ExpressApp {
         }
     }
 
-    public class ViewShortcutProccesorControler : WindowController {
+    public class ViewShortcutProccesorController : WindowController {
         readonly Dictionary<IModelNavigationItem,string> _items=new Dictionary<IModelNavigationItem, string>();
 
-        public ViewShortcutProccesorControler() {
+        public ViewShortcutProccesorController() {
             TargetWindowType=WindowType.Main;
         }
 
