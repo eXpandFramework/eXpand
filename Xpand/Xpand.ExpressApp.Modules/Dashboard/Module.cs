@@ -11,6 +11,7 @@ using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.ExpressApp.Dashboard.Services;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
+using Xpand.XAF.Modules.ViewEditMode;
 
 namespace Xpand.ExpressApp.Dashboard {
 
@@ -27,6 +28,7 @@ namespace Xpand.ExpressApp.Dashboard {
     public sealed class DashboardModule : XpandModuleBase,IDashboardInteractionUser {
         public DashboardModule(){
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
+            RequiredModuleTypes.Add(typeof(ViewEditModeModule));
             DashboardsModule.DataProvider=new XpandDashboardDataProvider();
         }
 

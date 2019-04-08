@@ -38,7 +38,6 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers{
             var objectSpace = Application.CreateObjectSpace();
 
             var detailView = Application.CreateDetailView(objectSpace, modelView, true, objectSpace.GetObject(dashboardDefinition));
-            
             Application.ShowViewStrategy.ShowView(new ShowViewParameters(detailView),new ShowViewSource(Frame,actionBase ) );
         }
 
