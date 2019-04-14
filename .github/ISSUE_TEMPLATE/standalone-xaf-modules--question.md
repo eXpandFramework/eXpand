@@ -2,7 +2,7 @@
 name: 'Standalone XAF-Modules: Question'
 about: Only for the eXpandFramework/XAF project
 title: ''
-labels: Question, Standalone XAF-Modules
+labels: Question, Standalone_XAF_Modules
 assignees: apobekiaris
 
 ---

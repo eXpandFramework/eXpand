@@ -2,7 +2,7 @@
 name: 'Standalone XAF-Modules: Bug report'
 about: Only for the eXpandFramework/XAF project
 title: ''
-labels: Bug, Standalone XAF-Modules
+labels: Bug, Standalone_XAF_Modules
 assignees: apobekiaris
 
 ---
