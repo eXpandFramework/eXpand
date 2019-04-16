@@ -357,7 +357,7 @@ namespace Xpand.Persistent.Base.General {
             return connectionString;
         }
 
-        public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args, string dataStoreName) {
+        public static void CreateCustomObjectSpaceProvider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args, string dataStoreName) {
             if (dataStoreName == null) {
                 var connectionString = ConnectionString(xafApplication, args);
                 args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication,  connectionString);
