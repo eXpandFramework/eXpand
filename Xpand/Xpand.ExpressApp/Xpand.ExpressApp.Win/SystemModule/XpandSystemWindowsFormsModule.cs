@@ -74,7 +74,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(AutoScrollGridListEditorController),
                 typeof(EditModelController),
                 typeof(ApplicationMultiInstancesController),
-                typeof(AutoCommitController),
                 typeof(AutoExpandNewRowController),
                 typeof(ApplicationExitController),
                 typeof(ActiveDocumentViewController),

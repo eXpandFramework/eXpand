@@ -25,7 +25,7 @@
         <ActionLink ActionId="Edit" IsNewNode="True" />
       </HiddenActions>
     </ListView>
-    <ListView Id="ExcelColumnMap_MemberTypeValues_ListView" InlineEditMode="Batch" ShowSelectionColumn="False">
+    <ListView Id="ExcelColumnMap_MemberTypeValues_ListView" InlineEditMode="Batch" ShowSelectionColumn="False" SupressConfirmation="True">
       <GridViewOptions>
         <Settings ShowStatusBar="Hidden" />
         <SettingsPager Mode="ShowAllRecords" />

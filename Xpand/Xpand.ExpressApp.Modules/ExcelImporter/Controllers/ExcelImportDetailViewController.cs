@@ -16,7 +16,9 @@ using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Validation;
+using Xpand.XAF.Modules.MasterDetail;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public class ExcelImportDetailViewController : ObjectViewController<DetailView,ExcelImport>{
@@ -53,8 +55,17 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     Map();
                 ObjectSpace.CommitChanges();
                 var parameters = e.ShowViewParameters;
-                var mapDialogController = new MapDialogController(ExcelImport);
-                parameters.Controllers.Add(mapDialogController);
+                MasterDetailService.MasterDetailDashboardViewItems
+                    .FirstAsync()
+                    .Select(tuple => {
+                        var listView = ((ListView) tuple.listViewItem.InnerView);
+                        var criteriaOperator = listView.ObjectSpace.GetCriteriaOperator<ExcelColumnMap>(map =>map.ExcelImport.Oid == ExcelImport.Oid);
+                        listView.CollectionSource.Criteria[GetType().Name] =criteriaOperator;
+                        return Unit.Default;
+                    })
+                    .Subscribe();
+
+
                 var dialogController = new DialogController();
                 parameters.Controllers.Add(dialogController);
                 parameters.CreatedView=Application.CreateDashboardView(Application.CreateObjectSpace(), "ExcelColumnMapMasterDetail", true);

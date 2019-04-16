@@ -91,6 +91,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v18.2.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Web.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v18.2.dll</HintPath>
@@ -109,6 +112,9 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=1.1.0.145, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\SharpZipLib.1.1.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Ryder, Version=0.7.0.0, Culture=neutral, PublicKeyToken=68842a7a5e601e6b, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.MasterDetail.0.0.1\lib\net4.6.1\Ryder.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
@@ -145,10 +151,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.ExpressApp.Dashboard">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Validation">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
@@ -161,13 +163,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.0\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Xpand.XAF.Modules.AutoCommit">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.AutoCommit.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.ViewEditMode, Version=1.2.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ViewEditMode.1.2.0\lib\net4.6.1\Xpand.XAF.Modules.ViewEditMode.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Xpand.XAF.Modules.MasterDetail, Version=0.0.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.MasterDetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.Reactive.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.SupressConfirmation">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.SupressConfirmation.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ViewEditMode, Version=1.2.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.ViewEditMode.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
@@ -182,9 +194,6 @@
     <Compile Include="BusinessObjects\FailedResult.cs" />
     <Compile Include="BusinessObjects\FailedResultList.cs" />
     <Compile Include="Controllers\ExcelColumnMapMemberTypeValueController.cs" />
-    <Compile Include="Controllers\MapDialogController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Services\ImportProgress.cs" />
     <Compile Include="Services\ExcelImportKeyAttribute.cs" />
     <Compile Include="Services\ImportExtension.cs" />
@@ -196,19 +205,12 @@
     <Compile Include="ExcelImporterModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ExcelImporterModule.Designer.cs">
-      <DependentUpon>ExcelImporterModule.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EventToObservable.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExcelImporterModule.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>ExcelImporterModule.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
