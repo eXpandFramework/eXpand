@@ -73,7 +73,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 typeof(ColumnChooserGridViewController),
                 typeof(LayoutStyleController),
                 typeof(RegisterScriptsController),
-                typeof(SupressConfirmationController),
                 typeof(NullTextController),
                 typeof(PreviewRowDetailViewController),
                 typeof(UnboundColumnController),

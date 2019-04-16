@@ -201,7 +201,6 @@
       <SubType>Designer</SubType>
       <DependentUpon>ExcelImporterWebModule.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
