@@ -132,7 +132,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Ryder, Version=0.7.0.0, Culture=neutral, PublicKeyToken=68842a7a5e601e6b">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2\lib\net4.6.1\Ryder.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2.2\lib\net4.6.1\Ryder.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Drawing" />
@@ -170,7 +170,7 @@
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.XAF.Modules.Reactive">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2.2\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>

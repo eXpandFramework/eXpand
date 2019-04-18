@@ -114,7 +114,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Ryder, Version=0.7.0.0, Culture=neutral, PublicKeyToken=68842a7a5e601e6b">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.MasterDetail.0.0.3\lib\net4.6.1\Ryder.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2.2\lib\net4.6.1\Ryder.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System">
@@ -175,7 +175,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.XAF.Modules.Reactive">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2.2\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
@@ -201,6 +201,7 @@
     <Compile Include="BusinessObjects\ExcelImport.cs" />
     <Compile Include="BusinessObjects\FailedResult.cs" />
     <Compile Include="BusinessObjects\FailedResultList.cs" />
+    <Compile Include="Controllers\DeferredDeletionController.cs" />
     <Compile Include="Controllers\ExcelColumnMapMemberTypeValueController.cs" />
     <Compile Include="Services\ImportProgress.cs" />
     <Compile Include="Services\ExcelImportKeyAttribute.cs" />
@@ -225,7 +226,9 @@
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
