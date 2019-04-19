@@ -59,7 +59,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return false;
         }
 
-        private static object GetImportToObject(ImportParameter[] importParameters, DataRow dataRow, ExcelImport excelImport, int index){
+        private static object GetImportToObject(ImportParameter[] importParameters, DataRow dataRow,
+            ExcelImport excelImport, int index, Func<(Type objectType, CriteriaOperator criteria),object> func){
             var importToTypeInfo = excelImport.Type.GetTypeInfo();
             var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
@@ -72,7 +73,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 throw new KeyMemberNotMappedException(importToTypeInfo.Type);
             var columnValue = dataRow[valueTuple.Map.ExcelColumnName];
             var criteria = CriteriaOperator.Parse($"{valueTuple.MemberInfo.Name}=?", columnValue);
-            var importToObject = objectSpace.FindObject(importToTypeInfo.Type,criteria);
+            var importToObject = func((importToTypeInfo.Type,criteria));
             if (excelImport.ImportStrategy == ImportStrategy.UpdateOnly) {
                 return importToObject;
             }
@@ -296,8 +297,13 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                     index++;
                     var percentage = index * 100 / dataTable.Rows.Count;
                     progress?.OnNext(new ImportDataRowProgress(excelImport.Oid, percentage) {DataRow = dataRow});
-                    var importToObject =
-                        GetImportToObject( importParameters, dataRow, excelImport, index);
+                    var importToObject = GetImportToObject( importParameters, dataRow, excelImport, index, _ => {
+                        var requestImportTargetObject = new RequestImportTargetObject(_, excelImport.Oid) {
+                            ObjectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace
+                        };
+                        progress?.OnNext(requestImportTargetObject);
+                        return requestImportTargetObject.TargetObject ??((IObjectSpaceLink) excelImport).ObjectSpace.FindObject(_.objectType, _.criteria);
+                    });
                     if (importToObject != null) {
                         progress?.OnNext(new ImportObjectProgress(excelImport.Oid, percentage)
                             {ObjectToImport = importToObject});
@@ -361,6 +367,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return index;
         }
     }
+
     [Serializable]
     public class KeyMemberNotMappedException : Exception {
         public Type Type{ get; }

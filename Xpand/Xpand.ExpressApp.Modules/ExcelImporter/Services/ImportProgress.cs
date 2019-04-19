@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Data;
+using DevExpress.Data.Filtering;
+using DevExpress.ExpressApp;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 
 namespace Xpand.ExpressApp.ExcelImporter.Services{
@@ -18,6 +20,15 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         public ImportProgressException(Guid excelImportKey, Exception exception, int totalRecordsCount,
             BindingList<FailedResult> failedRecordsCount) : base(excelImportKey,totalRecordsCount,failedRecordsCount) {
             Exception = exception;
+        }
+    }
+    public class RequestImportTargetObject : ImportProgress {
+        public (Type objectType, CriteriaOperator criteria) Args{ get; }
+        public object TargetObject { get; set; }
+        public IObjectSpace ObjectSpace { get; set; }
+
+        public RequestImportTargetObject((Type objectType, CriteriaOperator criteria) args,Guid key) : base(key) {
+            Args = args;
         }
     }
 

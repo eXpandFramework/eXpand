@@ -23,9 +23,7 @@ using Xpand.XAF.Modules.MasterDetail;
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public class ExcelImportDetailViewController : ObjectViewController<DetailView,ExcelImport>{
         protected Subject<Unit> Terminator=new Subject<Unit>();
-        private readonly Subject<ISubject<ImportProgress>> _progressObsverveCreated=new Subject<ISubject<ImportProgress>>();
 
-        
 
         private const string ExcelMapActionName = "ExcelMap";
         private const string ImportExcelActionName = "ImportExcel";
@@ -135,18 +133,17 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         protected virtual IObserver<ImportProgress> GetProgressObserver(ExcelImport excelImport,ProgressViewItem progressBarViewItem) {
             var progress = CreateProgressObserver();
-            _progressObsverveCreated.OnNext(progress);
+            BeginImport.OnNext((excelImport, progress));
             var resultMessage = (CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
                     ExcelImporterLocalizationUpdater.ImportSucceded),CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
                 ExcelImporterLocalizationUpdater.ImportFailed));
-            progress.OfType<ImportProgressStart>()
-                .Where(excelImport)
-                .Do(OnStart)
-                .Select(start => new ImportDataRowProgress(start.ExcelImportKey, 0))
-                .Concat(progress.OfType<ImportDataRowProgress>().Where(excelImport));
+            
             var dataRowProgress = progress.OfType<ImportDataRowProgress>().Where(excelImport);
             
             var progressEnd = ProgressEnd(excelImport, progressBarViewItem, progress, resultMessage,Application.Model.BOModel.ToDictionary(c => c.TypeInfo.FullName,c => c.Caption));
+            progress.OfType<ImportProgressStart>().Where(excelImport)
+                .Do(OnStart).TakeUntil(progressEnd).Subscribe();
+            
             Observable
                 .Interval(TimeSpan.FromMilliseconds(progressBarViewItem.PollingInterval))
                 .WithLatestFrom(dataRowProgress, (l, importProgress) => ( importProgress.Percentage))
@@ -162,7 +159,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             
         }
 
-        public IObservable<ISubject<ImportProgress>> ProgressObsverveCreated => _progressObsverveCreated;
+        public Subject<(ExcelImport excelImport, ISubject<ImportProgress> progress)> BeginImport { get; } = new Subject<(ExcelImport excelImport, ISubject<ImportProgress> progress)>();
+
         protected virtual ISubject<ImportProgress> CreateProgressObserver(){
             return Subject.Synchronize(new Subject<ImportProgress>());
         }

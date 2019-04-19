@@ -29,6 +29,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services {
         }
 
         public static IObservable<EventPattern<EventArgs>> WhenDisposed(this IObjectSpace objectSpace) {
+            return Observable.Empty<EventPattern<EventArgs>>();
             return Observable.FromEventPattern<EventHandler, EventArgs>(
                 h => objectSpace.Disposed += h, h => objectSpace.Disposed -= h);
 
@@ -41,6 +42,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services {
         }
 
         public static IObservable<EventPattern<EventArgs>> WhenDisposed(this IComponent component) {
+            return Observable.Empty<EventPattern<EventArgs>>();
             return Observable.FromEventPattern<EventHandler, EventArgs>(
                 h => component.Disposed += h, h => component.Disposed -= h);
 
