@@ -57,6 +57,9 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.Security.v18.2">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>

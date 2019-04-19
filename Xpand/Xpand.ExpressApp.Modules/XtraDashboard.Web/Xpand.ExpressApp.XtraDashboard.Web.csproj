@@ -217,8 +217,8 @@
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\lib\net452\PropertyChanged.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Ryder, Version=0.7.0.0, Culture=neutral, PublicKeyToken=68842a7a5e601e6b">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2.2\lib\net4.6.1\Ryder.dll</HintPath>
+    <Reference Include="Ryder, Version=0.8.0.0, Culture=neutral, PublicKeyToken=68842a7a5e601e6b">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Ryder.0.8.0\lib\net45\Ryder.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System">
@@ -276,15 +276,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.2.2\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.5.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.5.1\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.SupressConfirmation">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SupressConfirmation.0.0.2\lib\net4.6.1\Xpand.XAF.Modules.SupressConfirmation.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.SupressConfirmation, Version=0.0.5.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SupressConfirmation.0.0.5.1\lib\net4.6.1\Xpand.XAF.Modules.SupressConfirmation.dll</HintPath>
       <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>

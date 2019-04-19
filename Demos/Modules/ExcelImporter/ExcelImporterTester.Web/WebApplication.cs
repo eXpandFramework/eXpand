@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.Data;
 using System.Web;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.ExpressApp.Web.SystemModule;
@@ -23,6 +25,14 @@ namespace ExcelImporterTester.Web{
         public ExcelImporterTesterAspNetApplication(){
             InitializeComponent();
             InitializeDefaults();
+            
+        }
+
+        protected override void ReadLastLogonParametersCore(SettingsStorage storage, object logonObject) {
+            base.ReadLastLogonParametersCore(storage, logonObject);
+            if(string.IsNullOrEmpty(((AuthenticationStandardLogonParameters)logonObject).UserName)) {
+                ((AuthenticationStandardLogonParameters)logonObject).UserName = "Admin";
+            }
         }
 
         protected override void CreateDefaultObjectSpaceProvider(CreateCustomObjectSpaceProviderEventArgs args){
