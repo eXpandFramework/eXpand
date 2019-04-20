@@ -1,8 +1,8 @@
 ---
-name: 'XAF: Feature request'
+name: 'Standalone XAF-Modules: Feature request'
 about: Only for the eXpandFramework/XAF project
 title: ''
-labels: Enhancement, XAF
+labels: Enhancement, Standalone_XAF_Modules
 assignees: apobekiaris
 
 ---

@@ -1,16 +1,11 @@
-
-[![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers) **Star the project if you think it deserves it.**
-
-[![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/network)    **Fork the project to extend it or contribute.**
-
 <img src="http://expandframework.com/images/site/logo.png" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
 |--------|--------
 [![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expandframework/expand/releases/latest)|```nuget.exe list author:eXpandFramework```
-![GitHub release](https://img.shields.io/github/release/expandframework/expand.lab.svg?color=yellow&label=lab)|```nuget.exe list Xpand -source https://xpandnugetserver.azurewebsites.net/nuget```
+[![](https://img.shields.io/azure-devops/build/eXpandDevOps/dc0010e5-9ecf-45ac-b89d-2d51897f3855/32/18.2.svg?label=Lab%20build&style=flat)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=32&branchName=18.2)|```nuget.exe list Xpand -source https://xpandnugetserver.azurewebsites.net/nuget```
 <sub><sup>[How do I set up a package source in Visual Studio?](https://go.microsoft.com/fwlink/?linkid=698608)</sup></sub>
 
-
- ![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)
+[![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers) 
+ [![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/network) ![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)
 [![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues)
 [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
 
@@ -27,7 +22,6 @@ The _eXpandFramework_ team have extended the capabilities of the _eXpressApp Fra
 The main idea _behind eXpandFramework_ is to offer as many features as possible to developers/business users  through a declarative approach (configuring files rather than writing code). Please go through each of the following brief descriptions and find out how _eXpandFramework_ can help you accomplish your complex development tasks with easy declarative programming. Below you can see some descriptions and screenshots of our basic modules (screenshots taken from eXpand FeatureCenter application that comes along with the download). In the folder _Demos_ you can find a list of demos like _XVideoRental_, _SecurityDemo_, _MiddleTier_, _Workflow_ and _installation helper solutions for each module_.
 
 ## Modules
-Additional standalone well documented/tested modules that work with ALL XAF versions and may not distributed from this repository can be found at [DevExpresss.XAF](https://github.com/eXpandFramework/DevExpress.XAF) repository.
 
 Examples of those modules include (in the two right columns you can see the supported platform):
 
