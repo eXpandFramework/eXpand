@@ -278,9 +278,8 @@
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.SupressConfirmation">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SupressConfirmation.0.0.6.1\lib\net4.6.1\Xpand.XAF.Modules.SupressConfirmation.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.10\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
