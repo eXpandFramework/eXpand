@@ -112,7 +112,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             }
         }
 
-        private TDashboardBarButtonItem GetBarItem<TDashboardBarButtonItem>() where TDashboardBarButtonItem : DashboardBarButtonItem {
+        private TDashboardBarButtonItem GetBarItem<TDashboardBarButtonItem>() where TDashboardBarButtonItem : DashboardCommandBarButtonItem {
             return ((RibbonControl)_dashboardDesigner.MenuManager).Items.OfType<TDashboardBarButtonItem>().First();
         }
 

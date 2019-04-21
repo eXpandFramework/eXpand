@@ -1,9 +1,14 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using DevExpress.Data.Helpers;
+using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
+using Fasterflect;
 
 namespace Xpand.Xpo.DB {
     public class SchemaColumnSizeUpdater : ISchemaUpdater {
@@ -17,7 +22,7 @@ namespace Xpand.Xpo.DB {
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
             if (connectionProviderSql == null || connectionProviderSql is AccessConnectionProvider||Disabled)
                 return;
-            lock (connectionProviderSql.SyncRoot) {
+            using (((IDisposable) ((AsyncLockHelper) connectionProviderSql.GetPropertyValue("LockHelper")).CallMethod("Lock"))) {
                 if (!connectionProviderSql.CanCreateSchema)
                     return;
 
@@ -25,8 +30,8 @@ namespace Xpand.Xpo.DB {
                     if (dataStoreUpdateSchemaEventArgs.UpdateSchemaResult == UpdateSchemaResult.SchemaExists) {
                         UpdateColumnSize(dataStoreUpdateSchemaEventArgs.Tables, connectionProviderSql);
                     }
-                } catch (System.Exception e) {
-                    System.Diagnostics.Trace.TraceError(e.ToString());
+                } catch (Exception e) {
+                    Trace.TraceError(e.ToString());
                 }
             }
         }
@@ -41,11 +46,11 @@ namespace Xpand.Xpo.DB {
                         sqlDataStore.GetTableSchema(actualTable, false, false);
                     }
                     DBColumn dbColumn = column;
-                    var actualColumn = actualTable.Columns.Find(col => System.String.Compare(col.Name, sqlDataStore.ComposeSafeColumnName(dbColumn.Name), System.StringComparison.OrdinalIgnoreCase) == 0);
+                    var actualColumn = actualTable.Columns.Find(col => String.Compare(col.Name, sqlDataStore.ComposeSafeColumnName(dbColumn.Name), StringComparison.OrdinalIgnoreCase) == 0);
                     if (NeedsAltering(column, actualColumn)) {
-                        if ((actualColumn.Size < column.Size) || (column.Size == DevExpress.Xpo.SizeAttribute.Unlimited)) {
+                        if ((actualColumn.Size < column.Size) || (column.Size == SizeAttribute.Unlimited)) {
                             var sql = GetSql(table, sqlDataStore, column);
-                            System.Diagnostics.Trace.WriteLineIf(new System.Diagnostics.TraceSwitch("XPO", "").TraceInfo, sql);
+                            Trace.WriteLineIf(new TraceSwitch("XPO", "").TraceInfo, sql);
                             sqlDataStore.ExecSql(new Query(sql));
                         }
                     }

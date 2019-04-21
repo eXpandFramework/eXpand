@@ -79,7 +79,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(ActiveDocumentViewController),
                 typeof(LayoutControlGroupModelAdapterController),
                 typeof(FilterByGridViewColumnController),
-                typeof(DetailViewCachingController),
                 typeof(FullTextAutoFilterRowController),
                 typeof(GridListEditorEventController),
                 typeof(CustomSummaryCalculateController),

@@ -408,7 +408,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="SystemModule\FilterByColumnController.cs" />
-    <Compile Include="SystemModule\DetailViewCachingController.cs" />
     <Compile Include="SystemModule\FullTextAutoFilterRowController.cs" />
     <Compile Include="SystemModule\GridListEditorEventController.cs" />
     <Compile Include="SystemModule\GroupedRowMasterDetailViewController.cs" />

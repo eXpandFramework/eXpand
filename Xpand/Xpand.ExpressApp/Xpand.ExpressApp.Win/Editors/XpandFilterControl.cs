@@ -63,7 +63,7 @@ namespace Xpand.ExpressApp.Win.Editors {
         private readonly Func<CriteriaOperator> _criteria=() => null;
         private readonly Func<IEnumerable<IModelMember>> _modelMembers=() => null;
 
-        public XpandGridFilterControl(Func<CriteriaOperator> criteria, Func<IEnumerable<IModelMember>> modelMembers) {
+        public XpandGridFilterControl(Func<CriteriaOperator> criteria, Func<IEnumerable<IModelMember>> modelMembers) : base(FilterCriteriaDisplayStyle.Default) {
             _criteria = criteria;
             _modelMembers = modelMembers;
         }
