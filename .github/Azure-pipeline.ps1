@@ -2,7 +2,8 @@ param(
    $repository,
    $DXApiFeed,
    $NuGetApiKey,
-   $artifactstagingdirectory
+   $artifactstagingdirectory,
+   $BetaFeed
 )
 $VerbosePreference="continue"
 $WorkingDirectory="$PSScriptRoot\.."
@@ -25,7 +26,7 @@ Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
 "Start build.."
 
 $buildArgs=@{
-   packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$DXApiFeed")
+   packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$DXApiFeed",$BetaFeed)
    configuration="Release"
    msbuild="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\msbuild.exe"
    taskList=@("Release")

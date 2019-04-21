@@ -16,7 +16,7 @@ steps:
   inputs:
     targetType: filePath
     filePath: .\.github\Azure-Pipeline.ps1
-    arguments: $(Build.Repository.Name) $(DXApiFeed) $(NuGetApiKey) $(build.artifactstagingdirectory)
+    arguments: $(Build.Repository.Name) $(DXApiFeed) $(NuGetApiKey) $(build.artifactstagingdirectory) $(BetaFeed)
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Xpand.v$(Build.BuildNumber)'
   inputs:
