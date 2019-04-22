@@ -4,6 +4,7 @@ param(
    $NuGetApiKey,
    $artifactstagingdirectory,
    $BetaFeed
+   $Branch="master"
 )
 $VerbosePreference="continue"
 $WorkingDirectory="$PSScriptRoot\.."
@@ -33,6 +34,9 @@ $buildArgs=@{
    nugetApiKey=$nugetApiKey
    version=$version
    Repository=$repository
+}
+if ($BetaFeed){
+   $buildArgs.Add("Branch","beta")
 }
 $buildArgs
 & "$WorkingDirectory\support\build\go.ps1" @buildArgs 
