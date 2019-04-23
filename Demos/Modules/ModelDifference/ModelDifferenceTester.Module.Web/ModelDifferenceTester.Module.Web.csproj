@@ -46,33 +46,33 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v18.2">
+    <Reference Include="DevExpress.Data.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v18.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Web.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.Web.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.Web.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v18.2">
+    <Reference Include="DevExpress.ExpressApp.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Office.v18.2.Core">
+    <Reference Include="DevExpress.Office.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Office.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v18.2.Core">
+    <Reference Include="DevExpress.RichEdit.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.RichEdit.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.v18.2">
+    <Reference Include="DevExpress.Web.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Web.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Private>False</Private>

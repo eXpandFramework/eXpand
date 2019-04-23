@@ -49,65 +49,65 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v18.2">
+    <Reference Include="DevExpress.Data.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v18.2">
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v18.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v18.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.Win.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.Win.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v18.2">
+    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ViewVariantsModule.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ViewVariantsModule.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v18.2">
+    <Reference Include="DevExpress.ExpressApp.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v18.2">
+    <Reference Include="DevExpress.Persistent.Base.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v18.2">
+    <Reference Include="DevExpress.Persistent.BaseImpl.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Persistent.BaseImpl.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Persistent.BaseImpl.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v18.2">
+    <Reference Include="DevExpress.Xpo.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Xpo.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraBars.v18.2">
+    <Reference Include="DevExpress.XtraBars.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.XtraBars.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.XtraBars.v19.1.dll</HintPath>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7" />
     <Reference Include="System">

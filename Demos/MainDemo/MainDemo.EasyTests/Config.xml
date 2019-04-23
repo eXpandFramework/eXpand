@@ -5,25 +5,25 @@
     <Application
 			Name="MainDemoWin"
 			FileName="[ConfigPath]\..\MainDemo.Win\Bin\Debug\MainDemo.Win.exe"
-			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WinAdapter.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WinAdapter.v19.1, Version=19.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
 			CommunicationPort="15923"/>
     <Application
 			Name="MainDemoWinRibbon"
 			FileName="[ConfigPath]\..\MainDemo.Win.Ribbon\Bin\Debug\MainDemo.Win.Ribbon.exe"
-			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WinAdapter.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WinAdapter.v19.1, Version=19.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
 			CommunicationPort="15925"/>
     <!-- Web -->
     <Application
 			Name="MainDemoWeb"
 			Url="http://localhost:4030"
 			PhysicalPath="[ConfigPath]\..\MainDemo.Web"
-			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WebAdapter.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WebAdapter.v19.1, Version=19.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
       IgnoreCase="true"/>
     <!-- For IIS -->
     <!--Application
 			Name="MainDemoWeb"
 			Url="http://localhost/MainDemo.Web/Default.aspx"
-			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WebAdapter.v18.2, Version=18.2.7.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"/-->
+			AdapterAssemblyName="DevExpress.ExpressApp.EasyTest.WebAdapter.v19.1, Version=19.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"/-->
   </Applications>
   <TestDatabases>
     <Database xsi:type="TestMSSQLDatabase" Server="(localdb)\mssqllocaldb" Name="MainDemo" DBName="MainDemo_v17.2"/>

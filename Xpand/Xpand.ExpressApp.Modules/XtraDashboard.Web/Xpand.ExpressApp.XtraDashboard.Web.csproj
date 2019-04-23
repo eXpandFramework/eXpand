@@ -76,139 +76,139 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Charts.v18.2.Core">
+    <Reference Include="DevExpress.Charts.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Charts.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Charts.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.CodeParser.v18.2">
+    <Reference Include="DevExpress.CodeParser.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.CodeParser.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.CodeParser.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v18.2.Core">
+    <Reference Include="DevExpress.Dashboard.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v18.2.Web">
+    <Reference Include="DevExpress.Dashboard.v19.1.Web">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v18.2.Web.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v19.1.Web.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Dashboard.v18.2.Web.WebForms">
+    <Reference Include="DevExpress.Dashboard.v19.1.Web.WebForms">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v18.2.Web.WebForms.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v19.1.Web.WebForms.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Dashboards.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Dashboards.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Dashboards.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Dashboards.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Dashboards.Web.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Dashboards.Web.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Dashboards.Web.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Dashboards.Web.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.Web.v18.2">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.Web.v18.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Images.v18.2">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Images.v18.2.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Map.v18.2.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Map.v18.2.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Pdf.v18.2.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Pdf.v18.2.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.Web.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.Web.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.PivotGrid.v18.2.Core">
+    <Reference Include="DevExpress.Images.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.PivotGrid.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Images.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Printing.v18.2.Core">
+    <Reference Include="DevExpress.Map.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Printing.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Map.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v18.2.Export">
+    <Reference Include="DevExpress.Pdf.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v18.2.Export.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Pdf.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Sparkline.v18.2.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Sparkline.v18.2.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.DataAccess.v18.2.UI">
+    <Reference Include="DevExpress.Persistent.Base.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.DataAccess.v18.2.UI.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.SpellChecker.v18.2.Core">
+    <Reference Include="DevExpress.PivotGrid.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.SpellChecker.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.PivotGrid.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.TreeMap.v18.2.Core">
+    <Reference Include="DevExpress.Printing.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.TreeMap.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Printing.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v18.2">
+    <Reference Include="DevExpress.RichEdit.v19.1.Export">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Export.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.ASPxThemes.v18.2">
+    <Reference Include="DevExpress.Sparkline.v19.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Sparkline.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.DataAccess.v19.1.UI">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.DataAccess.v19.1.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.SpellChecker.v19.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.SpellChecker.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.TreeMap.v19.1.Core">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.TreeMap.v19.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v19.1">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Web.ASPxThemes.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.ASPxThemes.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.ASPxThemes.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.Resources.v18.2">
+    <Reference Include="DevExpress.Web.Resources.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.Resources.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.Resources.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.DataAccess.v18.2">
+    <Reference Include="DevExpress.DataAccess.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.DataAccess.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.DataAccess.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Web.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Office.v18.2.Core">
+    <Reference Include="DevExpress.Office.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v18.2">
+    <Reference Include="DevExpress.Data.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v18.2">
+    <Reference Include="DevExpress.ExpressApp.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v18.2.Core">
+    <Reference Include="DevExpress.RichEdit.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Web.v18.2">
+    <Reference Include="DevExpress.Web.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v18.2">
+    <Reference Include="DevExpress.Xpo.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v18.2.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
@@ -276,13 +276,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+    <Reference Include="Xpand.XAF.Modules.Reactive">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.11\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.12\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
       <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>

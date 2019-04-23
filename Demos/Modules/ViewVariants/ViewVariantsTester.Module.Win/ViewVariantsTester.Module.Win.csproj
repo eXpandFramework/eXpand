@@ -46,57 +46,57 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v18.2">
+    <Reference Include="DevExpress.Data.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v18.2">
+    <Reference Include="DevExpress.ExpressApp.ScriptRecorder.Win.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.Win.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.ScriptRecorder.Win.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v18.2">
+    <Reference Include="DevExpress.ExpressApp.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v18.2.Export">
+    <Reference Include="DevExpress.RichEdit.v19.1.Export">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.RichEdit.v18.2.Export.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Export.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Office.v18.2.Core">
+    <Reference Include="DevExpress.Office.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Office.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.RichEdit.v18.2.Core">
+    <Reference Include="DevExpress.RichEdit.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.RichEdit.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Printing.v18.2.Core">
+    <Reference Include="DevExpress.Printing.v19.1.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Printing.v18.2.Core.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Printing.v19.1.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Utils.v18.2">
+    <Reference Include="DevExpress.Utils.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Utils.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraEditors.v18.2">
+    <Reference Include="DevExpress.XtraEditors.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.XtraEditors.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.XtraEditors.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v18.2">
+    <Reference Include="DevExpress.XtraPrinting.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.XtraPrinting.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.XtraPrinting.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v18.2">
+    <Reference Include="DevExpress.XtraGrid.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.XtraGrid.v18.2.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\DevExpress.XtraGrid.v19.1.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>

@@ -41,13 +41,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.EasyTest.v18.2">
+    <Reference Include="DevExpress.EasyTest.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.EasyTest.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.EasyTest.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.EasyTest.WebAdapter.v18.2">
+    <Reference Include="DevExpress.ExpressApp.EasyTest.WebAdapter.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.EasyTest.WebAdapter.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.EasyTest.WebAdapter.v19.1.dll</HintPath>
     </Reference>
     <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
       <Private>True</Private>

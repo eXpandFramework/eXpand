@@ -43,37 +43,37 @@
     <Reference Include="Castle.Core, Version=4.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\Support\_third_party_assemblies\Packages\Castle.Core.4.1.1\lib\net40\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Data.v18.2">
+    <Reference Include="DevExpress.Data.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.Data.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Security.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.v18.2">
+    <Reference Include="DevExpress.ExpressApp.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v18.2">
+    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v18.2">
+    <Reference Include="DevExpress.Persistent.Base.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.Persistent.Base.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
     </Reference>
-    <Reference Include="DevExpress.Xpo.v18.2">
+    <Reference Include="DevExpress.Xpo.v19.1">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.Dll\DevExpress.Xpo.v18.2.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\Support\_third_party_assemblies\Packages\FluentAssertions.4.19.4\lib\net40\FluentAssertions.dll</HintPath>
