@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>eXpandNCarousel</id>
+    <version>14.1.6.10</version>
+    <title>DevExpress eXpandFramework NCarousel Module</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>NCarousel Module / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <summary>NCarousel Module / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
+    <dependencies>
+      <dependency id="eXpandLib" version="18.2.704.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.NCarousel.dll" target="lib\net40\Xpand.NCarousel.dll" />
+    <file src="\Build\Temp\Xpand.NCarousel.pdb" target="lib\net40\Xpand.NCarousel.pdb" />
+  </files>
+</package>

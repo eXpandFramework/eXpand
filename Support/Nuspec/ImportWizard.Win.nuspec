@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>eXpandImportWizardWin2</id>
+    <version>14.1.6.10</version>
+    <title>DevExpress eXpandFramework ImportWizard Module (Win)</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ImportWizard Module (Win) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <summary>ImportWizard Module (Win) / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
+    <dependencies>
+      <dependency id="DocumentFormat.OpenXml" version="2.7.2" />
+      <dependency id="eXpandImportWizard" version="18.2.704.0" />
+      <dependency id="eXpandLib" version="18.2.704.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\net40\Xpand.ExpressApp.ImportWizard.Win.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ImportWizard.Win.pdb" target="lib\net40\Xpand.ExpressApp.ImportWizard.Win.pdb" />
+    <file src="\Build\Temp\WindowsBase.dll" target="lib\net40\WindowsBase.dll" />
+  </files>
+</package>

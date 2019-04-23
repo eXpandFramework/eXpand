@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>eXpandWeb</id>
+    <version>14.1.6.10</version>
+    <title>DevExpress eXpandFramework All Web Platform  Modules</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>All Web Platform Modules / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <summary>All Web Platform Modules / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <projectUrl>http://www.expandframework.com/</projectUrl>
+    <dependencies />
+  </metadata>
+  <files />
+</package>

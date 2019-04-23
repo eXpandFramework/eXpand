@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>eXpandExcelImporter.Web</id>
+    <version>14.1.6.10</version>
+    <title>DevExpress eXpandFramework ExcelImporter Web Module </title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ExcelImporter Module / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <summary>ModelArtifactState Module / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
+    <dependencies>
+      <dependency id="ExcelDataReader" version="3.5.0" />
+      <dependency id="ExcelDataReader.DataSet" version="3.5.0" />
+      <dependency id="eXpandExcelImporter" version="18.2.704.0" />
+      <dependency id="eXpandLib" version="18.2.704.0" />
+      <dependency id="eXpandSystem" version="18.2.704.0" />
+      <dependency id="eXpandSystemWeb" version="18.2.704.0" />
+      <dependency id="eXpandValidationWeb" version="18.2.704.0" />
+      <dependency id="System.Reactive" version="4.1.3" />
+      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
+      <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
+      <dependency id="System.ValueTuple" version="4.5.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.ExcelImporter.Web.dll" target="lib\net40\Xpand.ExpressApp.ExcelImporter.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.ExcelImporter.Web.pdb" target="lib\net40\Xpand.ExpressApp.ExcelImporter.Web.pdb" />
+    <file src="\Build\Temp\WindowsBase.dll" target="lib\net40\WindowsBase.dll" />
+  </files>
+</package>

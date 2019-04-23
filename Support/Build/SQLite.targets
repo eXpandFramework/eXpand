@@ -1,0 +1,61 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ExtensionTasksPath Condition="'$(ExtensionTasksPath)' == ''">$(MSBuildThisFileDirectory)\ExtensionPack\</ExtensionTasksPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)\ExtensionPack\MSBuild.ExtensionPack.tasks"/>
+
+  <Target Name="CopySQLiteInteropFiles">
+  <ItemGroup>
+    <SQLiteInteropFiles Include="$(MSBuildThisFileDirectory)..\_third_party_assemblies\**\net40\**\SQLite.Interop.*" />
+  </ItemGroup>
+     <MSBuild.ExtensionPack.Framework.MsBuildHelper TaskAction="FilterItems" InputItems1="@(SQLiteInteropFiles)" RegexPattern=".*(x86)">
+         <Output TaskParameter="OutputItems" ItemName="filtered"/>
+     </MSBuild.ExtensionPack.Framework.MsBuildHelper>
+	 <Message Text="filtered Items: %(filtered.Identity)"/>
+	 <Copy SourceFiles="@(filtered)" DestinationFolder="$(OutDir)\x86" /> 
+	 
+	 <MSBuild.ExtensionPack.Framework.MsBuildHelper TaskAction="FilterItems" InputItems1="@(SQLiteInteropFiles)" RegexPattern=".*(x64)">
+         <Output TaskParameter="OutputItems" ItemName="filtered"/>
+     </MSBuild.ExtensionPack.Framework.MsBuildHelper>
+	 <Message Text="filtered Items: %(filtered.Identity)"/>
+	 <Copy SourceFiles="@(filtered)" DestinationFolder="$(OutDir)\x64" /> 
+  </Target>
+
+  <Target Name="CleanSQLiteInteropFiles"
+          Condition="'$(CleanSQLiteInteropFiles)' != 'false' And
+                     '$(OutDir)' != '' And
+                     HasTrailingSlash('$(OutDir)') And
+                     Exists('$(OutDir)')">
+    <Delete Files="@(SQLiteInteropFiles -> '$(OutDir)%(RecursiveDir)%(Filename)%(Extension)')" />
+  </Target>
+  
+  <Target Name="CollectSQLiteInteropFiles"
+          Condition="'$(CollectSQLiteInteropFiles)' != 'false'">
+    <ItemGroup>
+      <FilesForPackagingFromProject Include="@(SQLiteInteropFiles)">
+        <DestinationRelativePath>bin\%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
+      </FilesForPackagingFromProject>
+    </ItemGroup>
+  </Target>
+
+  <PropertyGroup>
+    <BuildDependsOn>
+      $(BuildDependsOn);
+      CopySQLiteInteropFiles;
+    </BuildDependsOn>
+    <CleanDependsOn>
+      $(CleanDependsOn);
+      CleanSQLiteInteropFiles;
+    </CleanDependsOn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(VisualStudioVersion)' == '' Or
+                            '$(VisualStudioVersion)' == '10.0' Or
+                            '$(VisualStudioVersion)' == '11.0' Or
+                            '$(VisualStudioVersion)' == '12.0'">
+    <PipelineCollectFilesPhaseDependsOn>
+      CollectSQLiteInteropFiles;
+      $(PipelineCollectFilesPhaseDependsOn);
+    </PipelineCollectFilesPhaseDependsOn>
+  </PropertyGroup>
+</Project>

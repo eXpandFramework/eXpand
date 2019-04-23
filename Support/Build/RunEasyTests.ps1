@@ -1,0 +1,1 @@
+& $PSScriptRoot\go.ps1 -taskList "EasyTest" -msbuildArgs @("/p:Configuration=EasyTest","/v:m")

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <version>14.1.6.10</version>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <id>eXpandSystemWeb</id>
+    <title>DevExpress eXpandFramework System Module (Web)</title>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <summary>System module</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <projectUrl>http://www.expandframework.com/#core</projectUrl>
+    <description>DevExpress eXpandFramework System Module (Web). To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <dependencies>
+      <dependency id="eXpandLib" version="18.2.704.0" />
+      <dependency id="eXpandSystem" version="18.2.704.0" />
+      <dependency id="fasterflect" version="2.1.3" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\net40\Xpand.ExpressApp.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.Web.pdb" target="lib\net40\Xpand.ExpressApp.Web.pdb" />
+  </files>
+</package>

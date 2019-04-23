@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <!-- Enable the restore command to run before builds -->
+        <RestorePackages Condition=" '$(RestorePackages)' == '' ">true</RestorePackages>
+        <PackagesConfig>$([System.IO.Path]::Combine($(ProjectDir), "packages.config"))</PackagesConfig>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Commands -->
+        <RestoreCommand>"$(MSBuildThisFileDirectory)\..\Tool\nuget.exe" install "$(PackagesConfig)"</RestoreCommand>
+
+        <!-- We need to ensure packages are restored prior to assembly resolve -->
+        <ResolveReferencesDependsOn Condition="$(RestorePackages) == 'true'">
+            RestorePackages;
+            $(ResolveReferencesDependsOn);
+        </ResolveReferencesDependsOn>
+    </PropertyGroup>
+
+    <Target Name="RestorePackages">
+        <Exec Command="$(RestoreCommand)" LogStandardErrorAsError="true" Condition="Exists('$(PackagesConfig)')" />
+    </Target>
+</Project>

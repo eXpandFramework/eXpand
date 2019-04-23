@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>eXpandAdditionalViewControlsProviderWeb</id>
+    <version>14.1.6.10</version>
+    <title>DevExpress eXpandFramework AdditionalViewControlsProvider Module (Web)</title>
+    <authors>eXpandFramework</authors>
+    <owners>eXpandFramework</owners>
+    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>AdditionalViewControlsProvider Module (Web) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
+    <summary>AdditionalViewControlsProvider Module (Web) / eXpandFramework</summary>
+    <copyright>eXpandFramework.com</copyright>
+    <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
+    <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
+    <dependencies>
+      <dependency id="eXpandAdditionalViewControlsProvider" version="18.2.704.0" />
+      <dependency id="eXpandLib" version="18.2.704.0" />
+      <dependency id="eXpandLogic" version="18.2.704.0" />
+      <dependency id="eXpandSecurity" version="18.2.704.0" />
+      <dependency id="eXpandSystem" version="18.2.704.0" />
+      <dependency id="eXpandSystemWeb" version="18.2.704.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" />
+    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.pdb" />
+  </files>
+</package>

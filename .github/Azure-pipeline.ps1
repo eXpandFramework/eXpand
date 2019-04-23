@@ -3,7 +3,7 @@ param(
    $DXApiFeed,
    $NuGetApiKey,
    $artifactstagingdirectory,
-   $BetaFeed
+   $BetaFeed,
    $Branch="master"
 )
 $VerbosePreference="continue"
