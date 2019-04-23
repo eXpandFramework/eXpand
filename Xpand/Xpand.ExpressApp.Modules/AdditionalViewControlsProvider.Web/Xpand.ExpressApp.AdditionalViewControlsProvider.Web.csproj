@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.AdditionalViewControlsProvider.Web</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.AdditionalViewControlsProvider.Web</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
@@ -192,7 +194,8 @@
     <Compile Include="Security\UpdateDecoratorTypeTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Updater.cs"></Compile>
+    <Compile Include="Updater.cs">
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

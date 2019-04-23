@@ -14,7 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />

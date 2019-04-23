@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.Dashboard</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.Dashboard</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -36,7 +38,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

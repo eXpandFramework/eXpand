@@ -12,7 +12,8 @@
     <RootNamespace>Xpand.ExpressApp.ModelDifference.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ModelDifference.Win</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>

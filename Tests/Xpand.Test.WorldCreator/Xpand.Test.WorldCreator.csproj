@@ -13,7 +13,8 @@
     <AssemblyName>Xpand.Test.WorldCreator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <LangVersion>latest</LangVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>

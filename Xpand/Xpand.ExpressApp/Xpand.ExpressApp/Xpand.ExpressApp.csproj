@@ -16,7 +16,8 @@
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
@@ -36,7 +37,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

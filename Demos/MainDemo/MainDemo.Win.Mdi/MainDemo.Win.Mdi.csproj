@@ -14,9 +14,11 @@
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <ApplicationIcon>ExpressApp.ico</ApplicationIcon>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -383,7 +385,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DemoApplicationVersionInfo.cs"></Compile>
+    <Compile Include="DemoApplicationVersionInfo.cs">
+    </Compile>
     <Compile Include="MainDemoWinApplication.cs">
       <SubType>Component</SubType>
     </Compile>

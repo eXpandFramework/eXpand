@@ -10,9 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.AdditionalViewControlsProvider</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.AdditionalViewControlsProvider</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
@@ -35,7 +37,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

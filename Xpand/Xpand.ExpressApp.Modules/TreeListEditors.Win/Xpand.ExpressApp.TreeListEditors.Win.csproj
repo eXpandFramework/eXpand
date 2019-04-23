@@ -12,9 +12,11 @@
     <RootNamespace>Xpand.ExpressApp.TreeListEditors.Win</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.TreeListEditors.Win</AssemblyName>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <SignAssembly>true</SignAssembly>
@@ -167,7 +169,8 @@
       <DependentUpon>RecursiveFilteringViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\TreeListInplaceEditViewController.cs" />
-    <Compile Include="Controllers\TreeNodeExtensions.cs"></Compile>
+    <Compile Include="Controllers\TreeNodeExtensions.cs">
+    </Compile>
     <Compile Include="ListEditors\XpandTreeListEditor.cs" />
     <Compile Include="ListEditors\XpandCategorizedListEditor.cs" />
     <Compile Include="Model\Interfaces.cs" />
@@ -227,7 +230,8 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent></PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
     <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
     <LangVersion>latest</LangVersion>

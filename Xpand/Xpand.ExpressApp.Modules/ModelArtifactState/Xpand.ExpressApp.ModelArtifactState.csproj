@@ -11,9 +11,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xpand.ExpressApp.ModelArtifactState</RootNamespace>
     <AssemblyName>Xpand.ExpressApp.ModelArtifactState</AssemblyName>
-    <FileUpgradeFlags></FileUpgradeFlags>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation></UpgradeBackupLocation>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -36,7 +38,8 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp></NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -208,7 +211,8 @@
     <Compile Include="ObjectViews\Model\IModelLogicConditionalObjectView.cs" />
     <Compile Include="ObjectViews\Model\ObjectViewRulesNodeUpdater.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs"></Compile>
+    <Compile Include="Updater.cs">
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
