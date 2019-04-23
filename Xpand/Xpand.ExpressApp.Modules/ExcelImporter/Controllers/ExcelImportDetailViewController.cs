@@ -140,7 +140,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             
             var dataRowProgress = progress.OfType<ImportDataRowProgress>().Where(excelImport);
             
-            var progressEnd = ProgressEnd(excelImport, progressBarViewItem, progress, resultMessage,Application.Model.BOModel.ToDictionary(c => c.TypeInfo.FullName,c => c.Caption));
+            var progressEnd = ProgressEnd(excelImport, progressBarViewItem, progress, resultMessage,Application.Model.BOModel.ToDictionary(c => c.TypeInfo.FullName,c => c.Caption))
+                .Publish().RefCount();
             progress.OfType<ImportProgressStart>().Where(excelImport)
                 .Do(OnStart).TakeUntil(progressEnd).Subscribe();
             

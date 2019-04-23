@@ -160,20 +160,27 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.AutoCommit, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+    <Reference Include="Xpand.XAF.Modules.AutoCommit, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.AutoCommit.0.0.12\lib\net4.6.1\Xpand.XAF.Modules.AutoCommit.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.MasterDetail, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+    <Reference Include="Xpand.XAF.Modules.MasterDetail, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.MasterDetail.0.0.12\lib\net4.6.1\Xpand.XAF.Modules.MasterDetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.11\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.ViewEditMode, Version=1.2.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.12\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ViewEditMode, Version=1.2.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ViewEditMode.1.2.11\lib\net4.6.1\Xpand.XAF.Modules.ViewEditMode.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">
