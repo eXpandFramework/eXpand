@@ -35,14 +35,6 @@ Task Init  {
             Copy-Item $_.FullName "$root\Xpand.dll\$($_.FileName)" -Force
         }
         
-        $r=New-XCommand "Nuget" "$(Get-XNugetPath)" "restore $root\Support\BuildHelper\BuildHelper.sln -PackagesDirectory $root\Support\_third_party_assemblies\Packages"
-        if ($r.ExitCode){
-            throw $r.stderr
-        }
-        $r.stdout
-        & $msbuild (GetBuildArgs "$root\Support\BuildHelper\BuildHelper.sln")
-        & $root/Xpand.dll/BuildHelper.exe 
-        
         Get-ChildItem "$root" "*.csproj" -Recurse|ForEach-Object {
             [xml]$xml=Get-Content $_.FullName
             $xml.Project.PropertyGroup|ForEach-Object{
@@ -225,8 +217,6 @@ task CompileDemos {
         Write-Host "Compiling Web demos..." -f "Blue"
         $webProjects=$projects|Where-Object{"$_".Contains("Web")}
         BuildProjects $webProjects $true
-
-        & $root/Xpand.dll/BuildHelper.exe --afterbuild 
 
     }
 

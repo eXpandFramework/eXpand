@@ -9,11 +9,10 @@
 					Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj;
 					Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Web\Xpand.ExpressApp.Web.csproj"></CoreProjects>
 	<EasyTestProjects Include="
-					Xpand.EasyTest\Xpand.EasyTest\Xpand.EasyTest.csproj;
-					Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WebAdapter\Xpand.ExpressApp.EasyTest.WebAdapter.csproj;
-					Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WinAdapter\Xpand.ExpressApp.EasyTest.WinAdapter.csproj;"  />
+					Xpand\Xpand.EasyTest\Xpand.EasyTest\Xpand.EasyTest.csproj;
+					Xpand\Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WebAdapter\Xpand.ExpressApp.EasyTest.WebAdapter.csproj;
+					Xpand\Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WinAdapter\Xpand.ExpressApp.EasyTest.WinAdapter.csproj;"  />
     <HelperProjects Include="
-					Support\DistribNugetAssemblies\DistribNugetAssemblies.csproj;
 					Support\GacInstaller\GacInstaller.csproj"/>
     <VSAddons Include="
                     Xpand.Plugins\Xpand.ExpressApp.ModelEditor\Xpand.ExpressApp.ModelEditor.csproj;"/>
