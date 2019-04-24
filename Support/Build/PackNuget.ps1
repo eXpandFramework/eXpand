@@ -36,6 +36,7 @@ $psObj = [PSCustomObject]@{
 }
 $nuget="$(Get-XNugetPath)"
 $psObj.Nuspecs|Invoke-XParallel -VariablesToImport @("psObj","nuget") -ActivityName Packing -script{
+    Write-Output "Packing $_"
     & $Nuget Pack $_ -version ($psObj.Version) -OutputDirectory ($psObj.OutputDirectory)
 }
 

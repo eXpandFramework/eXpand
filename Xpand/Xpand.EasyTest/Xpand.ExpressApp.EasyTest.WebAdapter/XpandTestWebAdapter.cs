@@ -8,7 +8,7 @@ using DevExpress.ExpressApp.EasyTest.WebAdapter;
 using DevExpress.ExpressApp.EasyTest.WebAdapter.Utils;
 using DevExpress.ExpressApp.EasyTest.WebAdapter.WebServerManagers;
 using Fasterflect;
-using SHDocVw;
+using mshtml;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
@@ -106,6 +106,9 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         
     }
 
+    public interface IWebBrowser2 {
+        IHTMLDocument2 Document { get; }
+    }
     public class XpandEasyTestWebBrowser:IEasyTestWebBrowser{
         private readonly IEasyTestWebBrowser _easyTestWebBrowser;
 

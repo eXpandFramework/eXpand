@@ -22,6 +22,5 @@
   <files>
     <file src="\Build\Temp\Xpand.ExpressApp.EasyTest.WebAdapter.dll" target="lib\net40\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <file src="\Build\Temp\Xpand.ExpressApp.EasyTest.WebAdapter.pdb" target="lib\net40\Xpand.ExpressApp.EasyTest.WebAdapter.pdb" />
-    <file src="\Build\Temp\Interop.SHDocVw.dll" target="lib\net40\Interop.SHDocVw.dll" />
   </files>
 </package>
