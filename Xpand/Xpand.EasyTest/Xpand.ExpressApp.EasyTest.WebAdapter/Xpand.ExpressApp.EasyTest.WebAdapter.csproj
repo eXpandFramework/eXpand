@@ -10,7 +10,7 @@
     <AssemblyName>Xpand.ExpressApp.EasyTest.WebAdapter</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.Key\Xpand.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>..\..\Xpand.key\Xpand.snk</AssemblyOriginatorKeyFile>
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -99,7 +99,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="BeforeBuild"></Target>
+  <Target Name="BeforeBuild">
+  </Target>
   <!--  <Import Project="$(OutputPath)\..\Resource\Build\Xpand.targets">-->
   <!--  </Import>-->
   <!--  <Target Name="AfterBuild" DependsOnTargets="UpdateDXEasyTestFolder">-->
