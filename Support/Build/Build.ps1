@@ -16,7 +16,7 @@ properties {
     $Brannch=$null
 }
 
-Task Release -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CompileDemos,VSIX ,BuildExtras,IndexSources, Finalize,PackNuget,Installer
+Task Release -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,PackNuget,Installer
 Task Lab -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules
 
 Task InstallDX{
@@ -59,7 +59,7 @@ Task Finalize {
         Get-ChildItem "$root\Xpand.dll\" -Exclude "*.locked" | ForEach-Object{
             Copy-item $_ "$root\Build\Temp\$($_.FileName)" -Force
         }
-        Copy-Item "$root\Xpand.key\Xpand.snk" "$root\build\Xpand.snk"
+        Copy-Item "$root\Xpand\Xpand.key\Xpand.snk" "$root\build\Xpand.snk"
     } 
 }
 
@@ -185,9 +185,11 @@ Task CompileModules{
             }
         }
 
-        $helpers=($group.HelperProjects|GetProjects)+ ($group.VSAddons|GetProjects)
+        
         Write-Host "Compiling helper projects..." -f "Blue"
-        BuildProjects $helpers
+        
+        BuildProjects ($group.HelperProjects|GetProjects)
+        BuildProjects ($group.VSAddons|GetProjects)
 
         Write-Host "Compiling Agnostic EasyTest projects..." -f "Blue"
         BuildProjects (($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 
@@ -225,7 +227,11 @@ task CompileDemos {
 function BuildProjects($projects,$clean ){
     $projects|Invoke-Parallel -ActivityName Building -VariablesToImport @("v","msbuildArgs","root","msbuild") -Script {
         $bargs=(@("$_","/p:OutputPath=$root\Xpand.dll\")+$msbuildArgs.Split(";"))
-        & $msbuild $bargs
+        $o=& $msbuild $bargs
+        if ($LASTEXITCODE){
+            throw $o
+        }
+        Write-Output $o
     }
 }
 
