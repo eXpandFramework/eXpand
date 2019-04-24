@@ -64,11 +64,6 @@ Task Init  {
 
 Task Finalize {
     InvokeScript{
-        # Get-ChildItem "$root\Xpand.dll\" -Include "DevExpress.*" -Recurse | ForEach-Object{
-        #     if (![system.io.path]::GetFileName($_).StartsWith("Xpand.XAF") ){
-        #         remove-item $_ -Force -Recurse
-        #     }
-        # }
         Get-ChildItem "$root\Xpand.dll\" -Exclude "*.locked" | ForEach-Object{
             Copy-item $_ "$root\Build\Temp\$($_.FileName)" -Force
         }
@@ -76,11 +71,9 @@ Task Finalize {
     } 
 }
 
-Task BuildExtras{
+Task CreateNuspec{
     InvokeScript{
-        # "$root\Support\XpandTestExecutor\XpandTestExecutor.sln","$root\Support\XpandTestExecutor\RDClient\RDClient.csproj" |ForEach-Object{
-        #     & $msbuild (GetBuildArgs $_)
-        # }
+        & "$PSScriptRoot\CreateNuspec.ps1"
     }
 }
 Task PackNuget{
