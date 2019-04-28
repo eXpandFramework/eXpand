@@ -6,12 +6,12 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [HideFromNewMenu, VisibleInReports(false), ModelDefault("Caption", "Role Settings")]
     [CreatableItem(false)]
-    [CloneView(CloneViewType.DetailView, "RDO_DetailView",true)]
+    [CloneModelView(CloneViewType.DetailView, "RDO_DetailView",true)]
     public class RoleModelDifferenceObject : ModelDifferenceObject {
 
     

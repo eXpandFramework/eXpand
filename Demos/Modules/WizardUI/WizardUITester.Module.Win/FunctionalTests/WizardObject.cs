@@ -3,11 +3,12 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace WizardUITester.Module.Win.FunctionalTests{
     [DefaultClassOptions]
-    [CloneView(CloneViewType.DetailView, "WizardObject_Page1_DetailView")]
-    [CloneView(CloneViewType.DetailView, "WizardObject_Page2_DetailView")]
+    [CloneModelView(CloneViewType.DetailView, "WizardObject_Page1_DetailView")]
+    [CloneModelView(CloneViewType.DetailView, "WizardObject_Page2_DetailView")]
     public class WizardObject : BaseObject{
         private int _page1;
         private string _page2;

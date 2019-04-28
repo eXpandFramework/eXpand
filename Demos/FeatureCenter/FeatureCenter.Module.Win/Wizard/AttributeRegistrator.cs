@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.Wizard {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -18,8 +19,8 @@ namespace FeatureCenter.Module.Win.Wizard {
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderWizard, "1=1", "1=1", Captions.HeaderWizard, Position.Top) { View = WizardCustomerDetailView + 1 };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Captions.HeaderWizard, "1=1", "1=1",
                 Captions.ViewMessageWizard, Position.Bottom) { View = WizardCustomerDetailView + 1 };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, WizardCustomerDetailView + 1);
-            yield return new CloneViewAttribute(CloneViewType.DetailView, WizardCustomerDetailView + 2);
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, WizardCustomerDetailView + 1);
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, WizardCustomerDetailView + 2);
             var navigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.DetailViewCotrol + "Wizard", WizardCustomerDetailView);
             yield return navigationItemAttribute;
             yield return new WhatsNewAttribute(new DateTime(2012,3,16), navigationItemAttribute);

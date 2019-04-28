@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.RuntimeFields.UnboundColumn {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -14,7 +15,7 @@ namespace FeatureCenter.Module.RuntimeFields.UnboundColumn {
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderRuntimeUnboundColumn, "1=1", "1=1", Captions.ViewMessageRuntimeUnboundColumn, Position.Bottom) { ViewType = ViewType.ListView, View = UnboundColumn_ListView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderRuntimeUnboundColumn, "1=1", "1=1",
                 Captions.HeaderRuntimeUnboundColumn, Position.Top) { View = UnboundColumn_ListView };
-            yield return new CloneViewAttribute(CloneViewType.ListView, UnboundColumn_ListView);
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, UnboundColumn_ListView);
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("Runtime Fields/Unbound Column", UnboundColumn_ListView);
             yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute(UnboundColumn_ListView, "UnboundColumn");

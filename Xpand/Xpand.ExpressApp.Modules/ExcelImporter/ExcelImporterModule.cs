@@ -14,6 +14,7 @@ using Xpand.ExpressApp.Validation;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.XAF.Modules.AutoCommit;
+using Xpand.XAF.Modules.CloneModelView;
 using Xpand.XAF.Modules.MasterDetail;
 using Xpand.XAF.Modules.SuppressConfirmation;
 using Xpand.XAF.Modules.ViewEditMode;
@@ -35,6 +36,7 @@ namespace Xpand.ExpressApp.ExcelImporter {
             RequiredModuleTypes.Add(typeof(AutoCommitModule));
             RequiredModuleTypes.Add(typeof(ViewEditModeModule));
             RequiredModuleTypes.Add(typeof(SupressConfirmationModule));
+            RequiredModuleTypes.Add(typeof(CloneModelViewModule));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.RuntimeFields.OrphanedCollectionWithCode {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.RuntimeFields.OrphanedCollectionWithCode {
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderOrphanedCollectionWithCode, "1=1", "1=1", Captions.ViewMessageOrphanedCollectionWithCode, Position.Bottom) { View = RuntimeOrphanedCollection_DetailView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderOrphanedCollectionWithCode, "1=1", "1=1",
                 Captions.HeaderOrphanedCollectionWithCode, Position.Top) { View = RuntimeOrphanedCollection_DetailView };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, RuntimeOrphanedCollection_DetailView);
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, RuntimeOrphanedCollection_DetailView);
             yield return new XpandNavigationItemAttribute("Runtime Fields/Orphaned Collection With Code", RuntimeOrphanedCollection_DetailView);
             yield return new DisplayFeatureModelAttribute(RuntimeOrphanedCollection_DetailView, "OrphanedCollectionWithCode");
         }

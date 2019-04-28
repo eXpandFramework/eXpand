@@ -22,6 +22,7 @@ namespace FeatureCenter.Module.Win {
         public FeatureCenterWindowsFormsModule() {
             InitializeComponent();
             ParametersFactory.RegisterParameter(new ExternalApplicationKeyParameter());
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);

@@ -11,6 +11,7 @@ namespace MasterDetailTester.Module.Win {
     public sealed partial class MasterDetailTesterWindowsFormsModule : ModuleBase {
         public MasterDetailTesterWindowsFormsModule() {
             InitializeComponent();
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
             return new[] { new Updater(objectSpace, versionFromDB) };

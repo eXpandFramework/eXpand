@@ -29,6 +29,7 @@ namespace Xpand.ExpressApp.Dashboard {
         public DashboardModule(){
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
             RequiredModuleTypes.Add(typeof(ViewEditModeModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
             DashboardsModule.DataProvider=new XpandDashboardDataProvider();
         }
 

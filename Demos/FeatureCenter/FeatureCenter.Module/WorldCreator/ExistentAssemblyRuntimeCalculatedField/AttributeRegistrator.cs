@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyRuntimeCalculatedField {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -14,8 +15,8 @@ namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyRuntimeCalculatedFie
             if (typesInfo.Type != typeof(Customer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderExistentAssemblyRuntimeCalculatedField, "1=1", "1=1", Captions.ViewMessageExistentAssemblyRuntimeCalculatedField, Position.Bottom) { ViewType = ViewType.ListView, View = ExistentAssemblyRuntimeFields_ListView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderExistentAssemblyRuntimeCalculatedField, "1=1", "1=1", Captions.HeaderExistentAssemblyRuntimeCalculatedField, Position.Top) { View = ExistentAssemblyRuntimeFields_ListView };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, ExistentAssemblyRuntimeFields_DetailView);
-            yield return new CloneViewAttribute(CloneViewType.ListView, ExistentAssemblyRuntimeFields_ListView) { DetailView = ExistentAssemblyRuntimeFields_DetailView };
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, ExistentAssemblyRuntimeFields_DetailView);
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, ExistentAssemblyRuntimeFields_ListView) { DetailView = ExistentAssemblyRuntimeFields_DetailView };
             yield return new XpandNavigationItemAttribute("WorldCreator/Existent Assembly/Calculated Fields", ExistentAssemblyRuntimeFields_ListView);
             yield return new DisplayFeatureModelAttribute(ExistentAssemblyRuntimeFields_ListView, "ExistentAssemblyRuntimeCalculatedField");
             yield return new DisplayFeatureModelAttribute(ExistentAssemblyRuntimeFields_DetailView, "ExistentAssemblyRuntimeCalculatedField");

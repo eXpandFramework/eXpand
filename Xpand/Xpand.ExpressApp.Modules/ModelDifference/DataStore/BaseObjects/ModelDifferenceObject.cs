@@ -17,10 +17,10 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
+using Xpand.XAF.Modules.CloneModelView;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
@@ -29,12 +29,12 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("MDO_Unique_Name_Application", DefaultContexts.Save, nameof(Name)+"," +nameof(PersistentApplication)+","+nameof(DeviceCategory))]
     [CreatableItem(false), NavigationItem("Default"), HideFromNewMenu]
     [ModelDefault("Caption", Caption), ModelDefault("IsClonable", "True"), VisibleInReports(false)]
-    [CloneView(CloneViewType.DetailView, "MDO_DetailView",true)]
-    [CloneView(CloneViewType.ListView, "MDO_ListView_Tablet",true)]
-    [CloneView(CloneViewType.ListView, "MDO_ListView_Desktop",true)]
-    [CloneView(CloneViewType.ListView, "MDO_ListView_Mobile",true)]
-    [CloneView(CloneViewType.ListView, "MDO_ListView_All",true)]
-    [CloneView(CloneViewType.ListView, "MDO_ListView", true)]
+    [CloneModelView(CloneViewType.DetailView, "MDO_DetailView",true)]
+    [CloneModelView(CloneViewType.ListView, "MDO_ListView_Tablet",true)]
+    [CloneModelView(CloneViewType.ListView, "MDO_ListView_Desktop",true)]
+    [CloneModelView(CloneViewType.ListView, "MDO_ListView_Mobile",true)]
+    [CloneModelView(CloneViewType.ListView, "MDO_ListView_All",true)]
+    [CloneModelView(CloneViewType.ListView, "MDO_ListView", true)]
     [Appearance("Disable DeviceCategory for win models", AppearanceItemType.ViewItem,
         "EndsWith([" + nameof(PersistentApplication) + "." + nameof(BaseObjects.PersistentApplication.ExecutableName) +"], '.exe')", 
         Enabled = false, TargetItems = nameof(DeviceCategory))]

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.HidePopupMenu {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.HidePopupMenu {
                 Captions.ViewMessageHideGridPopUpMenu, Position.Bottom) { View = "HidePopupMenu_ListView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderHideGridPopUpMenu, "1=1", "1=1", Captions.HeaderHideGridPopUpMenu
                 , Position.Top) { View = "HidePopupMenu_ListView" };
-            yield return new CloneViewAttribute(CloneViewType.ListView, "HidePopupMenu_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "HidePopupMenu_ListView");
             yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Hide Popupmenu", "HidePopupMenu_ListView");
             yield return new DisplayFeatureModelAttribute("HidePopupMenu_ListView");
         }

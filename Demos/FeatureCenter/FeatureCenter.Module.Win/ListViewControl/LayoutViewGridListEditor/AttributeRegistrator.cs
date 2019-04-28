@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.ListViewControl.LayoutViewGridListEditor {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.LayoutViewGridListEditor {
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Module.Captions.HeaderLayoutViewGridListEditor, "1=1", "1=1", Module.Captions.HeaderLayoutViewGridListEditor, Position.Top) { View = LayoutViewGridListEditor_ListView };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Module.Captions.HeaderLayoutViewGridListEditor, "1=1", "1=1",
                 Module.Captions.ViewMessageLayoutViewGridListEditor, Position.Bottom) { View = LayoutViewGridListEditor_ListView };
-            yield return new CloneViewAttribute(CloneViewType.ListView, LayoutViewGridListEditor_ListView);
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, LayoutViewGridListEditor_ListView);
 
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.ListViewCotrol + "LayoutView GridListEditor", LayoutViewGridListEditor_ListView);
             yield return xpandNavigationItemAttribute;

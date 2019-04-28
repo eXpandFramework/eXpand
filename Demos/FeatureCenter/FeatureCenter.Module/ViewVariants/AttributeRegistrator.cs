@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.ViewVariants {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -12,7 +13,7 @@ namespace FeatureCenter.Module.ViewVariants {
             foreach (string t in list) {
                 yield return new DisplayFeatureModelAttribute(t, "ViewVariants");
             }
-            yield return new CloneViewAttribute(CloneViewType.ListView, "ViewVariants_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "ViewVariants_ListView");
             yield return new XpandNavigationItemAttribute("View Variants", "ViewVariants_ListView");
             yield return new DisplayFeatureModelAttribute("ViewVariants_ListView", "ViewVariants");
         }

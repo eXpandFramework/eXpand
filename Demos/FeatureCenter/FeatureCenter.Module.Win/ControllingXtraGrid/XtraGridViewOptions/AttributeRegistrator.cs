@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.XtraGridViewOptions {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.XtraGridViewOptions {
                 Captions.ViewMessageControlXtraGrid, Position.Bottom) { View = "XtraGridViewOptions_ListView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderControlXtraGrid, "1=1", "1=1",
                 Captions.HeaderControlXtraGrid, Position.Top) { View = "XtraGridViewOptions_ListView" };
-            yield return new CloneViewAttribute(CloneViewType.ListView, "XtraGridViewOptions_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "XtraGridViewOptions_ListView");
             yield return new XpandNavigationItemAttribute("Controlling XtraGrid/GridView options", "XtraGridViewOptions_ListView");
             yield return new DisplayFeatureModelAttribute("XtraGridViewOptions_ListView");
         }

@@ -6,12 +6,13 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace SystemTester.Module.Win.FunctionalTests.FullTextContains {
     [DefaultClassOptions]
     [DefaultProperty("FullText")]
-    [CloneView(CloneViewType.ListView, SystemTester.Module.Win.FunctionalTests.FullTextContains.FullTextContains.PopupCriteriaPropertyEditorEx+"_ListView")]
+    [CloneModelView(CloneViewType.ListView, SystemTester.Module.Win.FunctionalTests.FullTextContains.FullTextContains.PopupCriteriaPropertyEditorEx+"_ListView")]
     public class FullTextContainsObject:BaseObject {
         private string _criteria;
         private string _objectTypeName;

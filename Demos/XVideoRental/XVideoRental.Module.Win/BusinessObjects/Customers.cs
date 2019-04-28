@@ -18,6 +18,7 @@ using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Utils.Helpers;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace XVideoRental.Module.Win.BusinessObjects {
     public enum DiscountLevel {
@@ -37,12 +38,12 @@ namespace XVideoRental.Module.Win.BusinessObjects {
     [DefaultClassOptions]
     [InitialData(Name = "vCustomer", BaseMembers = "oid|Oid,Id|CustomerId,FirstName,LastName,Birthday|BirthDate,Email,Photo,Address,MiddleName")]
     [FullPermission]
-    [CloneView(CloneViewType.ListView, "Customer_ListView_AdvBanded")]
-    [CloneView(CloneViewType.DetailView, "Customer_DetailView_Rentals")]
-    [CloneView(CloneViewType.ListView, "Customer_ListView_Rentals", DetailView = "Customer_DetailView_Rentals")]
-    [CloneView(CloneViewType.ListView, "Customer_ListView_Calendar")]
-    [CloneView(CloneViewType.ListView, "Customer_ListView_Reports_MovieRentals")]
-    [CloneView(CloneViewType.ListView, "Customer_ListView_Reports_CustomerCards")]
+    [CloneModelView(CloneViewType.ListView, "Customer_ListView_AdvBanded")]
+    [CloneModelView(CloneViewType.DetailView, "Customer_DetailView_Rentals")]
+    [CloneModelView(CloneViewType.ListView, "Customer_ListView_Rentals", DetailView = "Customer_DetailView_Rentals")]
+    [CloneModelView(CloneViewType.ListView, "Customer_ListView_Calendar")]
+    [CloneModelView(CloneViewType.ListView, "Customer_ListView_Reports_MovieRentals")]
+    [CloneModelView(CloneViewType.ListView, "Customer_ListView_Reports_CustomerCards")]
     [DefaultProperty("FullName")]
     [FriendlyKeyProperty("FullName")]
     public class Customer : VideoPerson, IResource {

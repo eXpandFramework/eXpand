@@ -3,11 +3,12 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace XVideoRental.Module.Win.BusinessObjects.Movie {
     [FullPermission]
     [InitialData(BaseMembers = "oid|Oid,Id|MovieItemId", AllOwnMembers = true)]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.MovieItemMediaPerformance)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.MovieItemMediaPerformance)]
     [VisibleInReports]
     public class MovieItem : VideoRentalBaseObject {
         Movie movie;

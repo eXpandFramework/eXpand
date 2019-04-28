@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.DetailViewControl.HighlightFocusedLayoutItem {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -12,7 +13,7 @@ namespace FeatureCenter.Module.DetailViewControl.HighlightFocusedLayoutItem {
             if (typesInfo.Type != typeof(Customer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderHighlightFocusedLayoutItem, "1=1", "1=1", Captions.ViewMessageHighlightFocusedLayoutItem, Position.Bottom) { ViewType = ViewType.DetailView, View = "HighlightFocusedLayoutItem_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderHighlightFocusedLayoutItem, "1=1", "1=1", Captions.HeaderHighlightFocusedLayoutItem, Position.Top) { ViewType = ViewType.DetailView, View = "HighlightFocusedLayoutItem_DetailView" };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, "HighlightFocusedLayoutItem_DetailView");
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, "HighlightFocusedLayoutItem_DetailView");
             yield return new XpandNavigationItemAttribute(Captions.DetailViewCotrol + "Highlight Focused Layout Item", "HighlightFocusedLayoutItem_DetailView");
             yield return new DisplayFeatureModelAttribute("HighlightFocusedLayoutItem_DetailView");
         }

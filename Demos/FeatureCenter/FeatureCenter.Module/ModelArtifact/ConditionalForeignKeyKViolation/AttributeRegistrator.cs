@@ -7,6 +7,7 @@ using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelArtifact;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolation {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -19,7 +20,7 @@ namespace FeatureCenter.Module.ModelArtifact.ConditionalForeignKeyKViolation {
             yield return new ControllerStateRuleAttribute("ConditionalForeignKeyViolation", typeof(FKViolationViewController), "City='Paris'", "1=1", ControllerState.Disabled) { View = "ConditionalForeignKeyViolation_ListView" };
 
             yield return new XpandNavigationItemAttribute("ModelArtifact/Conditional Foreign Key Violation ", "ConditionalForeignKeyViolation_ListView");
-            yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalForeignKeyViolation_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "ConditionalForeignKeyViolation_ListView");
             yield return new DisplayFeatureModelAttribute("ConditionalForeignKeyViolation_ListView");
         }
     }

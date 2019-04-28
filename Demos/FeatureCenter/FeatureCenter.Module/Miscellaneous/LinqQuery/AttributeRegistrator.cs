@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Miscellaneous.LinqQuery {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Miscellaneous.LinqQuery {
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderLinqQuery, "1=1", "1=1", Captions.ViewMessageLinqQuery, Position.Bottom) { ViewType = ViewType.ListView, View = "Customer_ListView_EmployeesLinq_Linq" };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderLinqQuery, "1=1", "1=1", Captions.HeaderLinqQuery, Position.Top) { ViewType = ViewType.ListView, View = "Customer_ListView_EmployeesLinq_Linq" };
             yield return new XpandNavigationItemAttribute(Captions.Miscellaneous + "LinqQuery", "Customer_ListView_EmployeesLinq_Linq");
-            yield return new CloneViewAttribute(CloneViewType.ListView, "LinqQuery_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "LinqQuery_ListView");
         }
     }
 }

@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.RuntimeFields.CalculatedWithCode {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -15,8 +16,8 @@ namespace FeatureCenter.Module.RuntimeFields.CalculatedWithCode {
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderRuntimeCalculatedFields, "1=1", "1=1", Captions.ViewMessageRuntimeCalculatedFields, Position.Bottom) { ViewType = ViewType.ListView, View = RuntimeCalculatedFields_ListView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderRuntimeCalculatedFields, "1=1", "1=1",
                 Captions.HeaderRuntimeCalculatedFields, Position.Top) { View = RuntimeCalculatedFields_ListView };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, RuntimeCalculatedFields_DetailView);
-            yield return new CloneViewAttribute(CloneViewType.ListView, RuntimeCalculatedFields_ListView) { DetailView = RuntimeCalculatedFields_DetailView };
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, RuntimeCalculatedFields_DetailView);
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, RuntimeCalculatedFields_ListView) { DetailView = RuntimeCalculatedFields_DetailView };
             yield return new XpandNavigationItemAttribute("Runtime Fields/Calculated using code", RuntimeCalculatedFields_ListView);
             yield return new DisplayFeatureModelAttribute(RuntimeCalculatedFields_ListView, "RuntimeFieldsCalculatedWithCode");
             yield return new DisplayFeatureModelAttribute(RuntimeCalculatedFields_DetailView, "RuntimeFieldsCalculatedWithCode");

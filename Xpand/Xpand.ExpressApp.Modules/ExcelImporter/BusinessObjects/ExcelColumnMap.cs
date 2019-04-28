@@ -11,15 +11,15 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General.CustomAttributes;
-using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.ValueConverters;
+using Xpand.XAF.Modules.CloneModelView;
 using EditorAliases = DevExpress.ExpressApp.Editors.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [Appearance("Abstract Types", AppearanceItemType.ViewItem,criteria: AbstractCriteria, TargetItems = nameof(PropertyType), FontColor = "Red",Context = "ListView")]
     [Appearance("keyMember", AppearanceItemType.ViewItem,nameof(KeyMemberExists) + "=False" , TargetItems = nameof(PropertyName), FontColor = "Red",FontStyle = FontStyle.Bold|FontStyle.Strikeout,Context = "ListView")]
     [XafDefaultProperty(nameof(DefaultProperty))]
-    [CloneView(CloneViewType.ListView, nameof(ExcelColumnMap)+"_Configuration_ListView")]
+    [CloneModelView(CloneViewType.ListView, nameof(ExcelColumnMap)+"_Configuration_ListView")]
     [FriendlyKeyProperty(nameof(DefaultProperty))]
     public class ExcelColumnMap : XpandBaseCustomObject {
         public const string AbstractCriteria =nameof(IsAbstract) + "=True AND " + nameof(MemberTypeValues) + ".Count=0 AND " +

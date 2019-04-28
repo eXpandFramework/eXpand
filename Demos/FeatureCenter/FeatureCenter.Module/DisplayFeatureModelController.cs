@@ -91,7 +91,7 @@ namespace FeatureCenter.Module {
     }
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
-    public class DisplayFeatureModelAttribute : Attribute, ISupportViewId {
+    public class DisplayFeatureModelAttribute : Attribute {
         readonly CriteriaOperator _criteria;
         readonly string _viewId;
         readonly string _modelDifferenceObjectName;

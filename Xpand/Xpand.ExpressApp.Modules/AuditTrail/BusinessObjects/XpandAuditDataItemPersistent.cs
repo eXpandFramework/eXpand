@@ -3,26 +3,27 @@ using DevExpress.Persistent.AuditTrail;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General.CustomAttributes;
-using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 using Xpand.Xpo;
 
-namespace Xpand.ExpressApp.AuditTrail.BusinessObjects{
+namespace Xpand.ExpressApp.AuditTrail.BusinessObjects {
     [ImageName("BO_Audit_ChangeHistory")]
-    [CloneView(CloneViewType.ListView, "AuditDataItemPersistent_Pending_ListView")]
-    [CloneView(CloneViewType.ListView, "AuditDataItemPersistent_Approved_ListView")]
+    [CloneModelView(CloneViewType.ListView, "AuditDataItemPersistent_Pending_ListView")]
+    [CloneModelView(CloneViewType.ListView, "AuditDataItemPersistent_Approved_ListView")]
     [System.ComponentModel.DisplayName("AuditDataItemPersistent")]
-    public class XpandAuditDataItemPersistent : XpandCustomObject, IAuditDataItemPersistent<XpandAuditedObjectWeakReference>{
-        private bool _pending;
+    public class XpandAuditDataItemPersistent : XpandCustomObject,
+        IAuditDataItemPersistent<XpandAuditedObjectWeakReference> {
         private XpandAuditedObjectWeakReference _auditedObject;
         private DateTime _modifiedOn;
         private XPWeakReference _newObject;
         private XPWeakReference _oldObject;
         private string _operationType;
+        private bool _pending;
         private string _propertyName;
         private string _userName;
 
         public XpandAuditDataItemPersistent(Session session, string userName, DateTime modifiedOn, string description)
-            : base(session){
+            : base(session) {
             _userName = userName;
             _modifiedOn = modifiedOn;
             Description = description;
@@ -32,84 +33,87 @@ namespace Xpand.ExpressApp.AuditTrail.BusinessObjects{
             : base(session) {
         }
 
-        [Indexed]
-        public string UserName{
-            get { return _userName; }
-            set { SetPropertyValue("UserName", ref _userName, value); }
-        }
-
         [PersistentAlias("AuditedObject.TargetTypeName")]
-        public string TargetTypeName{
-            get { return EvaluateAlias("TargetTypeName") as string; }
-        }
+        public string TargetTypeName => EvaluateAlias("TargetTypeName") as string;
 
         [PersistentAlias("AuditedObject.DisplayName")]
-        public string DisplayName{
-            get { return EvaluateAlias("DisplayName") as string; }
-        }
-
-        [Indexed]
-        public DateTime ModifiedOn{
-            get { return _modifiedOn; }
-            set { SetPropertyValue("ModifiedOn", ref _modifiedOn, value); }
-        }
-
-        [Indexed]
-        public string OperationType{
-            get { return _operationType; }
-            set { SetPropertyValue("OperationType", ref _operationType, value); }
-        }
-
-        [Size(SizeAttribute.Unlimited), Delayed, MemberDesignTimeVisibility(true)]
-        public string Description{
-            get { return GetDelayedPropertyValue<string>("Description"); }
-            set { SetDelayedPropertyValue("Description", value); }
-        }
-
-        public override void AfterConstruction(){
-            base.AfterConstruction();
-            _pending = true;
-        }
+        public string DisplayName => EvaluateAlias("DisplayName") as string;
 
         [InvisibleInAllViews]
-        public bool Pending{
-            get { return _pending; }
-            set { SetPropertyValue("Pending", ref _pending, value); }
+        public bool Pending {
+            get => _pending;
+            set => SetPropertyValue("Pending", ref _pending, value);
         }
 
-        [Association("XpandAuditedObjectWeakReference-XpandAuditDataItemPersistent"), MemberDesignTimeVisibility(false)]
-        public XpandAuditedObjectWeakReference AuditedObject{
-            get { return _auditedObject; }
-            set { SetPropertyValue("AuditedObject", ref _auditedObject, value); }
+        [Indexed]
+        public string UserName {
+            get => _userName;
+            set => SetPropertyValue("UserName", ref _userName, value);
         }
 
-        [Aggregated, MemberDesignTimeVisibility(false)]
-        public XPWeakReference OldObject{
-            get { return _oldObject; }
-            set { SetPropertyValue("OldObject", ref _oldObject, value); }
+        [Indexed]
+        public DateTime ModifiedOn {
+            get => _modifiedOn;
+            set => SetPropertyValue("ModifiedOn", ref _modifiedOn, value);
         }
 
-        [Aggregated, MemberDesignTimeVisibility(false)]
-        public XPWeakReference NewObject{
-            get { return _newObject; }
-            set { SetPropertyValue("NewObject", ref _newObject, value); }
+        [Indexed]
+        public string OperationType {
+            get => _operationType;
+            set => SetPropertyValue("OperationType", ref _operationType, value);
         }
 
-        [Delayed, Size(SizeAttribute.Unlimited)]
-        public string OldValue{
-            get { return GetDelayedPropertyValue<string>("OldValue"); }
-            set { SetDelayedPropertyValue("OldValue", value); }
+        [Size(SizeAttribute.Unlimited)]
+        [Delayed]
+        [MemberDesignTimeVisibility(true)]
+        public string Description {
+            get => GetDelayedPropertyValue<string>("Description");
+            set => SetDelayedPropertyValue("Description", value);
         }
 
-        [Delayed, Size(SizeAttribute.Unlimited)]
-        public string NewValue{
-            get { return GetDelayedPropertyValue<string>("NewValue"); }
-            set { SetDelayedPropertyValue("NewValue", value); }
+        [Association("XpandAuditedObjectWeakReference-XpandAuditDataItemPersistent")]
+        [MemberDesignTimeVisibility(false)]
+        public XpandAuditedObjectWeakReference AuditedObject {
+            get => _auditedObject;
+            set => SetPropertyValue("AuditedObject", ref _auditedObject, value);
         }
 
-        public string PropertyName{
-            get { return _propertyName; }
-            set { SetPropertyValue("PropertyName", ref _propertyName, value); }
+        [Aggregated]
+        [MemberDesignTimeVisibility(false)]
+        public XPWeakReference OldObject {
+            get => _oldObject;
+            set => SetPropertyValue("OldObject", ref _oldObject, value);
+        }
+
+        [Aggregated]
+        [MemberDesignTimeVisibility(false)]
+        public XPWeakReference NewObject {
+            get => _newObject;
+            set => SetPropertyValue("NewObject", ref _newObject, value);
+        }
+
+        [Delayed]
+        [Size(SizeAttribute.Unlimited)]
+        public string OldValue {
+            get => GetDelayedPropertyValue<string>("OldValue");
+            set => SetDelayedPropertyValue("OldValue", value);
+        }
+
+        [Delayed]
+        [Size(SizeAttribute.Unlimited)]
+        public string NewValue {
+            get => GetDelayedPropertyValue<string>("NewValue");
+            set => SetDelayedPropertyValue("NewValue", value);
+        }
+
+        public string PropertyName {
+            get => _propertyName;
+            set => SetPropertyValue("PropertyName", ref _propertyName, value);
+        }
+
+        public override void AfterConstruction() {
+            base.AfterConstruction();
+            _pending = true;
         }
     }
 }

@@ -5,6 +5,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace MasterDetailTester.Module.Win.FunctionalTests{
     [DefaultClassOptions]
@@ -65,12 +66,13 @@ namespace MasterDetailTester.Module.Win.FunctionalTests{
     public interface ISupportMasterDetail{
     }
 
-    [CloneView(CloneViewType.ListView, "Contributor_Layout_ListView")]
+    [CloneModelView(CloneViewType.ListView, "Contributor_Layout_ListView")]
     public class Contributor : BaseObject, ISupportMasterDetail{
         private Image _image;
         private Project _project;
 
         public Contributor(Session session) : base(session){
+            
         }
 
         public string Name { get; set; }

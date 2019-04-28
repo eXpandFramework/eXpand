@@ -11,6 +11,7 @@ namespace WizardUITester.Module.Win {
     public sealed partial class WizardUITesterWindowsFormsModule : ModuleBase {
         public WizardUITesterWindowsFormsModule() {
             InitializeComponent();
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
             return ModuleUpdater.EmptyModuleUpdaters;

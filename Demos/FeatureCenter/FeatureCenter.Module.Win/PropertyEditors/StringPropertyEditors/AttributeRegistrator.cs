@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -15,7 +16,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.StringPropertyEditors {
                 Captions.ViewMessageStringPropertyEditors1, Position.Bottom) { View = "StringPropertyEditors_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderStringPropertyEditors, "1=1", "1=1",
                 Captions.HeaderStringPropertyEditors, Position.Top) { View = "StringPropertyEditors_DetailView" };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, "StringPropertyEditors_DetailView");
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, "StringPropertyEditors_DetailView");
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "String editors", "StringPropertyEditors_DetailView");
             yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute("StringPropertyEditors_DetailView");

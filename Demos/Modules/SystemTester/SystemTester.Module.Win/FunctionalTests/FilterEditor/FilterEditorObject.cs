@@ -4,10 +4,11 @@ using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace SystemTester.Module.Win.FunctionalTests.FilterEditor{
     [NavigationItem("FilterEditor")]
-    [CloneView(CloneViewType.ListView, "FilterEditor_Criteria")]
+    [CloneModelView(CloneViewType.ListView, "FilterEditor_Criteria")]
     [XpandNavigationItem("FilterEditor/Criteria", "FilterEditor_Criteria")]
     public class FilterEditorObject : BaseObject{
         private FilterEditorObjectRef _filterEditorObjectRef;

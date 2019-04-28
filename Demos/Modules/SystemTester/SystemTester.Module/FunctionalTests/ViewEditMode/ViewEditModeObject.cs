@@ -2,13 +2,14 @@
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace SystemTester.Module.FunctionalTests.ViewEditMode{
-    [CloneView(CloneViewType.DetailView, "ViewEditModeView_DetailView")]
-    [CloneView(CloneViewType.ListView, "ViewEditModeView_ListView", DetailView = "ViewEditModeView_DetailView")]
+    [CloneModelView(CloneViewType.DetailView, "ViewEditModeView_DetailView")]
+    [CloneModelView(CloneViewType.ListView, "ViewEditModeView_ListView", DetailView = "ViewEditModeView_DetailView")]
     [XpandNavigationItem("ViewEditMode/View", "ViewEditModeView_ListView")]
-    [CloneView(CloneViewType.DetailView, "ViewEditModeEdit_DetailView")]
-    [CloneView(CloneViewType.ListView, "ViewEditModeEdit_ListView", DetailView = "ViewEditModeEdit_DetailView")]
+    [CloneModelView(CloneViewType.DetailView, "ViewEditModeEdit_DetailView")]
+    [CloneModelView(CloneViewType.ListView, "ViewEditModeEdit_ListView", DetailView = "ViewEditModeEdit_DetailView")]
     [XpandNavigationItem("ViewEditMode/Edit", "ViewEditModeEdit_ListView")]
     public class ViewEditModeObject : BaseObject{
         public ViewEditModeObject(Session session) : base(session){

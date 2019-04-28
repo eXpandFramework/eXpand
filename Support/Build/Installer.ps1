@@ -2,6 +2,7 @@ Param (
     [string]$XpandFolder=(Get-Item "$PSScriptRoot\..\..").FullName,
     [string]$DXVersion="0.0.0.0"
 )
+import-module XpandPosh -Force -Prefix X
 . "$PSScriptRoot\Utils.ps1"
 Push-Location "$XpandFolder"
 if ($DXVersion -eq "0.0.0.0"){
@@ -18,7 +19,7 @@ New-Item -ItemType Directory $packageFolder -Force
 #Create Xpand.DLL
 New-Item -ItemType Directory -Path "$installerFolder\Xpand.DLL" -Force
 Copy-Item -Path ".\Xpand.DLL\Xpand.ExpressApp.ModelEditor.exe" -Destination "$installerFolder\Xpand.DLL\Xpand.ExpressApp.ModelEditor.exe"
-Get-ChildItem -Path ".\Xpand.DLL" -Include "*.*" | Where-Object{
+Get-ChildItem -Path ".\Xpand.DLL" -Include "*.*" -Exclude "DevExpress.*" | Where-Object{
     $fullName=$_.FullName
     (("*.dll","*.exe","*.config","*.pdb"|Where-Object{$fullName -like $_}).Length -gt 0) -and ($fullName -notlike "*\Plugins\*")
 } | 

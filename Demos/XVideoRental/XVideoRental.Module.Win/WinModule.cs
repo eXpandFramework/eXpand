@@ -13,6 +13,7 @@ namespace XVideoRental.Module.Win {
     public sealed partial class XVideoRentalWindowsFormsModule : ModuleBase {
         public XVideoRentalWindowsFormsModule() {
             InitializeComponent();
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {

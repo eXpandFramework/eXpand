@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.SystemModule;
 
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, AllowMultiple = true)]
-    public class XpandNavigationItemAttribute : Attribute, ISupportViewId {
+    public class XpandNavigationItemAttribute : Attribute {
         public XpandNavigationItemAttribute(string path, string viewId=null, int index = -1) 
             : this(path, viewId, null, index) {}
 

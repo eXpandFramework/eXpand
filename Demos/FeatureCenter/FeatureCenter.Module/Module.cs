@@ -20,6 +20,7 @@ namespace FeatureCenter.Module {
     public sealed partial class FeatureCenterModule : ModuleBase {
         public FeatureCenterModule() {
             InitializeComponent();
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
 
         void ModelDifferenceBaseModuleOnCreateCustomModelDifferenceStore(object sender, CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {

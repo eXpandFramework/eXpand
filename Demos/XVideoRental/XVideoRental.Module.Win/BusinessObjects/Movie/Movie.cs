@@ -15,6 +15,7 @@ using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Utils.Helpers;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace XVideoRental.Module.Win.BusinessObjects.Movie {
     [Flags]
@@ -65,9 +66,9 @@ namespace XVideoRental.Module.Win.BusinessObjects.Movie {
     [FullPermission]
     [ImageName("BO_Movie")]
     [InitialData(AllOwnMembers = true, BaseMembers = "oid|Oid,Id|MovieId")]
-    [CloneView(CloneViewType.ListView, "Movie_ListView_AdvBanded")]
-    [CloneView(CloneViewType.ListView, "Movie_ListView_Layout")]
-    [CloneView(CloneViewType.ListView, "Movie_ListView_Reports_Movie_Invetory")]
+    [CloneModelView(CloneViewType.ListView, "Movie_ListView_AdvBanded")]
+    [CloneModelView(CloneViewType.ListView, "Movie_ListView_Layout")]
+    [CloneModelView(CloneViewType.ListView, "Movie_ListView_Reports_Movie_Invetory")]
     public class Movie : VideoRentalBaseObject {
         string title;
         MovieGenre genre;

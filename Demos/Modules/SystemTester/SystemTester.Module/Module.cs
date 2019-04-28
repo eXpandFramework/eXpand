@@ -17,6 +17,7 @@ namespace SystemTester.Module {
     public sealed partial class SystemTesterModule : EasyTestModule {
         public SystemTesterModule() {
             InitializeComponent();
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
 
         public override void Setup(XafApplication application){

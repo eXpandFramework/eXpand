@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.ListViewControl.FilterControl {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Win.ListViewControl.FilterControl {
                 Captions.ViewMessageFilterControl, Position.Bottom) { View = "FilterControl_ListView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderFilterControl, "1=1", "1=1",
                 Captions.HeaderFilterControl, Position.Top) { View = "FilterControl_ListView" };
-            yield return new CloneViewAttribute(CloneViewType.ListView, "FilterControl_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "FilterControl_ListView");
             yield return new XpandNavigationItemAttribute(Module.Captions.ListViewCotrol + "Filter Control", "FilterControl_ListView");
             yield return new DisplayFeatureModelAttribute("FilterControl_ListView");
         }

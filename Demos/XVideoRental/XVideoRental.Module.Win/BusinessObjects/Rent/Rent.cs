@@ -7,18 +7,19 @@ using XVideoRental.Module.Win.DatabaseUpdate;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace XVideoRental.Module.Win.BusinessObjects.Rent {
     public enum ActiveRentType { None, Overdue, Today, Active }
     [InitialData(AllOwnMembers = true, BaseMembers = "oid|Oid,Id|RentId")]
-    [CloneView(CloneViewType.ListView, "Rent_ListView_LateFees")]
-    [CloneView(CloneViewType.ListView, "Rent_ListView_Purchaces")]
-    [CloneView(CloneViewType.ListView, "Rent_ListView_Rentals")]
-    [CloneView(CloneViewType.ListView, "Rent_ListView_Calendar")]
-    [CloneView(CloneViewType.ListView, "Rent_ListView_KPI")]
-    [CloneView(CloneViewType.ListView, "Rent_ListView_MediaPerformance")]
-    [CloneView(CloneViewType.ListView, "Rent_ListView_MediaPerformance_Layout")]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.MediaPerformanceMovieSummury)]
+    [CloneModelView(CloneViewType.ListView, "Rent_ListView_LateFees")]
+    [CloneModelView(CloneViewType.ListView, "Rent_ListView_Purchaces")]
+    [CloneModelView(CloneViewType.ListView, "Rent_ListView_Rentals")]
+    [CloneModelView(CloneViewType.ListView, "Rent_ListView_Calendar")]
+    [CloneModelView(CloneViewType.ListView, "Rent_ListView_KPI")]
+    [CloneModelView(CloneViewType.ListView, "Rent_ListView_MediaPerformance")]
+    [CloneModelView(CloneViewType.ListView, "Rent_ListView_MediaPerformance_Layout")]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.MediaPerformanceMovieSummury)]
     [MapInheritance(MapInheritanceType.ParentTable)]
     [PermissionBehavior(PermissionBehavior.ReadOnlyAccess)]
     public class Rent : RentEvent {

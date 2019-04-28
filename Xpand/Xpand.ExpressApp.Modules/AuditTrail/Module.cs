@@ -26,6 +26,7 @@ namespace Xpand.ExpressApp.AuditTrail {
             RequiredModuleTypes.Add(typeof (AuditTrailModule));
             LogicInstallerManager.RegisterInstaller(new AuditTrailLogicInstaller(this));
             RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
         }
         
         public override void Setup(ApplicationModulesManager moduleManager) {
@@ -67,8 +68,7 @@ namespace Xpand.ExpressApp.AuditTrail {
         }
 
         void RuntimeMemberBuilderOnCustomCreateMember(object sender, CustomCreateMemberArgs customCreateMemberArgs) {
-            var modelMemberAuditTrail = customCreateMemberArgs.ModelMemberEx as IModelMemberAuditTrail;
-            if (modelMemberAuditTrail != null) {
+            if (customCreateMemberArgs.ModelMemberEx is IModelMemberAuditTrail modelMemberAuditTrail) {
                 XPClassInfo owner = modelMemberAuditTrail.ModelClass.TypeInfo.QueryXPClassInfo();
                 if (owner.FindMember(modelMemberAuditTrail.Name)==null) {
                     new AuditTrailCollectionMemberInfo(owner, modelMemberAuditTrail.Name,modelMemberAuditTrail.CollectionType.TypeInfo.Type);

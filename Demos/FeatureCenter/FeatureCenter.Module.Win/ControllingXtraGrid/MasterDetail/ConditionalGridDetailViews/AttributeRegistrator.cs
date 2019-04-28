@@ -6,6 +6,7 @@ using Xpand.ExpressApp.MasterDetail.Logic;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalGridDetailViews {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -19,13 +20,13 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.MasterDetail.ConditionalG
                 yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderConditionalDetailGridViews, "1=1", "1=1",
                                                                      Captions.HeaderConditionalDetailGridViews, Position.Top) { Nesting = Nesting.Root, ViewType = ViewType.ListView, View = "ConditionalMasterDetailCustomer_ListView" };
                 yield return new MasterDetailAttribute("Customer_Orders_For_All_Other_Cities", "City!='Paris'", "ConditionalMasterDetailOrder_ListView", "Orders") { View = "ConditionalMasterDetailCustomer_ListView" };
-                yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailCustomer_ListView");
+                yield return new CloneModelViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailCustomer_ListView");
                 yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Master Detail/Conditional Detail views", "ConditionalMasterDetailCustomer_ListView");
                 yield return new DisplayFeatureModelAttribute("ConditionalMasterDetailCustomer_ListView", "ConditionalGridDetailViews");
             }
             if (typesInfo.Type == typeof(WinOrder)) {
-                yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailOrderForParis_ListView");
-                yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailOrder_ListView");
+                yield return new CloneModelViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailOrderForParis_ListView");
+                yield return new CloneModelViewAttribute(CloneViewType.ListView, "ConditionalMasterDetailOrder_ListView");
             }
         }
     }

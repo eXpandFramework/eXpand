@@ -162,10 +162,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.ModelViewInheritance">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ModelViewInheritance.1.1.8\lib\net4.5.2\Xpand.XAF.Modules.ModelViewInheritance.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.ModelViewInheritance, Version=1.1.13.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ModelViewInheritance.1.1.13\lib\net4.5.2\Xpand.XAF.Modules.ModelViewInheritance.dll</HintPath>
       <Private>True</Private>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
@@ -286,12 +285,11 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.13\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.13\build\Xpand.VersionConverter.targets')" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.17\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.17\build\Xpand.VersionConverter.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
-      <LangVersion>latest</LangVersion>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.13\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.13\build\Xpand.VersionConverter.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.17\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.17\build\Xpand.VersionConverter.targets'))" />
   </Target>
 </Project>

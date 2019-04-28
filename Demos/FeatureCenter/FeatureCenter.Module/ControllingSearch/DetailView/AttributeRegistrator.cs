@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.ControllingSearch.DetailView {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -12,7 +13,7 @@ namespace FeatureCenter.Module.ControllingSearch.DetailView {
             if (typesInfo.Type != typeof(Customer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderControllingDetailViewSearch, "1=1", "1=1", Captions.ViewMessageControllingDetailViewSearch, Position.Bottom) { ViewType = ViewType.DetailView, View = "ControllingSearchCustomer_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderControllingDetailViewSearch, "1=1", "1=1", Captions.HeaderControllingDetailViewSearch, Position.Top) { ViewType = ViewType.DetailView, View = "ControllingSearchCustomer_DetailView" };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, "ControllingSearchCustomer_DetailView");
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, "ControllingSearchCustomer_DetailView");
             yield return new XpandNavigationItemAttribute("Controlling Search/DetailView Search", "ControllingSearchCustomer_DetailView");
             yield return new DisplayFeatureModelAttribute("ControllingSearchCustomer_DetailView", "ControllingDetailViewSearch");
         }

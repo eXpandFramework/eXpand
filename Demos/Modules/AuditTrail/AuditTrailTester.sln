@@ -1,10 +1,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.438
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xpand", "Xpand", "{4CB67D8D-E451-4DEF-A218-E19B9E3D5731}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EasyTest", "EasyTest", "{2475CFAB-165B-4A5E-B8E9-C3EC6AE47BAA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuditTrailTester.Module", "AuditTrailTester.Module\AuditTrailTester.Module.csproj", "{5F15837D-D1E5-44DC-92F0-4F2EBE9C3F8D}"
 EndProject
@@ -25,10 +23,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.Base", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj", "{0E40CCB3-7904-4300-BCD6-E34D275E6370}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Xpo", "..\..\..\Xpand\Xpand.Xpo\Xpand.Xpo.csproj", "{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.EasyTest", "..\..\..\Xpand.EasyTest\Xpand.EasyTest\Xpand.EasyTest.csproj", "{80DC8CB8-C285-4953-871F-E49002FA10E8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.EasyTest.WebAdapter", "..\..\..\Xpand.EasyTest\Xpand.ExpressApp.EasyTest.WebAdapter\Xpand.ExpressApp.EasyTest.WebAdapter.csproj", "{38E16F8A-517C-4CA9-9775-56F598F25534}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Persistent.BaseImpl", "..\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.BaseImpl\Xpand.Persistent.BaseImpl.csproj", "{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}"
 EndProject
@@ -131,24 +125,6 @@ Global
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80DC8CB8-C285-4953-871F-E49002FA10E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.DebugGAC|Any CPU.Build.0 = Debug|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38E16F8A-517C-4CA9-9775-56F598F25534}.Release|Any CPU.Build.0 = Release|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.DebugGAC|Any CPU.ActiveCfg = DebugGAC|Any CPU
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE}.EasyTest|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
@@ -159,14 +135,11 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{2475CFAB-165B-4A5E-B8E9-C3EC6AE47BAA} = {4CB67D8D-E451-4DEF-A218-E19B9E3D5731}
 		{007CDBAE-9DBD-431C-BB70-CF3596748B06} = {4CB67D8D-E451-4DEF-A218-E19B9E3D5731}
 		{D38722E2-F2CD-47D3-9203-1AC8070BBE2E} = {4CB67D8D-E451-4DEF-A218-E19B9E3D5731}
 		{B964E541-EBA2-4971-B104-A99ABBD95D36} = {4CB67D8D-E451-4DEF-A218-E19B9E3D5731}
 		{0E40CCB3-7904-4300-BCD6-E34D275E6370} = {4CB67D8D-E451-4DEF-A218-E19B9E3D5731}
 		{3A3180CF-2A7B-48FC-AC8A-F39B21E75DB6} = {4CB67D8D-E451-4DEF-A218-E19B9E3D5731}
-		{80DC8CB8-C285-4953-871F-E49002FA10E8} = {2475CFAB-165B-4A5E-B8E9-C3EC6AE47BAA}
-		{38E16F8A-517C-4CA9-9775-56F598F25534} = {2475CFAB-165B-4A5E-B8E9-C3EC6AE47BAA}
 		{107424FA-EE61-41B7-BA89-2FD0BC9BCEDE} = {4CB67D8D-E451-4DEF-A218-E19B9E3D5731}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

@@ -10,6 +10,7 @@ namespace SystemTester.Module.Win {
     public sealed partial class SystemTesterWindowsFormsModule : ModuleBase {
         public SystemTesterWindowsFormsModule() {
             InitializeComponent();
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
             return ModuleUpdater.EmptyModuleUpdaters;

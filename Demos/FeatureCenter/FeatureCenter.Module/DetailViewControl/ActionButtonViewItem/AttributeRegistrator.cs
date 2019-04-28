@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.DetailViewControl.ActionButtonViewItem {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.DetailViewControl.ActionButtonViewItem {
                 Captions.ViewMessageActionButtonViewItem, Position.Bottom) { View = "ActionButtonViewItem_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderActionButtonViewItem, "1=1", "1=1",
                 Captions.HeaderActionButtonViewItem, Position.Top) { View = "ActionButtonViewItem_DetailView" };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, "ActionButtonViewItem_DetailView");
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, "ActionButtonViewItem_DetailView");
             yield return new XpandNavigationItemAttribute(Captions.DetailViewCotrol + "Action Button View Item", "ActionButtonViewItem_DetailView");
             yield return new DisplayFeatureModelAttribute("ActionButtonViewItem_DetailView");
         }

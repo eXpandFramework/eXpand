@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using FeatureCenter.Module.ExpandAbleMembers;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Web.MasterDetail.Web {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Web.MasterDetail.Web {
             yield break;
 #endif 
             if (typesInfo.Type == typeof(EAMCustomer)) {
-                yield return new CloneViewAttribute(CloneViewType.ListView, MasterDetailModeListView);
+                yield return new CloneModelViewAttribute(CloneViewType.ListView, MasterDetailModeListView);
                 var xpandNavigationItemAttribute = new XpandNavigationItemAttribute("MasterDetail/MasterDetailMode", MasterDetailModeListView);
                 yield return xpandNavigationItemAttribute;
                 yield return new WhatsNewAttribute(new DateTime(2012, 8, 16), xpandNavigationItemAttribute);

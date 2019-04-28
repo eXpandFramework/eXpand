@@ -2,10 +2,11 @@
 using DevExpress.Persistent.BaseImpl;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace SystemTester.Module.FunctionalTests.NavigationItems{
     [DefaultClassOptions]
-    [CloneView(CloneViewType.ListView, "NavigationItemsObject_NavItemsDataSource_ListView")]
+    [CloneModelView(CloneViewType.ListView, "NavigationItemsObject_NavItemsDataSource_ListView")]
     public class NavigationItemsObject : BaseObject{
         public NavigationItemsObject(Session session) : base(session){
         }

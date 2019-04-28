@@ -13,12 +13,12 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelDifference;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [HideFromNewMenu, ModelDefault("Caption", "User Settings"), VisibleInReports(false)]
-    [CloneView(CloneViewType.DetailView, "UDO_DetailView",true)]
+    [CloneModelView(CloneViewType.DetailView, "UDO_DetailView",true)]
     [CreatableItem(false)]
     public class UserModelDifferenceObject : ModelDifferenceObject {
         private bool _nonPersistent;
@@ -28,8 +28,8 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         public bool NonPersistent {
-            get { return _nonPersistent; }
-            set { SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _nonPersistent, value); }
+            get => _nonPersistent;
+            set => SetPropertyValue(MethodBase.GetCurrentMethod().Name.Replace("set_", ""), ref _nonPersistent, value);
         }
         [Browsable(false)]
         public bool IsCurrentUserModel => ReferenceEquals(new QueryUserModelDifferenceObject(Session).GetActiveModelDifference(ApplicationHelper.Instance.Application.GetType().FullName, Name,DeviceCategory), this);

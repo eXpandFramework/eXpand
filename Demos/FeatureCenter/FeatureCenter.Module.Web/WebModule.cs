@@ -14,6 +14,7 @@ namespace FeatureCenter.Module.Web {
     public sealed partial class FeatureCenterAspNetModule : FeatureCenterModuleBase {
         public FeatureCenterAspNetModule() {
             InitializeComponent();
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {

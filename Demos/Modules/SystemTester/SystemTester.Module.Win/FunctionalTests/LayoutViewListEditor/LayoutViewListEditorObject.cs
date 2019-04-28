@@ -5,13 +5,14 @@ using DevExpress.Xpo.Metadata;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.BaseImpl.Security;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace SystemTester.Module.Win.FunctionalTests.LayoutViewListEditor{
     [XpandNavigationItem("LayoutViewListEditor/Layout", "LayoutViewListEditor_Layout_ListView")]
-    [CloneView(CloneViewType.ListView, "LayoutViewListEditor_Layout_ListView")]
+    [CloneModelView(CloneViewType.ListView, "LayoutViewListEditor_Layout_ListView")]
 
     [XpandNavigationItem("LayoutViewListEditor/Edit", "LayoutViewListEditor_Edit_ListView")]
-    [CloneView(CloneViewType.ListView, "LayoutViewListEditor_Edit_ListView")]
+    [CloneModelView(CloneViewType.ListView, "LayoutViewListEditor_Edit_ListView")]
     public class LayoutViewListEditorObject : BaseObject{
         private Image _blue;
         private Image _red;

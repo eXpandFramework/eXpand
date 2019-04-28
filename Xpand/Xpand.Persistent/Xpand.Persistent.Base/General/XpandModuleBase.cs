@@ -314,7 +314,6 @@ namespace Xpand.Persistent.Base.General {
                 return;
             updaters.Add(new CommonModelUpdater());
             updaters.Add(new ToggleNavigationActionUpdater());
-            updaters.Add(new ModelViewClonerUpdater());
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.Navigation.CursorPosition {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Win.Navigation.CursorPosition {
                 Captions.ViewMessageCursorPosition, Position.Bottom) { View = "CursorPosition_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderCursorPosition, "1=1", "1=1",
                 Captions.HeaderCursorPosition, Position.Top) { View = "CursorPosition_DetailView" };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, "CursorPosition_DetailView");
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, "CursorPosition_DetailView");
             yield return new XpandNavigationItemAttribute("Navigation/Cursor Position", "CursorPosition_DetailView");
             yield return new DisplayFeatureModelAttribute("CursorPosition_DetailView");
         }

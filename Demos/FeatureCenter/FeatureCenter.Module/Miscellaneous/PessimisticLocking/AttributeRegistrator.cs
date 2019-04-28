@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Miscellaneous.PessimisticLocking {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -15,7 +16,7 @@ namespace FeatureCenter.Module.Miscellaneous.PessimisticLocking {
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderPessimisticLocking, "1=1", "1=1", Captions.HeaderPessimisticLocking, Position.Top) { ViewType = ViewType.DetailView, View = PessimisticLocking_DetailView };
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Captions.Miscellaneous + "PessimisticLocking", PessimisticLocking_DetailView, "Name='Benjamin CISCO'");
             yield return xpandNavigationItemAttribute;
-            yield return new CloneViewAttribute(CloneViewType.DetailView, PessimisticLocking_DetailView);
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, PessimisticLocking_DetailView);
             yield return new WhatsNewAttribute(new DateTime(2011, 2, 2), xpandNavigationItemAttribute);
         }
     }

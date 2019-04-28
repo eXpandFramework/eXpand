@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Miscellaneous.ToolTip {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Miscellaneous.ToolTip {
             if (!(typesInfo.Type == typeof (Customer))) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderTooltip, "1=1", "1=1", Captions.ViewMessageTooltip, Position.Bottom) { ViewType = ViewType.DetailView, View = Tooltip_DetailView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderTooltip, "1=1", "1=1", Captions.HeaderTooltip, Position.Top) { View = Tooltip_DetailView };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, Tooltip_DetailView);
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, Tooltip_DetailView);
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Captions.Miscellaneous + "Tooltips", Tooltip_DetailView);
             yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute(Tooltip_DetailView);

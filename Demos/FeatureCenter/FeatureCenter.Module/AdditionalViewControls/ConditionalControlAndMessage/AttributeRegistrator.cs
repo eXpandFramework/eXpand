@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.AdditionalViewControls.ConditionalControlAndMessage {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -19,7 +20,7 @@ namespace FeatureCenter.Module.AdditionalViewControls.ConditionalControlAndMessa
             ViewType = ViewType.ListView, View = "ConditionalControlAndMessage_ListView",
             ExecutionContextGroup = "ConditionalControlAndMessage"
         };
-            yield return new CloneViewAttribute(CloneViewType.ListView, "ConditionalControlAndMessage_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "ConditionalControlAndMessage_ListView");
             yield return new XpandNavigationItemAttribute("Additional View Controls/Conditional control with conditional Message", "ConditionalControlAndMessage_ListView");
             yield return new DisplayFeatureModelAttribute("ConditionalControlAndMessage_ListView");
         }

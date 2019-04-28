@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyRuntimeOrphanedCollection {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -12,7 +13,7 @@ namespace FeatureCenter.Module.WorldCreator.ExistentAssemblyRuntimeOrphanedColle
             if (typesInfo.Type != typeof(Customer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderExistentAssemblyRuntimeOrphanedCollection, "1=1", "1=1", Captions.ViewMessageExistentAssemblyRuntimeOrphanedCollection, Position.Bottom) {  View = ExistentAssemblyRuntimeOrphanedCollection_DetailView };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderExistentAssemblyRuntimeOrphanedCollection, "1=1", "1=1", Captions.HeaderExistentAssemblyRuntimeOrphanedCollection, Position.Top) { View = ExistentAssemblyRuntimeOrphanedCollection_DetailView };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, ExistentAssemblyRuntimeOrphanedCollection_DetailView);
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, ExistentAssemblyRuntimeOrphanedCollection_DetailView);
             yield return new XpandNavigationItemAttribute("WorldCreator/Existent Assembly/Orphaned Collection", ExistentAssemblyRuntimeOrphanedCollection_DetailView);
             yield return new DisplayFeatureModelAttribute(ExistentAssemblyRuntimeOrphanedCollection_DetailView, "ExistentAssemblyRuntimeOrphanedCollection");
         }

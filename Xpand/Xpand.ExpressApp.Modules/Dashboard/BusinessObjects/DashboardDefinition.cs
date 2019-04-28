@@ -10,8 +10,8 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.Dashboard.Services;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
-using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Security;
+using Xpand.XAF.Modules.CloneModelView;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
@@ -30,8 +30,8 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [DefaultClassOptions]
     [SecurityOperations("DashboardDefinitions", "DashboardOperation")]
     [NavigationItem("Reports")]
-    [CloneView(CloneViewType.DetailView, DashboardViewerDetailView)]
-    [CloneView(CloneViewType.DetailView, DashboardDesignerDetailView)]
+    [CloneModelView(CloneViewType.DetailView, DashboardViewerDetailView)]
+    [CloneModelView(CloneViewType.DetailView, DashboardDesignerDetailView)]
     public class DashboardDefinition : XpandCustomObject, IDashboardDefinition,IDashboardData{
         public const string DashboardViewerDetailView = "DashboardDefinitionViewer_DetailView";
         public const string DashboardDesignerDetailView = "DashboardDesigner_DetailView";

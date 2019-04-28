@@ -439,7 +439,6 @@
     <Compile Include="General\Model\AttributeCategoryNameProvider.cs" />
     <Compile Include="General\Model\IModelOptionsClientSideSecurity.cs" />
     <Compile Include="General\Model\Interfaces.cs" />
-    <Compile Include="General\Model\CloneView.cs" />
     <Compile Include="General\Model\ModulesNode.cs" />
     <Compile Include="General\Model\ReadOnlyParametersNode.cs" />
     <Compile Include="General\Model\VisibilityCalculators\AlwaysVisibleCalculator.cs" />
@@ -487,7 +486,6 @@
     <Compile Include="General\IDataSourceSelectionChanged.cs" />
     <Compile Include="General\IDateRange.cs" />
     <Compile Include="General\IFastManyToMany .cs" />
-    <Compile Include="General\ISupportViewId.cs" />
     <Compile Include="General\IXpandObjectSpace.cs" />
     <Compile Include="General\CustomAttributes\NumericFormatAttribute.cs" />
     <Compile Include="General\NewObjectCollectCreatableItemTypesDataSourceAttribute.cs" />

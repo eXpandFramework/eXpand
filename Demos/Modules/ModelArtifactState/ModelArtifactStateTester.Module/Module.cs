@@ -9,6 +9,7 @@ namespace ModelArtifactStateTester.Module {
     public sealed partial class ModelArtifactStateTesterModule : ModuleBase {
         public ModelArtifactStateTesterModule() {
             InitializeComponent();
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.CloneModelView.CloneModelViewModule));
         }
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
             ModuleUpdater updater = new DatabaseUpdate.Updater(objectSpace, versionFromDB);

@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.ControllingXtraGrid.ColumnsOptions {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.Win.ControllingXtraGrid.ColumnsOptions {
                 Captions.ViewMessageControlXtraGridColumns, Position.Bottom) { View = "XtraGridColumnsOptions_ListView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderControlXtraGridColumns, "1=1", "1=1",
                 Captions.HeaderControlXtraGridColumns, Position.Top) { View = "XtraGridColumnsOptions_ListView" };
-            yield return new CloneViewAttribute(CloneViewType.ListView, "XtraGridColumnsOptions_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "XtraGridColumnsOptions_ListView");
             yield return new XpandNavigationItemAttribute("Controlling XtraGrid/Column options", "XtraGridColumnsOptions_ListView");
             yield return new DisplayFeatureModelAttribute("XtraGridColumnsOptions_ListView");
         }

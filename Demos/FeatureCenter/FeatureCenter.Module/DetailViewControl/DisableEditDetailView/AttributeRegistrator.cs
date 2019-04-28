@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.DetailViewControl.DisableEditDetailView {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -13,7 +14,7 @@ namespace FeatureCenter.Module.DetailViewControl.DisableEditDetailView {
                 Captions.ViewMessageDisableEditDetailView, Position.Bottom) { View = "DisableEditDetailView_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderDisableEditDetailView, "1=1", "1=1",
                 Captions.HeaderDisableEditDetailView, Position.Top) { View = "DisableEditDetailView_DetailView" };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, "DisableEditDetailView_DetailView");
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, "DisableEditDetailView_DetailView");
             yield return new XpandNavigationItemAttribute(Captions.DetailViewCotrol + "Disable Edit Detail View", "DisableEditDetailView_DetailView");
             yield return new DisplayFeatureModelAttribute("DisableEditDetailView_DetailView");
         }

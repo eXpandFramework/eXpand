@@ -4,11 +4,12 @@ using DevExpress.Xpo;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace XVideoRental.Module.Win.BusinessObjects.Movie {
     [FullPermission]
     [InitialData(BaseMembers = "oid|Oid", AllOwnMembers = true)]
-    [CloneView(CloneViewType.ListView, "Company_Movies_ListView_Layout")]
+    [CloneModelView(CloneViewType.ListView, "Company_Movies_ListView_Layout")]
     [RuleCombinationOfPropertiesIsUnique(DefaultContexts.Save, "Movie,Company")]
     public class MovieCompany : VideoRentalBaseObject {
         Company company;
@@ -54,7 +55,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Movie {
     [FullPermission]
     [InitialData(BaseMembers = "oid|Oid,Id|CompanyId", AllOwnMembers = true)]
     [ImageName("BO_Company")]
-    [CloneView(CloneViewType.ListView, "Company_ListView_MasterDetail")]
+    [CloneModelView(CloneViewType.ListView, "Company_ListView_MasterDetail")]
     public class Company : VideoRentalBaseObject {
         string _name;
         CompanyType _type;

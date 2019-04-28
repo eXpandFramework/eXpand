@@ -5,6 +5,7 @@ using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.BaseImpl.JobScheduler.Calendars;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEditor {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -15,7 +16,7 @@ namespace FeatureCenter.Module.Win.PropertyEditors.ChooseFromListCollectionEdito
                 Captions.ViewMessageChooseFromListCollectionEditor, Position.Bottom) { View = ChooseFromListCollectionEditor_DetailView };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Captions.HeaderChooseFromListCollectionEditor, "1=1", "1=1",
                 Captions.HeaderChooseFromListCollectionEditor, Position.Top) { View = ChooseFromListCollectionEditor_DetailView };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, ChooseFromListCollectionEditor_DetailView);
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, ChooseFromListCollectionEditor_DetailView);
             var xpandNavigationItemAttribute = new XpandNavigationItemAttribute(Module.Captions.PropertyEditors + "List editors", ChooseFromListCollectionEditor_DetailView);
             yield return xpandNavigationItemAttribute;
             yield return new DisplayFeatureModelAttribute(ChooseFromListCollectionEditor_DetailView);

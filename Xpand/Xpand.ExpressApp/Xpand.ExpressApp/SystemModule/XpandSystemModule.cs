@@ -15,7 +15,6 @@ using Xpand.ExpressApp.Core.ReadOnlyParameters;
 using Xpand.ExpressApp.Model;
 using Xpand.ExpressApp.NodeUpdaters;
 using Xpand.ExpressApp.PropertyEditors;
-
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Actions;
@@ -35,6 +34,7 @@ namespace Xpand.ExpressApp.SystemModule {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
         }
 
         static XpandSystemModule() {

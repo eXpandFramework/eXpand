@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -15,7 +16,7 @@ namespace FeatureCenter.Module.Win.ApplicationDifferences.ExternalApplication {
 #endif
             if (typesInfo.Type != typeof(ModelDifferenceObject)) yield break;
             yield return new DisplayFeatureModelAttribute(ExternalApplicationDetailView, "ExternalApplication");
-            yield return new CloneViewAttribute(CloneViewType.DetailView, ExternalApplicationDetailView);
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, ExternalApplicationDetailView);
             yield return new XpandNavigationItemAttribute("Application Differences/External Application",
                     ExternalApplicationDetailView,"@ExternalApplicationKey");
         }

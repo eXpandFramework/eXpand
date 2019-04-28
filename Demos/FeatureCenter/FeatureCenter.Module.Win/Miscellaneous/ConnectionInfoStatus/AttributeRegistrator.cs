@@ -4,6 +4,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.Win.Miscellaneous.ConnectionInfoStatus {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -12,7 +13,7 @@ namespace FeatureCenter.Module.Win.Miscellaneous.ConnectionInfoStatus {
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.Header + " " + Module.Captions.HeaderConnectionInfoStatus, "1=1", "1=1", Module.Captions.HeaderConnectionInfoStatus, Position.Top) { View = "ConnectionInfoStatus_DetailView" };
             yield return new AdditionalViewControlsRuleAttribute(Module.Captions.ViewMessage + " " + Module.Captions.HeaderConnectionInfoStatus, "1=1", "1=1",
                 Module.Captions.ViewMessageConnectionInfoStatus, Position.Bottom) { View = "ConnectionInfoStatus_DetailView" };
-            yield return new CloneViewAttribute(CloneViewType.DetailView, "ConnectionInfoStatus_DetailView");
+            yield return new CloneModelViewAttribute(CloneViewType.DetailView, "ConnectionInfoStatus_DetailView");
             yield return new XpandNavigationItemAttribute(Module.Captions.Miscellaneous + "Connection Info Status", "ConnectionInfoStatus_DetailView");
             yield return new DisplayFeatureModelAttribute("ConnectionInfoStatus_DetailView");
         }

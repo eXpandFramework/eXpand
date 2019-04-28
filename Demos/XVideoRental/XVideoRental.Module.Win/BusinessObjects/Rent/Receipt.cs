@@ -9,6 +9,7 @@ using XVideoRental.Module.Win.DatabaseUpdate;
 using Xpand.ExpressApp.IO.Core;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace XVideoRental.Module.Win.BusinessObjects.Rent {
 
@@ -20,14 +21,14 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
         LateFees
     }
     [InitialData(AllOwnMembers = true, BaseMembers = "oid|Oid,Id|ReceiptId")]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.CustomersKpi)]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.CustomersKpiDiscount)]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.CustomersKpiCustomersByDates)]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.StatisticsTopCustomers)]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.StatisticsRevenueSplit)]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.StatisticsRevenueByCustomer)]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.StatisticsNetIncomeReceipts)]
-    [CloneView(CloneViewType.ListView, ViewIdProvider.StatisticsNetIncome)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.CustomersKpi)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.CustomersKpiDiscount)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.CustomersKpiCustomersByDates)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.StatisticsTopCustomers)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.StatisticsRevenueSplit)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.StatisticsRevenueByCustomer)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.StatisticsNetIncomeReceipts)]
+    [CloneModelView(CloneViewType.ListView, ViewIdProvider.StatisticsNetIncome)]
     [PermissionBehavior(PermissionBehavior.ReadOnlyAccess)]
     public class Receipt : VideoRentalBaseObject {
         private Customer _customer;

@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.DC;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.CloneModelView;
 
 namespace FeatureCenter.Module.ControllingSearch.ListView {
     public class AttributeRegistrator : Xpand.Persistent.Base.General.AttributeRegistrator {
@@ -12,7 +13,7 @@ namespace FeatureCenter.Module.ControllingSearch.ListView {
             if (typesInfo.Type != typeof(Customer)) yield break;
             yield return new AdditionalViewControlsRuleAttribute(Captions.ViewMessage + " " + Captions.HeaderControllingListViewSearch, "1=1", "1=1", Captions.ViewMessageControllingListViewSearch, Position.Bottom) { ViewType = ViewType.ListView, View = "ControllingSearchCustomer_ListView" };
             yield return new AdditionalViewControlsRuleAttribute(Captions.Header + " " + Captions.HeaderControllingListViewSearch, "1=1", "1=1", Captions.HeaderControllingListViewSearch, Position.Top) { ViewType = ViewType.ListView, View = "ControllingSearchCustomer_ListView" };
-            yield return new CloneViewAttribute(CloneViewType.ListView, "ControllingSearchCustomer_ListView");
+            yield return new CloneModelViewAttribute(CloneViewType.ListView, "ControllingSearchCustomer_ListView");
             yield return new XpandNavigationItemAttribute("Controlling Search/ListView Search", "ControllingSearchCustomer_ListView");
             yield return new DisplayFeatureModelAttribute("ControllingSearchCustomer_ListView", "ControllingListViewSearch");
         }

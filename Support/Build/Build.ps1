@@ -225,7 +225,8 @@ task CompileDemos {
 }
 
 function BuildProjects($projects,$clean ){
-    $projects|Invoke-Parallel -ActivityName Building -VariablesToImport @("v","msbuildArgs","root","msbuild") -Script {
+    # $projects|Invoke-Parallel -ActivityName Building -VariablesToImport @("v","msbuildArgs","root","msbuild") -Script {
+    $projects|ForEach-Object {
         $bargs=(@("$_","/p:OutputPath=$root\Xpand.dll\")+$msbuildArgs.Split(";"))
         $o=& $msbuild $bargs
         if ($LASTEXITCODE){

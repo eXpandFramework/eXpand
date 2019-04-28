@@ -118,6 +118,7 @@ namespace Xpand.ExpressApp.ModelDifference {
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(ViewVariants.XpandViewVariantsModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
