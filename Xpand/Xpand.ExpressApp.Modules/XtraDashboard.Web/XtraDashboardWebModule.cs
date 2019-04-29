@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             RequiredModuleTypes.Add(typeof(Security.Web.XpandSecurityWebModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.Web.ValidationAspNetModule));
-            RequiredModuleTypes.Add(typeof(XAF.Modules.SuppressConfirmation.SupressConfirmationModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.SuppressConfirmation.SuppressConfirmationModule));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

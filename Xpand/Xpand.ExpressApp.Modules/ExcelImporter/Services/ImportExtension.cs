@@ -227,15 +227,14 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             Validator.RuleSet.Validate(((IObjectSpaceLink) excelImport).ObjectSpace, excelImport,ExcelImport.MappingContext);
             using (var memoryStream = new MemoryStream(excelImport.File.Content)){
                 using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)) {
-                    foreach (var dataColumn in excelDataReader.Columns(excelImport: excelImport)) {
+                    foreach (var dataColumn in excelDataReader.Columns(excelImport)) {
                         var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
                         var excelColumnMap = objectSpace.CreateObject<ExcelColumnMap>();
-                        excelImport.ExcelColumnMaps.Add(newObject: excelColumnMap);
+                        excelImport.ExcelColumnMaps.Add(excelColumnMap);
                         excelColumnMap.ExcelColumnName = dataColumn;
                         var member = excelImport.FindMember(excelColumnMap.GetColumnName());
                         if (member != null)
-                            excelColumnMap.PropertyName =
-                                CaptionHelper.GetMemberCaption(objectType: member.Owner.Type, memberName: member.Name);
+                            excelColumnMap.PropertyName =CaptionHelper.GetMemberCaption(member.Owner.Type, member.Name);
                     }
                 }                
             }
