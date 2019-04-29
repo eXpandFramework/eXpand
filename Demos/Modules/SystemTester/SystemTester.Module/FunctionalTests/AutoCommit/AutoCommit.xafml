@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="SystemTester">
-  <Views>
-    <DetailView Id="AutoCommitObject_DetailView" AutoCommit="True" />
-    <ListView Id="AutoCommitObject_ListView" AllowEdit="True" AutoCommit="True" InlineEditMode="Batch" />
-  </Views>
-</Application>
