@@ -63,6 +63,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes ={
+                typeof(StringLookupPropertyEditorModelAdapter),
                 typeof(OpenDetailViewInNewTabController),
                 typeof(FindPopupController),
                 typeof(RefreshObjectViewController),

@@ -171,6 +171,7 @@
     <Compile Include="SystemModule\FindPopupController.cs" />
     <Compile Include="SystemModule\ImmediatePostDataRestoreFocusController.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxDateTimeModelAdapter.cs" />
+    <Compile Include="SystemModule\ModelAdapters\ASPxComboBoxModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxTokenBoxModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxSpinEditModelAdapter.cs" />
     <Compile Include="SystemModule\ModelAdapters\ASPxHyperLinkControlModelAdapter.cs" />
