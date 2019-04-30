@@ -64,11 +64,12 @@
     <ListView Id="ExcelColumnMap_ListView" HideToolBar="True">
       <Columns>
         <ColumnInfo Id="ExcelImport" Index="-1" />
-        <ColumnInfo Id="ExcelColumnName" Width="122" Index="0" />
-        <ColumnInfo Id="PropertyName" Width="125" Index="1" />
-        <ColumnInfo Id="PropertyType" Index="2" />
-        <ColumnInfo Id="SkipEmpty" Index="3" />
-        <ColumnInfo Id="ImportStrategy" Index="4" Width="97" />
+        <ColumnInfo Id="ExcelColumnNameRegex" Width="122" Index="0" />
+        <ColumnInfo Id="ExcelColumnName" Width="122" Index="1" />
+        <ColumnInfo Id="PropertyName" Width="125" Index="2" />
+        <ColumnInfo Id="PropertyType" Index="3" />
+        <ColumnInfo Id="SkipEmpty" Index="4" />
+        <ColumnInfo Id="ImportStrategy" Index="5" Width="97" />
       </Columns>
       <HiddenActions>
         <ActionLink ActionId="New" IsNewNode="True" />
@@ -164,10 +165,11 @@
     </DetailView>
     <ListView Id="ExcelImport_ExcelColumnMaps_ListView" HideToolBar="True" AutoCommit="True" AllowEdit="True">
       <Columns>
-        <ColumnInfo Id="ExcelColumnName" AllowEdit="False" Index="0" />
-        <ColumnInfo Id="PropertyName" Width="92" Index="1" />
-        <ColumnInfo Id="PropertyType" AllowEdit="False" Index="2" />
-        <ColumnInfo Id="SkipEmpty" Index="3" />
+        <ColumnInfo Id="ExcelColumnNameRegex" Index="0" />
+        <ColumnInfo Id="ExcelColumnName" AllowEdit="False" Index="1" />
+        <ColumnInfo Id="PropertyName" Width="92" Index="2" />
+        <ColumnInfo Id="PropertyType" AllowEdit="False" Index="3" />
+        <ColumnInfo Id="SkipEmpty" Index="4" />
       </Columns>
       <HiddenActions>
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />

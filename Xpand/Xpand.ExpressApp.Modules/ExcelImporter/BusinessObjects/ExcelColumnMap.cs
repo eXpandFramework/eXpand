@@ -116,7 +116,8 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             get => _excelColumnName;
             set => SetPropertyValue(nameof(ExcelColumnName), ref _excelColumnName, value);
         }
-
+        [VisibleInDetailView(false)]
+        public string ExcelColumnNameRegex => this.GetColumnName();
 
         [RuleRequiredField(TargetContextIDs = ExcelImport.ImportingContext)]
         [EditorAlias(Persistent.Base.General.EditorAliases.StringLookupPropertyEditor)]
