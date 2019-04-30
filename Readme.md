@@ -40,7 +40,7 @@ Email |     Send emails using bussiness rules from application model without cod
 [System](#system-modules)|    Support multiple datastore , calculable properties at runtime ,dynamic model creation,control grid options, datacaching, web master detail, view inheritance etc.    |Y|    Y|![](https://img.shields.io/nuget/dt/eXpandSystem.svg?label=&style=flat)
 JobSheduler    | Acts as a wrapper for the powerfull Quartz.Net, providing a flexible UI for managing Jobs at runtime |    Y |    Y|![](https://img.shields.io/nuget/dt/eXpandJobScheduler.svg?label=&style=flat)
 [DBMapper](#dbmapper) |    Map 14 different types of databases at runtime into worldcreator persistent objects    | Y |    Y|![](https://img.shields.io/nuget/dt/eXpandWorldCreatorDBMapper.svg?label=&style=flat)
-[IO](#io) |    Export & Import object graphs |    Y |    Y
+[IO](#io) |    Export & Import object graphs |    Y |    Y|![](https://img.shields.io/nuget/dt/eXpandIO.svg?label=&style=flat)
 MapView |     Google Maps integration for XAF web apps. Blog posts. |     Y |    Y|![](https://img.shields.io/nuget/dt/eXpandMapView.svg?label=&style=flat)
 FileAttachments |     Provides support for file system storage as per E965 |    Y |    Y|![](https://img.shields.io/nuget/dt/eXpandFileAttachment.svg?label=&style=flat)
 Scheduler |     Please explore the XVideoRental module found in Demos/XVideoRental folder (Blog posts) |    Y |    Y|![](https://img.shields.io/nuget/dt/eXpandScheduler.svg?label=&style=flat)
