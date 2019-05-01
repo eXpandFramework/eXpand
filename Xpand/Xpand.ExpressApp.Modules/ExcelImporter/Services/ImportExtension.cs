@@ -215,7 +215,9 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return excelDataReader.AsDataSet(excelDataSetConfiguration);
         }
 
-        public static string GetColumnName(this ExcelColumnMap excelColumnMap){
+        public static string GetColumnName(this ExcelColumnMap excelColumnMap) {
+            if (excelColumnMap.ExcelColumnName == null)
+                return null;
             return !string.IsNullOrWhiteSpace(excelColumnMap.ExcelImport.ColumnMappingRegexPattern)
                 ? Regex.Replace(excelColumnMap.ExcelColumnName,
                     excelColumnMap.ExcelImport.ColumnMappingRegexPattern,
