@@ -84,18 +84,15 @@
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
       </HiddenActions>
     </ListView>
-    <DashboardView Id="ExcelColumnMapMasterDetail" AutoCommitB4CurrentObjectChanged="True" Caption="Map columns to members" IsNewNode="True">
+    <DashboardView Id="ExcelColumnMapMasterDetail" Caption="Map columns to members" IsNewNode="True">
       <Items IsNewNode="True">
         <DashboardViewItem Id="DetailView" ViewId="ExcelColumnMap_DetailView" ActionsToolbarVisibility="Hide" IsNewNode="True" />
         <DashboardViewItem Id="ListView" ViewId="ExcelColumnMap_ListView" ActionsToolbarVisibility="Hide" IsNewNode="True" />
       </Items>
       <Layout IsNewNode="True">
         <LayoutGroup Id="Main" ShowCaption="False" Direction="Horizontal" Index="0" RelativeSize="100" Caption="Main" IsNewNode="True">
-          <LayoutItem Id="ListView" ViewItem="ListView" Index="0" RelativeSize="48.036253776435046" IsNewNode="True" />
-          <LayoutGroup Id="Autocfaae54f-7b4d-45af-bb10-54060bb20a2a" ShowCaption="False" Caption="" Index="1" RelativeSize="51.963746223564954" IsNewNode="True">
-            <LayoutItem Id="ExcelImport_DetailView" ViewItem="ExcelImport_DetailView" Index="0" RelativeSize="2.8957528957528957" IsNewNode="True" />
-            <LayoutItem Id="DetailView" ViewItem="DetailView" Index="1" RelativeSize="97.104247104247108" IsNewNode="True" />
-          </LayoutGroup>
+          <LayoutItem Id="ListView" ViewItem="ListView" Index="0" RelativeSize="49.369085173501574" IsNewNode="True" />
+          <LayoutItem Id="DetailView" ViewItem="DetailView" Index="1" RelativeSize="50.630914826498426" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DashboardView>
