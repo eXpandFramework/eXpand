@@ -28,43 +28,51 @@
       </Items>
       <Layout>
         <LayoutGroup Id="Main" TextAlignMode="AlignWithChildren">
-          <TabbedGroup Id="Tabs" Index="0" RelativeSize="96.908212560386474">
-            <LayoutGroup Id="ExcelColumnMaps" TextAlignMode="AlignWithChildren">
-              <LayoutItem Id="Name" RelativeSize="3.3229491173416408" />
-              <LayoutGroup Id="Auto522ba927-1152-4a6b-b490-a53424ee6e44" Caption="Auto522ba927-1152-4a6b-b490-a53424ee6e44(5)" RelativeSize="3.4267912772585669" />
-              <LayoutGroup Id="Auto2052741a-7263-4e83-ba7f-3ae8ecca4784" Caption="Auto2052741a-7263-4e83-ba7f-3ae8ecca4784(8)" RelativeSize="10.59190031152648">
-                <LayoutGroup Id="Autobf0eebb3-5181-4b52-8219-a5c46fb7ef0d" Caption="Autobf0eebb3-5181-4b52-8219-a5c46fb7ef0d(9)" RelativeSize="32.352941176470587" />
-                <LayoutGroup Id="Autob438c641-5874-44cb-a3b8-e3b3eab8bec9" Caption="Autob438c641-5874-44cb-a3b8-e3b3eab8bec9(12)" RelativeSize="67.6470588235294">
-                  <LayoutGroup Id="Autodbd12d76-fa1d-4969-8011-5f13ca83905c" Caption="Autodbd12d76-fa1d-4969-8011-5f13ca83905c(13)" RelativeSize="47.826086956521742" />
-                  <LayoutGroup Id="Autoc85a82de-a7bf-4510-8662-51ac74f121ea" Caption="Autoc85a82de-a7bf-4510-8662-51ac74f121ea(14)" RelativeSize="52.173913043478258">
-                    <LayoutGroup Id="Auto4fb56bfb-f672-4dcc-b9fb-86da9671221c" Caption="Auto4fb56bfb-f672-4dcc-b9fb-86da9671221c(15)" />
-                    <LayoutGroup Id="Autode98b9a6-e470-409c-9e3e-9bdc7e82a8e7" Caption="Autode98b9a6-e470-409c-9e3e-9bdc7e82a8e7(18)" />
+          <TabbedGroup Id="Tabs" RelativeSize="96.49507119386638">
+            <LayoutGroup Id="ExcelColumnMaps">
+              <LayoutItem Id="Name" RelativeSize="3.8049940546967895" />
+              <LayoutGroup Id="Auto522ba927-1152-4a6b-b490-a53424ee6e44" RelativeSize="3.9239001189060643">
+                <LayoutItem Id="File" RelativeSize="49.152542372881356" />
+                <LayoutItem Id="ImportStrategy" RelativeSize="50.847457627118644" />
+              </LayoutGroup>
+              <LayoutGroup Id="Auto2052741a-7263-4e83-ba7f-3ae8ecca4784" RelativeSize="12.128418549346017">
+                <LayoutGroup Id="Autobf0eebb3-5181-4b52-8219-a5c46fb7ef0d">
+                  <LayoutItem Id="SheetName" RelativeSize="49.152542372881356" />
+                  <LayoutItem Id="Type" RelativeSize="50.847457627118644" />
+                </LayoutGroup>
+                <LayoutGroup Id="Autob438c641-5874-44cb-a3b8-e3b3eab8bec9">
+                  <LayoutGroup Id="Autodbd12d76-fa1d-4969-8011-5f13ca83905c">
+                    <LayoutItem Id="HeaderRows" RelativeSize="49.152542372881356" />
+                    <LayoutItem Id="ValidationContexts" RelativeSize="50.847457627118644" />
+                  </LayoutGroup>
+                  <LayoutGroup Id="Autoc85a82de-a7bf-4510-8662-51ac74f121ea">
+                    <LayoutGroup Id="Auto4fb56bfb-f672-4dcc-b9fb-86da9671221c" RelativeSize="49.152542372881356" />
+                    <LayoutGroup Id="Autode98b9a6-e470-409c-9e3e-9bdc7e82a8e7" RelativeSize="50.847457627118644" />
                   </LayoutGroup>
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutGroup Id="ExcelImport" RelativeSize="2.6998961578400831" />
-              <LayoutItem Id="Item2" Index="4" RelativeSize="79.958463136033231" IsNewNode="True" />
+              <LayoutItem Id="ExcelImport" RelativeSize="3.0915576694411415" />
+              <LayoutItem Id="ExcelColumnMaps" RelativeSize="77.05112960761" />
             </LayoutGroup>
-            <LayoutGroup Id="Item1" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="1" Caption="Auto Import" RelativeSize="100" TextAlignMode="AlignWithChildren" IsNewNode="True">
-              <LayoutGroup Id="Auto70704ce9-c4ff-4970-9e05-d7069fbf2d43" ShowCaption="False" Caption="Auto70704ce9-c4ff-4970-9e05-d7069fbf2d43(23)" Direction="Horizontal" Index="0" RelativeSize="8.93042575285566" IsNewNode="True">
-                <LayoutGroup Id="Auto8063d2d7-52e5-4af4-80e6-c26a5cd44210" ShowCaption="False" Caption="Auto8063d2d7-52e5-4af4-80e6-c26a5cd44210(24)" Index="0" RelativeSize="49.920255183413076" IsNewNode="True">
+            <LayoutGroup Id="Item2" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="1" Caption="Auto Import" RelativeSize="100" IsNewNode="True">
+              <LayoutGroup Id="Auto294ee005-9e5a-4905-aa96-be18e0f7ddb0" ShowCaption="False" Caption="Auto294ee005-9e5a-4905-aa96-be18e0f7ddb0(25)" Direction="Horizontal" Index="0" RelativeSize="10.225921521997622" IsNewNode="True">
+                <LayoutGroup Id="Auto63e7d3ad-fed8-4760-8a6b-96954701c94e" ShowCaption="False" Caption="Auto63e7d3ad-fed8-4760-8a6b-96954701c94e(26)" Index="0" RelativeSize="50" IsNewNode="True">
                   <LayoutItem Id="AutoImportFrom" ViewItem="AutoImportFrom" Index="0" RelativeSize="37.2093023255814" IsNewNode="True" />
                   <LayoutItem Id="AutoImportRegex" ViewItem="AutoImportRegex" Index="1" RelativeSize="27.906976744186046" IsNewNode="True" />
                   <LayoutItem Id="AutoImportSearchType" ViewItem="AutoImportSearchType" Index="2" RelativeSize="34.883720930232556" IsNewNode="True" />
                 </LayoutGroup>
-                <LayoutGroup Id="Auto1ee1d623-d266-4e51-bf36-70f63320c967" ShowCaption="False" Caption="Auto1ee1d623-d266-4e51-bf36-70f63320c967(28)" Index="1" RelativeSize="50.079744816586924" IsNewNode="True">
+                <LayoutGroup Id="Auto49c06059-ed7d-4a3b-8db0-9c84678bc363" ShowCaption="False" Caption="Auto49c06059-ed7d-4a3b-8db0-9c84678bc363(30)" Index="1" RelativeSize="50" IsNewNode="True">
                   <LayoutItem Id="StopAutoImportOnFailure" ViewItem="StopAutoImportOnFailure" Index="0" RelativeSize="37.2093023255814" IsNewNode="True" />
                   <LayoutItem Id="AutoImportNotification" ViewItem="AutoImportNotification" Index="1" RelativeSize="62.7906976744186" IsNewNode="True" />
                 </LayoutGroup>
               </LayoutGroup>
-              <LayoutItem Id="AutoImportedFiles" ViewItem="AutoImportedFiles" Index="1" RelativeSize="8.2035306334371754" IsNewNode="True" />
-              <LayoutItem Id="ExcelColumnMaps" Index="2" RelativeSize="82.866043613707163" ViewItem="ExcelColumnMaps" Removed="True" />
+              <LayoutItem Id="Item3" Index="1" RelativeSize="89.77407847800238" IsNewNode="True" />
             </LayoutGroup>
             <LayoutGroup Id="FailedResultList.FailedResults" TextAlignMode="AlignWithChildren" Index="2">
-              <LayoutItem Id="FailedResultList.FailedResults" TextAlignMode="AutoSize" ViewItem="FailedResultList.FailedResults" />
+              <LayoutItem Id="FailedResultList.FailedResults" TextAlignMode="AutoSize" />
             </LayoutGroup>
           </TabbedGroup>
-          <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="1" RelativeSize="3.0917874396135265" SizeConstraintsType="Custom" MinSize="70, 32" MaxSize="0, 32" IsNewNode="True" />
+          <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="1" RelativeSize="3.5049288061336252" IsNewNode="True" />
         </LayoutGroup>
       </Layout>
     </DetailView>

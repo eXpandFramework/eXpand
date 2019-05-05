@@ -1,19 +1,31 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base.General;
-using Xpand.XAF.Modules.Reactive.Services.Controllers;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers {
+    public class DeferredDeletionService {
+        
+    }
     public class DeferredDeletionController:ObjectViewController<DetailView,ExcelImport> {
+        private readonly Subject<Unit> _terminator=new Subject<Unit>();
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            _terminator.OnNext(Unit.Default);
+        }
+
         protected override void OnActivated() {
             base.OnActivated();
-            Frame.GetController<ExcelImportDetailViewController>().BeginImport
+            var excelImportDetailViewController = Frame.GetController<ExcelImportDetailViewController>();
+            excelImportDetailViewController.BeginImport
+                .TakeUntil(_terminator)
                 .SelectMany(_ => _.progress.OfType<RequestImportTargetObject>().Where(_.excelImport))
                 .Select(_ => {
                     if (_.Args.objectType.GetTypeInfo().FindAttributes<DeferredDeletionAttribute>().Any()) {
@@ -28,7 +40,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers {
                     return _;
 
                 })
-                .TakeUntil(this.WhenDeactivated())
+
                 .Subscribe();
         }
     }
