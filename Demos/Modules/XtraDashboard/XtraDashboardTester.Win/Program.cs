@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using XtraDashboardTester.Module;
 
@@ -31,6 +32,7 @@ namespace XtraDashboardTester.Win {
             try {
                 winApplication.UseOldTemplates=false;
                 winApplication.ProjectSetup();
+                ModelApplicationBase.UseDefaultValuesCache = true;
                 winApplication.Setup();
                 winApplication.Start();
             } catch (Exception e) {
