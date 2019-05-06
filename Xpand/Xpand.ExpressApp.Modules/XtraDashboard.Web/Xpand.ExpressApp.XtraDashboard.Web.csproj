@@ -276,12 +276,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.21.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.21\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.22.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.22\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.22.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.22\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.23.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.23\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">
@@ -356,10 +356,10 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets'))" />
     <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props'))" />
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.20\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.20\build\Xpand.VersionConverter.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.21\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.21\build\Xpand.VersionConverter.targets'))" />
   </Target>
   <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets')" />
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.20\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.20\build\Xpand.VersionConverter.targets')" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.21\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.21\build\Xpand.VersionConverter.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
