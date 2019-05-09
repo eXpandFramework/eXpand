@@ -166,28 +166,28 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.AutoCommit, Version=0.0.23.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.AutoCommit.0.0.23\lib\net4.6.1\Xpand.XAF.Modules.AutoCommit.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.AutoCommit, Version=0.0.25.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.AutoCommit.0.0.25\lib\net4.6.1\Xpand.XAF.Modules.AutoCommit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.CloneModelView, Version=0.0.10.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneModelView.0.0.10\lib\net4.5.2\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.CloneModelView, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneModelView.0.0.12\lib\net4.5.2\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.MasterDetail, Version=0.0.23.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.MasterDetail.0.0.23\lib\net4.6.1\Xpand.XAF.Modules.MasterDetail.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.MasterDetail, Version=0.0.25.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.MasterDetail.0.0.25\lib\net4.6.1\Xpand.XAF.Modules.MasterDetail.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.22.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.22\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.24.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.24\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.23.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.23\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.25.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.25\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.ViewEditMode, Version=1.2.22.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ViewEditMode.1.2.22\lib\net4.6.1\Xpand.XAF.Modules.ViewEditMode.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.ViewEditMode, Version=1.2.24.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ViewEditMode.1.2.24\lib\net4.6.1\Xpand.XAF.Modules.ViewEditMode.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">
@@ -247,11 +247,11 @@
 if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.21\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.21\build\Xpand.VersionConverter.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.21\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.21\build\Xpand.VersionConverter.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.23\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.23\build\Xpand.VersionConverter.targets'))" />
   </Target>
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.23\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.23\build\Xpand.VersionConverter.targets')" />
 </Project>
