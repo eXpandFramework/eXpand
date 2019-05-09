@@ -422,10 +422,10 @@ namespace Xpand.VSIX.Options
             // 
             // buttonSearchProjects
             // 
-            this.buttonSearchProjects.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSearchProjects.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.buttonSearchProjects.Location = new System.Drawing.Point(3, 89);
             this.buttonSearchProjects.Name = "buttonSearchProjects";
-            this.buttonSearchProjects.Size = new System.Drawing.Size(670, 23);
+            this.buttonSearchProjects.Size = new System.Drawing.Size(670, 33);
             this.buttonSearchProjects.TabIndex = 18;
             this.buttonSearchProjects.Text = "Search Selected";
             this.buttonSearchProjects.UseVisualStyleBackColor = true;
