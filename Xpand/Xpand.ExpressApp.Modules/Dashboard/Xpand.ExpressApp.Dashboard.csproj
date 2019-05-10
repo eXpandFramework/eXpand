@@ -74,6 +74,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1, Version=19.1.2.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.ExpressApp.Dashboards.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Dashboards.v19.1.dll</HintPath>
@@ -211,7 +212,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\TestDashboradAssemblyBindingsController.cs" />
-    <Compile Include="DatabaseUpdate\Updater.cs" />
+    <Compile Include="DatabaseUpdate\DashboardObjectDataSourceUpdater.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\IXpandDashboardDataSourceFillService.cs" />

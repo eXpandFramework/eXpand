@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -32,6 +33,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     [NavigationItem("Reports")]
     [CloneModelView(CloneViewType.DetailView, DashboardViewerDetailView)]
     [CloneModelView(CloneViewType.DetailView, DashboardDesignerDetailView)]
+    [Appearance("Disable viewitems for existing dashboards",AppearanceItemType.ViewItem, nameof(IsNewObject)+"=False And "+nameof(Xml)+"!=null",Enabled = false,TargetItems = nameof(DashboardTypes)+","+nameof(Xml))]
     public class DashboardDefinition : XpandCustomObject, IDashboardDefinition,IDashboardData{
         public const string DashboardViewerDetailView = "DashboardDefinitionViewer_DetailView";
         public const string DashboardDesignerDetailView = "DashboardDesigner_DetailView";
@@ -104,6 +106,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         [DataSourceProperty("Types")]
         [ImmediatePostData]
         [VisibleInDetailView(false)]
+        [RuleRequiredField]
         public IList<ITypeWrapper> DashboardTypes => GetBindingList();
 
         BindingList<ITypeWrapper> GetBindingList() {

@@ -27,6 +27,7 @@ namespace Xpand.ExpressApp.Dashboard {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class DashboardModule : XpandModuleBase,IDashboardInteractionUser {
         public DashboardModule(){
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Validation.ValidationModule));
             RequiredModuleTypes.Add(typeof(ViewEditModeModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
