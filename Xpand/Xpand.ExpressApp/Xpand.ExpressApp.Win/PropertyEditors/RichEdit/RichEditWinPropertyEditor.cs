@@ -91,8 +91,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            if ((((IModelMemberViewItemRichEdit)Model).RichEdit.PrintXML && !string.IsNullOrEmpty((string)PropertyValue)))
-                PropertyValue = PropertyValue.ToString().XMLPrint();
+            if ((((IModelMemberViewItemRichEdit) Model).RichEdit.PrintXML &&
+                 !string.IsNullOrEmpty((string) PropertyValue))) {
+                MemberInfo.SetValue(CurrentObject, PropertyValue.ToString().XMLPrint());
+            }
         }
 
         void IPropertyEditor.SetValue(string value){

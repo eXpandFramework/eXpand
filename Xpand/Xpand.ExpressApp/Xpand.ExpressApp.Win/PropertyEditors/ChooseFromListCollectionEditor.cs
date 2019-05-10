@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         public ChooseFromListCollectionEditor(Type objectType, IModelMemberViewItem info)
             : base(objectType, info) {
-
+            CanUpdateControlEnabled = true;
         }
 
         #region Read what objects we've already go in out destination collection, and set the check state
@@ -37,8 +37,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         /// Read items in the destination list, and set the check value
         /// </summary>
         protected override void ReadValueCore() {
-            var destinationList = PropertyValue as IEnumerable;
-            if (destinationList != null) {
+            if (PropertyValue is IEnumerable destinationList) {
                 _comboControl.EditValueChanged -= ComboControlEditValueChanged;
                 PopulateCheckComboBox();
                 SetCheckedItems(destinationList);
@@ -226,6 +225,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         IList<string> IDependentPropertyEditor.MasterProperties => _lookupEditorHelper.MasterProperties;
         public void Setup(IObjectSpace objectSpace, XafApplication application){
             _lookupEditorHelper = new LookupEditorHelper(application,objectSpace, ObjectTypeInfo, Model);
+        }
+
+        protected override bool IsMemberSetterRequired() {
+            return false;
         }
     }
 }
