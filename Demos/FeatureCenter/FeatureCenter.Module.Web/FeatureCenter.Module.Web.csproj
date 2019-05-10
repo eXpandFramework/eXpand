@@ -204,8 +204,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.CloneModelView, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneModelView.0.0.12\lib\net4.5.2\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.CloneModelView, Version=0.0.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneModelView.0.0.11\lib\net4.5.2\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -298,7 +298,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.23\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.23\build\Xpand.VersionConverter.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.22\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.22\build\Xpand.VersionConverter.targets'))" />
   </Target>
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.23\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.23\build\Xpand.VersionConverter.targets')" />
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.22\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.22\build\Xpand.VersionConverter.targets')" />
 </Project>
