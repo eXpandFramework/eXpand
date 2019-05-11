@@ -152,8 +152,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.ModelViewInheritance, Version=1.1.19.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ModelViewInheritance.1.1.19\lib\net4.5.2\Xpand.XAF.Modules.ModelViewInheritance.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.ModelViewInheritance, Version=1.1.20.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ModelViewInheritance.1.1.20\lib\net4.5.2\Xpand.XAF.Modules.ModelViewInheritance.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">

@@ -328,8 +328,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.CloneModelView, Version=0.0.11.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneModelView.0.0.11\lib\net4.5.2\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.CloneModelView, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneModelView.0.0.12\lib\net4.5.2\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">

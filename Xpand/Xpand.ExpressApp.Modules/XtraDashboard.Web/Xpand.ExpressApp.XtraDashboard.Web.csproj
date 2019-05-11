@@ -276,12 +276,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.23.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.23\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.25.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.25\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.24.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.24\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation, Version=0.0.26.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.SuppressConfirmation.0.0.26\lib\net4.6.1\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">

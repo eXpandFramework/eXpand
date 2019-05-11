@@ -68,6 +68,9 @@
     <LangVersion>latest</LangVersion>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.CloneObject.v19.1">
       <SpecificVersion>False</SpecificVersion>
