@@ -35,6 +35,7 @@ namespace Xpand.ExpressApp.SystemModule {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.CloneMemberValue.CloneMemberValueModule));
         }
 
         static XpandSystemModule() {
