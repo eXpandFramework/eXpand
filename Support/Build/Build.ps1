@@ -28,13 +28,16 @@ Task InstallDX{
 }
 Task Init  {
     InvokeScript{
+        Write-Host "Remove directories"
         "$root\Xpand.dll","$root\Build","$root\Build\Temp","$root\Support\_third_party_assemblies\Packages\" | ForEach-Object{
             New-Item $_ -ItemType Directory -Force |Out-Null
         }
+        Write-Host "Copying 3rd party assemlies"
         Get-ChildItem "$root\support\_third_party_assemblies\" *.dll  | ForEach-Object{
             Copy-Item $_.FullName "$root\Xpand.dll\$($_.FileName)" -Force
         }
         
+        Write-Host "Update Code Analysis"
         Get-ChildItem "$root" "*.csproj" -Recurse|ForEach-Object {
             [xml]$xml=Get-Content $_.FullName
             $xml.Project.PropertyGroup|ForEach-Object{
