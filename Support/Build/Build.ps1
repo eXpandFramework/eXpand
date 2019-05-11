@@ -50,7 +50,8 @@ Task Init  {
                 }
             }
             $xml.Save($_.FullName)
-        }    
+        }
+        & "$PSScriptRoot\UpdateProjects.ps1"    
     }
 }
 

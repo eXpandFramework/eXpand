@@ -7,7 +7,7 @@ $group=$xml.Project.ItemGroup
 Write-Host "Starting nuget restore from $currentLocation\Restore-Nuget.ps1...." -f "Blue"
 
 $rootPath="$PSScriptRoot\..\.."
-Update-XHintPath -OutputPath "$rootPath\Xpand.Dll" -SourcesPath $rootPath -filter "DevExpress*"
+
 get-childitem $rootPath "packages.config" -Recurse|ForEach-Object{
     $xml=Get-Content $_.FullName 
     $xml.packages.Package.Id|Group-Object |Where-Object{$_.Count -gt 1}|ForEach-Object{
