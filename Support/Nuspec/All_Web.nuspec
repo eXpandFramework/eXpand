@@ -21,6 +21,7 @@
       <dependency id="eXpandDashboard" version="18.2.704.0" />
       <dependency id="eXpandExcelImporter" version="18.2.704.0" />
       <dependency id="eXpandFileAttachment" version="18.2.704.0" />
+      <dependency id="eXpandHtmlPropertyEditor" version="18.2.704.0" />
       <dependency id="eXpandIO" version="18.2.704.0" />
       <dependency id="eXpandLib" version="18.2.704.0" />
       <dependency id="eXpandLogic" version="18.2.704.0" />

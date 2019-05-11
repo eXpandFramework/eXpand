@@ -13,8 +13,9 @@ param(
 
 $xpandPosh=[PSCustomObject]@{
     Name = "XpandPosh"
-    Version = "1.15.0"
+    Version = "1.16.0"
 }
+
 & "$PSScriptRoot\Install-Module.ps1" -psObj $xpandPosh
 $psake=[PSCustomObject]@{
     Name = "psake"
