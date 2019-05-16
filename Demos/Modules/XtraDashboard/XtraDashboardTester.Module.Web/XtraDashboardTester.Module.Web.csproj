@@ -144,11 +144,11 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.XtraDashboard.Web">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.XtraDashboard.Web.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\Xpand.ExpressApp.XtraDashboard.Web.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

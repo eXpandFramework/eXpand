@@ -102,7 +102,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="Xpand.Utils">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />

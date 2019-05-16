@@ -156,7 +156,7 @@
     </Reference>
     <Reference Include="Xpand.ExpressApp.ExcelImporter.Win">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Xpand.DLL\Xpand.ExpressApp.ExcelImporter.Win.dll</HintPath>
+      <HintPath>..\..\..\..\Xpand.Dll\Xpand.ExpressApp.ExcelImporter.Win.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
