@@ -74,6 +74,10 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.26\lib\net4.6.1\0Harmony.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
@@ -123,8 +127,9 @@
     </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Design" />
-    <Reference Include="System.Reactive, Version=4.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.Reactive.4.1.3\lib\net46\System.Reactive.dll</HintPath>
+    <Reference Include="System.Reactive, Version=4.1.0.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.Reactive.4.1.5\lib\net46\System.Reactive.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
@@ -156,15 +161,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.CloneMemberValue, Version=1.2.25.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneMemberValue.1.2.25\lib\net4.6.1\Xpand.XAF.Modules.CloneMemberValue.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.CloneMemberValue, Version=1.2.26.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneMemberValue.1.2.26\lib\net4.6.1\Xpand.XAF.Modules.CloneMemberValue.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.XAF.Modules.CloneModelView, Version=0.0.12.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.CloneModelView.0.0.12\lib\net4.5.2\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.25.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.25\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.26.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.26\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <SpecificVersion>False</SpecificVersion>
