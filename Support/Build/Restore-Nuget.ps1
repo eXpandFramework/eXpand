@@ -37,6 +37,5 @@ $psObj=[PSCustomObject]@{
 } 
 $nuget=Get-XNugetPath
 $psObj.Projects|Invoke-XParallel -ActivityName "Restoring Nugets" -VariablesToImport @("psObj","nuget") -Script {
-    "Restoring $_ from $($psObj.packageSource) in $($psObj.PackagesDirectory)"
     & $nuget Restore $_ -PackagesDirectory $psObj.PackagesDirectory -source $psObj.packageSources
 }
