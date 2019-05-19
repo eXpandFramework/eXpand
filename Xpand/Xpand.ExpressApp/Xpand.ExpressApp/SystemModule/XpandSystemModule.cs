@@ -22,6 +22,9 @@ using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.Xpo;
+using Xpand.XAF.Modules.CloneMemberValue;
+using Xpand.XAF.Modules.CloneModelView;
+using Xpand.XAF.Modules.HideToolBar;
 using Xpand.Xpo.CustomFunctions;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
@@ -34,8 +37,9 @@ namespace Xpand.ExpressApp.SystemModule {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Security.SecurityModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
-            RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
-            RequiredModuleTypes.Add(typeof(XAF.Modules.CloneMemberValue.CloneMemberValueModule));
+            RequiredModuleTypes.Add(typeof(CloneModelViewModule));
+            RequiredModuleTypes.Add(typeof(CloneMemberValueModule));
+            RequiredModuleTypes.Add(typeof(HideToolBarModule));
         }
 
         static XpandSystemModule() {

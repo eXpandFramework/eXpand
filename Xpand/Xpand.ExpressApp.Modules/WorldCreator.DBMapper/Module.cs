@@ -5,6 +5,7 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.WorldCreator.DBMapper.BusinessObjects;
 using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.Persistent.Base.General;
+using Xpand.XAF.Modules.HideToolBar;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper {
     [ToolboxBitmap(typeof(WorldCreatorDBMapperModule))]
@@ -13,6 +14,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper {
     public sealed class WorldCreatorDBMapperModule : XpandModuleBase {
         public WorldCreatorDBMapperModule() {
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));
+            RequiredModuleTypes.Add(typeof(HideToolBarModule));
         }
 
         public override void Setup(ApplicationModulesManager moduleManager){

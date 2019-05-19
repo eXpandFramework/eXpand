@@ -100,7 +100,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(FocusControlByShortcutController),
                 typeof(GuessAutoFilterRowValuesFromFilterController),
                 typeof(HideGridPopUpMenuViewController),
-                typeof(HideToolBarController),
                 typeof(HighlightFocusedLayoutItemDetailViewController),
                 typeof(LockListEditorDataUpdatesController),
                 typeof(LoadWithWindowsController),

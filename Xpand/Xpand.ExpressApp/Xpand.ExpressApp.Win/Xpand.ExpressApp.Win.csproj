@@ -462,9 +462,6 @@
     <Compile Include="SystemModule\FocusControlByShortcutController.cs" />
     <Compile Include="SystemModule\GuessAutoFilterRowValuesFromFilterController.cs" />
     <Compile Include="SystemModule\HideGridPopUpMenuViewController.cs" />
-    <Compile Include="SystemModule\HideToolBarController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="SystemModule\HighlightFocusedLayoutItemDetailViewController.cs" />
     <Compile Include="SystemModule\LoadWithWindowsController.cs">
       <SubType>Component</SubType>

@@ -50,6 +50,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.Utils", "..\..\..\Xpa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.ExpressApp.Validation.Web", "..\..\..\Xpand\Xpand.ExpressApp.Modules\Validation.Web\Xpand.ExpressApp.Validation.Web.csproj", "{19906D61-635D-4FF3-954E-9158CC848E5E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.XAF.Modules.MasterDetail", "..\..\..\..\Packages\src\Modules\MasterDetail\Xpand.XAF.Modules.MasterDetail.csproj", "{79060F89-8991-476F-B536-6DCB5492178E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpand.XAF.Modules.Reactive", "..\..\..\..\Packages\src\Modules\Reactive\Xpand.XAF.Modules.Reactive.csproj", "{58399364-9ACA-429F-A276-7F01E9E61D7D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -238,6 +242,18 @@ Global
 		{19906D61-635D-4FF3-954E-9158CC848E5E}.RecompiledDxSources|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
 		{19906D61-635D-4FF3-954E-9158CC848E5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19906D61-635D-4FF3-954E-9158CC848E5E}.Test|Any CPU.ActiveCfg = RecompiledDxSources|Any CPU
+		{79060F89-8991-476F-B536-6DCB5492178E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79060F89-8991-476F-B536-6DCB5492178E}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{79060F89-8991-476F-B536-6DCB5492178E}.EasyTest|Any CPU.ActiveCfg = Release|Any CPU
+		{79060F89-8991-476F-B536-6DCB5492178E}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{79060F89-8991-476F-B536-6DCB5492178E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79060F89-8991-476F-B536-6DCB5492178E}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{58399364-9ACA-429F-A276-7F01E9E61D7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58399364-9ACA-429F-A276-7F01E9E61D7D}.DebugGAC|Any CPU.ActiveCfg = Debug|Any CPU
+		{58399364-9ACA-429F-A276-7F01E9E61D7D}.EasyTest|Any CPU.ActiveCfg = EasyTest|Any CPU
+		{58399364-9ACA-429F-A276-7F01E9E61D7D}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{58399364-9ACA-429F-A276-7F01E9E61D7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58399364-9ACA-429F-A276-7F01E9E61D7D}.Test|Any CPU.ActiveCfg = EasyTest|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

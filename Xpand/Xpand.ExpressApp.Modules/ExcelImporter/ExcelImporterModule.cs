@@ -15,6 +15,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.XAF.Modules.AutoCommit;
 using Xpand.XAF.Modules.CloneModelView;
+using Xpand.XAF.Modules.HideToolBar;
 using Xpand.XAF.Modules.MasterDetail;
 using Xpand.XAF.Modules.SuppressConfirmation;
 using Xpand.XAF.Modules.ViewEditMode;
@@ -27,16 +28,17 @@ namespace Xpand.ExpressApp.ExcelImporter {
 
         public ExcelImporterModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+            RequiredModuleTypes.Add(typeof(NotificationsModule));
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
-            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
-            RequiredModuleTypes.Add(typeof(NotificationsModule));
             RequiredModuleTypes.Add(typeof(MasterDetailModule));
             RequiredModuleTypes.Add(typeof(AutoCommitModule));
             RequiredModuleTypes.Add(typeof(ViewEditModeModule));
             RequiredModuleTypes.Add(typeof(SuppressConfirmationModule));
             RequiredModuleTypes.Add(typeof(CloneModelViewModule));
+            RequiredModuleTypes.Add(typeof(HideToolBarModule));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {

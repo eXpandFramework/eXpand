@@ -25,7 +25,7 @@
     <Contexts ActionContexts="True" />
   </Validation>
   <Views>
-    <DetailView Id="ExcelColumnMap_DetailView" AutoCommit="True" HideToolBar="True" ViewEditMode="Edit" SupressConfirmation="True">
+    <DetailView Id="ExcelColumnMap_DetailView" AutoCommit="True" ViewEditMode="Edit" SupressConfirmation="True">
       <HiddenActions>
         <ActionLink ActionId="New" IsNewNode="True" />
       </HiddenActions>

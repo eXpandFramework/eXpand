@@ -80,7 +80,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 typeof(PessimisticLockingViewController),
                 typeof(WebToolTipsController),
                 typeof(FilterByPropertyPathViewController),
-                typeof(HideToolBarController),
                 typeof(HighlightFocusedLayoutItemDetailViewController),
                 typeof(WebShortcutsController),
                 typeof(NestedListViewAutoCommitController),

@@ -53,7 +53,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     Map();
                 ObjectSpace.CommitChanges();
                 var parameters = e.ShowViewParameters;
-                MasterDetailService.MasterDetailDashboardViewItems
+                Application.WhenMasterDetailDashboardViewItems()
                     .FirstAsync()
                     .Select(tuple => {
                         var listView = ((ListView) tuple.listViewItem.InnerView);

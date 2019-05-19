@@ -61,6 +61,7 @@ namespace Xpand.VSIX.Commands {
                     throw new Exception("Nothing selected");
                 var references = uihSolutionExplorer.GetReferences( reference => true);
                 foreach (var reference in references){
+                    DTE.WriteToOutput($"Looking for ${reference.Path}");
                     var projectInfo = OptionClass.Instance.SourceCodeInfos.SelectMany(info => info.ProjectPaths)
                         .FirstOrDefault(
                             info =>
