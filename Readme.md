@@ -9,11 +9,14 @@
 |--------|--------
 [![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expandframework/expand/releases/latest) ![GitHub Releases](https://img.shields.io/github/downloads/expandframework/expand/latest/total.svg?label=Github) ![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2Flatest%3Fid%3DeXpand)|```nuget.exe list author:eXpandFramework``` 
 [![](https://img.shields.io/azure-devops/build/eXpandDevOps/dc0010e5-9ecf-45ac-b89d-2d51897f3855/32/master.svg?label=Lab%20build&style=flat)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=32&branchName=master)|```nuget.exe list Xpand -source https://xpandnugetserver.azurewebsites.net/nuget```
+
 <sub><sup>[How do I set up a package source in Visual Studio?](https://go.microsoft.com/fwlink/?linkid=698608), [Efficient package management](https://github.com/eXpandFramework/DevExpress.XAF/wiki/Efficient-package-management)<br>[How to Debug](https://github.com/eXpandFramework/eXpand/wiki/HowToDebug), [How to boost your DevExpress Debugging Experience](https://github.com/eXpandFramework/DevExpress.XAF/wiki/How-to-boost-your-DevExpress-Debugging-Experience)</sup></sub>
 
 
+[<img src="https://img.shields.io/badge/Search-ReleaseHistory-green.svg"/>](history.expandframework.com) [![Join the chat at https://gitter.im/xpandframework/community](https://badges.gitter.im/xpandframework/community.svg)](https://gitter.im/XpandFramework/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
-[![Join the chat at https://gitter.im/PowerShell/platyPS](https://badges.gitter.im/xpandframework/community.svg)](https://gitter.im/XpandFramework/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues) [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
+[![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues) [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
+
 
 
 # About
