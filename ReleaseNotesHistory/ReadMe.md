@@ -6,7 +6,7 @@ The [History.csv](https://github.com/eXpandFramework/eXpand/blob/master/ReleaseN
 
 For complex queries you can download the file and use the language/tools of your choice to query further.
 
-However you can spare your time and do complex queries with the [XpandPosh](xpandposh.expandframework.com) module and the `Find-XpandReleaseChange` Cmdlet.
+However you can spare your time and do complex queries with the [XpandPosh](http://xpandposh.expandframework.com) module and the [Get-XpandReleaseChange](https://github.com/eXpandFramework/XpandPosh/wiki/Get-XpandReleaseChange) Cmdlet.
 
 Let's say for example we want to see what changed for the `ExcelImporter` and `ModelDifference` labels between `18.1.4.2` and `19.1.201.0` releases and we we want to display the results in a browser so we  can navigate with hyperlinks which are not supported in the console.
 
