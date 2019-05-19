@@ -1,30 +1,199 @@
-"Release","Issues","Labels","Message","Sha"
-"18.2.704.0","373","ExcelImporter","Excelimporter: Support Deffered deletions","79bf159c22fe557fc2e0b246daaba82e6c0b4c1a"
-"18.2.704.0","373","ExcelImporter","Declare signals for BeginImprort and CustomTargetObject","212d16e53af6df0f357d2e60ef8eb511ee5f0dc5"
-"18.2.704.0","372, 370, 367","Standalone_XAF_Modules, SuppressConfirmation, AutoCommit, Standalone_XAF_Modules, MasterDetail, Standalone_XAF_Modules","Integrated MasterDetail, Autocommit, SupressConfirmation","c01bd70b656685380016699c01183dc805568d2e"
-"18.2.704.0","363","XtraDashboard","XtraDashboard: DashoardName is not localized","8a13613a949b63657bf3345894bdfa76b6dae339"
-"18.2.704.0","364","Standalone_XAF_Modules, VersionConverter","Update Nugets packages","2af2948ee52d8a26fb8d6fafa13d26110f9591c5"
-"18.2.704.0","361","System","Correct spelling","d41b141c6384fe86be06d68ce1d27c50e7249c60"
-"18.2.704.0","356","Standalone_XAF_Modules, ViewEditMode","Install ViewEditModeModule","2365926922ec1277e48354387cbd22e3198a832f"
-"18.2.704.0","359","Standalone_XAF_Modules","Update Nuget packages","5fa4112ac10ea9201e6ff4e814733c4511036dbc"
-"18.2.704.0","356","Standalone_XAF_Modules, ViewEditMode","Remove ViewEditModeController","a19d8ec7c95b2a7399f2f0c4cde93095894f4773"
-"18.2.704.0","361","System","ViewShortCutProccesor: remove XPO dependency","7248e228f315566252679c853228967a47151438"
-"18.2.704.0","354","Shared","MultiValueDictionary internal HashSet is not threadsafe","575710461f07aabb32205722be26049a647d6d98"
-"18.2.704.0","354","Shared","Make MultiValueDictionary to support 19.1 async loading","8838df6c258be424feb46f721c7f9a1e2a983df9"
-"18.2.704.0","352","ExcelImporter","ExcelImport: Wrong exception message when validating column mapping","bc683d150b840430217608c37c3fa6210db60435"
-"18.2.704.0","345","CloneMemberValue, Standalone_XAF_Modules, System","Removes CloneMemberValueViewController, use Xpand.XAF.Modules.CloneMemberValue package","33c8272f82f99f7c4fa0ea28f031fc1bff179570"
-"18.2.704.0","344","System.Win","EnumPropertyEditor throws when flags are used","7cf3b82676bbb6ad60fad73d14adf696e7c6e88b"
-"18.2.704.0","347","VSIX","VSIX-> VS Freeze when registering ToolboxItems","788babc9601fb463560990c3f46d91db46ee16d3"
-"19.1.201.0","387","CloneMemberValue, Standalone_XAF_Modules","Install CloneMemberValue in system module","7ca9f737af10008ce61e88b8115e8182d13dc9f9"
-"19.1.201.0","363","XtraDashboard","Force only one DashboardObjectDataSource","f653e4d5620d3e6db30d25a5a2816eb9d4bfb597"
-"19.1.201.0","363","XtraDashboard","Support IAppearenceEnabled for ChooseFromListCollectionEditor","cb7fda23860aa54764ec71970c1dfa1157cd7ade"
-"19.1.201.0","363","XtraDashboard","Dashboard: DisableMultiDashboardTypeController","0f1841fb1bbc4de50b06553f362e6bd58f0af31e"
-"19.1.201.0","380","Standalone_XAF_Modules, VersionConverter","Update Standalone nugets","e53afc6e0a41ed3f2be5fffbcd7e4c79a56062f9"
-"19.1.201.0","394, 391","Standalone_XAF_Modules, ExcelImporter, MasterDetail, Standalone_XAF_Modules","Update Standalone nugets","bc1fb84affe1b0285eba429cac582ccd5d74a3da"
-"19.1.201.0","391","ExcelImporter, MasterDetail, Standalone_XAF_Modules","ExcelImporter: Fix broken layout, display map grid in the main view and handle different the masterdetail synchronization per platform","dcd21041d623b2b5e4d7d1d8a2f69599bdd71ee4"
-"19.1.201.0","379","ExcelImporter","Excel ColumnMap Regex column throws","cf5eba2b515fd0816048c7b85935cb5902b2a1ed"
-"19.1.201.0","380","Standalone_XAF_Modules, VersionConverter","Update Xpand.XAF.Modules","0d8323bddc69e01ea0d5371311cd93c817a41be3"
-"19.1.201.0","379","ExcelImporter","ExcelImport: Add Column to display the Regex replacement for easy test in the UI","0ed6ce214696a9a9128ecd5de086785364614643"
-"19.1.201.0","386","CloneModelView, Standalone_XAF_Modules","Integrate CloneModelView","1a46c43fdb421d4d2bfb31d4e76b7e50563d3bf0"
-"19.1.201.0","380","Standalone_XAF_Modules, VersionConverter","Update XAF modules nugets","cec08edc5a3ae45a19d065dfe59d6f5b655a54ab"
-"19.1.201.0","378","ExcelImporter","Excel Importer - Win - Toast notification appears twice","810b7ddb6ad05132cfefeef4c1e202b570df3b13"
+Release,Issues,Labels,Message,Sha
+19.1.201.0,378,ExcelImporter,Excel Importer - Win - Toast notification appears twice,810b7ddb6ad05132cfefeef4c1e202b570df3b13
+19.1.201.0,380,"Standalone_XAF_Modules, VersionConverter",Update XAF modules nugets,cec08edc5a3ae45a19d065dfe59d6f5b655a54ab
+19.1.201.0,386,"CloneModelView, Standalone_XAF_Modules",Integrate CloneModelView,1a46c43fdb421d4d2bfb31d4e76b7e50563d3bf0
+19.1.201.0,379,ExcelImporter,ExcelImport: Add Column to display the Regex replacement for easy test in the UI,0ed6ce214696a9a9128ecd5de086785364614643
+19.1.201.0,380,"Standalone_XAF_Modules, VersionConverter",Update Xpand.XAF.Modules,0d8323bddc69e01ea0d5371311cd93c817a41be3
+19.1.201.0,379,ExcelImporter,Excel ColumnMap Regex column throws,cf5eba2b515fd0816048c7b85935cb5902b2a1ed
+19.1.201.0,391,"ExcelImporter, MasterDetail, Standalone_XAF_Modules","ExcelImporter: Fix broken layout, display map grid in the main view and handle different the masterdetail synchronization per platform",dcd21041d623b2b5e4d7d1d8a2f69599bdd71ee4
+19.1.201.0,"394, 391","ExcelImporter, MasterDetail, Standalone_XAF_Modules",Update Standalone nugets,bc1fb84affe1b0285eba429cac582ccd5d74a3da
+19.1.201.0,380,"Standalone_XAF_Modules, VersionConverter",Update Standalone nugets,e53afc6e0a41ed3f2be5fffbcd7e4c79a56062f9
+19.1.201.0,363,XtraDashboard,Dashboard: DisableMultiDashboardTypeController,0f1841fb1bbc4de50b06553f362e6bd58f0af31e
+19.1.201.0,363,XtraDashboard,Support IAppearenceEnabled for ChooseFromListCollectionEditor,cb7fda23860aa54764ec71970c1dfa1157cd7ade
+19.1.201.0,363,XtraDashboard,Force only one DashboardObjectDataSource,f653e4d5620d3e6db30d25a5a2816eb9d4bfb597
+19.1.201.0,387,"CloneMemberValue, Standalone_XAF_Modules",Install CloneMemberValue in system module,7ca9f737af10008ce61e88b8115e8182d13dc9f9
+18.2.704.0,347,VSIX,VSIX-> VS Freeze when registering ToolboxItems,788babc9601fb463560990c3f46d91db46ee16d3
+18.2.704.0,344,System.Win,EnumPropertyEditor throws when flags are used,7cf3b82676bbb6ad60fad73d14adf696e7c6e88b
+18.2.704.0,345,"CloneMemberValue, Standalone_XAF_Modules, System","Removes CloneMemberValueViewController, use Xpand.XAF.Modules.CloneMemberValue package",33c8272f82f99f7c4fa0ea28f031fc1bff179570
+18.2.704.0,352,ExcelImporter,ExcelImport: Wrong exception message when validating column mapping,bc683d150b840430217608c37c3fa6210db60435
+18.2.704.0,354,Shared,Make MultiValueDictionary to support 19.1 async loading,8838df6c258be424feb46f721c7f9a1e2a983df9
+18.2.704.0,354,Shared,MultiValueDictionary internal HashSet is not threadsafe,575710461f07aabb32205722be26049a647d6d98
+18.2.704.0,361,System,ViewShortCutProccesor: remove XPO dependency,7248e228f315566252679c853228967a47151438
+18.2.704.0,356,"Standalone_XAF_Modules, ViewEditMode",Remove ViewEditModeController,a19d8ec7c95b2a7399f2f0c4cde93095894f4773
+18.2.704.0,359,Standalone_XAF_Modules,Update Nuget packages,5fa4112ac10ea9201e6ff4e814733c4511036dbc
+18.2.704.0,356,"Standalone_XAF_Modules, ViewEditMode",Install ViewEditModeModule,2365926922ec1277e48354387cbd22e3198a832f
+18.2.704.0,361,System,Correct spelling,d41b141c6384fe86be06d68ce1d27c50e7249c60
+18.2.704.0,364,"Standalone_XAF_Modules, VersionConverter",Update Nugets packages,2af2948ee52d8a26fb8d6fafa13d26110f9591c5
+18.2.704.0,363,XtraDashboard,XtraDashboard: DashoardName is not localized,8a13613a949b63657bf3345894bdfa76b6dae339
+18.2.704.0,"372, 370, 367","AutoCommit, MasterDetail, Standalone_XAF_Modules, SuppressConfirmation","Integrated MasterDetail, Autocommit, SupressConfirmation",c01bd70b656685380016699c01183dc805568d2e
+18.2.704.0,373,ExcelImporter,Declare signals for BeginImprort and CustomTargetObject,212d16e53af6df0f357d2e60ef8eb511ee5f0dc5
+18.2.704.0,373,ExcelImporter,Excelimporter: Support Deffered deletions,79bf159c22fe557fc2e0b246daaba82e6c0b4c1a
+18.2.602.0,326,AnonymousMode,add tooltip parameter for login action when anonymous,b3cafcb27abffed1aa01c3a20676fe6b9372d492
+18.2.602.0,324,"Standalone_XAF_Modules, XtraDashboard",Dashboard viewere add FullScreen support,fd508c3ab0abc1fd12ec51e87ac69513bccdecc7
+18.2.602.0,330,System,FilterableEnumPropertyEditor Not Working,daf5773d4a3653a66b0d22a855af6aac2a05db8a
+18.2.602.0,324,"Standalone_XAF_Modules, XtraDashboard",Dashboard MobileLayoutEnabled model option and default to Always,f9239d0e99f9d9302e91b97114f0b225eade9ba7
+18.2.602.0,332,"Design-time, FileAttachment",FileDataPropertyEditor design time exception,4deb3e7c2e42fb35067b6721188ab3ed178df719
+18.2.602.0,334,Security,Login View items Relative size is too small,df81d06ce0b5e34b18f6384e3534e7089c15edbd
+18.2.602.0,334,Security,XpandLayoutManager is initialized incorrectly,c6d8a2b829980627917854d9fd7d6f5e6c940586
+18.2.602.0,336,System,ImmediatePostDataController throws when column has no model,ad1cefc1d806afbe2e67a944b3a3faac62acb74c
+18.2.602.0,330,System,Simplify EnumPropertyEditors and support additional attribute based filtering,ba1667db1c86dec222007caf2ffd5ed4667881a0
+18.2.602.0,"341, 330","System, System.Win",EnumPropertyEditor throws on ObjectSpaceOnCommitted,560cfc9184d3cf492f2991e7068488467cb2dc64
+18.2.602.0,340,ReportsV2,VS New-Project Wizard fails for WorldCretor due to Mono.Cecil,7cce694ac414461c79f5508a6713af14760510e8
+18.2.602.0,328,"help wanted, VSIX",VSIX support for VS 2019,bc5d36429258f63cad76f06c5eb8f989a6158003
+18.2.602.0,330,System,FilterableEnumPropertyEditor Not Working,27f37242c107e4821f1bbb9fd3c0df7f268ebe3b
+18.2.602.0,324,"Standalone_XAF_Modules, XtraDashboard",Dashboard MobileLayoutEnabled model option and default to Always,676a5256b92118c433f0e0ad047ad3f0faf70791
+18.2.602.0,332,"Design-time, FileAttachment",FileDataPropertyEditor design time exception,495344989ad0a018820a5f648374644e893dc259
+18.2.602.0,334,Security,Login View items Relative size is too small,b33cbd033e163c193834f86754c1d25cab4113bd
+18.2.602.0,334,Security,XpandLayoutManager is initialized incorrectly,c920590ac2973f0353d290b6e33c0bd9a6ade54b
+18.2.602.0,336,System,ImmediatePostDataController throws when column has no model,242b415ab6bb176e181f1b974e71bcb84d99cce1
+18.2.602.0,330,System,Simplify EnumPropertyEditors and support additional attribute based filtering,fdf30328d6aaff6ecd2883aa7fd388c6961b4d23
+18.2.602.0,"341, 330","System, System.Win",EnumPropertyEditor throws on ObjectSpaceOnCommitted and when Enum is a Flag,2b5b9d0ee41d8b7044e43caad0ca55257f715ef6
+18.2.602.0,340,ReportsV2,VS New-Project Wizard fails for WorldCretor due to Mono.Cecil,0de67b89ab282170911f92551310ea897fd46678
+18.2.602.0,328,"help wanted, VSIX",VSIX support for VS 2019,98a08a6a6f71f303e33847823530f8907cd482f0
+18.2.502.0,312,WorldCreator,WorldCreator fails when expand is on Revision -1,a1c1456d90f8ab8f3e835985309fed3eefc52192
+18.2.502.0,308,WorldCreator,Add MakeThreadSafe ObjectSpaceProvider extensions method,4182f990fb342c9a5803e43fc811469aaec03dfc
+18.2.502.0,303,XtraDashboard,it is not possible to view dashboards without filters,d6d7da6c9ce1c1e0090ee18011dc81c37f1d4330
+18.2.502.0,316,"Environment, VSIX",Xpand.VSIX Wizard Xpand.Dll path is wrong,7a64d20a057f3261773d985ce396444073f0c0e7
+18.2.502.0,317,ExcelImporter,ExcelImporter does not delegate exceptions to the UI and does not validate the SheetName before import,f7b4a3a3c0f9bda5745e7874cd558a1b36869032
+18.2.502.0,299,WorldCreator,WorldCreator improve load speed when many clients,09ae7d25df5650adee9927289ae381d5baae4d13
+18.2.502.0,310,Security,Build-in XpandObjectSpaceProvider IntegratedMode fails,dcfbe28cfa0df5ae10845bd9066d09e1b0f4b797
+18.2.502.0,299,WorldCreator,WorldCreator GeneratedCode Db Column Size should be max,aff0881ebc91f7ff477cc8815b1f6e100a53a02c
+18.2.404,300,Standalone_XAF_Modules,Update issue templates,292379f9782c1f4b54f11ed7aefdeabd58fcaa5d
+18.2.404,300,Standalone_XAF_Modules,Update issue templates,f0b01bcf8e241ece2f60bfa1a901b17df5575f73
+18.2.404,300,Standalone_XAF_Modules,Update issue templates,bb4df11ec0c69b255345c71c6da1b3dcf0b4b92b
+18.2.404,300,Standalone_XAF_Modules,Update issue templates,c0ebf8e8f5e1460de3731d87e800bc0a40f835d5
+18.2.404,300,Standalone_XAF_Modules,Update issue templates,8d8b156302dd753677974781005e46d8b4cfe82a
+18.2.404,300,Standalone_XAF_Modules,Update issue templates,d2b24ec439fe4c57e519bb8d420bcffa595d0405
+18.2.404,298,JobScheduler,ApplicationBuilder throws when used with external application,4f0fbeb734bd55ea6f1daa9944a67fc50a075493
+18.2.404,304,ModelViewInheritance,Remove ModelViewInheritance dependency where possible,457a1b60193e50af8171056ef7b0fea0e657e819
+18.2.404,305,Environment,Support Update,6e9a4d37703712ee201b56ec2353f36a19f4eccc
+18.2.404,305,Environment,DevExpress HintPath should point to Xpand.Dll folder,6e1dcd360bfea7fce9c7f957c8c4f518caa3e8dc
+18.2.404,305,Environment,DevExpress HintPath should point to Xpand.Dll folder,6a2ae13bb452198e8534d79ab93252d9d1eac373
+18.2.404,305,Environment,DevExpress HintPath should point to Xpand.Dll folder,0e1e2c5262eaa9c59df3feebeecc1244c9fb134e
+18.2.404,305,Environment,Support Update,b86867d3e348cd3a676c729fb351d14c0224500a
+18.2.403,283,"ModelViewInheritance, Standalone_XAF_Modules",Fix ModelViewIneritance spelling,89c27b1766011e6165de1f7ecdf55b44672d78bc
+18.2.403,"292, 291","ModelViewInheritance, Standalone_XAF_Modules",DevExpress.XAF.Modules nugets update,de6603ec9ae36447222f48df65720b4e02779f59
+18.2.402,"285, 284",ExcelImporter,XpandFileData throws cause fody internal method naming changed,190629ef4cf07ff9e7c2704cac493db4444d9388
+18.2.300.2,248,ExcelImporter,Apply ExcelColumnMap AbstractCriteria to creation strategies only,c7e6bbd2d1b63487e807ba770e8b63e386363844
+18.2.300.2,242,ExcelImporter,ExcelImporter layout re-design,93add328d811f762cb1911c413bffeb8138420c9
+18.2.300.2,250,ExcelImporter,"ExcelImporter: Performance, do not get full dataset when mapping",ff51cc86d4963459f5818320eb588587264d13d0
+18.2.300.2,251,ExcelImporter,ExcelImporter: Avoid reselecting file in when possible (disk lookup),8c8f3c80ef0ccecb4d75afc2a68ab39d5d992c21
+18.2.300.2,239,XtraDashboard,Dashboard service creation fails when both modules,8837da2110fb23048228580797f725b30c78fea0
+18.2.300.2,242,ExcelImporter,ExcelImporter layout re-design,c1404dc686249528e05b46d098bdffe96cafca98
+18.2.300.2,239,XtraDashboard,Dashboard service creation fails when both modules,0f5a449de3e698101b1e5a20ee26e85f427fa90f
+18.2.300.2,242,ExcelImporter,ExcelImporter layout re-design,10b49f5b1f6b1d8de9d5926f280896db93ace596
+18.2.300.2,253,ExcelImporter,ExcelImport ColumnMap view displayes all records,b84ff96932f8b2ce85d73b9958726de91edd1da0
+18.2.300.2,259,"Shared, XPO",UpdatingStore  InMemoryDataStore support for CachedDataStoreprovider,66d63d4a626009cd440d3c2905b03af164cb0999
+18.2.300.2,242,ExcelImporter,ExcelImporter does not use mapped types when querying,e240e60f7397d5535c20b2dc41b557a56c272072
+18.2.300.2,"260, 258",Shared,XpandNavigationItemAttribute support for Caption,16223ee4e782a0c40148ae265cb85e486f61d3fa
+18.2.300.2,261,"Migrations, Modeldifference",ModelDifferenceModule fails to upgrade when a Providerr with no connection is used,2b2fb01bc8318da69656da1bf935a1e8d2cc3ffb
+18.2.300.2,"260, 258",Shared,"""XpandNavigationItemAttribute support for Caption  """,d6dd415f428dc4c6fc25d74c43784368323c9fb2
+18.2.300.2,262,"AnonymousMode, Security","Web, Anonymous mode - Login menu does not show",dd65d89195e10d8102454b18f3a81fb269be4c35
+18.2.300.2,186,"ModelViewInheritance, Standalone_XAF_Modules",Model View inheritance inserts layers into wrong locations,48820e3c84bcabd83ed64e61751b57546a822ad2
+18.2.300.2,265,Environment,Build script fail if required VS workloads not installed,629e8d2b709f2c95e42fbeca1381fa96578fdf6a
+18.2.300.2,"263, 186","ModelViewInheritance, Standalone_XAF_Modules",Model View inheritance inserts layers into wrong locations,446695417692855aae09127a3419feb31bd90058
+18.2.300.2,268,Dashboard,Dashboard MasterDetailController might throw when OptimizedControllersCreation,8af6ce5c3b1fbeec333196703a134ff0e4f0e27e
+18.2.300.2,"271, 263, 186","ModelViewInheritance, Standalone_XAF_Modules",InvalidOperationException when Cache enabled,c7642c9a5177ab4120b81ddfcc098020606f1eb4
+18.2.300.2,272,System.Web,Listview is opened as popup when clicking on app logo (web version),bb1af83b766333e99a7aca002108eaf6000bb9be
+18.2.300.2,275,ExcelImporter,DashboardModule remove security dependency,a0d8d7b9b96230a6de131d61761125da632629e9
+18.2.300.2,275,ExcelImporter,Excelimporter key member validation fails,d1f077a29aa69ffd5aa3eeb4a1e44ab15a8c983b
+18.2.300.2,275,ExcelImporter,PermissionProviderStorage throws if SecuredObjectSpaceProvider is used with ExcelImporter module,2f388e9593652286869322a98f8ff38bbd4b2591
+18.2.300.2,277,"ModelViewInheritance, Standalone_XAF_Modules",Integrate ModelViewInheritance module,18c34a855d27a4d09d1eb6fc64eb1d51d22a308f
+18.2.300.0,"231, 230",ExcelImporter,Validate Excel column Map against the file before import allowing different excel files for the same map,84baf39c2b323b0802d154331d7be33f7c9b4cce
+18.2.300.0,232,ExcelImporter,ExcelImporter: fails when DefaultProperty is calculated,8c6be8df03379af3d538f0a8858b66bc3bf3e427
+18.2.300.0,229,ExcelImporter,ExcelImporter ColumnMap friendly names for nullable properties,cfe2d10369a916e8062a7dd3a8e2673626ec9223
+18.2.300.0,235,"SequenceGenerator, Shared","SequenceGenerator initialization model flag is not possible, moved to tthe app.config",f85cc4cb90f0424aaebf9357db5dbec971fe3ecd
+18.2.300.0,234,"MiddleTier, Modeldifference, RuntimeMembers, Workflow",ModelDifferenceModule: preconfigure loading models list on server scenarios,ca7e0bdfdefdbfcc6af2d896b42aa0d7b9b383b5
+18.2.300.0,236,Shared,XpandModuleBase cleanup when recreating the same app on the same domain (xunit inlinedata test support),6a5c4890716642e6394abe14835ab1603f1c65a2
+18.2.300.0,234,"MiddleTier, Modeldifference, RuntimeMembers, Workflow",ModelDifferenceModule: preconfigure loading models list on server scenarios,07124ac210ee8d87c6e038584068d0c3b891057b
+18.2.300.0,238,Security,ChooseDatabaseAtLogon lists DBServers as protected.,1deaab0466963a4396165b6aee35e04e70cea2c8
+18.2.300.0,239,XtraDashboard,Allow XtraDashboard module together with XAF native dashboard module.,c279dee3a6c0baffa228e377fa5b14b0c27605c0
+18.2.300.0,237,XtraDashboard,Cannot open nested property after dropping a cube into the designer,840596fa8e4c51b37638d23b28dc70bd83f67ebe
+18.2.300.0,229,ExcelImporter,ExcelImporter ColumnMap friendly names for nullable properties,3362bc88ebbefc7df3cb88c505e2335909c84e63
+18.2.300.0,245,VSIX,VSIX swallow exception for invalid projects,5e424603bb23dc3f6f432c7ea1f440cea4de656a
+18.1.604.0,183,"ReportsV2, Security",Security throws when ASPxReports preview,78fe63e72d1b4667892352867500562551b74ce8
+18.1.604.0,187,ExcelImporter,Certain methods do not respect ExcelImportKeyAttribute,fffef6de1efb279e51fae2dca624267daba681ee
+18.1.604.0,"187, 185",ExcelImporter,ExcelImport: Additional import strategies for persistent object types,b55414fa52f42081974e1f6803348e3a4a6fd72a
+18.1.604.0,"185, 179, 176",ExcelImporter,UI Notifications on the Import Progress,b4460e73b77dc62da1245e812356d31936a89a6c
+18.1.604.0,195,"System.Web, System.Win",Add Win Web ProgressPropertyEditors,f1003d0aac4f5377e945be4fbb153002c9e43261
+18.1.604.0,198,System.Web,OpendetailViewInNewTab loads faulty,39c17b67f25144a585855455e215b49461e5cdfe
+18.1.604.0,199,System,PreventDataLoading is buggy when SearchFullText action executed,0bb04696ae3def1f58e8f948bfd0035a0ada82f1
+18.1.604.0,207,Shared,Model option to disable Sequence Generator,a761c32c4959289542b10798e647edf73f8fe714
+18.1.604.0,208,Modeldifference,Remove SequenceGenerator ModelDifferenceModule dependency,366974d4466479a7a653a69829e779fb362a0d60
+18.1.604.0,207,Shared,Model option to disable Sequence Generator,1d7f7f3ecd6f0672f7883a6738ff424a5b4e561f
+18.1.604.0,209,System.Web,Model option to maximize popup windows in the new Web UI,9bd60b57de15dbbf5d91cc94c44007f72dc90999
+18.1.604.0,210,System.Web,ASPxDateEditModelAdapter throws for dashboardview,5b794150d8eac620e33564493c1ac7cc130f3f79
+18.1.604.0,211,Dashboard,AutoCommitB4CurrentObjectChanged for Dashboard Master-Detail,527cecac2dc3ef499a00076902aadd54699969d6
+18.1.604.0,213,System.Win,ComboItemsBuilders throws when customize the view layout,99cd9e0ebc3d71fad645ed72cf60b0224eb3b782
+18.1.604.0,216,"Dashboard, MasterDetail",match dashboard master detail process selected item behavior for both Win.Web,e695ef53058f4656b0f4b3c368dff2c925346794
+18.1.604.0,204,ExcelImporter,Option to configure persistent types creation,94c8a0a2e591db8f573351350d15914ddbd6a1d9
+18.1.604.0,217,System.Web,NullReference in certain cases in OnErrorAutoScrollPageToTopController,49b66b4f113ab5393fb4135f618c301639ad2663
+18.1.604.0,218,System.Web,AutoCommitController should commit onblur instead of mouseleave,5d0d83406655fe94041b9fec23741e1e8e592a1f
+18.1.604.0,219,System.Win,Model option to configure Popup Windows WindowState,bcf3f2888b8ef3d4c3e26513db6cdc01084a9214
+18.1.604.0,220,ExcelImporter,Support FailNotFound Strategy for root type,11edc3c712fa5d6717bff68323752ec9aedc9197
+18.1.604.0,204,ExcelImporter,ExcelImporter does not report failures,132837ac8559a1603e740bc97ced3ed4384f4a8f
+18.1.604.0,221,ExcelImporter,Remove meaningless PersistentTypesImportStrategy.SkipOrCreate,9787c0116a6a11f16e3335ca48c57352b9023a37
+18.1.604.0,222,ExcelImporter,Option to control the Excel import when cells are empty in combination to strategies,2de4f89c7920614d5c1a37bf7c4de00d0e3b1b82
+18.1.604.0,219,System.Win,Model option to configure Popup Windows WindowState,52e46df6dc59fef00bcd2c85bef63cd40cdce267
+18.1.604.0,223,System.Web,Web:Nested listviews dont open detail views,a257e45a152179995ae95d42b459e14d3fc9250d
+18.1.604.0,224,Shared,SequenceGenerator fails when is used as a service,6dcaee44ba8dae55b9d9d38a3b2ad54e1d693763
+18.1.604.0,208,Modeldifference,Remove SequenceGenerator ModelDifferenceModule dependency,243849bd49eaba61e59864dc6f30ed6adbf57394
+18.1.604.0,225,System.Web,ASPxLabelPropertyEditor not displaying value with numeric type in edit mode,107bc82b1bdf0d00ae427f681a17d7b0c8839903
+18.1.604.0,"212, 204",ExcelImporter,ExcelImporter: Option to configure persistent types creation,c7e8030a48a6a74d0e28968fd708ce3b6b4b5951
+18.1.604.0,226,"ExcelImporter, Shared",Ignore errors of AllTypesLocalizedClassInfoTypeConverter,34fcb98c9f63075e5d136d0e9667b2d5e3afda97
+18.1.604.0,"227, 204",ExcelImporter,Option to configure persistent types creation,61de01fbf0fc737d2481fa6fea4f9afa1f3b0c7a
+18.1.604.0,207,Shared,Model option to disable Sequence Generator,9759c7390eae6fd70c2879a2265d8b148ce11b59
+18.1.604.0,208,Modeldifference,Remove SequenceGenerator ModelDifferenceModule dependency,82c34e6a098f465a146e0948375386276c10b79d
+18.1.604.0,209,System.Web,Model option to maximize popup windows in the new Web UI,a4907142ab79f53123081a1bdfb294f6f8e1ea6a
+18.1.604.0,210,System.Web,ASPxDateEditModelAdapter throws for dashboardview,afbb2cc84c28d6da7dd3587a33efeb1f73d7523e
+18.1.604.0,211,Dashboard,AutoCommitB4CurrentObjectChanged for Dashboard Master-Detail,64b6479e0ae2482955b8357077564bb7a7567473
+18.1.604.0,213,System.Win,ComboItemsBuilders throws when customize the view layout,311b187f2e847f21c5dfe96eb92026b92da17a88
+18.1.604.0,216,"Dashboard, MasterDetail",match dashboard master detail process selected item behavior for both Win.Web,80de561ad3b4c68284786690d6650310323ccf25
+18.1.604.0,"227, 212, 204",ExcelImporter,ExcelImporter: Option to configure persistent types creation,361084afa579cb44cc7245d1d1d91dd4c7ecb2d0
+18.1.604.0,217,System.Web,NullReference in certain cases in OnErrorAutoScrollPageToTopController,616725007515921cd62505b50e1b9b378260fa53
+18.1.604.0,218,System.Web,AutoCommitController should commit onblur instead of mouseleave,d301280bc322f1c5cb8e54f812a4952183ba80c6
+18.1.604.0,219,System.Win,Model option to configure Popup Windows WindowState,fc67a1dead367b2c55e60865b827ef0ada5613c7
+18.1.604.0,220,ExcelImporter,Support FailNotFound Strategy for root type,9a48b647120fe7db436c3fb00ec427d878de7f78
+18.1.604.0,221,ExcelImporter,Remove meaningless PersistentTypesImportStrategy.SkipOrCreate,23fc7d8305b2aacd18d603c6fb02fe1185f27a3d
+18.1.604.0,222,ExcelImporter,Option to control the Excel import when cells are empty in combination to strategies,5f1e7f517340f0194901eca3ff233ca808301666
+18.1.604.0,223,System.Web,Web:Nested listviews dont open detail views,c5aa66e431c6236e882ad4c0220b3cb247d2acdf
+18.1.604.0,224,Shared,SequenceGenerator fails when is used as a service,3f6782a920b9b82e31a064e795c9f6bb9de1c21d
+18.1.604.0,225,System.Web,ASPxLabelPropertyEditor not displaying value with numeric type in edit mode,34a36b802201d51fbb20a4bbcba6e83dbb565619
+18.1.604.0,226,"ExcelImporter, Shared",Ignore errors of AllTypesLocalizedClassInfoTypeConverter,03562112fea76cb84e1612a9c8aae47a64cddce1
+18.1.6.2,155,MiddleTier,Disable SequenceGenerator for non supported providers,472228b997cd2a2ebcd74a9a74431be74717acec
+18.1.6.2,151,"MiddleTier, Samples",Middle Tier demo fails with ExclusiveReadWrite VistaDB5,ec9416b44d49c5c676077153df48fe7ea52965fa
+18.1.6.2,156,IO,IO module Zip support for import/export,17ff619855a59d4d1714a5e55a3650fbe287cfae
+18.1.6.2,163,System.Web,StringLookupPropertyEditor initiates postbacks instead of callbacks,773e2229359affebaaafd059fb4207a5fd19ddd7
+18.1.6.2,164,System.Win,Model options for controlling current process priority,2f975cac9270ee6fb4d47c053c21f4ad9f05d580
+18.1.6.2,159,ExcelImporter,ExcelImporter support zip files,bdfc627e6ece4db16c61890900d5c04016e9db05
+18.1.6.2,157,Shared,Descendants providers should be supported by default,de61088a9bcaff69851edf89828deb880b29c6ff
+18.1.6.2,165,IO,IO error logging fails,b8e409bcc7bb5cda4eb655c9988adf0da037eaec
+18.1.6.2,160,XtraDashboard,Xtradashboard detailview fails when IsDelayedDetailViewDataLoadingEnabled,dba411776353ede4597862d2759f5f57da5063c5
+18.1.6.2,158,XpandModelEditor,Xpand.ExpressApp.ModelEditor fails with XAF 18.1.6,89bd2fbe572cad10db44c3fbb84d2db7c27cd4a3
+18.1.6.2,166,Shared,Remove unused ChangedProperties from XpandCustomObject,938d28bc0421e0c23f3e544afe7e7c7188f959a1
+18.1.6.2,153,IO,Change assemblyInfo for nightly builds,ab973cfe8059c5f8675b7f9279fe333522f3ec7e
+18.1.6.2,172,ExcelImporter,ExcelImporter add extra attribute for reference property lookup,9015ba5edb3850c112fb9a16f9b442d09584b225
+18.1.6.2,177,IO,IO -> Disable IOAction if user role does not have SerializationConfigurationGroup  read permission,18fce70793578e36b409897cd2136822e7f1b612
+18.1.6.2,181,ExcelImporter,ExcelImported: ObjectSpace marked modified on object loading,637c3ee978340c5aa61a17dcf6b7c96a78f84468
+18.1.6.2,182,Shared,InMemoryDataStore support for CachedDataStoreprovider,b1c7e298e771f07503a2ca8306038d1b0b3f5670
+18.1.6.1,141,Shared,Remove IEnumerable.TakeLast Close,0238fd15d3e5835ed14a3607216be65cca855b44
+18.1.6.1,142,"ModelViewInheritance, Shared",ModelMergedDifferencesAttribute is not applied close,3c45bf17da44fee53ae77ca051b79bfbc9e38dec
+18.1.6.1,143,System,TopReturnnedRecords for nested listviews,489586e517b9de811e6d2819c7ad44603b3d54ad
+18.1.6.1,145,"Samples, XtraDashboard",Dashboard Export action is not functional,2cbca999c8038b1c1cc305f3dc1f9de0f7e529eb
+18.1.6.1,144,Shared,Extension method to show Win10 Toast Notification,7e303d9d1140abd751b493ed165aad6150f7bb75
+18.1.6.1,149,ExcelImporter,"ExcelImporter->ColumnMaps cleared when importing an object with a ""Type"" property",9189ddafc175b6e3928e021d6578e59e4c3ed797
+18.1.6.1,148,ExcelImporter,ExcelImporter on web not proposing property names until the ExcelImport is changed,7b3138427f9d3dc751c27d9ae690cf8c1cc60c66
+18.1.6.1,150,System.Web,Hidetoolbar option hides every nested Listview,cdcc1f0f617da1d6e7f1e5ef16abe6c993003248
+18.1.6.1,151,"MiddleTier, Samples",WCF fails when VistaDB,05fd33cdcec59c481528e769e516686068a06186
+18.1.6.1,152,XtraDashboard,Dashboard loading error after BO module version update,9d97fee4fa69b8d797bb91f5452f04cb57ce37e3
+18.1.6.1,153,IO,IO: reduce output size,5a37c8afc048891b03d76dab79f0697ce3f91bd2
+18.1.6.1,151,"MiddleTier, Samples",Demo Vistadb on MiddleTier,73b31df105aad5684f6e1637d020f69f1b9ea555
+18.1.5.4,"121, 12, 1",WorldCreator,WorldCreator should not CheckCompatibility when client and disable SequenceGenerator,9e164569338165802d3fca57b28e6fbaf13f27d2
+18.1.5.4,"135, 134, 13, 1","Deployment, Nuget, WorldCreator",Problems with Nuget packages due to cs-script integration,d7cbe0218de5e857e13a3c6e950aee67d7ab387e
+18.1.5.4,"137, 13, 1",mapview,: Escape characters in javascript strings,6801deef4ac2beb4e639bba8d043705297db9a2b
+18.1.5.4,"128, 12, 1","Samples, Workflow, WorldCreator",Workflow module support multi properties in ObjectChangeWorkflow,b0f9c543ba5ede9a79606b8459e1f69e778560ee
+18.1.5.4,"135, 13, 1","Deployment, WorldCreator",Replace assembly.gettypes with Mono calls to allow .NET type lazy loading,a901c98ae9bcd26c07778358f99bc7f7eb655fc8
+18.1.5.4,"140, 135, 14, 13, 1","Deployment, Installation, WorldCreator",Remove Cs-Script dependency,08c66f809ee6818984f54352121cb85b1cb11143
+18.1.4.2,"121, 12, 1",WorldCreator,use WorldCreator under remoting scenario,324bebcaa9c7825b0924b1f16503f5bee4e41e15
+18.1.4.2,"126, 12, 1",WorldCreator,WorldCreatorObjectProvider should not use main app databaseupdaters,b799058ec7501745b19e1928d562a7a4628ad8d2
+18.1.4.2,"130, 13, 1",System,Cannot override the WebLayoutManager,9643d4454196a6814b8be2f2b3e73c5c464762a5
