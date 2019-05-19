@@ -13,7 +13,7 @@
 <sub><sup>[How do I set up a package source in Visual Studio?](https://go.microsoft.com/fwlink/?linkid=698608), [Efficient package management](https://github.com/eXpandFramework/DevExpress.XAF/wiki/Efficient-package-management)<br>[How to Debug](https://github.com/eXpandFramework/eXpand/wiki/HowToDebug), [How to boost your DevExpress Debugging Experience](https://github.com/eXpandFramework/DevExpress.XAF/wiki/How-to-boost-your-DevExpress-Debugging-Experience)</sup></sub>
 
 
-[<img src="https://img.shields.io/badge/Search-ReleaseHistory-green.svg"/>](history.expandframework.com) [![Join the chat at https://gitter.im/xpandframework/community](https://badges.gitter.im/xpandframework/community.svg)](https://gitter.im/XpandFramework/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
+[<img src="https://img.shields.io/badge/Search-ReleaseHistory-green.svg"/>](https://github.com/eXpandFramework/eXpand/tree/master/ReleaseNotesHistory) [![Join the chat at https://gitter.im/xpandframework/community](https://badges.gitter.im/xpandframework/community.svg)](https://gitter.im/XpandFramework/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
 [![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues) [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
 
