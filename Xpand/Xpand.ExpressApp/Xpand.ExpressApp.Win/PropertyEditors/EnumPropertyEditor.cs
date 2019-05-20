@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -72,9 +72,13 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private void FilterRepositoryItem(RepositoryItem repositoryItem) {
-            var controlItems = ((IEnumerable<object>) (repositoryItem is RepositoryItemEnumEdit edit
-                ? (object) edit.Items
-                : ((RepositoryItemCheckedComboBoxEdit) repositoryItem).Items)).ToList();
+            IList controlItems;
+            if (repositoryItem is RepositoryItemEnumEdit edit) {
+                controlItems = edit.Items;
+            }
+            else {
+                controlItems = ((RepositoryItemCheckedComboBoxEdit) repositoryItem).Items;
+            }
             if (_startItems!=null) {
                 this.SetupDataSource(_startItems,controlItems, item => item.Value);
             }

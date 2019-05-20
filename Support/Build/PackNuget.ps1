@@ -9,7 +9,7 @@ $matches = Get-Content $assemblyInfo -ErrorAction Stop | Select-String 'public c
 $XpandVersion=$matches[0].Matches.Groups[1].Value 
 $nupkgPath= "$basePath\Build\Nuget"
 New-Item $nupkgPath -ItemType Directory 
-New-Item "$basePath\build\temp" -ItemType Directory 
+
 Get-ChildItem "$basePath\Xpand.DLL" -Include @('*.pdb','*.dll')| Copy-Item -Destination "$basePath\build\temp\$_" 
 $nuspecFiles=Get-ChildItem -Path $nuspecFiles -Filter *.nuspec
 $psObj = [PSCustomObject]@{
