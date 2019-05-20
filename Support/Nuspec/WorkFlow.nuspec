@@ -19,7 +19,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Workflow.dll" target="lib\net40\Xpand.ExpressApp.Workflow.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Workflow.pdb" target="lib\net40\Xpand.ExpressApp.Workflow.pdb" />
+    <file src="Xpand.ExpressApp.Workflow.dll" target="lib\net40\Xpand.ExpressApp.Workflow.dll" />
+    <file src="Xpand.ExpressApp.Workflow.pdb" target="lib\net40\Xpand.ExpressApp.Workflow.pdb" />
   </files>
 </package>

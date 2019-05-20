@@ -26,7 +26,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ModelArtifactState.dll" target="lib\net40\Xpand.ExpressApp.ModelArtifactState.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ModelArtifactState.pdb" target="lib\net40\Xpand.ExpressApp.ModelArtifactState.pdb" />
+    <file src="Xpand.ExpressApp.ModelArtifactState.dll" target="lib\net40\Xpand.ExpressApp.ModelArtifactState.dll" />
+    <file src="Xpand.ExpressApp.ModelArtifactState.pdb" target="lib\net40\Xpand.ExpressApp.ModelArtifactState.pdb" />
   </files>
 </package>

@@ -20,7 +20,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Web.dll" target="lib\net40\Xpand.ExpressApp.Web.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Web.pdb" target="lib\net40\Xpand.ExpressApp.Web.pdb" />
+    <file src="Xpand.ExpressApp.Web.dll" target="lib\net40\Xpand.ExpressApp.Web.dll" />
+    <file src="Xpand.ExpressApp.Web.pdb" target="lib\net40\Xpand.ExpressApp.Web.pdb" />
   </files>
 </package>

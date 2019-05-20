@@ -19,7 +19,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Validation.Web.dll" target="lib\net40\Xpand.ExpressApp.Validation.Web.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Validation.Web.pdb" target="lib\net40\Xpand.ExpressApp.Validation.Web.pdb" />
+    <file src="Xpand.ExpressApp.Validation.Web.dll" target="lib\net40\Xpand.ExpressApp.Validation.Web.dll" />
+    <file src="Xpand.ExpressApp.Validation.Web.pdb" target="lib\net40\Xpand.ExpressApp.Validation.Web.pdb" />
   </files>
 </package>

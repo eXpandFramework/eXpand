@@ -22,7 +22,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\net40\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.JobScheduler.Jobs.pdb" target="lib\net40\Xpand.ExpressApp.JobScheduler.Jobs.pdb" />
+    <file src="Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\net40\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
+    <file src="Xpand.ExpressApp.JobScheduler.Jobs.pdb" target="lib\net40\Xpand.ExpressApp.JobScheduler.Jobs.pdb" />
   </files>
 </package>

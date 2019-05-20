@@ -23,7 +23,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.EasyTest.dll" target="lib\net40\Xpand.EasyTest.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.EasyTest.pdb" target="lib\net40\Xpand.EasyTest.pdb" />
+    <file src="Xpand.EasyTest.dll" target="lib\net40\Xpand.EasyTest.dll" />
+    <file src="Xpand.EasyTest.pdb" target="lib\net40\Xpand.EasyTest.pdb" />
   </files>
 </package>

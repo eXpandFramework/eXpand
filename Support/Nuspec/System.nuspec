@@ -28,8 +28,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.dll" target="lib\net40\Xpand.ExpressApp.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.pdb" target="lib\net40\Xpand.ExpressApp.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\WindowsBase.dll" target="lib\net40\WindowsBase.dll" />
+    <file src="Xpand.ExpressApp.dll" target="lib\net40\Xpand.ExpressApp.dll" />
+    <file src="Xpand.ExpressApp.pdb" target="lib\net40\Xpand.ExpressApp.pdb" />
+    <file src="WindowsBase.dll" target="lib\net40\WindowsBase.dll" />
   </files>
 </package>

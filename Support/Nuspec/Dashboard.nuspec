@@ -27,7 +27,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Dashboard.dll" target="lib\net40\Xpand.ExpressApp.Dashboard.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Dashboard.pdb" target="lib\net40\Xpand.ExpressApp.Dashboard.pdb" />
+    <file src="Xpand.ExpressApp.Dashboard.dll" target="lib\net40\Xpand.ExpressApp.Dashboard.dll" />
+    <file src="Xpand.ExpressApp.Dashboard.pdb" target="lib\net40\Xpand.ExpressApp.Dashboard.pdb" />
   </files>
 </package>

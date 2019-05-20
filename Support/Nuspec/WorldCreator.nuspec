@@ -27,7 +27,7 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.WorldCreator.dll" target="lib\net40\Xpand.ExpressApp.WorldCreator.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.WorldCreator.pdb" target="lib\net40\Xpand.ExpressApp.WorldCreator.pdb" />
+    <file src="Xpand.ExpressApp.WorldCreator.dll" target="lib\net40\Xpand.ExpressApp.WorldCreator.dll" />
+    <file src="Xpand.ExpressApp.WorldCreator.pdb" target="lib\net40\Xpand.ExpressApp.WorldCreator.pdb" />
   </files>
 </package>

@@ -26,7 +26,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Email.dll" target="lib\net40\Xpand.ExpressApp.Email.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Email.pdb" target="lib\net40\Xpand.ExpressApp.Email.pdb" />
+    <file src="Xpand.ExpressApp.Email.dll" target="lib\net40\Xpand.ExpressApp.Email.dll" />
+    <file src="Xpand.ExpressApp.Email.pdb" target="lib\net40\Xpand.ExpressApp.Email.pdb" />
   </files>
 </package>

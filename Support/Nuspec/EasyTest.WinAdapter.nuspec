@@ -21,7 +21,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.EasyTest.WinAdapter.dll" target="lib\net40\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.EasyTest.WinAdapter.pdb" target="lib\net40\Xpand.ExpressApp.EasyTest.WinAdapter.pdb" />
+    <file src="Xpand.ExpressApp.EasyTest.WinAdapter.dll" target="lib\net40\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
+    <file src="Xpand.ExpressApp.EasyTest.WinAdapter.pdb" target="lib\net40\Xpand.ExpressApp.EasyTest.WinAdapter.pdb" />
   </files>
 </package>

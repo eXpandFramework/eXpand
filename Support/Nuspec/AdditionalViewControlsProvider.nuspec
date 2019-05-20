@@ -24,7 +24,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" />
+    <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
+    <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" />
   </files>
 </package>

@@ -22,7 +22,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.PivotChart.dll" target="lib\net40\Xpand.ExpressApp.PivotChart.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.PivotChart.pdb" target="lib\net40\Xpand.ExpressApp.PivotChart.pdb" />
+    <file src="Xpand.ExpressApp.PivotChart.dll" target="lib\net40\Xpand.ExpressApp.PivotChart.dll" />
+    <file src="Xpand.ExpressApp.PivotChart.pdb" target="lib\net40\Xpand.ExpressApp.PivotChart.pdb" />
   </files>
 </package>

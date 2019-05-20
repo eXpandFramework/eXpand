@@ -32,7 +32,7 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ModelDifference.Win.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ModelDifference.Win.pdb" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.pdb" />
+    <file src="Xpand.ExpressApp.ModelDifference.Win.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.dll" />
+    <file src="Xpand.ExpressApp.ModelDifference.Win.pdb" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.pdb" />
   </files>
 </package>

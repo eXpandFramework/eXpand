@@ -20,7 +20,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.StateMachine.dll" target="lib\net40\Xpand.ExpressApp.StateMachine.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.StateMachine.pdb" target="lib\net40\Xpand.ExpressApp.StateMachine.pdb" />
+    <file src="Xpand.ExpressApp.StateMachine.dll" target="lib\net40\Xpand.ExpressApp.StateMachine.dll" />
+    <file src="Xpand.ExpressApp.StateMachine.pdb" target="lib\net40\Xpand.ExpressApp.StateMachine.pdb" />
   </files>
 </package>

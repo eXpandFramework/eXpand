@@ -23,7 +23,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" />
-    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.pdb" />
+    <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll" />
+    <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.Web.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.pdb" />
   </files>
 </package>
