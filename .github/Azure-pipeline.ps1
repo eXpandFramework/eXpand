@@ -1,12 +1,12 @@
 param(
-   $repository,
+   $repository="/eXpand.lab",
    $DXApiFeed,
    $NuGetApiKey,
    $artifactstagingdirectory,
    $BetaFeed,
    $Branch="master"
 )
-$VerbosePreference="continue"
+
 $WorkingDirectory="$PSScriptRoot\.."
 if ($repository -like "*/eXpand.lab"){
    "Finding Version.."

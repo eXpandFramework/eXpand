@@ -71,26 +71,6 @@ function Update-Nuspec {
     end {
     }
 }
-function Update-Nuspec1 {
-    param($packageFile, $nuspecContent)
-    if (Test-Path $packageFile) {
-        [xml]$packageContent = Get-Content $packageFile
-        $csprojName = $(Get-ChildItem (Get-Item $packageFile).DirectoryName *.csproj | Select-Object -First 1).BaseName
-        [System.Reflection.Assembly]$assembly = [System.Reflection.Assembly]::ReflectionOnlyLoadFrom("$root\Xpand.dll\$csprojName.dll")
-        Set-Location "$root\Xpand.DLL"
-        [System.Environment]::CurrentDirectory = "$root\Xpand.DLL"
-        $assemblyNames = $assembly.GetReferencedAssemblies() | ForEach-Object {
-            $_.Name
-        }
-        $packageContent.packages.package | where-Object {
-            if (!$_.developmentDependency) {
-                $_.Id -in $assemblyNames
-            }
-        } | ForEach-Object {
-            AddDependency $_.Id $nuspecContent $_.Version
-        }
-    }
-}
 
 function AddVersionConverterDependency {
     param(
@@ -166,10 +146,10 @@ function UpdateNuspec {
     }
     
 }
-Get-ChildItem "..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
-    Write-Host "Updating $($_.BaseName).nuspec" -f Blue
-    UpdateNuspec $_
-}
+# Get-ChildItem "..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
+#     Write-Host "Updating $($_.BaseName).nuspec" -f Blue
+#     UpdateNuspec $_
+# }
 
 function AddAllDependency($file, $nuspecs) {
     [xml]$nuspec = Get-Content $file
@@ -179,8 +159,8 @@ function AddAllDependency($file, $nuspecs) {
     $nuspec.Save($file)
 }
 
-AddAllDependency "..\Nuspec\All_Agnostic.nuspec" (Get-ChildItem "..\Nuspec" -Exclude "*Win*", "*Web*")
+AddAllDependency "$PSScriptRoot\..\Nuspec\All_Agnostic.nuspec" (Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "*Win*", "*Web*")
 "Win", "Web" | ForEach-Object {
-    $nuspecs = (Get-ChildItem "..\Nuspec" "*$_*")
-    AddAllDependency "..\Nuspec\All_$_.nuspec" $nuspecs
+    $nuspecs = (Get-ChildItem "$PSScriptRoot\..\Nuspec" "*$_*")
+    AddAllDependency "$PSScriptRoot\..\Nuspec\All_$_.nuspec" $nuspecs
 }
