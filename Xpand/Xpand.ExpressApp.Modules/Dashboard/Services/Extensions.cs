@@ -88,13 +88,17 @@ namespace Xpand.ExpressApp.Dashboard.Services{
             if (dashboardTypesCount > 1) {
                 throw new UserFriendlyException($"{dashboardDefinition.Name} contains {dashboardTypesCount} dashboard types. Only one dashboard type is supported.");
             }
+
+            
             var wrapper = dashboardDefinition.DashboardTypes.First();
             var dataSource = new DashboardObjectDataSource{
                 DataSourceType = wrapper.Type,
                 Name = nameof(DashboardObjectDataSource),
                 ComponentName = nameof(DashboardObjectDataSource)
             };
-            dashboard.DataSources.Add(dataSource);
+            if (!dashboard.DataSources.Any()) {
+                dashboard.DataSources.Add(dataSource);
+            }
         }
 
         private static void MigrateDatasourceTypes(DevExpress.DashboardCommon.Dashboard dashboard){
