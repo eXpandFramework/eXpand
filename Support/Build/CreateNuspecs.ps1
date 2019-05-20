@@ -51,7 +51,7 @@ function Update-Nuspec {
             $outputPath = $project.project.propertygroup | Where-Object { $_.Condition -match "Release" } | ForEach-Object { $_.OutputPath } | Select-Object -First 1
             $assemblyName = $project.project.propertygroup.AssemblyName | Select-Object -First 1
             [xml]$packageContent = Get-Content "$directory\packages.config"
-            $dependencies = Resolve-AssemblyDependencies "$directory\$outputPath\$assemblyName.dll" -ErrorAction SilentlyContinue|ForEach-Object{
+            $dependencies = Resolve-AssemblyDependencies "$directory\$outputPath\$assemblyName.dll" -ErrorAction SilentlyContinue | ForEach-Object {
                 $_.GetName().Name
             }
             
@@ -146,13 +146,17 @@ function UpdateNuspec {
     }
     
 }
-# Get-ChildItem "..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
-#     Write-Host "Updating $($_.BaseName).nuspec" -f Blue
-#     UpdateNuspec $_
-# }
+Get-ChildItem "..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
+    Write-Host "Updating $($_.BaseName).nuspec" -f Blue
+    UpdateNuspec $_
+}
 
 function AddAllDependency($file, $nuspecs) {
     [xml]$nuspec = Get-Content $file
+    $metadata = $nuspec.package.metadata
+    if ($metadata.dependencies) {
+        $metadata.dependencies.RemoveAll()
+    }
     $nuspecs | ForEach-Object {
         AddDependency $_.BaseName $nuspec $Version
     }

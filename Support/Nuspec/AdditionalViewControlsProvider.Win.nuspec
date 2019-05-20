@@ -14,14 +14,14 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandAdditionalViewControlsProvider" version="18.2.704.0" />
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandLogic" version="18.2.704.0" />
-      <dependency id="eXpandSecurity" version="18.2.704.0" />
+      <dependency id="eXpandAdditionalViewControlsProvider" version="19.1.201.0" />
+      <dependency id="eXpandLogic" version="19.1.201.0" />
+      <dependency id="eXpandSecurity" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.pdb" />
   </files>
 </package>

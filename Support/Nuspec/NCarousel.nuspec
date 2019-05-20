@@ -18,7 +18,7 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.NCarousel.dll" target="lib\net40\Xpand.NCarousel.dll" />
-    <file src="\Build\Temp\Xpand.NCarousel.pdb" target="lib\net40\Xpand.NCarousel.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.NCarousel.dll" target="lib\net40\Xpand.NCarousel.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.NCarousel.pdb" target="lib\net40\Xpand.NCarousel.pdb" />
   </files>
 </package>

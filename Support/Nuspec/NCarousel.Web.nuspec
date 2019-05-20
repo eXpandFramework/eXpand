@@ -14,12 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandNCarousel" version="18.2.704.0" />
+      <dependency id="XpandNCarousel" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net40\Xpand.ExpressApp.NCarousel.Web.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net40\Xpand.ExpressApp.NCarousel.Web.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net40\Xpand.ExpressApp.NCarousel.Web.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net40\Xpand.ExpressApp.NCarousel.Web.pdb" />
   </files>
 </package>

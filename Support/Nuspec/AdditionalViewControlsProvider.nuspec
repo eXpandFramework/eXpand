@@ -14,16 +14,17 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandLogic" version="18.2.704.0" />
-      <dependency id="eXpandSecurity" version="18.2.704.0" />
       <dependency id="fasterflect" version="2.1.3" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.8" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.21.2" />
+      <dependency id="Xpand.VersionConverter" version="1.0.23" />
+      <dependency id="eXpandLogic" version="19.1.201.0" />
+      <dependency id="eXpandSecurity" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" target="lib\net40\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" />
   </files>
 </package>

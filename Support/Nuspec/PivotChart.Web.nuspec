@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandPivotChart" version="18.2.704.0" />
       <dependency id="fasterflect" version="2.1.3" />
+      <dependency id="eXpandPivotChart" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.PivotChart.Web.dll" target="lib\net40\Xpand.ExpressApp.PivotChart.Web.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.PivotChart.Web.pdb" target="lib\net40\Xpand.ExpressApp.PivotChart.Web.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.PivotChart.Web.dll" target="lib\net40\Xpand.ExpressApp.PivotChart.Web.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.PivotChart.Web.pdb" target="lib\net40\Xpand.ExpressApp.PivotChart.Web.pdb" />
   </files>
 </package>

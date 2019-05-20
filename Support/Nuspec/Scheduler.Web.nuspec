@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="18.2.704.0" />
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandScheduler" version="18.2.704.0" />
+      <dependency id="eXpandDashboard" version="19.1.201.0" />
+      <dependency id="eXpandScheduler" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.Scheduler.Web.dll" target="lib\net40\Xpand.ExpressApp.Scheduler.Web.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.Scheduler.Web.pdb" target="lib\net40\Xpand.ExpressApp.Scheduler.Web.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Scheduler.Web.dll" target="lib\net40\Xpand.ExpressApp.Scheduler.Web.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.Scheduler.Web.pdb" target="lib\net40\Xpand.ExpressApp.Scheduler.Web.pdb" />
   </files>
 </package>

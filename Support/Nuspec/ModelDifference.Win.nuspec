@@ -23,16 +23,16 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandModelDifference" version="18.2.704.0" />
-      <dependency id="eXpandSecurity" version="18.2.704.0" />
-      <dependency id="eXpandSecurityWin" version="18.2.704.0" />
-      <dependency id="eXpandSystemWin" version="18.2.704.0" />
       <dependency id="fasterflect" version="2.1.3" />
+      <dependency id="eXpandModelDifference" version="19.1.201.0" />
+      <dependency id="eXpandSecurity" version="19.1.201.0" />
+      <dependency id="eXpandSecurityWin" version="19.1.201.0" />
+      <dependency id="eXpandSystemWin" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.Win.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.ModelDifference.Win.pdb" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ModelDifference.Win.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ModelDifference.Win.pdb" target="lib\net40\Xpand.ExpressApp.ModelDifference.Win.pdb" />
   </files>
 </package>

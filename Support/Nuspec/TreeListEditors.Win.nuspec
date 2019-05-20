@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandSystemWin" version="18.2.704.0" />
-      <dependency id="eXpandTreelistView" version="18.2.704.0" />
+      <dependency id="eXpandTreeListEditors" version="19.1.201.0" />
+      <dependency id="eXpandSystemWin" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.Win.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.Win.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.TreeListEditors.Win.pdb" target="lib\net40\Xpand.ExpressApp.TreeListEditors.Win.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.TreeListEditors.Win.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.Win.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.TreeListEditors.Win.pdb" target="lib\net40\Xpand.ExpressApp.TreeListEditors.Win.pdb" />
   </files>
 </package>

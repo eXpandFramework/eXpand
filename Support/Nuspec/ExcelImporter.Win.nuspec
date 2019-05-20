@@ -16,20 +16,19 @@
     <dependencies>
       <dependency id="ExcelDataReader" version="3.5.0" />
       <dependency id="ExcelDataReader.DataSet" version="3.5.0" />
-      <dependency id="eXpandExcelImporter" version="18.2.704.0" />
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandSystemWin" version="18.2.704.0" />
-      <dependency id="eXpandValidationWin" version="18.2.704.0" />
-      <dependency id="JetBrains.Annotations" version="10.2.1" />
-      <dependency id="System.Reactive" version="4.1.3" />
+      <dependency id="System.Reactive" version="4.1.5" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="WindowsBase" version="4.6.1055.0" />
+      <dependency id="eXpandExcelImporter" version="19.1.201.0" />
+      <dependency id="eXpandValidationWin" version="19.1.201.0" />
+      <dependency id="eXpandSystemWin" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.ExcelImporter.Win.dll" target="lib\net40\Xpand.ExpressApp.ExcelImporter.Win.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.ExcelImporter.Win.pdb" target="lib\net40\Xpand.ExpressApp.ExcelImporter.Win.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ExcelImporter.Win.dll" target="lib\net40\Xpand.ExpressApp.ExcelImporter.Win.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ExcelImporter.Win.pdb" target="lib\net40\Xpand.ExpressApp.ExcelImporter.Win.pdb" />
   </files>
 </package>

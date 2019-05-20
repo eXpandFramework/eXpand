@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#FileAttachment</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="18.2.704.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.FileAttachment.dll" target="lib\net40\Xpand.ExpressApp.FileAttachment.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.FileAttachment.pdb" target="lib\net40\Xpand.ExpressApp.FileAttachment.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.FileAttachment.dll" target="lib\net40\Xpand.ExpressApp.FileAttachment.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.FileAttachment.pdb" target="lib\net40\Xpand.ExpressApp.FileAttachment.pdb" />
   </files>
 </package>

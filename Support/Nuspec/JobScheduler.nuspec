@@ -15,16 +15,16 @@
     <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
       <dependency id="Common.Logging" version="2.1.2" />
-      <dependency id="eXpandAdditionalViewControlsProvider" version="18.2.704.0" />
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandLogic" version="18.2.704.0" />
-      <dependency id="eXpandValidation" version="18.2.704.0" />
       <dependency id="Quartz" version="2.2.4" />
+      <dependency id="eXpandAdditionalViewControlsProvider" version="19.1.201.0" />
+      <dependency id="eXpandLogic" version="19.1.201.0" />
+      <dependency id="eXpandValidation" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.JobScheduler.dll" target="lib\net40\Xpand.ExpressApp.JobScheduler.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.JobScheduler.pdb" target="lib\net40\Xpand.ExpressApp.JobScheduler.pdb" />
-    <file src="\Build\Temp\Fasterflect.dll" target="lib\net40\Fasterflect.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.JobScheduler.dll" target="lib\net40\Xpand.ExpressApp.JobScheduler.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.JobScheduler.pdb" target="lib\net40\Xpand.ExpressApp.JobScheduler.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Fasterflect.dll" target="lib\net40\Fasterflect.dll" />
   </files>
 </package>

@@ -15,12 +15,12 @@
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
       <dependency id="DotNetZip" version="1.11.0" />
-      <dependency id="eXpandIO" version="18.2.704.0" />
-      <dependency id="eXpandLib" version="18.2.704.0" />
+      <dependency id="eXpandIO" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.IO.Web.dll" target="lib\net40\Xpand.ExpressApp.IO.Web.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.IO.Web.pdb" target="lib\net40\Xpand.ExpressApp.IO.Web.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.IO.Web.dll" target="lib\net40\Xpand.ExpressApp.IO.Web.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.IO.Web.pdb" target="lib\net40\Xpand.ExpressApp.IO.Web.pdb" />
   </files>
 </package>

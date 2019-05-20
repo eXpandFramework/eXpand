@@ -16,24 +16,28 @@
     <dependencies>
       <dependency id="ExcelDataReader" version="3.5.0" />
       <dependency id="ExcelDataReader.DataSet" version="3.5.0" />
-      <dependency id="eXpandLib" version="18.2.704.0" />
-      <dependency id="eXpandSystem" version="18.2.704.0" />
-      <dependency id="eXpandValidation" version="18.2.704.0" />
       <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="SharpZipLib" version="1.1.0" />
-      <dependency id="System.Reactive" version="4.1.3" />
+      <dependency id="Mono.Cecil" version="0.10.3" />
+      <dependency id="Ryder" version="0.8.0" />
+      <dependency id="System.Reactive" version="4.1.5" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.AutoCommit" version="0.0.12" />
-      <dependency id="Xpand.XAF.Modules.MasterDetail" version="0.0.12" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.11" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="0.0.12" />
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.11" />
+      <dependency id="Xpand.XAF.Modules.AutoCommit" version="0.0.27.2" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.13.2" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.2.1" />
+      <dependency id="Xpand.XAF.Modules.MasterDetail" version="0.0.27.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.26.2" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="0.0.27.2" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.26.2" />
+      <dependency id="Xpand.VersionConverter" version="1.0.23" />
+      <dependency id="eXpandSystem" version="19.1.201.0" />
+      <dependency id="eXpandValidation" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.201.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="\Build\Temp\Xpand.ExpressApp.ExcelImporter.dll" target="lib\net40\Xpand.ExpressApp.ExcelImporter.dll" />
-    <file src="\Build\Temp\Xpand.ExpressApp.ExcelImporter.pdb" target="lib\net40\Xpand.ExpressApp.ExcelImporter.pdb" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ExcelImporter.dll" target="lib\net40\Xpand.ExpressApp.ExcelImporter.dll" />
+    <file src="C:\Work\eXpandFramework\expand\Build\Temp\Xpand.ExpressApp.ExcelImporter.pdb" target="lib\net40\Xpand.ExpressApp.ExcelImporter.pdb" />
   </files>
 </package>
