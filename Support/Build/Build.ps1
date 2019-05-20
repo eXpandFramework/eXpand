@@ -16,7 +16,7 @@ properties {
     $Brannch=$null
 }
 
-Task Release -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,PackNuget,Installer
+Task Release -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuspec,PackNuget,Installer
 Task Lab -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules
 
 Task InstallDX{

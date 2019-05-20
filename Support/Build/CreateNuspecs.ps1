@@ -2,12 +2,13 @@ Param (
     [string]$root = $(get-item "$PSScriptRoot\..\..").FullName,
     [string]$version = "19.1.201.0"
 )
+
 $ErrorActionPreference = "stop"
 set-location $PSScriptRoot
 $projects = Get-ChildItem "..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
 function AddDependency {
     param($id, $nuspecContent, $packageVersion)
-    if (!$id){
+    if (!$id) {
         return
     }
     if (!$packageVersion) {
@@ -31,43 +32,111 @@ function IsLib {
         $id -like $_
     } 
 }
-function AddPackages {
+function Update-Nuspec {
+    [CmdletBinding()]
+    param (
+        [parameter(Mandatory)]
+        [string]$Nuspec,
+        [parameter(Mandatory)]
+        [string]$CsProj
+    )
+    
+    begin {
+    }
+    
+    process {
+        [xml]$project = Get-Content $CsProj
+        if ($project.project.ItemGroup.None.Include | Where-Object { $_ -eq "packages.config" }) {
+            $directory = (Get-Item $CsProj).DirectoryName
+            $outputPath = $project.project.propertygroup | Where-Object { $_.Condition -match "Release" } | ForEach-Object { $_.OutputPath } | Select-Object -First 1
+            $assemblyName = $project.project.propertygroup.AssemblyName | Select-Object -First 1
+            [xml]$packageContent = Get-Content "$directory\packages.config"
+            $dependencies = Resolve-AssemblyDependencies "$directory\$outputPath\$assemblyName.dll" -ErrorAction SilentlyContinue|ForEach-Object{
+                $_.GetName().Name
+            }
+            
+            [xml]$nuspecContent = Get-Content $Nuspec
+            $metadata = $nuspecContent.package.metadata
+            if ($metadata.dependencies) {
+                $metadata.dependencies.RemoveAll()
+            }
+            $packageContent.packages.package | Where-Object { $_ } | where-Object { !$_.developmentDependency -and $_.Id -in $dependencies } | ForEach-Object {
+                AddDependency $_.Id $nuspecContent $_.Version
+            }
+            $metadata.dependencies.dependency
+            $nuspecContent.Save($nuspec)
+        }
+    }
+    
+    end {
+    }
+}
+function Update-Nuspec1 {
     param($packageFile, $nuspecContent)
     if (Test-Path $packageFile) {
         [xml]$packageContent = Get-Content $packageFile
-        $packageContent.packages.package | ForEach-Object {
+        $csprojName = $(Get-ChildItem (Get-Item $packageFile).DirectoryName *.csproj | Select-Object -First 1).BaseName
+        [System.Reflection.Assembly]$assembly = [System.Reflection.Assembly]::ReflectionOnlyLoadFrom("$root\Xpand.dll\$csprojName.dll")
+        Set-Location "$root\Xpand.DLL"
+        [System.Environment]::CurrentDirectory = "$root\Xpand.DLL"
+        $assemblyNames = $assembly.GetReferencedAssemblies() | ForEach-Object {
+            $_.Name
+        }
+        $packageContent.packages.package | where-Object {
+            if (!$_.developmentDependency) {
+                $_.Id -in $assemblyNames
+            }
+        } | ForEach-Object {
             AddDependency $_.Id $nuspecContent $_.Version
         }
     }
 }
-function UpdateNuspec {
-    param($metadata, $projectName)
-    if ($metadata.dependencies) {
-        $metadata.dependencies.RemoveAll()
-    }
-    if ($projectName -match "lib") {
-        $projects | Where-Object { (IsLib $_.BaseName) } | ForEach-Object { 
-            AddPackages "$($_.DirectoryName)\packages.config" $nuspecContent
+
+function AddVersionConverterDependency {
+    param(
+        $CsProj
+    )
+    [xml]$project = Get-Content $CsProj
+    if ($project.project.ItemGroup.None.Include | Where-Object { $_ -eq "packages.config" }) {
+        $directory = (Get-Item $CsProj).DirectoryName
+        [xml]$packageContent = Get-Content "$directory\packages.config"
+        $versionConverter = $packageContent.packages.package | Where-Object { $_.id -match "VersionConverter" } | Select-Object -First 1
+        if ($versionConverter) {
+            [xml]$nuspecContent = Get-Content $nuspecFile
+            AddDependency $versionConverter.id $nuspecContent $versionConverter.Version
+            $nuspecContent.Save($nuspecFile)
         }
+    }
+}
+
+function UpdateNuspec {
+    param($nuspecFile)
+    
+    if ($nuspecFile.BaseName -match "lib") {
+        $base = $projects | Where-Object { ($_.BaseName -match "persistent.base") } | Select-Object -First 1
+        Update-Nuspec $nuspecFile $base.FullName
+        AddVersionConverterDependency $base.FullName
     }
     else {
         $projects | Where-Object {
             $name = $_.BaseName
-            if ($projectName -like "System") {
+            if ($nuspecFile.BaseName -like "System") {
                 $name -eq "Xpand.ExpressApp"
             }
-            elseif ($projectName -like "System.Win") {
+            elseif ($nuspecFile.BaseName -like "System.Win") {
                 $name -eq "Xpand.ExpressApp.Win"
             }
-            elseif ($projectName -like "System.Web") {
+            elseif ($nuspecFile.BaseName -like "System.Web") {
                 $name -eq "Xpand.ExpressApp.Web"
             }
             else {
-                $name -like "*.$projectName" -and $projectName -notlike "Lib"
+                $name -like "*.$($nuspecFile.BaseName)" -and $nuspecFile.BaseName -notlike "Lib"
             }
         } | ForEach-Object {
             [xml]$csprojContent = Get-Content $_.FullName
-        
+            Update-Nuspec $nuspecFile $_.FullName
+            AddVersionConverterDependency $_.FullName
+            [xml]$nuspecContent = Get-Content $nuspecFile
             $csprojContent.Project.ItemGroup.Reference | Where-Object { 
                 if ($_.Include -like "Xpand*") {
                     $_.Include -notlike "Xpand.Vers*" -and $_.Include -notlike "Xpand.XAF*"
@@ -92,24 +161,18 @@ function UpdateNuspec {
             } | Get-Unique | ForEach-Object {
                 AddDependency $_ $nuspecContent
             }
-    
-            $packageFile = "$($_.DirectoryName)\packages.config"
-            AddPackages $packageFile $nuspecContent
+            $nuspecContent.Save($nuspecFile)
         }
     }
+    
 }
 Get-ChildItem "..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
-    $projectName = $_.BaseName
-    
-    Write-Host "Updating $projectName.nuspec"
-    [xml]$nuspecContent = Get-Content $_.FullName
-    $metadata = $nuspecContent.package.metadata
-    UpdateNuspec $metadata $projectName
-    $nuspecContent.Save($_.FullName)
+    Write-Host "Updating $($_.BaseName).nuspec" -f Blue
+    UpdateNuspec $_
 }
 
-function AddAllDependency($file,$nuspecs) {
-    [xml]$nuspec=Get-Content $file
+function AddAllDependency($file, $nuspecs) {
+    [xml]$nuspec = Get-Content $file
     $nuspecs | ForEach-Object {
         AddDependency $_.BaseName $nuspec $Version
     }
@@ -117,7 +180,7 @@ function AddAllDependency($file,$nuspecs) {
 }
 
 AddAllDependency "..\Nuspec\All_Agnostic.nuspec" (Get-ChildItem "..\Nuspec" -Exclude "*Win*", "*Web*")
-"Win","Web"|ForEach-Object{
-    $nuspecs=(Get-ChildItem "..\Nuspec" "*$_*")
+"Win", "Web" | ForEach-Object {
+    $nuspecs = (Get-ChildItem "..\Nuspec" "*$_*")
     AddAllDependency "..\Nuspec\All_$_.nuspec" $nuspecs
 }
