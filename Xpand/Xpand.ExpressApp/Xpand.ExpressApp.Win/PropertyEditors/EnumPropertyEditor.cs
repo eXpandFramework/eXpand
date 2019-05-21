@@ -51,6 +51,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
         protected override void SetupRepositoryItem(RepositoryItem item) {
             base.SetupRepositoryItem(item);
+            _objectSpace.ObjectChanged+=ObjectSpaceOnObjectChanged;
+
             if (TypeHasFlagsAttribute()) {
                 _enumDescriptor = new EnumDescriptor(GetUnderlyingType());
                 var checkedItem = ((RepositoryItemCheckedComboBoxEdit)item);
@@ -69,6 +71,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
                 _startItems = ((RepositoryItemComboBox) item).Items.Cast<ImageComboBoxItem>().ToArray();
             }
             FilterRepositoryItem(item);
+        }
+
+        private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e) {
+            if (e.MemberInfo != null && e.MemberInfo != MemberInfo) {
+                FilterRepositoryItem(Control.Properties);
+            }
         }
 
         private void FilterRepositoryItem(RepositoryItem repositoryItem) {
