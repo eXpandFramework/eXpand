@@ -15,8 +15,8 @@
     <projectUrl>http://www.expandframework.com/#StateMachine</projectUrl>
     <dependencies>
       <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="eXpandSecurity" version="19.1.201.0" />
-      <dependency id="eXpandLib" version="19.1.201.0" />
+      <dependency id="eXpandSecurity" version="19.1.301.0" />
+      <dependency id="eXpandLib" version="19.1.301.0" />
     </dependencies>
   </metadata>
   <files>

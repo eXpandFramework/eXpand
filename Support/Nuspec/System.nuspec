@@ -24,7 +24,7 @@
       <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.2.1" />
       <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.26.2" />
       <dependency id="Xpand.VersionConverter" version="1.0.23" />
-      <dependency id="eXpandLib" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.301.0" />
     </dependencies>
   </metadata>
   <files>

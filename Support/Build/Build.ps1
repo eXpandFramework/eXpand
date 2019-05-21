@@ -69,7 +69,7 @@ Task Finalize {
 
 Task CreateNuspec{
     InvokeScript{
-        & "$PSScriptRoot\CreateNuspecs.ps1"
+        & "$PSScriptRoot\CreateNuspecs.ps1" $root $version
     }
 }
 Task PackNuget{

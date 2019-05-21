@@ -15,7 +15,7 @@
     <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
     <dependencies>
       <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="eXpandLib" version="19.1.201.0" />
+      <dependency id="eXpandLib" version="19.1.301.0" />
     </dependencies>
   </metadata>
   <files>
