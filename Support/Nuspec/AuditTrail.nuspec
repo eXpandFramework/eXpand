@@ -25,7 +25,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.AuditTrail.dll" target="lib\net40\Xpand.ExpressApp.AuditTrail.dll" />
-    <file src="Xpand.ExpressApp.AuditTrail.pdb" target="lib\net40\Xpand.ExpressApp.AuditTrail.pdb" />
+    <file src="Xpand.ExpressApp.AuditTrail.dll" target="lib\net4.6.1\Xpand.ExpressApp.AuditTrail.dll" />
+    <file src="Xpand.ExpressApp.AuditTrail.pdb" target="lib\net4.6.1\Xpand.ExpressApp.AuditTrail.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

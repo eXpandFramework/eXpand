@@ -20,7 +20,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.PivotChart.Win.dll" target="lib\net40\Xpand.ExpressApp.PivotChart.Win.dll" />
-    <file src="Xpand.ExpressApp.PivotChart.Win.pdb" target="lib\net40\Xpand.ExpressApp.PivotChart.Win.pdb" />
+    <file src="Xpand.ExpressApp.PivotChart.Win.dll" target="lib\net4.6.1\Xpand.ExpressApp.PivotChart.Win.dll" />
+    <file src="Xpand.ExpressApp.PivotChart.Win.pdb" target="lib\net4.6.1\Xpand.ExpressApp.PivotChart.Win.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

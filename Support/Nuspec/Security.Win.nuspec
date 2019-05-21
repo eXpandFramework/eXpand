@@ -19,7 +19,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Security.Win.dll" target="lib\net40\Xpand.ExpressApp.Security.Win.dll" />
-    <file src="Xpand.ExpressApp.Security.Win.pdb" target="lib\net40\Xpand.ExpressApp.Security.Win.pdb" />
+    <file src="Xpand.ExpressApp.Security.Win.dll" target="lib\net4.6.1\Xpand.ExpressApp.Security.Win.dll" />
+    <file src="Xpand.ExpressApp.Security.Win.pdb" target="lib\net4.6.1\Xpand.ExpressApp.Security.Win.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

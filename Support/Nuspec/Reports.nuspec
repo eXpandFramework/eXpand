@@ -19,7 +19,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Reports.dll" target="lib\net40\Xpand.ExpressApp.Reports.dll" />
-    <file src="Xpand.ExpressApp.Reports.pdb" target="lib\net40\Xpand.ExpressApp.Reports.pdb" />
+    <file src="Xpand.ExpressApp.Reports.dll" target="lib\net4.6.1\Xpand.ExpressApp.Reports.dll" />
+    <file src="Xpand.ExpressApp.Reports.pdb" target="lib\net4.6.1\Xpand.ExpressApp.Reports.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

@@ -21,7 +21,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.IO.Win.dll" target="lib\net40\Xpand.ExpressApp.IO.Win.dll" />
-    <file src="Xpand.ExpressApp.IO.Win.pdb" target="lib\net40\Xpand.ExpressApp.IO.Win.pdb" />
+    <file src="Xpand.ExpressApp.IO.Win.dll" target="lib\net4.6.1\Xpand.ExpressApp.IO.Win.dll" />
+    <file src="Xpand.ExpressApp.IO.Win.pdb" target="lib\net4.6.1\Xpand.ExpressApp.IO.Win.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

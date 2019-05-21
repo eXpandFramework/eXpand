@@ -18,7 +18,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.MapView.dll" target="lib\net40\Xpand.ExpressApp.MapView.dll" />
-    <file src="Xpand.ExpressApp.MapView.pdb" target="lib\net40\Xpand.ExpressApp.MapView.pdb" />
+    <file src="Xpand.ExpressApp.MapView.dll" target="lib\net4.6.1\Xpand.ExpressApp.MapView.dll" />
+    <file src="Xpand.ExpressApp.MapView.pdb" target="lib\net4.6.1\Xpand.ExpressApp.MapView.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

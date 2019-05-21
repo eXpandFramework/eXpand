@@ -23,8 +23,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.JobScheduler.dll" target="lib\net40\Xpand.ExpressApp.JobScheduler.dll" />
-    <file src="Xpand.ExpressApp.JobScheduler.pdb" target="lib\net40\Xpand.ExpressApp.JobScheduler.pdb" />
-    <file src="Fasterflect.dll" target="lib\net40\Fasterflect.dll" />
+    <file src="Xpand.ExpressApp.JobScheduler.dll" target="lib\net4.6.1\Xpand.ExpressApp.JobScheduler.dll" />
+    <file src="Xpand.ExpressApp.JobScheduler.pdb" target="lib\net4.6.1\Xpand.ExpressApp.JobScheduler.pdb" />
+    <file src="Fasterflect.dll" target="lib\net4.6.1\Fasterflect.dll" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

@@ -37,7 +37,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ExcelImporter.dll" target="lib\net40\Xpand.ExpressApp.ExcelImporter.dll" />
-    <file src="Xpand.ExpressApp.ExcelImporter.pdb" target="lib\net40\Xpand.ExpressApp.ExcelImporter.pdb" />
+    <file src="Xpand.ExpressApp.ExcelImporter.dll" target="lib\net4.6.1\Xpand.ExpressApp.ExcelImporter.dll" />
+    <file src="Xpand.ExpressApp.ExcelImporter.pdb" target="lib\net4.6.1\Xpand.ExpressApp.ExcelImporter.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

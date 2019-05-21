@@ -24,7 +24,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.XtraDashboard.Win.dll" target="lib\net40\Xpand.ExpressApp.XtraDashboard.Win.dll" />
-    <file src="Xpand.ExpressApp.XtraDashboard.Win.pdb" target="lib\net40\Xpand.ExpressApp.XtraDashboard.Win.pdb" />
+    <file src="Xpand.ExpressApp.XtraDashboard.Win.dll" target="lib\net4.6.1\Xpand.ExpressApp.XtraDashboard.Win.dll" />
+    <file src="Xpand.ExpressApp.XtraDashboard.Win.pdb" target="lib\net4.6.1\Xpand.ExpressApp.XtraDashboard.Win.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

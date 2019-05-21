@@ -28,8 +28,9 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ExcelImporter.Web.dll" target="lib\net40\Xpand.ExpressApp.ExcelImporter.Web.dll" />
-    <file src="Xpand.ExpressApp.ExcelImporter.Web.pdb" target="lib\net40\Xpand.ExpressApp.ExcelImporter.Web.pdb" />
-    <file src="WindowsBase.dll" target="lib\net40\WindowsBase.dll" />
+    <file src="Xpand.ExpressApp.ExcelImporter.Web.dll" target="lib\net4.6.1\Xpand.ExpressApp.ExcelImporter.Web.dll" />
+    <file src="Xpand.ExpressApp.ExcelImporter.Web.pdb" target="lib\net4.6.1\Xpand.ExpressApp.ExcelImporter.Web.pdb" />
+    <file src="WindowsBase.dll" target="lib\net4.6.1\WindowsBase.dll" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

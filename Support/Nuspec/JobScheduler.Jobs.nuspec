@@ -22,7 +22,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\net40\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
-    <file src="Xpand.ExpressApp.JobScheduler.Jobs.pdb" target="lib\net40\Xpand.ExpressApp.JobScheduler.Jobs.pdb" />
+    <file src="Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\net4.6.1\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
+    <file src="Xpand.ExpressApp.JobScheduler.Jobs.pdb" target="lib\net4.6.1\Xpand.ExpressApp.JobScheduler.Jobs.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

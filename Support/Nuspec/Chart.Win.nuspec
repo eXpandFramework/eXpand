@@ -19,7 +19,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Chart.Win.dll" target="lib\net40\Xpand.ExpressApp.Chart.Win.dll" />
-    <file src="Xpand.ExpressApp.Chart.Win.pdb" target="lib\net40\Xpand.ExpressApp.Chart.Win.pdb" />
+    <file src="Xpand.ExpressApp.Chart.Win.dll" target="lib\net4.6.1\Xpand.ExpressApp.Chart.Win.dll" />
+    <file src="Xpand.ExpressApp.Chart.Win.pdb" target="lib\net4.6.1\Xpand.ExpressApp.Chart.Win.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

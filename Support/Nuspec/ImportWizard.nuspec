@@ -20,7 +20,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ImportWizard.dll" target="lib\net40\Xpand.ExpressApp.ImportWizard.dll" />
-    <file src="Xpand.ExpressApp.ImportWizard.pdb" target="lib\net40\Xpand.ExpressApp.ImportWizard.pdb" />
+    <file src="Xpand.ExpressApp.ImportWizard.dll" target="lib\net4.6.1\Xpand.ExpressApp.ImportWizard.dll" />
+    <file src="Xpand.ExpressApp.ImportWizard.pdb" target="lib\net4.6.1\Xpand.ExpressApp.ImportWizard.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

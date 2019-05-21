@@ -30,7 +30,8 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ModelDifference.Web.dll" target="lib\net40\Xpand.ExpressApp.ModelDifference.Web.dll" />
-    <file src="Xpand.ExpressApp.ModelDifference.Web.pdb" target="lib\net40\Xpand.ExpressApp.ModelDifference.Web.pdb" />
+    <file src="Xpand.ExpressApp.ModelDifference.Web.dll" target="lib\net4.6.1\Xpand.ExpressApp.ModelDifference.Web.dll" />
+    <file src="Xpand.ExpressApp.ModelDifference.Web.pdb" target="lib\net4.6.1\Xpand.ExpressApp.ModelDifference.Web.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

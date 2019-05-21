@@ -18,7 +18,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.FileAttachment.dll" target="lib\net40\Xpand.ExpressApp.FileAttachment.dll" />
-    <file src="Xpand.ExpressApp.FileAttachment.pdb" target="lib\net40\Xpand.ExpressApp.FileAttachment.pdb" />
+    <file src="Xpand.ExpressApp.FileAttachment.dll" target="lib\net4.6.1\Xpand.ExpressApp.FileAttachment.dll" />
+    <file src="Xpand.ExpressApp.FileAttachment.pdb" target="lib\net4.6.1\Xpand.ExpressApp.FileAttachment.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

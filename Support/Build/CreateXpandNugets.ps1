@@ -1,6 +1,6 @@
 Param (
     [string]$root = $(get-item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "19.1.201.0"
+    [string]$version = "19.1.301.0"
 )
 
 $ErrorActionPreference = "stop"
@@ -23,6 +23,24 @@ function AddDependency {
         $dependency.SetAttribute("id", $id)
         $dependency.SetAttribute("version", $packageVersion)
         $dependencies.AppendChild($dependency) | Out-Null
+    }   
+}
+
+function AddFile{
+    param(
+        $src,
+        $target, 
+        $nuspecContent 
+    )
+    $ns = [System.xml.xmlnamespacemanager]::new($nuspecContent.NameTable)
+    $ns.AddNamespace("ns", $nuspecContent.DocumentElement.NamespaceURI)
+    $files = $nuspecContent.SelectSingleNode("//ns:files", $ns)
+    if (!($files.ChildNodes.src | Where-Object { $_ -eq $src })) {
+        Write-Host "Adding file $src with target $target"
+        $fileElement = $nuspecContent.CreateElement("file", $nuspecContent.DocumentElement.NamespaceURI)
+        $fileElement.SetAttribute("src", $src)
+        $fileElement.SetAttribute("target", "$target")
+        $files.AppendChild($fileElement) | Out-Null
     }
     
 }
@@ -146,9 +164,21 @@ function UpdateNuspec {
     }
     
 }
+Import-Module XpandPosh -Force -Prefix X
+$nuget="$(Get-XNugetPath)"
+function PackNuspec($Nuspec){
+    [xml]$nuspecContent = Get-Content $Nuspec.FullName
+    $moduleName = "$($nuspecContent.package.metadata.Id)Module"
+    Remove-Item "$root\Xpand.DLL\Readme.txt" -Force -ErrorAction SilentlyContinue
+    Set-Content "$root\Xpand.DLL\Readme.txt" "BUILD THE PROJECT BEFORE OPENING THE MODEL EDITOR.`r`n`r`nThe package only adds the required references. To install the $moduleName add the next line in the constructor of your XAF module.`r`n`r`nRequiredModuleTypes.Add(typeof($moduleName));" 
+    AddFile "ReadMe.txt" "" $nuspecContent
+    $nuspecContent.Save($nuspec.FullName)
+    & $Nuget Pack $_ -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
+}
 Get-ChildItem "..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
     Write-Host "Updating $($_.BaseName).nuspec" -f Blue
     UpdateNuspec $_
+    PackNuspec $_
 }
 
 function AddAllDependency($file, $nuspecs) {

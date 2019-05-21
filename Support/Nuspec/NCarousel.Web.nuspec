@@ -19,7 +19,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net40\Xpand.ExpressApp.NCarousel.Web.dll" />
-    <file src="Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net40\Xpand.ExpressApp.NCarousel.Web.pdb" />
+    <file src="Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net4.6.1\Xpand.ExpressApp.NCarousel.Web.dll" />
+    <file src="Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net4.6.1\Xpand.ExpressApp.NCarousel.Web.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

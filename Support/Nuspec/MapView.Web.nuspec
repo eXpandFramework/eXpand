@@ -21,7 +21,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.MapView.Web.dll" target="lib\net40\Xpand.ExpressApp.MapView.Web.dll" />
-    <file src="Xpand.ExpressApp.MapView.Web.pdb" target="lib\net40\Xpand.ExpressApp.MapView.Web.pdb" />
+    <file src="Xpand.ExpressApp.MapView.Web.dll" target="lib\net4.6.1\Xpand.ExpressApp.MapView.Web.dll" />
+    <file src="Xpand.ExpressApp.MapView.Web.pdb" target="lib\net4.6.1\Xpand.ExpressApp.MapView.Web.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

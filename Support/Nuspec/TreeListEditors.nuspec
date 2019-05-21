@@ -19,7 +19,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.TreeListEditors.dll" target="lib\net40\Xpand.ExpressApp.TreeListEditors.dll" />
-    <file src="Xpand.ExpressApp.TreeListEditors.pdb" target="lib\net40\Xpand.ExpressApp.TreeListEditors.pdb" />
+    <file src="Xpand.ExpressApp.TreeListEditors.dll" target="lib\net4.6.1\Xpand.ExpressApp.TreeListEditors.dll" />
+    <file src="Xpand.ExpressApp.TreeListEditors.pdb" target="lib\net4.6.1\Xpand.ExpressApp.TreeListEditors.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

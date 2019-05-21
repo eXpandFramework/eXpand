@@ -26,7 +26,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ModelArtifactState.dll" target="lib\net40\Xpand.ExpressApp.ModelArtifactState.dll" />
-    <file src="Xpand.ExpressApp.ModelArtifactState.pdb" target="lib\net40\Xpand.ExpressApp.ModelArtifactState.pdb" />
+    <file src="Xpand.ExpressApp.ModelArtifactState.dll" target="lib\net4.6.1\Xpand.ExpressApp.ModelArtifactState.dll" />
+    <file src="Xpand.ExpressApp.ModelArtifactState.pdb" target="lib\net4.6.1\Xpand.ExpressApp.ModelArtifactState.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

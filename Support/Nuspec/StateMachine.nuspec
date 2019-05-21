@@ -20,7 +20,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.StateMachine.dll" target="lib\net40\Xpand.ExpressApp.StateMachine.dll" />
-    <file src="Xpand.ExpressApp.StateMachine.pdb" target="lib\net40\Xpand.ExpressApp.StateMachine.pdb" />
+    <file src="Xpand.ExpressApp.StateMachine.dll" target="lib\net4.6.1\Xpand.ExpressApp.StateMachine.dll" />
+    <file src="Xpand.ExpressApp.StateMachine.pdb" target="lib\net4.6.1\Xpand.ExpressApp.StateMachine.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>

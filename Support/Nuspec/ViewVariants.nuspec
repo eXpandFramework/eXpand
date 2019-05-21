@@ -19,7 +19,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ViewVariants.dll" target="lib\net40\Xpand.ExpressApp.ViewVariants.dll" />
-    <file src="Xpand.ExpressApp.ViewVariants.pdb" target="lib\net40\Xpand.ExpressApp.ViewVariants.pdb" />
+    <file src="Xpand.ExpressApp.ViewVariants.dll" target="lib\net4.6.1\Xpand.ExpressApp.ViewVariants.dll" />
+    <file src="Xpand.ExpressApp.ViewVariants.pdb" target="lib\net4.6.1\Xpand.ExpressApp.ViewVariants.pdb" />
+    <file src="ReadMe.txt" target="" />
   </files>
 </package>
