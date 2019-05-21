@@ -16,7 +16,7 @@
     <dependencies>
       <dependency id="DotNetZip" version="1.11.0" />
       <dependency id="eXpandIO" version="19.1.301.0" />
-      <dependency id="eXpandTreeListEditorsWin" version="19.1.301.0" />
+      <dependency id="eXpandTreelistViewWin" version="19.1.301.0" />
       <dependency id="eXpandLib" version="19.1.301.0" />
     </dependencies>
   </metadata>

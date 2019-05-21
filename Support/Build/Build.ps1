@@ -16,7 +16,7 @@ properties {
     $Brannch=$null
 }
 
-Task Release -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuspec,PackNuget,Installer
+Task Release -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
 Task Lab -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules
 
 Task InstallDX{
@@ -67,9 +67,9 @@ Task Finalize {
     } 
 }
 
-Task CreateNuspec{
+Task CreateNuGets{
     InvokeScript{
-        & "$PSScriptRoot\CreateNuspecs.ps1" $root $version
+        & "$PSScriptRoot\CreateXpandNugets.ps1" $root $version
     }
 }
 Task PackNuget{
