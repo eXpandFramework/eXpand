@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandIOWeb</id>
-    <version>14.1.6.10</version>
+    <version>19.1.302.0</version>
     <title>DevExpress eXpandFramework IO Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,8 +15,8 @@
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
       <dependency id="DotNetZip" version="1.11.0" />
-      <dependency id="eXpandIO" version="19.1.301.0" />
-      <dependency id="eXpandLib" version="19.1.301.0" />
+      <dependency id="eXpandIO" version="19.1.302.0" />
+      <dependency id="eXpandLib" version="19.1.302.0" />
     </dependencies>
   </metadata>
   <files>

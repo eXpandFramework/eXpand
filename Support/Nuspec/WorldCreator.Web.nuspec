@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>14.1.6.10</version>
+    <version>19.1.302.0</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#worldcreator</projectUrl>
@@ -16,10 +16,10 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandSystem" version="19.1.301.0" />
-      <dependency id="eXpandSystemWeb" version="19.1.301.0" />
-      <dependency id="eXpandWorldCreator" version="19.1.301.0" />
-      <dependency id="eXpandLib" version="19.1.301.0" />
+      <dependency id="eXpandSystem" version="19.1.302.0" />
+      <dependency id="eXpandSystemWeb" version="19.1.302.0" />
+      <dependency id="eXpandWorldCreator" version="19.1.302.0" />
+      <dependency id="eXpandLib" version="19.1.302.0" />
     </dependencies>
   </metadata>
   <files>

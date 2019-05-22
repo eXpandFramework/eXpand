@@ -1,6 +1,6 @@
 Param (
     [string]$root = $(get-item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "19.1.301.0"
+    [string]$version = "19.1.302.0"
 )
 
 
@@ -77,6 +77,7 @@ function Update-NuspecDependencies {
             
             [xml]$nuspecContent = Get-Content $Nuspec
             $metadata = $nuspecContent.package.metadata
+            $metadata.version=$version
             if ($metadata.dependencies) {
                 $metadata.dependencies.RemoveAll()
             }

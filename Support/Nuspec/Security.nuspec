@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandSecurity</id>
-    <version>14.1.6.10</version>
+    <version>19.1.302.0</version>
     <title>DevExpress eXpandFramework Security Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -18,7 +18,7 @@
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.21.2" />
       <dependency id="Xpand.VersionConverter" version="1.0.23" />
-      <dependency id="eXpandLib" version="19.1.301.0" />
+      <dependency id="eXpandLib" version="19.1.302.0" />
     </dependencies>
   </metadata>
   <files>

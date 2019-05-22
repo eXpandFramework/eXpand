@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandExcelImporter.Web</id>
-    <version>14.1.6.10</version>
+    <version>19.1.302.0</version>
     <title>DevExpress eXpandFramework ExcelImporter Web Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -20,11 +20,11 @@
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="eXpandExcelImporter" version="19.1.301.0" />
-      <dependency id="eXpandValidationWeb" version="19.1.301.0" />
-      <dependency id="eXpandSystemWeb" version="19.1.301.0" />
-      <dependency id="eXpandLib" version="19.1.301.0" />
-      <dependency id="eXpandSystem" version="19.1.301.0" />
+      <dependency id="eXpandExcelImporter" version="19.1.302.0" />
+      <dependency id="eXpandValidationWeb" version="19.1.302.0" />
+      <dependency id="eXpandSystemWeb" version="19.1.302.0" />
+      <dependency id="eXpandLib" version="19.1.302.0" />
+      <dependency id="eXpandSystem" version="19.1.302.0" />
     </dependencies>
   </metadata>
   <files>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandImportWizard</id>
-    <version>14.1.6.10</version>
+    <version>19.1.302.0</version>
     <title>DevExpress eXpandFramework ImportWizard Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -16,7 +16,7 @@
     <dependencies>
       <dependency id="DocumentFormat.OpenXml" version="2.7.2" />
       <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="eXpandLib" version="19.1.301.0" />
+      <dependency id="eXpandLib" version="19.1.302.0" />
     </dependencies>
   </metadata>
   <files>
