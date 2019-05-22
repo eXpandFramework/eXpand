@@ -2,15 +2,19 @@
 variables:
   - group: Keys
 trigger: 
-   branches:
-     include:
-       - master
+  paths:
+    exclude:
+      - ReleaseHistory/History.csv
+      - ReleaseHistory/ReadMe.md
+      - ReadMe.md
+  branches:   
+    include:
+      - master
 pool:
   vmImage: vs2017-win2016
 steps:
 - checkout: self
   clean: true
-  submodules: true
 - task: PowerShell@2
   displayName: Release
   inputs:
