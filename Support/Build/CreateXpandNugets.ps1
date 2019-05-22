@@ -4,7 +4,6 @@ Param (
 )
 
 
-
 set-location $PSScriptRoot
 $projects = Get-ChildItem "..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
 $nuspecsPath="$PSScriptRoot\..\Nuspec"
@@ -180,19 +179,17 @@ function UpdateNuspec {
 }
 
 $nuget="$(Get-XNugetPath)"
-function PackNuspec($Nuspec){
+function PackNuspec($Nuspec,$ReadMe=$true){
     [xml]$nuspecContent = Get-Content $Nuspec.FullName
     $moduleName = "$($nuspecContent.package.metadata.Id)Module"
-    Remove-Item "$root\Xpand.DLL\Readme.txt" -Force -ErrorAction SilentlyContinue
-    Set-Content "$root\Xpand.DLL\Readme.txt" "BUILD THE PROJECT BEFORE OPENING THE MODEL EDITOR.`r`n`r`nThe package only adds the required references. To install the $moduleName add the next line in the constructor of your XAF module.`r`n`r`nRequiredModuleTypes.Add(typeof($moduleName));" 
-    AddFile "ReadMe.txt" "" $nuspecContent
+    if ($ReadMe){
+        Remove-Item "$root\Xpand.DLL\Readme.txt" -Force -ErrorAction SilentlyContinue
+        Set-Content "$root\Xpand.DLL\Readme.txt" "BUILD THE PROJECT BEFORE OPENING THE MODEL EDITOR.`r`n`r`nThe package only adds the required references. To install the $moduleName add the next line in the constructor of your XAF module.`r`n`r`nRequiredModuleTypes.Add(typeof($moduleName));" 
+        AddFile "ReadMe.txt" "" $nuspecContent
+    }
+    
     $nuspecContent.Save($nuspec.FullName)
-    & $Nuget Pack $_ -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
-}
-Get-ChildItem "..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
-    Write-Host "Updating $($_.BaseName).nuspec" -f Blue
-    UpdateNuspec $_
-    PackNuspec $_
+    & $Nuget Pack $Nuspec.FullName -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
 }
 
 function AddAllDependency($file, $nuspecs) {
@@ -201,16 +198,21 @@ function AddAllDependency($file, $nuspecs) {
     if ($metadata.dependencies) {
         $metadata.dependencies.RemoveAll()
     }
+    $metadata.version=$version
     $nuspecs | ForEach-Object {
         AddDependency $_.BaseName $nuspec $Version
     }
     $nuspec.Save($file)
 }
 
-AddAllDependency "$nuspecsPath\All_Agnostic.nuspec" (Get-ChildItem "$nuspecsPath" -Exclude "*Win*", "*Web*")
+$nuspecFile="$nuspecsPath\All_Agnostic.nuspec"
+AddAllDependency $nuspecFile (Get-ChildItem "$nuspecsPath" -Exclude "*Win*", "*Web*")
+PackNuspec (Get-Item $nuspecFile) $false
 "Win", "Web" | ForEach-Object {
     $nuspecs = (Get-ChildItem "$nuspecsPath" "*$_*")
-    AddAllDependency "$nuspecsPath\All_$_.nuspec" $nuspecs
+    $nuspecFile="$nuspecsPath\All_$_.nuspec"
+    AddAllDependency $nuspecFile $nuspecs
+    PackNuspec (Get-Item $nuspecFile) $false
 }
 
 $ErrorActionPreference = "stop"
