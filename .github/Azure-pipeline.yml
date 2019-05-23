@@ -5,7 +5,7 @@ trigger:
   paths:
     exclude:
       - ReleaseHistory/History.csv
-      - ReleaseHistory/ReadMe.md
+      - /ReleaseHistory/ReadMe.md
       - ReadMe.md
   branches:   
     include:
