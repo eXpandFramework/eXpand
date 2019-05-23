@@ -16,4 +16,5 @@ Get-XpandReleaseChange ExcelImporter,Modeldifference 18.1.4.2 19.1.201.0 -ShowIn
 
 Note that the [XpandPosh](http://xpandposh.expandframework.com) module and the [Get-XpandReleaseChange](https://github.com/eXpandFramework/XpandPosh/wiki/Get-XpandReleaseChange) offers `autocompletion` so you do not have to discover the parameter values.
 
+
 ![image](https://user-images.githubusercontent.com/159464/57982266-aae85700-7a4b-11e9-9785-99697a496ff4.png)
