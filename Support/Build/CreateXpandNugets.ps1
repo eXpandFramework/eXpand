@@ -4,6 +4,7 @@ Param (
 )
 
 
+$monoCecil=Use-XMonoCecil 
 set-location $PSScriptRoot
 $projects = Get-ChildItem "..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
 $nuspecsPath="$PSScriptRoot\..\Nuspec"
@@ -179,10 +180,42 @@ function UpdateNuspec {
 }
 
 $nuget="$(Get-XNugetPath)"
+function IsXpandModule{
+    param(
+        $TypeDef
+    )
+    while ($TypeDef) {
+        if ($TypeDef.Name -eq "xpandmodulebase"){
+            $TypeDef
+            break
+        }
+        $TypeDef=$TypeDef.Resolve().BaseType
+    }
+    
+}
+function GetModuleName{
+    param(
+        $nuspecContent
+    )
+
+    $nuspecContent.package.files.file.src|Where-Object{$_ -like "Xpand.ExpressApp*.dll"}|ForEach-Object{
+        $reader=[Mono.Cecil.ReaderParameters]::new()
+        $reader.AssemblyResolver=New-Object MonoDefaultAssemblyResolver("$root\Xpand.dll")
+        $asm=[Mono.Cecil.AssemblyDefinition]::ReadAssembly("$root\Xpand.DLL\$_",$reader)
+        $m=$asm.MainModule.Types|Where-Object{IsXpandModule $_ }|Select-Object -First 1
+        if (!$m){
+            throw
+        }
+        $m
+    }
+
+}
 function PackNuspec($Nuspec,$ReadMe=$true){
     [xml]$nuspecContent = Get-Content $Nuspec.FullName
-    $moduleName = "$($nuspecContent.package.metadata.Id)Module"
+    
     if ($ReadMe){
+        $moduleName = GetModuleName $nuspecContent
+        Write-host $moduleName
         Remove-Item "$root\Xpand.DLL\Readme.txt" -Force -ErrorAction SilentlyContinue
         Set-Content "$root\Xpand.DLL\Readme.txt" "BUILD THE PROJECT BEFORE OPENING THE MODEL EDITOR.`r`n`r`nThe package only adds the required references. To install the $moduleName add the next line in the constructor of your XAF module.`r`n`r`nRequiredModuleTypes.Add(typeof($moduleName));" 
         AddFile "ReadMe.txt" "" $nuspecContent
@@ -190,6 +223,14 @@ function PackNuspec($Nuspec,$ReadMe=$true){
     
     $nuspecContent.Save($nuspec.FullName)
     & $Nuget Pack $Nuspec.FullName -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
+}
+
+Get-ChildItem "..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
+    Write-Host "Updating $($_.BaseName).nuspec" -f Blue
+    UpdateNuspec $_
+    $readMe = $_.BaseName -notmatch "lib" -and $_.BaseName -notmatch "easytest"
+    
+    PackNuspec $_ $readMe
 }
 
 function AddAllDependency($file, $nuspecs) {
