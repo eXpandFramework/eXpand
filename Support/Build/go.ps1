@@ -9,7 +9,7 @@
     [switch]$UseAllPackageSources,
     [string]$Repository = "eXpand",
     [string]$branch = "master",
-    [string]$xpandPoshVersion = "2.2.3"
+    [string]$xpandPoshVersion = "2.6.1"
 )
 
 $xpandPosh = [PSCustomObject]@{
