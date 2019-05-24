@@ -22,13 +22,13 @@
 # About
 _eXpandFramework_ is the first open source project based on the _DevExpress eXpressApp Framework (XAF)_. The _eXpressApp Framework_ ships with _DXperience Universal_ and can be evaluated free of charge (30 day trial) at: <https://www.devexpress.com/ClientCenter/Downloads.>
 
-_eXpandFramework_ was started and is led by [Tolis Bekiaris](http://apobekiaris.blogspot.com/). _Tolis_ has made a huge contribution to _XAF_ over the years receiving great recognition from _DevExpress_ and the whole _XAF_ community. In _April 2011 Tolis_ was honoured to be hired as **Technical Evangelist for DevExpress frameworks**!
+_eXpandFramework_ is a **FREE** extension for XAF and operates within the **Microsoft Public License (Ms-PL)**. 
 
-The _eXpandFramework_ is an extension of XAF and operates within the **Microsoft Public License (Ms-PL)**. Although _XAF_ is not an open source product it can be purchased directly from DevExpress.
+The framework was started and is led by [Tolis Bekiaris](http://apobekiaris.blogspot.com/). _Tolis_ has made a huge contribution to _XAF_ over the years receiving great recognition from _DevExpress_ and the whole _XAF_ community. In _April 2011 Tolis_ was honored to be hired as **Technical Evangelist for DevExpress frameworks**!
 
-The _eXpandFramework_ team have extended the capabilities of the _eXpressApp Framework_ to include **70 cutting-edge assemblies** containing tools and modules that target numerous business scenarios.
+The [eXpandFrameowork](https://github.com/eXpandFramework) organization consist of two projects. The main project, this one, which unfortunately lucks detailed documentation, and the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) repository. The main project acts as a container to the standalone proejct. Eventually all modules of eXpandFramework will be puzzled from the standalone modules, so the blog posts will obsolete. The framework is transitioning fast from private server to GitHub since Oct 2018, so please bear with us and contribute where you can.
 
-The main idea _behind eXpandFramework_ is to offer as many features as possible to developers/business users  through a declarative approach (configuring files rather than writing code). Please go through each of the following brief descriptions and find out how _eXpandFramework_ can help you accomplish your complex development tasks with easy declarative programming. Below you can see some descriptions and screenshots of our basic modules (screenshots taken from eXpand FeatureCenter application that comes along with the download). In the folder _Demos_ you can find a list of demos like _XVideoRental_, _SecurityDemo_, _MiddleTier_, _Workflow_ and _installation helper solutions for each module_.
+This framework has similar architecture to XAF. We recommend you go through the [Getting Started](https://github.com/eXpandFramework/eXpand/wiki/Getting-Started) document to get the feeling on how to get the most out of it. Afterwards just installed the modules you want and go through the blogs linked in the list below and feel free to post [Issues](https://github.com/eXpandFramework/eXpand/issues).
 
 ## Modules
 
