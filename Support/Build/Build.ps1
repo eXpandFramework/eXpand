@@ -210,22 +210,12 @@ task CompileDemos {
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         . $PSScriptRoot\Utils.ps1
         $group=$xml.Project.ItemGroup
-        $projects= ($group.DemoSolutions|GetProjects)+($group.DemoTesterProjects|GetProjects)
+        $projects= ($group.DemoSolutions|GetProjects)
         
-        Write-Host "Compiling agnostic demos..." -f "Blue"
+        Write-Host "Compiling demos..." -f "Blue"
         $otherProjects=$projects|Where-Object{!"$_".Contains("Web") -and !"$_".Contains("Win")}
         BuildProjects $otherProjects $true
-        
-        Write-Host "Compiling Win demos..." -f "Blue"
-        $winProjects=$projects|Where-Object{"$_".Contains("Win")}
-        BuildProjects $winProjects $true
-
-        Write-Host "Compiling Web demos..." -f "Blue"
-        $webProjects=$projects|Where-Object{"$_".Contains("Web")}
-        BuildProjects $webProjects $true
-
     }
-
 }
 
 function BuildProjects($projects,$clean ){

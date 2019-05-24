@@ -14,7 +14,7 @@ using Xpand.Persistent.Base.General.CustomAttributes;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(Enum),EditorAliases.EnumPropertyEditor,true)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(Enum),EditorAliases.EnumPropertyEditor,false)]
     public class EnumPropertyEditor : DevExpress.ExpressApp.Win.Editors.EnumPropertyEditor,IComplexViewItem,IEnumPropertyEditor {
         EnumDescriptor _enumDescriptor;
         object _noneValue;
@@ -74,7 +74,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e) {
-            if (e.MemberInfo != null && e.MemberInfo != MemberInfo) {
+            if (e.MemberInfo != null && e.MemberInfo != MemberInfo && Control != null) {
                 FilterRepositoryItem(Control.Properties);
             }
         }
@@ -110,7 +110,10 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         public override void BreakLinksToControl(bool unwireEventsOnly) {
             base.BreakLinksToControl(unwireEventsOnly);
             CurrentObjectChanged-=OnCurrentObjectChanged;
-            if (_objectSpace != null) _objectSpace.Committed -= ObjectSpaceOnCommitted;
+            if (_objectSpace != null) {
+                _objectSpace.Committed -= ObjectSpaceOnCommitted;
+                _objectSpace.ObjectChanged-=ObjectSpaceOnObjectChanged;
+            }
         }
 
         bool IsNoneValue(object value) {

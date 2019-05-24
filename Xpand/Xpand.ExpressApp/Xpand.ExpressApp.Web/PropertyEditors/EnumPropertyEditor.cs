@@ -9,7 +9,7 @@ using Xpand.Persistent.Base.General.CustomAttributes;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
-    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(Enum), EditorAliases.EnumPropertyEditor, true)]
+    [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(Enum), EditorAliases.EnumPropertyEditor, false)]
     public class ASPxEnumPropertyEditor : DevExpress.ExpressApp.Web.Editors.ASPx.ASPxEnumPropertyEditor,IComplexViewItem,IEnumPropertyEditor {
         private IObjectSpace _objectSpace;
 
