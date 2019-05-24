@@ -82,61 +82,7 @@
     <DemoSolutions Include="
 					Demos\FeatureCenter\FeatureCenter.sln;
 					Demos\Middle Tier\E4036-WCF\E4036.sln;
-					Demos\SecurityDemo\SecurityDemo.sln;
 					Demos\XVideoRental\XVideoRental.sln;" 
 					Condition="$(RecompiledDXSources) == $(Configuration)"/>
-    <DemoTesterProjects Include="
-				    Xpand\Xpand.ExpressApp.Modules\Quartz.Server\Xpand.Quartz.Server.csproj;
-                   Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.Web\AdditionalViewControlProviderTester.Web.csproj;
-                   Demos\Modules\AdditionalViewControlProvider\AdditionalViewControlProviderTester.Win\AdditionalViewControlProviderTester.Win.csproj;
-                   Demos\Modules\AuditTrail\AuditTrailTester.Win\AuditTrailTester.Win.csproj;
-                   Demos\Modules\AuditTrail\AuditTrailTester.Web\AuditTrailTester.Web.csproj;
-                   Demos\Modules\Chart\ChartTester.Win\ChartTester.Win.csproj;
-                   Demos\Modules\Dashboard\DashboardTester.Win\DashboardTester.Win.csproj;
-                   Demos\Modules\Dashboard\DashboardTester.Web\DashboardTester.Web.csproj;
-                   Demos\Modules\Email\EmailTester.Win\EmailTester.Win.csproj;
-                   Demos\Modules\Email\EmailTester.Web\EmailTester.Web.csproj;
-                   Demos\Modules\FileAttachment\FileAttachmentTester.Win\FileAttachmentTester.Win.csproj;
-                   Demos\Modules\FileAttachment\FileAttachmentTester.Web\FileAttachmentTester.Web.csproj;
-                   Demos\Modules\HtmlPropertyEditor\HtmlPropertyEditorTester.Web\HtmlPropertyEditorTester.Web.csproj;
-                   Demos\Modules\ImportWizard\ImportWizardTester.Win\ImportWizardTester.Win.csproj;
-                   Demos\Modules\IO\IOTester.Win\IOTester.Win.csproj;
-                   Demos\Modules\IO\IOTester.Web\IOTester.Web.csproj;
-                   Demos\Modules\JobsScheduler\JobsSchedulerTester.Win\JobsSchedulerTester.Win.csproj;
-                   Demos\Modules\JobsScheduler\JobsSchedulerTester.Web\JobsSchedulerTester.Web.csproj;
-                   Demos\Modules\ExcelImporter\ExcelImporterTester.Win\ExcelImporterTester.Win.csproj;
-                   Demos\Modules\ExcelImporter\ExcelImporterTester.Web\ExcelImporterTester.Web.csproj;
-                   Demos\Modules\MapView\MapViewTester.Web\MapViewTester.Web.csproj;
-                   Demos\Modules\MasterDetail\MasterDetailTester.Win\MasterDetailTester.Win.csproj;
-                   Demos\Modules\ModelArtifactState\ModelArtifactStateTester.Win\ModelArtifactStateTester.Win.csproj;
-                   Demos\Modules\ModelArtifactState\ModelArtifactStateTester.Web\ModelArtifactStateTester.Web.csproj;
-                   Demos\Modules\ModelDifference\ModelDifferenceTester.Win\ModelDifferenceTester.Win.csproj;
-                   Demos\Modules\ModelDifference\ModelDifferenceTester.Web\ModelDifferenceTester.Web.csproj;
-                   Demos\Modules\NCarousel\NCarouselTester.Web\NCarouselTester.Web.csproj;
-                   Demos\Modules\PivotChart\PivotChartTester.Web\PivotChartTester.Web.csproj;
-                   Demos\Modules\PivotChart\PivotChartTester.Win\PivotChartTester.Win.csproj;
-                   Demos\Modules\Reports\ReportsTester.Win\ReportsTester.Win.csproj;
-                   Demos\Modules\Scheduler\SchedulerTester.Win\SchedulerTester.Win.csproj;
-                   Demos\Modules\Scheduler\SchedulerTester.Web\SchedulerTester.Web.csproj;
-                   Demos\Modules\Security\SecurityTester.Win\SecurityTester.Win.csproj;
-                   Demos\Modules\Security\SecurityTester.Web\SecurityTester.Web.csproj;
-                   Demos\Modules\StateMachine\StateMachineTester.Win\StateMachineTester.Win.csproj;
-                   Demos\Modules\StateMachine\StateMachineTester.Web\StateMachineTester.Web.csproj;
-                   Demos\Modules\SystemTester\SystemTester.Win\SystemTester.Win.csproj;
-                   Demos\Modules\SystemTester\SystemTester.Web\SystemTester.Web.csproj;
-                   Demos\Modules\TreeListEditors\TreeListEditorsTester.Win\TreeListEditorsTester.Win.csproj;
-                   Demos\Modules\TreeListEditors\TreeListEditorsTester.Web\TreeListEditorsTester.Web.csproj;
-                   Demos\Modules\Validation\ValidationTester.Win\ValidationTester.Win.csproj;
-                   Demos\Modules\Validation\ValidationTester.Web\ValidationTester.Web.csproj;
-                   Demos\Modules\ViewVariants\ViewVariantsTester.Win\ViewVariantsTester.Win.csproj;
-                   Demos\Modules\ViewVariants\ViewVariantsTester.Web\ViewVariantsTester.Web.csproj;
-                   Demos\Modules\WizardUI\WizardUITester.Win\WizardUITester.Win.csproj;
-                   Demos\Modules\Workflow\WorkflowTester.Win\WorkflowTester.Win.csproj;
-                   Demos\Modules\Workflow\WorkflowTester.Web\WorkflowTester.Web.csproj;
-                   Demos\Modules\WorldCreator\WorldCreatorTester.Win\WorldCreatorTester.Win.csproj;
-                   Demos\Modules\WorldCreator\WorldCreatorTester.Web\WorldCreatorTester.Web.csproj;
-                   Demos\Modules\XtraDashboard\XtraDashboardTester.Win\XtraDashboardTester.Win.csproj;
-                   Demos\Modules\XtraDashboard\XtraDashboardTester.Web\XtraDashboardTester.Web.csproj;
-                   " Condition="$(RecompiledDXSources) == $(Configuration)"/>
   </ItemGroup>
 </Project>

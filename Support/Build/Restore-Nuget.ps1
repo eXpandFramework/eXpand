@@ -8,21 +8,9 @@ Write-Host "Starting nuget restore from $currentLocation\Restore-Nuget.ps1...." 
 
 $rootPath="$PSScriptRoot\..\.."
 
-get-childitem $rootPath "packages.config" -Recurse|ForEach-Object{
-    $xml=Get-Content $_.FullName 
-    $xml.packages.Package.Id|Group-Object |Where-Object{$_.Count -gt 1}|ForEach-Object{
-        $_.Group|Select-Object -skip 1 | ForEach-Object{
-            $id=$_
-            $project=$xml.packages.Package|Where-Object{$_.id -eq $id}|select -first 1
-            $project.parentNode.RemoveChild($project)
-        }
-    }
-    $xml.Save($_.FullName)
-}
 
 . $PSScriptRoot\Utils.ps1
 $projects=($group.DemoSolutions|GetProjects)+
-($group.DemoTesterProjects|GetProjects)+
 ($group.ModuleProjects|GetProjects)+
 ($group.HelperProjects|GetProjects)+
 ($group.VSAddons|GetProjects)+

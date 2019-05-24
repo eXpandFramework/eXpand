@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application>
-  <Options UIType="TabbedMDI" />
-  <Views>
-    <ListView Id="AutoRefresh_ListView" AutoRefreshInterval="00:00:03" AutoRefreshWhenDocumentManagerPageIsActive="True" />
-  </Views>
-</Application>

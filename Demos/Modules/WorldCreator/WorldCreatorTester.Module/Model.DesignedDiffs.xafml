@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="WorldCreatorTester" Logo="ExpressAppLogo">
-  <InterfaceSources>
-    <InterfaceSource AssemblyName="WorldCreatorTester.Module" IsNewNode="True" />
-  </InterfaceSources>
-  <NavigationItems NavigationStyle="TreeList" />
-</Application>

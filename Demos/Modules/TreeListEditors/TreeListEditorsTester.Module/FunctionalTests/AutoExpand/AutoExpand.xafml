@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="TreeListEditorsTester" Logo="ExpressAppLogo">
-  <Views>
-    <ListView Id="AutoExpandObject_ListView" AutoExpandAllTreeNodes="True" />
-  </Views>
-</Application>

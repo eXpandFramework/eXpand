@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Application Title="SystemTester" Logo="ExpressAppLogo">
-  <ActionDesign>
-    <Actions>
-      <Action Id="ClientConfirmation" ConfirmationMsg="Yes or No" />
-      <Action Id="ClientScript" ClientScript="alert('')" />
-    </Actions>
-  </ActionDesign>
-</Application>
