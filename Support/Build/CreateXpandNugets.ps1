@@ -4,10 +4,12 @@ Param (
 )
 
 
-$monoCecil=Use-XMonoCecil 
+import-module xpandposh -prefix X -force
+$monoCecil = Use-XMonoCecil 
+
 set-location $PSScriptRoot
 $projects = Get-ChildItem "..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
-$nuspecsPath="$PSScriptRoot\..\Nuspec"
+$nuspecsPath = "$PSScriptRoot\..\Nuspec"
 function AddDependency {
     param($id, $nuspecContent, $packageVersion)
     if (!$id) {
@@ -28,7 +30,7 @@ function AddDependency {
     }   
 }
 
-function AddFile{
+function AddFile {
     param(
         $src,
         $target, 
@@ -77,7 +79,7 @@ function Update-NuspecDependencies {
             
             [xml]$nuspecContent = Get-Content $Nuspec
             $metadata = $nuspecContent.package.metadata
-            $metadata.version=$version
+            $metadata.version = $version
             if ($metadata.dependencies) {
                 $metadata.dependencies.RemoveAll()
             }
@@ -157,16 +159,16 @@ function UpdateNuspec {
                     $id = "eXpandLib"
                 }
                 if ($id) {
-                    if ($id -like "eXpand*"){
-                        $nuspecName=$id.Replace('eXpand','')
-                        if ($nuspecName -like "*Web"){
-                            $nuspecName="$($nuspecName.Substring(0,$nuspecName.Length -3)).Web"
+                    if ($id -like "eXpand*") {
+                        $nuspecName = $id.Replace('eXpand', '')
+                        if ($nuspecName -like "*Web") {
+                            $nuspecName = "$($nuspecName.Substring(0,$nuspecName.Length -3)).Web"
                         }
-                        elseif ($nuspecName -like "*Win"){
-                            $nuspecName="$($nuspecName.Substring(0,$nuspecName.Length -3)).Win"
+                        elseif ($nuspecName -like "*Win") {
+                            $nuspecName = "$($nuspecName.Substring(0,$nuspecName.Length -3)).Win"
                         }
-                        [xml]$c=Get-Content "$nuspecsPath\$nuspecName.nuspec"
-                        $id=$c.package.metadata.id
+                        [xml]$c = Get-Content "$nuspecsPath\$nuspecName.nuspec"
+                        $id = $c.package.metadata.id
                     }
                     $id
                 }
@@ -179,41 +181,28 @@ function UpdateNuspec {
     
 }
 
-$nuget="$(Get-XNugetPath)"
-function IsXpandModule{
-    param(
-        $TypeDef
-    )
-    while ($TypeDef) {
-        if ($TypeDef.Name -eq "xpandmodulebase"){
-            $TypeDef
-            break
-        }
-        $TypeDef=$TypeDef.Resolve().BaseType
-    }
-    
-}
-function GetModuleName{
+$nuget = "$(Get-XNugetPath)"
+
+
+function GetModuleName {
     param(
         $nuspecContent
     )
 
-    $nuspecContent.package.files.file.src|Where-Object{$_ -like "Xpand.ExpressApp*.dll"}|ForEach-Object{
-        $reader=[Mono.Cecil.ReaderParameters]::new()
-        $reader.AssemblyResolver=New-Object MonoDefaultAssemblyResolver("$root\Xpand.dll")
-        $asm=[Mono.Cecil.AssemblyDefinition]::ReadAssembly("$root\Xpand.DLL\$_",$reader)
-        $m=$asm.MainModule.Types|Where-Object{IsXpandModule $_ }|Select-Object -First 1
-        if (!$m){
+    $nuspecContent.package.files.file.src | Where-Object { $_ -like "Xpand.ExpressApp*.dll" } | ForEach-Object {        
+        $asm = [Mono.Cecil.AssemblyDefinition]::ReadAssembly("$root\Xpand.DLL\$_")
+        $m = $asm.MainModule.Types | Where-Object { $_ -like "*Module" } | Select-Object -First 1
+        if (!$m) {
             throw
         }
         $m
     }
-
 }
-function PackNuspec($Nuspec,$ReadMe=$true){
+
+function PackNuspec($Nuspec, $ReadMe = $true) {
     [xml]$nuspecContent = Get-Content $Nuspec.FullName
     
-    if ($ReadMe){
+    if ($ReadMe) {
         $moduleName = GetModuleName $nuspecContent
         Write-host $moduleName
         Remove-Item "$root\Xpand.DLL\Readme.txt" -Force -ErrorAction SilentlyContinue
@@ -239,24 +228,24 @@ function AddAllDependency($file, $nuspecs) {
     if ($metadata.dependencies) {
         $metadata.dependencies.RemoveAll()
     }
-    $metadata.version=$version
+    $metadata.version = $version
     $nuspecs | ForEach-Object {
         AddDependency $_.BaseName $nuspec $Version
     }
     $nuspec.Save($file)
 }
 
-$nuspecFile="$nuspecsPath\All_Agnostic.nuspec"
+$nuspecFile = "$nuspecsPath\All_Agnostic.nuspec"
 AddAllDependency $nuspecFile (Get-ChildItem "$nuspecsPath" -Exclude "*Win*", "*Web*")
 PackNuspec (Get-Item $nuspecFile) $false
 "Win", "Web" | ForEach-Object {
     $nuspecs = (Get-ChildItem "$nuspecsPath" "*$_*")
-    $nuspecFile="$nuspecsPath\All_$_.nuspec"
+    $nuspecFile = "$nuspecsPath\All_$_.nuspec"
     AddAllDependency $nuspecFile $nuspecs
     PackNuspec (Get-Item $nuspecFile) $false
 }
 
 $ErrorActionPreference = "stop"
-$packageDir="$root\Build\_package\$Version"
-New-Item $packageDir -ItemType Directory -Force|Out-Null
+$packageDir = "$root\Build\_package\$Version"
+New-Item $packageDir -ItemType Directory -Force | Out-Null
 Compress-Archive -DestinationPath "$packageDir\Nupkg-$Version.zip" -path "$root\Build\Nuget\*"
