@@ -352,17 +352,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         public static int Import(this ExcelImport excelImport,byte[] bytes=null,IObserver<ImportProgress> progress=null,ImportParameter[] importParameters=null) {
-            var targetObjectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
             excelImport.FailedResultList.FailedResults.Clear();
             int index;
             using (var dataSet = excelImport.GetDataSet(bytes)){
                 var dataTable = dataSet.Tables.Cast<DataTable>().FirstOrDefault(table => table.TableName == excelImport.SheetName);
                 index = excelImport.Import(dataTable, progress,importParameters);
-            }
-
-            if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts)) {
-                var objectSpace = targetObjectSpace;
-                Validator.RuleSet.ValidateAll(objectSpace, objectSpace.ModifiedObjects,excelImport.ValidationContexts);
             }
 
             return index;

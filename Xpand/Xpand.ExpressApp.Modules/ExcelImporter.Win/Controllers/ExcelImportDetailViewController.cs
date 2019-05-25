@@ -45,8 +45,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
         }
     
 
-        protected override IObservable<T> Synchronize<T>(T i) {
-            return base.Synchronize(i).ObserveOn(_synchronizationContext);
+        protected override IObservable<T> Synchronize<T>(T t) {
+            return base.Synchronize(t).ObserveOn(_synchronizationContext);
         }
 
 

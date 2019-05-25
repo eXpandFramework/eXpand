@@ -116,19 +116,28 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             var progressObserver = GetProgressObserver(ExcelImport,progressBarViewItem);
             ObjectSpace.SetModified(View.CurrentObject);
             var importParameters = ExcelImport.GetImportParameters();
+
+            
             Observable.Start(async () => {
                 var space = Application.CreateObjectSpace(ExcelImport.GetType());
                 var excelImport = space.GetObjectByKey<ExcelImport>(ExcelImport.Oid);
                 excelImport.Import(ExcelImport.File.Content, progressObserver,importParameters);
-                await ObjectSpace.WhenCommiting().FirstAsync();
+                await ObjectSpace.WhenCommiting().FirstAsync()
+                    .SelectMany(Synchronize)
+                    .Do(i => {
+                        if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts)) {
+                            Validator.RuleSet.ValidateAll(space, space.ModifiedObjects,excelImport.ValidationContexts);
+                        }
+                    }).DefaultIfEmpty();
                 return space;
             })
             .SelectMany(task => task)
-            .Catch<IObjectSpace,Exception>(exception => Synchronize(0).Select(i => Observable.Throw<IObjectSpace>(exception)).Concat())
-            .Subscribe(space => {
-                    space.CommitChanges();
-                    space.Dispose();
-                });
+            .Do(space => {
+                space.CommitChanges();
+                space.Dispose();
+            })
+            .Catch<IObjectSpace,Exception>(exception => Synchronize(exception).SelectMany(i => Observable.Throw<IObjectSpace>(exception)))
+            .Subscribe();
         }
 
         protected virtual IObserver<ImportProgress> GetProgressObserver(ExcelImport excelImport,ProgressViewItem progressBarViewItem) {
@@ -166,8 +175,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             return Subject.Synchronize(new Subject<ImportProgress>());
         }
 
-        protected  virtual IObservable<T> Synchronize<T>(T i=default) {
-            return Observable.Return(i);
+        protected  virtual IObservable<T> Synchronize<T>(T t=default) {
+            return Observable.Return(t);
         }
 
         protected virtual IObservable<Unit> ProgressEnd(ExcelImport excelImport, ProgressViewItem progressBarViewItem,

@@ -1,30 +1,33 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.FileAttachments.Web;
 using DevExpress.ExpressApp.SystemModule;
+using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
+using DevExpress.ExpressApp.Web.Templates;
 using DevExpress.Web;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
 
 namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
-    public class ExcelImportDetailViewController:ExcelImporter.Controllers.ExcelImportDetailViewController{
+    public class ExcelImportDetailViewController:ExcelImporter.Controllers.ExcelImportDetailViewController,IXafCallbackHandler{
         private ListPropertyEditor _listPropertyEditor;
         private FileDataPropertyEditor _fileDataPropertyEditor;
         private ASPxGridListEditor _asPxGridListEditor;
+        private Exception _exception;
 
         protected override void OnActivated(){
             base.OnActivated();
-            if (View is DetailView detailView){
-                _fileDataPropertyEditor = detailView.GetItems<FileDataPropertyEditor>().First();
-                _fileDataPropertyEditor.ControlCreated += FileDataPropertyEditorOnControlCreated;
-                _listPropertyEditor = detailView.GetItems<ListPropertyEditor>().First(editor => editor.MemberInfo.Name==nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
-                _listPropertyEditor.ControlCreated+=ListPropertyEditorOnControlCreated;
-            }
+            ObjectSpace.Committing+=ObjectSpaceOnCommitting;
+            _fileDataPropertyEditor = View.GetItems<FileDataPropertyEditor>().First();
+            _fileDataPropertyEditor.ControlCreated += FileDataPropertyEditorOnControlCreated;
+            _listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor => editor.MemberInfo.Name==nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
+            _listPropertyEditor.ControlCreated+=ListPropertyEditorOnControlCreated;
         }
 
         protected override void OnDeactivated() {
@@ -32,7 +35,27 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
             if (_listPropertyEditor != null) {
                 _fileDataPropertyEditor.ControlCreated-=FileDataPropertyEditorOnControlCreated;
                 _listPropertyEditor.ControlCreated-=ListPropertyEditorOnControlCreated;
+                ObjectSpace.Committing-=ObjectSpaceOnCommitting;
             }
+        }
+
+        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs e) {
+            var script = CallbackManager.GetScript("test", "", "", false);
+            WebWindow.CurrentRequestWindow.RegisterStartupScript("test",script,true);
+        }
+
+        protected XafCallbackManager CallbackManager => WebWindow.CurrentRequestPage != null ? ((ICallbackManagerHolder)WebWindow.CurrentRequestPage).CallbackManager : null;
+
+        protected override void OnViewControlsCreated() {
+            base.OnViewControlsCreated();
+            CallbackManager.RegisterHandler("test", this);
+        }
+
+        protected override IObservable<T> Synchronize<T>(T t = default) {
+            if (t is Exception exception) {
+                _exception = exception;
+            }
+            return base.Synchronize(t);
         }
 
         protected override void ShowMapConfigView(ShowViewParameters parameters) {
@@ -81,6 +104,13 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
 
         private void OnFileDataLoading(object sender, FileDataLoadingEventArgs e){
             ParseStream(e.UploadedFile);
+        }
+
+        public void ProcessAction(string parameter) {
+            if (_exception != null) {
+                ErrorHandling.Instance.SetPageError(_exception);
+                _exception = null;
+            }
         }
     }
 }
