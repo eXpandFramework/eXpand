@@ -8,7 +8,9 @@ using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Data;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
@@ -18,6 +20,7 @@ using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;
+using IObjectSpaceLink = DevExpress.ExpressApp.IObjectSpaceLink;
 using Type = System.Type;
 
 namespace Xpand.ExpressApp.ExcelImporter.Services{
@@ -60,28 +63,30 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         private static object GetImportToObject(ImportParameter[] importParameters, DataRow dataRow,
-            ExcelImport excelImport, int index, Func<(Type objectType, CriteriaOperator criteria),object> func){
+            ExcelImport excelImport, int index,IObjectSpace failedResultsObjectSpace, Func<(Type objectType, CriteriaOperator criteria),object> func){
             var importToTypeInfo = excelImport.Type.GetTypeInfo();
             var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
                 return objectSpace.CreateObject(importToTypeInfo.Type);
             var valueTuple = importParameters.FirstOrDefault(tuple => {
                 var keyMember = importToTypeInfo.GetKeyMember();
-                return keyMember != null && tuple.MemberInfo.Caption() == keyMember.Caption();
+                return keyMember != null && tuple.ModelMember.MemberInfo == keyMember;
             });
             if (valueTuple.IsDefault())
                 throw new KeyMemberNotMappedException(importToTypeInfo.Type);
             var columnValue = dataRow[valueTuple.Map.ExcelColumnName];
-            var criteria = CriteriaOperator.Parse($"{valueTuple.MemberInfo.Name}=?", columnValue);
+            var criteria = CriteriaOperator.Parse($"{valueTuple.ModelMember.Name}=?", columnValue);
             var importToObject = func((importToTypeInfo.Type,criteria));
             if (excelImport.ImportStrategy == ImportStrategy.UpdateOnly) {
                 return importToObject;
             }
             if (excelImport.ImportStrategy == ImportStrategy.FailNotFound) {
                 if (importToObject == null) {
-                    excelImport.FailedResultList.FailedResults.Add(new FailedResult() {
-                        ExcelColumnValue = $"{columnValue}",Index =index ,Reason = $"{nameof(ImportStrategy)}.{nameof(ImportStrategy.FailNotFound)} with criteria:{criteria}"
-                    });
+                    var item = failedResultsObjectSpace.CreateObject<FailedImportResult>();
+                    item.ExcelColumnValue = $"{columnValue}";
+                    item.Index = index;
+                    item.Reason = $"{nameof(ImportStrategy)}.{nameof(ImportStrategy.FailNotFound)} with criteria:{criteria}";
+                    excelImport.FailedResults.Add(item);
                 }
                 return importToObject;
             }
@@ -94,20 +99,21 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         public struct ImportParameter {
-            public IMemberInfo MemberInfo { get; set; }
+            public IModelMember ModelMember { get; set; }
             public ExcelColumnMap Map { get; set; }
+            
         }
-        private static void Import(ExcelImport excelImport, DataRow dataRow,object importToObject, int index,
-            ImportParameter[] importParameterses) {
+        private static void Import(ExcelImport excelImport, DataRow dataRow, object importToObject, int index,
+            ImportParameter[] importParameterses, IObjectSpace failedResultsObjectSpace) {
 
-            var results=new List<FailedResult>();
+            var results=new List<FailedImportResult>();
             foreach (var importParameter in importParameterses){
                 var columnValue = dataRow[importParameter.Map.ExcelColumnName];
-                var skipEmpty = importParameter.MemberInfo.MemberTypeInfo.IsPersistent&& (importParameter.Map.SkipEmpty &&
+                var skipEmpty = importParameter.ModelMember.MemberInfo.MemberTypeInfo.IsPersistent&& (importParameter.Map.SkipEmpty &&
                                     (columnValue == DBNull.Value || ReferenceEquals(columnValue, string.Empty)));
                 if (!skipEmpty ){
                     var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
-                    var failedResult = Import(columnValue, importParameter, importToObject, objectSpace);
+                    var failedResult = Import(columnValue, importParameter, importToObject, objectSpace,failedResultsObjectSpace,failedResultsObjectSpace.GetObject(excelImport));
                     if (failedResult!=null) {
                         results.Add(failedResult);
                     }
@@ -118,7 +124,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 var importResultImportedObject = importToObject.ToString();
                 failedResult.ImportedObject = importResultImportedObject;
                 failedResult.Index = index;
-                excelImport.FailedResultList.FailedResults.Add(failedResult);
+                excelImport.FailedResults.Add(excelImport.ObjectSpace.GetObject(failedResult));
             }
         }
 
@@ -127,11 +133,13 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return keyAttribute != null ? typeInfo.FindMember(keyAttribute.MemberName) : typeInfo.DefaultMember;
         }
 
-        private static FailedResult Import(object columnValue,ImportParameter importParameter,  object importToObject,
-            IObjectSpace objectSpace){
-            var failedResult = new FailedResult(){ExcelColumnName = importParameter.Map.ExcelColumnName,ExcelColumnValue = $"{columnValue}",ImportedObject = $"{importToObject}"};
+        private static FailedImportResult Import(object columnValue, ImportParameter importParameter,
+            object importToObject,
+            IObjectSpace objectSpace, IObjectSpace failedResultsObjectSpace,ExcelImport excelImport){
+            
             var memberTypeInfo = importParameter.Map.GetObjectType(columnValue).GetTypeInfo();
             object result;
+            
             if (memberTypeInfo.IsPersistent){
                 var keyMember = memberTypeInfo.GetKeyMember();
                 if (columnValue.TryToChange(keyMember.MemberType, out result)){
@@ -139,29 +147,49 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                         var referenceObject = GetReferenceObject(objectSpace, importParameter,  keyMember, result);
                         if (referenceObject != null) {
                             keyMember.SetValue(referenceObject, result);
-                            importParameter.MemberInfo.SetValue(importToObject, referenceObject);
+                            importParameter.ModelMember.MemberInfo.SetValue(importToObject, referenceObject);
                         }
                     }
                     catch (Exception e){
                         Tracing.Tracer.LogError(e);
+                        var failedResult = NewFailedImportResult(columnValue, importParameter, importToObject, failedResultsObjectSpace,excelImport);
                         failedResult.Reason = e.Message;
                         return failedResult;
                     }
                     return null;
                 }
-
-                failedResult.Reason = $"Cannot convert colum value to {memberTypeInfo.Type}";
-                return failedResult;
             }
 
             var tryToChange = columnValue.TryToChange(memberTypeInfo.Type, out result);
             if (!tryToChange) {
+                var failedResult = NewFailedImportResult(columnValue, importParameter, importToObject, failedResultsObjectSpace,excelImport);
                 failedResult.Reason = $"Cannot convert colum value to {memberTypeInfo.Type}";
                 return failedResult;
             }
 
-            importParameter.MemberInfo.SetValue(importToObject,result);
+            if (importParameter.ModelMember.MemberInfo.MemberType == typeof(string) && $"{columnValue}".Length > importParameter.ModelMember.Size) {
+                var failedResult = NewFailedImportResult(columnValue, importParameter, importToObject, failedResultsObjectSpace,excelImport);
+                failedResult.Reason = "Size constrain";
+                return failedResult;
+            }
+
+            if (importParameter.ModelMember.MemberInfo.FindAttributes<KeyAttribute>().Any() && result == null) {
+                var failedResult = NewFailedImportResult(columnValue, importParameter, importToObject, failedResultsObjectSpace,excelImport);
+                failedResult.Reason = "Null value for Key";
+                return failedResult;
+            }
+            importParameter.ModelMember.MemberInfo.SetValue(importToObject,result);
             return null;
+        }
+
+        private static FailedImportResult NewFailedImportResult(object columnValue, ImportParameter importParameter,
+            object importToObject, IObjectSpace failedResultsObjectSpace,ExcelImport excelImport){
+            var failedResult = failedResultsObjectSpace.CreateObject<FailedImportResult>();
+            failedResult.ExcelColumnName = importParameter.Map.ExcelColumnName;
+            failedResult.ExcelColumnValue = $"{columnValue}";
+            failedResult.ImportedObject = $"{importToObject}";
+            failedResult.ExcelImport=excelImport;
+            return failedResult;
         }
 
         private static object GetReferenceObject(IObjectSpace objectSpace, ImportParameter importParameter,
@@ -174,7 +202,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             var referenceObject = objectSpace.FindObject(type, criteria, true);
             if (importStrategy == PersistentTypesImportStrategy.FailNotFound) {
                 if (referenceObject == null)
-                    throw new ReferenceObjectNotFoundException($"{CaptionHelper.GetClassCaption(type.FullName)}: {importParameter.MemberInfo.Caption()}", criteria);
+                    throw new ReferenceObjectNotFoundException($"{CaptionHelper.GetClassCaption(type.FullName)}: {importParameter.ModelMember.Caption}", criteria);
                 return referenceObject;
             }
             if (importStrategy == PersistentTypesImportStrategy.UpdateOnly) {
@@ -281,52 +309,64 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             }
         }
 
-        public static int Import(this ExcelImport excelImport, DataTable dataTable,
+        public static int Import(this ExcelImport excelImport, DataTable dataTable,IObjectSpace failResultsObjectSpace,
             IObserver<ImportProgress> progress = null,ImportParameter[] importParameters=null) {
             var index = 0;
             try {
-                if (progress!=null) {
-                    var importProgressStart = new ImportProgressStart(excelImport.Oid){DataTable=dataTable};
+                var failedImportResults = failResultsObjectSpace.GetObjectsQuery<FailedImportResult>().Where(_ => _.ExcelImport.Oid==excelImport.Oid).ToArray();
+                failResultsObjectSpace.Delete(failedImportResults);
+                failResultsObjectSpace.CommitChanges();
+                if (progress != null) {
+                    var importProgressStart = new ImportProgressStart(excelImport.Oid) {DataTable = dataTable};
                     progress.OnNext(importProgressStart);
                 }
 
                 if (dataTable == null) {
                     throw new InvalidOperationException($"Sheet {excelImport.SheetName} not found");
                 }
-                importParameters =importParameters?? excelImport.GetImportParameters();
+
+                importParameters = importParameters ?? excelImport.GetImportParameters();
+
                 foreach (var dataRow in dataTable.Rows.Cast<DataRow>()) {
                     index++;
                     var percentage = index * 100 / dataTable.Rows.Count;
                     progress?.OnNext(new ImportDataRowProgress(excelImport.Oid, percentage) {DataRow = dataRow});
-                    var importToObject = GetImportToObject( importParameters, dataRow, excelImport, index, _ => {
-                        var requestImportTargetObject = new RequestImportTargetObject(_, excelImport.Oid) {
-                            ObjectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace
-                        };
-                        progress?.OnNext(requestImportTargetObject);
-                        return requestImportTargetObject.TargetObject ??((IObjectSpaceLink) excelImport).ObjectSpace.FindObject(_.objectType, _.criteria);
-                    });
+                    var importToObject = GetImportToObject(importParameters, dataRow, excelImport, index,
+                        failResultsObjectSpace, _ => {
+                            var requestImportTargetObject = new RequestImportTargetObject(_, excelImport.Oid) {
+                                ObjectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace
+                            };
+                            progress?.OnNext(requestImportTargetObject);
+                            return requestImportTargetObject.TargetObject ??
+                                   ((IObjectSpaceLink) excelImport).ObjectSpace.FindObject(_.objectType, _.criteria);
+                        });
                     if (importToObject != null) {
                         progress?.OnNext(new ImportObjectProgress(excelImport.Oid, percentage)
                             {ObjectToImport = importToObject});
-                        Import(excelImport, dataRow, importToObject, index, importParameters);
+                        Import(excelImport, dataRow, importToObject, index, importParameters, failResultsObjectSpace);
                     }
                 }
             }
             catch (Exception e) {
-                progress?.OnNext(new ImportProgressException(excelImport.Oid,e, index, excelImport.FailedResultList.FailedResults));
+                progress?.OnNext(new ImportProgressException(excelImport.Oid, e, index,
+                    new BindingList<FailedImportResult>(excelImport.FailedResults)));
                 Tracing.Tracer.LogError(e);
                 return index;
             }
-            progress?.OnNext(new ImportProgressComplete(excelImport.Oid,index,excelImport.FailedResultList.FailedResults));
+            finally {
+                failResultsObjectSpace.CommitChanges();
+            }
+            progress?.OnNext(new ImportProgressComplete(excelImport.Oid,index,new BindingList<FailedImportResult>(excelImport.FailedResults)));
             return index;
         }
 
         public static ImportParameter[] GetImportParameters(this ExcelImport excelImport){
             return excelImport.ExcelColumnMaps.Select(map => {
-                var memberInfo = excelImport.Type.GetTypeInfo().Members.FirstOrDefault(info => map.PropertyName==info.Caption());
-                if (memberInfo==null)
+                var modelClass = CaptionHelper.ApplicationModel.BOModel.GetClass(excelImport.Type);
+                var modelMember = modelClass.AllMembers.FirstOrDefault(_ => _.Caption == map.PropertyName);
+                if (modelMember==null)
                     throw new MemberNotFoundException(excelImport.Type,map.PropertyName);
-                return new ImportParameter(){MemberInfo=memberInfo,Map=map};
+                return new ImportParameter(){ModelMember=modelMember,Map=map};
             }).ToArray();
         }
 
@@ -351,12 +391,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             ruleSet.ValidateAll(((IObjectSpaceLink) excelImport).ObjectSpace,objects ,ExcelImport.ImportingContext);
         }
 
-        public static int Import(this ExcelImport excelImport,byte[] bytes=null,IObserver<ImportProgress> progress=null,ImportParameter[] importParameters=null) {
-            excelImport.FailedResultList.FailedResults.Clear();
+        public static int Import(this ExcelImport excelImport,IObjectSpace failResultsObjectSpace,byte[] bytes=null,IObserver<ImportProgress> progress=null,ImportParameter[] importParameters=null) {
             int index;
             using (var dataSet = excelImport.GetDataSet(bytes)){
                 var dataTable = dataSet.Tables.Cast<DataTable>().FirstOrDefault(table => table.TableName == excelImport.SheetName);
-                index = excelImport.Import(dataTable, progress,importParameters);
+                index = excelImport.Import(dataTable,failResultsObjectSpace, progress,importParameters);
             }
 
             return index;

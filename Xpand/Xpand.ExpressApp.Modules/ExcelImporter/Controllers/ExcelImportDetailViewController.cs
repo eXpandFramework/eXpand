@@ -119,24 +119,26 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
             
             Observable.Start(async () => {
-                var space = Application.CreateObjectSpace(ExcelImport.GetType());
-                var excelImport = space.GetObjectByKey<ExcelImport>(ExcelImport.Oid);
-                excelImport.Import(ExcelImport.File.Content, progressObserver,importParameters);
+                var importObjectSpace = Application.CreateObjectSpace(ExcelImport.GetType());
+                var failedResultsObjectSpace = Application.CreateObjectSpace(ExcelImport.GetType());
+                var excelImport = importObjectSpace.GetObjectByKey<ExcelImport>(ExcelImport.Oid);
+                excelImport.Import(failedResultsObjectSpace,ExcelImport.File.Content, progressObserver,importParameters);
                 await ObjectSpace.WhenCommiting().FirstAsync()
                     .SelectMany(Synchronize)
                     .Do(i => {
                         if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts)) {
-                            Validator.RuleSet.ValidateAll(space, space.ModifiedObjects,excelImport.ValidationContexts);
+                            Validator.RuleSet.ValidateAll(importObjectSpace, importObjectSpace.ModifiedObjects,excelImport.ValidationContexts);
                         }
                     }).DefaultIfEmpty();
-                return space;
+                return (importObjectSpace,failedResultsObjectSpace);
             })
             .SelectMany(task => task)
-            .Do(space => {
-                space.CommitChanges();
-                space.Dispose();
+            .Do(_ => {
+                _.failedResultsObjectSpace.Dispose();
+                _.importObjectSpace.CommitChanges();
+                _.importObjectSpace.Dispose();
             })
-            .Catch<IObjectSpace,Exception>(exception => Synchronize(exception).SelectMany(i => Observable.Throw<IObjectSpace>(exception)))
+            .Catch<(IObjectSpace,IObjectSpace),Exception>(exception => Synchronize(exception).SelectMany(i => Observable.Throw<(IObjectSpace, IObjectSpace)>(exception)))
             .Subscribe();
         }
 
@@ -187,8 +189,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             return progress.OfType<ImportProgressComplete>().Where(excelImport).FirstAsync()
                 .Select(Synchronize).Concat()
                 .Do(_ => {
-                    ExcelImport.FailedResultList.FailedResults = _.FailedResults;
-                    View.FindItem($"{nameof(BusinessObjects.ExcelImport.FailedResultList)}.{nameof(FailedResultList.FailedResults)}").Refresh();
+                    ExcelImport.FailedResults.Reload();
                     progressBarViewItem.SetFinishOptions(GetFinishOptions(_, resultMessage,boModel));
                 })
                 .ToUnit()
@@ -206,7 +207,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             var informationType=InformationType.Success;
             if (failedResults.Any()){
                 informationType = InformationType.Error;
-                message = string.Format(resultMessage.failedMsg, failedResults.GroupBy(r => r.Index).Count(), progressComplete.FailedResults.Count);
+                message = string.Format(resultMessage.failedMsg, failedResults.GroupBy(r => r.Index).Count(), progressComplete.TotalRecordsCount);
             }
             else{
                 message =string.Format(resultMessage.successMsg, progressComplete.TotalRecordsCount);

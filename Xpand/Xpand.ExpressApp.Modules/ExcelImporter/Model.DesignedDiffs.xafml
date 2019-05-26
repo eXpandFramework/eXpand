@@ -132,9 +132,6 @@
               <LayoutItem Id="ExcelImport" ViewItem="ExcelImport" Index="3" RelativeSize="3.0057803468208091" IsNewNode="True" />
               <LayoutItem Id="ExcelColumnMaps" ViewItem="ExcelColumnMaps" Index="4" RelativeSize="77.6878612716763" ShowCaption="False" CaptionLocation="Top" IsNewNode="True" Removed="True" />
             </LayoutGroup>
-            <LayoutGroup Id="FailedResultList.FailedResults" RelativeSize="100">
-              <LayoutItem Id="FailedResultList.FailedResults" RelativeSize="100" />
-            </LayoutGroup>
           </TabbedGroup>
           <LayoutGroup Id="SimpleEditors" RelativeSize="76.038647342995162" Direction="Horizontal" Removed="True">
             <LayoutGroup Id="ExcelImport" RelativeSize="100" Removed="True">
@@ -172,6 +169,15 @@
         <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
       </HiddenActions>
     </ListView>
+    <ListView Id="ExcelImport_FailedResults_ListView" AutoExpandAllGroups="True">
+      <Columns>
+        <ColumnInfo Id="Index" SortOrder="Ascending" GroupIndex="0" Index="0" />
+        <ColumnInfo Id="ExcelColumnName" Index="1" />
+        <ColumnInfo Id="ExcelColumnValue" Index="2" />
+        <ColumnInfo Id="Reason" Index="3" />
+        <ColumnInfo Id="ImportedObject" Index="4" />
+      </Columns>
+    </ListView>
     <ListView Id="ExcelImport_ListView">
       <Columns>
         <ColumnInfo Id="AutoImportNotification" Index="-1" />
@@ -183,17 +189,6 @@
         <ColumnInfo Id="ValidationContexts" Index="-1" />
         <ColumnInfo Id="SheetName" Index="1" />
       </Columns>
-    </ListView>
-    <ListView Id="FailedResultList_FailedResults_ListView" AutoExpandAllGroups="True">
-      <Columns>
-        <ColumnInfo Id="ExcelColumnName" Width="126" />
-        <ColumnInfo Id="ExcelColumnValue" Index="1" Width="112" />
-        <ColumnInfo Id="ImportedObject" Index="3" Width="99" />
-        <ColumnInfo Id="Index" SortOrder="Ascending" GroupIndex="0" />
-      </Columns>
-      <HiddenActions>
-        <ActionLink ActionId="ListViewShowObject" IsNewNode="True" />
-      </HiddenActions>
     </ListView>
   </Views>
 </Application>

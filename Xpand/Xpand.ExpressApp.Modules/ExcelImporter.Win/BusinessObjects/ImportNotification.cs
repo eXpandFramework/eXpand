@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.BusinessObjects{
         }
 
         object ISupportNotifications.UniqueId => Oid;
-
+        [Size(255)]
         public string NotificationMessage{
             get => _notificationMessage;
             set => SetPropertyValue(nameof(NotificationMessage), ref _notificationMessage, value);

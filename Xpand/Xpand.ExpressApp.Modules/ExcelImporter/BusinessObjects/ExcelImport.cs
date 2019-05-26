@@ -157,7 +157,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             ColumnMappingRegexPattern = "( *)";
             HeaderRows = 1;
             File=new XpandFileData();
-            FailedResultList=new FailedResultList();
+            
             ImportStrategy=ImportStrategy.UpdateOrCreate;
         }
         
@@ -169,8 +169,6 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
                     _file.LoadFromStream(Path.GetFileName(FullName), fileStream);
                 }
             }
-
-            _failedResultList=new FailedResultList();
         }
 
         string _fullName;
@@ -206,15 +204,8 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(Type), ref _type, value);
         }
 
-
-
-        FailedResultList _failedResultList;
-        [ExpandObjectMembers(ExpandObjectMembers.InDetailView)]
-        [InvisibleInAllViews]
-        public FailedResultList FailedResultList{
-            get => _failedResultList;
-            set => SetPropertyValue(nameof(FailedResultList), ref _failedResultList, value);
-        }
+        [Association("ExcelImport-FailedImportResults")]
+        public XPCollection<FailedImportResult> FailedResults => GetCollection<FailedImportResult>(nameof(FailedResults));
 
         string _columnMappingReplacement;
         [VisibleInListView(false)]

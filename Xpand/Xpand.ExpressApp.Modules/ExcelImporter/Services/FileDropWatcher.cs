@@ -20,8 +20,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             _path = path;
             _watcher = new ObservableFileSystemWatcher(w => {
                 w.Path = path;
-                w.Filter = filter;
-                // note: filtering on changes can help reduce excessive notifications, make sure to verify any changes with integration tests
                 w.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName;
                 w.IncludeSubdirectories = includeSubdirectories;
             });
@@ -51,11 +49,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             _watcher.Stop();
         }
 
-        /// <summary>
-        ///     Use this to scan for files and raise dropped events for any results.
-        ///     This is great to use right after starting the watcher to find existing files.
-        ///     Existing files will trigger dropped events through the Dropped stream.
-        /// </summary>
+        
         public void PollExisting(){
             
             foreach (var existingFile in Directory.EnumerateFiles(_path,"*.*",_searchOption))

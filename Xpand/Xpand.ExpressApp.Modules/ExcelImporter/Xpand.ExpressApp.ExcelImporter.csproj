@@ -229,8 +229,7 @@
     <Compile Include="BusinessObjects\ExcelColumnMap.cs" />
     <Compile Include="BusinessObjects\ExcelColumnMapMemberTypeValue.cs" />
     <Compile Include="BusinessObjects\ExcelImport.cs" />
-    <Compile Include="BusinessObjects\FailedResult.cs" />
-    <Compile Include="BusinessObjects\FailedResultList.cs" />
+    <Compile Include="BusinessObjects\FailedImportResult.cs" />
     <Compile Include="Controllers\DeferredDeletionController.cs" />
     <Compile Include="Controllers\ExcelColumnMapMemberTypeValueController.cs" />
     <Compile Include="Services\ImportProgress.cs" />

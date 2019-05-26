@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         public Exception Exception{ get; }
 
         public ImportProgressException(Guid excelImportKey, Exception exception, int totalRecordsCount,
-            BindingList<FailedResult> failedRecordsCount) : base(excelImportKey,totalRecordsCount,failedRecordsCount) {
+            BindingList<FailedImportResult> failedRecordsCount) : base(excelImportKey,totalRecordsCount,failedRecordsCount) {
             Exception = exception;
         }
     }
@@ -33,13 +33,13 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
     }
 
     public class ImportProgressComplete:ImportProgress {
-        public ImportProgressComplete(Guid excelImportKey, int totalRecordsCount, BindingList<FailedResult> failedResults) : base(excelImportKey) {
+        public ImportProgressComplete(Guid excelImportKey, int totalRecordsCount, BindingList<FailedImportResult> failedResults) : base(excelImportKey) {
             TotalRecordsCount = totalRecordsCount;
             FailedResults = failedResults;
         }
 
         public int TotalRecordsCount { get; }
-        public BindingList<FailedResult> FailedResults { get; }
+        public BindingList<FailedImportResult> FailedResults { get; }
     }
 
     public abstract class ImportProgressPercentage:ImportProgress {
