@@ -54,13 +54,11 @@ namespace Xpand.VSIX.Wizard{
             var typeDefinition =assemblyDefinition.MainModule.Types.FirstOrDefault(
                 definition =>definition.CustomAttributes.Any(attribute => attribute.AttributeType.Name == typeof(ToolboxTabNameAttribute).Name));
             if (typeDefinition != null){
-                var targetFramework = assemblyDefinition.CustomAttributes.First(attribute => attribute.AttributeType.Name==nameof(TargetFrameworkAttribute));
-                var property = targetFramework.Properties.First(argument => argument.Name==nameof(TargetFrameworkAttribute.FrameworkDisplayName));
-                var frameworkName = property.Argument.Value.ToString();
-                Regex regexObj = new Regex(@"\.NET\ Framework\ (.*)", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace);
-                var value = regexObj.Match(frameworkName).Groups[1].Value;
-                if (value.Length == 1)
-                    value += ".0";
+                var frameworkName = System.Reflection.Assembly.LoadFile(fileName)
+                    .GetCustomAttributes(typeof(TargetFrameworkAttribute), true).OfType<TargetFrameworkAttribute>()
+                    .First().FrameworkName;
+
+                var value = Regex.Match(frameworkName, @"[\d]\.[\d]\.[\d]", RegexOptions.IgnoreCase | RegexOptions.IgnorePatternWhitespace | RegexOptions.Singleline).Value;
                 var xpandModule = new XpandModule(typeDefinition,new Version(value));
                 Instance._modules.Add(xpandModule);
             }
