@@ -233,7 +233,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controllers\TestDashboradAssemblyBindingsController.cs" />
-    <Compile Include="DatabaseUpdate\DashboardObjectDataSourceUpdater.cs" />
+    <Compile Include="DatabaseUpdate\Updater.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\IXpandDashboardDataSourceFillService.cs" />

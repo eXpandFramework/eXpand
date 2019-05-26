@@ -11,6 +11,7 @@ using DevExpress.DataAccess.UI.Design;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.Persistent.Base.General;
@@ -84,20 +85,18 @@ namespace Xpand.ExpressApp.Dashboard.Services{
         }
 
         private static void AddNewDataSources(IDashboardDefinition dashboardDefinition, DevExpress.DashboardCommon.Dashboard dashboard){
-            var dashboardTypesCount = dashboardDefinition.DashboardTypes.Count;
-            if (dashboardTypesCount > 1) {
-                throw new UserFriendlyException($"{dashboardDefinition.Name} contains {dashboardTypesCount} dashboard types. Only one dashboard type is supported.");
-            }
-
-            
-            var wrapper = dashboardDefinition.DashboardTypes.First();
-            var dataSource = new DashboardObjectDataSource{
-                DataSourceType = wrapper.Type,
-                Name = nameof(DashboardObjectDataSource),
-                ComponentName = nameof(DashboardObjectDataSource)
-            };
-            if (!dashboard.DataSources.Any()) {
-                dashboard.DataSources.Add(dataSource);
+            foreach (var typeWrapper in dashboardDefinition.DashboardTypes){
+                var exists = dashboard.DataSources.OfType<DashboardObjectDataSource>()
+                    .Any(source => Equals(source.DataSource, typeWrapper.Type));
+                if (!exists){
+                    var name = CaptionHelper.GetClassCaption(typeWrapper.Type.FullName);
+                    var dataSource = new DashboardObjectDataSource{
+                        DataSourceType = typeWrapper.Type,
+                        Name = name,
+                        ComponentName = name
+                    };
+                    dashboard.DataSources.Add(dataSource);
+                }
             }
         }
 
