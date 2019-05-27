@@ -6,7 +6,7 @@
     <title>DevExpress eXpandFramework ExcelImporter WindowsForms Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
-    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <iconUrl>http://sign.expandframework.com</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ExcelImporter Module / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>ModelArtifactState Module / eXpandFramework</summary>

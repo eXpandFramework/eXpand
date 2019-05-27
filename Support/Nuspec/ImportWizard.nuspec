@@ -6,7 +6,7 @@
     <title>DevExpress eXpandFramework ImportWizard Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
-    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <iconUrl>http://sign.expandframework.com</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ImportWizard Module / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>ImportWizard Module / eXpandFramework</summary>

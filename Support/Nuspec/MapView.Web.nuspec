@@ -5,7 +5,7 @@
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#mapview</projectUrl>
-    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <iconUrl>http://sign.expandframework.com</iconUrl>
     <id>eXpandMapViewWeb</id>
     <title>DevExpress eXpandFramework MapView Module</title>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

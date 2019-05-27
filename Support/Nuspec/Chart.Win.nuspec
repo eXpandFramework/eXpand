@@ -6,7 +6,7 @@
     <title>DevExpress eXpandFramework Chart Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
-    <iconUrl>http://expandframework.com/images/site/eXpand-Sign.png</iconUrl>
+    <iconUrl>http://sign.expandframework.com</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Chart Module (Win) / eXpandFramework. To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <summary>Chart Module (Win) / eXpandFramework</summary>
