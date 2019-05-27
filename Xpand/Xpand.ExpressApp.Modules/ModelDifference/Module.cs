@@ -73,7 +73,8 @@ namespace Xpand.ExpressApp.ModelDifference {
         [DefaultValue(true)]
         [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         bool ApplicationMobileModels { get; set; }
-        
+        [Category(ModelDifferenceModule.ModelDifferenceCategory)]
+        string ApplicationTitle { get; set; }
     }
 
 	public enum ModelUpdateMode{
@@ -188,7 +189,9 @@ namespace Xpand.ExpressApp.ModelDifference {
             }
         }
 
-         void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
+        
+
+        void ApplicationOnCreateCustomUserModelDifferenceStore(object sender, DevExpress.ExpressApp.CreateCustomModelDifferenceStoreEventArgs createCustomModelDifferenceStoreEventArgs) {
             createCustomModelDifferenceStoreEventArgs.Handled = true;
             _userModelDictionaryDifferenceStore =_userModelDictionaryDifferenceStore?? new XpoUserModelDictionaryDifferenceStore(Application);
             createCustomModelDifferenceStoreEventArgs.Store = _userModelDictionaryDifferenceStore;

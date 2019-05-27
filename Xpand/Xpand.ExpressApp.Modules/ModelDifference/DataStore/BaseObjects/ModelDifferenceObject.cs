@@ -220,7 +220,12 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
         }
 
         public ModelDifferenceObject InitializeMembers(string name, XafApplication application,DeviceCategory deviceCategory=DeviceCategory.All) {
-            return InitializeMembers(name, application.Title, application.GetType().FullName,deviceCategory);
+            var applicationTitle = application.Title;
+            var title = ((IModelOptionsModelDifference) application.Model.Options).ApplicationTitle;
+            if (!string.IsNullOrEmpty(title)) {
+                applicationTitle = title;
+            }
+            return InitializeMembers(name, applicationTitle, application.GetType().FullName,deviceCategory);
         }
 
 

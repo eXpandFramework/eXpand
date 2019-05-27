@@ -27,6 +27,11 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
 
         public override void SaveDifference(ModelApplicationBase model) {
             if (model != null){
+                var applicationTitle = Application.Title;
+                var title = ((IModelOptionsModelDifference) Application.Model.Options).ApplicationTitle;
+                if (!string.IsNullOrEmpty(title)) {
+                    applicationTitle = title;
+                }
                 var deviceCategories = new[] {DeviceCategory.All};
                 if (DeviceModelsEnabled)
                     deviceCategories = deviceCategories.Concat(new[]{Application.GetDeviceCategory()}).ToArray();
@@ -35,7 +40,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
                     ModelDifferenceObject modelDifferenceObject =
                         GetActiveDifferenceObject(modelId,deviceCategory) ??
                         GetNewDifferenceObject(_objectSpace)
-                            .InitializeMembers(modelId == "Application" ? Application.Title : modelId, Application.Title, Application.GetType().FullName,deviceCategory);
+                            .InitializeMembers(modelId == "Application" ? Application.Title : modelId, applicationTitle, Application.GetType().FullName,deviceCategory);
                     if (!_objectSpace.IsNewObject(modelDifferenceObject))
                         _objectSpace.ReloadObject(modelDifferenceObject);
                     OnDifferenceObjectSaving(modelDifferenceObject, model);
