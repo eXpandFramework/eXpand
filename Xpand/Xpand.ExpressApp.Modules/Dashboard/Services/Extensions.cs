@@ -11,6 +11,7 @@ using DevExpress.DataAccess.UI.Design;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 using Xpand.Persistent.Base.General;
@@ -90,7 +91,7 @@ namespace Xpand.ExpressApp.Dashboard.Services{
                 if (!exists){
                     var dataSource = new DashboardObjectDataSource{
                         DataSourceType = typeWrapper.Type,
-                        Name = typeWrapper.Type.Name,
+                        Name = CaptionHelper.GetClassCaption(typeWrapper.Type.FullName),
                         ComponentName = typeWrapper.Type.Name
                     };
                     dashboard.DataSources.Add(dataSource);
