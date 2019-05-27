@@ -246,7 +246,6 @@
     <Compile Include="Controllers\DashboardDesignerModelAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controllers\DisableMultiDashboardTypeController.cs" />
     <Compile Include="Controllers\WinEditDashboardController.cs">
       <SubType>Component</SubType>
     </Compile>

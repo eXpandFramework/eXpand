@@ -228,7 +228,6 @@
     <Compile Include="Controllers\DashboardNavigationController.designer.cs">
       <DependentUpon>DashboardNavigationController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\DisableMultiDashboardTypeController.cs" />
     <Compile Include="Controllers\RefreshNavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
