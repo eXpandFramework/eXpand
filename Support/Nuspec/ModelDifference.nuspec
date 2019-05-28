@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.1.302.0</version>
+    <version>19.1.303.0</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#modeldifference</projectUrl>
@@ -25,12 +25,12 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
     <dependencies>
       <dependency id="fasterflect" version="2.1.3" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.13.3" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.21.3" />
-      <dependency id="Xpand.VersionConverter" version="1.0.24" />
-      <dependency id="eXpandSecurity" version="19.1.302.0" />
-      <dependency id="eXpandViewVariants" version="19.1.302.0" />
-      <dependency id="eXpandLib" version="19.1.302.0" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.15" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.23" />
+      <dependency id="Xpand.VersionConverter" version="1.0.26" />
+      <dependency id="eXpandSecurity" version="19.1.303.0" />
+      <dependency id="eXpandViewVariants" version="19.1.303.0" />
+      <dependency id="eXpandLib" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files>

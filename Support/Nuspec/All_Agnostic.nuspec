@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandAgnostic</id>
-    <version>19.1.302.0</version>
+    <version>19.1.303.0</version>
     <title>DevExpress eXpandFramework All Platform Agnostic Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,37 +14,37 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
-      <dependency id="AdditionalViewControlsProvider" version="19.1.302.0" />
-      <dependency id="All_Agnostic" version="19.1.302.0" />
-      <dependency id="AuditTrail" version="19.1.302.0" />
-      <dependency id="Dashboard" version="19.1.302.0" />
-      <dependency id="EasyTest" version="19.1.302.0" />
-      <dependency id="Email" version="19.1.302.0" />
-      <dependency id="ExcelImporter" version="19.1.302.0" />
-      <dependency id="FileAttachment" version="19.1.302.0" />
-      <dependency id="ImportWizard" version="19.1.302.0" />
-      <dependency id="IO" version="19.1.302.0" />
-      <dependency id="JobScheduler.Jobs" version="19.1.302.0" />
-      <dependency id="JobScheduler" version="19.1.302.0" />
-      <dependency id="Lib" version="19.1.302.0" />
-      <dependency id="Logic" version="19.1.302.0" />
-      <dependency id="MapView" version="19.1.302.0" />
-      <dependency id="MasterDetail" version="19.1.302.0" />
-      <dependency id="ModelArtifactState" version="19.1.302.0" />
-      <dependency id="ModelDifference" version="19.1.302.0" />
-      <dependency id="NCarousel" version="19.1.302.0" />
-      <dependency id="PivotChart" version="19.1.302.0" />
-      <dependency id="Reports" version="19.1.302.0" />
-      <dependency id="Scheduler" version="19.1.302.0" />
-      <dependency id="Security" version="19.1.302.0" />
-      <dependency id="StateMachine" version="19.1.302.0" />
-      <dependency id="System" version="19.1.302.0" />
-      <dependency id="TreeListEditors" version="19.1.302.0" />
-      <dependency id="Validation" version="19.1.302.0" />
-      <dependency id="ViewVariants" version="19.1.302.0" />
-      <dependency id="WorkFlow" version="19.1.302.0" />
-      <dependency id="WorldCreator.DbMapper" version="19.1.302.0" />
-      <dependency id="WorldCreator" version="19.1.302.0" />
+      <dependency id="AdditionalViewControlsProvider" version="19.1.303.0" />
+      <dependency id="All_Agnostic" version="19.1.303.0" />
+      <dependency id="AuditTrail" version="19.1.303.0" />
+      <dependency id="Dashboard" version="19.1.303.0" />
+      <dependency id="EasyTest" version="19.1.303.0" />
+      <dependency id="Email" version="19.1.303.0" />
+      <dependency id="ExcelImporter" version="19.1.303.0" />
+      <dependency id="FileAttachment" version="19.1.303.0" />
+      <dependency id="ImportWizard" version="19.1.303.0" />
+      <dependency id="IO" version="19.1.303.0" />
+      <dependency id="JobScheduler.Jobs" version="19.1.303.0" />
+      <dependency id="JobScheduler" version="19.1.303.0" />
+      <dependency id="Lib" version="19.1.303.0" />
+      <dependency id="Logic" version="19.1.303.0" />
+      <dependency id="MapView" version="19.1.303.0" />
+      <dependency id="MasterDetail" version="19.1.303.0" />
+      <dependency id="ModelArtifactState" version="19.1.303.0" />
+      <dependency id="ModelDifference" version="19.1.303.0" />
+      <dependency id="NCarousel" version="19.1.303.0" />
+      <dependency id="PivotChart" version="19.1.303.0" />
+      <dependency id="Reports" version="19.1.303.0" />
+      <dependency id="Scheduler" version="19.1.303.0" />
+      <dependency id="Security" version="19.1.303.0" />
+      <dependency id="StateMachine" version="19.1.303.0" />
+      <dependency id="System" version="19.1.303.0" />
+      <dependency id="TreeListEditors" version="19.1.303.0" />
+      <dependency id="Validation" version="19.1.303.0" />
+      <dependency id="ViewVariants" version="19.1.303.0" />
+      <dependency id="WorkFlow" version="19.1.303.0" />
+      <dependency id="WorldCreator.DbMapper" version="19.1.303.0" />
+      <dependency id="WorldCreator" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files />

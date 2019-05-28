@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWeb</id>
-    <version>19.1.302.0</version>
+    <version>19.1.303.0</version>
     <title>DevExpress eXpandFramework All Web Platform  Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,24 +14,24 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
-      <dependency id="AdditionalViewControlsProvider.Web" version="19.1.302.0" />
-      <dependency id="All_Web" version="19.1.302.0" />
-      <dependency id="EasyTest.WebAdapter" version="19.1.302.0" />
-      <dependency id="ExcelImporter.Web" version="19.1.302.0" />
-      <dependency id="FileAttachment.Web" version="19.1.302.0" />
-      <dependency id="HtmlPropertyEditor.Web" version="19.1.302.0" />
-      <dependency id="IO.Web" version="19.1.302.0" />
-      <dependency id="MapView.Web" version="19.1.302.0" />
-      <dependency id="ModelDifference.Web" version="19.1.302.0" />
-      <dependency id="NCarousel.Web" version="19.1.302.0" />
-      <dependency id="PivotChart.Web" version="19.1.302.0" />
-      <dependency id="Scheduler.Web" version="19.1.302.0" />
-      <dependency id="Security.Web" version="19.1.302.0" />
-      <dependency id="System.Web" version="19.1.302.0" />
-      <dependency id="TreeListEditors.Web" version="19.1.302.0" />
-      <dependency id="Validation.Web" version="19.1.302.0" />
-      <dependency id="WorldCreator.Web" version="19.1.302.0" />
-      <dependency id="XtraDashboard.Web" version="19.1.302.0" />
+      <dependency id="AdditionalViewControlsProvider.Web" version="19.1.303.0" />
+      <dependency id="All_Web" version="19.1.303.0" />
+      <dependency id="EasyTest.WebAdapter" version="19.1.303.0" />
+      <dependency id="ExcelImporter.Web" version="19.1.303.0" />
+      <dependency id="FileAttachment.Web" version="19.1.303.0" />
+      <dependency id="HtmlPropertyEditor.Web" version="19.1.303.0" />
+      <dependency id="IO.Web" version="19.1.303.0" />
+      <dependency id="MapView.Web" version="19.1.303.0" />
+      <dependency id="ModelDifference.Web" version="19.1.303.0" />
+      <dependency id="NCarousel.Web" version="19.1.303.0" />
+      <dependency id="PivotChart.Web" version="19.1.303.0" />
+      <dependency id="Scheduler.Web" version="19.1.303.0" />
+      <dependency id="Security.Web" version="19.1.303.0" />
+      <dependency id="System.Web" version="19.1.303.0" />
+      <dependency id="TreeListEditors.Web" version="19.1.303.0" />
+      <dependency id="Validation.Web" version="19.1.303.0" />
+      <dependency id="WorldCreator.Web" version="19.1.303.0" />
+      <dependency id="XtraDashboard.Web" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files />

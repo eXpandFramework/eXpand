@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWin</id>
-    <version>19.1.302.0</version>
+    <version>19.1.303.0</version>
     <title>DevExpress eXpandFramework All Win Platform Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,27 +14,27 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
-      <dependency id="AdditionalViewControlsProvider.Win" version="19.1.302.0" />
-      <dependency id="All_Win" version="19.1.302.0" />
-      <dependency id="Chart.Win" version="19.1.302.0" />
-      <dependency id="EasyTest.WinAdapter" version="19.1.302.0" />
-      <dependency id="ExcelImporter.Win" version="19.1.302.0" />
-      <dependency id="ImportWizard.Win" version="19.1.302.0" />
-      <dependency id="IO.Win" version="19.1.302.0" />
-      <dependency id="MasterDetail.Win" version="19.1.302.0" />
-      <dependency id="ModelDifference.Win" version="19.1.302.0" />
-      <dependency id="PivotChart.Win" version="19.1.302.0" />
-      <dependency id="PivotGrid.Win" version="19.1.302.0" />
-      <dependency id="Reports.Win" version="19.1.302.0" />
-      <dependency id="ReportsV2.Win" version="19.1.302.0" />
-      <dependency id="Scheduler.Win" version="19.1.302.0" />
-      <dependency id="Security.Win" version="19.1.302.0" />
-      <dependency id="System.Win" version="19.1.302.0" />
-      <dependency id="TreeListEditors.Win" version="19.1.302.0" />
-      <dependency id="Validation.Win" version="19.1.302.0" />
-      <dependency id="WizardUI.Win" version="19.1.302.0" />
-      <dependency id="WorldCreator.Win" version="19.1.302.0" />
-      <dependency id="XtraDashboard.Win" version="19.1.302.0" />
+      <dependency id="AdditionalViewControlsProvider.Win" version="19.1.303.0" />
+      <dependency id="All_Win" version="19.1.303.0" />
+      <dependency id="Chart.Win" version="19.1.303.0" />
+      <dependency id="EasyTest.WinAdapter" version="19.1.303.0" />
+      <dependency id="ExcelImporter.Win" version="19.1.303.0" />
+      <dependency id="ImportWizard.Win" version="19.1.303.0" />
+      <dependency id="IO.Win" version="19.1.303.0" />
+      <dependency id="MasterDetail.Win" version="19.1.303.0" />
+      <dependency id="ModelDifference.Win" version="19.1.303.0" />
+      <dependency id="PivotChart.Win" version="19.1.303.0" />
+      <dependency id="PivotGrid.Win" version="19.1.303.0" />
+      <dependency id="Reports.Win" version="19.1.303.0" />
+      <dependency id="ReportsV2.Win" version="19.1.303.0" />
+      <dependency id="Scheduler.Win" version="19.1.303.0" />
+      <dependency id="Security.Win" version="19.1.303.0" />
+      <dependency id="System.Win" version="19.1.303.0" />
+      <dependency id="TreeListEditors.Win" version="19.1.303.0" />
+      <dependency id="Validation.Win" version="19.1.303.0" />
+      <dependency id="WizardUI.Win" version="19.1.303.0" />
+      <dependency id="WorldCreator.Win" version="19.1.303.0" />
+      <dependency id="XtraDashboard.Win" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files />
