@@ -206,7 +206,20 @@ function PackNuspec($Nuspec, $ReadMe = $true) {
         $moduleName = GetModuleName $nuspecContent
         Write-host $moduleName
         Remove-Item "$root\Xpand.DLL\Readme.txt" -Force -ErrorAction SilentlyContinue
-        Set-Content "$root\Xpand.DLL\Readme.txt" "BUILD THE PROJECT BEFORE OPENING THE MODEL EDITOR.`r`n`r`nThe package only adds the required references. To install the $moduleName add the next line in the constructor of your XAF module.`r`n`r`nRequiredModuleTypes.Add(typeof($moduleName));" 
+        $message=@"
+        
+        
+        The package only adds the required references. To install the $moduleName add the next line in the constructor of your XAF module.
+        
+        RequiredModuleTypes.Add(typeof($moduleName));
+
+        BUILD THE PROJECT BEFORE OPENING THE MODEL EDITOR
+
+        if you like our work please consider to give us a star https://github.com/eXpandFramework/eXpand/stargazers
+
+        If our packages are helping your business and you want to sustain our activities please consider becoming a sponor or a backer https://opencollective.com/expand.
+"@
+        Set-Content "$root\Xpand.DLL\Readme.txt" $message
         AddFile "ReadMe.txt" "" $nuspecContent
     }
     
