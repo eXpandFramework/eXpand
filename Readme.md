@@ -20,13 +20,15 @@
 
 
 # About
+![open collective backers and sponsors](https://img.shields.io/opencollective/all/expand.svg?label=If%20this%20organization%20helped%20your%20business%2C%20we%20kindly%20request%20to%20consider%20sponsoring%20our%20activities)
+
 _eXpandFramework_ is the first open source project based on the _DevExpress eXpressApp Framework (XAF)_. The _eXpressApp Framework_ ships with _DXperience Universal_ and can be evaluated free of charge (30 day trial) at: <https://www.devexpress.com/ClientCenter/Downloads.>
 
 _eXpandFramework_ is a **FREE** extension for XAF and operates within the **Microsoft Public License (Ms-PL)**. 
 
 The framework was started and is led by [Tolis Bekiaris](http://apobekiaris.blogspot.com/). _Tolis_ has made a huge contribution to _XAF_ over the years receiving great recognition from _DevExpress_ and the whole _XAF_ community. In _April 2011 Tolis_ was honored to be hired as **Technical Evangelist for DevExpress frameworks**!
 
-The [eXpandFrameowork](https://github.com/eXpandFramework) organization consist of two projects. The main project, this one, which unfortunately lucks detailed documentation, and the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) repository. The main project acts as a container to the standalone proejct. Eventually all modules of eXpandFramework will be puzzled from the standalone modules, so the blog posts will obsolete. The framework is transitioning fast from private server to GitHub since Oct 2018, so please bear with us and contribute where you can.
+The [eXpandFrameowork](https://github.com/eXpandFramework) organization consist of two projects. The main project, this one, which unfortunately lacks detailed documentation, and the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) repository. The main project acts as a container to the standalone proejct. Eventually all modules of main project will be puzzled from the standalone modules. The framework is transitioning fast from private server to GitHub since Oct 2018, so please bear with us and contribute where you can.
 
 This framework has similar architecture to XAF. We recommend you go through the [Getting Started](https://github.com/eXpandFramework/eXpand/wiki/Getting-Started) document to get the feeling on how to get the most out of it. Afterwards just installed the modules you want and go through the blogs linked in the list below and feel free to post [Issues](https://github.com/eXpandFramework/eXpand/issues).
 

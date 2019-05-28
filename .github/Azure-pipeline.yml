@@ -4,9 +4,10 @@ variables:
 trigger: 
   paths:
     exclude:
-      - ReleaseHistory/History.csv
-      - ReleaseHistory/ReadMe.md
+      - ReleaseNotesHistory/History.csv
+      - ReleaseNotesHistory/ReadMe.md
       - ReadMe.md
+      - .github/Azure-pipeline.yml
   branches:   
     include:
       - master
