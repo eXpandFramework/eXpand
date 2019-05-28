@@ -20,6 +20,8 @@
 
 
 # About
+![open collective backers and sponsors](https://img.shields.io/opencollective/all/expand.svg?label=If%20this%20organization%20helped%20your%20business%2C%20we%20kindly%20request%20to%20consider%20sponsoring%20our%20activities)
+
 _eXpandFramework_ is the first open source project based on the _DevExpress eXpressApp Framework (XAF)_. The _eXpressApp Framework_ ships with _DXperience Universal_ and can be evaluated free of charge (30 day trial) at: <https://www.devexpress.com/ClientCenter/Downloads.>
 
 _eXpandFramework_ is a **FREE** extension for XAF and operates within the **Microsoft Public License (Ms-PL)**. 
