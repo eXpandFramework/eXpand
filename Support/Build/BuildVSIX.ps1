@@ -5,8 +5,9 @@ Param (
 )
 $ErrorActionPreference = "Stop"
 
+Import-Module XpandPosh -Force -Prefix X
 if ($DXVersion -eq "0.0.0.0"){
-    $DXVersion=Get-VersionFromFile "$PSScriptRoot\..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs"
+    $DXVersion=Get-DevExpressVersion
 }
 
 #update version in templates
@@ -36,7 +37,7 @@ Get-ChildItem "$XpandFolder\Xpand.Plugins\Xpand.VSIX\ProjectTemplates\*.vstempla
 #build VSIX
 $fileName="$XpandFolder\Xpand.Plugins\Xpand.VSIX\Xpand.VSIX.csproj"
 & "$(Get-XNugetPath)" Restore $fileName -PackagesDirectory "$XpandFolder\Support\_third_party_assemblies\Packages"
-& "$msbuild" "$fileName" "/p:Configuration=Release;DeployExtension=false;OutputPath=$XpandFolder\Xpand.Dll\Plugins" /v:m /WarnAsError
+& "$msbuild" "$fileName" "/p:Configuration=Release;DeployExtension=false;OutputPath=$XpandFolder\Xpand.Dll\Plugins" /v:m 
 
 
 

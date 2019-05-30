@@ -166,7 +166,7 @@
     </CommandPlacement>    
   </CommandPlacements>
   <Symbols>
-    <GuidSymbol value="{fa1289e0-6376-4d19-98c5-9d0c90dd3283}" name="guidVSXpandPackage" />
+    <GuidSymbol value="{fa1289e0-6376-4d19-98c5-9d0c90dd3284}" name="guidVSXpandPackage" />
     <GuidSymbol value="{6c0bd9dc-4a51-4a9d-8952-c5a69f472eab}" name="guidVSXpandPackageCmdSet">
       <IDSymbol value="280" name="cmdidPreviousSubword" />
       <IDSymbol value="279" name="cmdidNextSubword" />

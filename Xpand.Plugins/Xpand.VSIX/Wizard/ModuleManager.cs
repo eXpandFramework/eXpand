@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Versioning;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Forms;
 using DevExpress.DXCore.Controls.Utils;
 using Microsoft.Win32;
 using Mono.Cecil;

@@ -1,12 +1,12 @@
 using System;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Windows.Forms;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
-using MessageBox = System.Windows.MessageBox;
 
 
 namespace Xpand.VSIX.Commands{

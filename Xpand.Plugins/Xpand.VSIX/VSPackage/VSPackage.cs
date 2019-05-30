@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.ModelEditor;
@@ -12,6 +13,7 @@ using Xpand.VSIX.Options;
 using Xpand.VSIX.Services;
 using Xpand.VSIX.Wizard;
 using Application = System.Windows.Forms.Application;
+using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.VSPackage {
     /// <summary>
@@ -31,19 +33,19 @@ namespace Xpand.VSIX.VSPackage {
     /// To get loaded into VS, the package must be referred by &lt;Asset Type="Microsoft.VisualStudio.VsPackage" ...&gt; in .vsixmanifest file.
     /// </para>
     /// </remarks>
-    [PackageRegistration(UseManagedResourcesOnly = true)]
+    [PackageRegistration(UseManagedResourcesOnly = true,AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [Guid(PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideOptionPage(typeof(OptionsPage), "Xpand", "Settings", 100, 102, true)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F")]
+    [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F",PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideToolWindow(typeof(ModelToolWindow))]
     [ProvideToolboxItems(1)]
-    public sealed class VSPackage : Package ,IDTE2Provider{
+    public sealed class VSPackage : AsyncPackage ,IDTE2Provider{
         private static VSPackage _instance;
 
-        public const string PackageGuidString = "fa1289e0-6376-4d19-98c5-9d0c90dd3283";
+        public const string PackageGuidString = "fa1289e0-6376-4d19-98c5-9d0c90dd3284";
         public VSPackage() {
             _instance = this;
             
@@ -107,14 +109,11 @@ namespace Xpand.VSIX.VSPackage {
             return (T)GetDialogPage(typeof(T));
         }
 
-        #region Package Members
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress) {
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
-        protected override void Initialize() {
-            base.Initialize();
             ExternalToolsService.Init();
             Commands.Commands.Initialize();
         }
-
-        #endregion
     }
 }

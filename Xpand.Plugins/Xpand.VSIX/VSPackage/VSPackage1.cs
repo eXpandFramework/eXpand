@@ -12,7 +12,7 @@ namespace Xpand.VSIX.VSPackage
     /// </summary>
     internal sealed partial class PackageGuids
     {
-        public const string guidVSXpandPackageString = "fa1289e0-6376-4d19-98c5-9d0c90dd3283";
+        public const string guidVSXpandPackageString = "fa1289e0-6376-4d19-98c5-9d0c90dd3284";
         public const string guidVSXpandPackageCmdSetString = "6c0bd9dc-4a51-4a9d-8952-c5a69f472eab";
         public const string vsContextMenuCommandSetString = "d309f791-903f-11d0-9efc-00a0c911004f";
         public const string easyTestToolbarCommandSetString = "7b1b96be-b83b-4ed4-aea2-9ec8bbf7506a";
