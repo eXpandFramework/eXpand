@@ -89,6 +89,8 @@ namespace Xpand.ExpressApp.Security {
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
             var xafApplication = ((XafApplication)sender);
             if (xafApplication.Security is SecurityStrategy securityStrategy) {
+                securityStrategy.AnonymousAllowedTypes.Add(typeof(RegisterUserParameters));
+                securityStrategy.AnonymousAllowedTypes.Add(typeof(RestorePasswordParameters));
                 if (((IModelOptionsChooseDatabaseAtLogon) xafApplication.Model.Options).ChooseDatabaseAtLogon) {
                     securityStrategy.AnonymousAllowedTypes.Add(typeof(StringObject));
                 }
