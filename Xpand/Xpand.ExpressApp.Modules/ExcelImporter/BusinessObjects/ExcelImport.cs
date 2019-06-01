@@ -29,6 +29,12 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         public ExcelImport(Session session) : base(session){
         }
 
+        [Association("ExcelImport-DroppedFiles")]
+        [Aggregated]
+        [InvisibleInAllViews]
+        [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
+        public XPCollection<DroppedFile> DroppedFiles => GetCollection<DroppedFile>(nameof(DroppedFiles)); 
+
         [Association("ExcelImport-AutoImportedFiles")]
         [InvisibleInAllViews][Aggregated]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]

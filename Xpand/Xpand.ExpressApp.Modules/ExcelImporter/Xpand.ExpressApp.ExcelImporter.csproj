@@ -226,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessObjects\AutoImportedFile.cs" />
+    <Compile Include="BusinessObjects\DroppedFile.cs" />
     <Compile Include="BusinessObjects\ExcelColumnMap.cs" />
     <Compile Include="BusinessObjects\ExcelColumnMapMemberTypeValue.cs" />
     <Compile Include="BusinessObjects\ExcelImport.cs" />

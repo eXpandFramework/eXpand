@@ -26,11 +26,9 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
 
             var renames = _watcher.Renamed.Select(r => new FileDropped(r));
             var creates = _watcher.Created.Select(c => new FileDropped(c));
-            var changed = _watcher.Changed.Select(c => new FileDropped(c));
 
             Dropped = creates
                 .Merge(renames)
-                .Merge(changed)
                 .Merge(_pollResults)
                 .Where(dropped => Regex.IsMatch(dropped.Name, filter));
         }
