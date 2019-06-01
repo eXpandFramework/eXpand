@@ -7,7 +7,7 @@ $ErrorActionPreference = "Stop"
 
 Import-Module XpandPosh -Force -Prefix X
 if ($DXVersion -eq "0.0.0.0"){
-    $DXVersion=Get-DevExpressVersion
+    $DXVersion=Get-AssemblyInfoVersion "$PSScriptRoot\..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs"
 }
 
 #update version in templates
