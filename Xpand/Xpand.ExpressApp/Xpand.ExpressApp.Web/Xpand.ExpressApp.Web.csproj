@@ -153,7 +153,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Editors\ProgressViewItem.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FriendlyUrl\FriendlyUrlHelper.cs" />
     <Compile Include="ListEditors\MultiEditASPxGridListEditor.cs" />

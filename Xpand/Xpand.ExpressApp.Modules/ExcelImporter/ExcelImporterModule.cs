@@ -39,6 +39,7 @@ namespace Xpand.ExpressApp.ExcelImporter {
             RequiredModuleTypes.Add(typeof(SuppressConfirmationModule));
             RequiredModuleTypes.Add(typeof(CloneModelViewModule));
             RequiredModuleTypes.Add(typeof(HideToolBarModule));
+            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.ProgressBarViewItem.ProgressBarViewItemModule));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {

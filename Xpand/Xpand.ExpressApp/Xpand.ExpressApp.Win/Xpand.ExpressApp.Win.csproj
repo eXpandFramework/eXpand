@@ -201,7 +201,6 @@
     <Compile Include="EditModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Editors\ProgressViewItem.cs" />
     <Compile Include="Editors\WinProgressPropertyEditor.cs" />
     <Compile Include="Editors\XpandFilterControl.cs" />
     <Compile Include="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">

@@ -173,6 +173,9 @@
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.HideToolBar.0.0.7\lib\net4.6.1\Xpand.XAF.Modules.HideToolBar.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.ProgressBarViewItem, Version=0.0.1.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ProgressBarViewItem.0.0.1\lib\net4.6.1\Xpand.XAF.Modules.ProgressBarViewItem.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.31.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
       <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.31\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
@@ -196,7 +199,6 @@
     <Compile Include="Model\UnboundColumn.cs" />
     <Compile Include="Model\ProccessViewShortcuts.cs" />
     <Compile Include="NodeUpdaters\ModelMemberGeneratorUpdater.cs" />
-    <Compile Include="Editors\ProgressBarViewItem.cs" />
     <Compile Include="PropertyEditors\ComboBoxItemsBuilder.cs" />
     <Compile Include="PropertyEditors\ISerializableObjectPropertyEditor.cs" />
     <Compile Include="PropertyEditors\IStringPropertyEditor.cs" />

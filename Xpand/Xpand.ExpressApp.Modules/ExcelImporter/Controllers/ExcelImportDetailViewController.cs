@@ -13,12 +13,12 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
-using Xpand.ExpressApp.Editors;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Validation;
 using Xpand.XAF.Modules.MasterDetail;
+using Xpand.XAF.Modules.ProgressBarViewItem;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public class ExcelImportDetailViewController : ObjectViewController<DetailView,ExcelImport>{
@@ -111,7 +111,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         }
 
         private void ImportActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
-            var progressBarViewItem = View.GetItems<ProgressViewItem>().First();
+            var progressBarViewItem = View.GetItems<ProgressBarViewItemBase>().First();
             progressBarViewItem.Start();
             var progressObserver = GetProgressObserver(ExcelImport,progressBarViewItem);
             ObjectSpace.SetModified(View.CurrentObject);
@@ -142,7 +142,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             .Subscribe();
         }
 
-        protected virtual IObserver<ImportProgress> GetProgressObserver(ExcelImport excelImport,ProgressViewItem progressBarViewItem) {
+        protected virtual IObserver<ImportProgress> GetProgressObserver(ExcelImport excelImport,ProgressBarViewItemBase progressBarViewItem) {
             var progress = CreateProgressObserver();
             BeginImport.OnNext((excelImport, progress));
             var resultMessage = (CaptionHelper.GetLocalizedText(ExcelImporterLocalizationUpdater.ExcelImport,
@@ -158,11 +158,10 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             
             Observable
                 .Interval(TimeSpan.FromMilliseconds(progressBarViewItem.PollingInterval))
-                .WithLatestFrom(dataRowProgress, (l, importProgress) => ( importProgress.Percentage))
-                .Select(Synchronize).Concat( )
-                .Finally(() => OnSetPosition(progressBarViewItem, 0))
+                .WithLatestFrom(dataRowProgress, (l, importProgress) => ( (decimal)importProgress.Percentage))
+                .Select(Synchronize).Concat()
                 .TakeUntil(progressEnd)
-                .Do(percentage => OnSetPosition(progressBarViewItem, percentage))
+                .Do(progressBarViewItem)
                 .Subscribe();
             return progress;
         }
@@ -181,7 +180,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             return Observable.Return(t);
         }
 
-        protected virtual IObservable<Unit> ProgressEnd(ExcelImport excelImport, ProgressViewItem progressBarViewItem,
+        protected virtual IObservable<Unit> ProgressEnd(ExcelImport excelImport,
+            ProgressBarViewItemBase progressBarViewItem,
             ISubject<ImportProgress> progress, (string successMsg, string failedMsg) resultMessage,
             Dictionary<string, string> boCaptions) {
             Terminator.OnNext(Unit.Default);
@@ -196,7 +196,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 .Merge(Terminator);
         }
 
-        protected virtual void OnSetPosition(ProgressViewItem progressBarViewItem, int percentage){
+        protected virtual void OnSetPosition(ProgressBarViewItemBase progressBarViewItem, int percentage){
             progressBarViewItem.SetPosition ( percentage);
         }
 
