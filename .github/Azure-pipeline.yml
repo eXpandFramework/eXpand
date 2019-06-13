@@ -19,6 +19,7 @@ steps:
 - task: PowerShell@2
   displayName: Release
   inputs:
+    pwsh: true
     targetType: filePath
     filePath: .\.github\Azure-Pipeline.ps1
     arguments: $(Build.Repository.Name) $(DXApiFeed) $(NuGetApiKey) $(build.artifactstagingdirectory) $(BetaFeed)

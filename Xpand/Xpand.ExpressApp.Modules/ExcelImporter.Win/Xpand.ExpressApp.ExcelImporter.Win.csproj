@@ -77,7 +77,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony, Version=2.0.0.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.31\lib\net4.6.1\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.33.1\lib\net4.6.1\0Harmony.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v19.1">
@@ -207,8 +207,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
     </Reference>
-    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.31.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.31\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
+    <Reference Include="Xpand.XAF.Modules.Reactive, Version=1.2.33.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.Reactive.1.2.33.1\lib\net4.6.1\Xpand.XAF.Modules.Reactive.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Xpand.Xpo">
@@ -267,5 +267,7 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.26\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.26\build\Xpand.VersionConverter.targets'))" />
+    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.28\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.28\build\Xpand.VersionConverter.targets'))" />
   </Target>
+  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.28\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.28\build\Xpand.VersionConverter.targets')" />
 </Project>
