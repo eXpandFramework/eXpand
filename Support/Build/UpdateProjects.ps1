@@ -1,8 +1,7 @@
 $ErrorActionPreference = "Stop"
 $rootLocation = "$PSScriptRoot\..\..\"
-
+Write-Host "Update Projects"
 Set-Location $rootLocation
-
 
 Update-HintPath $rootLocation "$rootLocation\Xpand.Dll\" @("Xpand.*","DevExpress.*") @("*.DXCore.*","Xpand.XAF*","Xpand.VersionConverter*")
 Get-ChildItem "$rootLocation\Xpand" *.csproj -Recurse | ForEach-Object {

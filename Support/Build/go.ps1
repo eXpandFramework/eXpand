@@ -1,4 +1,4 @@
-﻿param(
+param(
     [string]$configuration = "Release",
     [string]$version = $null,
     [string]$msbuild = $null,
@@ -9,15 +9,15 @@
     [switch]$UseAllPackageSources,
     [string]$Repository = "eXpand",
     [string]$branch = "master",
-    [string]$xpandPoshVersion = "2.6.1"
+    [string]$XpandPwshVersion = "0.4.1"
 )
 
-$xpandPosh = [PSCustomObject]@{
-    Name    = "XpandPosh"
-    Version = $xpandPoshVersion
+$XpandPwsh = [PSCustomObject]@{
+    Name    = "XpandPwsh"
+    Version = $XpandPwshVersion
 }
 
-& "$PSScriptRoot\Install-Module.ps1" -psObj $xpandPosh
+& "$PSScriptRoot\Install-Module.ps1" -psObj $XpandPwsh
 $psake = [PSCustomObject]@{
     Name    = "psake"
     Version = "4.7.4"

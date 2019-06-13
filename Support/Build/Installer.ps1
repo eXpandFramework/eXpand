@@ -2,7 +2,7 @@ Param (
     [string]$XpandFolder=(Get-Item "$PSScriptRoot\..\..").FullName,
     [string]$DXVersion="0.0.0.0"
 )
-import-module XpandPosh -Force -Prefix X
+import-module XpandPwsh -Force -Prefix X
 . "$PSScriptRoot\Utils.ps1"
 Push-Location "$XpandFolder"
 if ($DXVersion -eq "0.0.0.0"){

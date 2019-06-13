@@ -4,7 +4,7 @@ Param (
 )
 
 
-import-module xpandposh -prefix X -force
+import-module XpandPwsh -prefix X -force
 $monoCecil = Use-XMonoCecil 
 
 set-location $PSScriptRoot
@@ -208,16 +208,20 @@ function PackNuspec($Nuspec, $ReadMe = $true) {
         Remove-Item "$root\Xpand.DLL\Readme.txt" -Force -ErrorAction SilentlyContinue
         $message=@"
         
-        
-        The package only adds the required references. To install the $moduleName add the next line in the constructor of your XAF module.
-        
-        RequiredModuleTypes.Add(typeof($moduleName));
+        ➤ ​̲𝗣​̲𝗟​̲𝗘​̲𝗔​̲𝗦​̲𝗘​̲ ​̲𝗦​̲𝗨​̲𝗦​̲𝗧​̲𝗔​̲𝗜​̲𝗡​̲ ​̲𝗢​̲𝗨​̲𝗥​̲ ​̲𝗔​̲𝗖​̲𝗧​̲𝗜​̲𝗩​̲𝗜​̲𝗧​̲𝗜​̲𝗘​̲𝗦
 
-        BUILD THE PROJECT BEFORE OPENING THE MODEL EDITOR
+            ☞  Iғ ᴏᴜʀ ᴘᴀᴄᴋᴀɢᴇs ᴀʀᴇ ʜᴇʟᴘɪɴɢ ʏᴏᴜʀ ʙᴜsɪɴᴇss ᴀɴᴅ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ɢɪᴠᴇ ʙᴀᴄᴋ ᴄᴏɴsɪᴅᴇʀ ʙᴇᴄᴏᴍɪɴɢ ᴀ SPONSOR ᴏʀ ᴀ BACKER.
+                https://opencollective.com/expand
+                
+            ☞  ɪғ ʏᴏᴜ ʟɪᴋᴇ ᴏᴜʀ ᴡᴏʀᴋ ᴘʟᴇᴀsᴇ ᴄᴏɴsɪᴅᴇʀ ᴛᴏ ɢɪᴠᴇ ᴜs ᴀ STAR.
+                https://github.com/eXpandFramework/eXpand/stargazers 
 
-        if you like our work please consider to give us a star https://github.com/eXpandFramework/eXpand/stargazers
+        ➤ ​​̲𝗣​̲𝗮​̲𝗰​̲𝗸​̲𝗮​̲𝗴​̲𝗲​̲ ​̲𝗻​̲𝗼​̲𝘁​̲𝗲​̲𝘀
 
-        If our packages are helping your business and you want to sustain our activities please consider becoming a sponor or a backer https://opencollective.com/expand.
+            ☞ Build the project before opening the model editor.
+            
+            ☞ The package only adds the required references. To install $moduleName add the next line in the constructor of your XAF module.
+                RequiredModuleTypes.Add(typeof($moduleName));
 "@
         Set-Content "$root\Xpand.DLL\Readme.txt" $message
         AddFile "ReadMe.txt" "" $nuspecContent

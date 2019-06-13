@@ -5,7 +5,7 @@ Param (
 )
 $ErrorActionPreference = "Stop"
 
-Import-Module XpandPosh -Force -Prefix X
+Import-Module XpandPwsh -Force -Prefix X
 if ($DXVersion -eq "0.0.0.0"){
     $DXVersion=Get-AssemblyInfoVersion "$PSScriptRoot\..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs"
 }
