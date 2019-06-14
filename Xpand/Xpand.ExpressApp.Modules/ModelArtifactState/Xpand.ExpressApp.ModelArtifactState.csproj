@@ -1,230 +1,91 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <NugetPkg>eXpandModelArtifactState</NugetPkg>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8A0EECEA-F699-40BA-B8F9-D70F79E9130B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpand.ExpressApp.ModelArtifactState</RootNamespace>
-    <AssemblyName>Xpand.ExpressApp.ModelArtifactState</AssemblyName>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFramework>net461</TargetFramework>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <TargetFrameworkProfile />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
     <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <DebugSymbols>true</DebugSymbols>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'RecompiledDxSources|AnyCPU'">
-    <OutputPath>bin\RecompiledDxSources\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <DebugSymbols>true</DebugSymbols>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="Mono.Cecil" Version="0.10.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.28" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.25.3" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Logic">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Logic.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Security.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Validation">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Validation.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
-    </Reference>
-    <Reference Include="System">
-      <Name>System</Name>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="Xpand.XAF.Modules.ModelViewInheritance, Version=1.1.25.1, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Xpand.XAF.Modules.ModelViewInheritance.1.1.25.1\lib\net4.5.2\Xpand.XAF.Modules.ModelViewInheritance.dll</HintPath>
-      <Private>True</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActionState\Logic\ActionStateRule.cs" />
-    <Compile Include="ActionState\Logic\ActionStateRuleController.cs">
+    <Compile Update="ActionState\Logic\ActionStateRuleController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ActionState\Model\IModelActionStateRule.cs" />
-    <Compile Include="ActionState\Model\ActionStateRulesNodeUpdater.cs" />
-    <Compile Include="ActionState\Security\ActionStateRulePermission.cs" />
-    <Compile Include="ActionState\Security\Improved\ActionStateOperationPermissionData.cs" />
-    <Compile Include="ActionState\Security\Improved\ActionStateRulePermission.cs" />
-    <Compile Include="ActionState\Security\Improved\PopulateActionsController.cs" />
-    <Compile Include="ActionState\Security\PopulateActionsController.cs" />
-    <Compile Include="ActionState\ActionStateLogicInstaller.cs" />
-    <Compile Include="ArtifactState\Logic\ArtifactStateRule.cs" />
-    <Compile Include="ArtifactState\Model\IModelApplicationModelArtifactState.cs" />
-    <Compile Include="ArtifactState\Model\IModelArtifactState.cs" />
-    <Compile Include="ArtifactState\Model\IModelArtifactStateRule.cs" />
-    <Compile Include="ArtifactState\Model\IModelLogicConditionalActionState.cs" />
-    <Compile Include="ArtifactState\Model\IModelLogicConditionalControllerState.cs" />
-    <Compile Include="ArtifactState\Security\ArtifactStateRulePermission.cs" />
-    <Compile Include="ArtifactState\Security\Improved\ArtifactStateOperationPermissionData.cs" />
-    <Compile Include="ArtifactState\Security\Improved\ArtifactStateRulePermission.cs" />
-    <Compile Include="ControllerState\ControllerStateLogicInstaller.cs" />
-    <Compile Include="ControllerState\Logic\ControllerStateRule.cs" />
-    <Compile Include="ControllerState\Logic\ControllerStateRuleController.cs">
+    <Compile Update="ControllerState\Logic\ControllerStateRuleController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControllerState\Logic\ControllerStateRuleDomainLogic.cs" />
-    <Compile Include="ControllerState\Model\IModelControllerStateRule.cs" />
-    <Compile Include="ControllerState\Model\ControllerStateRulesNodeUpdater.cs" />
-    <Compile Include="ControllerState\Security\ControllerStateRulePermission.cs" />
-    <Compile Include="ControllerState\Security\ControllerTypeConverter.cs" />
-    <Compile Include="ControllerState\Security\Improved\ControllerStateOperationPermissionData.cs" />
-    <Compile Include="ControllerState\Security\Improved\ControllerStateRulePermission.cs" />
-    <Compile Include="ControllerState\Security\Improved\UpdateTypeConverterController.cs">
+    <Compile Update="ControllerState\Security\Improved\UpdateTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ControllerState\Security\UpdateTypeConverterController.cs">
+    <Compile Update="ControllerState\Security\UpdateTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ModelArtifactStateModule.cs">
+    <Compile Update="ModelArtifactStateModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ObjectViews\Model\ObjectViewActionExecutionContextsGroupNodeUpdater.cs" />
-    <Compile Include="ObjectViews\ObjectViewsLogicInstaller.cs" />
-    <Compile Include="ObjectViews\Logic\ObjectViewRule.cs" />
-    <Compile Include="ObjectViews\Logic\ConditionalObjectViewRuleController.cs">
+    <Compile Update="ObjectViews\Logic\ConditionalObjectViewRuleController.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ObjectViews\Model\IModelApplicationConditionalObjectView.cs" />
-    <Compile Include="ObjectViews\Model\IModelObjectViewRule.cs" />
-    <Compile Include="ObjectViews\Model\IModelLogicConditionalObjectView.cs" />
-    <Compile Include="ObjectViews\Model\ObjectViewRulesNodeUpdater.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Updater.cs">
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -233,67 +94,21 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Properties\Xpand.VersionConverter.ReadMe.md" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <PropertyGroup>
-    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
-if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.26\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.26\build\Xpand.VersionConverter.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.26\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.26\build\Xpand.VersionConverter.targets'))" />
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.28\build\Xpand.VersionConverter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.28\build\Xpand.VersionConverter.targets'))" />
-  </Target>
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.28\build\Xpand.VersionConverter.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Xpand.VersionConverter.1.0.28\build\Xpand.VersionConverter.targets')" />
+  <ItemGroup>
+    <Compile Remove="ActionState\Logic\ArtifactStateRule.cs" />
+    <Compile Remove="ActionState\Logic\ArtifactStateRuleAttribute.cs" />
+    <Compile Remove="ActionState\Logic\ConditionalActionStateRule.cs" />
+    <Compile Remove="ActionState\Logic\ConditionalActionStateRuleAttribute.cs" />
+    <Compile Remove="ActionState\Logic\IArtifactStateRule.cs" />
+    <Compile Remove="ActionState\Logic\IConditionalActionStateRule.cs" />
+    <Compile Remove="ActionState\Model\IModelApplicationModelArtifactState.cs" />
+    <Compile Remove="ActionState\Model\IModelArtifactState.cs" />
+    <Compile Remove="ActionState\Model\IModelArtifactStateRule.cs" />
+    <Compile Remove="ActionState\Model\IModelConditionalActionStateRule.cs" />
+    <Compile Remove="ActionState\Model\IModelLogicConditionalActionStateRule.cs" />
+    <Compile Remove="ActionState\Security\ArtifactStateRulePermission.cs" />
+    <Compile Remove="ActionState\Security\ConditionalActionStateRulePermission.cs" />
+  </ItemGroup>
 </Project>

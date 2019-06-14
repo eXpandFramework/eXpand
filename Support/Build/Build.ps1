@@ -93,10 +93,10 @@ Task Version{
 Task RestoreNuget{
     InvokeScript {
         $sources=$packageSources
-        if ($UseAllPackageSources){
-            $sources=$($sources+$(Get-PackageSource|select-object -ExpandProperty Location -Unique))|Select-Object -Unique
-        }
-        & "$PSScriptRoot\Restore-Nuget.ps1" -packageSources $sources 
+        # if ($UseAllPackageSources){
+        #     $sources=$($sources+$(Get-PackageSource|select-object -ExpandProperty Location -Unique))|Select-Object -Unique
+        # }
+        # & "$PSScriptRoot\Restore-Nuget.ps1" -packageSources $sources 
     }   
 }
 
@@ -105,68 +105,6 @@ Task IndexSources -precondition {$repository}{
     Update-XSymbols -TargetRoot "https://raw.githubusercontent.com/eXpandFramework/$repository/$branch" -sourcesRoot $root
 }
 
-Task EasyTest{
-    InvokeScript  {
-        $xpandDll="$root\Xpand.Dll"
-        $thirdPartPath="$root\Support\_third_party_assemblies\"
-        [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
-        $group=$xml.Project.ItemGroup
-        . "$PSScriptRoot\Utils.ps1"
-        $projects=($group.DemoSolutions|GetProjects)+($group.DemoTesterProjects|GetProjects)
-    
-        Write-Host "Compiling other projects..." -f "Blue"
-        $otherProjects=$projects|Where-Object{!"$_".Contains("Web") -and !"$_".Contains("Win")}
-        BuildProjects $otherProjects
-    
-        Write-Host "Compiling Win projects..." -f "Blue"
-        $winProjects=$projects|Where-Object{"$_".Contains("Win")}
-        BuildProjects $winProjects
-
-        Write-Host "Compiling Web projects..." -f "Blue"
-        $webProjects=$projects|Where-Object{"$_".Contains("Web")}
-        BuildProjects $webProjects
-
-        if (Test-path "$PSScriptRoot\easytests.txt"){
-            Remove-Item "$PSScriptRoot\easytests.txt" -Force
-        }
-        
-        get-childitem "$root\Demos\" -Filter "*.ets" -Recurse|Select-Object -First 1 -ExpandProperty FullName |Set-Content  "$xpandDll\easytests.txt"
-        $reqs="$xpandDll\Xpand.utils.dll;$xpandDll\Xpand.ExpressApp.EasyTest.WinAdapter.dll;$xpandDll\Xpand.ExpressApp.EasyTest.WebAdapter.dll;$xpandDll\Xpand.EasyTest.dll;$xpandDll\Fasterflect.dll;$xpandDll\Aforge*.dll;"+
-        "$xpanddll\Xpand.ExpressApp.EasyTest.WinAdapter.pdb;$xpanddll\Xpand.ExpressApp.EasyTest.WebAdapter.pdb;$xpanddll\Xpand.EasyTest.pdb;$xpanddll\Xpand.utils.pdb;"+
-        "$xpandDll\psexec.exe;$xpandDll\CommandLine.dll;$xpandDll\executorwrapper.exe;$xpandDll\RDClient.exe;$(Get-DXPath $version)\Tools\eXpressAppFramework\EasyTest\TestExecutor.v$(Get-DXVersion $version).exe;$(Get-DXPath $version)\Tools\eXpressAppFramework\EasyTest\TestExecutor.v$(Get-DXVersion $version).exe.config;$thirdPartPath\AxInterop.MSTSCLib.dll;$thirdPartPath\Interop.MSTSCLib.dll;"
-        $easyTests=[System.IO.File]::ReadLines("$xpandDll\easytests.txt") 
-        $easyTests| ForEach-Object {
-            $easyTest=$_
-            if (Test-path $easyTest -ErrorAction SilentlyContinue){
-                $reqs.split(';') |ForEach-Object{
-                    $directory=$(Get-Item $easyTest).DirectoryName
-                    if ($_){
-                        if (Test-Path $_){
-                            Copy-Item $_ $directory
-                        }
-                    }
-                }
-            }
-        }
-        Set-Location $xpandDll
-        
-        $r=New-Command "EasyTest" "$xpandDll\XpandTestExecutor.Win.exe" "$XpandDll\easytests.txt"
-        if ($r.ExitCode){
-            throw $r.stderr
-        }
-        get-childitem $root TestsLog.xml -Recurse|foreach{
-            $xml=[xml](Get-Content $_.FullName)
-            $fails=$xml.SelectNodes("/Tests/Test[@Result='Warning' or @Result='Failed']")|foreach{
-                "app=$($_.ApplicationName)"
-                "msg=$($_.InnerText)`r`n"
-            }
-            if ($fails.count -gt 0){
-                $fails
-                throw 
-            }
-        }
-    }
-}
 
 Task Installer{
     InvokeScript{
@@ -176,14 +114,14 @@ Task Installer{
 
 Task CompileModules{
     InvokeScript{
-        . "$PSScriptRoot\Utils.ps1"
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         $group=$xml.Project.ItemGroup
         $projects=($group.CoreProjects|GetProjects)+ ($group.ModuleProjects|GetProjects)
         $projects|ForEach-Object{
             $fileName=(Get-Item $_).Name
             write-host "Building $fileName..." -f "Blue"
-            & $msbuild (GetBuildArgs "$_")
+            "packageSources=$packageSources"
+            & dotnet build "$_" --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";")
             if ($LASTEXITCODE) {
                 throw
             }
@@ -191,38 +129,75 @@ Task CompileModules{
 
         
         Write-Host "Compiling helper projects..." -f "Blue"
-        
-        BuildProjects ($group.HelperProjects|GetProjects)
-        BuildProjects ($group.VSAddons|GetProjects)
+        $helperProjects=($group.HelperProjects|GetProjects)
+        "helperProjects=$helperProjects"
+        BuildProjects $helperProjects
+        $vsAddons=($group.VSAddons|GetProjects)
+        "vsAddons=$vsAddons"
+        BuildProjects $vsAddons
 
         Write-Host "Compiling Agnostic EasyTest projects..." -f "Blue"
-        BuildProjects (($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 
+        $agnosticEasytest=(($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 
+        "agnosticEasytest=$agnosticEasytest"
+        BuildProjects $agnosticEasytest
         
         Write-Host "Compiling Win EasyTest projects..." -f "Blue"
-        BuildProjects (($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Win")}) 
+        $winEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Win")}) 
+        "winEasyTest=$winEasyTest"
+        BuildProjects $winEasyTest
         
         Write-Host "Compiling Web EasyTest projects..." -f "Blue"
-        BuildProjects (($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Web")}) 
-    }
-}
-task CompileDemos {
-    InvokeScript{
-        [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
-        . $PSScriptRoot\Utils.ps1
-        $group=$xml.Project.ItemGroup
-        $projects= ($group.DemoSolutions|GetProjects)
-        
-        Write-Host "Compiling demos..." -f "Blue"
-        $otherProjects=$projects|Where-Object{!"$_".Contains("Web") -and !"$_".Contains("Win")}
-        BuildProjects $otherProjects $true
+        $webEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Web")}) 
+        "webEasyTest=$webEasyTest"
+        BuildProjects $webEasyTest
     }
 }
 
-function BuildProjects($projects,$clean ){
-    # $projects|Invoke-Parallel -ActivityName Building -VariablesToImport @("v","msbuildArgs","root","msbuild") -Script {
+function GetProjects{
+    param(
+    [Parameter(ValueFromPipeline)]
+    $projects)
+    
+    ($projects.Include -split ";")|ForEach-Object{
+            $item=$_.Trim()
+            if ($item -ne ""){
+               $project="$PSScriptRoot\..\..\$item"
+               if ((Get-Item $project).GetType().Name -eq "FileInfo"){
+                   $project
+                }
+            }
+        }|Where-Object{$_ -ne "" -and $_ -ne $null}
+}
+
+
+task CompileDemos {
+    InvokeScript{
+        
+        [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
+        $group=$xml.Project.ItemGroup
+        $projects= ($group.DemoWinSolutions|GetProjects)
+        
+        Write-Host "Compiling win demos..." -f "Blue"
+        BuildProjects $projects
+        
+        $projects= ($group.DemoWebSolutions|GetProjects)
+        
+        # Write-Host "Compiling web demos..." -f "Blue"
+        # BuildProjects $projects $true
+    }
+}
+
+function BuildProjects($projects,$useMsBuild ){
     $projects|ForEach-Object {
         $bargs=(@("$_","/p:OutputPath=$root\Xpand.dll\")+$msbuildArgs.Split(";"))
-        $o=& $msbuild $bargs
+        if (!$useMsBuild){
+            "packageSources=$packageSources"
+            $o=& dotnet build "$_" --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";")
+        }
+        else {
+            $o=& $msbuild $bargs
+        }
+        
         if ($LASTEXITCODE){
             throw $o
         }
@@ -230,9 +205,7 @@ function BuildProjects($projects,$clean ){
     }
 }
 
-function GetBuildArgs($projectPath){
-    (@($projectPath,"/p:OutputPath=$root\Xpand.dll\")+$msbuildArgs)
-}
+
 
 task Clean -precondition {return $clean} {
     exec {

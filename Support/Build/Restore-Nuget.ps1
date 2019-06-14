@@ -1,5 +1,5 @@
 param(
-    [string[]]$packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","C:\Program Files (x86)\DevExpress 18.2\Components\System\Components\packages") 
+    [string[]]$packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget",(Get-Feed -dx)) 
 )
 
 [xml]$xml =Get-Content "$PSScriptRoot\Xpand.projects"
@@ -10,7 +10,8 @@ $rootPath="$PSScriptRoot\..\.."
 
 
 . $PSScriptRoot\Utils.ps1
-$projects=($group.DemoSolutions|GetProjects)+
+# $projects=($group.DemoSolutions|GetProjects)+
+$projects=
 ($group.ModuleProjects|GetProjects)+
 ($group.HelperProjects|GetProjects)+
 ($group.VSAddons|GetProjects)+
@@ -23,7 +24,10 @@ $psObj=[PSCustomObject]@{
     packageSources=[system.string]::join(";",$packageSources)
     projects=$projects
 } 
+Import-module XpandPwsh -Force -Prefix X
 $nuget=Get-XNugetPath
-$psObj.Projects|Invoke-XParallel -ActivityName "Restoring Nugets" -VariablesToImport @("psObj","nuget") -Script {
+$psObj.Projects|Invoke-XParallel -stepinterval 100 -ActivityName "Restoring Nugets" -VariablesToImport @("psObj","nuget") -Script {
+# $psObj.Projects|foreach {
+    write-output "Restoring $_"
     & $nuget Restore $_ -PackagesDirectory $psObj.PackagesDirectory -source $psObj.packageSources
 }

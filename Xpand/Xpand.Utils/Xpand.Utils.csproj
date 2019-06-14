@@ -1,234 +1,32 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3FA72CCB-7AA9-4CE6-B3BD-CE6554B2D4D7}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpand.Utils</RootNamespace>
-    <AssemblyName>Xpand.Utils</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
+    <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <OutputPath>..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\Xpand.DLL\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\Xpand.DLL\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <DebugSymbols>true</DebugSymbols>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\EasyTest\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
+    <PackageReference Include="System.Management" Version="4.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="fasterflect" Version="2.1.3" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Automation\FileAutomation.cs" />
-    <Compile Include="Automation\HelperAutomation.cs" />
-    <Compile Include="Automation\InteractivityAutomation.cs" />
-    <Compile Include="Automation\SystemAutomation.cs" />
-    <Compile Include="Automation\Wait.cs" />
-    <Compile Include="Automation\WaitAutomation.cs" />
-    <Compile Include="Fastreflect\PropertyExtensions.cs" />
-    <Compile Include="GeneralDataStructures\HashedArrayList.cs" />
-    <Compile Include="GeneralDataStructures\MultiKeyDictionary.cs" />
-    <Compile Include="Helpers\BaseClassExplicitInterfaceInvoker.cs" />
-    <Compile Include="Helpers\EnviromentEx.cs" />
-    <Compile Include="Helpers\CSharpEvaluator.cs" />
-    <Compile Include="Helpers\FileExtensions.cs" />
-    <Compile Include="Helpers\ImageExtensions.cs" />
-    <Compile Include="Helpers\Keys.cs" />
-    <Compile Include="Helpers\LinqExpressionAccessors.cs" />
-    <Compile Include="Helpers\DataSetExtensions.cs" />
-    <Compile Include="Helpers\DateTimeUtils.cs" />
-    <Compile Include="Helpers\EnumerableExtensions.cs" />
-    <Compile Include="Helpers\EnumExtensions.cs" />
-    <Compile Include="Helpers\ListExtensions.cs" />
-    <Compile Include="Helpers\PasswordAdvisor.cs" />
-    <Compile Include="Helpers\Retry.cs" />
-    <Compile Include="Helpers\StreamExtensions.cs" />
-    <Compile Include="Automation\InputSimulator\IInputDeviceStateAdaptor.cs" />
-    <Compile Include="Automation\InputSimulator\IInputMessageDispatcher.cs" />
-    <Compile Include="Automation\InputSimulator\IInputSimulator.cs" />
-    <Compile Include="Automation\InputSimulator\IKeyboardSimulator.cs" />
-    <Compile Include="Automation\InputSimulator\IMouseSimulator.cs" />
-    <Compile Include="Automation\InputSimulator\InputBuilder.cs" />
-    <Compile Include="Automation\InputSimulator\InputSimulator.cs" />
-    <Compile Include="Automation\InputSimulator\KeyboardSimulator.cs" />
-    <Compile Include="Automation\InputSimulator\MouseButton.cs" />
-    <Compile Include="Automation\InputSimulator\MouseSimulator.cs" />
-    <Compile Include="Automation\InputSimulator\WindowsInputDeviceStateAdaptor.cs" />
-    <Compile Include="Automation\InputSimulator\WindowsInputMessageDispatcher.cs" />
-    <Compile Include="Helpers\SystemExtensions.cs" />
-    <Compile Include="Linq\Extensions.cs" />
-    <Compile Include="Helpers\XpandConvert.cs" />
-    <Compile Include="Properties\XpandAssemblyInfo.cs" />
-    <Compile Include="Proxies\AssemblyReflectionManager.cs" />
-    <Compile Include="Threading\Progress.cs" />
-    <Compile Include="Threading\Synchronizer.cs" />
-    <Compile Include="Threading\TaskExtensions.cs" />
-    <Compile Include="Win32\WindowFinder.cs" />
-    <Compile Include="Win32\Win32Constants.cs" />
-    <Compile Include="Win32\Win32Declares.cs" />
-    <Compile Include="Win32\Win32Types.cs" />
-    <Compile Include="Automation\WindowAutomation.cs" />
-    <Compile Include="BackingFieldResolver\BackingFieldResolver.cs" />
-    <Compile Include="BackingFieldResolver\ILPattern.cs" />
-    <Compile Include="BackingFieldResolver\MatchContext.cs" />
-    <Compile Include="ExpressionBuilder\Builder.cs" />
-    <Compile Include="BackingFieldResolver\MethodBaseRocks.cs" />
-    <Compile Include="ExpressionBuilder\IBuilder.cs" />
-    <Compile Include="GeneralDataStructures\SerializableDictionary.cs" />
-    <Compile Include="Helpers\StringExtensions.cs" />
-    <Compile Include="IHideObjectMembers.cs" />
-    <Compile Include="GeneralDataStructures\ExtensionMethods.cs" />
-    <Compile Include="GeneralDataStructures\Grouping.cs" />
-    <Compile Include="GeneralDataStructures\MultiValueDictionary.cs" />
-    <Compile Include="Helpers\NotificationExtensions.cs" />
-    <Compile Include="Helpers\NumericHelper.cs" />
-    <Compile Include="Helpers\PropertyHelper.cs" />
-    <Compile Include="IO\InverseReader.cs" />
-    <Compile Include="IO\ReverseLineReader.cs" />
-    <Compile Include="Linq\Dynamic\ClassFactory.cs" />
-    <Compile Include="Linq\Dynamic\DynamicClass.cs" />
-    <Compile Include="Linq\Dynamic\DynamicExpression.cs" />
-    <Compile Include="Linq\Dynamic\DynamicOrdering.cs" />
-    <Compile Include="Linq\Dynamic\DynamicProperty.cs" />
-    <Compile Include="Linq\Dynamic\DynamicQueryable.cs" />
-    <Compile Include="Linq\Dynamic\ExpressionParser.cs" />
-    <Compile Include="Linq\Dynamic\ParseException.cs" />
-    <Compile Include="Linq\ExpressionConverter.cs" />
-    <Compile Include="Linq\PredicateBuilder.cs" />
-    <Compile Include="Linq\Dynamic\Res.cs" />
-    <Compile Include="Linq\Dynamic\Signature.cs" />
-    <Compile Include="Linq\RecursiveLinq.cs" />
-    <Compile Include="ObjectMerger.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Helpers\ReflectionExtensions.cs" />
-    <Compile Include="Threading\DomainRunner.cs" />
-    <Compile Include="XpandReflectionHelper.cs" />
-    <Compile Include="Testing\CoverageExcludeAttribute.cs" />
-    <Compile Include="Web\ClientScriptProxy.cs" />
-    <Compile Include="Web\ControlExtensions.cs" />
+    <Compile Remove="Properties\AssemblyVersion.cs" />
+    <Compile Remove="Threading\AsyncEnumeratorSyncHelper.cs" />
+    <Compile Remove="Threading\SingleInstance.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  
-  -->
-  <Target Name="AfterBuild">
-  </Target>
-  <PropertyGroup>
-    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
-if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
 </Project>

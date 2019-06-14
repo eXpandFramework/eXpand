@@ -1,704 +1,217 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" />
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{0E40CCB3-7904-4300-BCD6-E34D275E6370}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpand.Persistent.Base</RootNamespace>
-    <AssemblyName>Xpand.Persistent.Base</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <FileAlignment>512</FileAlignment>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <PublishUrl>http://localhost/Xpand.Persistent.Base/</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Web</InstallFrom>
-    <UpdateEnabled>true</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
     <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <NoWarn>
-    </NoWarn>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <DebugSymbols>true</DebugSymbols>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Test\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EasyTest|AnyCPU'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\EasyTest\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <ErrorReport>prompt</ErrorReport>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.CSharp" Version="4.*" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="Fody" Version="4.2.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Mono.Cecil" Version="0.10.4" />
+    <PackageReference Include="PropertyChanged.Fody" Version="2.6.1" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Images.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Images.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Pdf.v19.1.Core">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Pdf.v19.1.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.BaseImpl.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.BaseImpl.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Printing.v19.1.Core">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Printing.v19.1.Core.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v19.1.Export">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Export.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Web.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Office.v19.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Utils.v19.1">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Web.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraBars.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraBars.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="DevExpress.XtraEditors.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <Private>False</Private>
       <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraEditors.v19.1.dll</HintPath>
+      <Private>False</Private>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Mono.Cecil, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Mdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Pdb.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.10.3.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\Mono.Cecil.0.10.3\lib\net40\Mono.Cecil.Rocks.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="PropertyChanged, Version=2.6.1.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\lib\net452\PropertyChanged.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
     <Reference Include="System.configuration" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data" />
     <Reference Include="System.Security" />
-    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml" />
     <Reference Include="Xpand.Utils">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdditionalViewControls\AdditionalViewControlsRuleAttribute.cs" />
-    <Compile Include="AdditionalViewControls\IAdditionalViewControlsRule.cs" />
-    <Compile Include="AdditionalViewControls\IContextAdditionalViewControlsRule.cs" />
-    <Compile Include="AuditTrail\IAuditTrailRule.cs" />
-    <Compile Include="AuditTrail\IContextAuditTrailRule.cs" />
-    <Compile Include="General\CustomAttributes\EnumFilterAttribute.cs" />
-    <Compile Include="General\MonoCecilExtensions.cs" />
-    <Compile Include="RuleInfoObject.cs" />
-    <Compile Include="DifferenceType.cs" />
-    <Compile Include="Email\IContextEmailRule.cs" />
-    <Compile Include="Email\IEmailOperationPermissionData.cs" />
-    <Compile Include="Email\IEmailRule.cs" />
-    <Compile Include="General\ActionExtensions.cs" />
-    <Compile Include="General\ApplicationBuilder.cs" />
-    <Compile Include="General\ApplicationHelper.cs" />
-    <Compile Include="General\AttributeRegistrator.cs" />
-    <Compile Include="General\Controllers\DisableDialogController.cs">
+    <Compile Update="General\Controllers\DisableDialogController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\CollectionsEditModeController.cs" />
-    <Compile Include="General\Controllers\NavigationItemsController.cs">
+    <Compile Update="General\Controllers\NavigationItemsController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\PopupParentFrameController.cs" />
-    <Compile Include="General\CustomFunctions\EvaluateCSharpOperator.cs" />
-    <Compile Include="General\FileDataExtensions.cs" />
-    <Compile Include="General\IDataBound.cs" />
-    <Compile Include="General\Model\ColumnChooser.cs" />
-    <Compile Include="General\ModuleActivator.cs" />
-    <Compile Include="General\TypeConverters\StringToModelMemberConverter.cs" />
-    <Compile Include="General\TypeConverters\StringToModelViewConverter.cs" />
-    <Compile Include="General\Web\NavigationContainerWebController.cs">
+    <Compile Update="General\Web\NavigationContainerWebController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Web\ActionsClientScriptController.cs">
+    <Compile Update="General\Web\ActionsClientScriptController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Web\CustomizeASPxPopupController.cs">
+    <Compile Update="General\Web\CustomizeASPxPopupController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\EasyTestController.cs">
+    <Compile Update="General\Controllers\EasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\ListViewExtensions.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\ActionVisibilityCalculator.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\RibbonFormStyleVisibilityCalculator.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\StandardFormStyleVisibilityCalculator.cs" />
-    <Compile Include="General\Web\SyntaxHighlight\AceEditor.cs" />
-    <Compile Include="General\Web\SyntaxHighlight\Model.cs" />
-    <Compile Include="General\Web\SyntaxHighlight\Services.cs" />
-    <Compile Include="General\Web\SyntaxHighlight\SyntaxHighLightController.cs" />
-    <Compile Include="General\Win\ToolbarExtensions.cs" />
-    <Compile Include="General\XpandNavigationItem.cs" />
-    <Compile Include="General\Controllers\Actions\ActionModifyModelController.cs" />
-    <Compile Include="General\Controllers\Actions\ActionItemsFromModelController.cs">
+    <Compile Update="General\Controllers\Actions\ActionItemsFromModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Actions\ActionModelChoiceItemController.cs">
+    <Compile Update="General\Controllers\Actions\ActionModelChoiceItemController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Actions\ModelConfigurationController.cs" />
-    <Compile Include="General\Controllers\ModelController.cs">
+    <Compile Update="General\Controllers\ModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Actions\ModifyModelActionControllerBase.cs" />
-    <Compile Include="General\Controllers\Actions\ResetViewModelController.cs">
+    <Compile Update="General\Controllers\Actions\ResetViewModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\CustomAttibutesController.cs">
+    <Compile Update="General\Controllers\CustomAttibutesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\ModelViewSavingController.cs">
+    <Compile Update="General\Controllers\ModelViewSavingController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\ModifyObjectSpaceController.cs" />
-    <Compile Include="General\Controllers\NavigationController.cs">
+    <Compile Update="General\Controllers\NavigationController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\NotifyMembersController.cs" />
-    <Compile Include="General\Controllers\UploadControlModelAdaptorController.cs" />
-    <Compile Include="General\CustomFunctions\ModelValueOperator.cs" />
-    <Compile Include="General\FastReflectPropertyDescriptor.cs" />
-    <Compile Include="General\MemberInfoExtensions.cs" />
-    <Compile Include="General\Model\ModelNodePath.cs" />
-    <Compile Include="General\ModuleUpdaterExtensions.cs" />
-    <Compile Include="General\XpandCollectionSource.cs" />
-    <Compile Include="General\ApplicationModulesManagerExtensions.cs" />
-    <Compile Include="General\IFileChooser.cs" />
-    <Compile Include="ModelDifference\DeviceCategory.cs" />
-    <Compile Include="Security\ISecurityModuleUser.cs" />
-    <Compile Include="Logic\LogicRuleAttribute.cs" />
-    <Compile Include="MasterDetail\IContextMasterDetailRule.cs" />
-    <Compile Include="MasterDetail\IMasterDetailOperationPermissionData.cs" />
-    <Compile Include="MasterDetail\IMasterDetailRule.cs" />
-    <Compile Include="MasterDetail\MasterDetailAttribute.cs" />
-    <Compile Include="ModelArtifact\ActionState.cs" />
-    <Compile Include="ModelArtifact\ActionStateRuleAttribute.cs" />
-    <Compile Include="ModelArtifact\ArtifactStateRuleAttribute.cs" />
-    <Compile Include="ModelArtifact\ControllerState.cs" />
-    <Compile Include="ModelArtifact\ControllerStateRuleAttribute.cs" />
-    <Compile Include="ModelArtifact\IActionStateRule.cs" />
-    <Compile Include="ModelArtifact\IArtifactStateRule.cs" />
-    <Compile Include="ModelArtifact\IContextActionStateRule.cs" />
-    <Compile Include="ModelArtifact\IContextArtifactStateRule.cs" />
-    <Compile Include="ModelArtifact\IContextControllerStateRule.cs" />
-    <Compile Include="ModelArtifact\IControllerStateRule.cs" />
-    <Compile Include="ModelArtifact\IObjectViewRule.cs" />
-    <Compile Include="ModelArtifact\ObjectViewRuleAttribute.cs" />
-    <Compile Include="ModelDifference\ApplicationModelCombineModifier.cs" />
-    <Compile Include="ModelDifference\IModelCombinePermission.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentMapInheritanceAttribute.cs" />
-    <Compile Include="RuntimeMembers\RuntimeMemberModelDifferenceController.cs" />
-    <Compile Include="Security\ISecurityPermisssionPolicyRelated.cs" />
-    <Compile Include="Security\SecurityExtensions.cs" />
-    <Compile Include="General\XpandDefaultPropertyAttribute.cs" />
-    <Compile Include="MessageBox\GenericMessageBox.cs" />
-    <Compile Include="MessageBox\MessageBoxTextMessage.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentModelDefaultAttribute.cs" />
-    <Compile Include="Security\EncryptedSettingsStorage.cs" />
-    <Compile Include="Security\ISecurityRelated.cs" />
-    <Compile Include="Security\SecurityOperationsAttribute.cs" />
-    <Compile Include="StateMachine\IStateMachineTransitionPermission.cs" />
-    <Compile Include="StateMachine\StateMachineTransitionModifier.cs" />
-    <Compile Include="TreeNode\ColumnChooser.cs" />
-    <Compile Include="Validation\RuleIsValidFileName.cs" />
-    <Compile Include="XpandFileData.cs" />
-    <Compile Include="Xpo\AssemblyXpoTypeInfoSource.cs" />
-    <Compile Include="Xpo\BinaryOperatorValueMapperCriteriaProcessor.cs" />
-    <Compile Include="General\Model\DefaultMember.cs" />
-    <Compile Include="General\Model\RequiredCalculators\NotRequiredCalculator.cs" />
-    <Compile Include="General\TypesInfoBuilder.cs" />
-    <Compile Include="General\CollectionSourceExtensions.cs" />
-    <Compile Include="General\Controllers\CreateExpandAbleMembersViewController.cs">
+    <Compile Update="General\Controllers\CreateExpandAbleMembersViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\Dashboard\DashboardInteraction.cs" />
-    <Compile Include="General\Controllers\Dashboard\Model.cs" />
-    <Compile Include="General\Controllers\Dashboard\WebDashboardRefreshController.cs" />
-    <Compile Include="General\Controllers\FilterByColumnController.cs" />
-    <Compile Include="General\Controllers\HideFromNewMenuViewController.cs" />
-    <Compile Include="General\Controllers\MasterObjectViewController.cs" />
-    <Compile Include="General\Controllers\CreatableItemController.cs" />
-    <Compile Include="General\Controllers\PessimisticLockingViewController.cs" />
-    <Compile Include="General\Controllers\PopulateController.cs" />
-    <Compile Include="General\Controllers\UpdateTypeConverterController.cs">
+    <Compile Update="General\Controllers\UpdateTypeConverterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\Controllers\XpandReferenceConverter.cs" />
-    <Compile Include="General\CriteriaOperatorExtensions.cs" />
-    <Compile Include="General\CustomAttributes\InVisibleInAllViewsAttribute.cs" />
-    <Compile Include="General\CustomShowNavigationItemEventArgsExtensions.cs" />
-    <Compile Include="General\DataStoreProvider.cs" />
-    <Compile Include="General\DynamicSecuritySystemObjects.cs" />
-    <Compile Include="General\EditorAliases.cs" />
-    <Compile Include="General\FrameExtensions.cs" />
-    <Compile Include="General\HideFromNewMenuAttribute.cs" />
-    <Compile Include="General\IChooseFromListCollectionEditor.cs" />
-    <Compile Include="General\IStringLookupPropertyEditor.cs" />
-    <Compile Include="General\ISupportValueReading.cs" />
-    <Compile Include="General\IXpandLogonParameters.cs" />
-    <Compile Include="General\ModelExtensions.cs" />
-    <Compile Include="General\ModelXmlReaderExtensions.cs" />
-    <Compile Include="General\Model\AttributeCategoryNameProvider.cs" />
-    <Compile Include="General\Model\IModelOptionsClientSideSecurity.cs" />
-    <Compile Include="General\Model\Interfaces.cs" />
-    <Compile Include="General\Model\ModulesNode.cs" />
-    <Compile Include="General\Model\ReadOnlyParametersNode.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\AlwaysVisibleCalculator.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\EditorTypeVisibilityCalculator.cs" />
-    <Compile Include="General\Model\Options\Interfaces.cs" />
-    <Compile Include="General\Model\Options\Synchronizers.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\AlwaysEditableVisibilityCalculator.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\NotVisibileCalculator.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\RuntimeOnlyCalculator.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\WebOnlyVisibilityCalculator.cs" />
-    <Compile Include="General\Model\VisibilityCalculators\WinOnlyVisibilityCalculator.cs" />
-    <Compile Include="General\MultiDataStoreProvider.cs" />
-    <Compile Include="General\MultiDataStoreProxy.cs" />
-    <Compile Include="General\NewObjectCreateGroupAttribute.cs" />
-    <Compile Include="General\ObjectObserver.cs" />
-    <Compile Include="General\ValueConverters\TypeValueConverter.cs" />
-    <Compile Include="General\ViewExtensions.cs" />
-    <Compile Include="General\XafApplicationExtensions.cs" />
-    <Compile Include="General\XpandModuleBase.cs">
+    <Compile Update="General\XpandModuleBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\XpandObjectSpace.cs" />
-    <Compile Include="General\XpandObjectSpaceProvider.cs" />
-    <Compile Include="General\XpoObjectHacker.cs" />
-    <Compile Include="Logic\ExecutionContext.cs" />
-    <Compile Include="Logic\ILogicInstaller.cs" />
-    <Compile Include="Logic\LogicRule.cs" />
-    <Compile Include="Logic\Model\IContextLogicRule.cs" />
-    <Compile Include="Logic\Model\ActionExecutionContext.cs" />
-    <Compile Include="Logic\Model\IModelConditionalLogicRule.cs" />
-    <Compile Include="Logic\Model\ObjectChangedExecutionContext.cs" />
-    <Compile Include="MiddleTier\XpandServerApplication.cs">
+    <Compile Update="MiddleTier\XpandServerApplication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MiddleTier\XpandWcfDataServerHelper.cs" />
-    <Compile Include="ModelAdapter\PropertyEditorControlAdapterController.cs">
+    <Compile Update="ModelAdapter\PropertyEditorControlAdapterController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="General\ISelectionCriteria.cs" />
-    <Compile Include="General\MasterDetailRuleInfo.cs" />
-    <Compile Include="General\DataStoreAttribute.cs" />
-    <Compile Include="General\CustomAttributes\DisplayDateAndTime.cs" />
-    <Compile Include="General\CustomAttributes\DisplayFormatAttribute.cs" />
-    <Compile Include="General\CustomAttributes\ICustomAttribute.cs" />
-    <Compile Include="General\IDataSourceSelectionChanged.cs" />
-    <Compile Include="General\IDateRange.cs" />
-    <Compile Include="General\IFastManyToMany .cs" />
-    <Compile Include="General\IXpandObjectSpace.cs" />
-    <Compile Include="General\CustomAttributes\NumericFormatAttribute.cs" />
-    <Compile Include="General\NewObjectCollectCreatableItemTypesDataSourceAttribute.cs" />
-    <Compile Include="General\ObjectSpaceExtensions.cs" />
-    <Compile Include="General\ObjectToViewMapper.cs" />
-    <Compile Include="General\PictureItemEventArgs.cs" />
-    <Compile Include="General\CustomAttributes\PropertyEditorAttribute.cs" />
-    <Compile Include="General\PropertyEditorProperty.cs" />
-    <Compile Include="General\RegistryTimeZoneProvider.cs" />
-    <Compile Include="General\RelationType.cs" />
-    <Compile Include="General\RequestTextPictureItemEventArgs.cs" />
-    <Compile Include="General\ReservedMember.cs" />
-    <Compile Include="General\SequenceGenerator.cs" />
-    <Compile Include="General\CustomAttributes\SequencePropertyAttribute.cs" />
-    <Compile Include="General\CustomAttributes\TooltipAttribute.cs" />
-    <Compile Include="General\TypesInfoExtensions.cs" />
-    <Compile Include="General\ValueConverters\ImageCompressionValueConverter.cs" />
-    <Compile Include="General\SessionLessPersistentAttribute.cs" />
-    <Compile Include="Xpo\CachedDataStoreProvider.cs" />
-    <Compile Include="Xpo\XpandXpoTypeInfoSource.cs" />
-    <Compile Include="ImportExport\IClassInfoGraphNode.cs" />
-    <Compile Include="ImportExport\FailReason.cs" />
-    <Compile Include="ImportExport\IIOError.cs" />
-    <Compile Include="ImportExport\ISerializationConfiguration.cs" />
-    <Compile Include="ImportExport\ISerializationConfigurationGroup.cs" />
-    <Compile Include="ImportExport\ErrorHandling.cs" />
-    <Compile Include="ImportExport\NodeType.cs" />
-    <Compile Include="ImportExport\SerializationKeyAttribute.cs" />
-    <Compile Include="ImportExport\SerializationStrategy.cs" />
-    <Compile Include="ImportExport\SerializationStrategyAttribute.cs" />
-    <Compile Include="IXpoModelDifference.cs" />
-    <Compile Include="General\IObsoleteTreeNode.cs" />
-    <Compile Include="General\IPictureItem.cs" />
-    <Compile Include="JobScheduler\Calendars\IAnnualCalendar.cs" />
-    <Compile Include="JobScheduler\Calendars\ICronCalendar.cs" />
-    <Compile Include="JobScheduler\Calendars\IDailyCalendar.cs" />
-    <Compile Include="JobScheduler\Calendars\IHolidayCalendar.cs" />
-    <Compile Include="JobScheduler\Calendars\IMonthlyCalendar.cs" />
-    <Compile Include="JobScheduler\Calendars\ITriggerCalendar.cs" />
-    <Compile Include="JobScheduler\Calendars\IWeeklyCalendar.cs" />
-    <Compile Include="JobScheduler\DataMapTypeAttribute.cs" />
-    <Compile Include="JobScheduler\IDataMap.cs" />
-    <Compile Include="JobScheduler\IRequireSchedulerInitialization.cs" />
-    <Compile Include="JobScheduler\NonDataMapMember.cs" />
-    <Compile Include="JobScheduler\Triggers\IXpandCronTrigger.cs" />
-    <Compile Include="JobScheduler\IJobSchedulerGroup.cs" />
-    <Compile Include="JobScheduler\Triggers\IJobSchedulerGroupTriggerLink.cs" />
-    <Compile Include="JobScheduler\Triggers\IJobTriggerTriggerListenerTriggerLink.cs" />
-    <Compile Include="JobScheduler\ISupportSchedulerLink.cs" />
-    <Compile Include="JobScheduler\IXpandJob.cs" />
-    <Compile Include="JobScheduler\IXpandJobDetail.cs" />
-    <Compile Include="JobScheduler\Triggers\IJobDetailJobListenerTriggerLink.cs" />
-    <Compile Include="JobScheduler\Triggers\IJobDetailTriggerLink.cs" />
-    <Compile Include="JobScheduler\Triggers\IJobListenerTrigger.cs" />
-    <Compile Include="JobScheduler\ISupportJobDetail.cs" />
-    <Compile Include="JobScheduler\Triggers\IXpandSimpleTrigger.cs" />
-    <Compile Include="JobScheduler\Triggers\IXpandJobTrigger.cs" />
-    <Compile Include="JobScheduler\Triggers\ITriggerListenerTrigger.cs" />
-    <Compile Include="Logic\FrameTemplateContext.cs" />
-    <Compile Include="Logic\ILogicRule.cs" />
-    <Compile Include="Logic\IRule.cs" />
-    <Compile Include="Logic\NodeGenerators\ExecutionContextNodeGenerator.cs" />
-    <Compile Include="Logic\NodeGenerators\ExecutionContextsGroupNodeGenerator.cs" />
-    <Compile Include="Logic\NodeGenerators\FrameTemplateContextNodeGenerator.cs" />
-    <Compile Include="Logic\NodeGenerators\FrameTemplateContextsGroupNodeGenerator.cs" />
-    <Compile Include="Logic\NodeGenerators\LogicRulesNodesGenerator.cs" />
-    <Compile Include="Logic\NodeGenerators\ViewContextNodeGenerator.cs" />
-    <Compile Include="Logic\NodeGenerators\ViewContextsGroupNodeGenerator.cs" />
-    <Compile Include="MemberLevelSecurity\IMemberLevelSecurityModule.cs" />
-    <Compile Include="ModelAdapter\InterfaceBuilder.cs" />
-    <Compile Include="ModelAdapter\Interfaces.cs" />
-    <Compile Include="ModelAdapter\ModelAdapterController.cs" />
-    <Compile Include="ModelAdapter\ModelSynchronizerList.cs" />
-    <Compile Include="ModelAdapter\Synchronizers.cs" />
-    <Compile Include="ModelDifference\XpandApplicationModulesManager.cs" />
-    <Compile Include="ModelDifference\AspectInfo.cs" />
-    <Compile Include="ModelDifference\ModelApplicationFromStreamStoreBase.cs" />
-    <Compile Include="ModelDifference\ModelLoader.cs" />
-    <Compile Include="ModelDifference\ResourceInfo.cs" />
-    <Compile Include="ModelDifference\ResourceModelCollector.cs" />
-    <Compile Include="ModelDifference\ResourcesModelStore.cs" />
-    <Compile Include="ModuleUpdaterHelper.cs" />
-    <Compile Include="Logic\Model\IModelExecutionContext.cs" />
-    <Compile Include="Logic\Model\IModelExecutionContexts.cs" />
-    <Compile Include="Logic\Model\IModelExecutionContextsGroup.cs" />
-    <Compile Include="Logic\Model\IModelFrameTemplateContext.cs" />
-    <Compile Include="Logic\Model\IModelFrameTemplateContexts.cs" />
-    <Compile Include="Logic\Model\IModelFrameTemplateContextsGroup.cs" />
-    <Compile Include="Logic\Model\IModelLogic.cs" />
-    <Compile Include="Logic\Model\IModelLogicRule.cs" />
-    <Compile Include="Logic\Model\IModelLogicRules.cs" />
-    <Compile Include="Logic\Model\IModelViewContext.cs" />
-    <Compile Include="Logic\Model\IModelViewContexts.cs" />
-    <Compile Include="Logic\Model\IModelViewContextsGroup.cs" />
-    <Compile Include="General\ComponentInterfaces.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentVisibleInDetailViewAttribute.cs" />
-    <Compile Include="RuntimeMembers\RuntimeMemberBuilder.cs" />
-    <Compile Include="RuntimeMembers\Model\CalculatedMembers.cs" />
-    <Compile Include="RuntimeMembers\Model\Collections\AssociatedCollection.cs" />
-    <Compile Include="RuntimeMembers\Model\Collections\OrphanedColection.cs" />
-    <Compile Include="RuntimeMembers\Model\Members.cs" />
-    <Compile Include="RuntimeMembers\Model\PersistentMember.cs" />
-    <Compile Include="Security\ICustomLogonParameter.cs" />
-    <Compile Include="Security\IModelOptionsRegistration.cs" />
-    <Compile Include="Security\IModelRegistrationActivation.cs" />
-    <Compile Include="Security\IModelRegistrationEnabled.cs" />
-    <Compile Include="Validation\RuleMessage.cs" />
-    <Compile Include="Validation\IPasswordScoreController.cs" />
-    <Compile Include="TypeConverters.cs" />
-    <Compile Include="PersistentMetaData\ICodeTemplate.cs" />
-    <Compile Include="PersistentMetaData\ICodeTemplateInfo.cs" />
-    <Compile Include="PersistentMetaData\IExtendedCollectionMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IExtendedCoreTypeMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IExtendedMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IExtendedOrphanedCollection.cs" />
-    <Compile Include="PersistentMetaData\IExtendedReferenceMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IInterfaceInfo.cs" />
-    <Compile Include="PersistentMetaData\IMapperInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentAssemblyInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentAssociatedMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentTemplatedTypeInfo.cs" />
-    <Compile Include="PersistentMetaData\ISqlMapperInfo.cs" />
-    <Compile Include="PersistentMetaData\ITemplateInfo.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\AttributeInfoAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyDataStoreAttributeInfo.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyVersionAttributeInfo.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssociationAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeCreator.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAttributeInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentClassInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentCollectionMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentCoreTypeMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentReferenceMemberInfo.cs" />
-    <Compile Include="PersistentMetaData\IPersistentTypeInfo.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentDefaulClassOptionsAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentKeyAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentNavigationItemAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAliasAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentPersistentAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentRuleRequiredFieldAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentSizeAttribute.cs" />
-    <Compile Include="PersistentMetaData\PersistentAttributeInfos\IPersistentAssemblyAttributeInfo.cs" />
-    <Compile Include="PersistentMetaData\InterfaceRegistratorAttribute.cs" />
-    <Compile Include="PivotChart\Web\IPivotGridOptionsOLAP.cs" />
-    <Compile Include="PivotChart\Web\IPivotGridWebOptionsChartDataSource.cs" />
-    <Compile Include="PivotChart\Web\IPivotGridWebOptionsCustomization.cs" />
-    <Compile Include="PivotChart\Web\IPivotGridWebOptionsLoadingPanel.cs" />
-    <Compile Include="PivotChart\Web\IPivotGridWebOptionsPager.cs" />
-    <Compile Include="PivotChart\Web\IPivotGridWebOptionsView.cs" />
-    <Compile Include="PivotChart\IPivotOptionsBehavior.cs" />
-    <Compile Include="PivotChart\IPivotOptionsChartDataSource.cs" />
-    <Compile Include="PivotChart\IPivotOptionsCustomization.cs" />
-    <Compile Include="PivotChart\IPivotOptionsData.cs" />
-    <Compile Include="PivotChart\IPivotOptionsDataField.cs" />
-    <Compile Include="PivotChart\IPivotOptionsFilterPopup.cs" />
-    <Compile Include="PivotChart\IPivotOptionsHint.cs" />
-    <Compile Include="PivotChart\IPivotOptionsMenu.cs" />
-    <Compile Include="PivotChart\IPivotOptionsSelection.cs" />
-    <Compile Include="PivotChart\IPivotOptionsView.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PersistentMetaData\IDataBase.cs" />
-    <Compile Include="PersistentMetaData\IDataStoreLogonObject.cs" />
-    <Compile Include="Validation\AtLeast1PropertyIsRequired\IRuleRequiredForAtLeast1PropertyProperties.cs" />
-    <Compile Include="Validation\RuleDefaultMessageTemplates.cs" />
-    <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1Property.cs" />
-    <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1PropertyAttribute.cs" />
-    <Compile Include="Validation\AtLeast1PropertyIsRequired\RuleRequiredForAtLeast1PropertyProperties.cs" />
-    <Compile Include="Validation\FromIPropertyValueValidator\IPropertyValueValidator.cs" />
-    <Compile Include="Validation\FromIPropertyValueValidator\IRuleFromIPropertyValueValidatorProperties.cs" />
-    <Compile Include="Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidator.cs" />
-    <Compile Include="Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorAttribute.cs" />
-    <Compile Include="Validation\FromIPropertyValueValidator\RuleFromIPropertyValueValidatorProperties.cs" />
-    <Compile Include="Validation\IRuleMultiPropertiesValues.cs" />
-    <Compile Include="Validation\RuleMultiPropertiesValues.cs" />
-    <Compile Include="XpandBaseCustomObject.cs" />
-    <Compile Include="Xpo\CustomFunctionValueProcessor.cs" />
-    <Compile Include="Xpo\Extensions.cs" />
-    <Compile Include="Xpo\FullTextOperatorProcessor.cs" />
-    <Compile Include="Xpo\IXPSimpleObjectExtensions.cs" />
-    <Compile Include="Xpo\MetaData\XpandCollectionMemberInfo.cs" />
-    <Compile Include="General\Controllers\XpandLinkToListViewController.cs">
+    <Compile Update="General\Controllers\XpandLinkToListViewController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Xpo\MetaData\XpandModelMemberInfo.cs" />
-    <Compile Include="Xpo\PatchXpoSpecificFieldNameProcessor.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="FodyWeavers.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="packages.config" />
     <EmbeddedResource Include="Resources\BurntToast.psm1" />
     <EmbeddedResource Include="Resources\config.json" />
   </ItemGroup>
@@ -711,32 +224,17 @@
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
-  <PropertyGroup>
-    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
-if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
-    <LangVersion>latest</LangVersion>
-    <Prefer32Bit>false</Prefer32Bit>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-      <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets'))" />
-    <Error Condition="!Exists('..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\Support\_third_party_assemblies\Packages\PropertyChanged.Fody.2.6.1\build\PropertyChanged.Fody.props'))" />
-  </Target>
-  <Import Project="..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets" Condition="Exists('..\..\..\Support\_third_party_assemblies\Packages\Fody.4.2.1\build\Fody.targets')" />
+  <ItemGroup>
+    <Compile Remove="ImportExport\IMemberCategory.cs" />
+    <Compile Remove="PivotChart\ICustomAnalysis.cs" />
+    <Compile Remove="PivotChart\IPivotOption.cs" />
+    <Compile Remove="PivotChart\IPivotOptionView.cs" />
+    <Compile Remove="ModelAdapter\Logic\IModelAdaptorRule.cs" />
+    <Compile Remove="ModelAdapter\Logic\IModelAdaptorRuleController.cs" />
+    <Compile Remove="ModelAdapter\Logic\IModelModelAdaptorLogic.cs" />
+    <Compile Remove="ModelAdapter\Logic\IModelModelAdaptorRule.cs" />
+    <Compile Remove="ModelAdapter\Logic\ModelAdaptorRule.cs" />
+    <Compile Remove="Validation\ConditionalRequired\ConditionalIsRequiredAttribute.cs" />
+    <Compile Remove="Validation\ConditionalRequired\RuleConditionalRequired.cs" />
+  </ItemGroup>
 </Project>
