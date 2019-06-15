@@ -6,6 +6,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XVideoRental.Module.Win", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XVideoRental.Win", "XVideoRental.Win\XVideoRental.Win.csproj", "{F9B6C458-59EB-44FC-899C-DBCBA869C08E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpand.ExpressApp.Win", "..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp.Win\Xpand.ExpressApp.Win.csproj", "{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,35 @@ Global
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|Mixed Platforms.Build.0 = Debug|Any CPU
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|x86.ActiveCfg = Debug|Any CPU
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|x86.Build.0 = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Debug|x86.Build.0 = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.EasyTest|Any CPU.Build.0 = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.EasyTest|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.EasyTest|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.EasyTest|x86.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.EasyTest|x86.Build.0 = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.RecompiledDxSources|Any CPU.Build.0 = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.RecompiledDxSources|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.RecompiledDxSources|Mixed Platforms.Build.0 = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.RecompiledDxSources|x86.ActiveCfg = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.RecompiledDxSources|x86.Build.0 = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Release|x86.Build.0 = Release|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Test|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Test|Any CPU.Build.0 = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Test|Mixed Platforms.Build.0 = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Test|x86.ActiveCfg = Debug|Any CPU
+		{7DB4D3C6-ECCC-4E04-B1BE-AC25BF6D4B55}.Test|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

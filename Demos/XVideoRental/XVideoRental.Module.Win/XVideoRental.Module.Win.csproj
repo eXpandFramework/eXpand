@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <TargetFramework>net461</TargetFramework>
@@ -446,10 +446,6 @@
   <ItemGroup>
     <Content Include="FunctionalTests\Config.xml" />
     <Content Include="FunctionalTests\ReadMe.txt" />
-    <None Include="UnusableNodes2.xml">
-      <DependentUpon>Model.DesignedDiffs.xafml</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Editors\XChartListEditor.cs" />
