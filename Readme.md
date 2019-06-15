@@ -208,7 +208,6 @@ Web skinable listeditor based on JCarousel. Image loading is asynchronous , mult
 
 <img src="http://www.expandframework.com/images/site/firstpage/ncarouseleditor.png" alt="ncarouseleditor" width="300" height="196" />
 
-
  Blogs:\
  http://apobekiaris.blogspot.com/search/label/NCaousel
 
