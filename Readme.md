@@ -4,7 +4,6 @@
 
 [![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXPand/network) **Fork the project to extend and contribute.**
 
-
 <img src="http://logo.expandframework.com" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
 |--------|--------
 [![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expandframework/expand/releases/latest) ![GitHub Releases](https://img.shields.io/github/downloads/expandframework/expand/latest/total.svg?label=Github) ![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2Flatest%3Fid%3DeXpand)|```nuget.exe list author:eXpandFramework``` 
