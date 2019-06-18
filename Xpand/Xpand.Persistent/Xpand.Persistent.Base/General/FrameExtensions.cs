@@ -47,10 +47,9 @@ namespace Xpand.Persistent.Base.General {
             frame.CallMethod("OnViewChanged", frame);
         }
 
-        public static IEnumerable<T> GetControllers<T>(this Frame frame) where T:Controller {
-            foreach (var controller in frame.Controllers){
-                var controllers = controller as T;
-                if (controllers != null)
+        public static IEnumerable<T> GetControllers<T>(this Frame frame) where T:class {
+            foreach (var controller in frame.GetControllers(typeof(T))){
+                if (controller is T controllers)
                     yield return controllers;
             }
         }
