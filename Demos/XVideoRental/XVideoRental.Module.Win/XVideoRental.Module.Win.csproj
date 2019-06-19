@@ -15,6 +15,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="fasterflect" Version="2.1.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21" />
@@ -180,10 +181,6 @@
       <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraBars.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="DevExpress.XtraGrid.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraGrid.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="DevExpress.XtraScheduler.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraScheduler.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -259,6 +256,9 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -303,9 +303,6 @@
     </Compile>
     <Compile Update="WinModule.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="WinModule.Designer.cs">
-      <DependentUpon>WinModule.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
