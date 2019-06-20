@@ -14,7 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
     <dependencies>
-      <dependency id="" version="19.1.303.0" />
       <dependency id="DocumentFormat.OpenXml" version="2.7.2" />
       <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="fasterflect" version="2.1.3" />

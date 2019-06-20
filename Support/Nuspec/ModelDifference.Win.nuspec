@@ -23,7 +23,6 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="" version="19.1.303.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="eXpandModelDifference" version="19.1.303.0" />
       <dependency id="eXpandSecurity" version="19.1.303.0" />

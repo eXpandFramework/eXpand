@@ -14,7 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#modelartifact</projectUrl>
     <dependencies>
-      <dependency id="" version="19.1.303.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="eXpandLogic" version="19.1.303.0" />
       <dependency id="eXpandSecurity" version="19.1.303.0" />
@@ -22,7 +21,6 @@
       <dependency id="fasterflect" version="2.1.3" />
       <dependency id="Mono.Cecil" version="0.10.4" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.VersionConverter" version="1.0.28" />
       <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.25.3" />
     </dependencies>
   </metadata>

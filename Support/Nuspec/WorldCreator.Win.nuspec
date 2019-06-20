@@ -16,7 +16,6 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="" version="19.1.303.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="eXpandSystemWin" version="19.1.303.0" />
       <dependency id="eXpandWorldCreator" version="19.1.303.0" />

@@ -15,7 +15,6 @@
     <projectUrl>http://www.expandframework.com/#HtmlPropertyEditor</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" version="19.1.303.0" />
-      <dependency id="eXpandLogic" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files>

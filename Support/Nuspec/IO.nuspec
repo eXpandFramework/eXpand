@@ -14,12 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
-      <dependency id="" version="19.1.303.0" />
       <dependency id="DotNetZip" version="1.11.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="eXpandModelArtifactState" version="19.1.303.0" />
       <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="System.Data.DataSetExtensions" version="4.*" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>

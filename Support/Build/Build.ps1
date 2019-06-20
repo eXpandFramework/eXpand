@@ -17,7 +17,7 @@ properties {
 }
 
 Task Release -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
-Task Lab -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules
+Task Lab -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CreateNuGets
 
 Task InstallDX{
     InvokeScript{

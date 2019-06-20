@@ -1,12 +1,12 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "19.1.302.0",
+    [string]$version = "19.1.303.7",
     [switch]$Release 
 )
 import-module XpandPwsh -prefix X -force
-$monoCecil = Use-XMonoCecil 
-set-location $PSScriptRoot
-$projects = Get-ChildItem "$PSScriptRoot..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
+Use-XMonoCecil 
+Write-Host "root=$root"
+$projects = Get-ChildItem "$PSScriptRoot\..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
 $nuspecpathsPath = "$PSScriptRoot\..\Nuspec"
 function AddDependency {
     param($id, $nuspecpathContent, $packageVersion)
@@ -101,26 +101,21 @@ function Update-NuspecDependencies {
 
             $nuspecpathContent.Save($nuspecpath)
 
-            $uArgs=@{
-                NuspecFilename=$Nuspecpath
-                ProjectFileName=$CsProjPath
-                ReferenceToPackageFilter="Xpand.*"
-                PublishedSource=(Get-PackageFeed -Xpand)
-                Release=$Release
-                ReadMe=$true
+            $uArgs = @{
+                NuspecFilename           = $Nuspecpath
+                ProjectFileName          = $CsProjPath
+                ReferenceToPackageFilter = "Xpand.*"
+                PublishedSource          = (Get-PackageFeed -Xpand)
+                Release                  = $Release
+                ReadMe                   = $true
             }
             Update-Nuspec @uArgs
-            
-
-            $metadata.dependencies.dependency
-            
         }
     }
     
     end {
     }
 }
-
 
 function UpdateNuspec {
     param($nuspecpathFile)
@@ -171,7 +166,7 @@ function GetModuleName {
 }
 
 function PackNuspec($Nuspecpath, $ReadMe = $true) {
-    [xml]$nuspecpathContent = Get-Content $Nuspecpath.FullName
+    [xml]$nuspecpathContent = Get-Content $Nuspecpath
     
     if ($ReadMe) {
         $moduleName = GetModuleName $nuspecpathContent
@@ -198,28 +193,24 @@ function PackNuspec($Nuspecpath, $ReadMe = $true) {
         AddFile "ReadMe.txt" "" $nuspecpathContent
     }
     
-    $nuspecpathContent.Save($nuspecpath.FullName)
-    & $Nuget Pack $Nuspecpath.FullName -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
+    & $Nuget Pack $Nuspecpath -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
 }
 
-Get-ChildItem "$PSScriptRoot..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
+Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
     Write-Host "Updating $($_.BaseName).nuspec" -f Blue
     UpdateNuspec $_
-    $readMe = $_.BaseName -notmatch "lib" -and $_.BaseName -notmatch "easytest"
-    
-    PackNuspec $_ $readMe
 }
 
-$libNuspecPath=[System.io.path]::GetFullPath("$root\Support\Nuspec\Lib.nuspec")
-[xml]$libNuspec=Get-Content $libNuspecPath
-[xml]$libCsproj=Get-Content "..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj"
-$libTargetFramework=$libCsproj.project.propertygroup.targetFramework
+$libNuspecPath = [System.io.path]::GetFullPath("$root\Support\Nuspec\Lib.nuspec")
+[xml]$libNuspec = Get-Content $libNuspecPath
+[xml]$libCsproj = Get-Content "$PSScriptRoot\..\..\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj"
+$libTargetFramework = $libCsproj.project.propertygroup.targetFramework
 $ns = New-Object System.Xml.XmlNamespaceManager($libNuspec.NameTable)
 $ns.AddNamespace("ns", $libNuspec.DocumentElement.NamespaceURI)
-"dll","pdb"|ForEach-Object{
-    $ext=$_
-    "Xpand.xpo","Xpand.Utils","Xpand.Persistent.BaseImpl"|ForEach-Object{
-        $id="$_.$ext"
+"dll", "pdb" | ForEach-Object {
+    $ext = $_
+    "Xpand.xpo", "Xpand.Utils", "Xpand.Persistent.BaseImpl" | ForEach-Object {
+        $id = "$_.$ext"
         $file = $libNuspec.CreateElement("file", $libNuspec.DocumentElement.NamespaceURI)
         $file.SetAttribute("src", $id)
         $file.SetAttribute("target", "lib\$libTargetFramework\$id")
@@ -227,6 +218,7 @@ $ns.AddNamespace("ns", $libNuspec.DocumentElement.NamespaceURI)
     }
 }
 $libNuspec.Save($libNuspecPath)
+
 function AddAllDependency($file, $nuspecpaths) {
     [xml]$nuspecpath = Get-Content $file
     $metadata = $nuspecpath.package.metadata
@@ -242,14 +234,17 @@ function AddAllDependency($file, $nuspecpaths) {
 
 $nuspecpathFile = "$nuspecpathsPath\All_Agnostic.nuspec"
 AddAllDependency $nuspecpathFile (Get-ChildItem "$nuspecpathsPath" -Exclude "*Win*", "*Web*")
-PackNuspec (Get-Item $nuspecpathFile) $false
+
 "Win", "Web" | ForEach-Object {
     $nuspecpaths = (Get-ChildItem "$nuspecpathsPath" "*$_*")
     $nuspecpathFile = "$nuspecpathsPath\All_$_.nuspec"
     AddAllDependency $nuspecpathFile $nuspecpaths
-    PackNuspec (Get-Item $nuspecpathFile) $false
 }
-
+Get-ChildItem "$root\Support\Nuspec" *.nuspec | ForEach-Object {
+    $file = $_.FullName
+    $readMe = ($file -notlike "*EasyTest*" -and $file -notlike "*All_*")
+    PackNuspec $file $readMe
+}
 $ErrorActionPreference = "stop"
 $packageDir = "$root\Build\_package\$Version"
 New-Item $packageDir -ItemType Directory -Force | Out-Null

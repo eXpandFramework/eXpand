@@ -14,7 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
-      <dependency id="" version="19.1.303.0" />
       <dependency id="ExcelDataReader" version="3.6.0" />
       <dependency id="ExcelDataReader.DataSet" version="3.6.0" />
       <dependency id="eXpandExcelImporter" version="19.1.303.0" />
@@ -22,14 +21,12 @@
       <dependency id="eXpandSystemWin" version="19.1.303.0" />
       <dependency id="eXpandValidationWin" version="19.1.303.0" />
       <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="JetBrains.Annotations" version="2019.1.1" />
       <dependency id="System.IO.Compression" version="4.3.0" />
       <dependency id="System.Reactive" version="4.1.5" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="WindowsBase" version="4.6.1055.0" />
-      <dependency id="Xpand.VersionConverter" version="1.0.28" />
       <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.33.3" />
     </dependencies>
   </metadata>

@@ -18,8 +18,6 @@
       <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="eXpandLogic" version="19.1.303.0" />
       <dependency id="eXpandSecurity" version="19.1.303.0" />
-      <dependency id="eXpandSystem" version="19.1.303.0" />
-      <dependency id="eXpandSystemWeb" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files>

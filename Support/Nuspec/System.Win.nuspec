@@ -14,7 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency id="" version="19.1.303.0" />
       <dependency id="AutoMapper" version="3.3.1" />
       <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="eXpandSystem" version="19.1.303.0" />

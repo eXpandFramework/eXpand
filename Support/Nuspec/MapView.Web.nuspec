@@ -14,7 +14,6 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="" version="19.1.303.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="eXpandMapView" version="19.1.303.0" />
       <dependency id="eXpandSystem" version="19.1.303.0" />
