@@ -14,20 +14,23 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
+      <dependency id="" version="19.1.303.0" />
       <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="Mono.Cecil" version="0.10.3" />
+      <dependency id="Fody" version="4.2.1" />
+      <dependency id="Microsoft.CSharp" version="4.*" />
+      <dependency id="Mono.Cecil" version="0.10.4" />
+      <dependency id="PropertyChanged.Fody" version="2.6.1" />
+      <dependency id="System.Data.DataSetExtensions" version="4.*" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.Persistent.Base.dll" target="lib\net4.6.1\Xpand.Persistent.Base.dll" />
-    <file src="Xpand.Persistent.Base.pdb" target="lib\net4.6.1\Xpand.Persistent.Base.pdb" />
-    <file src="Xpand.Utils.dll" target="lib\net4.6.1\Xpand.Utils.dll" />
-    <file src="Xpand.Utils.pdb" target="lib\net4.6.1\Xpand.Utils.pdb" />
-    <file src="Xpand.Xpo.dll" target="lib\net4.6.1\Xpand.Xpo.dll" />
-    <file src="Xpand.Xpo.pdb" target="lib\net4.6.1\Xpand.Xpo.pdb" />
-    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net4.6.1\Xpand.Persistent.BaseImpl.dll" />
-    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net4.6.1\Xpand.Persistent.BaseImpl.pdb" />
-    <file src="ReadMe.txt" target="" />
+    <file src="Xpand.Persistent.Base.dll" target="lib\net461\Xpand.Persistent.Base.dll" />
+    <file src="Xpand.Persistent.Base.pdb" target="lib\net461\Xpand.Persistent.Base.pdb" />
+    <file src="Readme.txt" target="" />
+    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
+    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll" />
+    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
+    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb" />
   </files>
 </package>

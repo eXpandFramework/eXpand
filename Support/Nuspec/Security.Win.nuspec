@@ -14,13 +14,14 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
-      <dependency id="eXpandSecurity" version="19.1.303.0" />
+      <dependency id="" version="19.1.303.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
+      <dependency id="eXpandSecurity" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Security.Win.dll" target="lib\net4.6.1\Xpand.ExpressApp.Security.Win.dll" />
-    <file src="Xpand.ExpressApp.Security.Win.pdb" target="lib\net4.6.1\Xpand.ExpressApp.Security.Win.pdb" />
-    <file src="ReadMe.txt" target="" />
+    <file src="Xpand.ExpressApp.Security.Win.dll" target="lib\net461\Xpand.ExpressApp.Security.Win.dll" />
+    <file src="Xpand.ExpressApp.Security.Win.pdb" target="lib\net461\Xpand.ExpressApp.Security.Win.pdb" />
+    <file src="Readme.txt" target="" />
   </files>
 </package>

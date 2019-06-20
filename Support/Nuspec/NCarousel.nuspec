@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandNCarousel</id>
-    <version>14.1.6.10</version>
+    <version>19.1.303.0</version>
     <title>DevExpress eXpandFramework NCarousel Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,12 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="18.2.704.0" />
+      <dependency id="" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.NCarousel.dll" target="lib\net4.6.1\Xpand.NCarousel.dll" />
-    <file src="Xpand.NCarousel.pdb" target="lib\net4.6.1\Xpand.NCarousel.pdb" />
-    <file src="ReadMe.txt" target="" />
+    <file src="Xpand.NCarousel.dll" target="lib\net461\Xpand.NCarousel.dll" />
+    <file src="Xpand.NCarousel.pdb" target="lib\net461\Xpand.NCarousel.pdb" />
+    <file src="Readme.txt" target="" />
   </files>
 </package>

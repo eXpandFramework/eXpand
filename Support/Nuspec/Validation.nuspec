@@ -14,12 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#validation</projectUrl>
     <dependencies>
+      <dependency id="" version="19.1.303.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Validation.dll" target="lib\net4.6.1\Xpand.ExpressApp.Validation.dll" />
-    <file src="Xpand.ExpressApp.Validation.pdb" target="lib\net4.6.1\Xpand.ExpressApp.Validation.pdb" />
-    <file src="ReadMe.txt" target="" />
+    <file src="Xpand.ExpressApp.Validation.dll" target="lib\net461\Xpand.ExpressApp.Validation.dll" />
+    <file src="Xpand.ExpressApp.Validation.pdb" target="lib\net461\Xpand.ExpressApp.Validation.pdb" />
+    <file src="Readme.txt" target="" />
   </files>
 </package>

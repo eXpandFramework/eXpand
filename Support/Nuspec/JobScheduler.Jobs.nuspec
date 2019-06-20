@@ -14,16 +14,18 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
+      <dependency id="" version="19.1.303.0" />
       <dependency id="Common.Logging" version="2.1.2" />
-      <dependency id="Quartz" version="2.2.4" />
-      <dependency id="RazorEngine" version="3.10.0" />
       <dependency id="eXpandJobScheduler" version="19.1.303.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
+      <dependency id="Microsoft.AspNet.Razor" version="3.2.7" />
+      <dependency id="Quartz" version="2.2.4" />
+      <dependency id="RazorEngine" version="3.10.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\net4.6.1\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
-    <file src="Xpand.ExpressApp.JobScheduler.Jobs.pdb" target="lib\net4.6.1\Xpand.ExpressApp.JobScheduler.Jobs.pdb" />
-    <file src="ReadMe.txt" target="" />
+    <file src="Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\net461\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
+    <file src="Xpand.ExpressApp.JobScheduler.Jobs.pdb" target="lib\net461\Xpand.ExpressApp.JobScheduler.Jobs.pdb" />
+    <file src="Readme.txt" target="" />
   </files>
 </package>

@@ -5,6 +5,7 @@
     <LangVersion>latest</LangVersion>
     <SignAssembly>true</SignAssembly>
     <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>

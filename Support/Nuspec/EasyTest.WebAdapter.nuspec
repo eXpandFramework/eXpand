@@ -14,14 +14,18 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="XpandEasyTest" version="19.1.303.0" />
+      <dependency id="eXpandEasyTest" version="19.1.303.0" />
       <dependency id="eXpandLib" version="19.1.303.0" />
+      <dependency id="fasterflect" version="2.1.3" />
+      <dependency id="IIS.Microsoft.Web.Adminstration" version="8.5.9600.16384" />
+      <dependency id="Microsoft.CSharp" version="4.*" />
+      <dependency id="System.Data.DataSetExtensions" version="4.*" />
+      <dependency id="Unofficial.Microsoft.mshtml" version="7.0.3300" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.EasyTest.WebAdapter.dll" target="lib\net4.6.1\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
-    <file src="Xpand.ExpressApp.EasyTest.WebAdapter.pdb" target="lib\net4.6.1\Xpand.ExpressApp.EasyTest.WebAdapter.pdb" />
-    <file src="ReadMe.txt" target="" />
+    <file src="Xpand.ExpressApp.EasyTest.WebAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
+    <file src="Xpand.ExpressApp.EasyTest.WebAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WebAdapter.pdb" />
+    <file src="Readme.txt" target="" />
   </files>
 </package>

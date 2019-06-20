@@ -1,11 +1,13 @@
 Param (
     [string]$XpandFolder=(Get-Item "$PSScriptRoot\..\..").FullName,
     [string]$msbuild="C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\msbuild.exe",
-    [string]$DXVersion="0.0.0.0"
+    [string]$DXVersion="0.0.0.0",
+    [string]$Source=(Get-XPackageFeed -Nuget)
 )
 $ErrorActionPreference = "Stop"
 
 Import-Module XpandPwsh -Force -Prefix X
+
 if ($DXVersion -eq "0.0.0.0"){
     $DXVersion=Get-AssemblyInfoVersion "$PSScriptRoot\..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs"
 }
@@ -36,7 +38,7 @@ Get-ChildItem "$XpandFolder\Xpand.Plugins\Xpand.VSIX\ProjectTemplates\*.vstempla
 
 #build VSIX
 $fileName="$XpandFolder\Xpand.Plugins\Xpand.VSIX\Xpand.VSIX.csproj"
-& "$(Get-XNugetPath)" Restore $fileName -PackagesDirectory "$XpandFolder\Support\_third_party_assemblies\Packages"
+& "$(Get-XNugetPath)" Restore $fileName -PackagesDirectory "$XpandFolder\Support\_third_party_assemblies\Packages" -source $Source 
 & "$msbuild" "$fileName" "/p:Configuration=Release;DeployExtension=false;OutputPath=$XpandFolder\Xpand.Dll\Plugins" /v:m 
 
 

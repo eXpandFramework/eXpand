@@ -9,7 +9,7 @@ param(
     [switch]$UseAllPackageSources,
     [string]$Repository = "eXpand",
     [string]$branch = "master",
-    [string]$XpandPwshVersion = "0.7.1"
+    [string]$XpandPwshVersion = "0.8.0"
 )
 
 $XpandPwsh = [PSCustomObject]@{

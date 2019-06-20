@@ -14,18 +14,19 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#masterdetail</projectUrl>
     <dependencies>
-      <dependency id="fasterflect" version="2.1.3" />
-      <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.23" />
-      <dependency id="Xpand.VersionConverter" version="1.0.26" />
+      <dependency id="" version="19.1.303.0" />
+      <dependency id="eXpandLib" version="19.1.303.0" />
       <dependency id="eXpandLogic" version="19.1.303.0" />
       <dependency id="eXpandSecurity" version="19.1.303.0" />
-      <dependency id="eXpandLib" version="19.1.303.0" />
+      <dependency id="fasterflect" version="2.1.3" />
+      <dependency id="System.ValueTuple" version="4.5.0" />
+      <dependency id="Xpand.VersionConverter" version="1.0.28" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.25.3" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.MasterDetail.dll" target="lib\net4.6.1\Xpand.ExpressApp.MasterDetail.dll" />
-    <file src="Xpand.ExpressApp.MasterDetail.pdb" target="lib\net4.6.1\Xpand.ExpressApp.MasterDetail.pdb" />
-    <file src="ReadMe.txt" target="" />
+    <file src="Xpand.ExpressApp.MasterDetail.dll" target="lib\net461\Xpand.ExpressApp.MasterDetail.dll" />
+    <file src="Xpand.ExpressApp.MasterDetail.pdb" target="lib\net461\Xpand.ExpressApp.MasterDetail.pdb" />
+    <file src="Readme.txt" target="" />
   </files>
 </package>
