@@ -92,12 +92,6 @@ function Update-NuspecDependencies {
             [xml]$nuspecpathContent = Get-Content $Nuspecpath
             $metadata = $nuspecpathContent.package.metadata
             $metadata.version = $version
-            if ($metadata.dependencies) {
-                $metadata.dependencies.RemoveAll()
-            }
-            if ($nuspecpathContent.package.files) {
-                $nuspecpathContent.package.files.RemoveAll()
-            }
 
             $nuspecpathContent.Save($nuspecpath)
 
@@ -108,6 +102,9 @@ function Update-NuspecDependencies {
                 PublishedSource          = (Get-PackageFeed -Xpand)
                 Release                  = $Release
                 ReadMe                   = $true
+            }
+            if ($Release){
+                $uArgs.PublishedSource=(Get-PackageFeed -Nuget)
             }
             Update-Nuspec @uArgs
         }
