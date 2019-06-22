@@ -8,6 +8,7 @@ trigger:
       - ReleaseNotesHistory/ReadMe.md
       - Readme.md
       - .github/Azure-pipeline.yml
+      - .github/FUNDING.yml
   branches:   
     include:
       - master
