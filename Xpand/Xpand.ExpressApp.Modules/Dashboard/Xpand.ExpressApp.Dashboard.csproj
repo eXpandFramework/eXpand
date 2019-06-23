@@ -18,10 +18,10 @@
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.28" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.17.3" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.33.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.33.3" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.29" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.18" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.34" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.34" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">

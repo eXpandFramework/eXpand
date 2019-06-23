@@ -20,11 +20,11 @@
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="1.2.33.3" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.17.3" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.9.3" />
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="0.0.3.3" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.33.3" />
+      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="1.2.34" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.18" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.10" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="0.0.4" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.34" />
     </dependencies>
   </metadata>
   <files>

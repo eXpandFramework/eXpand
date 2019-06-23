@@ -16,8 +16,8 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.28" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.17.3" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.29" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.18" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v19.1.Core">

@@ -19,8 +19,8 @@
     <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.7" />
     <PackageReference Include="RazorEngine" Version="3.10.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.28" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.25.3" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.29" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.26" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">

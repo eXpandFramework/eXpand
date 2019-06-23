@@ -25,8 +25,8 @@
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.33.3" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="0.0.34.3" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.34" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="0.0.35" />
     </dependencies>
   </metadata>
   <files>
