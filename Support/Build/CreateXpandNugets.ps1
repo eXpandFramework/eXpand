@@ -193,7 +193,8 @@ function PackNuspec($Nuspecpath, $ReadMe = $true) {
     & $Nuget Pack $Nuspecpath -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
 }
 
-Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
+# Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | ForEach-Object {
+Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | Invoke-Parallel -ActivityName "Updating Nuspec" -Script {
     Write-Host "Updating $($_.BaseName).nuspec" -f Blue
     UpdateNuspec $_
 }
@@ -237,7 +238,8 @@ AddAllDependency $nuspecpathFile (Get-ChildItem "$nuspecpathsPath" -Exclude "*Wi
     $nuspecpathFile = "$nuspecpathsPath\All_$_.nuspec"
     AddAllDependency $nuspecpathFile $nuspecpaths
 }
-Get-ChildItem "$root\Support\Nuspec" *.nuspec | ForEach-Object {
+# Get-ChildItem "$root\Support\Nuspec" *.nuspec | ForEach-Object {
+Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -ActivityName "Packing Nuspec" -Script{
     $file = $_.FullName
     $readMe = ($file -notlike "*EasyTest*" -and $file -notlike "*All_*")
     PackNuspec $file $readMe

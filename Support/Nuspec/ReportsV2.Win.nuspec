@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandReportsV2Win</id>
-    <version>19.1.303.7</version>
+    <version>19.1.400.0</version>
     <title>DevExpress eXpandFramework ReportsV2 Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>

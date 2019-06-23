@@ -11,13 +11,12 @@ properties {
     $packageSources=$null
     $dxPath=$null
     $nugetApiKey=$null
-    $UseAllPackageSources=$true
     $Repository=$null
     $Brannch=$null
 }
 
-Task Release -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
-Task Lab -depends Clean,InstallDX, Init,Version,RestoreNuget, CompileModules,CreateNuGets
+Task Release -depends Clean,InstallDX, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
+Task Lab -depends Clean,InstallDX, Init,Version,CompileModules,CreateNuGets
 
 Task InstallDX{
     InvokeScript{
@@ -88,16 +87,6 @@ Task Version{
     InvokeScript{
         & "$PSScriptRoot\changeversion.ps1" $root $version  
     }
-}
-
-Task RestoreNuget{
-    InvokeScript {
-        $sources=$packageSources
-        # if ($UseAllPackageSources){
-        #     $sources=$($sources+$(Get-PackageSource|select-object -ExpandProperty Location -Unique))|Select-Object -Unique
-        # }
-        # & "$PSScriptRoot\Restore-Nuget.ps1" -packageSources $sources 
-    }   
 }
 
 Task IndexSources -precondition {$repository}{

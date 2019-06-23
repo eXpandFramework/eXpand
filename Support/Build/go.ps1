@@ -6,10 +6,9 @@ param(
     [string[]]$msbuildArgs = @("/p:Configuration=$configuration", "/WarnAsError", "/v:m"),
     [string[]]$taskList = @("Release"),
     [string]$nugetApiKey = $null,
-    [switch]$UseAllPackageSources,
     [string]$Repository = "eXpand",
     [string]$branch = "master",
-    [string]$XpandPwshVersion = "0.9.7"
+    [string]$XpandPwshVersion = "0.9.8"
 )
 
 $XpandPwsh = [PSCustomObject]@{
@@ -43,6 +42,5 @@ Invoke-Xpsake  "$PSScriptRoot\Build.ps1" -properties @{
     "packageSources"       = $packageSources;
     "nugetApiKey"          = $nugetApiKey;
     "Repository"           = $Repository;
-    "UseAllPackageSources" = $UseAllPackageSources
     "branch"               = $branch
 } -taskList $taskList
