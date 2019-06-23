@@ -23,6 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.EasyTest.WebAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <file src="Xpand.ExpressApp.EasyTest.WebAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WebAdapter.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

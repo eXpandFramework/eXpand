@@ -8,7 +8,7 @@ param(
     [string]$nugetApiKey = $null,
     [string]$Repository = "eXpand",
     [string]$branch = "master",
-    [string]$XpandPwshVersion = "0.9.8"
+    [string]$XpandPwshVersion = "0.9.9"
 )
 
 $XpandPwsh = [PSCustomObject]@{

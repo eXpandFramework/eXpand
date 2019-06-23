@@ -25,6 +25,5 @@
   <files>
     <file src="Xpand.EasyTest.dll" target="lib\net461\Xpand.EasyTest.dll" />
     <file src="Xpand.EasyTest.pdb" target="lib\net461\Xpand.EasyTest.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

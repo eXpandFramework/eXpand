@@ -24,6 +24,5 @@
   <files>
     <file src="Xpand.ExpressApp.EasyTest.WinAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
     <file src="Xpand.ExpressApp.EasyTest.WinAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>
