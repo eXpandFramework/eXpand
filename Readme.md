@@ -4,8 +4,7 @@
 
 [![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXPand/network) **Fork the project to extend and contribute.**
 
-
-<img src="http://expandframework.com/images/site/logo.png" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
+<img src="http://logo.expandframework.com" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
 |--------|--------
 [![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expandframework/expand/releases/latest) ![GitHub Releases](https://img.shields.io/github/downloads/expandframework/expand/latest/total.svg?label=Github) ![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2Flatest%3Fid%3DeXpand)|```nuget.exe list author:eXpandFramework``` 
 [![](https://img.shields.io/azure-devops/build/eXpandDevOps/dc0010e5-9ecf-45ac-b89d-2d51897f3855/32/master.svg?label=Lab%20build&style=flat)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=32&branchName=master)|```nuget.exe list Xpand -source https://xpandnugetserver.azurewebsites.net/nuget```
@@ -208,7 +207,6 @@ http://apobekiaris.blogspot.com/search/label/TreeListEditors
 Web skinable listeditor based on JCarousel. Image loading is asynchronous , multiple editor with different configurations is allowed.
 
 <img src="http://www.expandframework.com/images/site/firstpage/ncarouseleditor.png" alt="ncarouseleditor" width="300" height="196" />
-
 
  Blogs:\
  http://apobekiaris.blogspot.com/search/label/NCaousel

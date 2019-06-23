@@ -6,8 +6,9 @@ trigger:
     exclude:
       - ReleaseNotesHistory/History.csv
       - ReleaseNotesHistory/ReadMe.md
-      - ReadMe.md
+      - Readme.md
       - .github/Azure-pipeline.yml
+      - .github/FUNDING.yml
   branches:   
     include:
       - master
