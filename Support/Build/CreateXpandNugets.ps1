@@ -1,14 +1,15 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
     [string]$version = "19.1.303.7",
-    [switch]$Release ,
-    [switch]$DotSourcing 
-    
+    [bool]$ResolveNugetDependecies,
+    [bool]$Release ,
+    [switch]$DotSourcing,
+    [System.IO.FileInfo[]]$projects
 )
 
 Use-MonoCecil | Out-Null
 
-if (!$DotSourcing) {
+if (!$projects) {
     $projects = Get-ChildItem "$PSScriptRoot\..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
 }
 $nuget = "$(Get-NugetPath)"
@@ -139,23 +140,29 @@ if ($DotSourcing) {
 }
 
 $processorCount = [System.Environment]::ProcessorCount
-
-Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" |ForEach-Object{
-    $dArgs=@{
-        DotSourcing=$true
-        Version=$version
-        Release=$Release
-    }
-    . $scriptPath @dArgs
-    Write-host "Updating $($_.BaseName)" -f Blue
-    $sb={
-        param($nuspecpathFile, $projects,$scriptPath,$version,$Release)
-        & $scriptPath\UpdateNuspecs.ps1 $_ $projects $version $Release
-    }
-    
-    Invoke-Command -ScriptBlock $sb  -ArgumentList @($_,$projects,$scriptPath,$version,$Release) -AsJob -ComputerName $([System.Environment]::MachineName)
+# $dArgs=@{
+#     DotSourcing=$true
+#     Version=$version
+#     Release=$Release
+#     Projects=$projects
+#     ResolveNugetDependecies=$ResolveNugetDependecies
+# }
+$pArgs=@{
+    scriptPath=$scriptPath
+    Version=$version
+    Release=$Release
+    Root=$root
+    ResolveNugetDependecies=$ResolveNugetDependecies
 }
-Get-Job|Wait-Job 
+Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" |Invoke-Parallel -StepInterval 400 -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs","scriptPath") -Script{   
+# Get-ChildItem "$PSScriptRoot\..\Nuspec" "lib*.nuspec" |foreach{   
+    # . $scriptPath @dArgs
+    Write-host "Updating $($_.BaseName)" -f Blue
+    $dir=(Get-Item $scriptPath).DirectoryName
+
+    & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs
+    # & pwsh -command "$dir\UpdateNuspecs.ps1 -nuspecpathFile $($_.Fullname) -version $version -Release $Release -root $root"
+}
 
 $libNuspecPath = [System.io.path]::GetFullPath("$root\Support\Nuspec\Lib.nuspec")
 [xml]$libNuspec = Get-Content $libNuspecPath
@@ -189,6 +196,7 @@ Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -ActivityName "P
         DotSourcing=$true
         Version=$version
         Release=$Release
+        Projects=$projects
     }
     . $scriptPath @dArgs
     $file = $_.FullName

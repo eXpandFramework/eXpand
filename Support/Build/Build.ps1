@@ -12,11 +12,12 @@ properties {
     $dxPath=$null
     $nugetApiKey=$null
     $Repository=$null
-    $Brannch=$null
+    $Release=$false
+    $ResolveNugetDependecies=$false
 }
 
 Task Release -depends Clean,InstallDX, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
-Task Lab -depends Clean,InstallDX, Init,Version,CompileModules,CreateNuGets
+Task Lab -depends Clean,InstallDX, Init,Version,CompileModules
 
 Task InstallDX{
     InvokeScript{
@@ -68,7 +69,7 @@ Task Finalize {
 
 Task CreateNuGets{
     InvokeScript{
-        & "$PSScriptRoot\CreateXpandNugets.ps1" $root $version
+        & "$PSScriptRoot\CreateXpandNugets.ps1" $root $version $ResolveNugetDependecies $Release
     }
 }
 Task PackNuget{

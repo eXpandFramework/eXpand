@@ -1,4 +1,17 @@
-param($nuspecpathFile, $projects,$version)
+param($nuspecpathFile, $version, $release, $root,$ResolveNugetDependecies)
+if ($release -eq "true") {
+    $release = $true
+}
+else {
+    $release = $false
+}
+[xml]$xpandProjects = Get-Content "$PSScriptRoot\Xpand.projects"
+$group = $xpandProjects.Project.Itemgroup
+
+$projects = ("$($group.CoreProjects.include);$($group.EasyTestProjects.Include);$($group.ModuleProjects.Include)".split(";")) | Where-Object { $_ } | Sort-Object | ForEach-Object {
+    Get-item "$root\$($_.Trim())"
+}
+$nuspecpathFile
 function Update-NuspecDependencies {
     [CmdletBinding()]
     param (
@@ -7,67 +20,55 @@ function Update-NuspecDependencies {
         [parameter(Mandatory)]
         [string]$CsProjPath,
         [parameter(Mandatory)]
-        [string]$Version,
-        [switch]$Release
+        [string]$Version
 
     )
     
     begin {
     }
     
-    process {
-        [xml]$project = Get-Content $CsProjPath
-        if ($project.project.ItemGroup.None.Include | Where-Object { $_ -eq "packages.config" }) {
-            $directory = (Get-Item $CsProjPath).DirectoryName
-            $outputPath = $project.project.propertygroup | Where-Object { $_.Condition -match "Release" } | ForEach-Object { $_.OutputPath } | Select-Object -First 1
-            $assemblyName = $project.project.propertygroup.AssemblyName | Select-Object -First 1
-            [xml]$packageContent = Get-Content "$directory\packages.config"
-            $dependencies = Resolve-AssemblyDependencies "$directory\$outputPath\$assemblyName.dll" -ErrorAction SilentlyContinue | ForEach-Object {
-                $_.GetName().Name
-            }
-            
-            [xml]$nuspecpathContent = Get-Content $Nuspecpath
-            $metadata = $nuspecpathContent.package.metadata
-            $metadata.version = $version
-            if ($metadata.dependencies) {
-                $metadata.dependencies.RemoveAll()
-            }
-            $packageContent.packages.package | Where-Object { $_ } | where-Object { !$_.developmentDependency -and $_.Id -in $dependencies } | ForEach-Object {
-                AddDependency $_.Id $nuspecpathContent $_.Version
-            }
-            $metadata.dependencies.dependency
-            $nuspecpathContent.Save($nuspecpath)
-        }
-        else {
-            
-            [xml]$nuspecpathContent = Get-Content $Nuspecpath
-            $metadata = $nuspecpathContent.package.metadata
-            $metadata.version = $version
+    process {    
+        [xml]$nuspecpathContent = Get-Content $Nuspecpath
+        $metadata = $nuspecpathContent.package.metadata
+        $metadata.version = $version
 
-            $nuspecpathContent.Save($nuspecpath)
+        $nuspecpathContent.Save($nuspecpath)
 
-            $uArgs = @{
-                NuspecFilename           = $Nuspecpath
-                ProjectFileName          = $CsProjPath
-                ReferenceToPackageFilter = "Xpand.*"
-                PublishedSource          = (Get-PackageFeed -Xpand)
-                Release                  = $Release
-                ReadMe                   = $true
+        $uArgs = @{
+            NuspecFilename           = $Nuspecpath
+            ProjectFileName          = $CsProjPath
+            ReferenceToPackageFilter = "Xpand.*"
+            PublishedSource          = (Get-PackageFeed -Xpand)
+            Release                  = $Release
+            ReadMe                   = $true
+            CustomPackageLinks       = @{
+                "Xpand.Persistent.Base" = "eXpandLib" 
+                "Xpand.Persistent.BaseImpl" = "eXpandLib" 
+                "Xpand.Utils" = "eXpandLib" 
+                "Xpand.Xpo" = "eXpandLib" 
+                "Xpand.ExpressApp" ="eXpandSystem"
+                "Xpand.ExpressApp.Win" ="eXpandSystemWin"
+                "Xpand.ExpressApp.Web" ="eXpandSystemWeb"
             }
-            if ($Release) {
-                $uArgs.PublishedSource = (Get-PackageFeed -Nuget)
-            }
-            Update-Nuspec @uArgs
+            ProjectsRoot=$root
+            NuspecMatchPattern="(?ix)Xpand\.ExpressApp\.|Xpand\."
+            ResolveNugetDependecies=$ResolveNugetDependecies
         }
+        $uArgs | Write-Output
+        if ($Release) {
+            $uArgs.PublishedSource = (Get-PackageFeed -Nuget)
+        }
+        Update-Nuspec @uArgs
+        
     }
     
     end {
     }
 }
-
+$nuspecpathFile = Get-Item $nuspecpathFile
 if ($nuspecpathFile.BaseName -match "lib") {
-    $base = $projects | Where-Object { ($_.BaseName -match "persistent.base") } | Select-Object -First 1
-    Update-NuspecDependencies $nuspecpathFile $base.FullName $version
+    $base = $projects | Where-Object { ($_.BaseName -eq "xpand.persistent.base") } | Select-Object -First 1
+    Update-NuspecDependencies -Nuspecpath $nuspecpathFile -CsProjPath $base.FullName -Version $version 
         
 }
 else {
@@ -85,8 +86,8 @@ else {
         else {
             $name -like "*.$($nuspecpathFile.BaseName)" -and $nuspecpathFile.BaseName -notlike "Lib"
         }
-    } | ForEach-Object {
-        Update-NuspecDependencies $nuspecpathFile $_.FullName $version
+    } | Select-Object -First 1 | ForEach-Object {
+        Update-NuspecDependencies -Nuspecpath $nuspecpathFile -CsProjPath $_.FullName -Version $version 
     }
 }
 

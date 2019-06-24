@@ -107,9 +107,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Dashboard\DashboardInteractionReportsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Dashboard\DashboardInteractionReportsController.cs" />
     <Compile Update="XpandReportsModule.cs">
       <SubType>Component</SubType>
     </Compile>

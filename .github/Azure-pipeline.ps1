@@ -3,8 +3,7 @@ param(
    $DXApiFeed,
    $NuGetApiKey,
    $artifactstagingdirectory,
-   $BetaFeed,
-   $Branch="master"
+   $BetaFeed
 )
 
 $WorkingDirectory="$PSScriptRoot\.."

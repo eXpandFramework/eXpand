@@ -133,12 +133,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Dashboard\DashboardInteractionReportsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Dashboard\DashboardReportViewItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Dashboard\DashboardInteractionReportsController.cs" />
+    <Compile Update="Dashboard\DashboardReportViewItemController.cs" />
     <Compile Update="WinModule.cs">
       <SubType>Component</SubType>
     </Compile>

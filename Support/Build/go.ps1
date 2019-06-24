@@ -7,8 +7,8 @@ param(
     [string[]]$taskList = @("Release"),
     [string]$nugetApiKey = $null,
     [string]$Repository = "eXpand",
-    [string]$branch = "master",
-    [string]$XpandPwshVersion = "0.9.9"
+    [string]$XpandPwshVersion = "0.9.11",
+    [bool]$ResolveNugetDependecies
 )
 
 $XpandPwsh = [PSCustomObject]@{
@@ -34,13 +34,14 @@ if (!$msbuild) {
 
 $clean = $($taskList -in "Release", "lab")
 Invoke-Xpsake  "$PSScriptRoot\Build.ps1" -properties @{
-    "version"              = $version;
-    "msbuild"              = $msbuild;
-    "clean"                = $clean;
-    "msbuildArgs"          = $msbuildArgs;
-    "throttle"             = $throttle;
-    "packageSources"       = $packageSources;
-    "nugetApiKey"          = $nugetApiKey;
-    "Repository"           = $Repository;
-    "branch"               = $branch
+    "version"                 = $version;
+    "msbuild"                 = $msbuild;
+    "clean"                   = $clean;
+    "msbuildArgs"             = $msbuildArgs;
+    "throttle"                = $throttle;
+    "packageSources"          = $packageSources;
+    "nugetApiKey"             = $nugetApiKey;
+    "Repository"              = $Repository;
+    "Release"                 = ($Repository -eq "eXpand")
+    "ResolveNugetDependecies" = $ResolveNugetDependecies
 } -taskList $taskList
