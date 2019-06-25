@@ -10,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21.1" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">

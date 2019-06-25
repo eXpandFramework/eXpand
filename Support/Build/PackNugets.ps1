@@ -39,7 +39,7 @@ if ($ReadMe) {
 }
     
 & $Nuget Pack $Nuspecpath -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
-return
+
 if ($LASTEXITCODE) {
     throw
 }

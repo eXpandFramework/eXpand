@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandXtraDashboardWin</id>
-    <version>19.1.401.0</version>
+    <version>19.1.402.0</version>
     <title>DevExpress eXpandFramework XtraDashboard Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="19.1.401.0" />
-      <dependency id="eXpandLib" version="19.1.401.0" />
-      <dependency id="eXpandSecurity" version="19.1.401.0" />
-      <dependency id="eXpandSecurityWin" version="19.1.401.0" />
-      <dependency id="eXpandSystemWin" version="19.1.401.0" />
+      <dependency id="eXpandDashboard" version="19.1.402.0" />
+      <dependency id="eXpandLib" version="19.1.402.0" />
+      <dependency id="eXpandSecurity" version="19.1.402.0" />
+      <dependency id="eXpandSecurityWin" version="19.1.402.0" />
+      <dependency id="eXpandSystemWin" version="19.1.402.0" />
       <dependency id="fasterflect" version="2.1.3" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>

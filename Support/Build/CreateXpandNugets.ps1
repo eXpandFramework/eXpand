@@ -1,6 +1,6 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "19.1.303.7",
+    [string]$version = "19.1.402.0",
     [bool]$ResolveNugetDependecies,
     [bool]$Release ,
     [switch]$DotSourcing,
@@ -94,13 +94,7 @@ if ($DotSourcing) {
 }
 
 $processorCount = [System.Environment]::ProcessorCount
-# $dArgs=@{
-#     DotSourcing=$true
-#     Version=$version
-#     Release=$Release
-#     Projects=$projects
-#     ResolveNugetDependecies=$ResolveNugetDependecies
-# }
+
 $pArgs = @{
     scriptPath              = $scriptPath
     Version                 = $version
@@ -112,7 +106,7 @@ $pArgs = @{
 Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | foreach {   
     Write-host "Updating $($_.BaseName)" -f Blue
     $dir = (Get-Item $scriptPath).DirectoryName
-    # & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs
+    & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs
 }
 
 $libNuspecPath = [System.io.path]::GetFullPath("$root\Support\Nuspec\Lib.nuspec")

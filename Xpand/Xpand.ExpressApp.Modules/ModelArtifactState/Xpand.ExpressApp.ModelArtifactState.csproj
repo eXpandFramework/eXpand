@@ -16,7 +16,7 @@
     <PackageReference Include="Mono.Cecil" Version="0.10.4" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.29.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.29" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">
