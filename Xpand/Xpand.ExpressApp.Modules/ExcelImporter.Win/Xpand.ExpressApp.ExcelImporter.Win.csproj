@@ -25,8 +25,8 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="WindowsBase" Version="4.6.1055.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.29" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.34" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.37.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v19.1">

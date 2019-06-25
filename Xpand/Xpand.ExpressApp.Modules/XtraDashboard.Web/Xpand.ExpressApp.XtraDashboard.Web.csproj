@@ -24,9 +24,9 @@
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.29" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.34" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.35" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.37.1" />
+    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.38.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v19.1.Core">

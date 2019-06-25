@@ -15,8 +15,8 @@
   <ItemGroup>
     <PackageReference Include="fasterflect" Version="2.1.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.29" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.26" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.29.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">

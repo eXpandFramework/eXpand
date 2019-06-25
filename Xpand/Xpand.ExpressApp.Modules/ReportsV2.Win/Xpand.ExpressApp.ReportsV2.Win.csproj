@@ -101,7 +101,7 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
