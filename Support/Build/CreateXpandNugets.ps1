@@ -75,53 +75,7 @@ function GetModuleName {
     }
 }
 
-function PackNuspec($Nuspecpath, $ReadMe, $nuget,$version) {
-    [xml]$nuspecpathContent = Get-Content $Nuspecpath
-    $file = $nuspecpathContent.package.files.file | Where-Object { $_.src -match "readme.txt" } | Select-Object -First 1
-    if ($file) {
-        $file.ParentNode.RemoveChild($file)
-        $nuspecpathContent.Save($Nuspecpath)
-    }
-    if ($ReadMe) {
-        $moduleName = GetModuleName $nuspecpathContent
-        Write-host $moduleName
-        $readMePath = "$env:temp\$moduleName.Readme.txt"
-        Remove-Item $readMePath -Force -ErrorAction SilentlyContinue
-        $nuspecpathContent.package.files.file | Where-Object { $_.src -match "readme.txt" } | ForEach-Object {
-            $_.ParentNode.RemoveChild($_)
-        }
-        $message = @"
-        
-        ➤ ​̲𝗣​̲𝗟​̲𝗘​̲𝗔​̲𝗦​̲𝗘​̲ ​̲𝗦​̲𝗨​̲𝗦​̲𝗧​̲𝗔​̲𝗜​̲𝗡​̲ ​̲𝗢​̲𝗨​̲𝗥​̲ ​̲𝗔​̲𝗖​̲𝗧​̲𝗜​̲𝗩​̲𝗜​̲𝗧​̲𝗜​̲𝗘​̲𝗦
 
-            ☞  Iғ ᴏᴜʀ ᴘᴀᴄᴋᴀɢᴇs ᴀʀᴇ ʜᴇʟᴘɪɴɢ ʏᴏᴜʀ ʙᴜsɪɴᴇss ᴀɴᴅ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ ɢɪᴠᴇ ʙᴀᴄᴋ ᴄᴏɴsɪᴅᴇʀ ʙᴇᴄᴏᴍɪɴɢ ᴀ SPONSOR ᴏʀ ᴀ BACKER.
-                https://opencollective.com/expand
-                
-            ☞  ɪғ ʏᴏᴜ ʟɪᴋᴇ ᴏᴜʀ ᴡᴏʀᴋ ᴘʟᴇᴀsᴇ ᴄᴏɴsɪᴅᴇʀ ᴛᴏ ɢɪᴠᴇ ᴜs ᴀ STAR.
-                https://github.com/eXpandFramework/eXpand/stargazers 
-
-        ➤ ​​̲𝗣​̲𝗮​̲𝗰​̲𝗸​̲𝗮​̲𝗴​̲𝗲​̲ ​̲𝗻​̲𝗼​̲𝘁​̲𝗲​̲𝘀
-
-            ☞ Build the project before opening the model editor.
-            
-            ☞ The package only adds the required references. To install $moduleName add the next line in the constructor of your XAF module.
-                RequiredModuleTypes.Add(typeof($moduleName));
-"@
-        Set-Content $readMePath $message
-        AddFile $readMePath "" $nuspecpathContent
-        $nuspecpathContent.Save($Nuspecpath)
-    }
-    
-    & $Nuget Pack $Nuspecpath -version ($Version) -OutputDirectory "$root\Build\Nuget" -BasePath "$root\Xpand.DLL"
-    if ($LASTEXITCODE) {
-        throw
-    }
-    if ($ReadMe) {
-        $file = $nuspecpathContent.package.files.file | Where-Object { $_.src -match "readme.txt" } | Select-Object -First 1
-        $file.src = "Readme.txt"
-        $nuspecpathContent.Save($Nuspecpath)
-    }
-}
 $scriptPath = $MyInvocation.MyCommand.path
 function AddAllDependency($file, $nuspecpaths) {
     [xml]$nuspecpath = Get-Content $file
@@ -147,21 +101,18 @@ $processorCount = [System.Environment]::ProcessorCount
 #     Projects=$projects
 #     ResolveNugetDependecies=$ResolveNugetDependecies
 # }
-$pArgs=@{
-    scriptPath=$scriptPath
-    Version=$version
-    Release=$Release
-    Root=$root
-    ResolveNugetDependecies=$ResolveNugetDependecies
+$pArgs = @{
+    scriptPath              = $scriptPath
+    Version                 = $version
+    Release                 = $Release
+    Root                    = $root
+    ResolveNugetDependecies = $ResolveNugetDependecies
 }
-Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" |Invoke-Parallel -StepInterval 400 -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs","scriptPath") -Script{   
-# Get-ChildItem "$PSScriptRoot\..\Nuspec" "lib*.nuspec" |foreach{   
-    # . $scriptPath @dArgs
+# Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | Invoke-Parallel -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs", "scriptPath") -Script {   
+Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | foreach {   
     Write-host "Updating $($_.BaseName)" -f Blue
-    $dir=(Get-Item $scriptPath).DirectoryName
-
-    & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs
-    # & pwsh -command "$dir\UpdateNuspecs.ps1 -nuspecpathFile $($_.Fullname) -version $version -Release $Release -root $root"
+    $dir = (Get-Item $scriptPath).DirectoryName
+    # & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs
 }
 
 $libNuspecPath = [System.io.path]::GetFullPath("$root\Support\Nuspec\Lib.nuspec")
@@ -191,17 +142,12 @@ AddAllDependency $nuspecpathFile (Get-ChildItem "$nuspecpathsPath" -Exclude "*Wi
     AddAllDependency $nuspecpathFile $nuspecpaths
 }
 
-Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -ActivityName "Packaging" -VariablesToImport @("nuget","scriptPath","version","Release") -LimitConcurrency $processorCount  -Script{
-    $dArgs=@{
-        DotSourcing=$true
-        Version=$version
-        Release=$Release
-        Projects=$projects
-    }
-    . $scriptPath @dArgs
+# Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -ActivityName "Packaging" -VariablesToImport @("nuget","scriptPath","version","scriptPath","root") -LimitConcurrency $processorCount  -Script {
+Get-ChildItem "$root\Support\Nuspec" *.nuspec | foreach {
     $file = $_.FullName
     $readMe = ($file -notlike "*EasyTest*" -and $file -notlike "*All_*")
-    PackNuspec $file $readMe  $nuget $version
+    $dir = (Get-Item $scriptPath).DirectoryName
+    & "$dir\PackNugets.ps1" $file $readMe  $nuget $version $root
 }
 $ErrorActionPreference = "stop"
 $packageDir = "$root\Build\_package\$Version"

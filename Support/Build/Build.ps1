@@ -16,7 +16,7 @@ properties {
     $ResolveNugetDependecies=$false
 }
 
-Task Release -depends Clean,InstallDX, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
+Task Release -depends Clean,InstallDX, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets
 Task Lab -depends Clean,InstallDX, Init,Version,CompileModules
 
 Task InstallDX{
