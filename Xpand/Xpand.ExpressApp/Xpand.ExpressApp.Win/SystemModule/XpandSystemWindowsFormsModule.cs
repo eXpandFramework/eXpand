@@ -133,8 +133,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
             ConvertXml(parameters);
-            if (parameters.XmlNodeName == "GridColumnOptions")
-                parameters.NodeType = typeof (IModelOptionsColumnGridView);
+//            if (parameters.XmlNodeName == "GridColumnOptions")
+//                parameters.NodeType = typeof (IModelOptionsColumnGridView);
             
         }
 

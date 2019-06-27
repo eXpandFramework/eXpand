@@ -178,7 +178,8 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var storageFolder =InterfaceBuilder.RuntimeMode? Application.GetStorageFolder(folderName):Path.GetTempPath();
             var modelAdaptorFolder = Path.Combine(storageFolder,folderName);
             var path2 = folderName + name + ".dll";
-            return Path.Combine(modelAdaptorFolder + "", path2);
+            var combine = Path.Combine(modelAdaptorFolder + "", path2);
+            return combine;
         }
     }
 

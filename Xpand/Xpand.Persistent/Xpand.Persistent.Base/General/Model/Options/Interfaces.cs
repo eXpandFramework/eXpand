@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
@@ -107,38 +106,38 @@ namespace Xpand.Persistent.Base.General.Model.Options {
 
     [ModelAbstractClass]
     public interface IModelColumnOptionsGridView : IModelColumnOptionsColumnView {
-        [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
-        IModelOptionsColumnGridView OptionsColumnGridView { get; }
-        [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
-        IModelGridColumnModelAdapters OptionModelAdapters { get; }
+//        [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
+//        IModelOptionsColumnGridView OptionsColumnGridView { get; }
+//        [ModelBrowsable(typeof(GridListEditorVisibilityCalculator))]
+//        IModelGridColumnModelAdapters OptionModelAdapters { get; }
     }
 
-    [ModelNodesGenerator(typeof(ModelGridColumnAdaptersNodeGenerator))]
-    public interface IModelGridColumnModelAdapters : IModelList<IModelColumnGridViewModelAdapter>, IModelNode {
-        [DefaultValue(true)]
-        bool AlwaysApplyDefault { get; set; }
-    }
+//    [ModelNodesGenerator(typeof(ModelGridColumnAdaptersNodeGenerator))]
+//    public interface IModelGridColumnModelAdapters : IModelList<IModelColumnGridViewModelAdapter>, IModelNode {
+//        [DefaultValue(true)]
+//        bool AlwaysApplyDefault { get; set; }
+//    }
 
-    public class ModelGridColumnAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelOptionsColumnGridView, IModelColumnGridViewModelAdapter> {
+//    public class ModelGridColumnAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelOptionsColumnGridView, IModelColumnGridViewModelAdapter> {
+//
+//    }
 
-    }
+//    [ModelDisplayName("Adapter")]
+//    public interface IModelColumnGridViewModelAdapter : IModelCommonModelAdapter<IModelOptionsColumnGridView> {
+//
+//    }
 
-    [ModelDisplayName("Adapter")]
-    public interface IModelColumnGridViewModelAdapter : IModelCommonModelAdapter<IModelOptionsColumnGridView> {
-
-    }
-
-    [DomainLogic(typeof(IModelColumnGridViewModelAdapter))]
-    public class ModelGridColumnModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelOptionsColumnGridView> {
-        public static IModelList<IModelOptionsColumnGridView> Get_ModelAdapters(IModelColumnGridViewModelAdapter adapter) {
-            return GetModelAdapters(adapter.Application);
-        }
-    }
+//    [DomainLogic(typeof(IModelColumnGridViewModelAdapter))]
+//    public class ModelGridColumnModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelOptionsColumnGridView> {
+//        public static IModelList<IModelOptionsColumnGridView> Get_ModelAdapters(IModelColumnGridViewModelAdapter adapter) {
+//            return GetModelAdapters(adapter.Application);
+//        }
+//    }
 
 
-    [ModelDisplayName("ColumnGridViewOptions")]
-    [ModuleUser(typeof(IGridOptionsUser))]
-    public interface IModelOptionsColumnGridView : IModelColumnViewColumnOptions {
-    }
+//    [ModelDisplayName("ColumnGridViewOptions")]
+//    [ModuleUser(typeof(IGridOptionsUser))]
+//    public interface IModelOptionsColumnGridView : IModelColumnViewColumnOptions {
+//    }
 
 }

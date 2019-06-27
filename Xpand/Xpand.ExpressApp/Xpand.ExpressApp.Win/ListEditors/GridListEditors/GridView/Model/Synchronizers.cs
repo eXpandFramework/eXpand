@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model;
@@ -35,9 +36,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
         }
 
         protected override IModelColumnViewColumnOptions GetColumnOptions(IModelColumnOptionsGridView modelColumnOptionsView) {
-            return modelColumnOptionsView.GetParent<IModelListView>().BandsLayout.Enable?
-                (IModelColumnViewColumnOptions) ((IModelColumnOptionsAdvBandedView) modelColumnOptionsView).OptionsColumnAdvBandedView:
-            modelColumnOptionsView.OptionsColumnGridView;
+            throw new NotImplementedException();
+//            return modelColumnOptionsView.GetParent<IModelListView>().BandsLayout.Enable?
+//                (IModelColumnViewColumnOptions) ((IModelColumnOptionsAdvBandedView) modelColumnOptionsView).OptionsColumnAdvBandedView:
+//            modelColumnOptionsView.OptionsColumnGridView;
         }
     }
 
@@ -108,7 +110,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
         }
 
         protected override IModelColumnViewColumnOptions GetColumnOptions(IModelColumnOptionsGridView modelColumnOptionsView) {
-            return modelColumnOptionsView.GetParent<IModelListView>().BandsLayout.Enable ?(IModelColumnViewColumnOptions)((IModelColumnOptionsAdvBandedView)modelColumnOptionsView).OptionsColumnAdvBandedView :modelColumnOptionsView.OptionsColumnGridView;
+            throw new NotImplementedException();
+//            return modelColumnOptionsView.GetParent<IModelListView>().BandsLayout.Enable ?(IModelColumnViewColumnOptions)((IModelColumnOptionsAdvBandedView)modelColumnOptionsView).OptionsColumnAdvBandedView :modelColumnOptionsView.OptionsColumnGridView;
         }
 
     }

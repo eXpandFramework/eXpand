@@ -29,23 +29,23 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
         }
 
         private void GridListEditorOnModelApplied(object sender, EventArgs eventArgs){
-            new GridListEditorDynamicModelSynchronizer(_gridListEditor).ApplyModel();
+//            new GridListEditorDynamicModelSynchronizer(_gridListEditor).ApplyModel();
         }
 
         private void GridListEditorOnModelSaved(object sender, EventArgs eventArgs){
-            new GridListEditorDynamicModelSynchronizer(_gridListEditor).SynchronizeModel();
+//            new GridListEditorDynamicModelSynchronizer(_gridListEditor).SynchronizeModel();
         }
 
         protected override void ExtendInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelListView, IModelListViewOptionsGridView>();
-            extenders.Add<IModelColumn, IModelColumnOptionsGridView>();
+//            extenders.Add<IModelListView, IModelListViewOptionsGridView>();
+//            extenders.Add<IModelColumn, IModelColumnOptionsGridView>();
 
             var builder = new InterfaceBuilder(extenders);
             var assembly = BuildAssembly(builder, typeof(XafGridView), typeof(GridColumn));
 
 
-            builder.ExtendInteface<IModelOptionsGridView, XafGridView>(assembly);
-            builder.ExtendInteface<IModelOptionsColumnGridView, GridColumn>(assembly);
+//            builder.ExtendInteface<IModelOptionsGridView, XafGridView>(assembly);
+//            builder.ExtendInteface<IModelOptionsColumnGridView, GridColumn>(assembly);
 
             ExtendWithFont(extenders, builder, assembly);
         }
