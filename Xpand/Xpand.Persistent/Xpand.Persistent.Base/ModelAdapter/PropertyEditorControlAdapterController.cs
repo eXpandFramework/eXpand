@@ -11,8 +11,8 @@ using DevExpress.ExpressApp.Web.Editors;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
+using Xpand.Persistent.Base.General.Web;
 using Xpand.Utils.Helpers;
-using Xpand.Utils.Web;
 
 namespace Xpand.Persistent.Base.ModelAdapter{
     public abstract class PropertyEditorControlAdapterController<TModelMemberViewItem, TModelControl, TPropertyEditor> : ModelAdapterController, IModelExtender
