@@ -535,16 +535,6 @@ namespace Xpand.Utils.Win32 {
             public int length;
 
             /// <summary>
-            /// Specifies flags that control the position of the minimized window and the method by which the window is restored
-            /// </summary>
-            public Win32Declares.Window.WINDOWPLACEMENTFLAGS flags;
-
-            /// <summary>
-            /// Specifies the current show state of the window
-            /// </summary>
-            public Win32Declares.Window.ShowWindowEnum showCmd;
-
-            /// <summary>
             /// Specifies the position of the window's top-left corner when the window is minimized. 
             /// </summary>
             public POINT ptMinPosition;

@@ -215,15 +215,6 @@ namespace Xpand.Utils.Automation.InputSimulator{
             return this;
         }
 
-        public InputBuilder AddMouseButtonDown(MouseButton button){
-            var buttonDown = new Win32Types.INPUT{type = Win32Types.INPUTTYPE.INPUT_MOUSE};
-            buttonDown.mkhi.mi.dwFlags = ToMouseButtonDownFlag(button);
-
-            _inputList.Add(buttonDown);
-
-            return this;
-        }
-
         public InputBuilder AddMouseXButtonDown(int xButtonId){
             var buttonDown = new Win32Types.INPUT{type = Win32Types.INPUTTYPE.INPUT_MOUSE};
             buttonDown.mkhi.mi.dwFlags = Win32Constants.MouseEvent.MOUSEEVENTF_XDOWN;
@@ -233,14 +224,6 @@ namespace Xpand.Utils.Automation.InputSimulator{
             return this;
         }
 
-        public InputBuilder AddMouseButtonUp(MouseButton button){
-            var buttonUp = new Win32Types.INPUT{type = Win32Types.INPUTTYPE.INPUT_MOUSE};
-            buttonUp.mkhi.mi.dwFlags = ToMouseButtonUpFlag(button);
-
-            _inputList.Add(buttonUp);
-
-            return this;
-        }
 
         public InputBuilder AddMouseXButtonUp(int xButtonId){
             var buttonUp = new Win32Types.INPUT{type = Win32Types.INPUTTYPE.INPUT_MOUSE};
@@ -251,16 +234,8 @@ namespace Xpand.Utils.Automation.InputSimulator{
             return this;
         }
 
-        public InputBuilder AddMouseButtonClick(MouseButton button){
-            return AddMouseButtonDown(button).AddMouseButtonUp(button);
-        }
-
         public InputBuilder AddMouseXButtonClick(int xButtonId){
             return AddMouseXButtonDown(xButtonId).AddMouseXButtonUp(xButtonId);
-        }
-
-        public InputBuilder AddMouseButtonDoubleClick(MouseButton button){
-            return AddMouseButtonClick(button).AddMouseButtonClick(button);
         }
 
         public InputBuilder AddMouseXButtonDoubleClick(int xButtonId){
@@ -285,50 +260,6 @@ namespace Xpand.Utils.Automation.InputSimulator{
             _inputList.Add(scroll);
 
             return this;
-        }
-
-        private Win32Constants.MouseEvent ToMouseButtonDownFlag(MouseButton button){
-            button = GetSwappedMouseButton(button);
-            switch (button){
-                case MouseButton.LeftButton:
-                    return Win32Constants.MouseEvent.MOUSEEVENTF_LEFTDOWN;
-
-                case MouseButton.MiddleButton:
-                    return Win32Constants.MouseEvent.MOUSEEVENTF_MIDDLEDOWN;
-
-                case MouseButton.RightButton:
-                    return Win32Constants.MouseEvent.MOUSEEVENTF_RIGHTDOWN;
-
-                default:
-                    return Win32Constants.MouseEvent.MOUSEEVENTF_LEFTDOWN;
-            }
-        }
-
-        private Win32Constants.MouseEvent ToMouseButtonUpFlag(MouseButton button){
-            button = GetSwappedMouseButton(button);
-            switch (button){
-                case MouseButton.LeftButton:
-                    return Win32Constants.MouseEvent.MOUSEEVENTF_LEFTUP;
-
-                case MouseButton.MiddleButton:
-                    return Win32Constants.MouseEvent.MOUSEEVENTF_MIDDLEUP;
-
-                case MouseButton.RightButton:
-                    return Win32Constants.MouseEvent.MOUSEEVENTF_RIGHTUP;
-
-                default:
-                    return Win32Constants.MouseEvent.MOUSEEVENTF_LEFTUP;
-            }
-        }
-
-        private MouseButton GetSwappedMouseButton(MouseButton button){
-            if (System.Windows.Forms.SystemInformation.MouseButtonsSwapped) {
-                if (button == MouseButton.LeftButton)
-                    button = MouseButton.RightButton;
-                else if (button == MouseButton.RightButton)
-                    button = MouseButton.LeftButton;
-            }
-            return button;
         }
 
         private enum SystemMetric{
