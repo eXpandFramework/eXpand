@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyOriginatorKeyFile>..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <OutputPath>..\..\Xpand.Dll\</OutputPath>
@@ -13,35 +13,10 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="fasterflect" Version="2.1.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <Private>False</Private>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <HintPath>..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="Xpand.Utils">
-      <HintPath>..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Web" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Collections\XpandXPCollection.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpandUnitOfWork.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
+    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="DBObject.cs" />
@@ -51,5 +26,10 @@
     <Compile Remove="XPODataType.cs" />
     <Compile Remove="Collections\DBCollection.cs" />
     <Compile Remove="DB\_ObjectMerger.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Xpand.Utils">
+      <HintPath>..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

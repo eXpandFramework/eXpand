@@ -6,7 +6,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 
 namespace Xpand.Xpo.ConnectionProviders {
-    public class OracleConnectionProvider : DevExpress.Xpo.DB.OracleConnectionProvider {
+    public class OracleConnectionProvider : BaseOracleConnectionProvider {
         public OracleConnectionProvider(IDbConnection connection, AutoCreateOption autoCreateOption)
             : base(connection, autoCreateOption) {
         }
@@ -15,6 +15,15 @@ namespace Xpand.Xpo.ConnectionProviders {
             table.Columns.Clear();
             GetColumns(table);
         }
+
+        protected override void CommandBuilderDeriveParameters(IDbCommand command) {
+            throw new NotImplementedException();
+        }
+
+        protected override IDbConnection CreateConnection() {
+            throw new NotImplementedException();
+        }
+
         void GetColumns(DBTable table) {
             string schema = ComposeSafeSchemaName(table.Name);
             string safeTableName = ComposeSafeTableName(table.Name);

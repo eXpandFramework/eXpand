@@ -111,7 +111,7 @@ namespace Xpand.Xpo.DB {
             var sql = connectionProvider as ConnectionProviderSql;
             if (sql != null) {
                 IDbConnection dbConnection = sql.Connection;
-                return _connectionString?.Replace(dbConnection.Database, $"{dbConnection.Database}{key}.mdb") ?? AccessConnectionProvider.GetConnectionString(key);
+                return _connectionString?.Replace(dbConnection.Database, $"{dbConnection.Database}{key}.mdb");
 
             }
             throw new NoNullAllowedException($"{key}ConnectionString not found ");
