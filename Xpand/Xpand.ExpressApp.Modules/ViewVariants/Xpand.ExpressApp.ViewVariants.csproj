@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFramework>net461</TargetFramework>
@@ -57,9 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ModifyVariantsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ModifyVariantsController.cs" />
     <Compile Update="XpandViewVariantsModule.cs">
       <SubType>Component</SubType>
     </Compile>

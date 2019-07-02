@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Win;
@@ -10,15 +11,21 @@ using Xpand.Persistent.Base.General;
 
 namespace XVideoRental.Win {
     public partial class XVideoRentalWindowsFormsApplication : XpandWinApplication {
+        private ApplicationModulesManager _applicationModulesManager;
+
         public XVideoRentalWindowsFormsApplication() {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
             LastLogonParametersRead += OnLastLogonParametersRead;
         }
 
+        protected override ApplicationModulesManager CreateApplicationModulesManager(ControllersManager controllersManager) {
+            _applicationModulesManager = base.CreateApplicationModulesManager(controllersManager);
+            return _applicationModulesManager;
+        }
+
         void OnLastLogonParametersRead(object sender, LastLogonParametersReadEventArgs e) {
-            var logonParameters = e.LogonObject as AuthenticationStandardLogonParameters;
-            if (logonParameters != null) {
+            if (e.LogonObject is AuthenticationStandardLogonParameters logonParameters) {
                 if (String.IsNullOrEmpty(logonParameters.UserName)) {
                     logonParameters.UserName = "Admin";
                 }

@@ -26,14 +26,14 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
-    <PackageReference Include="Xpand.XAF.Modules.AutoCommit" Version="0.0.38" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21" />
-    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.13" />
-    <PackageReference Include="Xpand.XAF.Modules.MasterDetail" Version="0.0.38" />
-    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.7" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.37" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.38" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.37" />
+    <PackageReference Include="Xpand.XAF.Modules.AutoCommit" Version="0.0.38.1" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21.1" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.13.1" />
+    <PackageReference Include="Xpand.XAF.Modules.MasterDetail" Version="0.0.38.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.7.1" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.37.1" />
+    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.38.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.37.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">

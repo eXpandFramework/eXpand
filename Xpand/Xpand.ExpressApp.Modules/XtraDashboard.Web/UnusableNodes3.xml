@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="DashboardDefinition_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Xml">
+          <SyntaxHighlight Id="SyntaxHighlight" Language="XML" />
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

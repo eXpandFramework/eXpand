@@ -24,9 +24,9 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             get { return View != null ? View.Editor as PivotGridListEditor : null; }
         }
 
-        public IModelListViewOptionsPivotGrid Model {
-            get { return ((IModelListViewOptionsPivotGrid)View.Model); }
-        }
+//        public IModelListViewOptionsPivotGrid Model {
+//            get { return ((IModelListViewOptionsPivotGrid)View.Model); }
+//        }
 
         protected override void OnActivated() {
             base.OnActivated();
@@ -68,7 +68,8 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         protected override void OnActivated() {
             base.OnActivated();
             if (PivotGridListEditor != null) {
-                _ruleCollector = new RuleCollector((IModelListViewOptionsPivotGrid)View.Model);
+                throw new NotImplementedException();
+//                _ruleCollector = new RuleCollector((IModelListViewOptionsPivotGrid)View.Model);
             }
         }
 
@@ -129,11 +130,12 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         }
 
         void PivotGridControlOnCustomSummary(object sender, PivotGridCustomSummaryEventArgs e) {
-            var customSummaryType = ((IModelListViewOptionsPivotGrid)View.Model).OptionsPivotGrid.General.CustomSummaryType;
-            if (customSummaryType != null) {
-                var pivotCustomSummaryEvent = _ruleCollector.CreateInstance<IPivotCustomSummaryEvent>(Frame, customSummaryType);
-                pivotCustomSummaryEvent.Calculate(e);
-            }
+            throw new NotImplementedException();
+//            var customSummaryType = ((IModelListViewOptionsPivotGrid)View.Model).OptionsPivotGrid.General.CustomSummaryType;
+//            if (customSummaryType != null) {
+//                var pivotCustomSummaryEvent = _ruleCollector.CreateInstance<IPivotCustomSummaryEvent>(Frame, customSummaryType);
+//                pivotCustomSummaryEvent.Calculate(e);
+//            }
         }
 
         protected override void OnViewControlsCreated() {
@@ -180,12 +182,13 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
 
         void PivotGridControlOnCellSelectionChanged(object sender, EventArgs eventArgs) {
             if (!_criteriaApplying) {
-                if (Model.OptionsPivotGrid.Selection.RowSelection)
-                    RowSelection();
-                var modelPivotGridSelection = Model.OptionsPivotGrid.Selection;
-                if (modelPivotGridSelection.Synchronize) {
-                    modelPivotGridSelection.Rectangle = PivotGridListEditor.PivotGridControl.Cells.Selection;
-                }
+                throw new NotImplementedException();
+//                if (Model.OptionsPivotGrid.Selection.RowSelection)
+//                    RowSelection();
+//                var modelPivotGridSelection = Model.OptionsPivotGrid.Selection;
+//                if (modelPivotGridSelection.Synchronize) {
+//                    modelPivotGridSelection.Rectangle = PivotGridListEditor.PivotGridControl.Cells.Selection;
+//                }
             }
         }
 
@@ -217,33 +220,35 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         }
 
         void ArrangeLayout() {
-            var modelPivotGridGeneral = Model.OptionsPivotGrid.General;
-            var direction = modelPivotGridGeneral.Direction;
-            var layoutControl = (XafLayoutControl)PivotGridListEditor.Control;
-            layoutControl.Root.BeginUpdate();
-            if (direction.HasValue) {
-                if (layoutControl.Root.DefaultLayoutType != direction.Value) {
-                    layoutControl.Root.DefaultLayoutType = direction.Value;
-                    layoutControl.Root.RotateLayout(true);
-                }
-            }
-            if (modelPivotGridGeneral.FlipLayout) {
-                modelPivotGridGeneral.FlipLayout = false;
-                layoutControl.Root.FlipLayout(true);
-            }
-            layoutControl.Root.Update();
-            layoutControl.Root.EndUpdate();
+            throw new NotImplementedException();
+//            var modelPivotGridGeneral = Model.OptionsPivotGrid.General;
+//            var direction = modelPivotGridGeneral.Direction;
+//            var layoutControl = (XafLayoutControl)PivotGridListEditor.Control;
+//            layoutControl.Root.BeginUpdate();
+//            if (direction.HasValue) {
+//                if (layoutControl.Root.DefaultLayoutType != direction.Value) {
+//                    layoutControl.Root.DefaultLayoutType = direction.Value;
+//                    layoutControl.Root.RotateLayout(true);
+//                }
+//            }
+//            if (modelPivotGridGeneral.FlipLayout) {
+//                modelPivotGridGeneral.FlipLayout = false;
+//                layoutControl.Root.FlipLayout(true);
+//            }
+//            layoutControl.Root.Update();
+//            layoutControl.Root.EndUpdate();
         }
 
         void SelectCells() {
-            var pivotGridControl = PivotGridListEditor.PivotGridControl;
-            var modelPivotGridSelection = Model.OptionsPivotGrid.Selection;
-            var rectangle = modelPivotGridSelection.Rectangle;
-            if (rectangle.Width == -1)
-                rectangle.Width = pivotGridControl.Cells.ColumnCount;
-            if (rectangle.Height == -1)
-                rectangle.Height = pivotGridControl.Cells.RowCount;
-            pivotGridControl.Cells.Selection = rectangle;
+            throw new NotImplementedException();
+//            var pivotGridControl = PivotGridListEditor.PivotGridControl;
+//            var modelPivotGridSelection = Model.OptionsPivotGrid.Selection;
+//            var rectangle = modelPivotGridSelection.Rectangle;
+//            if (rectangle.Width == -1)
+//                rectangle.Width = pivotGridControl.Cells.ColumnCount;
+//            if (rectangle.Height == -1)
+//                rectangle.Height = pivotGridControl.Cells.RowCount;
+//            pivotGridControl.Cells.Selection = rectangle;
         }
 
         void SubscribeToEvents() {
@@ -322,11 +327,11 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
     }
 
     class RuleCollector {
-        readonly IModelListViewOptionsPivotGrid _optionsPivotGrid;
+//        readonly IModelListViewOptionsPivotGrid _optionsPivotGrid;
 
-        public RuleCollector(IModelListViewOptionsPivotGrid optionsPivotGrid) {
-            _optionsPivotGrid = optionsPivotGrid;
-        }
+//        public RuleCollector(IModelListViewOptionsPivotGrid optionsPivotGrid) {
+//            _optionsPivotGrid = optionsPivotGrid;
+//        }
 
         public IEnumerable<FormatInfo> FormatInfos(Point point, PivotArea pivotArea) {
             return FormatRuleModels(point, pivotArea).Select(FormatInfo);
@@ -353,7 +358,8 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         }
 
         IEnumerable<IModelPivotRule> PivotRules() {
-            return _optionsPivotGrid.OptionsPivotGrid.Rules.Where(rule => rule.NodeEnabled);
+            throw new NotImplementedException();
+//            return _optionsPivotGrid.OptionsPivotGrid.Rules.Where(rule => rule.NodeEnabled);
         }
 
         bool InsideArea(IModelPivotSelectionRule modelPivotArea, Point point) {

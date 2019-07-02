@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -73,15 +73,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ObjectChangedWorkflows\PopulatePropertyNamesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ObjectChangedWorkflows\PopulatePropertyNamesController.cs" />
     <Compile Update="XpandWorkflowApplication.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="ObjectChangedWorkflows\StartWorkflowOnObjectChangeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ObjectChangedWorkflows\StartWorkflowOnObjectChangeController.cs" />
     <Compile Update="WorkflowServerAuthentication.cs">
       <SubType>Component</SubType>
     </Compile>

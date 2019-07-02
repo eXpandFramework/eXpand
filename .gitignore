@@ -55,7 +55,6 @@ Storage.dat
 TestsLog.xml
 **/ModelAdaptor/*.dll
 PublicKeyToken.txt
-**/UnusableNodes*.xml
 **/_ReSharper.*
 Model.User.xafml
 log.txt

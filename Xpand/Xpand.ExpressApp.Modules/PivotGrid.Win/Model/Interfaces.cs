@@ -23,14 +23,14 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.ExpressApp.PivotGrid.Win.Model {
 
 
-    public interface IModelOptionsColumnPivotGridField : IModelColumnViewColumnOptions {
+//    public interface IModelOptionsColumnPivotGridField : IModelColumnViewColumnOptions {
+//
+//    }
 
-    }
-
-    [ModelAbstractClass]
-    public interface IModelColumnOptionsPivotGridField : IModelColumnOptionsColumnView {
-        IModelOptionsColumnPivotGridField OptionsColumnPivotGridField { get; }
-    }
+//    [ModelAbstractClass]
+//    public interface IModelColumnOptionsPivotGridField : IModelColumnOptionsColumnView {
+//        IModelOptionsColumnPivotGridField OptionsColumnPivotGridField { get; }
+//    }
 
     public interface IModelPivotGridSelection : IModelNode {
         Rectangle Rectangle { get; set; }
@@ -85,7 +85,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
         #endregion
     }
 
-    public interface IModelOptionsPivotGrid : IModelOptionsColumnView {
+    public interface IModelPivotGridExtender  {
         IModelPivotGridGeneral General { get; }
         IModelPivotRules Rules { get; }
         IModelPivotGridSelection Selection { get; }
@@ -166,14 +166,14 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
     public interface IModelPivotRule : IModelNodeEnabled {
 
     }
-    [ModelAbstractClass]
-    public interface IModelListViewOptionsPivotGrid : IModelListViewOptionsColumnView {
-        [ModelBrowsable(typeof(PivotGridEditorVisibilityCalculator))]
-        IModelOptionsPivotGrid OptionsPivotGrid { get; }
-    }
+//    [ModelAbstractClass]
+//    public interface IModelListViewOptionsPivotGrid : IModelListViewOptionsColumnView {
+//        [ModelBrowsable(typeof(PivotGridEditorVisibilityCalculator))]
+//        IModelPivotGridExtender OptionsPivotGrid { get; }
+//    }
 
-    public class PivotGridEditorVisibilityCalculator : EditorTypeVisibilityCalculator<PivotGridListEditor,IModelListView> {
-    }
+//    public class PivotGridEditorVisibilityCalculator : EditorTypeVisibilityCalculator<PivotGridListEditor,IModelListView> {
+//    }
 
     public interface IModelDrawCellRule : IModelPivotSelectionRule {
         [DataSourceProperty("DrawCellTypes")]

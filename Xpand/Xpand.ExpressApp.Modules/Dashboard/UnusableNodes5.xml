@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="XpandPermissionPolicyRole_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="XpandPermissionPolicyRole" Caption="Dashboard Operation" Direction="Horizontal" Index="1" RelativeSize="91.435768261964739" Removed="True">
+              <LayoutItem Id="DashboardOperation" ViewItem="DashboardOperation" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="XpandRole_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="XpandRole" Caption="Dashboard Operation" Direction="Horizontal" Index="1" RelativeSize="89.324960753532181" Removed="True">
+              <LayoutItem Id="DashboardOperation" ViewItem="DashboardOperation" Removed="True" />
+            </LayoutGroup>
+          </LayoutGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

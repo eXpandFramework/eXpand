@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -14,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="3.3.1" />
     <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="System.Reactive" Version="4.1.5" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +113,9 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -121,9 +125,7 @@
     <Compile Update="EditModelController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs" />
     <Compile Update="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,9 +147,7 @@
     <Compile Update="ListEditors\GridListEditors\LayoutView\LayoutViewListEditorBase.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="ListEditors\GridListEditors\LayoutView\Model\LayoutViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ListEditors\GridListEditors\LayoutView\Model\LayoutViewModelAdapterController.cs" />
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

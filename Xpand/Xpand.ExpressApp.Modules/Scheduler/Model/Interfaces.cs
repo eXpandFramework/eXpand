@@ -29,10 +29,10 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         IModelAppoitmentStatuses Statuses { get; }
     }
 
-    [ModelDisplayName("Scheduler")]
-    public interface IModelOptionsSchedulerEx : IModelOptionsColumnView {
-        IModelSchedulerPopupMenuItems PopupMenuItems { get; }
-    }
+//    [ModelDisplayName("Scheduler")]
+//    public interface IModelOptionsSchedulerEx : IModelOptionsColumnView {
+//        IModelSchedulerPopupMenuItems PopupMenuItems { get; }
+//    }
     public interface IModelSchedulerPopupMenuItems : IModelNode, IModelList<IModelSchedulerPopupMenuItem> {
     }
     
@@ -40,27 +40,27 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         
     }
 
-    [ModelAbstractClass]
-    public interface IModelListViewOptionsScheduler : IModelListViewOptionsColumnView, IModelListViewScheduler {
-        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
-        [Category("Data")]
-        [DataSourceProperty("ResourceListViews")]
-        IModelListView ResourceListView { get; set; }
-        [Category("Data")]
-        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
-        bool ResourcesOnlyWithAppoitments { get; set; }
-        [Browsable(false)]
-        IModelList<IModelListView> ResourceListViews { get; }
+//    [ModelAbstractClass]
+//    public interface IModelListViewOptionsScheduler : IModelListViewOptionsColumnView, IModelListViewScheduler {
+//        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
+//        [Category("Data")]
+//        [DataSourceProperty("ResourceListViews")]
+//        IModelListView ResourceListView { get; set; }
+//        [Category("Data")]
+//        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
+//        bool ResourcesOnlyWithAppoitments { get; set; }
+//        [Browsable(false)]
+//        IModelList<IModelListView> ResourceListViews { get; }
+//
+//        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
+//        IModelOptionsSchedulerEx OptionsScheduler { get; }
+//    }
 
-        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
-        IModelOptionsSchedulerEx OptionsScheduler { get; }
-    }
-
-    [DomainLogic(typeof(IModelListViewOptionsScheduler))]
-    public class ModelListViewOptionsSchedulerDomainLogic {
-        public static IModelList<IModelListView> Get_ResourceListViews(IModelListViewOptionsScheduler listViewOptionsScheduler) {
-            return new CalculatedModelNodeList<IModelListView>(listViewOptionsScheduler.Application.Views.OfType<IModelListView>().Where(view => listViewOptionsScheduler.ResourceClasses.Contains(view.ModelClass)));
-        }
-    }
+//    [DomainLogic(typeof(IModelListViewOptionsScheduler))]
+//    public class ModelListViewOptionsSchedulerDomainLogic {
+//        public static IModelList<IModelListView> Get_ResourceListViews(IModelListViewOptionsScheduler listViewOptionsScheduler) {
+//            return new CalculatedModelNodeList<IModelListView>(listViewOptionsScheduler.Application.Views.OfType<IModelListView>().Where(view => listViewOptionsScheduler.ResourceClasses.Contains(view.ModelClass)));
+//        }
+//    }
 
 }

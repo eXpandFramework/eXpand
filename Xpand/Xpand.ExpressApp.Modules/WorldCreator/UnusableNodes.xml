@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="PersistentCollectionMemberInfo_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="General">
+              <LayoutItem Id="Name" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PersistentCoreTypeMemberInfo_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="General">
+              <LayoutItem Id="Name" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+    <DetailView Id="PersistentReferenceMemberInfo_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="General">
+              <LayoutItem Id="Name" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TypeAttributes" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TypeAttributes" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+            <LayoutGroup Id="TemplateInfos" TextAlignMode="AlignWithChildren">
+              <LayoutItem Id="TemplateInfos" TextAlignMode="AutoSize" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

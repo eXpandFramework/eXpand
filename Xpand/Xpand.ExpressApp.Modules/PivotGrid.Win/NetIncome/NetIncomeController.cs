@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
     }
 
     [ModelAbstractClass]
-    public interface IModelPivotNetIncome : IModelOptionsPivotGrid {
+    public interface IModelPivotNetIncome : IModelPivotGridExtender {
         IModelNetIncome NetIncome { get; }
     }
 
@@ -259,13 +259,16 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
             }
         }
 
-        public new IModelPivotNetIncome Model {
-            get { return (IModelPivotNetIncome)base.Model.OptionsPivotGrid; }
+        public IModelPivotNetIncome Model {
+            get {
+                throw new NotImplementedException();
+//                return (IModelPivotNetIncome)base.Model.OptionsPivotGrid;
+            }
         }
 
         #region Implementation of IModelExtender
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelOptionsPivotGrid, IModelPivotNetIncome>();
+//            extenders.Add<IModelPivotGridExtender, IModelPivotNetIncome>();
         }
         #endregion
         #region Implementation of IPivotGroupIntervalEvent

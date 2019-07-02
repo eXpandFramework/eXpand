@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -117,24 +117,14 @@
     <Compile Update="Editors\AnalysisControlWin.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Options\PivotOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="PivotedProperty\PivotCustomSortController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="PivotedProperty\PivotedPropertyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="AnalysisControlVisibilityController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Options\PivotOptionsController.cs" />
+    <Compile Update="PivotedProperty\PivotCustomSortController.cs" />
+    <Compile Update="PivotedProperty\PivotedPropertyController.cs" />
+    <Compile Update="AnalysisControlVisibilityController.cs" />
     <Compile Update="XpandPivotChartWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="PivotGridInplaceEditorsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="PivotGridInplaceEditorsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

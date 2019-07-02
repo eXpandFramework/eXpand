@@ -49,8 +49,8 @@ namespace Xpand.ExpressApp.Web.ListEditors.Model {
             var assemblyFilePath = GetPath(typeof(ASPxGridView).Name);
             var assembly = builder.Build(interfaceBuilderDatas, assemblyFilePath);
 
-            builder.ExtendInteface<IModelOptionsGridView, ASPxGridView>(assembly);
-            builder.ExtendInteface<IModelOptionsColumnGridView, GridViewDataColumn>(assembly);
+//            builder.ExtendInteface<IModelOptionsGridView, ASPxGridView>(assembly);
+//            builder.ExtendInteface<IModelOptionsColumnGridView, GridViewDataColumn>(assembly);
         }
 
         IEnumerable<InterfaceBuilderData> CreateBuilderData() {

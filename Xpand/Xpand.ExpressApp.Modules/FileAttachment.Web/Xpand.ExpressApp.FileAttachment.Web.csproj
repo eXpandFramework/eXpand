@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -73,9 +73,7 @@
     <Compile Update="PropertyEditors\FileDataPropertyEditor.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UploadControlPropertyEditorProviderController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="UploadControlPropertyEditorProviderController.cs" />
     <Compile Update="XpandFileAttachmentsWebModule.cs">
       <SubType>Component</SubType>
     </Compile>

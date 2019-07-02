@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="DashboardDefinition_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Xml">
+          <SyntaxHighlight Id="SyntaxHighlight" Language="XML" />
+        </PropertyEditor>
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="DashboardTypes">
+              <LayoutItem Id="@69b82b68-b530-49b8-b573-f8581b107905" ViewItem="@69b82b68-b530-49b8-b573-f8581b107905" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

@@ -128,23 +128,23 @@
       <MasterDetailRule Id="Receipt Rentats" TypeInfo="XVideoRental.Module.Win.BusinessObjects.Rent.Receipt" View="Customer_Receipts_ListView" CollectionMember="Rents" ChildListView="Rent_ListView_Rentals" NormalCriteria="[Type] = ##Enum#XVideoRental.Module.Win.BusinessObjects.Rent.ReceiptType,Rentals#" IsNewNode="True" />
     </Rules>
   </MasterDetail>
-  <NavigationItems >
+  <NavigationItems RootGroupsStyle="OutlookAnimated">
     <Items>
-      <Item Id="Welcome" ViewId="Welcome_Dashboard" Index="0" IsNewNode="True" />
-      <Item Id="Default" Index="1">
+      <Item Id="Default" Index="1" ImageName="Action_AboutInfo">
         <Items>
+          <Item Id="Welcome" ViewId="Welcome_Dashboard" Index="0" IsNewNode="True" />
           <Item Id="Customer_ListView" Removed="True" />
           <Item Id="Movie_ListView" Shortcut="ViewID=Movie_ListView&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" Removed="True" />
         </Items>
       </Item>
-      <Item Id="Movie Rental" Index="1" IsNewNode="True">
+      <Item Id="Movie Rental" Index="1" ImageName="Sale_16x16" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Movie Rentals" ImageName="Sale" ViewId="Customer_ListView_Rentals" Caption="Movie Rentals" Shortcut="" Index="0" IsNewNode="True" />
           <Item Id="Customers" ViewId="Customer_ListView_AdvBanded" Caption="Customers" Index="1" IsNewNode="True" />
           <Item Id="Rental Calendar" ViewId="Calendar_Dashboard" Caption="Rental Calendar" ImageName="SchedulerRental" Shortcut="" Index="2" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="Catalog" Index="2" IsNewNode="True">
+      <Item Id="Catalog" Index="2" ImageName="BO_Movie" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Movies" Caption="Movies" Shortcut="ViewID=Movie_ListView_Layout&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" Index="0" ViewId="Movie_ListView_AdvBanded" IsNewNode="True" />
           <Item Id="Movie Categories" ViewId="MovieCategory_ListView" Caption="Movie Categories" Shortcut="ViewID=MovieCategory_ListView&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" Index="1" IsNewNode="True" />
@@ -153,14 +153,14 @@
           <Item Id="Language" ViewId="Language_ListView" Shortcut="ViewID=Language_ListView&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="KPI" Index="3" IsNewNode="True">
+      <Item Id="KPI" Index="3" ImageName="MoviesKPI" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Movies KPI" ViewId="Rent_ListView_KPI" Caption="Movies KPI" ImageName="MoviesKPI" Index="0" Shortcut="ViewID=Rent_ListView_KPI&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" IsNewNode="True" />
           <Item Id="Customers KPI" Index="1" ViewId="Receipt_ListView_KPI" ImageName="CustomersKPI" Caption="Customers KPI" Shortcut="ViewID=Receipt_ListView_KPI&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" IsNewNode="True" />
           <Item Id="Customers By Dates" ViewId="Receipt_ListView_KPI_Customers_By_Dates" Caption="Customers By Dates" ImageName="CustomersByDate" Shortcut="ViewID=Receipt_ListView_KPI_Customers_By_Dates&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="Statistics" Index="4" IsNewNode="True">
+      <Item Id="Statistics" Index="4" ImageName="Action_PivotChart_Data_Bind" IsNewNode="True">
         <Items IsNewNode="True">
           <Item Id="Revenue - Last 12 Months" ImageName="Revenue" ViewId="Receipt_ListView_Statistics_Net_Income" Index="0" Shortcut="ViewID=Receipt_ListView_Statistics_Net_Income&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" IsNewNode="True" />
           <Item Id="Revenue Categories" ViewId="Receipt_ListView_Statistics_Revenue_Split" ImageName="RevenueSplit" Caption="Revenue Categories - Last 12 Months" Index="1" Shortcut="ViewID=Receipt_ListView_Statistics_Revenue_Split&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" IsNewNode="True" />
@@ -169,7 +169,7 @@
           <Item Id="Performance by Media Type" ImageName="MediaPerformance" ViewId="MediaPerformance_Dashboard" Index="4" Shortcut="ViewID=MediaPerformance_Dashboard&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" IsNewNode="True" />
         </Items>
       </Item>
-      <Item Id="Reports" Index="5">
+      <Item Id="Reports" Index="5" ImageName="BO_Report">
         <Items>
           <Item Id="Top Movie Rentals" ViewId="TopMovieRentalsReport_DashBoard" Index="0" Shortcut="ViewID=TopMovieRentalsReport_DashBoard&amp;ObjectKey=&amp;ScrollPosition=&amp;ObjectClassName=" Caption="Top Rentals" IsNewNode="True" />
           <Item Id="Active Customers" Index="1" ViewId="ActiveCustomersReport_DashBoard" IsNewNode="True" />
@@ -181,7 +181,7 @@
       </Item>
     </Items>
   </NavigationItems>
-  <Options FormStyle="Ribbon" UIType="TabbedMDI" Skin="DevExpress Style" EnableHtmlFormatting="True" ApplicationMultiInstances="True" DataAccessMode="Server">
+  <Options FormStyle="Ribbon" UIType="SingleWindowSDI" Skin="DevExpress Style" EnableHtmlFormatting="True" ApplicationMultiInstances="True" DataAccessMode="Server">
     <Dashboards EnableCreation="True" />
     <PrintingSettings Margins="100, 100, 100, 100" PageHeaderFooter="&lt;XtraSerializer version=&quot;1.0&quot; application=&quot;XtraPrintingPageHeaderFooter&quot;&gt;&#xD;&#xA;  &lt;property name=&quot;Footer&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;Font&quot;&gt;Microsoft Sans Serif, 8.25pt&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;LineAlignment&quot;&gt;Near&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Content&quot; iskey=&quot;true&quot; value=&quot;0&quot; /&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;  &lt;property name=&quot;Header&quot; isnull=&quot;true&quot; iskey=&quot;true&quot;&gt;&#xD;&#xA;    &lt;property name=&quot;Font&quot;&gt;Microsoft Sans Serif, 8.25pt&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;LineAlignment&quot;&gt;Near&lt;/property&gt;&#xD;&#xA;    &lt;property name=&quot;Content&quot; iskey=&quot;true&quot; value=&quot;0&quot; /&gt;&#xD;&#xA;  &lt;/property&gt;&#xD;&#xA;&lt;/XtraSerializer&gt;" />
   </Options>
@@ -577,9 +577,11 @@
     </ListView>
     <ListView Id="Customer_ListView_AdvBanded" IsFooterVisible="False" Caption="Customers" EditorTypeName="DevExpress.ExpressApp.Win.Editors.GridListEditor">
       <Columns>
-        <ColumnInfo Id="Address" Index="0" Width="247" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.MemoPropertyEditor" RowCount="2" GridBand="" OwnerBand="Address" />
-        <ColumnInfo Id="CardNumber" Index="0" Width="269" SortIndex="0" SortOrder="Ascending" GridBand="" OwnerBand="PersonalInfo">
-          <OptionsColumnAdvBandedView>
+        <ColumnInfo Id="Address" Index="0" Width="247" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.MemoPropertyEditor" RowCount="2" OwnerBand="Address" >
+          <OptionsColumnAdvBandedView ColVIndex="0" RowIndex="0"/>
+        </ColumnInfo>
+        <ColumnInfo Id="CardNumber" Index="0" Width="269" SortIndex="0" SortOrder="Ascending" OwnerBand="PersonalInfo">
+          <OptionsColumnAdvBandedView  ColVIndex="0" RowIndex="0">
             <AppearanceCell>
               <TextOptions HAlignment="Near" />
             </AppearanceCell>
@@ -588,21 +590,48 @@
             <RepositoryItemSpinEdit Id="Left Aligment" IsNewNode="True" />
           </RepositoryItems>
         </ColumnInfo>
-        <ColumnInfo Id="Comments" Index="0" Width="202" RowCount="0" GridBand="" OwnerBand="General">
+        <ColumnInfo Id="Comments" Index="0" Width="202" RowCount="0" OwnerBand="General">
           <TooltipData DataOnToolTip="True" />
+          <OptionsColumnAdvBandedView  ColVIndex="0" RowIndex="0"/>
         </ColumnInfo>
-        <ColumnInfo Id="DiscountLevel" Index="0" GridBand="" OwnerBand="General" />
-        <ColumnInfo Id="MiddleName" SortIndex="-1" SortOrder="None" />
-        <ColumnInfo Id="Phone" Index="0" Width="268" SortIndex="-1" SortOrder="None" GridBand="" OwnerBand="PersonalInfo" />
-        <ColumnInfo Id="Photo" Index="0" Width="43" ImageEditorMode="PictureEdit" ImageEditorCustomHeight="100" ImageSizeMode="Zoom" ImageEditorFixedHeight="100" GridBand="" OwnerBand="Photo">
+        <ColumnInfo Id="DiscountLevel" Index="0" OwnerBand="General" >
+          <OptionsColumnAdvBandedView  ColVIndex="0" RowIndex="1"/>
+        </ColumnInfo>
+        <ColumnInfo Id="MiddleName" SortIndex="-1" SortOrder="None" >
+          <OptionsColumnAdvBandedView  ColVIndex="-1"/>
+        </ColumnInfo>
+        <ColumnInfo Id="Phone" Index="0" Width="268" SortIndex="-1" SortOrder="None" OwnerBand="PersonalInfo" >
+          <OptionsColumnAdvBandedView ColVIndex="0" RowIndex="1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Photo" Index="0" Width="43" ImageEditorMode="PictureEdit" ImageEditorCustomHeight="100" ImageSizeMode="Zoom" ImageEditorFixedHeight="100" OwnerBand="Photo">
           <TooltipData DataOnToolTip="True" MaxHeight="300" MaxWidth="200" />
+          <OptionsColumnAdvBandedView ColVIndex="0" RowIndex="0" />
         </ColumnInfo>
-        <ColumnInfo Id="Discount" Index="1" GridBand="" OwnerBand="General" />
-        <ColumnInfo Id="Email" Index="1" Width="452" SortIndex="-1" SortOrder="None" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.HyperLinkPropertyEditor" GridBand="" OwnerBand="PersonalInfo" />
-        <ColumnInfo Id="FullName" Index="1" Width="451" GridBand="" OwnerBand="PersonalInfo" />
-        <ColumnInfo Id="Birthday" Index="2" Width="147" GridBand="" OwnerBand="PersonalInfo" />
-        <ColumnInfo Id="Gender" Index="2" Width="147" GridBand="" OwnerBand="PersonalInfo" />
-        <ColumnInfo Id="FirstName" GridBand="" OwnerBand="PersonalInfo" Removed="True" />
+        <ColumnInfo Id="Discount" Index="1" OwnerBand="General" >
+          <OptionsColumnAdvBandedView ColVIndex="1" RowIndex="1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Email" Index="1" Width="452" SortIndex="-1" SortOrder="None" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.HyperLinkPropertyEditor" OwnerBand="PersonalInfo" >
+          <OptionsColumnAdvBandedView ColVIndex="1" RowIndex="1" />
+        </ColumnInfo>
+        <ColumnInfo Id="FullName" Index="1" Width="451" OwnerBand="PersonalInfo" >
+          <OptionsColumnAdvBandedView ColVIndex="1" RowIndex="0" />
+        </ColumnInfo>
+        <ColumnInfo Id="Birthday" Index="2" Width="147" OwnerBand="PersonalInfo" >
+          <OptionsColumnAdvBandedView ColVIndex="2" RowIndex="0" />
+        </ColumnInfo>
+        <ColumnInfo Id="Gender" Index="2" Width="147" OwnerBand="PersonalInfo" >
+          <OptionsColumnAdvBandedView ColVIndex="2" RowIndex="1" />
+        </ColumnInfo>
+        <ColumnInfo Id="BarCode">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Caption">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Color">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="FirstName" OwnerBand="PersonalInfo" Removed="True" />
         <ColumnInfo Id="LastName" Removed="True" />
       </Columns>
       <BandsLayout Enable="True" ShowBands="False" IsNewNode="True">
@@ -645,24 +674,36 @@
         <SortProperty Id="FullName" PropertyName="FullName" IsNewNode="True" />
       </Sorting>
     </ListView>
-    <ListView Id="Customer_ListView_Rentals" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="False" AllowEdit="False" Caption="Movie Rentals" RememberSelection="True" SelectedRows="2" EditorTypeName="DevExpress.ExpressApp.Win.Editors.GridListEditor" DetailViewID="Customer_DetailView">
+    <ListView Id="Customer_ListView_Rentals" MasterDetailMode="ListViewAndDetailView" IsFooterVisible="False" AllowEdit="False" Caption="Movie Rentals" RememberSelection="True" SelectedRows="2" EditorTypeName="DevExpress.ExpressApp.Win.Editors.GridListEditor" DetailViewID="Customer_DetailView" MasterDetailView="Customer_DetailView_Rentals">
       <Columns>
-        <ColumnInfo Id="FirstName" Index="-1" />
-        <ColumnInfo Id="Address" Index="0" RowCount="0" Width="459" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" DisplayFormat="Address       : &lt;b&gt;{0}&lt;/b&gt;" GridBand="" OwnerBand="MainBand">
+        <ColumnInfo Id="Comments">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="FirstName" Index="-1">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Gender">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="LastName">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Address" Index="0" RowCount="0" Width="459" DisplayFormat="Address       : &lt;b&gt;{0}&lt;/b&gt;" RowIndex="6" OwnerBand="MainBand">
+          <OptionsColumnAdvBandedView ColVIndex="0" RowIndex="6" />
           <RepositoryItems>
             <RepositoryItemButtonEdit Id="AllowHtmlDraw" AllowHtmlDraw="True" TextEditStyle="DisableTextEditor" IsNewNode="True" />
           </RepositoryItems>
           <TooltipData ToolTipText="Double click here to show the current customer details" />
         </ColumnInfo>
-        <ColumnInfo Id="Birthday" Index="0" Width="459" DisplayFormat="BirthDate     : &lt;b&gt;{0:d}&lt;/b&gt;" GridBand="" OwnerBand="MainBand">
-          <OptionsColumnAdvBandedView RowCount="0" />
+        <ColumnInfo Id="Birthday" Index="0" Width="459" DisplayFormat="BirthDate     : &lt;b&gt;{0:d}&lt;/b&gt;" RowIndex="3" OwnerBand="MainBand">
+          <OptionsColumnAdvBandedView ColVIndex="0" RowCount="0" RowIndex="3" />
           <RepositoryItems>
             <RepositoryItemDateEdit Id="AllowHtml" TextEditStyle="DisableTextEditor" AllowHtmlDraw="True" IsNewNode="True" />
           </RepositoryItems>
           <TooltipData ToolTipText="Double click here to show the current customer details" />
         </ColumnInfo>
-        <ColumnInfo Id="CardNumber" Index="0" DisplayFormat="CardNumber: &lt;b&gt;{0:000000}&lt;/b&gt;" Width="328" GridBand="" OwnerBand="MainBand">
-          <OptionsColumnAdvBandedView RowCount="0">
+        <ColumnInfo Id="CardNumber" Index="0" DisplayFormat="CardNumber: &lt;b&gt;{0:000000}&lt;/b&gt;" Width="328" RowIndex="2" OwnerBand="MainBand">
+          <OptionsColumnAdvBandedView ColVIndex="0" RowCount="0" RowIndex="2">
             <AppearanceCell>
               <TextOptions HAlignment="Near" />
             </AppearanceCell>
@@ -672,24 +713,45 @@
           </RepositoryItems>
           <TooltipData ToolTipText="Double click here to show the current customer details" />
         </ColumnInfo>
-        <ColumnInfo Id="Email" Index="0" Width="459" DisplayFormat="Email            : &lt;b&gt;{0}&lt;/b&gt;" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" GridBand="" OwnerBand="MainBand">
+        <ColumnInfo Id="Email" Index="0" Width="459" DisplayFormat="Email            : &lt;b&gt;{0}&lt;/b&gt;" RowIndex="4" OwnerBand="MainBand">
+          <OptionsColumnAdvBandedView ColVIndex="0" RowIndex="4" />
           <RepositoryItems>
             <RepositoryItemButtonEdit Id="AllowHtml" TextEditStyle="DisableTextEditor" AllowHtmlDraw="True" IsNewNode="True" />
           </RepositoryItems>
           <TooltipData ToolTipText="Double click here to show the current customer details" />
         </ColumnInfo>
-        <ColumnInfo Id="FullName" PropertyName="FullName" Index="0" SearchMemberMode="Exclude" Width="459" DisplayFormat="" GridBand="" OwnerBand="MainBand" IsNewNode="True">
+        <ColumnInfo Id="FullName" PropertyName="FullName" Index="0" SearchMemberMode="Exclude" Width="459" DisplayFormat="" RowIndex="1" OwnerBand="MainBand" IsNewNode="True">
+          <OptionsColumnAdvBandedView ColVIndex="0" RowIndex="1" IsNewNode="True" />
           <TooltipData ToolTipText="Double click here to show the current customer details" IsNewNode="True" />
         </ColumnInfo>
-        <ColumnInfo Id="Phone" Index="0" Width="459" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.StringLookupPropertyEditor" DisplayFormat="Phone          : &lt;b&gt;{0}&lt;/b&gt;" GridBand="" OwnerBand="MainBand">
+        <ColumnInfo Id="MiddleName">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Phone" Index="0" Width="459" DisplayFormat="Phone          : &lt;b&gt;{0}&lt;/b&gt;" RowIndex="5" OwnerBand="MainBand">
+          <OptionsColumnAdvBandedView ColVIndex="0" RowIndex="5" />
           <RepositoryItems>
             <RepositoryItemButtonEdit Id="AllowHtmlDraw" AllowHtmlDraw="True" TextEditStyle="DisableTextEditor" IsNewNode="True" />
           </RepositoryItems>
           <TooltipData ToolTipText="Double click here to show the current customer details" />
         </ColumnInfo>
-        <ColumnInfo Id="Photo" Index="0" ImageEditorFixedHeight="70" ImageEditorCustomHeight="70" Width="459" GridBand="" OwnerBand="MainBand">
-          <OptionsColumnAdvBandedView RowCount="12" />
+        <ColumnInfo Id="Photo" Index="0" ImageEditorFixedHeight="70" ImageEditorCustomHeight="70" Width="459" RowIndex="0" OwnerBand="MainBand">
+          <OptionsColumnAdvBandedView ColVIndex="0" RowCount="12" />
           <TooltipData ToolTipText="Double click here to show the current customer details" />
+        </ColumnInfo>
+        <ColumnInfo Id="Discount">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="BarCode">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="DiscountLevel">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Caption">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Color">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
         </ColumnInfo>
       </Columns>
       <BandsLayout Enable="True" ShowBands="False" IsNewNode="True">
@@ -959,32 +1021,59 @@
     </DetailView>
     <ListView Id="Movie_ListView_AdvBanded" AllowEdit="True" IsFooterVisible="False" MasterDetailMode="ListViewAndDetailView" Caption="Movies" EditorTypeName="DevExpress.ExpressApp.Win.Editors.GridListEditor" MasterDetailView="Movie_DetailView_Only_Pictures">
       <Columns>
-        <ColumnInfo Id="Category" Index="-1" Removed="True" />
-        <ColumnInfo Id="MovieId" Index="-1" Removed="True" />
-        <ColumnInfo Id="Language" Index="0" Width="160" GridBand="" OwnerBand="General" />
-        <ColumnInfo Id="Photo" Width="59" Index="0" GridBand="" OwnerBand="Photo">
+        <ColumnInfo Id="Category" Index="-1" Removed="True">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="MovieId" Index="-1" Removed="True">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="MovieTitle">
+          <OptionsColumnAdvBandedView ColVIndex="-1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Awards" Width="293" Index="0" RowIndex="0" OwnerBand="Awards" />
+        <ColumnInfo Id="Directors" Index="0" Width="161" RowIndex="1" OwnerBand="General">
+          <OptionsColumnAdvBandedView RowIndex="1" />
+        </ColumnInfo>
+        <ColumnInfo Id="Genre" Width="253" Index="0" RowIndex="0" OwnerBand="General" />
+        <ColumnInfo Id="Language" Index="0" Width="160" RowIndex="2" OwnerBand="General">
+          <OptionsColumnAdvBandedView RowIndex="2" ColVIndex="0" />
+        </ColumnInfo>
+        <ColumnInfo Id="Photo" Width="59" Index="0" RowIndex="0" OwnerBand="Photo">
           <TooltipData ToolTipController="XVideoRental.Module.Win.BusinessObjects.Movie.MovieToolTipController" />
         </ColumnInfo>
-        <ColumnInfo Id="Plot" Index="0" Width="335" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.MemoPropertyEditor" RowCount="0" GridBand="" OwnerBand="Movie" />
-        <ColumnInfo Id="Tagline" Width="293" SortIndex="-1" SortOrder="None" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.StringPropertyEditors.MemoPropertyEditor" RowCount="0" Index="0" GridBand="" OwnerBand="Awards" />
-        <ColumnInfo Id="Title" Index="0" Width="164" SortIndex="0" SortOrder="Ascending" RowCount="0" GridBand="" OwnerBand="Movie" />
-        <ColumnInfo Id="Rating" Width="92" Index="1" GridBand="" OwnerBand="General">
+        <ColumnInfo Id="Plot" Index="0" Width="335" PropertyEditorType="Common.Win.PropertyEditors.MemoPropertyEditor" RowCount="0" RowIndex="1" OwnerBand="Movie">
+          <OptionsColumnAdvBandedView RowIndex="1" ColVIndex="0" />
+        </ColumnInfo>
+        <ColumnInfo Id="Tagline" Width="293" SortIndex="-1" SortOrder="None" PropertyEditorType="Common.Win.PropertyEditors.MemoPropertyEditor" RowCount="0" Index="0" RowIndex="1" OwnerBand="Awards">
+          <OptionsColumnAdvBandedView RowIndex="1" ColVIndex="0" />
+        </ColumnInfo>
+        <ColumnInfo Id="Title" Index="0" Width="164" SortIndex="0" SortOrder="Ascending" RowCount="0" RowIndex="0" OwnerBand="Movie">
+          <OptionsColumnAdvBandedView ColVIndex="0" RowIndex="0" />
+        </ColumnInfo>
+        <ColumnInfo Id="Rating" Width="92" Index="1" RowIndex="2" OwnerBand="General">
+          <OptionsColumnAdvBandedView RowIndex="2" ColVIndex="1" />
           <RepositoryItems>
             <RepositoryItemImageComboBox Id="ImageBomboBox" GlyphAlignment="Center" IsNewNode="True" />
           </RepositoryItems>
         </ColumnInfo>
-        <ColumnInfo Id="ReleaseDate" Index="1" SortIndex="-1" SortOrder="None" Width="171" GridBand="" OwnerBand="Movie" />
-        <ColumnInfo Id="RunTime" Width="91" Index="1" GridBand="" OwnerBand="General" />
-        <ColumnInfo Id="WebSite" Width="110" Index="1" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.HyperLinkPropertyEditor" AllowEdit="True" GridBand="" OwnerBand="General">
+        <ColumnInfo Id="ReleaseDate" Index="1" SortIndex="-1" SortOrder="None" Width="171" RowIndex="0" OwnerBand="Movie">
+          <OptionsColumnAdvBandedView ColVIndex="1" RowIndex="0" />
+        </ColumnInfo>
+        <ColumnInfo Id="RunTime" Width="91" Index="1" RowIndex="1" OwnerBand="General">
+          <OptionsColumnAdvBandedView RowIndex="1" ColVIndex="1" />
+        </ColumnInfo>
+        <ColumnInfo Id="WebSite" Width="110" Index="1" PropertyEditorType="Common.Win.PropertyEditors.HyperLinkPropertyEditor" AllowEdit="True" RowIndex="0" OwnerBand="General">
+          <OptionsColumnAdvBandedView ColVIndex="1" />
           <RepositoryItems>
             <RepositoryItemHyperLinkEdit Id="@c34e4e0f-2f52-46bc-8586-fdf4a8f268ea" SingleClick="True" TextEditStyle="DisableTextEditor" IsNewNode="True" />
           </RepositoryItems>
         </ColumnInfo>
-        <ColumnInfo Id="AspectRatio" Width="111" Index="2" GridBand="" OwnerBand="General" />
-        <ColumnInfo Id="IsColor" Width="111" Index="2" GridBand="" OwnerBand="General" />
-        <ColumnInfo Id="Awards" Width="293" Index="4" GridBand="" OwnerBand="Awards" />
-        <ColumnInfo Id="Genre" Width="253" Index="6" GridBand="" OwnerBand="General" />
-        <ColumnInfo Id="Directors" Index="8" Width="161" GridBand="" OwnerBand="General" />
+        <ColumnInfo Id="AspectRatio" Width="111" Index="2" RowIndex="1" OwnerBand="General">
+          <OptionsColumnAdvBandedView RowIndex="1" ColVIndex="2" />
+        </ColumnInfo>
+        <ColumnInfo Id="IsColor" Width="111" Index="2" RowIndex="2" OwnerBand="General">
+          <OptionsColumnAdvBandedView RowIndex="2" ColVIndex="2" />
+        </ColumnInfo>
       </Columns>
       <BandsLayout Enable="True" ShowBands="False" IsNewNode="True">
         <Band Id="Photo" Caption="" Index="0" IsNewNode="True" />
@@ -1214,7 +1303,7 @@
     </DashboardView>
     <ListView Id="MovieItem_ListView_MediaPerformance" EditorTypeName="Xpand.ExpressApp.Chart.Win.XpandChartListEditor" DataAccessMode="Client">
       <ChartSettings Settings="﻿&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;&#xD;&#xA;&lt;ChartXmlSerializer version=&quot;12.1.6.0&quot;&gt;&#xD;&#xA;  &lt;Chart AppearanceNameSerializable=&quot;Default&quot; RuntimeSelection=&quot;true&quot;&gt;&#xD;&#xA;    &lt;SeriesTemplate&gt;&#xD;&#xA;      &lt;Label LineVisible=&quot;true&quot; TypeNameSerializable=&quot;PieSeriesLabel&quot; /&gt;&#xD;&#xA;      &lt;View TypeNameSerializable=&quot;PieSeriesView&quot; /&gt;&#xD;&#xA;    &lt;/SeriesTemplate&gt;&#xD;&#xA;    &lt;SeriesSerializable&gt;&#xD;&#xA;      &lt;Item1 ArgumentDataMember=&quot;Format&quot; SummaryFunction=&quot;COUNT()&quot; Name=&quot;Movie Media&quot; LabelsVisibility=&quot;True&quot;&gt;&#xD;&#xA;        &lt;View TypeNameSerializable=&quot;PieSeriesView&quot;&gt;&#xD;&#xA;          &lt;Titles&gt;&#xD;&#xA;            &lt;Item1 Text=&quot;Press a pie section to view detailed information&quot; /&gt;&#xD;&#xA;          &lt;/Titles&gt;&#xD;&#xA;        &lt;/View&gt;&#xD;&#xA;        &lt;Label LineVisible=&quot;true&quot; TypeNameSerializable=&quot;PieSeriesLabel&quot;&gt;&#xD;&#xA;          &lt;PointOptions PointView=&quot;Argument&quot; TypeNameSerializable=&quot;PiePointOptions&quot; /&gt;&#xD;&#xA;        &lt;/Label&gt;&#xD;&#xA;      &lt;/Item1&gt;&#xD;&#xA;    &lt;/SeriesSerializable&gt;&#xD;&#xA;    &lt;Titles&gt;&#xD;&#xA;      &lt;Item1 Text=&quot;Movie Media In Database&quot; /&gt;&#xD;&#xA;    &lt;/Titles&gt;&#xD;&#xA;    &lt;Legend EquallySpacedItems=&quot;false&quot; AlignmentHorizontal=&quot;Center&quot; AlignmentVertical=&quot;BottomOutside&quot; Direction=&quot;LeftToRight&quot; /&gt;&#xD;&#xA;  &lt;/Chart&gt;&#xD;&#xA;&lt;/ChartXmlSerializer&gt;" />
-      <OptionsChart >
+      <OptionsChart>
         <HotTrackHitInfo InSeriesTitle="False" InSeriesLabel="False" InSeries="True" InNonDefaultPane="False" InLegend="False" InIndicator="False" InDiagram="False" InConstantLine="False" InChart="False" InChartTitle="False" InAxis="False" InAnnotation="False" />
         <SelectionHitInfo InSeriesTitle="False" InSeriesLabel="False" InSeries="True" InNonDefaultPane="False" InLegend="False" InIndicator="False" InDiagram="False" InConstantLine="False" InChartTitle="False" InChart="False" InAxis="False" InAnnotation="False" />
       </OptionsChart>

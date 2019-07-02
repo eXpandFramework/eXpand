@@ -80,12 +80,12 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
                 ((ListView)View).CollectionSource.Criteria["ActiveViewFilter"] = CriteriaOperator.Parse("1=1");
             }
         }
-
+        [Obsolete]
         protected override void Build(InterfaceBuilder builder, IEnumerable<InterfaceBuilderData> interfaceBuilderDatas) {
             Type extenderType = typeof(SchedulerControl);
             Assembly assembly = builder.Build(interfaceBuilderDatas, GetPath(extenderType.Name));
 
-            builder.ExtendInteface(typeof(IModelOptionsSchedulerEx), extenderType, assembly);
+//            builder.ExtendInteface(typeof(IModelOptionsSchedulerEx), extenderType, assembly);
 //            builder.ExtendInteface<IModelSchedulerPopupMenuItem, SchedulerPopupMenu>(assembly);
             builder.ExtendInteface<IModelAppoitmentLabel, AppointmentLabel>(assembly);
             builder.ExtendInteface<AppointmentStorage, IAppoitmentStorageLabels>(assembly);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Chart.Win;
@@ -18,28 +19,30 @@ namespace Xpand.ExpressApp.Chart.Win.Model {
                 ChartControl.ObjectSelected += ChartControlOnObjectSelected;
             }
         }
-
+        [Obsolete]
         void ChartControlOnObjectSelected(object sender, HotTrackEventArgs hotTrackEventArgs) {
-            var modelChartHitInfo = ((IModelListViewOptionsChart)View.Model).OptionsChart.SelectionHitInfo;
-            ApplyHitInfoRules(hotTrackEventArgs, modelChartHitInfo);
-            if (!hotTrackEventArgs.Cancel && hotTrackEventArgs.HitInfo.InSeries) {
-                var argumentDataMember = View.ObjectTypeInfo.FindMember(((SeriesBase)hotTrackEventArgs.Object).ArgumentDataMember);
-                if (argumentDataMember != null) {
-                    var collectionSource = Application.CreateCollectionSource(ObjectSpace, View.ObjectTypeInfo.Type, View.Model.Id, CollectionSourceMode.Normal);
-                    var argumentValue = ReflectionHelper.Convert(hotTrackEventArgs.HitInfo.SeriesPoint.Argument, argumentDataMember.MemberType);
-                    var criteriaOperator = CriteriaOperator.Parse(argumentDataMember.Name + "=?", argumentValue);
-
-                    collectionSource.Criteria["arg"] = criteriaOperator;
-                    var customSelectedObjects = ((ISelectionCriteria)View.Editor);
-                    customSelectedObjects.SelectionCriteria = criteriaOperator;
-                    customSelectedObjects.AddSelectedObjects(((IEnumerable)collectionSource.Collection).Cast<object>());
-                }
-            }
+            throw new NotImplementedException();
+//            var modelChartHitInfo = ((IModelListViewOptionsChart)View.Model).OptionsChart.SelectionHitInfo;
+//            ApplyHitInfoRules(hotTrackEventArgs, modelChartHitInfo);
+//            if (!hotTrackEventArgs.Cancel && hotTrackEventArgs.HitInfo.InSeries) {
+//                var argumentDataMember = View.ObjectTypeInfo.FindMember(((SeriesBase)hotTrackEventArgs.Object).ArgumentDataMember);
+//                if (argumentDataMember != null) {
+//                    var collectionSource = Application.CreateCollectionSource(ObjectSpace, View.ObjectTypeInfo.Type, View.Model.Id, CollectionSourceMode.Normal);
+//                    var argumentValue = ReflectionHelper.Convert(hotTrackEventArgs.HitInfo.SeriesPoint.Argument, argumentDataMember.MemberType);
+//                    var criteriaOperator = CriteriaOperator.Parse(argumentDataMember.Name + "=?", argumentValue);
+//
+//                    collectionSource.Criteria["arg"] = criteriaOperator;
+//                    var customSelectedObjects = ((ISelectionCriteria)View.Editor);
+//                    customSelectedObjects.SelectionCriteria = criteriaOperator;
+//                    customSelectedObjects.AddSelectedObjects(((IEnumerable)collectionSource.Collection).Cast<object>());
+//                }
+//            }
         }
 
         void ChartControlOnObjectHotTracked(object sender, HotTrackEventArgs hotTrackEventArgs) {
-            var modelChartHitInfo = ((IModelListViewOptionsChart)View.Model).OptionsChart.HotTrackHitInfo;
-            ApplyHitInfoRules(hotTrackEventArgs, modelChartHitInfo);
+            throw new NotImplementedException();
+//            var modelChartHitInfo = ((IModelListViewOptionsChart)View.Model).OptionsChart.HotTrackHitInfo;
+//            ApplyHitInfoRules(hotTrackEventArgs, modelChartHitInfo);
         }
 
         void ApplyHitInfoRules(HotTrackEventArgs hotTrackEventArgs, IModelChartHitInfo modelChartHitInfo) {

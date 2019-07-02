@@ -26,7 +26,8 @@ namespace Xpand.ExpressApp.Scheduler.Model {
             base.OnViewControlsCreated();
             if (SchedulerListEditor != null) {
                 ((ListView)View).CollectionSource.CriteriaApplied += CollectionSourceOnCriteriaApplied;
-                new SchedulerListEditorModelSynchronizer(SchedulerControl(), (IModelListViewOptionsScheduler)View.Model, Labels(), Statuses()).ApplyModel();
+                throw new NotImplementedException();
+//                new SchedulerListEditorModelSynchronizer(SchedulerControl(), (IModelListViewOptionsScheduler)View.Model, Labels(), Statuses()).ApplyModel();
                 SchedulerListEditor.ResourceDataSourceCreating += SchedulerListEditorOnResourceDataSourceCreating;
             }
             var detailView = View as DetailView;
@@ -48,7 +49,8 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         void LinkToListViewControllerOnLinkChanged(object sender, EventArgs eventArgs) {
             var link = ((LinkToListViewController) sender).Link;
             if (SchedulerListEditor!=null && link?.ListView != null) {
-                new AppoitmentSynchronizer(Labels(), Statuses(), (IModelListViewOptionsScheduler)link.ListView.Model).ApplyModel();
+                throw new NotImplementedException();
+//                new AppoitmentSynchronizer(Labels(), Statuses(), (IModelListViewOptionsScheduler)link.ListView.Model).ApplyModel();
             }	
         }
 
@@ -57,54 +59,54 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         protected abstract IAppointmentLabelStorage Labels();
 
         protected abstract IInnerSchedulerControlOwner SchedulerControl();
-
+        [Obsolete]
         void SchedulerListEditorOnResourceDataSourceCreating(object sender, ResourceDataSourceCreatingEventArgs e) {
-            var resourceListView = ((IModelListViewOptionsScheduler)View.Model).ResourceListView;
-            if (resourceListView != null) {
-                var collectionSourceBase = Application.CreateCollectionSource(Application.CreateObjectSpace(e.ResourceType), e.ResourceType, resourceListView.Id, false, CollectionSourceMode.Proxy);
-                Application.CreateListView(resourceListView.Id, collectionSourceBase, true);
-                e.DataSource = collectionSourceBase.Collection;
-                e.Handled = true;
-            }
+//            var resourceListView = ((IModelListViewOptionsScheduler)View.Model).ResourceListView;
+//            if (resourceListView != null) {
+//                var collectionSourceBase = Application.CreateCollectionSource(Application.CreateObjectSpace(e.ResourceType), e.ResourceType, resourceListView.Id, false, CollectionSourceMode.Proxy);
+//                Application.CreateListView(resourceListView.Id, collectionSourceBase, true);
+//                e.DataSource = collectionSourceBase.Collection;
+//                e.Handled = true;
+//            }
         }
-
+        [Obsolete]
         void CollectionSourceOnCriteriaApplied(object sender, EventArgs eventArgs) {
-            if (((ListView)View).CollectionSource.Criteria.ContainsKey("ActiveViewFilter")) {
-                var modelListViewOptionsScheduler = ((IModelListViewOptionsScheduler)View.Model);
-                if (modelListViewOptionsScheduler.ResourcesOnlyWithAppoitments) {
-                    var storage = Storage();
-                    storage.BeginUpdate();
-                    var resources = Resources();
-                    for (int i = 0; i < resources.Count; i++) {
-                        resources[i].Visible = false;
-                    }
-                    foreach (var resourceId in Items().SelectMany(appointment => appointment.ResourceIds)) {
-                        resources.GetResourceById(resourceId).Visible = true;
-                    }
-                    storage.EndUpdate();
-                }
-            }
+//            if (((ListView)View).CollectionSource.Criteria.ContainsKey("ActiveViewFilter")) {
+//                var modelListViewOptionsScheduler = ((IModelListViewOptionsScheduler)View.Model);
+//                if (modelListViewOptionsScheduler.ResourcesOnlyWithAppoitments) {
+//                    var storage = Storage();
+//                    storage.BeginUpdate();
+//                    var resources = Resources();
+//                    for (int i = 0; i < resources.Count; i++) {
+//                        resources[i].Visible = false;
+//                    }
+//                    foreach (var resourceId in Items().SelectMany(appointment => appointment.ResourceIds)) {
+//                        resources.GetResourceById(resourceId).Visible = true;
+//                    }
+//                    storage.EndUpdate();
+//                }
+//            }
         }
 
         protected abstract ResourceStorageBase Resources();
 
         protected abstract IEnumerable<Appointment> Items();
         protected abstract ISchedulerStorageBase Storage();
-
+        [Obsolete]
         protected void SynchMenu(object menu) {
-            var popupMenus = ((IModelListViewOptionsScheduler) View.Model).OptionsScheduler.PopupMenuItems;
-            foreach (var popupMenu in popupMenus){
-                var component = GetMenu(menu,popupMenu);
-                if (component != null) new SchedulerPopupMenuModelSynchronizer(component, popupMenu).ApplyModel();
-            }
+//            var popupMenus = ((IModelListViewOptionsScheduler) View.Model).OptionsScheduler.PopupMenuItems;
+//            foreach (var popupMenu in popupMenus){
+//                var component = GetMenu(menu,popupMenu);
+//                if (component != null) new SchedulerPopupMenuModelSynchronizer(component, popupMenu).ApplyModel();
+//            }
         }
 
         protected virtual object GetMenu(object popupMenu, IModelSchedulerPopupMenuItem modelMenu){
             return popupMenu;
         }
-
+        [Obsolete]
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-            extenders.Add<IModelListView, IModelListViewOptionsScheduler>();
+//            extenders.Add<IModelListView, IModelListViewOptionsScheduler>();
 
             var builder = new InterfaceBuilder(extenders);
             var interfaceBuilderDatas = CreateBuilderData();

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <ListView Id="ExcelColumnMap_ListView">
+      <Node Id="GridViewOptions@c718384a-f5a7-46f7-a411-19b47a34b051" UnusableNodeName="GridViewOptions">
+        <Node Id="SettingsPager@05de888e-fe10-4dd5-bec6-abc230be66b9" UnusableNodeName="SettingsPager" Mode="ShowAllRecords" Visible="False" />
+      </Node>
+    </ListView>
+    <ListView Id="ExcelColumnMap_MemberTypeValues_ListView">
+      <Node Id="GridViewOptions@f23005d0-6f50-4ab7-b48d-c0d549e090eb" UnusableNodeName="GridViewOptions">
+        <Node Id="Settings@6fc63ddb-a062-41c6-b064-51ae607ad3e1" UnusableNodeName="Settings" ShowStatusBar="Hidden" />
+        <Node Id="SettingsPager@34438c7b-e3e7-4d57-b968-87eefa67d5ac" UnusableNodeName="SettingsPager" Mode="ShowAllRecords" />
+      </Node>
+    </ListView>
+    <ListView Id="ExcelImport_ExcelColumnMaps_ListView" AutoCommitWhenNested="True">
+      <Node Id="GridViewOptions@052bd7fb-069c-4082-9618-8b2f8770046b" UnusableNodeName="GridViewOptions">
+        <Node Id="Settings@e5acd870-45b6-4c10-a2fd-d13836d2cab3" UnusableNodeName="Settings" ShowStatusBar="Hidden" />
+        <Node Id="SettingsPager@c55f00f6-dbb0-4f24-ba79-86818d432873" UnusableNodeName="SettingsPager" Mode="ShowAllRecords" />
+      </Node>
+    </ListView>
+  </Views>
+</Application>

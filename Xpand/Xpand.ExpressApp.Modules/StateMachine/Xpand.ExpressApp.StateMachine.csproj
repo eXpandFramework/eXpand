@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFramework>net461</TargetFramework>
@@ -72,24 +72,12 @@
     <Compile Update="Controllers\AdminRolesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Controllers\ChangeStateActionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\CriteriaActionStateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\StatePropertyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\PermissionTransitionStateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\StateCaptionPopulateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\StateMachinePopulateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\ChangeStateActionController.cs" />
+    <Compile Update="Controllers\CriteriaActionStateController.cs" />
+    <Compile Update="Controllers\StatePropertyController.cs" />
+    <Compile Update="Controllers\PermissionTransitionStateController.cs" />
+    <Compile Update="Security\StateCaptionPopulateController.cs" />
+    <Compile Update="Security\StateMachinePopulateController.cs" />
     <Compile Update="XpandStateMachineModule.cs">
       <SubType>Component</SubType>
     </Compile>

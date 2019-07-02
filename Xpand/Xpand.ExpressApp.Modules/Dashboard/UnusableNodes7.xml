@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="DashboardDefinition_DetailView">
+      <Items Id="Items">
+        <PropertyEditor Id="Filters" PropertyName="DashboardDatasourceFilterList.Filters" />
+      </Items>
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <TabbedGroup Id="Item1">
+            <LayoutGroup Id="Item3">
+              <LayoutItem Id="Filters" ViewItem="Filters" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

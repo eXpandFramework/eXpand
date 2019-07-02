@@ -6,32 +6,32 @@ using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Scheduler.Model {
-    public class AppoitmentSynchronizer:ModelListSynchronizer {
-        public AppoitmentSynchronizer(IAppointmentLabelStorage labels, IAppointmentStatusStorage statuses, IModelListViewOptionsScheduler modelListViewOptionsScheduler) : base(null,modelListViewOptionsScheduler ) {
-            var appointmentsModel = modelListViewOptionsScheduler.OptionsScheduler.GetNode("Storage").GetNode("Appointments");
-            ModelSynchronizerList.Add(new AppoitmentLabelsSynchronizer(labels, (IModelAppoitmentLabels)appointmentsModel.GetNode("Labels")));
-            ModelSynchronizerList.Add(new AppoitmentStatusSynchronizer(statuses, (IModelAppoitmentStatuses)appointmentsModel.GetNode("Statuses")));
-        }
-    }
+//    public class AppoitmentSynchronizer:ModelListSynchronizer {
+//        public AppoitmentSynchronizer(IAppointmentLabelStorage labels, IAppointmentStatusStorage statuses, IModelListViewOptionsScheduler modelListViewOptionsScheduler) : base(null,modelListViewOptionsScheduler ) {
+//            var appointmentsModel = modelListViewOptionsScheduler.OptionsScheduler.GetNode("Storage").GetNode("Appointments");
+//            ModelSynchronizerList.Add(new AppoitmentLabelsSynchronizer(labels, (IModelAppoitmentLabels)appointmentsModel.GetNode("Labels")));
+//            ModelSynchronizerList.Add(new AppoitmentStatusSynchronizer(statuses, (IModelAppoitmentStatuses)appointmentsModel.GetNode("Statuses")));
+//        }
+//    }
 
-    public class SchedulerListEditorModelSynchronizer : ModelListSynchronizer {
-        public SchedulerListEditorModelSynchronizer(IInnerSchedulerControlOwner control, IModelListViewOptionsScheduler model, IAppointmentLabelStorage labels, IAppointmentStatusStorage statuses)
-            : base(control, model) {
-            ModelSynchronizerList.Add(new SchedulerControlSynchronizer(control,model));
-
-            var appoitmentSynchronizer = new AppoitmentSynchronizer(labels, statuses,model);
-            ModelSynchronizerList.Add(appoitmentSynchronizer);
-        }
-    }
-    public class SchedulerControlSynchronizer : ComponentSynchronizer<object, IModelOptionsSchedulerEx> {
-        public SchedulerControlSynchronizer(IInnerSchedulerControlOwner control, IModelListViewOptionsScheduler model)
-            : base(control, model.OptionsScheduler, false) {
-        }
-
-        public override void SynchronizeModel() {
-
-        }
-    }
+//    public class SchedulerListEditorModelSynchronizer : ModelListSynchronizer {
+//        public SchedulerListEditorModelSynchronizer(IInnerSchedulerControlOwner control, IModelListViewOptionsScheduler model, IAppointmentLabelStorage labels, IAppointmentStatusStorage statuses)
+//            : base(control, model) {
+//            ModelSynchronizerList.Add(new SchedulerControlSynchronizer(control,model));
+//
+//            var appoitmentSynchronizer = new AppoitmentSynchronizer(labels, statuses,model);
+//            ModelSynchronizerList.Add(appoitmentSynchronizer);
+//        }
+//    }
+//    public class SchedulerControlSynchronizer : ComponentSynchronizer<object, IModelOptionsSchedulerEx> {
+//        public SchedulerControlSynchronizer(IInnerSchedulerControlOwner control, IModelListViewOptionsScheduler model)
+//            : base(control, model.OptionsScheduler, false) {
+//        }
+//
+//        public override void SynchronizeModel() {
+//
+//        }
+//    }
 
     public class AppoitmentLabelsSynchronizer : ModelSynchronizer<IAppointmentLabelStorage, IModelAppoitmentLabels> {
         public AppoitmentLabelsSynchronizer(IAppointmentLabelStorage component, IModelAppoitmentLabels modelNode)

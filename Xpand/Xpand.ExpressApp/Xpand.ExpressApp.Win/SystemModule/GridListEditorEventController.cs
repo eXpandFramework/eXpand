@@ -71,9 +71,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 customSummaryCalculateEvent.Calculate(e);
             }
         }
-
+        [Obsolete("needs check")]
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
-            extenders.Add<IModelOptionsGridView, IModelOptionsGridViewRules>();
+//            extenders.Add<IModelOptionsGridView, IModelOptionsGridViewRules>();
         }
     }
 
@@ -132,9 +132,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     class RuleCollector {
         readonly IModelGridViewRules _modelOptionsGridViewRules;
-
+        [Obsolete("needs check")]
         public RuleCollector(IModelListView modelListView){
-            _modelOptionsGridViewRules= ((IModelOptionsGridViewRules) ((IModelListViewOptionsGridView) modelListView).GridViewOptions).Rules;
+//            _modelOptionsGridViewRules= ((IModelOptionsGridViewRules) ((IModelListViewOptionsGridView) modelListView).GridViewOptions).Rules;
         }
 
         public IEnumerable<IModelGridViewRuleCustomSummaryCalculate> GetCustomSummeryCalculateRules(params string[] members){

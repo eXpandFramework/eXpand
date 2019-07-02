@@ -11,14 +11,11 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model;
 using Xpand.ExpressApp.Win.Model;
-using Xpand.ExpressApp.Win.Model.NodeUpdaters;
 using Xpand.ExpressApp.Win.PropertyEditors;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
@@ -26,6 +23,8 @@ using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.Options;
+using Xpand.XAF.Modules.ModelMapper;
+using Xpand.XAF.Modules.ModelMapper.Services;
 using ProcessDataLockingInfoController = Xpand.ExpressApp.Win.PropertyEditors.ProcessDataLockingInfoController;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
@@ -40,12 +39,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public XpandSystemWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
+            RequiredModuleTypes.Add(typeof(ModelMapperModule));
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemFastSearch>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemDuration>();
+            
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
@@ -55,6 +56,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void Setup(XafApplication application) {
             base.Setup(application);
             application.SetupComplete+=ApplicationOnSetupComplete;
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            moduleManager.ExtendMap(PredifinedMap.LayoutView)
+                .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelLayoutViewDesign)));
         }
 
         private void ApplicationOnSetupComplete(object sender, EventArgs e) {
@@ -117,18 +124,18 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(RichEditToolbarController),
                 typeof(RichEditModelAdapterController),
                 typeof(LayoutViewColumnChooserController),
-                typeof(LayoutViewModelAdapterController),
-                typeof(GridViewModelAdapterController),
+//                typeof(LayoutViewModelAdapterController),
+//                typeof(GridViewModelAdapterController),
                 typeof(RememberGridSelectionController),
                 typeof(RepositoryItemModelAdapterController),
-                typeof(AdvBandedViewModelAdapterController)
+//                typeof(AdvBandedViewModelAdapterController)
             };
             return FilterDisabledControllers(GetDeclaredControllerTypesCore(controllerTypes));
         }
 
         public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator){
             base.AddModelNodeUpdaters(updaterRegistrator);
-            updaterRegistrator.AddUpdater(new ModelOptionsAdvBandedViewUpdater());
+//            updaterRegistrator.AddUpdater(new ModelOptionsAdvBandedViewUpdater());
         }
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {

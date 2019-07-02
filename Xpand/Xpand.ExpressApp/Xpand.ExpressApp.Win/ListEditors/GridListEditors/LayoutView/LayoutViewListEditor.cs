@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         public LayoutViewListEditor(IModelListView model)
             : base(model) {
         }
-        public new IModelListViewOptionsLayoutView Model => (IModelListViewOptionsLayoutView)base.Model;
+//        public new IModelListViewOptionsLayoutView Model => (IModelListViewOptionsLayoutView)base.Model;
 
         protected virtual void OnCustomGridViewCreate(CustomGridViewCreateEventArgs e) {
             EventHandler<CustomGridViewCreateEventArgs> handler = CustomGridViewCreate;
@@ -32,10 +32,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             
             result.Add(new FilterModelSynchronizer(this, Model));
             result.Add(new LayoutViewListEditorSynchronizer(this));
-            result.Add(new LayoutViewOptionsSynchronizer(this));
-            result.Add(new LayoutColumnOptionsSynchroniser(this));
+//            result.Add(new LayoutViewOptionsSynchronizer(this));
+//            result.Add(new LayoutColumnOptionsSynchroniser(this));
             result.Add(new RepositoryItemColumnViewSynchronizer(ColumnView, Model));
-	        result.Add(new LayoutViewLayoutStoreSynchronizer(this));
+//	        result.Add(new LayoutViewLayoutStoreSynchronizer(this));
 			return result;
         }
 

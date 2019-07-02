@@ -20,102 +20,102 @@ using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
-    public abstract class ColumnViewEditorLayoutStoreSynchronizer : DevExpress.ExpressApp.Model.ModelSynchronizer<WinColumnsListEditor, IModelLayoutDesignStore> {
-        protected ColumnViewEditorLayoutStoreSynchronizer(WinColumnsListEditor control, IModelLayoutDesignStore modelNode)
-            : base(control, modelNode) {
-        }
-        protected override void ApplyModelCore() {
-            if (Model.NodeEnabled || (Control is IColumnViewEditor && ((IColumnViewEditor)Control).OverrideViewDesignMode)) {
-                ApplyModelFromLayoutStore(Control.Grid.MainView);
-            }
-        }
-
-        public override void SynchronizeModel(){
-            var editor = Control as IColumnViewEditor;
-            if (editor != null && (editor.OverrideViewDesignMode||SynchronizeModelCore()))
-                SaveToLayoutStore(Control.Grid.MainView);
-        }
-
-        protected virtual bool SynchronizeModelCore() {
-            return false;
-        }
-
-        OptionsLayoutGrid GetOptionsLayoutGrid() {
-            var optionsLayoutGrid = new OptionsLayoutGrid();
-
-            optionsLayoutGrid.Columns.StoreLayout = true;
-            optionsLayoutGrid.Columns.StoreAppearance = true;
-            optionsLayoutGrid.Columns.RemoveOldColumns = false;
-            optionsLayoutGrid.Columns.AddNewColumns = false;
-
-            optionsLayoutGrid.StoreVisualOptions = true;
-            optionsLayoutGrid.StoreDataSettings = false;
-            optionsLayoutGrid.StoreAppearance = true;
-
-            optionsLayoutGrid.StoreAllOptions = true;
-            return optionsLayoutGrid;
-        }
-        void SaveToLayoutStore(BaseView baseView) {
-            using (var saveStream = new MemoryStream()) {
-                baseView.SaveLayoutToStream(saveStream, GetOptionsLayoutGrid());
-                Model.LayoutStore = Encoding.UTF8.GetString(saveStream.ToArray());
-            }
-        }
-        void ApplyModelFromLayoutStore(BaseView gridView) {
-            var optionsLayoutGrid = GetOptionsLayoutGrid();
-            if (!string.IsNullOrEmpty(Model.LayoutStore)) {
-                using (var restoreStream = new MemoryStream(Encoding.UTF8.GetBytes(Model.LayoutStore))) {
-                    gridView.RestoreLayoutFromStream(restoreStream, optionsLayoutGrid);
-                }
-            }
-        }
-
-    }
-
-
-    public abstract class ColumnViewEditorColumnOptionsSynchronizer<TComponent, TModelListViewOptionsColumnView, TModelColumn> : Persistent.Base.ModelAdapter.ModelSynchronizer<TComponent, TModelListViewOptionsColumnView>
-        where TModelListViewOptionsColumnView : IModelListViewOptionsColumnView
-        where TModelColumn : IModelColumnOptionsColumnView {
-        protected ColumnViewEditorColumnOptionsSynchronizer(TComponent control, TModelListViewOptionsColumnView modelNode)
-            : base(control, modelNode) {
-        }
-        protected override void ApplyModelCore() {
-            var gridColumnCollection = GetColumnView().Columns;
-            foreach (var modelColumn in Model.Columns.OfType<TModelColumn>()) {
-                var layoutViewColumn = gridColumnCollection[GetPropertyName(modelColumn)];
-                var columnOptions = GetColumnOptions(modelColumn);
-                if (columnOptions.NodeEnabled)
-                    ApplyModel(columnOptions, layoutViewColumn, ApplyValues);
-            }
-        }
-
-        string GetPropertyName(TModelColumn modelColumn) {
-            var propertyName = modelColumn.PropertyName;
-            if (modelColumn.ModelMember != null && modelColumn.ModelMember.MemberInfo.MemberTypeInfo.IsDomainComponent) {
-                propertyName += "!";
-            }
-            return propertyName;
-        }
-
-        protected abstract DevExpress.XtraGrid.Views.Base.ColumnView GetColumnView();
-
-        protected abstract IModelColumnViewColumnOptions GetColumnOptions(TModelColumn modelColumnOptionsView);
-
-        public override void SynchronizeModel() {
-            var gridColumnCollection = GetColumnView().Columns;
-            foreach (var column in gridColumnCollection.ToList()) {
-                var propertyName = column.PropertyName();
-                if (Model.Columns[propertyName] is TModelColumn) {
-                    var modelColumn = (TModelColumn)Model.Columns[propertyName];
-                    var columnOptions = GetColumnOptions(modelColumn);
-                    if (columnOptions.NodeEnabled)
-                        ApplyModel(columnOptions, column, SynchronizeValues);
-                }
-            }
-        }
+//    public abstract class ColumnViewEditorLayoutStoreSynchronizer : DevExpress.ExpressApp.Model.ModelSynchronizer<WinColumnsListEditor, IModelLayoutDesignStore> {
+//        protected ColumnViewEditorLayoutStoreSynchronizer(WinColumnsListEditor control, IModelLayoutDesignStore modelNode)
+//            : base(control, modelNode) {
+//        }
+//        protected override void ApplyModelCore() {
+//            if (Model.NodeEnabled || (Control is IColumnViewEditor && ((IColumnViewEditor)Control).OverrideViewDesignMode)) {
+//                ApplyModelFromLayoutStore(Control.Grid.MainView);
+//            }
+//        }
+//
+//        public override void SynchronizeModel(){
+//            var editor = Control as IColumnViewEditor;
+//            if (editor != null && (editor.OverrideViewDesignMode||SynchronizeModelCore()))
+//                SaveToLayoutStore(Control.Grid.MainView);
+//        }
+//
+//        protected virtual bool SynchronizeModelCore() {
+//            return false;
+//        }
+//
+//        OptionsLayoutGrid GetOptionsLayoutGrid() {
+//            var optionsLayoutGrid = new OptionsLayoutGrid();
+//
+//            optionsLayoutGrid.Columns.StoreLayout = true;
+//            optionsLayoutGrid.Columns.StoreAppearance = true;
+//            optionsLayoutGrid.Columns.RemoveOldColumns = false;
+//            optionsLayoutGrid.Columns.AddNewColumns = false;
+//
+//            optionsLayoutGrid.StoreVisualOptions = true;
+//            optionsLayoutGrid.StoreDataSettings = false;
+//            optionsLayoutGrid.StoreAppearance = true;
+//
+//            optionsLayoutGrid.StoreAllOptions = true;
+//            return optionsLayoutGrid;
+//        }
+//        void SaveToLayoutStore(BaseView baseView) {
+//            using (var saveStream = new MemoryStream()) {
+//                baseView.SaveLayoutToStream(saveStream, GetOptionsLayoutGrid());
+//                Model.LayoutStore = Encoding.UTF8.GetString(saveStream.ToArray());
+//            }
+//        }
+//        void ApplyModelFromLayoutStore(BaseView gridView) {
+//            var optionsLayoutGrid = GetOptionsLayoutGrid();
+//            if (!string.IsNullOrEmpty(Model.LayoutStore)) {
+//                using (var restoreStream = new MemoryStream(Encoding.UTF8.GetBytes(Model.LayoutStore))) {
+//                    gridView.RestoreLayoutFromStream(restoreStream, optionsLayoutGrid);
+//                }
+//            }
+//        }
+//
+//    }
 
 
-    }
+//    public abstract class ColumnViewEditorColumnOptionsSynchronizer<TComponent, TModelListViewOptionsColumnView, TModelColumn> : Persistent.Base.ModelAdapter.ModelSynchronizer<TComponent, TModelListViewOptionsColumnView>
+//        where TModelListViewOptionsColumnView : IModelListViewOptionsColumnView
+//        where TModelColumn : IModelColumnOptionsColumnView {
+//        protected ColumnViewEditorColumnOptionsSynchronizer(TComponent control, TModelListViewOptionsColumnView modelNode)
+//            : base(control, modelNode) {
+//        }
+//        protected override void ApplyModelCore() {
+//            var gridColumnCollection = GetColumnView().Columns;
+//            foreach (var modelColumn in Model.Columns.OfType<TModelColumn>()) {
+//                var layoutViewColumn = gridColumnCollection[GetPropertyName(modelColumn)];
+//                var columnOptions = GetColumnOptions(modelColumn);
+//                if (columnOptions.NodeEnabled)
+//                    ApplyModel(columnOptions, layoutViewColumn, ApplyValues);
+//            }
+//        }
+//
+//        string GetPropertyName(TModelColumn modelColumn) {
+//            var propertyName = modelColumn.PropertyName;
+//            if (modelColumn.ModelMember != null && modelColumn.ModelMember.MemberInfo.MemberTypeInfo.IsDomainComponent) {
+//                propertyName += "!";
+//            }
+//            return propertyName;
+//        }
+//
+//        protected abstract DevExpress.XtraGrid.Views.Base.ColumnView GetColumnView();
+//
+//        protected abstract IModelColumnViewColumnOptions GetColumnOptions(TModelColumn modelColumnOptionsView);
+//
+//        public override void SynchronizeModel() {
+//            var gridColumnCollection = GetColumnView().Columns;
+//            foreach (var column in gridColumnCollection.ToList()) {
+//                var propertyName = column.PropertyName();
+//                if (Model.Columns[propertyName] is TModelColumn) {
+//                    var modelColumn = (TModelColumn)Model.Columns[propertyName];
+//                    var columnOptions = GetColumnOptions(modelColumn);
+//                    if (columnOptions.NodeEnabled)
+//                        ApplyModel(columnOptions, column, SynchronizeValues);
+//                }
+//            }
+//        }
+//
+//
+//    }
 
     public abstract class GridViewModelSynchronizer : DevExpress.ExpressApp.Model.ModelSynchronizer<DevExpress.XtraGrid.Views.Grid.GridView, IModelListView> {
         private readonly ColumnsListEditor _columnsListEditor;

@@ -40,14 +40,14 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 		    return new GridViewDataRowDoubleClickAdapter(grid, gridView);
 	    }
 
-	    public new IModelListViewOptionsGridView Model => (IModelListViewOptionsGridView)base.Model;
+//	    public new IModelListViewOptionsGridView Model => (IModelListViewOptionsGridView)base.Model;
 
-        protected override List<IModelSynchronizable> CreateModelSynchronizers() {
-            var listEditorSynchronizer = new XpandGridListEditorSynchronizer(this);
-            var dynamicModelSynchronizer = new GridViewListEditorDynamicModelSynchronizer(GridView,Model,((IColumnViewEditor)this).OverrideViewDesignMode);
-            dynamicModelSynchronizer.ModelSynchronizerList.Insert(0, listEditorSynchronizer);
-            return dynamicModelSynchronizer.ModelSynchronizerList;
-        }
+//        protected override List<IModelSynchronizable> CreateModelSynchronizers() {
+//            var listEditorSynchronizer = new XpandGridListEditorSynchronizer(this);
+//            var dynamicModelSynchronizer = new GridViewListEditorDynamicModelSynchronizer(GridView,Model,((IColumnViewEditor)this).OverrideViewDesignMode);
+//            dynamicModelSynchronizer.ModelSynchronizerList.Insert(0, listEditorSynchronizer);
+//            return dynamicModelSynchronizer.ModelSynchronizerList;
+//        }
 
         #region modelDetailViews
         private void OnCustomGetSelectedObjects(CustomGetSelectedObjectsArgs e) {

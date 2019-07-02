@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ExcelImport_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf">
+              <LayoutItem Id="UseHeaderRows" RelativeSize="21.818181818181817" Index="2" ViewItem="UseHeaderRows" />
+              <LayoutItem Id="HeaderRows" Index="3" RelativeSize="27.272727272727273" ViewItem="HeaderRows" />
+            </LayoutGroup>
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="ExcelColumnMaps" TextAlignMode="AlignWithChildren">
+              <LayoutGroup Id="Auto3f9370ef-a097-4959-a578-a87542b54092" Caption="Auto3f9370ef-a097-4959-a578-a87542b54092(16)" RelativeSize="6.8965517241379306">
+                <LayoutItem Id="ColumnMappingRegexPattern" RelativeSize="49.6" ViewItem="ColumnMappingRegexPattern" />
+                <LayoutItem Id="ColumnMappingReplacement" RelativeSize="50.4" ViewItem="ColumnMappingReplacement" />
+              </LayoutGroup>
+              <LayoutItem Id="ExcelColumnMaps" TextAlignMode="AutoSize" RelativeSize="87.295825771324857" ViewItem="ExcelColumnMaps" />
+              <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="2" RelativeSize="5.8076225045372052" />
+              <LayoutItem Id="Progress" ViewItem="Progress" Removed="True" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>

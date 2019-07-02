@@ -4,7 +4,6 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Chart.Win;
 using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.PivotChart.Win;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.ExpressApp.ReportsV2;
@@ -60,8 +59,15 @@ namespace XVideoRental.Module.Win {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             
-            PredifinedModelMapperConfiguration.GridView.Extend(configuration => configuration.MapName="GridViewOptions");
-            PredifinedModelMapperConfiguration.GridColumn.Extend(configuration => configuration.MapName="OptionsColumnGridView");
+            moduleManager.Extend(PredifinedMap.GridView,configuration => configuration.MapName="GridViewOptions");
+            moduleManager.Extend(PredifinedMap.AdvBandedGridView,configuration => configuration.MapName="OptionsAdvBandedView");
+            moduleManager.Extend(PredifinedMap.LayoutView,configuration => configuration.MapName="OptionsLayoutView");
+            moduleManager.Extend(PredifinedMap.GridColumn,configuration => configuration.MapName="OptionsColumnGridView");
+            moduleManager.Extend(PredifinedMap.BandedGridColumn,configuration => configuration.MapName="OptionsColumnAdvBandedView");
+            moduleManager.Extend(PredifinedMap.LayoutViewColumn,configuration => configuration.MapName="OptionsColumnLayoutView");
+            
+            
+            
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {

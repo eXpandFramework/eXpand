@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views Id="Views">
+    <DetailView Id="ExcelImport_DetailView">
+      <Layout Id="Layout">
+        <LayoutGroup Id="Main">
+          <LayoutGroup Id="SimpleEditors">
+            <LayoutGroup Id="Auto00224b34-7006-4108-b0c5-3487562c098d" RelativeSize="48.892405063291136" />
+            <LayoutGroup Id="Autoe95d7ad6-b37f-40c5-bc50-cf78c6c8acaf" RelativeSize="51.107594936708864" />
+          </LayoutGroup>
+          <TabbedGroup Id="Tabs">
+            <LayoutGroup Id="Item1">
+              <LayoutItem Id="ExcelColumnMaps" RelativeSize="96.172248803827756" />
+              <LayoutItem Id="ProgressViewItem" ViewItem="ProgressViewItem" Index="1" RelativeSize="3.8277511961722488" />
+            </LayoutGroup>
+          </TabbedGroup>
+        </LayoutGroup>
+      </Layout>
+    </DetailView>
+  </Views>
+</Application>
