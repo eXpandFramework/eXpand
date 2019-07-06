@@ -12,7 +12,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v19.1.Core">
@@ -117,24 +117,14 @@
     <Compile Update="Editors\AnalysisControlWin.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Options\PivotOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="PivotedProperty\PivotCustomSortController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="PivotedProperty\PivotedPropertyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="AnalysisControlVisibilityController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Options\PivotOptionsController.cs" />
+    <Compile Update="PivotedProperty\PivotCustomSortController.cs" />
+    <Compile Update="PivotedProperty\PivotedPropertyController.cs" />
+    <Compile Update="AnalysisControlVisibilityController.cs" />
     <Compile Update="XpandPivotChartWinModule.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="PivotGridInplaceEditorsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="PivotGridInplaceEditorsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

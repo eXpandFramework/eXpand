@@ -12,7 +12,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
@@ -72,24 +72,12 @@
     <Compile Update="Controllers\AdminRolesController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Controllers\ChangeStateActionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\CriteriaActionStateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\StatePropertyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\PermissionTransitionStateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\StateCaptionPopulateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\StateMachinePopulateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\ChangeStateActionController.cs" />
+    <Compile Update="Controllers\CriteriaActionStateController.cs" />
+    <Compile Update="Controllers\StatePropertyController.cs" />
+    <Compile Update="Controllers\PermissionTransitionStateController.cs" />
+    <Compile Update="Security\StateCaptionPopulateController.cs" />
+    <Compile Update="Security\StateMachinePopulateController.cs" />
     <Compile Update="XpandStateMachineModule.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -13,7 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Common.Logging" Version="2.1.2" />
-    <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
     <PackageReference Include="Quartz" Version="2.2.4" />
   </ItemGroup>
   <ItemGroup>
