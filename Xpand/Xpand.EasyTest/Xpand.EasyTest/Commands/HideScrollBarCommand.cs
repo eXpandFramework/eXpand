@@ -1,5 +1,5 @@
 ﻿using DevExpress.EasyTest.Framework;
-using Xpand.Utils.Win32;
+using Xpand.EasyTest.Win32;
 
 namespace Xpand.EasyTest.Commands{
     public abstract class HideScrollBarCommand:Command{

@@ -7,7 +7,7 @@ using Point = System.Drawing.Point;
 
 namespace Xpand.EasyTest.Commands.InputSimulator{
     public class MouseCommand:Command{
-        private static readonly Utils.Automation.InputSimulator.InputSimulator Simulator=new Utils.Automation.InputSimulator.InputSimulator();
+        private static readonly Automation.InputSimulator.InputSimulator Simulator=new Automation.InputSimulator.InputSimulator();
         public const string Name = "Mouse";
         protected override void InternalExecute(ICommandAdapter adapter){
             var toggleNavigation = this.ParameterValue<bool>(ToggleNavigationCommand.Name);
