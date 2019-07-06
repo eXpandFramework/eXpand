@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Xpand.Utils.Web;
 
 namespace Xpand.NCarousel {
     public class NCarousel : WebControl, INamingContainer {
@@ -53,18 +52,20 @@ namespace Xpand.NCarousel {
             if (string.IsNullOrEmpty(CssClass))
                 CssClass = Css.ClassName;
 
+            /*
             var clientScriptProxy = ClientScriptProxy.Current;
             clientScriptProxy.RegisterCssResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.Skins.skin.css");
             clientScriptProxy.RegisterCssBlock(this, typeof(NCarousel), ClientID + "css", GetCssScript());
             clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.jquery-1.4.2.min.js", ScriptRenderModes.HeaderTop);
             clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.jquery.jcarousel.min.js", ScriptRenderModes.HeaderTop);
             clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.NCarousel.js", ScriptRenderModes.HeaderTop);
-
+            */
         }
         protected override void CreateChildControls() {
             base.CreateChildControls();
-            ClientScriptProxy.Current.RegisterClientScriptBlock(this, typeof(NCarousel), ClientID + "jscript", GetJScript(), true, ScriptRenderModes.Header);
+            // ClientScriptProxy.Current.RegisterClientScriptBlock(this, typeof(NCarousel), ClientID + "jscript", GetJScript(), true, ScriptRenderModes.Header);
         }
+
         string GetCssScript() {
             if (Css.AllowOverride)
                 return null;
