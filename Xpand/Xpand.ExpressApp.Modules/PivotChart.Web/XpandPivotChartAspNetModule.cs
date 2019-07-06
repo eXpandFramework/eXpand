@@ -11,7 +11,7 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.PivotChart.Core;
 using Xpand.ExpressApp.PivotChart.Web.Options;
-using Xpand.Xpo.Converters.ValueConverters;
+using Xpand.Persistent.Base.General.ValueConverters;
 using AnalysisPropertyEditorNodeUpdater = Xpand.ExpressApp.PivotChart.Web.Core.AnalysisPropertyEditorNodeUpdater;
 using TypesInfo = Xpand.ExpressApp.PivotChart.Core.TypesInfo;
 
