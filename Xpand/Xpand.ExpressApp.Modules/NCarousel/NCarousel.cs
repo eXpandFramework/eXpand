@@ -52,18 +52,16 @@ namespace Xpand.NCarousel {
             if (string.IsNullOrEmpty(CssClass))
                 CssClass = Css.ClassName;
 
-            /*
-            var clientScriptProxy = ClientScriptProxy.Current;
-            clientScriptProxy.RegisterCssResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.Skins.skin.css");
-            clientScriptProxy.RegisterCssBlock(this, typeof(NCarousel), ClientID + "css", GetCssScript());
-            clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.jquery-1.4.2.min.js", ScriptRenderModes.HeaderTop);
-            clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.jquery.jcarousel.min.js", ScriptRenderModes.HeaderTop);
-            clientScriptProxy.RegisterClientScriptResource(this, typeof(NCarousel), "Xpand.NCarousel.Resources.NCarousel.js", ScriptRenderModes.HeaderTop);
-            */
+            Page.Controls.Add(new LiteralControl("<link href=\"" + ResolveUrl("Xpand.NCarousel.Resources.Skins.skin.css") + "\" rel=\"stylesheet\" type=\"text/css\" >\r\n"));
+            Page.Controls.Add(new LiteralControl(@"<style type=""text/css"">" + GetCssScript() + "</style>"));
+            Page.ClientScript.RegisterClientScriptResource(typeof(NCarousel), "Xpand.NCarousel.Resources.jquery-1.4.2.min.js");
+            Page.ClientScript.RegisterClientScriptResource(typeof(NCarousel), "Xpand.NCarousel.Resources.jquery.jcarousel.min.js");
+            Page.ClientScript.RegisterClientScriptResource(typeof(NCarousel), "Xpand.NCarousel.Resources.NCarousel.js");
         }
+
         protected override void CreateChildControls() {
             base.CreateChildControls();
-            // ClientScriptProxy.Current.RegisterClientScriptBlock(this, typeof(NCarousel), ClientID + "jscript", GetJScript(), true, ScriptRenderModes.Header);
+            Page.ClientScript.RegisterClientScriptBlock(typeof(NCarousel), ClientID + "jscript", GetJScript(), true);
         }
 
         string GetCssScript() {
