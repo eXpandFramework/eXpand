@@ -13,7 +13,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="3.3.1" />
-    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
@@ -97,6 +96,9 @@
     <Reference Include="DevExpress.XtraRichEdit.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraRichEdit.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Design" />

@@ -21,7 +21,6 @@
     <PackageReference Include="AForge.Imaging" Version="2.2.5" />
     <PackageReference Include="AForge.Math" Version="2.2.5" />
     <PackageReference Include="AForge.Video" Version="2.2.5" />
-    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
     <PackageReference Include="InputSimulator" Version="1.0.4.0" />
   </ItemGroup>
   <ItemGroup>
@@ -32,6 +31,9 @@
     <Reference Include="DevExpress.EasyTest.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.EasyTest.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.Utils">

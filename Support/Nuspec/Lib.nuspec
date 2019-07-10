@@ -14,7 +14,6 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="Fasterflect.Netstandard" version="1.0.9" />
       <dependency id="Mono.Cecil" version="0.10.4" />
       <dependency id="System.CodeDom" version="4.5.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />

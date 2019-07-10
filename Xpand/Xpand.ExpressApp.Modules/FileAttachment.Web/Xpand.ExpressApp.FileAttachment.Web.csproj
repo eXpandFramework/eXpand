@@ -73,9 +73,7 @@
     <Compile Update="PropertyEditors\FileDataPropertyEditor.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="UploadControlPropertyEditorProviderController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="UploadControlPropertyEditorProviderController.cs" />
     <Compile Update="XpandFileAttachmentsWebModule.cs">
       <SubType>Component</SubType>
     </Compile>

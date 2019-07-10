@@ -14,7 +14,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Common.Logging" Version="2.1.2" />
-    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
     <PackageReference Include="Quartz" Version="2.2.4" />
     <PackageReference Include="Topshelf" Version="3.1.4" />
   </ItemGroup>
@@ -26,6 +25,9 @@
     <Reference Include="DevExpress.Xpo.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="Xpand.ExpressApp.JobScheduler">

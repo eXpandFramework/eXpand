@@ -17,7 +17,6 @@
       <dependency id="eXpandLib" version="19.1.402.0" />
       <dependency id="eXpandSecurity" version="19.1.402.0" />
       <dependency id="eXpandSystem" version="19.1.402.0" />
-      <dependency id="Fasterflect.Netstandard" version="1.0.9" />
     </dependencies>
   </metadata>
   <files>

@@ -28,7 +28,6 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
       <dependency id="eXpandSecurity" version="19.1.402.0" />
       <dependency id="eXpandSecurityWin" version="19.1.402.0" />
       <dependency id="eXpandSystemWin" version="19.1.402.0" />
-      <dependency id="Fasterflect.Netstandard" version="1.0.9" />
     </dependencies>
   </metadata>
   <files>

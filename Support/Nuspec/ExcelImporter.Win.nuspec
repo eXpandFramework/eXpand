@@ -20,7 +20,6 @@
       <dependency id="eXpandLib" version="19.1.402.0" />
       <dependency id="eXpandSystemWin" version="19.1.402.0" />
       <dependency id="eXpandValidationWin" version="19.1.402.0" />
-      <dependency id="Fasterflect.Netstandard" version="1.0.9" />
       <dependency id="JetBrains.Annotations" version="2019.1.1" />
       <dependency id="System.IO.Compression" version="4.3.0" />
       <dependency id="System.Reactive" version="4.1.5" />

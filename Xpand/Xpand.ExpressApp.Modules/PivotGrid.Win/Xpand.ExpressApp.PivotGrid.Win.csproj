@@ -12,9 +12,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="DevExpress.Charts.v19.1.Core">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Charts.v19.1.Core.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -110,6 +107,9 @@
     <Reference Include="DevExpress.XtraPivotGrid.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraPivotGrid.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Dashboard">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Dashboard.dll</HintPath>

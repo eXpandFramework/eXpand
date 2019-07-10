@@ -18,7 +18,6 @@
       <dependency id="eXpandLogic" version="19.1.402.0" />
       <dependency id="eXpandSecurity" version="19.1.402.0" />
       <dependency id="eXpandValidation" version="19.1.402.0" />
-      <dependency id="Fasterflect.Netstandard" version="1.0.9" />
       <dependency id="Mono.Cecil" version="0.10.4" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.32" />

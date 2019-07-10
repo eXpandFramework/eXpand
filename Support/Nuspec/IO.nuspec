@@ -17,7 +17,6 @@
       <dependency id="DotNetZip" version="1.11.0" />
       <dependency id="eXpandLib" version="19.1.402.0" />
       <dependency id="eXpandModelArtifactState" version="19.1.402.0" />
-      <dependency id="Fasterflect.Netstandard" version="1.0.9" />
       <dependency id="System.Data.DataSetExtensions" version="4.*" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>

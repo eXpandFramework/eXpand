@@ -17,7 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AppDomainToolkit" Version="1.0.4.3" />
-    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
     <PackageReference Include="Mono.Cecil" Version="0.10.4" />
     <PackageReference Include="System.CodeDom" Version="4.5.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
@@ -64,6 +63,9 @@
     <Reference Include="DevExpress.Xpo.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="Xpand.ExpressApp.Validation">

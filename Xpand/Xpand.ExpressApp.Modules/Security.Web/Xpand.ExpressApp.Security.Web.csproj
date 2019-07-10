@@ -12,9 +12,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Validation.Web.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.Web.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -66,6 +63,9 @@
     <Reference Include="DevExpress.Xpo.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp">

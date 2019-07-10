@@ -13,7 +13,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Common.Logging" Version="2.1.2" />
-    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
     <PackageReference Include="Quartz" Version="2.2.4" />
   </ItemGroup>
   <ItemGroup>
@@ -28,6 +27,9 @@
     <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider">

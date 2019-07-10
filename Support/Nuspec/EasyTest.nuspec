@@ -19,7 +19,6 @@
       <dependency id="AForge.Math" version="2.2.5" />
       <dependency id="AForge.Video" version="2.2.5" />
       <dependency id="eXpandLib" version="19.1.402.0" />
-      <dependency id="Fasterflect.Netstandard" version="1.0.9" />
       <dependency id="InputSimulator" version="1.0.4.0" />
       <dependency id="Microsoft.CSharp" version="4.*" />
       <dependency id="System.Data.DataSetExtensions" version="4.*" />
