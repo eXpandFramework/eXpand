@@ -13,6 +13,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="DevExpress.CodeParser.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.CodeParser.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

@@ -16,6 +16,7 @@
     <PackageReference Include="Microsoft.AspNet.Razor" Version="3.2.7" />
     <PackageReference Include="Quartz" Version="2.2.4" />
     <PackageReference Include="RazorEngine" Version="3.10.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">

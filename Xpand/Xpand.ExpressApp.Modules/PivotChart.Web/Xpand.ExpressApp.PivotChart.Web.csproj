@@ -12,6 +12,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="DevExpress.Charts.v19.1.Core">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Charts.v19.1.Core.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

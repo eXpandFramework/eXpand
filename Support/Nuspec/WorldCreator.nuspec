@@ -22,7 +22,6 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
       <dependency id="Microsoft.CSharp" version="4.*" />
       <dependency id="Mono.Cecil" version="0.10.4" />
       <dependency id="System.CodeDom" version="4.5.0" />
-      <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.32" />
       <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.29" />
     </dependencies>

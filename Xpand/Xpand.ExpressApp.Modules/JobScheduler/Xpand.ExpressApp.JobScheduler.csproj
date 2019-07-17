@@ -14,6 +14,7 @@
   <ItemGroup>
     <PackageReference Include="Common.Logging" Version="2.1.2" />
     <PackageReference Include="Quartz" Version="2.2.4" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">

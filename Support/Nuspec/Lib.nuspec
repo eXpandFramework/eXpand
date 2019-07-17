@@ -16,7 +16,6 @@
     <dependencies>
       <dependency id="Mono.Cecil" version="0.10.4" />
       <dependency id="System.CodeDom" version="4.5.0" />
-      <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>
