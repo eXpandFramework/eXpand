@@ -33,24 +33,24 @@
 //        }
 //
 //        private void PivotGridListEditorOnModelSaved(object sender, EventArgs eventArgs){
-//            new PivotGridListEditorModelSynchronizer(_pivotGridListEditor).SynchronizeModel();
+////            new PivotGridListEditorModelSynchronizer(_pivotGridListEditor).SynchronizeModel();
 //        }
 //
 //        private void PivotGridListEditorOnModelApplied(object sender, EventArgs eventArgs){
-//            new PivotGridListEditorModelSynchronizer(_pivotGridListEditor).ApplyModel();
+////            new PivotGridListEditorModelSynchronizer(_pivotGridListEditor).ApplyModel();
 //        }
 //
 //
 //        #region Implementation of IModelExtender
 //        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
 //            extenders.Add<IModelPivotSettings, IModelPivotSettingsEx>();
-//            extenders.Add<IModelListView, IModelListViewOptionsPivotGrid>();
+////            extenders.Add<IModelListView, IModelListViewOptionsPivotGrid>();
 //
-//            var builder = new InterfaceBuilder(extenders);
-//            var interfaceBuilderDatas = CreateBuilderData();
-//            var assembly = builder.Build(interfaceBuilderDatas, GetPath(typeof(PivotGridControl).Name));
+////            var builder = new InterfaceBuilder(extenders);
+////            var interfaceBuilderDatas = CreateBuilderData();
+////            var assembly = builder.Build(interfaceBuilderDatas, GetPath(typeof(PivotGridControl).Name));
 //
-//            builder.ExtendInteface<IModelOptionsPivotGrid, PivotGridControl>(assembly);
+////            builder.ExtendInteface<IModelOptionsPivotGrid, PivotGridControl>(assembly);
 //        }
 //
 //        IEnumerable<InterfaceBuilderData> CreateBuilderData() {

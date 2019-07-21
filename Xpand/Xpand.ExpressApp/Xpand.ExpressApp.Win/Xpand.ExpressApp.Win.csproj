@@ -12,7 +12,13 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="ListEditors\GridListEditors\ColumnView\RepositoryItems\**" />
+    <EmbeddedResource Remove="ListEditors\GridListEditors\ColumnView\RepositoryItems\**" />
+    <None Remove="ListEditors\GridListEditors\ColumnView\RepositoryItems\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="3.3.1" />
+    <PackageReference Include="Enums.NET" Version="2.3.2" />
     <PackageReference Include="fasterflect" Version="2.1.3" />
     <PackageReference Include="System.Reactive" Version="4.1.5" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
@@ -114,7 +120,10 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.XAF.Modules.ModelMapper">
-      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Reactive">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.Reactive.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
@@ -129,18 +138,11 @@
     <Compile Update="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ListEditors\GridListEditors\ColumnView\RepositoryItems\RepositoryItemModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs" />
     <Compile Update="ListEditors\GridListEditors\GridView\Design\GridViewDesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="ListEditors\GridListEditors\GridView\Model\GridViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ListEditors\GridListEditors\GridView\Model\GridViewModelAdapterController.cs" />
     <Compile Update="ListEditors\GridListEditors\LayoutView\Design\LayoutViewDesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,15 +191,9 @@
     <Compile Update="SystemModule\ApplicationExitController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="SystemModule\LayoutControlGroupModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\SplitLayoutControlModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\XafLayoutControlModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="SystemModule\LayoutControlGroupModelAdapterController.cs" />
+    <Compile Update="SystemModule\SplitLayoutControlModelAdapterController.cs" />
+    <Compile Update="SystemModule\XafLayoutControlModelAdapterController.cs" />
     <Compile Update="SystemModule\RibbonFromModelController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -280,5 +276,8 @@
     <Compile Remove="ListEditors\GridListEditors\AdvBandedView\Model\Synchronizers.cs" />
     <Compile Remove="ListEditors\GridListEditors\GridView\Model\ModelAdaptor\IModelAdaptorGridViewOptionsRule.cs" />
     <Compile Remove="ListEditors\GridListEditors\GridView\Model\ModelAdaptor\IModelModelAdaptorGridViewOptionsRule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Interfaces.cs" />
   </ItemGroup>
 </Project>

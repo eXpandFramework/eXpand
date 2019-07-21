@@ -68,12 +68,8 @@
   <ItemGroup>
     <Compile Update="Controllers\AutoExpandAllTreeNodesController.cs" />
     <Compile Update="Controllers\ColumnChooserTreeListEditorController.cs" />
-    <Compile Update="Model\TreeListModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Model\TreeNavigationOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Model\TreeListModelAdapterController.cs" />
+    <Compile Update="Model\TreeNavigationOptionsController.cs" />
     <Compile Update="XpandTreeListEditorsAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>

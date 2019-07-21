@@ -1,6 +1,7 @@
 using System;
 using System.Configuration;
 using System.Windows.Forms;
+using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
@@ -16,6 +17,7 @@ namespace XVideoRental.Win {
         /// </summary>
         [STAThread]
         static void Main() {
+            ModelApplicationCreator.DebugMode = true;
 #if EASYTEST
 			DevExpress.ExpressApp.Win.EasyTest.EasyTestRemotingRegistration.Register();
 #endif

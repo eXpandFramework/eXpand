@@ -10,7 +10,6 @@
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
@@ -223,6 +222,9 @@
     </Reference>
     <Reference Include="System.Windows.Forms">
       <Private>False</Private>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.CloneModelView">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

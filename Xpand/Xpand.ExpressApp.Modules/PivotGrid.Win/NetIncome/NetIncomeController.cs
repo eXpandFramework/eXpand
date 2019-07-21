@@ -146,8 +146,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
             var doubles = GetValues(PivotGridListEditor.ChartControl.Series[0]);
             var pivotGrid = PivotGridListEditor.PivotGridControl;
             var value = Convert.ToDouble(pivotGrid.GetCellValue(pivotGrid.Cells.FocusedCell.X, pivotGrid.Cells.FocusedCell.Y));
-            if (_pivotGaugeTemplate != null)
-                _pivotGaugeTemplate.UpdateGauge(value, GetGaugeTextFromPivot(), doubles, PivotDataFieldRule.OverHead, PivotDataFieldRule.GaugeTextFormat);
+            _pivotGaugeTemplate?.UpdateGauge(value, GetGaugeTextFromPivot(), doubles, PivotDataFieldRule.OverHead, PivotDataFieldRule.GaugeTextFormat);
         }
 
         IModelPivotDataFieldRule PivotDataFieldRule {
@@ -160,7 +159,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
         }
 
         string GetCurrentVariantId() {
-            return ((IModelViewVariants)View.Model).Variants.Current != null ? ((IModelViewVariants)View.Model).Variants.Current.Id : null;
+            return ((IModelViewVariants) View.Model).Variants.Current?.Id;
         }
 
         string GetGaugeTextFromPivot() {
@@ -229,8 +228,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
         void StyleCompareSeries() {
             Series compareSeries = PivotGridListEditor.ChartControl.Series[_comparePeriodText];
             if (compareSeries != null) {
-                var view = compareSeries.View as LineSeriesView;
-                if (view != null) {
+                if (compareSeries.View is LineSeriesView view) {
                     view.LineStyle.DashStyle = DashStyle.Dash;
                     view.LineMarkerOptions.FillStyle.FillMode = FillMode.Solid;
                 }
@@ -259,16 +257,11 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
             }
         }
 
-        public IModelPivotNetIncome Model {
-            get {
-                throw new NotImplementedException();
-//                return (IModelPivotNetIncome)base.Model.OptionsPivotGrid;
-            }
-        }
+        public IModelPivotNetIncome Model => (IModelPivotNetIncome)View.Model.GetNode(XpandPivotGridWinModule.PivotGridControlModelName);
 
         #region Implementation of IModelExtender
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
-//            extenders.Add<IModelPivotGridExtender, IModelPivotNetIncome>();
+            extenders.Add<IModelPivotGridExtender, IModelPivotNetIncome>();
         }
         #endregion
         #region Implementation of IPivotGroupIntervalEvent

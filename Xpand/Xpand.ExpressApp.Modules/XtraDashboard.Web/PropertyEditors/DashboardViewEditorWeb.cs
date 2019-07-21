@@ -8,11 +8,6 @@ using Xpand.ExpressApp.Dashboard.PropertyEditors;
 using Xpand.ExpressApp.Dashboard.Services;
 
 namespace Xpand.ExpressApp.XtraDashboard.Web.PropertyEditors {
-    public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
-        protected override Type GetControlType() {
-            return typeof(ASPxDashboard);
-        }
-    }
 
     [PropertyEditor(typeof(String), false)]
     public class DashboardViewEditorWeb : DashboardDesignerEditor,IDashboardViewEditor {

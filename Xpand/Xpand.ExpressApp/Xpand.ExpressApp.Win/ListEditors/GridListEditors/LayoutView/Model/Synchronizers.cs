@@ -1,19 +1,18 @@
-﻿using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
-using Xpand.Persistent.Base.ModelAdapter;
+﻿using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model {
-    public class LayoutViewLstEditorDynamicModelSynchronizer : ModelListSynchronizer {
-        public LayoutViewLstEditorDynamicModelSynchronizer(LayoutViewListEditor columnViewEditor)
-            : base(columnViewEditor, columnViewEditor.Model) {
-
-//            ModelSynchronizerList.Add(new LayoutViewLayoutStoreSynchronizer(columnViewEditor));
-            ModelSynchronizerList.Add(new LayoutViewListEditorSynchronizer(columnViewEditor));
-//            ModelSynchronizerList.Add(new LayoutViewOptionsSynchronizer(columnViewEditor));
-//            ModelSynchronizerList.Add(new LayoutColumnOptionsSynchroniser(columnViewEditor));
-            ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.ColumnView, columnViewEditor.Model));
-
-        }
-    }
+//    public class LayoutViewLstEditorDynamicModelSynchronizer : ModelListSynchronizer {
+//        public LayoutViewLstEditorDynamicModelSynchronizer(LayoutViewListEditor columnViewEditor)
+//            : base(columnViewEditor, columnViewEditor.Model) {
+//
+////            ModelSynchronizerList.Add(new LayoutViewLayoutStoreSynchronizer(columnViewEditor));
+//            ModelSynchronizerList.Add(new LayoutViewListEditorSynchronizer(columnViewEditor));
+////            ModelSynchronizerList.Add(new LayoutViewOptionsSynchronizer(columnViewEditor));
+////            ModelSynchronizerList.Add(new LayoutColumnOptionsSynchroniser(columnViewEditor));
+////            ModelSynchronizerList.Add(new RepositoryItemColumnViewSynchronizer(columnViewEditor.ColumnView, columnViewEditor.Model));
+//
+//        }
+//    }
 
 //    public class LayoutViewLayoutStoreSynchronizer : ColumnViewEditorLayoutStoreSynchronizer {
 //        public LayoutViewLayoutStoreSynchronizer(LayoutViewListEditor control)

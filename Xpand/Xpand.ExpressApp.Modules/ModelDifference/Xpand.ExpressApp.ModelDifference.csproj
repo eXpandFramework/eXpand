@@ -16,8 +16,6 @@
     <PackageReference Include="fasterflect" Version="2.1.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21.1" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.29.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">
@@ -82,6 +80,12 @@
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.CloneModelView">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelViewInheritance">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.ModelViewInheritance.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -71,17 +71,17 @@ namespace Xpand.Persistent.Base.General.Model.Options {
 //    public interface IModelOptionsGridView : IModelOptionsColumnView {
 //    }
 
-    public interface IGridOptionsUser{
-    }
+//    public interface IGridOptionsUser{
+//    }
 
-    [AttributeUsage(AttributeTargets.Interface)]
-    public sealed class ModuleUserAttribute : Attribute{
-        public ModuleUserAttribute(Type moduleType){
-            ModuleType = moduleType;
-        }
-
-        public Type ModuleType { get; }
-    }
+//    [AttributeUsage(AttributeTargets.Interface)]
+//    public sealed class ModuleUserAttribute : Attribute{
+//        public ModuleUserAttribute(Type moduleType){
+//            ModuleType = moduleType;
+//        }
+//
+//        public Type ModuleType { get; }
+//    }
 
 //    [ModelAbstractClass]
 //    public interface IModelListViewOptionsColumnView : IModelListView {

@@ -26,12 +26,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         object _topObject;
         object _currentObject;
 
-        public new IModelPivotTopObject Model {
-            get {
-                throw new NotImplementedException();
-//                return (IModelPivotTopObject)base.Model.OptionsPivotGrid;
-            }
-        }
+        public IModelPivotTopObject Model => (IModelPivotTopObject)View.Model.GetNode(XpandPivotGridWinModule.PivotGridControlModelName);
 
         #region Implementation of IDataSourceSelectionChanged
         IList _selectedObjects;

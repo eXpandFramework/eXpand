@@ -17,6 +17,7 @@ using DevExpress.XtraRichEdit.Commands;
 using DevExpress.XtraRichEdit.Export;
 using DevExpress.XtraRichEdit.Import;
 using DevExpress.XtraRichEdit.Services;
+using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
@@ -28,10 +29,12 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     [RichEditPropertyEditor("rtf",true,false,"RtfText")]
     public class RichEditWinPropertyEditor : WinPropertyEditor, IInplaceEditSupport, IComplexViewItem, IPropertyEditor{
         private XafApplication _application;
+        private readonly IModelRichEditEx _modelRichEditEx;
 
         public RichEditWinPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
-            ControlBindingProperty = ((IModelMemberViewItemRichEdit) model).RichEdit.ControlBindingProperty;
+            _modelRichEditEx = ((IModelRichEditEx) model.GetNode(XpandSystemWindowsFormsModule.RichEditMapName));
+            ControlBindingProperty = _modelRichEditEx.ControlBindingProperty;
         }
 
         public new RichEditContainerBase Control => ((RichEditContainerBase)base.Control);
@@ -67,7 +70,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
         protected override object CreateControlCore() {
             var richEditContainer = RichEditContainerBase.Create(((IModelOptionsWin) Model.Application.Options).FormStyle,_application);
-            if (!((IModelMemberViewItemRichEdit)Model).RichEdit.ShowToolBars)
+            if (!_modelRichEditEx.ShowToolBars)
                 richEditContainer.HideToolBars();
             richEditContainer.Dock=DockStyle.Fill;
             richEditContainer.RichEditControl.TextChanged += Editor_RtfTextChanged;
@@ -82,7 +85,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public virtual string GetRichEditHighLightExtension() {
-            return ((IModelMemberViewItemRichEdit)Model).RichEdit.HighLightExtension;
+            return _modelRichEditEx.HighLightExtension;
         }
 
         public void Setup(IObjectSpace objectSpace, XafApplication application){
@@ -91,7 +94,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
-            if ((((IModelMemberViewItemRichEdit) Model).RichEdit.PrintXML &&
+            if ((_modelRichEditEx.PrintXML &&
                  !string.IsNullOrEmpty((string) PropertyValue))) {
                 MemberInfo.SetValue(CurrentObject, PropertyValue.ToString().XMLPrint());
             }
@@ -219,8 +222,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         }
 
         public SyntaxHighlightProperties CalculateTokenCategoryHighlight(TokenCategory category) {
-            SyntaxHighlightProperties result;
-            return _properties.TryGetValue(category, out result) ? result : _properties[TokenCategory.Text];
+            return _properties.TryGetValue(category, out var result) ? result : _properties[TokenCategory.Text];
         }
     }
     #endregion

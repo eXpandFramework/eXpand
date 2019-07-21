@@ -11,31 +11,31 @@ using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
-    public class ObjectModelSynchronizer : ModelSynchronizer<object, IModelNode> {
-        public ObjectModelSynchronizer(object component, IModelNode modelNode)
-            : base(component, modelNode) {
-        }
-
-        protected override void ApplyModelCore(){
-            ApplyModel(ApplyValues);
-        }
-
-        private void ApplyModel(Action<ModelNode, object, PropertyDescriptorCollection> action) {
-            var modelModelAdapter = Model as IModelModelAdapter;
-            if (modelModelAdapter != null){
-                foreach (var modelAdapter in (IEnumerable<IModelNode>) modelModelAdapter.GetNode("ModelAdapters")) {
-                    ApplyModel(modelAdapter, Control, action);
-                }
-                ApplyModel(Model, Control, action);
-            }
-            var modelAdapterLink = Model as IModelModelAdapterLink;
-            ApplyModel(modelAdapterLink?.ModelAdapter ?? Model, Control, action);
-        }
-
-        public override void SynchronizeModel() {
-            ApplyModel(SynchronizeValues);
-        }
-    }
+//    public class ObjectModelSynchronizer : ModelSynchronizer<object, IModelNode> {
+//        public ObjectModelSynchronizer(object component, IModelNode modelNode)
+//            : base(component, modelNode) {
+//        }
+//
+//        protected override void ApplyModelCore(){
+//            ApplyModel(ApplyValues);
+//        }
+//
+//        private void ApplyModel(Action<ModelNode, object, PropertyDescriptorCollection> action) {
+//            var modelModelAdapter = Model as IModelModelAdapter;
+//            if (modelModelAdapter != null){
+//                foreach (var modelAdapter in (IEnumerable<IModelNode>) modelModelAdapter.GetNode("ModelAdapters")) {
+//                    ApplyModel(modelAdapter, Control, action);
+//                }
+//                ApplyModel(Model, Control, action);
+//            }
+//            var modelAdapterLink = Model as IModelModelAdapterLink;
+//            ApplyModel(modelAdapterLink?.ModelAdapter ?? Model, Control, action);
+//        }
+//
+//        public override void SynchronizeModel() {
+//            ApplyModel(SynchronizeValues);
+//        }
+//    }
 
     public abstract class ModelSynchronizer<TComponent, TModelNode> : DevExpress.ExpressApp.Model.ModelSynchronizer<TComponent, TModelNode> where TModelNode : IModelNode {
         // ReSharper disable once StaticMemberInGenericType

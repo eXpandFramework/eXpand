@@ -7,12 +7,12 @@ using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.AdvBandedView.Model {
-    public interface IModelGridBand : IModelNode {
-        IModelGridBands GridBands { get; }
-    }
+//    public interface IModelGridBand : IModelNode {
+//        IModelGridBands GridBands { get; }
+//    }
 
-    public interface IModelGridBands : IModelNode, IModelList<IModelGridBand> {
-    }
+//    public interface IModelGridBands : IModelNode, IModelList<IModelGridBand> {
+//    }
 
 //    [ModelDisplayName("AdvBandedViewOptions")]
 //    public interface IModelOptionsAdvBandedView : IModelOptionsColumnView {

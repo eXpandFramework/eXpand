@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.TreeListEditors.Win;
@@ -8,6 +9,9 @@ using Xpand.ExpressApp.TreeListEditors.Win.Model;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using DevExpress.ExpressApp.Updating;
+using Xpand.XAF.Modules.ModelMapper;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
+using Xpand.XAF.Modules.ModelMapper.Services;
 
 namespace Xpand.ExpressApp.TreeListEditors.Win {
     [Description(
@@ -17,10 +21,19 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class XpandTreeListEditorsWinModule : XpandModuleBase, IModelXmlConverter, IColumnCellFilterUser {
+        public static string TreeListMapName = "TreeListOptions";
+        public static string TreeListColumnMapName = "TreeListColumnOptions";
         public XpandTreeListEditorsWinModule() {
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(XpandTreeListEditorsModule));
+            RequiredModuleTypes.Add(typeof(ModelMapperModule));
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            moduleManager.Extend(Predefined.TreeList,configuration => configuration.MapName=TreeListMapName);
+            moduleManager.Extend(Predefined.TreeListColumn,configuration => configuration.MapName=TreeListColumnMapName);
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){

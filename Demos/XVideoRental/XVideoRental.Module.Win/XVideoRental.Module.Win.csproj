@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <TargetFramework>net461</TargetFramework>
@@ -15,10 +15,11 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Enums.NET" Version="2.3.2" />
     <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="System.Reactive" Version="4.1.5" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.21.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v19.1.Core">
@@ -64,6 +65,12 @@
     <Reference Include="DevExpress.ExpressApp.Security.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v19.1">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.ExpressApp.TreeListEditors.v19.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v19.1">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\DevExpress 19.1\Components\Bin\Framework\DevExpress.ExpressApp.TreeListEditors.Win.v19.1.dll</HintPath>
     </Reference>
     <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ViewVariantsModule.v19.1.dll</HintPath>
@@ -189,6 +196,9 @@
       <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraScheduler.v19.1.Core.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="ModelMapperAssemblyWin">
+      <HintPath>..\XVideoRental.Win\bin\Debug\ModelMapperAssemblyWin.dll</HintPath>
+    </Reference>
     <Reference Include="System.configuration">
       <Private>False</Private>
     </Reference>
@@ -262,6 +272,9 @@
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.CloneModelView">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

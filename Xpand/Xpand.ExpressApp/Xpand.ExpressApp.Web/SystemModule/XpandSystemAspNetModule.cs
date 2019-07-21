@@ -13,17 +13,18 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor;
-using Xpand.ExpressApp.Web.ListEditors.Model;
 using Xpand.ExpressApp.Web.ListEditors.TwoDimensionListEditor;
 using Xpand.ExpressApp.Web.Model;
 using Xpand.ExpressApp.Web.PropertyEditors;
 using Xpand.ExpressApp.Web.SystemModule.MasterDetail;
-using Xpand.ExpressApp.Web.SystemModule.ModelAdapters;
 using Xpand.ExpressApp.Web.SystemModule.WebShortcuts;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.Model.Options;
+using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.TreeNode;
+using Xpand.XAF.Modules.ModelMapper;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
+using Xpand.XAF.Modules.ModelMapper.Services;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -48,13 +49,18 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WebApplication), "Resources.Toolbox_Module_System_Web.ico")]
-    public sealed class XpandSystemAspNetModule : XpandModuleBase, IGridOptionsUser {
+    public sealed class XpandSystemAspNetModule : XpandModuleBase {
         public const string XpandWeb = "eXpand.Web";
+        
+        public static string ASPxGridViewMapName = "GridViewOptions";
+        public static string GridViewColumnMapName = "OptionsColumnGridView";
+
         public XpandSystemAspNetModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             RequiredModuleTypes.Add(typeof(CloneObjectModule));
+            RequiredModuleTypes.Add(typeof(ModelMapperModule));
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes(){
@@ -63,13 +69,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes ={
-                typeof(StringLookupPropertyEditorModelAdapter),
+//                typeof(StringLookupPropertyEditorModelAdapter),
                 typeof(OpenDetailViewInNewTabController),
                 typeof(FindPopupController),
                 typeof(RefreshObjectViewController),
-                typeof(ASPxSpinEditModelAdapter),
-                typeof(ASPxHyperLinkControlModelAdapter),
-                typeof(ASPxDateEditModelAdapter),
+//                typeof(ASPxSpinEditModelAdapter),
+//                typeof(ASPxHyperLinkControlModelAdapter),
+//                typeof(ASPxDateEditModelAdapter),
                 typeof(WebProcessDataLockingInfoController),
                 typeof(ColumnChooserGridViewController),
                 typeof(LayoutStyleController),
@@ -87,13 +93,13 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 typeof(RegisterCallbackPanelScriptsController),
                 typeof(DisableProcessCurrentObjectController),
                 typeof(UpdateVisibilityController),
-                typeof(GridViewModelAdapterController),
+//                typeof(GridViewModelAdapterController),
                 typeof(TwoDimensionEditorViewItemController),
                 typeof(ViewModeAppliedAtTwoDimensionListEditorController),
                 typeof(EditableTabEnabledListEditorController),
-                typeof(ASPxSearchDropDownEditControlModelAdapter),
-                typeof(ASPxLookupFindEditControlModelAdapter),
-                typeof(ASPxLookupDropDownEditControlModelAdapter),
+//                typeof(ASPxSearchDropDownEditControlModelAdapter),
+//                typeof(ASPxLookupFindEditControlModelAdapter),
+//                typeof(ASPxLookupDropDownEditControlModelAdapter),
                 typeof(FriendlyUrlModelExtenderController),
                 typeof(ImmediatePostDataRestoreFocusController),
                 typeof(UpperCaseController)
@@ -115,6 +121,23 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 WebApplicationStyleManager.EnableGroupUpperCase = applicationStyleManager.EnableGroupUpperCase;
                 WebApplicationStyleManager.EnableNavigationGroupsUpperCase =applicationStyleManager.EnableNavigationGroupsUpperCase;
             }
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
+            moduleManager.Extend(PredefinedMap.ASPxGridView,configuration => configuration.MapName=ASPxGridViewMapName);
+            moduleManager.Extend(PredefinedMap.GridViewColumn,configuration => configuration.MapName=GridViewColumnMapName);
+            var propertyEditorMaps = new[] {
+                PredefinedMap.ASPxComboBox, PredefinedMap.ASPxDateEdit, PredefinedMap.ASPxHyperLink,
+                PredefinedMap.ASPxLookupDropDownEdit, PredefinedMap.ASPxLookupFindEdit, 
+                PredefinedMap.ASPxSpinEdit, PredefinedMap.ASPxTokenBox
+            }.ToArray();
+            moduleManager.Extend(propertyEditorMaps);
+            moduleManager.Extend(PredefinedMap.ASPxPopupControl,configuration => configuration.MapName= CustomizeASPxPopupController.PopupControlMapName);
+            moduleManager.ExtendMap(PredefinedMap.ASPxPopupControl)
+                .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelWebPopupControl)));
+            moduleManager.Extend(PredefinedMap.ASPxComboBox, PredefinedMap.ASPxDateEdit, PredefinedMap.ASPxHyperLink,
+                PredefinedMap.ASPxLookupDropDownEdit, PredefinedMap.ASPxLookupFindEdit, PredefinedMap.ASPxSpinEdit,PredefinedMap.ASPxTokenBox);
         }
 
         private void ApplicationOnCreateCustomLogonWindowControllers(object sender, CreateCustomLogonWindowControllersEventArgs e){

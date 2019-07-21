@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFramework>net461</TargetFramework>
@@ -143,6 +143,9 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -152,9 +155,7 @@
     <Compile Update="Controllers\DashboardDesignerController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="Controllers\DashboardDesignerModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\DashboardDesignerModelAdapterController.cs" />
     <Compile Update="Controllers\WinEditDashboardController.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -169,9 +170,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="PropertyEditors\DashboardViewEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="PropertyEditors\DashboardViewEditor.cs" />
     <Compile Update="Templates\DashboardDesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>

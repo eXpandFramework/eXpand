@@ -64,6 +64,9 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

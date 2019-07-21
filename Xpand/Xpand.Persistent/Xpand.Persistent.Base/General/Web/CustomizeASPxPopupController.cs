@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Web.UI.WebControls;
@@ -8,15 +7,15 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Controls;
 using DevExpress.ExpressApp.Web.Templates;
-using DevExpress.Web;
-using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.XAF.Modules.ModelMapper;
+using Xpand.XAF.Modules.ModelMapper.Services;
 
 namespace Xpand.Persistent.Base.General.Web{
-    public interface IModelViewPopup {
-
-        [Description("Allows you to customize the view popupcontrol")]
-        IModelWebPopupControl PopupControl { get; }
-    }
+//    public interface IModelViewPopup {
+//
+//        [Description("Allows you to customize the view popupcontrol")]
+//        IModelWebPopupControl PopupControl { get; }
+//    }
 
     public interface IModelWebPopupControl:IModelNode{
         [Category("eXpand")]
@@ -25,7 +24,9 @@ namespace Xpand.Persistent.Base.General.Web{
         ShowPopupMode? ShowPopupMode { get; set; }
     }
 
-    public class CustomizeASPxPopupController : ModelAdapterController,IModelExtender {
+    public class CustomizeASPxPopupController : ViewController {
+        public static string PopupControlMapName = "PopupControl";
+
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             var popupWindowControl = ((BaseXafPage)WebWindow.CurrentRequestPage).XafPopupWindowControl;
@@ -40,15 +41,15 @@ namespace Xpand.Persistent.Base.General.Web{
         private void PopupWindowControlOnCustomizePopupControl(object sender, CustomizePopupControlEventArgs e){
             var popupWindowControl = ((XafPopupWindowControl)sender);
             popupWindowControl.CustomizePopupControl -= PopupWindowControlOnCustomizePopupControl;
-            if (View != null)
-                new ObjectModelSynchronizer(e.PopupControl, ((IModelViewPopup) View.Model).PopupControl).ApplyModel();
+            ((IModelModelMap) View?.Model.GetNode(PopupControlMapName))?.BindTo(e.PopupControl);
+//                new ObjectModelSynchronizer(e.PopupControl, ((IModelViewPopup) View.Model).PopupControl).ApplyModel();
         }
 
         private void XafPopupWindowControl_CustomizePopupWindowSize(object sender, CustomizePopupWindowSizeEventArgs e) {
             var popupWindowControl = ((XafPopupWindowControl) sender);
             popupWindowControl.CustomizePopupWindowSize -= XafPopupWindowControl_CustomizePopupWindowSize;
             if (View != null){
-                var popupControl = ((IModelViewPopup)View.Model).PopupControl;
+                var popupControl = ((IModelWebPopupControl) View.Model.GetNode(PopupControlMapName));
                 var height = popupControl.GetValue<Unit>("Height");
                 var width = popupControl.GetValue<Unit>("Width");
                 if (!height.IsEmpty && !width.IsEmpty){
@@ -65,18 +66,18 @@ namespace Xpand.Persistent.Base.General.Web{
             }
         }
 
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
-            extenders.Add<IModelView,IModelViewPopup>();
-            var builder = new InterfaceBuilder(extenders);
-            var assembly = builder.Build(BuilderDatas(), GetPath(typeof(ASPxPopupControl).Name));
-            builder.ExtendInteface<IModelWebPopupControl, ASPxPopupControl>(assembly);
-        }
+//        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
+//            extenders.Add<IModelView,IModelViewPopup>();
+//            var builder = new InterfaceBuilder(extenders);
+//            var assembly = builder.Build(BuilderDatas(), GetPath(typeof(ASPxPopupControl).Name));
+//            builder.ExtendInteface<IModelWebPopupControl, ASPxPopupControl>(assembly);
+//        }
 
-        private static IEnumerable<InterfaceBuilderData> BuilderDatas(){
-            yield return new InterfaceBuilderData(typeof(ASPxPopupControl)) {
-                Act = info => (info.DXFilter(new[] { typeof(PropertiesBase) }, typeof(object)))
-            };
-
-        }
+//        private static IEnumerable<InterfaceBuilderData> BuilderDatas(){
+//            yield return new InterfaceBuilderData(typeof(ASPxPopupControl)) {
+//                Act = info => (info.DXFilter(new[] { typeof(PropertiesBase) }, typeof(object)))
+//            };
+//
+//        }
     }
 }

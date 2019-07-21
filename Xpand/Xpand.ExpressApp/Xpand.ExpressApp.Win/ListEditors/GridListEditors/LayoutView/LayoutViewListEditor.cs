@@ -9,9 +9,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     [ListEditor(typeof(object), false)]
@@ -34,7 +32,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             result.Add(new LayoutViewListEditorSynchronizer(this));
 //            result.Add(new LayoutViewOptionsSynchronizer(this));
 //            result.Add(new LayoutColumnOptionsSynchroniser(this));
-            result.Add(new RepositoryItemColumnViewSynchronizer(ColumnView, Model));
+//            result.Add(new RepositoryItemColumnViewSynchronizer(ColumnView, Model));
 //	        result.Add(new LayoutViewLayoutStoreSynchronizer(this));
 			return result;
         }

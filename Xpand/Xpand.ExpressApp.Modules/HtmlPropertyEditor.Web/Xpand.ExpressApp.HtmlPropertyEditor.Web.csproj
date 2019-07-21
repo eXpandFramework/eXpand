@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -57,11 +57,12 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Model\HtmlEditorModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Model\HtmlEditorModelAdapterController.cs" />
     <Compile Update="DialogForms\HtmlEditorCustomDialogTemlate.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
@@ -89,5 +90,8 @@
   <ItemGroup>
     <Compile Remove="Model\ModelAdaptor\IModelAdaptorHtmlEditorRule.cs" />
     <Compile Remove="Model\ModelAdaptor\IModelModelAdaptorHtmlEditorRule.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>

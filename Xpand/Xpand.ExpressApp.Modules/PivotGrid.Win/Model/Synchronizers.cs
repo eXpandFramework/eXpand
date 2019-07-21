@@ -1,8 +1,4 @@
-using DevExpress.ExpressApp.PivotGrid.Win;
-using System.Linq;
 using DevExpress.XtraEditors.Repository;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
-using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.PivotGrid.Win.Model {
@@ -40,19 +36,19 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
 //        }
 //    }
 
-    public class PivotDataFieldRepositoryItemSpinEditSynchronizer : ModelSynchronizer<RepositoryItemSpinEdit, IModelRepositoryItemSpinEdit> {
-        public PivotDataFieldRepositoryItemSpinEditSynchronizer(RepositoryItemSpinEdit component, IModelRepositoryItemSpinEdit modelNode)
-            : base(component, modelNode) {
-        }
-        #region Overrides of ModelSynchronizer
-        protected override void ApplyModelCore() {
-            if (Model.NodeEnabled)
-                ApplyModel(Model, Control, ApplyValues);
-        }
-
-        public override void SynchronizeModel() {
-
-        }
-        #endregion
-    }
+//    public class PivotDataFieldRepositoryItemSpinEditSynchronizer : ModelSynchronizer<RepositoryItemSpinEdit, IModelRepositoryItemSpinEdit> {
+//        public PivotDataFieldRepositoryItemSpinEditSynchronizer(RepositoryItemSpinEdit component, IModelRepositoryItemSpinEdit modelNode)
+//            : base(component, modelNode) {
+//        }
+//        #region Overrides of ModelSynchronizer
+//        protected override void ApplyModelCore() {
+//            if (Model.NodeEnabled)
+//                ApplyModel(Model, Control, ApplyValues);
+//        }
+//
+//        public override void SynchronizeModel() {
+//
+//        }
+//        #endregion
+//    }
 }

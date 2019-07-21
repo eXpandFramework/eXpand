@@ -117,57 +117,57 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model {
 //
 //    }
 
-    public abstract class GridViewModelSynchronizer : DevExpress.ExpressApp.Model.ModelSynchronizer<DevExpress.XtraGrid.Views.Grid.GridView, IModelListView> {
-        private readonly ColumnsListEditor _columnsListEditor;
-
-
-        protected GridViewModelSynchronizer(GridListEditor columnViewEditor)
-            : base(columnViewEditor.GridView, columnViewEditor.Model) {
-            _columnsListEditor = columnViewEditor;
-            _columnsListEditor.ControlsCreated += ColumnsListEditorControlsCreated;
-        }
-        private void ColumnsListEditorControlsCreated(object sender, EventArgs e) {
-            Control.OptionsView.ShowFooter = Model.IsFooterVisible;
-            Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;
-            Control.OptionsBehavior.AutoExpandAllGroups = Model.AutoExpandAllGroups;
-        }
-        protected override void ApplyModelCore() {
-            Control.OptionsBehavior.AutoExpandAllGroups = Model.AutoExpandAllGroups;
-            Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;
-
-            var modelListViewShowAutoFilterRow = Model as IModelListViewShowAutoFilterRow;
-            if (modelListViewShowAutoFilterRow != null) {
-                Control.OptionsView.ShowAutoFilterRow = (modelListViewShowAutoFilterRow).ShowAutoFilterRow;
-            }
-            var modelListViewShowFindPanel = Model as IModelListViewShowFindPanel;
-            if (modelListViewShowFindPanel != null) {
-                if ((modelListViewShowFindPanel).ShowFindPanel) {
-                    Control.ShowFindPanel();
-                }
-                else {
-                    Control.HideFindPanel();
-                }
-            }
-        }
-        public override void SynchronizeModel() {
-            Model.AutoExpandAllGroups = Control.OptionsBehavior.AutoExpandAllGroups;
-            Model.IsGroupPanelVisible = Control.OptionsView.ShowGroupPanel;
-            var modelListViewShowAutoFilterRow = Model as IModelListViewShowAutoFilterRow;
-            if (modelListViewShowAutoFilterRow != null) {
-                (modelListViewShowAutoFilterRow).ShowAutoFilterRow = Control.OptionsView.ShowAutoFilterRow;
-            }
-            var modelListViewShowFindPanel = Model as IModelListViewShowFindPanel;
-            if (modelListViewShowFindPanel != null) {
-                (modelListViewShowFindPanel).ShowFindPanel = Control.IsFindPanelVisible;
-            }
-        }
-        public override void Dispose() {
-            base.Dispose();
-            if (_columnsListEditor != null) {
-                _columnsListEditor.ControlsCreated -= ColumnsListEditorControlsCreated;
-            }
-        }
-    }
+//    public abstract class GridViewModelSynchronizer : DevExpress.ExpressApp.Model.ModelSynchronizer<DevExpress.XtraGrid.Views.Grid.GridView, IModelListView> {
+//        private readonly ColumnsListEditor _columnsListEditor;
+//
+//
+//        protected GridViewModelSynchronizer(GridListEditor columnViewEditor)
+//            : base(columnViewEditor.GridView, columnViewEditor.Model) {
+//            _columnsListEditor = columnViewEditor;
+//            _columnsListEditor.ControlsCreated += ColumnsListEditorControlsCreated;
+//        }
+//        private void ColumnsListEditorControlsCreated(object sender, EventArgs e) {
+//            Control.OptionsView.ShowFooter = Model.IsFooterVisible;
+//            Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;
+//            Control.OptionsBehavior.AutoExpandAllGroups = Model.AutoExpandAllGroups;
+//        }
+//        protected override void ApplyModelCore() {
+//            Control.OptionsBehavior.AutoExpandAllGroups = Model.AutoExpandAllGroups;
+//            Control.OptionsView.ShowGroupPanel = Model.IsGroupPanelVisible;
+//
+//            var modelListViewShowAutoFilterRow = Model as IModelListViewShowAutoFilterRow;
+//            if (modelListViewShowAutoFilterRow != null) {
+//                Control.OptionsView.ShowAutoFilterRow = (modelListViewShowAutoFilterRow).ShowAutoFilterRow;
+//            }
+//            var modelListViewShowFindPanel = Model as IModelListViewShowFindPanel;
+//            if (modelListViewShowFindPanel != null) {
+//                if ((modelListViewShowFindPanel).ShowFindPanel) {
+//                    Control.ShowFindPanel();
+//                }
+//                else {
+//                    Control.HideFindPanel();
+//                }
+//            }
+//        }
+//        public override void SynchronizeModel() {
+//            Model.AutoExpandAllGroups = Control.OptionsBehavior.AutoExpandAllGroups;
+//            Model.IsGroupPanelVisible = Control.OptionsView.ShowGroupPanel;
+//            var modelListViewShowAutoFilterRow = Model as IModelListViewShowAutoFilterRow;
+//            if (modelListViewShowAutoFilterRow != null) {
+//                (modelListViewShowAutoFilterRow).ShowAutoFilterRow = Control.OptionsView.ShowAutoFilterRow;
+//            }
+//            var modelListViewShowFindPanel = Model as IModelListViewShowFindPanel;
+//            if (modelListViewShowFindPanel != null) {
+//                (modelListViewShowFindPanel).ShowFindPanel = Control.IsFindPanelVisible;
+//            }
+//        }
+//        public override void Dispose() {
+//            base.Dispose();
+//            if (_columnsListEditor != null) {
+//                _columnsListEditor.ControlsCreated -= ColumnsListEditorControlsCreated;
+//            }
+//        }
+//    }
 
     public class ListEditorModelSynchronizer : ModelListSynchronizer {
         public ListEditorModelSynchronizer(WinColumnsListEditor columnViewEditor, IEnumerable<IModelSynchronizable> modelSynchronizers)

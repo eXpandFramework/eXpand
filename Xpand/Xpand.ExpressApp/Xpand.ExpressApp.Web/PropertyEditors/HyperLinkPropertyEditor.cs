@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
-using Xpand.ExpressApp.Web.SystemModule.ModelAdapters;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
@@ -65,8 +65,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         string GetResolvedUrl(object value) {
             string url = Convert.ToString(value);
             if (!string.IsNullOrEmpty(url)){
-                var modelMemberViewItemHyperLink = ((IModelMemberViewItemASPxHyperLink) Model);
-                var hyperLinkFormat = modelMemberViewItemHyperLink.ASPxHyperLinkControl.HyperLinkFormat;
+                var modelMemberViewItemHyperLink = ( Model);
+                var hyperLinkFormat = ((IModelASPxHyperLinkControl) modelMemberViewItemHyperLink.GetNode(PredefinedMap.ASPxHyperLink.ToString())).HyperLinkFormat;
                 if (string.IsNullOrEmpty(hyperLinkFormat)){
                     if (url.Contains("@") && IsValidUrl(url))
                         return $"mailto:{url}";
@@ -98,12 +98,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         public override bool CanFormatPropertyValue => true;
 
         void SetupHyperLink(object editor) {
-            var hyperlink = editor as ASPxHyperLink;
-            if (hyperlink != null) {
+            if (editor is ASPxHyperLink hyperlink) {
                 string url = GetFormattedValue();
                 hyperlink.Text = url;
                 hyperlink.NavigateUrl = GetResolvedUrl(PropertyValue);
-                var hyperlinkTarget = ((IModelMemberViewItemASPxHyperLink) Model).ASPxHyperLinkControl.GetValue<string>(nameof(ASPxHyperLink.Target));
+                var hyperlinkTarget = ( Model).GetNode(PredefinedMap.ASPxHyperLink.ToString()).GetValue<string>(nameof(ASPxHyperLink.Target));
                 if (string.IsNullOrEmpty(hyperlinkTarget))
                     hyperlinkTarget = "_blank";
                 hyperlink.Target = hyperlinkTarget;

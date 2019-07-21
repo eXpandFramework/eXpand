@@ -9,12 +9,12 @@ using Xpand.ExpressApp.Dashboard.PropertyEditors;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
 
 namespace Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors {
-    public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
-
-        protected override Type GetControlType(){
-            return typeof (DashboardViewer);
-        }
-    }
+//    public class DashboardViewerModelAdapter : Dashboard.PropertyEditors.DashboardViewerModelAdapter {
+//
+//        protected override Type GetControlType(){
+//            return typeof (DashboardViewer);
+//        }
+//    }
 
     [PropertyEditor(typeof(String), false)]
     public class DashboardViewEditor : WinPropertyEditor, IComplexViewItem,IDashboardViewEditor {

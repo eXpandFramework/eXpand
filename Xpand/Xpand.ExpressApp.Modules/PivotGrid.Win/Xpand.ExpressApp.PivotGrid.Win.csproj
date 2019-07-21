@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -131,10 +131,10 @@
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.XAF.Modules.ModelMapper">
-      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.XAF.Modules.Reactive">
-      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.Reactive.dll</HintPath>
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.Reactive.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -161,9 +161,9 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed<IDashboardInteractionUser>("DashboardUser")) {
                 declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(DashboardInteractionController), typeof(WebDashboardRefreshController) });
             }
-            if (!Executed<IModuleSupportUploadControl>("SupportUploadControl")) {
-                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
-            }
+//            if (!Executed<IModuleSupportUploadControl>("SupportUploadControl")) {
+//                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
+//            }
             if (!Executed<IModifyModelActionUser>("ModifyModelActionControllerTypes")) {
                 declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(ActionModifyModelController), typeof(ResetViewModelController), typeof(ModelConfigurationController) });
             }
@@ -183,7 +183,7 @@ namespace Xpand.Persistent.Base.General {
             if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
                 declaredControllerTypes =declaredControllerTypes.Union(new[]{
                         typeof (NavigationContainerWebController), typeof (ActionsClientScriptController),typeof(ActionsClientConfirmationController),
-                        typeof (CustomizeASPxPopupController),typeof(SyntaxHighlightController)
+                        typeof(SyntaxHighlightController)
                     });
 
             return declaredControllerTypes;
@@ -284,7 +284,7 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelApplication, IModelApplicationModule>();
                 extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
                 extenders.Add<IModelApplication, IModelApplicationViews>();
-                extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
+//                extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
                 extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();
             }
 
@@ -795,7 +795,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private void PopupWindowManagerOnPopupShowing(object sender, PopupShowingEventArgs e){
-            e.SourceFrame.RegisterController(Application.CreateController<CustomizeASPxPopupController>());
+//            e.SourceFrame.RegisterController(Application.CreateController<CustomizeASPxPopupController>());
         }
 
         private void ApplicationOnObjectSpaceCreated(object sender1, ObjectSpaceCreatedEventArgs e) {

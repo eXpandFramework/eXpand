@@ -11,35 +11,47 @@ using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Scheduler.Model {
-    public interface IModelAppoitmentLabel : IModelNodeEnabled {
+//    public interface IModelAppointmentLabel : IModelNodeEnabled {
+//
+//    }
+//    public interface IModelAppoitmentStatus : IModelNodeEnabled {
+//
+//    }
+//    public interface IModelAppointmentLabels : IModelNode, IModelList<IModelAppointmentLabel> {
+//    }
+//    public interface IModelAppoitmentStatuses : IModelNode, IModelList<IModelAppoitmentStatus> {
+//    }
 
-    }
-    public interface IModelAppoitmentStatus : IModelNodeEnabled {
-
-    }
-    public interface IModelAppoitmentLabels : IModelNode, IModelList<IModelAppoitmentLabel> {
-    }
-    public interface IModelAppoitmentStatuses : IModelNode, IModelList<IModelAppoitmentStatus> {
-    }
-
-    public interface IAppoitmentStorageLabels : IModelNode {
-        IModelAppoitmentLabels Labels { get; }
-    }
-    public interface IAppoitmentStorageStatuses : IModelNode {
-        IModelAppoitmentStatuses Statuses { get; }
-    }
+//    public interface IAppoitmentStorageLabels : IModelNode {
+//        IModelAppointmentLabels Labels { get; }
+//    }
+//    public interface IAppoitmentStorageStatuses : IModelNode {
+//        IModelAppoitmentStatuses Statuses { get; }
+//    }
 
 //    [ModelDisplayName("Scheduler")]
-//    public interface IModelOptionsSchedulerEx : IModelOptionsColumnView {
-//        IModelSchedulerPopupMenuItems PopupMenuItems { get; }
+//    public interface IModelOptionsSchedulerPopupMenuItems  {
+//        IModelSchedulerPopupMenus PopupMenus { get; }
 //    }
-    public interface IModelSchedulerPopupMenuItems : IModelNode, IModelList<IModelSchedulerPopupMenuItem> {
-    }
+//    public interface IModelSchedulerPopupMenus : IModelNode, IModelList<IModelSchedulerPopupMenu> {
+//    }
     
-    public interface IModelSchedulerPopupMenuItem : IModelNodeEnabled {
+//    public interface IModelSchedulerPopupMenu : IModelNodeEnabled {
+//        
+//    }
+    [ModelAbstractClass]
+    public interface IModelListViewSchedulerEx:IModelListViewScheduler,IModelNode {
+        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
+        [Category("Xpand.Scheduler")]
+        [DataSourceProperty("ResourceListViews")]
+        IModelListView ResourceListView { get; set; }
+        [Category("Xpand.Scheduler")]
+        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
+        bool ResourcesOnlyWithAppoitments { get; set; }
+        [Browsable(false)]
+        IModelList<IModelListView> ResourceListViews { get; }
         
     }
-
 //    [ModelAbstractClass]
 //    public interface IModelListViewOptionsScheduler : IModelListViewOptionsColumnView, IModelListViewScheduler {
 //        [ModelBrowsable(typeof(ModelListViewSchedulerVisibilityCalculator))]
@@ -56,11 +68,11 @@ namespace Xpand.ExpressApp.Scheduler.Model {
 //        IModelOptionsSchedulerEx OptionsScheduler { get; }
 //    }
 
-//    [DomainLogic(typeof(IModelListViewOptionsScheduler))]
-//    public class ModelListViewOptionsSchedulerDomainLogic {
-//        public static IModelList<IModelListView> Get_ResourceListViews(IModelListViewOptionsScheduler listViewOptionsScheduler) {
-//            return new CalculatedModelNodeList<IModelListView>(listViewOptionsScheduler.Application.Views.OfType<IModelListView>().Where(view => listViewOptionsScheduler.ResourceClasses.Contains(view.ModelClass)));
-//        }
-//    }
+    [DomainLogic(typeof(IModelListViewSchedulerEx))]
+    public class ModelListViewOptionsSchedulerDomainLogic {
+        public static IModelList<IModelListView> Get_ResourceListViews(IModelListViewSchedulerEx listViewOptionsScheduler) {
+            return new CalculatedModelNodeList<IModelListView>(listViewOptionsScheduler.Application.Views.OfType<IModelListView>().Where(view => listViewOptionsScheduler.ResourceClasses.Contains(view.ModelClass)));
+        }
+    }
 
 }

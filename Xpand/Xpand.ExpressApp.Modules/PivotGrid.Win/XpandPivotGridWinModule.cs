@@ -14,6 +14,7 @@ using Xpand.ExpressApp.PivotGrid.Win.NetIncome;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
 using Xpand.XAF.Modules.ModelMapper;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
 using Xpand.XAF.Modules.ModelMapper.Services;
 
 
@@ -22,6 +23,9 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinModules)]
     public sealed class XpandPivotGridWinModule : XpandModuleBase, IDashboardInteractionUser {
+        public static string PivotGridControlModelName="OptionsPivotGrid";
+        public static string PivotGridFieldModelName="OptionsPivotField";
+
         public XpandPivotGridWinModule() {
             RequiredModuleTypes.Add(typeof(PivotGridModule));
             RequiredModuleTypes.Add(typeof(PivotGridWindowsFormsModule));
@@ -30,13 +34,24 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             RequiredModuleTypes.Add(typeof(ModelMapperModule));
         }
 
+        protected override void OnExtendingModelInterfaces(ExtendingModelInterfacesArgs e) {
+            base.OnExtendingModelInterfaces(e);
+            e.Extenders.Add<IModelPivotSettings,IModelPivotSettingsEx>();
+        }
+
+        
+
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            moduleManager.ExtendMap(PredifinedMap.PivotGridControl)
-                .SelectMany(_ => new[]{typeof(IModelPivotNetIncome),typeof(IModelPivotGridExtender),typeof(IModelPivotTopObject)}.Select(extenderType => (_,extenderType)))
-                .Subscribe(_ => _._.extenders.Add(_._.targetInterface, _.extenderType));
-            moduleManager.Extend(PredifinedMap.PivotGridControl,configuration => configuration.MapName="OptionsPivotGrid");
-            moduleManager.Extend(PredifinedMap.PivotGridField,configuration => configuration.MapName="OptionsPivotField");
+            moduleManager.ExtendMap(PredefinedMap.PivotGridControl)
+                .SelectMany(_ => new[]{typeof(IModelPivotNetIncome),typeof(IModelPivotGridExtender),typeof(IModelPivotTopObject)}
+                    .Select(extenderType => (_,_.targetInterface,extenderType))
+                    .Concat(_.targetInterface.Assembly.GetTypes().Where(type => type.Name==$"IModel{PredefinedMap.RepositoryItemSpinEdit}")
+                        .Select(type => (_,targetInterface:typeof(IModelPivotSpinEditRule),extenderType:type))))
+                .Subscribe(_ => _._.extenders.Add(_.targetInterface, _.extenderType));
+            moduleManager.Extend(PredefinedMap.PivotGridControl,configuration => configuration.MapName=PivotGridControlModelName);
+            moduleManager.Extend(PredefinedMap.PivotGridField,configuration => configuration.MapName=PivotGridFieldModelName);
+            moduleManager.Extend(PredefinedMap.RepositoryItemSpinEdit,configuration => configuration.TargetInterfaceTypes.Add(typeof(IModelPivotSpinEditRule)));
         }
     }
 }

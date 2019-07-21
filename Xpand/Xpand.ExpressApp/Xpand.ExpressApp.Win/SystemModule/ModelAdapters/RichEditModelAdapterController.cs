@@ -13,14 +13,14 @@ using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ModelAdapters{
-    [ModelAbstractClass]
-    public interface IModelMemberViewItemRichEdit : IModelMemberViewItem {
-        [ModelBrowsable(typeof(ModelMemberViewItemRichEditVisibilityCalculator))]
-        IModelRichEdit RichEdit { get; }
-    }
+//    [ModelAbstractClass]
+//    public interface IModelMemberViewItemRichEdit : IModelMemberViewItem {
+//        [ModelBrowsable(typeof(ModelMemberViewItemRichEditVisibilityCalculator))]
+//        IModelRichEditEx RichEdit { get; }
+//    }
 
-    [ModuleUser(typeof(IRichEditUser))]
-    public interface IModelRichEdit : IModelModelAdapter {
+//    [ModuleUser(typeof(IRichEditUser))]
+    public interface IModelRichEditEx:IModelNode {//: IModelModelAdapter {
         [DefaultValue("rtf")]
         [Category(AttributeCategoryNameProvider.Xpand)]
         string HighLightExtension { get; set; }
@@ -32,54 +32,53 @@ namespace Xpand.ExpressApp.Win.SystemModule.ModelAdapters{
         [DefaultValue("Text")]
         [Category(AttributeCategoryNameProvider.Xpand)]
         string ControlBindingProperty { get; set; }
-        IModelRichEditModelAdapters ModelAdapters { get; }
+//        IModelRichEditModelAdapters ModelAdapters { get; }
     }
 
-    public interface IRichEditUser {
-    }
+//    public interface IRichEditUser {
+//    }
 
-    [ModelNodesGenerator(typeof(ModelRichEditAdaptersNodeGenerator))]
-    public interface IModelRichEditModelAdapters : IModelList<IModelRichEditModelAdapter>, IModelNode {
+//    [ModelNodesGenerator(typeof(ModelRichEditAdaptersNodeGenerator))]
+//    public interface IModelRichEditModelAdapters : IModelList<IModelRichEditModelAdapter>, IModelNode {
+//
+//    }
 
-    }
+//    public class ModelRichEditAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelRichEdit, IModelRichEditModelAdapter> {
+//    }
 
-    public class ModelRichEditAdaptersNodeGenerator : ModelAdapterNodeGeneratorBase<IModelRichEdit, IModelRichEditModelAdapter> {
-    }
+//    [ModelDisplayName("Adapter")]
+//    public interface IModelRichEditModelAdapter : IModelCommonModelAdapter<IModelRichEdit> {
+//    }
 
-    [ModelDisplayName("Adapter")]
-    public interface IModelRichEditModelAdapter : IModelCommonModelAdapter<IModelRichEdit> {
-    }
+//    [DomainLogic(typeof(IModelRichEditModelAdapter))]
+//    public class ModelDashboardViewerModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelRichEdit> {
+//        public static IModelList<IModelRichEdit> Get_ModelAdapters(IModelRichEditModelAdapter adapter) {
+//            return GetModelAdapters(adapter.Application);
+//        }
+//    }
 
-    [DomainLogic(typeof(IModelRichEditModelAdapter))]
-    public class ModelDashboardViewerModelAdapterDomainLogic : ModelAdapterDomainLogicBase<IModelRichEdit> {
-        public static IModelList<IModelRichEdit> Get_ModelAdapters(IModelRichEditModelAdapter adapter) {
-            return GetModelAdapters(adapter.Application);
-        }
-    }
-
-    [DomainLogic(typeof(IModelRichEdit))]
+    [DomainLogic(typeof(IModelRichEditEx))]
     public class ModelRichEditDomainLogic {
-        public static string Get_ControlBindingProperty(IModelRichEdit modelRichEdit) {
+        public static string Get_ControlBindingProperty(IModelRichEditEx modelRichEdit) {
             return GetValue(modelRichEdit, attribute => attribute.ControlBindingProperty) as string;
         }
 
-        public static bool Get_ShowToolBars(IModelRichEdit modelRichEdit) {
+        public static bool Get_ShowToolBars(IModelRichEditEx modelRichEdit) {
             var value = GetValue(modelRichEdit, attribute => attribute.ShowToolBars);
             return value != null && (bool)value;
         }
 
-        public static bool Get_PrintXML(IModelRichEdit modelRichEdit) {
+        public static bool Get_PrintXML(IModelRichEditEx modelRichEdit) {
             var value = GetValue(modelRichEdit, attribute => attribute.PrintXML);
             return value != null && (bool)value;
         }
 
-        public static string Get_HighLightExtension(IModelRichEdit modelRichEdit) {
+        public static string Get_HighLightExtension(IModelRichEditEx modelRichEdit) {
             return GetValue(modelRichEdit, attribute => attribute.HighLightExtension) as string;
         }
 
-        private static object GetValue(IModelRichEdit modelRichEdit, Func<RichEditPropertyEditorAttribute, object> func) {
-            var richEdit = modelRichEdit.Parent as IModelMemberViewItemRichEdit;
-            if (richEdit != null) {
+        private static object GetValue(IModelRichEditEx modelRichEdit, Func<RichEditPropertyEditorAttribute, object> func) {
+            if (modelRichEdit.Parent is IModelMemberViewItem richEdit) {
                 var editorType = richEdit.PropertyEditorType;
                 if (typeof(RichEditWinPropertyEditor).IsAssignableFrom(editorType)) {
                     var editorAttribute = editorType.GetCustomAttributes(typeof(RichEditPropertyEditorAttribute), false)
@@ -115,32 +114,33 @@ namespace Xpand.ExpressApp.Win.SystemModule.ModelAdapters{
             return typeof(RichEditWinPropertyEditor).IsAssignableFrom(((IModelMemberViewItem)node).PropertyEditorType);
         }
     }
-    public class RichEditModelAdapterController : PropertyEditorControlAdapterController<IModelMemberViewItemRichEdit, IModelRichEdit,RichEditWinPropertyEditor> {
-
-        protected override object GetPropertyEditorControl(RichEditWinPropertyEditor richEditWinPropertyEditor){
-            return richEditWinPropertyEditor.Control.RichEditControl;
-        }
-
-        protected override Expression<Func<IModelMemberViewItemRichEdit, IModelModelAdapter>> GetControlModel(IModelMemberViewItemRichEdit modelMemberViewItemFilterControl){
-            return edit => edit.RichEdit;
-        }
-
-        protected override IEnumerable<InterfaceBuilderData> CreateBuilderData(){
-            var interfaceBuilderData = new InterfaceBuilderData(typeof(RichEditControl)) {
-                Act = info => {
-                    if (info.PropertyType==typeof(RichEditRulerVisibility))
-                        info.AddAttribute(new DefaultValueAttribute(RichEditRulerVisibility.Hidden));
-                    else if (info.PropertyType==typeof(RichEditViewType))
-                        info.AddAttribute(new DefaultValueAttribute(RichEditViewType.Simple));
-                    return info.Name != "Undo" && info.DXFilter();
-                }
-            };
-            interfaceBuilderData.ReferenceTypes.AddRange(new[] { typeof(CriteriaOperator), typeof(DocumentCapability) });
-            yield return interfaceBuilderData;
-        }
-
-        protected override Type GetControlType(){
-            return typeof (RichEditControl);
-        }
-    }
+//    public class RichEditModelAdapterController : PropertyEditorControlAdapterController<IModelMemberViewItemRichEdit, IModelRichEdit,RichEditWinPropertyEditor> {
+//
+//        protected override object GetPropertyEditorControl(RichEditWinPropertyEditor richEditWinPropertyEditor){
+//            return richEditWinPropertyEditor.Control.RichEdit;
+//        }
+//
+//        protected override Expression<Func<IModelMemberViewItemRichEdit, IModelModelAdapter>> GetControlModel(IModelMemberViewItemRichEdit modelMemberViewItemFilterControl){
+//            return edit => edit.RichEdit;
+//        }
+//
+//        protected override IEnumerable<InterfaceBuilderData> CreateBuilderData(){
+//            return Enumerable.Empty<InterfaceBuilderData>();
+////            var interfaceBuilderData = new InterfaceBuilderData(typeof(RichEdit)) {
+////                Act = info => {
+////                    if (info.PropertyType==typeof(RichEditRulerVisibility))
+////                        info.AddAttribute(new DefaultValueAttribute(RichEditRulerVisibility.Hidden));
+////                    else if (info.PropertyType==typeof(RichEditViewType))
+////                        info.AddAttribute(new DefaultValueAttribute(RichEditViewType.Simple));
+////                    return info.Name != "Undo" && info.DXFilter();
+////                }
+////            };
+////            interfaceBuilderData.ReferenceTypes.AddRange(new[] { typeof(CriteriaOperator), typeof(DocumentCapability) });
+////            yield return interfaceBuilderData;
+//        }
+//
+//        protected override Type GetControlType(){
+//            return typeof (RichEdit);
+//        }
+//    }
 }

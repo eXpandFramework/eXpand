@@ -9,6 +9,8 @@ using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.ExpressApp.ReportsV2;
 using DevExpress.ExpressApp.Scheduler.Win;
 using DevExpress.ExpressApp.ScriptRecorder.Win;
+using DevExpress.ExpressApp.TreeListEditors;
+using DevExpress.ExpressApp.TreeListEditors.Win;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.ViewVariantsModule;
 using DevExpress.ExpressApp.Win.SystemModule;
@@ -23,7 +25,6 @@ using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.XtraDashboard.Win;
 using Xpand.XAF.Modules.CloneModelView;
 using Xpand.XAF.Modules.ModelMapper;
-using Xpand.XAF.Modules.ModelMapper.Services;
 using XVideoRental.Module.Win.BusinessObjects;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
 using XVideoRental.Module.Win.Reports;
@@ -33,6 +34,7 @@ namespace XVideoRental.Module.Win {
     [ToolboxItemFilter("Xaf.Platform.Win")]
     public sealed class XVideoRentalWindowsFormsModule : ModuleBase {
         public XVideoRentalWindowsFormsModule() {
+
             RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ScriptRecorderWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(PivotChartWindowsFormsModule));
@@ -53,20 +55,8 @@ namespace XVideoRental.Module.Win {
             RequiredModuleTypes.Add(typeof(DashboardWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(CloneModelViewModule));
             RequiredModuleTypes.Add(typeof(ModelMapperModule));
-            
-        }
-
-        public override void Setup(ApplicationModulesManager moduleManager) {
-            base.Setup(moduleManager);
-            
-            moduleManager.Extend(PredifinedMap.GridView,configuration => configuration.MapName="GridViewOptions");
-            moduleManager.Extend(PredifinedMap.AdvBandedGridView,configuration => configuration.MapName="OptionsAdvBandedView");
-            moduleManager.Extend(PredifinedMap.LayoutView,configuration => configuration.MapName="OptionsLayoutView");
-            moduleManager.Extend(PredifinedMap.GridColumn,configuration => configuration.MapName="OptionsColumnGridView");
-            moduleManager.Extend(PredifinedMap.BandedGridColumn,configuration => configuration.MapName="OptionsColumnAdvBandedView");
-            moduleManager.Extend(PredifinedMap.LayoutViewColumn,configuration => configuration.MapName="OptionsColumnLayoutView");
-            
-            
+            RequiredModuleTypes.Add(typeof(TreeListEditorsModuleBase));
+            RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
             
         }
 

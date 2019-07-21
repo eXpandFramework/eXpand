@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -25,8 +25,6 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.37.1" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.38.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Charts.v19.1.Core">
@@ -195,9 +193,18 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Reactive">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.Reactive.dll</HintPath>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation">
+      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +220,7 @@
     <Compile Update="Controllers\WebNewDashboardController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="PropertyEditors\DashboardViewEditorWeb.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="PropertyEditors\DashboardViewEditorWeb.cs" />
     <Compile Update="XtraDashboardWebModule.cs">
       <SubType>Component</SubType>
     </Compile>

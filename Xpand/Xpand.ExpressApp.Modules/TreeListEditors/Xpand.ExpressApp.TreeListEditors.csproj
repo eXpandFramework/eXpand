@@ -39,12 +39,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Controllers\AutoExpandAllTreeNodesController.cs" />
-    <Compile Update="Model\TreeListModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Model\TreeNavigationOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Model\TreeListModelAdapterController.cs" />
+    <Compile Update="Model\TreeNavigationOptionsController.cs" />
     <Compile Update="Module.cs">
       <SubType>Component</SubType>
     </Compile>

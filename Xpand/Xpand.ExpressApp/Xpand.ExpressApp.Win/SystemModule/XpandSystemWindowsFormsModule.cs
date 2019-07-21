@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Text;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Win;
@@ -12,7 +16,6 @@ using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Utils;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView.Model;
 using Xpand.ExpressApp.Win.Model;
@@ -22,8 +25,8 @@ using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
-using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.XAF.Modules.ModelMapper;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
 using Xpand.XAF.Modules.ModelMapper.Services;
 using ProcessDataLockingInfoController = Xpand.ExpressApp.Win.PropertyEditors.ProcessDataLockingInfoController;
 
@@ -34,7 +37,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
     [Browsable(true)]
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WinApplication), "Resources.Toolbox_Module_System_Win.ico")]
-    public sealed class XpandSystemWindowsFormsModule : XpandModuleBase, IColumnCellFilterUser,IModelXmlConverter,IGridOptionsUser {
+    public sealed class XpandSystemWindowsFormsModule : XpandModuleBase, IColumnCellFilterUser,IModelXmlConverter {
         public const string XpandWin = "Xpand.Win";
         public XpandSystemWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
@@ -56,13 +59,57 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void Setup(XafApplication application) {
             base.Setup(application);
             application.SetupComplete+=ApplicationOnSetupComplete;
+            ModelBindingService.ControlBind.Where(_ => _.ObjectView is ListView listView&&listView.Editor is LayoutViewListEditor&&_.Model.Parent is IModelListView)
+                .Select(_ => {
+                    var layoutView = ((LayoutViewListEditor) ((ListView) _.ObjectView).Editor).XafLayoutView;
+                    var modelLayoutViewDesign =((IModelLayoutViewDesign) _.ObjectView.Model.GetNode(LayoutViewMapName)).DesignLayoutView.LayoutStore;
+                    var buffer = Encoding.UTF32.GetBytes(modelLayoutViewDesign);
+                    using (var memoryStream = new MemoryStream(buffer)){
+                        layoutView.RestoreLayoutFromStream(memoryStream);
+                    }
+
+                    return Unit.Default;
+                })
+                .Subscribe();
+            
         }
 
+        public static string AdvBandedGridViewMapName = "OptionsAdvBandedView";
+        public static string BandedGridColumnMapName = "OptionsColumnAdvBandedView";
+        public static string GridViewMapName = "GridViewOptions";
+        public static string GridColumnMapName = "OptionsColumnGridView";
+        public static string LayoutViewMapName = "OptionsLayoutView";
+        public static string LayoutViewColumnMapName = "OptionsColumnLayoutView";
+        public static string RichEditMapName = "RichEdit";
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            moduleManager.ExtendMap(PredifinedMap.LayoutView)
+            
+            moduleManager.Extend(PredefinedMap.AdvBandedGridView,configuration => configuration.MapName=AdvBandedGridViewMapName);
+            moduleManager.Extend(PredefinedMap.BandedGridColumn,configuration => configuration.MapName=BandedGridColumnMapName);
+            moduleManager.Extend(PredefinedMap.GridView,configuration => configuration.MapName=GridViewMapName);
+            moduleManager.ExtendMap(PredefinedMap.GridView)
+                .Subscribe(_ => _.extenders.Add(_.targetInterface,typeof(IModelOptionsGridViewRules)));
+            moduleManager.Extend(PredefinedMap.GridColumn,configuration => configuration.MapName=GridColumnMapName);
+            
+            moduleManager.Extend(PredefinedMap.XafLayoutControl);
+            moduleManager.Extend(PredefinedMap.SplitContainerControl);
+            moduleManager.Extend(PredefinedMap.LayoutView,configuration => configuration.MapName=LayoutViewMapName);
+            moduleManager.Extend(PredefinedMap.LayoutViewColumn,configuration => configuration.MapName=LayoutViewColumnMapName);
+            moduleManager.ExtendMap(PredefinedMap.LayoutView)
                 .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelLayoutViewDesign)));
+            
+            var repositoryItems = EnumsNET.Enums.GetValues<PredefinedMap>().Where(map => map.IsRepositoryItem()).ToArray();
+            moduleManager.Extend(repositoryItems);
+            
+            moduleManager.Extend(PredefinedMap.RichEditControl);
+            moduleManager.Extend(PredefinedMap.RichEditControl,configuration => configuration.MapName=RichEditMapName);
+            
+            moduleManager.ExtendMap(PredefinedMap.RichEditControl)
+                .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelRichEditEx)));
+            
+            
         }
+
 
         private void ApplicationOnSetupComplete(object sender, EventArgs e) {
             CurrentProcessController.ApplyConfig(Application.Model.Options);
@@ -75,7 +122,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(RefreshObjectViewController),
                 typeof(DragNDropImageController),
                 typeof(RibbonFromModelController),
-                typeof(SplitContainerControlModelAdapterController),
+//                typeof(SplitContainerControlModelAdapterController),
                 typeof(ProcessDataLockingInfoController),
                 typeof(DatabaseMaintenanceController),
                 typeof(AutoScrollGridListEditorController),
@@ -84,7 +131,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(AutoExpandNewRowController),
                 typeof(ApplicationExitController),
                 typeof(ActiveDocumentViewController),
-                typeof(LayoutControlGroupModelAdapterController),
+//                typeof(LayoutControlGroupModelAdapterController),
                 typeof(FilterByGridViewColumnController),
                 typeof(FullTextAutoFilterRowController),
                 typeof(GridListEditorEventController),
@@ -93,11 +140,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(ImmediatePostDataController),
                 typeof(OpenWithController),
                 typeof(SelectedItemSumController),
-                typeof(XafLayoutControlModelAdapterController),
+//                typeof(XafLayoutControlModelAdapterController),
                 typeof(EMailHighlightingController),
                 typeof(UnboundColumnController),
                 typeof(CursorPositionController),
-                typeof(CriteriaPropertyEditorControlAdapterController),
+//                typeof(CriteriaPropertyEditorControlAdapterController),
                 typeof(PreventDataLoadingGridViewController),
                 typeof(NewObjectCollectCreatableItemTypesDataSource),
                 typeof(PessimisticLockingViewController),
@@ -120,23 +167,23 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(GridViewImageTextToolTipController),
                 typeof(WinToolTipsController),
                 typeof(HyperLinkGridListViewController),
-                typeof(LabelControlModelAdapterController),
+//                typeof(LabelControlModelAdapterController),
                 typeof(RichEditToolbarController),
-                typeof(RichEditModelAdapterController),
+//                typeof(RichEditModelAdapterController),
                 typeof(LayoutViewColumnChooserController),
 //                typeof(LayoutViewModelAdapterController),
 //                typeof(GridViewModelAdapterController),
                 typeof(RememberGridSelectionController),
-                typeof(RepositoryItemModelAdapterController),
+//                typeof(RepositoryItemModelAdapterController),
 //                typeof(AdvBandedViewModelAdapterController)
             };
             return FilterDisabledControllers(GetDeclaredControllerTypesCore(controllerTypes));
         }
 
-        public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator){
-            base.AddModelNodeUpdaters(updaterRegistrator);
-//            updaterRegistrator.AddUpdater(new ModelOptionsAdvBandedViewUpdater());
-        }
+//        public override void AddModelNodeUpdaters(IModelNodeUpdaterRegistrator updaterRegistrator){
+//            base.AddModelNodeUpdaters(updaterRegistrator);
+////            updaterRegistrator.AddUpdater(new ModelOptionsAdvBandedViewUpdater());
+//        }
 
         void IModelXmlConverter.ConvertXml(ConvertXmlParameters parameters) {
             ConvertXml(parameters);

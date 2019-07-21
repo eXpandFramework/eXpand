@@ -1,11 +1,5 @@
-﻿using System.Linq;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Win.Editors;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
-using Xpand.Persistent.Base.General.Model.Options;
-using Xpand.Persistent.Base.ModelAdapter;
-using GridViewModelSynchronizer = Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model.GridViewModelSynchronizer;
+﻿using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
+
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
 //    public class GridViewListEditorDynamicModelSynchronizer : ModelListSynchronizer {
@@ -40,18 +34,18 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model {
 //        }
 //    }
 
-    public class XpandGridListEditorSynchronizer : ListEditorModelSynchronizer {
-        public XpandGridListEditorSynchronizer(XpandGridListEditor gridListEditor)
-            : base(gridListEditor) {
-            ModelSynchronizerList.Add(new XpandGridViewModelSynchronizer(gridListEditor));
-        }
-    }
+//    public class XpandGridListEditorSynchronizer : ListEditorModelSynchronizer {
+//        public XpandGridListEditorSynchronizer(XpandGridListEditor gridListEditor)
+//            : base(gridListEditor) {
+//            ModelSynchronizerList.Add(new XpandGridViewModelSynchronizer(gridListEditor));
+//        }
+//    }
 
-    public class XpandGridViewModelSynchronizer : GridViewModelSynchronizer {
-        public XpandGridViewModelSynchronizer(XpandGridListEditor columnViewEditor)
-            : base(columnViewEditor) {
-        }
-    }
+//    public class XpandGridViewModelSynchronizer : GridViewModelSynchronizer {
+//        public XpandGridViewModelSynchronizer(XpandGridListEditor columnViewEditor)
+//            : base(columnViewEditor) {
+//        }
+//    }
 
     #region XAF GridLstEditor stuff
 //    public class GridListEditorDynamicModelSynchronizer : ModelListSynchronizer {

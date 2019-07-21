@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -13,7 +13,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Enums.NET" Version="2.3.2" />
     <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="System.Reactive" Version="4.1.5" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.CodeParser.v19.1">
@@ -82,6 +84,9 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.Xpo">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -106,9 +111,7 @@
     <Compile Update="SystemModule\MasterDetail\UpdateVisibilityController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="ListEditors\Model\GridViewModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ListEditors\Model\GridViewModelAdapterController.cs" />
     <Compile Update="SystemModule\WebShortcuts\WebShortcutsController.cs">
       <SubType>Component</SubType>
     </Compile>

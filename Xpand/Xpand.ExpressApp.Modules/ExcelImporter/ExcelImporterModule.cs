@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -32,19 +34,24 @@ namespace Xpand.ExpressApp.ExcelImporter {
             RequiredModuleTypes.Add(typeof(NotificationsModule));
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
-            RequiredModuleTypes.Add(typeof(XpandValidationModule));
-            RequiredModuleTypes.Add(typeof(MasterDetailModule));
-            RequiredModuleTypes.Add(typeof(AutoCommitModule));
-            RequiredModuleTypes.Add(typeof(ViewEditModeModule));
-            RequiredModuleTypes.Add(typeof(SuppressConfirmationModule));
-            RequiredModuleTypes.Add(typeof(CloneModelViewModule));
-            RequiredModuleTypes.Add(typeof(HideToolBarModule));
-            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.ProgressBarViewItem.ProgressBarViewItemModule));
+//            RequiredModuleTypes.Add(typeof(XpandValidationModule));
+//            RequiredModuleTypes.Add(typeof(MasterDetailModule));
+//            RequiredModuleTypes.Add(typeof(AutoCommitModule));
+//            RequiredModuleTypes.Add(typeof(ViewEditModeModule));
+//            RequiredModuleTypes.Add(typeof(SuppressConfirmationModule));
+//            RequiredModuleTypes.Add(typeof(CloneModelViewModule));
+//            RequiredModuleTypes.Add(typeof(HideToolBarModule));
+//            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.ProgressBarViewItem.ProgressBarViewItemModule));
         }
 
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             CalculatedPersistentAliasHelper.CustomizeTypesInfo(typesInfo);
+        }
+
+        protected override IEnumerable<Type> GetDeclaredControllerTypes() {
+//            return base.GetDeclaredControllerTypes();
+return Enumerable.Empty<Type>();
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {

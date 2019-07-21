@@ -7,22 +7,21 @@ using DevExpress.ExpressApp.PivotGrid;
 using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.ExpressApp.Win.Layout;
 using DevExpress.Utils;
-using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraLayout;
 using DevExpress.XtraLayout.Utils;
 using DevExpress.XtraPivotGrid;
 using System.Linq;
+using DevExpress.ExpressApp.Model;
+using DevExpress.XtraEditors.Repository;
 using Xpand.ExpressApp.PivotGrid.Win.Model;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using ListView = DevExpress.ExpressApp.ListView;
 using Fasterflect;
+using Xpand.XAF.Modules.ModelMapper.Services;
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
     public abstract class PivotGridControllerBase : ViewController<ListView> {
-        public PivotGridListEditor PivotGridListEditor {
-            get { return View != null ? View.Editor as PivotGridListEditor : null; }
-        }
+        public PivotGridListEditor PivotGridListEditor => View?.Editor as PivotGridListEditor;
 
 //        public IModelListViewOptionsPivotGrid Model {
 //            get { return ((IModelListViewOptionsPivotGrid)View.Model); }
@@ -68,8 +67,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         protected override void OnActivated() {
             base.OnActivated();
             if (PivotGridListEditor != null) {
-                throw new NotImplementedException();
-//                _ruleCollector = new RuleCollector((IModelListViewOptionsPivotGrid)View.Model);
+                _ruleCollector = new RuleCollector(View.Model);
             }
         }
 
@@ -182,13 +180,12 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
 
         void PivotGridControlOnCellSelectionChanged(object sender, EventArgs eventArgs) {
             if (!_criteriaApplying) {
-                throw new NotImplementedException();
-//                if (Model.OptionsPivotGrid.Selection.RowSelection)
-//                    RowSelection();
-//                var modelPivotGridSelection = Model.OptionsPivotGrid.Selection;
-//                if (modelPivotGridSelection.Synchronize) {
-//                    modelPivotGridSelection.Rectangle = PivotGridListEditor.PivotGridControl.Cells.Selection;
-//                }
+                var gridSelection = ((IModelPivotGridExtender) View.Model.GetNode(XpandPivotGridWinModule.PivotGridControlModelName)).Selection;
+                if (gridSelection.RowSelection)
+                    RowSelection();
+                if (gridSelection.Synchronize) {
+                    gridSelection.Rectangle = PivotGridListEditor.PivotGridControl.Cells.Selection;
+                }
             }
         }
 
@@ -220,35 +217,33 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         }
 
         void ArrangeLayout() {
-            throw new NotImplementedException();
-//            var modelPivotGridGeneral = Model.OptionsPivotGrid.General;
-//            var direction = modelPivotGridGeneral.Direction;
-//            var layoutControl = (XafLayoutControl)PivotGridListEditor.Control;
-//            layoutControl.Root.BeginUpdate();
-//            if (direction.HasValue) {
-//                if (layoutControl.Root.DefaultLayoutType != direction.Value) {
-//                    layoutControl.Root.DefaultLayoutType = direction.Value;
-//                    layoutControl.Root.RotateLayout(true);
-//                }
-//            }
-//            if (modelPivotGridGeneral.FlipLayout) {
-//                modelPivotGridGeneral.FlipLayout = false;
-//                layoutControl.Root.FlipLayout(true);
-//            }
-//            layoutControl.Root.Update();
-//            layoutControl.Root.EndUpdate();
+            var modelPivotGridGeneral = ((IModelPivotGridExtender) View.Model.GetNode(XpandPivotGridWinModule.PivotGridControlModelName)).General;
+            var direction = modelPivotGridGeneral.Direction;
+            var layoutControl = (XafLayoutControl)PivotGridListEditor.Control;
+            layoutControl.Root.BeginUpdate();
+            if (direction.HasValue) {
+                if (layoutControl.Root.DefaultLayoutType != direction.Value) {
+                    layoutControl.Root.DefaultLayoutType = direction.Value;
+                    layoutControl.Root.RotateLayout(true);
+                }
+            }
+            if (modelPivotGridGeneral.FlipLayout) {
+                modelPivotGridGeneral.FlipLayout = false;
+                layoutControl.Root.FlipLayout(true);
+            }
+            layoutControl.Root.Update();
+            layoutControl.Root.EndUpdate();
         }
 
         void SelectCells() {
-            throw new NotImplementedException();
-//            var pivotGridControl = PivotGridListEditor.PivotGridControl;
-//            var modelPivotGridSelection = Model.OptionsPivotGrid.Selection;
-//            var rectangle = modelPivotGridSelection.Rectangle;
-//            if (rectangle.Width == -1)
-//                rectangle.Width = pivotGridControl.Cells.ColumnCount;
-//            if (rectangle.Height == -1)
-//                rectangle.Height = pivotGridControl.Cells.RowCount;
-//            pivotGridControl.Cells.Selection = rectangle;
+            var pivotGridControl = PivotGridListEditor.PivotGridControl;
+            var modelPivotGridSelection = ((IModelPivotGridExtender) View.Model.GetNode(XpandPivotGridWinModule.PivotGridControlModelName)).Selection;
+            var rectangle = modelPivotGridSelection.Rectangle;
+            if (rectangle.Width == -1)
+                rectangle.Width = pivotGridControl.Cells.ColumnCount;
+            if (rectangle.Height == -1)
+                rectangle.Height = pivotGridControl.Cells.RowCount;
+            pivotGridControl.Cells.Selection = rectangle;
         }
 
         void SubscribeToEvents() {
@@ -287,7 +282,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
                 return;
             }
 
-            var pivotArea = e.Field != null ? e.Field.Area : PivotArea.RowArea;
+            var pivotArea = e.Field?.Area ?? PivotArea.RowArea;
             var point = new Point(0, e.MinIndex);
             var formatInfos = _ruleCollector.FormatInfos(point, pivotArea);
             foreach (var formatInfo in formatInfos) {
@@ -306,7 +301,8 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
                 var repositoryItemSpinEdit = new RepositoryItemSpinEdit();
                 e.RepositoryItem = repositoryItemSpinEdit;
                 foreach (var modelRepositoryItemSpinEdit in modelRepositoryItemSpinEdits) {
-                    new PivotDataFieldRepositoryItemSpinEditSynchronizer(repositoryItemSpinEdit, modelRepositoryItemSpinEdit).ApplyModel();
+                    modelRepositoryItemSpinEdit.BindTo(repositoryItemSpinEdit);
+//                    new PivotDataFieldRepositoryItemSpinEditSynchronizer(repositoryItemSpinEdit, modelRepositoryItemSpinEdit).ApplyModel();
                 }
             }
         }
@@ -327,7 +323,11 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
     }
 
     class RuleCollector {
-//        readonly IModelListViewOptionsPivotGrid _optionsPivotGrid;
+        public RuleCollector(IModelListView viewModel) {
+            _optionsPivotGrid = viewModel.GetNode(XpandPivotGridWinModule.PivotGridControlModelName);
+
+        }
+        readonly IModelNode _optionsPivotGrid;
 
 //        public RuleCollector(IModelListViewOptionsPivotGrid optionsPivotGrid) {
 //            _optionsPivotGrid = optionsPivotGrid;
@@ -349,8 +349,8 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             return SelectionRuleModels(point).OfType<IModelDrawCellRule>();
         }
 
-        public IEnumerable<IModelRepositoryItemSpinEdit> RepositoryItems(Point point) {
-            return SelectionRuleModels(point).OfType<IModelPivotSpinEditRule>().Where(rule => rule.SpinEdit.NodeEnabled).Select(value => value.SpinEdit);
+        public IEnumerable<IModelNode> RepositoryItems(Point point) {
+            return SelectionRuleModels(point).OfType<IModelPivotSpinEditRule>().Where(rule => !rule.NodeDisabled).Select(value => value);
         }
 
         IEnumerable<IModelPivotSelectionRule> SelectionRuleModels(Point point) {
@@ -358,8 +358,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         }
 
         IEnumerable<IModelPivotRule> PivotRules() {
-            throw new NotImplementedException();
-//            return _optionsPivotGrid.OptionsPivotGrid.Rules.Where(rule => rule.NodeEnabled);
+            return ((IModelPivotGridExtender) _optionsPivotGrid).Rules.Where(rule => !rule.NodeDisabled);
         }
 
         bool InsideArea(IModelPivotSelectionRule modelPivotArea, Point point) {

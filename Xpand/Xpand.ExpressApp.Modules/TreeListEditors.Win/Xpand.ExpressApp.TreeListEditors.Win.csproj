@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFramework>net461</TargetFramework>
@@ -84,6 +84,9 @@
     <Reference Include="System.Windows.Forms">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Controllers\HideICategorizedItemController.cs">
@@ -98,12 +101,8 @@
     <Compile Update="Controllers\RecursiveFilteringViewController.Designer.cs">
       <DependentUpon>RecursiveFilteringViewController.cs</DependentUpon>
     </Compile>
-    <Compile Update="Model\TreeListModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Model\TreeNavigationOptionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Model\TreeListModelAdapterController.cs" />
+    <Compile Update="Model\TreeNavigationOptionsController.cs" />
     <Compile Update="XpandTreeListEditorsWinModule.cs">
       <SubType>Component</SubType>
     </Compile>

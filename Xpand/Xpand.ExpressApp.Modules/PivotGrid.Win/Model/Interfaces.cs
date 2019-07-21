@@ -7,18 +7,14 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.PivotGrid;
-using DevExpress.ExpressApp.PivotGrid.Win;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
 using System.Linq;
 using DevExpress.XtraLayout.Utils;
 using DevExpress.XtraPivotGrid;
-using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.RepositoryItems;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
-using Xpand.Persistent.Base.General.Model.Options;
-using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
-using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.XAF.Modules.ModelMapper;
 
 namespace Xpand.ExpressApp.PivotGrid.Win.Model {
 
@@ -154,7 +150,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
 
     [ModelDisplayName("SpinEdit")]
     public interface IModelPivotSpinEditRule : IModelPivotSelectionRule {
-        IModelRepositoryItemSpinEdit SpinEdit { get; }
+//        IModelRepositoryItemSpinEdit SpinEdit { get; }
     }
 
     [ModelAbstractClass]
@@ -163,7 +159,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.Model {
         Point End { get; set; }
     }
     [ModelAbstractClass]
-    public interface IModelPivotRule : IModelNodeEnabled {
+    public interface IModelPivotRule : IModelNodeDisabled {
 
     }
 //    [ModelAbstractClass]
