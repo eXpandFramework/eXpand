@@ -1,5 +1,5 @@
 ﻿using DevExpress.EasyTest.Framework;
-using Xpand.Utils.Automation;
+using Xpand.EasyTest.Automation;
 
 namespace Xpand.EasyTest.Commands.Window{
     public class KillWindowCommand:WindowCommand{

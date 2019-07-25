@@ -15,8 +15,8 @@ using Fasterflect;
 using Xpand.EasyTest.Commands;
 using Xpand.EasyTest.Commands.InputSimulator;
 using Xpand.EasyTest.Commands.Window;
+using Xpand.EasyTest.Win32;
 using Xpand.Utils.Helpers;
-using Xpand.Utils.Win32;
 
 namespace Xpand.EasyTest {
     public enum ApplicationParams {

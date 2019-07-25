@@ -1,7 +1,7 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
 using AForge.Video;
-using Xpand.Utils.Win32;
+using Xpand.EasyTest.Win32;
 
 namespace Xpand.EasyTest{
     public class ScreenCaptureStream : AForge.Video.ScreenCaptureStream{

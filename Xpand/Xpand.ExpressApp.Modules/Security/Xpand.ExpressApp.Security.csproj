@@ -12,8 +12,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="fasterflect" Version="2.1.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.32" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +50,9 @@
     <Reference Include="DevExpress.Xpo.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="Xpand.Persistent.Base">

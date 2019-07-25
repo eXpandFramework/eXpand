@@ -20,6 +20,7 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
       <dependency id="eXpandSystem" version="19.1.402.0" />
       <dependency id="eXpandSystemWeb" version="19.1.402.0" />
       <dependency id="eXpandWorldCreator" version="19.1.402.0" />
+      <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>

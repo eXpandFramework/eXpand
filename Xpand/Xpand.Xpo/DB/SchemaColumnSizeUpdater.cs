@@ -20,7 +20,7 @@ namespace Xpand.Xpo.DB {
         public static bool Disabled { get; set; }
 
         public void Update(ConnectionProviderSql connectionProviderSql, DataStoreUpdateSchemaEventArgs dataStoreUpdateSchemaEventArgs) {
-            if (connectionProviderSql == null || connectionProviderSql is AccessConnectionProvider||Disabled)
+            if (connectionProviderSql == null || Disabled)
                 return;
             using (((IDisposable) ((AsyncLockHelper) connectionProviderSql.GetPropertyValue("LockHelper")).CallMethod("Lock"))) {
                 if (!connectionProviderSql.CanCreateSchema)

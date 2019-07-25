@@ -12,6 +12,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.Reports.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Reports.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

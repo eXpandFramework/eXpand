@@ -10,7 +10,6 @@ using System.Web.UI;
 using DevExpress.ExpressApp.Utils;
 using Xpand.NCarousel;
 using Xpand.Persistent.Base.General;
-using Xpand.Utils.Web;
 
 namespace Xpand.ExpressApp.NCarousel.Web {
     public class NCarousel : Xpand.NCarousel.NCarousel, IPostBackEventHandler {
@@ -82,11 +81,13 @@ namespace Xpand.ExpressApp.NCarousel.Web {
             var url = pictureItem.Image != null ? HttpContext.Current.Request.Url.AbsoluteUri + "&imageid=" + pictureItem.ID : pictureItem.ImagePath;
             if (!(string.IsNullOrEmpty(url)))
                 return new Uri(url);
+
             if (UseNoImage) {
-                var webResourceUrl = ClientScriptProxy.Current.GetWebResourceUrl(GetType(), "Xpand.ExpressApp.NCarousel.Web.Resources.noimage.jpg");
+                var webResourceUrl = Page.ClientScript.GetWebResourceUrl(GetType(), "Xpand.ExpressApp.NCarousel.Web.Resources.noimage.jpg");
                 webResourceUrl = HttpContext.Current.Request.Url.AbsoluteUri.Replace(HttpContext.Current.Request.Url.PathAndQuery, "") + webResourceUrl;
                 return new Uri(webResourceUrl);
             }
+            
             return null;
         }
 

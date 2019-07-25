@@ -12,7 +12,7 @@ using mshtml;
 using Xpand.EasyTest;
 using Xpand.EasyTest.Commands;
 using Xpand.ExpressApp.EasyTest.WebAdapter;
-using Xpand.Utils.Automation;
+using Xpand.EasyTest.Automation;
 
 [assembly: Adapter(typeof (XpandTestWebAdapter))]
 

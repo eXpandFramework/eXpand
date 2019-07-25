@@ -17,6 +17,7 @@
       <dependency id="eXpandLib" version="19.1.402.0" />
       <dependency id="eXpandSystemWin" version="19.1.402.0" />
       <dependency id="eXpandValidation" version="19.1.402.0" />
+      <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>

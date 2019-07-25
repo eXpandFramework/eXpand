@@ -13,7 +13,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="fasterflect" Version="2.1.3" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
@@ -51,6 +51,9 @@
     <Reference Include="DevExpress.Xpo.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Security.dll</HintPath>

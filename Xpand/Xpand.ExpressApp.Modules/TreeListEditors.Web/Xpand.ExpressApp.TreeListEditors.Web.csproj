@@ -12,9 +12,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="fasterflect" Version="2.1.3" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="DevExpress.Data.v19.1">
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -51,6 +48,9 @@
       <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp.TreeListEditors">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
@@ -68,8 +68,6 @@
   <ItemGroup>
     <Compile Update="Controllers\AutoExpandAllTreeNodesController.cs" />
     <Compile Update="Controllers\ColumnChooserTreeListEditorController.cs" />
-    <Compile Update="Model\TreeListModelAdapterController.cs" />
-    <Compile Update="Model\TreeNavigationOptionsController.cs" />
     <Compile Update="XpandTreeListEditorsAspNetModule.cs">
       <SubType>Component</SubType>
     </Compile>

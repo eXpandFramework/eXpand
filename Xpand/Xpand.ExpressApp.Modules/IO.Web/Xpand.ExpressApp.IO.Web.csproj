@@ -13,6 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DotNetZip" Version="1.11.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v19.1">

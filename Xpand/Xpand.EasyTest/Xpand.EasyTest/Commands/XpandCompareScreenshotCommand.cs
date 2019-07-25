@@ -9,8 +9,8 @@ using DevExpress.EasyTest.Framework;
 using DevExpress.EasyTest.Framework.Commands;
 using Xpand.EasyTest.Commands.InputSimulator;
 using Xpand.EasyTest.Commands.Window;
-using Xpand.Utils.Automation;
-using Xpand.Utils.Win32;
+using Xpand.EasyTest.Automation;
+using Xpand.EasyTest.Win32;
 using Image = System.Drawing.Image;
 
 namespace Xpand.EasyTest.Commands {
