@@ -13,15 +13,19 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="DevExpress.EasyTest" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Easytest.WebAdapter" Version="19.1.4" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
     <PackageReference Include="Microsoft.CSharp" Version="4.*" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
     <PackageReference Include="IIS.Microsoft.Web.Adminstration" Version="8.5.9600.16384" />
     <PackageReference Include="Unofficial.Microsoft.mshtml" Version="7.0.3300" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.EasyTest">
       <HintPath>..\..\..\Xpand.Dll\Xpand.EasyTest.dll</HintPath>

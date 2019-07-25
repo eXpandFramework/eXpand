@@ -32,12 +32,8 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Printing.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect, Version=2.1.3.0, Culture=neutral, PublicKeyToken=38d18473284c1ca7, processorArchitecture=MSIL">
-      <HintPath>..\..\..\..\Issues\AxNut1\DemoSolutionV1\DemoSolutionV1\packages\fasterflect.2.1.3\lib\net40\Fasterflect.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>

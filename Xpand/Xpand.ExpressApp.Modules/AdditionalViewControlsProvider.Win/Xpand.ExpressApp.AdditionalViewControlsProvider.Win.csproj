@@ -21,7 +21,7 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>

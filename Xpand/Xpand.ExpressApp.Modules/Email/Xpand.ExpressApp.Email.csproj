@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -27,7 +27,7 @@
     <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
     <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.31" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>

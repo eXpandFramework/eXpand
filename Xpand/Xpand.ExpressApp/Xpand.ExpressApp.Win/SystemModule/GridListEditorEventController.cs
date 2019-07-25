@@ -18,18 +18,15 @@ using DevExpress.XtraGrid.Views.Grid;
 using Fasterflect;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Model;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.Model.Options;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.SystemModule {
 
-    public class GridListEditorEventController:ViewController<ListView>,IModelExtender{
+    public class GridListEditorEventController:ViewController<ListView>{
         protected override void OnViewControlsCreated(){
             base.OnViewControlsCreated();
-            var columnsListEditor = View.Editor as WinColumnsListEditor;
-            if (columnsListEditor != null){
-                var gridView = columnsListEditor.ColumnView as GridView;
-                if (gridView != null){
+            if (View.Editor is WinColumnsListEditor columnsListEditor){
+                if (columnsListEditor.ColumnView is GridView gridView){
                     gridView.PopupMenuShowing+=GridViewOnPopupMenuShowing;
                     gridView.CustomSummaryCalculate+=GridViewOnCustomSummaryCalculate;
                 }
@@ -62,18 +59,13 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         void GridViewOnCustomSummaryCalculate(object sender, CustomSummaryEventArgs e){
             var item = ((GridColumnSummaryItem)e.Item);
-            var rule = item.Tag as IModelGridViewRuleCustomSummaryCalculate;
-            if (rule != null){
+            if (item.Tag is IModelGridViewRuleCustomSummaryCalculate rule){
                 var ruleCollector = new RuleCollector(View.Model);
                 var customSummaryCalculateEvent = ruleCollector.CreateInstance<ICustomSummaryCalculateEvent>(Frame, rule.Controller);
                 if (e.SummaryProcess == CustomSummaryProcess.Calculate &&!CriteriaOperator.Parse(rule.Criteria).Fit(((GridView) sender).GetRow(e.RowHandle))) 
                     return;
                 customSummaryCalculateEvent.Calculate(e);
             }
-        }
-        [Obsolete("needs check")]
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
-//            extenders.Add<IModelOptionsGridView, IModelOptionsGridViewRules>();
         }
     }
 
@@ -132,9 +124,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
     class RuleCollector {
         readonly IModelGridViewRules _modelOptionsGridViewRules;
-        [Obsolete("needs check")]
+        
         public RuleCollector(IModelListView modelListView){
-//            _modelOptionsGridViewRules= ((IModelOptionsGridViewRules) ((IModelListViewOptionsGridView) modelListView).GridViewOptions).Rules;
+            _modelOptionsGridViewRules= ((IModelOptionsGridViewRules) modelListView.GetNode(XpandSystemWindowsFormsModule.GridViewMapName)).Rules;
         }
 
         public IEnumerable<IModelGridViewRuleCustomSummaryCalculate> GetCustomSummeryCalculateRules(params string[] members){

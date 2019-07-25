@@ -16,7 +16,7 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.Logic">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Logic.dll</HintPath>

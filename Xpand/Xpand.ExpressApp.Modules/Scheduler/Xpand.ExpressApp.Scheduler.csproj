@@ -44,7 +44,7 @@
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Scheduler" Version="19.1.4" />
     <PackageReference Include="DevExpress.Scheduler.Core" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Compile Update="Model\SchedulerModelAdapterControllerBase.cs">
       <SubType>Component</SubType>

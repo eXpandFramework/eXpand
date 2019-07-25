@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -32,7 +32,7 @@
     <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.15" />
     <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.9" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.39" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>

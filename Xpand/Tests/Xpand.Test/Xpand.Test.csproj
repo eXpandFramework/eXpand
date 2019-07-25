@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -166,11 +166,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
-<ItemGroup xmlns="">
+  <ItemGroup xmlns="">
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
     <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-</ItemGroup></Project>
+  </ItemGroup>
+</Project>

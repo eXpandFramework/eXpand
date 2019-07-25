@@ -40,8 +40,10 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\noimage.jpg" />
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.4" />
-</ItemGroup></Project>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

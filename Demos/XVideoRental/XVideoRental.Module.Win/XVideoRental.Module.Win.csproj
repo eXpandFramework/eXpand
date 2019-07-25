@@ -63,9 +63,9 @@
     <PackageReference Include="DevExpress.Reporting.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Scheduler" Version="19.1.4" />
-	<PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
     <PackageReference Include="DevExpress.Scheduler.Core" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration">
       <Private>False</Private>
@@ -138,7 +138,6 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Reports\ActiveCustomers.cs">

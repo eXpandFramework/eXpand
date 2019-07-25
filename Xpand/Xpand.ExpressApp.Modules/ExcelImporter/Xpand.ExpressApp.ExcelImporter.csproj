@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -45,7 +45,7 @@
     <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.39" />
     <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.40" />
     <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.39" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
@@ -70,7 +70,6 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-   
   </ItemGroup>
   <ItemGroup>
     <Compile Update="ExcelImporterModule.cs">

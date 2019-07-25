@@ -27,7 +27,8 @@
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win" Version="19.1.4" />
-</ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms" />

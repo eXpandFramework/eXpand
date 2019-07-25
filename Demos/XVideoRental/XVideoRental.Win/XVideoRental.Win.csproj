@@ -155,7 +155,7 @@
   <ItemGroup>
     <ProjectReference Include="..\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj" />
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.4" />
     <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Dashboard.Core" Version="19.1.4" />
@@ -187,4 +187,5 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win" Version="19.1.4" />
-</ItemGroup></Project>
+  </ItemGroup>
+</Project>

@@ -39,7 +39,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.TreeListEditors.Web" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
@@ -49,4 +49,6 @@
     <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Web" Version="19.1.4" />
-</ItemGroup></Project>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

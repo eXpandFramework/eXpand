@@ -62,7 +62,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.4" />
@@ -72,4 +72,6 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win" Version="19.1.4" />
-</ItemGroup></Project>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+</Project>

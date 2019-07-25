@@ -33,7 +33,7 @@
     <PackageReference Include="DevExpress.Utils.UI" Version="19.1.4" />
     <PackageReference Include="DevExpress.Reporting.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Reporting" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.Dashboard">

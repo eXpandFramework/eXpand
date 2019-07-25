@@ -18,7 +18,7 @@
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.ModelDifference">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.ModelDifference.dll</HintPath>

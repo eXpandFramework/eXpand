@@ -22,7 +22,7 @@
     <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Web" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp.IO">

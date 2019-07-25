@@ -27,7 +27,7 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Web" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.dll</HintPath>

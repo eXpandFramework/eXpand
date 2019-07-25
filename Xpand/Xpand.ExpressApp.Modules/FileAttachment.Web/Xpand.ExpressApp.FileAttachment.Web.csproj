@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
@@ -47,10 +47,10 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-<ItemGroup>
+  <ItemGroup>
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.1.4" />
-	  <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.4" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
@@ -58,4 +58,5 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Web" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-</ItemGroup></Project>
+  </ItemGroup>
+</Project>

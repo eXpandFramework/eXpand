@@ -26,7 +26,7 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Printing.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.Logic">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Logic.dll</HintPath>

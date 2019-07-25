@@ -18,7 +18,7 @@
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.TreeListEditors.Win" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.IO">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.IO.dll</HintPath>

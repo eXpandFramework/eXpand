@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -51,12 +51,12 @@
     <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-	  <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Web" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
     <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.40" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>

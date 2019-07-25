@@ -21,7 +21,7 @@
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.Security">

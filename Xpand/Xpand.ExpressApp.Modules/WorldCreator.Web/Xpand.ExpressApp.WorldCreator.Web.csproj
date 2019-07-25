@@ -19,7 +19,7 @@
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.4" />
-</ItemGroup>
+  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.dll</HintPath>

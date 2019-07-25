@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -289,7 +289,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-<ItemGroup xmlns="">
+  <ItemGroup>
     <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
@@ -303,4 +303,5 @@
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
     <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-</ItemGroup></Project>
+  </ItemGroup>
+</Project>

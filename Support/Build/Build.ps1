@@ -17,16 +17,10 @@ properties {
 }
 
 
-Task Release -depends Clean,InstallDX, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
-Task Lab -depends Clean,InstallDX, Init,Version,CompileModules
+Task Release -depends Clean, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
+Task Lab -depends Clean,Init,Version,CompileModules
 
-Task InstallDX{
-    InvokeScript{
-        $version
-        $dxversion=$(Get-XDevExpressVersion -Version $version -build)
-        Install-XDevExpress -binPath "$PSScriptRoot\..\..\Xpand.dll" -dxSources $packageSources -sourcePath $root -dxVersion $dxversion
-    }
-}
+
 Task Init  {
     InvokeScript{
         Write-Host "Remove directories"
@@ -112,10 +106,12 @@ Task CompileModules{
             $fileName=(Get-Item $_).Name
             write-host "Building $fileName..." -f "Blue"
             "packageSources=$packageSources"
-            & dotnet build "$_" --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";")
+            dotnet restore "$_" --source ($packageSources -join ";")
+            dotnet msbuild "$_" @msbuildArgs
             if ($LASTEXITCODE) {
                 throw
             }
+            
         }
 
         
@@ -183,7 +179,9 @@ function BuildProjects($projects,$useMsBuild ){
         $bargs=(@("$_","/p:OutputPath=$root\Xpand.dll\")+$msbuildArgs.Split(";"))
         if (!$useMsBuild){
             "packageSources=$packageSources"
-            $o=& dotnet build "$_" --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";")
+            dotnet restore "$_" --source ($packageSources -join ";")
+            dotnet msbuild "$_" @msbuildArgs
+            # $o=& dotnet build "$_"  --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";") /WarnAserror
         }
         else {
             $o=& $msbuild $bargs
