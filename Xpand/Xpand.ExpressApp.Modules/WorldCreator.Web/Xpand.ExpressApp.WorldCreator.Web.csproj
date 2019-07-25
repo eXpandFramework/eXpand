@@ -14,28 +14,13 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.4" />
+</ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.FileAttachment.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Web.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Web.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Xpand.ExpressApp">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

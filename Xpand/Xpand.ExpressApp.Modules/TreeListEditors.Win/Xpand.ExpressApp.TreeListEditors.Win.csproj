@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFramework>net461</TargetFramework>
@@ -14,60 +14,23 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.TreeListEditors.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.TreeList" Version="19.1.4" />
+	<PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
+</ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.TreeListEditors.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraEditors.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraPrinting.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraGrid.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraTreeList.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraTreeList.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.TreeListEditors">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -86,9 +49,6 @@
     </Reference>
     <Reference Include="System.Windows.Forms">
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Xpand.XAF.Modules.ModelMapper">
-      <HintPath>..\..\..\..\Packages\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

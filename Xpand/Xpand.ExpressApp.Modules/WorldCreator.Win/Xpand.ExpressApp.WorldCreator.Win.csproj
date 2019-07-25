@@ -14,24 +14,12 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
+</ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.FileAttachment.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.FileAttachment.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Win">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

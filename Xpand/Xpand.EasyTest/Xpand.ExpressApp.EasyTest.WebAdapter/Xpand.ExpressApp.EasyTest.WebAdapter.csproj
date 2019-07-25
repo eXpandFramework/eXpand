@@ -22,14 +22,6 @@
     <PackageReference Include="Unofficial.Microsoft.mshtml" Version="7.0.3300" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.EasyTest.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.EasyTest.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.EasyTest.WebAdapter.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.EasyTest.WebAdapter.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.EasyTest">
       <HintPath>..\..\..\Xpand.Dll\Xpand.EasyTest.dll</HintPath>

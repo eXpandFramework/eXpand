@@ -12,42 +12,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraBars.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraEditors.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraWizard.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraWizard.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
     </Reference>
@@ -98,4 +62,14 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-</Project>
+<ItemGroup>
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win" Version="19.1.4" />
+</ItemGroup></Project>

@@ -13,64 +13,22 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.7.2" />
-  </ItemGroup>
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win" Version="19.1.4" />
+</ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Export">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Export.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Printing.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraEditors.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraPrinting.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraGrid.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraWizard.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraWizard.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="WindowsBase" />

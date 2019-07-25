@@ -32,8 +32,8 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            moduleManager.Extend(Predefined.TreeList,configuration => configuration.MapName=TreeListMapName);
-            moduleManager.Extend(Predefined.TreeListColumn,configuration => configuration.MapName=TreeListColumnMapName);
+            moduleManager.Extend(PredefinedMap.TreeList,configuration => configuration.MapName=TreeListMapName);
+            moduleManager.Extend(PredefinedMap.TreeListColumn,configuration => configuration.MapName=TreeListColumnMapName);
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){

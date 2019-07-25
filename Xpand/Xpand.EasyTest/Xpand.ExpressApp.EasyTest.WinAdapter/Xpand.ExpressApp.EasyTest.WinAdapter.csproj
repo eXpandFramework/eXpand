@@ -19,60 +19,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fasterflect.Netstandard" Version="1.0.9" />
-  </ItemGroup>
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.RichEdit" Version="19.1.4" />
+</ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.EasyTest.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.EasyTest.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.EasyTest.WinAdapter.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.EasyTest.WinAdapter.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraEditors.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraPrinting.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraGrid.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraLayout.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraLayout.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraRichEdit.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraRichEdit.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.EasyTest">
       <HintPath>..\..\..\Xpand.Dll\Xpand.EasyTest.dll</HintPath>

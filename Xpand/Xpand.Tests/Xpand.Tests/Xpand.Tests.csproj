@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -73,90 +73,6 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.RichEdit.v19.1.Export">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Export.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v19.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Printing.v19.1.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.AuditTrail.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.AuditTrail.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.CloneObject.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.CloneObject.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.BaseImpl.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Docs.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Docs.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Web.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Web.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraPrinting.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.XtraGrid.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraGrid.v19.1.dll</HintPath>
-    </Reference>
     <Reference Include="Machine.Specifications, Version=0.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Support\_third_party_assemblies\Machine.Specifications.dll</HintPath>
@@ -486,4 +402,26 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-</Project>
+<ItemGroup xmlns="">
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.AuditTrail" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.CloneObject" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Document.Processor" Version="19.1.4" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.4" />
+</ItemGroup></Project>

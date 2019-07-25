@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" />
   <Import Project="..\..\..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.1.0\build\net20\xunit.runner.visualstudio.props')" />
@@ -54,38 +54,6 @@
   <ItemGroup>
     <Reference Include="Castle.Core, Version=4.1.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\..\Support\_third_party_assemblies\Packages\Castle.Core.4.1.1\lib\net40\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
     </Reference>
     <Reference Include="FluentAssertions, Version=4.19.4.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
       <HintPath>..\..\Support\_third_party_assemblies\Packages\FluentAssertions.4.19.4\lib\net40\FluentAssertions.dll</HintPath>
@@ -225,4 +193,13 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
-</Project>
+<ItemGroup xmlns="">
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
+</ItemGroup></Project>

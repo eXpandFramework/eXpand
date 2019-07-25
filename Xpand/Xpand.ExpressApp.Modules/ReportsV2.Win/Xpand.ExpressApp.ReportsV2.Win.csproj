@@ -13,88 +13,28 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.ReportsV2.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Charts.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Charts" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Charts" Version="19.1.4" />
+    <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.CodeParser" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils.UI" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Reporting.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Reporting" Version="19.1.4" />
+</ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.ExpressApp.ReportsV2.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ReportsV2.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ReportsV2.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ReportsV2.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Export">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Export.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Office.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Office.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.RichEdit.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.RichEdit.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Printing.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Printing.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraPrinting.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraPrinting.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Charts.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Charts.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v19.1.Wizard">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraCharts.v19.1.Wizard.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraCharts.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraCharts.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.PivotGrid.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.PivotGrid.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Sparkline.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Sparkline.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.CodeParser.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.CodeParser.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1.UI">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.UI.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraReports.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraReports.v19.1.Extensions">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraReports.v19.1.Extensions.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.Reports">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Reports.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

@@ -16,130 +16,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.DataAccess.v19.1.UI">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.DataAccess.v19.1.UI.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Sparkline.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Sparkline.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Dashboard.v19.1.Core">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v19.1.Core.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1.UI">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.UI.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Dashboard.v19.1.Win">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Dashboard.v19.1.Win.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Data.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Data.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.DataAccess.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.DataAccess.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Chart.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Chart.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Chart.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ConditionalAppearance.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ConditionalAppearance.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.PivotChart.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotChart.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.PivotChart.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.PivotGrid.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.PivotGrid.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.PivotGrid.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Scheduler.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Scheduler.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Scheduler.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.TreeListEditors.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.TreeListEditors.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Validation.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Validation.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.ViewVariantsModule.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.ViewVariantsModule.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Win.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Win.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Security.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Security.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.ExpressApp.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.ExpressApp.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.Base.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.Base.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Persistent.BaseImpl.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Persistent.BaseImpl.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Utils.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Utils.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.Xpo.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.Xpo.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraBars.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraBars.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraEditors.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraEditors.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="DevExpress.XtraNavBar.v19.1">
-      <HintPath>..\..\..\Xpand.Dll\DevExpress.XtraNavBar.v19.1.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
     <Reference Include="System.configuration">
       <Private>False</Private>
     </Reference>
@@ -279,4 +155,36 @@
   <ItemGroup>
     <ProjectReference Include="..\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj" />
   </ItemGroup>
-</Project>
+<ItemGroup>
+    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils.UI" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Dashboard" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
+    <PackageReference Include="DevExpress.DataAccess" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Chart" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Chart.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotChart.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotGrid" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotGrid.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.TreeListEditors" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Win" Version="19.1.4" />
+</ItemGroup></Project>
