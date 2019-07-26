@@ -37,7 +37,7 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win" Version="19.1.4" />
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.30" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.31" />
     <PackageReference Include="DevExpress.Win.RichEdit" Version="19.1.4" />
   </ItemGroup>
   <ItemGroup>

@@ -13,13 +13,13 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.33" />
+    <PackageReference Include="Xpand.VersionConverter" Version="1.0.34" />
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.31" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.32" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">
