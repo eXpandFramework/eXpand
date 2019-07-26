@@ -11,41 +11,15 @@ using Process = System.Diagnostics.Process;
 namespace Xpand.VSIX.ModelEditor {
     public class ModelEditorRunner {
         private readonly DTE2 _dte = DteExtensions.DTE;
+        public static string MePath { get; set; }
+
         public void Start(ProjectItemWrapper projectItemWrapper) {
             string outputFileName = projectItemWrapper.OutputFileName;
             
-            string path = GetPath();
+            string path = MePath;
             if (path != null) StartMEProcess(projectItemWrapper, outputFileName, path);
         }
 
-        private string GetPath(){
-            var mePaths = OptionClass.Instance.MEs.Where(me => File.Exists(me.Path)).ToArray();
-            foreach (var me in mePaths){
-                var assembly = Mono.Cecil.AssemblyDefinition.ReadAssembly(me.Path);
-                var versionMatch = assembly.VersionMatch(false);
-                if (versionMatch){
-                    return me.Path;
-                }
-            }
-            
-            if (!mePaths.Any()){
-                _dte.WriteToOutput("Use setting to add at least one model editor path for each major version");
-                return null;
-            }
-            
-
-            var versionMissMatchPaths = mePaths.Where(me => File.Exists(me.Path)).Select(me => me.Path).ToArray();
-            var versionMissMatchMessage = versionMissMatchPaths.Any()
-                ? "Version missmatch for:" + Environment.NewLine +
-                  string.Join(Environment.NewLine, versionMissMatchPaths) + Environment.NewLine
-                : null;
-            var fileNotFoundPaths = mePaths.Where(me => !File.Exists(me.Path)).Select(me => me.Path).ToArray();
-            var fileNotFoundMessage = fileNotFoundPaths.Any()
-                ? "File not found:" + Environment.NewLine + string.Join(Environment.NewLine, fileNotFoundPaths)
-                : null;
-            _dte.WriteToOutput(versionMissMatchMessage + fileNotFoundMessage);
-            return null;
-        }
 
         void StartMEProcess(ProjectItemWrapper projectItemWrapper, string outputFileName, string path) {
             try{

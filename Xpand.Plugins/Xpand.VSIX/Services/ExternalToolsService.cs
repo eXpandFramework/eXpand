@@ -59,9 +59,12 @@ namespace Xpand.VSIX.Services {
 
         private static void SolutionEventsOnAfterClosing(){
             InvokePendingOnSave();
-            _referencesEvents.ReferenceAdded -= DTEEventsOnReferenceAdded;
-            _referencesEvents.ReferenceChanged -= DTEEventsOnReferenceChanged;
-            _referencesEvents.ReferenceRemoved -= ReferencesEventsOnReferenceRemoved;
+            if (_referencesEvents != null) {
+                _referencesEvents.ReferenceAdded -= DTEEventsOnReferenceAdded;
+                _referencesEvents.ReferenceChanged -= DTEEventsOnReferenceChanged;
+                _referencesEvents.ReferenceRemoved -= ReferencesEventsOnReferenceRemoved;
+            }
+
             InvokeTool(DTEEvent.SolutionAfterClosing);
         }
 

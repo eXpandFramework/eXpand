@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DevExpress.DXCore.Controls.XtraGrid;
 using EnvDTE;
 using EnvDTE80;
+using Mono.Cecil;
 using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.ModelEditor {
@@ -34,7 +36,45 @@ namespace Xpand.VSIX.ModelEditor {
                 }
         }
 
-        private static void EventsSolutionEventsOnOpened(){
+        static string ExtractME() {
+            var resourceStream =
+                typeof(ModelToolWindow).Assembly.GetManifestResourceStream(
+                    "Xpand.VSIX.ModelEditor.Xpand.ExpressApp.ModelEditor.exe");
+            var mePath = Path.Combine($"{Path.GetTempPath()}\\XpandModelEditor",
+                $"Xpand.ExpressApp.ModelEditor{DateTime.Now.Ticks}.exe");
+            Debug.Assert(resourceStream != null, "resourceStream != null");
+            var bytes = new byte[(int) resourceStream.Length];
+            resourceStream.Read(bytes, 0, bytes.Length);
+            var directoryName = $"{Path.GetDirectoryName(mePath)}";
+            if (!Directory.Exists(directoryName)) Directory.CreateDirectory(directoryName);
+            File.WriteAllBytes(mePath, bytes);
+
+            using (var assemblyDefinition =
+                AssemblyDefinition.ReadAssembly(mePath, new ReaderParameters {ReadWrite = true})) {
+                var dxVersion = Version.Parse(DteExtensions.DTE.Solution.GetDXVersion(false));
+                DteExtensions.DTE.WriteToOutput($"Patching ME for version {dxVersion}");
+                var moduleDefinition = assemblyDefinition.MainModule;
+                var dxReferences = moduleDefinition.AssemblyReferences.Where(reference =>reference.Name.StartsWith("DevExpress"));
+                foreach (var assemblyNameReference in dxReferences.Where(reference => reference.Version != dxVersion).ToArray()) {
+                    assemblyNameReference.Name=assemblyNameReference.Name.Replace($"{assemblyNameReference.Version.Major}.{assemblyNameReference.Version.Minor}",$"{dxVersion.Major}.{dxVersion.Minor}");
+                    assemblyNameReference.Version = dxVersion;
+                    var newReference = AssemblyNameReference.Parse(assemblyNameReference.FullName);
+                    moduleDefinition.AssemblyReferences.Remove(assemblyNameReference);
+                    
+                    moduleDefinition.AssemblyReferences.Add(newReference);
+                    foreach (var typeReference in moduleDefinition.GetTypeReferences()
+                        .Where(_ => _.Scope == assemblyNameReference).ToArray()) typeReference.Scope = newReference;
+                }
+
+                assemblyDefinition.Write();
+            }
+
+
+            return mePath;
+        }
+
+        private static void EventsSolutionEventsOnOpened() {
+            ModelEditorRunner.MePath = ExtractME();
             SetGridDataSource();
             try{
                 _fileSystemWatchers =GetFileSystemWatchers();

@@ -27,6 +27,7 @@ namespace Xpand.VSIX.Options {
             gridControlConnectionStrings.DataSource = OptionClass.Instance.ConnectionStrings;
             gridControlLoadProjectFromReferenceItem.DataSource = OptionClass.Instance.SourceCodeInfos;
             gridControlME.DataSource = OptionClass.Instance.MEs;
+            gridControlME.Enabled = false;
             gridControlAssemblyFolders.DataSource = OptionClass.Instance.ReferencedAssembliesFolders;
             gridControlExceptions.DataSource = OptionClass.Instance.Exceptions;
             gridControlExternal.DataSource = OptionClass.Instance.ExternalTools;
