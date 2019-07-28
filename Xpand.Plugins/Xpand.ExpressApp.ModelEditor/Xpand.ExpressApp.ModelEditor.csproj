@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ApplicationIcon>App.ico</ApplicationIcon>
     <OutputType>WinExe</OutputType>
