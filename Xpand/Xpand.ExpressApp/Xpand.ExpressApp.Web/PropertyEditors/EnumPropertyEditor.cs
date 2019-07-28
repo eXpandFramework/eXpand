@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (control != null&&ViewEditMode==ViewEditMode.Edit){
                 var listEditItemCollection = ((ASPxComboBox) control).Items;
                 var startitems = listEditItemCollection.ToArray();
-                this.SetupDataSource(startitems, listEditItemCollection, listItem => listItem.Value);
+                ((ObjectView) View).SetupEnumPropertyDataSource(MemberInfo, startitems, listEditItemCollection, listItem => listItem.Value);
             }
         }
 

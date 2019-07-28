@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Linq;
 using DevExpress.Data.Filtering;
-using DevExpress.ExpressApp.Editors;
+using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.General.CustomAttributes {
@@ -11,23 +12,28 @@ namespace Xpand.Persistent.Base.General.CustomAttributes {
     }
 
     public static class EnumPropertyEditorExtensions {
-        public static void SetupDataSource<TControlItem>(this IEnumPropertyEditor editor, TControlItem[] startitems, IList controlItems,Func<TControlItem,object> itemValueSelector){
-            var propertyEditor = ((PropertyEditor) editor);
-            var dataSourcePropertyAttribute = propertyEditor.MemberInfo.FindAttribute<DataSourcePropertyAttribute>();
-            if (dataSourcePropertyAttribute != null && propertyEditor.CurrentObject != null){
-                var member = propertyEditor.MemberInfo.Owner.FindMember(dataSourcePropertyAttribute.DataSourceProperty);
-                var items = ((IEnumerable) member.GetValue(propertyEditor.CurrentObject)).Cast<object>()
+        public static void SetupEnumPropertyDataSource<TControlItem>(this IMemberInfo memberInfo,object objectInstance,IObjectSpace objectSpace,
+            TControlItem[] startitems, IList controlItems, Func<TControlItem, object> itemValueSelector) {
+            
+            var dataSourcePropertyAttribute = memberInfo.FindAttribute<DataSourcePropertyAttribute>();
+            if (dataSourcePropertyAttribute != null && objectInstance != null){
+                var nullableItem = startitems.First(item => itemValueSelector(item)==null);
+                var member = memberInfo.Owner.FindMember(dataSourcePropertyAttribute.DataSourceProperty);
+                var items = ((IEnumerable) member.GetValue(objectInstance)).Cast<object>()
                     .Select(o => startitems.First(item => $"{itemValueSelector(item)}" == $"{o}")).ToArray();
                 controlItems.Clear();
+                if (nullableItem != null) {
+                    controlItems.Add(nullableItem);
+                }
                 foreach (var item in items) {
                     controlItems.Add(item);
                 }
             }
 
-            foreach (var attribute in propertyEditor.ObjectTypeInfo.FindAttributes<EnumFilterAttribute>()){
-                if (attribute.PropertyName == propertyEditor.PropertyName){
+            foreach (var attribute in memberInfo.Owner.FindAttributes<EnumFilterAttribute>()){
+                if (attribute.PropertyName == memberInfo.Name){
                     var isObjectFitForCriteria = attribute.Criteria == null? true
-                        : propertyEditor.View.ObjectSpace.IsObjectFitForCriteria(propertyEditor.MemberInfo.MemberType, propertyEditor.CurrentObject,
+                        : objectSpace.IsObjectFitForCriteria(memberInfo.MemberType, objectInstance,
                             CriteriaOperator.Parse(attribute.Criteria));
                     if (isObjectFitForCriteria.HasValue && isObjectFitForCriteria.Value){
                         var items = dataSourcePropertyAttribute == null ? startitems : controlItems.Cast<TControlItem>().ToArray();
