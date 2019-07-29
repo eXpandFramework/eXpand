@@ -81,7 +81,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
 
 
         private void ObjectSpaceOnObjectChanged(object sender, ObjectChangedEventArgs e) {
-            if (e.MemberInfo != null && e.MemberInfo != MemberInfo && Control != null) {
+            if ((e.MemberInfo != null && e.MemberInfo != MemberInfo||e.PropertyName!=null&&e.PropertyName!=PropertyName)&& Control != null) {
                 FilterRepositoryItem(Control.Properties,MemberInfo,CurrentObject,_objectSpace, _itemsData);
             }
         }
