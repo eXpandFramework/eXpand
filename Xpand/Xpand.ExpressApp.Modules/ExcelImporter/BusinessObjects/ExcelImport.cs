@@ -72,6 +72,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         string _autoImportFrom;
         [InvisibleInAllViews]
+        [Size(SizeAttribute.Unlimited)]
         public string AutoImportFrom{
             get => _autoImportFrom;
             set => SetPropertyValue(nameof(AutoImportFrom), ref _autoImportFrom, value);
