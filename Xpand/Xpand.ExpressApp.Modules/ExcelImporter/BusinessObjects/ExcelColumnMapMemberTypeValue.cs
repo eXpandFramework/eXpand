@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         protected override void OnChanged(string propertyName, object oldValue, object newValue) {
             base.OnChanged(propertyName, oldValue, newValue);
             if (propertyName == nameof(Type)) {
-                _propertyType = XafTypesInfo.Instance.FindTypeInfo(Type).Type;
+                _propertyType = XafTypesInfo.Instance.FindTypeInfo(PropertyType).Type;
                 _type = CaptionHelper.GetClassCaption(_propertyType.FullName);
             }
         }
