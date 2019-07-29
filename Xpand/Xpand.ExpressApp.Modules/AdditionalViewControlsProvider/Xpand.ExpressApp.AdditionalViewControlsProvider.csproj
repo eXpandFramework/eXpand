@@ -13,6 +13,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.34" />
     <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.4" />
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />

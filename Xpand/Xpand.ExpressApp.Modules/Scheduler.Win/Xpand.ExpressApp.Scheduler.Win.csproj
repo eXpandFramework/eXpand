@@ -12,6 +12,9 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fasterflect.Netstandard">
+      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
+    </Reference>
     <Reference Include="Xpand.ExpressApp.Scheduler">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Scheduler.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
