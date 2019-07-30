@@ -84,10 +84,15 @@ namespace Xpand.Persistent.Base.General {
         private List<KeyValuePair<string, ModelDifferenceStore>> _extraDiffStores;
         private bool _loggedOn;
         private static readonly TypesInfo AdditionalTypesTypesInfo;
+        private static readonly string NetstandardPath;
         public event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
 
         static XpandModuleBase(){
             AdditionalTypesTypesInfo=new TypesInfo();
+            NetstandardPath = $@"{ApplicationPath()}\netstandard.dll";
+            using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
+                manifestResourceStream.SaveToFile(NetstandardPath);
+            }
         }
 
         protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
@@ -545,8 +550,15 @@ namespace Xpand.Persistent.Base.General {
             XafTypesInfo.Instance.LoadTypes(typeof(XpandModuleBase).Assembly);
         }
 
+        static string ApplicationPath(){
+            var setupInformation = AppDomain.CurrentDomain.SetupInformation;
+            return setupInformation.PrivateBinPath??setupInformation.ApplicationBase;
+        }
+
         public override void Setup(XafApplication application) {
             lock (XafTypesInfo.Instance) {
+                
+                application.AddModelReferences(NetstandardPath);
                 if (RuntimeMode && ((TypesInfo)XafTypesInfo.Instance).FindEntityStore(typeof(XpoTypeInfoSource)) == null) {
                     XpoTypesInfoHelper.ForceInitialize();
                     new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo).AssignAsPersistentEntityStore();

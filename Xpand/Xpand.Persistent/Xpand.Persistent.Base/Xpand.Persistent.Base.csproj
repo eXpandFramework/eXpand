@@ -154,4 +154,12 @@
     <Compile Remove="Validation\ConditionalRequired\ConditionalIsRequiredAttribute.cs" />
     <Compile Remove="Validation\ConditionalRequired\RuleConditionalRequired.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\netstandard.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\netstandard.dll">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 </Project>

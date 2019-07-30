@@ -13,6 +13,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         private readonly Subject<FileDropped> _pollResults = new Subject<FileDropped>();
         private readonly SearchOption _searchOption;
         private readonly ObservableFileSystemWatcher _watcher;
+        private bool _monitoring;
 
         public FileDropWatcher(string path, string filter, SearchOption searchOption = SearchOption.TopDirectoryOnly){
             _searchOption = searchOption;
@@ -30,21 +31,25 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             Dropped = creates
                 .Merge(renames)
                 .Merge(_pollResults)
-                .Where(dropped => Regex.IsMatch(dropped.Name, filter));
+                .Where(dropped => Regex.IsMatch(dropped.Name, filter))
+                .Finally(() => { });
         }
 
         public IObservable<FileDropped> Dropped{ get; }
+        public bool Monitoring => _monitoring;
 
         public void Dispose(){
             _watcher.Dispose();
         }
 
-        public void Start(){
+        public void Start() {
             _watcher.Start();
+            _monitoring = true;
         }
 
         public void Stop(){
             _watcher.Stop();
+            _monitoring = false;
         }
 
         

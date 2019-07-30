@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
 using JetBrains.Annotations;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
@@ -18,9 +20,10 @@ using Xpand.XAF.Modules.Reactive.Services;
 namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
     public static class AutoImportService {
         static readonly Subject<(ExcelImport, FileDropped)> DroppedSubject=new Subject<(ExcelImport, FileDropped)>();
-        
 
-        internal static IObservable<(ExcelImport excelImport, FileDropped fileDropped, FileDropWatcher watcher)> TraceDroppedFiles(this IObservable<(ExcelImport excelImport, FileDropped fileDropped, FileDropWatcher watcher)> source,XafApplication application) {
+
+        internal static IObservable<(ExcelImport excelImport, FileDropped fileDropped, FileDropWatcher watcher)>
+            TraceDroppedFiles(this IObservable<(ExcelImport excelImport, FileDropped fileDropped, FileDropWatcher watcher)> source,XafApplication application) {
             return source.Do(_ => DroppedSubject.OnNext((_.excelImport, _.fileDropped)))
                 .Where(_ => _.excelImport.WhereCanAutoImport(application).Any());
         }
@@ -28,45 +31,45 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
         internal static IObservable<Unit> Connect(this XafApplication application) {
             var modified = application.WhenDetailViewCreated()
                 .Select(_ => _.e.View).Where(_ => _.ObjectTypeInfo.Type == typeof(ExcelImport))
-                .SelectMany(_ => _.ObjectSpace.WhenCommited().Select(tuple => (ExcelImport) _.CurrentObject));
-
+                .SelectMany(_ => _.ObjectSpace.WhenCommited().Select(tuple => (ExcelImport) _.CurrentObject)).Publish().RefCount();
+            
+            
             var existingCanAutoImport = application.WhenSetupComplete()
-                .SelectMany(_ => Observable.Using(() => application.CreateObjectSpace(typeof(ExcelImport)),objectSpace => objectSpace.GetObjectsQuery<ExcelImport>().WhereCanAutoImport().ToObservable()));
+                .SelectMany(_ => Observable.Using(() => application.CreateObjectSpace(typeof(ExcelImport)),
+                    objectSpace => objectSpace.GetObjectsQuery<ExcelImport>().WhereCanAutoImport().ToObservable()));
 
-            var modifiedCanAutoImport = modified.SelectMany(_ => _.WhereCanAutoImport(application))
-                .Select(import => import);
-
-            var distinctCanAutoImport = modifiedCanAutoImport.Merge(existingCanAutoImport).Distinct(_ => _.Oid);
-
-            var excelImportFileDrops = distinctCanAutoImport
-                .SelectMany(_ => Observable.Using(
-                    () => {
-                        var fileDropWatcher = new FileDropWatcher(_.AutoImportFrom, _.AutoImportRegex, _.AutoImportSearchType);
-                        fileDropWatcher.Start();
-                        return fileDropWatcher;
-                    },
-                    watcher => {
-                        var importDroppedCanAutoImport = watcher.Dropped
-                            .Select(fileDropped => (excelImport:_,fileDropped,watcher));
-                        return Observable.Start(watcher.PollExisting).CombineLatest(importDroppedCanAutoImport,(unit, tuple) => tuple);
-                    }))
-                .Publish();
-            excelImportFileDrops.Connect();
-
-            var pollExisting = modifiedCanAutoImport
-                .WithLatestFrom(excelImportFileDrops.Select(_ => _.watcher).Distinct(), (import,watcher) => (import,watcher))
-                .Where(_ => _.import.WhereCanAutoImport(application).Any())
-                .Select(_ => _.watcher)
-                .Do(_ => _.PollExisting())
+            var watchers = existingCanAutoImport
+                .Merge(modified.SelectMany(_ => _.WhereCanAutoImport(application)))
+                .Distinct(_ => _.Oid)
+                .Select(_ => {
+                    var watcher = new FileDropWatcher(_.AutoImportFrom, _.AutoImportRegex, _.AutoImportSearchType);
+                    watcher.Start();
+                    return (watcher,excelImport:_);
+                })
+                .Replay();
+            watchers.Connect();
+            var startedWatchers=modified.SelectMany(_ => _.WhereCanAutoImport(application))
+                .SelectMany(import => watchers.Where(_ => _.excelImport.Oid==import.Oid&&!_.watcher.Monitoring).Do(_ => _.watcher.Start())).Publish().RefCount();
+            var changeWathersMonitoring = startedWatchers
+                .Merge(modified.Where(_ => string.IsNullOrEmpty(_.AutoImportFrom)||!Directory.Exists(_.AutoImportFrom))
+                    .SelectMany(import => watchers.Where(_ => _.excelImport.Oid==import.Oid&&_.watcher.Monitoring).Do(_ => _.watcher.Stop())))
                 .ToUnit();
 
-            return excelImportFileDrops
-                .TraceDroppedFiles(application)
-                .Do(_ => application.Import(_.fileDropped, (_.excelImport.Oid,_.watcher)))
-                .ToUnit()
-                .Merge(DroppedSubject.Do(_ => AddDroppedFiles(_,application)).ToUnit())
-                .Catch<Unit,Exception>(exception => Unit.Default.AsObservable().ObserveOn(((Control) application.MainWindow.Template)).SelectMany(_ => Observable.Empty<Unit>()))
-                .Merge(pollExisting)
+            var excelImportFileDrops = watchers.SelectMany(_ => _.watcher.Dropped.Select(fileDropped => (_.excelImport,fileDropped,_.watcher))).Publish().RefCount();
+                            
+            var pollExisting = watchers.Merge(startedWatchers)
+                .Do(_ => _.watcher.PollExisting())
+                .ToUnit();
+
+            return application.WhenSetupComplete()
+                    .SelectMany(tuple => excelImportFileDrops
+                        .TraceDroppedFiles(application)
+                        .Select(_ => Observable.Start(() => application.Import(_.fileDropped, (_.excelImport.Oid,_.watcher))))
+                        .Merge(((IModelOptionsAutoImportConcurrencyLimit) application.Model.Options).ImportConcurrencyLimit).ToUnit()
+                        .Merge(DroppedSubject.Do(_ => AddDroppedFiles(_,application)).ToUnit())
+                        .Catch<Unit,Exception>(exception => Unit.Default.AsObservable().ObserveOn(((Control) application.MainWindow.Template)).SelectMany(_ => Observable.Empty<Unit>()))
+                        .Merge(pollExisting)
+                        .Merge(changeWathersMonitoring))
                 ;
         }
 
@@ -125,12 +128,9 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
                     importNotification.NotificationMessage = notificationMessage;
                     importNotification.AlarmTime = DateTime.Now;
                 }
-
-                if (!application.Execute(tuple, excelImport, space => objectSpace.CommitChanges(),
-                    $"Exception when importing {excelImport.Name} - {{0}}"))
-                    return;
                 autoImportedFile.EndTime = DateTime.Now;
-                objectSpace.CommitChanges();
+
+                application.Execute(tuple, excelImport, space => objectSpace.CommitChanges(),$"Exception when importing {excelImport.Name} - {{0}}");
             }
         }
 
@@ -173,15 +173,13 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
 
         private static SkipAutoImportReason SkipAutoImportReason(this ExcelImport excelImport, DateTime creationTime, FileDropped fileDropped) {
             var isAlreadyImported = excelImport.AutoImportedFiles.Any(file =>
-                file.Succeded&&
-                file.FileName.ToLower() == fileDropped.Name.ToLower() &&
-                file.CreationTime.ToString(CultureInfo.InvariantCulture) ==
+                file.Succeded == true && file.FileName.ToLower() == fileDropped.Name.ToLower() && file.CreationTime.ToString(CultureInfo.InvariantCulture) ==
                 creationTime.ToString(CultureInfo.InvariantCulture));
             if (isAlreadyImported)
                 return ExcelImporter.BusinessObjects.SkipAutoImportReason.AlreadImported;
             if (excelImport.StopAutoImportOnFailure) {
                 var lastImportedFile = excelImport.AutoImportedFiles.OrderByDescending(_ => _.EndTime).FirstOrDefault(file => file.FileName==fileDropped.Name);
-                if (lastImportedFile!=null&&!lastImportedFile.Succeded)
+                if (lastImportedFile?.Succeded != null && !lastImportedFile.Succeded.Value)
                     return ExcelImporter.BusinessObjects.SkipAutoImportReason.StopAutoImportOnFailure;
             }
             return ExcelImporter.BusinessObjects.SkipAutoImportReason.None;
@@ -189,4 +187,15 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
 
     }
 
+    public interface IModelOptionsAutoImportConcurrencyLimit {
+        [Category("eXpand.ExcelImporter")]
+        int ImportConcurrencyLimit { get; set; }
+    }
+
+    [DomainLogic(typeof(IModelOptionsAutoImportConcurrencyLimit))]
+    public class ModelOptionsAutoImportConcurrencyLimitLogic{
+        public static int Get_ImportConcurrencyLimit(IModelOptionsAutoImportConcurrencyLimit limit) {
+            return Environment.ProcessorCount;
+        }
+    }
 }

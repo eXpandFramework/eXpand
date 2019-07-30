@@ -17,9 +17,9 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             set => SetPropertyValue(nameof(ExcelImport), ref _excelImport, value);
         }
 
-        bool _succeded;
+        bool? _succeded;
 
-        public bool Succeded{
+        public bool? Succeded{
             get => _succeded;
             set => SetPropertyValue(nameof(Succeded), ref _succeded, value);
         }

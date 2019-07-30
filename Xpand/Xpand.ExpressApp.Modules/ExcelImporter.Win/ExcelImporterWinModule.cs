@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Reactive.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.FileAttachments.Win;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Notifications;
 using DevExpress.ExpressApp.Notifications.Win;
 using DevExpress.ExpressApp.SystemModule;
@@ -11,7 +12,6 @@ using DevExpress.ExpressApp.Validation.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Utils;
 using Xpand.ExpressApp.ExcelImporter.Win.BusinessObjects;
-using Xpand.ExpressApp.ExcelImporter.Win.Controllers;
 using Xpand.ExpressApp.ExcelImporter.Win.Services;
 using Xpand.ExpressApp.Validation.Win;
 using Xpand.ExpressApp.Win.SystemModule;
@@ -36,6 +36,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Win {
             RequiredModuleTypes.Add(typeof(NotificationsWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ReactiveModule));
+        }
+
+        public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            base.ExtendModelInterfaces(extenders);
+            extenders.Add<IModelOptions,IModelOptionsAutoImportConcurrencyLimit>();
         }
 
         public override void Setup(XafApplication application) {

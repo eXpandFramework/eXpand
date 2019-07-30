@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Notifications;
 using DevExpress.ExpressApp.Validation;
-using DevExpress.ExpressApp.Xpo;
 using DevExpress.Utils;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.ExpressApp.SystemModule;
@@ -19,6 +15,7 @@ using Xpand.XAF.Modules.AutoCommit;
 using Xpand.XAF.Modules.CloneModelView;
 using Xpand.XAF.Modules.HideToolBar;
 using Xpand.XAF.Modules.MasterDetail;
+using Xpand.XAF.Modules.ProgressBarViewItem;
 using Xpand.XAF.Modules.SuppressConfirmation;
 using Xpand.XAF.Modules.ViewEditMode;
 
@@ -34,24 +31,14 @@ namespace Xpand.ExpressApp.ExcelImporter {
             RequiredModuleTypes.Add(typeof(NotificationsModule));
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
-//            RequiredModuleTypes.Add(typeof(XpandValidationModule));
-//            RequiredModuleTypes.Add(typeof(MasterDetailModule));
-//            RequiredModuleTypes.Add(typeof(AutoCommitModule));
-//            RequiredModuleTypes.Add(typeof(ViewEditModeModule));
-//            RequiredModuleTypes.Add(typeof(SuppressConfirmationModule));
-//            RequiredModuleTypes.Add(typeof(CloneModelViewModule));
-//            RequiredModuleTypes.Add(typeof(HideToolBarModule));
-//            RequiredModuleTypes.Add(typeof(Xpand.XAF.Modules.ProgressBarViewItem.ProgressBarViewItemModule));
-        }
-
-        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
-            base.CustomizeTypesInfo(typesInfo);
-            CalculatedPersistentAliasHelper.CustomizeTypesInfo(typesInfo);
-        }
-
-        protected override IEnumerable<Type> GetDeclaredControllerTypes() {
-//            return base.GetDeclaredControllerTypes();
-return Enumerable.Empty<Type>();
+            RequiredModuleTypes.Add(typeof(XpandValidationModule));
+            RequiredModuleTypes.Add(typeof(MasterDetailModule));
+            RequiredModuleTypes.Add(typeof(AutoCommitModule));
+            RequiredModuleTypes.Add(typeof(ViewEditModeModule));
+            RequiredModuleTypes.Add(typeof(SuppressConfirmationModule));
+            RequiredModuleTypes.Add(typeof(CloneModelViewModule));
+            RequiredModuleTypes.Add(typeof(HideToolBarModule));
+            RequiredModuleTypes.Add(typeof(ProgressBarViewItemModule));
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {
