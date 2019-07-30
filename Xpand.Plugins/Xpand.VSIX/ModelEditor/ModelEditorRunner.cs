@@ -17,7 +17,10 @@ namespace Xpand.VSIX.ModelEditor {
             string outputFileName = projectItemWrapper.OutputFileName;
             
             string path = MePath;
-            if (path != null) StartMEProcess(projectItemWrapper, outputFileName, path);
+            if (path == null) {
+                path = GridHelper.ExtractME();
+            }
+            StartMEProcess(projectItemWrapper, outputFileName, path);
         }
 
 

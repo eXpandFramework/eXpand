@@ -36,41 +36,48 @@ namespace Xpand.VSIX.ModelEditor {
                 }
         }
 
-        static string ExtractME() {
-            var resourceStream =
-                typeof(ModelToolWindow).Assembly.GetManifestResourceStream(
-                    "Xpand.VSIX.ModelEditor.Xpand.ExpressApp.ModelEditor.exe");
-            var mePath = Path.Combine($"{Path.GetTempPath()}\\XpandModelEditor",
-                $"Xpand.ExpressApp.ModelEditor{DateTime.Now.Ticks}.exe");
-            Debug.Assert(resourceStream != null, "resourceStream != null");
-            var bytes = new byte[(int) resourceStream.Length];
-            resourceStream.Read(bytes, 0, bytes.Length);
-            var directoryName = $"{Path.GetDirectoryName(mePath)}";
-            if (!Directory.Exists(directoryName)) Directory.CreateDirectory(directoryName);
-            File.WriteAllBytes(mePath, bytes);
+        public static string ExtractME() {
+            try {
+                var resourceStream =
+                    typeof(ModelToolWindow).Assembly.GetManifestResourceStream(
+                        "Xpand.VSIX.ModelEditor.Xpand.ExpressApp.ModelEditor.exe");
+                var mePath = Path.Combine($"{Path.GetTempPath()}\\XpandModelEditor",
+                    $"Xpand.ExpressApp.ModelEditor{DateTime.Now.Ticks}.exe");
+                Debug.Assert(resourceStream != null, "resourceStream != null");
+                var bytes = new byte[(int) resourceStream.Length];
+                resourceStream.Read(bytes, 0, bytes.Length);
+                var directoryName = $"{Path.GetDirectoryName(mePath)}";
+                if (!Directory.Exists(directoryName)) Directory.CreateDirectory(directoryName);
+                File.WriteAllBytes(mePath, bytes);
 
-            using (var assemblyDefinition =
-                AssemblyDefinition.ReadAssembly(mePath, new ReaderParameters {ReadWrite = true})) {
-                var dxVersion = Version.Parse(DteExtensions.DTE.Solution.GetDXVersion(false));
-                DteExtensions.DTE.WriteToOutput($"Patching ME for version {dxVersion}");
-                var moduleDefinition = assemblyDefinition.MainModule;
-                var dxReferences = moduleDefinition.AssemblyReferences.Where(reference =>reference.Name.StartsWith("DevExpress"));
-                foreach (var assemblyNameReference in dxReferences.Where(reference => reference.Version != dxVersion).ToArray()) {
-                    assemblyNameReference.Name=assemblyNameReference.Name.Replace($"{assemblyNameReference.Version.Major}.{assemblyNameReference.Version.Minor}",$"{dxVersion.Major}.{dxVersion.Minor}");
-                    assemblyNameReference.Version = dxVersion;
-                    var newReference = AssemblyNameReference.Parse(assemblyNameReference.FullName);
-                    moduleDefinition.AssemblyReferences.Remove(assemblyNameReference);
+                using (var assemblyDefinition =
+                    AssemblyDefinition.ReadAssembly(mePath, new ReaderParameters {ReadWrite = true})) {
+                    var dxVersion = Version.Parse(DteExtensions.DTE.Solution.GetDXVersion(false));
+                    DteExtensions.DTE.WriteToOutput($"Patching ME for version {dxVersion}");
+                    var moduleDefinition = assemblyDefinition.MainModule;
+                    var dxReferences = moduleDefinition.AssemblyReferences.Where(reference =>reference.Name.StartsWith("DevExpress"));
+                    foreach (var assemblyNameReference in dxReferences.Where(reference => reference.Version != dxVersion).ToArray()) {
+                        assemblyNameReference.Name=assemblyNameReference.Name.Replace($"{assemblyNameReference.Version.Major}.{assemblyNameReference.Version.Minor}",$"{dxVersion.Major}.{dxVersion.Minor}");
+                        assemblyNameReference.Version = dxVersion;
+                        var newReference = AssemblyNameReference.Parse(assemblyNameReference.FullName);
+                        moduleDefinition.AssemblyReferences.Remove(assemblyNameReference);
                     
-                    moduleDefinition.AssemblyReferences.Add(newReference);
-                    foreach (var typeReference in moduleDefinition.GetTypeReferences()
-                        .Where(_ => _.Scope == assemblyNameReference).ToArray()) typeReference.Scope = newReference;
+                        moduleDefinition.AssemblyReferences.Add(newReference);
+                        foreach (var typeReference in moduleDefinition.GetTypeReferences()
+                            .Where(_ => _.Scope == assemblyNameReference).ToArray()) typeReference.Scope = newReference;
+                    }
+
+                    assemblyDefinition.Write();
                 }
 
-                assemblyDefinition.Write();
+
+                return mePath;
             }
-
-
-            return mePath;
+            catch (Exception e) {
+                DteExtensions.DTE.LogError(e.ToString());
+                DteExtensions.DTE.WriteToOutput(e.ToString());
+                throw;
+            }
         }
 
         private static void EventsSolutionEventsOnOpened() {
