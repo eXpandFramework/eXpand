@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DevExpress.DXCore.Controls.Utils;
+using DevExpress.Utils;
 using Mono.Cecil;
 using PropertyChanged;
 using Xpand.VSIX.Extensions;

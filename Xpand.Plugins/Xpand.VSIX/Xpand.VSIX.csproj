@@ -86,11 +86,9 @@
     <Compile Include="Extensions\ReverseLineReader.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ModelEditor\GridHelper.cs" />
-    <Compile Include="ModelEditor\METoolWindowControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ModelEditor\METoolWindowControl.Designer.cs">
-      <DependentUpon>METoolWindowControl.cs</DependentUpon>
+    <Compile Include="ModelEditor\METoolWindowControl1.cs" />
+    <Compile Include="ModelEditor\METoolWindowControl1.Designer.cs">
+      <DependentUpon>METoolWindowControl1.cs</DependentUpon>
     </Compile>
     <Compile Include="ModelEditor\ModelEditorRunner.cs" />
     <Compile Include="ModelEditor\ProjectItemWrapper.cs" />
@@ -113,6 +111,12 @@
     </Compile>
     <Compile Include="Commands\ProjectConverterCommand.cs" />
     <Compile Include="Services\ExternalToolsService.cs" />
+    <Compile Include="ModelEditor\METoolWindowControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ModelEditor\METoolWindowControl.Designer.cs">
+      <DependentUpon>METoolWindowControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="VSPackage\VSPackage1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -120,6 +124,10 @@
     </Compile>
     <Compile Include="Wizard\ModulesInstaller.cs" />
     <Compile Include="Wizard\ModuleManager.cs" />
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="ModelEditor\METoolWindowControl.resx">
+      <DependentUpon>METoolWindowControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wizard\Resources\Updater.cs" />
     <EmbeddedResource Include="Wizard\Resources\Updater.vb" />
     <Compile Include="Wizard\SecurityInstaller.cs" />
@@ -180,34 +188,19 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DevExpress.DXCore.Controls.Data.v6.3">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Support\_third_party_assemblies\DevExpress\DevExpress.DXCore.Controls.Data.v6.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.Utils.v6.3">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Support\_third_party_assemblies\DevExpress\DevExpress.DXCore.Controls.Utils.v6.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.XtraEditors.v6.3">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Support\_third_party_assemblies\DevExpress\DevExpress.DXCore.Controls.XtraEditors.v6.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.XtraGrid.v6.3">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Support\_third_party_assemblies\DevExpress\DevExpress.DXCore.Controls.XtraGrid.v6.3.dll</HintPath>
-    </Reference>
-    <Reference Include="DevExpress.DXCore.Controls.XtraLayout.v6.3">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Support\_third_party_assemblies\DevExpress\DevExpress.DXCore.Controls.XtraLayout.v6.3.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="DevExpress.Win">
+      <Version>19.1.4</Version>
+    </PackageReference>
     <PackageReference Include="Fody">
       <Version>4.2.1</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -243,8 +236,8 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ModelEditor\METoolWindowControl.resx">
-      <DependentUpon>METoolWindowControl.cs</DependentUpon>
+    <EmbeddedResource Include="ModelEditor\METoolWindowControl1.resx">
+      <DependentUpon>METoolWindowControl1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Options\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>

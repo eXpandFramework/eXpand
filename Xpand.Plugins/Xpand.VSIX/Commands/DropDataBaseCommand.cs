@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DevExpress.DXCore.Controls.Xpo.DB.Helpers;
+using DevExpress.Xpo.DB.Helpers;
 using EnvDTE;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;

@@ -1,4 +1,11 @@
-﻿namespace Xpand.VSIX.Wizard {
+﻿using DevExpress.Data;
+using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid.Views.Base;
+namespace Xpand.VSIX.Wizard {
     partial class WizardForm {
         /// <summary>
         /// Required designer variable.
@@ -23,12 +30,12 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.gridControl1 = new DevExpress.DXCore.Controls.XtraGrid.GridControl();
-            this.gridView = new DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView();
-            this.gridColumnModule = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
-            this.gridColumnPlatform = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
-            this.gridColumnInstall = new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn();
-            this.repositoryItemCheckEditInstall = new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit();
+            this.gridControl1 = new GridControl();
+            this.gridView = new GridView();
+            this.gridColumnModule = new GridColumn();
+            this.gridColumnPlatform = new GridColumn();
+            this.gridColumnInstall = new GridColumn();
+            this.repositoryItemCheckEditInstall = new RepositoryItemCheckEdit();
             this.buttonFinish = new System.Windows.Forms.Button();
             this.labelMessage = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -44,16 +51,16 @@
             this.gridControl1.Location = new System.Drawing.Point(8, 8);
             this.gridControl1.MainView = this.gridView;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.RepositoryItems.AddRange(new DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItem[] {
+            this.gridControl1.RepositoryItems.AddRange(new RepositoryItem[] {
             this.repositoryItemCheckEditInstall});
             this.gridControl1.Size = new System.Drawing.Size(508, 681);
             this.gridControl1.TabIndex = 12;
-            this.gridControl1.ViewCollection.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Views.Base.BaseView[] {
+            this.gridControl1.ViewCollection.AddRange(new BaseView[] {
             this.gridView});
             // 
             // gridView
             // 
-            this.gridView.Columns.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn[] {
+            this.gridView.Columns.AddRange(new GridColumn[] {
             this.gridColumnModule,
             this.gridColumnPlatform,
             this.gridColumnInstall});
@@ -71,9 +78,9 @@
             this.gridView.OptionsSelection.MultiSelect = true;
             this.gridView.OptionsView.ShowAutoFilterRow = true;
             this.gridView.OptionsView.ShowGroupPanel = false;
-            this.gridView.SortInfo.AddRange(new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumnSortInfo[] {
-            new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumnSortInfo(this.gridColumnPlatform, DevExpress.DXCore.Controls.Data.ColumnSortOrder.Descending),
-            new DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumnSortInfo(this.gridColumnModule, DevExpress.DXCore.Controls.Data.ColumnSortOrder.Ascending)});
+            this.gridView.SortInfo.AddRange(new GridColumnSortInfo[] {
+            new GridColumnSortInfo(this.gridColumnPlatform, ColumnSortOrder.Descending),
+            new GridColumnSortInfo(this.gridColumnModule, ColumnSortOrder.Ascending)});
             // 
             // gridColumnModule
             // 
@@ -81,7 +88,7 @@
             this.gridColumnModule.FieldName = "Module";
             this.gridColumnModule.Name = "gridColumnModule";
             this.gridColumnModule.OptionsColumn.AllowEdit = false;
-            this.gridColumnModule.OptionsFilter.AutoFilterCondition = DevExpress.DXCore.Controls.XtraGrid.Columns.AutoFilterCondition.Contains;
+            this.gridColumnModule.OptionsFilter.AutoFilterCondition = AutoFilterCondition.Contains;
             this.gridColumnModule.Visible = true;
             this.gridColumnModule.VisibleIndex = 1;
             this.gridColumnModule.Width = 446;
@@ -150,12 +157,12 @@
 
         #endregion
 
-        private DevExpress.DXCore.Controls.XtraGrid.GridControl gridControl1;
-        private DevExpress.DXCore.Controls.XtraGrid.Views.Grid.GridView gridView;
-        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnModule;
-        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnPlatform;
-        private DevExpress.DXCore.Controls.XtraGrid.Columns.GridColumn gridColumnInstall;
-        private DevExpress.DXCore.Controls.XtraEditors.Repository.RepositoryItemCheckEdit repositoryItemCheckEditInstall;
+        private GridControl gridControl1;
+        private GridView gridView;
+        private GridColumn gridColumnModule;
+        private GridColumn gridColumnPlatform;
+        private GridColumn gridColumnInstall;
+        private RepositoryItemCheckEdit repositoryItemCheckEditInstall;
         private System.Windows.Forms.Button buttonFinish;
         private System.Windows.Forms.Label labelMessage;
     }

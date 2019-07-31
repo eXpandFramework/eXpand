@@ -3,8 +3,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using DevExpress.DXCore.Controls.XtraEditors.Controls;
-using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraGrid.Views.Grid;
+
 
 namespace Xpand.VSIX.Options {
     public partial class OptionsControl : UserControl {
@@ -12,7 +13,6 @@ namespace Xpand.VSIX.Options {
             InitializeComponent();
             gridView1.KeyDown += GridViewOnKeyDown;
             gridView2.KeyDown += GridViewOnKeyDown;
-            gridView3.KeyDown += GridViewOnKeyDown;
             gridView4.KeyDown += GridViewOnKeyDown;
             gridView5.KeyDown += GridViewOnKeyDown;
             gridView6.KeyDown+=GridViewOnKeyDown;
@@ -26,8 +26,6 @@ namespace Xpand.VSIX.Options {
 
             gridControlConnectionStrings.DataSource = OptionClass.Instance.ConnectionStrings;
             gridControlLoadProjectFromReferenceItem.DataSource = OptionClass.Instance.SourceCodeInfos;
-            gridControlME.DataSource = OptionClass.Instance.MEs;
-            gridControlME.Enabled = false;
             gridControlAssemblyFolders.DataSource = OptionClass.Instance.ReferencedAssembliesFolders;
             gridControlExceptions.DataSource = OptionClass.Instance.Exceptions;
             gridControlExternal.DataSource = OptionClass.Instance.ExternalTools;
@@ -50,7 +48,6 @@ namespace Xpand.VSIX.Options {
             OptionClass.Instance.DteCommands = (BindingList<DteCommand>) gridControlCmdBindings.DataSource;
             OptionClass.Instance.ConnectionStrings = (BindingList<ConnectionString>) gridControlConnectionStrings.DataSource;
             OptionClass.Instance.SourceCodeInfos = (BindingList<SourceCodeInfo>) gridControlLoadProjectFromReferenceItem.DataSource;
-            OptionClass.Instance.MEs = (BindingList<ME>) gridControlME.DataSource;
             OptionClass.Instance.ReferencedAssembliesFolders = (BindingList<ReferencedAssembliesFolder>) gridControlAssemblyFolders.DataSource;
             OptionClass.Instance.Exceptions = (BindingList<ExceptionsBreak>) gridControlExceptions.DataSource;
             OptionClass.Instance.ExternalTools = (BindingList<ExternalTools>) gridControlExternal.DataSource;

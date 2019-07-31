@@ -1,21 +1,23 @@
-using System;
+﻿using System;
 using System.Windows.Forms;
-using DevExpress.DXCore.Controls.XtraGrid;
-using DevExpress.DXCore.Controls.XtraGrid.Views.Grid;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Views.Grid;
 using EnvDTE;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.ModelEditor {
-    
     public partial class METoolWindowControl : UserControl {
         private readonly DTE2 _dte = DteExtensions.DTE;
 
-        public METoolWindowControl(){
+        public METoolWindowControl() {
             InitializeComponent();
             GridHelper.Init(gridControl1);
             gridView1.KeyDown+=GridView1OnKeyDown;
+            gridView1.KeyUp+=gridView1_KeyUp;
+            gridView1.DoubleClick+=gridView1_DoubleClick;
         }
+
 
         private void GridView1OnKeyDown(object sender, KeyEventArgs e){
             var gridView = ((GridView)gridControl1.MainView);

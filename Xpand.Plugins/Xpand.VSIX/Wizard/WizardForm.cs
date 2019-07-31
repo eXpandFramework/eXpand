@@ -9,8 +9,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.DXCore.Controls.XtraGrid;
-using DevExpress.DXCore.Controls.XtraGrid.Columns;
+using DevExpress.XtraGrid;
+using DevExpress.XtraGrid.Columns;
 using Microsoft.Build.Construction;
 using Xpand.VSIX.Extensions;
 
