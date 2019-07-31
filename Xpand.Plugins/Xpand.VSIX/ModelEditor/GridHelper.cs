@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DevExpress.DXCore.Controls.XtraGrid;
+using DevExpress.XtraGrid;
 using EnvDTE;
 using EnvDTE80;
 using Mono.Cecil;
@@ -120,14 +120,14 @@ namespace Xpand.VSIX.ModelEditor {
         }
 
         private static void SetGridDataSource(){
-            List<ProjectItemWrapper> projectWrappers = new List<ProjectItemWrapper>();
+            var projectWrappers = new List<ProjectItemWrapper>();
             Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList())
                 .ContinueWith(task1 => {
                     if (task1.Exception != null){
                         DteExtensions.DTE.LogError(task1.Exception.ToString());
                         DteExtensions.DTE.WriteToOutput(task1.Exception.ToString());
                     }
-                    _gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers);
+                    _gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers.GroupBy(wrapper => wrapper.FullPath).Select(_ => _.First()).ToArray());
                 },_currentSynchronizationContext);
         }
 
