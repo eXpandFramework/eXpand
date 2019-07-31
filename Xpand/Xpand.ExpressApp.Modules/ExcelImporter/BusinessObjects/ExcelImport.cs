@@ -29,6 +29,9 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         public ExcelImport(Session session) : base(session){
         }
 
+        [Association("ExcelImport-ExcelImportKeyMaps")]
+        public XPCollection<ExcelImportKeyMap> KeyMaps => GetCollection<ExcelImportKeyMap>(nameof(KeyMaps));
+
         [Association("ExcelImport-DroppedFiles")]
         [Aggregated]
         [InvisibleInAllViews]

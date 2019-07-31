@@ -69,7 +69,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
                 return objectSpace.CreateObject(importToTypeInfo.Type);
             var valueTuple = importParameters.FirstOrDefault(tuple => {
-                var keyMember = importToTypeInfo.GetKeyMember();
+                var keyMember = importToTypeInfo.GetKeyMember(excelImport);
                 return keyMember != null && tuple.ModelMember.MemberInfo == keyMember;
             });
             if (valueTuple.IsDefault())
@@ -130,9 +130,12 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             return results;
         }
 
-        public static IMemberInfo GetKeyMember(this ITypeInfo typeInfo) {
+        public static IMemberInfo GetKeyMember(this ITypeInfo typeInfo,ExcelImport excelImport) {
             var keyAttribute = typeInfo.FindAttribute<ExcelImportKeyAttribute>();
-            return keyAttribute != null ? typeInfo.FindMember(keyAttribute.MemberName) : typeInfo.DefaultMember;
+            if (keyAttribute != null)
+                return typeInfo.FindMember(keyAttribute.MemberName);
+            var excelImportKey = excelImport.KeyMaps.SelectMany(_ => _.Keys).FirstOrDefault(_ => _.Type==typeInfo.Type);
+            return excelImportKey != null ? typeInfo.FindMember(excelImportKey.Property) : typeInfo.DefaultMember;
         }
 
         private static FailedImportResult Import(object columnValue, ImportParameter importParameter,
@@ -142,7 +145,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             object result;
             
             if (memberTypeInfo.IsPersistent){
-                var keyMember = memberTypeInfo.GetKeyMember();
+                var keyMember = memberTypeInfo.GetKeyMember(excelImport);
                 if (columnValue.TryToChange(keyMember.MemberType, out result)){
                     try {
                         var referenceObject = GetReferenceObject(objectSpace, importParameter,  keyMember, result);

@@ -23,14 +23,15 @@ namespace Xpand.ExpressApp.ExcelImporter {
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class ExcelImporterModule : XpandModuleBase {
+        public const string ExcelImporter = "Xpand.ExcelImporter";
         private NotificationsModule _notificationsModule;
 
         public ExcelImporterModule() {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(NotificationsModule));
-            RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(MasterDetailModule));
             RequiredModuleTypes.Add(typeof(AutoCommitModule));

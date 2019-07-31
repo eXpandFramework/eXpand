@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         [Browsable(false)]
         [RuleFromBoolProperty(TargetContextIDs = "Save;"+ExcelImport.ImportingContext)]
-        public bool KeyMemberExists => !IsPersistentBO || MemberInfo?.MemberTypeInfo.GetKeyMember() != null;
+        public bool KeyMemberExists => !IsPersistentBO || MemberInfo?.MemberTypeInfo.GetKeyMember(ExcelImport) != null;
 
         bool _isPersistentBO;
         [Browsable(false)]
