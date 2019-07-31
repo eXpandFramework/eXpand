@@ -56,6 +56,13 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         [Browsable(false)]
         public bool CanImport => ExcelColumnMaps.All(map => map.MemberTypeValues.Count > 0);
 
+        int? _abortThreshold;
+        [RuleRange(0,100,SkipNullOrEmptyValues = true)]
+        public int? AbortThreshold {
+            get => _abortThreshold;
+            set => SetPropertyValue(nameof(AbortThreshold), ref _abortThreshold, value);
+        }
+
         int _headerRows;
         
         public int HeaderRows{

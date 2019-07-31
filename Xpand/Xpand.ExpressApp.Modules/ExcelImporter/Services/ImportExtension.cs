@@ -103,7 +103,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             public ExcelColumnMap Map { get; set; }
             
         }
-        private static void Import(ExcelImport excelImport, DataRow dataRow, object importToObject, int index,
+        private static List<FailedImportResult> Import(ExcelImport excelImport, DataRow dataRow, object importToObject, int index,
             ImportParameter[] importParameterses, IObjectSpace failedResultsObjectSpace) {
 
             var results=new List<FailedImportResult>();
@@ -126,6 +126,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 failedResult.Index = index;
                 excelImport.FailedResults.Add(excelImport.ObjectSpace.GetObject(failedResult));
             }
+
+            return results;
         }
 
         public static IMemberInfo GetKeyMember(this ITypeInfo typeInfo) {
@@ -134,8 +136,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         private static FailedImportResult Import(object columnValue, ImportParameter importParameter,
-            object importToObject,
-            IObjectSpace objectSpace, IObjectSpace failedResultsObjectSpace,ExcelImport excelImport){
+            object importToObject,IObjectSpace objectSpace, IObjectSpace failedResultsObjectSpace,ExcelImport excelImport){
             
             var memberTypeInfo = importParameter.Map.GetObjectType(columnValue).GetTypeInfo();
             object result;
@@ -341,11 +342,20 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                                    ((IObjectSpaceLink) excelImport).ObjectSpace.FindObject(_.objectType, _.criteria);
                         });
                     if (importToObject != null) {
-                        progress?.OnNext(new ImportObjectProgress(excelImport.Oid, percentage)
-                            {ObjectToImport = importToObject});
-                        Import(excelImport, dataRow, importToObject, index, importParameters, failResultsObjectSpace);
+                        progress?.OnNext(new ImportObjectProgress(excelImport.Oid, percentage){ObjectToImport = importToObject});
+                        var failedResults = Import(excelImport, dataRow, importToObject, index, importParameters, failResultsObjectSpace);
+                        if (failedResults.Any()&&excelImport.AbortThreshold>0) {
+                            if (excelImport.FailedResults.GroupBy(_ => _.Index).Count() * 100 / dataTable.Rows.Count >excelImport.AbortThreshold) {
+                                throw new InvalidOperationException($"{excelImport.Name} {nameof(excelImport.AbortThreshold)} reached.");
+                            }
+                        }
+                    }
+
+                    if (index % 10 == 0) {
+                        excelImport.ObjectSpace.CommitChanges();
                     }
                 }
+
             }
             catch (Exception e) {
                 progress?.OnNext(new ImportProgressException(excelImport.Oid, e, index,
