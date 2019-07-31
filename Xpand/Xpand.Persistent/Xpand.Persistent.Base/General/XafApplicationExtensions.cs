@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,7 +14,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
@@ -25,7 +23,6 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
-using HarmonyLib;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Utils.Helpers;
 using Xpand.Xpo.DB;
@@ -53,23 +50,9 @@ namespace Xpand.Persistent.Base.General {
 
         static  XafApplicationExtensions() {
             DisableObjectSpaceProderCreation = true;
-            var harmony = new Harmony(typeof(XafApplicationExtensions).Namespace);
-            var prefix = typeof(XafApplicationExtensions).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
-            var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
-            harmony.Patch(original, new HarmonyMethod(prefix));
-
         }
         private static readonly object Locker=new object();
-        static readonly ConcurrentBag<string> References=new ConcurrentBag<string>();
-        internal static void ModifyCSCodeCompilerReferences(string sourceCode, ref string[] references, string assemblyFile){
-            references = references.Concat(References).ToArray();
-        }
-
-        public static void AddModelReferences(this XafApplication application, params string[] references) {
-            foreach (var reference in references) {
-                References.Add(reference);
-            }
-        }
+        
 
         public static void ShowView(this XafApplication application, View view) {
             application.ShowViewStrategy.ShowView(new ShowViewParameters(view),new ShowViewSource(application.MainWindow,null) );

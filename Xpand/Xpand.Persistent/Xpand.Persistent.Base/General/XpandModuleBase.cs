@@ -542,6 +542,7 @@ namespace Xpand.Persistent.Base.General {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            moduleManager.AddModelReferences(NetstandardPath);
             OnApplicationModulesManagerSetup(new ApplicationModulesManagerSetupArgs(moduleManager));
             if (Executed("Setup2"))
                 return;
@@ -558,7 +559,7 @@ namespace Xpand.Persistent.Base.General {
         public override void Setup(XafApplication application) {
             lock (XafTypesInfo.Instance) {
                 
-                application.AddModelReferences(NetstandardPath);
+                
                 if (RuntimeMode && ((TypesInfo)XafTypesInfo.Instance).FindEntityStore(typeof(XpoTypeInfoSource)) == null) {
                     XpoTypesInfoHelper.ForceInitialize();
                     new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo).AssignAsPersistentEntityStore();

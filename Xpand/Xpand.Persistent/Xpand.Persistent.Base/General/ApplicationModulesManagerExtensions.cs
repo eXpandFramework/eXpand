@@ -1,13 +1,31 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Utils.Reflection;
 using Fasterflect;
+using HarmonyLib;
 
 namespace Xpand.Persistent.Base.General{
     public static class ApplicationModulesManagerExtensions {
+        static ApplicationModulesManagerExtensions() {
+            var harmony = new Harmony(typeof(ApplicationModulesManagerExtensions).Namespace);
+            var prefix = typeof(ApplicationModulesManagerExtensions).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
+            var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
+            harmony.Patch(original, new HarmonyMethod(prefix));
+        }
+        public static void AddModelReferences(this ApplicationModulesManager _, params string[] references) {
+            foreach (var reference in references) {
+                References.Add(reference);
+            }
+        }
+        static readonly ConcurrentBag<string> References=new ConcurrentBag<string>();
+        internal static void ModifyCSCodeCompilerReferences(string sourceCode, ref string[] references, string assemblyFile){
+            references = references.Concat(References).ToArray();
+        }
         private static void LoadRegularTypesToTypesInfo(ITypesInfo typesInfo,ModuleBase module) {
             IEnumerable<Type> regularTypes = AssemblyHelper.GetTypesFromAssembly(module.GetType().Assembly);
             if (regularTypes != null) {
