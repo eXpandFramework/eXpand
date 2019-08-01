@@ -6,7 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
 using EnvDTE80;
+using Fasterflect;
 using Mono.Cecil;
+using VSLangProj;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Xpand.VSIX.VSPackage;
@@ -59,16 +61,31 @@ namespace Xpand.VSIX.Commands {
                 var uihSolutionExplorer = DTE.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
                 if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
                     throw new Exception("Nothing selected");
-                var references = uihSolutionExplorer.GetReferences( reference => true);
+                
+                object[] objects = uihSolutionExplorer.GetReferences<Reference>( );
+                object[] references = objects;
+                if (!objects.Any()) {
+                    objects = uihSolutionExplorer.GetReferences<object>( );
+                    if (!objects.Any()) {
+                        return;
+                    }
+                    var vsProject = (VSProject) DteExtensions.DTE.Solution.Projects.Cast<Project>().First(project =>
+                        project.Name == (string) objects.First().GetPropertyValue("Project").GetPropertyValue("Name")).Object;
+                
+                    references = objects.Select(o => vsProject.References.Cast<object>().First(_ => (string) _.GetPropertyValue("Name")==(string) o.GetPropertyValue("Name"))).ToArray();
+                }
+
                 foreach (var reference in references){
-                    DTE.WriteToOutput($"Looking for ${reference.Path}");
+                    var path = GetPath(reference);
+                    DTE.WriteToOutput($"Looking for ${path}");
                     var projectInfo = OptionClass.Instance.SourceCodeInfos.SelectMany(info => info.ProjectPaths)
                         .FirstOrDefault(
                             info =>
-                                string.Equals(info.OutputPath, reference.Path, StringComparison.CurrentCultureIgnoreCase) &&
+                                string.Equals(info.OutputPath, path, StringComparison.CurrentCultureIgnoreCase) &&
                                 AssemblyDefinition.ReadAssembly(info.OutputPath).VersionMatch());
+                    var name = GetName(reference);
                     if (projectInfo != null){
-                        DTE.WriteToOutput(reference.Name + " found at " + projectInfo.OutputPath);
+                        DTE.WriteToOutput($"{name} found at " + projectInfo.OutputPath);
                         if (
                             DTE.Solution.Projects()
                                 .All(project => project.FullName != projectInfo.Path)){
@@ -81,13 +98,27 @@ namespace Xpand.VSIX.Commands {
                         }
                     }
                     else{
-                        DTE.WriteToOutput(reference.Name + " not found ");
+                        DTE.WriteToOutput($"{name} not found ");
                     }
                 }
             }
             catch (Exception e){
                 DTE.WriteToOutput(e.ToString());
             }
+        }
+
+        private static string GetName(object obj){
+            if (obj is Reference reference) {
+                return reference.Name;
+            }
+            return $"{obj.GetPropertyValue("Name")}";
+        }
+
+        private static string GetPath(object obj){
+            if (obj is Reference reference) {
+                return reference.Path;
+            }
+            return $"{obj.GetPropertyValue("Path")}";
         }
     }
 }

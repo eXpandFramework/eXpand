@@ -75,7 +75,7 @@ Task PackNuget{
 
 Task VSIX{
     InvokeScript{
-        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version
+        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version $packageSources
     }  
 }
 

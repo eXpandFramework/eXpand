@@ -70,8 +70,7 @@ namespace Xpand.VSIX.Extensions {
                 var uihSolutionExplorer = DteExtensions.DTE.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
                 oleMenuCommand.Enabled = false;
                 if (uihSolutionExplorer?.SelectedItems != null)
-                    oleMenuCommand.Enabled =((UIHierarchyItem[]) uihSolutionExplorer.SelectedItems).Select(item => item.Object as Reference)
-                        .Any(reference => reference != null);
+                    oleMenuCommand.Enabled =((UIHierarchyItem[]) uihSolutionExplorer.SelectedItems).Any(item => item.Object is Reference||item.Object.GetType().Name=="OAReferenceItem");
             };
             return oleMenuCommand;
         }

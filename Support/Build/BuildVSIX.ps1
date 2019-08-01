@@ -2,7 +2,7 @@ Param (
     [string]$XpandFolder=(Get-Item "$PSScriptRoot\..\..").FullName,
     [string]$msbuild="C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\msbuild.exe",
     [string]$DXVersion="0.0.0.0",
-    [string]$Source=(Get-XPackageFeed -Nuget)
+    [string]$Source="$(Get-PackageFeed -Nuget);$(Get-Feed -DX)"
 )
 $ErrorActionPreference = "Stop"
 

@@ -8,6 +8,7 @@ using EnvDTE;
 using EnvDTE80;
 using Microsoft.Build.Construction;
 using Microsoft.Build.Evaluation;
+
 using Microsoft.Win32;
 using Mono.Cecil;
 using VSLangProj;
@@ -81,16 +82,29 @@ namespace Xpand.VSIX.Extensions {
             return isBuildSuccess;
         }
 
-        public static Reference[] GetReferences(this UIHierarchy uiHierarchy, Func<Reference, bool> isFiltered) {
+        public static T[] GetReferences<T>(this UIHierarchy uiHierarchy) where T:class {
             DteExtensions.DTE.SuppressUI = true;
             var references = ((UIHierarchyItem[]) uiHierarchy.SelectedItems).GetItems<UIHierarchyItem>(item => {
-                if (!(item.Object is Reference)) {
+                if (!(item.Object is Reference)&&item.Object.GetType().Name != "OAReferenceItem") {
                     item.UIHierarchyItems.Expanded = true;
                 }
                 return item.UIHierarchyItems.Cast<UIHierarchyItem>();
-            }).Select(item => item.Object).OfType<Reference>().Where(isFiltered).ToArray();
+            }).Select(item => item.Object)
+                .Select(o => {
+                    if (o is Reference reference) {
+                        return reference;
+                    }
+
+                    if (o.GetType().Name == "OAReferenceItem") {
+                        return o;
+                    }
+
+                    return null;
+                })
+                .Where(o => o!=null)
+                .ToArray();
             DteExtensions.DTE.SuppressUI = false;
-            return references;
+            return references.OfType<T>().ToArray();
         }
 
         public static bool VersionMatch(this AssemblyDefinition assemblyDefinition,bool major=true) {

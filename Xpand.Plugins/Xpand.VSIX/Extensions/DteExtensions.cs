@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using EnvDTE;
 using EnvDTE80;
@@ -25,7 +24,7 @@ namespace Xpand.VSIX.Extensions {
             return DTE;
         }
 
-        public static IEnumerable<IFullReference> GetReferences(this Solution solution) {
+        public static IFullReference[] GetReferences(this Solution solution) {
             return solution.Projects().Where(project => project.Object!=null).SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
                 reference.SpecificVersion && (reference.Identity.StartsWith("Xpand") || reference.Identity.StartsWith("DevExpress"))).ToArray();
         }
