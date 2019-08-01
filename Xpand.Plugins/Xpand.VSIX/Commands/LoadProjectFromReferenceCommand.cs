@@ -62,15 +62,16 @@ namespace Xpand.VSIX.Commands {
                 if (uihSolutionExplorer == null || uihSolutionExplorer.UIHierarchyItems.Count == 0)
                     throw new Exception("Nothing selected");
                 
-                object[] objects = uihSolutionExplorer.GetReferences<Reference>( );
+                object[] objects = uihSolutionExplorer.GetReferences<Reference>( ).Cast<object>().ToArray();
                 object[] references = objects;
                 if (!objects.Any()) {
                     objects = uihSolutionExplorer.GetReferences<object>( );
                     if (!objects.Any()) {
                         return;
                     }
-                    var vsProject = (VSProject) DteExtensions.DTE.Solution.Projects.Cast<Project>().First(project =>
-                        project.Name == (string) objects.First().GetPropertyValue("Project").GetPropertyValue("Name")).Object;
+                    var projectName = (string) objects.First().GetPropertyValue("Project").GetPropertyValue("Name");
+                    
+                    var vsProject = (VSProject) DteExtensions.DTE.Solution.Projects().First(project => project.Name == projectName).Object;
                 
                     references = objects.Select(o => vsProject.References.Cast<object>().First(_ => (string) _.GetPropertyValue("Name")==(string) o.GetPropertyValue("Name"))).ToArray();
                 }
