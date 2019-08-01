@@ -125,7 +125,6 @@
     </Compile>
     <Compile Include="Wizard\ModulesInstaller.cs" />
     <Compile Include="Wizard\ModuleManager.cs" />
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="ModelEditor\METoolWindowControl.resx">
       <DependentUpon>METoolWindowControl.cs</DependentUpon>
     </EmbeddedResource>

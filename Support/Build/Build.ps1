@@ -75,7 +75,7 @@ Task PackNuget{
 
 Task VSIX{
     InvokeScript{
-        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version $packageSources
+        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version ($packageSources -join ";")
     }  
 }
 
@@ -102,18 +102,19 @@ Task CompileModules{
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         $group=$xml.Project.ItemGroup
         $projects=($group.CoreProjects|GetProjects)+ ($group.ModuleProjects|GetProjects)
-        $projects|ForEach-Object{
-            $fileName=(Get-Item $_).Name
-            write-host "Building $fileName..." -f "Blue"
-            "packageSources=$packageSources"
-            dotnet restore "$_" --source ($packageSources -join ";")
-            dotnet msbuild "$_" @msbuildArgs
-            if ($LASTEXITCODE) {
-                throw
-            }
+        # $projects|ForEach-Object{
+        #     $fileName=(Get-Item $_).Name
+        #     write-host "Building $fileName..." -f "Blue"
+        #     "packageSources=$packageSources"
+        #     dotnet restore "$_" --source ($packageSources -join ";")
+        #     dotnet msbuild "$_" @msbuildArgs
+        #     if ($LASTEXITCODE) {
+        #         throw
+        #     }
             
-        }
-
+        # }
+        dotnet restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" --source ($packageSources -join ";")
+        dotnet msbuild "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @msbuildArgs
         
         Write-Host "Compiling helper projects..." -f "Blue"
         $helperProjects=($group.HelperProjects|GetProjects)
