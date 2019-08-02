@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFramework>net461</TargetFramework>
@@ -13,7 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Ryder" Version="0.8.0" />
-    <PackageReference Include="System.Reactive" Version="4.1.5" />
+    <PackageReference Include="System.Reactive" Version="4.2.0-preview.566" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
@@ -32,9 +32,9 @@
     <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.24.5" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.40" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.40" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.25" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.41" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.41" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">

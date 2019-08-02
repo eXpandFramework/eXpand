@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -20,7 +20,7 @@
     <PackageReference Include="Mono.Cecil" Version="0.10.4" />
     <PackageReference Include="Ryder" Version="0.8.0" />
     <PackageReference Include="SharpZipLib" Version="1.1.0" />
-    <PackageReference Include="System.Reactive" Version="4.1.5" />
+    <PackageReference Include="System.Reactive" Version="4.2.0-preview.566" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
@@ -37,14 +37,14 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Web" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-    <PackageReference Include="Xpand.XAF.Modules.AutoCommit" Version="0.0.41" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.24.5" />
-    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.16.5" />
-    <PackageReference Include="Xpand.XAF.Modules.MasterDetail" Version="0.0.41" />
-    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.10" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.40" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.41" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.40" />
+    <PackageReference Include="Xpand.XAF.Modules.AutoCommit" Version="0.0.42" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.25" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.17" />
+    <PackageReference Include="Xpand.XAF.Modules.MasterDetail" Version="0.0.42" />
+    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.11" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.41" />
+    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.42" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.41" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">
