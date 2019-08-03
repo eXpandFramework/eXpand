@@ -13,7 +13,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="System.Reactive" Version="4.2.0-preview.566" />
+    <PackageReference Include="System.Reactive" Version="4.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="DevExpress.Charts.Core" Version="19.1.4" />
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />

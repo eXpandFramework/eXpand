@@ -14,7 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Enums.NET" Version="2.3.2" />
-    <PackageReference Include="System.Reactive" Version="4.2.0-preview.566" />
+    <PackageReference Include="System.Reactive" Version="4.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <Reference Include="Fasterflect.Netstandard">
       <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
