@@ -61,7 +61,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
                 .Do(_ => _.watcher.PollExisting())
                 .ToUnit();
 
-            return application.WhenSetupComplete()
+            return application.WhenWindowCreated(true)
                     .SelectMany(tuple => excelImportFileDrops
                         .TraceDroppedFiles(application)
                         .Select(_ => Observable.Start(() => application.Import(_.fileDropped, (_.excelImport.Oid,_.watcher))))
