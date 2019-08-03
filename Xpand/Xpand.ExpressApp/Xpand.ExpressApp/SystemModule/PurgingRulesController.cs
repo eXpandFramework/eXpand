@@ -84,11 +84,12 @@ namespace Xpand.ExpressApp.SystemModule{
         }
 
         private void DeleteObsoleteRules(IObjectSpace objectSpace, IModelPurgingRule[] purgingRules){
-            var ids = purgingRules.Cast<ModelNode>().Select(node => node.GetParent<IModelClass>().Id()+node.Id).ToArray();
-            var rulesToDelete = objectSpace.GetObjectsQuery<RuleInfoObject>().Where(storage =>
-                storage.RuleScheduleType == RuleScheduleType.Purging && !ids.Contains(storage.RuleId)).ToArray();
-            objectSpace.Delete(rulesToDelete);
-            objectSpace.CommitChanges();
+            return;
+//            var ids = purgingRules.Cast<ModelNode>().Select(node => node.GetParent<IModelClass>().Id()+node.Id).ToArray();
+//            var rulesToDelete = objectSpace.GetObjectsQuery<RuleInfoObject>().Where(storage =>
+//                storage.RuleScheduleType == RuleScheduleType.Purging && !ids.Contains(storage.RuleId)).ToArray();
+//            objectSpace.Delete(rulesToDelete);
+//            objectSpace.CommitChanges();
         }
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){

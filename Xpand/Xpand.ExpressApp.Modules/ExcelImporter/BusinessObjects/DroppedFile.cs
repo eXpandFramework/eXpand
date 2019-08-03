@@ -1,11 +1,10 @@
 ﻿using System;
 using DevExpress.ExpressApp.Model;
-using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
-    [DefaultClassOptions]
+    
     public class DroppedFile:XpandBaseCustomObject {
         public DroppedFile(Session session) : base(session){
         }

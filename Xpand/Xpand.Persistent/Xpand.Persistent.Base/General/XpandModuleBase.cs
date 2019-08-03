@@ -89,7 +89,7 @@ namespace Xpand.Persistent.Base.General {
 
         static XpandModuleBase(){
             AdditionalTypesTypesInfo=new TypesInfo();
-            NetstandardPath = $@"{ApplicationPath()}\netstandard.dll";
+            NetstandardPath = $@"{Path.GetTempPath()}\netstandard.dll";
             using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
                 manifestResourceStream.SaveToFile(NetstandardPath);
             }
@@ -558,8 +558,6 @@ namespace Xpand.Persistent.Base.General {
 
         public override void Setup(XafApplication application) {
             lock (XafTypesInfo.Instance) {
-                
-                
                 if (RuntimeMode && ((TypesInfo)XafTypesInfo.Instance).FindEntityStore(typeof(XpoTypeInfoSource)) == null) {
                     XpoTypesInfoHelper.ForceInitialize();
                     new XpandXpoTypeInfoSource((TypesInfo)application.TypesInfo).AssignAsPersistentEntityStore();

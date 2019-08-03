@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using DevExpress.ExpressApp.ConditionalAppearance;
+using DevExpress.ExpressApp.FileAttachments.Web;
+using DevExpress.ExpressApp.Validation;
+using DevExpress.ExpressApp.Validation.Web;
+using DevExpress.ExpressApp.Web.SystemModule;
 using DevExpress.Utils;
+using Xpand.ExpressApp.Web.SystemModule;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ExcelImporter.Web {
     [ToolboxBitmap(typeof(ExcelImporterWebModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabAspNetModules)]
-    public sealed partial class ExcelImporterWebModule : XpandModuleBase {
+    public sealed class ExcelImporterWebModule : XpandModuleBase {
         public ExcelImporterWebModule() {
-            InitializeComponent();
+            RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
+            RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
+            RequiredModuleTypes.Add(typeof(ValidationModule));
+            RequiredModuleTypes.Add(typeof(ValidationAspNetModule));
+            RequiredModuleTypes.Add(typeof(FileAttachmentsAspNetModule));
+            RequiredModuleTypes.Add(typeof(SystemAspNetModule));
+            RequiredModuleTypes.Add(typeof(ExcelImporterModule));
+            RequiredModuleTypes.Add(typeof(XpandSystemAspNetModule));
         }
 
-        protected override IEnumerable<Type> GetDeclaredControllerTypes() {
-            return Enumerable.Empty<Type>();
-        }
     }
 }
