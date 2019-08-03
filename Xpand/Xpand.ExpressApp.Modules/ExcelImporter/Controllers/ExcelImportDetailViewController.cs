@@ -15,15 +15,12 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Validation;
-using Xpand.XAF.Modules.MasterDetail;
 using Xpand.XAF.Modules.ProgressBarViewItem;
+using Xpand.XAF.Modules.Reactive.Services;
 
 namespace Xpand.ExpressApp.ExcelImporter.Controllers{
     public class ExcelImportDetailViewController : ObjectViewController<DetailView,ExcelImport>{
-        protected Subject<Unit> Terminator=new Subject<Unit>();
-
 
         private const string ExcelMapActionName = "ExcelMap";
         private const string ImportExcelActionName = "ImportExcel";
@@ -42,6 +39,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             ImportAction.Executing+=ImportActionOnExecuting;
         }
 
+
         private void ExcelMappingActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
             if ((string) e.SelectedChoiceActionItem.Data == "Reset") {
                 ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);
@@ -53,15 +51,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     Map();
                 ObjectSpace.CommitChanges();
                 var parameters = e.ShowViewParameters;
-                Application.WhenMasterDetailDashboardViewItems()
-                    .FirstAsync()
-                    .Select(tuple => {
-                        var listView = ((ListView) tuple.listViewItem.InnerView);
-                        var criteriaOperator = listView.ObjectSpace.GetCriteriaOperator<ExcelColumnMap>(map =>map.ExcelImport.Oid == ExcelImport.Oid);
-                        listView.CollectionSource.Criteria[GetType().Name] =criteriaOperator;
-                        return Unit.Default;
-                    })
-                    .Subscribe();
+                
 
 
                 var dialogController = new DialogController();
@@ -88,12 +78,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             var excelImport = ExcelImport;
             excelImport.Map();   
         }
-
-        protected override void OnDeactivated(){
-            base.OnDeactivated();
-            Terminator.OnNext(Unit.Default);
-        }
-
 
         private void ImportActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
             ValidateFile();
@@ -184,16 +168,14 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             ProgressBarViewItemBase progressBarViewItem,
             ISubject<ImportProgress> progress, (string successMsg, string failedMsg) resultMessage,
             Dictionary<string, string> boCaptions) {
-            Terminator.OnNext(Unit.Default);
             var boModel = Application.Model.BOModel;
             return progress.OfType<ImportProgressComplete>().Where(excelImport).FirstAsync()
                 .Select(Synchronize).Concat()
                 .Do(_ => {
                     ExcelImport.FailedResults.Reload();
-                    progressBarViewItem.SetFinishOptions(GetFinishOptions(_, resultMessage,boModel));
+                    progressBarViewItem.SetFinishOptions(GetFinishOptions(_, resultMessage, boModel));
                 })
-                .ToUnit()
-                .Merge(Terminator);
+                .ToUnit();
         }
 
         protected virtual void OnSetPosition(ProgressBarViewItemBase progressBarViewItem, int percentage){

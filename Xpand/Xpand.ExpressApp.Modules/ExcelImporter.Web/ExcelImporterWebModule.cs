@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.FileAttachments.Web;
 using DevExpress.ExpressApp.Validation;

@@ -23,11 +23,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Services {
         }
 
 
-        public static IObservable<EventPattern<CancelEventArgs>> WhenCommiting(this IObjectSpace objectSpace) {
-            return Observable.FromEventPattern<EventHandler<CancelEventArgs>, CancelEventArgs>(
-                h => objectSpace.Committing += h, h => objectSpace.Committing -= h)
-                .TakeUntil(objectSpace.WhenDisposed());
-        }
 
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -23,7 +22,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
 
         protected override void OnActivated(){
             base.OnActivated();
-            ObjectSpace.Committing+=ObjectSpaceOnCommitting;
             _fileDataPropertyEditor = View.GetItems<FileDataPropertyEditor>().First();
             _fileDataPropertyEditor.ControlCreated += FileDataPropertyEditorOnControlCreated;
             _listPropertyEditor = View.GetItems<ListPropertyEditor>().First(editor => editor.MemberInfo.Name==nameof(BusinessObjects.ExcelImport.ExcelColumnMaps));
@@ -32,23 +30,18 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
+            if (_fileDataPropertyEditor != null)
+                _fileDataPropertyEditor.ControlCreated -= FileDataPropertyEditorOnControlCreated;
             if (_listPropertyEditor != null) {
-                _fileDataPropertyEditor.ControlCreated-=FileDataPropertyEditorOnControlCreated;
-                _listPropertyEditor.ControlCreated-=ListPropertyEditorOnControlCreated;
-                ObjectSpace.Committing-=ObjectSpaceOnCommitting;
+                _listPropertyEditor.ControlCreated -= ListPropertyEditorOnControlCreated;
             }
-        }
-
-        private void ObjectSpaceOnCommitting(object sender, CancelEventArgs e) {
-            var script = CallbackManager.GetScript("test", "", "", false);
-            WebWindow.CurrentRequestWindow.RegisterStartupScript("test",script,true);
         }
 
         protected XafCallbackManager CallbackManager => WebWindow.CurrentRequestPage != null ? ((ICallbackManagerHolder)WebWindow.CurrentRequestPage).CallbackManager : null;
 
         protected override void OnViewControlsCreated() {
             base.OnViewControlsCreated();
-            CallbackManager.RegisterHandler("test", this);
+            CallbackManager.RegisterHandler(GetType().FullName, this);
         }
 
         protected override IObservable<T> Synchronize<T>(T t = default) {
@@ -71,7 +64,6 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
         private void ListPropertyEditorOnControlCreated(object sender, EventArgs e) {
             _asPxGridListEditor = ((ASPxGridListEditor) _listPropertyEditor.ListView.Editor);
             _asPxGridListEditor.ControlsCreated+=ASPxGridListEditorOnControlsCreated;
-            
         }
 
         private void ASPxGridListEditorOnControlsCreated(object sender, EventArgs e) {

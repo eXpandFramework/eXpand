@@ -2,7 +2,6 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Reflection;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -19,9 +18,8 @@ namespace Xpand.Persistent.Base {
                 try {
                     types = assembly.GetTypes();
                 }
-                catch (ReflectionTypeLoadException e) {
-                    var eLoaderExceptions = e.LoaderExceptions;
-                    // ignored
+                catch (Exception e) {
+                    Tracing.Tracer.LogError(e);
                 }
 
                 return types;

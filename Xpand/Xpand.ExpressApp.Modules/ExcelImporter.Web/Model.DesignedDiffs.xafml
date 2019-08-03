@@ -38,9 +38,6 @@
       <PopupControl Maximized="True" ShowPopupMode="Centered" />
     </DashboardView>
     <DetailView Id="ExcelImport_DetailView">
-      <Items>
-        <ProgressViewItem Id="ProgressViewItem" IsNewNode="True" />
-      </Items>
       <Layout>
         <LayoutGroup Id="Main">
           <TabbedGroup Id="Tabs" RelativeSize="100">
@@ -49,22 +46,6 @@
               <LayoutGroup Id="Auto522ba927-1152-4a6b-b490-a53424ee6e44" RelativeSize="5.41871921182266">
                 <LayoutItem Id="File" RelativeSize="49.418604651162788" />
                 <LayoutItem Id="ImportStrategy" RelativeSize="50.581395348837212" />
-              </LayoutGroup>
-              <LayoutGroup Id="Auto2052741a-7263-4e83-ba7f-3ae8ecca4784" RelativeSize="16.748768472906406">
-                <LayoutGroup Id="Autobf0eebb3-5181-4b52-8219-a5c46fb7ef0d">
-                  <LayoutItem Id="SheetName" RelativeSize="49.418604651162788" />
-                  <LayoutItem Id="Type" RelativeSize="50.581395348837212" />
-                </LayoutGroup>
-                <LayoutGroup Id="Autob438c641-5874-44cb-a3b8-e3b3eab8bec9">
-                  <LayoutGroup Id="Autodbd12d76-fa1d-4969-8011-5f13ca83905c">
-                    <LayoutItem Id="HeaderRows" RelativeSize="49.418604651162788" />
-                    <LayoutItem Id="ValidationContexts" RelativeSize="50.581395348837212" />
-                  </LayoutGroup>
-                  <LayoutGroup Id="Autoc85a82de-a7bf-4510-8662-51ac74f121ea">
-                    <LayoutGroup Id="Auto4fb56bfb-f672-4dcc-b9fb-86da9671221c" RelativeSize="49.418604651162788" />
-                    <LayoutGroup Id="Autode98b9a6-e470-409c-9e3e-9bdc7e82a8e7" RelativeSize="50.581395348837212" />
-                  </LayoutGroup>
-                </LayoutGroup>
               </LayoutGroup>
               <LayoutItem Id="ExcelImport" RelativeSize="4.2692939244663384" />
               <LayoutItem Id="ExcelColumnMaps" RelativeSize="63.054187192118228" />
