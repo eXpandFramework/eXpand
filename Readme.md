@@ -1,3 +1,5 @@
+[![Financial Contributors on Open Collective](https://opencollective.com/eXpand/all/badge.svg?label=financial+contributors)](https://opencollective.com/eXpand) 
+
 [![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget.org&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpand)](https://www.nuget.org/packages?q=expandframework) [![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)](releases.expandframework.com)
 
 [![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers) **Star the project if you think it deserves it.** 
@@ -16,16 +18,12 @@
 
 [![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues) [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
 
-
-
 # About
 ![open collective backers and sponsors](https://img.shields.io/opencollective/all/expand.svg?label=If%20this%20organization%20helped%20your%20business%2C%20we%20kindly%20request%20to%20consider%20sponsoring%20our%20activities)
 
-_eXpandFramework_ is the first open source project based on the _DevExpress eXpressApp Framework (XAF)_. The _eXpressApp Framework_ ships with _DXperience Universal_ and can be evaluated free of charge (30 day trial) at: <https://www.devexpress.com/ClientCenter/Downloads.>
+_eXpandFramework_ is an independent open-source project and is not affiliated with Developer Express Inc.
 
-_eXpandFramework_ is a **FREE** extension for XAF and operates within the **Microsoft Public License (Ms-PL)**. 
-
-The framework was started and is led by [Tolis Bekiaris](http://apobekiaris.blogspot.com/). _Tolis_ has made a huge contribution to _XAF_ over the years receiving great recognition from _DevExpress_ and the whole _XAF_ community. In _April 2011 Tolis_ was honored to be hired as **Technical Evangelist for DevExpress frameworks**!
+_eXpandFramework_ is a **FREE** extension for **DevExpress-XAF** and operates within the **Microsoft Public License (Ms-PL)**. 
 
 The [eXpandFrameowork](https://github.com/eXpandFramework) organization consist of two projects. The main project, this one, which unfortunately lacks detailed documentation, and the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) repository. The main project acts as a container to the standalone proejct. Eventually all modules of main project will be puzzled from the standalone modules. The framework is transitioning fast from private server to GitHub since Oct 2018, so please bear with us and contribute where you can.
 
@@ -224,3 +222,34 @@ http://apobekiaris.blogspot.com/search/label/XpandWF
 
 Blogs:\
 http://apobekiaris.blogspot.gr/search/label/ExcelImporter
+
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/eXpandFramework/eXpand/graphs/contributors"><img src="https://opencollective.com/eXpand/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/eXpand/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/eXpand"><img src="https://opencollective.com/eXpand/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/eXpand/contribute)]
+
+<a href="https://opencollective.com/eXpand/organization/0/website"><img src="https://opencollective.com/eXpand/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/1/website"><img src="https://opencollective.com/eXpand/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/2/website"><img src="https://opencollective.com/eXpand/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/3/website"><img src="https://opencollective.com/eXpand/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/4/website"><img src="https://opencollective.com/eXpand/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/5/website"><img src="https://opencollective.com/eXpand/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/6/website"><img src="https://opencollective.com/eXpand/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/7/website"><img src="https://opencollective.com/eXpand/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/8/website"><img src="https://opencollective.com/eXpand/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/eXpand/organization/9/website"><img src="https://opencollective.com/eXpand/organization/9/avatar.svg"></a>
