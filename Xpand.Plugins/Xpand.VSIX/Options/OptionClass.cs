@@ -209,7 +209,7 @@ namespace Xpand.VSIX.Options{
         public void AddProjectPaths(){
             if (Directory.Exists(RootPath)) {
                 var projectPaths = Directory.GetFiles(RootPath, "*.*", SearchOption.AllDirectories)
-                    .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", ProjectRegex));
+                    .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", $@"{ProjectRegex}\z"));
                 var paths = projectPaths.Select(path => new ProjectInfo() { Path = path, OutputPath = GetOutPutPath(path) }).Where(info => File.Exists(info.OutputPath)).ToArray();
                 ProjectPaths.Clear();
                 ProjectPaths.AddRange(paths);
@@ -223,6 +223,9 @@ namespace Xpand.VSIX.Options{
                     Environment.CurrentDirectory = Path.GetDirectoryName(projectPath) + "";
                     var outPutPath = Path.GetFullPath(GetAttributeValue(readToEnd, "OutputPath"));
                     var assemblyName = GetAttributeValue(readToEnd, "AssemblyName");
+                    if (string.IsNullOrEmpty(assemblyName)) {
+                        assemblyName = Path.GetFileNameWithoutExtension(projectPath);
+                    }
                     return Path.Combine(outPutPath, assemblyName + ".dll");
                 }
 
