@@ -6,8 +6,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XVideoRental.Module.Win", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XVideoRental.Win", "XVideoRental.Win\XVideoRental.Win.csproj", "{F9B6C458-59EB-44FC-899C-DBCBA869C08E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpand.ExpressApp", "..\..\Xpand\Xpand.ExpressApp\Xpand.ExpressApp\Xpand.ExpressApp.csproj", "{46E656D3-EBBF-4562-A0C4-E15933257146}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,21 +85,6 @@ Global
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|Mixed Platforms.Build.0 = Debug|Any CPU
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|x86.ActiveCfg = Debug|Any CPU
 		{F9B6C458-59EB-44FC-899C-DBCBA869C08E}.Test|x86.Build.0 = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.EasyTest|Any CPU.ActiveCfg = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.EasyTest|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.EasyTest|x86.ActiveCfg = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.RecompiledDxSources|Any CPU.ActiveCfg = Release|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.RecompiledDxSources|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.RecompiledDxSources|x86.ActiveCfg = Release|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Release|x86.ActiveCfg = Release|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Test|Any CPU.ActiveCfg = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Test|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{46E656D3-EBBF-4562-A0C4-E15933257146}.Test|x86.ActiveCfg = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <FileUpgradeFlags />
@@ -34,7 +34,7 @@
     <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.4" />
     <PackageReference Include="DevExpress.Data" Version="19.1.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.33" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.33.2" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
     <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
