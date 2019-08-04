@@ -18,13 +18,13 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.34" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.17.2" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.33.2" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.18" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.34" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">

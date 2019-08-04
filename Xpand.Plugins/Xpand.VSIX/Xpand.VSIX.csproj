@@ -203,7 +203,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DevExpress.Win">
-      <Version>19.1.4</Version>
+      <Version>19.1.5</Version>
     </PackageReference>
     <PackageReference Include="Fody">
       <Version>4.2.1</Version>

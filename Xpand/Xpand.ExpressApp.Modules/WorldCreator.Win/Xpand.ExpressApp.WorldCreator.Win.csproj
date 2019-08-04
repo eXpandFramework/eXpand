@@ -14,11 +14,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.33.2" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.5" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.34" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.Win">

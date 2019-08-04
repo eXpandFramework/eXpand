@@ -19,19 +19,19 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.34" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneMemberValue" Version="1.2.41.2" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.25.2" />
-    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.17.2" />
-    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.11.2" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.41.2" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneMemberValue" Version="1.2.42" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.26" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.18" />
+    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.12" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.42" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">

@@ -40,13 +40,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>

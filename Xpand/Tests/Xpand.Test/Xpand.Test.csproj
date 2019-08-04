@@ -167,11 +167,11 @@
     <Error Condition="!Exists('..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\Support\_third_party_assemblies\Packages\xunit.runner.visualstudio.2.2.0\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <ItemGroup xmlns="">
-    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
   </ItemGroup>
 </Project>

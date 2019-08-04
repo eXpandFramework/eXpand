@@ -403,26 +403,26 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup xmlns="">
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.AuditTrail" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.CloneObject" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Document.Processor" Version="19.1.4" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.4" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.AuditTrail" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.CloneObject" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Document.Processor" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.5" />
   </ItemGroup>
 </Project>

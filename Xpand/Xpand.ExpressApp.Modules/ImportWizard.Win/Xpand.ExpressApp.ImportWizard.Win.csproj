@@ -13,20 +13,20 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.7.2" />
-    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.4" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.4" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Utils" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.4" />
-    <PackageReference Include="DevExpress.Win" Version="19.1.4" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Win" Version="19.1.5" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
