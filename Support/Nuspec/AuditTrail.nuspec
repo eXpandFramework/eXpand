@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandAuditTrail</id>
-    <version>19.1.402.0</version>
+    <version>19.1.501.0</version>
     <title>DevExpress eXpandFramework AuditTrail Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,13 +14,24 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AuditTrail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.402.0" />
-      <dependency id="eXpandLogic" version="19.1.402.0" />
-      <dependency id="eXpandSecurity" version="19.1.402.0" />
+      <dependency id="DevExpress.Data" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.AuditTrail" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.ConditionalAppearance" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Security" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Security.Xpo" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Xpo" version="19.1.5" />
+      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
+      <dependency id="DevExpress.Persistent.BaseImpl" version="19.1.5" />
+      <dependency id="DevExpress.Xpo" version="19.1.5" />
+      <dependency id="eXpandLib" version="19.1.501.0" />
+      <dependency id="eXpandLogic" version="19.1.501.0" />
+      <dependency id="eXpandSecurity" version="19.1.501.0" />
+      <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.VersionConverter" version="1.0.32" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.21" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.29" />
+      <dependency id="Xpand.VersionConverter" version="1.0.34" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.26" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.34" />
     </dependencies>
   </metadata>
   <files>

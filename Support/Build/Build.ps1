@@ -115,6 +115,9 @@ Task CompileModules{
         # }
         dotnet restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" --source ($packageSources -join ";")
         dotnet msbuild "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @msbuildArgs
+        if ($LASTEXITCODE){
+            throw
+        }
         
         Write-Host "Compiling helper projects..." -f "Blue"
         $helperProjects=($group.HelperProjects|GetProjects)

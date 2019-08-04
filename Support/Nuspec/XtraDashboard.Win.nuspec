@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandXtraDashboardWin</id>
-    <version>19.1.402.0</version>
+    <version>19.1.501.0</version>
     <title>DevExpress eXpandFramework XtraDashboard Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,12 +14,37 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="19.1.402.0" />
-      <dependency id="eXpandLib" version="19.1.402.0" />
-      <dependency id="eXpandSecurity" version="19.1.402.0" />
-      <dependency id="eXpandSecurityWin" version="19.1.402.0" />
-      <dependency id="eXpandSystemWin" version="19.1.402.0" />
+      <dependency id="DevExpress.Dashboard.Core" version="19.1.5" />
+      <dependency id="DevExpress.Data" version="19.1.5" />
+      <dependency id="DevExpress.DataAccess" version="19.1.5" />
+      <dependency id="DevExpress.DataAccess.UI" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Dashboards" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Dashboards.Win" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Security" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Security.Xpo" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Validation.Win" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Win" version="19.1.5" />
+      <dependency id="DevExpress.Office.Core" version="19.1.5" />
+      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
+      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
+      <dependency id="DevExpress.Sparkline.Core" version="19.1.5" />
+      <dependency id="DevExpress.Utils" version="19.1.5" />
+      <dependency id="DevExpress.Utils.UI" version="19.1.5" />
+      <dependency id="DevExpress.Win" version="19.1.5" />
+      <dependency id="DevExpress.Win.Charts" version="19.1.5" />
+      <dependency id="DevExpress.Win.Dashboard" version="19.1.5" />
+      <dependency id="DevExpress.Win.Navigation" version="19.1.5" />
+      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
+      <dependency id="DevExpress.Win.RichEdit" version="19.1.5" />
+      <dependency id="DevExpress.Xpo" version="19.1.5" />
+      <dependency id="eXpandDashboard" version="19.1.501.0" />
+      <dependency id="eXpandLib" version="19.1.501.0" />
+      <dependency id="eXpandSecurity" version="19.1.501.0" />
+      <dependency id="eXpandSecurityWin" version="19.1.501.0" />
+      <dependency id="eXpandSystemWin" version="19.1.501.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.34" />
     </dependencies>
   </metadata>
   <files>

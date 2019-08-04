@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandPivotChartWeb</id>
-    <version>19.1.402.0</version>
+    <version>19.1.501.0</version>
     <title>DevExpress eXpandFramework PivotChart Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,24 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.402.0" />
-      <dependency id="eXpandPivotChart" version="19.1.402.0" />
+      <dependency id="DevExpress.Charts" version="19.1.5" />
+      <dependency id="DevExpress.Charts.Core" version="19.1.5" />
+      <dependency id="DevExpress.Data" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.PivotChart" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.PivotChart.Web" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Web" version="19.1.5" />
+      <dependency id="DevExpress.Office.Core" version="19.1.5" />
+      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
+      <dependency id="DevExpress.PivotGrid.Core" version="19.1.5" />
+      <dependency id="DevExpress.Printing.Core" version="19.1.5" />
+      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
+      <dependency id="DevExpress.RichEdit.Export" version="19.1.5" />
+      <dependency id="DevExpress.Web" version="19.1.5" />
+      <dependency id="DevExpress.Win.Charts" version="19.1.5" />
+      <dependency id="DevExpress.Xpo" version="19.1.5" />
+      <dependency id="eXpandLib" version="19.1.501.0" />
+      <dependency id="eXpandPivotChart" version="19.1.501.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>

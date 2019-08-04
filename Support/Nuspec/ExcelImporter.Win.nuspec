@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandExcelImporter.Win</id>
-    <version>19.1.402.0</version>
+    <version>19.1.501.0</version>
     <title>DevExpress eXpandFramework ExcelImporter WindowsForms Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,21 +14,35 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
+      <dependency id="DevExpress.Data" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.FileAttachment.Win" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Notifications" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Notifications.Win" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Validation.Win" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Win" version="19.1.5" />
+      <dependency id="DevExpress.ExpressApp.Xpo" version="19.1.5" />
+      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
+      <dependency id="DevExpress.Printing.Core" version="19.1.5" />
+      <dependency id="DevExpress.Win.Grid" version="19.1.5" />
+      <dependency id="DevExpress.Win.Navigation" version="19.1.5" />
+      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
+      <dependency id="DevExpress.Xpo" version="19.1.5" />
       <dependency id="ExcelDataReader" version="3.6.0" />
       <dependency id="ExcelDataReader.DataSet" version="3.6.0" />
-      <dependency id="eXpandExcelImporter" version="19.1.402.0" />
-      <dependency id="eXpandLib" version="19.1.402.0" />
-      <dependency id="eXpandSystemWin" version="19.1.402.0" />
-      <dependency id="eXpandValidationWin" version="19.1.402.0" />
+      <dependency id="eXpandExcelImporter" version="19.1.501.0" />
+      <dependency id="eXpandLib" version="19.1.501.0" />
+      <dependency id="eXpandSystemWin" version="19.1.501.0" />
+      <dependency id="eXpandValidationWin" version="19.1.501.0" />
       <dependency id="JetBrains.Annotations" version="2019.1.1" />
       <dependency id="System.IO.Compression" version="4.3.0" />
-      <dependency id="System.Reactive" version="4.1.5" />
+      <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="WindowsBase" version="4.6.1055.0" />
-      <dependency id="Xpand.VersionConverter" version="1.0.32" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.37" />
+      <dependency id="Xpand.VersionConverter" version="1.0.34" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.42" />
     </dependencies>
   </metadata>
   <files>
