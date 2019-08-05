@@ -14,20 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.FileAttachment.Win" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Notifications" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Notifications.Win" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Validation.Win" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Win" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Xpo" version="19.1.5" />
-      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
-      <dependency id="DevExpress.Printing.Core" version="19.1.5" />
-      <dependency id="DevExpress.Win.Grid" version="19.1.5" />
-      <dependency id="DevExpress.Win.Navigation" version="19.1.5" />
-      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
-      <dependency id="DevExpress.Xpo" version="19.1.5" />
       <dependency id="ExcelDataReader" version="3.6.0" />
       <dependency id="ExcelDataReader.DataSet" version="3.6.0" />
       <dependency id="eXpandExcelImporter" version="19.1.501.0" />

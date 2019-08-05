@@ -14,6 +14,7 @@ properties {
     $Repository=$null
     $Release=$false
     $ResolveNugetDependecies=$false
+    $BuildAllModulesSln=$false
 }
 
 
@@ -98,7 +99,7 @@ Task Installer{
 }
 
 Task CompileModules{
-    InvokeScript{
+    InvokeScript -maxRetries 3 {
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         $group=$xml.Project.ItemGroup
         $projects=($group.CoreProjects|GetProjects)+ ($group.ModuleProjects|GetProjects)

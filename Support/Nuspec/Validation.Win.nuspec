@@ -14,16 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#validation</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Validation" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Validation.Win" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Win" version="19.1.5" />
-      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
-      <dependency id="DevExpress.Utils" version="19.1.5" />
-      <dependency id="DevExpress.Win.Grid" version="19.1.5" />
-      <dependency id="DevExpress.Win.Navigation" version="19.1.5" />
-      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandSystemWin" version="19.1.501.0" />
       <dependency id="eXpandValidation" version="19.1.501.0" />

@@ -14,20 +14,6 @@
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.Document.Processor" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Objects" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Validation" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Web" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Xpo" version="19.1.5" />
-      <dependency id="DevExpress.Office.Core" version="19.1.5" />
-      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
-      <dependency id="DevExpress.Printing.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Export" version="19.1.5" />
-      <dependency id="DevExpress.Web" version="19.1.5" />
-      <dependency id="DevExpress.Xpo" version="19.1.5" />
       <dependency id="eXpandAdditionalViewControlsProvider" version="19.1.501.0" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandLogic" version="19.1.501.0" />

@@ -14,18 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.ConditionalAppearance" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Scheduler" version="19.1.5" />
-      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
-      <dependency id="DevExpress.Scheduler.Core" version="19.1.5" />
-      <dependency id="DevExpress.Utils" version="19.1.5" />
-      <dependency id="DevExpress.Win.Grid" version="19.1.5" />
-      <dependency id="DevExpress.Win.Navigation" version="19.1.5" />
-      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
-      <dependency id="DevExpress.Win.Scheduler" version="19.1.5" />
-      <dependency id="DevExpress.Xpo" version="19.1.5" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.34" />

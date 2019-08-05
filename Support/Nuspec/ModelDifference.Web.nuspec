@@ -23,10 +23,6 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Web" version="19.1.5" />
-      <dependency id="DevExpress.Xpo" version="19.1.5" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandModelDifference" version="19.1.501.0" />
       <dependency id="eXpandSecurity" version="19.1.501.0" />

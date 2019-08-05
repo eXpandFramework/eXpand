@@ -18,8 +18,6 @@
       <dependency id="AForge.Imaging" version="2.2.5" />
       <dependency id="AForge.Math" version="2.2.5" />
       <dependency id="AForge.Video" version="2.2.5" />
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.EasyTest" version="19.1.5" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="InputSimulator" version="1.0.4.0" />
       <dependency id="Microsoft.CSharp" version="4.*" />

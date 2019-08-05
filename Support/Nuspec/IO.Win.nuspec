@@ -14,10 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.FileAttachment.Win" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.TreeListEditors.Win" version="19.1.5" />
       <dependency id="DotNetZip" version="1.11.0" />
       <dependency id="eXpandIO" version="19.1.501.0" />
       <dependency id="eXpandLib" version="19.1.501.0" />

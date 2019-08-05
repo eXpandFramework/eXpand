@@ -14,25 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Charts" version="19.1.5" />
-      <dependency id="DevExpress.Charts.Core" version="19.1.5" />
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Chart" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Chart.Win" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.PivotGrid" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.PivotGrid.Win" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Win" version="19.1.5" />
-      <dependency id="DevExpress.Office.Core" version="19.1.5" />
-      <dependency id="DevExpress.PivotGrid.Core" version="19.1.5" />
-      <dependency id="DevExpress.Printing.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Export" version="19.1.5" />
-      <dependency id="DevExpress.Utils" version="19.1.5" />
-      <dependency id="DevExpress.Win.Charts" version="19.1.5" />
-      <dependency id="DevExpress.Win.Navigation" version="19.1.5" />
-      <dependency id="DevExpress.Win.PivotGrid" version="19.1.5" />
-      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
       <dependency id="Enums.NET" version="2.3.2" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="System.Reactive" version="4.1.6" />

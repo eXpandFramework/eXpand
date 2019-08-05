@@ -14,24 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Charts" version="19.1.5" />
-      <dependency id="DevExpress.Charts.Core" version="19.1.5" />
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.PivotChart" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.PivotChart.Win" version="19.1.5" />
-      <dependency id="DevExpress.Office.Core" version="19.1.5" />
-      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
-      <dependency id="DevExpress.PivotGrid.Core" version="19.1.5" />
-      <dependency id="DevExpress.Printing.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Export" version="19.1.5" />
-      <dependency id="DevExpress.Utils" version="19.1.5" />
-      <dependency id="DevExpress.Win.Charts" version="19.1.5" />
-      <dependency id="DevExpress.Win.Navigation" version="19.1.5" />
-      <dependency id="DevExpress.Win.PivotGrid" version="19.1.5" />
-      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
-      <dependency id="DevExpress.Xpo" version="19.1.5" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandPivotChart" version="19.1.501.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />

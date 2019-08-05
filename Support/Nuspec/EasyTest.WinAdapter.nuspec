@@ -14,18 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.EasyTest" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.EasyTest.WinAdapter" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Win" version="19.1.5" />
-      <dependency id="DevExpress.Office.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
-      <dependency id="DevExpress.Utils" version="19.1.5" />
-      <dependency id="DevExpress.Win.Grid" version="19.1.5" />
-      <dependency id="DevExpress.Win.Navigation" version="19.1.5" />
-      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
-      <dependency id="DevExpress.Win.RichEdit" version="19.1.5" />
       <dependency id="eXpandEasyTest" version="19.1.501.0" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandSystemWin" version="19.1.501.0" />

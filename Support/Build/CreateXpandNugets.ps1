@@ -136,13 +136,20 @@ AddAllDependency $nuspecpathFile (Get-ChildItem "$nuspecpathsPath" -Exclude "*Wi
     AddAllDependency $nuspecpathFile $nuspecpaths
 }
 
-# Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -ActivityName "Packaging" -VariablesToImport @("nuget","scriptPath","version","scriptPath","root") -LimitConcurrency $processorCount  -Script {
+Get-ChildItem "$root\Support\Nuspec" *.nuspec|ForEach-Object{
+    [xml]$nuspec=Get-Content $_.FullName
+    $nuspec.package.metaData.dependencies.dependency|Where-Object{$_.Id -like "DevExpress*"}|ForEach-Object{
+        $_.ParentNode.RemoveChild($_)
+    }
+    $nuspec.Save($_.FullName)
+}
 Get-ChildItem "$root\Support\Nuspec" *.nuspec | foreach {
     $file = $_.FullName
     $readMe = ($file -notlike "*EasyTest*" -and $file -notlike "*All_*")
     $dir = (Get-Item $scriptPath).DirectoryName
     & "$dir\PackNugets.ps1" $file $readMe  $nuget $version $root
 }
+
 $ErrorActionPreference = "stop"
 $packageDir = "$root\Build\_package\$Version"
 New-Item $packageDir -ItemType Directory -Force | Out-Null

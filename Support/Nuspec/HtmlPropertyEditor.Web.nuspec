@@ -14,13 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#HtmlPropertyEditor</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.HtmlPropertyEditor.Web" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Web" version="19.1.5" />
-      <dependency id="DevExpress.Office.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
-      <dependency id="DevExpress.Web" version="19.1.5" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandLogic" version="19.1.501.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />

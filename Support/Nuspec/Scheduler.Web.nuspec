@@ -14,17 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Scheduler" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Scheduler.Web" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Web" version="19.1.5" />
-      <dependency id="DevExpress.Office.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
-      <dependency id="DevExpress.Scheduler.Core" version="19.1.5" />
-      <dependency id="DevExpress.Utils" version="19.1.5" />
-      <dependency id="DevExpress.Web" version="19.1.5" />
-      <dependency id="DevExpress.Web.Scheduler" version="19.1.5" />
       <dependency id="eXpandDashboard" version="19.1.501.0" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandScheduler" version="19.1.501.0" />

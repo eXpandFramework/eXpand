@@ -14,26 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Reports</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Charts" version="19.1.5" />
-      <dependency id="DevExpress.Charts.Core" version="19.1.5" />
-      <dependency id="DevExpress.CodeParser" version="19.1.5" />
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.ReportsV2" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.ReportsV2.Win" version="19.1.5" />
-      <dependency id="DevExpress.Office.Core" version="19.1.5" />
-      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
-      <dependency id="DevExpress.PivotGrid.Core" version="19.1.5" />
-      <dependency id="DevExpress.Printing.Core" version="19.1.5" />
-      <dependency id="DevExpress.Reporting.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Export" version="19.1.5" />
-      <dependency id="DevExpress.Sparkline.Core" version="19.1.5" />
-      <dependency id="DevExpress.Utils" version="19.1.5" />
-      <dependency id="DevExpress.Utils.UI" version="19.1.5" />
-      <dependency id="DevExpress.Win.Charts" version="19.1.5" />
-      <dependency id="DevExpress.Win.Printing" version="19.1.5" />
-      <dependency id="DevExpress.Win.Reporting" version="19.1.5" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandReports" version="19.1.501.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />

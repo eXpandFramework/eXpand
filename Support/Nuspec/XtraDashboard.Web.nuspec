@@ -14,35 +14,6 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="DevExpress.Charts.Core" version="19.1.5" />
-      <dependency id="DevExpress.CodeParser" version="19.1.5" />
-      <dependency id="DevExpress.Dashboard.Core" version="19.1.5" />
-      <dependency id="DevExpress.Data" version="19.1.5" />
-      <dependency id="DevExpress.DataAccess" version="19.1.5" />
-      <dependency id="DevExpress.DataAccess.UI" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Dashboards" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Dashboards.Web" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Validation.Web" version="19.1.5" />
-      <dependency id="DevExpress.ExpressApp.Web" version="19.1.5" />
-      <dependency id="DevExpress.Images" version="19.1.5" />
-      <dependency id="DevExpress.Map.Core" version="19.1.5" />
-      <dependency id="DevExpress.Office.Core" version="19.1.5" />
-      <dependency id="DevExpress.Pdf.Core" version="19.1.5" />
-      <dependency id="DevExpress.Persistent.Base" version="19.1.5" />
-      <dependency id="DevExpress.PivotGrid.Core" version="19.1.5" />
-      <dependency id="DevExpress.Printing.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Core" version="19.1.5" />
-      <dependency id="DevExpress.RichEdit.Export" version="19.1.5" />
-      <dependency id="DevExpress.Sparkline.Core" version="19.1.5" />
-      <dependency id="DevExpress.SpellChecker.Core" version="19.1.5" />
-      <dependency id="DevExpress.TreeMap.Core" version="19.1.5" />
-      <dependency id="DevExpress.Utils" version="19.1.5" />
-      <dependency id="DevExpress.Web" version="19.1.5" />
-      <dependency id="DevExpress.Web.Dashboard" version="19.1.5" />
-      <dependency id="DevExpress.Web.Dashboard.Common" version="19.1.5" />
-      <dependency id="DevExpress.Web.Themes" version="19.1.5" />
-      <dependency id="DevExpress.Xpo" version="19.1.5" />
       <dependency id="eXpandDashboard" version="19.1.501.0" />
       <dependency id="eXpandLib" version="19.1.501.0" />
       <dependency id="eXpandSecurity" version="19.1.501.0" />
