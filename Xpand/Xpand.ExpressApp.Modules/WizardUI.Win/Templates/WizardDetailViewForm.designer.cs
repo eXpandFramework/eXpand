@@ -51,7 +51,6 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates
             // 
             this.WizardControl.Controls.Add(this.completionWizardPage1);
             this.WizardControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.WizardControl.Image = global::Xpand.ExpressApp.WizardUI.Win.Properties.Resources.wizard_image;
             this.WizardControl.Location = new System.Drawing.Point(0, 0);
             this.WizardControl.Name = "WizardControl";
             this.WizardControl.Pages.AddRange(new DevExpress.XtraWizard.BaseWizardPage[] {

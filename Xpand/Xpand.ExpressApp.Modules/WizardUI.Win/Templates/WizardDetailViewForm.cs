@@ -5,6 +5,9 @@
 // <author>Martin Praxmarer</author>
 //-----------------------------------------------------------------------
 
+using System;
+using System.Drawing;
+
 namespace Xpand.ExpressApp.WizardUI.Win.Templates {
     using DevExpress.ExpressApp.Model;
     using DevExpress.ExpressApp.Utils;
@@ -22,7 +25,7 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates {
         /// </summary>
         public WizardDetailViewForm() {
             InitializeComponent();
-
+            WizardControl.Image=Image.FromStream(GetType().Assembly.GetManifestResourceStream("Xpand.ExpressApp.WizardUI.Win.Resources.wizard-image.png") ?? throw new InvalidOperationException());
             showRecordAfterCompletion.Text = CaptionHelper.GetLocalizedText("Texts", "WizardShowRecordAfterFinish");
         }
 
