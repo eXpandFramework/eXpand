@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             if (Control != null) FilterRepositoryItem( Control.Properties,MemberInfo,CurrentObject,_objectSpace, _itemsData);
         }
 
-        static bool TypeHasFlagsAttribute(IMemberInfo info) {
+        public static bool TypeHasFlagsAttribute(IMemberInfo info) {
             return PropertyEditorHelper.CalcUnderlyingType(info).GetCustomAttributes(typeof(FlagsAttribute), true).Length > 0;
         }
 

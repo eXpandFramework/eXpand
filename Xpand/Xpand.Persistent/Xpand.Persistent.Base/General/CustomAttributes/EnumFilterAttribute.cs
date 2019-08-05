@@ -20,7 +20,10 @@ namespace Xpand.Persistent.Base.General.CustomAttributes {
                 var nullableItem = startitems.First(item => itemValueSelector(item)==null);
                 var member = memberInfo.Owner.FindMember(dataSourcePropertyAttribute.DataSourceProperty);
                 var items = ((IEnumerable) member.GetValue(objectInstance)).Cast<object>()
-                    .Select(o => startitems.First(item => $"{itemValueSelector(item)}" == $"{o}")).ToArray();
+                    .Select(o => {
+                        var controlItem = startitems.First(item => $"{itemValueSelector(item)}" == $"{o}");
+                        return controlItem;
+                    }).ToArray();
                 controlItems.Clear();
                 if (nullableItem != null) {
                     controlItems.Add(nullableItem);
