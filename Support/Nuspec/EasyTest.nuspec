@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandEasyTest</id>
-    <version>19.1.501.0</version>
+    <version>19.1.502.0</version>
     <title>DevExpress eXpandFramework EasyTest library</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -18,7 +18,7 @@
       <dependency id="AForge.Imaging" version="2.2.5" />
       <dependency id="AForge.Math" version="2.2.5" />
       <dependency id="AForge.Video" version="2.2.5" />
-      <dependency id="eXpandLib" version="19.1.501.0" />
+      <dependency id="eXpandLib" version="19.1.502.0" />
       <dependency id="InputSimulator" version="1.0.4.0" />
       <dependency id="Microsoft.CSharp" version="4.*" />
       <dependency id="System.Data.DataSetExtensions" version="4.*" />

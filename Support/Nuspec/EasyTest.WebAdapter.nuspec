@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandEasyTestWeb</id>
-    <version>19.1.501.0</version>
+    <version>19.1.502.0</version>
     <title>DevExpress eXpandFramework EasyTest web library</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency id="eXpandEasyTest" version="19.1.501.0" />
-      <dependency id="eXpandLib" version="19.1.501.0" />
+      <dependency id="eXpandEasyTest" version="19.1.502.0" />
+      <dependency id="eXpandLib" version="19.1.502.0" />
       <dependency id="IIS.Microsoft.Web.Adminstration" version="8.5.9600.16384" />
       <dependency id="Microsoft.CSharp" version="4.*" />
       <dependency id="System.Data.DataSetExtensions" version="4.*" />
