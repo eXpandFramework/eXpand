@@ -17,7 +17,7 @@ namespace Xpand.Persistent.Base.General.CustomAttributes {
             
             var dataSourcePropertyAttribute = memberInfo.FindAttribute<DataSourcePropertyAttribute>();
             if (dataSourcePropertyAttribute != null && objectInstance != null){
-                var nullableItem = startitems.First(item => itemValueSelector(item)==null);
+                var noneItem = startitems.FirstOrDefault(item => itemValueSelector(item)==null);
                 var member = memberInfo.Owner.FindMember(dataSourcePropertyAttribute.DataSourceProperty);
                 var items = ((IEnumerable) member.GetValue(objectInstance)).Cast<object>()
                     .Select(o => {
@@ -25,8 +25,8 @@ namespace Xpand.Persistent.Base.General.CustomAttributes {
                         return controlItem;
                     }).ToArray();
                 controlItems.Clear();
-                if (nullableItem != null) {
-                    controlItems.Add(nullableItem);
+                if (noneItem != null) {
+                    controlItems.Add(noneItem);
                 }
                 foreach (var item in items) {
                     controlItems.Add(item);

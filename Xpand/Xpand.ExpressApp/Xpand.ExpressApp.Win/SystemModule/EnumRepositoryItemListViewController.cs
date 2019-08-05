@@ -57,8 +57,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private  RepositoryItemCheckedComboBoxEdit NewRepositoryItemCheckedComboBoxEdit(object[] values,RepositoryItem dataRepositoryItem) {
             var item = new RepositoryItemCheckedComboBoxEdit();
-            item.Items.Add(GetNullItem(dataRepositoryItem));
-            item.Items.AddRange(values.Select(o => new CheckedListBoxItem(o)).ToArray());
+
+            var checkedListBoxItems = GetNullItem(dataRepositoryItem).Cast<CheckedListBoxItem>().Concat(values.Select(o => new CheckedListBoxItem(o))).ToArray();
+            item.Items.AddRange(checkedListBoxItems);
             return item;
         }
     }
