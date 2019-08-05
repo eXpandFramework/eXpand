@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
@@ -12,27 +13,45 @@ using EnumPropertyEditor = Xpand.ExpressApp.Win.PropertyEditors.EnumPropertyEdit
 
 namespace Xpand.ExpressApp.Win.SystemModule {
     public class EnumRepositoryItemGridListEditorController:ViewController<ListView> {
-        private IEnumerable<IMemberInfo> _memberInfos;
-        private IEnumerable<(GridColumn column, RepositoryItem repositoryItem,IMemberInfo memberInfo)> _repos;
+        
+        private IEnumerable<(GridColumn column, RepositoryItem repositoryItem,IMemberInfo memberInfo)> _data;
 
-        protected override void OnViewControlsCreated() {
-            base.OnViewControlsCreated();
-            if (View.Editor is GridListEditor gridListEditor) {
-                _memberInfos = View.Model.Columns.Where(_ =>_.Index > -1 && (_.ModelMember.MemberInfo.MemberType.IsEnum ||
-                            _.ModelMember.MemberInfo.MemberType.IsNullableType() && _.ModelMember.MemberInfo.MemberType.GetGenericArguments().First().IsEnum))
-                    .Select(_ => _.ModelMember.MemberInfo).ToArray();
-                _repos = _memberInfos.Select(info => {
-                    var gridColumn = gridListEditor.GridView.Columns[info.Name];
-                    var tuple = (column: gridColumn,repositoryItem: gridColumn.ColumnEdit,info);
-                    gridColumn.ColumnEdit=new RepositoryItemTextEdit();
-                    return tuple;
-                }).ToArray();
-                gridListEditor.GridView.CustomRowCellEditForEditing+=GridViewOnCustomRowCellEdit;
+        protected override void OnViewControlsCreated(){
+            if (View.Editor is GridListEditor gridListEditor){
+                
+                _data = GetData(gridListEditor);
+                gridListEditor.GridView.CustomRowCellEditForEditing += GridViewOnCustomRowCellEdit;
             }
         }
 
+        private (GridColumn column, RepositoryItem repositoryItem, IMemberInfo MemberInfo)[] GetData(GridListEditor gridListEditor){
+            var columns = View.Model.Columns.Where(MemberTypeIsEnum).ToArray();
+            return columns.Select(info =>{
+                    var gridColumn = FindColumnByModel(gridListEditor, info);
+                    if (gridColumn != null){
+                        var tuple = (column: gridColumn, repositoryItem: gridColumn.ColumnEdit,
+                            info.ModelMember.MemberInfo);
+                        gridColumn.ColumnEdit = new RepositoryItemTextEdit();
+                        return tuple;
+                    }
+                    return default;
+                })
+                .Where(_ => _!=default)
+                .ToArray();
+        }
+
+        private bool MemberTypeIsEnum(IModelColumn modelColumn){
+            return modelColumn.Index > -1 && (modelColumn.ModelMember.MemberInfo.MemberType.IsEnum ||modelColumn.ModelMember.MemberInfo.MemberType.IsNullableType() &&
+                                    modelColumn.ModelMember.MemberInfo.MemberType.GetGenericArguments().First().IsEnum);
+        }
+
+        GridColumn FindColumnByModel(GridListEditor gridListEditor, IModelColumn columnModel){
+            var columnWrapper = gridListEditor.FindColumn(columnModel.Id) as XafGridColumnWrapper;
+            return columnWrapper?.Column;
+        }
+
         private void GridViewOnCustomRowCellEdit(object sender, CustomRowCellEditEventArgs e) {
-            var data = _repos.FirstOrDefault(_ => _.column==e.Column);
+            var data = _data.FirstOrDefault(_ => _.column==e.Column);
             if (data!=default) {
                 var hasFlagsAttribute = EnumPropertyEditor.TypeHasFlagsAttribute(data.memberInfo);
                 var values = EnumsNET.NonGeneric.NonGenericEnums.GetValues(data.memberInfo.MemberType).ToArray();
