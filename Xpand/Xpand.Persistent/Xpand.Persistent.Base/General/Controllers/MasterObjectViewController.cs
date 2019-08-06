@@ -3,12 +3,23 @@ using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 
 namespace Xpand.Persistent.Base.General.Controllers {
+    [AttributeUsage(AttributeTargets.Property)]
+    public sealed class MasterObjectDataSourceCriteriaAttribute : ModelExportedValueAttribute {
+        private readonly String _dataSourceCriteria;
+        public MasterObjectDataSourceCriteriaAttribute(String dataSourceCriteria) {
+            _dataSourceCriteria = dataSourceCriteria;
+        }
+
+        public String DataSourceCriteria => _dataSourceCriteria;
+
+        public override Object Value => _dataSourceCriteria;
+    }
     public class FilteredMasterObjectViewController:MasterObjectViewController<object,object>{
         private string _criteria;
 
         protected override void OnActivated(){
             var collectionSource = View.CollectionSource as PropertyCollectionSource;
-            var criteriaAttribute = collectionSource?.MemberInfo.FindAttribute<DataSourceCriteriaAttribute>();
+            var criteriaAttribute = collectionSource?.MemberInfo.FindAttribute<MasterObjectDataSourceCriteriaAttribute>();
             if (criteriaAttribute != null){
                 _criteria = criteriaAttribute.DataSourceCriteria;
             }
