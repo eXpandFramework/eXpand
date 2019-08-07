@@ -185,8 +185,8 @@ namespace Xpand.ExpressApp.ImportWizard.Win.Wizard
             // 
             resources.ApplyResources(this.SheetSelectEdit, "SheetSelectEdit");
             this.SheetSelectEdit.Name = "SheetSelectEdit";
-            this.SheetSelectEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("SheetSelectEdit.Properties.Buttons"))))});
+//            this.SheetSelectEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+//            new DevExpress.XtraEditors.Controls.EditorButton(((DevExpress.XtraEditors.Controls.ButtonPredefines)(resources.GetObject("SheetSelectEdit.Properties.Buttons"))))});
             this.SheetSelectEdit.Properties.NullText = resources.GetString("SheetSelectEdit.Properties.NullText");
             this.SheetSelectEdit.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.SheetSelectEdit_ListChanged);
             this.SheetSelectEdit.EditValueChanged += new System.EventHandler(this.SheetSelectEdit_EditValueChanged);
