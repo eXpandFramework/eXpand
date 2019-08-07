@@ -551,11 +551,6 @@ namespace Xpand.Persistent.Base.General {
             XafTypesInfo.Instance.LoadTypes(typeof(XpandModuleBase).Assembly);
         }
 
-        static string ApplicationPath(){
-            var setupInformation = AppDomain.CurrentDomain.SetupInformation;
-            return setupInformation.PrivateBinPath??setupInformation.ApplicationBase;
-        }
-
         public override void Setup(XafApplication application) {
             lock (XafTypesInfo.Instance) {
                 if (RuntimeMode && ((TypesInfo)XafTypesInfo.Instance).FindEntityStore(typeof(XpoTypeInfoSource)) == null) {

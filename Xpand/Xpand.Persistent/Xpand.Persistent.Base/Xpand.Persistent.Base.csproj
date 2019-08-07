@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
     <TargetFramework>net461</TargetFramework>
@@ -44,7 +44,6 @@
     <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.34" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
@@ -80,7 +79,6 @@
     <Compile Update="General\Web\ActionsClientScriptController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="General\Web\CustomizeASPxPopupController.cs" />
     <Compile Update="General\Controllers\EasyTestController.cs">
       <SubType>Component</SubType>
     </Compile>

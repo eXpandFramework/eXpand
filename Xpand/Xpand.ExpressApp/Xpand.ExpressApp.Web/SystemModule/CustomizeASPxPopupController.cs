@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Web.Templates;
 using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Services;
 
-namespace Xpand.Persistent.Base.General.Web{
+namespace Xpand.ExpressApp.Web.SystemModule{
 //    public interface IModelViewPopup {
 //
 //        [Description("Allows you to customize the view popupcontrol")]
