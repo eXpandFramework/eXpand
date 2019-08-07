@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <TargetFramework>net461</TargetFramework>
@@ -24,6 +24,7 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
     <PackageReference Include="DevExpress.Web" Version="19.1.5" />
     <PackageReference Include="DevExpress.Scheduler.Core" Version="19.1.5" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.34" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web" />

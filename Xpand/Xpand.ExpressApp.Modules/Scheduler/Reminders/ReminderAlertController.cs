@@ -65,18 +65,20 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
         }
 
         private void CreateAppoitments() {
-            var reminderInfos = Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info != null);
-            Frame.GetController<ReminderController>(controller => {
-                var objectSpace = Application.CreateObjectSpace();
-                foreach (var modelMemberReminderInfo in reminderInfos) {
-                    var criteriaOperator = controller.GetCriteria(modelMemberReminderInfo);
-                    var reminderEvents =
-                        objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false)
-                            .Cast<IEvent>();
-                    var appointments = controller.CreateAppoitments(reminderEvents);
-                    controller.UpdateAppoitmentKey(appointments);
-                }
-            });            
+            if (Application != null){
+                var reminderInfos = Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info != null);
+                Frame.GetController<ReminderController>(controller => {
+                    var objectSpace = Application.CreateObjectSpace();
+                    foreach (var modelMemberReminderInfo in reminderInfos) {
+                        var criteriaOperator = controller.GetCriteria(modelMemberReminderInfo);
+                        var reminderEvents =
+                            objectSpace.GetObjects(modelMemberReminderInfo.ModelClass.TypeInfo.Type, criteriaOperator, false)
+                                .Cast<IEvent>();
+                        var appointments = controller.CreateAppoitments(reminderEvents);
+                        controller.UpdateAppoitmentKey(appointments);
+                    }
+                });
+            }
         }
 
 

@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Core.ModelEditor;
+using Fasterflect;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.Win {
@@ -31,26 +32,21 @@ namespace Xpand.ExpressApp.Win {
                 return;
             }
             var differenceStore = (ModelDifferenceStore)typeof(XafApplication).Invoke(winApplication, "CreateUserModelDifferenceStore");
-            if (differenceStore != null) {
-                differenceStore.SaveDifference(((ModelApplicationBase)winApplication.Model).LastLayer);
-            }
-            ICurrentAspectProvider oldAspectProvider = ((ModelApplicationBase)winApplication.Model).CurrentAspectProvider;
+            differenceStore?.SaveDifference(((ModelApplicationBase)winApplication.Model).LastLayer);
+            var oldAspectProvider = ((ModelApplicationBase)winApplication.Model).CurrentAspectProvider;
             try {
                 ((ModelApplicationBase)winApplication.Model).CurrentAspectProvider = new CurrentAspectProvider(oldAspectProvider.CurrentAspect);
                 using (Form modelEditorForm = ModelEditorViewController.CreateModelEditorForm(winApplication)) {
                     modelEditorForm.ShowDialog();
                     if (modelEditorForm is IModelEditorSettings) {
-                        if (differenceStore != null) {
-                            differenceStore.SaveDifference(((ModelApplicationBase)winApplication.Model).LastLayer);
-                        }
+                        differenceStore?.SaveDifference(((ModelApplicationBase)winApplication.Model).LastLayer);
                     }
                 }
             } finally {
                 ((ModelApplicationBase)winApplication.Model).CurrentAspectProvider = oldAspectProvider;
             }
             try {
-                typeof(WinApplication).Invoke(winApplication, "RefreshShowViewStrategy");
-                typeof(WinApplication).Invoke(winApplication, "ShowStartupWindow");
+                winApplication.CallMethod("ShowStartupWindow");
             } catch (Exception e) {
                 winApplication.HandleException(e);
                 winApplication.Exit();
