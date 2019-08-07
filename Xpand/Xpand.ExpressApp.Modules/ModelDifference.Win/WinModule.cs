@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.ExpressApp.Win.SystemModule;
+using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
 using Xpand.XAF.Modules.ModelMapper.Services;
 using AssemblyHelper = DevExpress.ExpressApp.Utils.Reflection.AssemblyHelper;
@@ -23,6 +24,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
         public ModelDifferenceWindowsFormsModule() {
             RequiredModuleTypes.Add(typeof(ModelDifferenceModule));
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.Win.XpandSecurityWinModule));
+            RequiredModuleTypes.Add(typeof(ModelMapperModule));
         }
         public static ModelApplicationCreator ApplicationCreator { get; set; }
 
