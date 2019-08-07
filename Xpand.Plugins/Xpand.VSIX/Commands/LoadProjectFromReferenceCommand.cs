@@ -2,6 +2,7 @@
 using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using EnvDTE;
@@ -76,13 +77,13 @@ namespace Xpand.VSIX.Commands {
                     references = objects.Select(o => vsProject.References.Cast<object>().First(_ => (string) _.GetPropertyValue("Name")==(string) o.GetPropertyValue("Name"))).ToArray();
                 }
 
-                foreach (var reference in references){
-                    var path = GetPath(reference);
+                foreach (var reference in references) {
+                    var path = Regex.Replace(GetPath(reference), @"(\\{2,})", @"\");
                     DTE.WriteToOutput($"Looking for ${path}");
                     var projectInfo = OptionClass.Instance.SourceCodeInfos.SelectMany(info => info.ProjectPaths)
                         .FirstOrDefault(
                             info =>
-                                string.Equals(info.OutputPath, path, StringComparison.CurrentCultureIgnoreCase) &&
+                                string.Equals(Regex.Replace(info.OutputPath, @"(\\{2,})", @"\"), path, StringComparison.CurrentCultureIgnoreCase) &&
                                 AssemblyDefinition.ReadAssembly(info.OutputPath).VersionMatch());
                     var name = GetName(reference);
                     if (projectInfo != null){
