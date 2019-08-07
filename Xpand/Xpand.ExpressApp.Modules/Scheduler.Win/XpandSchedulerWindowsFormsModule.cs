@@ -25,6 +25,7 @@ namespace Xpand.ExpressApp.Scheduler.Win {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
+            moduleManager.Extend(PredefinedMap.SchedulerControl);
             moduleManager.ExtendMap(PredefinedMap.SchedulerControl)
                 .Subscribe(_ => {
                     var propertyType = _.targetInterface.GetProperty(SchedulerControlService.PopupMenusMoelPropertyName)?.PropertyType;

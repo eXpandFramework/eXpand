@@ -39,8 +39,6 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             e.Extenders.Add<IModelPivotSettings,IModelPivotSettingsEx>();
         }
 
-        
-
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             moduleManager.ExtendMap(PredefinedMap.PivotGridControl)

@@ -4,8 +4,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
-using Xpand.ExpressApp.Dashboard.PropertyEditors;
-using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.Persistent.Base.General;
 using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;

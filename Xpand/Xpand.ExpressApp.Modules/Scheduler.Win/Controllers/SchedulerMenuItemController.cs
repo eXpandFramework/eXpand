@@ -14,6 +14,7 @@ using DevExpress.XtraScheduler.UI;
 using Fasterflect;
 using Xpand.ExpressApp.Scheduler.Model;
 using Xpand.Utils.Helpers;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
 
 namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
     [KeyProperty("MenuId")]
@@ -84,6 +85,10 @@ namespace Xpand.ExpressApp.Scheduler.Win.Controllers {
 //                typeof (TimelineView), typeof (WeekView)
 //            }).ToArray();
 //        }
+
+        protected override PredefinedMap GetPredeFinedMap() {
+            return PredefinedMap.SchedulerControl;
+        }
 
         protected override IAppointmentStatusStorage Statuses() {
             if (SchedulerListEditor != null) return SchedulerListEditor.SchedulerControl.Storage.Appointments.Statuses;

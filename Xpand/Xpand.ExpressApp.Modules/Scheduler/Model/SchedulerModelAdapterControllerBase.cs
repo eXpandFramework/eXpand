@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
 
         void LinkToListViewControllerOnLinkChanged(object sender, EventArgs eventArgs) {
             void Bind(Link link1, string modelNodeId, IEnumerable storage){
-                var modelNodes = ((IEnumerable<IModelNode>) link1.ListView.Model.GetNode(PredefinedMap.SchedulerControl)
+                var modelNodes = ((IEnumerable<IModelNode>) link1.ListView.Model.GetNode(GetPredeFinedMap())
                     .GetNode("Appointments").GetNode(modelNodeId)).ToArray();
                 foreach (var instance in storage){
                     var modelNode = modelNodes.First(node => node.Id() == (string) instance.GetPropertyValue("Id"));
@@ -65,6 +65,8 @@ namespace Xpand.ExpressApp.Scheduler.Model {
             }	
         }
 
+        protected abstract PredefinedMap GetPredeFinedMap();
+
         protected abstract IAppointmentStatusStorage Statuses();
 
         protected abstract IAppointmentLabelStorage Labels();
@@ -72,7 +74,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         protected abstract IInnerSchedulerControlOwner SchedulerControl();
         
         void SchedulerListEditorOnResourceDataSourceCreating(object sender, ResourceDataSourceCreatingEventArgs e) {
-            var resourceListView = ((IModelListViewSchedulerEx) View.Model.GetNode(PredefinedMap.SchedulerControl.ToString())).ResourceListView;
+            var resourceListView = ((IModelListViewSchedulerEx) View.Model.GetNode(GetPredeFinedMap())).ResourceListView;
             if (resourceListView != null) {
                 var collectionSourceBase = Application.CreateCollectionSource(Application.CreateObjectSpace(e.ResourceType), e.ResourceType, resourceListView.Id, false, CollectionSourceMode.Proxy);
                 Application.CreateListView(resourceListView.Id, collectionSourceBase, true);

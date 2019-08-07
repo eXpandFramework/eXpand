@@ -7,6 +7,7 @@ using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Native;
 using Xpand.ExpressApp.Scheduler.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
 using PopupMenuShowingEventArgs = DevExpress.Web.ASPxScheduler.PopupMenuShowingEventArgs;
 
 namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
@@ -68,6 +69,10 @@ namespace Xpand.ExpressApp.Scheduler.Web.Controllers {
 //                typeof (TimelineView), typeof (WeekView)
 //            }).ToArray();
 //        }
+
+        protected override PredefinedMap GetPredeFinedMap() {
+            return PredefinedMap.ASPxScheduler;
+        }
 
         protected override IAppointmentStatusStorage Statuses() {
             return SchedulerListEditor.SchedulerControl.Storage.Appointments.Statuses;
