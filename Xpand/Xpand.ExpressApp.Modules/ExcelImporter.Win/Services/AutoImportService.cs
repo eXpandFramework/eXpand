@@ -63,11 +63,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
 
             return application.WhenWindowCreated(true)
                     .SelectMany(tuple => excelImportFileDrops
-                        .TraceDroppedFiles(application)
+                        .TraceDroppedFiles(tuple.Application)
                         .Select(_ => Observable.Start(() => application.Import(_.fileDropped, (_.excelImport.Oid,_.watcher))))
-                        .Merge(((IModelOptionsAutoImportConcurrencyLimit) application.Model.Options).ImportConcurrencyLimit).ToUnit()
+                        .Merge(((IModelOptionsAutoImportConcurrencyLimit) tuple.Application.Model.Options).ImportConcurrencyLimit).ToUnit()
                         .Merge(DroppedSubject.Do(_ => AddDroppedFiles(_,application)).ToUnit())
-                        .Catch<Unit,Exception>(exception => Unit.Default.AsObservable().ObserveOn(((Control) application.MainWindow.Template)).SelectMany(_ => Observable.Empty<Unit>()))
+                        .Catch<Unit,Exception>(exception => Unit.Default.AsObservable().ObserveOn(((Control) tuple.Application.MainWindow.Template)).SelectMany(_ => Observable.Empty<Unit>()))
                         .Merge(pollExisting)
                         .Merge(changeWathersMonitoring))
                 ;
