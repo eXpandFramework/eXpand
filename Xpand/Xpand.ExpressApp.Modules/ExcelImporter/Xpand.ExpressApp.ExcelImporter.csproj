@@ -37,14 +37,14 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
     <PackageReference Include="DevExpress.Web" Version="19.1.5" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.AutoCommit" Version="0.0.43" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.26" />
-    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.18" />
-    <PackageReference Include="Xpand.XAF.Modules.MasterDetail" Version="0.0.43" />
-    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.12" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.42" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.43" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.42" />
+    <PackageReference Include="Xpand.XAF.Modules.AutoCommit" Version="0.0.44" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.27" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.19" />
+    <PackageReference Include="Xpand.XAF.Modules.MasterDetail" Version="0.0.44" />
+    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.13" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.43.1" />
+    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.44" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.43" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">
