@@ -1,9 +1,12 @@
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Dashboard;
+using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.Persistent.Base.General;
 using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
@@ -29,6 +32,14 @@ namespace Xpand.ExpressApp.XtraDashboard.Win {
                 configuration.TargetInterfaceTypes.Add(typeof(IModelDashboardModule));
             });
             moduleManager.Extend(PredefinedMap.DashboardViewer);
+            moduleManager.Extend(PredefinedMap.RichEditControl);
+            moduleManager.ExtendMap(PredefinedMap.RichEditControl)
+                .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelRichEditEx)));
+        }
+
+        public override void CustomizeLogics(CustomLogics customLogics) {
+            base.CustomizeLogics(customLogics);
+            customLogics.RegisterLogic(typeof(IModelRichEditEx),typeof(ModelRichEditDomainLogic));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {

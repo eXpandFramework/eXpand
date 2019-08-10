@@ -7,7 +7,11 @@
   <Views>
     <DetailView Id="DashboardDefinition_DetailView">
       <Items>
-        <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardXMLEditor" />
+        <PropertyEditor Id="Xml" PropertyEditorType="Xpand.ExpressApp.XtraDashboard.Win.PropertyEditors.DashboardXMLEditor">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@f1c9c5c4-0094-48c9-9f8c-e01244eecedf" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
       </Items>
     </DetailView>
     <DetailView Id="DashboardDefinitionViewer_DetailView">

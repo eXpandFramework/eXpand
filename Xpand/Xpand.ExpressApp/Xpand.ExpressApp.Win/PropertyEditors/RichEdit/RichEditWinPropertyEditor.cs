@@ -1,7 +1,9 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.CodeParser;
 using DevExpress.ExpressApp;
@@ -17,23 +19,26 @@ using DevExpress.XtraRichEdit.Commands;
 using DevExpress.XtraRichEdit.Export;
 using DevExpress.XtraRichEdit.Import;
 using DevExpress.XtraRichEdit.Services;
-using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
-using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
+using Xpand.XAF.Modules.ModelMapper.Services.Predefined;
 
-namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {    
+namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
-    [PropertyEditor(typeof(string),EditorAliases.RichEditRftPropertyEditor, false)]
+    [PropertyEditor(typeof(string),Persistent.Base.General.EditorAliases.RichEditRftPropertyEditor, false)]
     [RichEditPropertyEditor("rtf",true,false,"RtfText")]
-    public class RichEditWinPropertyEditor : WinPropertyEditor, IInplaceEditSupport, IComplexViewItem, IPropertyEditor{
+    public class RichEditWinPropertyEditor : WinPropertyEditor,  IComplexViewItem, IPropertyEditor{
         private XafApplication _application;
         private readonly IModelRichEditEx _modelRichEditEx;
 
         public RichEditWinPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
-            _modelRichEditEx = ((IModelRichEditEx) model.GetNode(XpandSystemWindowsFormsModule.RichEditMapName));
+            if (model is IModelColumn) {
+                return;
+            }
+//            (IModelRichEditEx)model.GetNode("Controls").GetNode(0)
+            _modelRichEditEx = model.GetNode(ViewItemService.PropertyEditorControlMapName).Nodes().OfType<IModelRichEditEx>().First();
             ControlBindingProperty = _modelRichEditEx.ControlBindingProperty;
         }
 
@@ -64,10 +69,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             if (Control != null) Control.RichEditControl.ReadOnly = !AllowEdit;
         }
 
-        public DevExpress.XtraEditors.Repository.RepositoryItem CreateRepositoryItem() {
-            return new RepositoryItemRtfEditEx();
-        }
-
         protected override object CreateControlCore() {
             var richEditContainer = RichEditContainerBase.Create(((IModelOptionsWin) Model.Application.Options).FormStyle,_application);
             if (!_modelRichEditEx.ShowToolBars)
@@ -90,7 +91,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
 
         public void Setup(IObjectSpace objectSpace, XafApplication application){
             _application = application;
-            objectSpace.Committing += ObjectSpaceOnCommitting;
+            if (_modelRichEditEx != null) {
+                objectSpace.Committing += ObjectSpaceOnCommitting;
+            }
         }
 
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {

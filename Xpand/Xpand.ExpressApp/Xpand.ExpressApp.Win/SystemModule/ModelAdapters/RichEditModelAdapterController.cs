@@ -1,16 +1,11 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Linq.Expressions;
-using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
-using DevExpress.XtraRichEdit;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
-using Xpand.Persistent.Base.General.Model.Options;
-using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.ExpressApp.Win.SystemModule.ModelAdapters{
 //    [ModelAbstractClass]
@@ -78,7 +73,7 @@ namespace Xpand.ExpressApp.Win.SystemModule.ModelAdapters{
         }
 
         private static object GetValue(IModelRichEditEx modelRichEdit, Func<RichEditPropertyEditorAttribute, object> func) {
-            if (modelRichEdit.Parent is IModelMemberViewItem richEdit) {
+            if (modelRichEdit.GetParent<IModelMemberViewItem>() is IModelMemberViewItem richEdit) {
                 var editorType = richEdit.PropertyEditorType;
                 if (typeof(RichEditWinPropertyEditor).IsAssignableFrom(editorType)) {
                     var editorAttribute = editorType.GetCustomAttributes(typeof(RichEditPropertyEditorAttribute), false)

@@ -80,7 +80,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public static string GridColumnMapName = "OptionsColumnGridView";
         public static string LayoutViewMapName = "OptionsLayoutView";
         public static string LayoutViewColumnMapName = "OptionsColumnLayoutView";
-        public static string RichEditMapName = "RichEdit";
+        
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             
@@ -102,8 +102,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             moduleManager.Extend(repositoryItems);
             
             moduleManager.Extend(PredefinedMap.RichEditControl);
-            moduleManager.Extend(PredefinedMap.RichEditControl,configuration => configuration.MapName=RichEditMapName);
-            
+
             moduleManager.ExtendMap(PredefinedMap.RichEditControl)
                 .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelRichEditEx)));
             
