@@ -12,6 +12,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="4.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="DevExpress.DataAccess" Version="19.1.5" />
     <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.5" />

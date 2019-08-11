@@ -344,7 +344,7 @@
             // 
             // stylesRibbonPageGroup1
             // 
-            this.stylesRibbonPageGroup1.Glyph = ((System.Drawing.Image)(resources.GetObject("stylesRibbonPageGroup1.Glyph")));
+//            this.stylesRibbonPageGroup1.Glyph = ((System.Drawing.Image)(resources.GetObject("stylesRibbonPageGroup1.Glyph")));
             this.stylesRibbonPageGroup1.ItemLinks.Add(this.galleryChangeStyleItem1);
             this.stylesRibbonPageGroup1.Name = "stylesRibbonPageGroup1";
             // 
@@ -2203,7 +2203,7 @@
             // 
             // tableAlignmentRibbonPageGroup1
             // 
-            this.tableAlignmentRibbonPageGroup1.Glyph = ((System.Drawing.Image)(resources.GetObject("tableAlignmentRibbonPageGroup1.Glyph")));
+//            this.tableAlignmentRibbonPageGroup1.Glyph = ((System.Drawing.Image)(resources.GetObject("tableAlignmentRibbonPageGroup1.Glyph")));
             this.tableAlignmentRibbonPageGroup1.ItemLinks.Add(this.toggleTableCellsTopLeftAlignmentItem1);
             this.tableAlignmentRibbonPageGroup1.ItemLinks.Add(this.toggleTableCellsMiddleLeftAlignmentItem1);
             this.tableAlignmentRibbonPageGroup1.ItemLinks.Add(this.toggleTableCellsBottomLeftAlignmentItem1);
@@ -2359,7 +2359,7 @@
             // 
             // textRibbonPageGroup1
             // 
-            this.textRibbonPageGroup1.Glyph = ((System.Drawing.Image)(resources.GetObject("textRibbonPageGroup1.Glyph")));
+//            this.textRibbonPageGroup1.Glyph = ((System.Drawing.Image)(resources.GetObject("textRibbonPageGroup1.Glyph")));
             this.textRibbonPageGroup1.ItemLinks.Add(this.insertTextBoxItem1);
             this.textRibbonPageGroup1.Name = "textRibbonPageGroup1";
             // 
