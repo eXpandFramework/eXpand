@@ -62,7 +62,7 @@ namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
         public XPCollection<ScheduledWorkflowLaunchSchedule> LaunchScheduleItems => GetCollection<ScheduledWorkflowLaunchSchedule>("LaunchScheduleItems");
 
         [Association]
-        [CollectionOperationSet(AllowAdd = false,AllowRemove = false), Aggregated]
+        [CollectionOperationSet(AllowAdd = false,AllowRemove = false)]
         public XPCollection<ScheduledWorkflowLaunchHistory> LaunchHistoryItems => GetCollection<ScheduledWorkflowLaunchHistory>("LaunchHistoryItems");
 
         #endregion
