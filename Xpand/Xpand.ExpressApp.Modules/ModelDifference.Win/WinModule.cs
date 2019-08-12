@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Win;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Win.PropertyEditors.RichEdit;
 using Xpand.ExpressApp.Win.SystemModule;
+using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
 using Xpand.XAF.Modules.ModelMapper.Services;
@@ -37,6 +38,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
                 Application.Disposed += Application_Disposed;
             }
             moduleManager.Extend(PredefinedMap.RichEditControl);
+            moduleManager.ExtendMap(PredefinedMap.RichEditControl)
+                .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelRichEditEx)));
         }
 
         protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory) {

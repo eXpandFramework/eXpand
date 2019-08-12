@@ -11,7 +11,9 @@
     <DetailView Id="MDO_DetailView">
       <Items>
         <PropertyEditor Id="XmlContent" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor">
-          <RichEdit HighLightExtension="xml" ControlBindingProperty="ControlText" />
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@60e6964b-750d-420b-8d1e-99e87595b368" HighLightExtension="xml" ControlBindingProperty="ControlText" IsNewNode="True" />
+          </Controls>
         </PropertyEditor>
       </Items>
     </DetailView>

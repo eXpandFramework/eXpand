@@ -37,7 +37,6 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             if (model is IModelColumn) {
                 return;
             }
-//            (IModelRichEditEx)model.GetNode("Controls").GetNode(0)
             _modelRichEditEx = model.GetNode(ViewItemService.PropertyEditorControlMapName).Nodes().OfType<IModelRichEditEx>().First();
             ControlBindingProperty = _modelRichEditEx.ControlBindingProperty;
         }

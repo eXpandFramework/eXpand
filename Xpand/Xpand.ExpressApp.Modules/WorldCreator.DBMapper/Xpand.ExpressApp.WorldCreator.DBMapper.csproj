@@ -23,8 +23,8 @@
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.21.1" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.36.2" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.22.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.37.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">

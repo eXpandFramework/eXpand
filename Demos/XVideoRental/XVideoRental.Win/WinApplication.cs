@@ -17,6 +17,7 @@ namespace XVideoRental.Win {
             InitializeComponent();
             DelayedViewItemsInitialization = true;
             LastLogonParametersRead += OnLastLogonParametersRead;
+//            EnableModelCache = true;
         }
 
         protected override ApplicationModulesManager CreateApplicationModulesManager(ControllersManager controllersManager) {
@@ -38,10 +39,10 @@ namespace XVideoRental.Win {
 
         void XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch(object sender,
                                                                          DatabaseVersionMismatchEventArgs e) {
-            
-#if EASYTEST
             e.Updater.Update();
             e.Handled = true;
+#if EASYTEST
+            
 #else
             if (this.DropDatabaseOnVersionMissmatch() > 0)
                 Application.ExitThread();
