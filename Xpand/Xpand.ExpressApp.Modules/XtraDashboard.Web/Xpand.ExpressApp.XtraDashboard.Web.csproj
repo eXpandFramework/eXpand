@@ -51,11 +51,11 @@
     <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
     <PackageReference Include="DevExpress.Data" Version="19.1.5" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38" />
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
     <PackageReference Include="DevExpress.Web" Version="19.1.5" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.47.1" />
+    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.47" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">

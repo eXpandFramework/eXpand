@@ -50,7 +50,7 @@
   <ItemGroup>
     <PackageReference Include="DevExpress.Data" Version="19.1.5" />
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
     <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.5" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />

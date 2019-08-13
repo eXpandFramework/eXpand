@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWorldCreatorDbMapper</id>
-    <version>19.1.502.0</version>
+    <version>19.1.503.0</version>
     <title>DevExpress eXpandFramework WorldCreator DbMapper Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,15 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#DBMapper</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.502.0" />
-      <dependency id="eXpandWorldCreator" version="19.1.502.0" />
+      <dependency id="eXpandLib" version="19.1.503.0" />
+      <dependency id="eXpandWorldCreator" version="19.1.503.0" />
       <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.18" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.34" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.22" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.37" />
     </dependencies>
   </metadata>
   <files>

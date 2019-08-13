@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandFileAttachmentWeb</id>
-    <version>19.1.502.0</version>
+    <version>19.1.503.0</version>
     <title>DevExpress eXpandFramework FileAttachment Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#FileAttachment</projectUrl>
     <dependencies>
-      <dependency id="eXpandFileAttachment" version="19.1.502.0" />
-      <dependency id="eXpandLib" version="19.1.502.0" />
+      <dependency id="eXpandFileAttachment" version="19.1.503.0" />
+      <dependency id="eXpandLib" version="19.1.503.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.34" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.38" />
     </dependencies>
   </metadata>
   <files>
