@@ -19,8 +19,13 @@
 //    public class ASPxHyperLinkMemberViewItemVisibilityCalculator : EditorTypeVisibilityCalculator<HyperLinkPropertyEditor, IModelMemberViewItem> {
 //    }
 //
-    public interface IModelASPxHyperLinkControl {//: IModelModelAdapter {
-//        [Category(AttributeCategoryNameProvider.Xpand)]
+
+using System.ComponentModel;
+using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General.Model;
+
+public interface IModelASPxHyperLinkControl:IModelNode {//: IModelModelAdapter {
+        [Category(AttributeCategoryNameProvider.Xpand)]
         string HyperLinkFormat { get; set; }
 //        IModelASPxHyperLinkControlModelAdapters ModelAdapters { get; }
     }

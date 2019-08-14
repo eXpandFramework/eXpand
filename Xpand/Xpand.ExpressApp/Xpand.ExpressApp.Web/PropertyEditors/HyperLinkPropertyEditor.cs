@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using DevExpress.ExpressApp.Editors;
@@ -6,7 +7,8 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
-using Xpand.XAF.Modules.ModelMapper.Configuration;
+using Xpand.Persistent.Base.General;
+using Xpand.XAF.Modules.ModelMapper.Services.Predefined;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
@@ -24,8 +26,8 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
         }
 
         public override bool CancelClickEventPropagation{
-            get { return _cancelClickEventPropagation; }
-            set { _cancelClickEventPropagation = value; }
+            get => _cancelClickEventPropagation;
+            set => _cancelClickEventPropagation = value;
         }
 
         protected override WebControl CreateEditModeControlCore(){
@@ -62,11 +64,10 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             SetupHyperLink(InplaceViewModeEditor);
         }
 
-        string GetResolvedUrl(object value) {
+        string GetResolvedUrl(object value, IModelASPxHyperLinkControl modelASPxHyperLinkControl) {
             string url = Convert.ToString(value);
             if (!string.IsNullOrEmpty(url)){
-                var modelMemberViewItemHyperLink = ( Model);
-                var hyperLinkFormat = ((IModelASPxHyperLinkControl) modelMemberViewItemHyperLink.GetNode(PredefinedMap.ASPxHyperLink.ToString())).HyperLinkFormat;
+                var hyperLinkFormat = modelASPxHyperLinkControl?.HyperLinkFormat;
                 if (string.IsNullOrEmpty(hyperLinkFormat)){
                     if (url.Contains("@") && IsValidUrl(url))
                         return $"mailto:{url}";
@@ -101,8 +102,11 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
             if (editor is ASPxHyperLink hyperlink) {
                 string url = GetFormattedValue();
                 hyperlink.Text = url;
-                hyperlink.NavigateUrl = GetResolvedUrl(PropertyValue);
-                var hyperlinkTarget = ( Model).GetNode(PredefinedMap.ASPxHyperLink.ToString()).GetValue<string>(nameof(ASPxHyperLink.Target));
+                var modelASPxHyperLinkControl = Model
+                    .GetNode(ViewItemService.PropertyEditorControlMapName)?.Nodes()
+                    .OfType<IModelASPxHyperLinkControl>().FirstOrDefault();
+                hyperlink.NavigateUrl = GetResolvedUrl(PropertyValue,modelASPxHyperLinkControl);
+                var hyperlinkTarget = modelASPxHyperLinkControl?.GetValue<string>(nameof(ASPxHyperLink.Target));
                 if (string.IsNullOrEmpty(hyperlinkTarget))
                     hyperlinkTarget = "_blank";
                 hyperlink.Target = hyperlinkTarget;
