@@ -8,6 +8,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Xpo;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
@@ -28,6 +29,13 @@ namespace Xpand.Persistent.Base.General {
         }
     }
     public static class ObjectSpaceExtensions {
+        public static void CommitChangesAndValidate(this IObjectSpace objectSpace) {
+            var ruleSetValidationResult = Validator.RuleSet.ValidateAllTargets(objectSpace, objectSpace.ModifiedObjects, ContextIdentifier.Save);
+            if (ruleSetValidationResult.ValidationOutcome == ValidationOutcome.Error)
+                throw new Exception(ruleSetValidationResult.GetFormattedErrorMessage());
+            objectSpace.CommitChanges();
+        }
+
         public static ConnectionProviderType GetProviderType(this IObjectSpaceProvider provider) {
             var helper = new ConnectionStringParser(provider.ConnectionString+"");
             string providerType = helper.GetPartByName(DataStoreBase.XpoProviderTypeParameterName);
@@ -127,8 +135,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private static void CreateDbObject(IObjectSpace objectSpace,Action<IDataStore> create) {
-            var xpObjectSpace = objectSpace as XPObjectSpace;
-            if (xpObjectSpace != null) {
+            if (objectSpace is XPObjectSpace xpObjectSpace) {
                 create.Invoke(((BaseDataLayer)xpObjectSpace.Session.DataLayer).ConnectionProvider);
                 return;
             }
@@ -136,8 +143,7 @@ namespace Xpand.Persistent.Base.General {
 
         }
         public static bool IsServerSide(this IObjectSpace objectSpace) {
-            var xpObjectSpace = objectSpace as XPObjectSpace;
-            if (xpObjectSpace != null) {
+            if (objectSpace is XPObjectSpace xpObjectSpace) {
                 var session = xpObjectSpace.Session;
                 return (session.DataLayer != null && session.ObjectLayer == null) || (session.DataLayer != null && session.ObjectLayer != null);
             }
@@ -173,8 +179,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static bool NeedReload(this IObjectSpace objectSpace, object currentObject) {
-            XPMemberInfo optimisticLockFieldInfo;
-            XPClassInfo classInfo = GetClassInfo(objectSpace, currentObject, out optimisticLockFieldInfo);
+            XPClassInfo classInfo = GetClassInfo(objectSpace, currentObject, out var optimisticLockFieldInfo);
             Boolean isObjectChangedByAnotherUser = false;
             if (!objectSpace.IsDisposedObject(currentObject) && !objectSpace.IsNewObject(currentObject) && (optimisticLockFieldInfo != null)) {
                 Object keyPropertyValue = objectSpace.GetKeyValue(currentObject);

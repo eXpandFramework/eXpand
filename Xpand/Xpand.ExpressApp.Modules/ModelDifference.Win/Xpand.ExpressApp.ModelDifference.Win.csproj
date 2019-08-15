@@ -13,6 +13,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="4.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="DevExpress.Data" Version="19.1.5" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
@@ -26,7 +27,7 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.5" />
     <PackageReference Include="DevExpress.Win.RichEdit" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">

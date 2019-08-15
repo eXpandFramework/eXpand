@@ -89,7 +89,11 @@ namespace Xpand.Persistent.Base.General {
 
         static XpandModuleBase(){
             AdditionalTypesTypesInfo=new TypesInfo();
-            NetstandardPath = $@"{Path.GetTempPath()}\netstandard.dll";
+            var path = $@"{Path.GetTempPath()}\\netstandard";
+            if (!Directory.Exists(path)) {
+                Directory.CreateDirectory(path);
+            }
+            NetstandardPath = $@"{path}\netstandard.dll";
             using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
                 manifestResourceStream.SaveToFile(NetstandardPath);
             }
