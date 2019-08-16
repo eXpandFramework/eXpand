@@ -85,7 +85,8 @@ function AddAllDependency($file, $nuspecpaths) {
     }
     $metadata.version = $version
     $nuspecpaths | ForEach-Object {
-        AddDependency $_.BaseName $nuspecpath $Version
+        [xml]$package=Get-Content $_.Fullname
+        AddDependency $package.package.metaData.Id $nuspecpath $Version
     }
     $nuspecpath.Save($file)
 }
@@ -102,7 +103,7 @@ $pArgs = @{
     Root                    = $root
     ResolveNugetDependecies = $ResolveNugetDependecies
 }
-# Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | Invoke-Parallel -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs", "scriptPath") -Script {   
+Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | Invoke-Parallel -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs", "scriptPath") -Script {   
 Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | foreach {   
     Write-host "Updating $($_.BaseName)" -f Blue
     $dir = (Get-Item $scriptPath).DirectoryName
@@ -128,10 +129,10 @@ $ns.AddNamespace("ns", $libNuspec.DocumentElement.NamespaceURI)
 $libNuspec.Save($libNuspecPath)
 
 $nuspecpathFile = "$nuspecpathsPath\All_Agnostic.nuspec"
-AddAllDependency $nuspecpathFile (Get-ChildItem "$nuspecpathsPath" -Exclude "*Win*", "*Web*")
+AddAllDependency $nuspecpathFile (Get-ChildItem "$nuspecpathsPath" -Exclude "*Win*", "*Web*","*All*")
 
 "Win", "Web" | ForEach-Object {
-    $nuspecpaths = (Get-ChildItem "$nuspecpathsPath" "*$_*")
+    $nuspecpaths = (Get-ChildItem "$nuspecpathsPath" "*$_*"|Where-Object{$_.BaseName -notmatch "All"})
     $nuspecpathFile = "$nuspecpathsPath\All_$_.nuspec"
     AddAllDependency $nuspecpathFile $nuspecpaths
 }
@@ -143,7 +144,7 @@ Get-ChildItem "$root\Support\Nuspec" *.nuspec|ForEach-Object{
     }
     $nuspec.Save($_.FullName)
 }
-Get-ChildItem "$root\Support\Nuspec" *.nuspec | foreach {
+Get-ChildItem "$root\Support\Nuspec" *.nuspec | ForEach-Object {
     $file = $_.FullName
     $readMe = ($file -notlike "*EasyTest*" -and $file -notlike "*All_*")
     $dir = (Get-Item $scriptPath).DirectoryName
