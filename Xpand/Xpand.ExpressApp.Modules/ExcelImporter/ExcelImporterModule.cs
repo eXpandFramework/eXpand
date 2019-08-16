@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Notifications;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Utils;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
+using Xpand.ExpressApp.ExcelImporter.Controllers;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Validation;
@@ -51,16 +52,16 @@ namespace Xpand.ExpressApp.ExcelImporter {
             if (InterfaceBuilder.RuntimeMode) {
                 _notificationsModule = Application.FindModule<NotificationsModule>();
                 _notificationsModule.NotificationsRefreshInterval = TimeSpan.FromSeconds(5);
-                var excelImportDetailView = Application.WhenDetailViewCreated().ToDetailView()
-                    .When(typeof(ExcelImport));
-                Application.WhenMasterDetailDashboardViewItems().CombineLatest(excelImportDetailView,(tuple, view) =>
-                        (tuple.listViewItem,excelImport:(ExcelImport)view.CurrentObject))
-                    .Select(_ => {
-                        var listView = ((ListView) _.listViewItem.InnerView);
-                        var criteriaOperator = listView.ObjectSpace.GetCriteriaOperator<ExcelColumnMap>(map =>map.ExcelImport.Oid == _.excelImport.Oid);
-                        listView.CollectionSource.Criteria[GetType().Name] =criteriaOperator;
-                        return Unit.Default;
-                    })
+                Application.WhenMasterDetailDashboardViewItems(typeof(ExcelColumnMap)).WithLatestFrom(Application.WhenWindowCreated()
+                            .ToController<ExcelImportDetailViewController>()
+                            .SelectMany(controller => controller.MapAction.WhenExecuted().Select(tuple => tuple)),
+                        (tuple, valueTuple) => {
+                            var criteriaOperator =
+                                tuple.listViewItem.InnerView.ObjectSpace.GetCriteriaOperator<ExcelColumnMap>(map =>
+                                    map.ExcelImport.Oid == ((ExcelImportDetailViewController) valueTuple.e.Action.Controller).ExcelImport.Oid);
+                            ((ListView) tuple.listViewItem.InnerView).CollectionSource.Criteria[GetType().Name] = criteriaOperator;
+                            return Unit.Default;
+                        })
                     .Subscribe();
             }
         }

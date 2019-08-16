@@ -84,7 +84,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             ExcelImport.ValidateForImport();
         }
 
-        protected ExcelImport ExcelImport => ((ExcelImport) View.CurrentObject);
+        public ExcelImport ExcelImport => ((ExcelImport) View.CurrentObject);
         protected virtual void ValidateFile(){
             if (ExcelImport.File.Content == null){
                 var result = Validator.RuleSet.NewRuleSetValidationMessageResult(ObjectSpace, "Invalid file", "Save",
