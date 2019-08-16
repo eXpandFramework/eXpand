@@ -23,8 +23,6 @@ using Xpand.ExpressApp.Security.Win;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.ExpressApp.XtraDashboard.Win;
-using Xpand.XAF.Modules.CloneModelView;
-using Xpand.XAF.Modules.ModelMapper;
 using XVideoRental.Module.Win.BusinessObjects;
 using XVideoRental.Module.Win.BusinessObjects.Movie;
 using XVideoRental.Module.Win.Reports;
@@ -53,11 +51,13 @@ namespace XVideoRental.Module.Win {
             RequiredModuleTypes.Add(typeof(XpandSecurityWinModule));
             RequiredModuleTypes.Add(typeof(ReportsV2WinModule));
             RequiredModuleTypes.Add(typeof(DashboardWindowsFormsModule));
-            RequiredModuleTypes.Add(typeof(CloneModelViewModule));
-            RequiredModuleTypes.Add(typeof(ModelMapperModule));
             RequiredModuleTypes.Add(typeof(TreeListEditorsModuleBase));
             RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
             
+        }
+
+        public override void Setup(ApplicationModulesManager moduleManager) {
+            base.Setup(moduleManager);
         }
 
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
