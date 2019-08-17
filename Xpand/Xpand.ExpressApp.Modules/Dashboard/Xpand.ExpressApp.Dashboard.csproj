@@ -33,7 +33,7 @@
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.29.1" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.46.1" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.46.4" />
     <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.46.1" />
   </ItemGroup>
   <ItemGroup>

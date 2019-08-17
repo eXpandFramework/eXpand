@@ -31,7 +31,7 @@
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.29.1" />
     <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.22.1" />
     <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.16.1" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.46.1" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.46.4" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">
