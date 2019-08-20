@@ -113,7 +113,9 @@ namespace Xpand.VSIX.VSPackage {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
 
             ExternalToolsService.Init();
+            ModelMapperService.Init();
             Commands.Commands.Initialize();
         }
     }
+
 }

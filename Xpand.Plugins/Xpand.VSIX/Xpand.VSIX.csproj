@@ -118,6 +118,7 @@
     <Compile Include="ModelEditor\METoolWindowControl.Designer.cs">
       <DependentUpon>METoolWindowControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Services\ModelMapperService.cs" />
     <Compile Include="VSPackage\VSPackage1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
