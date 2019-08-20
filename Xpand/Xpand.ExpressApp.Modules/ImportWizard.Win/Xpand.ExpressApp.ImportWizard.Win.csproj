@@ -3,6 +3,7 @@
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <TargetFramework>net461</TargetFramework>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <LangVersion>latest</LangVersion>
     <DebugSymbols>true</DebugSymbols>
@@ -27,6 +28,7 @@
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.5" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.5" />
     <PackageReference Include="DevExpress.Win" Version="19.1.5" />
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0-preview8.19405.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
