@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.4" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.5" />
     <PackageReference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web" Version="19.1.5" />
     <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.5" />
     <PackageReference Include="DevExpress.Data" Version="19.1.5" />

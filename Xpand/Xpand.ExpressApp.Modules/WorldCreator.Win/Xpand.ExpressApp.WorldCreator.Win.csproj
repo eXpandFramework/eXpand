@@ -18,7 +18,7 @@
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" Version="19.1.5" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
     <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.4" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.5" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.Win">

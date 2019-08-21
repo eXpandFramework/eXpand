@@ -21,7 +21,7 @@
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
     <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.37.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.37.2" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fasterflect.Netstandard">

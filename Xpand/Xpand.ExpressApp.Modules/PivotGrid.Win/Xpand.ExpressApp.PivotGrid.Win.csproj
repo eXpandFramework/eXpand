@@ -38,7 +38,7 @@
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.5" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.5" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.4" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.5" />
     <PackageReference Include="DevExpress.Win.PivotGrid" Version="19.1.5" />
   </ItemGroup>
   <ItemGroup>
