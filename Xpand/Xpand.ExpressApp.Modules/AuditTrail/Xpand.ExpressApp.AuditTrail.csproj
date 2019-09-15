@@ -15,16 +15,16 @@
     <PackageReference Include="System.Reactive" Version="4.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.34" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.AuditTrail" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.AuditTrail" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="0.0.29.2" />
     <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.37.2" />
   </ItemGroup>

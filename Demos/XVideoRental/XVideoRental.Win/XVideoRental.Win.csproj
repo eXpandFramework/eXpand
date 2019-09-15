@@ -156,36 +156,36 @@
     <ProjectReference Include="..\XVideoRental.Module.Win\XVideoRental.Module.Win.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Utils.UI" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win.Dashboard" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
-    <PackageReference Include="DevExpress.DataAccess" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Chart" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Chart.Win" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotChart.Win" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotGrid" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotGrid.Win" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Win" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.TreeListEditors" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Utils" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win" Version="19.1.5" />
+    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Utils.UI" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win.Dashboard" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
+    <PackageReference Include="DevExpress.DataAccess" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Chart" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Chart.Win" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotChart.Win" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotGrid" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotGrid.Win" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Win" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.TreeListEditors" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.ViewVariantsModule" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win" Version="19.1.6" />
   </ItemGroup>
 </Project>

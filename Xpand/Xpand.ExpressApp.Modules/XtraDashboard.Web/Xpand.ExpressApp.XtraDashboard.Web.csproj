@@ -24,37 +24,37 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.34" />
-    <PackageReference Include="DevExpress.Charts.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.CodeParser" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Web.Dashboard.Common" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Web.Dashboard" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Web" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation.Web" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Images" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Map.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Pdf.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
-    <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.5" />
-    <PackageReference Include="DevExpress.SpellChecker.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.TreeMap.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Utils" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Web.Themes" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
-    <PackageReference Include="DevExpress.DataAccess" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Charts.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.CodeParser" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Web.Dashboard.Common" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Web.Dashboard" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Web" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation.Web" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Images" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Map.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Pdf.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
+    <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.6" />
+    <PackageReference Include="DevExpress.SpellChecker.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.TreeMap.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Web.Themes" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.6" />
+    <PackageReference Include="DevExpress.DataAccess" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.5" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.47.2" />
   </ItemGroup>
   <ItemGroup>

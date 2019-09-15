@@ -38,11 +38,13 @@ namespace Xpand.VSIX.Extensions {
             log?.LogEntry((uint) __ACTIVITYLOG_ENTRYTYPE.ALE_ERROR, VSPackage.VSPackage.Instance.ToString(), text);
         }
 
-        public static void WriteToOutput(this DTE2 dte, string text) {
-            InitializeVsPaneIfNeeded(dte);
+        public static void WriteToOutput(this DTE2 dte, string text,bool activate=true) {
+            InitializeVsPaneIfNeeded(dte,activate);
             if (_outputWindowPane == null || string.IsNullOrEmpty(text))
                 return;
-            ActivatePane();
+            if (activate) {
+                ActivatePane();
+            }
             _outputWindowPane.OutputString(text + Environment.NewLine);
         }
 
@@ -56,9 +58,11 @@ namespace Xpand.VSIX.Extensions {
             _outputWindowPane?.Clear();
         }
 
-        static void InitializeVsPaneIfNeeded(DTE2 dte) {
+        static void InitializeVsPaneIfNeeded(DTE2 dte,bool activate=true) {
             if (_outputWindowPane != null) {
-                ActivatePane();
+                if (activate) {
+                    ActivatePane();
+                }
                 return;
             }
             var wnd = dte.Windows.Item(Constants.vsWindowKindOutput);

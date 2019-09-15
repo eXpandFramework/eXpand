@@ -34,13 +34,13 @@ namespace Xpand.VSIX.Services{
                         .SelectMany(s => Observable.Start(() => File.Delete($@"{targetDirectory}\{s}")).OnErrorResumeNext(Observable.Return(Unit.Default)))
                         .Finally(() => File.Delete(modelMapperFiles));
                 }
-                DteExtensions.DTE.WriteToOutput($"Copying files to {targetDirectory}");
+                DteExtensions.DTE.WriteToOutput($"Copying files to {targetDirectory}",false);
                 deleteFiles.Concat(files.ToObservable()
                         .SelectMany(s => CopyFile(s, targetDirectory))
                         .Select(s => Unit.Default))
                     .Finally(() => {
                         File.WriteAllText(modelMapperFiles,string.Join(Environment.NewLine,files.Select(Path.GetFileName)));
-                        DteExtensions.DTE.WriteToOutput("Finished");
+                        DteExtensions.DTE.WriteToOutput("Finished",false);
                     })
                     .Subscribe();
 

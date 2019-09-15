@@ -12,10 +12,13 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Security;
+using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
+using DevExpress.Xpo.Helpers;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomFunctions;
 using Xpand.Persistent.Base.ModelAdapter;
@@ -126,6 +129,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         protected override void OnActivated(){
             base.OnActivated();
             var databaseMaintanance = ((IModelOptionsDatabaseMaintanence) Application.Model.Options).DatabaseMaintanance;
+            var supported = Application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>().Any(provider =>
+                provider.DataLayer is BaseDataLayer baseDataLayer &&baseDataLayer.ConnectionProvider is ConnectionProviderSql);
+            if (!supported) {
+                return;
+            }
             Task.Factory.StartNew(() => {
                 try{
                     Execute(databaseMaintanance, (session, database) => {

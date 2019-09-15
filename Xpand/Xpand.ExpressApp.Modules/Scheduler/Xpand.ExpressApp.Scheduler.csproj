@@ -30,20 +30,20 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.38.5" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Utils" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Win.Scheduler" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Scheduler.Core" Version="19.1.5" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Utils" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win.Grid" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Win.Scheduler" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Scheduler.Core" Version="19.1.6" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Model\SchedulerModelAdapterControllerBase.cs">

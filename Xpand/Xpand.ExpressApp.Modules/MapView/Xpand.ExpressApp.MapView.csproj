@@ -36,15 +36,15 @@
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.5" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.5" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.5" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.5" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>
