@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandSecurityWeb</id>
-    <version>19.1.503.0</version>
+    <version>19.1.601.0</version>
     <title>DevExpress eXpandFramework Security Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,15 +14,16 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.503.0" />
-      <dependency id="eXpandSecurity" version="19.1.503.0" />
-      <dependency id="eXpandSystem" version="19.1.503.0" />
+      <dependency id="eXpandLib" version="19.1.601.0" />
+      <dependency id="eXpandSecurity" version="19.1.601.0" />
+      <dependency id="eXpandSystem" version="19.1.601.0" />
+      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Security.Web.dll" target="lib\net461\Xpand.ExpressApp.Security.Web.dll" />
-    <file src="Xpand.ExpressApp.Security.Web.pdb" target="lib\net461\Xpand.ExpressApp.Security.Web.pdb" />
+    <file src="Xpand.ExpressApp.Security.Web.dll" target="lib\net461\Xpand.ExpressApp.Security.Web." />
+    <file src="Xpand.ExpressApp.Security.Web.pdb" target="lib\net461\Xpand.ExpressApp.Security.Web." />
     <file src="Readme.txt" target="" />
   </files>
 </package>

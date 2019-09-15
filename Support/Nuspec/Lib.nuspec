@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandLib</id>
-    <version>19.1.503.0</version>
+    <version>19.1.601.0</version>
     <title>DevExpress eXpandFramework Library</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -20,8 +20,8 @@
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.Persistent.Base.dll" target="lib\net461\Xpand.Persistent.Base.dll" />
-    <file src="Xpand.Persistent.Base.pdb" target="lib\net461\Xpand.Persistent.Base.pdb" />
+    <file src="Xpand.Persistent.Base.dll" target="lib\net461\Xpand.Persistent.Base." />
+    <file src="Xpand.Persistent.Base.pdb" target="lib\net461\Xpand.Persistent.Base." />
     <file src="Xpand.xpo.dll" target="lib\net461\Xpand.xpo.dll" />
     <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
     <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll" />

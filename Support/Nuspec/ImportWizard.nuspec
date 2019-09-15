@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandImportWizard</id>
-    <version>19.1.503.0</version>
+    <version>19.1.601.0</version>
     <title>DevExpress eXpandFramework ImportWizard Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,13 +15,13 @@
     <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
     <dependencies>
       <dependency id="DocumentFormat.OpenXml" version="2.7.2" />
-      <dependency id="eXpandLib" version="19.1.503.0" />
+      <dependency id="eXpandLib" version="19.1.601.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ImportWizard.dll" target="lib\net461\Xpand.ExpressApp.ImportWizard.dll" />
-    <file src="Xpand.ExpressApp.ImportWizard.pdb" target="lib\net461\Xpand.ExpressApp.ImportWizard.pdb" />
+    <file src="Xpand.ExpressApp.ImportWizard.dll" target="lib\net461\Xpand.ExpressApp.ImportWizard." />
+    <file src="Xpand.ExpressApp.ImportWizard.pdb" target="lib\net461\Xpand.ExpressApp.ImportWizard." />
     <file src="Readme.txt" target="" />
   </files>
 </package>

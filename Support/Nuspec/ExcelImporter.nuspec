@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandExcelImporter</id>
-    <version>19.1.503.0</version>
+    <version>19.1.601.0</version>
     <title>DevExpress eXpandFramework ExcelImporter Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -16,9 +16,9 @@
     <dependencies>
       <dependency id="ExcelDataReader" version="3.6.0" />
       <dependency id="ExcelDataReader.DataSet" version="3.6.0" />
-      <dependency id="eXpandLib" version="19.1.503.0" />
-      <dependency id="eXpandSystem" version="19.1.503.0" />
-      <dependency id="eXpandValidation" version="19.1.503.0" />
+      <dependency id="eXpandLib" version="19.1.601.0" />
+      <dependency id="eXpandSystem" version="19.1.601.0" />
+      <dependency id="eXpandValidation" version="19.1.601.0" />
       <dependency id="Mono.Cecil" version="0.10.4" />
       <dependency id="Ryder" version="0.8.0" />
       <dependency id="SharpZipLib" version="1.1.0" />
@@ -28,19 +28,19 @@
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.AutoCommit" version="0.0.47" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.29" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.22" />
-      <dependency id="Xpand.XAF.Modules.MasterDetail" version="0.0.47" />
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="0.0.16" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.46" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="0.0.47" />
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.46" />
+      <dependency id="Xpand.XAF.Modules.AutoCommit" version="0.0.47.2" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.29.2" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.22.2" />
+      <dependency id="Xpand.XAF.Modules.MasterDetail" version="0.0.47.6" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="0.0.16.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.46.5" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="0.0.47.2" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.46.2" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ExcelImporter.dll" target="lib\net461\Xpand.ExpressApp.ExcelImporter.dll" />
-    <file src="Xpand.ExpressApp.ExcelImporter.pdb" target="lib\net461\Xpand.ExpressApp.ExcelImporter.pdb" />
+    <file src="Xpand.ExpressApp.ExcelImporter.dll" target="lib\net461\Xpand.ExpressApp.ExcelImporter." />
+    <file src="Xpand.ExpressApp.ExcelImporter.pdb" target="lib\net461\Xpand.ExpressApp.ExcelImporter." />
     <file src="Readme.txt" target="" />
   </files>
 </package>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandEasyTestWin</id>
-    <version>19.1.503.0</version>
+    <version>19.1.601.0</version>
     <title>DevExpress eXpandFramework EasyTest windows library</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,17 +14,18 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency id="eXpandEasyTest" version="19.1.503.0" />
-      <dependency id="eXpandLib" version="19.1.503.0" />
-      <dependency id="eXpandSystemWin" version="19.1.503.0" />
+      <dependency id="eXpandEasyTest" version="19.1.601.0" />
+      <dependency id="eXpandLib" version="19.1.601.0" />
+      <dependency id="eXpandSystemWin" version="19.1.601.0" />
       <dependency id="Microsoft.CSharp" version="4.*" />
       <dependency id="System.Data.DataSetExtensions" version="4.*" />
       <dependency id="System.Management" version="4.*" />
+      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.EasyTest.WinAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
-    <file src="Xpand.ExpressApp.EasyTest.WinAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.pdb" />
+    <file src="Xpand.ExpressApp.EasyTest.WinAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter." />
+    <file src="Xpand.ExpressApp.EasyTest.WinAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter." />
   </files>
 </package>

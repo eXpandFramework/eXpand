@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandMasterDetail</id>
-    <version>19.1.503.0</version>
+    <version>19.1.601.0</version>
     <title>DevExpress eXpandFramework MasterDetail Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,17 +14,17 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#masterdetail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.503.0" />
-      <dependency id="eXpandLogic" version="19.1.503.0" />
-      <dependency id="eXpandSecurity" version="19.1.503.0" />
+      <dependency id="eXpandLib" version="19.1.601.0" />
+      <dependency id="eXpandLogic" version="19.1.601.0" />
+      <dependency id="eXpandSecurity" version="19.1.601.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.37" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.37.2" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.MasterDetail.dll" target="lib\net461\Xpand.ExpressApp.MasterDetail.dll" />
-    <file src="Xpand.ExpressApp.MasterDetail.pdb" target="lib\net461\Xpand.ExpressApp.MasterDetail.pdb" />
+    <file src="Xpand.ExpressApp.MasterDetail.dll" target="lib\net461\Xpand.ExpressApp.MasterDetail." />
+    <file src="Xpand.ExpressApp.MasterDetail.pdb" target="lib\net461\Xpand.ExpressApp.MasterDetail." />
     <file src="Readme.txt" target="" />
   </files>
 </package>
