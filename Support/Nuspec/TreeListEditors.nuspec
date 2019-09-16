@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandTreelistView</id>
-    <version>19.1.601.0</version>
+    <version>19.1.602.0</version>
     <title>DevExpress eXpandFramework TreelistView Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.601.0" />
+      <dependency id="eXpandLib" version="19.1.602.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.TreeListEditors.dll" target="lib\net461\Xpand.ExpressApp.TreeListEditors." />
-    <file src="Xpand.ExpressApp.TreeListEditors.pdb" target="lib\net461\Xpand.ExpressApp.TreeListEditors." />
+    <file src="Xpand.ExpressApp.TreeListEditors.dll" target="lib\net461\Xpand.ExpressApp.TreeListEditors.dll" />
+    <file src="Xpand.ExpressApp.TreeListEditors.pdb" target="lib\net461\Xpand.ExpressApp.TreeListEditors.pdb" />
     <file src="Readme.txt" target="" />
   </files>
 </package>

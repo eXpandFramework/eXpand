@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandReportsV2Win</id>
-    <version>19.1.601.0</version>
+    <version>19.1.602.0</version>
     <title>DevExpress eXpandFramework ReportsV2 Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,15 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Reports</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.601.0" />
-      <dependency id="eXpandReports" version="19.1.601.0" />
+      <dependency id="eXpandLib" version="19.1.602.0" />
+      <dependency id="eXpandReports" version="19.1.602.0" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ReportsV2.Win.dll" target="lib\net461\Xpand.ExpressApp.ReportsV2.Win." />
-    <file src="Xpand.ExpressApp.ReportsV2.Win.pdb" target="lib\net461\Xpand.ExpressApp.ReportsV2.Win." />
+    <file src="Xpand.ExpressApp.ReportsV2.Win.dll" target="lib\net461\Xpand.ExpressApp.ReportsV2.Win.dll" />
+    <file src="Xpand.ExpressApp.ReportsV2.Win.pdb" target="lib\net461\Xpand.ExpressApp.ReportsV2.Win.pdb" />
     <file src="Readme.txt" target="" />
   </files>
 </package>

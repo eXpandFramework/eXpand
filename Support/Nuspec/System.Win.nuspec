@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.1.601.0</version>
+    <version>19.1.602.0</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://sign.expandframework.com</iconUrl>
@@ -16,18 +16,18 @@
     <dependencies>
       <dependency id="AutoMapper" version="3.3.1" />
       <dependency id="Enums.NET" version="2.3.2" />
-      <dependency id="eXpandLib" version="19.1.601.0" />
-      <dependency id="eXpandSystem" version="19.1.601.0" />
+      <dependency id="eXpandLib" version="19.1.602.0" />
+      <dependency id="eXpandSystem" version="19.1.602.0" />
       <dependency id="System.Drawing.Common" version="4.5.0" />
       <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="System.Resources.Extensions" version="4.6.0-preview8.19405.3" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.38.5" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.39" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Win.dll" target="lib\net461\Xpand.ExpressApp.Win." />
-    <file src="Xpand.ExpressApp.Win.pdb" target="lib\net461\Xpand.ExpressApp.Win." />
+    <file src="Xpand.ExpressApp.Win.dll" target="lib\net461\Xpand.ExpressApp.Win.dll" />
+    <file src="Xpand.ExpressApp.Win.pdb" target="lib\net461\Xpand.ExpressApp.Win.pdb" />
     <file src="Readme.txt" target="" />
   </files>
 </package>

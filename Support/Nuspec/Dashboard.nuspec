@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandDashboard</id>
-    <version>19.1.601.0</version>
+    <version>19.1.602.0</version>
     <title>DevExpress eXpandFramework Dashboard Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,21 +14,21 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.601.0" />
+      <dependency id="eXpandLib" version="19.1.602.0" />
       <dependency id="Ryder" version="0.8.0" />
       <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.29.2" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.46.5" />
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.46.2" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.30" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.47" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.47" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Dashboard.dll" target="lib\net461\Xpand.ExpressApp.Dashboard." />
-    <file src="Xpand.ExpressApp.Dashboard.pdb" target="lib\net461\Xpand.ExpressApp.Dashboard." />
+    <file src="Xpand.ExpressApp.Dashboard.dll" target="lib\net461\Xpand.ExpressApp.Dashboard.dll" />
+    <file src="Xpand.ExpressApp.Dashboard.pdb" target="lib\net461\Xpand.ExpressApp.Dashboard.pdb" />
     <file src="Readme.txt" target="" />
   </files>
 </package>
