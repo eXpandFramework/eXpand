@@ -15,8 +15,11 @@ namespace Xpand.VSIX.ModelEditor {
         }
 
         public static IEnumerable<ProjectItemWrapper> GetProjectItemWrappers() {
-            var items = DteExtensions.DTE.Solution.GetMsBuildProjects().SelectMany(project => new[] { "None", "Content", "EmbeddedResource" }.SelectMany(project.GetItems)
-                .Where(item => item.EvaluatedInclude.EndsWith(".xafml"))).Select(CreateProjectItemWrapper).ToArray();
+            var items = DteExtensions.DTE.Solution.GetMsBuildProjects()
+                .SelectMany(project => new[] { "None", "Content", "EmbeddedResource" }
+                    .SelectMany(project.GetItems)
+                .Where(item => item.EvaluatedInclude.EndsWith(".xafml")))
+                .Select(CreateProjectItemWrapper).ToArray();
             var localizationModels = items.Where(item => FilterLocalizedItems(item, items));
             return items.Except(localizationModels);
         }

@@ -127,7 +127,7 @@ namespace Xpand.VSIX.ModelEditor {
                         DteExtensions.DTE.LogError(task1.Exception.ToString());
                         DteExtensions.DTE.WriteToOutput(task1.Exception.ToString());
                     }
-                    _gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers.GroupBy(wrapper => wrapper.FullPath).Select(_ => _.First()).ToArray());
+                    _gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers.GroupBy(wrapper => wrapper.LocalPath).Select(_ => _.First()).ToArray());
                 },_currentSynchronizationContext);
         }
 
