@@ -18,9 +18,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override void OnViewControlsCreated(){
             if (View.Editor is GridListEditor gridListEditor){
-                
                 _data = GetData(gridListEditor);
-                gridListEditor.GridView.CustomRowCellEditForEditing += GridViewOnCustomRowCellEdit;
+                if (_data.Any()) {
+                    gridListEditor.GridView.CustomRowCellEditForEditing += GridViewOnCustomRowCellEdit;
+                }
             }
         }
 
@@ -40,9 +41,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 .ToArray();
         }
 
-        private bool MemberTypeIsEnum(IModelColumn modelColumn){
-            return modelColumn.Index > -1 && (modelColumn.ModelMember.MemberInfo.MemberType.IsEnum ||modelColumn.ModelMember.MemberInfo.MemberType.IsNullableType() &&
-                                    modelColumn.ModelMember.MemberInfo.MemberType.GetGenericArguments().First().IsEnum);
+        private bool MemberTypeIsEnum(IModelColumn modelColumn) {
+            return typeof(EnumPropertyEditor).IsAssignableFrom(modelColumn.PropertyEditorType) &&
+                   (modelColumn.Index > -1 && (modelColumn.ModelMember.MemberInfo.MemberType.IsEnum ||
+                                               modelColumn.ModelMember.MemberInfo.MemberType.IsNullableType() &&
+                                               modelColumn.ModelMember.MemberInfo.MemberType.GetGenericArguments().First().IsEnum));
         }
 
         GridColumn FindColumnByModel(GridListEditor gridListEditor, IModelColumn columnModel){
