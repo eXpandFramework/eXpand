@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Security.Principal;
 using EnvDTE;
 using Xpand.VSIX.Extensions;
 
@@ -10,6 +11,15 @@ namespace Xpand.VSIX.Services{
     public class ModelMapperService {
         public static void Init() {
             DteExtensions.DTE.Events.BuildEvents.OnBuildDone+=BuildEventsOnOnBuildDone;
+            DteExtensions.DTE.Events.BuildEvents.OnBuildBegin+=BuildEventsOnOnBuildBegin;
+        }
+
+        private static void BuildEventsOnOnBuildBegin(vsBuildScope scope, vsBuildAction action) {
+            var securityIdentifier = WindowsIdentity.GetCurrent().Owner;
+            if (securityIdentifier == null || !securityIdentifier.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid)) {
+                DteExtensions.DTE.ExecuteCommand("Build.Cancel");
+                DteExtensions.DTE.WriteToOutput("VS is not elevated, restart as Administator");
+            }
         }
 
         private static IObservable<Unit> CopyFile(string s, string targetDirectory){
