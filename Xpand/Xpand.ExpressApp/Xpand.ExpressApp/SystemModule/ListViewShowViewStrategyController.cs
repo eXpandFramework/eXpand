@@ -56,7 +56,7 @@ namespace Xpand.ExpressApp.SystemModule {
                     showViewParameters.CreatedView = null;
                     Application.CallMethod("ShowViewInMainWindow", createdView, Frame);
                 }
-                else if (_listViewShowViewStrategy.OpenDetailViewAsPopup) {
+                else if (_listViewShowViewStrategy.OpenDetailViewAsPopup&& createdView is DetailView) {
                     showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 }
             }
