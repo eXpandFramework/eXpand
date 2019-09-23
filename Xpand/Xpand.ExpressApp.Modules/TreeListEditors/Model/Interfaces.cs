@@ -23,26 +23,26 @@ namespace Xpand.ExpressApp.TreeListEditors.Model {
 //    public interface IModelOptionsTreeList : IModelOptionsColumnView {
 //
 //    }
-//    public class TreeListEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IModelListView> {
-//        #region Overrides of EditorTypeVisibilityCalculator
-//        public override bool IsVisible(IModelNode node, string propertyName) {
-//            return EditorTypes().Any(type => type.IsAssignableFrom(EditorType(node)));
-//        }
-//
-//        protected virtual Type[] EditorTypes() {
-//            var typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(TreeListEditorVisibilityCalculatorHelper))).SingleOrDefault();
-//            if (typeInfo != null) {
-//                var visibilityCalculatorHelper = (TreeListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
-//                return visibilityCalculatorHelper.TreelistEditorType();
-//            }
-//            return Type.EmptyTypes;
-//        }
-//        #endregion
-//    }
+    public class TreeListEditorVisibilityCalculator : EditorTypeVisibilityCalculator<IModelListView> {
+        #region Overrides of EditorTypeVisibilityCalculator
+        public override bool IsVisible(IModelNode node, string propertyName) {
+            return EditorTypes().Any(type => type.IsAssignableFrom(EditorType(node)));
+        }
 
-//    public abstract class TreeListEditorVisibilityCalculatorHelper {
-//        public abstract Type[] TreelistEditorType();
-//    }
+        protected virtual Type[] EditorTypes() {
+            var typeInfo = ReflectionHelper.FindTypeDescendants(XafTypesInfo.CastTypeToTypeInfo(typeof(TreeListEditorVisibilityCalculatorHelper))).SingleOrDefault();
+            if (typeInfo != null) {
+                var visibilityCalculatorHelper = (TreeListEditorVisibilityCalculatorHelper)typeInfo.Type.CreateInstance();
+                return visibilityCalculatorHelper.TreelistEditorType();
+            }
+            return Type.EmptyTypes;
+        }
+        #endregion
+    }
+
+    public abstract class TreeListEditorVisibilityCalculatorHelper {
+        public abstract Type[] TreelistEditorType();
+    }
 //    [ModelAbstractClass]
 //    public interface IModelColumnOptionsTreeListView : IModelColumnOptionsColumnView {
 //        [ModelBrowsable(typeof(TreeListEditorVisibilityCalculator))]
