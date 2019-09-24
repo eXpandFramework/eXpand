@@ -10,7 +10,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraGrid;
-using DevExpress.XtraGrid.Columns;
 using Microsoft.Build.Construction;
 using Xpand.VSIX.Extensions;
 
@@ -93,8 +92,8 @@ namespace Xpand.VSIX.Wizard{
                 
                 var projectItemGroupElement = ((ProjectItemGroupElement) reference.Parent);
                 foreach (var s in new[] {"", ".Mdb", ".Pdb", ".Rocks"}) {
-                    projectItemGroupElement.AddItem("Reference",$"Mono.Cecil{s}, Version=0.10.1.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL")
-                        .AddMetadata("HintPath", $@"..\packages\Mono.Cecil.0.10.1\lib\net40\Mono.Cecil{s}.dll");
+                    projectItemGroupElement.AddItem("Reference",$"Mono.Cecil{s}, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL")
+                        .AddMetadata("HintPath", $@"..\packages\Mono.Cecil.0.10.4\lib\net40\Mono.Cecil{s}.dll");
                 }
                 var itemGroup = (ProjectItemGroupElement)project.Xml.ItemGroups
                     .SelectMany(element => element.Items)
@@ -139,7 +138,7 @@ namespace Xpand.VSIX.Wizard{
                 gridControl1.DataSource = dataSource;
                 gridControl1.Focus();
                 gridView.Focus();
-                gridView.FocusedColumn=gridView.Columns.Cast<GridColumn>().First(column => column.FieldName==nameof(XpandModule.Module));
+                gridView.FocusedColumn=gridView.Columns.First(column => column.FieldName==nameof(XpandModule.Module));
                 gridView.FocusedRowHandle = GridControl.AutoFilterRowHandle;
             }
         }

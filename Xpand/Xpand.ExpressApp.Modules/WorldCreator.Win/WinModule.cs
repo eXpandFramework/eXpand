@@ -10,6 +10,7 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.Win.PropertyEditors;
 using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.Persistent.Base.General;
+using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
 using Xpand.XAF.Modules.ModelMapper.Services;
 using AssemblyHelper = DevExpress.ExpressApp.Utils.Reflection.AssemblyHelper;
@@ -24,6 +25,7 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
         public WorldCreatorWinModule() {
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));
             RequiredModuleTypes.Add(typeof(FileAttachmentsWindowsFormsModule));
+            RequiredModuleTypes.Add(typeof(ModelMapperModule));
         }
 
         protected override IEnumerable<Type> GetRegularTypes(){

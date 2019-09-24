@@ -108,6 +108,11 @@
         </LayoutGroup>
       </Layout>
     </DetailView>
+    <ListView Id="PersistentClassInfo_LookupListView">
+      <HiddenActions>
+        <ActionLink ActionId="New" IsNewNode="True" />
+      </HiddenActions>
+    </ListView>
     <DetailView Id="PersistentCollectionMemberInfo_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
