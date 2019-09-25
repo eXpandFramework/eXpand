@@ -48,6 +48,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         
         [EditorAlias(EditorAliases.CSCodePropertyEditor)]
         [PersistentAlias(nameof(_generatedCode))]
+        [VisibleInListView(false)]
         public string GeneratedCode => this.GenerateCode();
 
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]
