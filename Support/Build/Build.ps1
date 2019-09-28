@@ -87,8 +87,9 @@ Task Version{
 }
 
 Task IndexSources -precondition {$repository}{
+    $sha=Get-GitLastSha "https://github.com/eXpandFramework/$repository" $branch
     Get-ChildItem $root\Xpand.dll Xpand*.pdb|
-    Update-XSymbols -TargetRoot "https://raw.githubusercontent.com/eXpandFramework/$repository/$branch" -sourcesRoot $root
+    Update-XSymbols -TargetRoot "https://raw.githubusercontent.com/eXpandFramework/$repository/$sha" -sourcesRoot $root
 }
 
 
