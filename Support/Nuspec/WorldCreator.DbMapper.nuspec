@@ -21,8 +21,8 @@
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.23" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.38" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.24.1" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.39.1" />
     </dependencies>
   </metadata>
   <files>

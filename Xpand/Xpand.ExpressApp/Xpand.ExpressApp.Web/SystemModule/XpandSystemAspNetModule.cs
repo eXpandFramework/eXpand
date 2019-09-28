@@ -19,7 +19,6 @@ using Xpand.ExpressApp.Web.PropertyEditors;
 using Xpand.ExpressApp.Web.SystemModule.MasterDetail;
 using Xpand.ExpressApp.Web.SystemModule.WebShortcuts;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.TreeNode;
 using Xpand.XAF.Modules.ModelMapper;
@@ -127,7 +126,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             moduleManager.Extend(PredefinedMap.ASPxGridView,configuration => configuration.MapName=ASPxGridViewMapName);
-            moduleManager.Extend(PredefinedMap.GridViewColumn,configuration => configuration.MapName=GridViewColumnMapName);
+            moduleManager.Extend(PredefinedMap.GridViewDataColumn,configuration => configuration.MapName=GridViewColumnMapName);
             var propertyEditorMaps = new[] {
                 PredefinedMap.ASPxComboBox, PredefinedMap.ASPxDateEdit, PredefinedMap.ASPxHyperLink,
                 PredefinedMap.ASPxLookupDropDownEdit, PredefinedMap.ASPxLookupFindEdit, 

@@ -20,7 +20,7 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
       <dependency id="eXpandSystemWin" version="19.1.602.0" />
       <dependency id="eXpandWorldCreator" version="19.1.602.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.39" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.41.1" />
     </dependencies>
   </metadata>
   <files>
