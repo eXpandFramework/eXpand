@@ -90,8 +90,10 @@ namespace Xpand.VSIX.Services {
         private static void InvokeTool(DTEEvent dteEvent){
             foreach (var externalTool in OptionClass.Instance.ExternalTools.Where(tools => tools.DTEEvent==dteEvent).Where(SolutionMatch)){
                 try{
-                    DteExtensions.DTE.WriteToOutput($"Invoking on {dteEvent} {externalTool.Path} {externalTool.Arguments}");
-                    Process.Start(externalTool.Path, externalTool.Arguments);
+                    if (File.Exists(externalTool.Path)) {
+                        DteExtensions.DTE.WriteToOutput($"Invoking on {dteEvent} {externalTool.Path} {externalTool.Arguments}");
+                        Process.Start(externalTool.Path, externalTool.Arguments);
+                    }
                 }
                 catch (Exception e){
                     DteExtensions.DTE.LogError(e.ToString());
