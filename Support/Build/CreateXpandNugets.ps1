@@ -52,13 +52,6 @@ function AddFile {
     }
     
 }
-function IsLib {
-    param($id)
-    "*persistent.base", "*persistent.baseimpl", "*xpo*", "*utils*" | where-Object {
-        $id -like $_
-    } 
-}
-
 
 function GetModuleName {
     param(

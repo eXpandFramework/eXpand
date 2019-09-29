@@ -28,6 +28,7 @@
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.TreeList" Version="19.1.6" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.41.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.TreeListEditors">
@@ -48,30 +49,6 @@
     </Reference>
     <Reference Include="System.Windows.Forms">
       <Private>False</Private>
-    </Reference>
-    <Reference Include="ConcurrentCollections">
-      <HintPath>C:\Work\eXpandFramework\Packages\bin\\ConcurrentCollections.dll</HintPath>
-    </Reference>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
-    <Reference Include="Swordfish.NET.CollectionsV3">
-      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Swordfish.NET.CollectionsV3.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.XAF.Modules.ModelMapper">
-      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="ConcurrentCollections">
-      <HintPath>C:\Work\eXpandFramework\Packages\bin\\ConcurrentCollections.dll</HintPath>
-    </Reference>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
-    <Reference Include="Swordfish.NET.CollectionsV3">
-      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Swordfish.NET.CollectionsV3.dll</HintPath>
-    </Reference>
-    <Reference Include="Xpand.XAF.Modules.ModelMapper">
-      <HintPath>C:\Work\eXpandFramework\Packages\bin\\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
