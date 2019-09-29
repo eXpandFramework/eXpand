@@ -1,9 +1,0 @@
-<Project>
-  <Target Name="ChangeAliasOfFasterflectNetFramework" BeforeTargets="FindReferenceAssembliesForReferences;ResolveReferences">
-    <ItemGroup>
-      <ReferencePath Condition="'%(FileName)' == 'Fasterflect'">
-        <Aliases>fasterflectNet</Aliases>
-      </ReferencePath>
-    </ItemGroup>
-  </Target>
-</Project>
