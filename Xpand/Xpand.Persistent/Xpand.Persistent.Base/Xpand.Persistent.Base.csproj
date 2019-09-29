@@ -46,11 +46,9 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
+    <PackageReference Include="Xpand.Patcher" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="0Harmony">
-      <HintPath>..\..\..\Support\_third_party_assemblies\0Harmony.dll</HintPath>
-    </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Security" />
