@@ -189,10 +189,6 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard, Version=1.0.9.0, Culture=neutral, PublicKeyToken=c52ffed5d5ff0958, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.TemplateWizardInterface, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -205,6 +201,9 @@
   <ItemGroup>
     <PackageReference Include="DevExpress.Win">
       <Version>19.1.6</Version>
+    </PackageReference>
+    <PackageReference Include="Fasterflect.Xpand">
+      <Version>2.0.1</Version>
     </PackageReference>
     <PackageReference Include="Fody">
       <Version>4.2.1</Version>

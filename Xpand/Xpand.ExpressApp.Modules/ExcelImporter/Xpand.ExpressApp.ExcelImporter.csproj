@@ -45,11 +45,9 @@
     <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.48.2" />
     <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.49.2" />
     <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.48.2" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

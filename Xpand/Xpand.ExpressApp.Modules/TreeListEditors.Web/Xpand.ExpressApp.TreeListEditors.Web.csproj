@@ -12,9 +12,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp.TreeListEditors">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
@@ -50,5 +47,6 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.6" />
     <PackageReference Include="DevExpress.Web" Version="19.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
 </Project>

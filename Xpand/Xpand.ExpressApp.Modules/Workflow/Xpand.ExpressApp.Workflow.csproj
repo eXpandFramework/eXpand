@@ -12,9 +12,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.Activities" />
     <Reference Include="System.Runtime.DurableInstancing" />
     <Reference Include="System.ServiceModel" />
@@ -65,5 +62,6 @@
     <PackageReference Include="DevExpress.ExpressApp.Workflow" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
 </Project>

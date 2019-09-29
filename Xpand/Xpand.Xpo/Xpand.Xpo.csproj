@@ -16,6 +16,7 @@
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="DBObject.cs" />
@@ -27,9 +28,6 @@
     <Compile Remove="DB\_ObjectMerger.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.Utils">
       <HintPath>..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
     </Reference>

@@ -20,11 +20,9 @@
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="Xpand.ExpressApp.ModelArtifactState">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>

@@ -24,11 +24,9 @@
     <PackageReference Include="AForge.Video" Version="2.2.5" />
     <PackageReference Include="InputSimulator" Version="1.0.4.0" />
     <PackageReference Include="DevExpress.Data" Version="19.1.6" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.Utils">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>

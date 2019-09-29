@@ -45,11 +45,9 @@
     <PackageReference Include="DevExpress.Win" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.RichEdit" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.42.2" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Design" />
     <Reference Include="Xpand.ExpressApp">

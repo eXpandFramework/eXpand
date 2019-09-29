@@ -32,11 +32,9 @@
     <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="0.0.24.2" />
     <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="0.0.18.2" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.48.2" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Design" />
     <Reference Include="System.Windows" />

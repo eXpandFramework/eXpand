@@ -40,11 +40,9 @@
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.48.2" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.ExcelImporter">

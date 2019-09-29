@@ -56,11 +56,9 @@
     <PackageReference Include="DevExpress.Web" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="0.0.49.2" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />

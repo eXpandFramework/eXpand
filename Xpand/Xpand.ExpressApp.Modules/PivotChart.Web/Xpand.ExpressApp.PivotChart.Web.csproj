@@ -30,11 +30,9 @@
     <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.6" />
     <PackageReference Include="DevExpress.Printing.Core" Version="19.1.6" />
     <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.1.6" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="Xpand.ExpressApp.PivotChart">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.PivotChart.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>

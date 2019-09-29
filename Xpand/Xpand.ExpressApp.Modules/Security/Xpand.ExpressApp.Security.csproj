@@ -24,11 +24,9 @@
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.39.2" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Fasterflect.Netstandard">
-      <HintPath>..\..\..\Support\_third_party_assemblies\Fasterflect.Netstandard.dll</HintPath>
-    </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="Xpand.Persistent.Base">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
