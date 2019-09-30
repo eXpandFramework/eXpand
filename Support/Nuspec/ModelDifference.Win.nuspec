@@ -28,9 +28,10 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
       <dependency id="eXpandSecurity" version="19.1.602.0" />
       <dependency id="eXpandSecurityWin" version="19.1.602.0" />
       <dependency id="eXpandSystemWin" version="19.1.602.0" />
+      <dependency id="Fasterflect.Xpand" version="2.0.1" />
       <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.41.1" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.43" />
     </dependencies>
   </metadata>
   <files>

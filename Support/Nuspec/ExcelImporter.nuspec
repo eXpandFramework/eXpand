@@ -19,6 +19,7 @@
       <dependency id="eXpandLib" version="19.1.602.0" />
       <dependency id="eXpandSystem" version="19.1.602.0" />
       <dependency id="eXpandValidation" version="19.1.602.0" />
+      <dependency id="Fasterflect.Xpand" version="2.0.1" />
       <dependency id="Mono.Cecil" version="0.10.4" />
       <dependency id="Ryder" version="0.8.0" />
       <dependency id="SharpZipLib" version="1.1.0" />
@@ -28,14 +29,14 @@
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.AutoCommit" version="0.0.49.2" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.31.1" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.24.1" />
-      <dependency id="Xpand.XAF.Modules.MasterDetail" version="0.0.49.1" />
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="0.0.18.1" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.48.1" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="0.0.49.1" />
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.48.1" />
+      <dependency id="Xpand.XAF.Modules.AutoCommit" version="0.0.50.1" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="0.0.32" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.25" />
+      <dependency id="Xpand.XAF.Modules.MasterDetail" version="0.0.50" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="0.0.19" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.49" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="0.0.50" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.49" />
     </dependencies>
   </metadata>
   <files>

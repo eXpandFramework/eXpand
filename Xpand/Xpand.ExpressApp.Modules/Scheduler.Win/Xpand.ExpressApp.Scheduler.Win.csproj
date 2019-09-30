@@ -52,7 +52,7 @@
     <PackageReference Include="fasterflect" Version="2.1.3" />
     <PackageReference Include="System.Reactive" Version="4.1.6" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.42.3" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.43" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.6" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler.Win" Version="19.1.6" />
     <PackageReference Include="DevExpress.Data" Version="19.1.6" />

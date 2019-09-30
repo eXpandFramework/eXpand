@@ -39,7 +39,7 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.6" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.48.3" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.49" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>

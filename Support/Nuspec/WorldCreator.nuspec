@@ -19,12 +19,13 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
       <dependency id="AppDomainToolkit" version="1.0.4.3" />
       <dependency id="eXpandLib" version="19.1.602.0" />
       <dependency id="eXpandValidation" version="19.1.602.0" />
+      <dependency id="Fasterflect.Xpand" version="2.0.1" />
       <dependency id="Microsoft.CSharp" version="4.*" />
       <dependency id="Mono.Cecil" version="0.10.4" />
       <dependency id="System.CodeDom" version="4.5.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.39.1" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.40" />
     </dependencies>
   </metadata>
   <files>
