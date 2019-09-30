@@ -31,7 +31,7 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
       <dependency id="Fasterflect.Xpand" version="2.0.1" />
       <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.43" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.43.1" />
     </dependencies>
   </metadata>
   <files>

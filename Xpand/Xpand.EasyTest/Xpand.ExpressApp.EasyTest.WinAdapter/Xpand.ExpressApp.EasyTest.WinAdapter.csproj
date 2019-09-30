@@ -31,7 +31,7 @@
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.RichEdit" Version="19.1.6" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.5.2" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
   </ItemGroup>

@@ -25,7 +25,7 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
       <dependency id="System.CodeDom" version="4.5.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.40" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.40.1" />
     </dependencies>
   </metadata>
   <files>

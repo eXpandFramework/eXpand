@@ -20,7 +20,7 @@
       <dependency id="eXpandSecurity" version="19.1.602.0" />
       <dependency id="eXpandSystem" version="19.1.602.0" />
       <dependency id="eXpandSystemWeb" version="19.1.602.0" />
-      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
+      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
     </dependencies>
   </metadata>

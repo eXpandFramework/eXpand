@@ -18,12 +18,12 @@
       <dependency id="eXpandWorldCreator" version="19.1.602.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.1" />
       <dependency id="System.Reactive" version="4.1.6" />
-      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.5.2" />
+      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.2" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="0.0.25" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.40" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="1.0.0" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.40.1" />
     </dependencies>
   </metadata>
   <files>
