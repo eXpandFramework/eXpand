@@ -27,7 +27,7 @@
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.0" />
     <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.40.1" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />

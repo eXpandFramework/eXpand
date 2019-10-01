@@ -32,7 +32,7 @@
     <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="1.0.0" />
     <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="1.0.0" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.49.1" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />

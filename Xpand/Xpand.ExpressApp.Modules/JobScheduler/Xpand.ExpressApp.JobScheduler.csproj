@@ -18,7 +18,7 @@
     <PackageReference Include="DevExpress.Data" Version="19.1.6" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
     <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.6" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.1" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Configuration" />
