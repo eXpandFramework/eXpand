@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         }
 
         public static IMemberInfo FindMember(this ExcelImport excelImport,string member) {
-            return excelImport?.Type.GetTypeInfo().Members.WhereMapable().FirstOrDefault(info =>info.IsMatch( member));
+            return excelImport?.Type.GetITypeInfo().Members.WhereMapable().FirstOrDefault(info =>info.IsMatch( member));
         }
 
         public static string Caption(this IMemberInfo info) {
@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
 
         private static object GetImportToObject(ImportParameter[] importParameters, DataRow dataRow,
             ExcelImport excelImport, int index,IObjectSpace failedResultsObjectSpace, Func<(Type objectType, CriteriaOperator criteria),object> func){
-            var importToTypeInfo = excelImport.Type.GetTypeInfo();
+            var importToTypeInfo = excelImport.Type.GetITypeInfo();
             var objectSpace = ((IObjectSpaceLink) excelImport).ObjectSpace;
             if (excelImport.ImportStrategy==ImportStrategy.CreateAlways)
                 return objectSpace.CreateObject(importToTypeInfo.Type);
@@ -141,7 +141,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
         private static FailedImportResult Import(object columnValue, ImportParameter importParameter,
             object importToObject,IObjectSpace objectSpace, IObjectSpace failedResultsObjectSpace,ExcelImport excelImport){
             
-            var memberTypeInfo = importParameter.Map.GetObjectType(columnValue).GetTypeInfo();
+            var memberTypeInfo = importParameter.Map.GetObjectType(columnValue).GetITypeInfo();
             object result;
             
             if (memberTypeInfo.IsPersistent){

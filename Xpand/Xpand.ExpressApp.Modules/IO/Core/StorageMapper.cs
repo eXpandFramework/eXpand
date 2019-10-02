@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.IO.Core{
 
         private object MapTo(object fromObject, IObjectSpace objectSpace) {
             var keyValue = objectSpace.GetKeyValue(fromObject);
-            var typeInfo = fromObject.GetType().GetTypeInfo();
+            var typeInfo = fromObject.GetType().GetITypeInfo();
             var toObject = GetObject(objectSpace, typeInfo, keyValue) ;
             if (!ObjectMapped(typeInfo, keyValue)) {
                 foreach (var memberInfo in GetMemberInfos(typeInfo)) {
@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.IO.Core{
 
         private void MapReferenceMember(IObjectSpace objectSpace, object value, IMemberInfo memberInfo, object toObject){
             if (value != null){
-                var typeInfo = value.GetType().GetTypeInfo();
+                var typeInfo = value.GetType().GetITypeInfo();
                 if (memberInfo.FindAttribute<SkipTypeMappingAttribute>()==null)
                     MapTo(objectSpace, value);
                 memberInfo.SetValue(toObject,GetObject(objectSpace, typeInfo, objectSpace.GetKeyValue(value)));
@@ -131,7 +131,7 @@ namespace Xpand.ExpressApp.IO.Core{
 
         private void ObjectSpaceOnObjectDeleting(object sender, ObjectsManipulatingEventArgs e){
             var objectSpace = ((IObjectSpace) sender);
-            _deletedObjectKeys = e.Objects.Cast<object>().ToDictionary(o => objectSpace.GetKeyValue(o),o => o.GetType().GetTypeInfo());
+            _deletedObjectKeys = e.Objects.Cast<object>().ToDictionary(o => objectSpace.GetKeyValue(o),o => o.GetType().GetITypeInfo());
         }
        
         private void ObjectSpaceOnCommitted(object sender, EventArgs e){

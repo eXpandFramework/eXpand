@@ -70,7 +70,7 @@ namespace Xpand.ExpressApp.Editors {
         private  string GetParameters(object sequenceObject){
             var supportSequenceObject = sequenceObject as ISupportSequenceObject;
             if (supportSequenceObject != null)
-                return supportSequenceObject.Prefix + supportSequenceObject.GetType().GetTypeInfo().QueryXPClassInfo()
+                return supportSequenceObject.Prefix + supportSequenceObject.GetType().GetITypeInfo().QueryXPClassInfo()
                            .FullName;
             var sequenceGeneratorAttributes = Model.ModelMember.MemberInfo.FindAttributes<SequenceGeneratorAttribute>().ToArray();
             if (!sequenceGeneratorAttributes.Any())

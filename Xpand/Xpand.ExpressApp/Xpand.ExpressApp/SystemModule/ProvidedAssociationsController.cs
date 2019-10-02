@@ -73,8 +73,8 @@ namespace Xpand.ExpressApp.SystemModule {
 
             if (!string.IsNullOrEmpty(providedAssociationAttribute.AssociationName) && !memberInfo.HasAttribute(typeof(AssociationAttribute)))
                 memberInfo.AddAttribute(new AssociationAttribute(providedAssociationAttribute.AssociationName));
-
             typesInfo.RefreshInfo(typeToCreateOn);
+            typesInfo.RefreshInfo(memberInfo.Owner.ClassType);
 
             return xpCustomMemberInfo;
         }

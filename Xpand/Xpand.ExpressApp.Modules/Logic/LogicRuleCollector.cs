@@ -145,7 +145,7 @@ namespace Xpand.ExpressApp.Logic {
                         LogicRuleManager.Instance.AddRules(info, grouping.Rules);
                     foreach (var generatedType in _generatedTypes) {
                         if (grouping.Key.Type.IsAssignableFrom(generatedType))
-                            LogicRuleManager.Instance.AddRules(generatedType.GetTypeInfo(), grouping.Rules);
+                            LogicRuleManager.Instance.AddRules(generatedType.GetITypeInfo(), grouping.Rules);
                     }
                 }
             }

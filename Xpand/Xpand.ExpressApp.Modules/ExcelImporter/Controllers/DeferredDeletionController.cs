@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers {
                 .TakeUntil(_terminator)
                 .SelectMany(_ => _.progress.OfType<RequestImportTargetObject>().Where(_.excelImport))
                 .Select(_ => {
-                    if (_.Args.objectType.GetTypeInfo().FindAttributes<DeferredDeletionAttribute>().Any()) {
+                    if (_.Args.objectType.GetITypeInfo().FindAttributes<DeferredDeletionAttribute>().Any()) {
                         var session = _.ObjectSpace.Session();
                         _.TargetObject = session.FindObject(_.Args.objectType, _.Args.criteria,true);
                         if (_.TargetObject != null) {

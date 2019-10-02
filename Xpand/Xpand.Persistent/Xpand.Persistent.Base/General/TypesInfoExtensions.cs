@@ -42,11 +42,11 @@ namespace Xpand.Persistent.Base.General {
             SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
         }
 
-        public static ITypeInfo GetTypeInfo(this object obj){
-            return obj.GetType().GetTypeInfo();
+        public static ITypeInfo GetITypeInfo(this object obj){
+            return obj.GetType().GetITypeInfo();
         }
 
-        public static ITypeInfo GetTypeInfo(this Type type){
+        public static ITypeInfo GetITypeInfo(this Type type){
             return XafTypesInfo.Instance.FindTypeInfo(type);
         }
 
@@ -74,14 +74,14 @@ namespace Xpand.Persistent.Base.General {
             return xpClassInfo ?? new XPDataObjectClassInfo(xpoTypeInfoSource.XPDictionary, className);
         }
 
-        static readonly MemberSetter _xpoTypeInfoSourceSetter = typeof(XpoTypesInfoHelper).DelegateForSetFieldValue("xpoTypeInfoSource");
+        static readonly MemberSetter XpoTypeInfoSourceSetter = typeof(XpoTypesInfoHelper).DelegateForSetFieldValue("xpoTypeInfoSource");
         public static void AssignAsPersistentEntityStore(this XpoTypeInfoSource xpoTypeInfoSource){
             var entityStores = (List<IEntityStore>) XafTypesInfo.Instance.GetFieldValue("entityStores");
             entityStores.RemoveAll(store => store is XpoTypeInfoSource);
             XafTypesInfo.Instance.SetFieldValue("dcEntityStore", null);
             XafTypesInfo.Instance.GetFieldValue("entityTypesCache").CallMethod("Clear");
             ((TypesInfo) XafTypesInfo.Instance).AddEntityStore(xpoTypeInfoSource);
-            _xpoTypeInfoSourceSetter(null, xpoTypeInfoSource);
+            XpoTypeInfoSourceSetter(null, xpoTypeInfoSource);
         }
 
         public static void AssignAsInstance(this ITypesInfo typesInfo) {
@@ -135,9 +135,8 @@ namespace Xpand.Persistent.Base.General {
                 XPClassInfo xpClassInfo = typesInfo.FindTypeInfo(typeToCreateOn).QueryXPClassInfo();
                 member = xpClassInfo.FindMember(propertyName);
                 if (member == null) {
-                    member = xpClassInfo.CreateMember(propertyName, typeOfMember);
-                    member.AddAttribute(new AssociationAttribute(associationName));
-
+                    member = xpClassInfo.CreateMember(propertyName, typeOfMember,
+                        new AssociationAttribute(associationName, typeOfMember));
                     if (refreshTypesInfo)
                         typesInfo.RefreshInfo(typeToCreateOn);
                 }

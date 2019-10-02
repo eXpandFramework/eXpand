@@ -826,7 +826,7 @@ namespace Xpand.Persistent.Base.General {
             var objects = objectSpace.ModifiedObjects.Cast<object>();
             var typeGroups = objects.GroupBy(o => o.GetType());
             foreach (var group in typeGroups) {
-                var memberInfos = group.Key.GetTypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
+                var memberInfos = group.Key.GetITypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
                 foreach (var memberInfo in memberInfos) {
                     var attribute = memberInfo.FindAttribute<SequenceGeneratorAttribute>();
                     var sessionProvider = ((ISessionProvider) group.First());
@@ -839,7 +839,7 @@ namespace Xpand.Persistent.Base.General {
             var objectSpace = ((IObjectSpace)sender1);
             var typeGroups = e.Objects.Cast<object>().GroupBy(o => o.GetType());
             foreach (var group in typeGroups) {
-                var memberInfos = group.Key.GetTypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
+                var memberInfos = group.Key.GetITypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
                 foreach (var memberInfo in memberInfos) {
                     var attribute = memberInfo.FindAttribute<SequenceGeneratorAttribute>();
                     foreach (var obj in group) {

@@ -17,7 +17,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 var propertyType = ExcelColumnMap.PropertyType;
                 if (propertyType != null){
                     var types = new[]{propertyType}
-                        .Concat(propertyType.GetTypeInfo().Descendants.Select(info => info.Type))
+                        .Concat(propertyType.GetITypeInfo().Descendants.Select(info => info.Type))
                         .Where(type => !type.IsAbstract);
                     return types;
                 }

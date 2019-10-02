@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp {
             PropertyDescriptorCollection originalProperties = base.GetProperties();
             var newProperties = originalProperties.Cast<PropertyDescriptor>().ToList();
 
-            var classInfo = _objectType.GetTypeInfo().QueryXPClassInfo();
+            var classInfo = _objectType.GetITypeInfo().QueryXPClassInfo();
             List<XPMemberInfo> runtimeMemberInfos =
                 classInfo.OwnMembers.Where(
                     info => !newProperties.Select(descriptor => descriptor.Name).Contains(info.Name) && !info.IsCollection && info.IsPublic).ToList();

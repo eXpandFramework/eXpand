@@ -136,7 +136,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         [Browsable(false)]
         public List<string> TypePropertyNames{
             get {
-                return Type != null ? Type.GetTypeInfo().Members.WhereMapable().Select(info => info.Caption()).ToList() : new List<string>();
+                return Type != null ? Type.GetITypeInfo().Members.WhereMapable().Select(info => info.Caption()).ToList() : new List<string>();
             }
         }
 
