@@ -31,6 +31,7 @@ namespace Xpand.ExpressApp.Dashboard {
             RequiredModuleTypes.Add(typeof(ViewEditModeModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
             DashboardsModule.DataProvider=new XpandDashboardDataProvider();
+            RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){

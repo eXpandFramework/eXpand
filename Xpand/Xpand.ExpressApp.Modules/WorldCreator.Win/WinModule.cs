@@ -23,6 +23,7 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
     public sealed class WorldCreatorWinModule : XpandModuleBase {
         
         public WorldCreatorWinModule() {
+            RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
             RequiredModuleTypes.Add(typeof(WorldCreatorModule));
             RequiredModuleTypes.Add(typeof(FileAttachmentsWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ModelMapperModule));

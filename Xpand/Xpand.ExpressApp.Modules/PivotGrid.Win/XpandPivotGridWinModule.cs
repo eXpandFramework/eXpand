@@ -27,6 +27,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
         public static string PivotGridFieldModelName="OptionsPivotField";
 
         public XpandPivotGridWinModule() {
+            RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
             RequiredModuleTypes.Add(typeof(PivotGridModule));
             RequiredModuleTypes.Add(typeof(PivotGridWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ViewVariantsModule));

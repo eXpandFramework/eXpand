@@ -24,6 +24,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win {
         public static string TreeListMapName = "TreeListOptions";
         public static string TreeListColumnMapName = "TreeListColumnOptions";
         public XpandTreeListEditorsWinModule() {
+            RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(TreeListEditorsWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(XpandTreeListEditorsModule));

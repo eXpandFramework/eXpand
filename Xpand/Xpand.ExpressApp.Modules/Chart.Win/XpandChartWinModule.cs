@@ -21,6 +21,7 @@ namespace Xpand.ExpressApp.Chart.Win {
         public XpandChartWinModule() {
             RequiredModuleTypes.Add(typeof(ChartWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ModelMapperModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
         }
 
         public override void Setup(ApplicationModulesManager moduleManager) {

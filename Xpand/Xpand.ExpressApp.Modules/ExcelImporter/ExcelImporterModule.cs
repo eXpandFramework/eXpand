@@ -32,6 +32,7 @@ namespace Xpand.ExpressApp.ExcelImporter {
         private NotificationsModule _notificationsModule;
 
         public ExcelImporterModule() {
+            RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.SystemModule.SystemModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(NotificationsModule));

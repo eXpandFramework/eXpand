@@ -13,6 +13,7 @@ namespace Xpand.ExpressApp.Scheduler {
     public sealed class XpandSchedulerModule : XpandModuleBase,IDashboardInteractionUser {
         public const string XpandScheduler = "Scheduler";
         public XpandSchedulerModule() {
+            RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Scheduler.SchedulerModuleBase));
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.ConditionalAppearance.ConditionalAppearanceModule));
         }
