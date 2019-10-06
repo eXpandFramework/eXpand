@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandExcelImporter.Web</id>
-    <version>19.1.602.0</version>
+    <version>19.1.603.0</version>
     <title>DevExpress eXpandFramework ExcelImporter Web Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -16,11 +16,11 @@
     <dependencies>
       <dependency id="ExcelDataReader" version="3.6.0" />
       <dependency id="ExcelDataReader.DataSet" version="3.6.0" />
-      <dependency id="eXpandExcelImporter" version="19.1.602.0" />
-      <dependency id="eXpandLib" version="19.1.602.0" />
-      <dependency id="eXpandSystem" version="19.1.602.0" />
-      <dependency id="eXpandSystemWeb" version="19.1.602.0" />
-      <dependency id="eXpandValidationWeb" version="19.1.602.0" />
+      <dependency id="eXpandExcelImporter" version="19.1.603.0" />
+      <dependency id="eXpandLib" version="19.1.603.0" />
+      <dependency id="eXpandSystem" version="19.1.603.0" />
+      <dependency id="eXpandSystemWeb" version="19.1.603.0" />
+      <dependency id="eXpandValidationWeb" version="19.1.603.0" />
       <dependency id="System.IO.Compression" version="4.3.0" />
       <dependency id="System.Reactive" version="4.1.6" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
