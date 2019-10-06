@@ -29,7 +29,7 @@
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="WindowsBase" version="4.6.1055.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.51" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.54" />
     </dependencies>
   </metadata>
   <files>
