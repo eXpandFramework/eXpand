@@ -1,16 +1,29 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Editors;
-using DevExpress.ExpressApp.Layout;
-using DevExpress.ExpressApp.Model;
+﻿using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Win.Layout;
 using DevExpress.XtraLayout;
 using DevExpress.XtraLayout.Utils;
-using Xpand.Persistent.Base.ModelAdapter;
+using Xpand.XAF.Modules.ModelMapper.Configuration;
+using Xpand.XAF.Modules.ModelMapper.Services;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
+    public class LayoutControlGroupController:ViewController<DetailView> {
+        protected override void OnActivated() {
+            base.OnActivated();
+            ((LayoutControl) View.LayoutManager.Container).GroupExpandChanged+=OnGroupExpandChanged;
+        }
+
+        protected override void OnDeactivated() {
+            base.OnDeactivated();
+            ((LayoutControl) View.LayoutManager.Container).GroupExpandChanged-=OnGroupExpandChanged;
+        }
+
+        private void OnGroupExpandChanged(object sender, LayoutGroupEventArgs e) {
+            var layoutControlGroup = ((XafLayoutControlGroup) e.Group);
+            var modelNode = layoutControlGroup.Model.GetNode(PredefinedMap.LayoutControlGroup);
+            modelNode.SetValue<bool?>("Expanded",layoutControlGroup.Expanded);
+        }
+    }
+
 //    public class LayoutControlGroupModelAdapterController:ModelAdapterController,IModelExtender {
 //        private LayoutManager _layoutManager;
 //

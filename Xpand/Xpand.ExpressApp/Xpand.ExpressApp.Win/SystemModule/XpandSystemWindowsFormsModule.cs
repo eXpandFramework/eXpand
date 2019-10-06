@@ -49,7 +49,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             extenders.Add<IModelRootNavigationItems, IModelRootNavigationItemsAutoSelectedGroupItem>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemFastSearch>();
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemDuration>();
-            
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes() {
@@ -84,6 +83,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             
+            moduleManager.Extend(PredefinedMap.LayoutControlGroup);
             moduleManager.Extend(PredefinedMap.AdvBandedGridView,configuration => configuration.MapName=AdvBandedGridViewMapName);
             moduleManager.Extend(PredefinedMap.BandedGridColumn,configuration => configuration.MapName=BandedGridColumnMapName);
             moduleManager.Extend(PredefinedMap.GridView,configuration => configuration.MapName=GridViewMapName);
@@ -116,6 +116,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes = {
+                typeof(LayoutControlGroupController),
                 typeof(EnumRepositoryItemGridListEditorController),
                 typeof(PopupWindowStateController),
                 typeof(CurrentProcessController),

@@ -17,6 +17,7 @@ using Xpand.ExpressApp.PivotGrid.Win.Model;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using ListView = DevExpress.ExpressApp.ListView;
 using Fasterflect;
+using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Services;
 
 namespace Xpand.ExpressApp.PivotGrid.Win {
@@ -300,7 +301,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win {
             if (modelRepositoryItemSpinEdits.Any()) {
                 var repositoryItemSpinEdit = new RepositoryItemSpinEdit();
                 e.RepositoryItem = repositoryItemSpinEdit;
-                foreach (var modelRepositoryItemSpinEdit in modelRepositoryItemSpinEdits) {
+                foreach (var modelRepositoryItemSpinEdit in modelRepositoryItemSpinEdits.Cast<IModelNodeDisabled>()) {
                     modelRepositoryItemSpinEdit.BindTo(repositoryItemSpinEdit);
 //                    new PivotDataFieldRepositoryItemSpinEditSynchronizer(repositoryItemSpinEdit, modelRepositoryItemSpinEdit).ApplyModel();
                 }

@@ -11,6 +11,7 @@ using DevExpress.XtraScheduler;
 using DevExpress.XtraScheduler.Native;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
+using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
 using Xpand.XAF.Modules.ModelMapper.Services;
 using Xpand.XAF.Modules.ModelMapper.Services.Predefined;
@@ -53,7 +54,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
                     .GetNode("Appointments").GetNode(modelNodeId)).ToArray();
                 foreach (var instance in storage){
                     var modelNode = modelNodes.First(node => node.Id() == (string) instance.GetPropertyValue("Id"));
-                    modelNode.BindTo(instance);
+                    ((IModelNodeDisabled) modelNode).BindTo(instance);
                 }
             }
 
@@ -108,7 +109,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         
         protected void SynchMenu(object menu) {
             var popupMenus = ((IEnumerable<IModelNode>) View.Model.GetNode(PredefinedMap.SchedulerControl.ToString()).GetNode(SchedulerControlService.PopupMenusMoelPropertyName));
-            foreach (var popupMenu in popupMenus){
+            foreach (var popupMenu in popupMenus.Cast<IModelNodeDisabled>()){
                 var component = GetMenu(menu,popupMenu);
                 if (component != null) {
                     popupMenu.BindTo(component);
