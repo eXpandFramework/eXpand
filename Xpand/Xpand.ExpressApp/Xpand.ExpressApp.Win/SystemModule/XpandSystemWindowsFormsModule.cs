@@ -25,6 +25,7 @@ using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.ExpressApp.Win.SystemModule.ToolTip;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
+using Xpand.XAF.Modules.GridListEditor;
 using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
 using Xpand.XAF.Modules.ModelMapper.Services;
@@ -43,6 +44,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(ModelMapperModule));
+            RequiredModuleTypes.Add(typeof(GridListEditorModule));
         }
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             base.ExtendModelInterfaces(extenders);
