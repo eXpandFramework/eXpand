@@ -41,6 +41,7 @@ namespace Xpand.ExpressApp.SystemModule {
             RequiredModuleTypes.Add(typeof(CloneMemberValueModule));
             RequiredModuleTypes.Add(typeof(HideToolBarModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.ProgressBarViewItem.ProgressBarViewItemModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.RefreshView.RefreshViewModule));
         }
 
         static XpandSystemModule() {

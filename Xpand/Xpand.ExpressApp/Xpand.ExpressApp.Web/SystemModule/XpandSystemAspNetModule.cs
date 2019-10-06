@@ -72,7 +72,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                 typeof(CustomizeASPxPopupController),
                 typeof(OpenDetailViewInNewTabController),
                 typeof(FindPopupController),
-                typeof(RefreshObjectViewController),
 //                typeof(ASPxSpinEditModelAdapter),
 //                typeof(ASPxHyperLinkControlModelAdapter),
 //                typeof(ASPxDateEditModelAdapter),

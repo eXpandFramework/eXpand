@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 	    [DefaultValue(true)]
         bool AutoRefreshWhenDocumentManagerPageIsActive{ get; set; }
 	}
-	public class RefreshObjectViewController : ExpressApp.SystemModule.RefreshObjectViewController{
+	public class RefreshObjectViewController : ViewController,IModelExtender{
 	    protected override void OnActivated(){
 	        base.OnActivated();
 	        if (Application.MainWindow != null)
@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
 
 	    private static View _activeDocumentView;
 
-	    protected override void Refresh(){
+	    protected  void Refresh(){
 			
 			var listView = View as ListView;
 			var gridListEditor = ((GridListEditor)listView?.Editor);
@@ -55,13 +55,12 @@ namespace Xpand.ExpressApp.Win.SystemModule{
                     
 	            
 		    }
-			base.Refresh();
+			View.RefreshDataSource();
 
 		}
 
-	    public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
-			base.ExtendModelInterfaces(extenders);
-			extenders.Add<IModelListView, IModelListViewAutoRefreshWhenNotFocus>();
-		}
-	}
+        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
+            extenders.Add<IModelListView, IModelListViewAutoRefreshWhenNotFocus>();
+        }
+    }
 }
