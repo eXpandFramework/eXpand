@@ -27,14 +27,14 @@
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneMemberValue" Version="1.2.54" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.5" />
-    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="1.0.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="1.0.5" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.54" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneMemberValue" Version="1.2.54.2" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.5.1" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="1.0.5.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="1.0.5.1" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.54.2" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.8" />
-    <PackageReference Include="Xpand.XAF.Modules.RefreshView" Version="0.0.8" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.8.2" />
+    <PackageReference Include="Xpand.XAF.Modules.RefreshView" Version="0.0.8.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
