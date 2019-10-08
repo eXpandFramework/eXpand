@@ -5,7 +5,7 @@ Param (
 )
 
 $assemblyInfo="$XpandFolder\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs"
-$xpandVersion=Get-XXpandVersion -XpandPath $XpandFolder 
+$xpandVersion=Get-XpandVersion -XpandPath $XpandFolder 
 Write-Host "xpcandVersion=$xpandVersion ,$Version"
 (Get-Content $assemblyInfo).replace($xpandVersion, $Version) | Set-Content $assemblyInfo
 
