@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -17,6 +18,7 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
+using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
@@ -40,6 +42,7 @@ using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
+using HarmonyLib;
 using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.General.Web.SyntaxHighlight;
 using Xpand.Persistent.Base.Security;
@@ -89,14 +92,17 @@ namespace Xpand.Persistent.Base.General {
 
         static XpandModuleBase(){
             AdditionalTypesTypesInfo=new TypesInfo();
-            var path = $@"{Path.GetTempPath()}\\netstandard";
-            if (!Directory.Exists(path)) {
-                Directory.CreateDirectory(path);
-            }
+            var path = $@"{AppDomain.CurrentDomain.ApplicationPath()}";
             NetstandardPath = $@"{path}\netstandard.dll";
-            using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
-                manifestResourceStream.SaveToFile(NetstandardPath);
+            if (!File.Exists(NetstandardPath)) {
+                using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
+                    manifestResourceStream.SaveToFile(NetstandardPath);
+                }
             }
+            var harmony = new Harmony(typeof(ApplicationModulesManagerExtensions).Namespace);
+            var prefix = typeof(XpandModuleBase).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
+            var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
+            harmony.Patch(original, new HarmonyMethod(prefix));
         }
 
         protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
@@ -438,6 +444,13 @@ namespace Xpand.Persistent.Base.General {
             }
             return null;
         }
+        
+        internal static void ModifyCSCodeCompilerReferences(string sourceCode, ref string[] references, string assemblyFile) {
+            var fileName = $"{Path.GetFileName(NetstandardPath)}";
+            if (!references.Any(s => fileName.Equals(Path.GetFileName(s),StringComparison.OrdinalIgnoreCase))){
+                references = references.Concat(new[]{NetstandardPath}).ToArray();
+            }
+        }
 
         protected void LoadDxBaseImplType(string typeName){
             var type = GetDxBaseImplType(typeName);
@@ -546,7 +559,7 @@ namespace Xpand.Persistent.Base.General {
 
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
-            moduleManager.AddModelReferences(NetstandardPath);
+            
             OnApplicationModulesManagerSetup(new ApplicationModulesManagerSetupArgs(moduleManager));
             if (Executed("Setup2"))
                 return;
