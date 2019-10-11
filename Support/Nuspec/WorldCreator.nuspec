@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.1.604.0</version>
+    <version>19.1.605.0</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#worldcreator</projectUrl>
@@ -17,15 +17,15 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
       <dependency id="AppDomainToolkit" version="1.0.4.3" />
-      <dependency id="eXpandLib" version="19.1.604.0" />
-      <dependency id="eXpandValidation" version="19.1.604.0" />
+      <dependency id="eXpandLib" version="19.1.605.0" />
+      <dependency id="eXpandValidation" version="19.1.605.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.6" />
       <dependency id="Microsoft.CSharp" version="4.*" />
-      <dependency id="Mono.Cecil" version="0.10.4" />
+      <dependency id="Mono.Cecil" version="0.11.0" />
       <dependency id="System.CodeDom" version="4.5.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
       <dependency id="Xpand.VersionConverter" version="1.0.34" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.46" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.47" />
     </dependencies>
   </metadata>
   <files>
