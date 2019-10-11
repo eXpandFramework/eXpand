@@ -19,7 +19,7 @@ properties {
 
 
 Task Release -depends Clean, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
-Task Lab -depends Clean,Init,Version,CompileModules
+Task Lab -depends Clean,Init,Version,CompileModules,CompileDemos
 
 
 Task Init  {

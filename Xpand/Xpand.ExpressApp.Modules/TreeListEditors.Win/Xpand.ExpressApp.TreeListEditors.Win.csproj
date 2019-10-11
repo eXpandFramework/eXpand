@@ -28,8 +28,8 @@
     <PackageReference Include="DevExpress.Win.Printing" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.1.6" />
     <PackageReference Include="DevExpress.Win.TreeList" Version="19.1.6" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.50.2" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.10.2" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.51" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.11" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.TreeListEditors">
