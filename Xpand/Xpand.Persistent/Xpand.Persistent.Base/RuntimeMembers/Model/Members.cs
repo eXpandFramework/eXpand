@@ -101,7 +101,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
             var customMemberInfo = FindXPClassInfo(modelMemberEx).FindMember(modelMemberEx.Name) as XPCustomMemberInfo;
             if (ValidState(modelMemberEx, customMemberInfo,validState)) {
                 var xpClassInfo = FindXPClassInfo(modelMemberEx);
-                var xpandCustomMemberInfo = (XpandCustomMemberInfo)xpClassInfo.FindMember(modelMemberEx.Name);
+                var xpandCustomMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XpandCustomMemberInfo;
                 if (xpandCustomMemberInfo == null) {
                     if (!modelMemberEx.CreatedAtDesignTime.HasValue)
                         modelMemberEx.CreatedAtDesignTime = CreatedAtDesignTime(modelMemberEx);
