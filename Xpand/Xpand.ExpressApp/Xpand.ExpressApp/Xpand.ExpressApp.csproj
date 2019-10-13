@@ -26,11 +26,11 @@
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneMemberValue" Version="1.2.57.2" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneMemberValue" Version="1.2.57.4" />
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.7.2" />
     <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="1.0.8.2" />
-    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="1.0.8.2" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.57.2" />
+    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="1.0.8.4" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.57.4" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.11.2" />
     <PackageReference Include="Xpand.XAF.Modules.RefreshView" Version="0.0.11.2" />
