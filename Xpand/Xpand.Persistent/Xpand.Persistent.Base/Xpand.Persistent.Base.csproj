@@ -21,7 +21,7 @@
     <PackageReference Include="PropertyChanged.Fody" Version="2.6.1">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.CodeDom" Version="4.5.0" />
+    <PackageReference Include="System.CodeDom" Version="4.6.0" />
     <PackageReference Include="DevExpress.Data" Version="19.1.6" />
     <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.6" />
     <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.6" />

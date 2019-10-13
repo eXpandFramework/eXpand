@@ -13,12 +13,12 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" Version="4.*" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.6.0" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AppDomainToolkit" Version="1.0.4.3" />
     <PackageReference Include="Mono.Cecil" Version="0.11.0" />
-    <PackageReference Include="System.CodeDom" Version="4.5.0" />
+    <PackageReference Include="System.CodeDom" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.34" />
     <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.6" />
