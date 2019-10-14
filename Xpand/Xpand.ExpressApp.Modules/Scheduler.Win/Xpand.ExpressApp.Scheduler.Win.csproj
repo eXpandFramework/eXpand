@@ -51,7 +51,7 @@
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="4.2.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.51.4" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.52.2" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.6" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler.Win" Version="19.1.6" />
     <PackageReference Include="DevExpress.Data" Version="19.1.6" />
