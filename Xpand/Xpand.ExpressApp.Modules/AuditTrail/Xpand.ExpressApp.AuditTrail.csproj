@@ -25,8 +25,8 @@
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
     <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.8.2" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.48.2" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.8.4" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.48.4" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>
