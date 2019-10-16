@@ -58,6 +58,7 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.6" />
     <PackageReference Include="DevExpress.Web" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>
