@@ -28,7 +28,7 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.6" />
     <PackageReference Include="DevExpress.Web" Version="19.1.6" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.54.7" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.54.8" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>
