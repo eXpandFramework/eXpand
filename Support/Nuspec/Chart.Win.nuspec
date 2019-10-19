@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandChartWin</id>
-    <version>19.1.606.0</version>
+    <version>19.1.700.0</version>
     <title>DevExpress eXpandFramework Chart Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,7 +15,7 @@
     <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
     <dependencies>
       <dependency id="Enums.NET" version="2.3.2" />
-      <dependency id="eXpandLib" version="19.1.606.0" />
+      <dependency id="eXpandLib" version="19.1.700.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.6" />
       <dependency id="System.Reactive" version="4.2.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
