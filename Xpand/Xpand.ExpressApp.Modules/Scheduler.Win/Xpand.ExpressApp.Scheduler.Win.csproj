@@ -6,13 +6,19 @@
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <LangVersion>latest</LangVersion>
     <DebugSymbols>true</DebugSymbols>
-    <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <NoWarn>1701;1702;MSB3277</NoWarn>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.Scheduler">
@@ -54,7 +60,7 @@
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="4.2.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.54.8" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.55" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.6" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler.Win" Version="19.1.6" />
     <PackageReference Include="DevExpress.Data" Version="19.1.6" />

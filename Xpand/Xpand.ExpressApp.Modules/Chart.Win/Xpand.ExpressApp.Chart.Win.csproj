@@ -25,8 +25,8 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Windows.Forms" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.54.8" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.16.7" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.55" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.17" />
     <PackageReference Include="DevExpress.Charts.Core" Version="19.1.6" />
     <PackageReference Include="DevExpress.Data" Version="19.1.6" />
     <PackageReference Include="DevExpress.ExpressApp.Chart" Version="19.1.6" />
