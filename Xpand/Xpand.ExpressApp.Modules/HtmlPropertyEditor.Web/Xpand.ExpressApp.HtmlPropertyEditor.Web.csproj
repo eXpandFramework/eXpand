@@ -64,13 +64,13 @@
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.55" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.17" />
-    <PackageReference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.6" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.HtmlPropertyEditor.Web" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.7" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.7" />
   </ItemGroup>
 </Project>

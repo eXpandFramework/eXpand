@@ -13,7 +13,7 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.EasyTest" Version="19.1.6" />
+    <PackageReference Include="DevExpress.EasyTest" Version="19.1.7" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
     <PackageReference Include="Microsoft.CSharp" Version="4.*" />
   </ItemGroup>
@@ -23,7 +23,7 @@
     <PackageReference Include="AForge.Math" Version="2.2.5" />
     <PackageReference Include="AForge.Video" Version="2.2.5" />
     <PackageReference Include="InputSimulator" Version="1.0.4.0" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>

@@ -15,11 +15,11 @@
   <ItemGroup>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.7" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp">

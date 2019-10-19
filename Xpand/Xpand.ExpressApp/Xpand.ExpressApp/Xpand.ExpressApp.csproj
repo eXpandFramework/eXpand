@@ -18,14 +18,14 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.35" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
     <PackageReference Include="Xpand.XAF.Modules.CloneMemberValue" Version="1.2.61" />
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.11" />
     <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="1.0.12" />

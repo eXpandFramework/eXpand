@@ -13,23 +13,23 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="DevExpress.Charts.Core" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotChart.Web" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.6" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Win.Charts" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Charts" Version="19.1.6" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.6" />
-    <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Charts.Core" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.PivotChart.Web" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.1.7" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Web" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Win.Charts" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Charts" Version="19.1.7" />
+    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.7" />
+    <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.1.7" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>

@@ -200,7 +200,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="DevExpress.Win">
-      <Version>19.1.6</Version>
+      <Version>19.1.7</Version>
     </PackageReference>
     <PackageReference Include="Fasterflect.Xpand">
       <Version>2.0.1</Version>

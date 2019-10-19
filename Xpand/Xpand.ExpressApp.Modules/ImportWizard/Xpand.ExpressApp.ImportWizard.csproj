@@ -13,10 +13,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DocumentFormat.OpenXml" Version="2.7.2" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>

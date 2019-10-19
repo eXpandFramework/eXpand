@@ -15,16 +15,16 @@
     <PackageReference Include="System.Reactive" Version="4.2.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.35" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.AuditTrail" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.6" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.6" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.6" />
+    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.AuditTrail" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.11" />
     <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.51" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
