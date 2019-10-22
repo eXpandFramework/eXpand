@@ -44,8 +44,8 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.7" />
     <PackageReference Include="DevExpress.Win" Version="19.1.7" />
     <PackageReference Include="DevExpress.Win.RichEdit" Version="19.1.7" />
-    <PackageReference Include="Xpand.XAF.Modules.GridListEditor" Version="0.0.15" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.55" />
+    <PackageReference Include="Xpand.XAF.Modules.GridListEditor" Version="0.0.17.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.57.1" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>
