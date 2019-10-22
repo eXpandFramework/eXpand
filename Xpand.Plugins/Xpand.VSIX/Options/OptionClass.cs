@@ -83,6 +83,7 @@ namespace Xpand.VSIX.Options{
         public bool KillModelEditor { get; set; }
 
 
+        public bool ShowErrorsInMessageBox { get; set; }
         public bool DebugME { get; set; }
 
 

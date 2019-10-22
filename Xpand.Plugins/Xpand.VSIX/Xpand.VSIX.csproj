@@ -129,6 +129,7 @@
     <EmbeddedResource Include="ModelEditor\METoolWindowControl.resx">
       <DependentUpon>METoolWindowControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Wizard\Resources\Updater.cs" />
     <EmbeddedResource Include="Wizard\Resources\Updater.vb" />
     <Compile Include="Wizard\SecurityInstaller.cs" />

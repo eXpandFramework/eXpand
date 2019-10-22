@@ -21,6 +21,7 @@ namespace Xpand.VSIX.Options {
             publicTokenTextEdit.Text = OptionClass.Instance.Token;
             specificVersionCheckEdit.Checked = OptionClass.Instance.SpecificVersion;
             checkEditDebugME.Checked = OptionClass.Instance.DebugME;
+            checkEditShowErrorsInMessageBox.Checked = OptionClass.Instance.ShowErrorsInMessageBox;
             checkEditKillModelEditor.Checked = OptionClass.Instance.KillModelEditor;
             checkEditDisableExceptions.Checked = OptionClass.Instance.DisableExceptions;
 
@@ -43,6 +44,7 @@ namespace Xpand.VSIX.Options {
             instance.SpecificVersion = specificVersionCheckEdit.Checked;
             instance.DebugME = checkEditDebugME.Checked;
             instance.KillModelEditor = checkEditKillModelEditor.Checked;
+            instance.ShowErrorsInMessageBox = checkEditShowErrorsInMessageBox.Checked;
             instance.DisableExceptions = checkEditDisableExceptions.Checked;
 
             OptionClass.Instance.DteCommands = (BindingList<DteCommand>) gridControlCmdBindings.DataSource;
