@@ -14,7 +14,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="4.2.0" />
-    <PackageReference Include="System.Resources.Extensions" Version="4.6.0-preview8.19405.3" />
+    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="DevExpress.DataAccess" Version="19.1.7" />
     <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.7" />

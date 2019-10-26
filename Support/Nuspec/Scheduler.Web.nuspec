@@ -19,7 +19,9 @@
       <dependency id="eXpandScheduler" version="19.1.701.0" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.55" />
+      <dependency id="Xpand.Extensions.XAF" version="0.0.6.1" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.58.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.67.1" />
     </dependencies>
   </metadata>
   <files>

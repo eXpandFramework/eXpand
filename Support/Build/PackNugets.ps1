@@ -1,5 +1,27 @@
-param($Nuspecpath, $ReadMe, $nuget, $version,$root)
+param(
+    $Nuspecpath = "$PSScriptRoot\..\Nuspec", 
+    $ReadMe=$true, 
+    $nuget, $version, $root
+)
 "$nuspecPath"
+function AddFile {
+    param(
+        $src,
+        $target, 
+        $nuspecpathContent 
+    )
+    $ns = [System.xml.xmlnamespacemanager]::new($nuspecpathContent.NameTable)
+    $ns.AddNamespace("ns", $nuspecpathContent.DocumentElement.NamespaceURI)
+    $files = $nuspecpathContent.SelectSingleNode("//ns:files", $ns)
+    if (!($files.ChildNodes.src | Where-Object { $_ -eq $src })) {
+        Write-Host "Adding file $src with target $target"
+        $fileElement = $nuspecpathContent.CreateElement("file", $nuspecpathContent.DocumentElement.NamespaceURI)
+        $fileElement.SetAttribute("src", $src)
+        $fileElement.SetAttribute("target", "$target")
+        $files.AppendChild($fileElement) | Out-Null
+    }
+    
+}
 
 [xml]$nuspecpathContent = Get-Content $Nuspecpath
 $file = $nuspecpathContent.package.files.file | Where-Object { $_.src -match "readme.txt" } | Select-Object -First 1
@@ -10,8 +32,8 @@ if ($file) {
 
 if ($ReadMe) {
     $moduleName = GetModuleName $nuspecpathContent
-    Write-host $moduleName
-    $readMePath = "$env:temp\$moduleName.Readme.txt"
+    Write-Host $moduleName
+    $readMePath = "$root\Xpand.DLL\Readme.txt"
     Remove-Item $readMePath -Force -ErrorAction SilentlyContinue
     $nuspecpathContent.package.files.file | Where-Object { $_.src -match "readme.txt" } | ForEach-Object {
         $_.ParentNode.RemoveChild($_)
@@ -34,7 +56,7 @@ if ($ReadMe) {
                 RequiredModuleTypes.Add(typeof($moduleName));
 "@
     Set-Content $readMePath $message
-    AddFile $readMePath "" $nuspecpathContent
+    AddFile "Readme.txt" "" $nuspecpathContent
     $nuspecpathContent.Save($Nuspecpath)
 }
     
@@ -43,8 +65,4 @@ if ($ReadMe) {
 if ($LASTEXITCODE) {
     throw
 }
-if ($ReadMe) {
-    $file = $nuspecpathContent.package.files.file | Where-Object { $_.src -match "readme.txt" } | Select-Object -First 1
-    $file.src = "Readme.txt"
-    $nuspecpathContent.Save($Nuspecpath)
-}
+

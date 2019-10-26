@@ -19,8 +19,8 @@
       <dependency id="Fasterflect.Xpand" version="2.0.6" />
       <dependency id="System.Reactive" version="4.2.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.55" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="0.0.17" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.58.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="0.0.20.1" />
     </dependencies>
   </metadata>
   <files>

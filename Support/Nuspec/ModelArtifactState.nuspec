@@ -21,8 +21,8 @@
       <dependency id="Fasterflect.Xpand" version="2.0.6" />
       <dependency id="Mono.Cecil" version="0.11.0" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.VersionConverter" version="1.0.35" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.51" />
+      <dependency id="Xpand.VersionConverter" version="1.0.36" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.54.1" />
     </dependencies>
   </metadata>
   <files>

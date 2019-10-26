@@ -34,24 +34,6 @@ function AddDependency {
     }   
 }
 
-function AddFile {
-    param(
-        $src,
-        $target, 
-        $nuspecpathContent 
-    )
-    $ns = [System.xml.xmlnamespacemanager]::new($nuspecpathContent.NameTable)
-    $ns.AddNamespace("ns", $nuspecpathContent.DocumentElement.NamespaceURI)
-    $files = $nuspecpathContent.SelectSingleNode("//ns:files", $ns)
-    if (!($files.ChildNodes.src | Where-Object { $_ -eq $src })) {
-        Write-Host "Adding file $src with target $target"
-        $fileElement = $nuspecpathContent.CreateElement("file", $nuspecpathContent.DocumentElement.NamespaceURI)
-        $fileElement.SetAttribute("src", $src)
-        $fileElement.SetAttribute("target", "$target")
-        $files.AppendChild($fileElement) | Out-Null
-    }
-    
-}
 
 function GetModuleName {
     param(

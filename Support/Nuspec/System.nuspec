@@ -20,14 +20,14 @@
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
       <dependency id="System.Threading.Tasks.Extensions" version="4.5.3" />
       <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.VersionConverter" version="1.0.35" />
-      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="1.2.61" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="1.0.11" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="1.0.12" />
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="1.0.12" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.64" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="0.0.17" />
-      <dependency id="Xpand.XAF.Modules.RefreshView" version="0.0.15" />
+      <dependency id="Xpand.VersionConverter" version="1.0.36" />
+      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="1.2.64.1" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="1.0.14.1" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="1.0.15.1" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="1.0.15.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="1.2.67.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="0.0.20.1" />
+      <dependency id="Xpand.XAF.Modules.RefreshView" version="0.0.18.1" />
     </dependencies>
   </metadata>
   <files>

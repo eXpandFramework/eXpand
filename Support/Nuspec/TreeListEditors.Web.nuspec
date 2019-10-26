@@ -18,6 +18,7 @@
       <dependency id="eXpandTreelistView" version="19.1.701.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.6" />
       <dependency id="System.ValueTuple" version="4.5.0" />
+      <dependency id="Xpand.Extensions.XAF" version="0.0.6.1" />
     </dependencies>
   </metadata>
   <files>
