@@ -32,10 +32,10 @@
     <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.7" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
     <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.13.1" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.19.1" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.66.1" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.63.1" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.14.1" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.20.1" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.67.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.64.1" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>
   <ItemGroup>

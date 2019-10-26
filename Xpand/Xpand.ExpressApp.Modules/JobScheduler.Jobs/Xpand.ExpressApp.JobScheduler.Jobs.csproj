@@ -36,7 +36,6 @@
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.BaseImpl.dll</HintPath>
-      <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
