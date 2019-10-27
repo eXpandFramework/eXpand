@@ -14,15 +14,15 @@
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.36" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
     <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.54.1" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
   </ItemGroup>

@@ -16,33 +16,33 @@
     <PackageReference Include="System.Reactive" Version="4.2.0" />
     <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="DevExpress.DataAccess" Version="19.1.7" />
-    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Win" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation.Win" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.7" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Utils" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Win.Charts" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Utils.UI" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Win.Dashboard" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Win" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Win.Printing" Version="19.1.7" />
+    <PackageReference Include="DevExpress.DataAccess" Version="19.2.3" />
+    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Win" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation.Win" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Win.Charts" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Utils.UI" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Win.Dashboard" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Win" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Win.Printing" Version="19.2.3" />
     <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6.1" />
     <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58.1" />
-    <PackageReference Include="DevExpress.Win.RichEdit" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Win.RichEdit" Version="19.2.3" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.67.1" />
   </ItemGroup>

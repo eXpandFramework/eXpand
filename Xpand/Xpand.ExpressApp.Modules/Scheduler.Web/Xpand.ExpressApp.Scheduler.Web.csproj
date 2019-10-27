@@ -14,17 +14,17 @@
   <ItemGroup>
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Web" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Utils" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Web.Scheduler" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Scheduler.Core" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Scheduler.Web" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Web.Scheduler" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Web" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Scheduler.Core" Version="19.2.3" />
     <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58.1" />
     <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6.1" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.67.1" />

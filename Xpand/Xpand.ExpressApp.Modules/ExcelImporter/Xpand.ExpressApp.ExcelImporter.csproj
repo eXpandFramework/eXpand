@@ -25,18 +25,18 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.36" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Notifications" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Web" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.1.7" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Notifications" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Printing.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Web" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.20.1" />
     <PackageReference Include="Xpand.XAF.Modules.AutoCommit" Version="1.0.16.1" />
     <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.14.1" />

@@ -47,10 +47,10 @@
     <EmbeddedResource Include="Images\DevExpress.XtraEditors.Images.Information.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.Data" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.1.7" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.1.7" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.1.7" />
+    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.2.3" />
+    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
 </Project>
