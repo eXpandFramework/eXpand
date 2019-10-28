@@ -57,7 +57,7 @@
     <PackageReference Include="DevExpress.Web" Version="19.2.3" />
     <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
     <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="1.0.15.1" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web" />

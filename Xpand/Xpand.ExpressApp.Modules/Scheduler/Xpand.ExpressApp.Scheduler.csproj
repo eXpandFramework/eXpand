@@ -42,7 +42,7 @@
     <PackageReference Include="DevExpress.Win.Grid" Version="19.2.3" />
     <PackageReference Include="DevExpress.Win.Scheduler" Version="19.2.3" />
     <PackageReference Include="DevExpress.Scheduler.Core" Version="19.2.3" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Model\SchedulerModelAdapterControllerBase.cs">
