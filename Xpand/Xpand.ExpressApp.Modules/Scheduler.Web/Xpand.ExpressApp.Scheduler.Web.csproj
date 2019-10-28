@@ -25,9 +25,9 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
     <PackageReference Include="DevExpress.Web" Version="19.2.3" />
     <PackageReference Include="DevExpress.Scheduler.Core" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58.1" />
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6.1" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.67.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.67" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web" />

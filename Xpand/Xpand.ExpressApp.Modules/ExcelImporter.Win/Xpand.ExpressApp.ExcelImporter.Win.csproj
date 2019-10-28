@@ -24,7 +24,7 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="WindowsBase" Version="4.6.1055.0" />
-    <PackageReference Include="Xpand.Extensions" Version="0.0.6.1" />
+    <PackageReference Include="Xpand.Extensions" Version="0.0.6" />
     <PackageReference Include="Xpand.VersionConverter" Version="1.0.36" />
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.Notifications" Version="19.2.3" />
@@ -40,9 +40,9 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
     <PackageReference Include="DevExpress.Win.Printing" Version="19.2.3" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.67.1" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.67" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6.1" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows" />

@@ -19,9 +19,9 @@
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58.1" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.20.1" />
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.20" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.Win">
