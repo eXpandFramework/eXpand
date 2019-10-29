@@ -2,7 +2,7 @@
 
 using DevExpress.Persistent.BaseImpl;
 using XVideoRental.Module.Win;
-using Xpand.ExpressApp.Security.Core;
+
 
 namespace XVideoRental.Win {
     partial class XVideoRentalWindowsFormsApplication {
@@ -46,22 +46,10 @@ namespace XVideoRental.Win {
             this.schedulerModuleBase1 = new DevExpress.ExpressApp.Scheduler.SchedulerModuleBase();
             this.schedulerWindowsFormsModule1 = new DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule();
             this.module4 = new XVideoRental.Module.Win.XVideoRentalWindowsFormsModule();
-            this.xpandSystemModule1 = new Xpand.ExpressApp.SystemModule.XpandSystemModule();
-            this.xpandSystemWindowsFormsModule1 = new Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule();
-            this.xpandPivotGridWinModule1 = new Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule();
-            this.xpandChartWinModule1 = new Xpand.ExpressApp.Chart.Win.XpandChartWinModule();
-            this.logicModule1 = new Xpand.ExpressApp.Logic.LogicModule();
-            this.masterDetailModule1 = new Xpand.ExpressApp.MasterDetail.MasterDetailModule();
-            this.masterDetailWindowsModule1 = new Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule();
-            this._xpandSchedulerWindowsFormsModule2 = new Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule();
-            this.xpandSecurityModule1 = new Xpand.ExpressApp.Security.XpandSecurityModule();
-            this.xpandSecurityWinModule1 = new Xpand.ExpressApp.Security.Win.XpandSecurityWinModule();
+            
             this.treeListEditorsModuleBase1 = new DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase();
             this.validationModule1 = new DevExpress.ExpressApp.Validation.ValidationModule();
-            this.xpandValidationModule1 = new Xpand.ExpressApp.Validation.XpandValidationModule();
-            this.modelArtifactStateModule1 = new Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule();
-            this.dashboardModule1 = new Xpand.ExpressApp.Dashboard.DashboardModule();
-            this.dashboardWindowsFormsModule1 = new Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule();
+            
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
             // sqlConnection1
@@ -113,22 +101,11 @@ namespace XVideoRental.Win {
             this.Modules.Add(this.schedulerModuleBase1);
             this.Modules.Add(this.schedulerWindowsFormsModule1);
             this.Modules.Add(this.securityModule1);
-            this.Modules.Add(this.xpandSystemModule1);
-            this.Modules.Add(this.xpandSystemWindowsFormsModule1);
-            this.Modules.Add(this.dashboardModule1);
-            this.Modules.Add(this.xpandPivotGridWinModule1);
-            this.Modules.Add(this.xpandChartWinModule1);
+            
             this.Modules.Add(this.validationModule1);
-            this.Modules.Add(this.logicModule1);
-            this.Modules.Add(this.masterDetailModule1);
-            this.Modules.Add(this.masterDetailWindowsModule1);
-            this.Modules.Add(this._xpandSchedulerWindowsFormsModule2);
-            this.Modules.Add(this.xpandSecurityModule1);
-            this.Modules.Add(this.xpandSecurityWinModule1);
+            
             this.Modules.Add(this.treeListEditorsModuleBase1);
-            this.Modules.Add(this.xpandValidationModule1);
-            this.Modules.Add(this.modelArtifactStateModule1);
-            this.Modules.Add(this.dashboardWindowsFormsModule1);
+            
             this.Modules.Add(this.module4);
             this.Security = this.securityStrategyComplex1;
             this.DatabaseVersionMismatch += new System.EventHandler<DevExpress.ExpressApp.DatabaseVersionMismatchEventArgs>(this.XVideoRentalWindowsFormsApplication_DatabaseVersionMismatch);
@@ -156,25 +133,25 @@ namespace XVideoRental.Win {
         private DevExpress.ExpressApp.Chart.Win.ChartWindowsFormsModule chartWindowsFormsModule1;
         private DevExpress.ExpressApp.Scheduler.SchedulerModuleBase schedulerModuleBase1;
         private DevExpress.ExpressApp.Scheduler.Win.SchedulerWindowsFormsModule schedulerWindowsFormsModule1;
-        private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
-        private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
-        private Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule xpandPivotGridWinModule1;
-        private Xpand.ExpressApp.Chart.Win.XpandChartWinModule xpandChartWinModule1;
-        private Xpand.ExpressApp.Logic.LogicModule logicModule1;
-        private Xpand.ExpressApp.MasterDetail.MasterDetailModule masterDetailModule1;
-        private Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule masterDetailWindowsModule1;
-        private Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule _xpandSchedulerWindowsFormsModule2;
-        private Xpand.ExpressApp.Security.XpandSecurityModule xpandSecurityModule1;
-        private Xpand.ExpressApp.Security.Win.XpandSecurityWinModule xpandSecurityWinModule1;
+//        private Xpand.ExpressApp.SystemModule.XpandSystemModule xpandSystemModule1;
+//        private Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule xpandSystemWindowsFormsModule1;
+//        private Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule xpandPivotGridWinModule1;
+//        private Xpand.ExpressApp.Chart.Win.XpandChartWinModule xpandChartWinModule1;
+//        private Xpand.ExpressApp.Logic.LogicModule logicModule1;
+//        private Xpand.ExpressApp.MasterDetail.MasterDetailModule masterDetailModule1;
+//        private Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule masterDetailWindowsModule1;
+//        private Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule _xpandSchedulerWindowsFormsModule2;
+//        private Xpand.ExpressApp.Security.XpandSecurityModule xpandSecurityModule1;
+//        private Xpand.ExpressApp.Security.Win.XpandSecurityWinModule xpandSecurityWinModule1;
         private DevExpress.ExpressApp.TreeListEditors.TreeListEditorsModuleBase treeListEditorsModuleBase1;
         private DevExpress.ExpressApp.Validation.ValidationModule validationModule1;
-        private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
+//        private Xpand.ExpressApp.Validation.XpandValidationModule xpandValidationModule1;
 
 
-        private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
+//        private Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule modelArtifactStateModule1;
         
-        private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
-        private Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule dashboardWindowsFormsModule1;
+//        private Xpand.ExpressApp.Dashboard.DashboardModule dashboardModule1;
+//        private Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule dashboardWindowsFormsModule1;
         
     }
 }
