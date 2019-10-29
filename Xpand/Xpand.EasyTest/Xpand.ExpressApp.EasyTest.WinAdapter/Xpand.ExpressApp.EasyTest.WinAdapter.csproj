@@ -13,8 +13,8 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.EasyTest" Version="18.2.7" />
-    <PackageReference Include="DevExpress.ExpressApp.EasyTest.WinAdapter" Version="18.2.7" />
+    <PackageReference Include="DevExpress.EasyTest" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.EasyTest.WinAdapter" Version="19.2.3" />
     <PackageReference Include="System.Management" Version="4.*" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
     <PackageReference Include="Microsoft.CSharp" Version="4.*" />
@@ -23,7 +23,6 @@
     <PackageReference Include="DevExpress.Data" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
     <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
@@ -33,7 +32,7 @@
     <PackageReference Include="DevExpress.Win.RichEdit" Version="19.2.3" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.6" />
+    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
