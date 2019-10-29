@@ -115,6 +115,7 @@ Task CompileModules{
         #     }
             
         # }
+        $msbuildArgs+="/bl:$root\Xpand.dll\CompileModules.binlog"
         dotnet restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" --source ($packageSources -join ";")
         dotnet msbuild "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @msbuildArgs
         if ($LASTEXITCODE){

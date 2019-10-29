@@ -31,8 +31,8 @@
     <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.2.3" />
     <PackageReference Include="DevExpress.Data" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.20" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58.4" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.20.3" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
     <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
     <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />

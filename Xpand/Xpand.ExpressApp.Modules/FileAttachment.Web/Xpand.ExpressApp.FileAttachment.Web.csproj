@@ -48,10 +48,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6.3" />
     <PackageReference Include="DevExpress.Data" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58.4" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.2.3" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
