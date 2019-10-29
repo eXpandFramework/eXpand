@@ -58,7 +58,8 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             base.OnViewControlsCreated();
             foreach (var viewItem in View.Items.OfType<DashboardViewItem>()) {
                 var frame = viewItem.Frame;
-                if (frame?.View is ListView listView){
+                var listView = frame?.View as ListView;
+                if (listView != null){
                     listView.SelectionChanged -= ListViewSelectionChangedHandler;
                     listView.SelectionChanged += ListViewSelectionChangedHandler;
                 }
@@ -71,15 +72,14 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
                 .OfType<DashboardViewItem>()
                 .FirstOrDefault(v => v.Frame != null && v.Frame.View == sender);
 
-            var masterDetailMode = ((IModelDashboardViewItemEx) viewItem?.GetModel(View))?.MasterDetailMode;
-            if (masterDetailMode.HasValue&&masterDetailMode.Value==MasterDetailMode.ListViewAndDetailView) {
+            if (viewItem != null)
                 OnSelectionChanged(new SelectionChangedArgs((ListView) sender, viewItem));
-            }
         }
 
         void AssignMasterDetailModes(IModelDashboardViewItemEx modelDashboardViewItem) {
-            if (modelDashboardViewItem.MasterDetailMode.HasValue&&modelDashboardViewItem.MasterDetailMode==MasterDetailMode.ListViewAndDetailView) {
-                if (modelDashboardViewItem.View is IModelListView modelListView) {
+            if (modelDashboardViewItem.MasterDetailMode.HasValue) {
+                var modelListView = modelDashboardViewItem.View as IModelListView;
+                if (modelListView != null) {
                     _masterDetailModes.Add(modelListView, modelListView.MasterDetailMode);
                     modelListView.MasterDetailMode = modelDashboardViewItem.MasterDetailMode.Value;
                 }
@@ -168,7 +168,8 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         CriteriaOperator CriteriaSelectionOperator(ListView listView, IModelColumn filteredColumn) {
             var keyName = filteredColumn.ModelMember.MemberInfo.MemberTypeInfo.KeyMember.Name;
-            return listView.Editor is ISelectionCriteria selectionCriteria ? CriteriaOperator.Parse(filteredColumn.PropertyName + "." + (selectionCriteria).SelectionCriteria.ToString())
+            var selectionCriteria = listView.Editor as ISelectionCriteria;
+            return selectionCriteria != null ? CriteriaOperator.Parse(filteredColumn.PropertyName + "." + (selectionCriteria).SelectionCriteria.ToString())
                        : new InOperator(filteredColumn.PropertyName + "." + keyName, Getkeys(listView));
         }
 
