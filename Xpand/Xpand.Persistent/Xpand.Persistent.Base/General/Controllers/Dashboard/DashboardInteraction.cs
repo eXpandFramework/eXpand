@@ -143,7 +143,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         ListView DataSourceListView(IModelListView dataSourceView) {
             return View != null ? (dataSourceView != null ?
-                       View.Items.OfType<DashboardViewItem>().Where(item => ViewMatch(item, dataSourceView)).Select(item => item.Frame.View).Cast<ListView>().Single() : null)
+                       View.Items.OfType<DashboardViewItem>().Where(item => ViewMatch(item, dataSourceView)).Select(item => item.Frame.View).Cast<ListView>().FirstOrDefault() : null)
                        : null;
         }
 
