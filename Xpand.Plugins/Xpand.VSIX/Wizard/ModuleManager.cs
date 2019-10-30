@@ -20,14 +20,11 @@ namespace Xpand.VSIX.Wizard{
 
         private static void RegisterAllModules(){
             var xpandPath = GetXpandDllPath();
-            if (!Directory.Exists(xpandPath)) {
+            if (Directory.Exists(xpandPath)) {
                 var fileNames = Directory.GetFiles(xpandPath, "Xpand.ExpressApp.*.dll");
                 foreach (var fileName in fileNames){
                     Register(fileName);
                 }
-            }
-            else{
-                
             }
         }
 
