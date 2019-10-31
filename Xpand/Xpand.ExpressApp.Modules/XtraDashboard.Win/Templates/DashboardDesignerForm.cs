@@ -79,8 +79,12 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         void UpdateActionState() {
             HideButtons();
-            _barButtonItemSave.Enabled = _editHistory.IsModified;
-            _barButtonItemSaveAndClose.Enabled = _editHistory.IsModified;
+            if (_barButtonItemSave != null) {
+                _barButtonItemSave.Enabled = _editHistory.IsModified;
+            }
+            if (_barButtonItemSaveAndClose != null) {
+                _barButtonItemSaveAndClose.Enabled = _editHistory.IsModified;
+            }
         }
 
         void SaveAndClose(object sender, ItemClickEventArgs e) {
