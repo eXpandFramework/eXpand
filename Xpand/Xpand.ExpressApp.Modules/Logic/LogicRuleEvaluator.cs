@@ -53,7 +53,8 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         void ViewOnCurrentObjectChanged(object sender, EventArgs eventArgs) {
-            IsNew = _frame.View.ObjectSpace.IsNewObject(_frame.View.CurrentObject);
+            if (_frame?.View != null)
+                IsNew = _frame.View.ObjectSpace.IsNewObject(_frame.View.CurrentObject);
         }
 
         protected virtual bool ViewIsRoot(ILogicRuleObject ruleObject) {
