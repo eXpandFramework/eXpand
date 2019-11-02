@@ -28,10 +28,10 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
     <PackageReference Include="DevExpress.Web" Version="19.2.3" />
     <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.6.4" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.58.5" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.1" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.67.4" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.68.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
