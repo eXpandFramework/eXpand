@@ -29,7 +29,7 @@
     <PackageReference Include="DevExpress.ExpressApp.ReportsV2" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler.Win" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.ScriptRecorder.Win" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.ScriptRecorder.Win" Version="19.1.2" />
     <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.TreeListEditors" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.TreeListEditors.Win" Version="19.2.3" />
