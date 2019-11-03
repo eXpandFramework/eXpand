@@ -7,7 +7,7 @@ param(
     [string[]]$taskList = @("Release"),
     [string]$nugetApiKey = $null,
     [string]$Repository = "eXpand",
-    [string]$XpandPwshVersion = "0.25.12",
+    [string]$XpandPwshVersion = "0.25.14",
     [bool]$ResolveNugetDependecies
 )
 
@@ -23,11 +23,15 @@ $psake = [PSCustomObject]@{
 }
 & "$PSScriptRoot\Install-Module.ps1" -psObj $psake
 if (!$version) {
+    $ps1=Get-Content "$PSScriptRoot\..\..\build.ps1" -Raw
+    $regex = [regex] '\d{2}\.\d{1,2}\.\d{3}.\d{1}'
+    $nextVersion=$regex.Match($ps1).Value
     $officialPackages=Get-XpandPackages -PackageType eXpand -Source Release
     $labPackages=Get-XpandPackages -PackageType eXpand -Source Lab
     $DXVersion=Get-DevExpressVersion
-    $nextVersion = Get-XXpandVersion -Next -OfficialPackages $officialPackages -LabPackages $labPackages -DXVersion $DXVersion
-    Write-host "NextVersion=$nextVersion"
+    if ($labPackages){
+        $nextVersion = Get-XXpandVersion -Next -OfficialPackages $officialPackages -LabPackages $labPackages -DXVersion $DXVersion
+    }
     return $nextVersion
 }
 

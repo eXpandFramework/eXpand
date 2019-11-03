@@ -10,6 +10,7 @@ $WorkingDirectory="$PSScriptRoot\.."
 if ($repository -like "*/eXpand.lab"){
    "Finding Version.."
    $version=(& $WorkingDirectory\Support\build\go.ps1)|Select-Object -Last 1
+   
    $repository="eXpand.lab"
 }
 elseif ($repository -like "*/eXpand"){

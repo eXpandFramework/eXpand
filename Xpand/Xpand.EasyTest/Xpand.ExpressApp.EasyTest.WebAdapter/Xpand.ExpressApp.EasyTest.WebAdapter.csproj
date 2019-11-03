@@ -13,8 +13,8 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.EasyTest" Version="18.2.10" />
-    <PackageReference Include="DevExpress.ExpressApp.Easytest.WebAdapter" Version="18.2.10" />
+    <PackageReference Include="DevExpress.EasyTest" Version="19.2.3" />
+    <PackageReference Include="DevExpress.ExpressApp.Easytest.WebAdapter" Version="19.2.3" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="IIS.Microsoft.Web.Adminstration" Version="8.5.9600.16384" />
