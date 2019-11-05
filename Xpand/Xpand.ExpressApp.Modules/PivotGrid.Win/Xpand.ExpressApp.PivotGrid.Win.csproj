@@ -38,9 +38,9 @@
     <PackageReference Include="DevExpress.Win.Printing" Version="19.2.3" />
     <PackageReference Include="DevExpress.Win.Grid" Version="19.2.3" />
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.1" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.21.1" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7.2" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.4" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.21.4" />
     <PackageReference Include="DevExpress.Win.PivotGrid" Version="19.2.3" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
   </ItemGroup>

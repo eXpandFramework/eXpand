@@ -64,7 +64,7 @@
     <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
     <PackageReference Include="DevExpress.Win.Scheduler" Version="19.2.3" />
     <PackageReference Include="DevExpress.Scheduler.Core" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.15.1" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.15.4" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration">

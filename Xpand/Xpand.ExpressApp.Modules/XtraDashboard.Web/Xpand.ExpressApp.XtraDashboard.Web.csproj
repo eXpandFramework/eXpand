@@ -34,7 +34,7 @@
     <PackageReference Include="DevExpress.ExpressApp.Validation.Web" Version="19.2.3" />
     <PackageReference Include="DevExpress.Images" Version="19.2.3" />
     <PackageReference Include="DevExpress.Map.Core" Version="19.2.3" />
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7" />
+    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7.2" />
     <PackageReference Include="DevExpress.Pdf.Core" Version="19.2.3" />
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
     <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.2.3" />
@@ -52,11 +52,11 @@
     <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
     <PackageReference Include="DevExpress.Data" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.1" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.4" />
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
     <PackageReference Include="DevExpress.Web" Version="19.2.3" />
     <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="1.0.16.1" />
+    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="1.0.16.4" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
   </ItemGroup>
   <ItemGroup>
