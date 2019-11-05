@@ -31,7 +31,7 @@
     <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
     <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.2.3" />
     <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.55.4" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.55.5" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
   </ItemGroup>
   <ItemGroup>
