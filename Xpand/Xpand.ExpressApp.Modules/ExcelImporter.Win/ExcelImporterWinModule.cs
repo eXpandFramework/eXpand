@@ -15,6 +15,7 @@ using Xpand.ExpressApp.ExcelImporter.Win.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Win.Services;
 using Xpand.ExpressApp.Validation.Win;
 using Xpand.ExpressApp.Win.SystemModule;
+using Xpand.Extensions.Reactive.Transform;
 using Xpand.Persistent.Base.General;
 using Xpand.XAF.Modules.Reactive;
 using Xpand.XAF.Modules.Reactive.Extensions;
