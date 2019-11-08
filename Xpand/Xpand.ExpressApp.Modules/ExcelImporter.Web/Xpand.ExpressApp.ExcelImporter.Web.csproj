@@ -38,6 +38,7 @@
     <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
     <PackageReference Include="DevExpress.Web" Version="19.2.3" />
     <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
+    <PackageReference Include="Xpand.Extensions" Version="0.0.8.4" />
     <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7.2" />
   </ItemGroup>
   <ItemGroup>
