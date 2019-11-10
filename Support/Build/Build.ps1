@@ -115,9 +115,11 @@ Task CompileModules{
         #     }
             
         # }
-        # $msbuildArgs+="/bl:$root\Xpand.dll\CompileModules.binlog"
+        $compileArgs=$msbuildArgs
+        $compileArgs+="/fl"
+        $compileArgs+="/bl:$root\Xpand.dll\CompileModules.binlog"
         dotnet restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" --source ($packageSources -join ";")
-        dotnet msbuild "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @msbuildArgs
+        dotnet msbuild "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @compileArgs
         if ($LASTEXITCODE){
             throw
         }
@@ -125,25 +127,25 @@ Task CompileModules{
         Write-Host "Compiling helper projects..." -f "Blue"
         $helperProjects=($group.HelperProjects|GetProjects)
         "helperProjects=$helperProjects"
-        BuildProjects $helperProjects
+        BuildProjects $helperProjects "Helper"
         $vsAddons=($group.VSAddons|GetProjects)
         "vsAddons=$vsAddons"
-        BuildProjects $vsAddons
+        BuildProjects $vsAddons "VSIX"
 
         Write-Host "Compiling Agnostic EasyTest projects..." -f "Blue"
         $agnosticEasytest=(($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 
         "agnosticEasytest=$agnosticEasytest"
-        BuildProjects $agnosticEasytest
+        BuildProjects $agnosticEasytest "EasyTest"
         
         Write-Host "Compiling Win EasyTest projects..." -f "Blue"
         $winEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Win")}) 
         "winEasyTest=$winEasyTest"
-        BuildProjects $winEasyTest
+        BuildProjects $winEasyTest "EasyTest"
         
         Write-Host "Compiling Web EasyTest projects..." -f "Blue"
         $webEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Web")}) 
         "webEasyTest=$webEasyTest"
-        BuildProjects $webEasyTest
+        BuildProjects $webEasyTest "EasyTest"
     }
 }
 
@@ -172,7 +174,7 @@ task CompileDemos {
         $projects= ($group.DemoWinSolutions|GetProjects)
         
         Write-Host "Compiling win demos..." -f "Blue"
-        BuildProjects $projects
+        BuildProjects $projects "Demos"
         
         $projects= ($group.DemoWebSolutions|GetProjects)
         
@@ -181,13 +183,15 @@ task CompileDemos {
     }
 }
 
-function BuildProjects($projects,$useMsBuild ){
+function BuildProjects($projects,$useMsBuild,$buildName ){
     $projects|ForEach-Object {
         $bargs=(@("$_","/p:OutputPath=$root\Xpand.dll\")+$msbuildArgs.Split(";"))
         if (!$useMsBuild){
             "packageSources=$packageSources"
             dotnet restore "$_" --source ($packageSources -join ";")
-            dotnet msbuild "$_" @msbuildArgs
+            $compileArgs=$msbuildArgs
+            $compileArgs+="/bl:$root\Xpand.dll\helper.binlog"
+            dotnet msbuild "$_" @compileArgs
             # $o=& dotnet build "$_"  --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";") /WarnAserror
         }
         else {
@@ -223,6 +227,7 @@ task ? -Description "Helper to display task info" {
 function InvokeScript($sb,$maxRetries=0){
     try {
         exec $sb -maxRetries $maxRetries
+        Approve-LastExitCode
     }
     catch {
         Write-Error ($_.Exception | Format-List -Force | Out-String) -ErrorAction Continue
