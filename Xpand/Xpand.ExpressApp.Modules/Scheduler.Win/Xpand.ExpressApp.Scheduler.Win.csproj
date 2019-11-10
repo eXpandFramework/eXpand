@@ -61,7 +61,7 @@
     <PackageReference Include="System.Reactive" Version="4.2.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7.2" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.4" />
+    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.5" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.2.3" />
     <PackageReference Include="DevExpress.ExpressApp.Scheduler.Win" Version="19.2.3" />
     <PackageReference Include="DevExpress.Data" Version="19.2.3" />
@@ -78,6 +78,6 @@
     <PackageReference Include="DevExpress.Win.Scheduler" Version="19.2.3" />
     <PackageReference Include="DevExpress.Scheduler.Core" Version="19.2.3" />
     <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.68.4" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.68.5" />
   </ItemGroup>
 </Project>
