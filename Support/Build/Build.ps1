@@ -24,6 +24,9 @@ Task Lab -depends Clean,Init,Version,CompileModules,CompileDemos
 
 Task Init  {
     InvokeScript{
+        dotnet tool restore
+        Set-Location $root
+        Invoke-PaketRestore
         Write-Host "Remove directories"
         "$root\Xpand.dll","$root\Build","$root\Build\Temp","$root\Support\_third_party_assemblies\Packages\" | ForEach-Object{
             New-Item $_ -ItemType Directory -Force |Out-Null
