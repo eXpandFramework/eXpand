@@ -1,0 +1,15 @@
+System.ValueTuple
+Xpand.VersionConverter
+DevExpress.Data
+DevExpress.ExpressApp.CloneObject
+DevExpress.ExpressApp.ConditionalAppearance
+DevExpress.ExpressApp.Security
+DevExpress.ExpressApp.Security.Xpo
+DevExpress.ExpressApp.Xpo
+DevExpress.ExpressApp
+DevExpress.ExpressApp.Validation
+DevExpress.Persistent.Base
+DevExpress.Xpo
+Xpand.XAF.Modules.CloneModelView
+Xpand.XAF.Modules.ModelViewInheritance
+Fasterflect.Xpand

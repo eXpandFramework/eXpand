@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -36,12 +37,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

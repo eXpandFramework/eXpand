@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -47,19 +48,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7.2" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Web" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.5" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-  </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

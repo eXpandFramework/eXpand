@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -13,12 +14,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Remove="DBObject.cs" />
     <Compile Remove="testexpand.cs" />
     <Compile Remove="XpandXPClassInfo.cs" />
@@ -32,4 +27,5 @@
       <HintPath>..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

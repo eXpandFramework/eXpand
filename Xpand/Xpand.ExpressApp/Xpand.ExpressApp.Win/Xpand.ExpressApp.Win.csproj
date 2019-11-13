@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -16,39 +17,6 @@
     <Compile Remove="ListEditors\GridListEditors\ColumnView\RepositoryItems\**" />
     <EmbeddedResource Remove="ListEditors\GridListEditors\ColumnView\RepositoryItems\**" />
     <None Remove="ListEditors\GridListEditors\ColumnView\RepositoryItems\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="3.3.1" />
-    <PackageReference Include="Enums.NET" Version="2.3.2" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.0" />
-    <PackageReference Include="System.Reactive" Version="4.2.0" />
-    <PackageReference Include="System.Resources.Extensions" Version="4.6.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="DevExpress.CodeParser" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Printing" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Grid" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.RichEdit" Version="19.2.3" />
-    <PackageReference Include="Xpand.Extensions" Version="0.0.8.4" />
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7.2" />
-    <PackageReference Include="Xpand.XAF.Modules.GridListEditor" Version="0.0.19.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.5" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
@@ -221,4 +189,5 @@
   <ItemGroup>
     <Compile Include="ListEditors\GridListEditors\ColumnView\RepositoryItems\Interfaces.cs" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

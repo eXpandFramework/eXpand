@@ -1,0 +1,9 @@
+DevExpress.ExpressApp.ConditionalAppearance
+DevExpress.Data
+DevExpress.ExpressApp
+DevExpress.ExpressApp.Validation
+DevExpress.ExpressApp.ViewVariantsModule
+DevExpress.Persistent.Base
+DevExpress.Xpo
+System.ValueTuple
+Fasterflect.Xpand

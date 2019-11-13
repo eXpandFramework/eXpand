@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
@@ -13,41 +14,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Fody" Version="4.2.1">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Mono.Cecil" Version="0.11.0" />
-    <PackageReference Include="PropertyChanged.Fody" Version="2.6.1">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.CodeDom" Version="4.6.0" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Images" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Pdf.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.BaseImpl" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Win" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-    <PackageReference Include="Xpand.Patcher" Version="1.0.1" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.configuration" />
     <Reference Include="System.Deployment" />
@@ -156,4 +122,5 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

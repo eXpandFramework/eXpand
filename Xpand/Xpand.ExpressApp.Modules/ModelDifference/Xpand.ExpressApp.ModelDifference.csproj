@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -12,23 +13,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.36" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.CloneObject" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.15.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelViewInheritance" Version="1.1.55.5" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.Security">
@@ -107,4 +91,5 @@
     <Compile Remove="DataStore\BaseObjects\IPersistentApplication.cs" />
     <Compile Remove="DataStore\BaseObjects\ValueConverters\ModelValueConverter.cs" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

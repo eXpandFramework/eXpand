@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -11,54 +12,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Fody" Version="4.2.1">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" Version="2.6.1">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Ryder" Version="0.8.0" />
-    <PackageReference Include="System.Reactive" Version="4.2.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.36" />
-    <PackageReference Include="DevExpress.Charts.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.CodeParser" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web.Dashboard.Common" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web.Dashboard" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Images" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Map.Core" Version="19.2.3" />
-    <PackageReference Include="Xpand.Extensions.XAF" Version="0.0.7.2" />
-    <PackageReference Include="DevExpress.Pdf.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.2.3" />
-    <PackageReference Include="DevExpress.SpellChecker.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.TreeMap.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web.Themes" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.DataAccess" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.5" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="1.0.16.5" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
@@ -126,4 +79,5 @@
   <ItemGroup>
     <None Include="Properties\Xpand.VersionConverter.ReadMe.md" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

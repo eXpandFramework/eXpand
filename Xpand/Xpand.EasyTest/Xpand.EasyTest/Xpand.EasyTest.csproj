@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -12,18 +13,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="DevExpress.EasyTest" Version="19.2.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AForge" Version="2.2.5" />
-    <PackageReference Include="AForge.Imaging" Version="2.2.5" />
-    <PackageReference Include="AForge.Math" Version="2.2.5" />
-    <PackageReference Include="AForge.Video" Version="2.2.5" />
-    <PackageReference Include="InputSimulator" Version="1.0.4.0" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.Utils">
@@ -50,4 +39,5 @@
     <Compile Remove="ImageHelper.cs" />
     <Compile Remove="LogonCommand.cs" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

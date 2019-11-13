@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -11,21 +12,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="DevExpress.ExpressApp.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -61,4 +47,5 @@
   <ItemGroup>
     <None Include="Controllers\ReadMe.txt" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

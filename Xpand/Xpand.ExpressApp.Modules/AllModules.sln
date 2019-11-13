@@ -2,6 +2,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28917.182
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{EB1D042D-5DDB-456D-AD0F-3D2C3792C311}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\paket.dependencies = ..\..\paket.dependencies
+	EndProjectSection
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AdditionalViewControlsProvider", "AdditionalViewControlsProvider", "{634CD662-E09E-4E2E-82ED-AEBB41DF4A19}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpand.ExpressApp.AdditionalViewControlsProvider", "AdditionalViewControlsProvider\Xpand.ExpressApp.AdditionalViewControlsProvider.csproj", "{B3216F6A-B4C6-4899-9D42-398CDF0CA91E}"

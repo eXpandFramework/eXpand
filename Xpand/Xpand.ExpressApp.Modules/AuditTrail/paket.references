@@ -1,0 +1,16 @@
+System.Reactive
+System.ValueTuple
+Xpand.VersionConverter
+DevExpress.Data
+DevExpress.ExpressApp.AuditTrail
+DevExpress.ExpressApp.ConditionalAppearance
+DevExpress.ExpressApp.Security
+DevExpress.ExpressApp
+DevExpress.ExpressApp.Security.Xpo
+DevExpress.ExpressApp.Xpo
+DevExpress.Persistent.Base
+DevExpress.Persistent.BaseImpl
+DevExpress.Xpo
+Xpand.XAF.Modules.CloneModelView
+Xpand.XAF.Modules.ModelViewInheritance
+Fasterflect.Xpand

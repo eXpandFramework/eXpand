@@ -1,0 +1,16 @@
+System.Runtime.CompilerServices.Unsafe
+System.ValueTuple
+DevExpress.ExpressApp.Scheduler
+DevExpress.Data
+DevExpress.ExpressApp.Scheduler.Web
+DevExpress.ExpressApp
+DevExpress.ExpressApp.Web
+DevExpress.Utils
+DevExpress.Web.Scheduler
+DevExpress.Office.Core
+DevExpress.RichEdit.Core
+DevExpress.Web
+DevExpress.Scheduler.Core
+Xpand.XAF.Modules.ModelMapper
+Xpand.Extensions.XAF
+Xpand.XAF.Modules.Reactive

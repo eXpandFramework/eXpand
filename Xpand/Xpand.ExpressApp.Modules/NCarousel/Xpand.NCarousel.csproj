@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -35,4 +36,5 @@
     <EmbeddedResource Include="Resources\Skins\prev-vertical.png" />
     <EmbeddedResource Include="Resources\Skins\skin.css" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

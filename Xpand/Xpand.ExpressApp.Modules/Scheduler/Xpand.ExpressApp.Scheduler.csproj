@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -13,7 +14,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="4.2.0" />
     <Reference Include="System.Web" />
     <Reference Include="Xpand.Persistent.Base">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
@@ -27,22 +27,6 @@
       <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Scheduler" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.ModelMapper" Version="1.1.59.5" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.21.5" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Printing" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Grid" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Scheduler" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Scheduler.Core" Version="19.2.3" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Model\SchedulerModelAdapterControllerBase.cs">
@@ -60,4 +44,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -13,15 +14,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DevExpress.EasyTest" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Easytest.WebAdapter" Version="19.2.3" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="IIS.Microsoft.Web.Adminstration" Version="8.5.9600.16384" />
-    <PackageReference Include="Unofficial.Microsoft.mshtml" Version="7.0.3300" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.EasyTest">
       <HintPath>..\..\..\Xpand.Dll\Xpand.EasyTest.dll</HintPath>
@@ -32,4 +24,5 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

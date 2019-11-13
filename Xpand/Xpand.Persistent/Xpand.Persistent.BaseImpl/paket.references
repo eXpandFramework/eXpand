@@ -1,0 +1,14 @@
+Fody
+PropertyChanged.Fody
+System.Runtime.CompilerServices.Unsafe
+System.ValueTuple
+DevExpress.Data
+DevExpress.ExpressApp.ConditionalAppearance
+DevExpress.ExpressApp.Security
+DevExpress.ExpressApp.Security.Xpo
+DevExpress.ExpressApp.Xpo
+DevExpress.ExpressApp
+DevExpress.Persistent.Base
+DevExpress.Persistent.BaseImpl
+DevExpress.Xpo
+Fasterflect.Xpand

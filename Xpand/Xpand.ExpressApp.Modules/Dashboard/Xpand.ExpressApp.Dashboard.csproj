@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -11,33 +12,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Ryder" Version="0.8.0" />
-    <PackageReference Include="System.Reactive" Version="4.2.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.36" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Dashboards" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Sparkline.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.DataAccess.UI" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Dashboard.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.DataAccess" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Security" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.15.5" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.21.5" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.68.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.65.5" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.Persistent.Base">
       <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
@@ -96,4 +70,5 @@
   <ItemGroup>
     <Compile Remove="XpoWinModelDictionaryDifferenceStore.cs" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

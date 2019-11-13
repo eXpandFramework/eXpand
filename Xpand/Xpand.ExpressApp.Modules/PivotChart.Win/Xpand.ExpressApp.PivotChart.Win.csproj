@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
@@ -11,29 +12,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="DevExpress.Charts.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotChart" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.PivotChart.Win" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Utils" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Charts" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Charts" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Printing" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Charts" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.Navigation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Win.PivotGrid" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Export" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.PivotGrid.Core" Version="19.2.3" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.PivotChart">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.PivotChart.dll</HintPath>
@@ -74,4 +52,5 @@
   <ItemGroup>
     <Compile Remove="_AnalysisDisplayDateTimeViewController.cs" />
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

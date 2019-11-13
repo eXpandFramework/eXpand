@@ -1,0 +1,13 @@
+Xpand.Extensions.XAF
+DevExpress.Data
+DevExpress.ExpressApp.FileAttachment.Web
+Xpand.XAF.Modules.ModelMapper
+DevExpress.ExpressApp
+DevExpress.ExpressApp.Web
+DevExpress.Persistent.Base
+DevExpress.Office.Core
+DevExpress.RichEdit.Core
+DevExpress.Web
+DevExpress.Xpo
+System.Runtime.CompilerServices.Unsafe
+System.ValueTuple

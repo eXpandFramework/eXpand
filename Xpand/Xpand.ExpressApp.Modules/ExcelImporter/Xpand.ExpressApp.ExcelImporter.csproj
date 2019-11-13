@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net461</TargetFramework>
@@ -11,43 +12,6 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
-    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
-    <PackageReference Include="Mono.Cecil" Version="0.11.0" />
-    <PackageReference Include="Ryder" Version="0.8.0" />
-    <PackageReference Include="SharpZipLib" Version="1.1.0" />
-    <PackageReference Include="System.Reactive" Version="4.2.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
-    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="Xpand.VersionConverter" Version="1.0.36" />
-    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Notifications" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Validation" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp.Xpo" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Printing.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Data" Version="19.2.3" />
-    <PackageReference Include="DevExpress.ExpressApp" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Persistent.Base" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Office.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.RichEdit.Core" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Web" Version="19.2.3" />
-    <PackageReference Include="DevExpress.Xpo" Version="19.2.3" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" Version="0.0.21.5" />
-    <PackageReference Include="Xpand.XAF.Modules.AutoCommit" Version="1.0.17.5" />
-    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" Version="1.0.15.5" />
-    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" Version="1.0.16.5" />
-    <PackageReference Include="Xpand.XAF.Modules.MasterDetail" Version="1.0.16.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ProgressBarViewItem" Version="1.0.16.5" />
-    <PackageReference Include="Xpand.XAF.Modules.Reactive" Version="1.2.68.5" />
-    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" Version="1.0.16.5" />
-    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" Version="1.2.65.5" />
-    <PackageReference Include="Fasterflect.Xpand" Version="2.0.7" />
-  </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp">
       <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.dll</HintPath>
@@ -80,4 +44,5 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
+  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

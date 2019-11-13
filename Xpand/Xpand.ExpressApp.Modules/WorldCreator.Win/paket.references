@@ -1,0 +1,9 @@
+System.Runtime.CompilerServices.Unsafe
+System.ValueTuple
+DevExpress.Data
+DevExpress.ExpressApp.FileAttachment.Win
+DevExpress.ExpressApp
+DevExpress.ExpressApp.Win
+Xpand.XAF.Modules.ModelMapper
+Xpand.XAF.Modules.Reactive.Logger
+Xpand.Extensions.XAF

@@ -1,0 +1,14 @@
+System.Reactive
+System.Runtime.CompilerServices.Unsafe
+System.Threading.Tasks.Extensions
+System.ValueTuple
+Xpand.Extensions.XAF
+Xpand.VersionConverter
+DevExpress.Data
+DevExpress.ExpressApp.Xpo
+DevExpress.ExpressApp
+DevExpress.Persistent.Base
+DevExpress.Xpo
+Xpand.XAF.Modules.HideToolBar
+Xpand.XAF.Modules.ModelViewInheritance
+Fasterflect.Xpand

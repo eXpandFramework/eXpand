@@ -1,0 +1,12 @@
+System.Runtime.CompilerServices.Unsafe
+System.ValueTuple
+DevExpress.ExpressApp.Validation.Win
+DevExpress.ExpressApp.Win
+DevExpress.Data
+DevExpress.ExpressApp
+DevExpress.ExpressApp.Validation
+DevExpress.Persistent.Base
+DevExpress.Utils
+DevExpress.Win.Navigation
+DevExpress.Win.Printing
+DevExpress.Win.Grid
