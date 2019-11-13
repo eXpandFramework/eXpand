@@ -1,14 +1,3 @@
-DevExpress.EasyTest
 DevExpress.ExpressApp.EasyTest.WinAdapter
-DevExpress.Data
-DevExpress.ExpressApp
-DevExpress.ExpressApp.Win
-DevExpress.RichEdit.Core
-DevExpress.Utils
-DevExpress.Win.Navigation
-DevExpress.Win.Printing
-DevExpress.Win.Grid
-DevExpress.Win.RichEdit
-System.Runtime.CompilerServices.Unsafe
 System.ValueTuple
 Fasterflect.Xpand

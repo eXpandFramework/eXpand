@@ -1,8 +1,6 @@
-Common.Logging
 Quartz
 System.ValueTuple
 Topshelf
 DevExpress.ExpressApp
-System.Runtime.CompilerServices.Unsafe
 DevExpress.Xpo
 Fasterflect.Xpand

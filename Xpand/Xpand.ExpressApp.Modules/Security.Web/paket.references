@@ -1,16 +1,4 @@
-System.Runtime.CompilerServices.Unsafe
 System.ValueTuple
 DevExpress.ExpressApp.Validation.Web
-DevExpress.ExpressApp.Web
-DevExpress.RichEdit.Export
-DevExpress.Printing.Core
-DevExpress.Data
-DevExpress.ExpressApp.Security
 DevExpress.ExpressApp.Security.Xpo
-DevExpress.ExpressApp.Xpo
-DevExpress.ExpressApp
-DevExpress.Office.Core
-DevExpress.RichEdit.Core
-DevExpress.Web
-DevExpress.Xpo
 Fasterflect.Xpand

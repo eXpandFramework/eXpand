@@ -1,16 +1,5 @@
-System.Reactive
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.Scheduler
-DevExpress.Data
-DevExpress.ExpressApp
 Xpand.XAF.Modules.ModelMapper
 Xpand.XAF.Modules.Reactive.Logger
-DevExpress.Persistent.Base
-DevExpress.Utils
-DevExpress.Xpo
-DevExpress.Win.Navigation
-DevExpress.Win.Printing
-DevExpress.Win.Grid
 DevExpress.Win.Scheduler
-DevExpress.Scheduler.Core
-Fasterflect.Xpand

@@ -1,11 +1,4 @@
 System.ValueTuple
-DevExpress.ExpressApp.ConditionalAppearance
-DevExpress.ExpressApp.Security
 DevExpress.ExpressApp.StateMachine
-DevExpress.Data
-DevExpress.ExpressApp
-DevExpress.ExpressApp.Validation
-DevExpress.Persistent.Base
 DevExpress.ExpressApp.Security.Xpo
-DevExpress.Xpo
 Fasterflect.Xpand

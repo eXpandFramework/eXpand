@@ -1,13 +1,4 @@
-System.ValueTuple
-Xpand.VersionConverter
 DevExpress.ExpressApp.ConditionalAppearance
-DevExpress.Data
-DevExpress.ExpressApp.Security
 DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.Security.Xpo
-DevExpress.ExpressApp.Xpo
-DevExpress.ExpressApp
-DevExpress.Persistent.Base
-DevExpress.Xpo
 Xpand.XAF.Modules.ModelViewInheritance
-Fasterflect.Xpand

@@ -1,11 +1,3 @@
-DevExpress.Data
 DevExpress.ExpressApp.TreeListEditors.Web
-DevExpress.ExpressApp
-DevExpress.ExpressApp.Web
-DevExpress.Persistent.Base
-DevExpress.Web
-DevExpress.Office.Core
-DevExpress.RichEdit.Core
 System.ValueTuple
-Fasterflect.Xpand
 Xpand.Extensions.XAF

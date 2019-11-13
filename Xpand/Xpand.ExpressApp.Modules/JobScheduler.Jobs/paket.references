@@ -1,11 +1,5 @@
-Common.Logging
-Microsoft.AspNet.Razor
 Quartz
 RazorEngine
-System.Runtime.CompilerServices.Unsafe
 System.ValueTuple
 DevExpress.ExpressApp.Xpo
-DevExpress.Data
-DevExpress.ExpressApp
 DevExpress.Persistent.Base
-DevExpress.Xpo

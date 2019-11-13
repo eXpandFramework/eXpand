@@ -1,17 +1,2 @@
-System.Reactive
-System.ValueTuple
-DevExpress.Data
-DevExpress.ExpressApp
 DevExpress.ExpressApp.Win
-DevExpress.Persistent.Base
-DevExpress.Office.Core
-DevExpress.RichEdit.Core
-DevExpress.Utils
-DevExpress.Xpo
-DevExpress.Win.Navigation
-DevExpress.Win.Printing
-DevExpress.Win.RichEdit
-Xpand.Extensions.XAF
 Xpand.XAF.Modules.ModelMapper
-Fasterflect.Xpand
-Xpand.XAF.Modules.Reactive

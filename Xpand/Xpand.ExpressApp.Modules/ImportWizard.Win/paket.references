@@ -1,17 +1,5 @@
 DocumentFormat.OpenXml
 DevExpress.ExpressApp.Win
-DevExpress.Data
 DevExpress.ExpressApp.Xpo
-DevExpress.ExpressApp
-DevExpress.RichEdit.Export
-DevExpress.Office.Core
-DevExpress.RichEdit.Core
-DevExpress.Printing.Core
-DevExpress.Utils
-DevExpress.Xpo
-DevExpress.Win.Navigation
-DevExpress.Win.Printing
-DevExpress.Win.Grid
-DevExpress.Win
 System.Resources.Extensions
 System.ValueTuple

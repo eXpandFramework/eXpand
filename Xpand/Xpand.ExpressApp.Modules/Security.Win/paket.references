@@ -1,9 +1,3 @@
 System.ValueTuple
 DevExpress.ExpressApp.Validation.Win
-DevExpress.ExpressApp.Win
-DevExpress.Data
-DevExpress.ExpressApp.Security
-DevExpress.ExpressApp
-DevExpress.Persistent.Base
 DevExpress.ExpressApp.Security.Xpo
-DevExpress.Xpo
