@@ -24,6 +24,11 @@ else{
 }
 $version
 Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
+Set-Location $WorkingDirectory
+Move-PaketSource 0 $DXApiFeed
+Push-Location $WorkingDirectory\Xpand.Plugins
+Move-PaketSource 0 $DXApiFeed
+Pop-Location
 "Start build.."
 
 $buildArgs=@{

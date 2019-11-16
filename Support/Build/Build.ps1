@@ -121,7 +121,8 @@ Task CompileModules{
         $compileArgs=$msbuildArgs
         $compileArgs+="/fl"
         $compileArgs+="/bl:$root\Xpand.dll\CompileModules.binlog"
-        dotnet restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" --source ($packageSources -join ";")
+        $compileArgs+="-m"
+        dotnet restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" --source ($packageSources -join ";") --verbosity m
         dotnet msbuild "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @compileArgs
         if ($LASTEXITCODE){
             throw
@@ -186,7 +187,7 @@ task CompileDemos {
     }
 }
 
-function BuildProjects($projects,$useMsBuild,$buildName ){
+function BuildProjects($projects,$buildName ){
     $projects|ForEach-Object {
         $bargs=(@("$_","/p:OutputPath=$root\Xpand.dll\")+$msbuildArgs.Split(";"))
         if (!$useMsBuild){

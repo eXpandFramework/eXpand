@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -12,6 +11,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
+using EnumsNET;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
@@ -75,7 +75,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         }
 
         private  static void SetCheckState(IMemberInfo memberInfo,object value,CheckedListBoxItem[] items) {
-            var flags = EnumsNET.NonGeneric.NonGenericFlagEnums.GetFlags(memberInfo.MemberType, value).ToArray();
+            var flags = FlagEnums.GetFlags(memberInfo.MemberType, value).ToArray();
             foreach (CheckedListBoxItem item in items) {
                 item.CheckState = flags.Contains(item.Value) ? CheckState.Checked : CheckState.Unchecked;
             }
@@ -125,8 +125,8 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             }
 
             var flagsValues = $"{((CheckedComboBoxEdit)sender).EditValue}".Split(',').Select(_ => _.Trim())
-                .Select(_ => EnumsNET.NonGeneric.NonGenericEnums.Parse(MemberInfo.MemberType,_));
-            var flags = EnumsNET.NonGeneric.NonGenericFlagEnums.CombineFlags(MemberInfo.MemberType,flagsValues);
+                .Select(_ => EnumsNET.Enums.Parse(MemberInfo.MemberType,_));
+            var flags = FlagEnums.CombineFlags(MemberInfo.MemberType,flagsValues);
             PropertyValue = flags;
         }
 
@@ -144,18 +144,18 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             }
         }
 
-        bool IsNoneValue(object value) {
-            if (value is string) return false;
-            int result = int.MinValue;
-            try {
-                result = Convert.ToInt32(value);
-            }
-            catch {
-                // ignored
-            }
-
-            return 0.Equals(result);
-        }
+//        bool IsNoneValue(object value) {
+//            if (value is string) return false;
+//            int result = int.MinValue;
+//            try {
+//                result = Convert.ToInt32(value);
+//            }
+//            catch {
+//                // ignored
+//            }
+//
+//            return 0.Equals(result);
+//        }
 
         object GetNoneValue() {
             return Enum.ToObject(GetUnderlyingType(), 0);

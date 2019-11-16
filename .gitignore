@@ -135,3 +135,4 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 /.paket/nupkgs/
 /paket-files/
+/Xpand.Plugins/packages/

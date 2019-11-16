@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             var data = _data.FirstOrDefault(_ => _.column==e.Column);
             if (data!=default) {
                 var hasFlagsAttribute = EnumPropertyEditor.TypeHasFlagsAttribute(data.memberInfo);
-                var values = EnumsNET.NonGeneric.NonGenericEnums.GetValues(data.memberInfo.MemberType).ToArray();
+                var values = EnumsNET.Enums.GetValues(data.memberInfo.MemberType).ToArray();
                 e.RepositoryItem = hasFlagsAttribute? (RepositoryItem) NewRepositoryItemCheckedComboBoxEdit(values,data.repositoryItem): NewRepositoryItemEnumEdit(values,data.repositoryItem);
                 var tuple = hasFlagsAttribute
                     ? ((ImageComboBoxItem[] startComboBoxItems, CheckedListBoxItem[] startCheckedListBoxItems)) (null,((RepositoryItemCheckedComboBoxEdit) e.RepositoryItem).Items.ToArray())

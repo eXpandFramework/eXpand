@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <PropertyGroup>
+    <!-- Enable the restore command to run before builds -->
+    <RestorePackages Condition=" '$(RestorePackages)' == '' ">true</RestorePackages>
+    <PaketToolsPath>$(MSBuildThisFileDirectory)</PaketToolsPath>
+    <PaketRootPath>$(MSBuildThisFileDirectory)..\</PaketRootPath>
+    <PaketLockFilePath>$(PaketRootPath)paket.lock</PaketLockFilePath>
+    <PaketRestoreCacheFile>$(PaketRootPath)paket-files\paket.restore.cached</PaketRestoreCacheFile>
+    <MonoPath Condition="'$(MonoPath)' == '' And Exists('/Library/Frameworks/Mono.framework/Commands/mono')">/Library/Frameworks/Mono.framework/Commands/mono</MonoPath>
+    <MonoPath Condition="'$(MonoPath)' == ''">mono</MonoPath>
+  </PropertyGroup>
+
+  <!-- Check if paket is available as local dotnet cli tool -->
+  <Target Name="SetPaketCommand" >
+
+    <!-- Call 'dotnet paket' and see if it returns without an error. Mute all the output. -->
+    <Exec Command="dotnet paket --version" IgnoreExitCode="true" StandardOutputImportance="low" StandardErrorImportance="low" >
+      <Output TaskParameter="ExitCode" PropertyName="LocalPaketToolExitCode" />
+    </Exec>
+
+    <!-- If local paket tool is found, use that -->
+    <PropertyGroup Condition=" '$(LocalPaketToolExitCode)' == '0' ">
+      <InternalPaketCommand>dotnet paket</InternalPaketCommand>
+    </PropertyGroup>
+
+    <!-- If not, then we go through our normal steps of setting the Paket command.  -->
+    <PropertyGroup Condition=" '$(LocalPaketToolExitCode)' != '0' ">
+      <!-- windows, root => tool => proj style => bootstrapper => global -->
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' == 'Windows_NT' AND Exists('$(PaketRootPath)paket.exe') ">$(PaketRootPath)paket.exe</PaketExePath>
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' == 'Windows_NT' AND Exists('$(PaketToolsPath)paket.exe') ">$(PaketToolsPath)paket.exe</PaketExePath>
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' == 'Windows_NT' AND '$(PaketBootstrapperStyle)' == 'proj' ">$(PaketToolsPath)paket.exe</PaketExePath>
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' == 'Windows_NT' AND Exists('$(PaketBootStrapperExeDir)') ">$(_PaketBootStrapperExeDir)paket.exe</PaketExePath>
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' == 'Windows_NT' ">paket.exe</PaketExePath>
+
+      <!-- no windows, try native paket as default,  root => tool => proj style => mono paket => bootstrpper => global -->
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' != 'Windows_NT' AND Exists('$(PaketRootPath)paket') ">$(PaketRootPath)paket</PaketExePath>
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' != 'Windows_NT' AND Exists('$(PaketToolsPath)paket') ">$(PaketToolsPath)paket</PaketExePath>
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' != 'Windows_NT' AND '$(PaketBootstrapperStyle)' == 'proj' ">$(PaketToolsPath)paket</PaketExePath>
+
+      <!-- no windows, try mono paket -->
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' != 'Windows_NT' AND Exists('$(PaketRootPath)paket.exe') ">$(PaketRootPath)paket.exe</PaketExePath>
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' != 'Windows_NT' AND Exists('$(PaketToolsPath)paket.exe') ">$(PaketToolsPath)paket.exe</PaketExePath>
+
+      <!-- no windows, try bootstrapper -->
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' != 'Windows_NT' AND Exists('$(PaketBootStrapperExeDir)') ">$(PaketBootStrapperExeDir)paket.exe</PaketExePath>
+
+      <!-- no windows, try global native paket -->
+      <PaketExePath Condition=" '$(PaketExePath)' == '' AND '$(OS)' != 'Windows_NT' ">paket</PaketExePath>
+
+      <_PaketExeExtension>$([System.IO.Path]::GetExtension("$(PaketExePath)"))</_PaketExeExtension>
+      <InternalPaketCommand Condition=" '$(InternalPaketCommand)' == '' AND '$(_PaketExeExtension)' == '.dll' ">dotnet "$(PaketExePath)"</InternalPaketCommand>
+      <InternalPaketCommand Condition=" '$(InternalPaketCommand)' == '' AND '$(OS)' != 'Windows_NT' AND '$(_PaketExeExtension)' == '.exe' ">$(MonoPath) --runtime=v4.0.30319 "$(PaketExePath)"</InternalPaketCommand>
+      <InternalPaketCommand Condition=" '$(InternalPaketCommand)' == '' ">"$(PaketExePath)"</InternalPaketCommand>
+
+    </PropertyGroup>
+
+    <!-- The way to get a property to be available outside the target is to use this task. -->
+    <CreateProperty Value="$(InternalPaketCommand)">
+      <Output TaskParameter="Value" PropertyName="PaketCommand"/>
+    </CreateProperty>
+
+  </Target>
+
+  <Choose> <!-- MyProject.fsproj.paket.references has the highest precedence -->
+    <When Condition="Exists('$(MSBuildProjectFullPath).paket.references')">
+      <PropertyGroup>
+        <PaketReferences>$(MSBuildProjectFullPath).paket.references</PaketReferences>
+      </PropertyGroup>
+    </When> <!-- MyProject.paket.references -->
+    <When Condition="Exists('$(MSBuildProjectDirectory)\$(MSBuildProjectName).paket.references')">
+      <PropertyGroup>
+        <PaketReferences>$(MSBuildProjectDirectory)\$(MSBuildProjectName).paket.references</PaketReferences>
+      </PropertyGroup>
+    </When> <!-- paket.references -->
+    <When Condition="Exists('$(MSBuildProjectDirectory)\paket.references')">
+      <PropertyGroup>
+        <PaketReferences>$(MSBuildProjectDirectory)\paket.references</PaketReferences>
+      </PropertyGroup>
+    </When> <!-- Set to empty if a reference file isn't found matching one of the 3 format options -->
+    <Otherwise>
+      <PropertyGroup>
+        <PaketReferences></PaketReferences>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <PropertyGroup>
+    <!-- We need to ensure packages are restored prior to assembly resolve -->
+    <BuildDependsOn Condition="$(RestorePackages) == 'true'">RestorePackages; $(BuildDependsOn);</BuildDependsOn>
+  </PropertyGroup>
+
+  <Target Name="RestorePackages" DependsOnTargets="SetPaketCommand">
+
+    <PropertyGroup>
+      <!-- Commands -->
+      <RestoreCommand>$(PaketCommand) restore --references-file "$(PaketReferences)"</RestoreCommand>
+      <PaketRestoreRequired>true</PaketRestoreRequired>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="Exists('$(PaketRestoreCacheFile)') ">
+      <PaketRestoreCachedHash>$([System.IO.File]::ReadAllText('$(PaketRestoreCacheFile)'))</PaketRestoreCachedHash>
+      <PaketRestoreLockFileHash>$([System.IO.File]::ReadAllText('$(PaketLockFilePath)'))</PaketRestoreLockFileHash>
+      <PaketRestoreRequired>true</PaketRestoreRequired>
+      <PaketRestoreRequired Condition=" '$(PaketRestoreLockFileHash)' == '$(PaketRestoreCachedHash)' ">false</PaketRestoreRequired>
+      <PaketRestoreRequired Condition=" '$(PaketRestoreLockFileHash)' == '' ">true</PaketRestoreRequired>
+    </PropertyGroup>
+
+    <Exec Command="$(RestoreCommand)"
+          IgnoreStandardErrorWarningFormat="true"
+          WorkingDirectory="$(PaketRootPath)"
+          ContinueOnError="false"
+          Condition=" '$(PaketRestoreRequired)' == 'true' AND Exists('$(PaketReferences)') AND '$(PaketReferences)' != '' "
+    />
+  </Target>
+</Project>

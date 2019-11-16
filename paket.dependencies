@@ -1,5 +1,5 @@
 strategy:max
-framework: auto-detect
+storage: packages
 cache ./.paket/nupkgs versions: current
 source "C:\Program Files (x86)\DevExpress 19.2\Components\System\Components\Packages"
 source https://api.nuget.org/v3/index.json
@@ -26,21 +26,16 @@ nuget DevExpress.ExpressApp.EasyTest.WinAdapter 19.2.3
 nuget DevExpress.Document.Processor 19.2.3
 nuget DocumentFormat.OpenXml 2.7.2
 nuget DotNetZip 1.11.0
-nuget Enums.NET 2.3.2
+nuget Enums.NET 3.0.1
 nuget ExcelDataReader 3.6.0
 nuget ExcelDataReader.DataSet 3.6.0
-nuget fasterflect 2.1.3
 nuget Fasterflect.Xpand 2.0.7
 nuget Fody 4.2.1
 nuget IIS.Microsoft.Web.Adminstration 8.5.9600.16384
 nuget InputSimulator 1.0.4.0
 nuget JetBrains.Annotations 2019.1.1
 nuget Microsoft.AspNet.Razor == 3.2.7
-nuget Microsoft.CSharp 4.6.0
-nuget Microsoft.VisualStudio.SDK 15.9.3
-nuget Microsoft.VisualStudio.SDK.EmbedInteropTypes 15.0.27
-nuget Microsoft.VSSDK.BuildTools 15.9.3032
-nuget Mono.Cecil 0.11.0
+nuget Mono.Cecil 0.11.1
 nuget Newtonsoft.Json 12.0.2
 nuget PropertyChanged.Fody 2.6.1
 nuget Quartz 2.2.4
@@ -48,7 +43,7 @@ nuget RazorEngine 3.10.0
 nuget Ryder 0.8.0
 nuget SharpZipLib 1.1.0
 nuget System.CodeDom 4.6.0
-nuget System.Configuration.ConfigurationManager 4.5.0
+nuget System.Configuration.ConfigurationManager == 4.6.0
 nuget System.Drawing.Common 4.6.0
 nuget System.IO.Compression 4.3.0
 nuget System.Management 4.5.0
@@ -61,21 +56,5 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 3.1.4
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.Extensions 0.0.8.4
-nuget Xpand.Extensions.XAF 0.0.7.2
-nuget Xpand.Patcher 1.0.1
-nuget Xpand.VersionConverter 1.0.36
-nuget Xpand.XAF.Modules.AutoCommit 1.0.17.5
-nuget Xpand.XAF.Modules.CloneMemberValue 1.2.65.5
-nuget Xpand.XAF.Modules.CloneModelView 1.0.15.5
-nuget Xpand.XAF.Modules.GridListEditor 0.0.19.5
-nuget Xpand.XAF.Modules.HideToolBar 1.0.16.5
-nuget Xpand.XAF.Modules.MasterDetail 1.0.16.5
-nuget Xpand.XAF.Modules.ModelMapper 1.1.59.5
-nuget Xpand.XAF.Modules.ModelViewInheritance 1.1.55.5
-nuget Xpand.XAF.Modules.ProgressBarViewItem 1.0.16.5
-nuget Xpand.XAF.Modules.Reactive 1.2.68.5
-nuget Xpand.XAF.Modules.Reactive.Logger 0.0.21.5
-nuget Xpand.XAF.Modules.RefreshView 0.0.19.5
-nuget Xpand.XAF.Modules.SuppressConfirmation 1.0.16.5
-nuget Xpand.XAF.Modules.ViewEditMode 1.2.65.5
+nuget Xpand.XAF.Win.All 0.0.7.2
+nuget Xpand.XAF.Web.All 0.0.7.2
