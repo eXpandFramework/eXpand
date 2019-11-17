@@ -17,6 +17,10 @@ pool:
 steps:
 - checkout: self
   clean: true
+- task: CacheBeta@0
+  inputs:
+    key: XpandPaket | paket.lock
+    path: $(UserProfile)\.nuget\packages
 - task: PowerShell@2
   displayName: Release
   inputs:

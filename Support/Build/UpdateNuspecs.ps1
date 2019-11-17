@@ -50,7 +50,6 @@ function Update-NuspecDependencies {
                 "Xpand.ExpressApp.Win" ="eXpandSystemWin"
                 "Xpand.ExpressApp.Web" ="eXpandSystemWeb"
             }
-            ProjectsRoot=$root
             NuspecMatchPattern="(?ix)Xpand\.ExpressApp\.|Xpand\."
             ResolveNugetDependecies=$ResolveNugetDependecies
         }

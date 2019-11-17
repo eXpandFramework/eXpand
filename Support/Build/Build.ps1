@@ -1,3 +1,4 @@
+
 Framework "4.6"
 
 properties {
@@ -134,8 +135,10 @@ Task CompileModules{
         BuildProjects $helperProjects "Helper"
         $vsAddons=($group.VSAddons|GetProjects)
         "vsAddons=$vsAddons"
+        Push-Location "$root\Xpand.Plugins"
         BuildProjects $vsAddons "VSIX"
-
+        Pop-Location
+        
         Write-Host "Compiling Agnostic EasyTest projects..." -f "Blue"
         $agnosticEasytest=(($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 
         "agnosticEasytest=$agnosticEasytest"

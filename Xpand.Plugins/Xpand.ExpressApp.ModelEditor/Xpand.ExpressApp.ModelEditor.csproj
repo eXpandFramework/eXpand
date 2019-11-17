@@ -24,13 +24,12 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs" Link="XpandAssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Windows.Forms">
       <Private>False</Private>
-    </Reference>
-    <Reference Include="Xpand.Utils">
-      <HintPath>..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
   <ItemGroup>
