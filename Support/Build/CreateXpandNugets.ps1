@@ -82,7 +82,7 @@ $pArgs = @{
 Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | foreach {   
     Write-host "Updating $($_.BaseName)" -f Blue
     $dir = (Get-Item $scriptPath).DirectoryName
-    & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs
+    & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs $projects
 }
 
 $libNuspecPath = [System.io.path]::GetFullPath("$root\Support\Nuspec\Lib.nuspec")

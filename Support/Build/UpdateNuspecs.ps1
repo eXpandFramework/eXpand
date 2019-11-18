@@ -52,6 +52,7 @@ function Update-NuspecDependencies {
             }
             NuspecMatchPattern="(?ix)Xpand\.ExpressApp\.|Xpand\."
             ResolveNugetDependecies=$ResolveNugetDependecies
+            AllProjects=$projects|Get-Item|Select-Object -ExpandProperty BaseName
         }
         $uArgs | Write-Output
         if ($Release) {

@@ -18,7 +18,6 @@ using Xpand.ExpressApp.Win.SystemModule;
 using Xpand.Extensions.Reactive.Transform;
 using Xpand.Persistent.Base.General;
 using Xpand.XAF.Modules.Reactive;
-using Xpand.XAF.Modules.Reactive.Extensions;
 using Xpand.XAF.Modules.Reactive.Services;
 
 namespace Xpand.ExpressApp.ExcelImporter.Win {
@@ -49,7 +48,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win {
             application.Connect()
                 .TakeUntil(this.WhenDisposed())
                 .Subscribe();
-            application.WhenSetupComplete()
+            application.WhenLoggedOn()
                 .Do(_ => {
                     var notificationsModule = Application.Modules.FindModule<NotificationsModule>();
                     notificationsModule.DefaultNotificationsProvider.NotificationTypesInfo.Add(
