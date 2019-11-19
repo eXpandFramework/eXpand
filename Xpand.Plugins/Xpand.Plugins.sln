@@ -4,6 +4,7 @@ VisualStudioVersion = 16.0.28917.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{CFECCFE6-EF2F-4467-8D77-FDE042C60019}"
 	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
 		.\paket.dependencies = .\paket.dependencies
 	EndProjectSection
 EndProject

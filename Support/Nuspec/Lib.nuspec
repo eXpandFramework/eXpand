@@ -32,5 +32,29 @@
     <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
     <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb" />
     <file src="Readme.txt" target="" />
+    <file src="Xpand.xpo.dll" target="lib\net461\Xpand.xpo.dll" />
+    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
+    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll" />
+    <file src="Xpand.xpo.pdb" target="lib\net461\Xpand.xpo.pdb" />
+    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
+    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb" />
+    <file src="Xpand.xpo.dll" target="lib\net461\Xpand.xpo.dll" />
+    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
+    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll" />
+    <file src="Xpand.xpo.pdb" target="lib\net461\Xpand.xpo.pdb" />
+    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
+    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb" />
+    <file src="Xpand.xpo.dll" target="lib\net461\Xpand.xpo.dll" />
+    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
+    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll" />
+    <file src="Xpand.xpo.pdb" target="lib\net461\Xpand.xpo.pdb" />
+    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
+    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb" />
+    <file src="Xpand.xpo.dll" target="lib\net461\Xpand.xpo.dll" />
+    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
+    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll" />
+    <file src="Xpand.xpo.pdb" target="lib\net461\Xpand.xpo.pdb" />
+    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
+    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb" />
   </files>
 </package>

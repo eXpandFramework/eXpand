@@ -1,4 +1,3 @@
-strategy:max
 storage: packages
 cache ../.paket/nupkgs versions: current
 source "C:\Program Files (x86)\DevExpress 19.2\Components\System\Components\Packages"
@@ -14,11 +13,47 @@ nuget Microsoft.CSharp 4.6.0
 nuget Microsoft.VisualStudio.SDK 15.9.3
 nuget Microsoft.VisualStudio.SDK.EmbedInteropTypes 15.0.27
 nuget Microsoft.VSSDK.BuildTools 15.9.3032
+nuget Microsoft.VisualStudio.Shell.15.0 == 15.9.28307
+nuget Microsoft.VisualStudio.Shell.15.0 15.9.28307
+
 nuget Mono.Cecil 0.11.1
 nuget Newtonsoft.Json 12.0.2
 nuget PropertyChanged.Fody 2.6.1
 nuget System.Configuration.ConfigurationManager 4.6.0
-nuget System.Management 4.5.0 framework:net472
+nuget System.Management 4.5.0
 nuget System.Reactive 4.2.0
-nuget System.Xml.XDocument 4.3.0  framework:net472
-nuget Microsoft.VisualStudio.Threading 15.8.192.29799
+nuget System.Xml.XDocument 4.3.0
+nuget Microsoft.Build 15.9.20
+nuget Microsoft.Build.Framework 15.9.20
+nuget Microsoft.Build.Tasks.Core 15.9.20
+nuget Microsoft.Build.Utilities.Core 15.9.20
+nuget Microsoft.VisualStudio.ComponentModelHost 15.8.525
+nuget Microsoft.VisualStudio.Composition 15.8.118
+nuget Microsoft.VisualStudio.Composition.NetFxAttributes 15.8.118
+nuget Microsoft.VisualStudio.CoreUtility == 15.8.525
+nuget Microsoft.VisualStudio.Debugger.Engine 15.9.28307
+nuget Microsoft.VisualStudio.Editor 15.8.525
+nuget Microsoft.VisualStudio.ImageCatalog 15.9.28307
+nuget Microsoft.VisualStudio.Imaging 15.9.28307
+nuget Microsoft.VisualStudio.Language 15.8.525
+nuget Microsoft.VisualStudio.Language.Intellisense 15.8.525
+nuget Microsoft.VisualStudio.Language.NavigateTo.Interfaces 15.8.525
+nuget Microsoft.VisualStudio.Language.StandardClassification 15.8.525
+nuget Microsoft.VisualStudio.LanguageServer.Client 15.9.3032
+nuget Microsoft.VisualStudio.LanguageServer.Protocol 15.9.3032
+nuget Microsoft.VisualStudio.Package.LanguageService.15.0 15.9.28307
+nuget Microsoft.VisualStudio.SDK.Analyzers 15.8.36
+nuget Microsoft.VisualStudio.Shell.Design 15.9.28307
+nuget Microsoft.VisualStudio.Shell.Embeddable 15.9.28307
+nuget Microsoft.VisualStudio.Shell.Framework 15.9.28307
+nuget Microsoft.VisualStudio.Text.Data 15.8.525
+nuget Microsoft.VisualStudio.Text.Logic 15.8.525
+nuget Microsoft.VisualStudio.Text.UI 15.8.525
+nuget Microsoft.VisualStudio.Text.UI.Wpf 15.8.525
+nuget Microsoft.VisualStudio.TextTemplating.Interfaces.15.0 15.9.28307
+nuget Microsoft.VisualStudio.TextTemplating.VSHost.15.0 15.9.28307
+nuget Microsoft.VisualStudio.Threading 15.8.209
+nuget Microsoft.VisualStudio.Threading.Analyzers 15.8.209
+nuget Microsoft.VisualStudio.Utilities 15.9.28307
+nuget Microsoft.VisualStudio.Workspace 15.0.485
+nuget Microsoft.VisualStudio.Workspace.VSIntegration 15.0.485

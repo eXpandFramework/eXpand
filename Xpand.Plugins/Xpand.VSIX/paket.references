@@ -1,6 +1,8 @@
 DevExpress.Win
 Fasterflect.Xpand
+Fody
 Microsoft.VisualStudio.SDK
+Microsoft.VisualStudio.SDK.EmbedInteropTypes
 Microsoft.VSSDK.BuildTools
 Mono.Cecil
 PropertyChanged.Fody
@@ -8,4 +10,3 @@ System.Configuration.ConfigurationManager
 System.Management
 System.Reactive
 System.Xml.XDocument
-Microsoft.VisualStudio.Threading
