@@ -21,3 +21,4 @@ nuget System.Configuration.ConfigurationManager 4.6.0
 nuget System.Management 4.5.0 framework:net472
 nuget System.Reactive 4.2.0
 nuget System.Xml.XDocument 4.3.0  framework:net472
+nuget Microsoft.VisualStudio.Threading 15.8.192.29799

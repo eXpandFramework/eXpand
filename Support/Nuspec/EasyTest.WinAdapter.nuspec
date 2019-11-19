@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandEasyTestWin</id>
-    <version>19.1.701.0</version>
+    <version>19.2.301.0</version>
     <title>DevExpress eXpandFramework EasyTest windows library</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,15 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency id="eXpandEasyTest" version="19.1.701.0" />
-      <dependency id="eXpandLib" version="19.1.701.0" />
-      <dependency id="eXpandSystemWin" version="19.1.701.0" />
-      <dependency id="Fasterflect.Xpand" version="2.0.6" />
-      <dependency id="Microsoft.CSharp" version="4.*" />
-      <dependency id="System.Data.DataSetExtensions" version="4.*" />
-      <dependency id="System.Management" version="4.*" />
-      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
-      <dependency id="System.ValueTuple" version="4.5.0" />
+      <dependency id="eXpandEasyTest" version="19.2.301.0" />
+      <dependency id="eXpandLib" version="19.2.301.0" />
+      <dependency id="eXpandSystemWin" version="19.2.301.0" />
+      <dependency id="Fasterflect.Xpand" version="2.0.7" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>

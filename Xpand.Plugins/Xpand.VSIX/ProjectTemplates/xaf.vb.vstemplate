@@ -16,7 +16,7 @@
     </CustomParameters>
   </TemplateContent>
   <WizardExtension>
-    <Assembly>DevExpress.ExpressApp.TemplateWizard.v19.1, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</Assembly>
+    <Assembly>DevExpress.ExpressApp.TemplateWizard.v19.2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a</Assembly>
     <FullClassName>DevExpress.ExpressApp.TemplateWizard.NewXafSolutionWizard</FullClassName>
   </WizardExtension>
 </VSTemplate>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandExcelImporter.Web</id>
-    <version>19.1.701.0</version>
+    <version>19.2.301.0</version>
     <title>DevExpress eXpandFramework ExcelImporter Web Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,19 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
-      <dependency id="ExcelDataReader" version="3.6.0" />
-      <dependency id="ExcelDataReader.DataSet" version="3.6.0" />
-      <dependency id="eXpandExcelImporter" version="19.1.701.0" />
-      <dependency id="eXpandLib" version="19.1.701.0" />
-      <dependency id="eXpandSystem" version="19.1.701.0" />
-      <dependency id="eXpandSystemWeb" version="19.1.701.0" />
-      <dependency id="eXpandValidationWeb" version="19.1.701.0" />
-      <dependency id="System.IO.Compression" version="4.3.0" />
-      <dependency id="System.Reactive" version="4.2.0" />
-      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
-      <dependency id="System.Threading.Tasks.Extensions" version="4.5.3" />
-      <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.Extensions.XAF" version="0.0.6.1" />
+      <dependency id="ExcelDataReader.DataSet" version="3.6" />
+      <dependency id="eXpandExcelImporter" version="19.2.301.0" />
+      <dependency id="eXpandLib" version="19.2.301.0" />
+      <dependency id="eXpandSystem" version="19.2.301.0" />
+      <dependency id="eXpandSystemWeb" version="19.2.301.0" />
+      <dependency id="eXpandValidationWeb" version="19.2.301.0" />
+      <dependency id="System.IO.Compression" version="4.3" />
+      <dependency id="System.Reactive" version="4.2" />
+      <dependency id="Xpand.Extensions.XAF" version="0.0.10" />
     </dependencies>
   </metadata>
   <files>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandXtraDashboardWeb</id>
-    <version>19.1.701.0</version>
+    <version>19.2.301.0</version>
     <title>DevExpress eXpandFramework XtraDashboard Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,22 +14,16 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="19.1.701.0" />
-      <dependency id="eXpandLib" version="19.1.701.0" />
-      <dependency id="eXpandSecurity" version="19.1.701.0" />
-      <dependency id="eXpandSecurityWeb" version="19.1.701.0" />
-      <dependency id="eXpandSystem" version="19.1.701.0" />
-      <dependency id="eXpandSystemWeb" version="19.1.701.0" />
-      <dependency id="Fasterflect.Xpand" version="2.0.6" />
-      <dependency id="Ryder" version="0.8.0" />
-      <dependency id="System.Reactive" version="4.2.0" />
-      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
-      <dependency id="System.Threading.Tasks.Extensions" version="4.5.3" />
-      <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.Extensions.XAF" version="0.0.6.1" />
-      <dependency id="Xpand.VersionConverter" version="1.0.36" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.58.1" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="1.0.15.1" />
+      <dependency id="eXpandDashboard" version="19.2.301.0" />
+      <dependency id="eXpandLib" version="19.2.301.0" />
+      <dependency id="eXpandSecurity" version="19.2.301.0" />
+      <dependency id="eXpandSecurityWeb" version="19.2.301.0" />
+      <dependency id="eXpandSystem" version="19.2.301.0" />
+      <dependency id="eXpandSystemWeb" version="19.2.301.0" />
+      <dependency id="PropertyChanged.Fody" version="2.6.1" />
+      <dependency id="Ryder" version="0.8" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.62" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="1.0.19" />
     </dependencies>
   </metadata>
   <files>

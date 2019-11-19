@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.1.701.0</version>
+    <version>19.2.301.0</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#worldcreator</projectUrl>
@@ -16,14 +16,11 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="19.1.701.0" />
-      <dependency id="eXpandSystemWin" version="19.1.701.0" />
-      <dependency id="eXpandWorldCreator" version="19.1.701.0" />
-      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.6.0" />
-      <dependency id="System.ValueTuple" version="4.5.0" />
-      <dependency id="Xpand.Extensions.XAF" version="0.0.6.1" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.58.1" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="0.0.20.1" />
+      <dependency id="eXpandLib" version="19.2.301.0" />
+      <dependency id="eXpandSystemWin" version="19.2.301.0" />
+      <dependency id="eXpandWorldCreator" version="19.2.301.0" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.62" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="0.0.24" />
     </dependencies>
   </metadata>
   <files>
