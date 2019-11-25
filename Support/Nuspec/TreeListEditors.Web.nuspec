@@ -17,7 +17,7 @@
       <dependency id="eXpandLib" version="19.2.301.0" />
       <dependency id="eXpandTreelistView" version="19.2.301.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions.XAF" version="0.0.10" />
+      <dependency id="Xpand.Extensions.XAF" version="0.0.11.1" />
     </dependencies>
   </metadata>
   <files>

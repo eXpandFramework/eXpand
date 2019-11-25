@@ -16,7 +16,7 @@
     <dependencies>
       <dependency id="eXpandAdditionalViewControlsProviderWeb" version="19.2.304.7" />
       <dependency id="eXpandEasyTestWeb" version="19.2.304.7" />
-      <dependency id="eXpandExcelImporter.Web" version="19.2.304.7" />
+      <dependency id="eXpandExcelImporter" version="19.2.304.7" />
       <dependency id="eXpandFileAttachmentWeb" version="19.2.304.7" />
       <dependency id="eXpandHtmlPropertyEditor" version="19.2.304.7" />
       <dependency id="eXpandIOWeb" version="19.2.304.7" />

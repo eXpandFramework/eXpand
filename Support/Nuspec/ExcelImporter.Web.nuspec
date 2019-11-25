@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <id>eXpandExcelImporter.Web</id>
+    <id>eXpandExcelImporter</id>
     <version>19.2.301.0</version>
-    <title>DevExpress eXpandFramework ExcelImporter Web Module </title>
+    <title>DevExpress eXpandFramework ExcelImporter Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://sign.expandframework.com</iconUrl>
@@ -15,14 +15,13 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6" />
-      <dependency id="eXpandExcelImporter" version="19.2.301.0" />
       <dependency id="eXpandLib" version="19.2.301.0" />
       <dependency id="eXpandSystem" version="19.2.301.0" />
       <dependency id="eXpandSystemWeb" version="19.2.301.0" />
       <dependency id="eXpandValidationWeb" version="19.2.301.0" />
       <dependency id="System.IO.Compression" version="4.3" />
       <dependency id="System.Reactive" version="4.2" />
-      <dependency id="Xpand.Extensions.XAF" version="0.0.10" />
+      <dependency id="Xpand.Extensions.XAF" version="0.0.11.1" />
     </dependencies>
   </metadata>
   <files>

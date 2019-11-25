@@ -16,7 +16,7 @@
     <dependencies>
       <dependency id="eXpandFileAttachment" version="19.2.301.0" />
       <dependency id="eXpandLib" version="19.2.301.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.62" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.63.1" />
     </dependencies>
   </metadata>
   <files>

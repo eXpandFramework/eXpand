@@ -22,8 +22,8 @@
       <dependency id="eXpandSystemWeb" version="19.2.301.0" />
       <dependency id="PropertyChanged.Fody" version="2.6.1" />
       <dependency id="Ryder" version="0.8" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.62" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="1.0.19" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.63.1" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="1.0.20.1" />
     </dependencies>
   </metadata>
   <files>
