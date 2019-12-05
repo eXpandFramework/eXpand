@@ -1,6 +1,6 @@
 STORAGE: PACKAGES
 NUGET
-  remote: "C:\Program Files (x86)\DevExpress 19.2\Components\System\Components\Packages"
+  remote: https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
     DevExpress.Charts (19.2.3) - restriction: >= net452
       DevExpress.Charts.Core (19.2.3) - restriction: || (>= net452) (>= netstandard2.0)
       DevExpress.Data (19.2.3) - restriction: || (>= net452) (>= netstandard2.0)

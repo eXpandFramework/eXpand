@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.2.301.0</version>
+    <version>19.2.401.1</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://sign.expandframework.com</iconUrl>
@@ -14,9 +14,9 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <description>DevExpress eXpandFramework System Module (Web). To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.301.0" />
-      <dependency id="eXpandSystem" version="19.2.301.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.63.1" />
+      <dependency id="eXpandLib" version="19.2.401.1" />
+      <dependency id="eXpandSystem" version="19.2.401.1" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.69.1" />
     </dependencies>
   </metadata>
   <files>

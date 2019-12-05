@@ -78,8 +78,8 @@ $pArgs = @{
     Root                    = $root
     ResolveNugetDependecies = $ResolveNugetDependecies
 }
-# Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | Invoke-Parallel -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs", "scriptPath") -Script {   
-Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | foreach {   
+Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | Invoke-Parallel -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs", "scriptPath") -Script {   
+# Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | foreach {   
     Write-host "Updating $($_.BaseName)" -f Blue
     $dir = (Get-Item $scriptPath).DirectoryName
     & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs $projects

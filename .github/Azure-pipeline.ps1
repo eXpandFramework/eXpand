@@ -1,12 +1,11 @@
 param(
    $repository="/eXpand.lab",
-   $DXApiFeed,
+   $DXApiFeed=$env:DxFeed,
    $NuGetApiKey,
    $artifactstagingdirectory,
    $BetaFeed
 )
-$pipWorkSpace=[System.Environment]::GetEnvironmentVariable("localappdata")
-"pWorkSpace=$pipWorkSpace"
+
 $WorkingDirectory="$PSScriptRoot\.."
 if ($repository -like "*/eXpand.lab"){
    "Finding Version.."
