@@ -23,6 +23,7 @@ else{
    throw $repository
 }
 $version
+& "$WorkingDirectory\support\build\go.ps1" -installmodules 
 Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
 Set-Location $WorkingDirectory
 Move-PaketSource 0 $DXApiFeed
