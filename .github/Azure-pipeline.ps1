@@ -25,11 +25,11 @@ else{
 $version
 Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
 Set-Location $WorkingDirectory
-Copy-Item .\paket.lock .\paket.lock1 -Force
 Move-PaketSource 0 $DXApiFeed
 Push-Location $WorkingDirectory\Xpand.Plugins
 Move-PaketSource 0 $DXApiFeed
 Pop-Location
+
 "Start build.."
 
 $buildArgs=@{
@@ -46,7 +46,7 @@ if ($BetaFeed){
 $buildArgs
 & "$WorkingDirectory\support\build\go.ps1" @buildArgs 
 Set-location $WorkingDirectory
-Copy-Item .\paket.lock1 .\paket.lock -Force -verbose
+
 
 if ($LastExitCode){
    exit $LastExitCode
@@ -55,3 +55,10 @@ if ($LastExitCode){
 Get-ChildItem "$WorkingDirectory\Build\_Package\$Version" -Recurse |ForEach-Object{
    Copy-Item $_.FullName -Destination $artifactstagingdirectory
 }
+
+$DXVersion=Get-DevExpressVersion (Get-DevExpressVersion)
+Set-Location $WorkingDirectory
+Move-PaketSource 0 "C:\Program Files (x86)\DevExpress $DXVersion\Components\System\Components\Packages"
+Push-Location $WorkingDirectory\Xpand.Plugins
+Move-PaketSource 0 "C:\Program Files (x86)\DevExpress $DXVersion\Components\System\Components\Packages"
+Pop-Location

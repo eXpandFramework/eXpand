@@ -1,7 +1,7 @@
 strategy:max
 storage: packages
 cache ./.paket/nupkgs versions: current
-source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
+source "C:\Program Files (x86)\DevExpress 19.2\Components\System\Components\Packages"
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
@@ -55,5 +55,5 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 3.1.4
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 0.0.14.1
-nuget Xpand.XAF.Web.All 0.0.14.1
+nuget Xpand.XAF.Win.All 0.0.15.0
+nuget Xpand.XAF.Web.All 0.0.15.0
