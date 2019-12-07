@@ -15,6 +15,22 @@ This reverts commit f547366a763cd56b88711f3da992d6dae980ce32.","9aee43b709458217
 1. ModelMapper: IModelLayoutGroup Caption is incorrect","a7fe51aca9d529a41382d4c91149c5e9a83164a2"
 "19.2.402.0","604","VSIX","VSIX: Remove Xpand.DLL UI message","5cec5e186867bd1d09c5c1f93bdd371fe1eedbba"
 "19.2.402.0","600","VSIX","VSIX: ShowErrorsInMessageBox option","1399e89ea80225db8459743dd783c8d5300406d2"
+"19.2.402.0","601, 611","CloneModelView, ModelViewInheritance, Standalone_XAF_Modules","Bump standalone packages
+ 1. CloneModelView: Create new views instead of Cloning",
+"19.2.402.0","603","Dashboard","Dashboard: Cascading ListView Filtering throws",
+"19.2.402.0","613","XtraDashboard","XtraDashboard: NullRefrence when opening designer",
+"19.2.402.0","607","MasterDetail, Standalone_XAF_Modules","LogicRuleEvaluator throws NullRefrence",
+"19.2.402.0","609, 614","ModelMapper, Standalone_XAF_Modules, VSIX","VSIX: Xpand Solution Wizard is empty",
+"19.2.402.0","477, 603","Dashboard","DashboardInteraction: Fails if same view DashboardViewItem",
+"19.2.402.0","477","Dashboard","Revert ""DashboardInteractionController activates without MasterDetailMode ""
+
+This reverts commit f547366a763cd56b88711f3da992d6dae980ce32.",
+"19.2.402.0","596, 601, 606","CloneModelView, ModelMapper, ModelViewInheritance, Standalone_XAF_Modules, VSIX","Bump standalone packages 
+
+1. CloneModelView: Keep ModelNodeGenerators 
+1. ModelMapper: IModelLayoutGroup Caption is incorrect",
+"19.2.402.0","604","VSIX","VSIX: Remove Xpand.DLL UI message",
+"19.2.402.0","600","VSIX","VSIX: ShowErrorsInMessageBox option",
 "19.1.604.0","542, 571","ModelMapper, Reactive.Logger, Reactive.Logger.Client.Win, Reactive.Logger.Hub, Standalone_XAF_Modules, VersionConverter","Bump standalone packages",
 "19.1.301.2","409","Installation, Nuget","NuGets with TreeListEditor dependencies are generated wrong",
 "19.1.301.2","404","System.Win","WinEnumDescriptor: Refresh values when object changed",
