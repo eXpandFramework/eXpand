@@ -29,7 +29,7 @@ The artiteture is similar architecture to XAF. We recommend you go through the [
 
 Examples of those modules include (in the two right columns you can see the supported platform):
 
-Module Name | Description | ![Windows](http://www.expandframework.com/images/site/windows.jpg "Windows") | ![ASPNET](http://www.expandframework.com/images/site/aspnet.jpg "ASPNET") | Nuget.org
+Module Name | Description | Win | Web | Nuget.org
 ------------|-------------|---------|-------|---------
 [ExcelImporter](#excelimporter) |    Imports Excel, csv files. |    Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandExcelImporter%2A)
 [WorldCreator](#worldcreator) |  Design runtime assemblies | Y | Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandWorldCreator%2A)
