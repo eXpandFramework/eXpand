@@ -1,10 +1,6 @@
-[![Financial Contributors on Open Collective](https://opencollective.com/eXpand/all/badge.svg?label=financial+contributors)](https://opencollective.com/eXpand) 
+[![image](https://img.shields.io/badge/Exclusive%20services%3F-Head%20to%20the%20dashboard-Blue)](https://github.com/sponsors/apobekiaris) ![GitHub stars](https://img.shields.io/github/stars/expandframework/expand?label=Star%20the%20project%20if%20you%20think%20it%20deserves%20it&style=social) ![GitHub forks](https://img.shields.io/github/forks/expandframework/eXpand?label=Fork%20the%20project%20to%20extend%20and%20contribute&style=social)
 
 [![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget.org&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpand)](https://www.nuget.org/packages?q=expandframework) [![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)](releases.expandframework.com)
-
-[![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers) **Star the project if you think it deserves it.** 
-
-[![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXPand/network) **Fork the project to extend and contribute.**
 
 <img src="http://logo.expandframework.com" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
 |--------|--------
