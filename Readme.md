@@ -1,4 +1,4 @@
-[![image](https://img.shields.io/badge/Exclusive%20services%3F-Head%20to%20the%20dashboard-Blue)](https://github.com/sponsors/apobekiaris) ![GitHub stars](https://img.shields.io/github/stars/expandframework/expand?label=Star%20the%20project%20if%20you%20think%20it%20deserves%20it&style=social) ![GitHub forks](https://img.shields.io/github/forks/expandframework/eXpand?label=Fork%20the%20project%20to%20extend%20and%20contribute&style=social)
+![GitHub stars](https://img.shields.io/github/stars/expandframework/expand?label=Star%20the%20project%20if%20you%20think%20it%20deserves%20it&style=social) ![GitHub forks](https://img.shields.io/github/forks/expandframework/eXpand?label=Fork%20the%20project%20to%20extend%20and%20contribute&style=social)
 
 
 <img src="http://logo.expandframework.com" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
@@ -15,7 +15,7 @@
 [![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues) [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
 
 # About
-![open collective backers and sponsors](https://img.shields.io/opencollective/all/expand.svg?label=If%20this%20organization%20helped%20your%20business%2C%20we%20kindly%20request%20to%20consider%20sponsoring%20our%20activities)
+[![image](https://img.shields.io/badge/Exclusive%20services%3F-Head%20to%20the%20dashboard-Blue)](https://github.com/sponsors/apobekiaris)
 
 _eXpandFramework_ is an independent open-source project and is not affiliated with Developer Express Inc.
 
