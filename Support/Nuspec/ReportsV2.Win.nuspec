@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandReportsV2Win</id>
-    <version>19.2.402.0</version>
+    <version>19.2.402.1</version>
     <title>DevExpress eXpandFramework ReportsV2 Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Reports</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.402.0" />
-      <dependency id="eXpandReports" version="19.2.402.0" />
+      <dependency id="eXpandLib" version="19.2.402.1" />
+      <dependency id="eXpandReports" version="19.2.402.1" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>

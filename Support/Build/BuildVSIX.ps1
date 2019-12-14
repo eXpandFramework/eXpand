@@ -11,6 +11,7 @@ Import-Module XpandPwsh -Force -Prefix X
 if ($DXVersion -eq "0.0.0.0"){
     $DXVersion=Get-AssemblyInfoVersion "$PSScriptRoot\..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs"
 }
+Set-Location $XpandFolder\Xpand.Plugins
 
 #update version in templates
 $version=New-Object System.Version ($DXVersion)

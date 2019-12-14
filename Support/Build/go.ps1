@@ -7,7 +7,7 @@ param(
     [string[]]$taskList = @("Release"),
     [string]$nugetApiKey = $null,
     [string]$Repository = "eXpand",
-    [string]$XpandPwshVersion = "0.38.18",
+    [string]$XpandPwshVersion = "1.192.13",
     [bool]$ResolveNugetDependecies
 )
 
@@ -28,8 +28,8 @@ if (!$version) {
     $nextVersion=$regex.Match($ps1).Value
     $officialPackages=Get-XpandPackages -PackageType eXpand -Source Release
     $labPackages=Get-XpandPackages -PackageType eXpand -Source Lab
-    $DXVersion=Get-DevExpressVersion $nextVersion -Build
     if ($labPackages){
+        $DXVersion=Get-DevExpressVersion 
         $nextVersion = Get-XXpandVersion -Next -OfficialPackages $officialPackages -LabPackages $labPackages -DXVersion $DXVersion
     }
     return $nextVersion

@@ -1,12 +1,12 @@
 storage: packages
-cache ../.paket/nupkgs versions: current
-source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
+framework: auto-detect
+source F:\devexpress\packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
 
-nuget DevExpress.ExpressApp.Xpo 19.2.4
-nuget DevExpress.ExpressApp.Win 19.2.4
+nuget DevExpress.ExpressApp.Xpo == 19.2.4
+nuget DevExpress.ExpressApp.Win == 19.2.4
 nuget Fasterflect.Xpand
 nuget Fody 4.2.1
 nuget Microsoft.CSharp 4.6.0
@@ -31,6 +31,7 @@ nuget Microsoft.VisualStudio.Composition 15.8.118
 nuget Microsoft.VisualStudio.Composition.NetFxAttributes 15.8.118
 nuget Microsoft.VisualStudio.CoreUtility == 15.8.525
 nuget Microsoft.VisualStudio.Debugger.Engine 15.9.28307
+nuget Microsoft.Extensions.Dependencyinjection 3.1.0
 nuget Microsoft.VisualStudio.Editor 15.8.525
 nuget Microsoft.VisualStudio.ImageCatalog 15.9.28307
 nuget Microsoft.VisualStudio.Imaging 15.9.28307

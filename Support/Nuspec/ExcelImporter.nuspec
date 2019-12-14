@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandExcelImporter</id>
-    <version>19.2.402.0</version>
+    <version>19.2.402.1</version>
     <title>DevExpress eXpandFramework ExcelImporter Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,20 +15,20 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6" />
-      <dependency id="eXpandLib" version="19.2.402.0" />
-      <dependency id="eXpandSystem" version="19.2.402.0" />
-      <dependency id="eXpandValidation" version="19.2.402.0" />
+      <dependency id="eXpandLib" version="19.2.402.1" />
+      <dependency id="eXpandSystem" version="19.2.402.1" />
+      <dependency id="eXpandValidation" version="19.2.402.1" />
       <dependency id="Mono.Cecil" version="0.11.1" />
       <dependency id="Ryder" version="0.8" />
       <dependency id="System.IO.Compression" version="4.3" />
-      <dependency id="Xpand.XAF.Modules.AutoCommit" version="1.0.28" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="1.0.26" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="1.0.27" />
-      <dependency id="Xpand.XAF.Modules.MasterDetail" version="1.0.27" />
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="1.0.27" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="0.0.32" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="1.0.27" />
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="1.2.76" />
+      <dependency id="Xpand.XAF.Modules.AutoCommit" version="2.192.1.2" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.192.1.2" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.192.1.2" />
+      <dependency id="Xpand.XAF.Modules.MasterDetail" version="2.192.1.2" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="2.192.1.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.1.2" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="2.192.1.2" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="2.192.1.2" />
     </dependencies>
   </metadata>
   <files>

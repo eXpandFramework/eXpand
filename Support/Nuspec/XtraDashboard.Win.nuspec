@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandXtraDashboardWin</id>
-    <version>19.2.402.0</version>
+    <version>19.2.402.1</version>
     <title>DevExpress eXpandFramework XtraDashboard Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="19.2.402.0" />
-      <dependency id="eXpandLib" version="19.2.402.0" />
-      <dependency id="eXpandSecurity" version="19.2.402.0" />
-      <dependency id="eXpandSecurityWin" version="19.2.402.0" />
-      <dependency id="eXpandSystemWin" version="19.2.402.0" />
+      <dependency id="eXpandDashboard" version="19.2.402.1" />
+      <dependency id="eXpandLib" version="19.2.402.1" />
+      <dependency id="eXpandSecurity" version="19.2.402.1" />
+      <dependency id="eXpandSecurityWin" version="19.2.402.1" />
+      <dependency id="eXpandSystemWin" version="19.2.402.1" />
       <dependency id="System.Resources.Extensions" version="4.6" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="1.1.70" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.1.2" />
     </dependencies>
   </metadata>
   <files>

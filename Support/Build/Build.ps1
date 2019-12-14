@@ -15,7 +15,6 @@ properties {
     $Repository=$null
     $Release=$false
     $ResolveNugetDependecies=$false
-    $BuildAllModulesSln=$false
 }
 
 
@@ -25,19 +24,16 @@ Task Lab -depends Clean,Init,Version,CompileModules,CompileDemos
 
 Task Init  {
     InvokeScript{
-        dotnet tool restore
-        Set-Location $root
-        Invoke-PaketRestore -Install
-        Write-Host "Remove directories"
+        Write-HostFormatted "Remove directories" -Section
         "$root\Xpand.dll","$root\Build","$root\Build\Temp","$root\Support\_third_party_assemblies\Packages\" | ForEach-Object{
             New-Item $_ -ItemType Directory -Force |Out-Null
         }
-        Write-Host "Copying 3rd party assemlies"
+        Write-HostFormatted "Copying 3rd party assemlies" -Section
         Get-ChildItem "$root\support\_third_party_assemblies\" *.dll  | ForEach-Object{
             Copy-Item $_.FullName "$root\Xpand.dll\$($_.FileName)" -Force
         }
         
-        Write-Host "Update Code Analysis"
+        Write-HostFormatted  "Update Code Analysis" -Section
         Get-ChildItem "$root" "*.csproj" -Recurse|ForEach-Object {
             [xml]$xml=Get-Content $_.FullName
             $xml.Project.PropertyGroup|ForEach-Object{
@@ -104,21 +100,12 @@ Task Installer{
 }
 
 Task CompileModules{
+    dotnet tool restore
+    Set-Location $root
+    Invoke-PaketRestore -Install -Strict
     InvokeScript -maxRetries 3 {
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         $group=$xml.Project.ItemGroup
-        $projects=($group.CoreProjects|GetProjects)+ ($group.ModuleProjects|GetProjects)
-        # $projects|ForEach-Object{
-        #     $fileName=(Get-Item $_).Name
-        #     write-host "Building $fileName..." -f "Blue"
-        #     "packageSources=$packageSources"
-        #     dotnet restore "$_" --source ($packageSources -join ";")
-        #     dotnet msbuild "$_" @msbuildArgs
-        #     if ($LASTEXITCODE) {
-        #         throw
-        #     }
-            
-        # }
         $compileArgs=$msbuildArgs
         $compileArgs+="/fl"
         $compileArgs+="/bl:$root\Xpand.dll\CompileModules.binlog"
@@ -129,27 +116,29 @@ Task CompileModules{
             throw
         }
         
-        Write-Host "Compiling helper projects..." -f "Blue"
+        Write-HostFormatted "Compiling helper projects..." -Section
         $helperProjects=($group.HelperProjects|GetProjects)
-        "helperProjects=$helperProjects"
+        Write-HostFormatted "helperProjects=$helperProjects" -ForegroundColor Magenta
         BuildProjects $helperProjects "Helper"
         $vsAddons=($group.VSAddons|GetProjects)
-        "vsAddons=$vsAddons"
+        Write-HostFormatted "vsAddons=$vsAddons" -ForegroundColor Magenta
         Push-Location "$root\Xpand.Plugins"
+        Get-Content ".\paket.dependencies" -Raw
+        Invoke-PaketRestore -Install -Strict
         BuildProjects $vsAddons "VSIX"
         Pop-Location
         
-        Write-Host "Compiling Agnostic EasyTest projects..." -f "Blue"
+        Write-HostFormatted "Compiling Agnostic EasyTest projects..." -Section
         $agnosticEasytest=(($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 
         "agnosticEasytest=$agnosticEasytest"
         BuildProjects $agnosticEasytest "EasyTest"
         
-        Write-Host "Compiling Win EasyTest projects..." -f "Blue"
+        Write-HostFormatted "Compiling Win EasyTest projects..." -Section
         $winEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Win")}) 
         "winEasyTest=$winEasyTest"
         BuildProjects $winEasyTest "EasyTest"
         
-        Write-Host "Compiling Web EasyTest projects..." -f "Blue"
+        Write-HostFormatted "Compiling Web EasyTest projects..." -Section
         $webEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Web")}) 
         "webEasyTest=$webEasyTest"
         BuildProjects $webEasyTest "EasyTest"
@@ -180,7 +169,7 @@ task CompileDemos {
         $group=$xml.Project.ItemGroup
         $projects= ($group.DemoWinSolutions|GetProjects)
         
-        Write-Host "Compiling win demos..." -f "Blue"
+        Write-HostFormatted "Compiling win demos..." -Section
         BuildProjects $projects "Demos"
         
         $projects= ($group.DemoWebSolutions|GetProjects)

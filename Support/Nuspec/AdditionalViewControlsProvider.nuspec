@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandAdditionalViewControlsProvider</id>
-    <version>19.2.402.0</version>
+    <version>19.2.402.1</version>
     <title>DevExpress eXpandFramework AdditionalViewControlsProvider Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.402.0" />
-      <dependency id="eXpandLogic" version="19.2.402.0" />
-      <dependency id="eXpandSecurity" version="19.2.402.0" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="1.1.66" />
+      <dependency id="eXpandLib" version="19.2.402.1" />
+      <dependency id="eXpandLogic" version="19.2.402.1" />
+      <dependency id="eXpandSecurity" version="19.2.402.1" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.1.2" />
     </dependencies>
   </metadata>
   <files>

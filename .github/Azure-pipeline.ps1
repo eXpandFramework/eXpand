@@ -53,9 +53,12 @@ if ($LastExitCode){
    exit $LastExitCode
 }
 
-Get-ChildItem "$WorkingDirectory\Build\_Package\$Version" -Recurse |ForEach-Object{
-   Copy-Item $_.FullName -Destination $artifactstagingdirectory
+if ($artifactstagingdirectory){
+   Get-ChildItem "$WorkingDirectory\Build\_Package\$Version" -Recurse |ForEach-Object{
+      Copy-Item $_.FullName -Destination $artifactstagingdirectory
+   }
 }
+
 
 $DXVersion=Get-DevExpressVersion (Get-DevExpressVersion)
 Set-Location $WorkingDirectory

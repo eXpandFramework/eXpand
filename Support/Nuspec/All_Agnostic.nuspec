@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandAgnostic</id>
-    <version>19.2.402.0</version>
+    <version>19.2.304.7</version>
     <title>DevExpress eXpandFramework All Platform Agnostic Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,36 +14,36 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
-      <dependency id="eXpandAdditionalViewControlsProvider" version="19.2.402.0" />
-      <dependency id="eXpandAuditTrail" version="19.2.402.0" />
-      <dependency id="eXpandDashboard" version="19.2.402.0" />
-      <dependency id="eXpandEasyTest" version="19.2.402.0" />
-      <dependency id="eXpandEmail" version="19.2.402.0" />
-      <dependency id="eXpandExcelImporter" version="19.2.402.0" />
-      <dependency id="eXpandFileAttachment" version="19.2.402.0" />
-      <dependency id="eXpandImportWizard" version="19.2.402.0" />
-      <dependency id="eXpandIO" version="19.2.402.0" />
-      <dependency id="eXpandJobSchedulerJobs" version="19.2.402.0" />
-      <dependency id="eXpandJobScheduler" version="19.2.402.0" />
-      <dependency id="eXpandLib" version="19.2.402.0" />
-      <dependency id="eXpandLogic" version="19.2.402.0" />
-      <dependency id="eXpandMapView" version="19.2.402.0" />
-      <dependency id="eXpandMasterDetail" version="19.2.402.0" />
-      <dependency id="eXpandModelArtifactState" version="19.2.402.0" />
-      <dependency id="eXpandModelDifference" version="19.2.402.0" />
-      <dependency id="eXpandNCarousel" version="19.2.402.0" />
-      <dependency id="eXpandPivotChart" version="19.2.402.0" />
-      <dependency id="eXpandReports" version="19.2.402.0" />
-      <dependency id="eXpandScheduler" version="19.2.402.0" />
-      <dependency id="eXpandSecurity" version="19.2.402.0" />
-      <dependency id="eXpandStateMachine" version="19.2.402.0" />
-      <dependency id="eXpandSystem" version="19.2.402.0" />
-      <dependency id="eXpandTreelistView" version="19.2.402.0" />
-      <dependency id="eXpandValidation" version="19.2.402.0" />
-      <dependency id="eXpandViewVariants" version="19.2.402.0" />
-      <dependency id="eXpandWorkFlow" version="19.2.402.0" />
-      <dependency id="eXpandWorldCreatorDbMapper" version="19.2.402.0" />
-      <dependency id="eXpandWorldCreator" version="19.2.402.0" />
+      <dependency id="eXpandAdditionalViewControlsProvider" version="19.2.304.7" />
+      <dependency id="eXpandAuditTrail" version="19.2.304.7" />
+      <dependency id="eXpandDashboard" version="19.2.304.7" />
+      <dependency id="eXpandEasyTest" version="19.2.304.7" />
+      <dependency id="eXpandEmail" version="19.2.304.7" />
+      <dependency id="eXpandExcelImporter" version="19.2.304.7" />
+      <dependency id="eXpandFileAttachment" version="19.2.304.7" />
+      <dependency id="eXpandImportWizard" version="19.2.304.7" />
+      <dependency id="eXpandIO" version="19.2.304.7" />
+      <dependency id="eXpandJobSchedulerJobs" version="19.2.304.7" />
+      <dependency id="eXpandJobScheduler" version="19.2.304.7" />
+      <dependency id="eXpandLib" version="19.2.304.7" />
+      <dependency id="eXpandLogic" version="19.2.304.7" />
+      <dependency id="eXpandMapView" version="19.2.304.7" />
+      <dependency id="eXpandMasterDetail" version="19.2.304.7" />
+      <dependency id="eXpandModelArtifactState" version="19.2.304.7" />
+      <dependency id="eXpandModelDifference" version="19.2.304.7" />
+      <dependency id="eXpandNCarousel" version="19.2.304.7" />
+      <dependency id="eXpandPivotChart" version="19.2.304.7" />
+      <dependency id="eXpandReports" version="19.2.304.7" />
+      <dependency id="eXpandScheduler" version="19.2.304.7" />
+      <dependency id="eXpandSecurity" version="19.2.304.7" />
+      <dependency id="eXpandStateMachine" version="19.2.304.7" />
+      <dependency id="eXpandSystem" version="19.2.304.7" />
+      <dependency id="eXpandTreelistView" version="19.2.304.7" />
+      <dependency id="eXpandValidation" version="19.2.304.7" />
+      <dependency id="eXpandViewVariants" version="19.2.304.7" />
+      <dependency id="eXpandWorkFlow" version="19.2.304.7" />
+      <dependency id="eXpandWorldCreatorDbMapper" version="19.2.304.7" />
+      <dependency id="eXpandWorldCreator" version="19.2.304.7" />
     </dependencies>
   </metadata>
   <files />
