@@ -5,7 +5,7 @@ if ($release -eq "true") {
 else {
     $release = $false
 }
-[xml]$xpandProjects = Get-Content "$PSScriptRoot\Xpand.projects"
+[xml]$xpandProjects = Get-Content "$root\Support\Build\Xpand.projects"
 $group = $xpandProjects.Project.Itemgroup
 
 $projects = ("$($group.CoreProjects.include);$($group.EasyTestProjects.Include);$($group.ModuleProjects.Include)".split(";")) | Where-Object { $_ } | Sort-Object | ForEach-Object {
@@ -54,7 +54,7 @@ function Update-NuspecDependencies {
             ResolveNugetDependecies=$ResolveNugetDependecies
             AllProjects=$projects|Get-Item|Select-Object -ExpandProperty BaseName
         }
-        $uArgs | Write-Output
+        $uArgs|Format-Table -AutoSize | Write-Output
         if ($Release) {
             $uArgs.PublishedSource = (Get-PackageFeed -Nuget)
         }

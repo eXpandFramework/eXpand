@@ -2,9 +2,7 @@ Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
     [string]$version = "19.2.304.7",
     [bool]$ResolveNugetDependecies,
-    [bool]$Release ,
-    [switch]$DotSourcing,
-    [System.IO.FileInfo[]]$projects
+    [bool]$Release 
 )
 $ErrorActionPreference="Stop"
 Use-MonoCecil | Out-Null
@@ -14,25 +12,6 @@ if (!$projects) {
 }
 $nuget = "$(Get-NugetPath)"
 $nuspecpathsPath = "$PSScriptRoot\..\Nuspec"
-function AddDependency {
-    param($id, $nuspecpathContent, $packageVersion)
-    if (!$id) {
-        return
-    }
-    if (!$packageVersion) {
-        $packageVersion = $version
-    }
-    $ns = [System.xml.xmlnamespacemanager]::new($nuspecpathContent.NameTable)
-    $ns.AddNamespace("ns", $nuspecpathContent.DocumentElement.NamespaceURI)
-    $dependencies = $nuspecpathContent.SelectSingleNode("//ns:dependencies", $ns)
-    if (!($dependencies.ChildNodes.Id | Where-Object { $_ -eq $id })) {
-        Write-Host "Adding dependency to $id $packageVersion"
-        $dependency = $nuspecpathContent.CreateElement("dependency", $nuspecpathContent.DocumentElement.NamespaceURI)
-        $dependency.SetAttribute("id", $id)
-        $dependency.SetAttribute("version", $packageVersion)
-        $dependencies.AppendChild($dependency) | Out-Null
-    }   
-}
 
 
 function GetModuleName {
@@ -61,7 +40,7 @@ function AddAllDependency($file, $nuspecpaths) {
     $metadata.version = $version
     $nuspecpaths | ForEach-Object {
         [xml]$package=Get-Content $_.Fullname
-        AddDependency $package.package.metaData.Id $nuspecpath $Version
+        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath
     }
     $nuspecpath.Save($file)
 }
@@ -78,11 +57,12 @@ $pArgs = @{
     Root                    = $root
     ResolveNugetDependecies = $ResolveNugetDependecies
 }
-Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | Invoke-Parallel -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs", "scriptPath") -Script {   
-# Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" | foreach {   
-    Write-host "Updating $($_.BaseName)" -f Blue
+set-location $root
+# Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" -Recurse -Include "*additi*win*" | Invoke-Parallel -LimitConcurrency $processorCount -ActivityName "Update Nuspec" -VariablesToImport @("pArgs", "scriptPath","projects") -Script {   
+Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" -recurse | foreach {   
+    Write-Host "Updating $($_.BaseName)" -f Blue
     $dir = (Get-Item $scriptPath).DirectoryName
-    & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $($_.Fullname) @pArgs $projects
+    & "$dir\UpdateNuspecs.ps1" -nuspecpathFile $_.Fullname @pArgs $projects
 }
 
 $libNuspecPath = [System.io.path]::GetFullPath("$root\Support\Nuspec\Lib.nuspec")

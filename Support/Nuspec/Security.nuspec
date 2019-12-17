@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandSecurity</id>
-    <version>19.2.402.1</version>
+    <version>19.2.403.0</version>
     <title>DevExpress eXpandFramework Security Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.402.1" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.1.2" />
+      <dependency id="eXpandLib" version="19.2.403.0" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.4" />
     </dependencies>
   </metadata>
   <files>
