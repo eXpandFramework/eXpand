@@ -1,10 +1,5 @@
-[![Financial Contributors on Open Collective](https://opencollective.com/eXpand/all/badge.svg?label=financial+contributors)](https://opencollective.com/eXpand) 
+![GitHub stars](https://img.shields.io/github/stars/expandframework/expand?label=Star%20the%20project%20if%20you%20think%20it%20deserves%20it&style=social) ![GitHub forks](https://img.shields.io/github/forks/expandframework/eXpand?label=Fork%20the%20project%20to%20extend%20and%20contribute&style=social)
 
-[![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget.org&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpand)](https://www.nuget.org/packages?q=expandframework) [![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)](releases.expandframework.com)
-
-[![GitHub stars](https://img.shields.io/github/stars/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/stargazers) **Star the project if you think it deserves it.** 
-
-[![GitHub forks](https://img.shields.io/github/forks/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXPand/network) **Fork the project to extend and contribute.**
 
 <img src="http://logo.expandframework.com" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
 |--------|--------
@@ -13,27 +8,28 @@
 
 <sub><sup>[How do I set up a package source in Visual Studio?](https://go.microsoft.com/fwlink/?linkid=698608), [Efficient package management](https://github.com/eXpandFramework/DevExpress.XAF/wiki/Efficient-package-management)<br>[How to Debug](https://github.com/eXpandFramework/eXpand/wiki/HowToDebug), [How to boost your DevExpress Debugging Experience](https://github.com/eXpandFramework/DevExpress.XAF/wiki/How-to-boost-your-DevExpress-Debugging-Experience)</sup></sub>
 
+[![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget.org&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpand)](https://www.nuget.org/packages?q=expandframework) [![](https://img.shields.io/github/downloads/eXpand/expand/total.svg?label=github%20downloads&style=flat)](releases.expandframework.com)
 
 [<img src="https://img.shields.io/badge/Search-ReleaseHistory-green.svg"/>](https://github.com/eXpandFramework/eXpand/tree/master/ReleaseNotesHistory) [![Join the chat at https://gitter.im/xpandframework/community](https://badges.gitter.im/xpandframework/community.svg)](https://gitter.im/XpandFramework/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
 [![GitHub open issues](https://img.shields.io/github/issues/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues) [![GitHub close issues](https://img.shields.io/github/issues-closed/eXpandFramework/eXpand.svg)](https://github.com/eXpandFramework/eXpand/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed)
 
 # About
-![open collective backers and sponsors](https://img.shields.io/opencollective/all/expand.svg?label=If%20this%20organization%20helped%20your%20business%2C%20we%20kindly%20request%20to%20consider%20sponsoring%20our%20activities)
+[![image](https://img.shields.io/badge/Exclusive%20services%3F-Head%20to%20the%20dashboard-Blue)](https://github.com/sponsors/apobekiaris)
 
 _eXpandFramework_ is an independent open-source project and is not affiliated with Developer Express Inc.
 
 _eXpandFramework_ is a **FREE** extension for **DevExpress-XAF** and operates within the **Microsoft Public License (Ms-PL)**. 
 
-The [eXpandFrameowork](https://github.com/eXpandFramework) organization consist of two projects. The main project, this one, which unfortunately lacks detailed documentation, and the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) repository. The main project acts as a container to the standalone proejct. Eventually all modules of main project will be puzzled from the standalone modules. The framework is transitioning fast from private server to GitHub since Oct 2018, so please bear with us and contribute where you can.
+The [eXpandFrameowork](https://github.com/eXpandFramework) organization consist of three projects. The main project, this one, the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) and the [XpandPwsh](https://github.com/eXpandFramework/XpandPwsh) powershell module where you can find all you neeed for your everyday development tasks. The main project acts as a container to the standalone proejct. Eventually all modules of main project will be puzzled from the standalone modules.
 
-This framework has similar architecture to XAF. We recommend you go through the [Getting Started](https://github.com/eXpandFramework/eXpand/wiki/Getting-Started) document to get the feeling on how to get the most out of it. Afterwards just installed the modules you want and go through the blogs linked in the list below and feel free to post [Issues](https://github.com/eXpandFramework/eXpand/issues).
+The artiteture is similar architecture to XAF. We recommend you go through the [Getting Started](https://github.com/eXpandFramework/eXpand/wiki/Getting-Started) document to get the feeling on how to get the most out of it. Afterwards just installed the modules you want and go through the blogs linked in the list below and feel free to post [Issues](https://github.com/eXpandFramework/eXpand/issues).
 
 ## Modules
 
 Examples of those modules include (in the two right columns you can see the supported platform):
 
-Module Name | Description | ![Windows](http://www.expandframework.com/images/site/windows.jpg "Windows") | ![ASPNET](http://www.expandframework.com/images/site/aspnet.jpg "ASPNET") | Nuget.org
+Module Name | Description | Win | Web | Nuget.org
 ------------|-------------|---------|-------|---------
 [ExcelImporter](#excelimporter) |    Imports Excel, csv files. |    Y |    Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandExcelImporter%2A)
 [WorldCreator](#worldcreator) |  Design runtime assemblies | Y | Y|![Custom badge](https://img.shields.io/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandWorldCreator%2A)
