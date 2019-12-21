@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandExcelImporter</id>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <title>DevExpress eXpandFramework ExcelImporter Module </title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,9 +15,9 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6" />
-      <dependency id="eXpandLib" version="19.2.403.0" />
-      <dependency id="eXpandSystem" version="19.2.403.0" />
-      <dependency id="eXpandValidation" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
+      <dependency id="eXpandSystem" version="19.2.402.4" />
+      <dependency id="eXpandValidation" version="19.2.402.4" />
       <dependency id="Mono.Cecil" version="0.11.1" />
       <dependency id="Ryder" version="0.8" />
       <dependency id="System.IO.Compression" version="4.3" />
@@ -34,6 +34,5 @@
   <files>
     <file src="Xpand.ExpressApp.ExcelImporter.dll" target="lib\net461\Xpand.ExpressApp.ExcelImporter.dll" />
     <file src="Xpand.ExpressApp.ExcelImporter.pdb" target="lib\net461\Xpand.ExpressApp.ExcelImporter.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

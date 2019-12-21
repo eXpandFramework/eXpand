@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandTreelistViewWin</id>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <title>DevExpress eXpandFramework TreelistView Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.403.0" />
-      <dependency id="eXpandSystemWin" version="19.2.403.0" />
-      <dependency id="eXpandTreelistView" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
+      <dependency id="eXpandSystemWin" version="19.2.402.4" />
+      <dependency id="eXpandTreelistView" version="19.2.402.4" />
       <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4" />
       <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.4" />
     </dependencies>
@@ -24,6 +24,5 @@
   <files>
     <file src="Xpand.ExpressApp.TreeListEditors.Win.dll" target="lib\net461\Xpand.ExpressApp.TreeListEditors.Win.dll" />
     <file src="Xpand.ExpressApp.TreeListEditors.Win.pdb" target="lib\net461\Xpand.ExpressApp.TreeListEditors.Win.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

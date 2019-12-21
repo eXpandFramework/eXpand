@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandImportWizardWin2</id>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <title>DevExpress eXpandFramework ImportWizard Module (Win)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,8 +15,8 @@
     <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
     <dependencies>
       <dependency id="DocumentFormat.OpenXml" version="2.7.2" />
-      <dependency id="eXpandImportWizard" version="19.2.403.0" />
-      <dependency id="eXpandLib" version="19.2.403.0" />
+      <dependency id="eXpandImportWizard" version="19.2.402.4" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
       <dependency id="System.Resources.Extensions" version="4.6" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
@@ -24,6 +24,5 @@
   <files>
     <file src="Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\net461\Xpand.ExpressApp.ImportWizard.Win.dll" />
     <file src="Xpand.ExpressApp.ImportWizard.Win.pdb" target="lib\net461\Xpand.ExpressApp.ImportWizard.Win.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

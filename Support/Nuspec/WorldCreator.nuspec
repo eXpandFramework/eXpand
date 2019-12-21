@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#worldcreator</projectUrl>
@@ -17,8 +17,8 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
       <dependency id="AppDomainToolkit" version="1.0.4.3" />
-      <dependency id="eXpandLib" version="19.2.403.0" />
-      <dependency id="eXpandValidation" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
+      <dependency id="eXpandValidation" version="19.2.402.4" />
       <dependency id="Microsoft.CSharp" version="4.7" />
       <dependency id="Mono.Cecil" version="0.11.1" />
       <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.4" />
@@ -27,6 +27,5 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

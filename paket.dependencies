@@ -26,7 +26,7 @@ nuget Enums.NET 3.0.1
 nuget ExcelDataReader 3.6.0
 nuget ExcelDataReader.DataSet 3.6.0
 nuget Fasterflect.Xpand
-nuget Fody 4.2.1
+nuget Fody 4.2.1 copy_local: false
 nuget IIS.Microsoft.Web.Adminstration 8.5.9600.16384
 nuget InputSimulator 1.0.4.0
 nuget JetBrains.Annotations 
@@ -36,7 +36,7 @@ nuget Microsoft.NETCore.Platforms 3.1.0
 nuget Microsoft.Win32.Registry 4.7
 nuget Mono.Cecil 0.11.1
 nuget Newtonsoft.Json 12.0.2
-nuget PropertyChanged.Fody 2.6.1
+nuget PropertyChanged.Fody 2.6.1 copy_local: false
 nuget Quartz 2.2.4
 nuget RazorEngine 3.10.0
 nuget Ryder 0.8.0
@@ -57,5 +57,5 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 3.1.4
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 2.192.16.0
-nuget Xpand.XAF.Web.All 2.192.16.0
+nuget Xpand.XAF.Win.All 2.192.22.0
+nuget Xpand.XAF.Web.All 2.192.22.0

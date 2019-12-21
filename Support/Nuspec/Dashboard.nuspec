@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandDashboard</id>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <title>DevExpress eXpandFramework Dashboard Module</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
       <dependency id="Ryder" version="0.8" />
       <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.192.27" />
       <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.4" />
@@ -24,6 +24,5 @@
   <files>
     <file src="Xpand.ExpressApp.Dashboard.dll" target="lib\net461\Xpand.ExpressApp.Dashboard.dll" />
     <file src="Xpand.ExpressApp.Dashboard.pdb" target="lib\net461\Xpand.ExpressApp.Dashboard.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

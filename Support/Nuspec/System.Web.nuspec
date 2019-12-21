@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://sign.expandframework.com</iconUrl>
@@ -14,14 +14,13 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <description>DevExpress eXpandFramework System Module (Web). To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.403.0" />
-      <dependency id="eXpandSystem" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
+      <dependency id="eXpandSystem" version="19.2.402.4" />
       <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.Web.dll" target="lib\net461\Xpand.ExpressApp.Web.dll" />
     <file src="Xpand.ExpressApp.Web.pdb" target="lib\net461\Xpand.ExpressApp.Web.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

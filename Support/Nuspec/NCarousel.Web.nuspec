@@ -1,8 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandNCarouselWeb</id>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <title>DevExpress eXpandFramework NCarousel Module (Web)</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,14 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.403.0" />
-      <dependency id="eXpandNCarousel" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net461\Xpand.ExpressApp.NCarousel.Web.dll" />
     <file src="Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net461\Xpand.ExpressApp.NCarousel.Web.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

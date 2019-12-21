@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <projectUrl>http://www.expandframework.com/#worldcreator</projectUrl>
@@ -16,16 +16,15 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.403.0" />
-      <dependency id="eXpandSystem" version="19.2.403.0" />
-      <dependency id="eXpandSystemWeb" version="19.2.403.0" />
-      <dependency id="eXpandWorldCreator" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
+      <dependency id="eXpandSystem" version="19.2.402.4" />
+      <dependency id="eXpandSystemWeb" version="19.2.402.4" />
+      <dependency id="eXpandWorldCreator" version="19.2.402.4" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.Web.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.Web.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.Web.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.Web.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://sign.expandframework.com</iconUrl>
@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
       <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="2.192.4" />
       <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.192.27" />
       <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.192.28" />
@@ -26,6 +26,5 @@
   <files>
     <file src="Xpand.ExpressApp.dll" target="lib\net461\Xpand.ExpressApp.dll" />
     <file src="Xpand.ExpressApp.pdb" target="lib\net461\Xpand.ExpressApp.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>

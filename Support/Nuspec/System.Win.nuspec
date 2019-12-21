@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
-    <version>19.2.403.0</version>
+    <version>19.2.402.4</version>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
     <iconUrl>http://sign.expandframework.com</iconUrl>
@@ -15,8 +15,8 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
       <dependency id="AutoMapper" version="3.3.1" />
-      <dependency id="eXpandLib" version="19.2.403.0" />
-      <dependency id="eXpandSystem" version="19.2.403.0" />
+      <dependency id="eXpandLib" version="19.2.402.4" />
+      <dependency id="eXpandSystem" version="19.2.402.4" />
       <dependency id="System.Resources.Extensions" version="4.6" />
       <dependency id="Xpand.XAF.Modules.GridListEditor" version="2.192.4" />
       <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4" />
@@ -25,6 +25,5 @@
   <files>
     <file src="Xpand.ExpressApp.Win.dll" target="lib\net461\Xpand.ExpressApp.Win.dll" />
     <file src="Xpand.ExpressApp.Win.pdb" target="lib\net461\Xpand.ExpressApp.Win.pdb" />
-    <file src="Readme.txt" target="" />
   </files>
 </package>
