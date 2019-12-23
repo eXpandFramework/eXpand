@@ -34,6 +34,7 @@ using System.Web.Configuration;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyMetadata("Platform","Core")]
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
 [assembly: System.Web.UI.WebResource("Xpand.NCarousel.Resources.jquery-1.4.2.min.js", "text/javascript")]

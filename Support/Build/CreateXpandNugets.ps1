@@ -1,6 +1,6 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "19.2.304.7",
+    [string]$version = "19.2.404.7",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )
@@ -12,7 +12,7 @@ if (!$projects) {
 }
 $nuget = "$(Get-NugetPath)"
 $nuspecpathsPath = "$PSScriptRoot\..\Nuspec"
-$scriptPath = $MyInvocation.MyCommand.path
+
 function AddAllDependency($file, $nuspecpaths) {
     [xml]$nuspecpath = Get-Content $file
     $metadata = $nuspecpath.package.metadata
@@ -97,10 +97,10 @@ $libTargetFramework = $libCsproj.project.propertygroup.targetFramework
     $ext = $_
     "Xpand.xpo", "Xpand.Utils", "Xpand.Persistent.BaseImpl" | ForEach-Object {
         $id = "$_.$ext"
-        Add-XmlElement $libNuspec "file" "files" @{
+        Add-XmlElement $libNuspec "file" "files" ([ordered]@{
             src    = $id
             target = "lib\$libTargetFramework\$id"
-        }
+        })
     }
 }
 $libNuspec.Save($libNuspecPath)
@@ -113,17 +113,102 @@ AddAllDependency $nuspecpathFile (Get-ChildItem "$nuspecpathsPath" -Exclude "*Wi
     $nuspecpathFile = "$nuspecpathsPath\All_$_.nuspec"
     AddAllDependency $nuspecpathFile $nuspecpaths
 }
+
+Write-HostFormatted "Discover XAFModules" -Section
+$assemblyList=Get-ChildItem "$root\xpand.dll" *.dll
+$modulesJson="$root\support\build\modules.json"
+if (Test-Path $modulesJson){
+    $modules=Get-Content $modulesJson|ConvertFrom-Json
+    if ($assemblyList|Where-Object{!$modules.Assembly.Contains($_.BaseName) -and $_.BaseName -like "Xpand.ExpressApp.*" -and $_.BaseName -notlike "*EasyTest*"}){
+        Get-XAFModule "$root\Xpand.dll" -Include "Xpand.ExpressApp.*" -AssemblyList $assemblyList -Verbose|ConvertTo-Json|Set-Content $modulesJson    
+        $modules=Get-Content $modulesJson|ConvertFrom-Json
+    }
+}
+else{
+    $m=Get-XAFModule "$root\Xpand.dll" -Include "Xpand.ExpressApp.*" -AssemblyList $assemblyList -Verbose|ForEach-Object{
+        $_.Assembly=[System.IO.Path]::GetFileNameWithoutExtension($_.Assembly)
+        $_
+    }
+    $m|ConvertTo-Json|Set-Content $modulesJson
+    $modules=Get-Content $modulesJson|ConvertFrom-Json
+}
+
+$modules 
+
 Write-HostFormatted "packing nuspecs"
 Get-ChildItem "$root\build\Nuget" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
-# Get-ChildItem "$root\Support\Nuspec" *.nuspec | where{$_ -match "World"}|ForEach-Object {
-# Get-ChildItem "$root\Support\Nuspec" *.nuspec| Invoke-Parallel -VariablesToImport "nuget","version","root" -Script {    
-Get-ChildItem "$root\Support\Nuspec" *.nuspec | ForEach-Object {    
-    & $Nuget Pack $_.FullName -version $Version -OutputDirectory "$root\build\nuget" -BasePath "$root\Xpand.DLL"
+
+# Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -VariablesToImport @("modules","Nuget","version","root") -Script {    
+Get-ChildItem "$root\Support\Nuspec" *.nuspec | foreach {    
+    if (!$Version){
+        throw
+    }
+    $packageVersion=$Version
+    $readmePath="$($_.DirectoryName)\$($_.BaseName)"
+    Write-Output "AddReadme $($_.FullName)"
+    [xml]$nuspec=Get-Content $_.FullName
+    $nuspec.package.files.file|Where-Object{$_.src -like "*readme.txt"}|ForEach-Object{
+        $_.parentnode.removechild($_)
+    }
+    Add-XmlElement $nuspec "file" "files" ([ordered]@{
+        src="$readmePath\Readme.txt"
+        target=""
+    })
+    $nuspec.Save($_.FullName)
+
+    $Package=$_.BaseName
+    $module=$modules|Where-Object{$_.assembly.Replace("Xpand.ExpressApp.","") -eq $Package}
+    $moduleName = $module.FullName
+    New-Item $readmePath -ItemType Directory -Force
+    "moduleName=$moduleName"
+    $registration = "RequiredModuleTypes.Add(typeof($moduleName));"
+    if ($package -like "*all*") {
+        $registration = ($modules | Where-Object { $_.platform -eq "Core" -or $package -like "*$($_.platform)*" } | ForEach-Object { "RequiredModuleTypes.Add(typeof($($_.FullName)));" }) -join "`r`n                                                "
+    }
+    elseif ("*lib*","*easytest*"|Where-Object{$package -like $_}){
+        $registration=$null
+    }
+    if ($registration){
+        $registrationMessage="The package only adds the required references. To install $moduleName add the next line in the constructor of your XAF module."
+    }
+    
+    $message = @"
+
+
+    
+++++++++++++++++++++++++  ++++++++       ➤ 🅴🆇🅲🅻🆄🆂🅸🆅🅴 🆂🅴🆁🆅🅸🅲🅴🆂?
+++++++++++++++++++++++##  ++++++++          http://apobekiaris.expandframework.com
+++++++++++++++++++++++  ++++++++++
+++++++++++    ++++++  ++++++++++++       ➤  ɪғ ʏᴏᴜ ʟɪᴋᴇ ᴏᴜʀ ᴡᴏʀᴋ ᴘʟᴇᴀsᴇ ᴄᴏɴsɪᴅᴇʀ ᴛᴏ ɢɪᴠᴇ ᴜs ᴀ STAR.
+++++++++++++  ++++++  ++++++++++++          https://github.com/eXpandFramework/eXpand/stargazers
+++++++++++++++  ++  ++++++++++++++
+++++++++++++++    ++++++++++++++++       ➤ ​​̲𝗣​̲𝗮​̲𝗰​̲𝗸​̲𝗮​̲𝗴​̲𝗲​̲ ​̲𝗻​̲𝗼​̲𝘁​̲𝗲​̲𝘀
+++++++++++++++  ++  ++++++++++++++
+++++++++++++  ++++    ++++++++++++          ☞ Build the project before opening the model editor.
+++++++++++  ++++++++  ++++++++++++          ☞ $registrationMessage
+++++++++++  ++++++++++  ++++++++++              $registration
+++++++++  ++++++++++++++++++++++++
+++++++  ++++++++++++++++++++++++++        
+"@
+    
+    Set-Content "$readmePath\ReadMe.txt" $message
+    "$Nuget Pack $($_.FullName) -version $packageVersion -OutputDirectory $root\build\nuget -BasePath $root\Xpand.DLL"
+    $result=& $Nuget Pack $_.FullName -version $packageVersion -OutputDirectory "$root\build\nuget" -BasePath "$root\Xpand.DLL"
+    Write-Output $result
+    Remove-Item $readmePath -Force -Recurse
+    
+    if ($nuspec.package.files.file){
+        $file=$nuspec.package.files.file|Where-Object{$_.src -like "*readmme.txt"}
+        if ($file){
+            $nuspec.package.files.removechild($file)
+        }
+        $nuspec.Save($_.FullName)
+    }
+    
+    
 }
 
 Write-HostFormatted "Updating ReadMe" -Section
-& "$root\support\build\addreadme.ps1"
-$ErrorActionPreference = "stop"
 $packageDir = "$root\Build\_package\$Version"
 New-Item $packageDir -ItemType Directory -Force | Out-Null
 Compress-Archive -DestinationPath "$packageDir\Nupkg-$Version.zip" -path "$root\Build\Nuget\*" -Force

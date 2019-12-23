@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandLogic</id>
@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.Logic.dll" target="lib\net461\Xpand.ExpressApp.Logic.dll" />
     <file src="Xpand.ExpressApp.Logic.pdb" target="lib\net461\Xpand.ExpressApp.Logic.pdb" />
-  </files>
+    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\Logic\Readme.txt" /></files>
 </package>

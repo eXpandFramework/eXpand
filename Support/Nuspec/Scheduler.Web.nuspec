@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandSchedulerWeb</id>
@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.Scheduler.Web.dll" target="lib\net461\Xpand.ExpressApp.Scheduler.Web.dll" />
     <file src="Xpand.ExpressApp.Scheduler.Web.pdb" target="lib\net461\Xpand.ExpressApp.Scheduler.Web.pdb" />
-  </files>
+    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\Scheduler.Web\Readme.txt" /></files>
 </package>

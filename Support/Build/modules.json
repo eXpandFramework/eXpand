@@ -1,0 +1,368 @@
+[
+  {
+    "Name": "AdditionalViewControlsModule",
+    "FullName": "Xpand.ExpressApp.AdditionalViewControlsProvider.AdditionalViewControlsModule",
+    "Assembly": "Xpand.ExpressApp.AdditionalViewControlsProvider",
+    "Platform": "Core"
+  },
+  {
+    "Name": "AdditionalViewControlsProviderAspNetModule",
+    "FullName": "Xpand.ExpressApp.AdditionalViewControlsProvider.Web.AdditionalViewControlsProviderAspNetModule",
+    "Assembly": "Xpand.ExpressApp.AdditionalViewControlsProvider.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "AdditionalViewControlsProviderWindowsFormsModule",
+    "FullName": "Xpand.ExpressApp.AdditionalViewControlsProvider.Win.AdditionalViewControlsProviderWindowsFormsModule",
+    "Assembly": "Xpand.ExpressApp.AdditionalViewControlsProvider.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandAuditTrailModule",
+    "FullName": "Xpand.ExpressApp.AuditTrail.XpandAuditTrailModule",
+    "Assembly": "Xpand.ExpressApp.AuditTrail",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandChartWinModule",
+    "FullName": "Xpand.ExpressApp.Chart.Win.XpandChartWinModule",
+    "Assembly": "Xpand.ExpressApp.Chart.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "DashboardModule",
+    "FullName": "Xpand.ExpressApp.Dashboard.DashboardModule",
+    "Assembly": "Xpand.ExpressApp.Dashboard",
+    "Platform": "Core"
+  },
+  {
+    "Name": "EmailModule",
+    "FullName": "Xpand.ExpressApp.Email.EmailModule",
+    "Assembly": "Xpand.ExpressApp.Email",
+    "Platform": "Core"
+  },
+  {
+    "Name": "ExcelImporterModule",
+    "FullName": "Xpand.ExpressApp.ExcelImporter.ExcelImporterModule",
+    "Assembly": "Xpand.ExpressApp.ExcelImporter",
+    "Platform": "Core"
+  },
+  {
+    "Name": "ExcelImporterWebModule",
+    "FullName": "Xpand.ExpressApp.ExcelImporter.Web.ExcelImporterWebModule",
+    "Assembly": "Xpand.ExpressApp.ExcelImporter.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "ExcelImporterWinModule",
+    "FullName": "Xpand.ExpressApp.ExcelImporter.Win.ExcelImporterWinModule",
+    "Assembly": "Xpand.ExpressApp.ExcelImporter.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandFileAttachmentsWebModule",
+    "FullName": "Xpand.ExpressApp.FileAttachment.Web.XpandFileAttachmentsWebModule",
+    "Assembly": "Xpand.ExpressApp.FileAttachment.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "XpandFileAttachmentsModule",
+    "FullName": "Xpand.ExpressApp.FileAttachment.XpandFileAttachmentsModule",
+    "Assembly": "Xpand.ExpressApp.FileAttachment",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandHtmlPropertyEditorAspNetModule",
+    "FullName": "Xpand.ExpressApp.HtmlPropertyEditor.Web.XpandHtmlPropertyEditorAspNetModule",
+    "Assembly": "Xpand.ExpressApp.HtmlPropertyEditor.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "ImportWizardModule",
+    "FullName": "Xpand.ExpressApp.ImportWizard.ImportWizardModule",
+    "Assembly": "Xpand.ExpressApp.ImportWizard",
+    "Platform": "Core"
+  },
+  {
+    "Name": "ImportWizardWindowsFormsModule",
+    "FullName": "Xpand.ExpressApp.ImportWizard.Win.ImportWizardWindowsFormsModule",
+    "Assembly": "Xpand.ExpressApp.ImportWizard.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "IOModule",
+    "FullName": "Xpand.ExpressApp.IO.IOModule",
+    "Assembly": "Xpand.ExpressApp.IO",
+    "Platform": "Core"
+  },
+  {
+    "Name": "IOAspNetModule",
+    "FullName": "Xpand.ExpressApp.IO.Web.IOAspNetModule",
+    "Assembly": "Xpand.ExpressApp.IO.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "IOWinModule",
+    "FullName": "Xpand.ExpressApp.IO.Win.IOWinModule",
+    "Assembly": "Xpand.ExpressApp.IO.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "JobSchedulerJobsModule",
+    "FullName": "Xpand.ExpressApp.JobScheduler.Jobs.JobSchedulerJobsModule",
+    "Assembly": "Xpand.ExpressApp.JobScheduler.Jobs",
+    "Platform": "Core"
+  },
+  {
+    "Name": "JobSchedulerModule",
+    "FullName": "Xpand.ExpressApp.JobScheduler.JobSchedulerModule",
+    "Assembly": "Xpand.ExpressApp.JobScheduler",
+    "Platform": "Core"
+  },
+  {
+    "Name": "LogicModule",
+    "FullName": "Xpand.ExpressApp.Logic.LogicModule",
+    "Assembly": "Xpand.ExpressApp.Logic",
+    "Platform": "Core"
+  },
+  {
+    "Name": "MapViewModule",
+    "FullName": "Xpand.ExpressApp.MapView.MapViewModule",
+    "Assembly": "Xpand.ExpressApp.MapView",
+    "Platform": "Core"
+  },
+  {
+    "Name": "MapViewWebModule",
+    "FullName": "Xpand.ExpressApp.MapView.Web.MapViewWebModule",
+    "Assembly": "Xpand.ExpressApp.MapView.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "MasterDetailModule",
+    "FullName": "Xpand.ExpressApp.MasterDetail.MasterDetailModule",
+    "Assembly": "Xpand.ExpressApp.MasterDetail",
+    "Platform": "Core"
+  },
+  {
+    "Name": "MasterDetailWindowsModule",
+    "FullName": "Xpand.ExpressApp.MasterDetail.Win.MasterDetailWindowsModule",
+    "Assembly": "Xpand.ExpressApp.MasterDetail.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "ModelArtifactStateModule",
+    "FullName": "Xpand.ExpressApp.ModelArtifactState.ModelArtifactStateModule",
+    "Assembly": "Xpand.ExpressApp.ModelArtifactState",
+    "Platform": "Core"
+  },
+  {
+    "Name": "ModelDifferenceModule",
+    "FullName": "Xpand.ExpressApp.ModelDifference.ModelDifferenceModule",
+    "Assembly": "Xpand.ExpressApp.ModelDifference",
+    "Platform": "Core"
+  },
+  {
+    "Name": "ModelDifferenceAspNetModule",
+    "FullName": "Xpand.ExpressApp.ModelDifference.Web.ModelDifferenceAspNetModule",
+    "Assembly": "Xpand.ExpressApp.ModelDifference.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "ModelDifferenceWindowsFormsModule",
+    "FullName": "Xpand.ExpressApp.ModelDifference.Win.ModelDifferenceWindowsFormsModule",
+    "Assembly": "Xpand.ExpressApp.ModelDifference.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "NCarouselWebModule",
+    "FullName": "Xpand.ExpressApp.NCarousel.Web.NCarouselWebModule",
+    "Assembly": "Xpand.ExpressApp.NCarousel.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "XpandPivotChartAspNetModule",
+    "FullName": "Xpand.ExpressApp.PivotChart.Web.XpandPivotChartAspNetModule",
+    "Assembly": "Xpand.ExpressApp.PivotChart.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "XpandPivotChartWinModule",
+    "FullName": "Xpand.ExpressApp.PivotChart.Win.XpandPivotChartWinModule",
+    "Assembly": "Xpand.ExpressApp.PivotChart.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandPivotChartModule",
+    "FullName": "Xpand.ExpressApp.PivotChart.XpandPivotChartModule",
+    "Assembly": "Xpand.ExpressApp.PivotChart",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandPivotGridWinModule",
+    "FullName": "Xpand.ExpressApp.PivotGrid.Win.XpandPivotGridWinModule",
+    "Assembly": "Xpand.ExpressApp.PivotGrid.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandReportsWindowsFormsModule",
+    "FullName": "Xpand.ExpressApp.Reports.Win.XpandReportsWindowsFormsModule",
+    "Assembly": "Xpand.ExpressApp.Reports.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandReportsModule",
+    "FullName": "Xpand.ExpressApp.Reports.XpandReportsModule",
+    "Assembly": "Xpand.ExpressApp.Reports",
+    "Platform": "Core"
+  },
+  {
+    "Name": "ReportsV2WinModule",
+    "FullName": "Xpand.ExpressApp.ReportsV2.Win.ReportsV2WinModule",
+    "Assembly": "Xpand.ExpressApp.ReportsV2.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandSchedulerAspNetModule",
+    "FullName": "Xpand.ExpressApp.Scheduler.Web.XpandSchedulerAspNetModule",
+    "Assembly": "Xpand.ExpressApp.Scheduler.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "XpandSchedulerWindowsFormsModule",
+    "FullName": "Xpand.ExpressApp.Scheduler.Win.XpandSchedulerWindowsFormsModule",
+    "Assembly": "Xpand.ExpressApp.Scheduler.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandSchedulerModule",
+    "FullName": "Xpand.ExpressApp.Scheduler.XpandSchedulerModule",
+    "Assembly": "Xpand.ExpressApp.Scheduler",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandSecurityWebModule",
+    "FullName": "Xpand.ExpressApp.Security.Web.XpandSecurityWebModule",
+    "Assembly": "Xpand.ExpressApp.Security.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "XpandSecurityWinModule",
+    "FullName": "Xpand.ExpressApp.Security.Win.XpandSecurityWinModule",
+    "Assembly": "Xpand.ExpressApp.Security.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandSecurityModule",
+    "FullName": "Xpand.ExpressApp.Security.XpandSecurityModule",
+    "Assembly": "Xpand.ExpressApp.Security",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandStateMachineModule",
+    "FullName": "Xpand.ExpressApp.StateMachine.XpandStateMachineModule",
+    "Assembly": "Xpand.ExpressApp.StateMachine",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandTreeListEditorsAspNetModule",
+    "FullName": "Xpand.ExpressApp.TreeListEditors.Web.XpandTreeListEditorsAspNetModule",
+    "Assembly": "Xpand.ExpressApp.TreeListEditors.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "XpandTreeListEditorsWinModule",
+    "FullName": "Xpand.ExpressApp.TreeListEditors.Win.XpandTreeListEditorsWinModule",
+    "Assembly": "Xpand.ExpressApp.TreeListEditors.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandTreeListEditorsModule",
+    "FullName": "Xpand.ExpressApp.TreeListEditors.XpandTreeListEditorsModule",
+    "Assembly": "Xpand.ExpressApp.TreeListEditors",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandValidationWebModule",
+    "FullName": "Xpand.ExpressApp.Validation.Web.XpandValidationWebModule",
+    "Assembly": "Xpand.ExpressApp.Validation.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "XpandValidationWinModule",
+    "FullName": "Xpand.ExpressApp.Validation.Win.XpandValidationWinModule",
+    "Assembly": "Xpand.ExpressApp.Validation.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandValidationModule",
+    "FullName": "Xpand.ExpressApp.Validation.XpandValidationModule",
+    "Assembly": "Xpand.ExpressApp.Validation",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandViewVariantsModule",
+    "FullName": "Xpand.ExpressApp.ViewVariants.XpandViewVariantsModule",
+    "Assembly": "Xpand.ExpressApp.ViewVariants",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XpandSystemAspNetModule",
+    "FullName": "Xpand.ExpressApp.Web.SystemModule.XpandSystemAspNetModule",
+    "Assembly": "Xpand.ExpressApp.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "XpandSystemWindowsFormsModule",
+    "FullName": "Xpand.ExpressApp.Win.SystemModule.XpandSystemWindowsFormsModule",
+    "Assembly": "Xpand.ExpressApp.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "WizardUIWindowsFormsModule",
+    "FullName": "Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule",
+    "Assembly": "Xpand.ExpressApp.WizardUI.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "XpandWorkFlowModule",
+    "FullName": "Xpand.ExpressApp.Workflow.XpandWorkFlowModule",
+    "Assembly": "Xpand.ExpressApp.Workflow",
+    "Platform": "Core"
+  },
+  {
+    "Name": "WorldCreatorDBMapperModule",
+    "FullName": "Xpand.ExpressApp.WorldCreator.DBMapper.WorldCreatorDBMapperModule",
+    "Assembly": "Xpand.ExpressApp.WorldCreator.DBMapper",
+    "Platform": "Core"
+  },
+  {
+    "Name": "WorldCreatorWebModule",
+    "FullName": "Xpand.ExpressApp.WorldCreator.Web.WorldCreatorWebModule",
+    "Assembly": "Xpand.ExpressApp.WorldCreator.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "WorldCreatorWinModule",
+    "FullName": "Xpand.ExpressApp.WorldCreator.Win.WorldCreatorWinModule",
+    "Assembly": "Xpand.ExpressApp.WorldCreator.Win",
+    "Platform": "Win"
+  },
+  {
+    "Name": "WorldCreatorModule",
+    "FullName": "Xpand.ExpressApp.WorldCreator.WorldCreatorModule",
+    "Assembly": "Xpand.ExpressApp.WorldCreator",
+    "Platform": "Core"
+  },
+  {
+    "Name": "XtraDashboardWebModule",
+    "FullName": "Xpand.ExpressApp.XtraDashboard.Web.XtraDashboardWebModule",
+    "Assembly": "Xpand.ExpressApp.XtraDashboard.Web",
+    "Platform": "Web"
+  },
+  {
+    "Name": "DashboardWindowsFormsModule",
+    "FullName": "Xpand.ExpressApp.XtraDashboard.Win.DashboardWindowsFormsModule",
+    "Assembly": "Xpand.ExpressApp.XtraDashboard.Win",
+    "Platform": "Win"
+  }
+]

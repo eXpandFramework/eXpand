@@ -18,8 +18,8 @@ properties {
 }
 
 
-Task Release -depends Clean, Init,Version, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
-Task Lab -depends Clean,Init,Version,CompileModules,CompileDemos
+Task Release -depends Clean, Version,Init, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
+Task Lab -depends Clean,Version,Init,CompileModules,CompileDemos
 
 
 Task Init  {
@@ -65,7 +65,8 @@ Task Finalize {
 
 Task CreateNuGets{
     InvokeScript{
-        & "$PSScriptRoot\CreateXpandNugets.ps1" $root $version $ResolveNugetDependecies $Release
+        & "$root\support\Build\CreateXpandNugets.ps1" $root $version $ResolveNugetDependecies $Release
+
     }
 }
 Task PackNuget{

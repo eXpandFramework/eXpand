@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandAuditTrail</id>
@@ -25,5 +25,5 @@
   <files>
     <file src="Xpand.ExpressApp.AuditTrail.dll" target="lib\net461\Xpand.ExpressApp.AuditTrail.dll" />
     <file src="Xpand.ExpressApp.AuditTrail.pdb" target="lib\net461\Xpand.ExpressApp.AuditTrail.pdb" />
-  </files>
+    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\AuditTrail\Readme.txt" /></files>
 </package>

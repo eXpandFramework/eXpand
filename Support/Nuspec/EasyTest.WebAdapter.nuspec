@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandEasyTestWeb</id>
@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.EasyTest.WebAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <file src="Xpand.ExpressApp.EasyTest.WebAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WebAdapter.pdb" />
-  </files>
+    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\EasyTest.WebAdapter\Readme.txt" /></files>
 </package>

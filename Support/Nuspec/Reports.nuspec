@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandReports</id>
@@ -22,5 +22,5 @@
   <files>
     <file src="Xpand.ExpressApp.Reports.dll" target="lib\net461\Xpand.ExpressApp.Reports.dll" />
     <file src="Xpand.ExpressApp.Reports.pdb" target="lib\net461\Xpand.ExpressApp.Reports.pdb" />
-  </files>
+    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\Reports\Readme.txt" /></files>
 </package>

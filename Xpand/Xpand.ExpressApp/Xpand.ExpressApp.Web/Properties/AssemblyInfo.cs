@@ -34,6 +34,7 @@ using Xpand.ExpressApp.Web.SystemModule;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [dataStoreNameSuffix: AssemblyVersion("1.0.*")]
+[assembly: AssemblyMetadata("Platform","Web")]
 [assembly: AssemblyVersion(XpandAssemblyInfo.Version)]
 [assembly: AssemblyFileVersion(XpandAssemblyInfo.FileVersion)]
 

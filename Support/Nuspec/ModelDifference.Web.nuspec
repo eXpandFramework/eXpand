@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <version>19.2.402.4</version>
@@ -33,5 +33,5 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
   <files>
     <file src="Xpand.ExpressApp.ModelDifference.Web.dll" target="lib\net461\Xpand.ExpressApp.ModelDifference.Web.dll" />
     <file src="Xpand.ExpressApp.ModelDifference.Web.pdb" target="lib\net461\Xpand.ExpressApp.ModelDifference.Web.pdb" />
-  </files>
+    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\ModelDifference.Web\Readme.txt" /></files>
 </package>
