@@ -21,5 +21,5 @@
   <files>
     <file src="Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net461\Xpand.ExpressApp.NCarousel.Web.dll" />
     <file src="Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net461\Xpand.ExpressApp.NCarousel.Web.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\NCarousel.Web\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\NCarousel.Web\Readme.txt" target="" /></files>
 </package>

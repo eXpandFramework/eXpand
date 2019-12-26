@@ -25,5 +25,5 @@
   <files>
     <file src="Xpand.ExpressApp.ModelArtifactState.dll" target="lib\net461\Xpand.ExpressApp.ModelArtifactState.dll" />
     <file src="Xpand.ExpressApp.ModelArtifactState.pdb" target="lib\net461\Xpand.ExpressApp.ModelArtifactState.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\ModelArtifactState\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ModelArtifactState\Readme.txt" target="" /></files>
 </package>

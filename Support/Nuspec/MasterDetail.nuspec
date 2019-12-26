@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.MasterDetail.dll" target="lib\net461\Xpand.ExpressApp.MasterDetail.dll" />
     <file src="Xpand.ExpressApp.MasterDetail.pdb" target="lib\net461\Xpand.ExpressApp.MasterDetail.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\MasterDetail\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\MasterDetail\Readme.txt" target="" /></files>
 </package>

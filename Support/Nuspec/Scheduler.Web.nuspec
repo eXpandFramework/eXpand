@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.Scheduler.Web.dll" target="lib\net461\Xpand.ExpressApp.Scheduler.Web.dll" />
     <file src="Xpand.ExpressApp.Scheduler.Web.pdb" target="lib\net461\Xpand.ExpressApp.Scheduler.Web.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\Scheduler.Web\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\Scheduler.Web\Readme.txt" target="" /></files>
 </package>

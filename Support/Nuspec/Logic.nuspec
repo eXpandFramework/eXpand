@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.Logic.dll" target="lib\net461\Xpand.ExpressApp.Logic.dll" />
     <file src="Xpand.ExpressApp.Logic.pdb" target="lib\net461\Xpand.ExpressApp.Logic.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\Logic\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\Logic\Readme.txt" target="" /></files>
 </package>

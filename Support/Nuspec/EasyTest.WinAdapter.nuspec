@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.EasyTest.WinAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
     <file src="Xpand.ExpressApp.EasyTest.WinAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\EasyTest.WinAdapter\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\EasyTest.WinAdapter\Readme.txt" target="" /></files>
 </package>

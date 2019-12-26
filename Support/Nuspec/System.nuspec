@@ -26,5 +26,5 @@
   <files>
     <file src="Xpand.ExpressApp.dll" target="lib\net461\Xpand.ExpressApp.dll" />
     <file src="Xpand.ExpressApp.pdb" target="lib\net461\Xpand.ExpressApp.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\System\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\System\Readme.txt" target="" /></files>
 </package>

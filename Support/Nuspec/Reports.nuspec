@@ -22,5 +22,5 @@
   <files>
     <file src="Xpand.ExpressApp.Reports.dll" target="lib\net461\Xpand.ExpressApp.Reports.dll" />
     <file src="Xpand.ExpressApp.Reports.pdb" target="lib\net461\Xpand.ExpressApp.Reports.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\Reports\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\Reports\Readme.txt" target="" /></files>
 </package>

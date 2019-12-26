@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.StateMachine.dll" target="lib\net461\Xpand.ExpressApp.StateMachine.dll" />
     <file src="Xpand.ExpressApp.StateMachine.pdb" target="lib\net461\Xpand.ExpressApp.StateMachine.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\StateMachine\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\StateMachine\Readme.txt" target="" /></files>
 </package>

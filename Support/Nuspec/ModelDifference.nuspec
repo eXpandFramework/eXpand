@@ -33,5 +33,5 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
   <files>
     <file src="Xpand.ExpressApp.ModelDifference.dll" target="lib\net461\Xpand.ExpressApp.ModelDifference.dll" />
     <file src="Xpand.ExpressApp.ModelDifference.pdb" target="lib\net461\Xpand.ExpressApp.ModelDifference.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\ModelDifference\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ModelDifference\Readme.txt" target="" /></files>
 </package>

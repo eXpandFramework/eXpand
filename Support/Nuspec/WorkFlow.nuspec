@@ -22,5 +22,5 @@
   <files>
     <file src="Xpand.ExpressApp.Workflow.dll" target="lib\net461\Xpand.ExpressApp.Workflow.dll" />
     <file src="Xpand.ExpressApp.Workflow.pdb" target="lib\net461\Xpand.ExpressApp.Workflow.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorkFlow\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorkFlow\Readme.txt" target="" /></files>
 </package>

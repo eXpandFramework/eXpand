@@ -28,5 +28,5 @@
   <files>
     <file src="Xpand.ExpressApp.ExcelImporter.Win.dll" target="lib\net461\Xpand.ExpressApp.ExcelImporter.Win.dll" />
     <file src="Xpand.ExpressApp.ExcelImporter.Win.pdb" target="lib\net461\Xpand.ExpressApp.ExcelImporter.Win.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\ExcelImporter.Win\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ExcelImporter.Win\Readme.txt" target="" /></files>
 </package>

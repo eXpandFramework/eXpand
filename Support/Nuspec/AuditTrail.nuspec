@@ -25,5 +25,5 @@
   <files>
     <file src="Xpand.ExpressApp.AuditTrail.dll" target="lib\net461\Xpand.ExpressApp.AuditTrail.dll" />
     <file src="Xpand.ExpressApp.AuditTrail.pdb" target="lib\net461\Xpand.ExpressApp.AuditTrail.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\AuditTrail\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\AuditTrail\Readme.txt" target="" /></files>
 </package>

@@ -22,5 +22,5 @@
   <files>
     <file src="Xpand.ExpressApp.Security.Win.dll" target="lib\net461\Xpand.ExpressApp.Security.Win.dll" />
     <file src="Xpand.ExpressApp.Security.Win.pdb" target="lib\net461\Xpand.ExpressApp.Security.Win.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\Security.Win\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\Security.Win\Readme.txt" target="" /></files>
 </package>

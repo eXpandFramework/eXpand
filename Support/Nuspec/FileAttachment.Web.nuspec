@@ -22,5 +22,5 @@
   <files>
     <file src="Xpand.ExpressApp.FileAttachment.Web.dll" target="lib\net461\Xpand.ExpressApp.FileAttachment.Web.dll" />
     <file src="Xpand.ExpressApp.FileAttachment.Web.pdb" target="lib\net461\Xpand.ExpressApp.FileAttachment.Web.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\FileAttachment.Web\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\FileAttachment.Web\Readme.txt" target="" /></files>
 </package>

@@ -34,5 +34,5 @@
   <files>
     <file src="Xpand.ExpressApp.ExcelImporter.dll" target="lib\net461\Xpand.ExpressApp.ExcelImporter.dll" />
     <file src="Xpand.ExpressApp.ExcelImporter.pdb" target="lib\net461\Xpand.ExpressApp.ExcelImporter.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\ExcelImporter\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ExcelImporter\Readme.txt" target="" /></files>
 </package>

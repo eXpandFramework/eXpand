@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.EasyTest.WebAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WebAdapter.dll" />
     <file src="Xpand.ExpressApp.EasyTest.WebAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WebAdapter.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\EasyTest.WebAdapter\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\EasyTest.WebAdapter\Readme.txt" target="" /></files>
 </package>

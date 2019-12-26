@@ -22,5 +22,5 @@
   <files>
     <file src="Xpand.ExpressApp.WizardUI.Win.dll" target="lib\net461\Xpand.ExpressApp.WizardUI.Win.dll" />
     <file src="Xpand.ExpressApp.WizardUI.Win.pdb" target="lib\net461\Xpand.ExpressApp.WizardUI.Win.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\WizardUI.Win\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\WizardUI.Win\Readme.txt" target="" /></files>
 </package>

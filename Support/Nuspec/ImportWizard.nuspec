@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.ImportWizard.dll" target="lib\net461\Xpand.ExpressApp.ImportWizard.dll" />
     <file src="Xpand.ExpressApp.ImportWizard.pdb" target="lib\net461\Xpand.ExpressApp.ImportWizard.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\ImportWizard\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ImportWizard\Readme.txt" target="" /></files>
 </package>

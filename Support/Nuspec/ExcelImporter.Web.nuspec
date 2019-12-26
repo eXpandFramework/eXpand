@@ -28,5 +28,5 @@
   <files>
     <file src="Xpand.ExpressApp.ExcelImporter.Web.dll" target="lib\net461\Xpand.ExpressApp.ExcelImporter.Web.dll" />
     <file src="Xpand.ExpressApp.ExcelImporter.Web.pdb" target="lib\net461\Xpand.ExpressApp.ExcelImporter.Web.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\ExcelImporter.Web\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ExcelImporter.Web\Readme.txt" target="" /></files>
 </package>

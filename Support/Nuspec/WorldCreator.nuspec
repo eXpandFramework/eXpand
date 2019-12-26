@@ -27,5 +27,5 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorldCreator\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorldCreator\Readme.txt" target="" /></files>
 </package>

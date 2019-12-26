@@ -22,5 +22,5 @@
   <files>
     <file src="Xpand.ExpressApp.ViewVariants.dll" target="lib\net461\Xpand.ExpressApp.ViewVariants.dll" />
     <file src="Xpand.ExpressApp.ViewVariants.pdb" target="lib\net461\Xpand.ExpressApp.ViewVariants.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\ViewVariants\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ViewVariants\Readme.txt" target="" /></files>
 </package>

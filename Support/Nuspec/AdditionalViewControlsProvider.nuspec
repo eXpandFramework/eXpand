@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net461\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
     <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" target="lib\net461\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\AdditionalViewControlsProvider\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\AdditionalViewControlsProvider\Readme.txt" target="" /></files>
 </package>

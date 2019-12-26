@@ -25,5 +25,5 @@
   <files>
     <file src="Xpand.ExpressApp.PivotChart.dll" target="lib\net461\Xpand.ExpressApp.PivotChart.dll" />
     <file src="Xpand.ExpressApp.PivotChart.pdb" target="lib\net461\Xpand.ExpressApp.PivotChart.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\PivotChart\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\PivotChart\Readme.txt" target="" /></files>
 </package>

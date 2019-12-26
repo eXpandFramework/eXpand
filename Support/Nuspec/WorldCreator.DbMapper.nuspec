@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.DBMapper.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.DBMapper.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.DBMapper.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.DBMapper.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorldCreator.DbMapper\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorldCreator.DbMapper\Readme.txt" target="" /></files>
 </package>

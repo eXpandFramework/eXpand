@@ -23,5 +23,5 @@
   <files>
     <file src="Xpand.ExpressApp.HtmlPropertyEditor.Web.dll" target="lib\net461\Xpand.ExpressApp.HtmlPropertyEditor.Web.dll" />
     <file src="Xpand.ExpressApp.HtmlPropertyEditor.Web.pdb" target="lib\net461\Xpand.ExpressApp.HtmlPropertyEditor.Web.pdb" />
-    <file target="" src="C:\Work\eXpandFramework\expand\Support\Nuspec\HtmlPropertyEditor.Web\Readme.txt" /></files>
+    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\HtmlPropertyEditor.Web\Readme.txt" target="" /></files>
 </package>
