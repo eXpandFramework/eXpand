@@ -24,16 +24,20 @@ else{
 }
 $version
 & "$WorkingDirectory\support\build\go.ps1" -installmodules 
-Write-Verbose -Verbose "##vso[build.updatebuildnumber]$version"
+Set-VsoVariable build.updatebuildnumber $version
 Set-Location $WorkingDirectory
 Move-PaketSource 0 $DXApiFeed
 Push-Location $WorkingDirectory\Xpand.Plugins
 Move-PaketSource 0 $DXApiFeed
 Pop-Location
 
-"Start build.."
+
 Set-location $WorkingDirectory
-Start-XpandProjectConverter -version ([version]::new($Version.Major,$Version.Minor,$Version.Build.ToString().Substring(0,$Version.Build.ToString().Length-2))) -SkipInstall
+Write-HostFormatted "ProjectConverter" -Section
+[version]$pversion=$version
+$pversion=Get-DevExpressVersion $version -Build
+Start-XpandProjectConverter -version $pversion -SkipInstall
+"Start build.."
 $buildArgs=@{
    packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$DXApiFeed","$BetaFeed")
    configuration="Release"
