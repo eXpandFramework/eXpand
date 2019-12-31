@@ -1,9 +1,10 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "19.2.404.7",
+    [string]$version = "19.2.501.4",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )
+Write-HostFormatted "Create Nuget for $version"
 $ErrorActionPreference = "Stop"
 Use-MonoCecil | Out-Null
 
@@ -35,7 +36,7 @@ $nuspecs = Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" -recurse | F
     }
 }
 
-$nuspecs | Where-Object { $_ -like "*lib*" } | ForEach-Object {   
+$nuspecs | ForEach-Object {   
     # $nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {   
     $name = ($_.FileInfo.BaseName)
     Write-Output "--------------------Updating $name-----------------------" 
@@ -58,6 +59,7 @@ $nuspecs | Where-Object { $_ -like "*lib*" } | ForEach-Object {
         $nuspec.package.metaData.dependencies.RemoveAll()
     }
     $project | ForEach-Object {
+        Push-Location $_.DirectoryName
         [xml]$csproj = Get-Content $_.FullName
         
         $xpandMoleReference = $csproj.project.ItemGroup.Reference | Where-Object { $_.include -like "Xpand.ExpressApp*" }
@@ -77,10 +79,14 @@ $nuspecs | Where-Object { $_ -like "*lib*" } | ForEach-Object {
         Get-PackageReference $_.FullName | Where-Object { $_.id -notlike "DevExpress*" } | ForEach-Object {
             Add-NuspecDependency $_.id $_.version $nuspec
         }
+        Pop-Location
     }
     
     $sortedDeps = $nuspec.package.metadata.dependencies.dependency | Sort-Object id -Unique
-    $nuspec.package.metadata.dependencies.RemoveAll()
+    if ($nuspec.package.metadata.dependencies){
+        $nuspec.package.metadata.dependencies.RemoveAll()
+    }
+    
     $sortedDeps | Add-NuspecDependency -Nuspec $nuspec
     $nuspec.Save($_.FileInfo.FullName)
     Format-Xml -path $_.FileInfo.FullName
@@ -211,7 +217,7 @@ $nuspecs | foreach {
 if ($nuspecs.Count -ne (Get-ChildItem "$root\Build\Nuget").count){
     throw "Nugget count does not match nuspec"
 }
-Write-HostFormatted "Updating ReadMe" -Section
+
 $packageDir = "$root\Build\_package\$Version"
 New-Item $packageDir -ItemType Directory -Force | Out-Null
 Compress-Archive -DestinationPath "$packageDir\Nupkg-$Version.zip" -path "$root\Build\Nuget\*" -Force

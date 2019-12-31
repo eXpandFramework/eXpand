@@ -14,15 +14,14 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
-      <dependency id="ExcelDataReader.DataSet" version="3.6" />
-      <dependency id="eXpandExcelImporter" version="19.2.402.4" />
-      <dependency id="eXpandLib" version="19.2.402.4" />
-      <dependency id="eXpandSystem" version="19.2.402.4" />
-      <dependency id="eXpandSystemWeb" version="19.2.402.4" />
-      <dependency id="eXpandValidationWeb" version="19.2.402.4" />
-      <dependency id="System.IO.Compression" version="4.3" />
-      <dependency id="System.Reactive" version="4.2" />
-      <dependency id="Xpand.Extensions.XAF" version="2.192.20" />
+      <dependency version="3.6" id="ExcelDataReader.DataSet" />
+      <dependency version="19.2.501.4" id="eXpandExcelImporter" />
+      <dependency version="19.2.501.4" id="eXpandSystem" />
+      <dependency version="19.2.501.4" id="eXpandSystemWeb" />
+      <dependency version="19.2.501.4" id="eXpandValidationWeb" />
+      <dependency version="4.3" id="System.IO.Compression" />
+      <dependency version="4.2" id="System.Reactive" />
+      <dependency version="2.192.20.2" id="Xpand.Extensions.XAF" />
     </dependencies>
   </metadata>
   <files>

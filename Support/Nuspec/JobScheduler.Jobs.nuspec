@@ -14,11 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
-      <dependency id="eXpandJobScheduler" version="19.2.402.4" />
-      <dependency id="eXpandLib" version="19.2.402.4" />
-      <dependency id="Quartz" version="2.2.4" />
-      <dependency id="RazorEngine" version="3.10" />
-      <dependency id="System.ValueTuple" version="4.5" />
+      <dependency version="19.2.501.4" id="eXpandJobScheduler" />
+      <dependency version="2.2.4" id="Quartz" />
+      <dependency version="3.10" id="RazorEngine" />
+      <dependency version="4.5" id="System.ValueTuple" />
     </dependencies>
   </metadata>
   <files>

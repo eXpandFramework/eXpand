@@ -14,16 +14,16 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="Fasterflect.Xpand" version="2.0.7" />
-      <dependency id="Mono.Cecil" version="0.11.1" />
-      <dependency id="Newtonsoft.Json" version="12.0.2" />
-      <dependency id="System.CodeDom" version="4.6" />
-      <dependency id="System.Configuration.ConfigurationManager" version="4.6" />
-      <dependency id="System.Drawing.Common" version="4.7" />
-      <dependency id="System.Management" version="4.5" />
-      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.7" />
-      <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Patcher" version="1.0.1" />
+      <dependency version="2.0.7" id="Fasterflect.Xpand" />
+      <dependency version="0.11.1" id="Mono.Cecil" />
+      <dependency version="12.0.2" id="Newtonsoft.Json" />
+      <dependency version="4.6" id="System.CodeDom" />
+      <dependency version="4.6" id="System.Configuration.ConfigurationManager" />
+      <dependency version="4.7" id="System.Drawing.Common" />
+      <dependency version="4.5" id="System.Management" />
+      <dependency version="4.7" id="System.Runtime.CompilerServices.Unsafe" />
+      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency version="1.0.1" id="Xpand.Patcher" />
     </dependencies>
   </metadata>
   <files>

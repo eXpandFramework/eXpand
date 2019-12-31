@@ -16,11 +16,10 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.402.4" />
-      <dependency id="eXpandSystem" version="19.2.402.4" />
-      <dependency id="eXpandSystemWeb" version="19.2.402.4" />
-      <dependency id="eXpandWorldCreator" version="19.2.402.4" />
-      <dependency id="System.ValueTuple" version="4.5" />
+      <dependency version="19.2.501.4" id="eXpandSystem" />
+      <dependency version="19.2.501.4" id="eXpandSystemWeb" />
+      <dependency version="19.2.501.4" id="eXpandWorldCreator" />
+      <dependency version="4.5" id="System.ValueTuple" />
     </dependencies>
   </metadata>
   <files>

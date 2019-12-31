@@ -23,11 +23,10 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.402.4" />
-      <dependency id="eXpandSecurity" version="19.2.402.4" />
-      <dependency id="eXpandViewVariants" version="19.2.402.4" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.192.27" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.4" />
+      <dependency version="19.2.501.4" id="eXpandSecurity" />
+      <dependency version="19.2.501.4" id="eXpandViewVariants" />
+      <dependency version="2.192.27.2" id="Xpand.XAF.Modules.CloneModelView" />
+      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelViewInheritance" />
     </dependencies>
   </metadata>
   <files>
