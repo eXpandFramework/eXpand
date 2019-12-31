@@ -139,7 +139,8 @@ Write-HostFormatted "packing nuspecs"
 Get-ChildItem "$root\build\Nuget" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 
 # Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -VariablesToImport @("modules","Nuget","version","root") -Script {    
-Get-ChildItem "$root\Support\Nuspec" *.nuspec | foreach {    
+$nuspecs=Get-ChildItem "$root\Support\Nuspec" *.nuspec
+$nuspecs | foreach {    
     if (!$Version){
         throw
     }
@@ -207,7 +208,9 @@ Get-ChildItem "$root\Support\Nuspec" *.nuspec | foreach {
     
     
 }
-
+if ($nuspecs.Count -ne (Get-ChildItem "$root\Build\Nuget").count){
+    throw "Nugget count does not match nuspec"
+}
 Write-HostFormatted "Updating ReadMe" -Section
 $packageDir = "$root\Build\_package\$Version"
 New-Item $packageDir -ItemType Directory -Force | Out-Null
