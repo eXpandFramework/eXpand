@@ -14,13 +14,14 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandLogic" />
-      <dependency version="19.2.501.4" id="eXpandSecurity" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelViewInheritance" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandLogic" version="19.2.501.4" />
+      <dependency id="eXpandSecurity" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net461\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
     <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" target="lib\net461\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\AdditionalViewControlsProvider\Readme.txt" target="" /></files>
+    </files>
 </package>

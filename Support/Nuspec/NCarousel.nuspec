@@ -14,10 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
+      <dependency id="eXpandLib" version="19.2.501.4" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.NCarousel.dll" target="lib\net461\Xpand.NCarousel.dll" />
     <file src="Xpand.NCarousel.pdb" target="lib\net461\Xpand.NCarousel.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\NCarousel\Readme.txt" target="" /></files>
+    </files>
 </package>

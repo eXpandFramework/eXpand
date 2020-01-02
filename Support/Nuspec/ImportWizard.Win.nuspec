@@ -14,14 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
     <dependencies>
-      <dependency version="2.7.2" id="DocumentFormat.OpenXml" />
-      <dependency version="19.2.501.4" id="eXpandImportWizard" />
-      <dependency version="4.6" id="System.Resources.Extensions" />
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="DocumentFormat.OpenXml" version="2.7.2" />
+      <dependency id="eXpandImportWizard" version="19.2.501.4" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="System.Resources.Extensions" version="4.6" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\net461\Xpand.ExpressApp.ImportWizard.Win.dll" />
     <file src="Xpand.ExpressApp.ImportWizard.Win.pdb" target="lib\net461\Xpand.ExpressApp.ImportWizard.Win.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ImportWizard.Win\Readme.txt" target="" /></files>
+    </files>
 </package>

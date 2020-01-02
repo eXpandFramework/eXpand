@@ -16,14 +16,15 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandSystemWin" />
-      <dependency version="19.2.501.4" id="eXpandWorldCreator" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelMapper" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.Reactive.Logger" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandSystemWin" version="19.2.501.4" />
+      <dependency id="eXpandWorldCreator" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.Win.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.Win.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.Win.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.Win.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorldCreator.Win\Readme.txt" target="" /></files>
+    </files>
 </package>

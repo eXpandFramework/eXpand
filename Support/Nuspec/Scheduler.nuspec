@@ -14,12 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelMapper" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.Reactive.Logger" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.Scheduler.dll" target="lib\net461\Xpand.ExpressApp.Scheduler.dll" />
     <file src="Xpand.ExpressApp.Scheduler.pdb" target="lib\net461\Xpand.ExpressApp.Scheduler.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\Scheduler\Readme.txt" target="" /></files>
+    </files>
 </package>

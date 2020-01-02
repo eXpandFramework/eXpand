@@ -14,14 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#masterdetail</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandLogic" />
-      <dependency version="19.2.501.4" id="eXpandMasterDetail" />
-      <dependency version="19.2.501.4" id="eXpandSystemWin" />
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandLogic" version="19.2.501.4" />
+      <dependency id="eXpandMasterDetail" version="19.2.501.4" />
+      <dependency id="eXpandSystemWin" version="19.2.501.4" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.MasterDetail.Win.dll" target="lib\net461\Xpand.ExpressApp.MasterDetail.Win.dll" />
     <file src="Xpand.ExpressApp.MasterDetail.Win.pdb" target="lib\net461\Xpand.ExpressApp.MasterDetail.Win.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\MasterDetail.Win\Readme.txt" target="" /></files>
+    </files>
 </package>

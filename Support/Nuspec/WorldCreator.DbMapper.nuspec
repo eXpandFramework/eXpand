@@ -14,13 +14,14 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#DBMapper</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandWorldCreator" />
-      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.HideToolBar" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelViewInheritance" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandWorldCreator" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.192.28.2" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.DBMapper.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.DBMapper.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.DBMapper.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.DBMapper.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorldCreator.DbMapper\Readme.txt" target="" /></files>
+    </files>
 </package>

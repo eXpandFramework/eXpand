@@ -63,7 +63,7 @@ $nuspecs | ForEach-Object {
         [xml]$csproj = Get-Content $_.FullName
         
         $xpandMoleReference = $csproj.project.ItemGroup.Reference | Where-Object { $_.include -like "Xpand.ExpressApp*" }
-        if ($name -ne "lib" -and $libRefs) {
+        if ($name -ne "lib") {
             $libRefs = $csproj.project.ItemGroup.Reference | Where-Object { $_.include -like "Xpand.*" -and $_ -notin $xpandMoleReference } | Select-Object -First 1
             $assemblyPath = Get-Item (Resolve-Path $libRefs.hintpath)
             $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($assemblyPath.FullName).FileVersion
@@ -101,7 +101,7 @@ $libNuspec.package.files.RemoveAll()
 $libTargetFramework = $libCsproj.project.propertygroup.targetFramework
 "dll", "pdb" | ForEach-Object {
     $ext = $_
-    "Xpand.xpo", "Xpand.Utils", "Xpand.Persistent.BaseImpl" | ForEach-Object {
+    "Xpand.xpo", "Xpand.Utils", "Xpand.Persistent.BaseImpl","Xpand.Persistent.Base" | ForEach-Object {
         $id = "$_.$ext"
         Add-XmlElement $libNuspec "file" "files" ([ordered]@{
             src    = $id
@@ -205,7 +205,7 @@ $nuspecs | foreach {
     Remove-Item $readmePath -Force -Recurse
     
     if ($nuspec.package.files.file){
-        $file=$nuspec.package.files.file|Where-Object{$_.src -like "*readmme.txt"}
+        $file=$nuspec.package.files.file|Where-Object{$_.src -like "*Readme*"}
         if ($file){
             $nuspec.package.files.removechild($file)
         }

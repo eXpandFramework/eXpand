@@ -14,14 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandJobScheduler" />
-      <dependency version="2.2.4" id="Quartz" />
-      <dependency version="3.10" id="RazorEngine" />
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="eXpandJobScheduler" version="19.2.501.4" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="Quartz" version="2.2.4" />
+      <dependency id="RazorEngine" version="3.10" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.JobScheduler.Jobs.dll" target="lib\net461\Xpand.ExpressApp.JobScheduler.Jobs.dll" />
     <file src="Xpand.ExpressApp.JobScheduler.Jobs.pdb" target="lib\net461\Xpand.ExpressApp.JobScheduler.Jobs.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\JobScheduler.Jobs\Readme.txt" target="" /></files>
+    </files>
 </package>

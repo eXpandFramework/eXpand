@@ -14,14 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency version="0.8" id="Ryder" />
-      <dependency version="2.192.27.2" id="Xpand.XAF.Modules.CloneModelView" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.Reactive.Logger" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ViewEditMode" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="Ryder" version="0.8" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.192.27.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.4.2" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.Dashboard.dll" target="lib\net461\Xpand.ExpressApp.Dashboard.dll" />
     <file src="Xpand.ExpressApp.Dashboard.pdb" target="lib\net461\Xpand.ExpressApp.Dashboard.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\Dashboard\Readme.txt" target="" /></files>
+    </files>
 </package>

@@ -14,11 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net461\Xpand.ExpressApp.NCarousel.Web.dll" />
     <file src="Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net461\Xpand.ExpressApp.NCarousel.Web.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\NCarousel.Web\Readme.txt" target="" /></files>
+    </files>
 </package>

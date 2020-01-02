@@ -14,14 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#PivotGrid</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandDashboard" />
-      <dependency version="19.2.501.4" id="eXpandSystemWin" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelMapper" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.Reactive.Logger" />
+      <dependency id="eXpandDashboard" version="19.2.501.4" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandSystemWin" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.PivotGrid.Win.dll" target="lib\net461\Xpand.ExpressApp.PivotGrid.Win.dll" />
     <file src="Xpand.ExpressApp.PivotGrid.Win.pdb" target="lib\net461\Xpand.ExpressApp.PivotGrid.Win.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\PivotGrid.Win\Readme.txt" target="" /></files>
+    </files>
 </package>

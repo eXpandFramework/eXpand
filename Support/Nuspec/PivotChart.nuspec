@@ -14,15 +14,16 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandLogic" />
-      <dependency version="19.2.501.4" id="eXpandModelArtifactState" />
-      <dependency version="19.2.501.4" id="eXpandSecurity" />
-      <dependency version="19.2.501.4" id="eXpandValidation" />
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandLogic" version="19.2.501.4" />
+      <dependency id="eXpandModelArtifactState" version="19.2.501.4" />
+      <dependency id="eXpandSecurity" version="19.2.501.4" />
+      <dependency id="eXpandValidation" version="19.2.501.4" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.PivotChart.dll" target="lib\net461\Xpand.ExpressApp.PivotChart.dll" />
     <file src="Xpand.ExpressApp.PivotChart.pdb" target="lib\net461\Xpand.ExpressApp.PivotChart.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\PivotChart\Readme.txt" target="" /></files>
+    </files>
 </package>

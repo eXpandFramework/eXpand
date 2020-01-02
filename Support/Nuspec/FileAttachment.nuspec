@@ -14,11 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#FileAttachment</projectUrl>
     <dependencies>
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.FileAttachment.dll" target="lib\net461\Xpand.ExpressApp.FileAttachment.dll" />
     <file src="Xpand.ExpressApp.FileAttachment.pdb" target="lib\net461\Xpand.ExpressApp.FileAttachment.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\FileAttachment\Readme.txt" target="" /></files>
+    </files>
 </package>

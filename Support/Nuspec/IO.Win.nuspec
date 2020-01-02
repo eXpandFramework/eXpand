@@ -14,14 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
-      <dependency version="1.11" id="DotNetZip" />
-      <dependency version="19.2.501.4" id="eXpandIO" />
-      <dependency version="19.2.501.4" id="eXpandTreelistViewWin" />
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="DotNetZip" version="1.11" />
+      <dependency id="eXpandIO" version="19.2.501.4" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandTreelistViewWin" version="19.2.501.4" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.IO.Win.dll" target="lib\net461\Xpand.ExpressApp.IO.Win.dll" />
     <file src="Xpand.ExpressApp.IO.Win.pdb" target="lib\net461\Xpand.ExpressApp.IO.Win.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\IO.Win\Readme.txt" target="" /></files>
+    </files>
 </package>

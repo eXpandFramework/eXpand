@@ -23,14 +23,15 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandSecurity" />
-      <dependency version="19.2.501.4" id="eXpandViewVariants" />
-      <dependency version="2.192.27.2" id="Xpand.XAF.Modules.CloneModelView" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelViewInheritance" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandSecurity" version="19.2.501.4" />
+      <dependency id="eXpandViewVariants" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.192.27.2" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.ModelDifference.dll" target="lib\net461\Xpand.ExpressApp.ModelDifference.dll" />
     <file src="Xpand.ExpressApp.ModelDifference.pdb" target="lib\net461\Xpand.ExpressApp.ModelDifference.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\ModelDifference\Readme.txt" target="" /></files>
+    </files>
 </package>

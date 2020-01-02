@@ -16,15 +16,16 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency version="1.0.4.3" id="AppDomainToolkit" />
-      <dependency version="19.2.501.4" id="eXpandValidation" />
-      <dependency version="4.7" id="Microsoft.CSharp" />
-      <dependency version="0.11.1" id="Mono.Cecil" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelViewInheritance" />
+      <dependency id="AppDomainToolkit" version="1.0.4.3" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandValidation" version="19.2.501.4" />
+      <dependency id="Microsoft.CSharp" version="4.7" />
+      <dependency id="Mono.Cecil" version="0.11.1" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\WorldCreator\Readme.txt" target="" /></files>
+    </files>
 </package>

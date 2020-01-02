@@ -14,12 +14,13 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <description>DevExpress eXpandFramework System Module (Web). To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandSystem" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelMapper" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandSystem" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.Web.dll" target="lib\net461\Xpand.ExpressApp.Web.dll" />
     <file src="Xpand.ExpressApp.Web.pdb" target="lib\net461\Xpand.ExpressApp.Web.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\System.Web\Readme.txt" target="" /></files>
+    </files>
 </package>

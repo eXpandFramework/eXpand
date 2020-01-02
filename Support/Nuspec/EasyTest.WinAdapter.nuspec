@@ -14,13 +14,14 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandSystemWin" />
-      <dependency version="2.0.7" id="Fasterflect.Xpand" />
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandSystemWin" version="19.2.501.4" />
+      <dependency id="Fasterflect.Xpand" version="2.0.7" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.EasyTest.WinAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
     <file src="Xpand.ExpressApp.EasyTest.WinAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\EasyTest.WinAdapter\Readme.txt" target="" /></files>
+    </files>
 </package>

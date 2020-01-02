@@ -14,18 +14,19 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandDashboard" />
-      <dependency version="19.2.501.4" id="eXpandSecurity" />
-      <dependency version="19.2.501.4" id="eXpandSecurityWeb" />
-      <dependency version="19.2.501.4" id="eXpandSystem" />
-      <dependency version="19.2.501.4" id="eXpandSystemWeb" />
-      <dependency version="0.8" id="Ryder" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelMapper" />
-      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.SuppressConfirmation" />
+      <dependency id="eXpandDashboard" version="19.2.501.4" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandSecurity" version="19.2.501.4" />
+      <dependency id="eXpandSecurityWeb" version="19.2.501.4" />
+      <dependency id="eXpandSystem" version="19.2.501.4" />
+      <dependency id="eXpandSystemWeb" version="19.2.501.4" />
+      <dependency id="Ryder" version="0.8" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4.2" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="2.192.28.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.XtraDashboard.Web.dll" target="lib\net461\Xpand.ExpressApp.XtraDashboard.Web.dll" />
     <file src="Xpand.ExpressApp.XtraDashboard.Web.pdb" target="lib\net461\Xpand.ExpressApp.XtraDashboard.Web.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\XtraDashboard.Web\Readme.txt" target="" /></files>
+    </files>
 </package>

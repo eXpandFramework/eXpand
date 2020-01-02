@@ -14,11 +14,12 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.MapView.dll" target="lib\net461\Xpand.ExpressApp.MapView.dll" />
     <file src="Xpand.ExpressApp.MapView.pdb" target="lib\net461\Xpand.ExpressApp.MapView.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\MapView\Readme.txt" target="" /></files>
+    </files>
 </package>

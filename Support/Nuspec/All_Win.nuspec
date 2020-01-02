@@ -14,28 +14,28 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandAdditionalViewControlsProviderWin" />
-      <dependency version="19.2.501.4" id="eXpandChartWin" />
-      <dependency version="19.2.501.4" id="eXpandEasyTestWin" />
-      <dependency version="19.2.501.4" id="eXpandExcelImporter.Win" />
-      <dependency version="19.2.501.4" id="eXpandImportWizardWin2" />
-      <dependency version="19.2.501.4" id="eXpandIOWin" />
-      <dependency version="19.2.501.4" id="eXpandMasterDetailWin" />
-      <dependency version="19.2.501.4" id="eXpandModelDifferenceWin" />
-      <dependency version="19.2.501.4" id="eXpandPivotChartWin" />
-      <dependency version="19.2.501.4" id="eXpandPivotGridWin" />
-      <dependency version="19.2.501.4" id="eXpandReportsWin" />
-      <dependency version="19.2.501.4" id="eXpandReportsV2Win" />
-      <dependency version="19.2.501.4" id="eXpandSchedulerWin" />
-      <dependency version="19.2.501.4" id="eXpandSecurityWin" />
-      <dependency version="19.2.501.4" id="eXpandSystemWin" />
-      <dependency version="19.2.501.4" id="eXpandTreelistViewWin" />
-      <dependency version="19.2.501.4" id="eXpandValidationWin" />
-      <dependency version="19.2.501.4" id="eXpandWizardWin" />
-      <dependency version="19.2.501.4" id="eXpandWorldCreatorWin" />
-      <dependency version="19.2.501.4" id="eXpandXtraDashboardWin" />
+      <dependency id="eXpandAdditionalViewControlsProviderWin" version="19.2.501.4" />
+      <dependency id="eXpandChartWin" version="19.2.501.4" />
+      <dependency id="eXpandEasyTestWin" version="19.2.501.4" />
+      <dependency id="eXpandExcelImporter.Win" version="19.2.501.4" />
+      <dependency id="eXpandImportWizardWin2" version="19.2.501.4" />
+      <dependency id="eXpandIOWin" version="19.2.501.4" />
+      <dependency id="eXpandMasterDetailWin" version="19.2.501.4" />
+      <dependency id="eXpandModelDifferenceWin" version="19.2.501.4" />
+      <dependency id="eXpandPivotChartWin" version="19.2.501.4" />
+      <dependency id="eXpandPivotGridWin" version="19.2.501.4" />
+      <dependency id="eXpandReportsWin" version="19.2.501.4" />
+      <dependency id="eXpandReportsV2Win" version="19.2.501.4" />
+      <dependency id="eXpandSchedulerWin" version="19.2.501.4" />
+      <dependency id="eXpandSecurityWin" version="19.2.501.4" />
+      <dependency id="eXpandSystemWin" version="19.2.501.4" />
+      <dependency id="eXpandTreelistViewWin" version="19.2.501.4" />
+      <dependency id="eXpandValidationWin" version="19.2.501.4" />
+      <dependency id="eXpandWizardWin" version="19.2.501.4" />
+      <dependency id="eXpandWorldCreatorWin" version="19.2.501.4" />
+      <dependency id="eXpandXtraDashboardWin" version="19.2.501.4" />
     </dependencies>
   </metadata>
   <files>
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\All_Win\Readme.txt" target="" /></files>
+    </files>
 </package>

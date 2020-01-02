@@ -14,12 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Reports</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandReports" />
-      <dependency version="4.5" id="System.ValueTuple" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="eXpandReports" version="19.2.501.4" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.Reports.Win.dll" target="lib\net461\Xpand.ExpressApp.Reports.Win.dll" />
     <file src="Xpand.ExpressApp.Reports.Win.pdb" target="lib\net461\Xpand.ExpressApp.Reports.Win.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\Reports.Win\Readme.txt" target="" /></files>
+    </files>
 </package>

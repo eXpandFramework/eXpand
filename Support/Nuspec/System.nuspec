@@ -14,16 +14,17 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.CloneMemberValue" />
-      <dependency version="2.192.27.2" id="Xpand.XAF.Modules.CloneModelView" />
-      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.HideToolBar" />
-      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.ProgressBarViewItem" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.Reactive.Logger" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.RefreshView" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="2.192.4.2" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.192.27.2" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.192.28.2" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="2.192.28.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.4.2" />
+      <dependency id="Xpand.XAF.Modules.RefreshView" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.dll" target="lib\net461\Xpand.ExpressApp.dll" />
     <file src="Xpand.ExpressApp.pdb" target="lib\net461\Xpand.ExpressApp.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\System\Readme.txt" target="" /></files>
+    </files>
 </package>

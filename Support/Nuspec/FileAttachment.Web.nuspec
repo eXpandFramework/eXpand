@@ -14,12 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#FileAttachment</projectUrl>
     <dependencies>
-      <dependency version="19.2.501.4" id="eXpandFileAttachment" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelMapper" />
+      <dependency id="eXpandFileAttachment" version="19.2.501.4" />
+      <dependency id="eXpandLib" version="19.2.501.4" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.192.4.2" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.FileAttachment.Web.dll" target="lib\net461\Xpand.ExpressApp.FileAttachment.Web.dll" />
     <file src="Xpand.ExpressApp.FileAttachment.Web.pdb" target="lib\net461\Xpand.ExpressApp.FileAttachment.Web.pdb" />
-    <file src="C:\Work\eXpandFramework\expand\Support\Nuspec\FileAttachment.Web\Readme.txt" target="" /></files>
+    </files>
 </package>
