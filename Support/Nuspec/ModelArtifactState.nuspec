@@ -14,12 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#modelartifact</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.501.4" />
-      <dependency id="eXpandLogic" version="19.2.501.4" />
-      <dependency id="eXpandSecurity" version="19.2.501.4" />
-      <dependency id="eXpandValidation" version="19.2.501.4" />
-      <dependency id="Mono.Cecil" version="0.11.1" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.192.4.2" />
+      <dependency version="19.2.502.0" id="eXpandLib" />
+      <dependency version="19.2.502.0" id="eXpandLogic" />
+      <dependency version="19.2.502.0" id="eXpandSecurity" />
+      <dependency version="19.2.502.0" id="eXpandValidation" />
+      <dependency version="0.11.1" id="Mono.Cecil" />
+      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ModelViewInheritance" />
     </dependencies>
   </metadata>
   <files>

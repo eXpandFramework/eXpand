@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
-      <dependency id="eXpandAdditionalViewControlsProvider" version="19.2.501.4" />
-      <dependency id="eXpandLib" version="19.2.501.4" />
-      <dependency id="eXpandLogic" version="19.2.501.4" />
-      <dependency id="eXpandValidation" version="19.2.501.4" />
-      <dependency id="Fasterflect.Xpand" version="2.0.7" />
-      <dependency id="Quartz" version="2.2.4" />
-      <dependency id="System.ValueTuple" version="4.5" />
+      <dependency version="19.2.502.0" id="eXpandAdditionalViewControlsProvider" />
+      <dependency version="19.2.502.0" id="eXpandLib" />
+      <dependency version="19.2.502.0" id="eXpandLogic" />
+      <dependency version="19.2.502.0" id="eXpandValidation" />
+      <dependency version="2.0.7" id="Fasterflect.Xpand" />
+      <dependency version="2.2.4" id="Quartz" />
+      <dependency version="4.5" id="System.ValueTuple" />
     </dependencies>
   </metadata>
   <files>

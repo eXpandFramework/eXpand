@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.501.4" />
-      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="2.192.4.2" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.192.27.2" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.192.28.2" />
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="2.192.28.2" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.192.4.2" />
-      <dependency id="Xpand.XAF.Modules.RefreshView" version="2.192.4.2" />
+      <dependency version="19.2.502.0" id="eXpandLib" />
+      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.CloneMemberValue" />
+      <dependency version="2.192.27.2" id="Xpand.XAF.Modules.CloneModelView" />
+      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.HideToolBar" />
+      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.ProgressBarViewItem" />
+      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.Reactive.Logger" />
+      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.RefreshView" />
     </dependencies>
   </metadata>
   <files>
