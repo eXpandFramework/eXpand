@@ -15,9 +15,9 @@
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
       <dependency version="1.11" id="DotNetZip" />
-      <dependency version="19.2.502.0" id="eXpandIO" />
-      <dependency version="19.2.502.0" id="eXpandLib" />
-      <dependency version="19.2.502.0" id="eXpandTreelistViewWin" />
+      <dependency version="19.2.502.2" id="eXpandIO" />
+      <dependency version="19.2.502.2" id="eXpandLib" />
+      <dependency version="19.2.502.2" id="eXpandTreelistViewWin" />
       <dependency version="4.5" id="System.ValueTuple" />
     </dependencies>
   </metadata>

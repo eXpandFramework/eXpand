@@ -15,20 +15,20 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency version="3.6" id="ExcelDataReader.DataSet" />
-      <dependency version="19.2.502.0" id="eXpandLib" />
-      <dependency version="19.2.502.0" id="eXpandSystem" />
-      <dependency version="19.2.502.0" id="eXpandValidation" />
+      <dependency version="19.2.502.2" id="eXpandLib" />
+      <dependency version="19.2.502.2" id="eXpandSystem" />
+      <dependency version="19.2.502.2" id="eXpandValidation" />
       <dependency version="0.11.1" id="Mono.Cecil" />
       <dependency version="0.8" id="Ryder" />
       <dependency version="4.3" id="System.IO.Compression" />
-      <dependency version="2.192.29.2" id="Xpand.XAF.Modules.AutoCommit" />
-      <dependency version="2.192.27.2" id="Xpand.XAF.Modules.CloneModelView" />
-      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.HideToolBar" />
-      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.MasterDetail" />
-      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.ProgressBarViewItem" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.Reactive.Logger" />
-      <dependency version="2.192.28.2" id="Xpand.XAF.Modules.SuppressConfirmation" />
-      <dependency version="2.192.4.2" id="Xpand.XAF.Modules.ViewEditMode" />
+      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.AutoCommit" />
+      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.CloneModelView" />
+      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.HideToolBar" />
+      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.MasterDetail" />
+      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.ProgressBarViewItem" />
+      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.Reactive.Logger" />
+      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.SuppressConfirmation" />
+      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.ViewEditMode" />
     </dependencies>
   </metadata>
   <files>

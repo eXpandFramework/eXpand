@@ -23,10 +23,10 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency version="19.2.502.0" id="eXpandLib" />
-      <dependency version="19.2.502.0" id="eXpandModelDifference" />
-      <dependency version="19.2.502.0" id="eXpandSecurity" />
-      <dependency version="19.2.502.0" id="eXpandSecurityWeb" />
+      <dependency version="19.2.502.2" id="eXpandLib" />
+      <dependency version="19.2.502.2" id="eXpandModelDifference" />
+      <dependency version="19.2.502.2" id="eXpandSecurity" />
+      <dependency version="19.2.502.2" id="eXpandSecurityWeb" />
       <dependency version="4.5" id="System.ValueTuple" />
     </dependencies>
   </metadata>
