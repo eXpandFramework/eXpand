@@ -18,7 +18,7 @@ properties {
 }
 
 
-Task Release -depends Clean, Version,Init, CompileModules,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
+Task Release -depends Clean, Version,Init, CompileModules,CheckStandalonePackageVersions,CompileDemos,VSIX ,IndexSources, Finalize,CreateNuGets,Installer
 Task Lab -depends Clean,Version,Init,CompileModules,CompileDemos
 
 
@@ -215,6 +215,19 @@ task Clean -precondition {return $clean} {
         }
         Clear-ProjectDirectories $root
         
+    }
+}
+
+task CheckStandalonePackageVersions -precondition {return $Release} {
+    exec {
+        Push-Location $root\Xpand.dll
+        if (([version]$version).Revision -eq 0){
+            $labPackages=Get-ChildItem Xpand.XAF*.dll|Where-Object{([version][System.Diagnostics.FileVersionInfo]::GetVersionInfo($_).FileVersion).revision -gt 0}
+            if ($labPackages){
+                $labPackages
+                throw "Lab packages found in a release build"
+            }
+        }
     }
 }
 
