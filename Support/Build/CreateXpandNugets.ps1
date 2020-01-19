@@ -36,8 +36,8 @@ $nuspecs = Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" -recurse | F
     }
 }
 
-$nuspecs | ForEach-Object {   
-    # $nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {   
+# $nuspecs | ForEach-Object {   
+$nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {   
     $name = ($_.FileInfo.BaseName)
     Write-Output "--------------------Updating $name-----------------------" 
     $project = $projects | Where-Object { $_.BaseName -eq "Xpand.ExpressApp.$name" }
@@ -127,7 +127,7 @@ if (Test-Path $modulesJson){
     $modules=Get-Content $modulesJson|ConvertFrom-Json
     if ($assemblyList|Where-Object{!$modules.Assembly.Contains($_.BaseName) -and $_.BaseName -like "Xpand.ExpressApp.*" -and $_.BaseName -notlike "*EasyTest*"}){
         Get-XAFModule "$root\Xpand.dll" -Include "Xpand.ExpressApp.*" -AssemblyList $assemblyList -Verbose|ConvertTo-Json|Set-Content $modulesJson    
-        $modules=Get-Content $modulesJson|ConvertFrom-Json
+        $modules=Get-Content $modulesJson|ConvertFrom-Json|Sort-Object Name
     }
 }
 else{
@@ -136,7 +136,7 @@ else{
         $_
     }
     $m|ConvertTo-Json|Set-Content $modulesJson
-    $modules=Get-Content $modulesJson|ConvertFrom-Json
+    $modules|Sort-Object Name=Get-Content $modulesJson|ConvertFrom-Json|Sort-Object Name
 }
 
 $modules 
@@ -165,8 +165,20 @@ $nuspecs | foreach {
 
     $Package=$_.BaseName
     $module=$modules|Where-Object{$_.assembly.Replace("Xpand.ExpressApp.","") -eq $Package}
+    if ($package -eq "System"){
+        $module=$modules|Where-Object{$_.Name -eq "XpandSystemModule"}
+    }
+    elseif ($package -eq "System.Web"){
+        $module=$modules|Where-Object{$_.Name -eq "XpandSystemAspNetModule"}
+    }
+    elseif ($package -eq "System.Win"){
+        $module=$modules|Where-Object{$_.Name -eq "XpandSystemWindowsFormsModule"}
+    }
     $moduleName = $module.FullName
     New-Item $readmePath -ItemType Directory -Force
+    if (!$moduleName -and $package -notlike "*all*" -and $package -notlike "*easytest*" -and $package -notin @("lib","Ncarousel")){
+        throw $_
+    }
     "moduleName=$moduleName"
     $registration = "RequiredModuleTypes.Add(typeof($moduleName));"
     if ($package -like "*all*") {
@@ -183,7 +195,7 @@ $nuspecs | foreach {
 
 
     
-++++++++++++++++++++++++  ++++++++       ➤ 🅴🆇🅲🅻🆄🆂🅸🆅🅴 🆂🅴🆁🆅🅸🅲🅴🆂?
+++++++++++++++++++++++++  ++++++++       ➤ 🅴🆇🅲🅻🆄🆂🅸🆅🅴 🆂🅴🆁🆅🅸🅲🅴🆂
 ++++++++++++++++++++++##  ++++++++          http://apobekiaris.expandframework.com
 ++++++++++++++++++++++  ++++++++++
 ++++++++++    ++++++  ++++++++++++       ➤  ɪғ ʏᴏᴜ ʟɪᴋᴇ ᴏᴜʀ ᴡᴏʀᴋ ᴘʟᴇᴀsᴇ ᴄᴏɴsɪᴅᴇʀ ᴛᴏ ɢɪᴠᴇ ᴜs ᴀ STAR.

@@ -318,6 +318,12 @@
     "Platform": "Win"
   },
   {
+    "Name": "XpandSystemModule",
+    "FullName": "Xpand.ExpressApp.SystemModule.XpandSystemModule",
+    "Assembly": "Xpand.ExpressApp",
+    "Platform": "Core"
+  },
+  {
     "Name": "WizardUIWindowsFormsModule",
     "FullName": "Xpand.ExpressApp.WizardUI.Win.WizardUIWindowsFormsModule",
     "Assembly": "Xpand.ExpressApp.WizardUI.Win",
