@@ -6,23 +6,29 @@ using DevExpress.ExpressApp;
 namespace Xpand.ExpressApp.Workflow.ScheduledWorkflows {
     public class ScheduledWorkflowStartService : WorkflowStartService<ScheduledWorkflow> {
         protected override bool NeedToStartWorkflow(IObjectSpace objectSpace, ScheduledWorkflow workflow) {
-            foreach (var schedule in workflow.LaunchScheduleItems) {
+            var needStart = false;
+            foreach (var schedule in workflow.LaunchScheduleItems)
                 switch (schedule.StartMode) {
                     case StartMode.OneTime:
-                        return NeedToStartOneTime(workflow, schedule);
+                        if (NeedToStartOneTime(workflow, schedule))
+                            needStart = true;
+                        break;
                     case StartMode.Min:
-                        return NeedToStartMin(workflow, schedule);
-                    case StartMode.Daily: {
-                            return NeedToStartDaily(workflow, schedule);
-                        }
+                        if (NeedToStartMin(workflow, schedule))
+                            needStart = true;
+                        break;
+                    case StartMode.Daily:
+                        if (NeedToStartDaily(workflow, schedule))
+                            needStart = true;
+                        break;
                     case StartMode.Weekly:
-                        if (WeeklyDayMatch(schedule)){
-                            return workflow.LaunchScheduleItems.Count > 0 && NeedToStartWeekly(workflow, schedule);
-                        }
+                        if (WeeklyDayMatch(schedule))
+                            if (workflow.LaunchScheduleItems.Count > 0 && NeedToStartWeekly(workflow, schedule))
+                                needStart = true;
                         break;
                 }
-            }
-            return false;
+
+            return needStart;
         }
 
         bool WeeklyDayMatch(ScheduledWorkflowLaunchSchedule schedule) {
