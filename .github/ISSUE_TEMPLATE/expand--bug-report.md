@@ -7,32 +7,27 @@ assignees: apobekiaris
 
 ---
 
-**Describe the bug**
+𝗗𝗲𝘀𝗰𝗿𝗶𝗯𝗲 𝘁𝗵𝗲 𝗯𝘂𝗴
 A clear and concise description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
+𝗧𝗼 𝗥𝗲𝗽𝗿𝗼𝗱𝘂𝗰𝗲
 1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
-
-**Expected behavior**
+2. Click on '....' and see error.
+𝗘𝘅𝗽𝗲𝗰𝘁𝗲𝗱 𝗯𝗲𝗵𝗮𝘃𝗶𝗼𝗿
 A clear and concise description of what you expected to happen.
-
-**Screenshots**
+𝗦𝗰𝗿𝗲𝗲𝗻𝘀𝗵𝗼𝘁𝘀
 If applicable, add screenshots to help explain your problem.
+𝗛𝗼𝘄 𝘄𝗲 𝗽𝗿𝗶𝗼𝗿𝗶𝘁𝗶𝘇𝗲 𝗶𝘀𝘀𝘂𝗲𝘀
+We will try to answer all questions that do not require research within 24hr.
+To prioritize cases that require research we use the following labels in order.
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+01. ❤ Bronze Sponsor
+02. ❤ Sponsor
+03. ❤ Backer
+04. Installation
+05. ShowStopper
+06. Nuget
+07. Contribution
+08. BreakingChange
+09. ReproSample
+10. Deployment
+11. Must-Have
