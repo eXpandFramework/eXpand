@@ -31,3 +31,5 @@ To prioritize cases that require research we use the following labels in order.
 09. ReproSample
 10. Deployment
 11. Must-Have
+
+For all other issues the posting time is respected.
