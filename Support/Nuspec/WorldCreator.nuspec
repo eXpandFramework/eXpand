@@ -17,8 +17,8 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
       <dependency version="1.0.4.3" id="AppDomainToolkit" />
-      <dependency version="19.2.502.2" id="eXpandLib" />
-      <dependency version="19.2.502.2" id="eXpandValidation" />
+      <dependency version="19.2.502.3" id="eXpandLib" />
+      <dependency version="19.2.502.3" id="eXpandValidation" />
       <dependency version="4.7" id="Microsoft.CSharp" />
       <dependency version="0.11.1" id="Mono.Cecil" />
       <dependency version="2.201.0.1" id="Xpand.XAF.Modules.ModelViewInheritance" />

@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency version="19.2.502.2" id="eXpandLib" />
-      <dependency version="19.2.502.2" id="eXpandLogic" />
-      <dependency version="19.2.502.2" id="eXpandModelArtifactState" />
-      <dependency version="19.2.502.2" id="eXpandSecurity" />
-      <dependency version="19.2.502.2" id="eXpandValidation" />
+      <dependency version="19.2.502.3" id="eXpandLib" />
+      <dependency version="19.2.502.3" id="eXpandLogic" />
+      <dependency version="19.2.502.3" id="eXpandModelArtifactState" />
+      <dependency version="19.2.502.3" id="eXpandSecurity" />
+      <dependency version="19.2.502.3" id="eXpandValidation" />
       <dependency version="4.5" id="System.ValueTuple" />
     </dependencies>
   </metadata>
