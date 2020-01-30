@@ -23,6 +23,7 @@ using DevExpress.Web;
 using DevExpress.Xpo;
 using Xpand.Utils.Helpers;
 using Fasterflect;
+using Xpand.Persistent.Base.General;
 
 namespace Xpand.Persistent.Base.ModelAdapter{
     public class InterfaceBuilderData{
@@ -69,6 +70,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         }
 
         static bool? _runtimeMode;
+        private static bool _skipAssemblyCleanup;
 
         public static bool RuntimeMode{
             get{
@@ -93,7 +95,20 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             set => _loadFromPath = value;
         }
 
-        public static bool SkipAssemblyCleanup { get; set; }
+        public static bool SkipAssemblyCleanup {
+            get => _skipAssemblyCleanup;
+            set {
+                _skipAssemblyCleanup = value;
+                if (_skipAssemblyCleanup) {
+                    var modelMapperModule = ApplicationHelper.Instance.Application.Modules.FirstOrDefault(m => m.Name=="ModelMapperModule");
+                    if (modelMapperModule != null){
+                        var typeMappingServiceType = modelMapperModule.GetType().Assembly
+                            .GetType("Xpand.XAF.Modules.ModelMapper.Services.TypeMapping.TypeMappingService");
+                        typeMappingServiceType.Method("Reset", Flags.StaticPublic).Call(null, true);
+                    }
+                }
+            }
+        }
 
         public Assembly Build(IEnumerable<InterfaceBuilderData> builderDatas, string assemblyFilePath){
             var isAttached = Debugger.IsAttached;
@@ -412,8 +427,8 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                 return (bool) value ? "true" : "false";
             }
             if (type.IsEnum){
-                if (value is int){
-                    value = Enum.ToObject(type, (int) value);
+                if (value is int i){
+                    value = Enum.ToObject(type, i);
                 }
                 return $"{TypeToString(type)}.{value}";
             }
