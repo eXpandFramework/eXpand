@@ -2,6 +2,7 @@
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Controls;
@@ -29,23 +30,17 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             var columns = View.Model.Columns.Where(MemberTypeIsEnum).ToArray();
             return columns.Select(info =>{
                     var gridColumn = FindColumnByModel(gridListEditor, info);
-                    if (gridColumn != null){
-                        var tuple = (column: gridColumn, repositoryItem: gridColumn.ColumnEdit,
-                            info.ModelMember.MemberInfo);
-                        gridColumn.ColumnEdit = new RepositoryItemTextEdit();
-                        return tuple;
-                    }
-                    return default;
+                    return gridColumn != null ? (column: gridColumn, repositoryItem: gridColumn.ColumnEdit,info.ModelMember.MemberInfo) : default;
                 })
                 .Where(_ => _!=default)
                 .ToArray();
         }
 
         private bool MemberTypeIsEnum(IModelColumn modelColumn) {
+            var memberInfoMemberType = modelColumn.ModelMember.MemberInfo.MemberType;
             return typeof(EnumPropertyEditor).IsAssignableFrom(modelColumn.PropertyEditorType) &&
-                   (modelColumn.Index > -1 && (modelColumn.ModelMember.MemberInfo.MemberType.IsEnum ||
-                                               modelColumn.ModelMember.MemberInfo.MemberType.IsNullableType() &&
-                                               modelColumn.ModelMember.MemberInfo.MemberType.GetGenericArguments().First().IsEnum));
+                   (modelColumn.Index > -1 && (memberInfoMemberType.IsEnum || memberInfoMemberType.IsNullableType() &&
+                                               memberInfoMemberType.GetGenericArguments().First().IsEnum));
         }
 
         GridColumn FindColumnByModel(GridListEditor gridListEditor, IModelColumn columnModel){
@@ -57,13 +52,19 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             var data = _data.FirstOrDefault(_ => _.column==e.Column);
             if (data!=default) {
                 var hasFlagsAttribute = EnumPropertyEditor.TypeHasFlagsAttribute(data.memberInfo);
-                var values = EnumsNET.Enums.GetValues(data.memberInfo.MemberType).ToArray();
-                e.RepositoryItem = hasFlagsAttribute? (RepositoryItem) NewRepositoryItemCheckedComboBoxEdit(values,data.repositoryItem): NewRepositoryItemEnumEdit(values,data.repositoryItem);
-                var tuple = hasFlagsAttribute
-                    ? ((ImageComboBoxItem[] startComboBoxItems, CheckedListBoxItem[] startCheckedListBoxItems)) (null,((RepositoryItemCheckedComboBoxEdit) e.RepositoryItem).Items.ToArray())
-                    : (((RepositoryItemEnumEdit) e.RepositoryItem).Items.ToArray(), null);
-                EnumPropertyEditor.FilterRepositoryItem(e.RepositoryItem, data.memberInfo,View.SelectedObjects.Cast<object>().FirstOrDefault(), ObjectSpace, tuple);
+                var repositoryItem = GetRepositoryItem(data, hasFlagsAttribute);
+                var tuple = !hasFlagsAttribute ? (((RepositoryItemEnumEdit) repositoryItem).Items.ToArray(), null)
+                : ((ImageComboBoxItem[] startComboBoxItems, CheckedListBoxItem[] startCheckedListBoxItems)) (null,((RepositoryItemCheckedComboBoxEdit) repositoryItem).Items.ToArray());
+                EnumPropertyEditor.FilterRepositoryItem(repositoryItem, data.memberInfo,View.SelectedObjects.Cast<object>().FirstOrDefault(), ObjectSpace, tuple);
+                e.RepositoryItem=repositoryItem;
             }
+        }
+
+        private RepositoryItem GetRepositoryItem((GridColumn column, RepositoryItem repositoryItem, IMemberInfo memberInfo) data, bool hasFlagsAttribute){
+            var memberType = PropertyEditorHelper.CalcUnderlyingType(data.memberInfo);
+            var values = EnumsNET.Enums.GetValues(memberType).ToArray();
+            return hasFlagsAttribute ? (RepositoryItem) NewRepositoryItemCheckedComboBoxEdit(values, data.repositoryItem)
+                : new RepositoryItemEnumEdit(memberType);
         }
 
         private object[] GetNullItem(RepositoryItem repositoryItem) {
@@ -71,15 +72,8 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 : new object[] {((RepositoryItemEnumEdit) repositoryItem).Items.First()};
         }
 
-        private  RepositoryItemEnumEdit NewRepositoryItemEnumEdit(object[] values,RepositoryItem repositoryItem) {
-            var item = new RepositoryItemEnumEdit();
-            item.Items.AddRange(GetNullItem(repositoryItem).Cast<ImageComboBoxItem>().Concat(values.Select(o => new ImageComboBoxItem(o))).ToArray());
-            return item;
-        }
-
         private  RepositoryItemCheckedComboBoxEdit NewRepositoryItemCheckedComboBoxEdit(object[] values,RepositoryItem dataRepositoryItem) {
             var item = new RepositoryItemCheckedComboBoxEdit();
-
             var checkedListBoxItems = GetNullItem(dataRepositoryItem).Cast<CheckedListBoxItem>().Concat(values.Select(o => new CheckedListBoxItem(o))).ToArray();
             item.Items.AddRange(checkedListBoxItems);
             return item;
