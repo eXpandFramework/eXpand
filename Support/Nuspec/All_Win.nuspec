@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWin</id>
-    <version>19.2.502.3</version>
+    <version>19.2.502.6</version>
     <title>DevExpress eXpandFramework All Win Platform Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,26 +14,26 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
-      <dependency version="19.2.502.3" id="eXpandAdditionalViewControlsProviderWin" />
-      <dependency version="19.2.502.3" id="eXpandChartWin" />
-      <dependency version="19.2.502.3" id="eXpandEasyTestWin" />
-      <dependency version="19.2.502.3" id="eXpandExcelImporter.Win" />
-      <dependency version="19.2.502.3" id="eXpandImportWizardWin2" />
-      <dependency version="19.2.502.3" id="eXpandIOWin" />
-      <dependency version="19.2.502.3" id="eXpandMasterDetailWin" />
-      <dependency version="19.2.502.3" id="eXpandModelDifferenceWin" />
-      <dependency version="19.2.502.3" id="eXpandPivotChartWin" />
-      <dependency version="19.2.502.3" id="eXpandPivotGridWin" />
-      <dependency version="19.2.502.3" id="eXpandReportsWin" />
-      <dependency version="19.2.502.3" id="eXpandReportsV2Win" />
-      <dependency version="19.2.502.3" id="eXpandSchedulerWin" />
-      <dependency version="19.2.502.3" id="eXpandSecurityWin" />
-      <dependency version="19.2.502.3" id="eXpandSystemWin" />
-      <dependency version="19.2.502.3" id="eXpandTreelistViewWin" />
-      <dependency version="19.2.502.3" id="eXpandValidationWin" />
-      <dependency version="19.2.502.3" id="eXpandWizardWin" />
-      <dependency version="19.2.502.3" id="eXpandWorldCreatorWin" />
-      <dependency version="19.2.502.3" id="eXpandXtraDashboardWin" />
+      <dependency id="eXpandAdditionalViewControlsProviderWin" version="19.2.502.6" />
+      <dependency id="eXpandChartWin" version="19.2.502.6" />
+      <dependency id="eXpandEasyTestWin" version="19.2.502.6" />
+      <dependency id="eXpandExcelImporter.Win" version="19.2.502.6" />
+      <dependency id="eXpandImportWizardWin2" version="19.2.502.6" />
+      <dependency id="eXpandIOWin" version="19.2.502.6" />
+      <dependency id="eXpandMasterDetailWin" version="19.2.502.6" />
+      <dependency id="eXpandModelDifferenceWin" version="19.2.502.6" />
+      <dependency id="eXpandPivotChartWin" version="19.2.502.6" />
+      <dependency id="eXpandPivotGridWin" version="19.2.502.6" />
+      <dependency id="eXpandReportsWin" version="19.2.502.6" />
+      <dependency id="eXpandReportsV2Win" version="19.2.502.6" />
+      <dependency id="eXpandSchedulerWin" version="19.2.502.6" />
+      <dependency id="eXpandSecurityWin" version="19.2.502.6" />
+      <dependency id="eXpandSystemWin" version="19.2.502.6" />
+      <dependency id="eXpandTreelistViewWin" version="19.2.502.6" />
+      <dependency id="eXpandValidationWin" version="19.2.502.6" />
+      <dependency id="eXpandWizardWin" version="19.2.502.6" />
+      <dependency id="eXpandWorldCreatorWin" version="19.2.502.6" />
+      <dependency id="eXpandXtraDashboardWin" version="19.2.502.6" />
     </dependencies>
   </metadata>
   <files>

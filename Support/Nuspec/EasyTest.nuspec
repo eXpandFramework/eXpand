@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency version="2.2.5" id="AForge.Imaging" />
-      <dependency version="2.2.5" id="AForge.Video" />
-      <dependency version="19.2.502.3" id="eXpandLib" />
-      <dependency version="2.0.7" id="Fasterflect.Xpand" />
-      <dependency version="1.0.4" id="InputSimulator" />
+      <dependency id="AForge.Imaging" version="2.2.5" />
+      <dependency id="AForge.Video" version="2.2.5" />
+      <dependency id="eXpandLib" version="19.2.502.6" />
+      <dependency id="Fasterflect.Xpand" version="2.0.7" />
+      <dependency id="InputSimulator" version="1.0.4" />
     </dependencies>
   </metadata>
   <files>

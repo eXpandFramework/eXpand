@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
-      <dependency version="19.2.502.3" id="eXpandLib" />
-      <dependency version="2.201.0.3" id="Xpand.XAF.Modules.ModelMapper" />
-      <dependency version="2.201.0.1" id="Xpand.XAF.Modules.Reactive.Logger" />
+      <dependency id="eXpandLib" version="19.2.502.6" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.201.0.3" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.201.0.1" />
     </dependencies>
   </metadata>
   <files>
