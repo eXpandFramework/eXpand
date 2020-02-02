@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.502.6" />
-      <dependency id="eXpandSecurity" version="19.2.502.6" />
+      <dependency id="eXpandLib" version="19.2.502.8" />
+      <dependency id="eXpandSecurity" version="19.2.502.8" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
