@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.502.9" />
+      <dependency id="eXpandLib" version="19.2.503.0" />
     </dependencies>
   </metadata>
   <files>
