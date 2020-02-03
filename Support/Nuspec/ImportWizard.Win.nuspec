@@ -15,8 +15,8 @@
     <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
     <dependencies>
       <dependency id="DocumentFormat.OpenXml" version="2.7.2" />
-      <dependency id="eXpandImportWizard" version="19.2.502.8" />
-      <dependency id="eXpandLib" version="19.2.502.8" />
+      <dependency id="eXpandImportWizard" version="19.2.502.9" />
+      <dependency id="eXpandLib" version="19.2.502.9" />
       <dependency id="System.Resources.Extensions" version="4.6" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>

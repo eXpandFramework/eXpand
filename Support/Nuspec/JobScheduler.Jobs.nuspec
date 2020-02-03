@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
-      <dependency id="eXpandJobScheduler" version="19.2.502.8" />
-      <dependency id="eXpandLib" version="19.2.502.8" />
+      <dependency id="eXpandJobScheduler" version="19.2.502.9" />
+      <dependency id="eXpandLib" version="19.2.502.9" />
       <dependency id="Quartz" version="2.2.4" />
       <dependency id="RazorEngine" version="3.10" />
       <dependency id="System.ValueTuple" version="4.5" />
