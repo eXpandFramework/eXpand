@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Security;
+﻿using System.Security;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Security.Permissions;
@@ -8,15 +7,9 @@ using Xpand.Persistent.Base.StateMachine;
 namespace Xpand.ExpressApp.StateMachine.Security {
 
     [NonPersistent]
-    public class StateMachineTransitionPermission : PermissionBase, INotifyPropertyChanged, IStateMachineTransitionPermission {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-        protected void OnPropertyChanged(PropertyChangedEventArgs e) {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            handler?.Invoke(this, e);
-        }
-
+    public class StateMachineTransitionPermission : PermissionBase, IStateMachineTransitionPermission {
+        
+        
         public override IPermission Copy() {
             return new StateMachineTransitionPermission(StateCaption, StateMachineName);
         }
@@ -41,20 +34,20 @@ namespace Xpand.ExpressApp.StateMachine.Security {
 
         [ImmediatePostData]
         public string StateMachineName {
-            get { return _stateMachineName; }
+            get => _stateMachineName;
             set {
                 _stateMachineName = value;
-                OnPropertyChanged(new PropertyChangedEventArgs("StateMachineName"));
+                OnPropertyChanged(nameof(StateMachineName));
             }
         }
 
         string _stateCaption;
 
         public string StateCaption {
-            get { return _stateCaption; }
+            get => _stateCaption;
             set {
                 _stateCaption = value;
-                OnPropertyChanged(new PropertyChangedEventArgs("StateCaption"));
+                OnPropertyChanged(nameof(StateCaption));
             }
         }
 

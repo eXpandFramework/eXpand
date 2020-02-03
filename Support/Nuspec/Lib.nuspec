@@ -27,13 +27,13 @@
     </dependencies>
   </metadata>
   <files>
-    <file target="lib\net461\Xpand.xpo.dll" src="Xpand.xpo.dll" />
-    <file target="lib\net461\Xpand.Utils.dll" src="Xpand.Utils.dll" />
-    <file target="lib\net461\Xpand.Persistent.BaseImpl.dll" src="Xpand.Persistent.BaseImpl.dll" />
-    <file target="lib\net461\Xpand.Persistent.Base.dll" src="Xpand.Persistent.Base.dll" />
-    <file target="lib\net461\Xpand.xpo.pdb" src="Xpand.xpo.pdb" />
-    <file target="lib\net461\Xpand.Utils.pdb" src="Xpand.Utils.pdb" />
-    <file target="lib\net461\Xpand.Persistent.BaseImpl.pdb" src="Xpand.Persistent.BaseImpl.pdb" />
-    <file target="lib\net461\Xpand.Persistent.Base.pdb" src="Xpand.Persistent.Base.pdb" />
+    <file src="Xpand.xpo.dll" target="lib\net461\Xpand.xpo.dll" />
+    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
+    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll" />
+    <file src="Xpand.Persistent.Base.dll" target="lib\net461\Xpand.Persistent.Base.dll" />
+    <file src="Xpand.xpo.pdb" target="lib\net461\Xpand.xpo.pdb" />
+    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
+    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb" />
+    <file src="Xpand.Persistent.Base.pdb" target="lib\net461\Xpand.Persistent.Base.pdb" />
     </files>
 </package>
