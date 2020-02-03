@@ -1,20 +1,22 @@
 "Release","Issues","Labels","Message","Sha"
+"19.2.503.0","622","? Backer, Priority, ReproSample","Filterable enum property editor don't show images","eb49a2f00163dea265887a2dd6be40d1598766e2"
+"19.2.503.0","505","? Backer, Modeldifference, ModelMapper, Priority, Standalone_XAF_Modules","Reset ModelMapper subscriptions to support custom TypesInfo usage","e56f898dd22bb91a504af035a56678ff2f08a938"
 "19.2.402.0","601, 611","CloneModelView, ModelViewInheritance, Standalone_XAF_Modules","Bump standalone packages
- 1. CloneModelView: Create new views instead of Cloning","7f1ebaf5943cea3e0a0907e60c38abd391f88154"
-"19.2.402.0","603","Dashboard","Dashboard: Cascading ListView Filtering throws","28d33cc240154bd6d0eff7076072ab964113a12c"
-"19.2.402.0","613","XtraDashboard","XtraDashboard: NullRefrence when opening designer","64f938fd02071919cda76ca704c25ca1464bf380"
-"19.2.402.0","607","MasterDetail, Standalone_XAF_Modules","LogicRuleEvaluator throws NullRefrence","fe99a5be2cdacdd5bddafaeb00e2f98e04c9aa7a"
-"19.2.402.0","609, 614","ModelMapper, Standalone_XAF_Modules, VSIX","VSIX: Xpand Solution Wizard is empty","b38c46c252c13155f68863e0942e3f6d932631b2"
-"19.2.402.0","477, 603","Dashboard","DashboardInteraction: Fails if same view DashboardViewItem","940f1aef179d87f7e3bdfdd8ef1911613d63ed58"
+ 1. CloneModelView: Create new views instead of Cloning",
+"19.2.402.0","603","Dashboard","Dashboard: Cascading ListView Filtering throws",
+"19.2.402.0","613","XtraDashboard","XtraDashboard: NullRefrence when opening designer",
+"19.2.402.0","607","MasterDetail, Standalone_XAF_Modules","LogicRuleEvaluator throws NullRefrence",
+"19.2.402.0","609, 614","ModelMapper, Standalone_XAF_Modules, VSIX","VSIX: Xpand Solution Wizard is empty",
+"19.2.402.0","477, 603","Dashboard","DashboardInteraction: Fails if same view DashboardViewItem",
 "19.2.402.0","477","Dashboard","Revert ""DashboardInteractionController activates without MasterDetailMode ""
 
-This reverts commit f547366a763cd56b88711f3da992d6dae980ce32.","9aee43b7094582172cdfd366fe95f9e42cfb0c38"
+This reverts commit f547366a763cd56b88711f3da992d6dae980ce32.",
 "19.2.402.0","596, 601, 606","CloneModelView, ModelMapper, ModelViewInheritance, Standalone_XAF_Modules, VSIX","Bump standalone packages 
 
 1. CloneModelView: Keep ModelNodeGenerators 
-1. ModelMapper: IModelLayoutGroup Caption is incorrect","a7fe51aca9d529a41382d4c91149c5e9a83164a2"
-"19.2.402.0","604","VSIX","VSIX: Remove Xpand.DLL UI message","5cec5e186867bd1d09c5c1f93bdd371fe1eedbba"
-"19.2.402.0","600","VSIX","VSIX: ShowErrorsInMessageBox option","1399e89ea80225db8459743dd783c8d5300406d2"
+1. ModelMapper: IModelLayoutGroup Caption is incorrect",
+"19.2.402.0","604","VSIX","VSIX: Remove Xpand.DLL UI message",
+"19.2.402.0","600","VSIX","VSIX: ShowErrorsInMessageBox option",
 "19.2.402.0","601, 611","CloneModelView, ModelViewInheritance, Standalone_XAF_Modules","Bump standalone packages
  1. CloneModelView: Create new views instead of Cloning",
 "19.2.402.0","603","Dashboard","Dashboard: Cascading ListView Filtering throws",
