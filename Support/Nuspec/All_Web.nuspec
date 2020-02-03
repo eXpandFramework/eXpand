@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWeb</id>
-    <version>19.2.600.0</version>
+    <version>19.2.601.0</version>
     <title>DevExpress eXpandFramework All Web Platform  Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,23 +14,23 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
-      <dependency id="eXpandAdditionalViewControlsProviderWeb" version="19.2.600.0" />
-      <dependency id="eXpandEasyTestWeb" version="19.2.600.0" />
-      <dependency id="eXpandExcelImporter.Web" version="19.2.600.0" />
-      <dependency id="eXpandFileAttachmentWeb" version="19.2.600.0" />
-      <dependency id="eXpandHtmlPropertyEditor" version="19.2.600.0" />
-      <dependency id="eXpandIOWeb" version="19.2.600.0" />
-      <dependency id="eXpandMapViewWeb" version="19.2.600.0" />
-      <dependency id="eXpandModelDifferenceWeb" version="19.2.600.0" />
-      <dependency id="eXpandNCarouselWeb" version="19.2.600.0" />
-      <dependency id="eXpandPivotChartWeb" version="19.2.600.0" />
-      <dependency id="eXpandSchedulerWeb" version="19.2.600.0" />
-      <dependency id="eXpandSecurityWeb" version="19.2.600.0" />
-      <dependency id="eXpandSystemWeb" version="19.2.600.0" />
-      <dependency id="eXpandTreelistViewWeb" version="19.2.600.0" />
-      <dependency id="eXpandValidationWeb" version="19.2.600.0" />
-      <dependency id="eXpandWorldCreatorWeb" version="19.2.600.0" />
-      <dependency id="eXpandXtraDashboardWeb" version="19.2.600.0" />
+      <dependency version="19.2.601.0" id="eXpandAdditionalViewControlsProviderWeb" />
+      <dependency version="19.2.601.0" id="eXpandEasyTestWeb" />
+      <dependency version="19.2.601.0" id="eXpandExcelImporter.Web" />
+      <dependency version="19.2.601.0" id="eXpandFileAttachmentWeb" />
+      <dependency version="19.2.601.0" id="eXpandHtmlPropertyEditor" />
+      <dependency version="19.2.601.0" id="eXpandIOWeb" />
+      <dependency version="19.2.601.0" id="eXpandMapViewWeb" />
+      <dependency version="19.2.601.0" id="eXpandModelDifferenceWeb" />
+      <dependency version="19.2.601.0" id="eXpandNCarouselWeb" />
+      <dependency version="19.2.601.0" id="eXpandPivotChartWeb" />
+      <dependency version="19.2.601.0" id="eXpandSchedulerWeb" />
+      <dependency version="19.2.601.0" id="eXpandSecurityWeb" />
+      <dependency version="19.2.601.0" id="eXpandSystemWeb" />
+      <dependency version="19.2.601.0" id="eXpandTreelistViewWeb" />
+      <dependency version="19.2.601.0" id="eXpandValidationWeb" />
+      <dependency version="19.2.601.0" id="eXpandWorldCreatorWeb" />
+      <dependency version="19.2.601.0" id="eXpandXtraDashboardWeb" />
     </dependencies>
   </metadata>
   <files>

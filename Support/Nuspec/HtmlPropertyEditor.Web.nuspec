@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#HtmlPropertyEditor</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.600.0" />
-      <dependency id="eXpandLogic" version="19.2.600.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.201.2" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.201.2" />
+      <dependency version="19.2.601.0" id="eXpandLib" />
+      <dependency version="19.2.601.0" id="eXpandLogic" />
+      <dependency version="2.201.2" id="Xpand.XAF.Modules.ModelMapper" />
+      <dependency version="2.201.2" id="Xpand.XAF.Modules.Reactive.Logger" />
     </dependencies>
   </metadata>
   <files>
