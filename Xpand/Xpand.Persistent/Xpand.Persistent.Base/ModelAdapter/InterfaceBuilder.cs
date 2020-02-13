@@ -104,7 +104,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                     if (modelMapperModule != null){
                         var typeMappingServiceType = modelMapperModule.GetType().Assembly
                             .GetType("Xpand.XAF.Modules.ModelMapper.Services.TypeMapping.TypeMappingService");
-                        typeMappingServiceType.Method("Reset", Flags.StaticPublic).Call(null, true);
+                        typeMappingServiceType.Method("Reset", Flags.StaticPublic).Call(null, true,null);
                     }
                 }
             }
