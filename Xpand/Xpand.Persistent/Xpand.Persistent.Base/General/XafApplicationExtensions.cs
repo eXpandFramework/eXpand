@@ -55,6 +55,9 @@ namespace Xpand.Persistent.Base.General {
         
         public static string ApplicationPath(this AppDomain appDomain){
             var setupInformation = appDomain.SetupInformation;
+            if (setupInformation.GetType().Property("PrivateBinPath") == null) {
+                return appDomain.BaseDirectory;
+            }
             return setupInformation.PrivateBinPath??setupInformation.ApplicationBase;
         }
 
