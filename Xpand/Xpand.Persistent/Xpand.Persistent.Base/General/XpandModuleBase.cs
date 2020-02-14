@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -229,7 +228,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private bool ExecutedCore(string name, object value = null) {
-            value = value ?? typeof(object);
+            value ??= typeof(object);
             var keyValuePair = new KeyValuePair<string, ApplicationModulesManager>(name, ModuleManager);
             if (CallMonitor.ContainsKey(keyValuePair)) {
                 if (!CallMonitor.GetValues(keyValuePair, true).Contains(value)) {
