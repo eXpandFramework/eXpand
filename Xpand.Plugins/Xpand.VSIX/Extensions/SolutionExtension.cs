@@ -109,9 +109,16 @@ namespace Xpand.VSIX.Extensions {
 
         public static bool VersionMatch(this AssemblyDefinition assemblyDefinition,bool major=true) {
             var dxVersion = DteExtensions.DTE.Solution.GetDXVersion(major);
+            DteExtensions.DTE.WriteToOutput($"dxVersion={dxVersion}");
             if (major){
                 var dxAssemblies = assemblyDefinition.MainModule.AssemblyReferences.Where(name => name.Name.StartsWith("DevExpress")).ToArray();
-                return !dxAssemblies.Any() || dxAssemblies.Any(name => name.Name.Contains(dxVersion));
+
+                var any = !dxAssemblies.Any() || dxAssemblies.Any(name => name.Name.Contains(dxVersion));
+                if (!any) {
+                    DteExtensions.DTE.WriteToOutput($"{assemblyDefinition.Name.Name} DevExpress version is not {dxVersion}");
+                }
+
+                return any;
             }
             return assemblyDefinition.MainModule.AssemblyReferences.Any(reference => reference.Name.StartsWith("DevExpress")&&$"{reference.Version.Major}.{reference.Version.Minor}.{reference.Version.Build}"==dxVersion);
         }
@@ -169,9 +176,21 @@ namespace Xpand.VSIX.Extensions {
                 .Select(project => project.Object)
                 .OfType<VSProject>()
                 .SelectMany(project => project.References.Cast<Reference>()).Select(reference => {
-                    var matchResults = Regex.Match(reference.Name, @"DevExpress(.*)(v[^.]*\.[.\d])");
+                    var referenceName = reference.Name;
+                    var matchResults = Regex.Match(referenceName, @"DevExpress(.*)(v[^.]*\.[.\d])");
                     return matchResults.Success ? (major?matchResults.Groups[2].Value: GetRevisionVersion(reference)) : null;
-                }).FirstOrDefault(version => version != null);
+                }).FirstOrDefault(version => version != null)??solution.GetMsBuildProjects()
+                       .SelectMany(project => project.AllEvaluatedItems).Where(item => item.ItemType=="PackageReference"&&$"{item.EvaluatedInclude}".StartsWith("DevExpress"))
+                       .SelectMany(item => item.Metadata).Where(metadata => metadata.Name=="Version")
+                       .Select(metadata => {
+                           if (!major) {
+                               return metadata.EvaluatedValue;
+                           }
+
+                           var version = new Version(metadata.EvaluatedValue);
+                           return $"{version.Major}.{version.Minor}";
+                       })
+                       .FirstOrDefault();
         }
 
         private static string GetRevisionVersion(Reference reference){
