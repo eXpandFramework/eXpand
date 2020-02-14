@@ -44,8 +44,15 @@ namespace Xpand.ExpressApp.ModelEditor {
             ReflectionHelper.Reset();
             XafTypesInfo.HardReset();
             XpoTypesInfoHelper.ForceInitialize();
-            if (pathInfo.IsApplicationModel){
-                var applicationInstance = Activator.CreateInstance(Assembly.LoadFile(pathInfo.AssemblyPath).GetTypes().First(type => typeof(XafApplication).IsAssignableFrom(type)));
+            if (pathInfo.IsApplicationModel) {
+                _currentDomainOnAssemblyResolvePathInfo = pathInfo;
+                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += CurrentDomainOnAssemblyResolve;
+                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomainOnAssemblyResolve;
+                var applicationInstance = Activator.CreateInstance(Assembly.Load(pathInfo.AssemblyPath).GetTypes().First(type => typeof(XafApplication).IsAssignableFrom(type)));
+                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve -= CurrentDomainOnAssemblyResolve;
+                AppDomain.CurrentDomain.AssemblyResolve -= CurrentDomainOnAssemblyResolve;
+                _currentDomainOnAssemblyResolvePathInfo = null;
+
                 var configFileName = applicationInstance is WinApplication? pathInfo.AssemblyPath+".config":Path.Combine(pathInfo.FullPath,"web.config");
                 return designerModelFactory.CreateModulesManager((XafApplication) applicationInstance, configFileName,Path.GetDirectoryName(pathInfo.AssemblyPath));
             }
@@ -53,6 +60,28 @@ namespace Xpand.ExpressApp.ModelEditor {
             return designerModelFactory.CreateModulesManager(moduleFromFile, pathInfo.AssemblyPath);
         }
 
+        private PathInfo _currentDomainOnAssemblyResolvePathInfo;
+
+        private Assembly CurrentDomainOnAssemblyResolve(object sender, ResolveEventArgs args) {
+            if (File.Exists(args.Name)) {
+                return GetLoadedAssembly(args.Name) ?? Assembly.LoadFrom(args.Name);
+            }
+
+            var dllName = args.Name.Split(new[] {','}, StringSplitOptions.RemoveEmptyEntries).First().Trim();
+            var localAssemblyName =
+                Path.Combine(Directory.GetParent(_currentDomainOnAssemblyResolvePathInfo.AssemblyPath).FullName,
+                    $"{dllName}.dll");
+            if (File.Exists(localAssemblyName)) {
+                return GetLoadedAssembly(localAssemblyName) ?? Assembly.LoadFrom(localAssemblyName);
+            }
+
+            return null;
+        }
+
+        private static Assembly GetLoadedAssembly(string assemblyPath) {
+            var assemblyName = AssemblyName.GetAssemblyName(assemblyPath);
+            return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(s => s.GetName() == assemblyName);
+        }
 
         void AddLayers(ModelApplicationBase modelApplication, ApplicationModulesManager applicationModulesManager, PathInfo pathInfo) {
             var resourceModelCollector = new ResourceModelCollector();
