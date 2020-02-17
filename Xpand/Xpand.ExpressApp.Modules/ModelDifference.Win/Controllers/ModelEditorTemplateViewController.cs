@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
+using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Templates.ActionControls;
@@ -37,6 +38,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             base.OnDeactivated();
             Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.ProcessCurrentObjectAction.Execute -= ProcessCurrentObjectActionOnExecute);
         }
+
 
         private void ProcessCurrentObjectActionOnExecute(object sender, SimpleActionExecuteEventArgs e){
             var modelEditorPropertyEditor = ((DetailView) e.ShowViewParameters.CreatedView).GetItems<ModelEditorPropertyEditor>().FirstOrDefault();
@@ -114,6 +116,14 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             base.OnFrameAssigned();
             if (!UseOldTemplates && ((IModelOptionsWin)Application.Model.Options).FormStyle == RibbonFormStyle.Ribbon) {
                 Frame.GetController<ActionControlsSiteController>(controller => controller.CustomBindActionControlToAction += OnCustomBindActionControlToAction);
+            }
+
+            if (Frame.Context == TemplateContext.ApplicationWindow) {
+                Application.DetailViewCreating += (sender, args) => {
+                    var delayedObjectLoading = !((IModelDetailView) Application.Model.Views[args.ViewID]).Items.OfType<IModelPropertyEditor>()
+                        .Any(item =>  typeof(ModelEditorPropertyEditor).IsAssignableFrom(item.PropertyEditorType));
+                    args.EnableDelayedObjectLoading = delayedObjectLoading;
+                };
             }
         }
 
