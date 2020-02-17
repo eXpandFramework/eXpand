@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency version="19.2.601.0" id="eXpandLib" />
-      <dependency version="19.2.601.0" id="eXpandTreelistView" />
+      <dependency version="19.2.601.4" id="eXpandLib" />
+      <dependency version="19.2.601.4" id="eXpandTreelistView" />
       <dependency version="4.5" id="System.ValueTuple" />
-      <dependency version="2.201.2" id="Xpand.Extensions.XAF" />
+      <dependency version="2.201.5.1" id="Xpand.Extensions.XAF" />
     </dependencies>
   </metadata>
   <files>

@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Reports</projectUrl>
     <dependencies>
-      <dependency version="19.2.601.0" id="eXpandDashboard" />
-      <dependency version="19.2.601.0" id="eXpandLib" />
+      <dependency version="19.2.601.4" id="eXpandDashboard" />
+      <dependency version="19.2.601.4" id="eXpandLib" />
       <dependency version="4.5" id="System.ValueTuple" />
     </dependencies>
   </metadata>

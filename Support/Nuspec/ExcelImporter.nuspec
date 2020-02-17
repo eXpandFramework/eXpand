@@ -15,21 +15,21 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency version="3.6" id="ExcelDataReader.DataSet" />
-      <dependency version="19.2.601.0" id="eXpandLib" />
-      <dependency version="19.2.601.0" id="eXpandSystem" />
-      <dependency version="19.2.601.0" id="eXpandValidation" />
+      <dependency version="19.2.601.4" id="eXpandLib" />
+      <dependency version="19.2.601.4" id="eXpandSystem" />
+      <dependency version="19.2.601.4" id="eXpandValidation" />
       <dependency version="0.11.1" id="Mono.Cecil" />
       <dependency version="0.8" id="Ryder" />
       <dependency version="4.3" id="System.IO.Compression" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.AutoCommit" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.CloneModelView" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.HideToolBar" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.MasterDetail" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.ProgressBarViewItem" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.Reactive" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.Reactive.Logger" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.SuppressConfirmation" />
-      <dependency version="2.201.2" id="Xpand.XAF.Modules.ViewEditMode" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.AutoCommit" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.CloneModelView" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.HideToolBar" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.MasterDetail" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.ProgressBarViewItem" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.Reactive" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.Reactive.Logger" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.SuppressConfirmation" />
+      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.ViewEditMode" />
     </dependencies>
   </metadata>
   <files>
