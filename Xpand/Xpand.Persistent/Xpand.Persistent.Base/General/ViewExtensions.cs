@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Security;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using Xpand.Utils.Helpers;
@@ -11,7 +12,7 @@ namespace Xpand.Persistent.Base.General {
     [SecuritySafeCritical]
     public static class ViewExtensions {
         public static bool Fits(this View view,ViewType viewType=ViewType.Any,Nesting nesting=Nesting.Any,Type objectType=null) {
-            objectType = objectType ?? typeof(object);
+            objectType ??= typeof(object);
             return FitsCore(view, viewType)&&FitsCore(view,nesting)&&objectType.IsAssignableFrom(view.ObjectTypeInfo.Type);
         }
 
@@ -42,7 +43,7 @@ namespace Xpand.Persistent.Base.General {
                 .LastOrDefault();
             if (typeInfo != null){
                 if (application.GetPlatform()==Platform.Web) {
-                    return (ILayoutManager) typeInfo.Type.CreateInstance(isLayoutSimple,delayedViewItemsInitialization, WebApplicationStyleManager.IsNewStyle);
+                    return CreateWebLayoutManager(isLayoutSimple, delayedViewItemsInitialization, typeInfo);
                 }
                 return (ILayoutManager) typeInfo.Type.CreateInstance(isLayoutSimple,delayedViewItemsInitialization);
             }
@@ -50,6 +51,9 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
 
+        private static ILayoutManager CreateWebLayoutManager(bool isLayoutSimple, bool delayedViewItemsInitialization, ITypeInfo typeInfo) {
+            return (ILayoutManager) typeInfo.Type.CreateInstance(isLayoutSimple,delayedViewItemsInitialization, WebApplicationStyleManager.IsNewStyle);
+        }
         public static void UpdateLayoutManager(this CompositeView compositeView) {
             if (!(compositeView.LayoutManager is ILayoutManager)) {
                 var layoutManager = GetLayoutManager(compositeView is ListView,compositeView.DelayedItemsInitialization);
