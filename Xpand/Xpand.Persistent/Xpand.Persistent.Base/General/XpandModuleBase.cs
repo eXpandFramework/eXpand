@@ -173,13 +173,20 @@ namespace Xpand.Persistent.Base.General {
 
         protected virtual IEnumerable<Type> GetDeclaredControllerTypesCore(IEnumerable<Type> declaredControllerTypes) {
             if (!Executed<IDashboardInteractionUser>("DashboardUser")) {
-                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(DashboardInteractionController), typeof(WebDashboardRefreshController) });
+                declaredControllerTypes =
+                    declaredControllerTypes.Concat(new[] {
+                        typeof(DashboardInteractionController)
+                    });
             }
 //            if (!Executed<IModuleSupportUploadControl>("SupportUploadControl")) {
 //                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
 //            }
             if (!Executed<IModifyModelActionUser>("ModifyModelActionControllerTypes")) {
-                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(ActionModifyModelController), typeof(ResetViewModelController), typeof(ModelConfigurationController) });
+                declaredControllerTypes = declaredControllerTypes.Concat(new[] {
+                    typeof(ActionModifyModelController), 
+                    typeof(ResetViewModelController),
+                    typeof(ModelConfigurationController)
+                });
             }
             if (!Executed("GetDeclaredControllerTypes")) {
                 declaredControllerTypes = declaredControllerTypes.Union(new[]{
@@ -192,17 +199,41 @@ namespace Xpand.Persistent.Base.General {
                     typeof(NavigationItemsController),typeof(FilteredMasterObjectViewController)
                 });
             }
-            if (!Executed("GetDeclaredWinControllerTypes", ModuleType.Win))
-                declaredControllerTypes = declaredControllerTypes.Union(new[] { typeof(NavigationContainerWinController) });
-            if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
-                declaredControllerTypes =declaredControllerTypes.Union(new[]{
-                        typeof (NavigationContainerWebController), typeof (ActionsClientScriptController),typeof(ActionsClientConfirmationController),
-                        typeof(SyntaxHighlightController)
-                    });
+
+            if (ModuleType == ModuleType.Win)
+                declaredControllerTypes = GetDeclaredWinControllerTypesCore(declaredControllerTypes);
+            if (ModuleType == ModuleType.Web)
+                declaredControllerTypes = GetDeclaredWebControllerTypesCore(declaredControllerTypes);
 
             return declaredControllerTypes;
         }
 
+        protected virtual IEnumerable<Type> GetDeclaredWinControllerTypesCore(IEnumerable<Type> declaredControllerTypes) {
+            if (!Executed("GetDeclaredWinControllerTypes", ModuleType.Win))
+                declaredControllerTypes = declaredControllerTypes.Union(new[] {
+                    typeof(NavigationContainerWinController)
+                });
+            return declaredControllerTypes;
+        }
+
+        protected virtual IEnumerable<Type> GetDeclaredWebControllerTypesCore(IEnumerable<Type> declaredControllerTypes) {
+            if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
+                declaredControllerTypes = declaredControllerTypes.Union(new[] {
+                    typeof(NavigationContainerWebController), 
+                    typeof(ActionsClientScriptController),
+                    typeof(ActionsClientConfirmationController),
+                    typeof(SyntaxHighlightController)
+                });
+
+            if (!Executed("DashboardUser", ModuleType.Web)) {
+                declaredControllerTypes = declaredControllerTypes.Concat(new[] {
+                    typeof(WebDashboardRefreshController)
+                });
+            }
+
+            return declaredControllerTypes;
+        }
+        
         internal void OnInitSeqGenerator(CancelEventArgs e) {
             CancelEventHandler handler = InitSeqGenerator;
             handler?.Invoke(this, e);
@@ -302,6 +333,11 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();
             }
 
+            if (ModuleType == ModuleType.Web)
+                ExtendModelWebInterfaces(extenders);
+        }
+
+        public virtual void ExtendModelWebInterfaces(ModelInterfaceExtenders extenders) {
             if (!Executed("ExtendModelInterfaces", ModuleType.Web)) {
                 extenders.Add<IModelOptions, IModelOptionsCollectionEditMode>();
             }
