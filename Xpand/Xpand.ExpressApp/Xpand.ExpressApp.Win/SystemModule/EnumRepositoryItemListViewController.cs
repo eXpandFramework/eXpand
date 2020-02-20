@@ -55,7 +55,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 var repositoryItem = GetRepositoryItem(data, hasFlagsAttribute);
                 var tuple = !hasFlagsAttribute ? (((RepositoryItemEnumEdit) repositoryItem).Items.ToArray(), null)
                 : ((ImageComboBoxItem[] startComboBoxItems, CheckedListBoxItem[] startCheckedListBoxItems)) (null,((RepositoryItemCheckedComboBoxEdit) repositoryItem).Items.ToArray());
-                EnumPropertyEditor.FilterRepositoryItem(repositoryItem, data.memberInfo,View.SelectedObjects.Cast<object>().FirstOrDefault(), ObjectSpace, tuple);
+                EnumPropertyEditor.FilterRepositoryItem(repositoryItem, data.memberInfo,((GridView) sender).GetRow(e.RowHandle), ObjectSpace, tuple);
                 e.RepositoryItem=repositoryItem;
             }
         }
