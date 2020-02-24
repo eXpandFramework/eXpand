@@ -24,6 +24,13 @@ namespace Xpand.Persistent.Base.General {
 
         private static EvaluatorContextDescriptor GetEvaluatorContextDescriptor(Type objectType, object targetObject) {
             var objectSpace = XPObjectSpace.FindObjectSpaceByObject(targetObject);
+            if (objectSpace == null) {
+                var iTypeInfo = targetObject.GetITypeInfo();
+                if (iTypeInfo.IsDomainComponent) {
+                    var classInfo = iTypeInfo.QueryXPClassInfo();
+                    return classInfo.GetEvaluatorContextDescriptor();
+                }
+            }
             return objectSpace != null? objectSpace.GetEvaluatorContextDescriptor(objectType)
                 : new EvaluatorContextDescriptorDefault(objectType);
         }
