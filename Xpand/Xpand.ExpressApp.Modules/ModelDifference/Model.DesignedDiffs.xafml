@@ -179,26 +179,31 @@
     <DetailView Id="RDO_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
-          <TabbedGroup Id="TabContainer">
+          <TabbedGroup Id="TabContainer" RelativeSize="99.865951742627345">
             <LayoutGroup Id="General">
-              <LayoutItem Id="Name" RelativeSize="8" />
-              <LayoutItem Id="PersistentApplication.Name" RelativeSize="6" />
-              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="84">
-                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf">
-                  <LayoutItem Id="Disabled" RelativeSize="9" />
-                  <LayoutItem Id="DateCreated" RelativeSize="90" />
+              <LayoutItem Id="Name" RelativeSize="3.665521191294387" />
+              <LayoutItem Id="PersistentApplication.Name" RelativeSize="2.7491408934707904" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="93.585337915234817">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="46.291208791208788">
+                  <LayoutItem Id="Disabled" RelativeSize="3.6719706242350063" />
+                  <LayoutItem Id="DeviceCategory" RelativeSize="2.9375764993880047" />
+                  <LayoutItem Id="DateCreated" RelativeSize="93.390452876376983" />
                 </LayoutGroup>
-                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b">
-                  <LayoutItem Id="CombineOrder" RelativeSize="9" />
-                  <LayoutItem Id="NonPersistent" RelativeSize="90" ViewItem="" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="53.708791208791212">
+                  <LayoutItem Id="CombineOrder" RelativeSize="3.6719706242350063" />
+                  <LayoutItem Id="PreferredAspect" RelativeSize="2.9375764993880047" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="93.390452876376983" ViewItem="" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="Roles" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="3" RelativeSize="100" Caption="Roles" ImageName="BO_Role" IsNewNode="True">
-              <LayoutItem Id="Roles" ViewItem="Roles" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+              <LayoutItem Id="Roles1" ViewItem="Roles" Index="0" RelativeSize="100" CaptionLocation="Top" ShowCaption="False" IsNewNode="True" />
             </LayoutGroup>
           </TabbedGroup>
-          <LayoutItem Id="LockHeightEmptySpace" ViewItem="" />
+          <LayoutItem Id="LockHeightEmptySpace" ViewItem="" RelativeSize="0.13404825737265416" />
+          <LayoutGroup Id="Roles_Group" Caption="Roles" RelativeSize="24.932975871313673" Removed="True">
+            <LayoutItem Id="Roles" Removed="True" />
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
@@ -208,26 +213,31 @@
     <DetailView Id="UDO_DetailView">
       <Layout>
         <LayoutGroup Id="Main">
-          <TabbedGroup Id="TabContainer">
+          <TabbedGroup Id="TabContainer" RelativeSize="99.865951742627345">
             <LayoutGroup Id="General" Index="2">
-              <LayoutItem Id="Name" RelativeSize="4" />
-              <LayoutItem Id="PersistentApplication.Name" RelativeSize="3" />
-              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="91" ImageName="">
-                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="44" ImageName="">
-                  <LayoutItem Id="Disabled" RelativeSize="4" />
-                  <LayoutItem Id="DateCreated" RelativeSize="95" />
+              <LayoutItem Id="Name" RelativeSize="3.665521191294387" />
+              <LayoutItem Id="PersistentApplication.Name" RelativeSize="2.7491408934707904" />
+              <LayoutGroup Id="Auto09355baf-2d40-41e7-a368-f29de0afe90d" RelativeSize="93.585337915234817" ImageName="">
+                <LayoutGroup Id="Auto1f221998-367f-4858-819b-a3a0988b83bf" RelativeSize="44.505494505494504" ImageName="">
+                  <LayoutItem Id="Disabled" RelativeSize="3.6719706242350063" />
+                  <LayoutItem Id="DeviceCategory" RelativeSize="2.9375764993880047" />
+                  <LayoutItem Id="DateCreated" RelativeSize="93.390452876376983" />
                 </LayoutGroup>
-                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="55" ImageName="">
-                  <LayoutItem Id="CombineOrder" RelativeSize="4" />
-                  <LayoutItem Id="NonPersistent" RelativeSize="95" ViewItem="NonPersistent" />
+                <LayoutGroup Id="Auto1cdc40e0-4b81-4b6a-a282-29010954e80b" RelativeSize="55.494505494505496" ImageName="">
+                  <LayoutItem Id="CombineOrder" RelativeSize="3.6719706242350063" />
+                  <LayoutItem Id="PreferredAspect" RelativeSize="2.9375764993880047" />
+                  <LayoutItem Id="NonPersistent" RelativeSize="93.390452876376983" ViewItem="NonPersistent" />
                 </LayoutGroup>
               </LayoutGroup>
             </LayoutGroup>
             <LayoutGroup Id="Users" ShowCaption="True" CaptionLocation="Top" Direction="Vertical" Index="3" RelativeSize="100" Caption="Users" ImageName="BO_User" IsNewNode="True">
-              <LayoutItem Id="Users" ViewItem="Users" SizeConstraintsType="Default" Index="0" RelativeSize="100" ShowCaption="False" IsNewNode="True" />
+              <LayoutItem Id="Users1" ViewItem="Users" Index="0" RelativeSize="100" CaptionLocation="Top" ShowCaption="False" IsNewNode="True" />
             </LayoutGroup>
           </TabbedGroup>
-          <LayoutItem Id="LockHeightEmptySpace" ViewItem="" />
+          <LayoutItem Id="LockHeightEmptySpace" ViewItem="" RelativeSize="0.13404825737265416" />
+          <LayoutGroup Id="Users_Group" Caption="Users" RelativeSize="24.932975871313673" Removed="True">
+            <LayoutItem Id="Users" Removed="True" />
+          </LayoutGroup>
         </LayoutGroup>
       </Layout>
       <MergedDifferences>
