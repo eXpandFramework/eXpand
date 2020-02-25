@@ -1,7 +1,7 @@
 strategy:max
 framework: auto-detect
 storage: none
-source C:\Program Files (x86)\DevExpress 19.2\Components\System\Components\Packages
+source F:\devexpress\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
@@ -57,5 +57,6 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 3.1.4
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 2.201.23.11
-nuget Xpand.XAF.Web.All 2.201.23.11
+nuget Xpand.XAF.Win.All 2.201.24.0
+nuget Xpand.XAF.Web.All 2.201.24.0
+
