@@ -1,6 +1,16 @@
 "Release","Issues","Labels","Message","Sha"
-"19.2.503.0","622","? Backer, Priority, ReproSample","Filterable enum property editor don't show images","eb49a2f00163dea265887a2dd6be40d1598766e2"
-"19.2.503.0","505","? Backer, Modeldifference, ModelMapper, Priority, Standalone_XAF_Modules","Reset ModelMapper subscriptions to support custom TypesInfo usage","e56f898dd22bb91a504af035a56678ff2f08a938"
+"19.2.602.0","624","Contribution, Priority, XpandModelEditor","Replace VSIX ME with Xpand.XAF.ModelEditor.exe","54e21565bcbeec1b9f5fe1fc917fa0055d243527"
+"19.2.602.0","655","Priority, ReproSample","Improve EvaluatorContextDescriptor detection","48bb933e98b3143e01ac8503b4fd9efb506676f7"
+"19.2.602.0","680","? Backer, Nuget, Priority","Bump Standalone packages - Symbols are not copied to the output directory when SDK projects","6a588cd9217d5d5726d3cb92d63c7cb7d83e92bb"
+"19.2.602.0","626","Contribution, Priority","FileNotFoundException because of the platform mixing (Win/Web) in XpandModuleBase","1bbed3c7c27ec47ee8099d91cdb3d2271d52ca4c"
+"19.2.602.0","626","Contribution, Priority","FileNotFoundException because of the platform mixing (Win/Web) in XpandModuleBase","09813aecbfc74a8c753f8726a86b49c0cc417d5c"
+"19.2.602.0","678","? Backer, Priority, System.Win","Filterable Enum Property editor is not filtering in nested inline new rows","49201b7e209b29455a758dea08d431ce8040360d"
+"19.2.602.0","669","? Backer, Modeldifference, Priority, ReproSample","ModelDifference: Disable DelayedObjectLoading for views thats use the ModelEditorPropertyEditor","06a174b426bd68fffa534b09073c6bfd08b6dceb"
+"19.2.602.0","636","Contribution, VSIX, XpandModelEditor","ModelEditor AssemblyLoadException when DX nor eXpand not in GAC","d20ecbe0afa162b74401cb5178fcbfbef044d132"
+"19.2.602.0","673","Shared, ShowStopper","Use appdomain.basedirectory when PrivateBinPath not exists","05363ddd8c3000430aaa36d3775717e97de36755"
+"19.2.602.0","669","? Backer, Modeldifference, Priority, ReproSample","ModelEditor fails when ModelMapper is used","b35ec12dbd191806a2e7474d3561e66d400bbdd5"
+"19.2.503.0","622","? Backer, Priority, ReproSample","Filterable enum property editor don't show images",
+"19.2.503.0","505","? Backer, Modeldifference, ModelMapper, Priority, Standalone_XAF_Modules","Reset ModelMapper subscriptions to support custom TypesInfo usage",
 "19.2.402.0","601, 611","CloneModelView, ModelViewInheritance, Standalone_XAF_Modules","Bump standalone packages
  1. CloneModelView: Create new views instead of Cloning",
 "19.2.402.0","603","Dashboard","Dashboard: Cascading ListView Filtering throws",
