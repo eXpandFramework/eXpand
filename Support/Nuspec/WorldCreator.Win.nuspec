@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <version>19.2.402.4</version>
@@ -16,9 +16,9 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.601.14" />
-      <dependency id="eXpandSystemWin" version="19.2.601.14" />
-      <dependency id="eXpandWorldCreator" version="19.2.601.14" />
+      <dependency id="eXpandLib" version="19.2.602.0" />
+      <dependency id="eXpandSystemWin" version="19.2.602.0" />
+      <dependency id="eXpandWorldCreator" version="19.2.602.0" />
       <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.201.9" />
       <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.201.9" />
     </dependencies>
@@ -26,5 +26,5 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.Win.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.Win.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.Win.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.Win.pdb" />
-  </files>
+    </files>
 </package>

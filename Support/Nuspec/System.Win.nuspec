@@ -14,12 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency version="3.3.1" id="AutoMapper" />
-      <dependency version="19.2.601.4" id="eXpandLib" />
-      <dependency version="19.2.601.4" id="eXpandSystem" />
-      <dependency version="4.6" id="System.Resources.Extensions" />
-      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.GridListEditor" />
-      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.ModelMapper" />
+      <dependency id="AutoMapper" version="3.3.1" />
+      <dependency id="eXpandLib" version="19.2.602.0" />
+      <dependency id="eXpandSystem" version="19.2.602.0" />
+      <dependency id="System.Resources.Extensions" version="4.6" />
+      <dependency id="Xpand.XAF.Modules.GridListEditor" version="2.201.9" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.201.9" />
     </dependencies>
   </metadata>
   <files>

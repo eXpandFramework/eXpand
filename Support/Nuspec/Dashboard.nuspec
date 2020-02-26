@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency version="19.2.601.4" id="eXpandLib" />
-      <dependency version="0.8" id="Ryder" />
-      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.CloneModelView" />
-      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.Reactive.Logger" />
-      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.ViewEditMode" />
+      <dependency id="eXpandLib" version="19.2.602.0" />
+      <dependency id="Ryder" version="0.8" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.201.9" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.201.9" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="2.201.9" />
     </dependencies>
   </metadata>
   <files>

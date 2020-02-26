@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
-      <dependency version="19.2.601.4" id="eXpandLib" />
-      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.ModelViewInheritance" />
+      <dependency id="eXpandLib" version="19.2.602.0" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.201.9" />
     </dependencies>
   </metadata>
   <files>

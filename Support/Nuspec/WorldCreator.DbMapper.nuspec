@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#DBMapper</projectUrl>
     <dependencies>
-      <dependency version="19.2.601.4" id="eXpandLib" />
-      <dependency version="19.2.601.4" id="eXpandWorldCreator" />
-      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.HideToolBar" />
-      <dependency version="2.201.5.1" id="Xpand.XAF.Modules.ModelViewInheritance" />
+      <dependency id="eXpandLib" version="19.2.602.0" />
+      <dependency id="eXpandWorldCreator" version="19.2.602.0" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.201.9" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.201.9" />
     </dependencies>
   </metadata>
   <files>
