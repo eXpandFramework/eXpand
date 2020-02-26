@@ -40,9 +40,9 @@ namespace Xpand.VSIX.ModelEditor {
             try {
                 var resourceStream =
                     typeof(ModelToolWindow).Assembly.GetManifestResourceStream(
-                        "Xpand.VSIX.ModelEditor.Xpand.ExpressApp.ModelEditor.exe");
+                        "Xpand.VSIX.ModelEditor.Xpand.XAF.ModelEditor.exe");
                 var mePath = Path.Combine($"{Path.GetTempPath()}\\XpandModelEditor",
-                    $"Xpand.ExpressApp.ModelEditor{DateTime.Now.Ticks}.exe");
+                    $"Xpand.XAF.ModelEditor{DateTime.Now.Ticks}.exe");
                 Debug.Assert(resourceStream != null, "resourceStream != null");
                 var bytes = new byte[(int) resourceStream.Length];
                 resourceStream.Read(bytes, 0, bytes.Length);

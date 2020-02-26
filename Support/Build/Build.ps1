@@ -77,7 +77,7 @@ Task PackNuget{
 
 Task VSIX{
     InvokeScript{
-        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version ($packageSources -join ";")
+        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version ($packageSources -join ";") $Release
     }  
 }
 
@@ -126,7 +126,7 @@ Task CompileModules{
         Push-Location "$root\Xpand.Plugins"
         Get-Content ".\paket.dependencies" -Raw
         Invoke-PaketRestore -Install -Strict
-        BuildProjects $vsAddons "VSIX"
+        # BuildProjects $vsAddons "VSIX"
         Pop-Location
         
         Write-HostFormatted "Compiling Agnostic EasyTest projects..." -Section
