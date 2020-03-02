@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
 
             protected override void OnActivated() {
                 base.OnActivated();
-                _propertyEditor = View.GetItems<PropertyEditor>().FirstOrDefault(editor => editor.MemberInfo.Name == nameof(IXpoModelDifference.XmlContent));
+                _propertyEditor = View.GetItems<RichEditWinPropertyEditor>().FirstOrDefault(editor => editor.MemberInfo.Name == nameof(IXpoModelDifference.XmlContent));
                 if (_propertyEditor != null) _propertyEditor.ControlCreated += PropertyEditorOnControlCreated;
                 ObjectSpace.Committing += ObjectSpaceOnCommitting;
             }

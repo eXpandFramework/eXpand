@@ -625,3 +625,4 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/rider,csharp,windows,powershell,visualstudio,visualstudiocode
 /Build/
 **/TestsLog.xml
+**/.idea/**
