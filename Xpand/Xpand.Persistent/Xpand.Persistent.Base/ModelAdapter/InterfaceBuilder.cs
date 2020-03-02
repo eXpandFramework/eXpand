@@ -75,7 +75,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         public static bool RuntimeMode{
             get{
                 if (_runtimeMode == null){
-                    var devProcceses = new[]{".ExpressApp.ModelEditor", "devenv"};
+                    var devProcceses = new[]{".ExpressApp.ModelEditor", "devenv","Xpand.XAF.ModelEditor"};
                     var processName = Process.GetCurrentProcess().ProcessName;
                     var isInProccess = devProcceses.Any(s => processName.IndexOf(s, StringComparison.Ordinal) > -1);
                     _runtimeMode = !isInProccess && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
