@@ -119,12 +119,21 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             }
 
             if (Frame.Context == TemplateContext.ApplicationWindow) {
-                Application.DetailViewCreating += (sender, args) => {
-                    var delayedObjectLoading = !((IModelDetailView) Application.Model.Views[args.ViewID]).Items.OfType<IModelPropertyEditor>()
-                        .Any(item =>  typeof(ModelEditorPropertyEditor).IsAssignableFrom(item.PropertyEditorType));
-                    args.EnableDelayedObjectLoading = delayedObjectLoading;
-                };
+                Frame.Disposing+=FrameOnDisposing;
+                Application.DetailViewCreating += ApplicationOnDetailViewCreating;
             }
+        }
+
+        private void FrameOnDisposing(object sender, EventArgs e) {
+            var frame1 = ((Frame) sender);
+            frame1.Disposing-=FrameOnDisposing;
+            frame1.Application.DetailViewCreating-=ApplicationOnDetailViewCreating;
+        }
+
+        private void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs e) {
+            var delayedObjectLoading = !((IModelDetailView) ((XafApplication) sender).Model.Views[e.ViewID]).Items.OfType<IModelPropertyEditor>()
+                .Any(item =>  typeof(ModelEditorPropertyEditor).IsAssignableFrom(item.PropertyEditorType));
+            e.EnableDelayedObjectLoading = delayedObjectLoading;
         }
 
         private void OnCustomBindActionControlToAction(object sender, CustomBindEventArgs e){
