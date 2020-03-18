@@ -70,12 +70,16 @@ namespace Xpand.Persistent.Base.ModelDifference {
         ModelApplicationBase BuildModel(XafApplication application, string configFileName, XpandApplicationModulesManager applicationModulesManager) {
             XpandModuleBase.CallMonitor.Clear();
             var modelAssemblyFile = typeof(XafApplication).Invoke(application, "GetModelAssemblyFilePath") as string;
+            if (!File.Exists(modelAssemblyFile)) {
+                string example="Path.Combine(Path.GetTempPath(),$\\\"\"{GetType().Name}{ModelAssemblyFileName}\\\"\")";
+                throw new FileNotFoundException(
+                    $"The ModelEditor requires a valid ModelAssembly. Override the {application.GetType().FullName} GetModelAssemblyFilePath to provide a valid filename e.g.{example}");
+            }
             applicationModulesManager.TypesInfo.AssignAsInstance();
             var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo,
             applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
             applicationModulesManager.ControllersManager, application.ResourcesExportedToModel,
             GetAspects(configFileName), modelAssemblyFile, null);
-
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
