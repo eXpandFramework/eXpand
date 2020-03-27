@@ -23,6 +23,12 @@ using PropertyChangingEventArgs = DevExpress.ExpressApp.Win.Core.ModelEditor.Pro
 namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
     [PropertyEditor(typeof(ModelApplicationBase), true)]
     public class ModelEditorPropertyEditor : WinPropertyEditor, IComplexViewItem{
+        private ModelEditorViewController _modelEditorViewController;
+        private ModelLoader _modelLoader;
+        private ModelApplicationBase _currentObjectModel;
+        private IObjectSpace _objectSpace;
+        private Form _form;
+        private bool _xmlContentChanged;
         private static readonly LightDictionary<ModelApplicationBase, ITypesInfo> ModelApplicationBases;
         private static readonly ITypesInfo TypeInfo;
 
@@ -30,41 +36,20 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
             TypeInfo = XafTypesInfo.Instance;
             ModelApplicationBases = new LightDictionary<ModelApplicationBase, ITypesInfo>();
         }
-
-        #region Constructor
-
         public ModelEditorPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model){
         }
-
-        #endregion
-
-        #region Eventhandler
-
+        
         private void Model_Modifying(object sender, CancelEventArgs e){
             View.ObjectSpace.SetModified(CurrentObject);
         }
 
-        #endregion
-
-        #region Members
-
-        private ModelEditorViewController _modelEditorViewController;
-        private ModelLoader _modelLoader;
-        private ModelApplicationBase _currentObjectModel;
-        private IObjectSpace _objectSpace;
-        private Form _form;
-        private bool _xmlContentChanged;
-
-        #endregion
-
-        #region Properties
 
         public ModelApplicationBase MasterModel { get; private set; }
 
         public new ModelDifferenceObject CurrentObject{
-            get { return base.CurrentObject as ModelDifferenceObject; }
-            set { base.CurrentObject = value; }
+            get => base.CurrentObject as ModelDifferenceObject;
+            set => base.CurrentObject = value;
         }
 
         public new ModelEditorControl Control => (ModelEditorControl) base.Control;
@@ -78,10 +63,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
                 return _modelEditorViewController;
             }
         }
-
-        #endregion
-
-        #region Overrides
 
         protected override void OnCurrentObjectChanged(){
             _modelLoader = new ModelLoader(CurrentObject.PersistentApplication.ExecutableName, XafTypesInfo.Instance);
@@ -202,12 +183,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
                 _xmlContentChanged = true;
             }
         }
-
-        #endregion
-
-        #region Methods
-
-        public void Setup(IObjectSpace objectSpace, XafApplication application){
+public void Setup(IObjectSpace objectSpace, XafApplication application){
             _objectSpace = objectSpace;
         }
 
@@ -265,6 +241,5 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
             View.Refresh();
         }
 
-        #endregion
     }
 }
