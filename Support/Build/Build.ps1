@@ -111,8 +111,8 @@ Task CompileModules{
         $compileArgs+="/fl"
         $compileArgs+="/bl:$root\Xpand.dll\CompileModules.binlog"
         $compileArgs+="-m"
-        dotnet restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" --source ($packageSources -join ";") --verbosity m
-        dotnet msbuild "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @compileArgs
+        & (Get-NugetPath) restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" -source ($packageSources -join ";") 
+        & (Get-MsBuildPath) "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @compileArgs
         if ($LASTEXITCODE){
             throw
         }
