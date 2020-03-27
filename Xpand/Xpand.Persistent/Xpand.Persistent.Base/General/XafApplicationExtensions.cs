@@ -53,13 +53,6 @@ namespace Xpand.Persistent.Base.General {
         }
         private static readonly object Locker=new object();
         
-        public static string ApplicationPath(this AppDomain appDomain){
-            var setupInformation = appDomain.SetupInformation;
-            if (setupInformation.GetType().Property("PrivateBinPath") == null) {
-                return appDomain.BaseDirectory;
-            }
-            return setupInformation.PrivateBinPath??setupInformation.ApplicationBase;
-        }
 
         public static void ShowView(this XafApplication application, View view) {
             application.ShowViewStrategy.ShowView(new ShowViewParameters(view),new ShowViewSource(application.MainWindow,null) );
