@@ -8,7 +8,7 @@
     <SchemaModule Name="XpandSecurityModule" Version="16.1.1.1" IsNewNode="True" />
   </SchemaModules>
   <Views>
-    <DetailView Id="MDO_DetailView">
+    <DetailView Id="MDO_DetailView" Serializable="False">
       <Items>
         <PropertyEditor Id="XmlContent" PropertyEditorType="Xpand.ExpressApp.Win.PropertyEditors.RichEdit.RichEditWinPropertyEditor">
           <Controls>
@@ -17,5 +17,6 @@
         </PropertyEditor>
       </Items>
     </DetailView>
+    <DetailView Id="ModelDifferenceObject_DetailView" Serializable="False" />
   </Views>
 </Application>

@@ -118,6 +118,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
             Type[] controllerTypes = {
+                typeof(SerializeModelViewController),
                 typeof(LayoutControlGroupController),
                 typeof(EnumRepositoryItemGridListEditorController),
                 typeof(PopupWindowStateController),
