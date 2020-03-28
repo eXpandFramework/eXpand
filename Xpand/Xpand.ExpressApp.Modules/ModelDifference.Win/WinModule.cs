@@ -53,6 +53,10 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
             ((XafApplication)sender).LoggedOff -= Application_LoggedOff;
         }
 
+        protected override IEnumerable<Type> GetDeclaredControllerTypes() {
+            return base.GetDeclaredControllerTypes().Concat(new []{typeof(SerializeModelViewController)});
+        }
+
         protected override IEnumerable<Type> GetRegularTypes() {
             var richEditTypes = AssemblyHelper.GetTypesFromAssembly(typeof(XpandSystemWindowsFormsModule).Assembly)
                     .Where(type => type.Namespace != null && type.Namespace.Contains("RichEdit"));

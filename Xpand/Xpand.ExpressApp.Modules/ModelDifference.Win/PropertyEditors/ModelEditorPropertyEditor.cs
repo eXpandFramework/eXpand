@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -92,16 +94,26 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
                     new SettingsStorageOnRegistry(@"Software\Developer Express\eXpressApp Framework\Model Editor"));
             modelEditorControl.OnDisposing += modelEditorControl_OnDisposing;
             modelEditorControl.GotFocus += ModelEditorControlOnGotFocus;
-            modelEditorControl.Enter+=ModelEditorLoadXml;
+            
+            Observable.FromEventPattern<EventHandler,EventArgs>(h=>modelEditorControl.Enter+=h,h=>modelEditorControl.Enter-=h)
+                .Select((_, i) => {
+                    if (i == 0) {
+                        _modelEditorViewController.Modifying += Model_Modifying;
+                    }
+                    else {
+                        if (_xmlContentChanged){
+                            _xmlContentChanged = false;
+                            MergeXmlWithModel();
+                        }
+                    }
+
+                    return Unit.Default;
+                } )
+                .TakeUntil(Observable.FromEventPattern<EventHandler,EventArgs>(h=>modelEditorControl.Closed+=h,h=>modelEditorControl.Closed-=h))
+                .Subscribe();
             return modelEditorControl;
         }
 
-        private void ModelEditorLoadXml(object sender, EventArgs eventArgs){
-            if (_xmlContentChanged){
-                _xmlContentChanged = false;
-                MergeXmlWithModel();
-            }
-        }
 
         public void MergeXmlWithModel(){
             var aspect = MasterModel.CurrentAspect;
@@ -159,8 +171,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
 
         private void DisposeController(){
             if (_modelEditorViewController != null){
+                _modelEditorViewController.Modifying-=Model_Modifying;
                 _modelEditorViewController.CurrentAspectChanged -= ModelEditorViewControllerOnCurrentAspectChanged;
-                _modelEditorViewController.Modifying -= Model_Modifying;
                 _modelEditorViewController.ChangeAspectAction.ExecuteCompleted -= ChangeAspectActionOnExecuteCompleted;
                 _modelEditorViewController.ModelAttributesPropertyEditorController.PropertyChanged -= ModelAttributesPropertyEditorControllerOnPropertyChanged;
                 if (_modelEditorViewController.ModelEditorControl != null)
@@ -217,7 +229,6 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
                 MasterModel.CurrentAspectProvider.CurrentAspect = aspect;
 
             _modelEditorViewController.CurrentAspectChanged += ModelEditorViewControllerOnCurrentAspectChanged;
-            _modelEditorViewController.Modifying += Model_Modifying;
             _modelEditorViewController.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
             _modelEditorViewController.ModelAttributesPropertyEditorController.PropertyChanged += ModelAttributesPropertyEditorControllerOnPropertyChanged;
         }
