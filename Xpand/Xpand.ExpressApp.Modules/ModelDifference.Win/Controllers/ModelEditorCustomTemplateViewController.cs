@@ -1,5 +1,6 @@
-﻿using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.SystemModule;
+﻿using System;
+using System.Reactive.Linq;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.SystemModule;
@@ -7,41 +8,28 @@ using DevExpress.ExpressApp.Win.Templates.ActionContainers;
 using DevExpress.XtraBars.Ribbon;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.Win.Templates;
+using Xpand.Extensions.Reactive.Transform;
+using Xpand.XAF.Modules.Reactive.Services;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
-    public class ModelEditorCustomTemplateViewController : ViewController<ListView> {
-        public ModelEditorCustomTemplateViewController() {
-            TargetObjectType = typeof(ModelDifferenceObject);
-        }
-
-        protected override void OnActivated() {
-            base.OnActivated();
-            Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem += CustomProcessSelectedItem;
-        }
-
-        protected override void OnDeactivated() {
-            Frame.GetController<ListViewProcessCurrentObjectController>().CustomProcessSelectedItem -= CustomProcessSelectedItem;
-
-            base.OnDeactivated();
-        }
-
-        void CustomProcessSelectedItem(object sender, CustomProcessListViewSelectedItemEventArgs e) {
-            Application.CreateCustomTemplate += CreateCustomTemplate;
-        }
-
-        void CreateCustomTemplate(object sender, CreateCustomTemplateEventArgs e) {
-            var xafApplication = (XafApplication)sender;
-            xafApplication.CreateCustomTemplate -= CreateCustomTemplate;
-            var template = GetModelEditorDetailViewForm(xafApplication);
-            e.Template = template;
+    public class ModelEditorCustomTemplateViewController : WindowController {
+        protected override void OnFrameAssigned() {
+            base.OnFrameAssigned();
+            if (Frame.Context == TemplateContext.ApplicationWindow) {
+                Application.WhenDetailViewCreated(typeof(ModelDifferenceObject))
+                    .SelectMany(e => Application.WhenCreateCustomTemplate().FirstAsync()
+                        .Do(_ => _.e.Template = GetModelEditorDetailViewForm(Application)))
+                    .TakeUntil(Frame.WhenDisposingFrame())
+                    .Subscribe();
+            }
         }
 
         private static IFrameTemplate GetModelEditorDetailViewForm(XafApplication xafApplication){
             if (((WinApplication)xafApplication).UseOldTemplates || ((IModelOptionsWin)xafApplication.Model.Options).FormStyle != RibbonFormStyle.Ribbon) {
                 var template = new ModelEditorDetailViewForm();
                 var supportClassicToRibbonTransform = (ISupportClassicToRibbonTransform)template;
-                if (xafApplication.Model?.Options is IModelOptionsWin) {
-                    supportClassicToRibbonTransform.FormStyle = ((IModelOptionsWin)xafApplication.Model.Options).FormStyle;
+                if (xafApplication.Model?.Options is IModelOptionsWin optionsWin) {
+                    supportClassicToRibbonTransform.FormStyle = optionsWin.FormStyle;
                 }
                 return template;
             }

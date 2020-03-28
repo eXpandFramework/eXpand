@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Templates.ActionControls;
@@ -18,7 +18,9 @@ using DevExpress.XtraBars.Ribbon;
 using Fasterflect;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.Win.PropertyEditors;
+using Xpand.Extensions.XAF.Model;
 using Xpand.Persistent.Base.General;
+using Xpand.XAF.Modules.Reactive.Services;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
     public class ModelEditorTemplateViewController : ViewController<ObjectView> {
@@ -119,22 +121,15 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             }
 
             if (Frame.Context == TemplateContext.ApplicationWindow) {
-                Frame.Disposing+=FrameOnDisposing;
-                Application.DetailViewCreating += ApplicationOnDetailViewCreating;
+                Application.WhenDetailViewCreating()
+                    .SelectMany(_ => Application.Model.Views[_.ViewID].AsObjectView.MemberViewItems(typeof(ModelEditorPropertyEditor))
+                        .VisibleMemberViewItems().Take(1).ToObservable()
+                        .Do(item => _.EnableDelayedObjectLoading = false))
+                    .TakeUntil(Frame.WhenDisposingFrame())
+                    .Subscribe();
             }
         }
 
-        private void FrameOnDisposing(object sender, EventArgs e) {
-            var frame1 = ((Frame) sender);
-            frame1.Disposing-=FrameOnDisposing;
-            frame1.Application.DetailViewCreating-=ApplicationOnDetailViewCreating;
-        }
-
-        private void ApplicationOnDetailViewCreating(object sender, DetailViewCreatingEventArgs e) {
-            var delayedObjectLoading = !((IModelDetailView) ((XafApplication) sender).Model.Views[e.ViewID]).Items.OfType<IModelPropertyEditor>()
-                .Any(item =>  typeof(ModelEditorPropertyEditor).IsAssignableFrom(item.PropertyEditorType));
-            e.EnableDelayedObjectLoading = delayedObjectLoading;
-        }
 
         private void OnCustomBindActionControlToAction(object sender, CustomBindEventArgs e){
             if (ModelEditorActions.Contains(e.Action)) {

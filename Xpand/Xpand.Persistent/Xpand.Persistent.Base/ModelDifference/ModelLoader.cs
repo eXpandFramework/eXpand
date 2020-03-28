@@ -73,7 +73,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
             if (!File.Exists(modelAssemblyFile)) {
                 string example=@"
 //Win
-Path.Combine(Path.GetTempPath(),$\""""{GetType().Name}{ModelAssemblyFileName}\"""")
+Path.Combine(Path.GetTempPath(),$""{GetType().Name}{ModelAssemblyFileName}"")
 
 //Web
 GetType().GetField(""sharedModelManager"", BindingFlags.NonPublic|BindingFlags.FlattenHierarchy|BindingFlags.Static)?.GetValue(this) == null

@@ -183,7 +183,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
                 _xmlContentChanged = true;
             }
         }
-public void Setup(IObjectSpace objectSpace, XafApplication application){
+
+        public void Setup(IObjectSpace objectSpace, XafApplication application){
             _objectSpace = objectSpace;
         }
 
@@ -220,6 +221,7 @@ public void Setup(IObjectSpace objectSpace, XafApplication application){
             _modelEditorViewController.ChangeAspectAction.ExecuteCompleted += ChangeAspectActionOnExecuteCompleted;
             _modelEditorViewController.ModelAttributesPropertyEditorController.PropertyChanged += ModelAttributesPropertyEditorControllerOnPropertyChanged;
         }
+
 
         private void ModelAttributesPropertyEditorControllerOnPropertyChanged(object sender, PropertyChangingEventArgs propertyChangingEventArgs) {
             CurrentObject.CreateAspectsCore(_currentObjectModel);
