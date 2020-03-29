@@ -14,26 +14,46 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="Fasterflect.Xpand" version="2.0.7" />
-      <dependency id="Mono.Cecil" version="0.11.1" />
-      <dependency id="Newtonsoft.Json" version="12.0.2" />
-      <dependency id="System.CodeDom" version="4.6" />
-      <dependency id="System.Configuration.ConfigurationManager" version="4.6" />
-      <dependency id="System.Drawing.Common" version="4.7" />
-      <dependency id="System.Management" version="4.5" />
-      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.7" />
-      <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Patcher" version="1.0.1" />
+      <dependency id="Fasterflect.Xpand" version="2.0.7">
+      </dependency>
+      <dependency id="Mono.Cecil" version="0.11.2">
+      </dependency>
+      <dependency id="Newtonsoft.Json" version="12.0.2">
+      </dependency>
+      <dependency id="System.CodeDom" version="4.7">
+      </dependency>
+      <dependency id="System.Configuration.ConfigurationManager" version="4.6">
+      </dependency>
+      <dependency id="System.Drawing.Common" version="4.7">
+      </dependency>
+      <dependency id="System.Management" version="4.5">
+      </dependency>
+      <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.7">
+      </dependency>
+      <dependency id="System.ValueTuple" version="4.5">
+      </dependency>
+      <dependency id="Xpand.Extensions" version="2.201.12.2">
+      </dependency>
+      <dependency id="Xpand.Patcher" version="1.0.1">
+      </dependency>
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.xpo.dll" target="lib\net461\Xpand.xpo.dll" />
-    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll" />
-    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll" />
-    <file src="Xpand.Persistent.Base.dll" target="lib\net461\Xpand.Persistent.Base.dll" />
-    <file src="Xpand.xpo.pdb" target="lib\net461\Xpand.xpo.pdb" />
-    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb" />
-    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb" />
-    <file src="Xpand.Persistent.Base.pdb" target="lib\net461\Xpand.Persistent.Base.pdb" />
+    <file src="Xpand.xpo.dll" target="lib\net461\Xpand.xpo.dll">
+    </file>
+    <file src="Xpand.Utils.dll" target="lib\net461\Xpand.Utils.dll">
+    </file>
+    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net461\Xpand.Persistent.BaseImpl.dll">
+    </file>
+    <file src="Xpand.Persistent.Base.dll" target="lib\net461\Xpand.Persistent.Base.dll">
+    </file>
+    <file src="Xpand.xpo.pdb" target="lib\net461\Xpand.xpo.pdb">
+    </file>
+    <file src="Xpand.Utils.pdb" target="lib\net461\Xpand.Utils.pdb">
+    </file>
+    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net461\Xpand.Persistent.BaseImpl.pdb">
+    </file>
+    <file src="Xpand.Persistent.Base.pdb" target="lib\net461\Xpand.Persistent.Base.pdb">
+    </file>
     </files>
 </package>

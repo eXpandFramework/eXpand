@@ -8,5 +8,6 @@ DevExpress.ExpressApp.Win
 DevExpress.ExpressApp.Security.Xpo
 System.ValueTuple
 Fasterflect.Xpand
+Xpand.Extensions
 Xpand.Patcher
 System.CodeDom

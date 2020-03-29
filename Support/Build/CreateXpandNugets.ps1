@@ -103,7 +103,7 @@ $libTargetFramework = $libCsproj.project.propertygroup.targetFramework
     $ext = $_
     "Xpand.xpo", "Xpand.Utils", "Xpand.Persistent.BaseImpl","Xpand.Persistent.Base" | ForEach-Object {
         $id = "$_.$ext"
-        Add-XmlElement $libNuspec "file" "files" ([ordered]@{
+        Add-XmlElement -Owner $libNuspec -ElementName "file" -Parent "files" -Attributes ([ordered]@{
             src    = $id
             target = "lib\$libTargetFramework\$id"
         })
@@ -157,7 +157,7 @@ $nuspecs | foreach {
     $nuspec.package.files.file|Where-Object{$_.src -like "*readme.txt"}|ForEach-Object{
         $_.parentnode.removechild($_)
     }
-    Add-XmlElement $nuspec "file" "files" ([ordered]@{
+    Add-XmlElement -Owner $nuspec -ElementName "file" -Parent "files" -Attributes ([ordered]@{
         src="$readmePath\Readme.txt"
         target=""
     })

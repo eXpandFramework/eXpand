@@ -1,7 +1,7 @@
 strategy:max
 framework: auto-detect
 storage: none
-source F:\devexpress\Packages
+source C:\Program Files (x86)\DevExpress 19.2\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
@@ -42,7 +42,7 @@ nuget RazorEngine 3.10.0
 nuget Ryder 0.8.0
 nuget SharpZipLib 1.1.0
 nuget System.Buffers 4.5
-nuget System.CodeDom 4.7.0
+nuget System.CodeDom == 4.7
 nuget System.Configuration.ConfigurationManager == 4.6.0
 nuget System.Reflection.Emit 4.7.0
 nuget System.Drawing.Common 4.7.0
@@ -57,5 +57,5 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 3.1.4
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 2.201.25.6
-nuget Xpand.XAF.Web.All 2.201.25.6
+nuget Xpand.XAF.Win.All 2.201.25.8
+nuget Xpand.XAF.Web.All 2.201.25.8
