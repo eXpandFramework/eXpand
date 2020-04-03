@@ -14,13 +14,13 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.602.5">
+      <dependency id="eXpandLib" version="19.2.700.0">
       </dependency>
-      <dependency id="eXpandMapView" version="19.2.602.5">
+      <dependency id="eXpandMapView" version="19.2.700.0">
       </dependency>
-      <dependency id="eXpandSystem" version="19.2.602.5">
+      <dependency id="eXpandSystem" version="19.2.700.0">
       </dependency>
-      <dependency id="eXpandSystemWeb" version="19.2.602.5">
+      <dependency id="eXpandSystemWeb" version="19.2.700.0">
       </dependency>
       <dependency id="System.ValueTuple" version="4.5">
       </dependency>
