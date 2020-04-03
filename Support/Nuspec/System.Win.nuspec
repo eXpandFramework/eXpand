@@ -16,9 +16,9 @@
     <dependencies>
       <dependency id="AutoMapper" version="3.3.1">
       </dependency>
-      <dependency id="eXpandLib" version="19.2.700.0">
+      <dependency id="eXpandLib" version="19.2.701.0">
       </dependency>
-      <dependency id="eXpandSystem" version="19.2.700.0">
+      <dependency id="eXpandSystem" version="19.2.701.0">
       </dependency>
       <dependency id="System.Resources.Extensions" version="4.6">
       </dependency>
