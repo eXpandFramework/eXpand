@@ -1,7 +1,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/expandframework/expand?label=Star%20the%20project%20if%20you%20think%20it%20deserves%20it&style=social) ![GitHub forks](https://img.shields.io/github/forks/expandframework/eXpand?label=Fork%20the%20project%20to%20extend%20and%20contribute&style=social)
 
 
-<img src="http://logo.expandframework.com" width=150 height=68 alt="eXpandFramework logo"/> | Nuget
+![image](https://user-images.githubusercontent.com/159464/66713086-c8c5a800-edae-11e9-9bc1-73ffc0c215fb.png) | Nuget
 |--------|--------
 [![GitHub release](https://img.shields.io/github/release/expandframework/expand.svg)](https://github.com/expandframework/expand/releases/latest) ![GitHub Releases](https://img.shields.io/github/downloads/expandframework/expand/latest/total.svg?label=Github) ![Custom badge](https://img.shields.io/endpoint.svg?label=Nuget&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2Flatest%3Fid%3DeXpand)|```nuget.exe list author:eXpandFramework``` 
 [![](https://img.shields.io/azure-devops/build/eXpandDevOps/dc0010e5-9ecf-45ac-b89d-2d51897f3855/32/master.svg?label=Lab%20build&style=flat)](https://dev.azure.com/eXpandDevOps/eXpandFramework/_build/latest?definitionId=32&branchName=master)|```nuget.exe list Xpand -source https://xpandnugetserver.azurewebsites.net/nuget```
