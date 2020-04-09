@@ -2,8 +2,7 @@ param(
    $repository="/eXpand.lab",
    $DXApiFeed=$env:DxFeed,
    $NuGetApiKey,
-   $artifactstagingdirectory,
-   $BetaFeed
+   $artifactstagingdirectory
 )
 dotnet tool restore
 $WorkingDirectory="$PSScriptRoot\.."
@@ -39,7 +38,7 @@ $pversion=Get-DevExpressVersion $version -Build
 Start-XpandProjectConverter -version $pversion -SkipInstall
 "Start build.."
 $buildArgs=@{
-   packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$DXApiFeed","$BetaFeed")
+   packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$DXApiFeed")
    configuration="Release"
    taskList=@("Release")
    nugetApiKey=$nugetApiKey

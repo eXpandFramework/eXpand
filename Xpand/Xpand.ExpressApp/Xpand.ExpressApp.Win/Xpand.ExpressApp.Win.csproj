@@ -100,7 +100,6 @@
     <Compile Update="SystemModule\ApplicationExitController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="SystemModule\LayoutControlGroupModelAdapterController.cs" />
     <Compile Update="SystemModule\SplitLayoutControlModelAdapterController.cs" />
     <Compile Update="SystemModule\XafLayoutControlModelAdapterController.cs" />
     <Compile Update="SystemModule\RibbonFromModelController.cs">
