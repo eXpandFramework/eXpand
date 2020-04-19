@@ -35,7 +35,7 @@ nuget Microsoft.CSharp 4.7
 nuget Microsoft.NETCore.Platforms 3.1.0
 nuget Microsoft.Win32.Registry 4.7
 nuget Mono.Cecil 0.11.2
-nuget Newtonsoft.Json 12.0.2
+nuget Newtonsoft.Json 12.0.3
 nuget PropertyChanged.Fody 2.6.1 copy_local: false
 nuget Quartz 2.2.4
 nuget RazorEngine 3.10.0
@@ -57,5 +57,5 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 3.1.4
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 2.201.26.1
-nuget Xpand.XAF.Web.All 2.201.26.1
+nuget Xpand.XAF.Win.All 2.201.26.5
+nuget Xpand.XAF.Web.All 2.201.26.5

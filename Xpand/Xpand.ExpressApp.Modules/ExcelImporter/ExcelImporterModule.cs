@@ -21,6 +21,7 @@ using Xpand.XAF.Modules.HideToolBar;
 using Xpand.XAF.Modules.MasterDetail;
 using Xpand.XAF.Modules.ProgressBarViewItem;
 using Xpand.XAF.Modules.Reactive.Services;
+using Xpand.XAF.Modules.Reactive.Services.Actions;
 using Xpand.XAF.Modules.SuppressConfirmation;
 using Xpand.XAF.Modules.ViewEditMode;
 
