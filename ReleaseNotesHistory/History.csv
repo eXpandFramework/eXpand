@@ -1,12 +1,14 @@
 "Release","Issues","Labels","Message","Sha"
-"19.2.701.0","691","Modeldifference","The ModelDifference Ribbon is missing actions","ba3d8e43a166ee0d7a2df3d3296b3583302614cf"
-"19.2.701.0","690","Modeldifference","ModelDifference detailview gets modified on load","50420eed327f4388b993f1f19a65ae261da240e7"
-"19.2.701.0","669, 674, 681","? Backer, ? Bronze Sponsor, Modeldifference, ModelMapper, Priority, ReproSample, Standalone_XAF_Modules","ModelDifference: ModelApplicationCreator creates multiple models throwing CannotCreateModelNodeByTypeException","59abc383a7cab15d00306afe8a4e20cc58a299bc"
-"19.2.701.0","683","? Backer","ModelDifference: Exception when logoff if DelayedObjectLoading enabled","631a394a8d5c4746e878b29fb02dd6db9cf72d0d"
-"19.2.701.0","674","? Backer, ? Bronze Sponsor, ModelMapper, Standalone_XAF_Modules","Bump Standalone packages","62ed5fd958af00832568441aca6c513ca49e8778"
-"19.2.701.0","682","ShowStopper, Standalone_XAF_Modules, XpandModelEditor","RuntimeMode detection is wrong when Xpand.XAF.ModelEditor","cdb3bedde435846ee5853069ab46688c419f0293"
-"19.2.701.0","674","? Backer, ? Bronze Sponsor, ModelMapper, Standalone_XAF_Modules","ModelDifference: Xml validation controller throws if a different editor than the RichEditWinPropertyEditor is used","e803ec0611caf5183ce5a096f8f438072bc418fa"
-"19.2.701.0","674","? Backer, ? Bronze Sponsor, ModelMapper, Standalone_XAF_Modules","Bump Standalone packages","695c15071924447773dc40fd7c669f7e5f0540d5"
+"19.2.702.0","695","LookupCascade, Standalone_XAF_Modules","Distribute LookupCascade package with System.web module","30f4c97cf36693376b6eeb62f6a4eeabdbcfd358"
+"19.2.702.0","689","? Sponsor, ModelMapper, Standalone_XAF_Modules","System.Win: remove LayoutControlGroupModelAdapterController","0e44188b57c58335fb12bf2c62cd092238cd1586"
+"19.2.701.0","691","Modeldifference","The ModelDifference Ribbon is missing actions",
+"19.2.701.0","690","Modeldifference","ModelDifference detailview gets modified on load",
+"19.2.701.0","669, 674, 681","? Backer, ? Bronze Sponsor, Modeldifference, ModelMapper, Priority, ReproSample, Standalone_XAF_Modules","ModelDifference: ModelApplicationCreator creates multiple models throwing CannotCreateModelNodeByTypeException",
+"19.2.701.0","683","? Backer","ModelDifference: Exception when logoff if DelayedObjectLoading enabled",
+"19.2.701.0","674","? Backer, ? Bronze Sponsor, ModelMapper, Standalone_XAF_Modules","Bump Standalone packages",
+"19.2.701.0","682","ShowStopper, Standalone_XAF_Modules, XpandModelEditor","RuntimeMode detection is wrong when Xpand.XAF.ModelEditor",
+"19.2.701.0","674","? Backer, ? Bronze Sponsor, ModelMapper, Standalone_XAF_Modules","ModelDifference: Xml validation controller throws if a different editor than the RichEditWinPropertyEditor is used",
+"19.2.701.0","674","? Backer, ? Bronze Sponsor, ModelMapper, Standalone_XAF_Modules","Bump Standalone packages",
 "19.2.602.0","624","Contribution, Priority, XpandModelEditor","Replace VSIX ME with Xpand.XAF.ModelEditor.exe",
 "19.2.602.0","655","Priority, ReproSample","Improve EvaluatorContextDescriptor detection",
 "19.2.602.0","680","? Backer, Nuget, Priority","Bump Standalone packages - Symbols are not copied to the output directory when SDK projects",
