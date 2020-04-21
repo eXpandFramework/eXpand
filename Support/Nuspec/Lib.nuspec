@@ -18,7 +18,7 @@
       </dependency>
       <dependency id="Mono.Cecil" version="0.11.2">
       </dependency>
-      <dependency id="Newtonsoft.Json" version="12.0.2">
+      <dependency id="Newtonsoft.Json" version="12.0.3">
       </dependency>
       <dependency id="System.CodeDom" version="4.7">
       </dependency>
@@ -32,7 +32,7 @@
       </dependency>
       <dependency id="System.ValueTuple" version="4.5">
       </dependency>
-      <dependency id="Xpand.Extensions" version="2.201.13">
+      <dependency id="Xpand.Extensions" version="2.201.14">
       </dependency>
       <dependency id="Xpand.Patcher" version="1.0.1">
       </dependency>

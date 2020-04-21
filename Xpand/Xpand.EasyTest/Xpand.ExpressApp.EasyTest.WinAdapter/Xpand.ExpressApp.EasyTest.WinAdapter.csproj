@@ -16,15 +16,15 @@
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.EasyTest">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.EasyTest.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.EasyTest.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Win">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>

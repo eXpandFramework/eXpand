@@ -15,27 +15,27 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.ModelDifference">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.ModelDifference.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Security.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Security.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security.Web">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.Security.Web.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Security.Web.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Web" />

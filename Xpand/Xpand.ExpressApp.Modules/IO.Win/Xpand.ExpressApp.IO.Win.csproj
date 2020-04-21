@@ -14,19 +14,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.IO">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.IO.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.IO.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.TreeListEditors.Win">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.ExpressApp.TreeListEditors.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.TreeListEditors.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Windows.Forms">

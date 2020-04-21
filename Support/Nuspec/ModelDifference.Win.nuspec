@@ -23,17 +23,17 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="19.2.701.0">
+      <dependency id="eXpandLib" version="19.2.702.0">
       </dependency>
-      <dependency id="eXpandModelDifference" version="19.2.701.0">
+      <dependency id="eXpandModelDifference" version="19.2.702.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="19.2.701.0">
+      <dependency id="eXpandSecurity" version="19.2.702.0">
       </dependency>
-      <dependency id="eXpandSecurityWin" version="19.2.701.0">
+      <dependency id="eXpandSecurityWin" version="19.2.702.0">
       </dependency>
-      <dependency id="eXpandSystemWin" version="19.2.701.0">
+      <dependency id="eXpandSystemWin" version="19.2.702.0">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.201.13">
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.201.14">
       </dependency>
     </dependencies>
   </metadata>

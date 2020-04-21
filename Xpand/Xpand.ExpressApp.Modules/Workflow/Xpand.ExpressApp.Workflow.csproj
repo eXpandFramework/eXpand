@@ -18,15 +18,15 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
-      <HintPath>..\..\..\Xpand.Dll\Xpand.Xpo.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
