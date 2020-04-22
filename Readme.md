@@ -21,7 +21,7 @@ _eXpandFramework_ is an independent open-source project and is not affiliated wi
 
 _eXpandFramework_ is a **FREE** extension for **DevExpress-XAF** and operates within the **Microsoft Public License (Ms-PL)**. 
 
-The [eXpandFrameowork](https://github.com/eXpandFramework) organization consist of three projects. The main project, this one, the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) and the [XpandPwsh](https://github.com/eXpandFramework/XpandPwsh) powershell module where you can find all you neeed for your everyday development tasks. The main project acts as a container to the standalone proejct. Eventually all modules of main project will be puzzled from the standalone modules.
+The [eXpandFramework](https://github.com/eXpandFramework) organization consist of three projects. The main project, this one, the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) and the [XpandPwsh](https://github.com/eXpandFramework/XpandPwsh) powershell module where you can find all you neeed for your everyday development tasks. The main project acts as a container to the standalone proejct. Eventually all modules of main project will be puzzled from the standalone modules.
 
 The artiteture is similar architecture to XAF. We recommend you go through the [Getting Started](https://github.com/eXpandFramework/eXpand/wiki/Getting-Started) document to get the feeling on how to get the most out of it. Afterwards just installed the modules you want and go through the blogs linked in the list below and feel free to post [Issues](https://github.com/eXpandFramework/eXpand/issues).
 
