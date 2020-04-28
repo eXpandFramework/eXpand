@@ -110,7 +110,7 @@ namespace Xpand.ExpressApp.ModelDifference {
     }
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class ModelDifferenceModule : XpandModuleBase, ISequenceGeneratorUser,ISecurityModuleUser{
+    public sealed class ModelDifferenceModule : XpandModuleBase, ISecurityModuleUser{
         public const string ModelDifferenceCategory = "eXpand.ModelDifference";
         public ModelDifferenceModule() {
             RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));

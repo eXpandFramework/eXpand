@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
                 foreach (var provider in Application.ObjectSpaceProviders.OfType<XpandObjectSpaceProvider>().Select(provider => provider.DataStoreProvider).OfType<MultiDataStoreProvider>()) {
                     provider.ConnectionString = connectionString;
                 }
-                Application.TypesInfo.ModifySequenceObjectWhenMySqlDatalayer();
+
             }
         }
 

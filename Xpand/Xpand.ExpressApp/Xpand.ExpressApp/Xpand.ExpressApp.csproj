@@ -63,9 +63,6 @@
     <Compile Update="SystemModule\DirtyTitleWindowController.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Update="SystemModule\ReloadObjectController.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Update="SystemModule\UpdateFastManyToManyActionsController.cs">
       <SubType>Component</SubType>
     </Compile>

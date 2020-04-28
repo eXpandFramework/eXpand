@@ -37,11 +37,7 @@ namespace Xpand.Persistent.Base.General {
         public static IEnumerable<ITypeInfo> DomainSealedInfos<T>(this ITypesInfo typesInfo){
             return typesInfo.DomainSealedInfos(typeof(T));
         }
-
-        public static void ModifySequenceObjectWhenMySqlDatalayer(this ITypesInfo typesInfo) {
-            SequenceGeneratorHelper.ModifySequenceObjectWhenMySqlDatalayer(typesInfo);
-        }
-
+        
         public static ITypeInfo GetITypeInfo(this object obj){
             return obj.GetType().GetITypeInfo();
         }

@@ -18,13 +18,11 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Utils.CodeGeneration;
-using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Exceptions;
-using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Microsoft.Win32;
 using Xpand.Persistent.Base.General.Controllers;
@@ -617,8 +615,6 @@ namespace Xpand.Persistent.Base.General {
                 return;
             if (RuntimeMode) {
                 ApplicationHelper.Instance.Initialize(application);
-                var generatorHelper = new SequenceGeneratorHelper();
-                generatorHelper.Attach(this);
             }
 
             
@@ -640,19 +636,9 @@ namespace Xpand.Persistent.Base.General {
         private void ApplicationOnDisposed(object sender, EventArgs e) {
             ObjectSpaceCreated = false;
             _baseImplAssembly = null;
-            ((XafApplication) sender).Disposed-=ObjectSpaceOnDisposed;
             CallMonitor.Clear();
         }
-
-        public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB) {
-            var moduleUpdaters = base.GetModuleUpdaters(objectSpace, versionFromDB);
-            if (Executed<ISequenceGeneratorUser>("GetModuleUpdaters"))
-                return moduleUpdaters;
-            if (SequenceGenerator.UseGuidKey)
-                moduleUpdaters = moduleUpdaters.Concat(new[] { new SequenceGeneratorUpdater(objectSpace, Version) });
-            return moduleUpdaters;
-        }
-
+        
         private void ApplicationOnCreateCustomCollectionSource(object sender, CreateCustomCollectionSourceEventArgs e) {
             e.CollectionSource = new XpandCollectionSource(e.ObjectSpace, e.ObjectType, e.DataAccessMode, e.Mode);
         }
@@ -742,7 +728,6 @@ namespace Xpand.Persistent.Base.General {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             if (!Executed("CustomizeTypesInfo")) {
-                typesInfo.ModifySequenceObjectWhenMySqlDatalayer();
                 if (RuntimeMode) {
                     foreach (var persistentType in typesInfo.PersistentTypes) {
                         CreateAttributeRegistratorAttributes(persistentType);
@@ -765,14 +750,7 @@ namespace Xpand.Persistent.Base.General {
                 attribute = type.FindAttribute<ModelReadOnlyAttribute>();
                 if (attribute != null)
                     type.RemoveAttribute(attribute);
-
-                if (!SequenceGenerator.UseGuidKey && SequenceObjectType != null){
-                    var typeInfo = typesInfo.FindTypeInfo(SequenceObjectType);
-                    var memberInfo = (BaseInfo) typeInfo.FindMember("Oid");
-                    memberInfo.RemoveAttribute(new KeyAttribute(false));
-                    memberInfo = (BaseInfo) typeInfo.FindMember<ISequenceObject>(o => o.TypeName);
-                    memberInfo.AddAttribute(new KeyAttribute(false));
-                }
+                
             }
             if ((!Executed("CustomizedTypesInfo", ModuleType.Win)))
                 EditorAliasForNullableEnums(typesInfo);
@@ -846,61 +824,10 @@ namespace Xpand.Persistent.Base.General {
                 RuntimeMemberBuilder.CreateRuntimeMembers(Application.Model);
                 if (Executed("ApplicationOnSetupComplete"))
                     return;
-                Application.ObjectSpaceCreated += ApplicationOnObjectSpaceCreated;
                 Application.SetClientSideSecurity();
-                if (Application is WebApplication webApplication)
-                    webApplication.PopupWindowManager.PopupShowing += PopupWindowManagerOnPopupShowing;
             }
         }
-
-        private void PopupWindowManagerOnPopupShowing(object sender, PopupShowingEventArgs e){
-//            e.SourceFrame.RegisterController(Application.CreateController<CustomizeASPxPopupController>());
-        }
-
-        private void ApplicationOnObjectSpaceCreated(object sender1, ObjectSpaceCreatedEventArgs e) {
-            e.ObjectSpace.Disposed += ObjectSpaceOnDisposed;
-            e.ObjectSpace.Committing += ObjectSpaceOnCommitting;
-            e.ObjectSpace.ObjectDeleting += ObjectSpaceOnObjectDeleting;
-        }
-
-        private void ObjectSpaceOnDisposed(object sender1, EventArgs eventArgs) {
-            var objectSpace = ((IObjectSpace)sender1);
-            objectSpace.Disposed -= ObjectSpaceOnDisposed;
-            objectSpace.ObjectDeleting -= ObjectSpaceOnObjectDeleting;
-            objectSpace.Committing -= ObjectSpaceOnCommitting;
-        }
-
-        private void ObjectSpaceOnCommitting(object sender1, CancelEventArgs cancelEventArgs) {
-            var objectSpace = ((IObjectSpace)sender1);
-            var objects = objectSpace.ModifiedObjects.Cast<object>();
-            var typeGroups = objects.GroupBy(o => o.GetType());
-            foreach (var group in typeGroups) {
-                var memberInfos = group.Key.GetITypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
-                foreach (var memberInfo in memberInfos) {
-                    var attribute = memberInfo.FindAttribute<SequenceGeneratorAttribute>();
-                    var sessionProvider = ((ISessionProvider) group.First());
-                    SequenceGenerator.GenerateSequence(sessionProvider, attribute.SequenceName, l => memberInfo.SetValue(sessionProvider, l));
-                }
-            }
-        }
-
-        private void ObjectSpaceOnObjectDeleting(object sender1, ObjectsManipulatingEventArgs e) {
-            var objectSpace = ((IObjectSpace)sender1);
-            var typeGroups = e.Objects.Cast<object>().GroupBy(o => o.GetType());
-            foreach (var group in typeGroups) {
-                var memberInfos = group.Key.GetITypeInfo().Members.Where(info => info.FindAttributes<SequenceGeneratorAttribute>().Any());
-                foreach (var memberInfo in memberInfos) {
-                    var attribute = memberInfo.FindAttribute<SequenceGeneratorAttribute>();
-                    foreach (var obj in group) {
-                        SequenceGenerator.ReleaseSequence(objectSpace.Session(), attribute.SequenceName, (long)memberInfo.GetValue(obj));
-                    }
-                }
-            }
-        }
-
-
-
-
+        
         public void UpdateNode(IModelMemberEx node, IModelApplication application) {
             node.ClearValue(ex => ex.IsCustom);
             node.ClearValue(ex => ex.IsCalculated);
