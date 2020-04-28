@@ -43,6 +43,7 @@ namespace Xpand.ExpressApp.SystemModule {
             RequiredModuleTypes.Add(typeof(XAF.Modules.ProgressBarViewItem.ProgressBarViewItemModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.RefreshView.RefreshViewModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.SequenceGenerator.SequenceGeneratorModule));
         }
 
         static XpandSystemModule() {

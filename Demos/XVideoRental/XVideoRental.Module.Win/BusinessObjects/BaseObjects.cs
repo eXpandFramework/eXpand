@@ -60,7 +60,7 @@ namespace XVideoRental.Module.Win.BusinessObjects {
         }
     }
 
-    public class SequenceBaseObject : BaseObject, ISupportSequenceObject {
+    public class SequenceBaseObject : BaseObject {
         internal static bool Updating;
         long _id;
 
@@ -75,21 +75,7 @@ namespace XVideoRental.Module.Win.BusinessObjects {
             set { SetPropertyValue("Id", ref _id, value); }
         }
 
-        protected override void OnSaving() {
-            base.OnSaving();
-            if (Session.IsNewObject(this) && !Updating) {
-                SequenceGenerator.GenerateSequence(this);
-            }
-        }
-        #region Implementation of ISupportSequenceObject
-        long ISupportSequenceObject.Sequence {
-            get { return Id; }
-            set { Id = value; }
-        }
 
-        string ISupportSequenceObject.Prefix => null;
-
-        #endregion
     }
 
     [NonPersistent]
