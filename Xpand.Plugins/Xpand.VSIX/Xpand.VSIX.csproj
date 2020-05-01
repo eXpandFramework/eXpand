@@ -242,8 +242,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Data.v19.2">
-          <HintPath>..\packages\DevExpress.Data\lib\net452\DevExpress.Data.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.Data.v20.1">
+          <HintPath>..\packages\DevExpress.Data\lib\net452\DevExpress.Data.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -253,8 +253,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Images.v19.2">
-          <HintPath>..\packages\DevExpress.Images\lib\net452\DevExpress.Images.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.Data.Desktop.v20.1">
+          <HintPath>..\packages\DevExpress.Data.Desktop\lib\net452\DevExpress.Data.Desktop.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -264,8 +264,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Office.v19.2.Core">
-          <HintPath>..\packages\DevExpress.Office.Core\lib\net452\DevExpress.Office.v19.2.Core.dll</HintPath>
+        <Reference Include="DevExpress.Office.v20.1.Core">
+          <HintPath>..\packages\DevExpress.Office.Core\lib\net452\DevExpress.Office.v20.1.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -275,8 +275,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Pdf.v19.2.Core">
-          <HintPath>..\packages\DevExpress.Pdf.Core\lib\net452\DevExpress.Pdf.v19.2.Core.dll</HintPath>
+        <Reference Include="DevExpress.Pdf.v20.1.Core">
+          <HintPath>..\packages\DevExpress.Pdf.Core\lib\net452\DevExpress.Pdf.v20.1.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -286,8 +286,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.PivotGrid.v19.2.Core">
-          <HintPath>..\packages\DevExpress.PivotGrid.Core\lib\net452\DevExpress.PivotGrid.v19.2.Core.dll</HintPath>
+        <Reference Include="DevExpress.Pdf.v20.1.Drawing">
+          <HintPath>..\packages\DevExpress.Pdf.Drawing\lib\net452\DevExpress.Pdf.v20.1.Drawing.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -297,8 +297,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Printing.v19.2.Core">
-          <HintPath>..\packages\DevExpress.Printing.Core\lib\net452\DevExpress.Printing.v19.2.Core.dll</HintPath>
+        <Reference Include="DevExpress.PivotGrid.v20.1.Core">
+          <HintPath>..\packages\DevExpress.PivotGrid.Core\lib\net452\DevExpress.PivotGrid.v20.1.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -308,8 +308,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.RichEdit.v19.2.Core">
-          <HintPath>..\packages\DevExpress.RichEdit.Core\lib\net452\DevExpress.RichEdit.v19.2.Core.dll</HintPath>
+        <Reference Include="DevExpress.Printing.v20.1.Core">
+          <HintPath>..\packages\DevExpress.Printing.Core\lib\net452\DevExpress.Printing.v20.1.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -319,8 +319,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.RichEdit.v19.2.Export">
-          <HintPath>..\packages\DevExpress.RichEdit.Export\lib\net452\DevExpress.RichEdit.v19.2.Export.dll</HintPath>
+        <Reference Include="DevExpress.RichEdit.v20.1.Core">
+          <HintPath>..\packages\DevExpress.RichEdit.Core\lib\net452\DevExpress.RichEdit.v20.1.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -330,8 +330,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Sparkline.v19.2.Core">
-          <HintPath>..\packages\DevExpress.Sparkline.Core\lib\net452\DevExpress.Sparkline.v19.2.Core.dll</HintPath>
+        <Reference Include="DevExpress.RichEdit.v20.1.Export">
+          <HintPath>..\packages\DevExpress.RichEdit.Export\lib\net452\DevExpress.RichEdit.v20.1.Export.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -341,8 +341,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Utils.v19.2">
-          <HintPath>..\packages\DevExpress.Utils\lib\net452\DevExpress.Utils.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.Sparkline.v20.1.Core">
+          <HintPath>..\packages\DevExpress.Sparkline.Core\lib\net452\DevExpress.Sparkline.v20.1.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -352,13 +352,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraNavBar.v19.2">
-          <HintPath>..\packages\DevExpress.Win\lib\net452\DevExpress.XtraNavBar.v19.2.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="DevExpress.XtraWizard.v19.2">
-          <HintPath>..\packages\DevExpress.Win\lib\net452\DevExpress.XtraWizard.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.Utils.v20.1">
+          <HintPath>..\packages\DevExpress.Utils\lib\net452\DevExpress.Utils.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -368,8 +363,13 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraGrid.v19.2">
-          <HintPath>..\packages\DevExpress.Win.Grid\lib\net452\DevExpress.XtraGrid.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.XtraNavBar.v20.1">
+          <HintPath>..\packages\DevExpress.Win\lib\net452\DevExpress.XtraNavBar.v20.1.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="DevExpress.XtraWizard.v20.1">
+          <HintPath>..\packages\DevExpress.Win\lib\net452\DevExpress.XtraWizard.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -379,18 +379,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraBars.v19.2">
-          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraBars.v19.2.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="DevExpress.XtraEditors.v19.2">
-          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraEditors.v19.2.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="DevExpress.XtraLayout.v19.2">
-          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraLayout.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.XtraGrid.v20.1">
+          <HintPath>..\packages\DevExpress.Win.Grid\lib\net452\DevExpress.XtraGrid.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -400,8 +390,18 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraPivotGrid.v19.2">
-          <HintPath>..\packages\DevExpress.Win.PivotGrid\lib\net452\DevExpress.XtraPivotGrid.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.XtraBars.v20.1">
+          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraBars.v20.1.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="DevExpress.XtraEditors.v20.1">
+          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraEditors.v20.1.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="DevExpress.XtraLayout.v20.1">
+          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraLayout.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -411,8 +411,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraPrinting.v19.2">
-          <HintPath>..\packages\DevExpress.Win.Printing\lib\net452\DevExpress.XtraPrinting.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.XtraPivotGrid.v20.1">
+          <HintPath>..\packages\DevExpress.Win.PivotGrid\lib\net452\DevExpress.XtraPivotGrid.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -422,8 +422,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraTreeList.v19.2">
-          <HintPath>..\packages\DevExpress.Win.TreeList\lib\net452\DevExpress.XtraTreeList.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.XtraPrinting.v20.1">
+          <HintPath>..\packages\DevExpress.Win.Printing\lib\net452\DevExpress.XtraPrinting.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -433,8 +433,19 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraVerticalGrid.v19.2">
-          <HintPath>..\packages\DevExpress.Win.VerticalGrid\lib\net452\DevExpress.XtraVerticalGrid.v19.2.dll</HintPath>
+        <Reference Include="DevExpress.XtraTreeList.v20.1">
+          <HintPath>..\packages\DevExpress.Win.TreeList\lib\net452\DevExpress.XtraTreeList.v20.1.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="DevExpress.XtraVerticalGrid.v20.1">
+          <HintPath>..\packages\DevExpress.Win.VerticalGrid\lib\net452\DevExpress.XtraVerticalGrid.v20.1.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
