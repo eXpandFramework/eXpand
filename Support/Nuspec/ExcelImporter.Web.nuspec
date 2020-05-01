@@ -16,23 +16,23 @@
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6">
       </dependency>
-      <dependency id="eXpandExcelImporter" version="19.2.702.0">
+      <dependency id="eXpandExcelImporter" version="20.1.301.0">
       </dependency>
-      <dependency id="eXpandLib" version="19.2.702.0">
+      <dependency id="eXpandLib" version="20.1.301.0">
       </dependency>
-      <dependency id="eXpandSystem" version="19.2.702.0">
+      <dependency id="eXpandSystem" version="20.1.301.0">
       </dependency>
-      <dependency id="eXpandSystemWeb" version="19.2.702.0">
+      <dependency id="eXpandSystemWeb" version="20.1.301.0">
       </dependency>
-      <dependency id="eXpandValidationWeb" version="19.2.702.0">
+      <dependency id="eXpandValidationWeb" version="20.1.301.0">
       </dependency>
       <dependency id="System.IO.Compression" version="4.3">
       </dependency>
       <dependency id="System.Reactive" version="4.3.2">
       </dependency>
-      <dependency id="Xpand.Extensions" version="2.201.14">
+      <dependency id="Xpand.Extensions" version="2.201.29">
       </dependency>
-      <dependency id="Xpand.Extensions.XAF" version="2.201.14">
+      <dependency id="Xpand.Extensions.XAF" version="2.201.29">
       </dependency>
     </dependencies>
   </metadata>
