@@ -1,6 +1,8 @@
 "Release","Issues","Labels","Message","Sha"
-"19.2.702.0","695","LookupCascade, Standalone_XAF_Modules","Distribute LookupCascade package with System.web module","30f4c97cf36693376b6eeb62f6a4eeabdbcfd358"
-"19.2.702.0","689","? Sponsor, ModelMapper, Standalone_XAF_Modules","System.Win: remove LayoutControlGroupModelAdapterController","0e44188b57c58335fb12bf2c62cd092238cd1586"
+"20.1.301.0","696","SequenceGenerator, Standalone_XAF_Modules","SequenceGenerator: register standalone package in System module","07c02319e31759ce5e7b62a84842b79bfea900ac"
+"20.1.301.0","696","SequenceGenerator, Standalone_XAF_Modules","SequenceGenerator: Remove old implementation","f870623ce3ca331fbaa7b2db22623dc168f5ec49"
+"19.2.702.0","695","LookupCascade, Standalone_XAF_Modules","Distribute LookupCascade package with System.web module",
+"19.2.702.0","689","? Sponsor, ModelMapper, Standalone_XAF_Modules","System.Win: remove LayoutControlGroupModelAdapterController",
 "19.2.701.0","691","Modeldifference","The ModelDifference Ribbon is missing actions",
 "19.2.701.0","690","Modeldifference","ModelDifference detailview gets modified on load",
 "19.2.701.0","669, 674, 681","? Backer, ? Bronze Sponsor, Modeldifference, ModelMapper, Priority, ReproSample, Standalone_XAF_Modules","ModelDifference: ModelApplicationCreator creates multiple models throwing CannotCreateModelNodeByTypeException",
