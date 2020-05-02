@@ -71,20 +71,11 @@ namespace Xpand.Persistent.Base.ModelDifference {
             XpandModuleBase.CallMonitor.Clear();
             var modelAssemblyFile = typeof(XafApplication).Invoke(application, "GetModelAssemblyFilePath") as string;
             if (!File.Exists(modelAssemblyFile)) {
-                string example=@"
-//Win
-Path.Combine(Path.GetTempPath(),$""{GetType().Name}{ModelAssemblyFileName}"")
-
-//Web
-GetType().GetField(""sharedModelManager"", BindingFlags.NonPublic|BindingFlags.FlattenHierarchy|BindingFlags.Static)?.GetValue(this) == null
-                ? Path.Combine(Path.GetTempPath(), $""{GetType().Name}{ModelAssemblyFileName}"") : null                    
-";
                 throw new FileNotFoundException(
-                    $"The ModelEditor requires a valid ModelAssembly. Override the {application.GetType().FullName} GetModelAssemblyFilePath to provide a valid filename e.g.{example}");
+                    $"The ModelEditor requires a valid ModelAssembly. Reference the Xpand.ExpressApp.ModelDifference assembly in your front end project, override the {application.GetType().FullName} GetModelAssemblyFilePath to provide a valid filename using the call this.GetModelFilePath()");
             }
 
             applicationModulesManager.TypesInfo.AssignAsInstance();
-            typeof(ModelApplicationCreator).SetFieldValue("fileModelAssembly", null);
             var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo,
             applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
             applicationModulesManager.ControllersManager, application.ResourcesExportedToModel,
