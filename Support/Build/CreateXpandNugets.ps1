@@ -7,6 +7,16 @@ Param (
 Write-HostFormatted "Create Nuget for $version"
 $ErrorActionPreference = "Stop"
 Use-MonoCecil | Out-Null
+Write-HostFormatted "Update CopySymbols scripts" -section
+$branch="master"
+if (([version]$version).Revision -gt 0){
+    $branch="lab"
+}
+$c=[System.Net.WebClient]::new()
+"ps1","targets"|ForEach-Object{
+    $script=$c.DownloadString("https://raw.githubusercontent.com/eXpandFramework/DevExpress.XAF/$branch/Build/CopySymbols.$_")
+    Set-Content "$PSScriptRoot\CopySymbols.$_" $script
+}
 
 if (!$projects) {
     $projects = Get-ChildItem "$PSScriptRoot\..\..\Xpand" *.csproj -Exclude "*Xpand.Test*" -Recurse
@@ -86,8 +96,20 @@ $nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {
     if ($nuspec.package.metadata.dependencies){
         $nuspec.package.metadata.dependencies.RemoveAll()
     }
+    if (!($nuspec.Package.Files.File.src|Select-String "CopySymbols")){
+        $sortedDeps | Add-NuspecDependency -Nuspec $nuspec
+        $a = [ordered]@{
+            src = "..\Support\build\CopySymbols.targets"
+            target="build\$($nuspec.package.metadata.id).targets" 
+        }
+        Add-XmlElement -Owner $nuspec -elementname "file" -parent "files"-Attributes $a
+        $a = [ordered]@{
+            src = "..\Support\build\CopySymbols.ps1"
+            target="build\CopySymbols.ps1" 
+        } 
+        Add-XmlElement -Owner $nuspec -elementname "file" -parent "files"-Attributes $a
+    }
     
-    $sortedDeps | Add-NuspecDependency -Nuspec $nuspec
     $nuspec.Save($_.FileInfo.FullName)
     Format-Xml -path $_.FileInfo.FullName
     
