@@ -599,7 +599,7 @@ namespace Xpand.Persistent.Base.General {
                 return;
             if (RuntimeMode)
                 ConnectionString = this.GetConnectionString();
-            XafTypesInfo.Instance.LoadTypes(typeof(XpandModuleBase).Assembly);
+            // XafTypesInfo.Instance.LoadTypes(typeof(XpandModuleBase).Assembly);
         }
 
         public override void Setup(XafApplication application) {
