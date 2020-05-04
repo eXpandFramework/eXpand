@@ -16,9 +16,9 @@
     <dependencies>
       <dependency id="DocumentFormat.OpenXml" version="2.7.2">
       </dependency>
-      <dependency id="eXpandImportWizard" version="20.1.301.0">
+      <dependency id="eXpandImportWizard" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
       <dependency id="System.Resources.Extensions" version="4.6">
       </dependency>
@@ -29,5 +29,9 @@
   <files>
     <file src="Xpand.ExpressApp.ImportWizard.Win.dll" target="lib\net461\Xpand.ExpressApp.ImportWizard.Win.dll" />
     <file src="Xpand.ExpressApp.ImportWizard.Win.pdb" target="lib\net461\Xpand.ExpressApp.ImportWizard.Win.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandImportWizardWin2.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

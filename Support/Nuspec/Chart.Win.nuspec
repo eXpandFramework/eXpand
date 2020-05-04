@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
       <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.201.29">
       </dependency>
@@ -25,5 +25,9 @@
   <files>
     <file src="Xpand.ExpressApp.Chart.Win.dll" target="lib\net461\Xpand.ExpressApp.Chart.Win.dll" />
     <file src="Xpand.ExpressApp.Chart.Win.pdb" target="lib\net461\Xpand.ExpressApp.Chart.Win.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandChartWin.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AuditTrail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandLogic" version="20.1.301.0">
+      <dependency id="eXpandLogic" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="20.1.301.0">
+      <dependency id="eXpandSecurity" version="20.1.302.0">
       </dependency>
       <dependency id="System.Reactive" version="4.3.2">
       </dependency>
@@ -31,5 +31,9 @@
   <files>
     <file src="Xpand.ExpressApp.AuditTrail.dll" target="lib\net461\Xpand.ExpressApp.AuditTrail.dll" />
     <file src="Xpand.ExpressApp.AuditTrail.pdb" target="lib\net461\Xpand.ExpressApp.AuditTrail.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandAuditTrail.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

@@ -16,13 +16,13 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSystem" version="20.1.301.0">
+      <dependency id="eXpandSystem" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSystemWeb" version="20.1.301.0">
+      <dependency id="eXpandSystemWeb" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandWorldCreator" version="20.1.301.0">
+      <dependency id="eXpandWorldCreator" version="20.1.302.0">
       </dependency>
       <dependency id="System.ValueTuple" version="4.5">
       </dependency>
@@ -31,5 +31,9 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.Web.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.Web.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.Web.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.Web.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandWorldCreatorWeb.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

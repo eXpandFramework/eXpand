@@ -16,15 +16,15 @@
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6">
       </dependency>
-      <dependency id="eXpandExcelImporter" version="20.1.301.0">
+      <dependency id="eXpandExcelImporter" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSystem" version="20.1.301.0">
+      <dependency id="eXpandSystem" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSystemWeb" version="20.1.301.0">
+      <dependency id="eXpandSystemWeb" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandValidationWeb" version="20.1.301.0">
+      <dependency id="eXpandValidationWeb" version="20.1.302.0">
       </dependency>
       <dependency id="System.IO.Compression" version="4.3">
       </dependency>
@@ -39,5 +39,9 @@
   <files>
     <file src="Xpand.ExpressApp.ExcelImporter.Web.dll" target="lib\net461\Xpand.ExpressApp.ExcelImporter.Web.dll" />
     <file src="Xpand.ExpressApp.ExcelImporter.Web.pdb" target="lib\net461\Xpand.ExpressApp.ExcelImporter.Web.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandExcelImporter.Web.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandTreelistView" version="20.1.301.0">
+      <dependency id="eXpandTreelistView" version="20.1.302.0">
       </dependency>
       <dependency id="System.ValueTuple" version="4.5">
       </dependency>
@@ -27,5 +27,9 @@
   <files>
     <file src="Xpand.ExpressApp.TreeListEditors.Web.dll" target="lib\net461\Xpand.ExpressApp.TreeListEditors.Web.dll" />
     <file src="Xpand.ExpressApp.TreeListEditors.Web.pdb" target="lib\net461\Xpand.ExpressApp.TreeListEditors.Web.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandTreelistViewWeb.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

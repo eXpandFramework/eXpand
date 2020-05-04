@@ -16,13 +16,13 @@
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6">
       </dependency>
-      <dependency id="eXpandExcelImporter" version="20.1.301.0">
+      <dependency id="eXpandExcelImporter" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSystemWin" version="20.1.301.0">
+      <dependency id="eXpandSystemWin" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandValidationWin" version="20.1.301.0">
+      <dependency id="eXpandValidationWin" version="20.1.302.0">
       </dependency>
       <dependency id="JetBrains.Annotations" version="2019.1.3">
       </dependency>
@@ -39,5 +39,9 @@
   <files>
     <file src="Xpand.ExpressApp.ExcelImporter.Win.dll" target="lib\net461\Xpand.ExpressApp.ExcelImporter.Win.dll" />
     <file src="Xpand.ExpressApp.ExcelImporter.Win.pdb" target="lib\net461\Xpand.ExpressApp.ExcelImporter.Win.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandExcelImporter.Win.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

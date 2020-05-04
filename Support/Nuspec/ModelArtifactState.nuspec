@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#modelartifact</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandLogic" version="20.1.301.0">
+      <dependency id="eXpandLogic" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="20.1.301.0">
+      <dependency id="eXpandSecurity" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandValidation" version="20.1.301.0">
+      <dependency id="eXpandValidation" version="20.1.302.0">
       </dependency>
       <dependency id="Mono.Cecil" version="0.11.2">
       </dependency>
@@ -31,5 +31,9 @@
   <files>
     <file src="Xpand.ExpressApp.ModelArtifactState.dll" target="lib\net461\Xpand.ExpressApp.ModelArtifactState.dll" />
     <file src="Xpand.ExpressApp.ModelArtifactState.pdb" target="lib\net461\Xpand.ExpressApp.ModelArtifactState.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandModelArtifactState.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSystemWin" version="20.1.301.0">
+      <dependency id="eXpandSystemWin" version="20.1.302.0">
       </dependency>
       <dependency id="Fasterflect.Xpand" version="2.0.7">
       </dependency>
@@ -27,5 +27,9 @@
   <files>
     <file src="Xpand.ExpressApp.EasyTest.WinAdapter.dll" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.dll" />
     <file src="Xpand.ExpressApp.EasyTest.WinAdapter.pdb" target="lib\net461\Xpand.ExpressApp.EasyTest.WinAdapter.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandEasyTestWin.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

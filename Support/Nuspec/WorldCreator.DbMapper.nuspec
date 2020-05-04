@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#DBMapper</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandWorldCreator" version="20.1.301.0">
+      <dependency id="eXpandWorldCreator" version="20.1.302.0">
       </dependency>
       <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.201.29">
       </dependency>
@@ -27,5 +27,9 @@
   <files>
     <file src="Xpand.ExpressApp.WorldCreator.DBMapper.dll" target="lib\net461\Xpand.ExpressApp.WorldCreator.DBMapper.dll" />
     <file src="Xpand.ExpressApp.WorldCreator.DBMapper.pdb" target="lib\net461\Xpand.ExpressApp.WorldCreator.DBMapper.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandWorldCreatorDbMapper.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

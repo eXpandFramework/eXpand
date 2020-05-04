@@ -14,9 +14,9 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <description>DevExpress eXpandFramework System Module (Web). To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSystem" version="20.1.301.0">
+      <dependency id="eXpandSystem" version="20.1.302.0">
       </dependency>
       <dependency id="Xpand.XAF.Modules.LookupCascade" version="2.201.31">
       </dependency>
@@ -27,5 +27,9 @@
   <files>
     <file src="Xpand.ExpressApp.Web.dll" target="lib\net461\Xpand.ExpressApp.Web.dll" />
     <file src="Xpand.ExpressApp.Web.pdb" target="lib\net461\Xpand.ExpressApp.Web.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandSystemWeb.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

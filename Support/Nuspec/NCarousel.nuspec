@@ -14,12 +14,16 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.NCarousel.dll" target="lib\net461\Xpand.NCarousel.dll" />
     <file src="Xpand.NCarousel.pdb" target="lib\net461\Xpand.NCarousel.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandNCarousel.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

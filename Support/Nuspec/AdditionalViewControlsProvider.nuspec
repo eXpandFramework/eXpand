@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandLogic" version="20.1.301.0">
+      <dependency id="eXpandLogic" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="20.1.301.0">
+      <dependency id="eXpandSecurity" version="20.1.302.0">
       </dependency>
       <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.201.29">
       </dependency>
@@ -27,5 +27,9 @@
   <files>
     <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.dll" target="lib\net461\Xpand.ExpressApp.AdditionalViewControlsProvider.dll" />
     <file src="Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" target="lib\net461\Xpand.ExpressApp.AdditionalViewControlsProvider.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandAdditionalViewControlsProvider.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

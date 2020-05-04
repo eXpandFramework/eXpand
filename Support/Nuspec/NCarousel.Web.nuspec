@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
       <dependency id="System.ValueTuple" version="4.5">
       </dependency>
@@ -23,5 +23,9 @@
   <files>
     <file src="Xpand.ExpressApp.NCarousel.Web.dll" target="lib\net461\Xpand.ExpressApp.NCarousel.Web.dll" />
     <file src="Xpand.ExpressApp.NCarousel.Web.pdb" target="lib\net461\Xpand.ExpressApp.NCarousel.Web.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandNCarouselWeb.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

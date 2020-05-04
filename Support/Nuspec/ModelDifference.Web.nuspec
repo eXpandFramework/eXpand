@@ -23,13 +23,13 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandModelDifference" version="20.1.301.0">
+      <dependency id="eXpandModelDifference" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="20.1.301.0">
+      <dependency id="eXpandSecurity" version="20.1.302.0">
       </dependency>
-      <dependency id="eXpandSecurityWeb" version="20.1.301.0">
+      <dependency id="eXpandSecurityWeb" version="20.1.302.0">
       </dependency>
       <dependency id="System.ValueTuple" version="4.5">
       </dependency>
@@ -38,5 +38,9 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
   <files>
     <file src="Xpand.ExpressApp.ModelDifference.Web.dll" target="lib\net461\Xpand.ExpressApp.ModelDifference.Web.dll" />
     <file src="Xpand.ExpressApp.ModelDifference.Web.pdb" target="lib\net461\Xpand.ExpressApp.ModelDifference.Web.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandModelDifferenceWeb.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>

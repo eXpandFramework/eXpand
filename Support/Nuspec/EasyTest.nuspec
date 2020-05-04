@@ -18,7 +18,7 @@
       </dependency>
       <dependency id="AForge.Video" version="2.2.5">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.301.0">
+      <dependency id="eXpandLib" version="20.1.302.0">
       </dependency>
       <dependency id="Fasterflect.Xpand" version="2.0.7">
       </dependency>
@@ -29,5 +29,9 @@
   <files>
     <file src="Xpand.EasyTest.dll" target="lib\net461\Xpand.EasyTest.dll" />
     <file src="Xpand.EasyTest.pdb" target="lib\net461\Xpand.EasyTest.pdb" />
+    <file src="..\Support\build\CopySymbols.targets" target="build\eXpandEasyTest.targets">
+    </file>
+    <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
+    </file>
     </files>
 </package>
