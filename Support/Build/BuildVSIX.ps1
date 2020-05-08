@@ -24,7 +24,7 @@ Copy-Item "$((Get-Item $result.PackageReader.GetNuspecFile()).DirectoryName)\bui
 $version=New-Object System.Version ($DXVersion)
 $projectTemplates="$XpandFolder\Xpand.Plugins\Xpand.VSIX\ProjectTemplates"
 $tempPath="$projectTemplates\temp"
-
+Install-Module 7Zip4Powershell -Scope CurrentUser -Force
 Get-ChildItem "$projectTemplates\*.zip" -Recurse |ForEach-Object{
     New-Item $tempPath -ItemType Directory -Force|out-null
     Expand-Archive $_.FullName -DestinationPath $tempPath -Force
@@ -34,6 +34,7 @@ Get-ChildItem "$projectTemplates\*.zip" -Recurse |ForEach-Object{
     $content = $content -ireplace 'eXpandFramework v([^ ]*)', "eXpandFramework v$($version.Major).$($version.Minor)"
     $content = $content -ireplace 'Xpand.VSIX, Version=([^,]*)', "Xpand.VSIX, Version=$($version.ToString())"
     Set-Content $vsTemplate $content
+    
     Compress-7Zip -Path $tempPath -ArchiveFileName $_.FullName 
     Remove-Item $tempPath -Recurse -Force 
 }

@@ -25,9 +25,11 @@ steps:
   displayName: Release
   inputs:
     pwsh: true
-    targetType: filePath
-    filePath: .\.github\Azure-Pipeline.ps1
-    arguments: $(Build.Repository.Name) $(DXApiFeed) $(NuGetApiKey) $(build.artifactstagingdirectory) 
+    targetType: inline
+    script: |
+      $VerbosePreference="Continue"
+      $ErrorView="NormalView"
+      & $(System.DefaultWorkingDirectory)\.github\Azure-Pipeline.ps1 $(Build.Repository.Name) $(DXApiFeed) $(NuGetApiKey) $(build.artifactstagingdirectory) 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: Xpand.v$(Build.BuildNumber)'
   inputs:
