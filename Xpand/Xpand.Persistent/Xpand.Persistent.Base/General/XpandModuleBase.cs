@@ -94,7 +94,12 @@ namespace Xpand.Persistent.Base.General {
             NetstandardPath = $@"{path}\netstandard.dll";
             if (!File.Exists(NetstandardPath)) {
                 using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
-                    manifestResourceStream.SaveToFile(NetstandardPath);
+                    try {
+                        manifestResourceStream.SaveToFile(NetstandardPath);
+                    }
+                    catch (Exception) {
+                        throw new InvalidOperationException($"Fail to write {NetstandardPath}, please add the file there manually.");
+                    }
                 }
             }
             var harmony = new Harmony(typeof(ApplicationModulesManagerExtensions).Namespace);
