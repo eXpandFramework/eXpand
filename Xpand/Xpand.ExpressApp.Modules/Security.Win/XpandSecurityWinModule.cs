@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Validation.Win;
+using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
@@ -30,6 +31,7 @@ namespace Xpand.ExpressApp.Security.Win {
         public XpandSecurityWinModule() {
             RequiredModuleTypes.Add(typeof(ValidationWindowsFormsModule));
             RequiredModuleTypes.Add(typeof(XpandSecurityModule));
+            RequiredModuleTypes.Add(typeof(SystemWindowsFormsModule));
             PermissionProviderStorage.Instance.Add(new OverallCustomizationAllowedPermission());
         }
 

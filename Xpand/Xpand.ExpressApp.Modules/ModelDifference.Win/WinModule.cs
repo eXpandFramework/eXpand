@@ -53,6 +53,11 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
             ((XafApplication)sender).LoggedOff -= Application_LoggedOff;
         }
 
+        public override void AddGeneratorUpdaters(ModelNodesGeneratorUpdaters updaters) {
+            base.AddGeneratorUpdaters(updaters);
+            updaters.Add(new AsyncLodingUpdater());
+        }
+
         protected override IEnumerable<Type> GetDeclaredControllerTypes() {
             return base.GetDeclaredControllerTypes().Concat(new []{typeof(SerializeModelViewController)});
         }
