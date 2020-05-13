@@ -75,7 +75,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         protected abstract IInnerSchedulerControlOwner SchedulerControl();
         
         void SchedulerListEditorOnResourceDataSourceCreating(object sender, ResourceDataSourceCreatingEventArgs e) {
-            var resourceListView = ((IModelListViewSchedulerEx) View.Model.GetNode(GetPredeFinedMap())).ResourceListView;
+            var resourceListView = ((IModelListViewSchedulerEx) View.Model).ResourceListView;
             if (resourceListView != null) {
                 var collectionSourceBase = Application.CreateCollectionSource(Application.CreateObjectSpace(e.ResourceType), e.ResourceType, resourceListView.Id, false, CollectionSourceMode.Proxy);
                 Application.CreateListView(resourceListView.Id, collectionSourceBase, true);
