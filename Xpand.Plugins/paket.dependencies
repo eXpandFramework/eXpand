@@ -15,7 +15,7 @@ nuget Microsoft.VisualStudio.SDK.EmbedInteropTypes 15.0.27
 nuget Microsoft.VSSDK.BuildTools 15.9.3032
 nuget Microsoft.VisualStudio.Shell.15.0 == 15.9.28307
 
-nuget Mono.Cecil 0.11.1
+nuget Mono.Cecil 0.11.2
 nuget Newtonsoft.Json 12.0.2
 nuget PropertyChanged.Fody 2.6.1
 nuget System.Configuration.ConfigurationManager 4.6.0

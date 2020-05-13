@@ -92,15 +92,15 @@ namespace Xpand.VSIX.Wizard{
                 
                 var projectItemGroupElement = ((ProjectItemGroupElement) reference.Parent);
                 foreach (var s in new[] {"", ".Mdb", ".Pdb", ".Rocks"}) {
-                    projectItemGroupElement.AddItem("Reference",$"Mono.Cecil{s}, Version=0.10.4.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL")
-                        .AddMetadata("HintPath", $@"..\packages\Mono.Cecil.0.10.4\lib\net40\Mono.Cecil{s}.dll");
+                    projectItemGroupElement.AddItem("Reference",$"Mono.Cecil{s}, Version=0.11.2.0, Culture=neutral, PublicKeyToken=50cebf1cceb9d05e, processorArchitecture=MSIL")
+                        .AddMetadata("HintPath", $@"..\packages\Mono.Cecil.0.11.2\lib\net40\Mono.Cecil{s}.dll");
                 }
                 var itemGroup = (ProjectItemGroupElement)project.Xml.ItemGroups
                     .SelectMany(element => element.Items)
                     .First(_ => _.ElementName=="Compile").Parent;
                 itemGroup.AddItem("None", "packages.config");
                 project.Save();
-                var text =@"<?xml version=""1.0"" encoding=""utf-8""?><packages><package id=""Mono.Cecil"" version=""0.10.1"" targetFramework=""net461"" /></packages>";
+                var text =@"<?xml version=""1.0"" encoding=""utf-8""?><packages><package id=""Mono.Cecil"" version=""0.11.2"" targetFramework=""net461"" /></packages>";
                 var projectDirectory = $"{Path.GetDirectoryName(dteProject.FileName)}";
                 File.WriteAllText(Path.Combine(projectDirectory,"packages.config"),text);
             }
