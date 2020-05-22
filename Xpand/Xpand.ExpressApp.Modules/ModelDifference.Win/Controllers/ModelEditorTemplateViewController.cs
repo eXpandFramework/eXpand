@@ -96,8 +96,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
                 var container = GetTargetActionContainer(site);
                 if (action is SimpleAction)
                     return container.AddSimpleActionControl(action.Id);
-                var singleChoiceAction = action as SingleChoiceAction;
-                if (singleChoiceAction!=null)
+                if (action is SingleChoiceAction singleChoiceAction)
                     return container.AddSingleChoiceActionControl(action.Id,false,singleChoiceAction.ItemType);
 
                 var parametrizedAction = ((ParametrizedAction) action);

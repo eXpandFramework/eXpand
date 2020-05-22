@@ -40,7 +40,9 @@ using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
 using HarmonyLib;
+using Mono.Cecil;
 using Xpand.Extensions.AppDomain;
+using Xpand.Extensions.Mono.Cecil;
 using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.General.Web.SyntaxHighlight;
 using Xpand.Persistent.Base.Security;
@@ -106,6 +108,7 @@ namespace Xpand.Persistent.Base.General {
             var prefix = typeof(XpandModuleBase).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
             var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
             harmony.Patch(original, new HarmonyMethod(prefix));
+            LoadAssemblyRegularTypes();
         }
 
         protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
@@ -135,17 +138,15 @@ namespace Xpand.Persistent.Base.General {
             get {
                 if (_callMonitor == null) {
                     lock (SyncRoot) {
-                        if (_callMonitor == null) {
-                            _callMonitor = ValueManager.GetValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>>("CallMonitor");
-                        }
+                        _callMonitor ??=
+                            ValueManager.GetValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>>(
+                                "CallMonitor");
                     }
                 }
                 if (_callMonitor.CanManageValue) {
                     if (_callMonitor.Value == null) {
                         lock (SyncRoot) {
-                            if (_callMonitor.Value == null) {
-                                _callMonitor.Value = new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
-                            }
+                            _callMonitor.Value ??= new MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>();
                         }
                     }
                     return _callMonitor.Value;
@@ -604,7 +605,20 @@ namespace Xpand.Persistent.Base.General {
                 return;
             if (RuntimeMode)
                 ConnectionString = this.GetConnectionString();
-            // XafTypesInfo.Instance.LoadTypes(typeof(XpandModuleBase).Assembly);
+            
+        }
+
+        private static void LoadAssemblyRegularTypes(){
+            var assembly = typeof(XpandModuleBase).Assembly;
+            using (var assemblyDefinition = AssemblyDefinition.ReadAssembly(assembly.Location)){
+                var dxAssembly = AssemblyDefinition.ReadAssembly(typeof(ModuleBase).Assembly.Location);
+                var typeDefinition =
+                    dxAssembly.MainModule.Types.First(definition => definition.FullName == typeof(Controller).FullName);
+                var typeDefinitions = assemblyDefinition.MainModule.Types.Where(definition => !definition.IsSubclassOf(typeDefinition));
+                foreach (var definition in typeDefinitions){
+                    XafTypesInfo.Instance.FindTypeInfo(assembly.GetType(definition.FullName));
+                }
+            }
         }
 
         public override void Setup(XafApplication application) {
@@ -624,8 +638,7 @@ namespace Xpand.Persistent.Base.General {
 
             
             application.Disposed+=ApplicationOnDisposed;
-            if (ManifestModuleName == null)
-                ManifestModuleName = application.GetType().Assembly.ManifestModule.Name;
+            ManifestModuleName ??= application.GetType().Assembly.ManifestModule.Name;
             application.CreateCustomUserModelDifferenceStore += OnCreateCustomUserModelDifferenceStore;
             application.SetupComplete += ApplicationOnSetupComplete;
             application.SettingUp += ApplicationOnSettingUp;

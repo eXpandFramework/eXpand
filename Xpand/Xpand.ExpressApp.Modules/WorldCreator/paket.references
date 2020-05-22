@@ -6,3 +6,4 @@ DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.Security.Xpo
 DevExpress.Persistent.BaseImpl
 Xpand.XAF.Modules.ModelViewInheritance
+Xpand.Extensions.Mono.Cecil
