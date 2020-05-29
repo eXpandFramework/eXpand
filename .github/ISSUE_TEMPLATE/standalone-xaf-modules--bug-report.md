@@ -20,6 +20,7 @@ If applicable, add screenshots to help explain your problem.
 We will try to answer all questions that do not require research within 24hr.
 To prioritize cases that require research we use the following labels in order.
 
+01. ❇️ Exclusive-Services
 01. ❤ Bronze Sponsor
 02. ❤ Sponsor
 03. ❤ Backer
