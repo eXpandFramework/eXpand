@@ -41,7 +41,7 @@ using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
 using HarmonyLib;
 using Mono.Cecil;
-using Xpand.Extensions.AppDomain;
+using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.Mono.Cecil;
 using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.General.Web.SyntaxHighlight;

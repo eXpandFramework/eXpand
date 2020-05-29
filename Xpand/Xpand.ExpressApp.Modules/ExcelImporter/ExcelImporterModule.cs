@@ -60,7 +60,7 @@ namespace Xpand.ExpressApp.ExcelImporter {
                         (tuple, valueTuple) => {
                             var criteriaOperator =
                                 tuple.listViewItem.InnerView.ObjectSpace.GetCriteriaOperator<ExcelColumnMap>(map =>
-                                    map.ExcelImport.Oid == ((ExcelImportDetailViewController) valueTuple.e.Action.Controller).ExcelImport.Oid);
+                                    map.ExcelImport.Oid == ((ExcelImportDetailViewController) valueTuple.Action.Controller).ExcelImport.Oid);
                             ((ListView) tuple.listViewItem.InnerView).CollectionSource.Criteria[GetType().Name] = criteriaOperator;
                             return Unit.Default;
                         })
