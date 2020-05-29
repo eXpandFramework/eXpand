@@ -42,6 +42,7 @@ namespace Xpand.ExpressApp.SystemModule {
             RequiredModuleTypes.Add(typeof(HideToolBarModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.ProgressBarViewItem.ProgressBarViewItemModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.RefreshView.RefreshViewModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.PositionInListview.PositionInListViewModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.SequenceGenerator.SequenceGeneratorModule));
         }
