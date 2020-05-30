@@ -1,6 +1,8 @@
 "Release","Issues","Labels","Message","Sha"
-"20.1.301.0","696","SequenceGenerator, Standalone_XAF_Modules","SequenceGenerator: register standalone package in System module","07c02319e31759ce5e7b62a84842b79bfea900ac"
-"20.1.301.0","696","SequenceGenerator, Standalone_XAF_Modules","SequenceGenerator: Remove old implementation","f870623ce3ca331fbaa7b2db22623dc168f5ec49"
+"20.1.302.0","680","? Backer, Nuget, Priority","Symbols are not copied to the output directory when SDK projects","6dc01e28ee29c0595dd920db12c6ce0a42bc63fd"
+"20.1.302.0","699","? Backer, Modeldifference, Priority","ModelDifference: 20.1 breaking change","889e03b6c86f157aa9b6498cb36f9a8c9fb94561"
+"20.1.301.0","696","SequenceGenerator, Standalone_XAF_Modules","SequenceGenerator: register standalone package in System module",
+"20.1.301.0","696","SequenceGenerator, Standalone_XAF_Modules","SequenceGenerator: Remove old implementation",
 "19.2.702.0","695","LookupCascade, Standalone_XAF_Modules","Distribute LookupCascade package with System.web module",
 "19.2.702.0","689","? Sponsor, ModelMapper, Standalone_XAF_Modules","System.Win: remove LayoutControlGroupModelAdapterController",
 "19.2.701.0","691","Modeldifference","The ModelDifference Ribbon is missing actions",
