@@ -14,15 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#masterdetail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.302.0">
+      <dependency id="eXpandLib" version="20.1.303.0">
       </dependency>
-      <dependency id="eXpandLogic" version="20.1.302.0">
+      <dependency id="eXpandLogic" version="20.1.303.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="20.1.302.0">
+      <dependency id="eXpandSecurity" version="20.1.303.0">
       </dependency>
-      <dependency id="Xpand.Extensions.XAF" version="2.201.29">
+      <dependency id="Xpand.Extensions.XAF" version="2.201.31">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.201.29">
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.201.31">
       </dependency>
     </dependencies>
   </metadata>
