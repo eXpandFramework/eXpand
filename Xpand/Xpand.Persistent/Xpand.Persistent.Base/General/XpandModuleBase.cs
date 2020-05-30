@@ -608,10 +608,30 @@ namespace Xpand.Persistent.Base.General {
             
         }
 
+        class AssemblyResolver:DefaultAssemblyResolver {
+            public override AssemblyDefinition Resolve(AssemblyNameReference name) {
+                AssemblyDefinition assemblyDefinition;
+                try {
+                    assemblyDefinition = base.Resolve(name);
+                }
+                catch (Exception e) {
+                    try {
+                        return AssemblyDefinition.ReadAssembly(@$"{AppDomain.CurrentDomain.ApplicationPath()}\{name.Name}.dll",new ReaderParameters(){AssemblyResolver = this});
+                    }
+                    catch (Exception exception) {
+                        Console.WriteLine(exception);
+                        throw;
+                    }
+                }
+
+                return assemblyDefinition;
+            }
+        }
         private static void LoadAssemblyRegularTypes(){
             var assembly = typeof(XpandModuleBase).Assembly;
-            using (var assemblyDefinition = AssemblyDefinition.ReadAssembly(assembly.Location)){
+            using (var assemblyDefinition = AssemblyDefinition.ReadAssembly(assembly.Location,new ReaderParameters(ReadingMode.Immediate){AssemblyResolver = new AssemblyResolver()})){
                 var dxAssembly = AssemblyDefinition.ReadAssembly(typeof(ModuleBase).Assembly.Location);
+                
                 var typeDefinition =
                     dxAssembly.MainModule.Types.First(definition => definition.FullName == typeof(Controller).FullName);
                 var typeDefinitions = assemblyDefinition.MainModule.Types.Where(definition => !definition.IsSubclassOf(typeDefinition));
