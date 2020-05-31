@@ -1,12 +1,14 @@
 "Release","Issues","Labels","Message","Sha"
-"20.1.303.0","711","?? Exclusive-Services, PositionInListView, Priority, Standalone_XAF_Modules","Replace PositionInListViewController with Xpand.Xaf.Modules.PositionInListView","a2e73de6e13652516221078464a3ea8e9d9d7602"
-"20.1.303.0","707","? Sponsor, Priority, Shared","Persistent.Base regular type not loaded","86aa63e5032a08b89cc564a30f1d8ca6e649a3ce"
-"20.1.303.0","709","Nuget","Dependecies missing for the main framework packages","622407e08e0713a08ff196b67c5c678a686121e9"
-"20.1.303.0","705","? Backer, Modeldifference","ModelDifference: Disable Async loading for all MDO detailviews","bc71ab74a30d8be9e9a7e09618fb5dd056bb4d5a"
-"20.1.303.0","703","? Sponsor, Scheduler","Scheduler: Invalid cast exception when refreshing","e9de4dffa8645fc979d5fe292d20586baa400be2"
-"20.1.303.0","702","? Sponsor, ModelMapper, Priority, Standalone_XAF_Modules","Bump Standalone packages","dfdb80c16ce0edb8dade3ddf59d8cb90e793ce74"
-"20.1.303.0","704","Design-time","Improve .NetStandard design time failure message","562e469eeb6c0f7654bd0100e83d1e19b8e141ac"
-"20.1.303.0","700","? Backer, Modeldifference, Priority","Bump Standalone packages","ef5d7ce9d2c289335f270bbe22200810bdf665bc"
+"20.1.304.0","712","? Sponsor, Design-time, Priority","Bump Standalone packages","d914119b6d202cf9b57c904929aeb62b2f2bf584"
+"20.1.304.0","707","? Sponsor, Priority, Shared","Resolve assemblies from path when loading Persistent.Base regular types","e21bfb9a77a87605e559813ee455a32d02dc9343"
+"20.1.303.0","711","?? Exclusive-Services, PositionInListView, Priority, Standalone_XAF_Modules","Replace PositionInListViewController with Xpand.Xaf.Modules.PositionInListView",
+"20.1.303.0","707","? Sponsor, Priority, Shared","Persistent.Base regular type not loaded",
+"20.1.303.0","709","Nuget","Dependecies missing for the main framework packages",
+"20.1.303.0","705","? Backer, Modeldifference","ModelDifference: Disable Async loading for all MDO detailviews",
+"20.1.303.0","703","? Sponsor, Scheduler","Scheduler: Invalid cast exception when refreshing",
+"20.1.303.0","702","? Sponsor, ModelMapper, Priority, Standalone_XAF_Modules","Bump Standalone packages",
+"20.1.303.0","704","Design-time","Improve .NetStandard design time failure message",
+"20.1.303.0","700","? Backer, Modeldifference, Priority","Bump Standalone packages",
 "20.1.302.0","680","? Backer, Nuget, Priority","Symbols are not copied to the output directory when SDK projects",
 "20.1.302.0","699","? Backer, Modeldifference, Priority","ModelDifference: 20.1 breaking change",
 "20.1.301.0","696","SequenceGenerator, Standalone_XAF_Modules","SequenceGenerator: register standalone package in System module",
