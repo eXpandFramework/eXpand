@@ -18,9 +18,9 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <dependencies>
       <dependency id="AppDomainToolkit" version="1.0.4.3">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.303.0">
+      <dependency id="eXpandLib" version="20.1.304.0">
       </dependency>
-      <dependency id="eXpandValidation" version="20.1.303.0">
+      <dependency id="eXpandValidation" version="20.1.304.0">
       </dependency>
       <dependency id="Microsoft.CSharp" version="4.7">
       </dependency>
@@ -28,7 +28,7 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
       </dependency>
       <dependency id="Xpand.Extensions.Mono.Cecil" version="2.201.30">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.201.31">
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.201.32">
       </dependency>
     </dependencies>
   </metadata>
