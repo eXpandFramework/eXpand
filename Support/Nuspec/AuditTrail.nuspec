@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AuditTrail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.304.0">
+      <dependency id="eXpandLib" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandLogic" version="20.1.304.0">
+      <dependency id="eXpandLogic" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="20.1.304.0">
+      <dependency id="eXpandSecurity" version="20.1.400.0">
       </dependency>
       <dependency id="System.Reactive" version="4.3.2">
       </dependency>

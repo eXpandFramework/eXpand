@@ -14,15 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="20.1.304.0">
+      <dependency id="eXpandDashboard" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.304.0">
+      <dependency id="eXpandLib" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="20.1.304.0">
+      <dependency id="eXpandSecurity" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandSecurityWin" version="20.1.304.0">
+      <dependency id="eXpandSecurityWin" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandSystemWin" version="20.1.304.0">
+      <dependency id="eXpandSystemWin" version="20.1.400.0">
       </dependency>
       <dependency id="System.Resources.Extensions" version="4.6">
       </dependency>

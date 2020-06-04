@@ -16,9 +16,9 @@
     <dependencies>
       <dependency id="DotNetZip" version="1.11">
       </dependency>
-      <dependency id="eXpandIO" version="20.1.304.0">
+      <dependency id="eXpandIO" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.304.0">
+      <dependency id="eXpandLib" version="20.1.400.0">
       </dependency>
       <dependency id="System.ValueTuple" version="4.5">
       </dependency>

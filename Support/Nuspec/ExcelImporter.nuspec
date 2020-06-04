@@ -16,11 +16,11 @@
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.304.0">
+      <dependency id="eXpandLib" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandSystem" version="20.1.304.0">
+      <dependency id="eXpandSystem" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandValidation" version="20.1.304.0">
+      <dependency id="eXpandValidation" version="20.1.400.0">
       </dependency>
       <dependency id="Mono.Cecil" version="0.11.2">
       </dependency>

@@ -614,14 +614,8 @@ namespace Xpand.Persistent.Base.General {
                 try {
                     assemblyDefinition = base.Resolve(name);
                 }
-                catch (Exception e) {
-                    try {
-                        return AssemblyDefinition.ReadAssembly(@$"{AppDomain.CurrentDomain.ApplicationPath()}\{name.Name}.dll",new ReaderParameters(){AssemblyResolver = this});
-                    }
-                    catch (Exception exception) {
-                        Console.WriteLine(exception);
-                        throw;
-                    }
+                catch (Exception) {
+                    return AssemblyDefinition.ReadAssembly(@$"{AppDomain.CurrentDomain.ApplicationPath()}\{name.Name}.dll",new ReaderParameters(){AssemblyResolver = this});
                 }
 
                 return assemblyDefinition;

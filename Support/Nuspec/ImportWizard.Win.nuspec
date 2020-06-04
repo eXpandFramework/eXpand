@@ -16,9 +16,9 @@
     <dependencies>
       <dependency id="DocumentFormat.OpenXml" version="2.7.2">
       </dependency>
-      <dependency id="eXpandImportWizard" version="20.1.304.0">
+      <dependency id="eXpandImportWizard" version="20.1.400.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.304.0">
+      <dependency id="eXpandLib" version="20.1.400.0">
       </dependency>
       <dependency id="System.Resources.Extensions" version="4.6">
       </dependency>
