@@ -45,6 +45,7 @@ namespace Xpand.ExpressApp.SystemModule {
             RequiredModuleTypes.Add(typeof(XAF.Modules.PositionInListview.PositionInListViewModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.Reactive.Logger.ReactiveLoggerModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.SequenceGenerator.SequenceGeneratorModule));
+            RequiredModuleTypes.Add(typeof(XAF.Modules.LookupDefaultObject.LookupDefaultObjectModule));
         }
 
         static XpandSystemModule() {
