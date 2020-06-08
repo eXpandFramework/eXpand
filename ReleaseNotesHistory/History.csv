@@ -1,6 +1,9 @@
 "Release","Issues","Labels","Message","Sha"
-"20.1.304.0","712","? Sponsor, Design-time, Priority","Bump Standalone packages","d914119b6d202cf9b57c904929aeb62b2f2bf584"
-"20.1.304.0","707","? Sponsor, Priority, Shared","Resolve assemblies from path when loading Persistent.Base regular types","e21bfb9a77a87605e559813ee455a32d02dc9343"
+"20.1.401.0","713","?? Exclusive-Services, Priority, Standalone_XAF_Modules, ViewItemValue","Distribute ViewItemValue module together with the XpandSystemModule","f47764250cd0c90e6bbfe6eb1ad0521d43805f33"
+"20.1.401.0","715","? Backer, Nuget, Priority","Bump Standalone packages","f072b3f7ebb2380b0baff4b0408ad2b5b9fabf3c"
+"20.1.401.0","713","?? Exclusive-Services, Priority, Standalone_XAF_Modules, ViewItemValue","Distribute LookupDefaultObject module together with the XpandSystemModule","170f6be6d3b2bd25b310abf6b3a17d9cd2b2ab21"
+"20.1.304.0","712","? Sponsor, Design-time, Priority","Bump Standalone packages",
+"20.1.304.0","707","? Sponsor, Priority, Shared","Resolve assemblies from path when loading Persistent.Base regular types",
 "20.1.303.0","711","?? Exclusive-Services, PositionInListView, Priority, Standalone_XAF_Modules","Replace PositionInListViewController with Xpand.Xaf.Modules.PositionInListView",
 "20.1.303.0","707","? Sponsor, Priority, Shared","Persistent.Base regular type not loaded",
 "20.1.303.0","709","Nuget","Dependecies missing for the main framework packages",
