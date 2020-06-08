@@ -32,9 +32,9 @@
       </dependency>
       <dependency id="System.ValueTuple" version="4.5">
       </dependency>
-      <dependency id="Xpand.Extensions" version="2.201.31">
+      <dependency id="Xpand.Extensions" version="2.201.34">
       </dependency>
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="2.201.30">
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="2.201.32">
       </dependency>
       <dependency id="Xpand.Patcher" version="2.0.15">
       </dependency>
