@@ -24,72 +24,72 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Xpand.ExpressApp">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Chart.Win">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Chart.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Chart.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Dashboard">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Dashboard.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Dashboard.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Logic">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Logic.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Logic.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.MasterDetail">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.MasterDetail.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.MasterDetail.Win">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ModelArtifactState">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.PivotGrid.Win">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.PivotGrid.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotGrid.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Scheduler.Win">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Scheduler.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Scheduler.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Security.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security.Win">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Security.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Validation">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Validation.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Win">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.XtraDashboard.Win">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.BaseImpl">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.BaseImpl.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.BaseImpl.dll</HintPath>
       <Private>True</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Xpo.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>

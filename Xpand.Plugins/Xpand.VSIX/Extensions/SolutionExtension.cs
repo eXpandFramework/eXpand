@@ -178,7 +178,7 @@ namespace Xpand.VSIX.Extensions {
                 .SelectMany(project => project.References.Cast<Reference>()).Select(reference => {
                     var referenceName = reference.Name;
                     var matchResults = Regex.Match(referenceName, @"DevExpress(.*)(v[^.]*\.[.\d])");
-                    return matchResults.Success ? (major?matchResults.Groups[2].Value: GetRevisionVersion(reference)) : null;
+                    return !string.IsNullOrEmpty(reference.Path)&& matchResults.Success ? (major?matchResults.Groups[2].Value: GetRevisionVersion(reference)) : null;
                 }).FirstOrDefault(version => version != null)??solution.GetMsBuildProjects()
                        .SelectMany(project => project.AllEvaluatedItems).Where(item => item.ItemType=="PackageReference"&&$"{item.EvaluatedInclude}".StartsWith("DevExpress"))
                        .SelectMany(item => item.Metadata).Where(metadata => metadata.Name=="Version")
