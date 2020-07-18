@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#JobScheduler</projectUrl>
     <dependencies>
-      <dependency id="eXpandJobScheduler" version="20.1.401.0">
+      <dependency id="eXpandJobScheduler" version="20.1.601.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.401.0">
+      <dependency id="eXpandLib" version="20.1.601.0">
       </dependency>
       <dependency id="Quartz" version="2.2.4">
       </dependency>
