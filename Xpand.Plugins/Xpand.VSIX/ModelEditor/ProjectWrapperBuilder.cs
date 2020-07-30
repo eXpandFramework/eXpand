@@ -32,15 +32,23 @@ namespace Xpand.VSIX.ModelEditor {
         }
 
         private static ProjectItemWrapper CreateProjectItemWrapper(ProjectItem item){
-            var outputFileName = item.Project.AllEvaluatedProperties.First(property => property.Name == "TargetFileName")
+            var targetFileName = item.Project.AllEvaluatedProperties.First(property => property.Name == "TargetFileName")
                 .EvaluatedValue;
+            var appendTargetFrameworkToOutputPath = item.Project.AllEvaluatedProperties.First(property => property.Name == "AppendTargetFrameworkToOutputPath")
+                .EvaluatedValue;
+            var outputPath = GetEvaluatedValue(item, "OutputPath");
+            if (appendTargetFrameworkToOutputPath == "true") {
+                var targetFramework = item.Project.AllEvaluatedProperties.First(property => property.Name == "TargetFramework").EvaluatedValue;
+                outputPath += targetFramework;
+            }
             var fullPath = GetEvaluatedValue(item, "ProjectDir");
+            
             return new ProjectItemWrapper{
                 Name = GetName(item),
                 ModelFileName = Path.GetFileName(item.EvaluatedInclude),
-                OutputPath = GetEvaluatedValue(item, "OutputPath"),
-                OutputFileName = outputFileName,
-                IsApplicationProject = Path.GetExtension(outputFileName) == ".exe" || IsWeb(fullPath),
+                OutputPath = outputPath,
+                OutputFileName = targetFileName,
+                IsApplicationProject = Path.GetExtension(targetFileName) == ".exe" || IsWeb(fullPath),
                 FullPath = fullPath,
                 UniqueName = Path.GetDirectoryName(fullPath) + @"\" + GetEvaluatedValue(item, "ProjectFileName"),
                 LocalPath = Path.GetDirectoryName(fullPath) + @"\" + item.EvaluatedInclude
