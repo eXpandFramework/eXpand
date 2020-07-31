@@ -38,6 +38,7 @@ namespace Xpand.VSIX.Options
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.General = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.checkEditShowErrorsInMessageBox = new DevExpress.XtraEditors.CheckEdit();
             this.specificVersionCheckEdit = new DevExpress.XtraEditors.CheckEdit();
             this.EasyTests = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -106,9 +107,10 @@ namespace Xpand.VSIX.Options
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.repositoryItemCheckEdit5 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.checkEditShowErrorsInMessageBox = new DevExpress.XtraEditors.CheckEdit();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.General.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditShowErrorsInMessageBox.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
             this.EasyTests.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -149,7 +151,6 @@ namespace Xpand.VSIX.Options
             ((System.ComponentModel.ISupportInitialize)(this.gridView6)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEditShowErrorsInMessageBox.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog1
@@ -183,6 +184,16 @@ namespace Xpand.VSIX.Options
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1359, 823);
             this.tableLayoutPanel4.TabIndex = 34;
+            // 
+            // checkEditShowErrorsInMessageBox
+            // 
+            this.checkEditShowErrorsInMessageBox.AutoSizeInLayoutControl = true;
+            this.checkEditShowErrorsInMessageBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkEditShowErrorsInMessageBox.Location = new System.Drawing.Point(3, 33);
+            this.checkEditShowErrorsInMessageBox.Name = "checkEditShowErrorsInMessageBox";
+            this.checkEditShowErrorsInMessageBox.Properties.Caption = "Show Errors in MessageBox";
+            this.checkEditShowErrorsInMessageBox.Size = new System.Drawing.Size(1353, 24);
+            this.checkEditShowErrorsInMessageBox.TabIndex = 35;
             // 
             // specificVersionCheckEdit
             // 
@@ -236,7 +247,7 @@ namespace Xpand.VSIX.Options
             this.testExecutorButtonEdit.Name = "testExecutorButtonEdit";
             this.testExecutorButtonEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.testExecutorButtonEdit.Size = new System.Drawing.Size(1093, 28);
+            this.testExecutorButtonEdit.Size = new System.Drawing.Size(1093, 26);
             this.testExecutorButtonEdit.TabIndex = 31;
             this.testExecutorButtonEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.testExecutorButtonEdit_ButtonClick_1);
             // 
@@ -296,7 +307,7 @@ namespace Xpand.VSIX.Options
             this.publicTokenTextEdit.Dock = System.Windows.Forms.DockStyle.Fill;
             this.publicTokenTextEdit.Location = new System.Drawing.Point(307, 32);
             this.publicTokenTextEdit.Name = "publicTokenTextEdit";
-            this.publicTokenTextEdit.Size = new System.Drawing.Size(1049, 28);
+            this.publicTokenTextEdit.Size = new System.Drawing.Size(1049, 26);
             this.publicTokenTextEdit.TabIndex = 8;
             // 
             // projectConverterPathButtonEdit
@@ -306,7 +317,7 @@ namespace Xpand.VSIX.Options
             this.projectConverterPathButtonEdit.Name = "projectConverterPathButtonEdit";
             this.projectConverterPathButtonEdit.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton()});
-            this.projectConverterPathButtonEdit.Size = new System.Drawing.Size(1049, 28);
+            this.projectConverterPathButtonEdit.Size = new System.Drawing.Size(1049, 26);
             this.projectConverterPathButtonEdit.TabIndex = 11;
             this.projectConverterPathButtonEdit.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.projectConverterPathButtonEdit_ButtonClick);
             // 
@@ -621,6 +632,7 @@ namespace Xpand.VSIX.Options
             this.tableLayoutPanel3.ColumnCount = 2;
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 142F));
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel3.Controls.Add(this.labelControl1, 1, 2);
             this.tableLayoutPanel3.Controls.Add(this.checkEditKillModelEditor, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.labelControl12, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.checkEditDebugME, 0, 0);
@@ -628,10 +640,11 @@ namespace Xpand.VSIX.Options
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 48);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 2;
+            this.tableLayoutPanel3.RowCount = 3;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(1359, 79);
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(1359, 109);
             this.tableLayoutPanel3.TabIndex = 34;
             // 
             // checkEditKillModelEditor
@@ -640,7 +653,7 @@ namespace Xpand.VSIX.Options
             this.checkEditKillModelEditor.Location = new System.Drawing.Point(3, 38);
             this.checkEditKillModelEditor.Name = "checkEditKillModelEditor";
             this.checkEditKillModelEditor.Properties.Caption = "Kill b4 build";
-            this.checkEditKillModelEditor.Size = new System.Drawing.Size(136, 38);
+            this.checkEditKillModelEditor.Size = new System.Drawing.Size(136, 27);
             this.checkEditKillModelEditor.TabIndex = 37;
             // 
             // labelControl12
@@ -868,7 +881,7 @@ namespace Xpand.VSIX.Options
             this.checkEditDisableExceptions.Location = new System.Drawing.Point(3, 38);
             this.checkEditDisableExceptions.Name = "checkEditDisableExceptions";
             this.checkEditDisableExceptions.Properties.Caption = "Disabled";
-            this.checkEditDisableExceptions.Size = new System.Drawing.Size(111, 25);
+            this.checkEditDisableExceptions.Size = new System.Drawing.Size(111, 27);
             this.checkEditDisableExceptions.TabIndex = 47;
             // 
             // tabPage1
@@ -962,15 +975,15 @@ namespace Xpand.VSIX.Options
             this.repositoryItemCheckEdit5.AutoHeight = false;
             this.repositoryItemCheckEdit5.Name = "repositoryItemCheckEdit5";
             // 
-            // checkEditShowErrorsInMessageBox
+            // labelControl1
             // 
-            this.checkEditShowErrorsInMessageBox.AutoSizeInLayoutControl = true;
-            this.checkEditShowErrorsInMessageBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkEditShowErrorsInMessageBox.Location = new System.Drawing.Point(3, 33);
-            this.checkEditShowErrorsInMessageBox.Name = "checkEditShowErrorsInMessageBox";
-            this.checkEditShowErrorsInMessageBox.Properties.Caption = "Show Errors in MessageBox";
-            this.checkEditShowErrorsInMessageBox.Size = new System.Drawing.Size(1353, 24);
-            this.checkEditShowErrorsInMessageBox.TabIndex = 35;
+            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl1.Location = new System.Drawing.Point(145, 71);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(1259, 19);
+            this.labelControl1.TabIndex = 40;
+            this.labelControl1.Text = "Set the XpandModelEditorAppConfigPath Enviromental variable to apply the configur" +
+    "ation to the XpandModelEditor instance";
             // 
             // OptionsControl
             // 
@@ -979,6 +992,7 @@ namespace Xpand.VSIX.Options
             this.Size = new System.Drawing.Size(1367, 856);
             this.General.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.checkEditShowErrorsInMessageBox.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).EndInit();
             this.EasyTests.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -1024,7 +1038,6 @@ namespace Xpand.VSIX.Options
             ((System.ComponentModel.ISupportInitialize)(this.gridView6)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemCheckEdit5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.checkEditShowErrorsInMessageBox.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1103,5 +1116,6 @@ namespace Xpand.VSIX.Options
         private GridColumn gridColumn8;
         private RepositoryItemCheckEdit repositoryItemCheckEdit6;
         private CheckEdit checkEditShowErrorsInMessageBox;
+        private LabelControl labelControl1;
     }
 }

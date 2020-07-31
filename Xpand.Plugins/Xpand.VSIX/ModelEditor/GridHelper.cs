@@ -43,13 +43,20 @@ namespace Xpand.VSIX.ModelEditor {
                         "Xpand.VSIX.ModelEditor.Xpand.XAF.ModelEditor.exe");
                 var mePath = Path.Combine($"{Path.GetTempPath()}\\XpandModelEditor",
                     $"Xpand.XAF.ModelEditor{DateTime.Now.Ticks}.exe");
+                
                 Debug.Assert(resourceStream != null, "resourceStream != null");
                 var bytes = new byte[(int) resourceStream.Length];
                 resourceStream.Read(bytes, 0, bytes.Length);
                 var directoryName = $"{Path.GetDirectoryName(mePath)}";
                 if (!Directory.Exists(directoryName)) Directory.CreateDirectory(directoryName);
                 File.WriteAllBytes(mePath, bytes);
-
+                var xpandModelEditorAppConfigPath = $"{Environment.GetEnvironmentVariable("XpandModelEditorAppConfigPath")}";
+                if (File.Exists(xpandModelEditorAppConfigPath)) {
+                    File.Copy(xpandModelEditorAppConfigPath,$"{mePath}.config");
+                }
+                else {
+                    DteExtensions.DTE.WriteToOutput($"XpandModelEditorAppConfigPath enviromental variable is not set");
+                }
                 using (var assemblyDefinition =
                     AssemblyDefinition.ReadAssembly(mePath, new ReaderParameters {ReadWrite = true})) {
                     var dxVersion = Version.Parse(DteExtensions.DTE.Solution.GetDXVersion(false));

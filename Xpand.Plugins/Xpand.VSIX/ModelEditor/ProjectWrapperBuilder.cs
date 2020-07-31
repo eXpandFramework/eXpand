@@ -34,8 +34,8 @@ namespace Xpand.VSIX.ModelEditor {
         private static ProjectItemWrapper CreateProjectItemWrapper(ProjectItem item){
             var targetFileName = item.Project.AllEvaluatedProperties.First(property => property.Name == "TargetFileName")
                 .EvaluatedValue;
-            var appendTargetFrameworkToOutputPath = item.Project.AllEvaluatedProperties.First(property => property.Name == "AppendTargetFrameworkToOutputPath")
-                .EvaluatedValue;
+            var appendTargetFrameworkToOutputPath = item.Project.AllEvaluatedProperties.FirstOrDefault(property => property.Name == "AppendTargetFrameworkToOutputPath")
+                ?.EvaluatedValue;
             var outputPath = GetEvaluatedValue(item, "OutputPath");
             if (appendTargetFrameworkToOutputPath == "true") {
                 var targetFramework = item.Project.AllEvaluatedProperties.First(property => property.Name == "TargetFramework").EvaluatedValue;

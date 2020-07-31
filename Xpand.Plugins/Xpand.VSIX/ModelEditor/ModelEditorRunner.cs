@@ -38,8 +38,10 @@ namespace Xpand.VSIX.ModelEditor {
                 if (!string.Equals(path, destFileName, StringComparison.OrdinalIgnoreCase)) {
                     File.Copy(path, destFileName,true);
                     var configPath = Path.Combine(Path.GetDirectoryName(path)+"",Path.GetFileName(path)+".config");
-                    if (File.Exists(configPath))
+                    if (File.Exists(configPath)) {
+                        _dte.WriteToOutput($"Copying App.config");
                         File.Copy(configPath,Path.Combine(Path.GetDirectoryName(destFileName)+"",Path.GetFileName(configPath)),true);
+                    }
                 }
                 string debugMe = OptionClass.Instance.DebugME ? "d":null;
                 string arguments = String.Format("{0} {4} \"{1}\" \"{3}\" \"{2}\"", debugMe,Path.GetFullPath(assemblyPath), fullPath, projectItemWrapper.LocalPath,projectItemWrapper.IsApplicationProject);
