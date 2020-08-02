@@ -43,6 +43,7 @@ using HarmonyLib;
 using Mono.Cecil;
 using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.Mono.Cecil;
+using Xpand.Extensions.XAF.TypesInfoExtensions;
 using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.General.Web.SyntaxHighlight;
 using Xpand.Persistent.Base.Security;
@@ -108,7 +109,9 @@ namespace Xpand.Persistent.Base.General {
             var prefix = typeof(XpandModuleBase).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
             var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
             harmony.Patch(original, new HarmonyMethod(prefix));
-            LoadAssemblyRegularTypes();
+            if (AdditionalTypesTypesInfo.RuntimeMode()) {
+                LoadAssemblyRegularTypes();
+            }
         }
 
         protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
