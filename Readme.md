@@ -21,9 +21,9 @@ _eXpandFramework_ is an independent open-source project and is not affiliated wi
 
 _eXpandFramework_ is a **FREE** extension for **DevExpress-XAF** and operates within the **Microsoft Public License (Ms-PL)**. 
 
-The [eXpandFramework](https://github.com/eXpandFramework) organization consist of three projects. The main project, this one, the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) and the [XpandPwsh](https://github.com/eXpandFramework/XpandPwsh) powershell module where you can find all you neeed for your everyday development tasks. The main project acts as a container to the standalone proejct. Eventually all modules of main project will be puzzled from the standalone modules.
+The [eXpandFramework](https://github.com/eXpandFramework) organization consist of three projects. The main project, this one, the Standalone low dependency well tested and well documented [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) and the [XpandPwsh](https://github.com/eXpandFramework/XpandPwsh) powershell module where you can find all you need for your everyday development tasks. The main project acts as a container to the standalone project. Eventually all modules of main project will be puzzled from the standalone modules.
 
-The artiteture is similar architecture to XAF. We recommend you go through the [Getting Started](https://github.com/eXpandFramework/eXpand/wiki/Getting-Started) document to get the feeling on how to get the most out of it. Afterwards just installed the modules you want and go through the blogs linked in the list below and feel free to post [Issues](https://github.com/eXpandFramework/eXpand/issues).
+The architecture is similar architecture to XAF. We recommend you go through the [Getting Started](https://github.com/eXpandFramework/eXpand/wiki/Getting-Started) document to get the feeling on how to get the most out of it. Afterwards just installed the modules you want and go through the blogs linked in the list below and feel free to post [Issues](https://github.com/eXpandFramework/eXpand/issues).
 
 ## Modules
 
@@ -38,7 +38,7 @@ Module Name | Description | Win | Web | Nuget.org
 Email |     Send emails using business rules from application model without coding (see <http://goo.gl/Hkx6PK)> |    Y|Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandEmail)
 [WorkFlow](#workflow) |    Contains workflow related features (Scheduled workflows) |    Y |    Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandWorkFlow%2A)
 [System](#system-modules)|    Support multiple datastore , calculable properties at runtime ,dynamic model creation,control grid options, datacaching, web master detail, view inheritance etc.    |Y|    Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandSystem%2A)
-JobSheduler    | Acts as a wrapper for the powerfull Quartz.Net, providing a flexible UI for managing Jobs at runtime |    Y |    Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandJob%2A)
+JobSheduler    | Acts as a wrapper for the powerful Quartz.Net, providing a flexible UI for managing Jobs at runtime |    Y |    Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandJob%2A)
 [DBMapper](#dbmapper) |    Map 14 different types of databases at runtime into worldcreator persistent objects    | Y |    Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandWorldCreatorDbMapper)
 [IO](#io) |    Export & Import object graphs |    Y |    Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandIO%2A)
 MapView |     Google Maps integration for XAF web apps. Blog posts. |     Y |    Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandMapView%2A)
@@ -119,7 +119,7 @@ Blogs:\
 
 ### Import Wizard
 Windows module for importing excel files into any XAF application.\
-<img src="http://1.bp.blogspot.com/_qoNyZHelrQw/TGv4_qFc08I/AAAAAAAAQu4/baach20MnHk/s640/Excel+Import+3.png" alt="Import Wizzard Preview" width="244" />\
+<img src="http://1.bp.blogspot.com/_qoNyZHelrQw/TGv4_qFc08I/AAAAAAAAQu4/baach20MnHk/s640/Excel+Import+3.png" alt="Import Wizard Preview" width="244" />\
 Blogs:\
 http://mdworkstuff.blogspot.gr/search/label/wizard
 
