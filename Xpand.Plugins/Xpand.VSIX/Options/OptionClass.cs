@@ -12,7 +12,6 @@ using EnvDTE80;
 using Microsoft.Win32;
 using Xpand.VSIX.Commands;
 using Xpand.VSIX.Extensions;
-using Xpand.VSIX.Wizard;
 
 namespace Xpand.VSIX.Options{
     public class OptionClass {
@@ -46,11 +45,11 @@ namespace Xpand.VSIX.Options{
                             sourceCodeInfo.AddProjectPaths();
                             Instance.SourceCodeInfos.Add(sourceCodeInfo);
                         }
-                    Instance.ReferencedAssembliesFolders.Add(new ReferencedAssembliesFolder() { Folder = ModuleManager.GetXpandDllPath() });
+                    
                     Instance.Exceptions.Add(new ExceptionsBreak() { Break = false, Exception = typeof(FileNotFoundException).FullName });
                     Instance.Exceptions.Add(new ExceptionsBreak() { Break = false, Exception = typeof(SqlException).FullName });
                     Instance.DisableExceptions = false;
-                    Instance.SourceCodeInfos.Add(new SourceCodeInfo { ProjectRegex = "Xpand.*csproj", RootPath = ModuleManager.GetXpandDllPath() + @"\..\" });                
+                    Instance.SourceCodeInfos.Add(new SourceCodeInfo { ProjectRegex = "Xpand.*csproj" });                
                 }
                 
                 if (!Instance.DteCommandsBindings){

@@ -7,6 +7,9 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <LangVersion>latest</LangVersion>
+    <RestorePackagesWithLockFile>False</RestorePackagesWithLockFile>
+    <RestoreLockedMode>False</RestoreLockedMode>
+    <DisableImplicitNuGetFallbackFolder>False</DisableImplicitNuGetFallbackFolder>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -41,8 +44,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <NoWarn>
-    </NoWarn>
+    <NoWarn>NU1603</NoWarn>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <LangVersion>latest</LangVersion>
     <DeployExtension>True</DeployExtension>
@@ -78,7 +80,6 @@
     <Compile Include="Commands\FindInSolutionCommand.cs" />
     <Compile Include="Commands\KillIISExpressCommand.cs" />
     <Compile Include="Commands\ShowModelsWindowCommand.cs" />
-    <Compile Include="Commands\AddXpandReferencesCommand.cs" />
     <Compile Include="Commands\ShowOptionsCommand.cs" />
     <Compile Include="Commands\VSCommand.cs" />
     <Compile Include="Extensions\ConfigurationExtensions.cs" />
@@ -126,22 +127,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VSPackage.vsct</DependentUpon>
     </Compile>
-    <Compile Include="Wizard\ModulesInstaller.cs" />
-    <Compile Include="Wizard\ModuleManager.cs" />
     <EmbeddedResource Include="ModelEditor\METoolWindowControl.resx">
       <DependentUpon>METoolWindowControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wizard\Resources\Updater.cs" />
-    <EmbeddedResource Include="Wizard\Resources\Updater.vb" />
-    <Compile Include="Wizard\SecurityInstaller.cs" />
-    <Compile Include="Wizard\WizardForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Wizard\WizardForm.Designer.cs">
-      <DependentUpon>WizardForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizard\XpandModule.cs" />
-    <Compile Include="Wizard\SolutionWizard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -150,6 +138,26 @@
     </Compile>
     <Compile Include="VSPackage\VSPackage.cs" />
     <Compile Include="Commands\XAFErrorExplorerCommand.cs" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3 ">
+    </PackageReference>
+    <PackageReference Include="FasterFlect.Xpand" Version="2.0.7">
+    </PackageReference>
+    <PackageReference Include="System.Reactive" Version="4.4.1">
+    </PackageReference>
+    <PackageReference Include="Microsoft.Identity.Client" Version="4.13.0">
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin" Version="4.1.0">
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="4.1.0">
+    </PackageReference>
+    <PackageReference Include="Microsoft.Graph.Beta" Version="0.18.0-preview">
+    </PackageReference>
+    <PackageReference Include="Google.Apis.People.v1" Version="1.25.0.830">
+    </PackageReference>
+    <PackageReference Include="Google.Apis.Tasks.v1" Version="1.48.0.2033">
+    </PackageReference>
+    <PackageReference Include="Google.Apis.Calendar.v3" Version="1.48.0.2033">
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
@@ -200,6 +208,398 @@
     <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xpand.Extensions">
+      <HintPath>..\..\Xpand.dll\Xpand.Extensions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Extensions.Mono.Cecil">
+      <HintPath>..\..\Xpand.dll\Xpand.Extensions.Mono.Cecil.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Extensions.Office.Cloud">
+      <HintPath>..\..\Xpand.dll\Xpand.Extensions.Office.Cloud.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Extensions.Reactive">
+      <HintPath>..\..\Xpand.dll\Xpand.Extensions.Reactive.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Extensions.XAF">
+      <HintPath>..\..\Xpand.dll\Xpand.Extensions.XAF.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Extensions.XAF.Xpo">
+      <HintPath>..\..\Xpand.dll\Xpand.Extensions.XAF.Xpo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.AutoCommit">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.AutoCommit.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.CloneMemberValue">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.CloneMemberValue.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.CloneModelView">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.CloneModelView.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.GridListEditor">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.GridListEditor.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.HideToolBar">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.HideToolBar.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.LookupCascade">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.LookupCascade.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.MasterDetail">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.MasterDetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelMapper">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.ModelMapper.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ModelViewInheritance">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.ModelViewInheritance.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Office.Cloud.Google">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.Office.Cloud.Google.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Office.Cloud.Microsoft.Calendar">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.Office.Cloud.Microsoft.Calendar.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Office.Cloud.Microsoft">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.Office.Cloud.Microsoft.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Office.Cloud.Microsoft.Todo">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.Office.Cloud.Microsoft.Todo.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.OneView">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.OneView.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.PositionInListview">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.PositionInListview.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ProgressBarViewItem">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.ProgressBarViewItem.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Reactive">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.Reactive.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Reactive.Logger">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.Reactive.Logger.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Reactive.Logger.Hub">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.Reactive.Logger.Hub.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.Reactive.Win">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.Reactive.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.RefreshView">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.RefreshView.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.SequenceGenerator">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.SequenceGenerator.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.SuppressConfirmation">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.SuppressConfirmation.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ViewEditMode">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.ViewEditMode.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ViewItemValue">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.ViewItemValue.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.XAF.Modules.ViewWizard">
+      <HintPath>C:\Work\eXpandFramework\DevExpress.XAF\bin\Xpand.XAF.Modules.ViewWizard.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.AdditionalViewControlsProvider.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.AdditionalViewControlsProvider.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AdditionalViewControlsProvider.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.AdditionalViewControlsProvider.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.AuditTrail">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.AuditTrail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Chart.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Chart.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Dashboard">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Dashboard.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.EasyTest.WebAdapter">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WebAdapter.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.EasyTest.WinAdapter">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.EasyTest.WinAdapter.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Email">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Email.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ExcelImporter">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ExcelImporter.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ExcelImporter.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ExcelImporter.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ExcelImporter.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ExcelImporter.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FileAttachment">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.FileAttachment.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.FileAttachment.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.FileAttachment.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.HtmlPropertyEditor.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.HtmlPropertyEditor.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ImportWizard">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ImportWizard.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ImportWizard.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ImportWizard.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.IO.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.IO.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.IO.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.IO.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.JobScheduler">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.JobScheduler.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.JobScheduler.Jobs">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.JobScheduler.Jobs.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Logic">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Logic.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.MapView">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.MapView.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.MapView.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.MapView.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.MasterDetail">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.MasterDetail.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.MasterDetail.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelArtifactState">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ModelArtifactState.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ModelDifference.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ModelDifference.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ModelDifference.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ModelDifference.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.NCarousel.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.NCarousel.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.PivotChart.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.PivotChart.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotChart.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.PivotChart.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.PivotGrid.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.PivotGrid.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Reports">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Reports.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Reports.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Reports.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ReportsV2.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ReportsV2.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Scheduler">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Scheduler.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Scheduler.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Scheduler.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Scheduler.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Scheduler.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Security.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Security.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Security.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Security.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.StateMachine">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.StateMachine.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.TreeListEditors.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.TreeListEditors.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.TreeListEditors.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.TreeListEditors.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Validation.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Validation.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Validation.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Validation.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.ViewVariants">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.ViewVariants.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WizardUI.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.WizardUI.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.Workflow">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.Workflow.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.DBMapper">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.WorldCreator.DBMapper.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.WorldCreator.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.WorldCreator.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.WorldCreator.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.WorldCreator.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.XtraDashboard.Web">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.XtraDashboard.Web.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.ExpressApp.XtraDashboard.Win">
+      <HintPath>..\..\Xpand.dll\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Persistent.Base">
+      <HintPath>..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Xpand.Persistent.BaseImpl">
+      <HintPath>..\..\Xpand.dll\Xpand.Persistent.BaseImpl.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ModelEditor\METoolWindowControl1.resx">
@@ -212,9 +612,6 @@
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Wizard\WizardForm.resx">
-      <DependentUpon>WizardForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -508,15 +905,7 @@
     </When>
   </Choose>
   <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="Fasterflect">
-          <HintPath>..\packages\Fasterflect.Xpand\lib\netstandard2.0\Fasterflect.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'" />
   </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">

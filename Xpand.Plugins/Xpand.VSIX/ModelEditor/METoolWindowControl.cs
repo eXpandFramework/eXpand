@@ -1,12 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Windows.Forms;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using EnvDTE;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
-using Xpand.VSIX.Wizard;
 
 namespace Xpand.VSIX.ModelEditor {
     public partial class METoolWindowControl : UserControl {
@@ -15,13 +13,6 @@ namespace Xpand.VSIX.ModelEditor {
         public METoolWindowControl() {
             InitializeComponent();
             GridHelper.Init(gridControl1);
-            var xpandPath = ModuleManager.GetXpandDllPath();
-            if (!Directory.Exists(xpandPath)) {
-                MessageBox.Show(
-                    @"Xpand not found check that HKLM\Sofware\Wow6432Node\Microsoft\.NetFramework\AssemblyFolders\Xpand points to the Xpand.DLL directory",
-                    typeof(ModuleManager).Namespace);
-
-            }
             gridView1.KeyDown+=GridView1OnKeyDown;
             gridView1.KeyUp+=gridView1_KeyUp;
             gridView1.DoubleClick+=gridView1_DoubleClick;

@@ -21,7 +21,6 @@ namespace Xpand.VSIX.Commands {
             DisableExceptions();
             ShowModelsWindowCommand.Init();
             KillIISExpressCommand.Init();
-            AddXpandReferencesCommand.Init();
             BuildSelectionCommand.Init();
             FindInSolutionCommand.Init();
             DuplicateLineCommand.Init();

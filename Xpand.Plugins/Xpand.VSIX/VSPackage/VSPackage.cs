@@ -1,9 +1,5 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing.Design;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
@@ -11,8 +7,6 @@ using Xpand.VSIX.Extensions;
 using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Options;
 using Xpand.VSIX.Services;
-using Xpand.VSIX.Wizard;
-using Application = System.Windows.Forms.Application;
 using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.VSPackage {
@@ -48,58 +42,10 @@ namespace Xpand.VSIX.VSPackage {
         public const string PackageGuidString = "fa1289e0-6376-4d19-98c5-9d0c90dd3284";
         public VSPackage() {
             _instance = this;
-            
-            ToolboxInitialized += (sender, args) => InstallToolBoxItems();
-            ToolboxUpgraded += (sender, args) =>  UpgradeToolBoxItems();
         }
 
-        private void UpgradeToolBoxItems(){
-            var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
-            ModifyToolboxItems(module => {
-                var assembly = Assembly.LoadFile(module.AssemblyPath);
-                var toolboxItems = ToolboxService.GetToolboxItems(assembly, null).Cast<ToolboxItem>().ToArray();
-                foreach (var item in toolboxItems){
-                    tbxService.RemoveToolboxItem(item);
-                    this.DTE2().StatusBar.Text =
-                        $"{item.DisplayName} removed from the toolbox category Xpand.{module.Platform}";
-                }
-
-                return toolboxItems.FirstOrDefault();
-            });
-            InstallToolBoxItems();
-        }
-
-        private void InstallToolBoxItems(){
-            var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
-            ModifyToolboxItems(module => {
-                var toolboxItem =new ToolboxItem(Assembly.LoadFile(module.AssemblyPath).GetType(module.TypeDefinition.FullName));
-                tbxService.AddToolboxItem(toolboxItem, $"Xpand.{module.Platform}");
-                this.DTE2().StatusBar.Text = $"{module.TypeDefinition.FullName} added in the toolbox category Xpand.{module.Platform}";
-                return toolboxItem;
-            });
-        }
-
-        public new object GetService(Type type){
+        public new object GetService(Type type) {
             return base.GetService(type);
-        }
-
-
-        private void ModifyToolboxItems(Func<XpandModule,ToolboxItem> selector) {
-            var tbxService = (IToolboxService)GetService(typeof(IToolboxService));
-            ModuleManager.Instance.Modules
-                .ToObservable()
-                .Publish().RefCount()
-                .Select(selector)
-                .Do(item => {
-                    tbxService.Refresh();
-                    Application.DoEvents();
-                })              
-                .Catch<ToolboxItem,Exception>(e => {
-                    this.DTE2().WriteToOutput(e.ToString());
-                    return Observable.Never<ToolboxItem>();
-                })
-                .Finally(() => tbxService.Refresh())
-                .Subscribe();
         }
 
         public static VSPackage Instance => _instance;
