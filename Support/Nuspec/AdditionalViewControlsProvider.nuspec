@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.602.0">
+      <dependency id="eXpandLib" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandLogic" version="20.1.602.0">
+      <dependency id="eXpandLogic" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandSecurity" version="20.1.602.0">
+      <dependency id="eXpandSecurity" version="20.1.700.0">
       </dependency>
       <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.202.42">
       </dependency>

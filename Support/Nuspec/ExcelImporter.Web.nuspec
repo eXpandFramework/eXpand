@@ -16,15 +16,15 @@
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6">
       </dependency>
-      <dependency id="eXpandExcelImporter" version="20.1.602.0">
+      <dependency id="eXpandExcelImporter" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.602.0">
+      <dependency id="eXpandLib" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandSystem" version="20.1.602.0">
+      <dependency id="eXpandSystem" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandSystemWeb" version="20.1.602.0">
+      <dependency id="eXpandSystemWeb" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandValidationWeb" version="20.1.602.0">
+      <dependency id="eXpandValidationWeb" version="20.1.700.0">
       </dependency>
       <dependency id="System.IO.Compression" version="4.3">
       </dependency>

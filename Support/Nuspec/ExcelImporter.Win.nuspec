@@ -16,13 +16,13 @@
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6">
       </dependency>
-      <dependency id="eXpandExcelImporter" version="20.1.602.0">
+      <dependency id="eXpandExcelImporter" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.602.0">
+      <dependency id="eXpandLib" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandSystemWin" version="20.1.602.0">
+      <dependency id="eXpandSystemWin" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandValidationWin" version="20.1.602.0">
+      <dependency id="eXpandValidationWin" version="20.1.700.0">
       </dependency>
       <dependency id="JetBrains.Annotations" version="2020.1">
       </dependency>

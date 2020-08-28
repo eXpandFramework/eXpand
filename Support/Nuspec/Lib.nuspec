@@ -36,6 +36,8 @@
       </dependency>
       <dependency id="Xpand.Extensions.Mono.Cecil" version="2.202.37">
       </dependency>
+      <dependency id="Xpand.Extensions.XAF" version="2.202.42">
+      </dependency>
       <dependency id="Xpand.Patcher" version="2.0.23">
       </dependency>
     </dependencies>

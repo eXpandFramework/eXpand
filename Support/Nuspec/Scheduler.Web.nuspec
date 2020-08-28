@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Scheduler</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="20.1.602.0">
+      <dependency id="eXpandDashboard" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.602.0">
+      <dependency id="eXpandLib" version="20.1.700.0">
       </dependency>
-      <dependency id="eXpandScheduler" version="20.1.602.0">
+      <dependency id="eXpandScheduler" version="20.1.700.0">
       </dependency>
       <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.202.42">
       </dependency>

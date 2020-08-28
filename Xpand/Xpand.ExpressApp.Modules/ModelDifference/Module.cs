@@ -241,7 +241,6 @@ namespace Xpand.ExpressApp.ModelDifference {
         public override IEnumerable<ModuleUpdater> GetModuleUpdaters(IObjectSpace objectSpace, Version versionFromDB){
             yield return new Updater(objectSpace, versionFromDB);
             yield return new DeviceCategoryUpdater(objectSpace, versionFromDB);
-            yield return new CombineOrderUpdater(objectSpace, versionFromDB);
         }
 
         void BuildSecuritySystemObjects() {

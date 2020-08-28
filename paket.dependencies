@@ -14,13 +14,13 @@ nuget AppDomainToolkit 1.0.4.3
 nuget AutoMapper 3.3.1
 nuget CommandLineParser 1.9.71
 nuget Common.Logging 2.1.2
-nuget DevExpress.ExpressApp.Win.All == 20.1.6
-nuget DevExpress.ExpressApp.Web.All == 20.1.6
-nuget DevExpress.ExpressApp.Core.All  == 20.1.6
-nuget DevExpress.ExpressApp.Security.Xpo == 20.1.6
-nuget DevExpress.ExpressApp.Reports == 20.1.6
-nuget DevExpress.ExpressApp.Reports.Win == 20.1.6
-nuget DevExpress.Document.Processor 20.1.6
+nuget DevExpress.ExpressApp.Win.All == 20.1.7
+nuget DevExpress.ExpressApp.Web.All == 20.1.7
+nuget DevExpress.ExpressApp.Core.All  == 20.1.7
+nuget DevExpress.ExpressApp.Security.Xpo == 20.1.7
+nuget DevExpress.ExpressApp.Reports == 20.1.7
+nuget DevExpress.ExpressApp.Reports.Win == 20.1.7
+nuget DevExpress.Document.Processor 20.1.7
 nuget DocumentFormat.OpenXml 2.7.2
 nuget DotNetZip 1.11.0
 nuget Enums.NET 3.0.3

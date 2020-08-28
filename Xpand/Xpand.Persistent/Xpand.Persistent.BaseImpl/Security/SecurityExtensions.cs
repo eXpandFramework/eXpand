@@ -13,13 +13,8 @@ namespace Xpand.Persistent.BaseImpl.Security {
         public static IPermissionPolicyUser GetAnonymousPermissionPolicyUser(this IPermissionPolicyRole systemRole) {
             var optionsAthentication = ((IModelOptionsAuthentication)ApplicationHelper.Instance.Application.Model.Options).Athentication;
             var anonymousUserName = optionsAthentication.AnonymousAuthentication.AnonymousUser;
-            return (IPermissionPolicyUser) systemRole.GetAnonymousPermissionPolicyUser( anonymousUserName);
+            return (IPermissionPolicyUser) systemRole.GetPermissionPolicyUser(anonymousUserName);
         }
-
-        public static ISecurityUserWithRoles GetAnonymousPermissionPolicyUser(this IPermissionPolicyRole systemRole, string userName) {
-            return systemRole.GetPermissionPolicyUser(userName);
-        }
-
         public static ISecurityUserWithRoles GetPermissionPolicyUser(this IPermissionPolicyRole systemRole, string userName, string passWord = "") {
             var objectSpace = XPObjectSpace.FindObjectSpaceByObject(systemRole);
             return objectSpace.GetUser(userName, passWord, (ISecurityRole) systemRole);

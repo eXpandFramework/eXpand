@@ -18,7 +18,7 @@
       </dependency>
       <dependency id="AForge.Video" version="2.2.5">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.602.0">
+      <dependency id="eXpandLib" version="20.1.700.0">
       </dependency>
       <dependency id="Fasterflect.Xpand" version="2.0.7">
       </dependency>
