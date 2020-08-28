@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
             base.OnActivated();
             var memberInfos = GetMemberInfos().ToArray();
             if (memberInfos.Any()) {
-                AttachControllers(memberInfos);
+                AttachControllers();
             }
 
             View.CurrentObjectChanged += ViewOnCurrentObjectChanged;
@@ -39,11 +39,11 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
         void AnalysisEditorBaseOnValueReading(object sender, EventArgs eventArgs) {
             var analysisEditorBase = ((AnalysisEditorBase)sender);
             if (analysisEditorBase.PropertyValue == null) {
-                IMemberInfo memberInfo = analysisEditorBase.MemberInfo.GetPath().Where(info => info.Name != "Self").ToList().Single();
-                BindMember(memberInfo);
+                IMemberInfo memberInfo = analysisEditorBase.MemberInfo.GetPath().FirstOrDefault(info => info.Name != nameof(IAnalysisInfo.Self));
+                if (memberInfo!=null)
+                    BindMember(memberInfo);
             }
         }
-
         protected override void OnDeactivated() {
             base.OnDeactivated();
             View.CurrentObjectChanged -= ViewOnCurrentObjectChanged;
@@ -76,7 +76,7 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
         }
 
 
-        protected virtual void AttachControllers(IEnumerable<IMemberInfo> memberInfos) {
+        protected virtual void AttachControllers() {
             var assignCustomAnalysisDataSourceDetailViewController = AttachAssignCustomAnalysisDataSourceDetailViewController();
             assignCustomAnalysisDataSourceDetailViewController.ApplyingCollectionCriteria += ApplyingCollectionCriteria;
             assignCustomAnalysisDataSourceDetailViewController.DatasourceCreating += DatasourceCreating;
@@ -104,7 +104,6 @@ namespace Xpand.ExpressApp.PivotChart.PivotedProperty {
                 controller.Active[""] = true;
                 controller.TargetObjectType = View.ObjectTypeInfo.Type;
             });
-            
         }
 
         protected virtual AssignCustomAnalysisDataSourceDetailViewController AttachAssignCustomAnalysisDataSourceDetailViewController() {
