@@ -29,58 +29,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="General\Controllers\DisableDialogController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\NavigationItemsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Web\NavigationContainerWebController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Web\ActionsClientScriptController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\EasyTestController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\Actions\ActionItemsFromModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\Actions\ActionModelChoiceItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\ModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\Actions\ResetViewModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\CustomAttibutesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\ModelViewSavingController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\NavigationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\CreateExpandAbleMembersViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\Controllers\UpdateTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="General\XpandModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="MiddleTier\XpandServerApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="General\Controllers\DisableDialogController.cs" />
+    <Compile Update="General\Controllers\NavigationItemsController.cs" />
+    <Compile Update="General\Web\NavigationContainerWebController.cs" />
+    <Compile Update="General\Web\ActionsClientScriptController.cs" />
+    <Compile Update="General\Controllers\EasyTestController.cs" />
+    <Compile Update="General\Controllers\Actions\ActionItemsFromModelController.cs" />
+    <Compile Update="General\Controllers\Actions\ActionModelChoiceItemController.cs" />
+    <Compile Update="General\Controllers\ModelController.cs" />
+    <Compile Update="General\Controllers\Actions\ResetViewModelController.cs" />
+    <Compile Update="General\Controllers\CustomAttibutesController.cs" />
+    <Compile Update="General\Controllers\ModelViewSavingController.cs" />
+    <Compile Update="General\Controllers\NavigationController.cs" />
+    <Compile Update="General\Controllers\CreateExpandAbleMembersViewController.cs" />
+    <Compile Update="General\Controllers\UpdateTypeConverterController.cs" />
+    <Compile Update="General\XpandModuleBase.cs" />
+    <Compile Update="MiddleTier\XpandServerApplication.cs" />
     <Compile Update="ModelAdapter\PropertyEditorControlAdapterController.cs" />
-    <Compile Update="General\Controllers\XpandLinkToListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="General\Controllers\XpandLinkToListViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Logo.png" />
