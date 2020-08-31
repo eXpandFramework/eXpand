@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.ModelArtifactState.ControllerState.Logic{
                 }
                 return typeInfo.Type;
 
-            }).ToList();
+            }).Where(type => type!=null).ToList();
         }
 
     }
