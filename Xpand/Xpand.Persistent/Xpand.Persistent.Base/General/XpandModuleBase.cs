@@ -91,24 +91,29 @@ namespace Xpand.Persistent.Base.General {
         public event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
 
         static XpandModuleBase(){
-            AdditionalTypesTypesInfo=new TypesInfo();
-            var path = $@"{AppDomain.CurrentDomain.ApplicationPath()}";
-            NetstandardPath = $@"{path}\netstandard.dll";
-            if (!File.Exists(NetstandardPath)) {
-                using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
-                    try {
-                        manifestResourceStream.SaveToFile(NetstandardPath);
-                    }
-                    catch (Exception) {
-                        throw new InvalidOperationException($"Fail to write {NetstandardPath}, please add the file there manually.");
+            try {
+                AdditionalTypesTypesInfo=new TypesInfo();
+                var path = $@"{AppDomain.CurrentDomain.ApplicationPath()}";
+                NetstandardPath = $@"{path}\netstandard.dll";
+                if (!File.Exists(NetstandardPath)) {
+                    using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
+                        try {
+                            manifestResourceStream.SaveToFile(NetstandardPath);
+                        }
+                        catch (Exception) {
+                            throw new InvalidOperationException($"Fail to write {NetstandardPath}, please add the file there manually.");
+                        }
                     }
                 }
+                var harmony = new Harmony(typeof(ApplicationModulesManagerExtensions).Namespace);
+                var prefix = typeof(XpandModuleBase).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
+                var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
+                harmony.Patch(original, new HarmonyMethod(prefix));
+                LoadAssemblyRegularTypes();
             }
-            var harmony = new Harmony(typeof(ApplicationModulesManagerExtensions).Namespace);
-            var prefix = typeof(XpandModuleBase).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
-            var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
-            harmony.Patch(original, new HarmonyMethod(prefix));
-            LoadAssemblyRegularTypes();
+            catch (TypeLoadException e) {
+                throw new Exception("Possible fix as per issue #753",e);
+            }
         }
 
         protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
