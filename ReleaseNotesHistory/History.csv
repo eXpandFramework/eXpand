@@ -1,6 +1,14 @@
 "Release","Issues","Labels","Message","Sha"
-"20.1.602.0","736","? Backer, Installation, Priority","Standalone packages version is wrong","5bc8caf073cc8ad8f274bcb4e91cefe5edcb7947"
-"20.1.602.0","719","must-have, Standalone_XAF_Modules","Bump Standalone packages","82ea630486762d642b1f2f71113cb9988d25d17a"
+"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","User friendly message refering issue 753","9e67417e9f7253d617fd15bbde8ae761e166d0da"
+"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","Revert LoadAssemblyRegularTypes should be a Runtime only call","dd9e251805362bdaa72c0f8d2d517449e75da790"
+"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","Bump Standalone packages","8e7cd0c1c49944c855c68a70f5b0ef44769e582b"
+"20.1.701.0","249","? Sponsor, PivotChart, Priority","Error Opening Analysis Objects","d4b248efd7bbccdd16f328c94364242a1fe1ded3"
+"20.1.701.0","746","must-have, Priority","VSIX: remove New Project Wizard","901078cfe9d313a422412f5b11587a1e743d5851"
+"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","LoadAssemblyRegularTypes should be a Runtime only call","f817c789ec83676d64ee173574da102c141f7fad"
+"20.1.701.0","569, 739","Design-time, must-have, ShowStopper, XpandModelEditor","XpandModelEditor: Custom App.Config using the XpandModelEditorAppConfigPath enviromental variable","28ceb550430b0fa629364ac79246477991151bca"
+"20.1.701.0","569, 739","Design-time, must-have, ShowStopper, XpandModelEditor","XpandModelEditor: Support for the AppendTargetFrameworkToOutputPath SDK projects","cf25a70b838a13107e4403eb0964907157e57cb8"
+"20.1.602.0","736","? Backer, Installation, Priority","Standalone packages version is wrong",
+"20.1.602.0","719","must-have, Standalone_XAF_Modules","Bump Standalone packages",
 "20.1.401.0","713","?? Exclusive-Services, Priority, Standalone_XAF_Modules, ViewItemValue","Distribute ViewItemValue module together with the XpandSystemModule",
 "20.1.401.0","715","? Backer, Nuget, Priority","Bump Standalone packages",
 "20.1.401.0","713","?? Exclusive-Services, Priority, Standalone_XAF_Modules, ViewItemValue","Distribute LookupDefaultObject module together with the XpandSystemModule",
