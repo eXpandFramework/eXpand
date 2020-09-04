@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -109,7 +110,9 @@ namespace Xpand.Persistent.Base.General {
                 var prefix = typeof(XpandModuleBase).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
                 var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
                 harmony.Patch(original, new HarmonyMethod(prefix));
-                LoadAssemblyRegularTypes();
+                if (Process.GetCurrentProcess().ProcessName!="devenv") {
+                    LoadAssemblyRegularTypes();
+                }
             }
             catch (TypeLoadException e) {
                 throw new Exception("Possible fix as per issue #753",e);
