@@ -1,6 +1,6 @@
 storage: packages
 framework: auto-detect
-source C:\Program Files (x86)\DevExpress 20.1\Components\System\Components\Packages
+source F:\devexpress\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
@@ -57,3 +57,4 @@ nuget Microsoft.VisualStudio.Threading.Analyzers 15.8.209
 nuget Microsoft.VisualStudio.Utilities 15.9.28307
 nuget Microsoft.VisualStudio.Workspace 15.0.485
 nuget Microsoft.VisualStudio.Workspace.VSIntegration 15.0.485
+
