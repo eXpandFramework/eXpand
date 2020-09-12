@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.FileAttachments.Win;
 using DevExpress.Utils;
 using Xpand.ExpressApp.Win.PropertyEditors;
 using Xpand.ExpressApp.Win.SystemModule;
+using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
 using Xpand.Persistent.Base.General;
 using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
@@ -38,6 +39,8 @@ namespace Xpand.ExpressApp.WorldCreator.Win {
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
             moduleManager.Extend(PredefinedMap.RichEditControl);
+            moduleManager.ExtendMap(PredefinedMap.RichEditControl)
+                .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelRichEditEx)));
         }
 
         protected override void RegisterEditorDescriptors(EditorDescriptorsFactory editorDescriptorsFactory){

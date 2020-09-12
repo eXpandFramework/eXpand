@@ -22,11 +22,6 @@ using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.General {
     public static class ModelNodeExtensions {
-        public static IEnumerable<IModelNode> Nodes(this IModelNode node){
-            for (int i = 0; i < node.NodeCount; i++){
-                yield return node.GetNode(i);
-            }
-        }
 
         public static IEnumerable<IModelPropertyEditor> GetModelPropertyEditors(this IModelDetailView modelDetailView){
             var modelPropertyEditors = modelDetailView.Items.OfType<IModelPropertyEditor>();

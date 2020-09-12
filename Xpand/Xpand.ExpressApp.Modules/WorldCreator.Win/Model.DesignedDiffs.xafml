@@ -1,2 +1,23 @@
-<?xml version="1.0" ?>
-<Application />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Application>
+  <Views>
+    <DetailView Id="PersistentAssemblyInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="GeneratedCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@57e64b16-4a1f-4243-8500-76d6c9002bbc" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+    <DetailView Id="PersistentClassInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="GeneratedCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@33bcea4e-8dfa-44a0-a6bd-f311a7d91634" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+  </Views>
+</Application>

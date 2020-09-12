@@ -20,6 +20,7 @@ using DevExpress.XtraRichEdit.Export;
 using DevExpress.XtraRichEdit.Import;
 using DevExpress.XtraRichEdit.Services;
 using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
+using Xpand.Extensions.XAF.ModelExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Xpand.XAF.Modules.ModelMapper.Services.Predefined;
