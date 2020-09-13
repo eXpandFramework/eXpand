@@ -43,7 +43,9 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper.AssemblyGenerator {
             if (_persistentMemberInfo.Owner.CodeTemplateInfo.CodeTemplate.TemplateType != TemplateType.Struct) {
                 if (_isPrimaryKey) {
                     persistentAttributeInfos.Add(GetPersistentKeyAttribute());
-                    persistentAttributeInfos.Add(GetRuleRequiredAttribute());
+                    if (!isCompoundPrimaryKey) {
+                        persistentAttributeInfos.Add(GetRuleRequiredAttribute());
+                    }
                 }
                 if ((!IsSelfRefOnTheKey(_column, _isPrimaryKey)) && ((IsSimpleForeignKey() && !isCompoundPrimaryKey) || ((isCompoundPrimaryKey && IsForeignKey()))))
                     persistentAttributeInfos.Add(GetPersistentAssociationAttribute());
