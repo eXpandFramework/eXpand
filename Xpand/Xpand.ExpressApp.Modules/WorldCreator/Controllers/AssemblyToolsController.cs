@@ -52,7 +52,8 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers {
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs){
             if (_modifiedPersistentAssemblies!=null){
-                foreach (var assemblyInfo in _modifiedPersistentAssemblies.ToArray()){
+                foreach (var assemblyInfo in _modifiedPersistentAssemblies.ToArray()) {
+                    _modifiedPersistentAssemblies.Remove(assemblyInfo);
                     ValidateAssembly(assemblyInfo);
                 }
             }
