@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Xpand.Extensions.Mono.Cecil;
 
 namespace Xpand.Persistent.Base.General {
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
@@ -30,6 +31,7 @@ namespace Xpand.Persistent.Base.General {
             if (typeDefinition!=null){
                 var assembly = AppDomain.CurrentDomain.GetAssemblies().First(_ => _.FullName==typeDefinition.Module.Assembly.FullName);
                 Dictionary[nameSpaceType] = assembly.GetType(typeDefinition.FullName);
+                return typeDefinition.ToType();
             }
             return null;
         }

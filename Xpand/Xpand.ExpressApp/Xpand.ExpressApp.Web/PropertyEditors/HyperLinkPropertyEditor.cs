@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
-using Xpand.Persistent.Base.General;
+using Xpand.Extensions.XAF.ModelExtensions;
 using Xpand.XAF.Modules.ModelMapper.Services.Predefined;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
