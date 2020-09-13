@@ -1,6 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Application>
   <Views>
+    <DetailView Id="CodeTemplate_DetailView">
+      <Items>
+        <PropertyEditor Id="TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@8050a2e7-7e97-4715-8838-cfd1d6bb24cd" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+    <DetailView Id="CodeTemplateInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="TemplateInfo.TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@0b6d897e-a6ba-497d-a755-a4658c8b10d0" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
     <DetailView Id="PersistentAssemblyInfo_DetailView">
       <Items>
         <PropertyEditor Id="GeneratedCode">
@@ -12,9 +30,83 @@
     </DetailView>
     <DetailView Id="PersistentClassInfo_DetailView">
       <Items>
+        <PropertyEditor Id="CodeTemplateInfo.TemplateInfo.TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@cd3aa0a0-58aa-4685-97ca-22cdb321bc15" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
         <PropertyEditor Id="GeneratedCode">
           <Controls>
             <DevExpressXtraRichEdit_RichEditControl Id="@33bcea4e-8dfa-44a0-a6bd-f311a7d91634" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+    <DetailView Id="PersistentCollectionMemberInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="CodeTemplateInfo.TemplateInfo.TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@292c3527-ae75-45d7-9f3b-42b59548d5b5" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+        <PropertyEditor Id="GeneratedCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@eed52b61-89ff-4bfa-88f8-22d1ec31284e" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+    <DetailView Id="PersistentCoreTypeMemberInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="CodeTemplateInfo.TemplateInfo.TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@4df45a62-504e-45ae-9e19-4d1bc034633f" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+        <PropertyEditor Id="GeneratedCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@2e5dd6db-a92d-4745-a00d-aef35871d9a9" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+    <DetailView Id="PersistentMemberInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="CodeTemplateInfo.TemplateInfo.TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@571a1c03-5abb-4ef2-be6e-3f3f4f21accf" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+        <PropertyEditor Id="GeneratedCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@f5dc9e09-0c7f-4426-b2b6-7a25bda8785d" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+    <DetailView Id="PersistentReferenceMemberInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="CodeTemplateInfo.TemplateInfo.TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@0843f635-f9a3-4e57-9eae-b7b09dae43d6" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+    <DetailView Id="PersistentTemplatedTypeInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="CodeTemplateInfo.TemplateInfo.TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@619630f7-0d11-4f2e-bc47-5b4215937028" IsNewNode="True" />
+          </Controls>
+        </PropertyEditor>
+      </Items>
+    </DetailView>
+    <DetailView Id="TemplateInfo_DetailView">
+      <Items>
+        <PropertyEditor Id="TemplateCode">
+          <Controls>
+            <DevExpressXtraRichEdit_RichEditControl Id="@efcbc43d-8a83-4cb7-be61-f192b515b02a" IsNewNode="True" />
           </Controls>
         </PropertyEditor>
       </Items>
