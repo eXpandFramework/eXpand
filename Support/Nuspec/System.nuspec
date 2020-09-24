@@ -14,25 +14,25 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.701.0">
+      <dependency id="eXpandLib" version="20.1.703.0">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="2.202.55">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.202.55">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.202.55">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.PositionInListView" version="2.202.17">
+      <dependency id="Xpand.XAF.Modules.PositionInListView" version="2.202.26">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="2.202.55">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.202.55">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.RefreshView" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.RefreshView" version="2.202.55">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.SequenceGenerator" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.SequenceGenerator" version="2.202.55">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.ViewItemValue" version="2.202.12">
+      <dependency id="Xpand.XAF.Modules.ViewItemValue" version="2.202.21">
       </dependency>
     </dependencies>
   </metadata>

@@ -14,13 +14,13 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <description>DevExpress eXpandFramework System Module (Web). To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.701.0">
+      <dependency id="eXpandLib" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandSystem" version="20.1.701.0">
+      <dependency id="eXpandSystem" version="20.1.703.0">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.LookupCascade" version="2.202.48">
+      <dependency id="Xpand.XAF.Modules.LookupCascade" version="2.202.57">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="2.202.55">
       </dependency>
     </dependencies>
   </metadata>

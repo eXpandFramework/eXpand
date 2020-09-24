@@ -18,17 +18,17 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <dependencies>
       <dependency id="AppDomainToolkit" version="1.0.4.3">
       </dependency>
-      <dependency id="eXpandLib" version="20.1.701.0">
+      <dependency id="eXpandLib" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandValidation" version="20.1.701.0">
+      <dependency id="eXpandValidation" version="20.1.703.0">
       </dependency>
       <dependency id="Microsoft.CSharp" version="4.7">
       </dependency>
       <dependency id="Mono.Cecil" version="0.11.2">
       </dependency>
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="2.202.40">
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="2.202.49">
       </dependency>
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.202.46">
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.202.55">
       </dependency>
     </dependencies>
   </metadata>

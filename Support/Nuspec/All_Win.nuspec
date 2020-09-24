@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWin</id>
-    <version>20.1.701.0</version>
+    <version>20.1.703.0</version>
     <title>DevExpress eXpandFramework All Win Platform Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -14,45 +14,45 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
-      <dependency id="eXpandAdditionalViewControlsProviderWin" version="20.1.701.0">
+      <dependency id="eXpandAdditionalViewControlsProviderWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandChartWin" version="20.1.701.0">
+      <dependency id="eXpandChartWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandEasyTestWin" version="20.1.701.0">
+      <dependency id="eXpandEasyTestWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandExcelImporter.Win" version="20.1.701.0">
+      <dependency id="eXpandExcelImporter.Win" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandImportWizardWin2" version="20.1.701.0">
+      <dependency id="eXpandImportWizardWin2" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandIOWin" version="20.1.701.0">
+      <dependency id="eXpandIOWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandMasterDetailWin" version="20.1.701.0">
+      <dependency id="eXpandMasterDetailWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandModelDifferenceWin" version="20.1.701.0">
+      <dependency id="eXpandModelDifferenceWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandPivotChartWin" version="20.1.701.0">
+      <dependency id="eXpandPivotChartWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandPivotGridWin" version="20.1.701.0">
+      <dependency id="eXpandPivotGridWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandReportsWin" version="20.1.701.0">
+      <dependency id="eXpandReportsWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandReportsV2Win" version="20.1.701.0">
+      <dependency id="eXpandReportsV2Win" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandSchedulerWin" version="20.1.701.0">
+      <dependency id="eXpandSchedulerWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandSecurityWin" version="20.1.701.0">
+      <dependency id="eXpandSecurityWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandSystemWin" version="20.1.701.0">
+      <dependency id="eXpandSystemWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandTreelistViewWin" version="20.1.701.0">
+      <dependency id="eXpandTreelistViewWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandValidationWin" version="20.1.701.0">
+      <dependency id="eXpandValidationWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandWizardWin" version="20.1.701.0">
+      <dependency id="eXpandWizardWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandWorldCreatorWin" version="20.1.701.0">
+      <dependency id="eXpandWorldCreatorWin" version="20.1.703.0">
       </dependency>
-      <dependency id="eXpandXtraDashboardWin" version="20.1.701.0">
+      <dependency id="eXpandXtraDashboardWin" version="20.1.703.0">
       </dependency>
     </dependencies>
   </metadata>
