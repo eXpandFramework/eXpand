@@ -65,6 +65,46 @@ EasyTests|    Custom command and extensions for EasyTest see <http://apobekiaris
 [NCarousel](#ncarousel)|    Loads images asynchronously and displays them using a configurable carousel listeditor|    N|    Y|![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?color=%20&label=%20&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FeXpandNCarousel%2A)
 VSIX Package|    Enhance Model Editor, Explore Xaf Errors, Drop Database at design time, ProjectConverter invocation|
 
+## Standalone XAF Modules
+
+Below is a list of DevExpress XAF Modules distributed from the [DevExpress.XAF](https://github.com/eXpandFramework/DevExpress.XAF) repository.
+
+<moduleslist>
+
+|PackageName|Version|[![Custom badge](https://xpandshields.azurewebsites.net/endpoint.svg?label=&url=https%3A%2F%2Fxpandnugetstats.azurewebsites.net%2Fapi%2Ftotals%2FXAF)](https://www.nuget.org/packages?q=Xpand.XAF)|Target|Platform|About
+|---|---|---|---|---|---|
+[AutoCommit](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/AutoCommit)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.AutoCommit.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.AutoCommit.svg?label=&style=flat)|net461|Agnostic|The `AutoCommit` package can be used to enable specific autocommit scenarios by setting the `IModelObjectView.AutoCommit`.
+[CloneMemberValue](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/CloneMemberValue)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.CloneMemberValue.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.CloneMemberValue.svg?label=&style=flat)|net461|Agnostic|The `CloneMemberValue` module will help you to selectively `clone` Bussiness object `members`.
+[CloneModelView](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/CloneModelView)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.CloneModelView.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.CloneModelView.svg?label=&style=flat)|net461|Agnostic|The `CloneModelView` package generated additional default design time model views.
+[GridListEditor](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/GridListEditor)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.GridListEditor.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.GridListEditor.svg?label=&style=flat)|net461|Win|The `GridListEditor` module hosts features related to XAF GridListEditor.
+[HideToolBar](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/HideToolBar)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.HideToolBar.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.HideToolBar.svg?label=&style=flat)|net461|Agnostic|The `HideToolBar` package uses the the `IModelListView.HideToolBar` attribute to hide the toolbar.
+[LookupCascade](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/LookupCascade)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.LookupCascade.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.LookupCascade.svg?label=&style=flat)|net461|Web|The `LookupCascade` module implements client side Cascading Filtering for Lookup List Views (No ImmediatePostData).
+[MasterDetail](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/MasterDetail)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.MasterDetail.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.MasterDetail.svg?label=&style=flat)|net461|Agnostic|The `MasterDetail` module can help you create platform agnostic master detail `XAF` views using only the Model Editor.
+[ModelMapper](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/ModelMapper)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.ModelMapper.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.ModelMapper.svg?label=&style=flat)|net461|Agnostic|The `ModelMapper` allows to control all XAF components from the application model.
+[ModelViewInheritance](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/ModelViewInheritance)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.ModelViewInheritance.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.ModelViewInheritance.svg?label=&style=flat)|net461|Agnostic|The `ModuleViewInheritance` changes the default Model View generation without coding.
+[Office.Cloud.Google](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Office.Cloud.Google)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Office.Cloud.Google.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Office.Cloud.Google.svg?label=&style=flat)|net461|Agnostic|The `Google` package authenticates against the Google Cloud services.
+[Office.Cloud.Google.Calendar](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Office.Cloud.Google.Calendar)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Office.Cloud.Google.Calendar.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Office.Cloud.Google.Calendar.svg?label=&style=flat)|net461|Agnostic|The `Google.Calendar` package integrates with the Google Calendar cloud service.
+[Office.Cloud.Google.Tasks](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Office.Cloud.Google.Tasks)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Office.Cloud.Google.Tasks.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Office.Cloud.Google.Tasks.svg?label=&style=flat)|net461|Agnostic|This package integrates with the Google Tasks cloud service.
+[Office.Cloud.Microsoft](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Office.Cloud.Microsoft)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Office.Cloud.Microsoft.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Office.Cloud.Microsoft.svg?label=&style=flat)|net461|Agnostic|The `Microsoft` authenticates against Azure Active Directory and queries the MSGraph endpoints.
+[Office.Cloud.Microsoft.Calendar](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Office.Cloud.Microsoft.Calendar)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Office.Cloud.Microsoft.Calendar.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Office.Cloud.Microsoft.Calendar.svg?label=&style=flat)|net461|Agnostic|The `Microsoft.Calendar` package integrates with the Office365 Calendar cloud service.
+[Office.Cloud.Microsoft.Todo](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Office.Cloud.Microsoft.Todo)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Office.Cloud.Microsoft.Todo.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Office.Cloud.Microsoft.Todo.svg?label=&style=flat)|net461|Agnostic|This package integrates with the Office365 Todo cloud service.
+[OneView](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/OneView)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.OneView.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.OneView.svg?label=&style=flat)|net461|Win|The `OneView` will display one view only with the option to edit the model.
+[PositionInListView](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/PositionInListView)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.PositionInListView.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.PositionInListView.svg?label=&style=flat)|net461|Agnostic|The `PositionInListView`, controls how objects are positioned in a ListView at runtime.
+[ProgressBarViewItem](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/ProgressBarViewItem)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.ProgressBarViewItem.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.ProgressBarViewItem.svg?label=&style=flat)|net461|Agnostic|The `ProgressBarViewItem` package integrates a UI progress for long running tasks.
+[Reactive](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Reactive)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Reactive.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Reactive.svg?label=&style=flat)|net461|Agnostic|The `Reactive` module provides a XAF DSL API for functional/stateless implementations.
+[Reactive.Logger](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Reactive.Logger)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Reactive.Logger.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Reactive.Logger.svg?label=&style=flat)|net461|Agnostic|The `Reactive.Logger` module monitors calls to the RX delegates OnNext, OnSubscribe, OnDispose, OnCompleted, OnError
+[Reactive.Logger.Client.Win](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Reactive.Logger.Client.Win)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Reactive.Logger.Client.Win.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Reactive.Logger.Client.Win.svg?label=&style=flat)|net461||The `Reactive.Logger.Client.Win` is an executable able connect to any XAF app that uses the `Reactive.Logger.Hub`.
+[Reactive.Logger.Hub](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Reactive.Logger.Hub)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Reactive.Logger.Hub.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Reactive.Logger.Hub.svg?label=&style=flat)|net461|Agnostic|The `Reactive.Logger.Hub` transmits or receives the execution pipeLine flow.
+[Reactive.Win](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/Reactive.Win)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.Reactive.Win.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.Reactive.Win.svg?label=&style=flat)|net461|Win|The `Reactive.Win` module is the platform specific version of the `Reactive module`.
+[RefreshView](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/RefreshView)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.RefreshView.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.RefreshView.svg?label=&style=flat)|net461|Agnostic|The `RefreshView` module refreshes the View datasource periodically.
+[SequenceGenerator](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/SequenceGenerator)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.SequenceGenerator.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.SequenceGenerator.svg?label=&style=flat)|net461|Agnostic|The `SequenceGenerator` updates Business Objects members with unique sequential values.
+[SuppressConfirmation](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/SuppressConfirmation)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.SuppressConfirmation.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.SuppressConfirmation.svg?label=&style=flat)|net461|Agnostic|The `SuppressConfirmation` suppresses ObjectViews modification confirmations.
+[ViewEditMode](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/ViewEditMode)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.ViewEditMode.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.ViewEditMode.svg?label=&style=flat)|net461|Agnostic|The `ViewEditMode` module controls the DetailView.ViewEditMode.
+[ViewItemValue](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/ViewItemValue)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.ViewItemValue.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.ViewItemValue.svg?label=&style=flat)|net461|Agnostic|The `ViewItemValue` helps end-users to configure the default values for lookup view items.
+[ViewWizard](https://github.com/eXpandFramework/DevExpress.XAF/tree/master/src/Modules/ViewWizard)|![](https://xpandshields.azurewebsites.net/nuget/v/Xpand.XAF.Modules.ViewWizard.svg?label=&style=flat)|![](https://xpandshields.azurewebsites.net/nuget/dt/Xpand.XAF.Modules.ViewWizard.svg?label=&style=flat)|net461|Agnostic|
+
+
+</moduleslist>
 ### Dashboard
 
 Blogs:\
@@ -218,34 +258,3 @@ http://apobekiaris.blogspot.com/search/label/XpandWF
 
 Blogs:\
 http://apobekiaris.blogspot.gr/search/label/ExcelImporter
-
-
-## Contributors
-
-### Code Contributors
-
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/eXpandFramework/eXpand/graphs/contributors"><img src="https://opencollective.com/eXpand/contributors.svg?width=890&button=false" /></a>
-
-### Financial Contributors
-
-Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/eXpand/contribute)]
-
-#### Individuals
-
-<a href="https://opencollective.com/eXpand"><img src="https://opencollective.com/eXpand/individuals.svg?width=890"></a>
-
-#### Organizations
-
-Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/eXpand/contribute)]
-
-<a href="https://opencollective.com/eXpand/organization/0/website"><img src="https://opencollective.com/eXpand/organization/0/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/1/website"><img src="https://opencollective.com/eXpand/organization/1/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/2/website"><img src="https://opencollective.com/eXpand/organization/2/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/3/website"><img src="https://opencollective.com/eXpand/organization/3/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/4/website"><img src="https://opencollective.com/eXpand/organization/4/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/5/website"><img src="https://opencollective.com/eXpand/organization/5/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/6/website"><img src="https://opencollective.com/eXpand/organization/6/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/7/website"><img src="https://opencollective.com/eXpand/organization/7/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/8/website"><img src="https://opencollective.com/eXpand/organization/8/avatar.svg"></a>
-<a href="https://opencollective.com/eXpand/organization/9/website"><img src="https://opencollective.com/eXpand/organization/9/avatar.svg"></a>

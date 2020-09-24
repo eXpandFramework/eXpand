@@ -1,7 +1,7 @@
 STORAGE: PACKAGES
 RESTRICTION: == net472
 NUGET
-  remote: F:\devexpress\Packages
+  remote: C:\Program Files (x86)\DevExpress 20.1\Components\System\Components\Packages
     DevExpress.Charts (20.1.7)
       DevExpress.Charts.Core (20.1.7)
       DevExpress.Data (20.1.7)
