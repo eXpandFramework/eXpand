@@ -1,12 +1,19 @@
 "Release","Issues","Labels","Message","Sha"
-"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","User friendly message refering issue 753","9e67417e9f7253d617fd15bbde8ae761e166d0da"
-"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","Revert LoadAssemblyRegularTypes should be a Runtime only call","dd9e251805362bdaa72c0f8d2d517449e75da790"
-"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","Bump Standalone packages","8e7cd0c1c49944c855c68a70f5b0ef44769e582b"
-"20.1.701.0","249","? Sponsor, PivotChart, Priority","Error Opening Analysis Objects","d4b248efd7bbccdd16f328c94364242a1fe1ded3"
-"20.1.701.0","746","must-have, Priority","VSIX: remove New Project Wizard","901078cfe9d313a422412f5b11587a1e743d5851"
-"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","LoadAssemblyRegularTypes should be a Runtime only call","f817c789ec83676d64ee173574da102c141f7fad"
-"20.1.701.0","569, 739","Design-time, must-have, ShowStopper, XpandModelEditor","XpandModelEditor: Custom App.Config using the XpandModelEditorAppConfigPath enviromental variable","28ceb550430b0fa629364ac79246477991151bca"
-"20.1.701.0","569, 739","Design-time, must-have, ShowStopper, XpandModelEditor","XpandModelEditor: Support for the AppendTargetFrameworkToOutputPath SDK projects","cf25a70b838a13107e4403eb0964907157e57cb8"
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper DataStoreAttribute attribute does not return the resolved type","5016ca88a9242ba2170c0d0ad8efd972d197bc4b"
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreatorWinModule RichEditWinPropertyEditor is miss configured","9621e7d0096191003a0b6b414684b7338081526a"
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper duplicate ValidateAssembly","34077601586696c98ab8cdb408ef193f87ed64d8"
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper generates RuleRequired for field members when compound primary key in NorthWind","17d045abf9015b63124af4b3c139c028f2fced71"
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreatorWinModule RichEditWinPropertyEditor is miss configured","6c2abba0d975865e44f9e68c4db2a2605d017496"
+"20.1.703.0","762","? Sponsor, Priority","Skip LoadAssemblyRegularTypes when ME devenv is used","31673cca10c2002be579e567d76d8f7230c5af08"
+"20.1.703.0","732","ModelArtifactState, Priority, ReproSample","ModelArtifactState: New ControllerStateRule throws","4215d294486bf03ce39cdb44a1c98ecf3299c9a9"
+"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","User friendly message refering issue 753",
+"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","Revert LoadAssemblyRegularTypes should be a Runtime only call",
+"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","Bump Standalone packages",
+"20.1.701.0","249","? Sponsor, PivotChart, Priority","Error Opening Analysis Objects",
+"20.1.701.0","746","must-have, Priority","VSIX: remove New Project Wizard",
+"20.1.701.0","732","ModelArtifactState, Priority, ReproSample","LoadAssemblyRegularTypes should be a Runtime only call",
+"20.1.701.0","569, 739","Design-time, must-have, ShowStopper, XpandModelEditor","XpandModelEditor: Custom App.Config using the XpandModelEditorAppConfigPath enviromental variable",
+"20.1.701.0","569, 739","Design-time, must-have, ShowStopper, XpandModelEditor","XpandModelEditor: Support for the AppendTargetFrameworkToOutputPath SDK projects",
 "20.1.602.0","736","? Backer, Installation, Priority","Standalone packages version is wrong",
 "20.1.602.0","719","must-have, Standalone_XAF_Modules","Bump Standalone packages",
 "20.1.401.0","713","?? Exclusive-Services, Priority, Standalone_XAF_Modules, ViewItemValue","Distribute ViewItemValue module together with the XpandSystemModule",
