@@ -37,9 +37,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="WebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="WebModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

@@ -41,9 +41,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ModelDifferenceAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ModelDifferenceAspNetModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

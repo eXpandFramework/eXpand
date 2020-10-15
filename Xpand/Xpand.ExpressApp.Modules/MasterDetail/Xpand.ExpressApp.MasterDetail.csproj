@@ -36,12 +36,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="MasterDetailModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Logic\MasterDetailRuleController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="MasterDetailModule.cs" />
+    <Compile Update="Logic\MasterDetailRuleController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

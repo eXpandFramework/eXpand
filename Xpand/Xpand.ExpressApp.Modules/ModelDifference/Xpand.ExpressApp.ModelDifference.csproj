@@ -39,18 +39,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\CloneObjectViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\ModelDifferenceObjectsRuntimeMembersController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ModelDifferenceBaseModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\Controllers\NavigationItemsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\CloneObjectViewController.cs" />
+    <Compile Update="Controllers\ModelDifferenceObjectsRuntimeMembersController.cs" />
+    <Compile Update="ModelDifferenceBaseModule.cs" />
+    <Compile Update="Security\Controllers\NavigationItemsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

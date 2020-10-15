@@ -14,16 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
     <dependencies>
-      <dependency id="DocumentFormat.OpenXml" version="2.7.2">
-      </dependency>
-      <dependency id="eXpandImportWizard" version="20.1.704.0">
-      </dependency>
-      <dependency id="eXpandLib" version="20.1.704.0">
-      </dependency>
-      <dependency id="System.Resources.Extensions" version="4.6">
-      </dependency>
-      <dependency id="System.ValueTuple" version="4.5">
-      </dependency>
+      <dependency id="DocumentFormat.OpenXml" version="2.7.2" />
+      <dependency id="eXpandImportWizard" version="20.1.800.0" />
+      <dependency id="eXpandLib" version="20.1.800.0" />
+      <dependency id="System.Resources.Extensions" version="4.6" />
+      <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>

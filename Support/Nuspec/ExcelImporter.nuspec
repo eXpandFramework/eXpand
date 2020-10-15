@@ -14,40 +14,23 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
-      <dependency id="ExcelDataReader.DataSet" version="3.6">
-      </dependency>
-      <dependency id="eXpandLib" version="20.1.704.0">
-      </dependency>
-      <dependency id="eXpandSystem" version="20.1.704.0">
-      </dependency>
-      <dependency id="eXpandValidation" version="20.1.704.0">
-      </dependency>
-      <dependency id="Mono.Cecil" version="0.11.2">
-      </dependency>
-      <dependency id="Ryder" version="0.8">
-      </dependency>
-      <dependency id="SharpZipLib" version="1.1">
-      </dependency>
-      <dependency id="System.IO.Compression" version="4.3">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.AutoCommit" version="2.202.57">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.202.57">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.202.57">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.MasterDetail" version="2.202.57">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="2.202.57">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.Reactive" version="2.202.57">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.202.57">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="2.202.57">
-      </dependency>
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="2.202.57">
-      </dependency>
+      <dependency id="ExcelDataReader.DataSet" version="3.6" />
+      <dependency id="eXpandLib" version="20.1.800.0" />
+      <dependency id="eXpandSystem" version="20.1.800.0" />
+      <dependency id="eXpandValidation" version="20.1.800.0" />
+      <dependency id="Mono.Cecil" version="0.11.2" />
+      <dependency id="Ryder" version="0.8" />
+      <dependency id="SharpZipLib" version="1.1" />
+      <dependency id="System.IO.Compression" version="4.3" />
+      <dependency id="Xpand.XAF.Modules.AutoCommit" version="2.202.57" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.202.57" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="2.202.57" />
+      <dependency id="Xpand.XAF.Modules.MasterDetail" version="2.202.57" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="2.202.57" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="2.202.57" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="2.202.57" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="2.202.57" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="2.202.57" />
     </dependencies>
   </metadata>
   <files>

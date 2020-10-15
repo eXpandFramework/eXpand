@@ -33,18 +33,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\CodeTemplateInfoController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="System\WorldCreatorApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\CodeTemplateObserverController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Module.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\CodeTemplateInfoController.cs" />
+    <Compile Update="System\WorldCreatorApplication.cs" />
+    <Compile Update="Controllers\CodeTemplateObserverController.cs" />
+    <Compile Update="Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

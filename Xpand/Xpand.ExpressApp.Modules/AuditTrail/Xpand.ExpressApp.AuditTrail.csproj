@@ -35,12 +35,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Logic\AuditTrailRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Module.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Logic\AuditTrailRuleViewController.cs" />
+    <Compile Update="Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

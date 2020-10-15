@@ -28,12 +28,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\IOViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="IOAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\IOViewController.cs" />
+    <Compile Update="IOAspNetModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

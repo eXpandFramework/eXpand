@@ -39,12 +39,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="EmailModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Logic\EmailRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="EmailModule.cs" />
+    <Compile Update="Logic\EmailRuleViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

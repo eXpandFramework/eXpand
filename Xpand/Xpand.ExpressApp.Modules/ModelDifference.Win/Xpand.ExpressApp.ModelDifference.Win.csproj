@@ -47,15 +47,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="WinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Templates\ModelEditorDetailRibbonFormV2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Templates\ModelEditorDetailViewForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="WinModule.cs" />
+    <Compile Update="Templates\ModelEditorDetailRibbonFormV2.cs" />
+    <Compile Update="Templates\ModelEditorDetailViewForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

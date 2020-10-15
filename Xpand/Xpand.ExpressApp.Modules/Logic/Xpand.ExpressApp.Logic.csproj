@@ -32,15 +32,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="FillRulesFromPermissionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="LogicModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="LogicRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="FillRulesFromPermissionsController.cs" />
+    <Compile Update="LogicModule.cs" />
+    <Compile Update="LogicRuleViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

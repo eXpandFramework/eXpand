@@ -35,13 +35,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="PropertyEditors\FileDataPropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="PropertyEditors\FileDataPropertyEditor.cs" />
     <Compile Update="UploadControlPropertyEditorProviderController.cs" />
-    <Compile Update="XpandFileAttachmentsWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandFileAttachmentsWebModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

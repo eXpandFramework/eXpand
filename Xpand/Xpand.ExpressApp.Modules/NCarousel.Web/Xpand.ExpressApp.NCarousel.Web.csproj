@@ -29,9 +29,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="NCarouselWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="NCarouselWebModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

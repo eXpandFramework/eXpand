@@ -45,24 +45,16 @@
   <ItemGroup>
     <Compile Update="AnalysisControlVisibility\AnalysisControlVisibilityControllerBase.cs" />
     <Compile Update="AnalysisDisplayDateTimeViewController.cs" />
-    <Compile Update="AnalysisReadOnlyController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="AnalysisReadOnlyController.cs" />
     <Compile Update="InPlaceEdit\PivotGridInplaceEditorsControllerBase.cs" />
-    <Compile Update="XpandPivotChartModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Core\XpandPivotChartModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandPivotChartModule.cs" />
+    <Compile Update="Core\XpandPivotChartModuleBase.cs" />
     <Compile Update="PivotedProperty\PivotCustomSortController.cs" />
     <Compile Update="PivotedProperty\PivotedPropertyController.cs" />
     <Compile Update="PivotOptionsController.cs" />
     <Compile Update="Core\AnalysisViewControllerBase.cs" />
     <Compile Update="AssignCustomAnalysisDataSourceDetailViewController.cs" />
-    <Compile Update="ShowInAnalysis\InplaceAnalysisCacheController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ShowInAnalysis\InplaceAnalysisCacheController.cs" />
     <Compile Update="ShowInAnalysis\ShowInAnalysisViewController.cs" />
   </ItemGroup>
   <ItemGroup>

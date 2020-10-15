@@ -28,12 +28,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\ChooseDatabaseAtLogonController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpandSecurityWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\ChooseDatabaseAtLogonController.cs" />
+    <Compile Update="XpandSecurityWinModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

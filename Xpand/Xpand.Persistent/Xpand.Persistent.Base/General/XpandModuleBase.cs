@@ -97,13 +97,12 @@ namespace Xpand.Persistent.Base.General {
                 var path = $@"{AppDomain.CurrentDomain.ApplicationPath()}";
                 NetstandardPath = $@"{path}\netstandard.dll";
                 if (!File.Exists(NetstandardPath)) {
-                    using (var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll")){
-                        try {
-                            manifestResourceStream.SaveToFile(NetstandardPath);
-                        }
-                        catch (Exception) {
-                            throw new InvalidOperationException($"Fail to write {NetstandardPath}, please add the file there manually.");
-                        }
+                    using var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll");
+                    try {
+                        manifestResourceStream.SaveToFile(NetstandardPath);
+                    }
+                    catch (Exception) {
+                        throw new InvalidOperationException($"Fail to write {NetstandardPath}, please add the file there manually.");
                     }
                 }
                 var harmony = new Harmony(typeof(ApplicationModulesManagerExtensions).Namespace);
@@ -631,15 +630,14 @@ namespace Xpand.Persistent.Base.General {
         }
         private static void LoadAssemblyRegularTypes(){
             var assembly = typeof(XpandModuleBase).Assembly;
-            using (var assemblyDefinition = AssemblyDefinition.ReadAssembly(assembly.Location,new ReaderParameters(ReadingMode.Immediate){AssemblyResolver = new AssemblyResolver()})){
-                var dxAssembly = AssemblyDefinition.ReadAssembly(typeof(ModuleBase).Assembly.Location);
+            using var assemblyDefinition = AssemblyDefinition.ReadAssembly(assembly.Location,new ReaderParameters(ReadingMode.Immediate){AssemblyResolver = new AssemblyResolver()});
+            var dxAssembly = AssemblyDefinition.ReadAssembly(typeof(ModuleBase).Assembly.Location);
                 
-                var typeDefinition =
-                    dxAssembly.MainModule.Types.First(definition => definition.FullName == typeof(Controller).FullName);
-                var typeDefinitions = assemblyDefinition.MainModule.Types.Where(definition => !definition.IsSubclassOf(typeDefinition));
-                foreach (var definition in typeDefinitions){
-                    XafTypesInfo.Instance.FindTypeInfo(assembly.GetType(definition.FullName));
-                }
+            var typeDefinition =
+                dxAssembly.MainModule.Types.First(definition => definition.FullName == typeof(Controller).FullName);
+            var typeDefinitions = assemblyDefinition.MainModule.Types.Where(definition => !definition.IsSubclassOf(typeDefinition));
+            foreach (var definition in typeDefinitions){
+                XafTypesInfo.Instance.FindTypeInfo(assembly.GetType(definition.FullName));
             }
         }
 

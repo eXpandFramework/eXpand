@@ -32,16 +32,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="ObjectChangedWorkflows\PopulatePropertyNamesController.cs" />
-    <Compile Update="XpandWorkflowApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandWorkflowApplication.cs" />
     <Compile Update="ObjectChangedWorkflows\StartWorkflowOnObjectChangeController.cs" />
-    <Compile Update="WorkflowServerAuthentication.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Module.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="WorkflowServerAuthentication.cs" />
+    <Compile Update="Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

@@ -29,12 +29,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Model\HtmlEditorModelAdapterController.cs" />
-    <Compile Update="DialogForms\HtmlEditorCustomDialogTemlate.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="XpandHtmlPropertyEditorAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="DialogForms\HtmlEditorCustomDialogTemlate.cs" />
+    <Compile Update="XpandHtmlPropertyEditorAspNetModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

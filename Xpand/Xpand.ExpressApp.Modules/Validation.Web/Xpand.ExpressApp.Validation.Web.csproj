@@ -28,9 +28,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="XpandValidationWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandValidationWebModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

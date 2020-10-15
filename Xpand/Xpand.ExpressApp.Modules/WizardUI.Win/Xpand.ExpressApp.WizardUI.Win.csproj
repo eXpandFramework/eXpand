@@ -24,21 +24,13 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Templates\WizardDetailViewForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Templates\WizardDetailViewForm.cs" />
     <Compile Update="Templates\WizardDetailViewForm.designer.cs">
       <DependentUpon>WizardDetailViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="WizardTemplateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="WizardController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XafWizardPage.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="WizardTemplateController.cs" />
+    <Compile Update="WizardController.cs" />
+    <Compile Update="XafWizardPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Templates\WizardDetailViewForm.resx">

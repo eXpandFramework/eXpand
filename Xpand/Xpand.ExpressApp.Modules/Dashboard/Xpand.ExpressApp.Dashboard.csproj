@@ -28,24 +28,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\DashboardDesignerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\DashboardDesignerController.cs" />
     <Compile Update="Controllers\DashboardDesignerController.Designer.cs">
       <DependentUpon>DashboardDesignerController.cs</DependentUpon>
     </Compile>
-    <Compile Update="Controllers\DashboardNavigationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\DashboardNavigationController.cs" />
     <Compile Update="Controllers\DashboardNavigationController.designer.cs">
       <DependentUpon>DashboardNavigationController.cs</DependentUpon>
     </Compile>
-    <Compile Update="Controllers\RefreshNavigationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Module.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\RefreshNavigationController.cs" />
+    <Compile Update="Module.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Controllers\DashboardDesignerController.resx">

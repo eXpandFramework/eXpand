@@ -34,15 +34,11 @@
   <ItemGroup>
     <Compile Update="AnalysisControlVisibilityController.cs" />
     <Compile Update="PivotedProperty\PivotCustomSortController.cs" />
-    <Compile Update="XpandPivotChartAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandPivotChartAspNetModule.cs" />
     <Compile Update="PivotedProperty\PivotedPropertyController.cs" />
     <Compile Update="InPlaceEdit\PivotGridInplaceEditorsController.cs" />
     <Compile Update="Options\PivotOptionsController.cs" />
-    <Compile Update="LoadingPanelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="LoadingPanelController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

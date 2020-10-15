@@ -47,28 +47,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\DashboardDesignerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\DashboardDesignerController.cs" />
     <Compile Update="Controllers\DashboardDesignerModelAdapterController.cs" />
-    <Compile Update="Controllers\WinEditDashboardController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\WinNewDashboardController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="DashboardWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\WinEditDashboardController.cs" />
+    <Compile Update="Controllers\WinNewDashboardController.cs" />
+    <Compile Update="DashboardWindowsFormsModule.cs" />
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Update="PropertyEditors\DashboardViewEditor.cs" />
-    <Compile Update="Templates\DashboardDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Templates\DashboardDesignerForm.cs" />
     <Compile Update="Templates\DashboardDesignerForm.Designer.cs">
       <DependentUpon>DashboardDesignerForm.cs</DependentUpon>
     </Compile>

@@ -36,24 +36,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Module.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Logic\AdditionalViewControlsRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\Improved\UpdateControlTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\UpdateControlTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\UpdateDecoratorTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Module.cs" />
+    <Compile Update="Logic\AdditionalViewControlsRuleViewController.cs" />
+    <Compile Update="Security\Improved\UpdateControlTypeTypeConverterController.cs" />
+    <Compile Update="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs" />
+    <Compile Update="Security\UpdateControlTypeTypeConverterController.cs" />
+    <Compile Update="Security\UpdateDecoratorTypeTypeConverterController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

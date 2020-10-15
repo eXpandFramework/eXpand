@@ -27,15 +27,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\ImportWizViewControllerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ImportWizardModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="LongOperation\LongOperationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\ImportWizViewControllerBase.cs" />
+    <Compile Update="ImportWizardModule.cs" />
+    <Compile Update="LongOperation\LongOperationController.cs" />
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

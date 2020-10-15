@@ -31,35 +31,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\ImportWizViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\ImportWizViewController.cs" />
     <Compile Update="Controllers\ImportWizViewController.Designer.cs">
       <DependentUpon>ImportWizViewController.cs</DependentUpon>
     </Compile>
-    <Compile Update="Forms\ProgressForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Forms\ProgressForm.cs" />
     <Compile Update="Forms\ProgressForm.designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="WinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="WinModule.cs" />
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Wizard\ExcelImportWizardProcessing.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Wizard\ResourceManagerSetter.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Wizard\ExcelImportWizard.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="Wizard\ExcelImportWizardProcessing.cs" />
+    <Compile Update="Wizard\ResourceManagerSetter.cs" />
+    <Compile Update="Wizard\ExcelImportWizard.cs" />
     <Compile Update="Wizard\ExcelImportWizard.designer.cs">
       <DependentUpon>ExcelImportWizard.cs</DependentUpon>
     </Compile>

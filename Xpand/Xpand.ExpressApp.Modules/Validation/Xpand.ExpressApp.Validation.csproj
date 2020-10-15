@@ -23,18 +23,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\ActionExecuteValidationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\PasswordScoreController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\PermissionValidationController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpandValidationModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\ActionExecuteValidationController.cs" />
+    <Compile Update="Controllers\PasswordScoreController.cs" />
+    <Compile Update="Controllers\PermissionValidationController.cs" />
+    <Compile Update="XpandValidationModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

@@ -35,9 +35,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ExcelImporterModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ExcelImporterModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

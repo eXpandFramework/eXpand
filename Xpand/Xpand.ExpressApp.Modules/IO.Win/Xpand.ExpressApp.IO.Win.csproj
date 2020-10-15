@@ -34,15 +34,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\IOViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\IOViewController.cs" />
     <Compile Update="Controllers\IOViewController.Designer.cs">
       <DependentUpon>IOViewController.cs</DependentUpon>
     </Compile>
-    <Compile Update="IOWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="IOWinModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

@@ -34,43 +34,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.cs" />
     <Compile Update="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.designer.cs">
       <DependentUpon>TwoDimensionEditorViewItemController.cs</DependentUpon>
     </Compile>
-    <Compile Update="SystemModule\CustomizeASPxPopupController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\WebProcessDataLockingInfoController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\MasterDetail\RegisterCallbackPanelScriptsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\RegisterScriptsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\MasterDetail\UpdateVisibilityController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="SystemModule\CustomizeASPxPopupController.cs" />
+    <Compile Update="SystemModule\WebProcessDataLockingInfoController.cs" />
+    <Compile Update="SystemModule\MasterDetail\RegisterCallbackPanelScriptsController.cs" />
+    <Compile Update="SystemModule\RegisterScriptsController.cs" />
+    <Compile Update="SystemModule\MasterDetail\UpdateVisibilityController.cs" />
     <Compile Update="ListEditors\Model\GridViewModelAdapterController.cs" />
-    <Compile Update="SystemModule\WebShortcuts\WebShortcutsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\WebToolTipsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\XpandSystemAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Templates\XpandBaseXafPage.cs">
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Update="XpandWebApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="SystemModule\WebShortcuts\WebShortcutsController.cs" />
+    <Compile Update="SystemModule\WebToolTipsController.cs" />
+    <Compile Update="SystemModule\XpandSystemAspNetModule.cs" />
+    <Compile Update="Templates\XpandBaseXafPage.cs" />
+    <Compile Update="XpandWebApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="ListEditors\TwoDimensionListEditor\TwoDimensionEditorViewItemController.resx">

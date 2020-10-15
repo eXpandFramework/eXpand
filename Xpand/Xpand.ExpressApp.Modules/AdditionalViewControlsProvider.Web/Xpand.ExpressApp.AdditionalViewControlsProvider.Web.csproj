@@ -44,18 +44,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AdditionalViewControlsProviderAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Logic\AdditionalViewControlsRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\UpdateControlTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\UpdateDecoratorTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="AdditionalViewControlsProviderAspNetModule.cs" />
+    <Compile Update="Logic\AdditionalViewControlsRuleViewController.cs" />
+    <Compile Update="Security\UpdateControlTypeTypeConverterController.cs" />
+    <Compile Update="Security\UpdateDecoratorTypeTypeConverterController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

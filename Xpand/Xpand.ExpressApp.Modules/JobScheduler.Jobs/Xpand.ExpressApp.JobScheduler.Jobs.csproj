@@ -36,9 +36,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="JobSchedulerJobsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="JobSchedulerJobsModule.cs" />
   </ItemGroup>
   <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

@@ -35,23 +35,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\HideICategorizedItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\HideICategorizedItemController.cs" />
     <Compile Update="Controllers\HideICategorizedItemController.Designer.cs">
       <DependentUpon>HideICategorizedItemController.cs</DependentUpon>
     </Compile>
-    <Compile Update="Controllers\RecursiveFilteringViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\RecursiveFilteringViewController.cs" />
     <Compile Update="Controllers\RecursiveFilteringViewController.Designer.cs">
       <DependentUpon>RecursiveFilteringViewController.cs</DependentUpon>
     </Compile>
     <Compile Update="Model\TreeListModelAdapterController.cs" />
     <Compile Update="Model\TreeNavigationOptionsController.cs" />
-    <Compile Update="XpandTreeListEditorsWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandTreeListEditorsWinModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Controllers\RecursiveFilteringViewController.resx">

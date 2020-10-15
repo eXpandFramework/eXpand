@@ -51,22 +51,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\DashboarDesignerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\DashboardViewerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\WebEditDashboardController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\WebNewDashboardController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\DashboarDesignerController.cs" />
+    <Compile Update="Controllers\DashboardViewerController.cs" />
+    <Compile Update="Controllers\WebEditDashboardController.cs" />
+    <Compile Update="Controllers\WebNewDashboardController.cs" />
     <Compile Update="PropertyEditors\DashboardViewEditorWeb.cs" />
-    <Compile Update="XtraDashboardWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XtraDashboardWebModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

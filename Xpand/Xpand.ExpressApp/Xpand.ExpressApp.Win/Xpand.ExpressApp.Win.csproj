@@ -40,104 +40,52 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="EditModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="EditModelController.cs" />
     <Compile Update="ListEditors\GridListEditors\AdvBandedView\Model\AdvBandedViewModelAdapterController.cs" />
-    <Compile Update="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="ListEditors\GridListEditors\ColumnView\Design\ColumnViewDesignerForm.cs" />
     <Compile Update="ListEditors\GridListEditors\ColumnView\Model\ColumnViewModelAdapterController.cs" />
-    <Compile Update="ListEditors\GridListEditors\GridView\Design\GridViewDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Update="ListEditors\GridListEditors\GridView\Design\GridViewDesignerForm.cs" />
     <Compile Update="ListEditors\GridListEditors\GridView\Model\GridViewModelAdapterController.cs" />
-    <Compile Update="ListEditors\GridListEditors\LayoutView\Design\LayoutViewDesignerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="ListEditors\GridListEditors\LayoutView\LayoutViewListEditorBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ListEditors\GridListEditors\LayoutView\Design\LayoutViewDesignerForm.cs" />
+    <Compile Update="ListEditors\GridListEditors\LayoutView\LayoutViewListEditorBase.cs" />
     <Compile Update="ListEditors\GridListEditors\LayoutView\Model\LayoutViewModelAdapterController.cs" />
     <Compile Update="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="PropertyEditors\ProcessDataLockingInfoController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="PropertyEditors\HyperLinkPropertyEditor.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="PropertyEditors\RichEdit\RichEditContainerBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Update="PropertyEditors\RichEdit\RichEditContainerRibbon.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="PropertyEditors\ProcessDataLockingInfoController.cs" />
+    <Compile Update="PropertyEditors\HyperLinkPropertyEditor.cs" />
+    <Compile Update="PropertyEditors\RichEdit\RichEditContainerBase.cs" />
+    <Compile Update="PropertyEditors\RichEdit\RichEditContainerRibbon.cs" />
     <Compile Update="PropertyEditors\RichEdit\RichEditContainerRibbon.Designer.cs">
       <DependentUpon>RichEditContainerRibbon.cs</DependentUpon>
     </Compile>
-    <Compile Update="PropertyEditors\RichEdit\RichEditContainer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="PropertyEditors\RichEdit\RichEditContainer.cs" />
     <Compile Update="PropertyEditors\RichEdit\RichEditContainer.Designer.cs">
       <DependentUpon>RichEditContainer.cs</DependentUpon>
     </Compile>
-    <Compile Update="SystemModule\ActiveDocumentViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\CurrentProcessController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\PopupWindowStateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\ApplicationMultiInstancesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\ApplicationExitController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="SystemModule\ActiveDocumentViewController.cs" />
+    <Compile Update="SystemModule\CurrentProcessController.cs" />
+    <Compile Update="SystemModule\PopupWindowStateController.cs" />
+    <Compile Update="SystemModule\ApplicationMultiInstancesController.cs" />
+    <Compile Update="SystemModule\ApplicationExitController.cs" />
     <Compile Update="SystemModule\SplitLayoutControlModelAdapterController.cs" />
     <Compile Update="SystemModule\XafLayoutControlModelAdapterController.cs" />
-    <Compile Update="SystemModule\RibbonFromModelController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="SystemModule\RibbonFromModelController.cs" />
     <Compile Update="SystemModule\EMailHighlightingController.Designer.cs">
       <DependentUpon>EMailHighlightingController.cs</DependentUpon>
     </Compile>
-    <Compile Update="SystemModule\SelectFirstNavigationItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\ToolTip\WinToolTipsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\XpandSystemWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\LoadWithWindowsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\CloseFormController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\NotifyIconController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\RemoveNavigationItemsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\SearchFromDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\WindowHintController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpandWinApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="SystemModule\SelectFirstNavigationItemController.cs" />
+    <Compile Update="SystemModule\ToolTip\WinToolTipsController.cs" />
+    <Compile Update="SystemModule\XpandSystemWindowsFormsModule.cs" />
+    <Compile Update="SystemModule\LoadWithWindowsController.cs" />
+    <Compile Update="SystemModule\CloseFormController.cs" />
+    <Compile Update="SystemModule\NotifyIconController.cs" />
+    <Compile Update="SystemModule\RemoveNavigationItemsController.cs" />
+    <Compile Update="SystemModule\SearchFromDetailViewController.cs" />
+    <Compile Update="SystemModule\WindowHintController.cs" />
+    <Compile Update="XpandWinApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

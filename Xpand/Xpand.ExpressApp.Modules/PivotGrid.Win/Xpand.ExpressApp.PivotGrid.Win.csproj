@@ -33,17 +33,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Model\PivotGridModelAdapterController.cs" />
-    <Compile Update="NetIncome\NetIncomeGaugeControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="NetIncome\NetIncomeGaugeControl.cs" />
     <Compile Update="NetIncome\NetIncomeGaugeControl.Designer.cs">
       <DependentUpon>NetIncomeGaugeControl.cs</DependentUpon>
     </Compile>
     <Compile Update="PivotGridController.cs" />
     <Compile Update="TopObjectController.cs" />
-    <Compile Update="XpandPivotGridWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandPivotGridWinModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

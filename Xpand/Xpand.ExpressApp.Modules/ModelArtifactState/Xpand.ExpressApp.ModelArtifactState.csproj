@@ -39,24 +39,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ActionState\Logic\ActionStateRuleController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ControllerState\Logic\ControllerStateRuleController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ControllerState\Security\Improved\UpdateTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ControllerState\Security\UpdateTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ModelArtifactStateModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ObjectViews\Logic\ConditionalObjectViewRuleController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ActionState\Logic\ActionStateRuleController.cs" />
+    <Compile Update="ControllerState\Logic\ControllerStateRuleController.cs" />
+    <Compile Update="ControllerState\Security\Improved\UpdateTypeConverterController.cs" />
+    <Compile Update="ControllerState\Security\UpdateTypeConverterController.cs" />
+    <Compile Update="ModelArtifactStateModule.cs" />
+    <Compile Update="ObjectViews\Logic\ConditionalObjectViewRuleController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

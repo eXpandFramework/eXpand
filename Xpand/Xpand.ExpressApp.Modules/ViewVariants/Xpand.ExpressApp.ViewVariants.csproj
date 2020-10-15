@@ -28,9 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="ModifyVariantsController.cs" />
-    <Compile Update="XpandViewVariantsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandViewVariantsModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

@@ -43,15 +43,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Reminders\ReminderAlertController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Reminders\RemindersForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="XpandSchedulerWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Reminders\ReminderAlertController.cs" />
+    <Compile Update="Reminders\RemindersForm.cs" />
+    <Compile Update="XpandSchedulerWindowsFormsModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

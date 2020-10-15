@@ -38,33 +38,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AdditionalViewControlsProviderWindowsFormsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\ApplicationCaption.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\HintPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controls\WarningPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Logic\AdditionalViewControlsRuleViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\Improved\UpdateControlTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\UpdateControlTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Security\UpdateDecoratorTypeTypeConverterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="AdditionalViewControlsProviderWindowsFormsModule.cs" />
+    <Compile Update="Controls\ApplicationCaption.cs" />
+    <Compile Update="Controls\HintPanel.cs" />
+    <Compile Update="Controls\WarningPanel.cs" />
+    <Compile Update="Logic\AdditionalViewControlsRuleViewController.cs" />
+    <Compile Update="Security\Improved\UpdateControlTypeTypeConverterController.cs" />
+    <Compile Update="Security\Improved\UpdateDecoratorTypeTypeConverterController.cs" />
+    <Compile Update="Security\UpdateControlTypeTypeConverterController.cs" />
+    <Compile Update="Security\UpdateDecoratorTypeTypeConverterController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

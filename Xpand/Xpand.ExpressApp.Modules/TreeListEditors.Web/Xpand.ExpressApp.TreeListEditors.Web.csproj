@@ -30,9 +30,7 @@
   <ItemGroup>
     <Compile Update="Controllers\AutoExpandAllTreeNodesController.cs" />
     <Compile Update="Controllers\ColumnChooserTreeListEditorController.cs" />
-    <Compile Update="XpandTreeListEditorsAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandTreeListEditorsAspNetModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

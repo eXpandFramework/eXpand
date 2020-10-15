@@ -28,39 +28,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AuthenticationProviders\AutoAuthenticationStandard.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="AuthenticationProviders\XpandAuthenticationStandard.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\AnonymousLoginPermissionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\MyDetailsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\ShowNavigationItemController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\MyDetailsPermissionController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Controllers\DefaultRolePermissionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="AuthenticationProviders\AutoAuthenticationStandard.cs" />
+    <Compile Update="AuthenticationProviders\XpandAuthenticationStandard.cs" />
+    <Compile Update="Controllers\AnonymousLoginPermissionController.cs" />
+    <Compile Update="Controllers\MyDetailsController.cs" />
+    <Compile Update="Controllers\ShowNavigationItemController.cs" />
+    <Compile Update="Controllers\MyDetailsPermissionController.cs" />
+    <Compile Update="Controllers\DefaultRolePermissionsController.cs" />
     <Compile Update="Controllers\DefaultRolePermissionsController.Designer.cs">
       <DependentUpon>DefaultRolePermissionsController.cs</DependentUpon>
     </Compile>
-    <Compile Update="Controllers\RememberMeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Module.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpandSecurityModuleBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\RememberMeController.cs" />
+    <Compile Update="Module.cs" />
+    <Compile Update="XpandSecurityModuleBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

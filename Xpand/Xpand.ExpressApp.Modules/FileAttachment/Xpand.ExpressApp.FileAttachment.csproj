@@ -28,9 +28,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="XpandFileAttachmentsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandFileAttachmentsModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

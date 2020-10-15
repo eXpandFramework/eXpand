@@ -32,15 +32,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\SchedulerModelAdapterController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Reminders\ReminderAlertController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpandSchedulerAspNetModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\SchedulerModelAdapterController.cs" />
+    <Compile Update="Reminders\ReminderAlertController.cs" />
+    <Compile Update="XpandSchedulerAspNetModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

@@ -47,9 +47,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ExcelImporterWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="ExcelImporterWebModule.cs" />
     <Compile Update="ExcelImporterWebModule.Designer.cs">
       <DependentUpon>ExcelImporterWebModule.cs</DependentUpon>
     </Compile>

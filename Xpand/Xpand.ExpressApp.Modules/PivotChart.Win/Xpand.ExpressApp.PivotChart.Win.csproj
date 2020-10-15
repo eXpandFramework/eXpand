@@ -32,16 +32,12 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Editors\AnalysisControlWin.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Update="Editors\AnalysisControlWin.cs" />
     <Compile Update="Options\PivotOptionsController.cs" />
     <Compile Update="PivotedProperty\PivotCustomSortController.cs" />
     <Compile Update="PivotedProperty\PivotedPropertyController.cs" />
     <Compile Update="AnalysisControlVisibilityController.cs" />
-    <Compile Update="XpandPivotChartWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandPivotChartWinModule.cs" />
     <Compile Update="PivotGridInplaceEditorsController.cs" />
   </ItemGroup>
   <ItemGroup>

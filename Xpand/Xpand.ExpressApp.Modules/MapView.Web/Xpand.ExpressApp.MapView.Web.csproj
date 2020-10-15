@@ -37,9 +37,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="MapViewWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="MapViewWebModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml" />

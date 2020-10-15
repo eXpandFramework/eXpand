@@ -33,63 +33,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="SystemModule\Actions\ActionDefaultValueViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\Actions\AvailableActionListController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\Actions\GlobalActionStateController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\Actions\SingleChoiceActionItemTypeController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\Appearance\AppearanceController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\Appearance\AppearanceRuleObjectController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\NestedListViewTopReturnRecordsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\NestedListViewNonPersistentObjectSpaceController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\ChangeLanguageController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\DirtyTitleWindowController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\UpdateFastManyToManyActionsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\NewObjectSessionLessPersistentObjectController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\ConnectionInfoStatusMessageController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\LookUpListSearchAlwaysEnableController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\ProvidedAssociationsController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\Search\SearchFromDetailViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\Search\SearchFromListViewController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\XpandSystemModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SystemModule\DescribeRunTimeMembersController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="SystemModule\Actions\ActionDefaultValueViewController.cs" />
+    <Compile Update="SystemModule\Actions\AvailableActionListController.cs" />
+    <Compile Update="SystemModule\Actions\GlobalActionStateController.cs" />
+    <Compile Update="SystemModule\Actions\SingleChoiceActionItemTypeController.cs" />
+    <Compile Update="SystemModule\Appearance\AppearanceController.cs" />
+    <Compile Update="SystemModule\Appearance\AppearanceRuleObjectController.cs" />
+    <Compile Update="SystemModule\NestedListViewTopReturnRecordsController.cs" />
+    <Compile Update="SystemModule\NestedListViewNonPersistentObjectSpaceController.cs" />
+    <Compile Update="SystemModule\ChangeLanguageController.cs" />
+    <Compile Update="SystemModule\DirtyTitleWindowController.cs" />
+    <Compile Update="SystemModule\UpdateFastManyToManyActionsController.cs" />
+    <Compile Update="SystemModule\NewObjectSessionLessPersistentObjectController.cs" />
+    <Compile Update="SystemModule\ConnectionInfoStatusMessageController.cs" />
+    <Compile Update="SystemModule\LookUpListSearchAlwaysEnableController.cs" />
+    <Compile Update="SystemModule\ProvidedAssociationsController.cs" />
+    <Compile Update="SystemModule\Search\SearchFromDetailViewController.cs" />
+    <Compile Update="SystemModule\Search\SearchFromListViewController.cs" />
+    <Compile Update="SystemModule\XpandSystemModule.cs" />
+    <Compile Update="SystemModule\DescribeRunTimeMembersController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

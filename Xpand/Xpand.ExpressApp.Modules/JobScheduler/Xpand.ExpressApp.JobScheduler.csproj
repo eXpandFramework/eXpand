@@ -36,24 +36,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="JobDetailController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="JobTriggerLinkController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="JobSchedulerModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="JobTriggerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="ShutDownSchedulerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="SupportSchedulerController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="JobDetailController.cs" />
+    <Compile Update="JobTriggerLinkController.cs" />
+    <Compile Update="JobSchedulerModule.cs" />
+    <Compile Update="JobTriggerController.cs" />
+    <Compile Update="ShutDownSchedulerController.cs" />
+    <Compile Update="SupportSchedulerController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

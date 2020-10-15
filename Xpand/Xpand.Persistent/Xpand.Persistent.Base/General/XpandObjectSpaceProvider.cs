@@ -40,10 +40,9 @@ namespace Xpand.Persistent.Base.General {
                             }
                         }
                         else {
-                            using (UnitOfWork unitOfWork = CreateUnitOfWork(dataStore, disposableObjects)) {
-                                if (UpdateSchemaResult.SchemaExists == unitOfWork.UpdateSchema(true, GetPersistentClasses())) {
-                                    result = DatabaseSchemaState.SchemaExists;
-                                }
+                            using UnitOfWork unitOfWork = CreateUnitOfWork(dataStore, disposableObjects);
+                            if (UpdateSchemaResult.SchemaExists == unitOfWork.UpdateSchema(true, GetPersistentClasses())) {
+                                result = DatabaseSchemaState.SchemaExists;
                             }
                         }
                     }
@@ -160,7 +159,7 @@ namespace Xpand.Persistent.Base.General {
             return CreateObjectSpace(CreateNonsecuredObjectSpaceCore);
         }
         private IObjectSpace CreateNonsecuredObjectSpaceCore() {
-            return CreateObjectSpaceCore(base.CreateUnitOfWork);
+            return this.CreateObjectSpaceCore(layer => base.CreateUnitOfWork(layer), CreateInstantFeedbackUnitOfWork);
         }
     }
 

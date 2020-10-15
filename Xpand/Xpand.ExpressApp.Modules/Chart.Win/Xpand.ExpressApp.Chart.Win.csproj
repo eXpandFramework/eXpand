@@ -25,9 +25,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="XpandChartWinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandChartWinModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

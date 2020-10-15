@@ -31,18 +31,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\AdminRolesController.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Controllers\AdminRolesController.cs" />
     <Compile Update="Controllers\ChangeStateActionController.cs" />
     <Compile Update="Controllers\CriteriaActionStateController.cs" />
     <Compile Update="Controllers\StatePropertyController.cs" />
     <Compile Update="Controllers\PermissionTransitionStateController.cs" />
     <Compile Update="Security\StateCaptionPopulateController.cs" />
     <Compile Update="Security\StateMachinePopulateController.cs" />
-    <Compile Update="XpandStateMachineModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandStateMachineModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

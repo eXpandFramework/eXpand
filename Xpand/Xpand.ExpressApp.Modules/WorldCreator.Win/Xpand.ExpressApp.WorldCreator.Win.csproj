@@ -35,9 +35,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="WinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="WinModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

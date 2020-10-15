@@ -32,12 +32,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AuthenticationProviders\AnonymousAuthenticationStandard.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpandSecurityWebModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="AuthenticationProviders\AnonymousAuthenticationStandard.cs" />
+    <Compile Update="XpandSecurityWebModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

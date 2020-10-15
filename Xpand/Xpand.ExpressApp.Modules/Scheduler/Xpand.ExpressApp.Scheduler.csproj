@@ -29,15 +29,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Model\SchedulerModelAdapterControllerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="Reminders\ReminderAlertController.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Update="XpandSchedulerModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Model\SchedulerModelAdapterControllerBase.cs" />
+    <Compile Update="Reminders\ReminderAlertController.cs" />
+    <Compile Update="XpandSchedulerModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

@@ -29,9 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Dashboard\DashboardInteractionReportsController.cs" />
-    <Compile Update="XpandReportsModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="XpandReportsModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
