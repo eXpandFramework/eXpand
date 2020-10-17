@@ -23,9 +23,9 @@
       <dependency id="System.Management" version="4.5" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.7" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="2.202.56" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="2.202.51" />
-      <dependency id="Xpand.Extensions.XAF" version="2.202.57" />
+      <dependency id="Xpand.Extensions" version="2.202.58" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="2.202.53" />
+      <dependency id="Xpand.Extensions.XAF" version="2.202.59" />
       <dependency id="Xpand.Patcher" version="2.0.24" />
     </dependencies>
   </metadata>
