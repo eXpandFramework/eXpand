@@ -1,11 +1,11 @@
 "Release","Issues","Labels","Message","Sha"
-"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper DataStoreAttribute attribute does not return the resolved type","5016ca88a9242ba2170c0d0ad8efd972d197bc4b"
-"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreatorWinModule RichEditWinPropertyEditor is miss configured","9621e7d0096191003a0b6b414684b7338081526a"
-"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper duplicate ValidateAssembly","34077601586696c98ab8cdb408ef193f87ed64d8"
-"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper generates RuleRequired for field members when compound primary key in NorthWind","17d045abf9015b63124af4b3c139c028f2fced71"
-"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreatorWinModule RichEditWinPropertyEditor is miss configured","6c2abba0d975865e44f9e68c4db2a2605d017496"
-"20.1.703.0","762","? Sponsor, Priority","Skip LoadAssemblyRegularTypes when ME devenv is used","31673cca10c2002be579e567d76d8f7230c5af08"
-"20.1.703.0","732","ModelArtifactState, Priority, ReproSample","ModelArtifactState: New ControllerStateRule throws","4215d294486bf03ce39cdb44a1c98ecf3299c9a9"
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper DataStoreAttribute attribute does not return the resolved type",
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreatorWinModule RichEditWinPropertyEditor is miss configured",
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper duplicate ValidateAssembly",
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper generates RuleRequired for field members when compound primary key in NorthWind",
+"20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreatorWinModule RichEditWinPropertyEditor is miss configured",
+"20.1.703.0","762","? Sponsor, Priority","Skip LoadAssemblyRegularTypes when ME devenv is used",
+"20.1.703.0","732","ModelArtifactState, Priority, ReproSample","ModelArtifactState: New ControllerStateRule throws",
 "20.1.701.0","732","ModelArtifactState, Priority, ReproSample","User friendly message refering issue 753",
 "20.1.701.0","732","ModelArtifactState, Priority, ReproSample","Revert LoadAssemblyRegularTypes should be a Runtime only call",
 "20.1.701.0","732","ModelArtifactState, Priority, ReproSample","Bump Standalone packages",
