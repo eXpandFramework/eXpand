@@ -1,3 +1,4 @@
 DevExpress.ExpressApp.Xpo
 DevExpress.Persistent.Base
 System.ValueTuple
+System.Configuration.ConfigurationManager

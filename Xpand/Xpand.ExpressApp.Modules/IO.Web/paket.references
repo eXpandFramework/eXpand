@@ -2,3 +2,4 @@ DotNetZip
 System.ValueTuple
 DevExpress.ExpressApp.FileAttachment.Web
 DevExpress.ExpressApp.TreeListEditors.Web
+System.Configuration.ConfigurationManager

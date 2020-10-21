@@ -43,14 +43,14 @@ nuget Quartz 2.2.4
 nuget RazorEngine 3.10.0
 nuget Ryder 0.8.0
 nuget SharpZipLib 1.1.0
-nuget System.Buffers 4.5
+nuget System.Buffers 4.5.1
 nuget System.CodeDom == 4.7
-nuget System.Configuration.ConfigurationManager == 4.6.0
+nuget System.Configuration.ConfigurationManager == 4.7.0
 nuget System.Reflection.Emit 4.7.0
 nuget System.Drawing.Common 4.7.0
 nuget System.IO.Compression 4.3.0
 nuget System.Management 4.5.0
-nuget System.Reactive 4.4.1
+nuget System.Reactive 5.0.0-preview.16
 nuget System.Resources.Extensions 4.6.0
 nuget System.Runtime.CompilerServices.Unsafe == 4.7
 nuget System.Threading.Tasks.Extensions 4.5.4
@@ -59,5 +59,7 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 3.1.4
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 2.202.43.0
-nuget Xpand.XAF.Web.All 2.202.43.0
+nuget Xpand.XAF.Win.All 2.202.43.1
+nuget Xpand.XAF.Web.All 2.202.43.1
+nuget System.Memory == 4.5.4
+

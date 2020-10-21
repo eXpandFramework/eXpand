@@ -13,3 +13,4 @@ Xpand.Patcher
 System.CodeDom
 Xpand.Extensions.Mono.Cecil
 Xpand.Extensions.XAF
+System.Configuration.ConfigurationManager

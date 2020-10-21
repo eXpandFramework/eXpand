@@ -4,3 +4,4 @@ DevExpress.ExpressApp.Win
 DevExpress.Persistent.BaseImpl
 Xpand.XAF.Modules.GridListEditor
 Xpand.XAF.Modules.ModelMapper
+System.Configuration.ConfigurationManager

@@ -7,3 +7,4 @@ DevExpress.ExpressApp.Validation.Web
 DevExpress.ExpressApp.Xpo
 Xpand.Extensions.XAF
 Xpand.Extensions
+System.Configuration.ConfigurationManager

@@ -3,3 +3,4 @@ System.ValueTuple
 DevExpress.ExpressApp.TreeListEditors
 DevExpress.ExpressApp.Xpo
 Fasterflect.Xpand
+System.Configuration.ConfigurationManager

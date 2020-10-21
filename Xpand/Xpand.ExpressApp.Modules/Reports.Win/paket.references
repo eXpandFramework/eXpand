@@ -3,3 +3,4 @@ DevExpress.ExpressApp.Reports.Win
 System.ValueTuple
 DevExpress.ExpressApp.Win
 DevExpress.Win.Reporting
+System.Configuration.ConfigurationManager

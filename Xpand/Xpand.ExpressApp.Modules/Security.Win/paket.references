@@ -1,3 +1,4 @@
 System.ValueTuple
 DevExpress.ExpressApp.Validation.Win
 DevExpress.ExpressApp.Security.Xpo
+System.Configuration.ConfigurationManager

@@ -2,3 +2,4 @@ DocumentFormat.OpenXml
 DevExpress.ExpressApp.Xpo
 System.ValueTuple
 Fasterflect.Xpand
+System.Configuration.ConfigurationManager

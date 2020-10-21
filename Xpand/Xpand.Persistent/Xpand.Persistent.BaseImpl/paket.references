@@ -4,3 +4,4 @@ DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.Security.Xpo
 DevExpress.Persistent.BaseImpl
 Fasterflect.Xpand
+System.Configuration.ConfigurationManager

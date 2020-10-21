@@ -2,3 +2,4 @@ System.ValueTuple
 DevExpress.ExpressApp.StateMachine
 DevExpress.ExpressApp.Security.Xpo
 Fasterflect.Xpand
+System.Configuration.ConfigurationManager

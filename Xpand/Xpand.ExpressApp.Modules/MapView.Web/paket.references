@@ -1,3 +1,4 @@
 System.ValueTuple
 DevExpress.ExpressApp.Web
 DevExpress.ExpressApp.Xpo
+System.Configuration.ConfigurationManager

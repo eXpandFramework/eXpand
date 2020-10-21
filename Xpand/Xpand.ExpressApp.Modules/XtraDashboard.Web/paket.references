@@ -5,3 +5,4 @@ DevExpress.ExpressApp.Validation.Web
 DevExpress.DataAccess.UI
 Xpand.XAF.Modules.ModelMapper
 Xpand.XAF.Modules.SuppressConfirmation
+System.Configuration.ConfigurationManager

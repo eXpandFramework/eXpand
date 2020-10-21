@@ -2,3 +2,4 @@ Xpand.XAF.Modules.ModelMapper
 Xpand.XAF.Modules.Reactive.Logger
 DevExpress.ExpressApp.Chart.Win
 DevExpress.ExpressApp.PivotGrid.Win
+System.Configuration.ConfigurationManager

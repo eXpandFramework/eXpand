@@ -1,3 +1,4 @@
 System.ValueTuple
 DevExpress.Persistent.Base
 DevExpress.Win.Reporting
+System.Configuration.ConfigurationManager

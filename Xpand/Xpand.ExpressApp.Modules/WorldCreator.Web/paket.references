@@ -1,3 +1,4 @@
 System.ValueTuple
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.FileAttachment.Web
+System.Configuration.ConfigurationManager

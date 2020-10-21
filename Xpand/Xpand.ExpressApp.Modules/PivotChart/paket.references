@@ -1,3 +1,4 @@
 System.ValueTuple
 DevExpress.ExpressApp.Security.Xpo
 DevExpress.ExpressApp.PivotChart
+System.Configuration.ConfigurationManager

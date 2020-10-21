@@ -7,3 +7,4 @@ DevExpress.ExpressApp.Security.Xpo
 Xpand.XAF.Modules.CloneModelView
 Xpand.XAF.Modules.Reactive.Logger
 Xpand.XAF.Modules.ViewEditMode
+System.Configuration.ConfigurationManager

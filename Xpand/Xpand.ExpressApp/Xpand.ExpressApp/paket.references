@@ -9,3 +9,4 @@ Xpand.XAF.Modules.RefreshView
 Xpand.XAF.Modules.PositionInListView
 Xpand.XAF.Modules.ViewItemValue
 Xpand.XAF.Modules.SequenceGenerator
+System.Configuration.ConfigurationManager
