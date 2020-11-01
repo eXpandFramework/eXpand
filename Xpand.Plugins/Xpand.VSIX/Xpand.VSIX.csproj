@@ -639,8 +639,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Data.v20.1">
-          <HintPath>..\packages\DevExpress.Data\lib\net452\DevExpress.Data.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.Data.v20.2">
+          <HintPath>..\packages\DevExpress.Data\lib\net452\DevExpress.Data.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -650,8 +650,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Data.Desktop.v20.1">
-          <HintPath>..\packages\DevExpress.Data.Desktop\lib\net452\DevExpress.Data.Desktop.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.Data.Desktop.v20.2">
+          <HintPath>..\packages\DevExpress.Data.Desktop\lib\net452\DevExpress.Data.Desktop.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -661,8 +661,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Office.v20.1.Core">
-          <HintPath>..\packages\DevExpress.Office.Core\lib\net452\DevExpress.Office.v20.1.Core.dll</HintPath>
+        <Reference Include="DevExpress.Office.v20.2.Core">
+          <HintPath>..\packages\DevExpress.Office.Core\lib\net452\DevExpress.Office.v20.2.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -672,8 +672,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Pdf.v20.1.Core">
-          <HintPath>..\packages\DevExpress.Pdf.Core\lib\net452\DevExpress.Pdf.v20.1.Core.dll</HintPath>
+        <Reference Include="DevExpress.Pdf.v20.2.Core">
+          <HintPath>..\packages\DevExpress.Pdf.Core\lib\net452\DevExpress.Pdf.v20.2.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -683,8 +683,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Pdf.v20.1.Drawing">
-          <HintPath>..\packages\DevExpress.Pdf.Drawing\lib\net452\DevExpress.Pdf.v20.1.Drawing.dll</HintPath>
+        <Reference Include="DevExpress.Pdf.v20.2.Drawing">
+          <HintPath>..\packages\DevExpress.Pdf.Drawing\lib\net452\DevExpress.Pdf.v20.2.Drawing.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -694,8 +694,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.PivotGrid.v20.1.Core">
-          <HintPath>..\packages\DevExpress.PivotGrid.Core\lib\net452\DevExpress.PivotGrid.v20.1.Core.dll</HintPath>
+        <Reference Include="DevExpress.PivotGrid.v20.2.Core">
+          <HintPath>..\packages\DevExpress.PivotGrid.Core\lib\net452\DevExpress.PivotGrid.v20.2.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -705,8 +705,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Printing.v20.1.Core">
-          <HintPath>..\packages\DevExpress.Printing.Core\lib\net452\DevExpress.Printing.v20.1.Core.dll</HintPath>
+        <Reference Include="DevExpress.Printing.v20.2.Core">
+          <HintPath>..\packages\DevExpress.Printing.Core\lib\net452\DevExpress.Printing.v20.2.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -716,8 +716,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.RichEdit.v20.1.Core">
-          <HintPath>..\packages\DevExpress.RichEdit.Core\lib\net452\DevExpress.RichEdit.v20.1.Core.dll</HintPath>
+        <Reference Include="DevExpress.RichEdit.v20.2.Core">
+          <HintPath>..\packages\DevExpress.RichEdit.Core\lib\net452\DevExpress.RichEdit.v20.2.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -727,8 +727,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.RichEdit.v20.1.Export">
-          <HintPath>..\packages\DevExpress.RichEdit.Export\lib\net452\DevExpress.RichEdit.v20.1.Export.dll</HintPath>
+        <Reference Include="DevExpress.RichEdit.v20.2.Export">
+          <HintPath>..\packages\DevExpress.RichEdit.Export\lib\net452\DevExpress.RichEdit.v20.2.Export.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -738,8 +738,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Sparkline.v20.1.Core">
-          <HintPath>..\packages\DevExpress.Sparkline.Core\lib\net452\DevExpress.Sparkline.v20.1.Core.dll</HintPath>
+        <Reference Include="DevExpress.Sparkline.v20.2.Core">
+          <HintPath>..\packages\DevExpress.Sparkline.Core\lib\net452\DevExpress.Sparkline.v20.2.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -749,8 +749,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.Utils.v20.1">
-          <HintPath>..\packages\DevExpress.Utils\lib\net452\DevExpress.Utils.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.Utils.v20.2">
+          <HintPath>..\packages\DevExpress.Utils\lib\net452\DevExpress.Utils.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -760,24 +760,13 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraNavBar.v20.1">
-          <HintPath>..\packages\DevExpress.Win\lib\net452\DevExpress.XtraNavBar.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.XtraNavBar.v20.2">
+          <HintPath>..\packages\DevExpress.Win\lib\net452\DevExpress.XtraNavBar.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
-        <Reference Include="DevExpress.XtraWizard.v20.1">
-          <HintPath>..\packages\DevExpress.Win\lib\net452\DevExpress.XtraWizard.v20.1.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-      </ItemGroup>
-    </When>
-  </Choose>
-  <Choose>
-    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
-      <ItemGroup>
-        <Reference Include="DevExpress.XtraGrid.v20.1">
-          <HintPath>..\packages\DevExpress.Win.Grid\lib\net452\DevExpress.XtraGrid.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.XtraWizard.v20.2">
+          <HintPath>..\packages\DevExpress.Win\lib\net452\DevExpress.XtraWizard.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -787,18 +776,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraBars.v20.1">
-          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraBars.v20.1.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="DevExpress.XtraEditors.v20.1">
-          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraEditors.v20.1.dll</HintPath>
-          <Private>True</Private>
-          <Paket>True</Paket>
-        </Reference>
-        <Reference Include="DevExpress.XtraLayout.v20.1">
-          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraLayout.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.XtraGrid.v20.2">
+          <HintPath>..\packages\DevExpress.Win.Grid\lib\net452\DevExpress.XtraGrid.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -808,8 +787,18 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraPivotGrid.v20.1">
-          <HintPath>..\packages\DevExpress.Win.PivotGrid\lib\net452\DevExpress.XtraPivotGrid.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.XtraBars.v20.2">
+          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraBars.v20.2.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="DevExpress.XtraEditors.v20.2">
+          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraEditors.v20.2.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+        <Reference Include="DevExpress.XtraLayout.v20.2">
+          <HintPath>..\packages\DevExpress.Win.Navigation\lib\net452\DevExpress.XtraLayout.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -819,8 +808,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraPrinting.v20.1">
-          <HintPath>..\packages\DevExpress.Win.Printing\lib\net452\DevExpress.XtraPrinting.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.XtraPivotGrid.v20.2">
+          <HintPath>..\packages\DevExpress.Win.PivotGrid\lib\net452\DevExpress.XtraPivotGrid.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -830,8 +819,8 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraTreeList.v20.1">
-          <HintPath>..\packages\DevExpress.Win.TreeList\lib\net452\DevExpress.XtraTreeList.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.XtraPrinting.v20.2">
+          <HintPath>..\packages\DevExpress.Win.Printing\lib\net452\DevExpress.XtraPrinting.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -841,8 +830,19 @@
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
-        <Reference Include="DevExpress.XtraVerticalGrid.v20.1">
-          <HintPath>..\packages\DevExpress.Win.VerticalGrid\lib\net452\DevExpress.XtraVerticalGrid.v20.1.dll</HintPath>
+        <Reference Include="DevExpress.XtraTreeList.v20.2">
+          <HintPath>..\packages\DevExpress.Win.TreeList\lib\net452\DevExpress.XtraTreeList.v20.2.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
+      <ItemGroup>
+        <Reference Include="DevExpress.XtraVerticalGrid.v20.2">
+          <HintPath>..\packages\DevExpress.Win.VerticalGrid\lib\net452\DevExpress.XtraVerticalGrid.v20.2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -853,7 +853,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="EnvDTE">
-          <HintPath>..\packages\EnvDTE\lib\net10\EnvDTE.dll</HintPath>
+          <HintPath>..\packages\EnvDTE\lib\net45\EnvDTE.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -864,7 +864,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="EnvDTE100">
-          <HintPath>..\packages\EnvDTE100\lib\net20\EnvDTE100.dll</HintPath>
+          <HintPath>..\packages\EnvDTE100\lib\net45\EnvDTE100.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -875,7 +875,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="EnvDTE80">
-          <HintPath>..\packages\EnvDTE80\lib\net10\EnvDTE80.dll</HintPath>
+          <HintPath>..\packages\EnvDTE80\lib\net45\EnvDTE80.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -886,7 +886,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="EnvDTE90">
-          <HintPath>..\packages\EnvDTE90\lib\net10\EnvDTE90.dll</HintPath>
+          <HintPath>..\packages\EnvDTE90\lib\net45\EnvDTE90.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -897,7 +897,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="EnvDTE90a">
-          <HintPath>..\packages\EnvDTE90a\lib\net10\EnvDTE90a.dll</HintPath>
+          <HintPath>..\packages\EnvDTE90a\lib\net45\EnvDTE90a.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -987,7 +987,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.CommandBars">
-          <HintPath>..\packages\Microsoft.VisualStudio.CommandBars\lib\net10\Microsoft.VisualStudio.CommandBars.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.CommandBars\lib\net45\Microsoft.VisualStudio.CommandBars.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1175,7 +1175,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime\lib\net20\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime\lib\net45\Microsoft.VisualStudio.Imaging.Interop.14.0.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1252,7 +1252,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.OLE.Interop">
-          <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop\lib\net45\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1274,7 +1274,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.ProjectAggregator">
-          <HintPath>..\packages\Microsoft.VisualStudio.ProjectAggregator\lib\net20\Microsoft.VisualStudio.ProjectAggregator.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.ProjectAggregator\lib\net45\Microsoft.VisualStudio.ProjectAggregator.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1379,7 +1379,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop\lib\net11\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop\lib\net45\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1390,7 +1390,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.10.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.10.0\lib\net20\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.10.0\lib\net45\Microsoft.VisualStudio.Shell.Interop.10.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1401,7 +1401,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.11.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.11.0\lib\net20\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.11.0\lib\net45\Microsoft.VisualStudio.Shell.Interop.11.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1412,7 +1412,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.12.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.12.0\lib\net20\Microsoft.VisualStudio.Shell.Interop.12.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.12.0\lib\net45\Microsoft.VisualStudio.Shell.Interop.12.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1423,7 +1423,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime\lib\net20\Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime\lib\net45\Microsoft.VisualStudio.Shell.Interop.14.0.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1434,7 +1434,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.0.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.0.DesignTime\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.0.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.0.DesignTime\lib\net45\Microsoft.VisualStudio.Shell.Interop.15.0.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1445,7 +1445,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.1.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.1.DesignTime\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.1.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.1.DesignTime\lib\net45\Microsoft.VisualStudio.Shell.Interop.15.1.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1456,7 +1456,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime\lib\net45\Microsoft.VisualStudio.Shell.Interop.15.3.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1467,7 +1467,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.5.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.5.DesignTime\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.5.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.5.DesignTime\lib\net45\Microsoft.VisualStudio.Shell.Interop.15.5.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1478,7 +1478,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime\lib\net45\Microsoft.VisualStudio.Shell.Interop.15.6.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1489,7 +1489,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.7.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.7.DesignTime\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.7.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.7.DesignTime\lib\net45\Microsoft.VisualStudio.Shell.Interop.15.7.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1500,7 +1500,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.15.8.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.8.DesignTime\lib\net20\Microsoft.VisualStudio.Shell.Interop.15.8.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.15.8.DesignTime\lib\net45\Microsoft.VisualStudio.Shell.Interop.15.8.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1511,7 +1511,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0\lib\net11\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0\lib\net45\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1522,7 +1522,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.9.0\lib\net11\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.9.0\lib\net45\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1588,7 +1588,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.TextManager.Interop">
-          <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop\lib\net11\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop\lib\net45\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1599,7 +1599,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.TextManager.Interop.12.1.DesignTime">
-          <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.12.1.DesignTime\lib\net20\Microsoft.VisualStudio.TextManager.Interop.12.1.DesignTime.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.12.1.DesignTime\lib\net45\Microsoft.VisualStudio.TextManager.Interop.12.1.DesignTime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1610,7 +1610,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.8.0\lib\net11\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.8.0\lib\net45\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1853,7 +1853,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="stdole">
-          <HintPath>..\packages\stdole\lib\net10\stdole.dll</HintPath>
+          <HintPath>..\packages\stdole\lib\net45\stdole.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1904,7 +1904,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Collections.Immutable">
-          <HintPath>..\packages\System.Collections.Immutable\lib\netstandard2.0\System.Collections.Immutable.dll</HintPath>
+          <HintPath>..\packages\System.Collections.Immutable\lib\net461\System.Collections.Immutable.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1915,7 +1915,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Composition.AttributedModel">
-          <HintPath>..\packages\System.Composition.AttributedModel\lib\netstandard2.0\System.Composition.AttributedModel.dll</HintPath>
+          <HintPath>..\packages\System.Composition.AttributedModel\lib\net461\System.Composition.AttributedModel.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1926,7 +1926,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Composition.Convention">
-          <HintPath>..\packages\System.Composition.Convention\lib\netstandard2.0\System.Composition.Convention.dll</HintPath>
+          <HintPath>..\packages\System.Composition.Convention\lib\net461\System.Composition.Convention.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1937,7 +1937,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Composition.Hosting">
-          <HintPath>..\packages\System.Composition.Hosting\lib\netstandard2.0\System.Composition.Hosting.dll</HintPath>
+          <HintPath>..\packages\System.Composition.Hosting\lib\net461\System.Composition.Hosting.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1948,7 +1948,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Composition.Runtime">
-          <HintPath>..\packages\System.Composition.Runtime\lib\netstandard2.0\System.Composition.Runtime.dll</HintPath>
+          <HintPath>..\packages\System.Composition.Runtime\lib\net461\System.Composition.Runtime.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1959,7 +1959,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Composition.TypedParts">
-          <HintPath>..\packages\System.Composition.TypedParts\lib\netstandard2.0\System.Composition.TypedParts.dll</HintPath>
+          <HintPath>..\packages\System.Composition.TypedParts\lib\net461\System.Composition.TypedParts.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2003,7 +2003,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.IO.Pipelines">
-          <HintPath>..\packages\System.IO.Pipelines\lib\netstandard2.0\System.IO.Pipelines.dll</HintPath>
+          <HintPath>..\packages\System.IO.Pipelines\lib\net461\System.IO.Pipelines.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2081,7 +2081,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Reflection.Metadata">
-          <HintPath>..\packages\System.Reflection.Metadata\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
+          <HintPath>..\packages\System.Reflection.Metadata\lib\net461\System.Reflection.Metadata.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2214,7 +2214,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="System.Threading.Tasks.Dataflow">
-          <HintPath>..\packages\System.Threading.Tasks.Dataflow\lib\netstandard2.0\System.Threading.Tasks.Dataflow.dll</HintPath>
+          <HintPath>..\packages\System.Threading.Tasks.Dataflow\lib\net461\System.Threading.Tasks.Dataflow.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2247,7 +2247,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj">
-          <HintPath>..\packages\VSLangProj\lib\net10\VSLangProj.dll</HintPath>
+          <HintPath>..\packages\VSLangProj\lib\net45\VSLangProj.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2258,7 +2258,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj100">
-          <HintPath>..\packages\VSLangProj100\lib\net20\VSLangProj100.dll</HintPath>
+          <HintPath>..\packages\VSLangProj100\lib\net45\VSLangProj100.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2269,7 +2269,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj110">
-          <HintPath>..\packages\VSLangProj110\lib\net20\VSLangProj110.dll</HintPath>
+          <HintPath>..\packages\VSLangProj110\lib\net45\VSLangProj110.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2280,7 +2280,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj140">
-          <HintPath>..\packages\VSLangProj140\lib\net20\VSLangProj140.dll</HintPath>
+          <HintPath>..\packages\VSLangProj140\lib\net45\VSLangProj140.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2291,7 +2291,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj150">
-          <HintPath>..\packages\VSLangProj150\lib\net20\VSLangProj150.dll</HintPath>
+          <HintPath>..\packages\VSLangProj150\lib\net45\VSLangProj150.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2302,7 +2302,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj157">
-          <HintPath>..\packages\VSLangProj157\lib\net20\VSLangProj157.dll</HintPath>
+          <HintPath>..\packages\VSLangProj157\lib\net45\VSLangProj157.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2313,7 +2313,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj158">
-          <HintPath>..\packages\VSLangProj158\lib\net20\VSLangProj158.dll</HintPath>
+          <HintPath>..\packages\VSLangProj158\lib\net45\VSLangProj158.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2324,7 +2324,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj2">
-          <HintPath>..\packages\VSLangProj2\lib\net11\VSLangProj2.dll</HintPath>
+          <HintPath>..\packages\VSLangProj2\lib\net45\VSLangProj2.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2335,7 +2335,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj80">
-          <HintPath>..\packages\VSLangProj80\lib\net11\VSLangProj80.dll</HintPath>
+          <HintPath>..\packages\VSLangProj80\lib\net45\VSLangProj80.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -2346,7 +2346,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="VSLangProj90">
-          <HintPath>..\packages\VSLangProj90\lib\net10\VSLangProj90.dll</HintPath>
+          <HintPath>..\packages\VSLangProj90\lib\net45\VSLangProj90.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

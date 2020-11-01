@@ -1,3 +1,4 @@
 System.ValueTuple
 DevExpress.ExpressApp
 System.Configuration.ConfigurationManager
+System.Collections.Immutable

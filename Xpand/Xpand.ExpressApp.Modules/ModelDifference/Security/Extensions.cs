@@ -6,7 +6,7 @@ using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata.Helpers;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
-using Xpand.ExpressApp.Security.Core;
+using Xpand.Extensions.XAF.SecurityExtensions;
 
 namespace Xpand.ExpressApp.ModelDifference.Security {
     public static class Extensions {
@@ -19,22 +19,21 @@ namespace Xpand.ExpressApp.ModelDifference.Security {
         public static ISecurityRole GetDefaultModelRole(this IObjectSpace objectSpace, string roleName) {
             var modelRole = objectSpace.GetRole(roleName);
             if (objectSpace.IsNewObject(modelRole)) {
-                var securitySystemRole = modelRole as SecuritySystemRole;
-                if (securitySystemRole != null){
+                if (modelRole is SecuritySystemRole securitySystemRole){
                     securitySystemRole.SetTypePermissions<PersistentApplication>(SecurityOperations.CRUDAccess,SecuritySystemModifier.Allow );
                     securitySystemRole.SetTypePermissions<ModelDifferenceObject>(SecurityOperations.CRUDAccess,SecuritySystemModifier.Allow );
                     securitySystemRole.SetTypePermissions<AspectObject>(SecurityOperations.CRUDAccess,SecuritySystemModifier.Allow );
                     securitySystemRole.SetTypePermissions<UserModelDifferenceObject>(SecurityOperations.CRUDAccess,SecuritySystemModifier.Allow );
                 }
                 else{
-                    var permissionPolicyRole = ((IPermissionPolicyRole) modelRole);
+                    var permissionPolicyRole = modelRole;
                     permissionPolicyRole.AddTypePermission<PersistentApplication>(SecurityOperations.CRUDAccess, SecurityPermissionState.Allow);
                     permissionPolicyRole.AddTypePermission<ModelDifferenceObject>(SecurityOperations.CRUDAccess, SecurityPermissionState.Allow);
                     permissionPolicyRole.AddTypePermission<AspectObject>(SecurityOperations.CRUDAccess, SecurityPermissionState.Allow);
                     permissionPolicyRole.AddTypePermission<UserModelDifferenceObject>(SecurityOperations.CRUDAccess, SecurityPermissionState.Allow);
                 }
             }
-            return modelRole;
+            return (ISecurityRole) modelRole;
         }
 
     }

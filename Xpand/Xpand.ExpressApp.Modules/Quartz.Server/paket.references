@@ -5,3 +5,4 @@ DevExpress.ExpressApp
 DevExpress.Xpo
 Fasterflect.Xpand
 System.Configuration.ConfigurationManager
+System.Collections.Immutable

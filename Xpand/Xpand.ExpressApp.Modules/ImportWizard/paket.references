@@ -3,3 +3,4 @@ DevExpress.ExpressApp.Xpo
 System.ValueTuple
 Fasterflect.Xpand
 System.Configuration.ConfigurationManager
+System.Collections.Immutable

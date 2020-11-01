@@ -1,12 +1,12 @@
 storage: packages
 framework: auto-detect
-source C:\Program Files (x86)\DevExpress 20.1\Components\System\Components\Packages
+source F:\devexpress\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
 
-nuget DevExpress.ExpressApp.Xpo == 20.1.8
-nuget DevExpress.ExpressApp.Win == 20.1.8
+nuget DevExpress.ExpressApp.Xpo == 20.2.3
+nuget DevExpress.ExpressApp.Win == 20.2.3
 nuget Fasterflect.Xpand
 nuget Fody 4.2.1
 nuget Microsoft.CSharp 4.6.0
@@ -57,3 +57,6 @@ nuget Microsoft.VisualStudio.Threading.Analyzers 15.8.209
 nuget Microsoft.VisualStudio.Utilities 15.9.28307
 nuget Microsoft.VisualStudio.Workspace 15.0.485
 nuget Microsoft.VisualStudio.Workspace.VSIntegration 15.0.485
+
+
+

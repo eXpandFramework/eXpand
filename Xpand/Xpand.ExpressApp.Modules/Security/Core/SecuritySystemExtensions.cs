@@ -3,16 +3,14 @@ using System.Collections.Generic;
 ﻿using System.Linq;
 ﻿using System.Security;
 ﻿using System.Security.Permissions;
-﻿using DevExpress.Data.Filtering;
-﻿using DevExpress.ExpressApp;
+using DevExpress.ExpressApp;
 ﻿using DevExpress.ExpressApp.DC;
 ﻿using DevExpress.ExpressApp.Security;
 ﻿using DevExpress.ExpressApp.Security.Strategy;
 ﻿using DevExpress.ExpressApp.Xpo;
 ﻿using DevExpress.Persistent.Base;
 ﻿using DevExpress.Persistent.Base.Security;
-﻿using DevExpress.Xpo;
-﻿using Fasterflect;
+using Fasterflect;
 using Xpand.Utils.Helpers;
 ﻿using Xpand.ExpressApp.Security.AuthenticationProviders;
 ﻿using Xpand.ExpressApp.Security.Permissions;
@@ -56,8 +54,8 @@ namespace Xpand.ExpressApp.Security.Core {
 
         private static void NewSecurityStrategyComplexCore(XafApplication application, Type authethicationType,
             Type logonParametersType, Type userType, Type roleType, Type defaultUserType, Type defaultRoleType){
-            logonParametersType = logonParametersType ?? typeof(XpandLogonParameters);
-            userType = userType ?? defaultUserType;
+            logonParametersType ??= typeof(XpandLogonParameters);
+            userType ??= defaultUserType;
             AuthenticationStandard authenticationStandard = new XpandAuthenticationStandard(userType, logonParametersType);
             if (authethicationType != null){
                 authenticationStandard = (AuthenticationStandard) authethicationType.CreateInstance();
@@ -104,10 +102,8 @@ namespace Xpand.ExpressApp.Security.Core {
 
         public static ISecurityUserWithRoles GetUser(this ISecurityRole systemRole, string userName, string passWord = "") {
             var objectSpace = XPObjectSpace.FindObjectSpaceByObject(systemRole);
-            return GetUser(objectSpace, userName, passWord, systemRole);
+            return objectSpace.GetUser( userName, passWord, systemRole);
         }
-
-        
 
         public static XpandRole GetAnonymousRole(this IObjectSpace objectSpace, string roleName, bool selfReadOnlyPermissions = true) {
             var anonymousRole = (XpandRole) objectSpace.GetRole(roleName);

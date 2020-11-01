@@ -25,6 +25,7 @@ using Xpand.ExpressApp.Security.Core;
 using System.Drawing;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using Xpand.Extensions.XAF.SecurityExtensions;
 using Country = XVideoRental.Module.Win.BusinessObjects.Movie.Country;
 
 namespace XVideoRental.Module.Win.DatabaseUpdate {
@@ -123,7 +124,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
 
         void InitAdminSecurityData() {
             var securitySystemRole = ObjectSpace.GetAdminRole("Administrator");
-            securitySystemRole.GetUser("Admin");
+            ObjectSpace.GetUser("Admin",roles:(ISecurityRole) securitySystemRole);
         }
 
 

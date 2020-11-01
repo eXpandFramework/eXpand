@@ -3,8 +3,8 @@ using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.Security.AuthenticationProviders;
-using Xpand.ExpressApp.Security.Core;
 using Xpand.ExpressApp.Security.Permissions;
+using Xpand.Extensions.XAF.SecurityExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.BaseImpl.Security.PermissionPolicyData;
 
