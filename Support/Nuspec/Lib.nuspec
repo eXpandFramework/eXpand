@@ -18,15 +18,15 @@
       <dependency id="Mono.Cecil" version="0.11.2" />
       <dependency id="Newtonsoft.Json" version="12.0.3" />
       <dependency id="System.CodeDom" version="4.7" />
-      <dependency id="System.Configuration.ConfigurationManager" version="4.6" />
+      <dependency id="System.Configuration.ConfigurationManager" version="4.7" />
       <dependency id="System.Drawing.Common" version="4.7" />
       <dependency id="System.Management" version="4.5" />
       <dependency id="System.Runtime.CompilerServices.Unsafe" version="4.7" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="2.202.58" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="2.202.53" />
-      <dependency id="Xpand.Extensions.XAF" version="2.202.59" />
-      <dependency id="Xpand.Patcher" version="2.0.24" />
+      <dependency id="Xpand.Extensions" version="2.202.59" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="2.202.54" />
+      <dependency id="Xpand.Extensions.XAF" version="2.202.60" />
+      <dependency id="Xpand.Patcher" version="2.0.26" />
     </dependencies>
   </metadata>
   <files>

@@ -14,12 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AuditTrail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.1.802.0" />
-      <dependency id="eXpandLogic" version="20.1.802.0" />
-      <dependency id="eXpandSecurity" version="20.1.802.0" />
-      <dependency id="System.Reactive" version="4.4.1" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.202.59" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.202.59" />
+      <dependency id="eXpandLib" version="20.2.301.0" />
+      <dependency id="eXpandLogic" version="20.2.301.0" />
+      <dependency id="eXpandSecurity" version="20.2.301.0" />
+      <dependency id="System.Configuration.ConfigurationManager" version="4.7" />
+      <dependency id="System.Reactive" version="5.0.0-preview.16" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="2.202.60" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="2.202.60" />
     </dependencies>
   </metadata>
   <files>
