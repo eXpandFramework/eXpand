@@ -1,4 +1,5 @@
 "Release","Issues","Labels","Message","Sha"
+"20.2.301.0","782","must-have, Priority, Standalone_XAF_Modules","Bump Standalone packages","7d66c158b8fe164f463ef40eda740cad8e4d985f"
 "20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper DataStoreAttribute attribute does not return the resolved type",
 "20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreatorWinModule RichEditWinPropertyEditor is miss configured",
 "20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper duplicate ValidateAssembly",
