@@ -23,7 +23,9 @@ if ((Test-Path $nugetFolder) -and !$SkipNugetReplace) {
     if ($packageFolder){
         $assemblyName = (Get-Item $ProjectPath).BaseName
         Get-ChildItem $packageFolder.FullName "$assemblyName.dll" -Recurse | ForEach-Object {
-            Copy-Item $TargetPath $_.FullName -Force -Verbose
+            $destination=$_.FullName
+            $version=[System.Diagnostics.FileVersionInfo]::GetVersionInfo($destination)
+            Copy-Item $TargetPath $destination -Force -Verbose
         }
     }
 }

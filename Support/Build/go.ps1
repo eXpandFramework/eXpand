@@ -3,11 +3,11 @@ param(
     [string]$version = $null,
     [string]$msbuild = $null,
     [string[]]$packageSources = @("https://api.nuget.org/v3/index.json", "https://xpandnugetserver.azurewebsites.net/nuget", "C:\Program Files (x86)\DevExpress 19.1\Components\System\Components\packages")  ,
-    [string[]]$msbuildArgs = @("/p:Configuration=$configuration", "/WarnAsError", "/v:m"),
+    [string[]]$msbuildArgs = @("/p:Configuration=$configuration;SkipNugetReplace=true", "/WarnAsError", "/v:m"),
     [string[]]$taskList = @("Release"),
     [string]$nugetApiKey = $null,
     [string]$Repository = "eXpand",
-    [string]$XpandPwshVersion = "1.202.45.2",
+    [string]$XpandPwshVersion = "1.202.46.1",
     [bool]$ResolveNugetDependecies
 )
 
