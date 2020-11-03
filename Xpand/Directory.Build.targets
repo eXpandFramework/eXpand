@@ -1,0 +1,6 @@
+<Project>
+ <Target Name="EmitCustomMessage" AfterTargets="Build">
+   <Message Importance="High" Text="The solution has completed the Build target $(ProjectPath)" />
+   <Exec Command="powershell.exe –NonInteractive –ExecutionPolicy Unrestricted –command &quot;&amp; { &amp;&apos;$(MSBuildThisFileDirectory)\..\Support\Build\ReplaceNuget.ps1&apos; &apos;$(ProjectPath)&apos; &apos;$(TargetPath)&apos; &apos;$(skipNugetReplace)&apos; } &quot; " LogStandardErrorAsError="True" ContinueOnError="False" />
+ </Target>
+</Project>

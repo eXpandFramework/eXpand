@@ -18,7 +18,6 @@ using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Updating;
 using DevExpress.ExpressApp.Utils;
-using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
@@ -40,10 +39,10 @@ using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
-using HarmonyLib;
 using Mono.Cecil;
 using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.Mono.Cecil;
+using Xpand.Extensions.XAF.AppDomainExtensions;
 using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.General.Web.SyntaxHighlight;
 using Xpand.Persistent.Base.Security;
@@ -88,27 +87,13 @@ namespace Xpand.Persistent.Base.General {
         private List<KeyValuePair<string, ModelDifferenceStore>> _extraDiffStores;
         private bool _loggedOn;
         private static readonly TypesInfo AdditionalTypesTypesInfo;
-        private static readonly string NetstandardPath;
+        
         public event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
 
         static XpandModuleBase(){
+            AppDomain.CurrentDomain.AddModelReference("netstandard");
             try {
                 AdditionalTypesTypesInfo=new TypesInfo();
-                var path = $@"{AppDomain.CurrentDomain.ApplicationPath()}";
-                NetstandardPath = $@"{path}\netstandard.dll";
-                if (!File.Exists(NetstandardPath)) {
-                    using var manifestResourceStream = typeof(XpandModuleBase).Assembly.GetManifestResourceStream("Xpand.Persistent.Base.Resources.netstandard.dll");
-                    try {
-                        manifestResourceStream.SaveToFile(NetstandardPath);
-                    }
-                    catch (Exception) {
-                        throw new InvalidOperationException($"Fail to write {NetstandardPath}, please add the file there manually.");
-                    }
-                }
-                var harmony = new Harmony(typeof(ApplicationModulesManagerExtensions).Namespace);
-                var prefix = typeof(XpandModuleBase).Method(nameof(ModifyCSCodeCompilerReferences),Flags.Static|Flags.AnyVisibility);
-                var original = typeof(CSCodeCompiler).GetMethod(nameof(CSCodeCompiler.Compile));
-                harmony.Patch(original, new HarmonyMethod(prefix));
                 if (Process.GetCurrentProcess().ProcessName!="devenv") {
                     LoadAssemblyRegularTypes();
                 }
@@ -190,9 +175,6 @@ namespace Xpand.Persistent.Base.General {
                         typeof(DashboardInteractionController)
                     });
             }
-//            if (!Executed<IModuleSupportUploadControl>("SupportUploadControl")) {
-//                declaredControllerTypes = declaredControllerTypes.Concat(new[] { typeof(UploadControlModelAdaptorController) });
-//            }
             if (!Executed<IModifyModelActionUser>("ModifyModelActionControllerTypes")) {
                 declaredControllerTypes = declaredControllerTypes.Concat(new[] {
                     typeof(ActionModifyModelController), 
@@ -492,12 +474,6 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
         
-        internal static void ModifyCSCodeCompilerReferences(string sourceCode, ref string[] references, string assemblyFile) {
-            var fileName = $"{Path.GetFileName(NetstandardPath)}";
-            if (!references.Any(s => fileName.Equals(Path.GetFileName(s),StringComparison.OrdinalIgnoreCase))){
-                references = references.Concat(new[]{NetstandardPath}).ToArray();
-            }
-        }
 
         protected void LoadDxBaseImplType(string typeName){
             var type = GetDxBaseImplType(typeName);
@@ -747,7 +723,7 @@ namespace Xpand.Persistent.Base.General {
         IEnumerable<Attribute> GetAttributes(ITypeInfo type) {
             return XafTypesInfo.Instance.FindTypeInfo(typeof(AttributeRegistrator))
                 .Descendants.Where(info => !info.IsAbstract).Select(typeInfo => (AttributeRegistrator)typeInfo.Type.CreateInstance())
-                .SelectMany(registrator => GetAttributes(type, registrator));
+                .SelectMany(registration => GetAttributes(type, registration));
         }
 
         private IEnumerable<Attribute> GetAttributes(ITypeInfo type, AttributeRegistrator registrator) {
@@ -774,7 +750,7 @@ namespace Xpand.Persistent.Base.General {
                 CreateXpandDefaultProperty(typesInfo);
                 ModelValueOperator.Instance.Register();
                 EvaluateCSharpOperator.Instance.Register();
-                ConvertInvisibleInAllViewsAttrbiute(typesInfo);
+                ConvertInvisibleInAllViewsAttribute(typesInfo);
 
                 AssignSecurityEntities();
                 ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof(IModelMember));
@@ -824,7 +800,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        private static void ConvertInvisibleInAllViewsAttrbiute(ITypesInfo typesInfo) {
+        private static void ConvertInvisibleInAllViewsAttribute(ITypesInfo typesInfo) {
             foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(typeInfo =>
                 typeInfo.OwnMembers.Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null))
                 .ToList()) {
