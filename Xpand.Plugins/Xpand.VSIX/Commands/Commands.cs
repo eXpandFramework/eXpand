@@ -20,6 +20,7 @@ namespace Xpand.VSIX.Commands {
             XAFErrorExplorerCommand.Init();
             DisableExceptions();
             ShowModelsWindowCommand.Init();
+            FavoriteProjectCommand.Init();
             KillIISExpressCommand.Init();
             BuildSelectionCommand.Init();
             FindInSolutionCommand.Init();

@@ -1,14 +1,12 @@
 SharpZipLib
 System.IO.Compression
 ExcelDataReader.DataSet
-Mono.Cecil
 Ryder
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.Notifications
 DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.Xpo
 DevExpress.Web
-Xpand.XAF.Modules.Reactive
 Xpand.XAF.Modules.Reactive.Logger
 Xpand.XAF.Modules.AutoCommit
 Xpand.XAF.Modules.CloneModelView
@@ -17,4 +15,3 @@ Xpand.XAF.Modules.MasterDetail
 Xpand.XAF.Modules.ProgressBarViewItem
 Xpand.XAF.Modules.SuppressConfirmation
 Xpand.XAF.Modules.ViewEditMode
-System.Configuration.ConfigurationManager

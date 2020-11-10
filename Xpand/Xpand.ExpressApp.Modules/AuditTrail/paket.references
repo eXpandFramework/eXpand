@@ -1,7 +1,5 @@
-System.Reactive
 DevExpress.ExpressApp.AuditTrail
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.Security.Xpo
 Xpand.XAF.Modules.CloneModelView
 Xpand.XAF.Modules.ModelViewInheritance
-System.Configuration.ConfigurationManager

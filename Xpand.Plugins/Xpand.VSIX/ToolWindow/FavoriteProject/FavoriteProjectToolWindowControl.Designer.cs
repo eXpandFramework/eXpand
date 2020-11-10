@@ -1,7 +1,5 @@
-﻿using DevExpress.XtraGrid.Columns;
-
-namespace Xpand.VSIX.ModelEditor {
-    partial class METoolWindowControl {
+﻿namespace Xpand.VSIX.ToolWindow.FavoriteProject {
+    partial class FavoriteProjectToolWindowControl {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -62,22 +60,21 @@ namespace Xpand.VSIX.ModelEditor {
             // 
             // gridColumnModels
             // 
-            this.gridColumnModels.Caption = "Models";
+            this.gridColumnModels.Caption = "Project";
+            this.gridColumnModels.FieldName = "Name";
             this.gridColumnModels.MinWidth = 30;
             this.gridColumnModels.Name = "gridColumnModels";
+            this.gridColumnModels.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumnModels.Visible = true;
-            gridColumnModels.OptionsFilter.AutoFilterCondition = AutoFilterCondition.Contains;
             this.gridColumnModels.VisibleIndex = 0;
             this.gridColumnModels.Width = 112;
-            this.gridColumnModels.FieldName = "Name";
-
             // 
-            // METoolWindowControl
+            // FavoriteProjectToolWindowControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.gridControl1);
-            this.Name = "METoolWindowControl";
+            this.Name = "FavoriteProjectToolWindowControl";
             this.Size = new System.Drawing.Size(706, 675);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();

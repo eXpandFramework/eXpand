@@ -8,7 +8,7 @@ using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Process = System.Diagnostics.Process;
 
-namespace Xpand.VSIX.ModelEditor {
+namespace Xpand.VSIX.ToolWindow.ModelEditor {
     public class ModelEditorRunner {
         private readonly DTE2 _dte = DteExtensions.DTE;
         public static string MePath { get; set; }
@@ -39,7 +39,7 @@ namespace Xpand.VSIX.ModelEditor {
                     File.Copy(path, destFileName,true);
                     var configPath = Path.Combine(Path.GetDirectoryName(path)+"",Path.GetFileName(path)+".config");
                     if (File.Exists(configPath)) {
-                        _dte.WriteToOutput($"Copying App.config");
+                        _dte.WriteToOutput("Copying App.config");
                         File.Copy(configPath,Path.Combine(Path.GetDirectoryName(destFileName)+"",Path.GetFileName(configPath)),true);
                     }
                 }
@@ -63,7 +63,7 @@ namespace Xpand.VSIX.ModelEditor {
 
         public void KillProcess(string path){
             const string wmiQueryString = "SELECT ProcessId, ExecutablePath, CommandLine FROM Win32_Process";
-            using (var searcher = new ManagementObjectSearcher(wmiQueryString))
+            using var searcher = new ManagementObjectSearcher(wmiQueryString);
             using (var results = searcher.Get()) {
                 var query = Process.GetProcesses()
                     .Join(results.Cast<ManagementObject>(), p => p.Id, mo => (int) (uint) mo["ProcessId"],

@@ -30,28 +30,7 @@ namespace Xpand.VSIX.Commands {
         }
 
         private static readonly DTE2 DTE = DteExtensions.DTE;
-        private static void SkipBuild(Project project) {
-            var solutionConfigurations = DTE.Solution.SolutionBuild.SolutionConfigurations.Cast<SolutionConfiguration>();
-            var solutionContexts = solutionConfigurations.SelectMany(
-                solutionConfiguration => solutionConfiguration.SolutionContexts.Cast<SolutionContext>())
-                .Where(context => Path.GetFileNameWithoutExtension(context.ProjectName) == project.Name).ToArray();
-            foreach (var solutionContext in solutionContexts) {
-                solutionContext.ShouldBuild = false;
-            }
-        }
-
-        private static void ChangeActiveConfiguration(Project project) {
-            var solutionConfigurationNames = DTE.Solution.SolutionBuild.SolutionConfigurations.Cast<SolutionConfiguration>()
-                            .OrderByDescending(solutionConfiguration => solutionConfiguration == DTE.Solution.SolutionBuild.ActiveConfiguration).
-                            ThenByDescending(solutionConfiguration => string.Equals(solutionConfiguration.Name, "debug", StringComparison.CurrentCultureIgnoreCase)).
-                            Select(configuration => configuration.Name).ToArray();
-            var configurationName = solutionConfigurationNames.First(solutionConfigurationName => project.ConfigurationManager.Cast<Configuration>()
-                        .Any(configuration => configuration.ConfigurationName == solutionConfigurationName));
-            var solutionContext = DTE.Solution.SolutionBuild.ActiveConfiguration.SolutionContexts.Cast<SolutionContext>().First(context => Path.GetFileNameWithoutExtension(context.ProjectName) == project.Name);
-            solutionContext.ConfigurationName = !string.IsNullOrEmpty(OptionClass.Instance.DefaultConfiguration) ? OptionClass.Instance.DefaultConfiguration : configurationName;
-            DTE.WriteToOutput(solutionContext.ConfigurationName + " configuration activated");
-        }
-
+        
         static void LoadProjects() {
             DTE.InitOutputCalls("LoadProjects");
             Task.Factory.StartNew(LoadProjectsCore, CancellationToken.None,TaskCreationOptions.None, TaskScheduler.Default);
@@ -92,8 +71,8 @@ namespace Xpand.VSIX.Commands {
                             DTE.Solution.Projects()
                                 .All(project => project.FullName != projectInfo.Path)){
                             var project = DTE.Solution.AddFromFile(Path.GetFullPath(projectInfo.Path));
-                            SkipBuild(project);
-                            ChangeActiveConfiguration(project);
+                            project.SkipBuild();
+                            project.ChangeActiveConfiguration();
                         }
                         else{
                             DTE.WriteToOutput(projectInfo.Path + " already loaded");

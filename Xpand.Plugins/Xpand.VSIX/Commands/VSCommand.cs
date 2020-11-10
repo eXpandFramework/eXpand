@@ -19,6 +19,7 @@ namespace Xpand.VSIX.Commands{
         }
 
         protected void BindCommand(DteCommand dteCommand) {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var instanceShowErrorsInMessageBox = OptionClass.Instance.ShowErrorsInMessageBox;
             try{
                 if (dteCommand != null){

@@ -4,9 +4,10 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
-using Xpand.VSIX.ModelEditor;
 using Xpand.VSIX.Options;
 using Xpand.VSIX.Services;
+using Xpand.VSIX.ToolWindow.FavoriteProject;
+using Xpand.VSIX.ToolWindow.ModelEditor;
 using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.VSPackage {
@@ -35,29 +36,28 @@ namespace Xpand.VSIX.VSPackage {
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F",PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideToolWindow(typeof(ModelToolWindow))]
+    [ProvideToolWindow(typeof(FavoriteProjectToolWindow))]
     [ProvideToolboxItems(1)]
     public sealed class VSPackage : AsyncPackage ,IDTE2Provider{
         private static VSPackage _instance;
 
         public const string PackageGuidString = "fa1289e0-6376-4d19-98c5-9d0c90dd3284";
-        public VSPackage() {
-            _instance = this;
-        }
+        public VSPackage() => _instance = this;
 
-        public new object GetService(Type type) {
-            return base.GetService(type);
-        }
+        public new object GetService(Type type) => base.GetService(type);
 
         public static VSPackage Instance => _instance;
         public static OptionsPage OptionsPage => Instance.GetDialogPage<OptionsPage>();
 
-        public T GetDialogPage<T>() where T:DialogPage{
-            return (T)GetDialogPage(typeof(T));
-        }
+        public T GetDialogPage<T>() where T:DialogPage => (T)GetDialogPage(typeof(T));
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress) {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-
+            // var properties = this.DTE2().Properties["Environment", "General"].Cast<Property>().Select(property => new{property.Name,property.Value,property}).ToArray();
+            // var value = this.DTE2().Properties["Environment", "General"].Item("RenderingText").Value;
+            //
+            // value = this.DTE2().Properties["Debugging", "General"].Item("EnableExceptionAssistant").Value;
+            // this.DTE2().Properties["Environment", "General"].Item("RenderingText").Value = false;
             ExternalToolsService.Init();
             ModelMapperService.Init();
             Commands.Commands.Initialize();

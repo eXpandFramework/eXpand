@@ -73,6 +73,7 @@
     <Compile Include="..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs">
       <Link>Properties\XpandAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commands\FavoriteProjectCommand.cs" />
     <Compile Include="Commands\NavigateSubwordCommand.cs" />
     <Compile Include="Commands\DuplicateLineCommand.cs" />
     <Compile Include="Commands\BuildSelectionCommand.cs" />
@@ -89,15 +90,18 @@
     <Compile Include="Extensions\ProjectItemExtensions.cs" />
     <Compile Include="Extensions\ReverseLineReader.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="ModelEditor\GridHelper.cs" />
-    <Compile Include="ModelEditor\METoolWindowControl1.cs" />
-    <Compile Include="ModelEditor\METoolWindowControl1.Designer.cs">
-      <DependentUpon>METoolWindowControl1.cs</DependentUpon>
+    <Compile Include="ToolWindow\FavoriteProject\FavoriteProjectToolWindow.cs" />
+    <Compile Include="ToolWindow\ModelEditor\GridHelper.cs" />
+    <Compile Include="ToolWindow\FavoriteProject\FavoriteProjectToolWindowControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModelEditor\ModelEditorRunner.cs" />
-    <Compile Include="ModelEditor\ProjectItemWrapper.cs" />
-    <Compile Include="ModelEditor\ProjectWrapperBuilder.cs" />
-    <Compile Include="ModelEditor\ModelToolWindow.cs" />
+    <Compile Include="ToolWindow\FavoriteProject\FavoriteProjectToolWindowControl.Designer.cs">
+      <DependentUpon>FavoriteProjectToolWindowControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ToolWindow\ModelEditor\ModelEditorRunner.cs" />
+    <Compile Include="ToolWindow\ModelEditor\ProjectItemWrapper.cs" />
+    <Compile Include="ToolWindow\ModelEditor\ProjectWrapperBuilder.cs" />
+    <Compile Include="ToolWindow\ModelEditor\ModelToolWindow.cs" />
     <Compile Include="Options\OptionClass.cs" />
     <Compile Include="Commands\Commands.cs" />
     <Compile Include="Extensions\DteExtensions.cs" />
@@ -115,10 +119,10 @@
     </Compile>
     <Compile Include="Commands\ProjectConverterCommand.cs" />
     <Compile Include="Services\ExternalToolsService.cs" />
-    <Compile Include="ModelEditor\METoolWindowControl.cs">
+    <Compile Include="ToolWindow\ModelEditor\METoolWindowControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ModelEditor\METoolWindowControl.Designer.cs">
+    <Compile Include="ToolWindow\ModelEditor\METoolWindowControl.Designer.cs">
       <DependentUpon>METoolWindowControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\ModelMapperService.cs" />
@@ -127,7 +131,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VSPackage.vsct</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="ModelEditor\METoolWindowControl.resx">
+    <EmbeddedResource Include="ToolWindow\FavoriteProject\FavoriteProjectToolWindowControl.resx">
+      <DependentUpon>FavoriteProjectToolWindowControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolWindow\ModelEditor\METoolWindowControl.resx">
       <DependentUpon>METoolWindowControl.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -161,7 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="FodyWeavers.xml" />
-    <EmbeddedResource Include="ModelEditor\Xpand.XAF.ModelEditor.exe" />
+    <EmbeddedResource Include="ToolWindow\ModelEditor\Xpand.XAF.ModelEditor.exe" />
     <Content Include="ProjectTemplates\xaf.vb.vstemplate">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -602,12 +609,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ModelEditor\METoolWindowControl1.resx">
-      <DependentUpon>METoolWindowControl1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Options\OptionsControl.resx">
       <DependentUpon>OptionsControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="VSPackage\VSPackage.resx">
       <MergeWithCTO>true</MergeWithCTO>
       <ManifestResourceName>VSPackage</ManifestResourceName>
@@ -1732,6 +1737,7 @@
       <Paket>True</Paket>
     </Analyzer>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>

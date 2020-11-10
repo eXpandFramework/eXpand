@@ -70,16 +70,14 @@ namespace Xpand.VSIX.Commands {
             parser.RemovePartByName("xpoprovider");
             var database = parser.GetPartByName("initial catalog");
             parser.RemovePartByName("initial catalog");
-            using (var connection = new SqlConnection(parser.GetConnectionString())) {
-                connection.Open();
-                using (SqlCommand sqlCommand = connection.CreateCommand()) {
-                    sqlCommand.CommandText = $"ALTER DATABASE [{database}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
-                    sqlCommand.ExecuteNonQuery();
-                    sqlCommand.CommandText = $"DROP DATABASE [{database}]";
-                    sqlCommand.ExecuteNonQuery();
-                    DTE.WriteToOutput(database + " dropped successfully");
-                }
-            }
+            using var connection = new SqlConnection(parser.GetConnectionString());
+            connection.Open();
+            using SqlCommand sqlCommand = connection.CreateCommand();
+            sqlCommand.CommandText = $"ALTER DATABASE [{database}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
+            sqlCommand.ExecuteNonQuery();
+            sqlCommand.CommandText = $"DROP DATABASE [{database}]";
+            sqlCommand.ExecuteNonQuery();
+            DTE.WriteToOutput(database + " dropped successfully");
         }
 
         private static bool DbExist(ConnectionStringSettings connectionStringSettings) {
@@ -88,18 +86,17 @@ namespace Xpand.VSIX.Commands {
             parser.RemovePartByName("initial catalog");
             parser.RemovePartByName("xpoprovider");
             DTE.WriteToOutput("ConnectionStrings name:" + connectionStringSettings.Name + " data source: " + parser.GetPartByName("data source"));
-            using (var connection = new SqlConnection(parser.GetConnectionString())) {
-                connection.Open();
-                object result;
-                using (var sqlCommand = connection.CreateCommand()) {
-                    sqlCommand.CommandText = $"SELECT database_id FROM sys.databases WHERE Name = '{database}'";
-                    result = sqlCommand.ExecuteScalar();
-                }
-                var exists = result != null && int.Parse(result + "") > 0;
-                string doesNot = exists ? null : " does not";
-                DTE.WriteToOutput("Database " + database + doesNot + " exists");
-                return exists;
+            using var connection = new SqlConnection(parser.GetConnectionString());
+            connection.Open();
+            object result;
+            using (var sqlCommand = connection.CreateCommand()) {
+                sqlCommand.CommandText = $"SELECT database_id FROM sys.databases WHERE Name = '{database}'";
+                result = sqlCommand.ExecuteScalar();
             }
+            var exists = result != null && int.Parse(result + "") > 0;
+            string doesNot = exists ? null : " does not";
+            DTE.WriteToOutput("Database " + database + doesNot + " exists");
+            return exists;
         }
     }
 }

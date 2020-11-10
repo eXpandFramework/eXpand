@@ -1,4 +1,3 @@
-Mono.Cecil
 PropertyChanged.Fody
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.Persistent.BaseImpl
@@ -6,11 +5,5 @@ DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.Web
 DevExpress.ExpressApp.Win
 DevExpress.ExpressApp.Security.Xpo
-System.ValueTuple
-Fasterflect.Xpand
-Xpand.Extensions
-Xpand.Patcher
-System.CodeDom
 Xpand.Extensions.Mono.Cecil
 Xpand.Extensions.XAF
-System.Configuration.ConfigurationManager

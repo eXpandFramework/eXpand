@@ -11,7 +11,7 @@ using Xpand.Persistent.Base.ModelDifference;
 using Xpand.Persistent.Base.Security;
 
 namespace Xpand.Persistent.Base.MiddleTier {
-    public class XpandWcfDataServerHelper {
+    public static class XpandWcfDataServerHelper {
         public static void AddKnownTypes(){
             var modulePath = AppDomain.CurrentDomain.SetupInformation.ApplicationName.Replace(".vshost.exe", ".exe");
             AddKnownTypes(modulePath);
@@ -39,11 +39,11 @@ namespace Xpand.Persistent.Base.MiddleTier {
             InterfaceBuilder.SkipAssemblyCleanup = true;
         }
 
-        public static void AddKnownTypesForAll(XpandServerApplication serverApplication){
+        public static void AddKnownTypesForAll(this XpandServerApplication serverApplication){
             AddKnownTypesForAll(serverApplication.TypesInfo);
         }
 
-        private static void AddKnownTypesForAll(ITypesInfo typesInfo){
+        public static void AddKnownTypesForAll(this ITypesInfo typesInfo){
             AddKnownTypesFor<IPermissionRequest>(typesInfo);
             AddKnownTypesFor<ICustomLogonParameter>(typesInfo);
         }

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Windows.Forms;
+using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
@@ -69,7 +69,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
                             .Select(_ => Observable.Start(() => application.Import(_.fileDropped, (_.excelImport.Oid,_.watcher))))
                             .Merge(importConcurrencyLimit).ToUnit()
                             .Merge(DroppedSubject.Do(_ => AddDroppedFiles(_,application)).ToUnit())
-                            .Catch<Unit,Exception>(exception => Unit.Default.ReturnObservable().ObserveOn(((Control) tuple.Application.MainWindow.Template)).SelectMany(_ => Observable.Empty<Unit>()))
+                            .Catch<Unit,Exception>(exception => Unit.Default.ReturnObservable().ObserveOn(SynchronizationContext.Current).SelectMany(_ => Observable.Empty<Unit>()))
                             .Merge(pollExisting)
                             .Merge(changeWatchersMonitoring);
                     })

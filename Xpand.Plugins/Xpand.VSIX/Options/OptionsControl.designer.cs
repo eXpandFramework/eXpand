@@ -77,6 +77,7 @@ namespace Xpand.VSIX.Options
             this.repositoryItemCheckEdit6 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
             this.ModelEditor = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.checkEditKillModelEditor = new DevExpress.XtraEditors.CheckEdit();
             this.labelControl12 = new DevExpress.XtraEditors.LabelControl();
             this.checkEditDebugME = new DevExpress.XtraEditors.CheckEdit();
@@ -107,7 +108,6 @@ namespace Xpand.VSIX.Options
             this.gridColumn6 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.repositoryItemComboBox1 = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.repositoryItemCheckEdit5 = new DevExpress.XtraEditors.Repository.RepositoryItemCheckEdit();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.General.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditShowErrorsInMessageBox.Properties)).BeginInit();
@@ -647,6 +647,16 @@ namespace Xpand.VSIX.Options
             this.tableLayoutPanel3.Size = new System.Drawing.Size(1359, 109);
             this.tableLayoutPanel3.TabIndex = 34;
             // 
+            // labelControl1
+            // 
+            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
+            this.labelControl1.Location = new System.Drawing.Point(145, 71);
+            this.labelControl1.Name = "labelControl1";
+            this.labelControl1.Size = new System.Drawing.Size(1259, 19);
+            this.labelControl1.TabIndex = 40;
+            this.labelControl1.Text = "Set the XpandModelEditorAppConfigPath Enviromental variable to apply the configur" +
+    "ation to the XpandModelEditor instance";
+            // 
             // checkEditKillModelEditor
             // 
             this.checkEditKillModelEditor.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -824,7 +834,7 @@ namespace Xpand.VSIX.Options
             // gridControlExceptions
             // 
             this.gridControlExceptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlExceptions.Location = new System.Drawing.Point(3, 69);
+            this.gridControlExceptions.Location = new System.Drawing.Point(3, 71);
             this.gridControlExceptions.MainView = this.gridView5;
             this.gridControlExceptions.Name = "gridControlExceptions";
             this.gridControlExceptions.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
@@ -974,16 +984,6 @@ namespace Xpand.VSIX.Options
             // 
             this.repositoryItemCheckEdit5.AutoHeight = false;
             this.repositoryItemCheckEdit5.Name = "repositoryItemCheckEdit5";
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.Vertical;
-            this.labelControl1.Location = new System.Drawing.Point(145, 71);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(1259, 19);
-            this.labelControl1.TabIndex = 40;
-            this.labelControl1.Text = "Set the XpandModelEditorAppConfigPath Enviromental variable to apply the configur" +
-    "ation to the XpandModelEditor instance";
             // 
             // OptionsControl
             // 

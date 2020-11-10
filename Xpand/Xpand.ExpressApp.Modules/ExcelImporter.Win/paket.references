@@ -1,11 +1,8 @@
 System.IO.Compression
 ExcelDataReader.DataSet
-JetBrains.Annotations
 WindowsBase
 DevExpress.ExpressApp.FileAttachment.Win
 DevExpress.ExpressApp.Notifications.Win
 DevExpress.ExpressApp.Validation.Win
 DevExpress.ExpressApp.Xpo
 Xpand.XAF.Modules.Reactive
-Xpand.Extensions.Reactive
-System.Configuration.ConfigurationManager

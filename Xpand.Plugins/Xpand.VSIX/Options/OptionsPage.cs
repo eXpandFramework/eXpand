@@ -44,7 +44,7 @@ namespace Xpand.VSIX.Options{
         /// </devdoc>
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        protected override IWin32Window Window => _optionsControl ?? (_optionsControl = new OptionsControl());
+        protected override IWin32Window Window => _optionsControl ??= new OptionsControl();
 
 
         #endregion Properties

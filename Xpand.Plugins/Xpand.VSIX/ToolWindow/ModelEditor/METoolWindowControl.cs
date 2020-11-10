@@ -6,7 +6,7 @@ using EnvDTE;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
 
-namespace Xpand.VSIX.ModelEditor {
+namespace Xpand.VSIX.ToolWindow.ModelEditor {
     public partial class METoolWindowControl : UserControl {
         private readonly DTE2 _dte = DteExtensions.DTE;
 

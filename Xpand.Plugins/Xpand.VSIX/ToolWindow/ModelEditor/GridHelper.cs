@@ -11,7 +11,7 @@ using EnvDTE80;
 using Mono.Cecil;
 using Xpand.VSIX.Extensions;
 
-namespace Xpand.VSIX.ModelEditor {
+namespace Xpand.VSIX.ToolWindow.ModelEditor {
     public class GridHelper {
         static GridControl _gridControl;
         private static Events2 _events;
@@ -19,10 +19,10 @@ namespace Xpand.VSIX.ModelEditor {
         private static IEnumerable<FileSystemWatcher> _fileSystemWatchers;
         private static TaskScheduler _currentSynchronizationContext;
 
-        static void Setup(GridControl gridControl) {
+        static void Setup(GridControl gridControl,bool models=true) {
             _gridControl = gridControl;
             _currentSynchronizationContext = TaskScheduler.FromCurrentSynchronizationContext();
-            SetGridDataSource();
+            SetGridDataSource(models);
             _events = (Events2) DteExtensions.DTE.Events;
             _eventsSolutionEvents = _events.SolutionEvents;
             _eventsSolutionEvents.Opened += EventsSolutionEventsOnOpened;
@@ -40,7 +40,7 @@ namespace Xpand.VSIX.ModelEditor {
             try {
                 var resourceStream =
                     typeof(ModelToolWindow).Assembly.GetManifestResourceStream(
-                        "Xpand.VSIX.ModelEditor.Xpand.XAF.ModelEditor.exe");
+                        "Xpand.VSIX.ToolWindow.ModelEditor.Xpand.XAF.ModelEditor.exe");
                 var mePath = Path.Combine($"{Path.GetTempPath()}\\XpandModelEditor",
                     $"Xpand.XAF.ModelEditor{DateTime.Now.Ticks}.exe");
                 
@@ -55,27 +55,27 @@ namespace Xpand.VSIX.ModelEditor {
                     File.Copy(xpandModelEditorAppConfigPath,$"{mePath}.config");
                 }
                 else {
-                    DteExtensions.DTE.WriteToOutput($"XpandModelEditorAppConfigPath enviromental variable is not set");
+                    DteExtensions.DTE.WriteToOutput("XpandModelEditorAppConfigPath enviromental variable is not set");
                 }
-                using (var assemblyDefinition =
-                    AssemblyDefinition.ReadAssembly(mePath, new ReaderParameters {ReadWrite = true})) {
-                    var dxVersion = Version.Parse(DteExtensions.DTE.Solution.GetDXVersion(false));
-                    DteExtensions.DTE.WriteToOutput($"Patching ME for version {dxVersion}");
-                    var moduleDefinition = assemblyDefinition.MainModule;
-                    var dxReferences = moduleDefinition.AssemblyReferences.Where(reference =>reference.Name.StartsWith("DevExpress"));
-                    foreach (var assemblyNameReference in dxReferences.Where(reference => reference.Version != dxVersion).ToArray()) {
-                        assemblyNameReference.Name=assemblyNameReference.Name.Replace($"{assemblyNameReference.Version.Major}.{assemblyNameReference.Version.Minor}",$"{dxVersion.Major}.{dxVersion.Minor}");
-                        assemblyNameReference.Version = dxVersion;
-                        var newReference = AssemblyNameReference.Parse(assemblyNameReference.FullName);
-                        moduleDefinition.AssemblyReferences.Remove(assemblyNameReference);
-                    
-                        moduleDefinition.AssemblyReferences.Add(newReference);
-                        foreach (var typeReference in moduleDefinition.GetTypeReferences()
-                            .Where(_ => _.Scope == assemblyNameReference).ToArray()) typeReference.Scope = newReference;
-                    }
 
-                    assemblyDefinition.Write();
+                using var assemblyDefinition =
+                    AssemblyDefinition.ReadAssembly(mePath, new ReaderParameters {ReadWrite = true});
+                var dxVersion = Version.Parse(DteExtensions.DTE.Solution.GetDXVersion(false));
+                DteExtensions.DTE.WriteToOutput($"Patching ME for version {dxVersion}");
+                var moduleDefinition = assemblyDefinition.MainModule;
+                var dxReferences = moduleDefinition.AssemblyReferences.Where(reference =>reference.Name.StartsWith("DevExpress"));
+                foreach (var assemblyNameReference in dxReferences.Where(reference => reference.Version != dxVersion).ToArray()) {
+                    assemblyNameReference.Name=assemblyNameReference.Name.Replace($"{assemblyNameReference.Version.Major}.{assemblyNameReference.Version.Minor}",$"{dxVersion.Major}.{dxVersion.Minor}");
+                    assemblyNameReference.Version = dxVersion;
+                    var newReference = AssemblyNameReference.Parse(assemblyNameReference.FullName);
+                    moduleDefinition.AssemblyReferences.Remove(assemblyNameReference);
+                    
+                    moduleDefinition.AssemblyReferences.Add(newReference);
+                    foreach (var typeReference in moduleDefinition.GetTypeReferences()
+                        .Where(_ => _.Scope == assemblyNameReference).ToArray()) typeReference.Scope = newReference;
                 }
+
+                assemblyDefinition.Write();
 
 
                 return mePath;
@@ -126,9 +126,9 @@ namespace Xpand.VSIX.ModelEditor {
             }
         }
 
-        private static void SetGridDataSource(){
+        private static void SetGridDataSource(bool models=true){
             var projectWrappers = new List<ProjectItemWrapper>();
-            Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers().ToList())
+            Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers(models).ToList())
                 .ContinueWith(task1 => {
                     if (task1.Exception != null){
                         DteExtensions.DTE.LogError(task1.Exception.ToString());
@@ -138,8 +138,8 @@ namespace Xpand.VSIX.ModelEditor {
                 },_currentSynchronizationContext);
         }
 
-        public static void Init(GridControl gridControl) {
-            Setup(gridControl);
+        public static void Init(GridControl gridControl,bool models=true) {
+            Setup(gridControl,models);
         }
     }
 }

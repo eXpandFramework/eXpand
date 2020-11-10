@@ -1,4 +1,4 @@
-﻿namespace Xpand.VSIX.ModelEditor {
+﻿namespace Xpand.VSIX.ToolWindow.ModelEditor {
     public class ProjectItemWrapper {
         public bool IsApplicationProject { get; set; }
 

@@ -2,7 +2,7 @@
 using System.Windows.Forms;
 using Microsoft.VisualStudio.Shell;
 
-namespace Xpand.VSIX.ModelEditor {
+namespace Xpand.VSIX.ToolWindow.ModelEditor {
     /// <summary>
     /// This class implements the tool window exposed by this package and hosts a user control.
     /// </summary>
