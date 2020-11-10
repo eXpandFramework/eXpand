@@ -20,6 +20,7 @@ namespace Xpand.Persistent.Base.MiddleTier {
         public static void AddKnownTypes(string modulePath) {
             InterfaceBuilder.SkipAssemblyCleanup = true;
             var instance = XafTypesInfo.Instance;
+            ModelBuilder.SkipModelAssemblyFile = true;
             var modelLoader = new ModelLoader(modulePath, instance);
             modulePath=Path.GetFullPath(modulePath);
             var typesInfo = TypesInfoBuilder.Create().FromModule(modulePath).Build(false);
@@ -34,6 +35,7 @@ namespace Xpand.Persistent.Base.MiddleTier {
             AddKnownTypesForAll(typesInfo);
             instance.AssignAsInstance();
             xafApplication.Dispose();
+            ModelBuilder.SkipModelAssemblyFile = false;
             InterfaceBuilder.SkipAssemblyCleanup = true;
         }
 

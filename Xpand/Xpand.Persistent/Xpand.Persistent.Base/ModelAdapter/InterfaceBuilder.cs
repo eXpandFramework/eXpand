@@ -24,6 +24,7 @@ using DevExpress.Xpo;
 using Xpand.Utils.Helpers;
 using Fasterflect;
 using Xpand.Persistent.Base.General;
+using Platform = Xpand.Extensions.XAF.XafApplicationExtensions.Platform;
 
 namespace Xpand.Persistent.Base.ModelAdapter{
     public class InterfaceBuilderData{
@@ -104,7 +105,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                     if (modelMapperModule != null){
                         var typeMappingServiceType = modelMapperModule.GetType().Assembly
                             .GetType("Xpand.XAF.Modules.ModelMapper.Services.TypeMapping.TypeMappingService");
-                        typeMappingServiceType.Method("Reset", Flags.StaticPublic).Call(null, true,null);
+                        typeMappingServiceType.Method("Reset", Flags.StaticPublic).Call(null, true,Platform.Win);
                     }
                 }
             }
