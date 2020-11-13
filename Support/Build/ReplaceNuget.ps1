@@ -1,7 +1,7 @@
 using namespace system.text.RegularExpressions
 param(
-    $ProjectPath = "C:\Work\eXpandFramework\expand\Xpand\Xpand.ExpressApp.Modules\ExcelImporter.Win\Xpand.ExpressApp.ExcelImporter.Win.csproj",
-    $TargetPath = "C:\Work\eXpandFramework\expand\Xpand.dll\Xpand.ExpressApp.ExcelImporter.Win.dll",
+    $ProjectPath = "C:\Work\eXpandFramework\expand\Xpand\Xpand.ExpressApp.Modules\Security.Win\Xpand.ExpressApp.Security.Win.csproj",
+    $TargetPath = "C:\Work\eXpandFramework\expand\Xpand.dll\Xpand.ExpressApp.Security.Win.dll",
     $SkipNugetReplace
 )
 
@@ -24,7 +24,7 @@ if ((Test-Path $nugetFolder) -and !$SkipNugetReplace) {
         else{
             $system=$null
         }
-        $packageId=$packageId.Replace("Xpand.ExpressApp.","").Trim(".")
+        $packageId=$packageId.Replace("Xpand.ExpressApp.","").Replace(".","")
         $packageId="eXpand$($system)$packageId"
     }
     $packageFolder = Get-ChildItem $nugetFolder $packageId
