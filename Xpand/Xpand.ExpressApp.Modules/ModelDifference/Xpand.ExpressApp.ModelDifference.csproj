@@ -16,25 +16,25 @@
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.Security">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Security.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ViewVariants">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ViewVariants.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.ViewVariants.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.configuration" />
     <Reference Include="System.Web" />
     <Reference Include="Xpand.Xpo">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>

@@ -15,15 +15,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Xpand.NCarousel">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.NCarousel.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.NCarousel.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Web" />

@@ -1,7 +1,7 @@
 lowest_matching:false
 strategy:max
 storage: none
-source F:\devexpress\Packages
+source C:\Program Files (x86)\DevExpress 20.2\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
@@ -65,5 +65,3 @@ nuget Xpand.XAF.Win.All 4.202.0.0
 nuget Xpand.XAF.Web.All 4.202.0.0
 nuget System.Memory == 4.5.4
 nuget System.Collections.Immutable == 5.0.0
-
-
