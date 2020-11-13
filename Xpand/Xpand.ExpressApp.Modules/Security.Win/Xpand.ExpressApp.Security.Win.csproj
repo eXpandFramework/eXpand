@@ -15,15 +15,15 @@
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.Security">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Security.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>

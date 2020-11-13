@@ -14,19 +14,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Xpand.ExpressApp.PivotChart">
-      <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.PivotChart.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.PivotChart.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Xpo.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="System.Windows.Forms" />

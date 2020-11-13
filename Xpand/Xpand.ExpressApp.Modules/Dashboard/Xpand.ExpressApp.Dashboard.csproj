@@ -14,16 +14,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Xpo.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>

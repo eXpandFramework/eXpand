@@ -108,7 +108,7 @@ namespace Xpand.ExpressApp.Scheduler.Model {
         protected abstract ISchedulerStorageBase Storage();
         
         protected void SynchMenu(object menu) {
-            var popupMenus = ((IEnumerable<IModelNode>) View.Model.GetNode(PredefinedMap.SchedulerControl.ToString()).GetNode(SchedulerControlService.PopupMenusMoelPropertyName));
+            var popupMenus = ((IEnumerable<IModelNode>) View.Model.GetNode(PredefinedMap.SchedulerControl.ToString()).GetNode(SchedulerControlService.PopupMenusModelPropertyName));
             foreach (var popupMenu in popupMenus.Cast<IModelNodeDisabled>()){
                 var component = GetMenu(menu,popupMenu);
                 if (component != null) {

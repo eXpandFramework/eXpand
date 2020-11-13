@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.Scheduler.Win {
             moduleManager.Extend(PredefinedMap.SchedulerControl);
             moduleManager.ExtendMap(PredefinedMap.SchedulerControl)
                 .Subscribe(_ => {
-                    var propertyType = _.targetInterface.GetProperty(SchedulerControlService.PopupMenusMoelPropertyName)?.PropertyType;
+                    var propertyType = _.targetInterface.GetProperty(SchedulerControlService.PopupMenusModelPropertyName)?.PropertyType;
                     if (propertyType != null) {
                         var targetInterface = propertyType.GetInterfaces()
                             .First(type =>type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IModelList<>))

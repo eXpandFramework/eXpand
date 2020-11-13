@@ -16,7 +16,7 @@
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>

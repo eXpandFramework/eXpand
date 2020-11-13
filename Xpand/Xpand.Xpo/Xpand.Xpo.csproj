@@ -24,7 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
