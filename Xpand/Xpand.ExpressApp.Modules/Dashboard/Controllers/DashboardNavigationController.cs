@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.Extensions.XAF.XafApplicationExtensions;
 using Xpand.Utils.Linq;
+using Xpand.XAF.Modules.Reactive.Services;
 
 namespace Xpand.ExpressApp.Dashboard.Controllers {
     public partial class DashboardNavigationController : WindowController, IModelExtender {
@@ -18,7 +21,7 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
             TargetWindowType = WindowType.Main;
         }
 
-        protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions => _dashboardActions ?? (_dashboardActions = new Dictionary<ChoiceActionItem, DashboardDefinition>());
+        protected Dictionary<ChoiceActionItem, DashboardDefinition> DashboardActions => _dashboardActions ??= new Dictionary<ChoiceActionItem, DashboardDefinition>();
 
         public void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
             extenders.Add<IModelDashboardModule, IModelDashboardModuleNavigation>();
@@ -87,18 +90,23 @@ namespace Xpand.ExpressApp.Dashboard.Controllers {
         protected virtual bool HasRights(ChoiceActionItem item, IModelView view) {
             var data = (ViewShortcut)item.Data;
             if (view == null) {
-                throw new ArgumentException($"Cannot find the '{data.ViewId}' view specified by the shortcut: {data}");
+                if (Application.GetPlatform() == Platform.Win) {
+                    throw new ArgumentException($"Cannot find the '{data.ViewId}' view specified by the shortcut: {data}");
+                }
+
+                var webApi = Application.WhenWeb().Wait();
+                webApi.Redirect(webApi.GetRequestUri().GetLeftPart(UriPartial.Authority));
+
             }
             var objectView = view as IModelObjectView;
             Type type = objectView?.ModelClass.TypeInfo.Type;
             if (type != null) {
                 if (!string.IsNullOrEmpty(data.ObjectKey) && !data.ObjectKey.StartsWith("@")) {
                     try {
-                        using (IObjectSpace space = CreateObjectSpace()) {
-                            object objectByKey = space.GetObjectByKey(type, space.GetObjectKey(type, data.ObjectKey));
-                            return (DataManipulationRight.CanRead(type, null, objectByKey, null, space) &&
-                                    DataManipulationRight.CanNavigate(type, objectByKey, space));
-                        }
+                        using IObjectSpace space = CreateObjectSpace();
+                        object objectByKey = space.GetObjectByKey(type, space.GetObjectKey(type, data.ObjectKey));
+                        return (DataManipulationRight.CanRead(type, null, objectByKey, null, space) &&
+                                DataManipulationRight.CanNavigate(type, objectByKey, space));
                     }
                     catch {
                         return true;
