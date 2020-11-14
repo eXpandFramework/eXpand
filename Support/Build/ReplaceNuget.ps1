@@ -1,7 +1,7 @@
 using namespace system.text.RegularExpressions
 param(
-    $ProjectPath = "C:\Work\eXpandFramework\expand\Xpand\Xpand.ExpressApp.Modules\Security.Win\Xpand.ExpressApp.Security.Win.csproj",
-    $TargetPath = "C:\Work\eXpandFramework\expand\Xpand.dll\Xpand.ExpressApp.Security.Win.dll",
+    $ProjectPath = "C:\Work\eXpandFramework\expand\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj",
+    $TargetPath = "C:\Work\eXpandFramework\expand\Xpand.dll\Xpand.Persistent.Base.dll",
     $SkipNugetReplace
 )
 

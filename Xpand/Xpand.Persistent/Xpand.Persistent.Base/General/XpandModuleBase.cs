@@ -630,6 +630,7 @@ namespace Xpand.Persistent.Base.General {
                 return;
             if (RuntimeMode) {
                 ApplicationHelper.Instance.Initialize(application);
+                new ConnectionStringHelper().Attach(this);
             }
 
             
