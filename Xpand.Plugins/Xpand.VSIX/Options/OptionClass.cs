@@ -10,7 +10,6 @@ using System.Xml;
 using System.Xml.Serialization;
 using EnvDTE80;
 using Microsoft.Win32;
-using Xpand.Extensions.XAF.ObjectExtensions;
 using Xpand.VSIX.Commands;
 using Xpand.VSIX.Extensions;
 

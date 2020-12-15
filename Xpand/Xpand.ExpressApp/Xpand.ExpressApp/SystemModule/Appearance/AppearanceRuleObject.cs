@@ -9,10 +9,9 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
-using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Xpo;
-using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.ExpressApp.SystemModule.Appearance{
     public class AppearanceRuleObject : XpandCustomObject, IAppearanceRuleProperties, ICheckedListBoxItemsProvider{
@@ -70,7 +69,7 @@ namespace Xpand.ExpressApp.SystemModule.Appearance{
         }
 
         [Size(SizeAttribute.Unlimited)]
-        [ValueConverter(typeof(TypeValueConverter))]
+        // [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
         public Type DeclaringType{
             get { return _declaringType; }

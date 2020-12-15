@@ -89,45 +89,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Reports\ActiveCustomers.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Reports\ActiveCustomers.cs" />
     <Compile Update="Reports\ActiveCustomers.Designer.cs">
       <DependentUpon>ActiveCustomers.cs</DependentUpon>
     </Compile>
-    <Compile Update="Reports\CustomerCards.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Reports\CustomerCards.cs" />
     <Compile Update="Reports\CustomerCards.Designer.cs">
       <DependentUpon>CustomerCards.cs</DependentUpon>
     </Compile>
-    <Compile Update="Reports\MostProfitableGenres.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Reports\MostProfitableGenres.cs" />
     <Compile Update="Reports\MostProfitableGenres.Designer.cs">
       <DependentUpon>MostProfitableGenres.cs</DependentUpon>
     </Compile>
-    <Compile Update="Reports\MovieInvetory.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Reports\MovieInvetory.cs" />
     <Compile Update="Reports\MovieInvetory.Designer.cs">
       <DependentUpon>MovieInvetory.cs</DependentUpon>
     </Compile>
-    <Compile Update="Reports\MovieRentalsByCustomer.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Reports\MovieRentalsByCustomer.cs" />
     <Compile Update="Reports\MovieRentalsByCustomer.Designer.cs">
       <DependentUpon>MovieRentalsByCustomer.cs</DependentUpon>
     </Compile>
-    <Compile Update="Reports\TopMovieRentals.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="Reports\TopMovieRentals.cs" />
     <Compile Update="Reports\TopMovieRentals.Designer.cs">
       <DependentUpon>TopMovieRentals.cs</DependentUpon>
     </Compile>
-    <Compile Update="WinModule.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="WinModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">

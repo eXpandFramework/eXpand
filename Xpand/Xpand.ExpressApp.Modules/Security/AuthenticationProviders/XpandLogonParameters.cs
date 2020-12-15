@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -13,7 +14,7 @@ using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.AuthenticationProviders {
     [NonPersistent]
-    [Serializable]
+    [Serializable][DomainComponent]
     public class XpandLogonParameters : AuthenticationStandardLogonParameters, IXpandLogonParameters, ICustomLogonParameter, IDBServerParameter{
         private string _dbServer;
         SettingsStorage _storage;

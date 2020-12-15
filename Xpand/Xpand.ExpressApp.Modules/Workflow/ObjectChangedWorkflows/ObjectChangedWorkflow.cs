@@ -5,7 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
-using Xpand.Persistent.Base.General.ValueConverters;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
@@ -107,7 +107,7 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
 
 
         public bool IsActive {
-            get => GetPropertyValue<bool>("IsActive");
+            get => GetPropertyValue<bool>();
             set => SetPropertyValue("IsActive", value);
         }
 
@@ -115,14 +115,14 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         public bool CanOpenHost => IsActive && !string.IsNullOrEmpty(Name);
 
         public string Name {
-            get => GetPropertyValue<string>("Name");
+            get => GetPropertyValue<string>();
             set => SetPropertyValue("Name", value);
         }
 
         [Size(SizeAttribute.Unlimited)]
         [ModelDefault("PropertyEditorType", "DevExpress.ExpressApp.Workflow.Win.WorkflowPropertyEditor")]
         public string Xaml {
-            get => GetPropertyValue<string>("Xaml");
+            get => GetPropertyValue<string>();
             set => SetPropertyValue("Xaml", value);
         }
         #endregion

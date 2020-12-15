@@ -31,7 +31,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
         internal static IObservable<Unit> Connect(this XafApplication application) {
             var modified = application.WhenDetailViewCreated()
                 .Select(_ => _.e.View).Where(_ => _.ObjectTypeInfo.Type == typeof(ExcelImport))
-                .SelectMany(_ => _.ObjectSpace.WhenCommited().Select(tuple => (ExcelImport) _.CurrentObject)).Publish().RefCount();
+                .SelectMany(_ => _.ObjectSpace.WhenCommitted().Select(tuple => (ExcelImport) _.CurrentObject)).Publish().RefCount();
             
             
             var existingCanAutoImport = application.WhenSetupComplete()

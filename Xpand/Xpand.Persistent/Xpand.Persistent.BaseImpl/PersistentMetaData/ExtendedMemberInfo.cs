@@ -6,8 +6,8 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
-using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
@@ -30,8 +30,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         [Browsable(false)]
         public PersistentClassInfo OwnerClassInfo {
-            get { return _ownerClassInfo; }
-            set { SetPropertyValue("OwnerClassInfo", ref _ownerClassInfo, value); }
+            get => _ownerClassInfo;
+            set => SetPropertyValue("OwnerClassInfo", ref _ownerClassInfo, value);
         }
 
         #region IExtendedMemberInfo Members
@@ -40,12 +40,12 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [RuleRequiredField(null, DefaultContexts.Save)]
         [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
         public Type Owner {
-            get { return _owner; }
-            set { SetPropertyValue("Owner", ref _owner, value); }
+            get => _owner;
+            set => SetPropertyValue("Owner", ref _owner, value);
         }
 
         [PersistentAlias("Concat(_owner,'')")]
-        public string OwnerType => (string)EvaluateAlias("OwnerType");
+        public string OwnerType => (string)EvaluateAlias();
 
         #endregion
     }

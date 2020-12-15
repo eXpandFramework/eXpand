@@ -4,7 +4,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects;
-using Xpand.Persistent.Base.General.ValueConverters;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
@@ -34,7 +34,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type ReferenceType{
-            get { return _referenceType; }
+            get => _referenceType;
             set{
                 SetPropertyValue("ReferenceType", ref _referenceType, value);
                 if (!IsLoading && !IsSaving){
@@ -46,16 +46,16 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
 
 
         public bool AutoGenerateOtherPartMember{
-            get { return _autoGenerateOtherPartMember; }
-            set { SetPropertyValue("AutoGenerateOtherPartMember", ref _autoGenerateOtherPartMember, value); }
+            get => _autoGenerateOtherPartMember;
+            set => SetPropertyValue("AutoGenerateOtherPartMember", ref _autoGenerateOtherPartMember, value);
         }
 
         #region IPersistentReferenceMemberInfo Members
 
         [Browsable(false)]
         public string ReferenceTypeFullName{
-            get { return _referenceTypeFullName; }
-            set { SetPropertyValue("ReferenceTypeFullName", ref _referenceTypeFullName, value); }
+            get => _referenceTypeFullName;
+            set => SetPropertyValue("ReferenceTypeFullName", ref _referenceTypeFullName, value);
         }
 
         void IPersistentReferenceMemberInfo.SetReferenceTypeFullName(string value){
@@ -71,7 +71,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         }
 
         public PersistentClassInfo ReferenceClassInfo{
-            get { return _referenceClassInfo; }
+            get => _referenceClassInfo;
             set{
                 SetPropertyValue("ReferenceClassInfo", ref _referenceClassInfo, value);
                 if (!IsLoading && !IsSaving){
@@ -85,8 +85,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         }
 
         IPersistentClassInfo IPersistentReferenceMemberInfo.ReferenceClassInfo{
-            get { return ReferenceClassInfo; }
-            set { ReferenceClassInfo = value as PersistentClassInfo; }
+            get => ReferenceClassInfo;
+            set => ReferenceClassInfo = value as PersistentClassInfo;
         }
 
         #endregion

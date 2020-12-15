@@ -11,11 +11,10 @@ using DevExpress.Xpo;
 using ICSharpCode.SharpZipLib.Core;
 using ICSharpCode.SharpZipLib.Zip;
 using Xpand.ExpressApp.ExcelImporter.Services;
+using Xpand.Extensions.XAF.Attributes;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.CustomAttributes;
-using Xpand.Persistent.Base.General.ValueConverters;
-using Xpand.Xpo.Converters.ValueConverters;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{

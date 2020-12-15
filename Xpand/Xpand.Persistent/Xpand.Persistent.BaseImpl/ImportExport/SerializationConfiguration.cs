@@ -4,8 +4,8 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
-using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.ImportExport;
 
 namespace Xpand.Persistent.BaseImpl.ImportExport {
@@ -23,9 +23,7 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         [VisibleInListView(true)]
         [RuleRequiredField]
         public Type TypeToSerialize {
-            get {
-                return _typeToSerialize;
-            }
+            get => _typeToSerialize;
             set{
                 SetPropertyValue("TypeToSerialize", ref _typeToSerialize, value);
                 TypeNameToSerialize = value == null ? null : value.FullName;
@@ -34,18 +32,18 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         [Persistent]
         [Size(SizeAttribute.Unlimited)] protected string TypeNameToSerialize;
         [Association]
-        public XPCollection<ClassInfoGraphNode> SerializationGraph => GetCollection<ClassInfoGraphNode>("SerializationGraph");
+        public XPCollection<ClassInfoGraphNode> SerializationGraph => GetCollection<ClassInfoGraphNode>();
 
         [RuleRequiredField]
         [Association("SerializationConfigurationGroup-SerializationConfigurations")]
         [VisibleInDetailView(false)]
         public SerializationConfigurationGroup SerializationConfigurationGroup {
-            get { return _serializationConfigurationGroup; }
-            set { SetPropertyValue("SerializationConfigurationGroup", ref _serializationConfigurationGroup, value); }
+            get => _serializationConfigurationGroup;
+            set => SetPropertyValue("SerializationConfigurationGroup", ref _serializationConfigurationGroup, value);
         }
         ISerializationConfigurationGroup ISerializationConfiguration.SerializationConfigurationGroup {
-            get { return SerializationConfigurationGroup; }
-            set { SerializationConfigurationGroup = value as SerializationConfigurationGroup; }
+            get => SerializationConfigurationGroup;
+            set => SerializationConfigurationGroup = value as SerializationConfigurationGroup;
         }
 
         IList<IClassInfoGraphNode> ISerializationConfiguration.SerializationGraph => new ListConverter<IClassInfoGraphNode, ClassInfoGraphNode>(SerializationGraph);

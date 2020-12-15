@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
@@ -29,6 +30,9 @@ namespace Xpand.VSIX.ToolWindow.FavoriteProject {
         private void LoadProject(ProjectItemWrapper projectItemWrapper) {
             _dte.InitOutputCalls("LoadProject");
             try{
+                if (!File.Exists(projectItemWrapper.FullPath)) {
+                    _dte.WriteToOutput($"NOT FOUND {projectItemWrapper.FullPath}");
+                }
                 var project = DteExtensions.DTE.Solution.AddFromFile(projectItemWrapper.FullPath);
                 project.SkipBuild();
                 project.ChangeActiveConfiguration();
@@ -39,6 +43,7 @@ namespace Xpand.VSIX.ToolWindow.FavoriteProject {
         }
 
         private void gridView1_KeyUp(object sender, KeyEventArgs e) {
+            
             var gridView = ((GridView)gridControl1.MainView);
             if (e.KeyCode == Keys.Return) {
                 if (GridControl.AutoFilterRowHandle != gridView.FocusedRowHandle&& GridControl.InvalidRowHandle != gridView.FocusedRowHandle) {

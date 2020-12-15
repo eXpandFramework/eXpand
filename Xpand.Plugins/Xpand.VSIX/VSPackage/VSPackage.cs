@@ -42,7 +42,9 @@ namespace Xpand.VSIX.VSPackage {
         private static VSPackage _instance;
 
         public const string PackageGuidString = "fa1289e0-6376-4d19-98c5-9d0c90dd3284";
-        public VSPackage() => _instance = this;
+        public VSPackage() {
+            _instance = this;
+        }
 
         public new object GetService(Type type) => base.GetService(type);
 
@@ -52,6 +54,7 @@ namespace Xpand.VSIX.VSPackage {
         public T GetDialogPage<T>() where T:DialogPage => (T)GetDialogPage(typeof(T));
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress) {
+            
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             // var properties = this.DTE2().Properties["Environment", "General"].Cast<Property>().Select(property => new{property.Name,property.Value,property}).ToArray();
             // var value = this.DTE2().Properties["Environment", "General"].Item("RenderingText").Value;

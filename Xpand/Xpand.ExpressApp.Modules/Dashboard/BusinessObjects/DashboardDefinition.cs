@@ -8,8 +8,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Dashboard.Services;
+using Xpand.Extensions.XAF.Attributes;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.Security;
 using Xpand.XAF.Modules.CloneModelView;
 using Xpand.Xpo;
@@ -65,11 +65,11 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         [Browsable(false)]
         internal IEnumerable<TypeWrapper> Types {
             get {
-                return _types ?? (_types = XafTypesInfo.Instance.PersistentTypes
-                                                       .Where(info => (info.IsVisible && info.IsPersistent) && (info.Type != null))
-                                                       .Select(info => new TypeWrapper(info.Type))
-                                                       .OrderBy(info => info.GetDefaultCaption())
-                                                       .ToList());
+                return _types ??= XafTypesInfo.Instance.PersistentTypes
+                    .Where(info => (info.IsVisible && info.IsPersistent) && (info.Type != null))
+                    .Select(info => new TypeWrapper(info.Type))
+                    .OrderBy(info => info.GetDefaultCaption())
+                    .ToList();
             }
         }
 
@@ -97,7 +97,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         [VisibleInDetailView(false)]
         [EditorAlias(EditorAliases.DashboardXMLEditor)]
         public string Xml{
-            get => GetDelayedPropertyValue<string>("Xml");
+            get => GetDelayedPropertyValue<string>();
             set => SetDelayedPropertyValue("Xml", value);
         }
 
@@ -107,7 +107,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         public IList<ITypeWrapper> DashboardTypes => GetBindingList();
 
         BindingList<ITypeWrapper> GetBindingList() {
-            return _dashboardTypes ?? (_dashboardTypes = new BindingList<ITypeWrapper>());
+            return _dashboardTypes ??= new BindingList<ITypeWrapper>();
         }
 
         public override void AfterConstruction() {

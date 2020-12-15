@@ -3,8 +3,9 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Xpo;
-using Xpand.Xpo.Converters.ValueConverters;
+
 
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
     public interface IObjectChangedWorkflowRequest : IStartWorkflowRequest {
@@ -18,41 +19,39 @@ namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {
         public override object ConvertToStorageType(object value) {
             return XPWeakReference.KeyToString(value);
         }
-        public override Type StorageType {
-            get { return typeof(string); }
-        }
+        public override Type StorageType => typeof(string);
     }
 
     public class ObjectChangedXpoStartWorkflowRequest : XpandCustomObject, IObjectChangedWorkflowRequest {
 
         [TypeConverter(typeof(StringToTypeConverter))]
         public Type TargetObjectType {
-            get { return _targetObjectType; } 
-            set { SetPropertyValue("TargetObjectType", ref _targetObjectType, value); }
+            get => _targetObjectType;
+            set => SetPropertyValue("TargetObjectType", ref _targetObjectType, value);
         }
         #region IDCStartWorkflowRequest Members
         public string TargetWorkflowUniqueId {
-            get { return GetPropertyValue<string>("TargetWorkflowUniqueId"); } 
-            set { SetPropertyValue("TargetWorkflowUniqueId", value); }
+            get => GetPropertyValue<string>();
+            set => SetPropertyValue("TargetWorkflowUniqueId", value);
         }
 
         [ValueConverter(typeof(KeyConverter))]
         public object TargetObjectKey {
-            get { return GetPropertyValue<object>("TargetObjectKey"); } 
-            set { SetPropertyValue<object>("TargetObjectKey", value); }
+            get => GetPropertyValue<object>();
+            set => SetPropertyValue<object>("TargetObjectKey", value);
         }
         #endregion
         #region IObjectChangedWorkflowRequest Members
         public string PropertyName {
-            get { return _propertyName; } 
-            set { SetPropertyValue("PropertyName", ref _propertyName, value); }
+            get => _propertyName;
+            set => SetPropertyValue("PropertyName", ref _propertyName, value);
         }
 
         [ValueConverter(typeof(SerializableObjectConverter))]
         [Size(SizeAttribute.Unlimited)]
         public object OldValue {
-            get { return _oldValue; }
-            set { SetPropertyValue("OldValue", ref _oldValue, value); }
+            get => _oldValue;
+            set => SetPropertyValue("OldValue", ref _oldValue, value);
         }
         #endregion
         public ObjectChangedXpoStartWorkflowRequest(Session session)

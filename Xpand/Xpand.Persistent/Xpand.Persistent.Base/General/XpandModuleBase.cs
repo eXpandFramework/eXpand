@@ -28,7 +28,6 @@ using Microsoft.Win32;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Controllers.Actions;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
-using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.General.CustomFunctions;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.MessageBox;
@@ -48,7 +47,6 @@ using Xpand.Persistent.Base.General.Web.SyntaxHighlight;
 using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;
-using Xpand.Xpo.MetaData;
 using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttribute;
 using TypeInfo = DevExpress.ExpressApp.DC.TypeInfo;
 
@@ -91,8 +89,8 @@ namespace Xpand.Persistent.Base.General {
         public event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
 
         static XpandModuleBase(){
-            AppDomain.CurrentDomain.AddModelReference("netstandard");
             try {
+                AppDomain.CurrentDomain.AddModelReference("netstandard");
                 AdditionalTypesTypesInfo=new TypesInfo();
                 if (Process.GetCurrentProcess().ProcessName!="devenv") {
                     LoadAssemblyRegularTypes();
@@ -751,7 +749,6 @@ namespace Xpand.Persistent.Base.General {
                 CreateXpandDefaultProperty(typesInfo);
                 ModelValueOperator.Instance.Register();
                 EvaluateCSharpOperator.Instance.Register();
-                ConvertInvisibleInAllViewsAttribute(typesInfo);
 
                 AssignSecurityEntities();
                 ITypeInfo findTypeInfo = typesInfo.FindTypeInfo(typeof(IModelMember));
@@ -800,25 +797,11 @@ namespace Xpand.Persistent.Base.General {
                     memberInfo.AddAttribute(new ModelDefaultAttribute("PropertyEditorType", typeInfo.Type.FullName));
             }
         }
-
-        private static void ConvertInvisibleInAllViewsAttribute(ITypesInfo typesInfo) {
-            foreach (var memberInfo in typesInfo.PersistentTypes.SelectMany(typeInfo =>
-                typeInfo.OwnMembers.Where(info => info.FindAttribute<InvisibleInAllViewsAttribute>() != null))
-                .ToList()) {
-                memberInfo.AddAttribute(new VisibleInDetailViewAttribute(false));
-                memberInfo.AddAttribute(new VisibleInListViewAttribute(false));
-                memberInfo.AddAttribute(new VisibleInLookupListViewAttribute(false));
-            }
-        }
-
+        
         private static void CreateXpandDefaultProperty(ITypesInfo typesInfo) {
             var infos = typesInfo.PersistentTypes.Select(info => new { TypeInfo = info, Attribute = info.FindAttribute<XpandDefaultPropertyAttribute>() })
                     .Where(arg => arg.Attribute != null).ToList();
             foreach (var info in infos.Where(arg => arg.TypeInfo.Base.FindAttribute<XpandDefaultPropertyAttribute>() == null)) {
-                var classInfo = info.TypeInfo.QueryXPClassInfo();
-                var memberInfo = new XpandCalcMemberInfo(classInfo, info.Attribute.MemberName, typeof(string), info.Attribute.Expression);
-                if (info.Attribute.InVisibleInAllViews)
-                    memberInfo.AddAttribute(new InvisibleInAllViewsAttribute());
                 typesInfo.RefreshInfo(info.TypeInfo);
                 ((TypeInfo)info.TypeInfo).DefaultMember = info.TypeInfo.FindMember(info.Attribute.MemberName);
             }

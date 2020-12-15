@@ -3,7 +3,7 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.Persistent.Base.General.ValueConverters;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
@@ -20,8 +20,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [RuleRequiredField(null, DefaultContexts.Save)]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type ReferenceType {
-            get { return _referenceType; }
-            set { SetPropertyValue("ReferenceType", ref _referenceType, value); }
+            get => _referenceType;
+            set => SetPropertyValue("ReferenceType", ref _referenceType, value);
         }
     }
 }

@@ -5,12 +5,12 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
 using Xpand.Utils.Helpers;
-using Xpand.Xpo.Converters.ValueConverters;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
     [AdditionalViewControlsRule("XpandAnnualCalendarHelp", "1=1", "1=1", @"This implementation of the Calendar excludes a set of days of the year. You may use it to exclude bank holidays which are on the same date every year. ", Position.Top, ViewType = ViewType.DetailView)]

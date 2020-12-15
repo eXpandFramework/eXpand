@@ -4,7 +4,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects;
-using Xpand.Persistent.Base.General.ValueConverters;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
@@ -35,7 +35,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type CollectionType{
-            get { return _collectionType; }
+            get => _collectionType;
             set{
                 SetPropertyValue("CollectionType", ref _collectionType, value);
                 if (!IsLoading && !IsSaving){
@@ -49,8 +49,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
 
         [Browsable(false)]
         public string CollectionTypeFullName{
-            get { return _collectionTypeFullName; }
-            set { SetPropertyValue("CollectionTypeFullName", ref _collectionTypeFullName, value); }
+            get => _collectionTypeFullName;
+            set => SetPropertyValue("CollectionTypeFullName", ref _collectionTypeFullName, value);
         }
 
         void IPersistentCollectionMemberInfo.SetCollectionTypeFullName(string s){
@@ -66,7 +66,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         }
 
         public PersistentClassInfo CollectionClassInfo{
-            get { return _collectionClassInfo; }
+            get => _collectionClassInfo;
             set{
                 SetPropertyValue("CollectionClassInfo", ref _collectionClassInfo, value);
                 if (!IsLoading && !IsSaving){
@@ -80,8 +80,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData{
         }
 
         IPersistentClassInfo IPersistentCollectionMemberInfo.CollectionClassInfo{
-            get { return CollectionClassInfo; }
-            set { CollectionClassInfo = value as PersistentClassInfo; }
+            get => CollectionClassInfo;
+            set => CollectionClassInfo = value as PersistentClassInfo;
         }
 
         #endregion

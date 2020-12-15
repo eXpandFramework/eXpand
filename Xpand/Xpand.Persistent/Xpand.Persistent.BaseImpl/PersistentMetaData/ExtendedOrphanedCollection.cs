@@ -3,7 +3,7 @@ using System.ComponentModel;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
-using Xpand.Persistent.Base.General.ValueConverters;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 
@@ -20,18 +20,14 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         PersistentClassInfo _elementClassInfo;
 
         public string Criteria {
-            get {
-                return _criteria;
-            }
-            set {
-                SetPropertyValue("Criteria", ref _criteria, value);
-            }
+            get => _criteria;
+            set => SetPropertyValue("Criteria", ref _criteria, value);
         }
         [Size(SizeAttribute.Unlimited)]
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type ElementType {
-            get { return _elementType; }
+            get => _elementType;
             set {
                 SetPropertyValue("ElementType", ref _elementType, value);
                 if (_elementType != null)
@@ -42,10 +38,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         public PersistentClassInfo ElementClassInfo {
-            get { return _elementClassInfo; }
+            get => _elementClassInfo;
             set {
                 SetPropertyValue("ElementClassInfo", ref _elementClassInfo, value);
-                if (_elementClassInfo != null && _elementClassInfo.PersistentAssemblyInfo != null) {
+                if (_elementClassInfo?.PersistentAssemblyInfo != null) {
                     _elementTypeFullName = _elementClassInfo.PersistentAssemblyInfo.Name + "." + _elementClassInfo.Name;
                 } else if (_elementClassInfo == null && _elementType == null)
                     _elementTypeFullName = null;
@@ -55,8 +51,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Size(SizeAttribute.Unlimited)]
         [Browsable(false)]
         public string ElementTypeFullName {
-            get { return _elementTypeFullName; }
-            set { SetPropertyValue("ElementTypeFullName", ref _elementTypeFullName, value); }
+            get => _elementTypeFullName;
+            set => SetPropertyValue("ElementTypeFullName", ref _elementTypeFullName, value);
         }
     }
 }

@@ -9,3 +9,4 @@ DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.ViewVariantsModule
 DevExpress.ExpressApp.Security.Xpo
 DevExpress.Persistent.BaseImpl
+System.ValueTuple

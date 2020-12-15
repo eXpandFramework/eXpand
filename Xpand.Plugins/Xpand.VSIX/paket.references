@@ -8,3 +8,4 @@ System.Configuration.ConfigurationManager
 System.Management
 System.Reactive
 System.Xml.XDocument
+System.Buffers

@@ -2,8 +2,8 @@ using System;
 using System.Drawing;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.AdditionalViewControls;
-using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.BaseImpl.Security.PermissionPolicyData;
 
 namespace Xpand.Persistent.BaseImpl.AdditionalViewControls {

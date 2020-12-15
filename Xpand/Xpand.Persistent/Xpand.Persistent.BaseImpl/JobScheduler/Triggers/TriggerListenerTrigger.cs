@@ -7,8 +7,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.JobScheduler;
 using Xpand.Persistent.Base.JobScheduler.Triggers;
 using Xpand.Xpo;
@@ -25,53 +25,33 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Triggers {
         [TypeConverter(typeof(JobTypeClassInfoConverter))]
         [RuleRequiredField(TargetCriteria = "Group Is Null")]
         public Type JobType {
-            get {
-                return _jobType;
-            }
-            set {
-                SetPropertyValue("JobType", ref _jobType, value);
-            }
+            get => _jobType;
+            set => SetPropertyValue("JobType", ref _jobType, value);
         }
         private JobSchedulerGroup _group;
         [RuleRequiredField(TargetCriteria = "JobType Is Null")]
         [ProvidedAssociation("JobSchedulerGroup-TriggerListenerTriggers")]
         public JobSchedulerGroup Group {
-            get {
-                return _group;
-            }
-            set {
-                SetPropertyValue("Group", ref _group, value);
-            }
+            get => _group;
+            set => SetPropertyValue("Group", ref _group, value);
         }
         IJobSchedulerGroup ITriggerListenerTrigger.Group {
-            get { return Group; }
-            set { Group = value as JobSchedulerGroup; }
+            get => Group;
+            set => Group = value as JobSchedulerGroup;
         }
 
         private TriggerListenerEvent _event;
         public TriggerListenerEvent Event {
-            get {
-                return _event;
-            }
-            set {
-                SetPropertyValue("Event", ref _event, value);
-            }
+            get => _event;
+            set => SetPropertyValue("Event", ref _event, value);
         }
         [ManyToManyAlias("Links", "JobTrigger")]
-        public IList<XpandJobTrigger> JobTriggers {
-            get { return GetList<XpandJobTrigger>("JobTriggers"); }
-        }
+        public IList<XpandJobTrigger> JobTriggers => GetList<XpandJobTrigger>();
 
-        IList<IXpandJobTrigger> ITriggerListenerTrigger.JobTriggers {
-            get { return new ListConverter<IXpandJobTrigger, XpandJobTrigger>(JobTriggers); }
-        }
+        IList<IXpandJobTrigger> ITriggerListenerTrigger.JobTriggers => new ListConverter<IXpandJobTrigger, XpandJobTrigger>(JobTriggers);
 
         [Association("TriggerListenerTrigger-JobTriggerTriggerListenerTriggerLinks"), AggregatedAttribute]
-        protected IList<JobTriggerTriggerListenerTriggerLink> Links {
-            get {
-                return GetList<JobTriggerTriggerListenerTriggerLink>("Links");
-            }
-        }
+        protected IList<JobTriggerTriggerListenerTriggerLink> Links => GetList<JobTriggerTriggerListenerTriggerLink>();
     }
 
 }

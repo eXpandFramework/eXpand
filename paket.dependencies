@@ -1,10 +1,8 @@
-lowest_matching:false
-strategy:max
-storage: none
 source C:\Program Files (x86)\DevExpress 20.2\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
-
+storage: none
+copy_local:true
 framework:net461,netstandard2.0
 
 nuget AForge 2.2.5
@@ -15,13 +13,13 @@ nuget AppDomainToolkit 1.0.4.3
 nuget AutoMapper 3.3.1
 nuget CommandLineParser 1.9.71
 nuget Common.Logging 3.4.1
-nuget DevExpress.ExpressApp.Win.All == 20.2.3
-nuget DevExpress.ExpressApp.Web.All == 20.2.3
-nuget DevExpress.ExpressApp.Core.All  == 20.2.3
-nuget DevExpress.ExpressApp.Security.Xpo == 20.2.3
-nuget DevExpress.ExpressApp.Reports == 20.2.3
-nuget DevExpress.ExpressApp.Reports.Win == 20.2.3
-nuget DevExpress.Document.Processor 20.2.3
+nuget DevExpress.ExpressApp.Win.All == 20.2.4 netstandard2.0
+nuget DevExpress.ExpressApp.Web.All == 20.2.4 netstandard2.0
+nuget DevExpress.ExpressApp.Core.All  == 20.2.4 netstandard2.0
+nuget DevExpress.ExpressApp.Security.Xpo == 20.2.4 netstandard2.0
+nuget DevExpress.ExpressApp.Reports == 20.2.4 netstandard2.0
+nuget DevExpress.ExpressApp.Reports.Win == 20.2.4 netstandard2.0
+nuget DevExpress.Document.Processor 20.2.4 netstandard2.0
 nuget DocumentFormat.OpenXml 2.11.3
 nuget DotNetZip 1.14.0
 nuget Enums.NET 3.0.3
@@ -31,7 +29,7 @@ nuget Fasterflect.Xpand 2.0.7
 nuget Fody 4.2.1 copy_local: false
 nuget IIS.Microsoft.Web.Adminstration 8.5.9600.16384
 nuget InputSimulator 1.0.4.0
-nuget JetBrains.Annotations 2020.1.0
+nuget JetBrains.Annotations
 nuget Microsoft.AspNet.Razor 3.2.7
 nuget Microsoft.CSharp 4.7.0
 nuget Microsoft.NETCore.Platforms 5.0.0
@@ -61,7 +59,7 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 4.2.1
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.202.0.0
-nuget Xpand.XAF.Web.All 4.202.0.0
+nuget Xpand.XAF.Win.All 4.202.44.2
+nuget Xpand.XAF.Web.All 4.202.44.2
 nuget System.Memory == 4.5.4
 nuget System.Collections.Immutable == 5.0.0

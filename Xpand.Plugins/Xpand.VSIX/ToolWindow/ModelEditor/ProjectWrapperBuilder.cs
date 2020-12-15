@@ -45,8 +45,8 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
             var appendTargetFrameworkToOutputPath = item.Project.AllEvaluatedProperties.FirstOrDefault(property => property.Name == "AppendTargetFrameworkToOutputPath")
                 ?.EvaluatedValue;
             var outputPath = GetEvaluatedValue(item, "OutputPath");
+            var targetFramework = item.Project.AllEvaluatedProperties.FirstOrDefault(property => property.Name == "TargetFramework")?.EvaluatedValue;
             if (appendTargetFrameworkToOutputPath == "true") {
-                var targetFramework = item.Project.AllEvaluatedProperties.First(property => property.Name == "TargetFramework").EvaluatedValue;
                 outputPath += targetFramework;
             }
             var fullPath = GetEvaluatedValue(item, "ProjectDir");
@@ -59,7 +59,8 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
                 IsApplicationProject = Path.GetExtension(targetFileName) == ".exe" || IsWeb(fullPath),
                 FullPath = fullPath,
                 UniqueName = Path.GetDirectoryName(fullPath) + @"\" + GetEvaluatedValue(item, "ProjectFileName"),
-                LocalPath = Path.GetDirectoryName(fullPath) + @"\" + item.EvaluatedInclude
+                LocalPath = Path.GetDirectoryName(fullPath) + @"\" + item.EvaluatedInclude,
+                TargetFramework=targetFramework
             };
         }
 

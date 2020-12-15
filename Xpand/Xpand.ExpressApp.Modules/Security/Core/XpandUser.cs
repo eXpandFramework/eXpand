@@ -2,8 +2,8 @@
 using DevExpress.ExpressApp.Security.Strategy;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Attributes;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.Security.Core{
@@ -18,15 +18,15 @@ namespace Xpand.ExpressApp.Security.Core{
 
         [InvisibleInAllViews]
         public string Activation {
-            get { return _activation; }
-            set { SetPropertyValue("Activation", ref _activation, value); }
+            get => _activation;
+            set => SetPropertyValue("Activation", ref _activation, value);
         }
 
         [ModelDefault("IsEmail","True")]
         [EditorAlias(EditorAliases.HyperLinkPropertyEditor)]
         public string Email {
-            get { return _email; }
-            set { SetPropertyValue("Email", ref _email, value); }
+            get => _email;
+            set => SetPropertyValue("Email", ref _email, value);
         }
     }
 }

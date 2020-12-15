@@ -1,6 +1,6 @@
 ﻿using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Attributes;
 using Xpand.Persistent.Base;
-using Xpand.Persistent.Base.General.CustomAttributes;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     

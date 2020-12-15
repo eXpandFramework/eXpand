@@ -14,9 +14,9 @@ using DevExpress.Xpo;
 using Fasterflect;
 using Xpand.ExpressApp.Logic;
 using Xpand.ExpressApp.Logic.DomainLogic;
+using Xpand.Extensions.XAF.Attributes;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
-using Xpand.Persistent.Base.General.CustomAttributes;
-using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
@@ -65,7 +65,7 @@ namespace Xpand.Persistent.BaseImpl.Security.PermissionPolicyData {
         [TypeConverter(typeof (XpandLocalizedClassInfoTypeConverter))]
         [Index(2)]
         public Type ObjectTypeData {
-            get { return _objectTypeData; }
+            get => _objectTypeData;
             set {
                 SetPropertyValue("ObjectTypeData", ref _objectTypeData, value);
                 OnChanged("TypeInfo");
@@ -76,8 +76,8 @@ namespace Xpand.Persistent.BaseImpl.Security.PermissionPolicyData {
         public string ID { get; set; }
 
         string ILogicRuleOperationPermissionData.ViewId{
-            get { return View; }
-            set { View = value; }
+            get => View;
+            set => View = value;
         }
 
         [Index(9)]
@@ -122,11 +122,11 @@ namespace Xpand.Persistent.BaseImpl.Security.PermissionPolicyData {
 
 
         string IRule.Id {
-            get { return ID; }
-            set { ID = value; }
+            get => ID;
+            set => ID = value;
         }
         ITypeInfo ILogicRule.TypeInfo {
-            get { return XafTypesInfo.Instance.FindTypeInfo(ObjectTypeData); }
+            get => XafTypesInfo.Instance.FindTypeInfo(ObjectTypeData);
             set { }
         }
         [Size(SizeAttribute.Unlimited)]

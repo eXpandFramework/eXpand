@@ -108,9 +108,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Update="WinApplication.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Update="WinApplication.cs" />
     <Compile Update="WinApplication.Designer.cs">
       <DependentUpon>WinApplication.cs</DependentUpon>
     </Compile>

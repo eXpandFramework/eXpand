@@ -9,7 +9,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Fasterflect;
 using PropertyChanged;
-using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Extensions.XAF.Attributes;
 
 
 namespace Xpand.Persistent.Base {

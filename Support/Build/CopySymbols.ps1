@@ -1,5 +1,6 @@
 param(
-    $TargetPath="C:\Work\eXpandFramework\Issues\Solution10\Solution10.Module\bin\Debug\Solution10.Module.dll"
+    $TargetPath="C:\Work\eXpandFramework\Issues\Solution10\Solution10.Module\bin\Debug\Solution10.Module.dll",
+    $ProjectPath="DoNotRemove"
 )
 $pdbname = "$((Get-ChildItem $PSScriptRoot *.targets).BaseName).pdb"
 $targetDir=[System.IO.Path]::GetDirectoryName($TargetPath)

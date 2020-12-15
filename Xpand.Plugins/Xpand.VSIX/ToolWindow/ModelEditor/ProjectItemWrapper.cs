@@ -12,5 +12,6 @@
 
         public string LocalPath { get; set; }
         public string ModelFileName { get; set; }
+        public string TargetFramework { get; set; }
     }
 }

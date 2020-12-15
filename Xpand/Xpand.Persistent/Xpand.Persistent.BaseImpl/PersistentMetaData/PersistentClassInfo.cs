@@ -7,9 +7,9 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.WorldCreator.CodeProvider;
+using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.Validation.FromIPropertyValueValidator;
 using Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos;
@@ -49,7 +49,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [TypeConverter(typeof(XpandLocalizedClassInfoTypeConverter))]
         [RuleRequiredField(TargetCriteria = "(MergedObjectType Is Not NULL OR MergedClassInfo Is Not Null) and BaseClassInfo Is NULL")]
         public Type BaseType {
-            get { return _baseType; }
+            get => _baseType;
             set {
                 SetPropertyValue(BaseTypeName, ref _baseType, value);
                 if (_baseType != null) {
@@ -66,7 +66,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Index(1)]
         [RuleRequiredField(TargetCriteria = "(MergedObjectType Is Not NULL OR MergedClassInfo Is Not Null) and BaseType Is NULL")]
         public PersistentClassInfo BaseClassInfo {
-            get { return _baseClassInfo; }
+            get => _baseClassInfo;
             set {
                 SetPropertyValue("BaseClassInfo", ref _baseClassInfo, value);
                 if (_baseClassInfo?.PersistentAssemblyInfo != null) {
@@ -84,7 +84,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [ValueConverter(typeof(TypeValueConverter))]
         [TypeConverter(typeof(LocalizedClassInfoTypeConverter))]
         public Type MergedObjectType {
-            get { return _mergedObjectType; }
+            get => _mergedObjectType;
             set {
                 SetPropertyValue(nameof(MergedObjectType), ref _mergedObjectType, value);
                 if (_mergedObjectType != null) {
@@ -100,7 +100,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         [Index(3)]
         public PersistentClassInfo MergedClassInfo {
-            get { return _mergedClassInfo; }
+            get => _mergedClassInfo;
             set {
                 SetPropertyValue("MergedClassInfo", ref _mergedClassInfo, value);
                 if (_mergedClassInfo?.PersistentAssemblyInfo != null) {
@@ -120,22 +120,22 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Association("PersistentClassInfo-OwnMembers")]
         [Aggregated]
 //        [RuleFromIPropertyValueValidator()]
-        public XPCollection<PersistentMemberInfo> OwnMembers => GetCollection<PersistentMemberInfo>("OwnMembers");
+        public XPCollection<PersistentMemberInfo> OwnMembers => GetCollection<PersistentMemberInfo>();
 
         [Association("PersistentClassInfos-Interfaces"),Aggregated]
-        public XPCollection<InterfaceInfo> Interfaces => GetCollection<InterfaceInfo>("Interfaces");
+        public XPCollection<InterfaceInfo> Interfaces => GetCollection<InterfaceInfo>();
 
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]
         public PersistentAssemblyInfo PersistentAssemblyInfo {
-            get { return _persistentAssemblyInfo; }
-            set { SetPropertyValue("PersistentAssemblyInfo", ref _persistentAssemblyInfo, value); }
+            get => _persistentAssemblyInfo;
+            set => SetPropertyValue("PersistentAssemblyInfo", ref _persistentAssemblyInfo, value);
         }
 
         #region IPersistentClassInfo Members
         [Browsable(false)]
         [Size(SizeAttribute.Unlimited)]
         public string BaseTypeFullName {
-            get { return _baseTypeFullName; }
+            get => _baseTypeFullName;
             set {
                 SetPropertyValue(BaseTypeFullNameName, ref _baseTypeFullName, value);
                 _baseType = ReflectionHelper.FindType(value);
@@ -146,7 +146,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Browsable(false)]
         [Size(SizeAttribute.Unlimited)]
         public string MergedObjectFullName {
-            get { return _mergedObjectFullName; }
+            get => _mergedObjectFullName;
             set {
                 SetPropertyValue(MergedObjectFullNameName, ref _mergedObjectFullName, value);
                 _mergedObjectType=ReflectionHelper.FindType(value);
@@ -158,8 +158,8 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
 
         IPersistentAssemblyInfo IPersistentClassInfo.PersistentAssemblyInfo {
-            get { return PersistentAssemblyInfo; }
-            set { PersistentAssemblyInfo = value as PersistentAssemblyInfo; }
+            get => PersistentAssemblyInfo;
+            set => PersistentAssemblyInfo = value as PersistentAssemblyInfo;
         }
 
         IList<IPersistentMemberInfo> IPersistentClassInfo.OwnMembers => new ListConverter<IPersistentMemberInfo, PersistentMemberInfo>(OwnMembers);

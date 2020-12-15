@@ -481,17 +481,21 @@ namespace Xpand.VSIX.Options
             this.gridColumnDirectory.Caption = "Root Directory";
             this.gridColumnDirectory.FieldName = "RootPath";
             this.gridColumnDirectory.Name = "gridColumnDirectory";
+            this.gridColumnDirectory.OptionsColumn.AllowSize = false;
             this.gridColumnDirectory.OptionsFilter.AutoFilterCondition = DevExpress.XtraGrid.Columns.AutoFilterCondition.Contains;
             this.gridColumnDirectory.Visible = true;
             this.gridColumnDirectory.VisibleIndex = 0;
+            this.gridColumnDirectory.Width = 920;
             // 
             // gridColumnPrefix
             // 
             this.gridColumnPrefix.Caption = "ProjectRegex";
             this.gridColumnPrefix.FieldName = "ProjectRegex";
             this.gridColumnPrefix.Name = "gridColumnPrefix";
+            this.gridColumnPrefix.OptionsColumn.AllowSize = false;
             this.gridColumnPrefix.Visible = true;
             this.gridColumnPrefix.VisibleIndex = 1;
+            this.gridColumnPrefix.Width = 290;
             // 
             // gridColumn1
             // 
@@ -503,6 +507,7 @@ namespace Xpand.VSIX.Options
             this.gridColumn1.OptionsColumn.ReadOnly = true;
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 2;
+            this.gridColumn1.Width = 107;
             // 
             // repositoryItemCheckEdit1
             // 
