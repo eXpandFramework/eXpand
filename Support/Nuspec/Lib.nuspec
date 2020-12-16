@@ -19,9 +19,9 @@
       <dependency id="System.Configuration.ConfigurationManager" version="5.0" />
       <dependency id="System.Drawing.Common" version="5.0" />
       <dependency id="System.Management" version="5.0" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.202.44.2" />
-      <dependency id="Xpand.Extensions.XAF" version="4.202.44.2" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.202.44.2" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.202.45" />
+      <dependency id="Xpand.Extensions.XAF" version="4.202.45" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.202.45" />
     </dependencies>
   </metadata>
   <files>
