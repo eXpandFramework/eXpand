@@ -1,6 +1,8 @@
 "Release","Issues","Labels","Message","Sha"
-"20.2.304.0","794","? Sponsor, Priority, ReproSample, SequenceGenerator, Standalone_XAF_Modules","Bump Standalone package version","b711bf9ded41ae9f08faac1f1dd51cce6a931ee4"
-"20.2.304.0","796","? Bronze Sponsor, ExcelImporter, Standalone_XAF_Modules","ExcelImporter AutoImportService throws cross thread exception","19c1fb2ec29c27daaad6c6cd92732a2386ca1653"
+"20.2.401.0","804","? Bronze Sponsor, Priority","DashboardNavigationController: redirect to default if view not accessible","ce8640d53a5a8bbc061bfc45d31f277c8c335b36"
+"20.2.401.0","803","? Bronze Sponsor, Modeldifference, Priority, ReproSample, RuntimeMembers","Persistent Member creation fails","408a8d01029880a1a6bf69e501638dd9d63ffb1b"
+"20.2.304.0","794","? Sponsor, Priority, ReproSample, SequenceGenerator, Standalone_XAF_Modules","Bump Standalone package version",
+"20.2.304.0","796","? Bronze Sponsor, ExcelImporter, Standalone_XAF_Modules","ExcelImporter AutoImportService throws cross thread exception",
 "20.2.301.0","782","must-have, Priority, Standalone_XAF_Modules","Bump Standalone packages",
 "20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreator DBMapper DataStoreAttribute attribute does not return the resolved type",
 "20.1.703.0","747","? Bronze Sponsor, Priority, ReproSample, WorldCreator","WorldCreatorWinModule RichEditWinPropertyEditor is miss configured",
