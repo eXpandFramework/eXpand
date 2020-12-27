@@ -15,7 +15,7 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.Commands{
     public class LastBuildStatusArgs : EventArgs {
-        public bool Successed { get; set; }
+        public bool Succeeded { get; set; }
     }
 
     public class EasyTestCommand:VSCommand {

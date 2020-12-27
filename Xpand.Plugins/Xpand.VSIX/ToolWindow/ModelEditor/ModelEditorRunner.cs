@@ -1,9 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Reactive;
+using System.Reactive.Linq;
+using System.Reactive.Threading.Tasks;
+using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using EnvDTE80;
+using Microsoft.VisualStudio.Threading;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Process = System.Diagnostics.Process;
@@ -12,39 +21,131 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
     public class ModelEditorRunner {
         private readonly DTE2 _dte = DteExtensions.DTE;
 
-        public void Start(ProjectItemWrapper projectItemWrapper) {
+        public IObservable<Unit> Start(ProjectItemWrapper projectItemWrapper) {
             string outputFileName = projectItemWrapper.OutputFileName;
             var fullPath = projectItemWrapper.FullPath;
             string assemblyPath = Path.Combine(fullPath, Path.Combine(projectItemWrapper.OutputPath, outputFileName));
             if (!File.Exists(assemblyPath)) {
-                MessageBox.Show($@"Assembly {assemblyPath} not found", null, MessageBoxButtons.OK);
-                return;
+                MessageBox.Show($@"Assembly {assemblyPath} not found, recompilling....", null, MessageBoxButtons.OK);
+                return Observable.Start(() => projectItemWrapper.Project.Build()).Where(b => b)
+                    .SelectMany(_ => Start(projectItemWrapper));
             }
-            string mePath = null;
+            return MePath(projectItemWrapper)
+                .SelectMany(path => StartMEProcess(projectItemWrapper, assemblyPath, path));
+        }
+
+        private IObservable<string> MePath(ProjectItemWrapper projectItemWrapper) {
             if (projectItemWrapper.TargetFramework != null && (projectItemWrapper.TargetFramework.StartsWith("netcore") ||
                                                                projectItemWrapper.TargetFramework == "netstandard2.1")) {
                 var assembly = projectItemWrapper.GetType().Assembly;
                 var ns = $"{typeof(ModelEditorRunner).Namespace}.WinDesktop.";
-                var resources = assembly.GetManifestResourceNames().Where(s => s.StartsWith(ns));
+                var resources = Resources(projectItemWrapper, assembly, ns);
+                return  BufferUntilCompleted(WriteFiles(resources)).ObserveOn(System.Reactive.Concurrency.Scheduler.Default)
+                    .SelectMany(strings => ConfigureEnvironment(projectItemWrapper, strings.ToObservable()).Concat(strings.ToObservable()))
+                    .FirstAsync(s => {
+                        var fileName = Path.GetFileName(s);
+                        return !fileName.EndsWith("nuget.exe")&&fileName.EndsWith(".exe");
+                    });
+            }
+            return GridHelper.ExtractME();
+        }
 
-                
-                foreach (var resource in resources) {
-                    var path = $"{Path.GetFullPath($"{projectItemWrapper.FullPath}{projectItemWrapper.OutputPath}")}\\{resource.Replace(ns,"")}";
+        static IObservable<TSource[]> BufferUntilCompleted<TSource>(IObservable<TSource> source){
+            var allEvents = source.Publish().RefCount();
+            return allEvents.Buffer(allEvents.LastAsync()).Select(list => list.ToArray());
+        }
+
+
+        private static IObservable<(string path, Stream stream)> Resources(ProjectItemWrapper projectItemWrapper, Assembly assembly, string ns) 
+            => assembly.GetManifestResourceNames().Where(s => s.StartsWith(ns))
+                .Select(s => {
+                    var path = $"{Path.GetFullPath($"{projectItemWrapper.FullPath}{projectItemWrapper.OutputPath}")}\\{s.Replace(ns, "")}";
                     if (File.Exists(path)) {
                         File.Delete(path);
                     }
 
-                    if (Path.GetExtension(path) == ".exe") {
-                        mePath = path;
+                    return (path,stream:assembly.GetManifestResourceStream(s));
+                }).ToObservable().Publish().RefCount();
+
+        private static IObservable<string> WriteFiles(IObservable<(string path, Stream stream)> resources) 
+            => resources
+                .Select(t => {
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(t.path);
+                    if (fileNameWithoutExtension == "Xpand.XAF.ModelEditor.WinDesktop.runtimeconfig.dev") {
+                        using var streamReader = new StreamReader(t.stream!);
+                        var readToEnd = streamReader.ReadToEnd();
+                        readToEnd = readToEnd.Replace("Tolis", Environment.UserName);
+                        File.WriteAllText(t.path, readToEnd);
                     }
-                    File.WriteAllBytes(path, Bytes(assembly.GetManifestResourceStream(resource)));
+                    else {
+                        File.WriteAllBytes(t.path, Bytes(t.stream));
+                    }
+                    return t.path;
+                });
+
+        private static IObservable<string> ConfigureEnvironment(ProjectItemWrapper projectItemWrapper, IObservable<string> resources) 
+            => resources.FirstAsync(s => Path.GetFileName(s).EndsWith("nuget.exe"))
+                .SelectMany(s => Observable.StartAsync(async () => {
+                    var dte2 = DteExtensions.DTE;
+                    var csProjPath = await CSProjPath();
+                    var dependencies = Dependencies(s, csProjPath);
+                    File.WriteAllText(csProjPath,dependencies);
+                    dte2.WriteToOutput("Restoring packages");
+                    await Execute(s, $"restore {csProjPath} -noCache -Force -Recursive",Path.GetDirectoryName(csProjPath));
+                    
+                    var project = projectItemWrapper.Project;
+                    var projectProperty = project.GetProperty("CopyLocalLockFileAssemblies");
+                    if (projectProperty == null || projectProperty.EvaluatedValue != "true") {
+                        dte2.WriteToOutput($"Modifying {Path.GetFileName(projectItemWrapper.UniqueName)}");
+                        project.SetProperty("CopyLocalLockFileAssemblies", "true");
+                        project.Save(projectItemWrapper.UniqueName);
+                        dte2.WriteToOutput($"Building {Path.GetFileName(projectItemWrapper.UniqueName)}");
+                        project.Build("restore");
+                    }
+                    return s;
+                }))
+                .IgnoreElements();
+
+        private static string Dependencies(string s, string csProjPath) {
+            var dependencies = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText($"{Path.GetDirectoryName(s)}\\Xpand.XAF.ModelEditor.WinDesktop.deps.json"));
+            var refs = string.Join(Environment.NewLine,
+                ((IEnumerable<JProperty>) ((dynamic) ((IEnumerable<JProperty>) dependencies.targets.Properties()).First().Value).Properties())
+                .Where(jProperty => !jProperty.Name.StartsWith("Xpand.XAF.ModelEditor.WinDesktop"))
+                .Select(property => {
+                    var strings = property.Name.Split('/');
+                    return @$"<PackageReference Include=""{strings[0]}"" Version=""{strings[1]}""/>";
+                }));
+            refs = $"<ItemGroup>{refs}</ItemGroup>";
+
+            var allText = File.ReadAllText(csProjPath).Replace("</Project>", $"{refs}</Project>");
+            return allText;
+        }
+
+        private static async Task<string> CSProjPath() {
+            var csProjPath = $"{Path.GetTempPath()}\\Xpand.XAF.ModelEditor.WinDesktop";
+            if (!Directory.Exists(csProjPath)) {
+                Directory.CreateDirectory(csProjPath);
+            }
+            DteExtensions.DTE.WriteToOutput($"Creating dependecies project {csProjPath}");
+            await Execute("dotnet", "new classlib -f \"net5.0\" --force",csProjPath);
+            csProjPath = $"{Path.GetTempPath()}\\Xpand.XAF.ModelEditor.WinDesktop\\Xpand.XAF.ModelEditor.WinDesktop.csproj";
+            return csProjPath;
+        }
+
+        private static IObservable<Unit> Execute(string path, string arguments, string workingDirectory) {
+            var process = new Process {
+                StartInfo = {
+                    FileName = path,
+                    Arguments = arguments,
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true,
+                    WorkingDirectory = workingDirectory
                 }
-            }
-            else {
-                mePath = GridHelper.ExtractME();
-                
-            }
-            StartMEProcess(projectItemWrapper, assemblyPath, mePath);
+            };
+            process.Start();
+            DteExtensions.DTE.WriteToOutput(process.StandardOutput.ReadToEnd());
+            return process.WaitForExitAsync().ToObservable().Select(_ => Unit.Default);
         }
 
         static byte[] Bytes(Stream stream){
@@ -57,25 +158,32 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
             return ms.ToArray();
         }
 
-        void StartMEProcess(ProjectItemWrapper projectItemWrapper, string assemblyPath, string mePath) {
-            try{
-                var fullPath = projectItemWrapper.FullPath;
-                var destFileName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(assemblyPath) + "", Path.GetFileName(mePath) + ""));
-                KillProcess(destFileName);
-                if (!string.Equals(mePath, destFileName, StringComparison.OrdinalIgnoreCase)) {
-                    File.Copy(mePath, destFileName,true);
-                    var configPath = Path.Combine(Path.GetDirectoryName(        mePath)+"",Path.GetFileName(mePath)+".config");
-                    if (File.Exists(configPath)) {
-                        _dte.WriteToOutput("Copying App.config");
-                        File.Copy(configPath,Path.Combine(Path.GetDirectoryName(destFileName)+"",Path.GetFileName(configPath)),true);
+        IObservable<Unit> StartMEProcess(ProjectItemWrapper projectItemWrapper, string assemblyPath, string mePath) 
+            => Observable.Return(Unit.Default).Do(_ => {
+                try {
+                    var fullPath = projectItemWrapper.FullPath;
+                    var destFileName = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(assemblyPath) + "",
+                        Path.GetFileName(mePath) + ""));
+                    KillProcess(destFileName);
+                    if (!string.Equals(mePath, destFileName, StringComparison.OrdinalIgnoreCase)) {
+                        File.Copy(mePath, destFileName, true);
+                        var configPath = Path.Combine(Path.GetDirectoryName(mePath) + "",
+                            Path.GetFileName(mePath) + ".config");
+                        if (File.Exists(configPath)) {
+                            _dte.WriteToOutput("Copying App.config");
+                            File.Copy(configPath,
+                                Path.Combine(Path.GetDirectoryName(destFileName) + "", Path.GetFileName(configPath)),
+                                true);
+                        }
                     }
+
+                    StartME(projectItemWrapper, assemblyPath, fullPath, destFileName);
                 }
-                StartME(projectItemWrapper, assemblyPath, fullPath, destFileName);
-            }
-            catch (Exception e){
-                MessageBox.Show(e.ToString());
-            }
-        }
+                catch (Exception e) {
+                    MessageBox.Show(e.ToString());
+                }
+
+            });
 
         private void StartME(ProjectItemWrapper projectItemWrapper, string assemblyPath, string fullPath, string destFileName) {
             string debugMe = OptionClass.Instance.DebugME ? "d" : null;

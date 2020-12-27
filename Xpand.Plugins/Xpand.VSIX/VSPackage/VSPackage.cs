@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
+using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
@@ -47,6 +48,9 @@ namespace Xpand.VSIX.VSPackage {
         }
 
         public new object GetService(Type type) => base.GetService(type);
+        public T GetService<T>() => (T) base.GetService(typeof(T));
+
+        
 
         public static VSPackage Instance => _instance;
         public static OptionsPage OptionsPage => Instance.GetDialogPage<OptionsPage>();

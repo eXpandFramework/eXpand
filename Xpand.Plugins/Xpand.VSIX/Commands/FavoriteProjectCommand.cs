@@ -3,7 +3,6 @@ using System.Linq;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Xpand.VSIX.ToolWindow.FavoriteProject;
-using Xpand.VSIX.ToolWindow.ModelEditor;
 using Xpand.VSIX.VSPackage;
 
 namespace Xpand.VSIX.Commands {

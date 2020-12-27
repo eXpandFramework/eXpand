@@ -4,7 +4,8 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Reactive;
+using System.Reactive.Linq;
 using DevExpress.XtraGrid;
 using EnvDTE;
 using EnvDTE80;
@@ -16,58 +17,60 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
         static GridControl _gridControl;
         private static Events2 _events;
         private static SolutionEvents _eventsSolutionEvents;
-        private static IEnumerable<FileSystemWatcher> _fileSystemWatchers;
-        private static TaskScheduler _currentSynchronizationContext;
-
-        static void Setup(GridControl gridControl,bool models=true) {
+        
+        static IObservable<Unit> Setup(GridControl gridControl,bool models=true) {
             if (models) {
                 _gridControl = gridControl;
             }
-            _currentSynchronizationContext = TaskScheduler.FromCurrentSynchronizationContext();
-            SetGridDataSource(gridControl,models);
             _events = (Events2) DteExtensions.DTE.Events;
             _eventsSolutionEvents = _events.SolutionEvents;
-            _eventsSolutionEvents.Opened += EventsSolutionEventsOnOpened;
-            _eventsSolutionEvents.AfterClosing+=EventsSolutionEventsOnAfterClosing;
+            var dataStoreFromWatchingFiles = Observable.FromEvent<_dispSolutionEvents_OpenedEventHandler, Unit>(
+                    h => () => h(Unit.Default), h => _eventsSolutionEvents.Opened += h, h => _eventsSolutionEvents.Opened -= h)
+                .SelectMany(_ => SetGridDataSource())
+                .SelectMany(_ => GetFileSystemWatchers().ToObservable()
+                    .SelectMany(watcher => Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(h => watcher.Changed += h, h => watcher.Changed -= h)
+                        .Where(pattern =>pattern.EventArgs.ChangeType==WatcherChangeTypes.Created||pattern.EventArgs.ChangeType==WatcherChangeTypes.Deleted ))
+                    .TakeUntil(Observable.FromEvent<_dispSolutionEvents_AfterClosingEventHandler, Unit>(
+                        h => () => h(Unit.Default), h => _eventsSolutionEvents.AfterClosing += h, h => _eventsSolutionEvents.AfterClosing -= h)))
+                .ObserveOn(_gridControl)
+                .Do(pattern => SetGridDataSource())
+                .Select(pattern => Unit.Default);
+
+            return SetGridDataSource(models)
+                .Merge(dataStoreFromWatchingFiles);
         }
 
-        private static void EventsSolutionEventsOnAfterClosing(){
-            if (_fileSystemWatchers != null)
-                foreach (var fileSystemWatcher in _fileSystemWatchers){
-                    fileSystemWatcher.Changed -= SystemWatcherOnChanged;
-                }
-        }
-
-        public static string ExtractME() {
-            try {
-                
-                var resourceStream = typeof(ModelToolWindow).Assembly.GetManifestResourceStream("Xpand.VSIX.ToolWindow.ModelEditor.Xpand.XAF.ModelEditor.exe");
-                var mePath = Path.Combine($"{Path.GetTempPath()}\\XpandModelEditor", "Xpand.XAF.ModelEditor.exe");
-                Debug.Assert(resourceStream != null, "resourceStream != null");
-                var bytes = new byte[(int) resourceStream.Length];
-                resourceStream.Read(bytes, 0, bytes.Length);
-                var directoryName = $"{Path.GetDirectoryName(mePath)}";
-                if (!Directory.Exists(directoryName)) Directory.CreateDirectory(directoryName);
-                File.WriteAllBytes(mePath, bytes);
-                var xpandModelEditorAppConfigPath = $"{Environment.GetEnvironmentVariable("XpandModelEditorAppConfigPath")}";
-                if (File.Exists(xpandModelEditorAppConfigPath)) {
-                    File.Copy(xpandModelEditorAppConfigPath,$"{mePath}.config");
-                }
-                else {
-                    DteExtensions.DTE.WriteToOutput("XpandModelEditorAppConfigPath enviromental variable is not set");
-                }
-
-                PatchAssemblyXAFVersion(mePath);
-
-
-                return mePath;
-            }
-            catch (Exception e) {
-                DteExtensions.DTE.LogError(e.ToString());
-                DteExtensions.DTE.WriteToOutput(e.ToString());
-                throw;
-            }
-        }
+        public static IObservable<string> ExtractME()
+            => Observable.Return(Unit.Default)
+                .Select(_ => {
+                    try {
+                        var resourceStream = typeof(ModelToolWindow).Assembly.GetManifestResourceStream("Xpand.VSIX.ToolWindow.ModelEditor.Xpand.XAF.ModelEditor.exe");
+                        var mePath = Path.Combine($"{Path.GetTempPath()}\\XpandModelEditor",
+                            "Xpand.XAF.ModelEditor.exe");
+                        Debug.Assert(resourceStream != null, "resourceStream != null");
+                        var bytes = new byte[(int) resourceStream.Length];
+                        resourceStream.Read(bytes, 0, bytes.Length);
+                        var directoryName = $"{Path.GetDirectoryName(mePath)}";
+                        if (!Directory.Exists(directoryName)) Directory.CreateDirectory(directoryName);
+                        File.WriteAllBytes(mePath, bytes);
+                        var xpandModelEditorAppConfigPath =
+                            $"{Environment.GetEnvironmentVariable("XpandModelEditorAppConfigPath")}";
+                        if (File.Exists(xpandModelEditorAppConfigPath)) {
+                            File.Copy(xpandModelEditorAppConfigPath, $"{mePath}.config");
+                        }
+                        else {
+                            DteExtensions.DTE.WriteToOutput("XpandModelEditorAppConfigPath enviromental variable is not set");
+                        }
+                        PatchAssemblyXAFVersion(mePath);
+                        return mePath;
+                    }
+                    catch (Exception e) {
+                        DteExtensions.DTE.LogError(e.ToString());
+                        DteExtensions.DTE.WriteToOutput(e.ToString());
+                        return null;
+                    }
+                })
+                .Where(s => s!=null);
 
         private static void PatchAssemblyXAFVersion(string path) {
             using var assemblyDefinition =
@@ -92,58 +95,31 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
             assemblyDefinition.Write();
         }
 
-        private static void EventsSolutionEventsOnOpened() {
-            SetGridDataSource(_gridControl);
-            try{
-                _fileSystemWatchers =GetFileSystemWatchers();
-            }
-            catch (Exception e){
-                DteExtensions.DTE.WriteToOutput(e.ToString());
-            }
-        }
-
         private static IEnumerable<FileSystemWatcher> GetFileSystemWatchers(){
             var solution = DteExtensions.DTE.Solution;
-            var fileSystemWatchers = new[]{CreateFileSystemWatcher(solution.FullName) }
+            return new[]{CreateFileSystemWatcher(solution.FullName) }
                 .Concat(solution.Projects().Where(project => File.Exists(project.FullName)).Select(project =>CreateFileSystemWatcher(project.FullName))).ToArray();
-            foreach (var fileSystemWatcher in fileSystemWatchers) {
-                fileSystemWatcher.Changed += SystemWatcherOnChanged;
-            }
-            return fileSystemWatchers;
         }
 
-        private static FileSystemWatcher CreateFileSystemWatcher(string fileName){
-            return new FileSystemWatcher(Path.GetDirectoryName(fileName) +""){NotifyFilter = NotifyFilters.LastWrite,Filter = Path.GetFileName(fileName),EnableRaisingEvents = true};
-        }
+        private static FileSystemWatcher CreateFileSystemWatcher(string fileName) 
+            => new FileSystemWatcher(Path.GetDirectoryName(fileName) +""){NotifyFilter = NotifyFilters.LastWrite,Filter = Path.GetFileName(fileName),EnableRaisingEvents = true};
 
-        private static void SystemWatcherOnChanged(object sender, FileSystemEventArgs e){
-            try{
-                foreach (var fileSystemWatcher in _fileSystemWatchers){
-                    fileSystemWatcher.Changed-=SystemWatcherOnChanged;
-                    fileSystemWatcher.Dispose();
-                }
-                _fileSystemWatchers=GetFileSystemWatchers();
-                SetGridDataSource(_gridControl);
-            }
-            catch (Exception exception){
-                DteExtensions.DTE.WriteToOutput(exception.ToString());
-            }
-        }
 
-        private static void SetGridDataSource(GridControl gridControl,bool models=true){
-            var projectWrappers = new List<ProjectItemWrapper>();
-            Task.Factory.StartNew(() => projectWrappers = ProjectWrapperBuilder.GetProjectItemWrappers(models).ToList())
-                .ContinueWith(task1 => {
-                    if (task1.Exception != null){
-                        DteExtensions.DTE.LogError(task1.Exception.ToString());
-                        DteExtensions.DTE.WriteToOutput(task1.Exception.ToString());
-                    }
-                    gridControl.DataSource = new BindingList<ProjectItemWrapper>(projectWrappers.GroupBy(wrapper => wrapper.LocalPath).Select(_ => _.First()).ToArray());
-                },_currentSynchronizationContext);
-        }
+        private static IObservable<Unit> SetGridDataSource(bool models=true) 
+            => Observable.Start(() => ProjectWrapperBuilder.GetProjectItemWrappers(models).ToList())
+                .ObserveOn(_gridControl)
+                .Select(list => {
+                    _gridControl.DataSource = new BindingList<ProjectItemWrapper>(list
+                        .GroupBy(wrapper => wrapper.LocalPath).Select(_ => _.First()).ToArray());
+                    return Unit.Default;
+                })
+                .Catch<Unit, Exception>(e => {
+                    DteExtensions.DTE.LogError(e.ToString());
+                    DteExtensions.DTE.WriteToOutput(e.ToString());
+                    return Observable.Empty<Unit>();
+                });
 
-        public static void Init(GridControl gridControl,bool models=true) {
-            Setup(gridControl,models);
-        }
+        public static IObservable<Unit> Init(GridControl gridControl,bool models=true) 
+            => Setup(gridControl,models);
     }
 }

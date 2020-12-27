@@ -14,7 +14,7 @@ namespace Xpand.VSIX.Services{
             DteExtensions.DTE.Events.BuildEvents.OnBuildBegin+=BuildEventsOnOnBuildBegin;
         }
 
-        private static void BuildEventsOnOnBuildBegin(vsBuildScope scope, vsBuildAction action) {
+        private static void    BuildEventsOnOnBuildBegin(vsBuildScope scope, vsBuildAction action) {
             var securityIdentifier = WindowsIdentity.GetCurrent().Owner;
             if (securityIdentifier == null || !securityIdentifier.IsWellKnown(WellKnownSidType.BuiltinAdministratorsSid)) {
                 DteExtensions.DTE.ExecuteCommand("Build.Cancel");
@@ -22,13 +22,12 @@ namespace Xpand.VSIX.Services{
             }
         }
 
-        private static IObservable<Unit> CopyFile(string s, string targetDirectory){
-            return Observable.Start(() => {
+        private static IObservable<Unit> CopyFile(string s, string targetDirectory) 
+            => Observable.Start(() => {
                     File.Copy(s, $@"{targetDirectory}\{Path.GetFileName(s)}",true);
                     return Unit.Default;
                 })
                 .OnErrorResumeNext(Observable.Return(Unit.Default));
-        }
 
         private static void BuildEventsOnOnBuildDone(vsBuildScope scope, vsBuildAction action) {
             var files = DteExtensions.DTE.Solution.Projects()

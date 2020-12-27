@@ -9,3 +9,4 @@ System.Management
 System.Reactive
 System.Xml.XDocument
 System.Buffers
+Microsoft.CSharp

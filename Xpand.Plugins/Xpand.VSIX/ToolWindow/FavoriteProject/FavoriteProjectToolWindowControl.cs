@@ -14,7 +14,7 @@ namespace Xpand.VSIX.ToolWindow.FavoriteProject {
 
         public FavoriteProjectToolWindowControl() {
             InitializeComponent();
-            GridHelper.Init(gridControl1,false);
+            GridHelper.Init(gridControl1,false).Subscribe();
             gridView1.KeyDown+=GridView1OnKeyDown;
             gridView1.KeyUp+=gridView1_KeyUp;
             gridView1.DoubleClick+=gridView1_DoubleClick;

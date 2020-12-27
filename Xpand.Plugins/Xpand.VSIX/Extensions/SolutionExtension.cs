@@ -167,12 +167,11 @@ namespace Xpand.VSIX.Extensions {
         }
     
 
-        public static bool HasAuthentication(this Solution solution){
-            return solution.Projects().Any(project => project.IsApplicationProject() && project.HasAuthentication());
-        }
+        public static bool HasAuthentication(this Solution solution) 
+            => solution.Projects().Any(project => project.IsApplicationProject() && project.HasAuthentication());
 
-        public static string GetDXVersion(this Solution solution,bool major=true) {
-            return solution.DTE.Solution.Projects()
+        public static string GetDXVersion(this Solution solution,bool major=true) 
+            => solution.DTE.Solution.Projects()
                 .Select(project => project.Object)
                 .OfType<VSProject>()
                 .SelectMany(project => project.References.Cast<Reference>()).Select(reference => {
@@ -180,31 +179,29 @@ namespace Xpand.VSIX.Extensions {
                     var matchResults = Regex.Match(referenceName, @"DevExpress(.*)(v[^.]*\.[.\d])");
                     return !string.IsNullOrEmpty(reference.Path)&& matchResults.Success ? (major?matchResults.Groups[2].Value: GetRevisionVersion(reference)) : null;
                 }).FirstOrDefault(version => version != null)??solution.GetMsBuildProjects()
-                       .SelectMany(project => project.AllEvaluatedItems).Where(item => item.ItemType=="PackageReference"&&$"{item.EvaluatedInclude}".StartsWith("DevExpress"))
-                       .SelectMany(item => item.Metadata).Where(metadata => metadata.Name=="Version")
-                       .Select(metadata => {
-                           if (!major) {
-                               return metadata.EvaluatedValue;
-                           }
+                .SelectMany(project => project.AllEvaluatedItems).Where(item => item.ItemType=="PackageReference"&&$"{item.EvaluatedInclude}".StartsWith("DevExpress"))
+                .SelectMany(item => item.Metadata).Where(metadata => metadata.Name=="Version")
+                .Select(metadata => {
+                    if (!major) {
+                        return metadata.EvaluatedValue;
+                    }
 
-                           var version = new Version(metadata.EvaluatedValue);
-                           return $"{version.Major}.{version.Minor}";
-                       })
-                       .FirstOrDefault();
-        }
+                    var version = new Version(metadata.EvaluatedValue);
+                    return $"{version.Major}.{version.Minor}";
+                })
+                .FirstOrDefault();
 
         private static string GetRevisionVersion(Reference reference){
             var version = AssemblyDefinition.ReadAssembly(reference.Path).Name.Version;
             return version.Major+"."+version.Minor+"."+version.Build;
         }
 
-        public static Project FindProjectFromUniqueName(this Solution solution, string projectName) {
-            return DteExtensions.DTE.Solution.Projects().First(project1 => project1.UniqueName == projectName);
-        }
+        public static Project FindProjectFromUniqueName(this Solution solution, string projectName) 
+            => DteExtensions.DTE.Solution.Projects().First(project1 => project1.UniqueName == projectName);
 
-        public static Project FindProject(this Solution solution, string projectName){
-            return solution.Projects().FirstOrDefault(project => project.Name == projectName);
-        }
+        public static Project FindProject(this Solution solution, string projectName) 
+            => solution.Projects().FirstOrDefault(project => project.Name == projectName);
+
         public static void CollapseAllFolders(this Solution solution) {
             var dte = DteExtensions.DTE;
             var uihSolutionExplorer = dte.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
@@ -216,11 +213,10 @@ namespace Xpand.VSIX.Extensions {
             hierarchyItem.Select(vsUISelectionType.vsUISelectionTypeSelect);
             hierarchyItem.DTE.SuppressUI = false;
         }
-        public static Project FindStartUpProject(this Solution solution){
-            return ((IEnumerable) solution.SolutionBuild.StartupProjects)?.Cast<string>()
-                .Select(s => DteExtensions.DTE.Solution.Projects().First(project => project.UniqueName == s))
-                .FirstOrDefault();
-        }
+        public static Project FindStartUpProject(this Solution solution) 
+            => ((IEnumerable) solution.SolutionBuild.StartupProjects)?.Cast<string>()
+            .Select(s => DteExtensions.DTE.Solution.Projects().First(project => project.UniqueName == s))
+            .FirstOrDefault();
 
         public static void Expand(this UIHierarchyItem item, bool expand) {
             foreach (UIHierarchyItem hierarchyItem in item.UIHierarchyItems) {

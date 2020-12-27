@@ -1,6 +1,6 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "20.1.400.2",
+    [string]$version = "20.2.401.3",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )
@@ -169,9 +169,9 @@ $modules
 Write-HostFormatted "packing nuspecs"
 Get-ChildItem "$root\build\Nuget" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 
-# Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -VariablesToImport @("modules","Nuget","version","root") -Script {    
-$nuspecs = Get-ChildItem "$root\Support\Nuspec" *.nuspec
-$nuspecs | foreach {    
+Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -RetryOnError 3 -VariablesToImport @("modules","Nuget","version","root") -Script {    
+# $nuspecs = Get-ChildItem "$root\Support\Nuspec" *.nuspec
+# $nuspecs | foreach {    
     if (!$Version) {
         throw
     }

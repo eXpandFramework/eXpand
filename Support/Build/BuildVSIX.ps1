@@ -1,6 +1,6 @@
 Param (
     [string]$XpandFolder=(Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$msbuild="C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools\MSBuild\15.0\Bin\msbuild.exe",
+    [string]$msbuild=(Get-MsBuildPath),
     [string]$DXVersion="0.0.0.0",
     [string]$Source="$(Get-PackageFeed -Nuget);$env:DxFeed",
     [bool]$Release=$true
@@ -24,8 +24,8 @@ Copy-Item "$((Get-Item $result.PackageReader.GetNuspecFile()).DirectoryName)\bui
 
 #build VSIX
 $fileName="$XpandFolder\Xpand.Plugins\Xpand.VSIX\Xpand.VSIX.csproj"
-& "$(Get-XNugetPath)" Restore $fileName -PackagesDirectory "$XpandFolder\Support\_third_party_assemblies\Packages" -source $Source 
-& "$msbuild" "$fileName" "/p:Configuration=Release;DeployExtension=false;OutputPath=$XpandFolder\Xpand.Dll\Plugins" /v:m 
+Start-Build $fileName -Configuration Debug -PropertyValue @("DeployExtension=false","OutputPath=$XpandFolder\Xpand.Dll\Plugins") -WarnAsError
+
 
 
 

@@ -21,8 +21,7 @@ namespace Xpand.VSIX.Commands{
             var dte2 = DteExtensions.DTE;
             if (!FindInSolutionCommand.Find())
                 dte2.Windows.Item(Constants.vsWindowKindSolutionExplorer).Activate();
-            var uihSolutionExplorer = dte2.Windows.Item(Constants.vsext_wk_SProjectWindow).Object as UIHierarchy;
-            if (uihSolutionExplorer != null){
+            if (dte2.Windows.Item(Constants.vsext_wk_SProjectWindow).Object is UIHierarchy uihSolutionExplorer){
                 var selectedHierarchyItems = ((UIHierarchyItem[]) uihSolutionExplorer.SelectedItems).ToArray();
                 var solutionName = Path.GetFileNameWithoutExtension(dte2.Solution.FileName);
                 if (selectedHierarchyItems.Length == 1 && selectedHierarchyItems.First().Name == Path.GetFileNameWithoutExtension(solutionName))

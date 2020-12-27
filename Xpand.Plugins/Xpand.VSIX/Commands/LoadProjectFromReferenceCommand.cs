@@ -67,9 +67,7 @@ namespace Xpand.VSIX.Commands {
                     var name = GetName(reference);
                     if (projectInfo != null){
                         DTE.WriteToOutput($"{name} found at " + projectInfo.OutputPath);
-                        if (
-                            DTE.Solution.Projects()
-                                .All(project => project.FullName != projectInfo.Path)){
+                        if (DTE.Solution.Projects().All(project => project.FullName != projectInfo.Path)){
                             var project = DTE.Solution.AddFromFile(Path.GetFullPath(projectInfo.Path));
                             project.SkipBuild();
                             project.ChangeActiveConfiguration();
