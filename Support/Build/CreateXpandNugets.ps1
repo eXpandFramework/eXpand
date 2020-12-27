@@ -251,7 +251,7 @@ Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -RetryOnError 3 
     
     
 }
-if ($nuspecs.Count -ne (Get-ChildItem "$root\Build\Nuget").count) {
+if ((Get-ChildItem "$PSScriptRoot\..\Nuspec" *.nuspec).Count -ne (Get-ChildItem "$root\Build\Nuget").count) {
     throw "Nugget count does not match nuspec"
 }
 

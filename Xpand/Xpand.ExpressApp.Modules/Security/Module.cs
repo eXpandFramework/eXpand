@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.Security {
     [ToolboxBitmap(typeof(SecurityModule), "Resources.BO_Security.ico")]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    public sealed class XpandSecurityModule : XpandModuleBase {
+    public sealed class XpandSecurityModule : XpandModuleBase {           
         public const string BaseImplNameSpace = "Xpand.Persistent.BaseImpl.Security";
         public const string XpandSecurity = "eXpand.Security";
         public XpandSecurityModule() {
@@ -38,6 +38,7 @@ namespace Xpand.ExpressApp.Security {
             RequiredModuleTypes.Add(typeof(SecurityModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(ValidationModule));
+            AdditionalExportedTypes.Add(typeof(XpandLogonParameters));
         }
 
         public override void ExtendModelInterfaces(ModelInterfaceExtenders extenders) {
