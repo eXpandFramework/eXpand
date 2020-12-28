@@ -23,6 +23,7 @@ namespace Xpand.VSIX.Commands {
             FavoriteProjectCommand.Init();
             KillIISExpressCommand.Init();
             BuildSelectionCommand.Init();
+            SolutionConfigurationCommand.Init();
             FindInSolutionCommand.Init();
             DuplicateLineCommand.Init();
             NavigatePreviousSubwordCommand.Init();

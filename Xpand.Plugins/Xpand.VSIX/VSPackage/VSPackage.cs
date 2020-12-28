@@ -2,13 +2,13 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Microsoft.VisualStudio.ProjectSystem;
 using Microsoft.VisualStudio.Shell;
 using Xpand.VSIX.Extensions;
 using Xpand.VSIX.Options;
 using Xpand.VSIX.Services;
 using Xpand.VSIX.ToolWindow.FavoriteProject;
 using Xpand.VSIX.ToolWindow.ModelEditor;
+using Xpand.VSIX.ToolWindow.SolutionConfiguration;
 using Task = System.Threading.Tasks.Task;
 
 namespace Xpand.VSIX.VSPackage {
@@ -38,6 +38,7 @@ namespace Xpand.VSIX.VSPackage {
     [ProvideAutoLoad("ADFC4E64-0397-11D1-9F4E-00A0C911004F",PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideToolWindow(typeof(ModelToolWindow))]
     [ProvideToolWindow(typeof(FavoriteProjectToolWindow))]
+    [ProvideToolWindow(typeof(SolutionConfigurationToolWindow))]
     [ProvideToolboxItems(1)]
     public sealed class VSPackage : AsyncPackage ,IDTE2Provider{
         private static VSPackage _instance;
@@ -60,11 +61,6 @@ namespace Xpand.VSIX.VSPackage {
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress) {
             
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            // var properties = this.DTE2().Properties["Environment", "General"].Cast<Property>().Select(property => new{property.Name,property.Value,property}).ToArray();
-            // var value = this.DTE2().Properties["Environment", "General"].Item("RenderingText").Value;
-            //
-            // value = this.DTE2().Properties["Debugging", "General"].Item("EnableExceptionAssistant").Value;
-            // this.DTE2().Properties["Environment", "General"].Item("RenderingText").Value = false;
             ExternalToolsService.Init();
             ModelMapperService.Init();
             Commands.Commands.Initialize();

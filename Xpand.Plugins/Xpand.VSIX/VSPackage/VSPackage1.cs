@@ -50,7 +50,8 @@ namespace Xpand.VSIX.VSPackage
         public const int cmdidProjectConverter = 0x0104;
         public const int cmdidExploreXAFErrors = 0x0105;
         public const int cmdidShowMEToolbox = 0x106;
-        public const int cmdidFavoriteProject = 0x119;
+        public const int cmdidFavoriteProject = 281;
+        public const int cmdidSolutionConfiguration = 282;
         public const int EasyTestContextMenu = 0x040D;
         public const int ReferenceContextMenu = 0x0451;
         public const int ReferencesContextMenu = 0x0450;

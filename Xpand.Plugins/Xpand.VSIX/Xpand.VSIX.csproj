@@ -73,6 +73,7 @@
     <Compile Include="..\..\Xpand\Xpand.Utils\Properties\XpandAssemblyInfo.cs">
       <Link>Properties\XpandAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Commands\SolutionConfigurationCommand.cs" />
     <Compile Include="Commands\FavoriteProjectCommand.cs" />
     <Compile Include="Commands\NavigateSubwordCommand.cs" />
     <Compile Include="Commands\DuplicateLineCommand.cs" />
@@ -89,6 +90,13 @@
     <Compile Include="Extensions\ProjectExtensions.cs" />
     <Compile Include="Extensions\ProjectItemExtensions.cs" />
     <Compile Include="Extensions\ReverseLineReader.cs" />
+    <Compile Include="ToolWindow\SolutionConfiguration\SolutionConfigurationToolWindow.cs" />
+    <Compile Include="ToolWindow\SolutionConfiguration\SolutionConfigurationToolWindowControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ToolWindow\SolutionConfiguration\SolutionConfigurationToolWindowControl.Designer.cs">
+      <DependentUpon>SolutionConfigurationToolWindowControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="ToolWindow\FavoriteProject\FavoriteProjectToolWindow.cs" />
     <Compile Include="ToolWindow\ModelEditor\GridHelper.cs" />
     <Compile Include="ToolWindow\FavoriteProject\FavoriteProjectToolWindowControl.cs">
@@ -130,6 +138,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VSPackage.vsct</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="ToolWindow\SolutionConfiguration\SolutionConfigurationToolWindowControl.resx">
+      <DependentUpon>SolutionConfigurationToolWindowControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ToolWindow\FavoriteProject\FavoriteProjectToolWindowControl.resx">
       <DependentUpon>FavoriteProjectToolWindowControl.cs</DependentUpon>
     </EmbeddedResource>

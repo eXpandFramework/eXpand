@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Reactive;
+using System.Reactive.Linq;
 using EnvDTE;
 using EnvDTE80;
 using Microsoft.VisualStudio.Shell;
@@ -16,18 +18,21 @@ namespace Xpand.VSIX.Extensions {
 
         public static DTE2 DTE = (DTE2) Package.GetGlobalService(typeof(DTE));
 
-        public static Solution Solution(this IDTE2Provider provider){
-            return provider.DTE2().Solution;
-        }
+        public static IObservable<Unit> WhenSolutionOpen(this DTE2 dte2) 
+            => Observable.FromEvent<_dispSolutionEvents_OpenedEventHandler, Unit>(
+                h => () => h(Unit.Default), h => dte2.Events.SolutionEvents.Opened += h, h => dte2.Events.SolutionEvents.Opened -= h);
+        
+        public static IObservable<Unit> WhenSolutionClosed(this DTE2 dte2) 
+            => Observable.FromEvent<_dispSolutionEvents_AfterClosingEventHandler, Unit>(
+                h => () => h(Unit.Default), h => dte2.Events.SolutionEvents.AfterClosing += h, h => dte2.Events.SolutionEvents.AfterClosing -= h);
 
-        public static DTE2 DTE2(this IDTE2Provider provider){
-            return DTE;
-        }
+        public static Solution Solution(this IDTE2Provider provider) => provider.DTE2().Solution;
 
-        public static IFullReference[] GetReferences(this Solution solution) {
-            return solution.Projects().Where(project => project.Object!=null).SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
+        public static DTE2 DTE2(this IDTE2Provider provider) => DTE;
+
+        public static IFullReference[] GetReferences(this Solution solution) 
+            => solution.Projects().Where(project => project.Object!=null).SelectMany(project => ((VSProject)project.Object).References.OfType<IFullReference>()).Where(reference =>
                 reference.SpecificVersion && (reference.Identity.StartsWith("Xpand") || reference.Identity.StartsWith("DevExpress"))).ToArray();
-        }
 
         public static void InitOutputCalls(this DTE2 dte, string text) {
             dte.WriteToOutput(Environment.NewLine + "------------------" + text + "------------------" + Environment.NewLine);

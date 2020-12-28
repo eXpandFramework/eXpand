@@ -66,6 +66,12 @@
             <ButtonText>&amp;Favorite Project List</ButtonText>
           </Strings>
         </Button>
+        <Button guid="guidVSXpandPackageCmdSet" id="cmdidSolutionConfiguration" priority="0x0102" type="Button">
+          <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
+          <Strings>
+            <ButtonText>&amp;Solution Configuration</ButtonText>
+          </Strings>
+        </Button>
         <Button guid="guidVSXpandPackageCmdSet" id="cmdidDropDatabase" priority="0x0103" type="Button">
           <Parent guid="guidVSXpandPackageCmdSet" id="XpandMenuGroup" />
           <Strings>
@@ -199,6 +205,7 @@
       <IDSymbol value="261" name="cmdidExploreXAFErrors" />
       <IDSymbol value="262" name="cmdidShowMEToolbox" />
       <IDSymbol value="281" name="cmdidFavoriteProject" />
+      <IDSymbol value="282" name="cmdidSolutionConfiguration" />
     </GuidSymbol>
     <GuidSymbol name="vsContextMenuCommandSet" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
       <IDSymbol name="EasyTestContextMenu" value="0x040D" />

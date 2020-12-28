@@ -71,6 +71,9 @@ namespace Xpand.VSIX.Options{
                 if (Instance.DteCommands.All(command => command.Command != nameof(FavoriteProjectCommand))) {
                     Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(FavoriteProjectCommand)}",Shortcut = "Global::Ctrl+Alt+Shift+P"});
                 }
+                if (Instance.DteCommands.All(command => command.Command != nameof(SolutionConfigurationCommand))) {
+                    Instance.DteCommands.Add(new DteCommand(){Command = $"{nameof(SolutionConfigurationCommand)}",Shortcut = "Global::Ctrl+Alt+Shift+C"});
+                }
 
             }
             catch (Exception e){
@@ -104,17 +107,14 @@ namespace Xpand.VSIX.Options{
             var optionClass = new OptionClass();
             try {
                 var xmlSerializer = new XmlSerializer(typeof(OptionClass));
-                using (var stream = File.Open(Path, FileMode.OpenOrCreate)){
-                    using (var streamReader = new StreamReader(stream)){
-                        var allText = streamReader.ReadToEnd();
-                        if (!string.IsNullOrWhiteSpace(allText)){
-                            var xmlReader = XmlReader.Create(new StringReader(allText));
-                            if (xmlSerializer.CanDeserialize(xmlReader))
-                                optionClass = (OptionClass) xmlSerializer.Deserialize(xmlReader);
-                        }
-                    }
+                using var stream = File.Open(Path, FileMode.OpenOrCreate);
+                using var streamReader = new StreamReader(stream);
+                var allText = streamReader.ReadToEnd();
+                if (!string.IsNullOrWhiteSpace(allText)){
+                    var xmlReader = XmlReader.Create(new StringReader(allText));
+                    if (xmlSerializer.CanDeserialize(xmlReader))
+                        optionClass = (OptionClass) xmlSerializer.Deserialize(xmlReader);
                 }
-                
             }
             catch (Exception e) {
                 DTE.LogError(e.ToString());
@@ -220,19 +220,17 @@ namespace Xpand.VSIX.Options{
             }
         }
         string GetOutPutPath(string projectPath) {
-            try{
-                using (var fileStream = File.Open(projectPath, FileMode.Open)) {
-                    var streamReader = new StreamReader(fileStream);
-                    var readToEnd = streamReader.ReadToEnd();
-                    Environment.CurrentDirectory = Path.GetDirectoryName(projectPath) + "";
-                    var outPutPath = Path.GetFullPath(GetAttributeValue(readToEnd, "OutputPath"));
-                    var assemblyName = GetAttributeValue(readToEnd, "AssemblyName");
-                    if (string.IsNullOrEmpty(assemblyName)) {
-                        assemblyName = Path.GetFileNameWithoutExtension(projectPath);
-                    }
-                    return Path.Combine(outPutPath, assemblyName + ".dll");
+            try {
+                using var fileStream = File.Open(projectPath, FileMode.Open);
+                var streamReader = new StreamReader(fileStream);
+                var readToEnd = streamReader.ReadToEnd();
+                Environment.CurrentDirectory = Path.GetDirectoryName(projectPath) + "";
+                var outPutPath = Path.GetFullPath(GetAttributeValue(readToEnd, "OutputPath"));
+                var assemblyName = GetAttributeValue(readToEnd, "AssemblyName");
+                if (string.IsNullOrEmpty(assemblyName)) {
+                    assemblyName = Path.GetFileNameWithoutExtension(projectPath);
                 }
-
+                return Path.Combine(outPutPath, assemblyName + ".dll");
             }
             catch{
                 return null;

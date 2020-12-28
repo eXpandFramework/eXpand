@@ -7,31 +7,24 @@ using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
 using DevExpress.XtraGrid;
-using EnvDTE;
-using EnvDTE80;
 using Mono.Cecil;
 using Xpand.VSIX.Extensions;
 
 namespace Xpand.VSIX.ToolWindow.ModelEditor {
     public class GridHelper {
         static GridControl _gridControl;
-        private static Events2 _events;
-        private static SolutionEvents _eventsSolutionEvents;
         
         static IObservable<Unit> Setup(GridControl gridControl,bool models=true) {
             if (models) {
                 _gridControl = gridControl;
             }
-            _events = (Events2) DteExtensions.DTE.Events;
-            _eventsSolutionEvents = _events.SolutionEvents;
-            var dataStoreFromWatchingFiles = Observable.FromEvent<_dispSolutionEvents_OpenedEventHandler, Unit>(
-                    h => () => h(Unit.Default), h => _eventsSolutionEvents.Opened += h, h => _eventsSolutionEvents.Opened -= h)
+            
+            var dataStoreFromWatchingFiles = DteExtensions.DTE.WhenSolutionOpen()
                 .SelectMany(_ => SetGridDataSource())
                 .SelectMany(_ => GetFileSystemWatchers().ToObservable()
                     .SelectMany(watcher => Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(h => watcher.Changed += h, h => watcher.Changed -= h)
                         .Where(pattern =>pattern.EventArgs.ChangeType==WatcherChangeTypes.Created||pattern.EventArgs.ChangeType==WatcherChangeTypes.Deleted ))
-                    .TakeUntil(Observable.FromEvent<_dispSolutionEvents_AfterClosingEventHandler, Unit>(
-                        h => () => h(Unit.Default), h => _eventsSolutionEvents.AfterClosing += h, h => _eventsSolutionEvents.AfterClosing -= h)))
+                    .TakeUntil(DteExtensions.DTE.WhenSolutionClosed()))
                 .ObserveOn(_gridControl)
                 .Do(pattern => SetGridDataSource())
                 .Select(pattern => Unit.Default);

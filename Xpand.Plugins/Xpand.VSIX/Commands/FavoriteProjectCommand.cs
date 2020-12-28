@@ -18,4 +18,5 @@ namespace Xpand.VSIX.Commands {
 
         }
     }
+
 }
