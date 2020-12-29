@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using DevExpress.LookAndFeel;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using EnvDTE;
@@ -14,6 +15,7 @@ namespace Xpand.VSIX.ToolWindow.FavoriteProject {
 
         public FavoriteProjectToolWindowControl() {
             InitializeComponent();
+            gridControl1.LookAndFeel.Assign(defaultLookAndFeel1.LookAndFeel);
             GridHelper.Init(gridControl1,false).Subscribe();
             gridView1.KeyDown+=GridView1OnKeyDown;
             gridView1.KeyUp+=gridView1_KeyUp;

@@ -30,6 +30,7 @@ namespace Xpand.VSIX.ToolWindow.SolutionConfiguration {
         }
         public SolutionConfigurationToolWindowControl() {
             InitializeComponent();
+            gridControl1.LookAndFeel.Assign(defaultLookAndFeel1.LookAndFeel);
             DTE.WhenSolutionOpen().Do(_ => SetDataSource()).Subscribe();
             SetDataSource();
             gridView1.KeyDown+=GridView1OnKeyDown;

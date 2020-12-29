@@ -13,6 +13,7 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
 
         public METoolWindowControl() {
             InitializeComponent();
+            gridControl1.LookAndFeel.Assign(defaultLookAndFeel1.LookAndFeel);
             GridHelper.Init(gridControl1).Subscribe();
             gridView1.KeyDown+=GridView1OnKeyDown;
             Observable.FromEventPattern<KeyEventHandler, KeyEventArgs>(h => gridView1.KeyUp += h, h => gridView1.KeyUp -= h)
