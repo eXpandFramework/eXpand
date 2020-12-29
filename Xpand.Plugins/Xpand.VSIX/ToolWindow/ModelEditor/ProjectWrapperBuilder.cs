@@ -2,14 +2,11 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using EnvDTE;
 using Xpand.VSIX.Extensions;
 using ProjectItem = Microsoft.Build.Evaluation.ProjectItem;
 
 namespace Xpand.VSIX.ToolWindow.ModelEditor {
     public static class ProjectWrapperBuilder {
-
-
         static bool IsWeb(string fullPath) {
             var webConfig = Path.Combine(Path.GetDirectoryName(fullPath) + "", "web.config");
             return File.Exists(webConfig);
@@ -50,23 +47,26 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
                 outputPath += targetFramework;
             }
             var fullPath = GetEvaluatedValue(item, "ProjectDir");
-            
-            return new ProjectItemWrapper{
+
+            var projectItemWrapper = new ProjectItemWrapper {
                 Name = GetName(item),
                 ModelFileName = Path.GetFileName(item.EvaluatedInclude),
                 OutputPath = outputPath,
                 OutputFileName = targetFileName,
-                IsApplicationProject = Path.GetExtension(targetFileName) == ".exe" || IsWeb(fullPath),
                 FullPath = fullPath,
                 UniqueName = Path.GetDirectoryName(fullPath) + @"\" + GetEvaluatedValue(item, "ProjectFileName"),
                 LocalPath = Path.GetDirectoryName(fullPath) + @"\" + item.EvaluatedInclude,
-                TargetFramework=targetFramework
+                TargetFramework = targetFramework,
+                IsApplicationProject =
+                    File.Exists(
+                        $"{Path.GetFullPath($"{fullPath}")}\\{outputPath}\\{Path.GetFileNameWithoutExtension(targetFileName)}.exe")||IsWeb(fullPath)
             };
+
+            return projectItemWrapper;
         }
 
-        private static string GetEvaluatedValue(ProjectItem item, string projectDir){
-            return item.Project.AllEvaluatedProperties.First(property => property.Name == projectDir).EvaluatedValue;
-        }
+        private static string GetEvaluatedValue(ProjectItem item, string projectDir) 
+            => item.Project.AllEvaluatedProperties.First(property => property.Name == projectDir).EvaluatedValue;
 
         static string GetName(this ProjectItem item) => item.EvaluatedInclude == "Model.DesignedDiffs.xafml"
             ? Path.GetFileNameWithoutExtension(item.Project.FullPath)

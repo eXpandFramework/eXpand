@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Xpand.VSIX.Extensions;
 using Project = Microsoft.Build.Evaluation.Project;
 
@@ -9,8 +8,7 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
 
         public string Name { get; set; }
 
-        public string GetOutputPath() 
-            => Path.GetFullPath($"{Path.GetDirectoryName(OutputFileName)}\\{OutputPath}");
+        
         public string OutputPath { get; set; }
         public string OutputFileName { get; set; }
         public string FullPath { get; set; }

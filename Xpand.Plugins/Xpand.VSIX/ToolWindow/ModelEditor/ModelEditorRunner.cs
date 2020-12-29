@@ -87,12 +87,7 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
             => resources.FirstAsync(s => Path.GetFileName(s).EndsWith("nuget.exe"))
                 .SelectMany(s => Observable.StartAsync(async () => {
                     var dte2 = DteExtensions.DTE;
-                    var csProjPath = await CSProjPath();
-                    var dependencies = Dependencies(s, csProjPath);
-                    File.WriteAllText(csProjPath,dependencies);
-                    dte2.WriteToOutput("Restoring packages");
-                    await Execute(s, $"restore {csProjPath} -noCache -Force -Recursive",Path.GetDirectoryName(csProjPath));
-                    
+                    await RestoreDependencies(s);
                     var project = projectItemWrapper.Project;
                     var projectProperty = project.GetProperty("CopyLocalLockFileAssemblies");
                     if (projectProperty == null || projectProperty.EvaluatedValue != "true") {
@@ -106,30 +101,36 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
                 }))
                 .IgnoreElements();
 
-        private static string Dependencies(string s, string csProjPath) {
+        private static string Dependencies(string s) {
             var dependencies = JsonConvert.DeserializeObject<dynamic>(File.ReadAllText($"{Path.GetDirectoryName(s)}\\Xpand.XAF.ModelEditor.WinDesktop.deps.json"));
             var refs = string.Join(Environment.NewLine,
                 ((IEnumerable<JProperty>) ((dynamic) ((IEnumerable<JProperty>) dependencies.targets.Properties()).First().Value).Properties())
                 .Where(jProperty => !jProperty.Name.StartsWith("Xpand.XAF.ModelEditor.WinDesktop"))
                 .Select(property => {
                     var strings = property.Name.Split('/');
-                    return @$"<PackageReference Include=""{strings[0]}"" Version=""{strings[1]}""/>";
-                }));
-            refs = $"<ItemGroup>{refs}</ItemGroup>";
-
-            var allText = File.ReadAllText(csProjPath).Replace("</Project>", $"{refs}</Project>");
-            return allText;
+                    var path = $"{Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\\.nuget\\packages\\{strings[0]}\\{strings[1]}";
+                    return !Directory.Exists(path) ? @$"<PackageReference Include=""{strings[0]}"" Version=""{strings[1]}""/>" : null;
+                })
+                .Where(s1 => s1!=null));
+            return !string.IsNullOrEmpty(refs) ? $"<ItemGroup>{refs}</ItemGroup>" : null;
         }
 
-        private static async Task<string> CSProjPath() {
-            var csProjPath = $"{Path.GetTempPath()}\\Xpand.XAF.ModelEditor.WinDesktop";
-            if (!Directory.Exists(csProjPath)) {
-                Directory.CreateDirectory(csProjPath);
+        private static async Task RestoreDependencies(string s) {
+            var dependencies = Dependencies(s);
+            if (!string.IsNullOrEmpty(dependencies)) {
+                var csProjPath = $"{Path.GetTempPath()}\\Xpand.XAF.ModelEditor.WinDesktop";
+                if (!Directory.Exists(csProjPath)) {
+                    Directory.CreateDirectory(csProjPath);
+                }
+                DteExtensions.DTE.WriteToOutput($"Creating dependecies project {csProjPath}");
+                await Execute("dotnet", "new classlib -f \"net5.0\" --force",csProjPath);
+                csProjPath=$"{Path.GetTempPath()}\\Xpand.XAF.ModelEditor.WinDesktop\\Xpand.XAF.ModelEditor.WinDesktop.csproj";
+            
+                File.WriteAllText(csProjPath,dependencies);
+
+                DteExtensions.DTE.WriteToOutput("Restoring packages");
+                await Execute(s, $"restore {csProjPath} -noCache -Force -Recursive",Path.GetDirectoryName(csProjPath));
             }
-            DteExtensions.DTE.WriteToOutput($"Creating dependecies project {csProjPath}");
-            await Execute("dotnet", "new classlib -f \"net5.0\" --force",csProjPath);
-            csProjPath = $"{Path.GetTempPath()}\\Xpand.XAF.ModelEditor.WinDesktop\\Xpand.XAF.ModelEditor.WinDesktop.csproj";
-            return csProjPath;
         }
 
         private static IObservable<Unit> Execute(string path, string arguments, string workingDirectory) {
