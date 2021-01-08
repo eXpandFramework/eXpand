@@ -138,7 +138,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VSPackage.vsct</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="ToolWindow\SolutionConfiguration\SolutionConfigurationToolWindowControl.resx">
       <DependentUpon>SolutionConfigurationToolWindowControl.cs</DependentUpon>
     </EmbeddedResource>

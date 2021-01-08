@@ -2,21 +2,15 @@
 
 namespace Xpand.Persistent.Base.General.CustomAttributes {
 
-    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Field, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property|AttributeTargets.Field)]
     public class TooltipAttribute : Attribute, ICustomAttribute {
-        readonly string _value;
-
         public TooltipAttribute(string value) {
-            _value = value;
+            Value = value;
         }
 
 
-        string ICustomAttribute.Name {
-            get { return "Tooltip"; }
-        }
+        public string Name => "Tooltip";
 
-        public string Value {
-            get { return _value; }
-        }
+        public string Value { get; }
     }
 }

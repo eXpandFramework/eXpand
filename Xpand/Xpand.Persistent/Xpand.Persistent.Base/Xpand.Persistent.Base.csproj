@@ -38,7 +38,7 @@
     <Compile Update="General\Controllers\Actions\ActionModelChoiceItemController.cs" />
     <Compile Update="General\Controllers\ModelController.cs" />
     <Compile Update="General\Controllers\Actions\ResetViewModelController.cs" />
-    <Compile Update="General\Controllers\CustomAttibutesController.cs" />
+    <Compile Update="General\Controllers\CustomAttributesController.cs" />
     <Compile Update="General\Controllers\ModelViewSavingController.cs" />
     <Compile Update="General\Controllers\NavigationController.cs" />
     <Compile Update="General\Controllers\CreateExpandAbleMembersViewController.cs" />

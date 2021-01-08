@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Xpand.Persistent.Base.General.CustomAttributes {
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Property)]
     public class PropertyEditorAttribute : Attribute, ICustomAttribute {
         readonly Type _propertyEditorType;
 
@@ -9,12 +9,8 @@ namespace Xpand.Persistent.Base.General.CustomAttributes {
             _propertyEditorType = propertyEditorType;
         }
 
-        string ICustomAttribute.Name {
-            get { return "PropertyEditorType"; }
-        }
+        public string Name => "PropertyEditorType";
 
-        string ICustomAttribute.Value {
-            get { return _propertyEditorType.FullName; }
-        }
+        public string Value => _propertyEditorType.FullName;
     }
 }

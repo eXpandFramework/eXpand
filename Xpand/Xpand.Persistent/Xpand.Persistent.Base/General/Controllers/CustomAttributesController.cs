@@ -4,9 +4,10 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using Xpand.Persistent.Base.General.CustomAttributes;
+using ICustomAttribute = Xpand.Persistent.Base.General.CustomAttributes.ICustomAttribute;
 
 namespace Xpand.Persistent.Base.General.Controllers {
-    public class CustomAttibutesController : WindowController {
+    public class CustomAttributesController : WindowController {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             var memberInfos = typesInfo.PersistentTypes.SelectMany(info => info.OwnMembers);

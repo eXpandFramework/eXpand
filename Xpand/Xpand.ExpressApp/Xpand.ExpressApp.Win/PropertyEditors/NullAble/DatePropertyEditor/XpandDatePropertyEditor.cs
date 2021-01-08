@@ -3,7 +3,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
-using Xpand.Persistent.Base.General.CustomAttributes;
+using Xpand.Extensions.XAF.Attributes.Custom;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.DatePropertyEditor {
     [DevExpress.ExpressApp.Editors.PropertyEditor(typeof(DateTime), true)]

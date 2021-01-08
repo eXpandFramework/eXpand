@@ -184,7 +184,7 @@ namespace Xpand.Persistent.Base.General {
                 declaredControllerTypes = declaredControllerTypes.Union(new[]{
                     typeof (CreatableItemController), typeof (FilterByColumnController),
                     typeof (CreateExpandAbleMembersViewController), typeof (HideFromNewMenuViewController),
-                    typeof (CustomAttibutesController), typeof (NotifyMembersController),
+                    typeof (CustomAttributesController), typeof (NotifyMembersController),
                     typeof (XpandModelMemberInfoController), typeof (XpandLinkToListViewController),
                     typeof(ModifyObjectSpaceController),typeof (ActionItemsFromModelController),typeof(ActionModelChoiceItemController),
                     typeof(ModelViewSavingController), typeof(NavigationContainerController), typeof(ModelController),

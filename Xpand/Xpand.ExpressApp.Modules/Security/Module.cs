@@ -78,7 +78,7 @@ namespace Xpand.ExpressApp.Security {
                 typeof(FilterByColumnController),
                 typeof(CreateExpandAbleMembersViewController),
                 typeof(HideFromNewMenuViewController),
-                typeof(CustomAttibutesController),
+                typeof(CustomAttributesController),
                 typeof(NotifyMembersController),
                 typeof(XpandModelMemberInfoController),
                 typeof(XpandLinkToListViewController),

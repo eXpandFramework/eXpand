@@ -1,8 +1,8 @@
 ﻿using System;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.Attributes.Custom;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Xpo;
 
 namespace Xpand.Persistent.BaseImpl {
@@ -14,32 +14,20 @@ namespace Xpand.Persistent.BaseImpl {
         [RuleUniqueValue(null, DefaultContexts.Save)]
         [RuleRequiredField]
         public string Name {
-            get {
-                return _name;
-            }
-            set {
-                SetPropertyValue("Name", ref _name, value);
-            }
+            get => _name;
+            set => SetPropertyValue("Name", ref _name, value);
         }
         private DateTime _startPoint;
         [DisplayDateAndTime]
         public DateTime StartPoint {
-            get {
-                return _startPoint;
-            }
-            set {
-                SetPropertyValue("StartPoint", ref _startPoint, value);
-            }
+            get => _startPoint;
+            set => SetPropertyValue("StartPoint", ref _startPoint, value);
         }
         private DateTime _endPoint;
         [DisplayDateAndTime]
         public DateTime EndPoint {
-            get {
-                return _endPoint;
-            }
-            set {
-                SetPropertyValue("EndPoint", ref _endPoint, value);
-            }
+            get => _endPoint;
+            set => SetPropertyValue("EndPoint", ref _endPoint, value);
         }
     }
 }
