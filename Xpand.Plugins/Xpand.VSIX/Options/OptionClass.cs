@@ -212,9 +212,9 @@ namespace Xpand.VSIX.Options{
 
         public void AddProjectPaths(){
             if (Directory.Exists(RootPath)) {
-                var projectPaths = Directory.GetFiles(RootPath, "*.*", SearchOption.AllDirectories)
+                var projectPaths = Directory.GetFiles(RootPath, "*.*proj", SearchOption.AllDirectories)
                     .Where(s => Regex.IsMatch(Path.GetFileName(s) + "", $@"{ProjectRegex}\z"));
-                var paths = projectPaths.Select(path => new ProjectInfo() { Path = path, OutputPath = GetOutPutPath(path) }).Where(info => File.Exists(info.OutputPath)).ToArray();
+                var paths = projectPaths.Select(path => new ProjectInfo() { Path = path, OutputPath = GetOutPutPath(path) }).ToArray();
                 ProjectPaths.Clear();
                 ProjectPaths.AddRange(paths);
             }
@@ -248,6 +248,9 @@ namespace Xpand.VSIX.Options{
     public class ProjectInfo {
         public string Path { get; set; }
         public string OutputPath { get; set; }
+        public override string ToString() {
+            return Path;
+        }
     }
 
     public class OptionClassBase {

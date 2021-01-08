@@ -43,7 +43,7 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
                 ?.EvaluatedValue;
             var outputPath = GetEvaluatedValue(item, "OutputPath");
             var targetFramework = item.Project.AllEvaluatedProperties.FirstOrDefault(property => property.Name == "TargetFramework")?.EvaluatedValue;
-            if (appendTargetFrameworkToOutputPath == "true") {
+            if ($"{appendTargetFrameworkToOutputPath}".ToLower() == "true") {
                 outputPath += targetFramework;
             }
             var fullPath = GetEvaluatedValue(item, "ProjectDir");

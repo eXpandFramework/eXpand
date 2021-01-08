@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
-using DevExpress.LookAndFeel;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using EnvDTE;
@@ -16,11 +16,14 @@ namespace Xpand.VSIX.ToolWindow.FavoriteProject {
         public FavoriteProjectToolWindowControl() {
             InitializeComponent();
             gridControl1.LookAndFeel.Assign(defaultLookAndFeel1.LookAndFeel);
-            GridHelper.Init(gridControl1,false).Subscribe();
+            gridControl1.DataSource = Options.OptionClass.Instance.SourceCodeInfos
+                .SelectMany(info => info.ProjectPaths)
+                .Select(info => new ProjectItemWrapper() {Name = Path.GetFileNameWithoutExtension(info.Path), FullPath = info.Path,LocalPath = info.Path});
             gridView1.KeyDown+=GridView1OnKeyDown;
             gridView1.KeyUp+=gridView1_KeyUp;
             gridView1.DoubleClick+=gridView1_DoubleClick;
         }
+
 
 
         private void GridView1OnKeyDown(object sender, KeyEventArgs e){
