@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#masterdetail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="20.2.500.0" />
-      <dependency id="eXpandLogic" version="20.2.500.0" />
-      <dependency id="eXpandMasterDetail" version="20.2.500.0" />
-      <dependency id="eXpandSystemWin" version="20.2.500.0" />
+      <dependency id="eXpandLib" version="20.2.500.1" />
+      <dependency id="eXpandLogic" version="20.2.500.1" />
+      <dependency id="eXpandMasterDetail" version="20.2.500.1" />
+      <dependency id="eXpandSystemWin" version="20.2.500.1" />
       <dependency id="System.Collections.Immutable" version="5.0" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
