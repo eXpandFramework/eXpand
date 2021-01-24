@@ -24,7 +24,7 @@ Copy-Item "$((Get-Item $result.PackageReader.GetNuspecFile()).DirectoryName)\bui
 
 #build VSIX
 $fileName="$XpandFolder\Xpand.Plugins\Xpand.VSIX\Xpand.VSIX.csproj"
-Start-Build $fileName -Configuration Debug -PropertyValue @("DeployExtension=false","OutputPath=$XpandFolder\Xpand.Dll\Plugins") -WarnAsError
+Start-Build $fileName -Configuration Debug -PropertyValue @("DeployExtension=false","OutputPath=$XpandFolder\Xpand.Dll\Plugins") 
 
 
 

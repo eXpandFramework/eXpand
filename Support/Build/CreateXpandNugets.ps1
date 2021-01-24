@@ -16,7 +16,7 @@ if (([version]$version).Revision -gt 0) {
 }
 $c = [System.Net.WebClient]::new()
 "ps1", "targets" | ForEach-Object {
-    $script = $c.DownloadString("https://raw.githubusercontent.com/eXpandFramework/DevExpress.XAF/$branch/Build/targets/CopySymbols.$_")
+    $script = $c.DownloadString("https://raw.githubusercontent.com/eXpandFramework/Reactive.XAF/$branch/Build/targets/CopySymbols.$_")
     Set-Content "$PSScriptRoot\CopySymbols.$_" $script
 }
 

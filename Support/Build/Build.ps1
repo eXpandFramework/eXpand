@@ -107,16 +107,10 @@ Task CompileModules{
     InvokeScript -maxRetries 3 {
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         $group=$xml.Project.ItemGroup
-        # $compileArgs=$msbuildArgs
-        # $compileArgs+="/fl"
-        # $compileArgs+="/bl:$root\Xpand.dll\CompileModules.binlog"
-        # $compileArgs+="-m"
         
         Invoke-Script -Maximum 3 -Script{
             Start-Build -Path "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" -WarnAsError -Configuration $configuration -BinaryLogPath "$root\Xpand.dll\CompileModules.binlog"
         }
-        # & (Get-NugetPath) restore "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" -source ($packageSources -join ";") 
-        # & (Get-MsBuildPath) "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" @compileArgs
         if ($LASTEXITCODE){
             throw
         }

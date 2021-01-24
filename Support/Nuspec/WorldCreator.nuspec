@@ -17,10 +17,10 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
       <dependency id="AppDomainToolkit" version="1.0.4.3" />
-      <dependency id="eXpandLib" version="20.2.403.0" />
-      <dependency id="eXpandValidation" version="20.2.403.0" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.202.48" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.202.48" />
+      <dependency id="eXpandLib" version="20.2.500.0" />
+      <dependency id="eXpandValidation" version="20.2.500.0" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.202.48.5" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.202.48.5" />
     </dependencies>
   </metadata>
   <files>

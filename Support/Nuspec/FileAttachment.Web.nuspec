@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#FileAttachment</projectUrl>
     <dependencies>
-      <dependency id="eXpandFileAttachment" version="20.2.403.0" />
-      <dependency id="eXpandLib" version="20.2.403.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.202.48" />
+      <dependency id="eXpandFileAttachment" version="20.2.500.0" />
+      <dependency id="eXpandLib" version="20.2.500.0" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.202.48.5" />
     </dependencies>
   </metadata>
   <files>

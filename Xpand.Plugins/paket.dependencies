@@ -6,8 +6,8 @@ source https://xpandnugetserver.azurewebsites.net/nuget
 source f:\devexpress\packages
 
 
-nuget DevExpress.ExpressApp.Xpo == 20.2.4
-nuget DevExpress.ExpressApp.Win == 20.2.4
+nuget DevExpress.ExpressApp.Xpo == 20.2.5
+nuget DevExpress.ExpressApp.Win == 20.2.5
 nuget Fasterflect.Xpand
 nuget Fody 4.2.1
 nuget Microsoft.CSharp 4.7.0
