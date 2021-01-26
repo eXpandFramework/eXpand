@@ -1,8 +1,8 @@
 ---
 name: 'Standalone XAF-Modules: Question'
-about: Only for the eXpandFramework/XAF project
+about: Only for the eXpandFramework/Reactive.XAF project
 title: ''
-labels: Question, Standalone_XAF_Modules
+labels: Question, Reactive.XAF
 assignees: apobekiaris
 
 ---

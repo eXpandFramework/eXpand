@@ -1,8 +1,8 @@
 ---
 name: 'Standalone XAF-Modules: Bug report'
-about: Only for the eXpandFramework/XAF project
+about: Only for the eXpandFramework/Reactive.XAF project
 title: ''
-labels: Bug, Standalone_XAF_Modules
+labels: Bug, Reactive.XAF
 assignees: apobekiaris
 
 ---
