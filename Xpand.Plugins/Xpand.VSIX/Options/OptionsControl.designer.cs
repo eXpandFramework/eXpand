@@ -40,6 +40,8 @@ namespace Xpand.VSIX.Options
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.checkEditShowErrorsInMessageBox = new DevExpress.XtraEditors.CheckEdit();
             this.specificVersionCheckEdit = new DevExpress.XtraEditors.CheckEdit();
+            this.labelControl13 = new DevExpress.XtraEditors.LabelControl();
+            this.comboBoxEditColorTheme = new DevExpress.XtraEditors.ComboBoxEdit();
             this.EasyTests = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.labelControl6 = new DevExpress.XtraEditors.LabelControl();
@@ -112,6 +114,7 @@ namespace Xpand.VSIX.Options
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditShowErrorsInMessageBox.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditColorTheme.Properties)).BeginInit();
             this.EasyTests.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.testExecutorButtonEdit.Properties)).BeginInit();
@@ -170,10 +173,14 @@ namespace Xpand.VSIX.Options
             // 
             // tableLayoutPanel4
             // 
-            this.tableLayoutPanel4.ColumnCount = 1;
+            this.tableLayoutPanel4.ColumnCount = 3;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 137F));
+            this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 672F));
             this.tableLayoutPanel4.Controls.Add(this.checkEditShowErrorsInMessageBox, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.specificVersionCheckEdit, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.labelControl13, 1, 0);
+            this.tableLayoutPanel4.Controls.Add(this.comboBoxEditColorTheme, 2, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -192,7 +199,8 @@ namespace Xpand.VSIX.Options
             this.checkEditShowErrorsInMessageBox.Location = new System.Drawing.Point(3, 33);
             this.checkEditShowErrorsInMessageBox.Name = "checkEditShowErrorsInMessageBox";
             this.checkEditShowErrorsInMessageBox.Properties.Caption = "Show Errors in MessageBox";
-            this.checkEditShowErrorsInMessageBox.Size = new System.Drawing.Size(1353, 24);
+            this.checkEditShowErrorsInMessageBox.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Default;
+            this.checkEditShowErrorsInMessageBox.Size = new System.Drawing.Size(544, 24);
             this.checkEditShowErrorsInMessageBox.TabIndex = 35;
             // 
             // specificVersionCheckEdit
@@ -202,8 +210,31 @@ namespace Xpand.VSIX.Options
             this.specificVersionCheckEdit.Location = new System.Drawing.Point(3, 3);
             this.specificVersionCheckEdit.Name = "specificVersionCheckEdit";
             this.specificVersionCheckEdit.Properties.Caption = "When a new assembly is referenced use False Specific Version";
-            this.specificVersionCheckEdit.Size = new System.Drawing.Size(1353, 24);
+            this.specificVersionCheckEdit.Size = new System.Drawing.Size(544, 24);
             this.specificVersionCheckEdit.TabIndex = 33;
+            // 
+            // labelControl13
+            // 
+            this.labelControl13.Location = new System.Drawing.Point(553, 3);
+            this.labelControl13.Name = "labelControl13";
+            this.labelControl13.Size = new System.Drawing.Size(98, 19);
+            this.labelControl13.TabIndex = 36;
+            this.labelControl13.Text = "Color Theme:";
+            // 
+            // comboBoxEditColorTheme
+            // 
+            this.comboBoxEditColorTheme.EditValue = "Basic";
+            this.comboBoxEditColorTheme.Location = new System.Drawing.Point(690, 3);
+            this.comboBoxEditColorTheme.Name = "comboBoxEditColorTheme";
+            this.comboBoxEditColorTheme.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboBoxEditColorTheme.Properties.DropDownRows = 2;
+            this.comboBoxEditColorTheme.Properties.Items.AddRange(new object[] {
+            "Basic",
+            "Visual Studio 2013 Dark"});
+            this.comboBoxEditColorTheme.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+            this.comboBoxEditColorTheme.Size = new System.Drawing.Size(150, 26);
+            this.comboBoxEditColorTheme.TabIndex = 37;
             // 
             // EasyTests
             // 
@@ -839,12 +870,12 @@ namespace Xpand.VSIX.Options
             // gridControlExceptions
             // 
             this.gridControlExceptions.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControlExceptions.Location = new System.Drawing.Point(3, 71);
+            this.gridControlExceptions.Location = new System.Drawing.Point(3, 67);
             this.gridControlExceptions.MainView = this.gridView5;
             this.gridControlExceptions.Name = "gridControlExceptions";
             this.gridControlExceptions.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit4});
-            this.gridControlExceptions.Size = new System.Drawing.Size(1347, 745);
+            this.gridControlExceptions.Size = new System.Drawing.Size(1347, 747);
             this.gridControlExceptions.TabIndex = 14;
             this.gridControlExceptions.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView5});
@@ -997,8 +1028,10 @@ namespace Xpand.VSIX.Options
             this.Size = new System.Drawing.Size(1367, 856);
             this.General.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.checkEditShowErrorsInMessageBox.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.specificVersionCheckEdit.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboBoxEditColorTheme.Properties)).EndInit();
             this.EasyTests.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
@@ -1122,5 +1155,7 @@ namespace Xpand.VSIX.Options
         private RepositoryItemCheckEdit repositoryItemCheckEdit6;
         private CheckEdit checkEditShowErrorsInMessageBox;
         private LabelControl labelControl1;
+        private LabelControl labelControl13;
+        private ComboBoxEdit comboBoxEditColorTheme;
     }
 }

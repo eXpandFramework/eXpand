@@ -7,6 +7,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using EnvDTE;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
+using Xpand.VSIX.Options;
 using Xpand.VSIX.ToolWindow.ModelEditor;
 
 namespace Xpand.VSIX.ToolWindow.FavoriteProject {
@@ -15,6 +16,7 @@ namespace Xpand.VSIX.ToolWindow.FavoriteProject {
 
         public FavoriteProjectToolWindowControl() {
             InitializeComponent();
+            defaultLookAndFeel1.LookAndFeel.SkinName = OptionClass.Instance.ColorTheme;
             gridControl1.LookAndFeel.Assign(defaultLookAndFeel1.LookAndFeel);
             gridControl1.DataSource = Options.OptionClass.Instance.SourceCodeInfos
                 .SelectMany(info => info.ProjectPaths)

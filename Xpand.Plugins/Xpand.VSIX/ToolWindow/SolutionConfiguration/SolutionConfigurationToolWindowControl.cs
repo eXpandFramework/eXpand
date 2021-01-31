@@ -7,6 +7,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
+using Xpand.VSIX.Options;
 
 namespace Xpand.VSIX.ToolWindow.SolutionConfiguration {
     public partial class SolutionConfigurationToolWindowControl : UserControl {
@@ -30,6 +31,7 @@ namespace Xpand.VSIX.ToolWindow.SolutionConfiguration {
         }
         public SolutionConfigurationToolWindowControl() {
             InitializeComponent();
+            defaultLookAndFeel1.LookAndFeel.SkinName = OptionClass.Instance.ColorTheme;
             gridControl1.LookAndFeel.Assign(defaultLookAndFeel1.LookAndFeel);
             DTE.WhenSolutionOpen().Do(_ => SetDataSource()).Subscribe();
             SetDataSource();

@@ -6,6 +6,7 @@ using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Views.Grid;
 using EnvDTE80;
 using Xpand.VSIX.Extensions;
+using Xpand.VSIX.Options;
 
 namespace Xpand.VSIX.ToolWindow.ModelEditor {
     public partial class METoolWindowControl : UserControl {
@@ -13,6 +14,7 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
 
         public METoolWindowControl() {
             InitializeComponent();
+            defaultLookAndFeel1.LookAndFeel.SkinName = OptionClass.Instance.ColorTheme;
             gridControl1.LookAndFeel.Assign(defaultLookAndFeel1.LookAndFeel);
             GridHelper.Init(gridControl1).Subscribe();
             gridView1.KeyDown+=GridView1OnKeyDown;

@@ -73,10 +73,6 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
             this.gridColumnModels.VisibleIndex = 0;
             this.gridColumnModels.Width = 112;
             // 
-            // defaultLookAndFeel1
-            // 
-            this.defaultLookAndFeel1.LookAndFeel.SkinName = "Visual Studio 2013 Dark";
-            // 
             // METoolWindowControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);

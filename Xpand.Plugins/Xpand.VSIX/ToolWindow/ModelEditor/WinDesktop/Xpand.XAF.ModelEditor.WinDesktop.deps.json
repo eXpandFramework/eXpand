@@ -141,7 +141,7 @@
           "System.IO": "4.3.0",
           "System.Memory": "4.5.4",
           "System.Numerics.Vectors": "4.5.0",
-          "System.Private.ServiceModel": "4.8.0",
+          "System.Private.ServiceModel": "4.8.1",
           "System.Reflection": "4.3.0",
           "System.Reflection.DispatchProxy": "4.7.1",
           "System.Reflection.Emit": "4.7.0",
@@ -161,10 +161,10 @@
           "System.Security.Cryptography.Xml": "5.0.0",
           "System.Security.Permissions": "5.0.0",
           "System.Security.Principal.Windows": "5.0.0",
-          "System.ServiceModel.Http": "4.8.0",
-          "System.ServiceModel.NetTcp": "4.8.0",
-          "System.ServiceModel.Primitives": "4.8.0",
-          "System.ServiceModel.Security": "4.8.0",
+          "System.ServiceModel.Http": "4.8.1",
+          "System.ServiceModel.NetTcp": "4.8.1",
+          "System.ServiceModel.Primitives": "4.8.1",
+          "System.ServiceModel.Security": "4.8.1",
           "System.ServiceProcess.ServiceController": "5.0.0",
           "System.Text.Encoding": "4.3.0",
           "System.Text.Encoding.CodePages": "5.0.0",
@@ -527,7 +527,7 @@
           "System.ComponentModel.Annotations": "5.0.0",
           "System.Drawing.Common": "5.0.0",
           "System.Security.Cryptography.Pkcs": "5.0.1",
-          "System.ServiceModel.Http": "4.8.0"
+          "System.ServiceModel.Http": "4.8.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Printing.v20.2.Core.dll": {
@@ -1388,7 +1388,7 @@
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0",
           "System.Resources.Extensions": "5.0.0",
-          "System.ServiceModel.Primitives": "4.8.0",
+          "System.ServiceModel.Primitives": "4.8.1",
           "System.Text.Encoding.CodePages": "5.0.0"
         },
         "runtime": {
@@ -1782,9 +1782,9 @@
           "DevExpress.WindowsDesktop.XAF.Xpo": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.Xpo": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.ServiceModel.Http": "4.8.0",
-          "System.ServiceModel.NetTcp": "4.8.0",
-          "System.ServiceModel.Primitives": "4.8.0"
+          "System.ServiceModel.Http": "4.8.1",
+          "System.ServiceModel.NetTcp": "4.8.1",
+          "System.ServiceModel.Primitives": "4.8.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Security.Xpo.v20.2.dll": {
@@ -1915,9 +1915,9 @@
           "System.Data.SqlClient": "4.8.2",
           "System.Drawing.Common": "5.0.0",
           "System.Security.Principal.Windows": "5.0.0",
-          "System.ServiceModel.Http": "4.8.0",
-          "System.ServiceModel.NetTcp": "4.8.0",
-          "System.ServiceModel.Security": "4.8.0"
+          "System.ServiceModel.Http": "4.8.1",
+          "System.ServiceModel.NetTcp": "4.8.1",
+          "System.ServiceModel.Security": "4.8.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Xpo.v20.2.dll": {
@@ -2467,7 +2467,7 @@
       },
       "System.Memory/4.5.4": {},
       "System.Numerics.Vectors/4.5.0": {},
-      "System.Private.ServiceModel/4.8.0": {
+      "System.Private.ServiceModel/4.8.1": {
         "dependencies": {
           "System.Numerics.Vectors": "4.5.0",
           "System.Reflection.DispatchProxy": "4.7.1",
@@ -2476,8 +2476,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/System.Private.ServiceModel.dll": {
-            "assemblyVersion": "4.8.0.0",
-            "fileVersion": "4.800.20.51907"
+            "assemblyVersion": "4.8.1.0",
+            "fileVersion": "4.800.121.7802"
           }
         }
       },
@@ -2678,54 +2678,54 @@
           }
         }
       },
-      "System.ServiceModel.Http/4.8.0": {
+      "System.ServiceModel.Http/4.8.1": {
         "dependencies": {
-          "System.Private.ServiceModel": "4.8.0",
-          "System.ServiceModel.Primitives": "4.8.0"
+          "System.Private.ServiceModel": "4.8.1",
+          "System.ServiceModel.Primitives": "4.8.1"
         },
         "runtime": {
           "lib/netstandard2.0/System.ServiceModel.Http.dll": {
-            "assemblyVersion": "4.8.0.0",
-            "fileVersion": "4.800.20.51907"
+            "assemblyVersion": "4.8.1.0",
+            "fileVersion": "4.800.121.7802"
           }
         }
       },
-      "System.ServiceModel.NetTcp/4.8.0": {
+      "System.ServiceModel.NetTcp/4.8.1": {
         "dependencies": {
-          "System.Private.ServiceModel": "4.8.0",
-          "System.ServiceModel.Primitives": "4.8.0"
+          "System.Private.ServiceModel": "4.8.1",
+          "System.ServiceModel.Primitives": "4.8.1"
         },
         "runtime": {
           "lib/netstandard2.0/System.ServiceModel.NetTcp.dll": {
-            "assemblyVersion": "4.8.0.0",
-            "fileVersion": "4.800.20.51907"
+            "assemblyVersion": "4.8.1.0",
+            "fileVersion": "4.800.121.7802"
           }
         }
       },
-      "System.ServiceModel.Primitives/4.8.0": {
+      "System.ServiceModel.Primitives/4.8.1": {
         "dependencies": {
-          "System.Private.ServiceModel": "4.8.0"
+          "System.Private.ServiceModel": "4.8.1"
         },
         "runtime": {
           "lib/netcoreapp2.1/System.ServiceModel.Primitives.dll": {
-            "assemblyVersion": "4.8.0.0",
-            "fileVersion": "4.800.20.51907"
+            "assemblyVersion": "4.8.1.0",
+            "fileVersion": "4.800.121.7802"
           },
           "lib/netcoreapp2.1/System.ServiceModel.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "4.800.20.51907"
+            "fileVersion": "4.800.121.7802"
           }
         }
       },
-      "System.ServiceModel.Security/4.8.0": {
+      "System.ServiceModel.Security/4.8.1": {
         "dependencies": {
-          "System.Private.ServiceModel": "4.8.0",
-          "System.ServiceModel.Primitives": "4.8.0"
+          "System.Private.ServiceModel": "4.8.1",
+          "System.ServiceModel.Primitives": "4.8.1"
         },
         "runtime": {
           "lib/netstandard2.0/System.ServiceModel.Security.dll": {
-            "assemblyVersion": "4.8.0.0",
-            "fileVersion": "4.800.20.51907"
+            "assemblyVersion": "4.8.1.0",
+            "fileVersion": "4.800.121.7802"
           }
         }
       },
@@ -3804,12 +3804,12 @@
       "path": "system.numerics.vectors/4.5.0",
       "hashPath": "system.numerics.vectors.4.5.0.nupkg.sha512"
     },
-    "System.Private.ServiceModel/4.8.0": {
+    "System.Private.ServiceModel/4.8.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-V21eCo3u2GOzq/BOSD3hxlJQCOp71RHXI0TxzbFp8k5Gtnu/X2bBYETpiRFUsUojJz5MwUNjtW8BdwdUnwP05g==",
-      "path": "system.private.servicemodel/4.8.0",
-      "hashPath": "system.private.servicemodel.4.8.0.nupkg.sha512"
+      "sha512": "sha512-neXeXhKIlCUBCg5rxKpYnae4vQSiMWjhqeTgsMedHvKKUTsmP98je+G8oPmDdY9uZVruvxqRGjcljn1XYNhC+w==",
+      "path": "system.private.servicemodel/4.8.1",
+      "hashPath": "system.private.servicemodel.4.8.1.nupkg.sha512"
     },
     "System.Reflection/4.3.0": {
       "type": "package",
@@ -3944,33 +3944,33 @@
       "path": "system.security.principal.windows/5.0.0",
       "hashPath": "system.security.principal.windows.5.0.0.nupkg.sha512"
     },
-    "System.ServiceModel.Http/4.8.0": {
+    "System.ServiceModel.Http/4.8.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+kn7xCZjf/d02SE3OnwyU4wxggrxEhOoGLB+DUACSTXvSIGKZoHPXQ6LhkY0/m7nzdjqxmvc7cJO3UPWgIH/8Q==",
-      "path": "system.servicemodel.http/4.8.0",
-      "hashPath": "system.servicemodel.http.4.8.0.nupkg.sha512"
+      "sha512": "sha512-yrfGQJ5joGXnZx3G340KDfgpmOSYzRMHP3zJkcwiV3CP750AEsvesVIXc+PXYFzU7v3JKLEw6GLrH7kPiZJa/g==",
+      "path": "system.servicemodel.http/4.8.1",
+      "hashPath": "system.servicemodel.http.4.8.1.nupkg.sha512"
     },
-    "System.ServiceModel.NetTcp/4.8.0": {
+    "System.ServiceModel.NetTcp/4.8.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KoeXvhicGSQ0A60AruHWTNN/D17ErLkv90SmWS/sFQ+QUc4Bbb8GDFwmDoUhwsa35khiwpSUWt8OBIcoM/ZabA==",
-      "path": "system.servicemodel.nettcp/4.8.0",
-      "hashPath": "system.servicemodel.nettcp.4.8.0.nupkg.sha512"
+      "sha512": "sha512-2h2Wq1wr/aBj8BwydO8h8AV5HvE7lEhgRyE6sDsftGTOr1rg5us9zxcJGT+WMlJ7pSTPXSTYCOEM/FfqHe0SEQ==",
+      "path": "system.servicemodel.nettcp/4.8.1",
+      "hashPath": "system.servicemodel.nettcp.4.8.1.nupkg.sha512"
     },
-    "System.ServiceModel.Primitives/4.8.0": {
+    "System.ServiceModel.Primitives/4.8.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-akJiBb0EcWTXQ/dgp1a27O7UynZbqQ84M17OY/ssxfb32x5wtQ5zRw6ExsQaPOUQgia4Wl2jy4FWZddQRLLnaA==",
-      "path": "system.servicemodel.primitives/4.8.0",
-      "hashPath": "system.servicemodel.primitives.4.8.0.nupkg.sha512"
+      "sha512": "sha512-XjzGCqvWZBHnw2ym8t9PVeTm5Tsp7lSDKEwhDZAU4Jnw+6+zEDu/2ZQYQbRqBR0t/KpfNA4Aya/5aONKJnuyEw==",
+      "path": "system.servicemodel.primitives/4.8.1",
+      "hashPath": "system.servicemodel.primitives.4.8.1.nupkg.sha512"
     },
-    "System.ServiceModel.Security/4.8.0": {
+    "System.ServiceModel.Security/4.8.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-oeCYY/i2kFgsVsxkuF4+PdepnVjSKNZtwSKb2qD6CCisLeXfmT5g7IuCdlLlbc2Ppq+wI7KsNhf+xnh9ESnVCQ==",
-      "path": "system.servicemodel.security/4.8.0",
-      "hashPath": "system.servicemodel.security.4.8.0.nupkg.sha512"
+      "sha512": "sha512-vCBnopz067lS+7Tn+dvpWPH9Yn5CYvSMd5StRzqa7cFDX4O7jkChRSoFWeMaNNqJCwQjafphaQn9IViwqufHZQ==",
+      "path": "system.servicemodel.security/4.8.1",
+      "hashPath": "system.servicemodel.security.4.8.1.nupkg.sha512"
     },
     "System.ServiceProcess.ServiceController/5.0.0": {
       "type": "package",

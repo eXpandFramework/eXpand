@@ -146,14 +146,13 @@ namespace Xpand.VSIX.Options{
         public bool DisableExceptions { get; set; }
 
         public string DefaultConfiguration => "Debug";
+        public string ColorTheme { get; set; } = "Basic";
 
         public void Save() {
             var stringBuilder = new StringBuilder();
             new XmlSerializer(typeof(OptionClass)).Serialize(XmlWriter.Create(stringBuilder), Instance);
             File.WriteAllText(Path, stringBuilder.ToString());
         }
-
-
     }
 
     public class DteCommand:OptionClassBase{

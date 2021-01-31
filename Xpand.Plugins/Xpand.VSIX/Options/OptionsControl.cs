@@ -31,6 +31,7 @@ namespace Xpand.VSIX.Options {
             gridControlExceptions.DataSource = OptionClass.Instance.Exceptions;
             gridControlExternal.DataSource = OptionClass.Instance.ExternalTools;
             gridControlCmdBindings.DataSource = OptionClass.Instance.DteCommands;
+            comboBoxEditColorTheme.EditValue = OptionClass.Instance.ColorTheme;
             var collection = Enum.GetNames(typeof(DTEEvent)).Cast<object>().ToArray();
             repositoryItemComboBox1.Items.AddRange(collection);
             Save();
@@ -53,6 +54,7 @@ namespace Xpand.VSIX.Options {
             OptionClass.Instance.ReferencedAssembliesFolders = (BindingList<ReferencedAssembliesFolder>) gridControlAssemblyFolders.DataSource;
             OptionClass.Instance.Exceptions = (BindingList<ExceptionsBreak>) gridControlExceptions.DataSource;
             OptionClass.Instance.ExternalTools = (BindingList<ExternalTools>) gridControlExternal.DataSource;
+            OptionClass.Instance.ColorTheme = $"{comboBoxEditColorTheme.EditValue}";
             instance.Save();
         }
 
