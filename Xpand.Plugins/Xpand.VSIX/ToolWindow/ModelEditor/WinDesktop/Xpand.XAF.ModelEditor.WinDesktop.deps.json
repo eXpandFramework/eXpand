@@ -135,7 +135,7 @@
           "System.Diagnostics.DiagnosticSource": "5.0.1",
           "System.Diagnostics.EventLog": "5.0.0",
           "System.Diagnostics.PerformanceCounter": "5.0.0",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Formats.Asn1": "5.0.0",
           "System.Globalization": "4.3.0",
           "System.IO": "4.3.0",
@@ -168,7 +168,6 @@
           "System.ServiceProcess.ServiceController": "5.0.0",
           "System.Text.Encoding": "4.3.0",
           "System.Text.Encoding.CodePages": "5.0.0",
-          "System.Text.Encodings.Web": "5.0.0",
           "System.Text.Json": "5.0.1",
           "System.Text.RegularExpressions": "4.3.1",
           "System.Threading": "4.3.0",
@@ -192,7 +191,7 @@
           "DevExpress.WindowsDesktop.DataVisualization.Core": "20.2.5",
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.XtraCharts.v20.2.dll": {
@@ -276,7 +275,7 @@
           "DevExpress.WindowsDesktop.TreeMap.Core": "20.2.5",
           "DevExpress.WindowsDesktop.Xpo": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Dashboard.v20.2.Core.dll": {
@@ -292,7 +291,7 @@
           "System.ComponentModel.Annotations": "5.0.0",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "System.Diagnostics.PerformanceCounter": "5.0.0",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0",
           "System.Text.Encoding.CodePages": "5.0.0"
@@ -319,7 +318,7 @@
           "NETStandard.Library": "2.0.3",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "System.Data.SqlClient": "4.8.2",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Reflection.Emit": "4.7.0"
         },
         "runtime": {
@@ -381,7 +380,7 @@
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.XtraGauges.v20.2.Core.dll": {
@@ -394,7 +393,7 @@
         "dependencies": {
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Images.v20.2.dll": {
@@ -407,7 +406,7 @@
         "dependencies": {
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Map.v20.2.Core.dll": {
@@ -465,7 +464,7 @@
           "DevExpress.WindowsDesktop.Pdf.Core": "20.2.5",
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Security.Cryptography.Xml": "5.0.0"
         },
         "runtime": {
@@ -479,7 +478,7 @@
         "dependencies": {
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Reflection.Emit": "4.7.0",
           "System.Security.Cryptography.Pkcs": "5.0.1"
         },
@@ -495,7 +494,7 @@
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "DevExpress.WindowsDesktop.Pdf.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Pdf.v20.2.Drawing.dll": {
@@ -509,7 +508,7 @@
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.PivotGrid.v20.2.Core.dll": {
@@ -525,7 +524,7 @@
           "DevExpress.WindowsDesktop.Pdf.Drawing": "20.2.5",
           "NETStandard.Library": "2.0.3",
           "System.ComponentModel.Annotations": "5.0.0",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Security.Cryptography.Pkcs": "5.0.1",
           "System.ServiceModel.Http": "4.8.1"
         },
@@ -557,7 +556,7 @@
           "System.Collections.Immutable": "5.0.0",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "System.Data.Common": "4.3.0",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Security.Permissions": "5.0.0"
         },
         "runtime": {
@@ -574,7 +573,7 @@
           "DevExpress.WindowsDesktop.Pdf.Core": "20.2.5",
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.RichEdit.v20.2.Core.dll": {
@@ -590,7 +589,7 @@
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.RichEdit.v20.2.Export.dll": {
@@ -603,7 +602,7 @@
         "dependencies": {
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.XtraScheduler.v20.2.Core.dll": {
@@ -631,7 +630,7 @@
         "dependencies": {
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Sparkline.v20.2.Core.dll": {
@@ -661,7 +660,7 @@
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Security.AccessControl": "5.0.0"
         },
         "runtime": {
@@ -678,7 +677,7 @@
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "DevExpress.WindowsDesktop.TreeMap.Core": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.XtraTreeMap.v20.2.dll": {
@@ -1210,7 +1209,7 @@
           "DevExpress.WindowsDesktop.Xpo": "20.2.5",
           "NETStandard.Library": "2.0.3",
           "System.Configuration.ConfigurationManager": "5.0.0",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.AuditTrail.v20.2.dll": {
@@ -1226,7 +1225,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Chart.v20.2.dll": {
@@ -1262,7 +1261,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.CloneObject.v20.2.dll": {
@@ -1277,7 +1276,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.ConditionalAppearance.v20.2.dll": {
@@ -1294,7 +1293,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Dashboards.v20.2.dll": {
@@ -1331,7 +1330,7 @@
           "NETStandard.Library": "2.0.3",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "System.Data.SqlClient": "4.8.2",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.ServiceProcess.ServiceController": "5.0.0"
         },
         "runtime": {
@@ -1384,7 +1383,7 @@
           "NETStandard.Library": "2.0.3",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "System.Diagnostics.EventLog": "5.0.0",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0",
           "System.Resources.Extensions": "5.0.0",
@@ -1450,7 +1449,7 @@
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Validation": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Kpi.v20.2.dll": {
@@ -1465,7 +1464,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Notifications.v20.2.dll": {
@@ -1497,7 +1496,7 @@
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Objects.v20.2.dll": {
@@ -1515,7 +1514,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Office.v20.2.dll": {
@@ -1554,7 +1553,7 @@
           "DevExpress.WindowsDesktop.Printing.Core": "20.2.5",
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Persistent.Base.v20.2.dll": {
@@ -1574,7 +1573,7 @@
           "DevExpress.WindowsDesktop.XAF.Xpo": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.Xpo": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Persistent.BaseImpl.v20.2.dll": {
@@ -1591,7 +1590,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.PivotChart.v20.2.dll": {
@@ -1628,7 +1627,7 @@
           "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.5",
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.PivotGrid.v20.2.dll": {
@@ -1667,7 +1666,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.ReportsV2.v20.2.dll": {
@@ -1731,7 +1730,7 @@
         "dependencies": {
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.ScriptRecorder.v20.2.dll": {
@@ -1763,7 +1762,7 @@
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "Microsoft.Extensions.Options": "5.0.0",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Security.Permissions": "5.0.0"
         },
         "runtime": {
@@ -1801,7 +1800,7 @@
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Validation": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.StateMachine.v20.2.dll": {
@@ -1816,7 +1815,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.TreeListEditors.v20.2.dll": {
@@ -1850,7 +1849,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Validation.v20.2.dll": {
@@ -1881,7 +1880,7 @@
           "DevExpress.WindowsDesktop.Data": "20.2.5",
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.ViewVariantsModule.v20.2.dll": {
@@ -1896,7 +1895,7 @@
           "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.5-ctp",
           "DevExpress.WindowsDesktop.Xpo": "20.2.5",
           "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Security.Permissions": "5.0.0"
         },
         "runtime": {
@@ -1913,7 +1912,7 @@
           "Microsoft.Win32.Registry": "5.0.0",
           "NETStandard.Library": "2.0.3",
           "System.Data.SqlClient": "4.8.2",
-          "System.Drawing.Common": "5.0.0",
+          "System.Drawing.Common": "5.0.1",
           "System.Security.Principal.Windows": "5.0.0",
           "System.ServiceModel.Http": "4.8.1",
           "System.ServiceModel.NetTcp": "4.8.1",
@@ -2416,28 +2415,28 @@
           }
         }
       },
-      "System.Drawing.Common/5.0.0": {
+      "System.Drawing.Common/5.0.1": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "5.0.0"
         },
         "runtime": {
           "lib/netcoreapp3.0/System.Drawing.Common.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
+            "assemblyVersion": "5.0.0.1",
+            "fileVersion": "5.0.321.7212"
           }
         },
         "runtimeTargets": {
           "runtimes/unix/lib/netcoreapp3.0/System.Drawing.Common.dll": {
             "rid": "unix",
             "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
+            "assemblyVersion": "5.0.0.1",
+            "fileVersion": "5.0.321.7212"
           },
           "runtimes/win/lib/netcoreapp3.0/System.Drawing.Common.dll": {
             "rid": "win",
             "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
+            "assemblyVersion": "5.0.0.1",
+            "fileVersion": "5.0.321.7212"
           }
         }
       },
@@ -2775,14 +2774,6 @@
           }
         }
       },
-      "System.Text.Encodings.Web/5.0.0": {
-        "runtime": {
-          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
       "System.Text.Json/5.0.1": {
         "runtime": {
           "lib/netcoreapp3.0/System.Text.Json.dll": {
@@ -2813,7 +2804,7 @@
       "System.ValueTuple/4.5.0": {},
       "System.Windows.Extensions/5.0.0": {
         "dependencies": {
-          "System.Drawing.Common": "5.0.0"
+          "System.Drawing.Common": "5.0.1"
         },
         "runtime": {
           "lib/netcoreapp3.0/System.Windows.Extensions.dll": {
@@ -3762,12 +3753,12 @@
       "path": "system.diagnostics.performancecounter/5.0.0",
       "hashPath": "system.diagnostics.performancecounter.5.0.0.nupkg.sha512"
     },
-    "System.Drawing.Common/5.0.0": {
+    "System.Drawing.Common/5.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-SztFwAnpfKC8+sEKXAFxCBWhKQaEd97EiOL7oZJZP56zbqnLpmxACWA8aGseaUExciuEAUuR9dY8f7HkTRAdnw==",
-      "path": "system.drawing.common/5.0.0",
-      "hashPath": "system.drawing.common.5.0.0.nupkg.sha512"
+      "sha512": "sha512-3IN8zWk395Qu+7wnoTbebEjdP3izZBBKAahgWuC0jp9tCgTdUFN6KsrqQl0I3L+ptZD/LvwKjgFp1u+x3+p+DA==",
+      "path": "system.drawing.common/5.0.1",
+      "hashPath": "system.drawing.common.5.0.1.nupkg.sha512"
     },
     "System.Formats.Asn1/5.0.0": {
       "type": "package",
@@ -3992,13 +3983,6 @@
       "sha512": "sha512-NyscU59xX6Uo91qvhOs2Ccho3AR2TnZPomo1Z0K6YpyztBPM/A5VbkzOO19sy3A3i1TtEnTxA7bCe3Us+r5MWg==",
       "path": "system.text.encoding.codepages/5.0.0",
       "hashPath": "system.text.encoding.codepages.5.0.0.nupkg.sha512"
-    },
-    "System.Text.Encodings.Web/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-EEslUvHKll1ftizbn20mX3Ix/l4Ygk/bdJ2LY6/X6FlGaP0RIhKMo9nS6JIGnKKT6KBP2PGj6JC3B9/ZF6ErqQ==",
-      "path": "system.text.encodings.web/5.0.0",
-      "hashPath": "system.text.encodings.web.5.0.0.nupkg.sha512"
     },
     "System.Text.Json/5.0.1": {
       "type": "package",
