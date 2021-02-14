@@ -1,6 +1,7 @@
 "Release","Issues","Labels","Message","Sha"
-"20.2.403.0","825","? Backer, Priority, VSIX","VSIX: Change ToolWindow defaultLookAndFeel","8829dc5ceea7bf376cf6036e28deea5c0d10624c"
-"20.2.403.0","792","must-have, Priority, Standalone_XAF_Modules, XpandModelEditor","VSIX XpandModelEditor support Blazor application project models","2e66552d764b324f39c3c035a4110357fedcd44f"
+"20.2.503.0","825","? Backer, Priority, VSIX","VSIX: open to control Color Theme","12e7a77c65dd49a34db54242da11d5e756bd5b09"
+"20.2.403.0","825","? Backer, Priority, VSIX","VSIX: Change ToolWindow defaultLookAndFeel",
+"20.2.403.0","792","must-have, Priority, Standalone_XAF_Modules, XpandModelEditor","VSIX XpandModelEditor support Blazor application project models",
 "20.2.402.0","821","? Sponsor, Nuget, VersionConverter, XpandModelEditor","Update invalid Xpand.XAF.ModelEditor.exe resource",
 "20.2.401.0","804","? Bronze Sponsor, Priority","DashboardNavigationController: redirect to default if view not accessible",
 "20.2.401.0","803","? Bronze Sponsor, Modeldifference, Priority, ReproSample, RuntimeMembers","Persistent Member creation fails",
