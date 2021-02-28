@@ -1,5 +1,5 @@
 ---
-name: 'Standalone XAF-Modules: Feature request'
+name: 'Reactive.XAF Modules: Feature request'
 about: Only for the eXpandFramework/Reactive.XAF project
 title: ''
 labels: Enhancement, Reactive.XAF

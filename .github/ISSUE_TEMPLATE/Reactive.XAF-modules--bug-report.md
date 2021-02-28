@@ -1,5 +1,5 @@
 ---
-name: 'Standalone XAF-Modules: Bug report'
+name: 'Reactive.XAF-Modules: Bug report'
 about: Only for the eXpandFramework/Reactive.XAF project
 title: ''
 labels: Bug, Reactive.XAF

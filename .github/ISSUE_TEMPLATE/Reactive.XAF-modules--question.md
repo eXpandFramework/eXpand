@@ -1,5 +1,5 @@
 ---
-name: 'Standalone XAF-Modules: Question'
+name: 'Reactive.XAF Modules: Question'
 about: Only for the eXpandFramework/Reactive.XAF project
 title: ''
 labels: Question, Reactive.XAF
