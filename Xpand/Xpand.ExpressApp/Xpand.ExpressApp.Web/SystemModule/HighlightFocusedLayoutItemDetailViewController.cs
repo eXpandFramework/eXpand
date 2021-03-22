@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.SystemModule;
-using Xpand.Utils.Helpers;
+using Xpand.Extensions.StreamExtensions;
 
 [assembly: WebResource("Xpand.ExpressApp.Web.SystemModule."+HighlightFocusedLayoutItemDetailViewController.HighlightFocusedLayoutItem, "text /javascript")]
 namespace Xpand.ExpressApp.Web.SystemModule {
@@ -23,7 +23,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
                         ApplyFocusedStyle(item);
                     }
                     else {
-                        item.ControlCreated += (s, e) => ApplyFocusedStyle(s);
+                        item.ControlCreated += (s, _) => ApplyFocusedStyle(s);
                     }
                 }
             }
@@ -36,48 +36,47 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         }
 
          protected override void ApplyFocusedStyle(object element) {
-            var editor = element as ASPxLookupPropertyEditor;
-            if (editor != null) {
+             if (element is ASPxLookupPropertyEditor editor) {
                 if (editor.DropDownEdit != null)
                     ApplyFocusedStyleCore(editor.DropDownEdit.DropDown);
 
                 if (editor.FindEdit != null)
                     ApplyFocusedStyleCore(editor.FindEdit.Editor);
-            }
-            else {
-                var propertyEditor = element as WebPropertyEditor;
-                if(propertyEditor != null) {
-                    ApplyFocusedStyleCore(propertyEditor.Editor as ASPxWebControl);
-                }
-            }
-        }
+             }
+             else {
+                 if(element is WebPropertyEditor propertyEditor) {
+                     ApplyFocusedStyleCore(propertyEditor.Editor as ASPxWebControl);
+                 }
+             }
+         }
 
          private void ApplyFocusedStyleCore(ASPxWebControl dxControl) {
-            if(dxControl != null) {
-                EventHandler loadEventHandler = (s, e) => {
-                    var control = (ASPxWebControl)s;
-                    AddEventHandlerSafe(control, "Init", "window.initEditor(s,e);");
-                    AddEventHandlerSafe(control, "GotFocus", "window.gotFocusEditor(s,e);");
-                };
-                EventHandler disposedEventHandler = null;
-                disposedEventHandler = (s, e) => {
-                    var control = (ASPxWebControl)s;
-                    control.Disposed -= disposedEventHandler;
-                    control.Load -= loadEventHandler;
-                };
-                dxControl.Disposed += disposedEventHandler;
-                dxControl.Load += loadEventHandler;
-            }
-        }
-        private static void AddEventHandlerSafe(ASPxWebControl control, string eventName, string handler) {
-            string existingHandler = control.GetClientSideEventHandler(eventName);
-            if(String.IsNullOrEmpty(existingHandler)) {
-                control.SetClientSideEventHandler(eventName, String.Format(ClientSideEventHandlerFunctionFormat, handler));
-            }
-            else {
-                existingHandler = $"{existingHandler.Substring(0, existingHandler.LastIndexOf('}'))}{handler}\r\n}}";
-                control.SetClientSideEventHandler(eventName, existingHandler);
-            }
-        }
+             if(dxControl != null) {
+                 void LoadEventHandler(object s, EventArgs e) {
+                     var control = (ASPxWebControl) s;
+                     AddEventHandlerSafe(control, "Init", "window.initEditor(s,e);");
+                     AddEventHandlerSafe(control, "GotFocus", "window.gotFocusEditor(s,e);");
+                 }
+
+                 void DisposedEventHandler(object s, EventArgs e) {
+                     var control = (ASPxWebControl) s;
+                     control.Disposed -= DisposedEventHandler;
+                     control.Load -= LoadEventHandler;
+                 }
+
+                 dxControl.Disposed += DisposedEventHandler;
+                 dxControl.Load += LoadEventHandler;
+             }
+         }
+         private static void AddEventHandlerSafe(ASPxWebControl control, string eventName, string handler) {
+             string existingHandler = control.GetClientSideEventHandler(eventName);
+             if(String.IsNullOrEmpty(existingHandler)) {
+                 control.SetClientSideEventHandler(eventName, String.Format(ClientSideEventHandlerFunctionFormat, handler));
+             }
+             else {
+                 existingHandler = $"{existingHandler.Substring(0, existingHandler.LastIndexOf('}'))}{handler}\r\n}}";
+                 control.SetClientSideEventHandler(eventName, existingHandler);
+             }
+         }
      }
 }

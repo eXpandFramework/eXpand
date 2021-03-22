@@ -9,7 +9,7 @@ using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
-using Xpand.Utils.Helpers;
+using Xpand.Extensions.ReflectionExtensions;
 using EnumPropertyEditor = Xpand.ExpressApp.Win.PropertyEditors.EnumPropertyEditor;
 
 namespace Xpand.ExpressApp.Win.SystemModule {

@@ -20,6 +20,7 @@ using Xpand.ExpressApp.ListEditors;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Fasterflect;
+using Xpand.Extensions.StreamExtensions;
 using PopupWindow = DevExpress.ExpressApp.Web.PopupWindow;
 
 
@@ -233,8 +234,7 @@ namespace Xpand.ExpressApp.Web.Layout {
         }
 
         private void FindUpdatePanels(Control sourceControl, List<XafUpdatePanel> updatePanels) {
-            var updatePanel = sourceControl as XafUpdatePanel;
-            if (updatePanel != null && updatePanel.UpdateAlways && !updatePanels.Contains(updatePanel) && ContainsActions(updatePanel)) {
+            if (sourceControl is XafUpdatePanel {UpdateAlways: true} updatePanel && !updatePanels.Contains(updatePanel) && ContainsActions(updatePanel)) {
                 updatePanels.Add(updatePanel);
             }
 
@@ -271,7 +271,7 @@ namespace Xpand.ExpressApp.Web.Layout {
                 
             };
 
-            splitter.CustomJSProperties += (s, e) => e.Properties[IsMasterDetailSplitterPropertyName] = true;
+            splitter.CustomJSProperties += (_, e) => e.Properties[IsMasterDetailSplitterPropertyName] = true;
             splitter.ClientSideEvents.PaneResized = GetPaneResizedEventScript(adapter);
             return splitter;
         }

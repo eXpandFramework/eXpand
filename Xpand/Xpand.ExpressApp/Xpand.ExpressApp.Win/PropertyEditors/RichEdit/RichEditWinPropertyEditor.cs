@@ -20,6 +20,7 @@ using DevExpress.XtraRichEdit.Export;
 using DevExpress.XtraRichEdit.Import;
 using DevExpress.XtraRichEdit.Services;
 using Xpand.ExpressApp.Win.SystemModule.ModelAdapters;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Extensions.XAF.ModelExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
@@ -99,7 +100,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         private void ObjectSpaceOnCommitting(object sender, CancelEventArgs cancelEventArgs) {
             if ((_modelRichEditEx.PrintXML &&
                  !string.IsNullOrEmpty((string) PropertyValue))) {
-                MemberInfo.SetValue(CurrentObject, PropertyValue.ToString().XMLPrint());
+                MemberInfo.SetValue(CurrentObject, PropertyValue.ToString().XmlPrint());
             }
         }
 

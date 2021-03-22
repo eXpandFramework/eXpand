@@ -13,13 +13,13 @@ nuget AppDomainToolkit 1.0.4.3
 nuget AutoMapper 3.3.1
 nuget CommandLineParser 1.9.71
 nuget Common.Logging 3.4.1
-nuget DevExpress.ExpressApp.Win.All == 20.2.5 netstandard2.0
-nuget DevExpress.ExpressApp.Web.All == 20.2.5 netstandard2.0
-nuget DevExpress.ExpressApp.Core.All  == 20.2.5 netstandard2.0
-nuget DevExpress.ExpressApp.Security.Xpo == 20.2.5 netstandard2.0
-nuget DevExpress.ExpressApp.Reports == 20.2.5 netstandard2.0
-nuget DevExpress.ExpressApp.Reports.Win == 20.2.5 netstandard2.0
-nuget DevExpress.Document.Processor 20.2.5 netstandard2.0
+nuget DevExpress.ExpressApp.Win.All == 20.2.6 netstandard2.0
+nuget DevExpress.ExpressApp.Web.All == 20.2.6 netstandard2.0
+nuget DevExpress.ExpressApp.Core.All  == 20.2.6 netstandard2.0
+nuget DevExpress.ExpressApp.Security.Xpo == 20.2.6 netstandard2.0
+nuget DevExpress.ExpressApp.Reports == 20.2.6 netstandard2.0
+nuget DevExpress.ExpressApp.Reports.Win == 20.2.6 netstandard2.0
+nuget DevExpress.Document.Processor 20.2.6 netstandard2.0
 nuget DocumentFormat.OpenXml 2.11.3
 nuget DotNetZip 1.14.0
 nuget Enums.NET 3.0.3
@@ -46,7 +46,7 @@ nuget System.CodeDom 5.0.0
 nuget System.Configuration.ConfigurationManager == 5.0.0
 nuget System.Security.Permissions == 5.0.0
 nuget System.Reflection.Emit 4.7.0
-nuget System.Drawing.Common 5.0.1
+nuget System.Drawing.Common 5.0.2
 nuget System.IO.Compression 4.3.0
 nuget System.Management 5.0.0
 nuget System.Reactive 5.0.0
@@ -59,8 +59,8 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 4.2.1
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.202.52.0
-nuget Xpand.XAF.Web.All 4.202.52.0
+nuget Xpand.XAF.Win.All 4.202.52.1
+nuget Xpand.XAF.Web.All 4.202.52.1
 nuget System.Memory == 4.5.4
 nuget System.Collections.Immutable == 5.0.0
 nuget System.ServiceModel.NetTcp == 4.8.1

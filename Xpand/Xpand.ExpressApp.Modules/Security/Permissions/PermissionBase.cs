@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.Xpo;
-using Xpand.Utils.Helpers;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.Security.Permissions {
@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Security.Permissions {
 
             var typePropertyEditorIsUsed = propertyInfo.PropertyType == typeof(Type);
             if (!typePropertyEditorIsUsed)
-                return XpandReflectionHelper.ChangeType(attribute.ToString().XMLDecode(), propertyInfo.PropertyType);
+                return XpandReflectionHelper.ChangeType(attribute.ToString().XmlDecode(), propertyInfo.PropertyType);
 
             return string.IsNullOrEmpty((attribute + "")) ? null : XafTypesInfo.Instance.FindTypeInfo(attribute.ToString()).Type;
         }
@@ -53,7 +53,7 @@ namespace Xpand.ExpressApp.Security.Permissions {
         protected SecurityElement AllToXml() {
             SecurityElement result = base.ToXml();
             foreach (var propertyInfo in _propertyInfos)
-                result.AddAttribute(propertyInfo.Name, (propertyInfo.GetValue(this, null) + "").XMLEncode());
+                result.AddAttribute(propertyInfo.Name, (propertyInfo.GetValue(this, null) + "").XmlEncode());
             return result;
         }
     }

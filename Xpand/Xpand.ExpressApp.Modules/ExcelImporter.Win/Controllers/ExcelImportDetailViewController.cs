@@ -9,6 +9,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.Services;
+using Xpand.Extensions.StreamExtensions;
 using Xpand.Persistent.Base;
 using Xpand.Utils.Helpers;
 
@@ -74,7 +75,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Controllers{
         private void ParseStream() {
             byte[] bytes;
             using (var fileStream = new FileStream(ExcelImport.FullName, FileMode.Open)) {
-                bytes = fileStream.ReadFully();
+                bytes = fileStream.Bytes();
             }
 
             using (var stream = ExcelImport.GetXlsContent(ExcelImport.FullName, bytes)){

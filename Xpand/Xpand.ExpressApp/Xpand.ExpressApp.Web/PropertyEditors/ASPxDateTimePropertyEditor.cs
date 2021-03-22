@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
-using Xpand.Utils.Helpers;
+using Xpand.Extensions.DateTimeExtensions;
 
 namespace Xpand.ExpressApp.Web.PropertyEditors {
     public interface IModelMemberViewItemRelativeDate : IModelMemberViewItem {
@@ -21,9 +21,7 @@ namespace Xpand.ExpressApp.Web.PropertyEditors {
     public class ASPxDateTimePropertyEditor:DevExpress.ExpressApp.Web.Editors.ASPx.ASPxDateTimePropertyEditor {
         public ASPxDateTimePropertyEditor(Type objectType, IModelMemberViewItem model) : base(objectType, model) {
         }
-        public new IModelMemberViewItemRelativeDate Model {
-            get { return (IModelMemberViewItemRelativeDate) base.Model; }
-        }
+        public new IModelMemberViewItemRelativeDate Model => (IModelMemberViewItemRelativeDate) base.Model;
 
         protected override string GetPropertyDisplayValue() {
             var displayValue = base.GetPropertyDisplayValue();

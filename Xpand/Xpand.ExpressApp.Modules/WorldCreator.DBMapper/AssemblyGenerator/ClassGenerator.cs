@@ -5,12 +5,12 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper.AssemblyGenerator {
-    public struct ClassGeneratorInfo {
+    public readonly struct ClassGeneratorInfo {
         public ClassGeneratorInfo(IPersistentClassInfo persistentClassInfo, DBTable dbTable)
             : this() {
             PersistentClassInfo = persistentClassInfo;
@@ -48,7 +48,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper.AssemblyGenerator {
             var indexOf = name.IndexOf(".", StringComparison.Ordinal);
             if (indexOf > -1)
                 name = name.Substring(indexOf + 1);
-            return StringExtensions.CleanCodeName(name);
+            return name.CleanCodeName();
         }
 
         public IPersistentClassInfo CreateClassInfo(string name, TemplateType templateType = TemplateType.Class) {

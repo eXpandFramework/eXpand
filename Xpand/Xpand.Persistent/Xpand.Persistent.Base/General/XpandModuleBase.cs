@@ -41,6 +41,7 @@ using Fasterflect;
 using Mono.Cecil;
 using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.Mono.Cecil;
+using Xpand.Extensions.ReflectionExtensions;
 using Xpand.Extensions.XAF.AppDomainExtensions;
 using Xpand.Persistent.Base.General.Web;
 using Xpand.Persistent.Base.General.Web.SyntaxHighlight;

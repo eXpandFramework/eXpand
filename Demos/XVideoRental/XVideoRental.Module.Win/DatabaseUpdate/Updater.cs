@@ -25,6 +25,7 @@ using Xpand.ExpressApp.Security.Core;
 using System.Drawing;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Extensions.XAF.SecurityExtensions;
 using Country = XVideoRental.Module.Win.BusinessObjects.Movie.Country;
 
@@ -64,7 +65,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
             if (dashboard == null) {
                 dashboard = ObjectSpace.CreateObject<DashboardDefinition>();
                 dashboard.Name = dashboardName;
-                dashboard.Xml = GetDashboardLayout(dashboardName).XMLPrint();
+                dashboard.Xml = GetDashboardLayout(dashboardName).XmlPrint();
                 dashboard.Index = index;
                 dashboard.Active = true;
                 foreach (var type in types)

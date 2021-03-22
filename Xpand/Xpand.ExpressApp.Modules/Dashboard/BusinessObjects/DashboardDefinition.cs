@@ -9,10 +9,10 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.Dashboard.Services;
 using Xpand.Extensions.XAF.Attributes;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
 using Xpand.XAF.Modules.CloneModelView;
 using Xpand.Xpo;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     public interface IDashboardDefinition{

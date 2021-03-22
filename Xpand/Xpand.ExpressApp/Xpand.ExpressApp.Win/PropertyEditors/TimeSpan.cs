@@ -4,7 +4,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils;
 using DevExpress.XtraEditors;
-using Xpand.Utils.Helpers;
+using Xpand.Extensions.ReflectionExtensions;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     [PropertyEditor(typeof(TimeSpan?),true)]

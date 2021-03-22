@@ -4,8 +4,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 using Xpand.Extensions.XAF.Attributes;
-using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
+using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.Persistent.BaseImpl.Security{
     [ImageName("BO_User"), DefaultProperty("UserName")]

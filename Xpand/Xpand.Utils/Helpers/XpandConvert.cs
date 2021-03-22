@@ -5,6 +5,9 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Fasterflect;
+using Xpand.Extensions.ObjectExtensions;
+using Xpand.Extensions.StringExtensions;
+using Xpand.Extensions.TypeExtensions;
 
 namespace Xpand.Utils.Helpers {
     [Flags]
@@ -18,31 +21,27 @@ namespace Xpand.Utils.Helpers {
     public static class XpandConvert {
         private const string ImplicitOperatorMethodName = "op_Implicit";
         private const string ExplicitOperatorMethodName = "op_Explicit";
-        private static readonly CultureInfo _defaultCultureInfo = CultureInfo.CurrentCulture;
+        private static readonly CultureInfo DefaultCultureInfo = CultureInfo.CurrentCulture;
         private const Conversion DefaultConversion = Conversion.None|Conversion.TreatNullAsDefault|Conversion.TreatWhitespaceAsDefault;
 
         public static bool CanChange<T>(object value) {
-            T result;            
-            return TryToChange(value, out result);
+            return TryToChange(value, out T _);
         }
 
         public static bool CanChange<T>(string value, CultureInfo culture) {
-            T result;
-            return TryToChange(value, out result, culture);
+            return TryToChange(value, out T _, culture);
         }
 
         public static bool CanChange<T>(object value, Conversion options) {
-            T result;
-            return TryToChange(value, out result, options);
+            return TryToChange(value, out T _, options);
         }
 
         public static bool CanChange<T>(object value, CultureInfo culture, Conversion options) {
-            T result;
-            return TryToChange(value, out result, culture, options);
+            return TryToChange(value, out T _, culture, options);
         }
 
         public static bool TryToChange<T>(object value, out T result) {
-            return TryToChange(value, out result, _defaultCultureInfo);
+            return TryToChange(value, out result, DefaultCultureInfo);
         }
 
         public static bool TryToChange<T>(object value, out T result, CultureInfo culture) {
@@ -50,12 +49,11 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static bool TryToChange<T>(object value, out T result, Conversion options) {
-            return TryToChange(value, out result, _defaultCultureInfo, options);
+            return TryToChange(value, out result, DefaultCultureInfo, options);
         }
 
         public static bool TryToChange<T>(object value, out T result, CultureInfo culture, Conversion options) {
-            object tmpResult;
-            if (TryToChange(value, typeof(T), out tmpResult, options, culture)) {
+            if (TryToChange(value, typeof(T), out var tmpResult, options, culture)) {
                 result = (T)tmpResult;
                 return true;
             }
@@ -64,7 +62,7 @@ namespace Xpand.Utils.Helpers {
         }
         
         public static T Change<T>(this object value) {
-            return Change<T>(value, _defaultCultureInfo);
+            return Change<T>(value, DefaultCultureInfo);
         }
 
         public static T Change<T>(this object value, CultureInfo culture) {
@@ -72,7 +70,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static T Change<T>(this object value, Conversion options) {
-            return Change<T>(value, _defaultCultureInfo, options);
+            return Change<T>(value, DefaultCultureInfo, options);
         }
 
         public static T Change<T>(this object value, CultureInfo culture, Conversion options) {
@@ -80,27 +78,23 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static bool CanChange(this object value, Type destinationType) {
-            object result;
-            return TryToChange(value, destinationType, out result);
+            return TryToChange(value, destinationType, out _);
         }
 
         public static bool CanChange(this object value, Type destinationType, CultureInfo culture) {
-            object result;
-            return TryToChange(value, destinationType, out result, culture);
+            return TryToChange(value, destinationType, out _, culture);
         }
 
         public static bool CanChange(this object value, Type destinationType, Conversion options) {
-            object result;
-            return TryToChange(value, destinationType, out result, options);
+            return TryToChange(value, destinationType, out _, options);
         }
 
         public static bool CanChange(this object value, Type destinationType, CultureInfo culture, Conversion options) {
-            object result;
-            return TryToChange(value, destinationType, out result, options, culture);
+            return TryToChange(value, destinationType, out _, options, culture);
         }
 
         public static bool TryToChange(this object value, Type destinationType, out object result) {
-            return TryToChange(value, destinationType, out result, _defaultCultureInfo);
+            return TryToChange(value, destinationType, out result, DefaultCultureInfo);
         }
 
         public static bool TryToChange(this object value, Type destinationType, out object result, CultureInfo culture) {
@@ -109,7 +103,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static bool TryToChange(this object value, Type destinationType, out object result, Conversion options) {
-            return TryToChange(value, destinationType, out result, options, _defaultCultureInfo);
+            return TryToChange(value, destinationType, out result, options, DefaultCultureInfo);
         }
 
         public static bool TryToChange(this object value, Type destinationType, out object result, Conversion options , CultureInfo culture) {
@@ -127,7 +121,7 @@ namespace Xpand.Utils.Helpers {
                 }
                 return true;
             }
-            Type coreDestinationType = destinationType.IsGeneric() ? destinationType.GetUnderlyingType() : destinationType;
+            Type coreDestinationType = destinationType.IsGenericType ? destinationType.UnderlyingSystemType : destinationType;
             object tmpResult = null;
             if (TryChangeCore(value, coreDestinationType, ref tmpResult, culture, options)) {
                 result = tmpResult;
@@ -138,7 +132,7 @@ namespace Xpand.Utils.Helpers {
         }
 
         private static bool TryChangeFromNull(Type destinationType, out object result, Conversion options) {
-            result = destinationType.GetDefaultValue();
+            result = destinationType.DefaultValue();
             if (result == null) {
                 return true;
             }
@@ -155,10 +149,10 @@ namespace Xpand.Utils.Helpers {
             if (TryChangeByTryParse(value.ToString(), destinationType, ref result)) {
                 return true;
             }
-            if (TryChangeXPlicit(value, destinationType, ExplicitOperatorMethodName, ref result)) {
+            if (TryChangeExplicit(value, destinationType, ExplicitOperatorMethodName, ref result)) {
                 return true;
             }
-            if (TryChangeXPlicit(value, destinationType, ImplicitOperatorMethodName, ref result)) {
+            if (TryChangeExplicit(value, destinationType, ImplicitOperatorMethodName, ref result)) {
                 return true;
             }
             if (TryChangeByIntermediateConversion(value, destinationType, ref result, culture, options)) {
@@ -171,9 +165,8 @@ namespace Xpand.Utils.Helpers {
             }
 
             if ((options & Conversion.TreatWhitespaceAsDefault) == Conversion.TreatWhitespaceAsDefault) {
-                var s = value as string;
-                if (s != null && s.IsWhiteSpace()) {
-                    result = destinationType.GetDefaultValue();
+                if (value is string s && s.IsWhiteSpace()) {
+                    result = destinationType.DefaultValue();
                     return true;
                 }
             }
@@ -196,8 +189,8 @@ namespace Xpand.Utils.Helpers {
         }
 
         private static bool TryChangeGuessedValues(object value, Type destinationType, ref object result) {
-            if (value is char && destinationType == typeof(bool)) {
-                return TryChangeCharToBool((char)value, ref result);
+            if (value is char c && destinationType == typeof(bool)) {
+                return TryChangeCharToBool(c, ref result);
             }
             var changeNullString = TryChangeNullString(value, destinationType, ref result);
             if (changeNullString)
@@ -206,12 +199,11 @@ namespace Xpand.Utils.Helpers {
                 return TryChangeStringToBool(value.ToString(), ref result);
             }
 
-            if (value is bool && destinationType == typeof(char)) {
-                return ChangeBoolToChar((bool)value, out result);
+            if (value is bool b && destinationType == typeof(char)) {
+                return ChangeBoolToChar(b, out result);
             }
             if (destinationType ==typeof(TimeSpan)) {
-                object o;
-                if (TryToChange(value, typeof (long), out o,Conversion.GuessValues)) {
+                if (TryToChange(value, typeof (long), out var o,Conversion.GuessValues)) {
                     result = new TimeSpan((long) o);
                     return true;
                 }
@@ -220,11 +212,9 @@ namespace Xpand.Utils.Helpers {
             if ((destinationType == typeof (Rectangle)) &&!string.IsNullOrEmpty(value + "")){
                 var rectParts = value.ToString().Split(';');
                 if (rectParts.Length == 2){
-                    object point;
-                    var canChange = rectParts[0].TryToChange(typeof (Point), out point);
+                    var canChange = rectParts[0].TryToChange(typeof (Point), out var point);
                     if (canChange){
-                        object size;
-                        canChange=rectParts[1].TryToChange(typeof (Size), out size);
+                        canChange=rectParts[1].TryToChange(typeof (Size), out var size);
                         if (canChange){
                             result = new Rectangle((Point) point, (Size) size);
                             return true;
@@ -325,146 +315,132 @@ namespace Xpand.Utils.Helpers {
         }
 
         static bool TryParseUGuid(string valueString, ref object result) {
-            Guid guid;
-            var tryParse = Guid.TryParse(valueString, out guid);
+            var tryParse = Guid.TryParse(valueString, out var guid);
             if (tryParse)
                 result = guid;
             return tryParse;
         }
 
         static bool TryParseUInt64(string valueString, ref object result) {
-            ushort @ushort;
-            var tryParse = UInt16.TryParse(valueString, out @ushort);
+            var tryParse = UInt16.TryParse(valueString, out var @ushort);
             if (tryParse)
                 result = @ushort;
             return tryParse;
         }
 
         static bool TryParseUInt32(string valueString, ref object result) {
-            uint u;
-            var tryParse = UInt32.TryParse(valueString, out u);
+            var tryParse = UInt32.TryParse(valueString, out var u);
             if (tryParse)
                 result = u;
             return tryParse;
         }
 
         static bool TryParseUInt16(string valueString, ref object result) {
-            ushort @ushort;
-            var tryParse = UInt16.TryParse(valueString, out @ushort);
+            var tryParse = UInt16.TryParse(valueString, out var @ushort);
             if (tryParse)
                 result = @ushort;
             return tryParse;
         }
 
         static bool TryParseSingle(string valueString, ref object result) {
-            float f;
-            var tryParse = Single.TryParse(valueString, out f);
+            var tryParse = Single.TryParse(valueString, out var f);
             if (tryParse)
                 result = f;
             return tryParse;
         }
 
         static bool TryParseSByte(string valueString, ref object result) {
-            sbyte @sbyte;
-            var tryParse = SByte.TryParse(valueString, out @sbyte);
+            var tryParse = SByte.TryParse(valueString, out var @sbyte);
             if (tryParse)
                 result = @sbyte;
             return tryParse;
         }
 
         static bool TryParseInt64(string valueString, ref object result) {
-            long l;
-            var tryParse = Int64.TryParse(valueString, out l);
+            var tryParse = Int64.TryParse(valueString, out var l);
             if (tryParse)
                 result = l;
             return tryParse;
         }
 
         static bool TryParseInt32(string valueString, ref object result) {
-            int i;
-            var tryParse = Int32.TryParse(valueString, out i);
+            var tryParse = Int32.TryParse(valueString, out var i);
             if (tryParse)
                 result = i;
             return tryParse;
         }
 
         static bool TryParseInt16(string valueString, ref object result) {
-            short s;
-            var tryParse = Int16.TryParse(valueString, out s);
+            var tryParse = Int16.TryParse(valueString, out var s);
             if (tryParse)
                 result = s;
             return tryParse;
         }
 
         static bool TryParseDouble(string valueString, ref object result) {
-            double d;
-            var tryParse = double.TryParse(valueString, out d);
+            var tryParse = double.TryParse(valueString, out var d);
             if (tryParse)
                 result = d;
             return tryParse;
         }
 
         static bool TryParseDecimal(string value, ref object result) {
-            decimal @decimal;
-            var tryParse = decimal.TryParse(value, out @decimal);
+            var tryParse = decimal.TryParse(value, out var @decimal);
             if (tryParse)
                 result = @decimal;
             return tryParse;
         }
 
         static bool TryParseDateTime(string value, ref object result) {
-            DateTime time;
-            var tryParse = DateTime.TryParse(value, out time);
+            var tryParse = DateTime.TryParse(value, out var time);
             if (tryParse)
                 result = time;
             return tryParse;
         }
 
         static bool TryParseChar(string value, ref object result) {
-            char c;
-            var tryParse = char.TryParse(value, out c);
+            var tryParse = char.TryParse(value, out var c);
             if (tryParse)
                 result = c;
             return tryParse;
         }
 
         static bool TryParseByte(string value, ref object result) {
-            byte b;
-            var tryParse = byte.TryParse(value, out b);
+            var tryParse = byte.TryParse(value, out var b);
             if (tryParse)
                 result = b;
             return tryParse;
         }
 
         static bool TryParseBool(string value, ref object result) {
-            
-            bool b;
-            var tryParse = bool.TryParse(value, out b);
+            var tryParse = bool.TryParse(value, out var b);
             if (tryParse)
                 result = b;
             return tryParse;
         }
 
-        private static bool TryChangeXPlicit(object value, Type destinationType, string operatorMethodName, ref object result) {
-            if (TryChangeXPlicit(value, value.GetType(), destinationType, operatorMethodName, ref result)) {
+        private static bool TryChangeExplicit(object value, Type destinationType, string operatorMethodName, ref object result) {
+            if (TryChangeExplicit(value, value.GetType(), destinationType, operatorMethodName, ref result)) {
                 return true;
             }
-            if (TryChangeXPlicit(value, destinationType, destinationType, operatorMethodName, ref result)) {
+            if (TryChangeExplicit(value, destinationType, destinationType, operatorMethodName, ref result)) {
                 return true;
             }
             return false;
         }
 
-        private static bool TryChangeXPlicit(object value, Type invokerType, Type destinationType, string xPlicitMethodName, ref object result) {
+        private static bool TryChangeExplicit(object value, Type invokerType, Type destinationType, string explicitMethodName, ref object result) {
             var methods = invokerType.GetMethods(BindingFlags.Public | BindingFlags.Static);
-            foreach (MethodInfo method in methods.Where(m => m.Name == xPlicitMethodName)) {
+            foreach (MethodInfo method in methods.Where(m => m.Name == explicitMethodName)) {
                 if (destinationType.IsAssignableFrom(method.ReturnType)) {
                     var parameters = method.GetParameters();
-                    if (parameters.Count() == 1 && parameters[0].ParameterType == value.GetType()) {
+                    if (parameters.Length == 1 && parameters[0].ParameterType == value.GetType()) {
                         try {
                             result = method.Invoke(null, new[] { value });
                             return true;
-                        } catch {
+                        }
+                        catch {
+                            // ignored
                         }
                     }
                 }
@@ -484,15 +460,14 @@ namespace Xpand.Utils.Helpers {
         }
 
         private static bool TryChangeToEnum(object value, Type destinationType, ref object result) {
-            object o;
-            var enumTryParse = destinationType.EnumTryParse(value.ToString(), out o);
+            var enumTryParse = destinationType.EnumTryParse(value.ToString(), out var o);
             if (enumTryParse)
                 result = o;
             return enumTryParse;
         }
 
         public static object Change(this object value, Type destinationType) {
-            return Change(value, destinationType, _defaultCultureInfo);
+            return Change(value, destinationType, DefaultCultureInfo);
         }
 
         public static object Change(this object value, Type destinationType, CultureInfo culture) {
@@ -500,12 +475,11 @@ namespace Xpand.Utils.Helpers {
         }
 
         public static object Change(this object value, Type destinationType, Conversion options) {
-            return Change(value, destinationType, _defaultCultureInfo, options);
+            return Change(value, destinationType, DefaultCultureInfo, options);
         }
 
         public static object Change(this object value, Type destinationType, CultureInfo culture, Conversion options) {
-            object result;
-            if (TryToChange(value, destinationType, out result, options, culture)) {
+            if (TryToChange(value, destinationType, out var result, options, culture)) {
                 return result;
             }
             throw new TypeCannotChanged(value, destinationType);
@@ -522,10 +496,8 @@ namespace Xpand.Utils.Helpers {
         /// <param name="valueToConvert"></param>
         /// <param name="destinationType"></param>
         public TypeCannotChanged(object valueToConvert, Type destinationType)
-            : base(String.Format("'{0}' ({1}) is not convertible to '{2}'.",
-                                 valueToConvert,
-                                 valueToConvert == null ? null : valueToConvert.GetType(),
-                                 destinationType)) {
+            : base(
+                $"'{valueToConvert}' ({valueToConvert?.GetType()}) is not convertible to '{destinationType}'.") {
         }
     }
 

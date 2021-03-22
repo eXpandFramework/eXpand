@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using DevExpress.Persistent.Validation;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Persistent.Base.PersistentMetaData;
-using StringExtensions = Xpand.Utils.Helpers.StringExtensions;
 
 namespace Xpand.ExpressApp.WorldCreator.BusinessObjects.Validation{
     [CodeRule]
@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects.Validation{
 
         protected override bool IsValidInternal(IPersistentTypeInfo target, out string errorMessageTemplate){
             errorMessageTemplate = ErrorMessage;
-            return StringExtensions.CleanCodeName(target.Name)==target.Name;
+            return target.Name.CleanCodeName()==target.Name;
         }
     }
 }

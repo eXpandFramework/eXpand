@@ -5,6 +5,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Extensions.DateTimeExtensions;
 using Xpand.Extensions.XAF.Attributes.Custom;
 using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.AdditionalViewControls;
@@ -45,7 +46,7 @@ namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
         public List<DateTime> DatesIncluded => _datesIncluded;
 
         [Browsable(false)]
-        public List<DateTime> AllDates => DateTimeUtils.GetDates().ToList();
+        public List<DateTime> AllDates => DateTime.Today.Year.Dates().ToList();
 
         string ITriggerCalendar.CalendarTypeFullName => "Quartz.Impl.Calendar.AnnualCalendar";
     }

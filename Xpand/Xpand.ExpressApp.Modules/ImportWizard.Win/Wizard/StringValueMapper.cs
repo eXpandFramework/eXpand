@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ImportWizard.Win.Properties;
+using Xpand.Extensions.ReflectionExtensions;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.ImportWizard.Win.Wizard{

@@ -5,13 +5,13 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Extensions.DateTimeExtensions;
 using Xpand.Extensions.XAF.Attributes.Custom;
 using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomAttributes;
 using Xpand.Persistent.Base.JobScheduler.Calendars;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.BaseImpl.JobScheduler.Calendars {
     [AdditionalViewControlsRule("XpandHolidayCalendarHelp", "1=1", "1=1", @"Summary:
@@ -40,6 +40,6 @@ The implementation DOES take the year into consideration, so if you want to excl
         public List<DateTime> DatesExcluded => _datesExcluded;
 
         [Browsable(false)]
-        public List<DateTime> AllDates => DateTimeUtils.GetDates().ToList();
+        public List<DateTime> AllDates => DateTime.Today.Year.Dates().ToList();
     }
 }

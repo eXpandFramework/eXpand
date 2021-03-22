@@ -11,6 +11,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using Fasterflect;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
 
@@ -141,7 +142,7 @@ namespace Xpand.ExpressApp.IO.Core {
             var propertyElement = new XElement(elementSchema.Property);
             serializedObjectElement.Add(propertyElement);
             if ((_minifyOutput&&classInfoGraphNode.NodeType != NodeType.Simple)||!_minifyOutput)
-                propertyElement.Add(new XAttribute(elementSchema.Type, classInfoGraphNode.NodeType.ToString().MakeFirstCharLower()));
+                propertyElement.Add(new XAttribute(elementSchema.Type, classInfoGraphNode.NodeType.ToString().FirstCharacterToLower()));
             propertyElement.Add(new XAttribute(elementSchema.Name, classInfoGraphNode.Name));
             if ((_minifyOutput&&classInfoGraphNode.Key)||!_minifyOutput)
                 propertyElement.Add(new XAttribute(elementSchema.IsKey, classInfoGraphNode.Key));

@@ -5,8 +5,9 @@ using System.Reflection;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Exceptions;
 using DevExpress.Xpo.Metadata;
-using Xpand.Utils.Helpers;
 using Fasterflect;
+using Xpand.Extensions.ReflectionExtensions;
+using Xpand.Extensions.StringExtensions;
 
 namespace Xpand.Xpo {
     /// <summary>
@@ -37,8 +38,7 @@ namespace Xpand.Xpo {
             else if (value.GetType() == conversionType)
                 return value;
             else {
-                var o = value as XPBaseObject;
-                if (o != null) {
+                if (value is XPBaseObject o) {
                     if (conversionType == typeof(int))
                         return o.ClassInfo.KeyProperty.GetValue(o);
                     if (conversionType == typeof(string))
@@ -64,6 +64,7 @@ namespace Xpand.Xpo {
             return Convert.ChangeType(value, conversionType, cultureInfo);
 
         }
+        
 
         public static object ChangeType(object value, Type conversionType) {
             return ChangeType(value, conversionType, null);
@@ -76,7 +77,7 @@ namespace Xpand.Xpo {
         public static PropertyInfo GetPropertyInfo(Type type, string propertyName) {
             if (propertyName.IndexOf(".", StringComparison.Ordinal) > -1) {
                 PropertyInfo info = type.GetProperty(propertyName.Split(".".ToCharArray())[0]);
-                return GetPropertyInfo(info.PropertyType, propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1));
+                return GetPropertyInfo(info?.PropertyType, propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1));
             }
             PropertyInfo propertyInfo = type.GetProperty(propertyName);
 
@@ -87,7 +88,7 @@ namespace Xpand.Xpo {
         }
         public static void SetProperty(string propertyName, object value, object o) {
             if (propertyName.IndexOf(".", StringComparison.Ordinal) > -1) {
-                o = o.GetType().GetProperty(propertyName.Split(".".ToCharArray())[0]).GetValue(o, null);
+                o = o.GetType().GetProperty(propertyName.Split(".".ToCharArray())[0])?.GetValue(o, null);
                 SetProperty(propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1), value, o);
                 return;
             }
@@ -101,7 +102,7 @@ namespace Xpand.Xpo {
                 PropertyInfo info = o.GetType().GetProperty(propertyName.Split(".".ToCharArray())[0]);
                 if (returnNullIfPropertyNotExists && info == null)
                     return null;
-                o = info.GetValue(o, null);
+                o = info?.GetValue(o, null);
 
                 return o == null ? null : GetPropertyInfoValue(propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1), o);
             }

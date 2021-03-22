@@ -1,6 +1,6 @@
 using System;
 using DevExpress.ExpressApp.Web;
-using Xpand.Utils.Helpers;
+using Xpand.Extensions.StringExtensions;
 
 namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight{
     public class AceEditor{
@@ -111,7 +111,7 @@ namespace Xpand.Persistent.Base.General.Web.SyntaxHighlight{
         }
 
         public string CreateContainer(string editorId,string text){
-            return $@"<div id='AceEditor{editorId}'>{(text+"").XMLEncode()}</div>";
+            return $@"<div id='AceEditor{editorId}'>{(text+"").XmlEncode()}</div>";
         }
 
 

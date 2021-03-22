@@ -3,10 +3,10 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Xpo.DB;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper.AssemblyGenerator {
     public class ClassAtrributeGenerator {
@@ -28,7 +28,7 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper.AssemblyGenerator {
                 persistentAttributeInfos.Add(GetPersistentPersistentAttribute(_dbTable.Name));
             if (!(string.IsNullOrEmpty(_navigationPath)) && _persistentClassInfo.TypeAttributes.OfType<IPersistentNavigationItemAttribute>().FirstOrDefault() == null) {
                 var persistentNavigationItemAttribute = _objectSpace.Create<IPersistentNavigationItemAttribute>();
-                var cleanName = StringExtensions.CleanCodeName(_persistentClassInfo.Name);
+                var cleanName = _persistentClassInfo.Name.CleanCodeName();
                 persistentNavigationItemAttribute.Path = _navigationPath + "/" + cleanName;
                 persistentNavigationItemAttribute.ViewId = cleanName + "_ListView";
                 persistentAttributeInfos.Add(persistentNavigationItemAttribute);

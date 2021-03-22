@@ -22,9 +22,8 @@ namespace Xpand.ExpressApp.Security {
             e.Controllers.Clear();
             if (((IModelOptionsRegistration) Application.Model.Options).Registration.Enabled)
                 AddRegistrationControllers((XafApplication)sender, controllers);
-            var dbServerParameter = SecuritySystem.LogonParameters as IDBServerParameter;
-            if (dbServerParameter != null){
-                AddControllers(controllers,Application.CreateAppearenceControllers());
+            if (SecuritySystem.LogonParameters is IDBServerParameter){
+                AddControllers(controllers,Application.CreateAppearanceControllers());
             }
             if (((IModelOptionsChooseDatabaseAtLogon) Application.Model.Options).ChooseDatabaseAtLogon){
                 AddControllers(controllers, Application.CreateValidationControllers().Concat(new[] { Application.CreateController<ChooseDatabaseAtLogonController>() }));
@@ -42,7 +41,7 @@ namespace Xpand.ExpressApp.Security {
 
         protected virtual void AddRegistrationControllers(XafApplication application, Dictionary<Type, Controller> controllers) {
             var registrationControllers = CreateRegistrationControllers(application).ToArray();
-            var appearenceControllers = application.CreateAppearenceControllers();
+            var appearenceControllers = application.CreateAppearanceControllers();
             var validationControllers = application.CreateValidationControllers();
             var allControllers = registrationControllers.Concat(appearenceControllers).Concat(validationControllers);
             AddControllers(controllers, allControllers);

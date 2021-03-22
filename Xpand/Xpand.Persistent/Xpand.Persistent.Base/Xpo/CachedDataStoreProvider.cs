@@ -4,47 +4,52 @@ using DevExpress.Xpo.DB;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 
-namespace Xpand.Persistent.Base.Xpo{
-	public class CachedDataStoreProvider : ConnectionStringDataStoreProvider, IXpoDataStoreProvider{
-	    static CachedDataStoreProvider() {
-	        Factory = () => default;
-	        CreateStore = () => default;
-	        CustomCreateUpdatingStore = () => default;
-	    }
+namespace Xpand.Persistent.Base.Xpo {
+    public class CachedDataStoreProvider : ConnectionStringDataStoreProvider, IXpoDataStoreProvider {
+        static CachedDataStoreProvider() {
+            Factory = () => default;
+            CreateStore = () => default;
+            CustomCreateUpdatingStore = () => default;
+        }
 
-	    private static readonly Lazy<CachedDataStoreProvider> Lazy =
-	        new Lazy<CachedDataStoreProvider>(() => Factory() ?? new CachedDataStoreProvider(XpandModuleBase.ConnectionString));
+        private static readonly Lazy<CachedDataStoreProvider> Lazy =
+            new Lazy<CachedDataStoreProvider>(() =>
+                Factory() ?? new CachedDataStoreProvider(XpandModuleBase.ConnectionString));
 
-	    public static Func<CachedDataStoreProvider> Factory{ get; set; }
+        public static Func<CachedDataStoreProvider> Factory { get; set; }
 
-	    private static IDisposable[] _rootDisposableObjects;
-		private static DataCacheRoot _root;
+        private static IDisposable[] _rootDisposableObjects;
+        private static DataCacheRoot _root;
 
-	    public static CachedDataStoreProvider Instance => Lazy.Value;
+        public static CachedDataStoreProvider Instance => Lazy.Value;
 
-	    public CachedDataStoreProvider(string connectionString) : base(connectionString){
-		}
+        public CachedDataStoreProvider(string connectionString) : base(connectionString) {
+        }
 
-	    public static Func<(bool allowUpdateSchema,IDisposable[] rootDisposables,IDataStore dataStore)> CustomCreateUpdatingStore;
-	    public static Func<(IDisposable[] rootDisposables,IDataStore dataStore)> CreateStore;
+        public static Func<(bool allowUpdateSchema, IDisposable[] rootDisposables, IDataStore dataStore)>
+            CustomCreateUpdatingStore;
 
-	    public new IDataStore CreateWorkingStore(out IDisposable[] disposableObjects) {
-	        return ((IXpoDataStoreProvider) this).CreateWorkingStore(out disposableObjects);
-	    }
+        public static Func<(IDisposable[] rootDisposables, IDataStore dataStore)> CreateStore;
 
-	    IDataStore IXpoDataStoreProvider.CreateUpdatingStore(bool allowUpdateSchema, out IDisposable[] disposableObjects) {
-	        var store = CustomCreateUpdatingStore();
-	        if (store.IsDefault()) {
-	            return base.CreateUpdatingStore(allowUpdateSchema, out disposableObjects);
-	        }
+        public new IDataStore CreateWorkingStore(out IDisposable[] disposableObjects) {
+            return ((IXpoDataStoreProvider) this).CreateWorkingStore(out disposableObjects);
+        }
 
-	        disposableObjects = store.rootDisposables;
-	        return store.dataStore;
-	    }
-	    IDataStore IXpoDataStoreProvider.CreateWorkingStore(out IDisposable[] disposableObjects){
-			if (_root == null){
-			    var tuple = CreateStore();
-			    IDataStore baseDataStore;
+        IDataStore IXpoDataStoreProvider.CreateUpdatingStore(bool allowUpdateSchema,
+            out IDisposable[] disposableObjects) {
+            var store = CustomCreateUpdatingStore();
+            if (store.IsDefault()) {
+                return base.CreateUpdatingStore(allowUpdateSchema, out disposableObjects);
+            }
+
+            disposableObjects = store.rootDisposables;
+            return store.dataStore;
+        }
+
+        IDataStore IXpoDataStoreProvider.CreateWorkingStore(out IDisposable[] disposableObjects) {
+            if (_root == null) {
+                var tuple = CreateStore();
+                IDataStore baseDataStore;
                 if (tuple.IsDefault()) {
                     baseDataStore = base.CreateWorkingStore(out _rootDisposableObjects);
                 }
@@ -53,18 +58,19 @@ namespace Xpand.Persistent.Base.Xpo{
                     _rootDisposableObjects = tuple.rootDisposables;
                 }
 
-			    _root = new DataCacheRoot(baseDataStore);
-			}
-			disposableObjects = new IDisposable[0];
-			return new DataCacheNode(_root);
-		}
+                _root = new DataCacheRoot(baseDataStore);
+            }
 
-		public static void ResetDataCacheRoot(){
-			_root = null;
-			if (_rootDisposableObjects != null){
-				foreach (var disposableObject in _rootDisposableObjects) disposableObject.Dispose();
-				_rootDisposableObjects = null;
-			}
-		}
-	}
+            disposableObjects = new IDisposable[0];
+            return new DataCacheNode(_root);
+        }
+
+        public static void ResetDataCacheRoot() {
+            _root = null;
+            if (_rootDisposableObjects != null) {
+                foreach (var disposableObject in _rootDisposableObjects) disposableObject.Dispose();
+                _rootDisposableObjects = null;
+            }
+        }
+    }
 }

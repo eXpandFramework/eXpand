@@ -23,14 +23,15 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
+using Xpand.Extensions.ProcessExtensions;
+using Xpand.Extensions.StreamExtensions;
 using Xpand.Persistent.Base.General.Model;
-using Xpand.Utils.Helpers;
 using Xpand.Xpo.DB;
 using DeviceCategory = Xpand.Persistent.Base.ModelDifference.DeviceCategory;
 using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
 
 namespace Xpand.Persistent.Base.General {
-    public static class WebXafApplicationExtenions{
+    public static class WebXafApplicationExtensions{
 
         public static IXpoDataStoreProvider CachedInstance(this IXpoDataStoreProvider dataStoreProvider) {
             if (dataStoreProvider.ConnectionString == InMemoryDataStoreProvider.ConnectionString)
@@ -49,7 +50,7 @@ namespace Xpand.Persistent.Base.General {
     public static class XafApplicationExtensions {
 
         static  XafApplicationExtensions() {
-            DisableObjectSpaceProderCreation = true;
+            DisableObjectSpaceProviderCreation = true;
         }
         private static readonly object Locker=new object();
         
@@ -88,32 +89,29 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static void SendMail(this string body,string subject=null,bool isBodyHtml=false){
-            if (subject == null)
-                subject = ApplicationHelper.Instance.Application.Title;
-            using (var smtpClient = new SmtpClient()) {
-                var appSettings = ConfigurationManager.AppSettings;
-                var errorMailReceipients = appSettings["ErrorMailReceipients"];
-                if (errorMailReceipients == null)
-                    throw new NullReferenceException("Configuation AppSettings ErrorMailReceipients entry is missing");
-                var mailSettingsSection = ConfigurationManager.GetSection("system.net/mailSettings/smtp");
-                if (mailSettingsSection == null)
-                    throw new NullReferenceException("Configuation system.net/mailSettings/smtp Section is missing");
-                using (var email = new MailMessage{
-                    IsBodyHtml = isBodyHtml,
-                    Subject = subject,
-                    Body = body
-                }){
-                    foreach (var s in errorMailReceipients.Split(';')){
-                        email.To.Add(s);
-                    }
-
-                    var title = ApplicationHelper.Instance?.Application?.Title;
-                    if (title!=null)
-                        email.ReplyToList.Add($"noreply@{title}.com");
-                    smtpClient.Send(email);
-                }
+        public static void SendMail(this string body,string subject=null,bool isBodyHtml=false) {
+            subject ??= ApplicationHelper.Instance.Application.Title;
+            using var smtpClient = new SmtpClient();
+            var appSettings = ConfigurationManager.AppSettings;
+            var errorMailRecipients = appSettings["ErrorMailReceipients"];
+            if (errorMailRecipients == null)
+                throw new NullReferenceException("Configuation AppSettings ErrorMailReceipients entry is missing");
+            var mailSettingsSection = ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            if (mailSettingsSection == null)
+                throw new NullReferenceException("Configuation system.net/mailSettings/smtp Section is missing");
+            using var email = new MailMessage{
+                IsBodyHtml = isBodyHtml,
+                Subject = subject,
+                Body = body
+            };
+            foreach (var s in errorMailRecipients.Split(';')){
+                email.To.Add(s);
             }
+
+            var title = ApplicationHelper.Instance?.Application?.Title;
+            if (title!=null)
+                email.ReplyToList.Add($"noreply@{title}.com");
+            smtpClient.Send(email);
         }
 
         public static void SendMail(this Exception exception){
@@ -219,7 +217,7 @@ namespace Xpand.Persistent.Base.General {
             yield return app.CreateController<RuleSetInitializationController>();
         }
 
-        public static IEnumerable<Controller> CreateAppearenceControllers(this XafApplication app){
+        public static IEnumerable<Controller> CreateAppearanceControllers(this XafApplication app){
             yield return app.CreateController<ActionAppearanceController>();
             yield return app.CreateController<AppearanceController>();
             yield return app.CreateController<DetailViewItemAppearanceController>();
@@ -261,11 +259,11 @@ namespace Xpand.Persistent.Base.General {
             return (Controller) application.CallMethod(new[]{type}, "CreateController");
         }
 
-        public static T FindModule<T>(this XafApplication xafApplication,bool extactMatch=true) where T : ModuleBase{
+        public static T FindModule<T>(this XafApplication xafApplication,bool exactMatch=true) where T : ModuleBase{
             var moduleType = typeof(T);
             if (moduleType.IsInterface || moduleType.IsAbstract)
-                extactMatch = false;
-            return !extactMatch
+                exactMatch = false;
+            return !exactMatch
                 ? (T) xafApplication.Modules.FirstOrDefault(@base => @base is T)
                 : (T) xafApplication.Modules.FindModule(moduleType);
         }
@@ -282,7 +280,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static int DropDatabaseOnVersionMissmatch(this XafApplication xafApplication) {
+        public static int DropDatabaseOnVersionMismatch(this XafApplication xafApplication) {
             int missMatchCount = 0;
             if (VersionMissMatch(xafApplication)) {
                 foreach (ConnectionStringSettings settings in ConfigurationManager.ConnectionStrings) {
@@ -306,16 +304,14 @@ namespace Xpand.Persistent.Base.General {
 
         private static void DropSqlServerDatabase(string connectionString) {
             var connectionProvider = (MSSqlConnectionProvider)XpoDefault.GetConnectionProvider(connectionString, AutoCreateOption.None);
-            using (var dbConnection = connectionProvider.Connection) {
-                using (var sqlConnection = (SqlConnection)DataStore(connectionString).Connection) {
-                    SqlCommand sqlCommand = sqlConnection.CreateCommand();
-                    sqlCommand.CommandText =
-                        $"ALTER DATABASE {dbConnection.Database} SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
-                    sqlCommand.ExecuteNonQuery();
-                    sqlCommand.CommandText = $"DROP DATABASE {dbConnection.Database}";
-                    sqlCommand.ExecuteNonQuery();
-                }
-            }
+            using var dbConnection = connectionProvider.Connection;
+            using var sqlConnection = (SqlConnection)DataStore(connectionString).Connection;
+            SqlCommand sqlCommand = sqlConnection.CreateCommand();
+            sqlCommand.CommandText =
+                $"ALTER DATABASE {dbConnection.Database} SET SINGLE_USER WITH ROLLBACK IMMEDIATE";
+            sqlCommand.ExecuteNonQuery();
+            sqlCommand.CommandText = $"DROP DATABASE {dbConnection.Database}";
+            sqlCommand.ExecuteNonQuery();
         }
 
         static MSSqlConnectionProvider DataStore(string connectionString) {
@@ -342,10 +338,10 @@ namespace Xpand.Persistent.Base.General {
             return new SimpleDataLayer(XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary, cacheNode);
         }
 
-        public static bool DisableObjectSpaceProderCreation { get; set; }
+        public static bool DisableObjectSpaceProviderCreation { get; set; }
 
-        public static void CreateCustomObjectSpaceprovider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
-            if (DisableObjectSpaceProderCreation)
+        public static void CreateCustomObjectSpaceProvider(this XafApplication xafApplication, CreateCustomObjectSpaceProviderEventArgs args) {
+            if (DisableObjectSpaceProviderCreation)
                 return;
             var connectionString = ConnectionString(xafApplication, args);
             args.ObjectSpaceProviders.Add(ObjectSpaceProvider(xafApplication,  connectionString));
@@ -363,10 +359,10 @@ namespace Xpand.Persistent.Base.General {
                 var connectionString = ConnectionString(xafApplication, args);
                 args.ObjectSpaceProvider = ObjectSpaceProvider(xafApplication,  connectionString);
             } else if (DataStoreManager.GetDataStoreAttributes(dataStoreName).Any()) {
-                var disableObjectSpaceProderCreation = DisableObjectSpaceProderCreation;
-                DisableObjectSpaceProderCreation = false;
-                xafApplication.CreateCustomObjectSpaceprovider(args);
-                DisableObjectSpaceProderCreation=disableObjectSpaceProderCreation;
+                var disableObjectSpaceProuderCreation = DisableObjectSpaceProviderCreation;
+                DisableObjectSpaceProviderCreation = false;
+                CreateCustomObjectSpaceProvider(xafApplication, args);
+                DisableObjectSpaceProviderCreation=disableObjectSpaceProuderCreation;
             }
         }
 

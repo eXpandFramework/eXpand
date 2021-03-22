@@ -190,12 +190,5 @@ namespace Xpand.Utils.Helpers {
             return specificType.CreateInstance(args);
         }
 
-        public static bool IsNullableType(this Type theType) {
-            if (theType.IsGenericType) {
-                var genericTypeDefinition = theType.GetGenericTypeDefinition();
-                if (genericTypeDefinition != null) return (genericTypeDefinition == typeof(Nullable<>));
-            }
-            return false;
-        }
     }
 }

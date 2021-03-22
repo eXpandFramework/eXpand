@@ -9,10 +9,10 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.DB;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
     public static class CodeEngine{
@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
         }
 
         static string GetMemberName(IPersistentMemberInfo persistentMemberInfo){
-            string memberName = StringExtensions.CleanCodeName(persistentMemberInfo.Name);
+            string memberName = persistentMemberInfo.Name.CleanCodeName();
             if (persistentMemberInfo.Owner.Name == persistentMemberInfo.Name)
                 memberName += "Member";
             return memberName;
@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
                 if (code != null){
                     code = code.Replace("$ASSEMBLYNAME$", persistentClassInfo.PersistentAssemblyInfo.Name);
                     code = code.Replace("$TYPEATTRIBUTES$", attributesCode);
-                    code = code.Replace("$CLASSNAME$", StringExtensions.CleanCodeName(persistentClassInfo.Name));
+                    code = code.Replace("$CLASSNAME$", persistentClassInfo.Name.CleanCodeName());
                     code = code.Replace("$BASECLASSNAME$",
                         persistentClassInfo.BaseTypeFullName + GetInterfacesCode(persistentClassInfo));
                     code = code.Replace("$INJECTCODE$", GetInjectCode(persistentClassInfo));
@@ -99,11 +99,9 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
         static string GetPropertyTypeCode(IPersistentMemberInfo persistentMemberInfo){
             if (persistentMemberInfo is IPersistentCoreTypeMemberInfo)
                 return GetCorePropertyTypeCode(persistentMemberInfo);
-            var persistentReferenceMemberInfo = persistentMemberInfo as IPersistentReferenceMemberInfo;
-            if (persistentReferenceMemberInfo != null)
+            if (persistentMemberInfo is IPersistentReferenceMemberInfo persistentReferenceMemberInfo)
                 return CleanFullName((persistentReferenceMemberInfo).ReferenceTypeFullName);
-            var persistentCollectionMemberInfo = persistentMemberInfo as IPersistentCollectionMemberInfo;
-            if (persistentCollectionMemberInfo != null)
+            if (persistentMemberInfo is IPersistentCollectionMemberInfo persistentCollectionMemberInfo)
                 return CleanFullName((persistentCollectionMemberInfo).CollectionTypeFullName);
             throw new NotImplementedException(persistentMemberInfo.GetType().FullName);
         }
@@ -112,7 +110,7 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
             var list = (fullName + "").Split('.').ToList();
             var name = list.Last();
             list.Remove(name);
-            name = StringExtensions.CleanCodeName(name);
+            name = name.CleanCodeName();
             list.Add(name);
             return list.Aggregate<string, string>(null, (current, l) => current + (l + ".")).TrimEnd('.');
         }
@@ -167,8 +165,7 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
             string assemblyDecleration = null;
             if (persistentAttributeCreator is IPersistentAssemblyAttributeInfo){
                 assemblyDecleration = "assembly: ";
-                var attributeInfo = persistentAttributeCreator as IPersistentAssemblyVersionAttributeInfo;
-                if (attributeInfo != null){
+                if (persistentAttributeCreator is IPersistentAssemblyVersionAttributeInfo attributeInfo){
                     args = @"""" + attributeInfo.Owner.Version() + @"""";
                 }
             }
@@ -182,12 +179,9 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
                 return null;
             var typeInfo = XafTypesInfo.CastTypeToTypeInfo(attributeInfoAttribute.Instance.GetType());
             var memberInfos = typeInfo.Members.Where(info => info.FindAttribute<AttributeInfoAttribute>() != null);
-            Func<string, IMemberInfo, string> func = (current, memberInfo)
-                =>
-                current +
-                (memberInfo.Name + "=" + GetArgumentCodeCore(memberInfo.GetValue(attributeInfoAttribute.Instance)) + ",");
-         
-            return memberInfos.Aggregate(null, func).TrimEnd(',');
+            string Func(string current, IMemberInfo memberInfo) => current + (memberInfo.Name + "=" + GetArgumentCodeCore(memberInfo.GetValue(attributeInfoAttribute.Instance)) + ",");
+
+            return memberInfos.Aggregate(null, (Func<string, IMemberInfo, string>) Func)?.TrimEnd(',');
         }
 
         private static object GetArgumentCodeCore(object argumentValue){
@@ -259,15 +253,15 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider{
             var referenceMemberInfos = key.ReferenceClassInfo.OwnMembers.OfType<IPersistentReferenceMemberInfo>();
             string ret = null;
             foreach (var referenceMemberInfo in referenceMemberInfos){
-                string refPropertyName = StringExtensions.CleanCodeName(key.Name) + "." + StringExtensions.CleanCodeName(referenceMemberInfo.Name);
+                string refPropertyName = key.Name.CleanCodeName() + "." + referenceMemberInfo.Name.CleanCodeName();
                 var persistentMemberInfo =
                     referenceMemberInfo.ReferenceClassInfo.OwnMembers.SingleOrDefault(
                         info => info.TypeAttributes.OfType<IPersistentKeyAttribute>().Any());
                 if (persistentMemberInfo != null){
-                    var refKeyName = StringExtensions.CleanCodeName(persistentMemberInfo.Name);
+                    var refKeyName = persistentMemberInfo.Name.CleanCodeName();
                     ret += @"if(" + refPropertyName + ".Session != Session){" +
                            refPropertyName + "=Session.GetObjectByKey<" +
-                           StringExtensions.CleanCodeName(referenceMemberInfo.ReferenceClassInfo.Name) + ">(" + refPropertyName + "." +
+                           referenceMemberInfo.ReferenceClassInfo.Name.CleanCodeName() + ">(" + refPropertyName + "." +
                            refKeyName + ");"
                            + "}";
                 }

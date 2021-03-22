@@ -5,7 +5,7 @@ using System.Web.UI.WebControls;
 using DevExpress.Web.Internal;
 using DevExpress.Web;
 using DevExpress.Web.ASPxHtmlEditor;
-using Xpand.Utils.Helpers;
+using Xpand.Extensions.TypeExtensions;
 
 namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.DialogForms {
     public class HtmlEditorCustomDialogTemlate : HtmlEditorUserControl {
@@ -14,14 +14,14 @@ namespace Xpand.ExpressApp.HtmlPropertyEditor.Web.DialogForms {
         protected override void Render(HtmlTextWriter writer) {
             var internalTable = (InternalTable)Parent.Parent.Controls[1].Controls[0];
             var tableCell = (ASPxButton)internalTable.Rows[0].Cells[0].Controls[0];
-            tableCell.ClientSideEvents.Click = typeof(HtmlEditorCustomDialogTemlate).GetDxScriptFromResource("OnOkButtonClick_InsertFileForm.js");
+            tableCell.ClientSideEvents.Click = typeof(HtmlEditorCustomDialogTemlate).GetResourceString("OnOkButtonClick_InsertFileForm.js");
             base.Render(writer);
         }
 
         protected override void OnInit(EventArgs e) {
             base.OnInit(e);
             _uploadControl = new ASPxUploadControl { ID = "uploadFile", Width = Unit.Pixel(300), ClientInstanceName = "_dxeUplFile" };
-            _uploadControl.ClientSideEvents.FileUploadComplete = typeof(HtmlEditorCustomDialogTemlate).GetDxScriptFromResource("EditorFileUploadComplete.js");
+            _uploadControl.ClientSideEvents.FileUploadComplete = typeof(HtmlEditorCustomDialogTemlate).GetResourceString("EditorFileUploadComplete.js");
             _uploadControl.FileUploadComplete += UploadControlOnFileUploadComplete;
             Controls.Add(_uploadControl);
         }

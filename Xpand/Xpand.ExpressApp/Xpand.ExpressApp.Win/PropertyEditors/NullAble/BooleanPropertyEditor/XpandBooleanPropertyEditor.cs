@@ -3,12 +3,12 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
-using Xpand.Utils.Helpers;
-using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
+using Xpand.Extensions.ReflectionExtensions;
+
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor {
-    [PropertyEditor(typeof(bool?),EditorAliases.NullAbleBooleanPropertyEditor, true)]
-    [PropertyEditor(typeof(bool), EditorAliases.NullAbleBooleanPropertyEditor, true)]
+    [PropertyEditor(typeof(bool?),Persistent.Base.General.EditorAliases.NullAbleBooleanPropertyEditor, true)]
+    [PropertyEditor(typeof(bool), Persistent.Base.General.EditorAliases.NullAbleBooleanPropertyEditor, true)]
     public class XpandBooleanPropertyEditor : DevExpress.ExpressApp.Win.Editors.BooleanPropertyEditor {
         public XpandBooleanPropertyEditor(Type objectType, IModelMemberViewItem model)
             : base(objectType, model) {
@@ -17,8 +17,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.NullAble.BooleanPropertyEditor {
 
         protected override void SetupRepositoryItem(RepositoryItem item) {
             base.SetupRepositoryItem(item);
-            var edit = item as RepositoryItemBooleanEdit;
-            if (edit != null)
+            if (item is RepositoryItemBooleanEdit edit)
                 edit.AllowGrayed = MemberInfo.MemberType.IsNullableType();
         }
     }

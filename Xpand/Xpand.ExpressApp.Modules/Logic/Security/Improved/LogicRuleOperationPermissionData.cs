@@ -16,6 +16,7 @@ using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Persistent.Base.Logic.Model;
+using EditorAliases = DevExpress.ExpressApp.Editors.EditorAliases;
 using IRule = Xpand.Persistent.Base.Logic.IRule;
 
 namespace Xpand.ExpressApp.Logic.Security.Improved {

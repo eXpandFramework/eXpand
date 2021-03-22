@@ -7,8 +7,8 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Utils;
 using Fasterflect;
+using Xpand.Extensions.ReflectionExtensions;
 using Xpand.Persistent.Base.General;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.ModelAdapter {
 //    public class ObjectModelSynchronizer : ModelSynchronizer<object, IModelNode> {
@@ -154,8 +154,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
         }
 
         bool IsDisabled(IModelNode modelNode){
-            var node = modelNode as IModelNodeEnabled;
-            return node != null && !node.NodeEnabled;
+            return modelNode is IModelNodeEnabled {NodeEnabled: false};
         }
 
         bool IsNotExcluded(ModelValueInfo info) {
@@ -295,13 +294,9 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             throw new NotImplementedException();
         }
 
-        public override Type ComponentType {
-            get { throw new NotImplementedException(); }
-        }
+        public override Type ComponentType => throw new NotImplementedException();
 
-        public override bool IsReadOnly {
-            get { throw new NotImplementedException(); }
-        }
+        public override bool IsReadOnly => throw new NotImplementedException();
 
         public override Type PropertyType => Name == "FontName" ? typeof(string) : typeof(Font).Property(Name).PropertyType;
     }

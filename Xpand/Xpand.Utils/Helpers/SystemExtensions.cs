@@ -1,37 +1,10 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Xpand.Utils.Helpers{
     public static class SystemExtensions{
-
-        public static string CommonStart(this IEnumerable<string> strings) {
-            var namespaces = strings.Where(s => s != null).ToArray();
-            return Enumerable.Range(0, namespaces.Min(s => s.Length))
-                .Reverse()
-                .Select(len => new{len, possibleMatch = namespaces.First().Substring(0, len)})
-                .Where(t => namespaces.All(f => f.StartsWith(t.possibleMatch)))
-                .Select(t => t.possibleMatch).First().Trim('.');
-        }
-
-        public static bool IsDefault<T> (this T value) where T : struct {
-            return (EqualityComparer<T>.Default.Equals(value, default));
-        }
-
-        public static Task<int> RunProcessAsync(this Process process) {
-            process.EnableRaisingEvents = true;
-            var tcs = new TaskCompletionSource<int>();
-            process.Exited += (sender, args) => {
-                tcs.SetResult(process.ExitCode);
-                process.Dispose();
-            };
-            process.Start();
-            return tcs.Task;
-        }
-
         public enum SizeDefinition{
             Byte = 1,
             Kilobyte = 2,
@@ -39,8 +12,8 @@ namespace Xpand.Utils.Helpers{
             Gigabyte = 4
         }
 
-        public static T As<T>(this object obj){
-            return obj is T variable ? variable : default;
+        public static bool IsDefault<T> (this T value) where T : struct {
+            return (EqualityComparer<T>.Default.Equals(value, default));
         }
 
         public static double Convert(long amount, SizeDefinition from, SizeDefinition to){
@@ -50,13 +23,7 @@ namespace Xpand.Utils.Helpers{
         public static double Convert(this int amount, SizeDefinition from, SizeDefinition to){
             return ConvertCore(amount, from, to);
         }
-
-        public static double RoundToSignificantDigits(this double d, int digits) {
-            if (d.NearlyEquals(0)) return d;
-            var scale = Math.Pow(10, Math.Floor(Math.Log10(Math.Abs(d))) + 1);
-            return scale * Math.Round(d / scale, digits);
-        }  
-
+        
         public static double Convert(this double amount, SizeDefinition from, SizeDefinition to){
             return ConvertCore(amount, from, to);
         }

@@ -5,8 +5,8 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
+using Xpand.Extensions.ReflectionExtensions;
 using Xpand.Persistent.Base.General;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base {
     public class AllTypesLocalizedClassInfoTypeConverter : ReferenceConverter {

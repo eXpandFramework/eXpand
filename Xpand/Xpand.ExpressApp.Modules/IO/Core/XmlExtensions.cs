@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using Xpand.Extensions.StringExtensions;
 using Xpand.Persistent.Base.ImportExport;
 using Xpand.Utils.Helpers;
 
@@ -19,7 +20,7 @@ namespace Xpand.ExpressApp.IO.Core {
 
         public static IEnumerable<XElement> Properties(this IEnumerable<XElement> elements, NodeType nodeType,bool minifyOutput){
             var elementSchema = ElementSchema.Get(minifyOutput);
-            return elements.Descendants(elementSchema.Property).Where(xElement => xElement.GetTypeAttributeValue(minifyOutput) == nodeType.ToString().MakeFirstCharLower());
+            return elements.Descendants(elementSchema.Property).Where(xElement => xElement.GetTypeAttributeValue(minifyOutput) == nodeType.ToString().FirstCharacterToLower());
         }
 
         public static IEnumerable<XElement> Properties(this XElement element,bool minifyOutput) {
@@ -30,11 +31,11 @@ namespace Xpand.ExpressApp.IO.Core {
         public static string GetTypeAttributeValue(this XElement element, bool minifyOutput) {
             var elementSchema = ElementSchema.Get(minifyOutput);
             var value = element.GetAttributeValue(elementSchema.Type);
-            return string.IsNullOrEmpty(value) ? NodeType.Simple.ToString().MakeFirstCharLower() : value;
+            return string.IsNullOrEmpty(value) ? NodeType.Simple.ToString().FirstCharacterToLower() : value;
         }
 
         public static IEnumerable<XElement> Properties(this XElement element, NodeType nodeType,bool minifyOutput) {
-            return element.Properties(minifyOutput).Where(xElement => xElement.GetTypeAttributeValue(minifyOutput) == nodeType.ToString().MakeFirstCharLower());
+            return element.Properties(minifyOutput).Where(xElement => xElement.GetTypeAttributeValue(minifyOutput) == nodeType.ToString().FirstCharacterToLower());
         }
 
         public static XElement Property(this XElement element, string name,bool minifyOutput) {
