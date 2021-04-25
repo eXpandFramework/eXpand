@@ -3,8 +3,8 @@ using System.ComponentModel;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Workflow;
 using DevExpress.Xpo;
-using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Xpo;
+using Xpand.Xpo.Converters;
 
 
 namespace Xpand.ExpressApp.Workflow.ObjectChangedWorkflows {

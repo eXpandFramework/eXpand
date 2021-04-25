@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -19,7 +20,7 @@ using Xpand.XAF.Modules.Reactive.Services;
 
 namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
     public static class AutoImportService {
-        static readonly Subject<(ExcelImport, FileDropped)> DroppedSubject=new Subject<(ExcelImport, FileDropped)>();
+        static readonly Subject<(ExcelImport, FileDropped)> DroppedSubject=new();
 
 
         internal static IObservable<(ExcelImport excelImport, FileDropped fileDropped, FileDropWatcher watcher)>
@@ -28,6 +29,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
                 .Where(_ => _.excelImport.WhereCanAutoImport(application).Any());
         }
 
+        [SuppressMessage("ReSharper", "SuspiciousTypeConversion.Global")]
         internal static IObservable<Unit> Connect(this XafApplication application) {
             var modified = application.WhenDetailViewCreated()
                 .Select(_ => _.e.View).Where(_ => _.ObjectTypeInfo.Type == typeof(ExcelImport))
@@ -69,7 +71,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
                             .Select(_ => Observable.Start(() => application.Import(_.fileDropped, (_.excelImport.Oid,_.watcher))))
                             .Merge(importConcurrencyLimit).ToUnit()
                             .Merge(DroppedSubject.Do(_ => AddDroppedFiles(_,application)).ToUnit())
-                            .Catch<Unit,Exception>(exception => Unit.Default.ReturnObservable().ObserveOn(SynchronizationContext.Current).SelectMany(_ => Observable.Empty<Unit>()))
+                            .Catch<Unit,Exception>(_ => Unit.Default.ReturnObservable().ObserveOn(SynchronizationContext.Current).SelectMany(_ => Observable.Empty<Unit>()))
                             .Merge(pollExisting)
                             .Merge(changeWatchersMonitoring);
                     })
@@ -123,7 +125,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
             }
             else {
                 autoImportedFile.Succeded = true;
-                notificationMessage = $"Importing of {excelImport.Name} succeded {import} objects updated";
+                notificationMessage = $"Importing of {excelImport.Name} succeed {import} objects updated";
             }
 
             if (importNotification != null) {
@@ -132,7 +134,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
             }
             autoImportedFile.EndTime = DateTime.Now;
 
-            application.Execute(tuple, excelImport, space => objectSpace.CommitChanges(),$"Exception when importing {excelImport.Name} - {{0}}");
+            application.Execute(tuple, excelImport, _ => objectSpace.CommitChanges(),$"Exception when importing {excelImport.Name} - {{0}}");
         }
 
         private static ExcelImport[] WhereCanAutoImport(this IQueryable<ExcelImport> excelImports) {

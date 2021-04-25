@@ -19,11 +19,11 @@
       <dependency id="System.Configuration.ConfigurationManager" version="5.0" />
       <dependency id="System.Drawing.Common" version="5.0.2" />
       <dependency id="System.Management" version="5.0" />
-      <dependency id="Xpand.Extensions" version="4.202.53" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.202.53" />
-      <dependency id="Xpand.Extensions.XAF" version="4.202.53" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.202.53" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.202.53" />
+      <dependency id="Xpand.Extensions" version="4.202.54" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.202.54" />
+      <dependency id="Xpand.Extensions.XAF" version="4.202.54" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.202.54" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.202.54" />
     </dependencies>
   </metadata>
   <files>

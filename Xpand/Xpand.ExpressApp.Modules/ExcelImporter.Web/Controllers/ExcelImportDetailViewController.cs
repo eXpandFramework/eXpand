@@ -54,7 +54,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
         protected override void ShowMapConfigView(ShowViewParameters parameters) {
             base.ShowMapConfigView(parameters);
             parameters.Controllers.OfType<DialogController>().First().Disposed +=
-                (sender, args) => ObjectSpace.Refresh();
+                (_, _) => ObjectSpace.Refresh();
         }
 
         private void FileDataPropertyEditorOnControlCreated(object sender, EventArgs eventArgs){
@@ -81,16 +81,15 @@ namespace Xpand.ExpressApp.ExcelImporter.Web.Controllers{
         }
 
         private  void ParseStream(UploadedFile uploadedFile) {
-            using (var stream = ExcelImport.GetXlsContent(uploadedFile.FileName, uploadedFile.FileBytes)){
-                var temp = new DirectoryInfo(Path.GetTempPath());
-                temp = temp.CreateSubdirectory(Application.Title);
-                var path = Path.Combine(temp.FullName,$"{ExcelImport.Oid}{Path.GetExtension(uploadedFile.FileName)}");
-                using (var fileStream = File.Create(path)){
-                    stream.CopyTo(fileStream);
-                }
-                using (var excelDataReader = ExcelReaderFactory.CreateReader(stream)){
-                    ExcelImport.SheetNames = excelDataReader.Sheets().ToList();
-                }
+            using var stream = ExcelImport.GetXlsContent(uploadedFile.FileName, uploadedFile.FileBytes);
+            var temp = new DirectoryInfo(Path.GetTempPath());
+            temp = temp.CreateSubdirectory(Application.Title);
+            var path = Path.Combine(temp.FullName,$"{ExcelImport.Oid}{Path.GetExtension(uploadedFile.FileName)}");
+            using (var fileStream = File.Create(path)){
+                stream.CopyTo(fileStream);
+            }
+            using (var excelDataReader = ExcelReaderFactory.CreateReader(stream)){
+                ExcelImport.SheetNames = excelDataReader.Sheets().ToList();
             }
         }
 

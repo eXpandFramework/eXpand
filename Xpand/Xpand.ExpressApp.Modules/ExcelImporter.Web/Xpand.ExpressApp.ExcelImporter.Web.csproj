@@ -19,7 +19,6 @@
     <Reference Include="System.Web" />
     <Reference Include="Xpand.ExpressApp.ExcelImporter">
       <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.ExcelImporter.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Validation.Web">
       <HintPath>..\..\..\Xpand.dll\Xpand.ExpressApp.Validation.Web.dll</HintPath>

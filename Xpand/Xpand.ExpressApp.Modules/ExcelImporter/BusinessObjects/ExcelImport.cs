@@ -15,6 +15,7 @@ using Xpand.Extensions.XAF.Attributes;
 using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
+using Xpand.Xpo.Converters;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
@@ -142,27 +143,24 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
 
         public MemoryStream GetXlsContent(string fileName,byte[] bytes){
             if (fileName.EndsWith("zip")) {
-                using (var memoryStream = new MemoryStream(bytes)){
-                    using (var zipFile = new ZipFile(memoryStream)){
-                        var zipEntry = zipFile.Cast<ZipEntry>().FirstOrDefault(entry => Regex.IsMatch(entry.Name, AutoImportRegex));
-                        if (zipEntry != null) {
-                            byte[] buffer = new byte[4096];
-                            using (var zipStream = zipFile.GetInputStream(zipEntry)){
-                                var outStream = new MemoryStream();
-                                StreamUtils.Copy(zipStream, outStream, buffer);
-                                File.FileName = zipEntry.Name;
-                                if (File.FullName != null) {
-                                    File.FullName = Path.Combine($"{Path.GetDirectoryName(File.FullName)}",zipEntry.Name);
-                                    FullName = File.FullName;
-                                }
-                                File.Content = outStream.ToArray();
-                                outStream.Position = 0;
-                                return outStream;
-                            }
-                        }
-                        throw new InvalidOperationException($"Zip file does not contain a file with extension {AutoImportRegex}");
+                using var memoryStream = new MemoryStream(bytes);
+                using var zipFile = new ZipFile(memoryStream);
+                var zipEntry = zipFile.Cast<ZipEntry>().FirstOrDefault(entry => Regex.IsMatch(entry.Name, AutoImportRegex));
+                if (zipEntry != null) {
+                    byte[] buffer = new byte[4096];
+                    using var zipStream = zipFile.GetInputStream(zipEntry);
+                    var outStream = new MemoryStream();
+                    StreamUtils.Copy(zipStream, outStream, buffer);
+                    File.FileName = zipEntry.Name;
+                    if (File.FullName != null) {
+                        File.FullName = Path.Combine($"{Path.GetDirectoryName(File.FullName)}",zipEntry.Name);
+                        FullName = File.FullName;
                     }
+                    File.Content = outStream.ToArray();
+                    outStream.Position = 0;
+                    return outStream;
                 }
+                throw new InvalidOperationException($"Zip file does not contain a file with extension {AutoImportRegex}");
             }
             return new MemoryStream(bytes);
         }
@@ -181,9 +179,8 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
             base.OnLoaded();
             _file=new XpandFileData();
             if (System.IO.File.Exists(FullName)) {
-                using (var fileStream = System.IO.File.OpenRead(FullName)){
-                    _file.LoadFromStream(Path.GetFileName(FullName), fileStream);
-                }
+                using var fileStream = System.IO.File.OpenRead(FullName);
+                _file.LoadFromStream(Path.GetFileName(FullName), fileStream);
             }
         }
 
