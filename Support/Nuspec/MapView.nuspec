@@ -14,7 +14,7 @@
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="20.2.602.0" />
+      <dependency id="eXpandLib" version="20.2.700.0" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
