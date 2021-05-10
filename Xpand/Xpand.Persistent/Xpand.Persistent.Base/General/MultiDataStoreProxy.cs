@@ -12,12 +12,11 @@ using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
     public class MultiDataStoreProxy : DataStoreProxy {
-        readonly XpoObjectHacker _xpoObjectHacker = new XpoObjectHacker();
+        readonly XpoObjectHacker _xpoObjectHacker = new();
         readonly DataStoreManager _dataStoreManager;
 
         public MultiDataStoreProxy(IDataStore dataStore, string connectionString,XPDictionary dictionary=null) : base(dataStore){
-            if (dictionary==null)
-                dictionary=XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
+            dictionary ??= XpoTypesInfoHelper.GetXpoTypeInfoSource().XPDictionary;
 
             _dataStoreManager = new DataStoreManager(connectionString);
             FillDictionaries(dictionary);
@@ -47,7 +46,7 @@ namespace Xpand.Persistent.Base.General {
         public override ModificationResult ModifyData(params ModificationStatement[] dmlStatements){
             var dataStoreModifyDataEventArgs = new DataStoreModifyDataEventArgs(dmlStatements);
             OnDataStoreModifyData(dataStoreModifyDataEventArgs);
-            var name = typeof(XPObjectType).Name;
+            var name = nameof(XPObjectType);
             var insertStatement = dataStoreModifyDataEventArgs.ModificationStatements.OfType<InsertStatement>().FirstOrDefault(statement => statement.Table.Name == name);
             var modificationResult = new ModificationResult();
             if (insertStatement != null) {
@@ -66,7 +65,7 @@ namespace Xpand.Persistent.Base.General {
                     var dataLayer = simpleDataLayer.Value;
                     if (!TypeExists(dataLayer, insertStatement)) {
                         if (!dataLayer.IsMainLayer) {
-                            _xpoObjectHacker.CreateObjectTypeIndetifier(insertStatement, _dataStoreManager.GetDataLayer(DataStoreManager.DefaultDictionaryKey,DataStore));
+                            _xpoObjectHacker.CreateObjectTypeIdentifier(insertStatement, _dataStoreManager.GetDataLayer(DataStoreManager.DefaultDictionaryKey,DataStore));
                         }
                         var modifyData = dataLayer.ModifyData(dmlStatements);
                         if (modifyData.Identities.Any())
@@ -78,7 +77,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
 
-        bool TypeExists(DataStoreManagerSimpleDataLayer dataLayer, InsertStatement stm1) {
+        bool TypeExists(IDataStoreManagerDataLayer dataLayer, InsertStatement stm1) {
             if (dataLayer.IsMainLayer)
                 return false;
             var session = new Session(dataLayer) { IdentityMapBehavior = IdentityMapBehavior.Strong };
@@ -93,22 +92,20 @@ namespace Xpand.Persistent.Base.General {
 
         public override SelectedData SelectData(params SelectStatement[] selects) {
             var resultSet = new List<SelectStatementResult>();
-            List<SelectedData> selectedDatas = selects.Select(stm => {
+            var selectedData = selects.Select(stm => {
                 OnDataStoreSelectData(new DataStoreSelectDataEventArgs(new[] { stm }));
                 var simpleDataLayer = _dataStoreManager.GetDataLayer(_dataStoreManager.GetKey(stm.Table.Name),DataStore);
                 return simpleDataLayer.SelectData(stm);
             }).ToList();
-            foreach (SelectedData selectedData in selectedDatas.Where(
-                selectedData => selectedData != null)) {
-                resultSet.AddRange(selectedData.ResultSet);
+            foreach (var data in selectedData.Where(data => data != null)) {
+                resultSet.AddRange(data.ResultSet);
             }
             return new SelectedData(resultSet.ToArray());
         }
 
         public override UpdateSchemaResult UpdateSchema(bool dontCreateIfFirstTableNotExist, params DBTable[] tables) {
             foreach (KeyValuePair<IDataStore, DataStoreInfo> keyValuePair in _dataStoreManager.GetDataStores(tables, DataStore)) {
-                var store = keyValuePair.Key as ConnectionProviderSql;
-                if (store != null) {
+                if (keyValuePair.Key is ConnectionProviderSql store) {
                     var dataStoreInfo = keyValuePair.Value;
                     var storeInfo = dataStoreInfo;
                     var dbTables = storeInfo.DbTables;
@@ -117,7 +114,7 @@ namespace Xpand.Persistent.Base.General {
                     if (!storeInfo.IsLegacy && !IsMainLayer(store.Connection))
                         _xpoObjectHacker.EnsureIsNotIdentity(dbTables);
                     if (storeInfo.IsLegacy){
-                        var dbTable = dbTables.FirstOrDefault(table => table.Name == typeof(XPObjectType).Name);
+                        var dbTable = dbTables.FirstOrDefault(table => table.Name == nameof(XPObjectType));
                         dbTables.Remove(dbTable);
                     }
                     store.UpdateSchema(false, dbTables.ToArray());
@@ -127,9 +124,9 @@ namespace Xpand.Persistent.Base.General {
             return UpdateSchemaResult.SchemaExists;
         }
 
-        void RunExtraUpdaters(DBTable[] tables, ConnectionProviderSql store, bool dontCreateIfFirstTableNotExist) {
+        void RunExtraUpdaters(DBTable[] tables, ConnectionProviderSql store, bool doNotCreateIfFirstTableNotExist) {
             foreach (var schemaUpdater in SchemaUpdaters) {
-                schemaUpdater.Update(store, new DataStoreUpdateSchemaEventArgs(dontCreateIfFirstTableNotExist, tables));
+                schemaUpdater.Update(store, new DataStoreUpdateSchemaEventArgs(doNotCreateIfFirstTableNotExist, tables));
             }
         }
     }

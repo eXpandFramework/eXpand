@@ -8,14 +8,14 @@ namespace Xpand.Persistent.Base.General {
     public class XpoObjectHacker {
 
         public void EnsureIsNotIdentity(IEnumerable<DBTable> tables) {
-            var firstOrDefault = tables.FirstOrDefault(table => table.Name == typeof(XPObjectType).Name);
+            var firstOrDefault = tables.FirstOrDefault(table => table.Name == nameof(XPObjectType));
             if (firstOrDefault != null) {
                 var dbColumn = firstOrDefault.Columns[0];
                 dbColumn.IsIdentity = false;
             }
         }
 
-        public ParameterValue CreateObjectTypeIndetifier(InsertStatement insertStatement, SimpleDataLayer simpleDataLayer, int value) {
+        public ParameterValue CreateObjectTypeIdentifier(InsertStatement insertStatement, IDataLayer simpleDataLayer, int value) {
             var identityParameter = insertStatement.IdentityParameter;
             insertStatement.IdentityParameter = null;
             insertStatement.Parameters.Add(new ParameterValue(3) { Value = value });
@@ -25,17 +25,16 @@ namespace Xpand.Persistent.Base.General {
             return identityParameter;
         }
 
-        public void CreateObjectTypeIndetifier(InsertStatement insertStatement, SimpleDataLayer simpleDataLayer) {
+        public void CreateObjectTypeIdentifier(InsertStatement insertStatement, IDataLayer simpleDataLayer) {
             var identityValue = FindIdentityValue(insertStatement.Parameters, simpleDataLayer);
-            CreateObjectTypeIndetifier(insertStatement, simpleDataLayer, identityValue);
+            CreateObjectTypeIdentifier(insertStatement, simpleDataLayer, identityValue);
         }
 
-        int FindIdentityValue(QueryParameterCollection queryParameterCollection, SimpleDataLayer simpleDataLayer) {
-            using (var session = new Session(simpleDataLayer) { IdentityMapBehavior = IdentityMapBehavior.Strong }) {
-                var typeName = queryParameterCollection[0].Value.ToString();
-                var assemblyName = queryParameterCollection[1].Value.ToString();
-                return session.FindObject<XPObjectType>(type => type.TypeName == typeName && type.AssemblyName == assemblyName).Oid;
-            }
+        int FindIdentityValue(QueryParameterCollection queryParameterCollection, IDataLayer simpleDataLayer) {
+            using var session = new Session(simpleDataLayer) { IdentityMapBehavior = IdentityMapBehavior.Strong };
+            var typeName = queryParameterCollection[0].Value.ToString();
+            var assemblyName = queryParameterCollection[1].Value.ToString();
+            return session.FindObject<XPObjectType>(type => type.TypeName == typeName && type.AssemblyName == assemblyName).Oid;
         }
 
     }

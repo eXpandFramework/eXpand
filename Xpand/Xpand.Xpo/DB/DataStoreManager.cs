@@ -6,15 +6,16 @@ using System.Linq;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
+using Xpand.Extensions.AppDomainExtensions;
 
 namespace Xpand.Xpo.DB {
     public class DataStoreInfo {
-        public List<DBTable> DbTables{ get; } = new List<DBTable>();
+        public List<DBTable> DbTables{ get; } = new();
 
         public bool IsLegacy{ get; set; } = true;
     }
 
-    public struct KeyInfo {
+    public readonly struct KeyInfo {
         public KeyInfo(bool isLegacy, string key) {
             IsLegacy = isLegacy;
             Key = key;
@@ -26,9 +27,9 @@ namespace Xpand.Xpo.DB {
     }
     public class DataStoreManager {
         public const string DefaultDictionaryKey = "Default";
-        readonly Dictionary<KeyInfo, ReflectionDictionary> _reflectionDictionaries = new Dictionary<KeyInfo, ReflectionDictionary>();
-        readonly Dictionary<string, DataStoreManagerSimpleDataLayer> _simpleDataLayers = new Dictionary<string, DataStoreManagerSimpleDataLayer>();
-        readonly Dictionary<string, List<string>> _tables = new Dictionary<string, List<string>>();
+        readonly Dictionary<KeyInfo, ReflectionDictionary> _reflectionDictionaries = new();
+        readonly Dictionary<string, IDataStoreManagerDataLayer> _simpleDataLayers = new();
+        readonly Dictionary<string, List<string>> _tables = new();
         readonly string _connectionString;
         readonly DataStoreAttribute[] _dataStoreAttributes;
         private bool _dataLayersCreated;
@@ -108,8 +109,7 @@ namespace Xpand.Xpo.DB {
                 return connectionStringSettings.ConnectionString;
             }
             IDataStore connectionProvider = XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.DatabaseAndSchema);
-            var sql = connectionProvider as ConnectionProviderSql;
-            if (sql != null) {
+            if (connectionProvider is ConnectionProviderSql sql) {
                 IDbConnection dbConnection = sql.Connection;
                 return _connectionString?.Replace(dbConnection.Database, $"{dbConnection.Database}{key}.mdb");
 
@@ -123,7 +123,7 @@ namespace Xpand.Xpo.DB {
         }
 
         public static IEnumerable<DataStoreAttribute> GetDataStoreAttributes(string dataStoreName) {
-            var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assmb => assmb.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
+            var dataStoreAttributes = AppDomain.CurrentDomain.GetAssemblies().SelectMany(assembly => assembly.GetCustomAttributes(typeof(Attribute), false).OfType<DataStoreAttribute>());
             return dataStoreAttributes.Where(attribute => attribute.DataStoreName.Equals(dataStoreName, StringComparison.Ordinal));
         }
 
@@ -136,7 +136,7 @@ namespace Xpand.Xpo.DB {
                     .Select(t => t.dataStoreAttribute);
         }
 
-        public Dictionary<string, DataStoreManagerSimpleDataLayer> GetDataLayers(IDataStore defaultStore) {
+        public Dictionary<string, IDataStoreManagerDataLayer> GetDataLayers(IDataStore defaultStore) {
             if (!_dataLayersCreated) {
                 _dataLayersCreated = true;
                 foreach (var dictionary in _reflectionDictionaries) {
@@ -148,11 +148,12 @@ namespace Xpand.Xpo.DB {
 
         }
 
-        public DataStoreManagerSimpleDataLayer GetDataLayer(string key,IDataStore defaultStore){
+        public IDataStoreManagerDataLayer GetDataLayer(string key,IDataStore defaultStore){
             if (!_simpleDataLayers.ContainsKey(key)){
                 var keyValuePair = _reflectionDictionaries.First(info => info.Key.Key==key);
                 var connectionProvider = keyValuePair.Key.Key==DefaultDictionaryKey?defaultStore:GetConnectionProvider(keyValuePair.Key.Key);
-                var simpleDataLayer = new DataStoreManagerSimpleDataLayer(keyValuePair.Value, connectionProvider,
+                var simpleDataLayer =AppDomain.CurrentDomain.Web().HttpContext()==null? (IDataStoreManagerDataLayer)new DataStoreManagerSimpleDataLayer(keyValuePair.Value, connectionProvider,
+                    keyValuePair.Key.Key == DefaultDictionaryKey, keyValuePair.Key.IsLegacy):new DataStoreManagerThreadSafeDataLayer(keyValuePair.Value, connectionProvider,
                     keyValuePair.Key.Key == DefaultDictionaryKey, keyValuePair.Key.IsLegacy);
                 _simpleDataLayers.Add(keyValuePair.Key.Key, simpleDataLayer);
             }
@@ -180,7 +181,7 @@ namespace Xpand.Xpo.DB {
         }
 
         public string GetKey(string tableName) {
-            if (tableName == typeof(XPObjectType).Name)
+            if (tableName == nameof(XPObjectType))
                 return DefaultDictionaryKey;
             var keyValuePairs = _tables.Where(valuePair => valuePair.Value.Contains(tableName)).ToList();
             string key = DefaultDictionaryKey;
@@ -196,8 +197,26 @@ namespace Xpand.Xpo.DB {
 
     }
 
-    public class DataStoreManagerSimpleDataLayer : SimpleDataLayer {
+    public class DataStoreManagerSimpleDataLayer : SimpleDataLayer,IDataStoreManagerDataLayer {
         public DataStoreManagerSimpleDataLayer(XPDictionary dictionary, IDataStore provider, bool isMainLayer, bool isLegacy)
+            : base(dictionary, provider) {
+            IsMainLayer = isMainLayer;
+            IsLegacy = isLegacy;
+        }
+
+        public bool IsLegacy{ get; }
+
+        public bool IsMainLayer{ get; }
+    }
+
+    public interface IDataStoreManagerDataLayer:IDataLayer {
+        bool IsLegacy { get; }
+        bool IsMainLayer { get; }
+        IDataStore ConnectionProvider { get; }
+    }
+
+    public class DataStoreManagerThreadSafeDataLayer : SimpleDataLayer, IDataStoreManagerDataLayer {
+        public DataStoreManagerThreadSafeDataLayer(XPDictionary dictionary, IDataStore provider, bool isMainLayer, bool isLegacy)
             : base(dictionary, provider) {
             IsMainLayer = isMainLayer;
             IsLegacy = isLegacy;
