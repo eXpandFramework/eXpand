@@ -8,117 +8,50 @@
     ".NETCoreApp,Version=v5.0": {
       "Xpand.XAF.ModelEditor.WinDesktop/1.0.0": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Charts.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.CodeParser": "20.2.7",
-          "DevExpress.WindowsDesktop.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Dashboard.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.DataVisualization.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Diagram.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Dialogs.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Gauges.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Images": "20.2.7",
-          "DevExpress.WindowsDesktop.Map.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm.DataModel": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm.DataModel.EFCore": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm.ViewModel": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Drawing": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Reporting.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Export": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.CoreDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.SpellChecker.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Spreadsheet.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.TreeMap": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.TreeMap.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Charts": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Dashboard": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Diagram": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Gauges": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Map": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.NavBar": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.PivotGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Reporting": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Scheduler": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Spreadsheet": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeMap": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.VerticalGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.AuditTrail": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Chart": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Chart.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.CloneObject": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ConditionalAppearance": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Dashboards": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Dashboards.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.EasyTest": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.EasyTest.WinAdapter": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.FileAttachment.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Kpi": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Notifications": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Notifications.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Objects": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Office": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Office.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.BaseImpl": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotChart": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotChart.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotGrid.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ReportsV2": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ReportsV2.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Scheduler.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ScriptRecorder": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ScriptRecorder.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Security": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Security.Xpo": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.StateMachine": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.TreeListEditors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.TreeListEditors.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Validation": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Validation.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ViewVariantsModule": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Xpo": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
+          "DevExpress.Charts": "21.1.3",
+          "DevExpress.Charts.Core": "21.1.3",
+          "DevExpress.CodeParser": "21.1.3",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.DataAccess": "21.1.3",
+          "DevExpress.DataAccess.UI": "21.1.3",
+          "DevExpress.DataVisualization.Core": "21.1.3",
+          "DevExpress.Diagram.Core": "21.1.3",
+          "DevExpress.ExpressApp": "21.1.3",
+          "DevExpress.ExpressApp.Win": "21.1.3",
+          "DevExpress.ExpressApp.Xpo": "21.1.3",
+          "DevExpress.Gauges.Core": "21.1.3",
+          "DevExpress.Images": "21.1.3",
+          "DevExpress.Office.Core": "21.1.3",
+          "DevExpress.Pdf.Core": "21.1.3",
+          "DevExpress.Pdf.Drawing": "21.1.3",
+          "DevExpress.Persistent.Base": "21.1.3",
+          "DevExpress.PivotGrid.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.Reporting.Core": "21.1.3",
+          "DevExpress.RichEdit.Core": "21.1.3",
+          "DevExpress.RichEdit.Export": "21.1.3",
+          "DevExpress.Sparkline.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Utils.UI": "21.1.3",
+          "DevExpress.Win": "21.1.3",
+          "DevExpress.Win.BonusSkins": "21.1.3",
+          "DevExpress.Win.Diagram": "21.1.3",
+          "DevExpress.Win.Grid": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.PivotGrid": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3",
+          "DevExpress.Win.RichEdit": "21.1.3",
+          "DevExpress.Win.TreeList": "21.1.3",
+          "DevExpress.Win.VerticalGrid": "21.1.3",
+          "DevExpress.Xpo": "21.1.3",
           "Microsoft.Bcl.AsyncInterfaces": "5.0.0",
           "Microsoft.CodeAnalysis.Analyzers": "3.3.2",
           "Microsoft.CodeAnalysis.CSharp": "3.9.0",
           "Microsoft.CodeAnalysis.Common": "3.9.0",
-          "Microsoft.Extensions.Configuration": "5.0.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "5.0.0",
-          "Microsoft.Extensions.Configuration.FileExtensions": "5.0.0",
-          "Microsoft.Extensions.Configuration.Json": "5.0.0",
           "Microsoft.Extensions.DependencyInjection": "5.0.1",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
           "Microsoft.Extensions.DependencyModel": "3.1.6",
-          "Microsoft.Extensions.FileProviders.Abstractions": "5.0.0",
-          "Microsoft.Extensions.FileProviders.Physical": "5.0.0",
-          "Microsoft.Extensions.FileSystemGlobbing": "5.0.0",
-          "Microsoft.Extensions.Options": "5.0.0",
-          "Microsoft.Extensions.Primitives": "5.0.1",
           "Microsoft.NETCore.Platforms": "5.0.2",
           "Microsoft.NETCore.Targets": "5.0.0",
           "Microsoft.Win32.Registry": "5.0.0",
@@ -130,12 +63,9 @@
           "System.ComponentModel.Annotations": "5.0.0",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "System.Data.Common": "4.3.0",
-          "System.Data.OleDb": "5.0.0",
           "System.Data.SqlClient": "4.8.2",
-          "System.Diagnostics.Debug": "4.3.0",
           "System.Diagnostics.DiagnosticSource": "5.0.1",
           "System.Diagnostics.EventLog": "5.0.1",
-          "System.Diagnostics.PerformanceCounter": "5.0.1",
           "System.Drawing.Common": "5.0.2",
           "System.Formats.Asn1": "5.0.0",
           "System.Globalization": "4.3.0",
@@ -155,11 +85,10 @@
           "System.Runtime": "4.3.1",
           "System.Runtime.CompilerServices.Unsafe": "5.0.0",
           "System.Runtime.Extensions": "4.3.1",
+          "System.Runtime.Loader": "4.3.0",
           "System.Security.AccessControl": "5.0.0",
-          "System.Security.Cryptography.Algorithms": "4.3.1",
           "System.Security.Cryptography.Cng": "5.0.0",
           "System.Security.Cryptography.Pkcs": "5.0.1",
-          "System.Security.Cryptography.Primitives": "4.3.0",
           "System.Security.Cryptography.ProtectedData": "5.0.0",
           "System.Security.Cryptography.Xml": "5.0.0",
           "System.Security.Permissions": "5.0.0",
@@ -168,7 +97,6 @@
           "System.ServiceModel.NetTcp": "4.8.1",
           "System.ServiceModel.Primitives": "4.8.1",
           "System.ServiceModel.Security": "4.8.1",
-          "System.ServiceProcess.ServiceController": "5.0.0",
           "System.Text.Encoding": "4.3.0",
           "System.Text.Encoding.CodePages": "5.0.0",
           "System.Text.Encodings.Web": "5.0.1",
@@ -188,137 +116,85 @@
           "Xpand.XAF.ModelEditor.WinDesktop.dll": {}
         }
       },
-      "DevExpress.WindowsDesktop.Charts/20.2.7": {
+      "DevExpress.Charts/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Charts.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataVisualization.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
+          "DevExpress.Charts.Core": "21.1.3",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.DataVisualization.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.XtraCharts.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.XtraCharts.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.Charts.Core/20.2.7": {
+      "DevExpress.Charts.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
+          "DevExpress.Data": "21.1.3",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.Charts.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.Charts.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.CodeParser/20.2.7": {
+      "DevExpress.CodeParser/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
+          "DevExpress.Data": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.CodeDom": "5.0.0"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.CodeParser.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.CodeParser.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Charts.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.CodeParser": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.Diagram.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Dialogs.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Gauges.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Images": "20.2.7",
-          "DevExpress.WindowsDesktop.Map.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm.DataModel": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm.DataModel.EFCore": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm.ViewModel": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Drawing": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Export": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.CoreDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.SpellChecker.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Spreadsheet.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.TreeMap.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7"
-        }
-      },
-      "DevExpress.WindowsDesktop.Dashboard.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Charts.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.Gauges.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Map.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Reporting.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.TreeMap": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.TreeMap.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Dashboard.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Data/20.2.7": {
+      "DevExpress.Data/21.1.3": {
         "dependencies": {
           "Microsoft.Win32.Registry": "5.0.0",
           "NETStandard.Library": "2.0.3",
           "System.ComponentModel.Annotations": "5.0.0",
           "System.Configuration.ConfigurationManager": "5.0.0",
-          "System.Diagnostics.PerformanceCounter": "5.0.1",
+          "System.Diagnostics.PerformanceCounter": "4.5.0",
           "System.Drawing.Common": "5.0.2",
           "System.Reflection.Emit": "4.7.0",
           "System.Reflection.Emit.Lightweight": "4.7.0",
           "System.Text.Encoding.CodePages": "5.0.0"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.Data.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.Data.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.DataAccess/20.2.7": {
+      "DevExpress.Data.Desktop/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.CodeParser": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
-          "Microsoft.Extensions.Configuration": "5.0.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "5.0.0",
-          "Microsoft.Extensions.Configuration.FileExtensions": "5.0.0",
-          "Microsoft.Extensions.Configuration.Json": "5.0.0",
+          "DevExpress.Data": "21.1.3"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/DevExpress.Data.Desktop.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
+          }
+        }
+      },
+      "DevExpress.DataAccess/21.1.3": {
+        "dependencies": {
+          "DevExpress.CodeParser": "21.1.3",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Office.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.RichEdit.Core": "21.1.3",
+          "DevExpress.Xpo": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "System.Data.SqlClient": "4.8.2",
@@ -326,1062 +202,69 @@
           "System.Reflection.Emit": "4.7.0"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.DataAccess.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.DataAccess.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.DataDesktop/20.2.7": {
+      "DevExpress.DataAccess.UI/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Data.Desktop.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.DataVisualization.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "NETStandard.Library": "2.0.3"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.DataVisualization.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Diagram.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Diagram.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Dialogs.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Dialogs.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Gauges.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.XtraGauges.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Images/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Images.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Map.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Map.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Mvvm/20.2.7": {
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Mvvm.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Mvvm.DataModel/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Mvvm.v20.2.DataModel.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Mvvm.DataModel.EFCore/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Mvvm.DataModel": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Mvvm.v20.2.DataModel.EFCore.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Mvvm.ViewModel/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Mvvm": "20.2.7",
-          "DevExpress.WindowsDesktop.Mvvm.DataModel": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Mvvm.v20.2.ViewModel.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Office.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2",
-          "System.Security.Cryptography.Xml": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Office.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Pdf.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2",
-          "System.Reflection.Emit": "4.7.0",
-          "System.Security.Cryptography.Pkcs": "5.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Pdf.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Pdf.Drawing/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Pdf.v20.2.Drawing.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.PivotGrid.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.PivotGrid.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Printing.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Drawing": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.ComponentModel.Annotations": "5.0.0",
-          "System.Drawing.Common": "5.0.2",
-          "System.Security.Cryptography.Pkcs": "5.0.1",
-          "System.ServiceModel.Http": "4.8.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Printing.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Reporting.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Charts.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.CodeParser": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.Gauges.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Drawing": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.CodeDom": "5.0.0",
-          "System.Collections.Immutable": "5.0.0",
-          "System.Configuration.ConfigurationManager": "5.0.0",
-          "System.Data.Common": "4.3.0",
-          "System.Drawing.Common": "5.0.2",
-          "System.Security.Permissions": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.XtraReports.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.RichEdit.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.RichEdit.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.RichEdit.Export/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.RichEdit.v20.2.Export.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Scheduler.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.XtraScheduler.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Scheduler.CoreDesktop/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Images": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.Core": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraScheduler.v20.2.Core.Desktop.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Sparkline.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Sparkline.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.SpellChecker.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.SpellChecker.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Spreadsheet.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.DataVisualization.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2",
-          "System.Security.AccessControl": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.Spreadsheet.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.TreeMap/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataVisualization.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.TreeMap.Core": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.XtraTreeMap.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.TreeMap.Core/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "NETStandard.Library": "2.0.3"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.TreeMap.v20.2.Core.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Bars/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraBars.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Charts/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Charts.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.NavBar": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.VerticalGrid": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraCharts.v20.2.Extensions.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          },
-          "lib/netcoreapp3.0/DevExpress.XtraCharts.v20.2.UI.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          },
-          "lib/netcoreapp3.0/DevExpress.XtraCharts.v20.2.Wizard.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Dashboard/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Charts.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Dashboard.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Gauges.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Map.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Reporting.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.TreeMap": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.TreeMap.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Charts": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Gauges": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Map": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.PivotGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeMap": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Dashboard.v20.2.Win.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.DataAccess.UI/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.CodeParser": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Diagram.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Diagram": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
+          "DevExpress.CodeParser": "21.1.3",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.DataAccess": "21.1.3",
+          "DevExpress.Diagram.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.RichEdit.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Utils.UI": "21.1.3",
+          "DevExpress.Win.Diagram": "21.1.3",
+          "DevExpress.Win.Grid": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3",
+          "DevExpress.Win.RichEdit": "21.1.3",
+          "DevExpress.Win.TreeList": "21.1.3",
+          "DevExpress.Xpo": "21.1.3",
           "System.Data.SqlClient": "4.8.2"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.DataAccess.v20.2.UI.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.DataAccess.v21.1.UI.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.Win.Diagram/20.2.7-ctp": {
+      "DevExpress.DataVisualization.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Diagram.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.VerticalGrid": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "NETStandard.Library": "2.0.3"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraDiagram.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.DataVisualization.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.Win.Editors/20.2.7-ctp": {
+      "DevExpress.Diagram.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraEditors.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.Diagram.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.Win.Gauges/20.2.7-ctp": {
+      "DevExpress.ExpressApp/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Gauges.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraGauges.v20.2.Presets.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          },
-          "lib/netcoreapp3.0/DevExpress.XtraGauges.v20.2.Win.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Grid/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraGrid.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Layout/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraLayout.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Map/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Map.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "System.Data.SqlClient": "4.8.2"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraMap.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.NavBar/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraNavBar.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.PivotGrid/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraPivotGrid.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Printing/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraPrinting.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Reporting/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Charts.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.CodeParser": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Gauges.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Reporting.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Sparkline.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Charts": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.NavBar": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.PivotGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.VerticalGrid": "20.2.7-ctp",
-          "System.Data.OleDb": "5.0.0"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraReports.v20.2.Extensions.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.RichEdit/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Images": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Pdf.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraRichEdit.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Scheduler/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.CoreDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraScheduler.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Spreadsheet/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.DataVisualization.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Spreadsheet.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.NavBar": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils.UI": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraSpreadsheet.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.TreeList/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraTreeList.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.TreeMap/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.TreeMap": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.TreeMap.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraTreeMap.v20.2.UI.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Utils/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Utils.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.Utils.UI/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.VerticalGrid": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.Utils.v20.2.UI.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Win.VerticalGrid/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.XtraVerticalGrid.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.XAF.AuditTrail": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Chart.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.CloneObject": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ConditionalAppearance": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Dashboards.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.EasyTest.WinAdapter": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.FileAttachment.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Kpi": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Notifications.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Objects": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Office.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.BaseImpl": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotChart.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotGrid.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ReportsV2.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Scheduler.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ScriptRecorder.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Security.Xpo": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.StateMachine": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.TreeListEditors.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Validation.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ViewVariantsModule": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Xpo": "20.2.7-ctp"
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.AuditTrail/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.BaseImpl": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Xpo": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Configuration.ConfigurationManager": "5.0.0",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.AuditTrail.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.Chart/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Chart.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.Chart.Win/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Charts": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Chart": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.Chart.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.CloneObject/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.CloneObject.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.ConditionalAppearance/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.ConditionalAppearance.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.Dashboards/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Dashboard.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Dashboards.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.Dashboards.Win/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Dashboard.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Dashboard": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Dashboards": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.Dashboards.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.EasyTest/20.2.7-ctp": {
-        "dependencies": {
-          "Microsoft.Win32.Registry": "5.0.0",
-          "NETStandard.Library": "2.0.3",
-          "System.Configuration.ConfigurationManager": "5.0.0",
-          "System.Data.SqlClient": "4.8.2",
-          "System.Drawing.Common": "5.0.2",
-          "System.ServiceProcess.ServiceController": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.EasyTest.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.EasyTest.WinAdapter/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.CoreDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Spreadsheet.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.NavBar": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.PivotGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Scheduler": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Spreadsheet": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.VerticalGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.EasyTest": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Office.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotChart.Win": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.EasyTest.WinAdapter.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.ExpressApp/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Images": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Images": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
           "Microsoft.CodeAnalysis.CSharp": "3.9.0",
           "Microsoft.Win32.Registry": "5.0.0",
           "NETStandard.Library": "2.0.3",
@@ -1395,523 +278,466 @@
           "System.Text.Encoding.CodePages": "5.0.0"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.ExpressApp.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.ExpressApp.Win/20.2.7-ctp": {
+      "DevExpress.ExpressApp.Win/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.NavBar": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.VerticalGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.DataAccess.UI": "21.1.3",
+          "DevExpress.ExpressApp": "21.1.3",
+          "DevExpress.Office.Core": "21.1.3",
+          "DevExpress.Persistent.Base": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.RichEdit.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win": "21.1.3",
+          "DevExpress.Win.BonusSkins": "21.1.3",
+          "DevExpress.Win.Grid": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3",
+          "DevExpress.Win.RichEdit": "21.1.3",
+          "DevExpress.Win.TreeList": "21.1.3",
+          "DevExpress.Win.VerticalGrid": "21.1.3"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/net5.0-windows/DevExpress.ExpressApp.Win.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.FileAttachment.Win/20.2.7-ctp": {
+      "DevExpress.ExpressApp.Xpo/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.ExpressApp": "21.1.3",
+          "DevExpress.Xpo": "21.1.3",
+          "NETStandard.Library": "2.0.3",
+          "System.Drawing.Common": "5.0.2",
+          "System.Security.Permissions": "5.0.0"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.FileAttachment.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.ExpressApp.Xpo.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Kpi/20.2.7-ctp": {
+      "DevExpress.Gauges.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Validation": "20.2.7-ctp",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Kpi.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.XtraGauges.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Notifications/20.2.7-ctp": {
+      "DevExpress.Images/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
+          "DevExpress.Data": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Notifications.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.Images.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Notifications.Win/20.2.7-ctp": {
+      "DevExpress.Office.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Notifications": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Pdf.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "NETStandard.Library": "2.0.3",
+          "System.Drawing.Common": "5.0.2",
+          "System.Security.Cryptography.Xml": "5.0.0"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.Notifications.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.Office.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Objects/20.2.7-ctp": {
+      "DevExpress.Pdf.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
+          "DevExpress.Data": "21.1.3",
+          "NETStandard.Library": "2.0.3",
+          "System.Drawing.Common": "5.0.2",
+          "System.Reflection.Emit": "4.7.0",
+          "System.Security.Cryptography.Pkcs": "5.0.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DevExpress.Pdf.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
+          }
+        }
+      },
+      "DevExpress.Pdf.Drawing/21.1.3": {
+        "dependencies": {
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Pdf.Core": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Objects.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.Pdf.v21.1.Drawing.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Office/20.2.7-ctp": {
+      "DevExpress.Persistent.Base/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Spreadsheet.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.ExpressApp": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Office.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.Persistent.Base.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Office.Win/20.2.7-ctp": {
+      "DevExpress.PivotGrid.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Office.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.RichEdit.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Spreadsheet.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.RichEdit": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Spreadsheet": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Office": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.Office.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.Persistent.Base/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.Persistent.Base.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.PivotGrid.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Persistent.BaseImpl/20.2.7-ctp": {
+      "DevExpress.Printing.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Reporting.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Objects": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Xpo": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Pdf.Core": "21.1.3",
+          "DevExpress.Pdf.Drawing": "21.1.3",
+          "NETStandard.Library": "2.0.3",
+          "System.ComponentModel.Annotations": "5.0.0",
+          "System.Drawing.Common": "5.0.2",
+          "System.Security.Cryptography.Pkcs": "5.0.1",
+          "System.ServiceModel.Http": "4.8.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DevExpress.Printing.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
+          }
+        }
+      },
+      "DevExpress.Reporting.Core/21.1.3": {
+        "dependencies": {
+          "DevExpress.Charts": "21.1.3",
+          "DevExpress.Charts.Core": "21.1.3",
+          "DevExpress.CodeParser": "21.1.3",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.DataAccess": "21.1.3",
+          "DevExpress.Gauges.Core": "21.1.3",
+          "DevExpress.Office.Core": "21.1.3",
+          "DevExpress.Pdf.Core": "21.1.3",
+          "DevExpress.Pdf.Drawing": "21.1.3",
+          "DevExpress.PivotGrid.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.RichEdit.Core": "21.1.3",
+          "DevExpress.RichEdit.Export": "21.1.3",
+          "DevExpress.Sparkline.Core": "21.1.3",
+          "DevExpress.Xpo": "21.1.3",
+          "NETStandard.Library": "2.0.3",
+          "System.CodeDom": "5.0.0",
+          "System.Collections.Immutable": "5.0.0",
+          "System.Configuration.ConfigurationManager": "5.0.0",
+          "System.Data.Common": "4.3.0",
+          "System.Drawing.Common": "5.0.2",
+          "System.Runtime.Loader": "4.3.0",
+          "System.Security.Permissions": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DevExpress.XtraReports.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
+          }
+        }
+      },
+      "DevExpress.RichEdit.Core/21.1.3": {
+        "dependencies": {
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Office.Core": "21.1.3",
+          "DevExpress.Pdf.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.Persistent.BaseImpl.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.RichEdit.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.PivotChart/20.2.7-ctp": {
+      "DevExpress.RichEdit.Export/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Office.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.RichEdit.Core": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.PivotChart.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.RichEdit.v21.1.Export.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.PivotChart.Win/20.2.7-ctp": {
+      "DevExpress.Sparkline.Core/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Charts": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.PivotGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotChart": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.PivotChart.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.PivotGrid/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
+          "DevExpress.Data": "21.1.3",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.PivotGrid.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.Sparkline.v21.1.Core.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.PivotGrid.Win/20.2.7-ctp": {
+      "DevExpress.Utils/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Charts": "20.2.7",
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.PivotGrid.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Charts": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Layout": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.PivotGrid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.PivotGrid": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.PivotGrid.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.Utils.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.ReportsV2/20.2.7-ctp": {
+      "DevExpress.Utils.UI/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Reporting.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.DataAccess": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3",
+          "DevExpress.Win.RichEdit": "21.1.3",
+          "DevExpress.Win.TreeList": "21.1.3",
+          "DevExpress.Win.VerticalGrid": "21.1.3"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.ReportsV2.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.Utils.v21.1.UI.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.ReportsV2.Win/20.2.7-ctp": {
+      "DevExpress.Win/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.DataAccess": "20.2.7",
-          "DevExpress.WindowsDesktop.Printing.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Reporting.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.DataAccess.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Printing": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Reporting": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils.UI": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ReportsV2": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.RichEdit.Export": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Grid": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.PivotGrid": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3",
+          "DevExpress.Win.TreeList": "21.1.3",
+          "DevExpress.Win.VerticalGrid": "21.1.3"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.ReportsV2.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.Scheduler.Win/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.Core": "20.2.7",
-          "DevExpress.WindowsDesktop.Scheduler.CoreDesktop": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Scheduler": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp"
-        },
-        "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.Scheduler.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraNavBar.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           },
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.Scheduler.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraWizard.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.ScriptRecorder/20.2.7-ctp": {
+      "DevExpress.Win.BonusSkins/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
+          "DevExpress.Utils": "21.1.3"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.ScriptRecorder.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.BonusSkins.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.ScriptRecorder.Win/20.2.7-ctp": {
+      "DevExpress.Win.Diagram/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ScriptRecorder": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Diagram.Core": "21.1.3",
+          "DevExpress.Office.Core": "21.1.3",
+          "DevExpress.Pdf.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3",
+          "DevExpress.Win.VerticalGrid": "21.1.3"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.ScriptRecorder.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraDiagram.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Security/20.2.7-ctp": {
+      "DevExpress.Win.Grid/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "Microsoft.Extensions.Options": "5.0.0",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2",
-          "System.Security.Permissions": "5.0.0"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Security.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraGrid.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Security.Xpo/20.2.7-ctp": {
+      "DevExpress.Win.Navigation/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Security": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Xpo": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.ServiceModel.Http": "4.8.1",
-          "System.ServiceModel.NetTcp": "4.8.1",
-          "System.ServiceModel.Primitives": "4.8.1"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.Sparkline.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Security.Xpo.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraBars.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
+          },
+          "lib/netcoreapp3.0/DevExpress.XtraEditors.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
+          },
+          "lib/netcoreapp3.0/DevExpress.XtraLayout.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.StateMachine/20.2.7-ctp": {
+      "DevExpress.Win.PivotGrid/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ConditionalAppearance": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Validation": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.PivotGrid.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.StateMachine.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraPivotGrid.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.TreeListEditors/20.2.7-ctp": {
+      "DevExpress.Win.Printing/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.RichEdit.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.TreeList": "21.1.3"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.TreeListEditors.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraPrinting.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.TreeListEditors.Win/20.2.7-ctp": {
+      "DevExpress.Win.RichEdit/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Bars": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.TreeList": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Utils": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.TreeListEditors": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Images": "21.1.3",
+          "DevExpress.Office.Core": "21.1.3",
+          "DevExpress.Pdf.Core": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.RichEdit.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Grid": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.TreeListEditors.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraRichEdit.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Validation/20.2.7-ctp": {
+      "DevExpress.Win.TreeList/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Validation.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraTreeList.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.Validation.Win/20.2.7-ctp": {
+      "DevExpress.Win.VerticalGrid/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.Win.Editors": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Win.Grid": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp.Win": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Persistent.Base": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.XAF.Validation": "20.2.7-ctp"
+          "DevExpress.Data": "21.1.3",
+          "DevExpress.Data.Desktop": "21.1.3",
+          "DevExpress.Printing.Core": "21.1.3",
+          "DevExpress.Utils": "21.1.3",
+          "DevExpress.Win.Navigation": "21.1.3",
+          "DevExpress.Win.Printing": "21.1.3"
         },
         "runtime": {
-          "lib/netcoreapp3.0/DevExpress.ExpressApp.Validation.Win.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netcoreapp3.0/DevExpress.XtraVerticalGrid.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
-      "DevExpress.WindowsDesktop.XAF.ViewVariantsModule/20.2.7-ctp": {
+      "DevExpress.Xpo/21.1.3": {
         "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.ViewVariantsModule.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.XAF.Xpo/20.2.7-ctp": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
-          "DevExpress.WindowsDesktop.XAF.ExpressApp": "20.2.7-ctp",
-          "DevExpress.WindowsDesktop.Xpo": "20.2.7",
-          "NETStandard.Library": "2.0.3",
-          "System.Drawing.Common": "5.0.2",
-          "System.Security.Permissions": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/DevExpress.ExpressApp.Xpo.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
-          }
-        }
-      },
-      "DevExpress.WindowsDesktop.Xpo/20.2.7": {
-        "dependencies": {
-          "DevExpress.WindowsDesktop.Data": "20.2.7",
+          "DevExpress.Data": "21.1.3",
           "Microsoft.Extensions.DependencyInjection": "5.0.1",
           "Microsoft.Win32.Registry": "5.0.0",
           "NETStandard.Library": "2.0.3",
@@ -1920,12 +746,13 @@
           "System.Security.Principal.Windows": "5.0.0",
           "System.ServiceModel.Http": "4.8.1",
           "System.ServiceModel.NetTcp": "4.8.1",
-          "System.ServiceModel.Security": "4.8.1"
+          "System.ServiceModel.Security": "4.8.1",
+          "System.Text.Json": "5.0.2"
         },
         "runtime": {
-          "lib/netstandard2.0/DevExpress.Xpo.v20.2.dll": {
-            "assemblyVersion": "20.2.7.0",
-            "fileVersion": "20.2.7.0"
+          "lib/netstandard2.0/DevExpress.Xpo.v21.1.dll": {
+            "assemblyVersion": "21.1.3.0",
+            "fileVersion": "21.1.3.0"
           }
         }
       },
@@ -2048,58 +875,6 @@
           }
         }
       },
-      "Microsoft.Extensions.Configuration/5.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Configuration.Abstractions": "5.0.0",
-          "Microsoft.Extensions.Primitives": "5.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
-      "Microsoft.Extensions.Configuration.Abstractions/5.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Primitives": "5.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
-      "Microsoft.Extensions.Configuration.FileExtensions/5.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Configuration": "5.0.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "5.0.0",
-          "Microsoft.Extensions.FileProviders.Abstractions": "5.0.0",
-          "Microsoft.Extensions.FileProviders.Physical": "5.0.0",
-          "Microsoft.Extensions.Primitives": "5.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.Configuration.FileExtensions.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
-      "Microsoft.Extensions.Configuration.Json/5.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Configuration": "5.0.0",
-          "Microsoft.Extensions.Configuration.Abstractions": "5.0.0",
-          "Microsoft.Extensions.Configuration.FileExtensions": "5.0.0",
-          "Microsoft.Extensions.FileProviders.Abstractions": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.1/Microsoft.Extensions.Configuration.Json.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
       "Microsoft.Extensions.DependencyInjection/5.0.1": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0"
@@ -2130,58 +905,6 @@
           }
         }
       },
-      "Microsoft.Extensions.FileProviders.Abstractions/5.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.Primitives": "5.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Abstractions.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
-      "Microsoft.Extensions.FileProviders.Physical/5.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.FileProviders.Abstractions": "5.0.0",
-          "Microsoft.Extensions.FileSystemGlobbing": "5.0.0",
-          "Microsoft.Extensions.Primitives": "5.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.FileProviders.Physical.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
-      "Microsoft.Extensions.FileSystemGlobbing/5.0.0": {
-        "runtime": {
-          "lib/netstandard2.0/Microsoft.Extensions.FileSystemGlobbing.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
-      "Microsoft.Extensions.Options/5.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
-          "Microsoft.Extensions.Primitives": "5.0.1"
-        },
-        "runtime": {
-          "lib/net5.0/Microsoft.Extensions.Options.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
-      "Microsoft.Extensions.Primitives/5.0.1": {
-        "runtime": {
-          "lib/netcoreapp3.0/Microsoft.Extensions.Primitives.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.521.16609"
-          }
-        }
-      },
       "Microsoft.NETCore.Platforms/5.0.2": {},
       "Microsoft.NETCore.Targets/5.0.0": {},
       "Microsoft.Win32.Registry/5.0.0": {
@@ -2200,9 +923,6 @@
           "Microsoft.NETCore.Platforms": "5.0.2"
         }
       },
-      "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "dependencies": {
           "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni": "4.4.0",
@@ -2210,33 +930,6 @@
           "runtime.win-x86.runtime.native.System.Data.SqlClient.sni": "4.4.0"
         }
       },
-      "runtime.native.System.Security.Cryptography.Apple/4.3.1": {
-        "dependencies": {
-          "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple": "4.3.1"
-        }
-      },
-      "runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-        "dependencies": {
-          "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2",
-          "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2"
-        }
-      },
-      "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple/4.3.1": {},
-      "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
         "runtimeTargets": {
           "runtimes/win-arm64/native/sni.dll": {
@@ -2273,20 +966,6 @@
           "System.Runtime": "4.3.1"
         }
       },
-      "System.Collections.Concurrent/4.3.0": {
-        "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Diagnostics.Tracing": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.Reflection": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1",
-          "System.Threading": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
-        }
-      },
       "System.Collections.Immutable/5.0.0": {},
       "System.ComponentModel.Annotations/5.0.0": {},
       "System.Configuration.ConfigurationManager/5.0.0": {
@@ -2305,28 +984,6 @@
           "System.Runtime.Extensions": "4.3.1",
           "System.Text.RegularExpressions": "4.3.1",
           "System.Threading.Tasks": "4.3.0"
-        }
-      },
-      "System.Data.OleDb/5.0.0": {
-        "dependencies": {
-          "Microsoft.Win32.Registry": "5.0.0",
-          "System.Configuration.ConfigurationManager": "5.0.0",
-          "System.Diagnostics.PerformanceCounter": "5.0.1",
-          "System.Security.Principal.Windows": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Data.OleDb.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/netstandard2.0/System.Data.OleDb.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
         }
       },
       "System.Data.SqlClient/4.8.2": {
@@ -2354,13 +1011,6 @@
             "assemblyVersion": "4.6.1.2",
             "fileVersion": "4.700.20.37001"
           }
-        }
-      },
-      "System.Diagnostics.Debug/4.3.0": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.2",
-          "Microsoft.NETCore.Targets": "5.0.0",
-          "System.Runtime": "4.3.1"
         }
       },
       "System.Diagnostics.DiagnosticSource/5.0.1": {
@@ -2398,33 +1048,12 @@
           }
         }
       },
-      "System.Diagnostics.PerformanceCounter/5.0.1": {
+      "System.Diagnostics.PerformanceCounter/4.5.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.2",
           "Microsoft.Win32.Registry": "5.0.0",
           "System.Configuration.ConfigurationManager": "5.0.0",
           "System.Security.Principal.Windows": "5.0.0"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.Diagnostics.PerformanceCounter.dll": {
-            "assemblyVersion": "5.0.0.1",
-            "fileVersion": "5.0.321.7212"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/netcoreapp2.0/System.Diagnostics.PerformanceCounter.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "5.0.0.1",
-            "fileVersion": "5.0.321.7212"
-          }
-        }
-      },
-      "System.Diagnostics.Tracing/4.3.0": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.2",
-          "Microsoft.NETCore.Targets": "5.0.0",
-          "System.Runtime": "4.3.1"
         }
       },
       "System.Drawing.Common/5.0.2": {
@@ -2467,15 +1096,6 @@
           "System.Runtime": "4.3.1",
           "System.Text.Encoding": "4.3.0",
           "System.Threading.Tasks": "4.3.0"
-        }
-      },
-      "System.Linq/4.3.0": {
-        "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1"
         }
       },
       "System.Memory/4.5.4": {},
@@ -2539,29 +1159,11 @@
           "System.Runtime": "4.3.1"
         }
       },
-      "System.Runtime.Handles/4.3.0": {
+      "System.Runtime.Loader/4.3.0": {
         "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.2",
-          "Microsoft.NETCore.Targets": "5.0.0",
-          "System.Runtime": "4.3.1"
-        }
-      },
-      "System.Runtime.InteropServices/4.3.0": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.2",
-          "Microsoft.NETCore.Targets": "5.0.0",
+          "System.IO": "4.3.0",
           "System.Reflection": "4.3.0",
-          "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Handles": "4.3.0"
-        }
-      },
-      "System.Runtime.Numerics/4.3.0": {
-        "dependencies": {
-          "System.Globalization": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Security.AccessControl/5.0.0": {
@@ -2570,43 +1172,9 @@
           "System.Security.Principal.Windows": "5.0.0"
         }
       },
-      "System.Security.Cryptography.Algorithms/4.3.1": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.2",
-          "System.Collections": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1",
-          "System.Runtime.Handles": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Runtime.Numerics": "4.3.0",
-          "System.Security.Cryptography.Encoding": "4.3.0",
-          "System.Security.Cryptography.Primitives": "4.3.0",
-          "System.Text.Encoding": "4.3.0",
-          "runtime.native.System.Security.Cryptography.Apple": "4.3.1",
-          "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2"
-        }
-      },
       "System.Security.Cryptography.Cng/5.0.0": {
         "dependencies": {
           "System.Formats.Asn1": "5.0.0"
-        }
-      },
-      "System.Security.Cryptography.Encoding/4.3.0": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "5.0.2",
-          "System.Collections": "4.3.0",
-          "System.Collections.Concurrent": "4.3.0",
-          "System.Linq": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1",
-          "System.Runtime.Handles": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Security.Cryptography.Primitives": "4.3.0",
-          "System.Text.Encoding": "4.3.0",
-          "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2"
         }
       },
       "System.Security.Cryptography.Pkcs/5.0.1": {
@@ -2627,17 +1195,6 @@
             "assemblyVersion": "5.0.0.1",
             "fileVersion": "5.0.120.57516"
           }
-        }
-      },
-      "System.Security.Cryptography.Primitives/4.3.0": {
-        "dependencies": {
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Threading": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
         }
       },
       "System.Security.Cryptography.ProtectedData/5.0.0": {},
@@ -2705,25 +1262,6 @@
           }
         }
       },
-      "System.ServiceProcess.ServiceController/5.0.0": {
-        "dependencies": {
-          "System.Diagnostics.EventLog": "5.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.0/System.ServiceProcess.ServiceController.dll": {
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        },
-        "runtimeTargets": {
-          "runtimes/win/lib/netstandard2.0/System.ServiceProcess.ServiceController.dll": {
-            "rid": "win",
-            "assetType": "runtime",
-            "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.20.51904"
-          }
-        }
-      },
       "System.Text.Encoding/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.2",
@@ -2785,670 +1323,264 @@
       "serviceable": false,
       "sha512": ""
     },
-    "DevExpress.WindowsDesktop.Charts/20.2.7": {
+    "DevExpress.Charts/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-DFmsvDrtACpWKc1xIIPDH3xaqxOAky+IbvnKAm+Pl3mCW7wfOaW4uSTnH1fDU4DY8mBvpYMxgSZmhPnzEidqNA==",
-      "path": "devexpress.windowsdesktop.charts/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.charts.20.2.7.nupkg.sha512"
+      "sha512": "sha512-9r/zV+0mBl0FGrCx8mZQumSyDYMtTyzC/Ds84UOIoXkoC0M0i7MteZHio8HHc1TDtlmT8hqwh8uFjeI/lAh5GQ==",
+      "path": "devexpress.charts/21.1.3",
+      "hashPath": "devexpress.charts.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Charts.Core/20.2.7": {
+    "DevExpress.Charts.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ZMvdJaziAGGhM+BK0qXHcLYq+C3q2wdQha0Oes7Z6ohlooICRd8ic85l9Rgz/UnU1SJoaqsHtMcN90pxWuCbdg==",
-      "path": "devexpress.windowsdesktop.charts.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.charts.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-6i9gFSrqxh3TZLOB3YTYO8NF7gmC/wNkiYar3wTmquORTJIwSNqEl1MNvYc0rmO09LbqaPXxo8w+Q2MJDBDWjw==",
+      "path": "devexpress.charts.core/21.1.3",
+      "hashPath": "devexpress.charts.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.CodeParser/20.2.7": {
+    "DevExpress.CodeParser/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NPqHL3mfGKlFzWXo9XTd1WZl8s84E/E40Z3A1Yn+rgxzkWqLDM0CcuCr0T93BoMl3rKiLX6ISsAuMYsYB+/zwg==",
-      "path": "devexpress.windowsdesktop.codeparser/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.codeparser.20.2.7.nupkg.sha512"
+      "sha512": "sha512-O2bHYdqEhAe5WbzUYY0wLILYFw0JsvVHIjCVv/VDc1biAA7W3pY3AbWJFZMLyD8kqrb0WQiDKTulI8W1tjdazw==",
+      "path": "devexpress.codeparser/21.1.3",
+      "hashPath": "devexpress.codeparser.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Core/20.2.7": {
+    "DevExpress.Data/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-t3zgqQ5I13gmo4MjoSGKSoU+t/+r0wridkf69UYNmGQZmOHVMqRWE7yjQ5/s2BVMFSWcQN0S8Gf9WGU0j+/cwQ==",
-      "path": "devexpress.windowsdesktop.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-vRem51W4VI7IqZXFe2wq88Vo6z3Y6u9mOfyI+OFE22OuoIf2qw1PZ2/Uz5t1H3Rjqqt3VzyMWFm7y5loO+bR9A==",
+      "path": "devexpress.data/21.1.3",
+      "hashPath": "devexpress.data.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Dashboard.Core/20.2.7": {
+    "DevExpress.Data.Desktop/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-js7Ih6twWKKXjbJxqZ3BXvGLh2SewTUuev44JK3ItUPO5UvnEcG6dEeyHVOvu1auHkl6vs1ZMmQVkrWR7/b4SQ==",
-      "path": "devexpress.windowsdesktop.dashboard.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.dashboard.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-e3fuTcic4PGZIID8GKqr3VDQv80d7C/AyQVN3zOL1PnqLVnWPM0kZk4oKL98zhJvAEER9bpHDuOtzQ3YgslY/A==",
+      "path": "devexpress.data.desktop/21.1.3",
+      "hashPath": "devexpress.data.desktop.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Data/20.2.7": {
+    "DevExpress.DataAccess/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zdxj0dhallA5hh1wSKqnwZTUgt6OqbPXZKcytcF4vunSAD/Nbeaw308VsKFBSvVGkrY0e0hQ9JhF7yp2fQ7yjA==",
-      "path": "devexpress.windowsdesktop.data/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.data.20.2.7.nupkg.sha512"
+      "sha512": "sha512-AmTAjd4qgfy14YUtSxzoaMdzuvMtqLSqv4vzN5c33JxeyPs/vJDKJUrrCj6ekhXrRiJ/0GX2IatYlFQj370ymw==",
+      "path": "devexpress.dataaccess/21.1.3",
+      "hashPath": "devexpress.dataaccess.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.DataAccess/20.2.7": {
+    "DevExpress.DataAccess.UI/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rumCDUpU028pbvjHs7pux/lne6ETAY6qaOxBH2fCzuUqqnGvv1fyIWrgOQnMglbGyc/hmQ5G7CfA/D4dG675Ow==",
-      "path": "devexpress.windowsdesktop.dataaccess/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.dataaccess.20.2.7.nupkg.sha512"
+      "sha512": "sha512-Q+1vKlR7R1cM22YjFzoS44ZmYl/UpQi4GdDP4VE2j0/FZTsk9CHmEjlGk4ZlUmpZvWHmpEY8yFhbmPxpZup6Ng==",
+      "path": "devexpress.dataaccess.ui/21.1.3",
+      "hashPath": "devexpress.dataaccess.ui.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.DataDesktop/20.2.7": {
+    "DevExpress.DataVisualization.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-0rfkTsp66abHJkSZ9cDE647bMWlG3psFUO4d5HBvNfc+PNEsV0sKYPb6+enMD0w9/BPSXlr4+SE98nTw/aiNrA==",
-      "path": "devexpress.windowsdesktop.datadesktop/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.datadesktop.20.2.7.nupkg.sha512"
+      "sha512": "sha512-9+LEvn5DyONUCsdrrffiw20PIvAGcue9E9E6kIXRIiOZxxjwFXZnAinV6PosNKy3JLf0KrIY3tv4If0a7gOCSg==",
+      "path": "devexpress.datavisualization.core/21.1.3",
+      "hashPath": "devexpress.datavisualization.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.DataVisualization.Core/20.2.7": {
+    "DevExpress.Diagram.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wBN946R/HU9scICb6QfcqC2i0jDdTnKJ/Mk7SyUHsMCZyDqhop0q0KcG+KU9HWWyj/w0XuOKCP5F5pHss3X+tw==",
-      "path": "devexpress.windowsdesktop.datavisualization.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.datavisualization.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-2+EsCdqmO/0Y3PUoKMC3b8TTkFCEOk6INrnCljwDv+g28Plg4gV6RyO3uq11CETWquzZTLno7+sVEinqnrCxxg==",
+      "path": "devexpress.diagram.core/21.1.3",
+      "hashPath": "devexpress.diagram.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Diagram.Core/20.2.7": {
+    "DevExpress.ExpressApp/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MGDlQ9dEtn3/oZfw47KtsMcq53pih6dHKaW4PDBwXvwlfNzcy7f8MJDXHep0CcQgoAESqv0wjnok7ood4XhyNw==",
-      "path": "devexpress.windowsdesktop.diagram.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.diagram.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-Betr1GLDY8xz/cBH9/vSeMFsEfMPsjxd53YfLTVkMS56eW+Assrmk8IvC9MCUI7ZcqxTWTlJQRjz5YU1f5f8Aw==",
+      "path": "devexpress.expressapp/21.1.3",
+      "hashPath": "devexpress.expressapp.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Dialogs.Core/20.2.7": {
+    "DevExpress.ExpressApp.Win/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-G4TO71QpSjPYOH4KYNduKG9OM7WVyzapy8QwS6yFLk6HSQS0vO8qFZTSegRlbrTpVeKA2L4/g/L2kxmmNtIrEQ==",
-      "path": "devexpress.windowsdesktop.dialogs.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.dialogs.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-qs67tRrb8BQpzg8+xNpPaIxhPXpnE1LChnxont4MZgGf97O9qwxCaM0PYoZY42KjRmGajejYvpRGvXBcB8Kc6g==",
+      "path": "devexpress.expressapp.win/21.1.3",
+      "hashPath": "devexpress.expressapp.win.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Gauges.Core/20.2.7": {
+    "DevExpress.ExpressApp.Xpo/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-1lDweRB4Fvt9KEdLFBl54MVNY5Sn+nR6GulMb3xUBNqkc1IrT00DwosJWgzhe+zVa90ARyTijDt2kWo2g0c2LA==",
-      "path": "devexpress.windowsdesktop.gauges.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.gauges.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-Y/flhfENSW3FfpphEXdftqI136qZHTqcmQjxdNiagI5l3KCho5GgPZ8YWpMbtOiAav98mZ+az0DQ4dC4HAZQTQ==",
+      "path": "devexpress.expressapp.xpo/21.1.3",
+      "hashPath": "devexpress.expressapp.xpo.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Images/20.2.7": {
+    "DevExpress.Gauges.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VKYZMpl+93t0dCDHZBfsRye3CGJUf7hymY+NKsJ86Q+OrxVZIH3Bm+mcppnTiNd2Y2jO7jV1xSPyJV6lp6H5hQ==",
-      "path": "devexpress.windowsdesktop.images/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.images.20.2.7.nupkg.sha512"
+      "sha512": "sha512-OOKQlUvSnzD3J5QOy+rJI0Zk5SG/ZBexXzudWCv072gWkIi0zDX+jTTq5Hp0WBA8zQ7iCNQziHFHT8M2msjK7A==",
+      "path": "devexpress.gauges.core/21.1.3",
+      "hashPath": "devexpress.gauges.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Map.Core/20.2.7": {
+    "DevExpress.Images/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-kYVpVuYFBvGus0jZNWszrFCa3g75A8POoj8gXZuazPdaYQH1vHuzf8V01X+H4V9WLRZFFn7MfpwsxnOXBdjEsA==",
-      "path": "devexpress.windowsdesktop.map.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.map.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-MkZjg0f5rJsuXOVGkYpdHBA/rd61iXgqaXzwNU45xCemBE3KxzwMw0yfI7uwrE7jezX8qMctfUxqGDTfNT4idQ==",
+      "path": "devexpress.images/21.1.3",
+      "hashPath": "devexpress.images.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Mvvm/20.2.7": {
+    "DevExpress.Office.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-9BxiGAkYCex3oLerQY1VYsFJ9/Ufz8I4UMcXg2IigdURWJzRV/Gwznftqq6dYgdRBb4eXOOjAsLeNlWAAibn7w==",
-      "path": "devexpress.windowsdesktop.mvvm/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.mvvm.20.2.7.nupkg.sha512"
+      "sha512": "sha512-OEkbE/KNDyd96//QWDajswCbIJh9h4LoxKd6wQIynFSo6tdoetUvgvB144G33z0kZuUJZPPAUINxftgcQ4GV/Q==",
+      "path": "devexpress.office.core/21.1.3",
+      "hashPath": "devexpress.office.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Mvvm.DataModel/20.2.7": {
+    "DevExpress.Pdf.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-l8aiGpkSCXys94mDqsPAPWy/NTQnlJ8ZZoX8wZcifUW+0luOuNtuESGOOvStxrS+iITbtr5JurqoKs3qGN6cYQ==",
-      "path": "devexpress.windowsdesktop.mvvm.datamodel/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.mvvm.datamodel.20.2.7.nupkg.sha512"
+      "sha512": "sha512-pcL8hx4s2spz/4HOp3ghZIrSVhHerzjzG0dVFkB/Si6QOdmjskMw85x5ugs9FvvIyLgnx+5b/A9hC5RZ/n17Iw==",
+      "path": "devexpress.pdf.core/21.1.3",
+      "hashPath": "devexpress.pdf.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Mvvm.DataModel.EFCore/20.2.7": {
+    "DevExpress.Pdf.Drawing/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bKTcDZx1t2SHY1nEt2+K+ECn3lS2ZiYaBMTuZalVKZLq4kxJddJ7eC6AYGBmWsLU9g7s/sGTl5JWj7maElunog==",
-      "path": "devexpress.windowsdesktop.mvvm.datamodel.efcore/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.mvvm.datamodel.efcore.20.2.7.nupkg.sha512"
+      "sha512": "sha512-6kjW7s5pJmZ70ljODn4S50bIrzgtirK0LdoZqrrNORg3x4glq8eI+oAuDTSOH2JTMs2ma58YmroTe1YoR9M9+w==",
+      "path": "devexpress.pdf.drawing/21.1.3",
+      "hashPath": "devexpress.pdf.drawing.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Mvvm.ViewModel/20.2.7": {
+    "DevExpress.Persistent.Base/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zHQHgKCD5HmoliUXmx8uqKWMRD1K+aUJtw2F//5AquwkUnsV3sqK//hfYpWHoAspIrAX63t+Eb0G73G+EfIXaA==",
-      "path": "devexpress.windowsdesktop.mvvm.viewmodel/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.mvvm.viewmodel.20.2.7.nupkg.sha512"
+      "sha512": "sha512-JO9hUNfu2QpVfywJy4Il6MwvGYVZBJJlxt9v8jR1k6sgJ9jjVED+2ygl1I5eb8PZE5ArQI0FZtp6zr/QzXuqwA==",
+      "path": "devexpress.persistent.base/21.1.3",
+      "hashPath": "devexpress.persistent.base.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Office.Core/20.2.7": {
+    "DevExpress.PivotGrid.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-7pcmi/yzayTIpzXJAktnc83Q8n49IIXLdRrGqBq9WQ10Od278e7eH2OiEHOlc8FID/NmKY/ZVX0PrQFKp+HrLg==",
-      "path": "devexpress.windowsdesktop.office.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.office.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-XiP/aqFrihG0Af3fk+9cJzs2WOhmlgYYLh5vfsCe0WeLwjRElENlyC0bofZHNl0HP/qF61QtrgXhO/EOMVLnoQ==",
+      "path": "devexpress.pivotgrid.core/21.1.3",
+      "hashPath": "devexpress.pivotgrid.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Pdf.Core/20.2.7": {
+    "DevExpress.Printing.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Hz+F5jZn/6ZD5/D7FhiaIt0jW9DZyMfk+1TugQnkQw5MKxWJqXcySX5gaF2gZy6p23fx2PIY2Nd9+l6oNndAtw==",
-      "path": "devexpress.windowsdesktop.pdf.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.pdf.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-Fqgdlu2nYFd1RVm8JbQUzO/4+4w/XpHbzv5PfvDWdB6Q0F6Y1Hy1yZZUqCvbHTSdBvYsaz3FcbpoOJJbmPjusA==",
+      "path": "devexpress.printing.core/21.1.3",
+      "hashPath": "devexpress.printing.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Pdf.Drawing/20.2.7": {
+    "DevExpress.Reporting.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Z47eSQSPH4+ye3Bl2UcKwkayR/O7t9kS+GejSEWyravDpfRhNQrNS+Pnm+UpulwC7B4VefZPqaDGA3eXejyu/w==",
-      "path": "devexpress.windowsdesktop.pdf.drawing/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.pdf.drawing.20.2.7.nupkg.sha512"
+      "sha512": "sha512-4XDTUQ4LuaFNT7UnAOwdgJYidH4wKhs0X9SG5wu9+6UAv1L0LgQksENmjGEGy/1FV0+4quk2VNW9Inlxei31hQ==",
+      "path": "devexpress.reporting.core/21.1.3",
+      "hashPath": "devexpress.reporting.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.PivotGrid.Core/20.2.7": {
+    "DevExpress.RichEdit.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-BNtA5XHINHLCqfE6WH+vEjMV243u9M/RKcjuBX1PYuWA4AG4ZwfqlXt2RvZ6QsCw+EE4O7OsiHrA8ZTaEnYoCw==",
-      "path": "devexpress.windowsdesktop.pivotgrid.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.pivotgrid.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-U96uD6KHDRdpvEglFHMGnUTaJDJbWlVicyA4UfE3btI3TLqkJ1Onj5Cat/diFk9IHYcaO+xQqRPYShP65K75yQ==",
+      "path": "devexpress.richedit.core/21.1.3",
+      "hashPath": "devexpress.richedit.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Printing.Core/20.2.7": {
+    "DevExpress.RichEdit.Export/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-PGQVZUb/46YMZoktwXlINY2crZHxO+ULqMuBYa9GUFRnCCx9RHQLg51gJzniEoOQA2oIhd/vgMRkBJYro8/AtQ==",
-      "path": "devexpress.windowsdesktop.printing.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.printing.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-9ED+oau4PtSVb6cLOOa5qChC3i7VEe+Mk4L6hIpRvSo2+0rnApT/UFko9ve7PXo6NuN1DPLYqgIO9UXPYWirUw==",
+      "path": "devexpress.richedit.export/21.1.3",
+      "hashPath": "devexpress.richedit.export.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Reporting.Core/20.2.7": {
+    "DevExpress.Sparkline.Core/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Q4xXVhbnUJ9PdV+kcYeEqxMsVgrjrQYFylECi0iLliEntF4nM30x7TAHBkWLlyNkMh00ezZvKrr1bfMWNMl7ag==",
-      "path": "devexpress.windowsdesktop.reporting.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.reporting.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-OpjHAR5qaeEKU1CGBDD7PVxFL7jzwMYxVXjWXJB0g6QIgFRbh8Uq8Udghm1c+W6S3HM0AswKlMwTDa+T5TbdHA==",
+      "path": "devexpress.sparkline.core/21.1.3",
+      "hashPath": "devexpress.sparkline.core.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.RichEdit.Core/20.2.7": {
+    "DevExpress.Utils/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FyA/8YhaotxdQ69oOo9n49EufhQjl0ITX+gqvogyc2ct6SfDEuZtlVwaHfUpybcUndHNs0oLD6HF6yRYUo8LBg==",
-      "path": "devexpress.windowsdesktop.richedit.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.richedit.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-s+cL/erb+cZCJm+zms5+aTjXL+42FDDUsftMz+j5iTfgWpbKZvhLG+P0jFvFKcAe1i5/f+YPLf+iQYC76uhfrQ==",
+      "path": "devexpress.utils/21.1.3",
+      "hashPath": "devexpress.utils.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.RichEdit.Export/20.2.7": {
+    "DevExpress.Utils.UI/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-y3Vr7lGvBdpQdWRd6ZSUUHf4cymlEYSXKK693KgJNqD3bFrjoMDupNXhgRZEl2qqcucIcmVTbCxdoETf262qVA==",
-      "path": "devexpress.windowsdesktop.richedit.export/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.richedit.export.20.2.7.nupkg.sha512"
+      "sha512": "sha512-guHqYBCygGZRWsmuVgJXQhpsG2w0N6Gem2aEmzBHd7NbGufgxsO+tYEHx6w5Zn1v3cEqyFqjD8pGLbMgR92Tgw==",
+      "path": "devexpress.utils.ui/21.1.3",
+      "hashPath": "devexpress.utils.ui.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Scheduler.Core/20.2.7": {
+    "DevExpress.Win/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-stBTcB27kntxQ9g03Wb6h/lURXu4BqRQFc26rp9i5H6em7Cbw+TnV1tSaZPJKrHrfLd9eHZFEPUeoAs8DiVF1w==",
-      "path": "devexpress.windowsdesktop.scheduler.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.scheduler.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-T+zCkams3RvuZ8cuMErEfmu+9aFxgllXBmOQRs0Ph6M6spku80OuxhNbvG2eb0HoP20BDisZj4NpFxQFdLvMAA==",
+      "path": "devexpress.win/21.1.3",
+      "hashPath": "devexpress.win.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Scheduler.CoreDesktop/20.2.7": {
+    "DevExpress.Win.BonusSkins/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jgQ8fig8HqKGiq/tPI6qzDWK8JxNEndaORxePiC7lxC1hJgu/eSYmDJSnqOPZ5pFuiwpWAk16cbev0mHyauSow==",
-      "path": "devexpress.windowsdesktop.scheduler.coredesktop/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.scheduler.coredesktop.20.2.7.nupkg.sha512"
+      "sha512": "sha512-zKYfTaXy3gjOR+araTHWUCbCffmY71pYmydiY7fOYGsCTrDUUKT4CCHb4jHT6zQs5ruyG+uCUSEKkR+u5pUxbg==",
+      "path": "devexpress.win.bonusskins/21.1.3",
+      "hashPath": "devexpress.win.bonusskins.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Sparkline.Core/20.2.7": {
+    "DevExpress.Win.Diagram/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ADq+NSPE0vjLwnDT0AgLqBpCy2rICF9I4KBTPeDNUVMQkz0HhLjnU9PXdAFUDoi/HiLUZHYUQ31cJcetjg7R3A==",
-      "path": "devexpress.windowsdesktop.sparkline.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.sparkline.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-SsIlju01BMABdCmSu3XUsAQbDEqJoCWtNxTdZh8jFuDJ6sRyGZFo7qfE6XowQVD6Fa4k9ziLRfvRGSTmOudiJA==",
+      "path": "devexpress.win.diagram/21.1.3",
+      "hashPath": "devexpress.win.diagram.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.SpellChecker.Core/20.2.7": {
+    "DevExpress.Win.Grid/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2IVHjYf4BOyjRFF+EEd768kLYNZCPvR1EBYCxTWzmqNwedRXmLtEiFSwanm5HrQ6qd4PJlfWRduwyWnraHduUw==",
-      "path": "devexpress.windowsdesktop.spellchecker.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.spellchecker.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-u46cHbcpjSv4OeotEbUPq1SPLMI/QizFPwx8/BC+DmSpUYxqEe1RDzSWKyjPVQbdIp+izA3dbeTq1wxSBdnHhA==",
+      "path": "devexpress.win.grid/21.1.3",
+      "hashPath": "devexpress.win.grid.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Spreadsheet.Core/20.2.7": {
+    "DevExpress.Win.Navigation/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-adOiJWgzy3ERsK98hpde6w2gkqqru+lgMC0VSLCfRLzVpSljmeBKFjjoVzTOzJHbrfHix6x++ziF1wI3Y8NKGQ==",
-      "path": "devexpress.windowsdesktop.spreadsheet.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.spreadsheet.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-VrizwPj+Ppu656iMw8QDwVY0UE20PzU7Na2E5xL6SpCBl2UorqycXvxhhzQHrspk20Z3R1IpKv2XENNV6hjROg==",
+      "path": "devexpress.win.navigation/21.1.3",
+      "hashPath": "devexpress.win.navigation.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.TreeMap/20.2.7-ctp": {
+    "DevExpress.Win.PivotGrid/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-RoUe0QmHt/tkWEEbyFVR1mfjBnyowGnSCGUibI5lvxpGvUOOMJh3CzqWP2Ka+m/ufV1w2FVL/r6pMzmBvXjtdg==",
-      "path": "devexpress.windowsdesktop.treemap/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.treemap.20.2.7-ctp.nupkg.sha512"
+      "sha512": "sha512-nVNaEaHPqfTL/ywqYVaealccfe+N3KY0femDhMoHRQ7k7zxGpUXMOBXff5JXFm4rcKSuVKNE9c7myIFnMeWCzg==",
+      "path": "devexpress.win.pivotgrid/21.1.3",
+      "hashPath": "devexpress.win.pivotgrid.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.TreeMap.Core/20.2.7": {
+    "DevExpress.Win.Printing/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-92uTd4sU5A8qq7N/Ayr1KDHixfnJij8BeOkwXmTQVoVV/EF7aYrKkM7AZpONS85rt1wqLIavmc1Ef2InSKlZyQ==",
-      "path": "devexpress.windowsdesktop.treemap.core/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.treemap.core.20.2.7.nupkg.sha512"
+      "sha512": "sha512-url1t6vwjxCEWdQbg3x5XsxFj/uyuu43aAlMtGskbWPVqLa2R/AkXFeLNlEsrusvOKQXm+WYqF9YtbrR/vjnTg==",
+      "path": "devexpress.win.printing/21.1.3",
+      "hashPath": "devexpress.win.printing.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Win.Bars/20.2.7-ctp": {
+    "DevExpress.Win.RichEdit/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-aSHQfWEJqcdDbOu+hUV7bWJcowZjy2TD1b8gal1bjOg/nGX8tjPzOzNkMzNAvVrN8TYq6GjwA4GaURu7thMqug==",
-      "path": "devexpress.windowsdesktop.win.bars/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.bars.20.2.7-ctp.nupkg.sha512"
+      "sha512": "sha512-rEs5jkxtuWPK2kksIg985sTggEE+7JYMOH9FFNVHnlblW5p/7Bwo5BgQBKm6EDl2CYxXNR/gO+CaHEfjflJI6A==",
+      "path": "devexpress.win.richedit/21.1.3",
+      "hashPath": "devexpress.win.richedit.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Win.Charts/20.2.7-ctp": {
+    "DevExpress.Win.TreeList/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2ofOEdXK5Syu/05qD5Lzv/pmjJU4z3AggVXM86+Hf+BAZLzInihKVWQegKjGYYzcfIX7k4FoL6zw8JGlqOPuFQ==",
-      "path": "devexpress.windowsdesktop.win.charts/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.charts.20.2.7-ctp.nupkg.sha512"
+      "sha512": "sha512-uMTHpOzavFBkycp7h8DQKmCkIR4/6HKJyx7zUmabesRjMNAe/m3pvLZlFqzWW4I3sELAigIIvwcphPcqffTmyA==",
+      "path": "devexpress.win.treelist/21.1.3",
+      "hashPath": "devexpress.win.treelist.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Win.Dashboard/20.2.7": {
+    "DevExpress.Win.VerticalGrid/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XN1fDWUCnQ3ay7RFZPeBXhHwCKoB51OC6AneIy8Dxd97j2xp1Y3PEc3nFBXXsv2s8MJ8B8ujKyP3Z/QysXMqcQ==",
-      "path": "devexpress.windowsdesktop.win.dashboard/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.win.dashboard.20.2.7.nupkg.sha512"
+      "sha512": "sha512-rGI3U0AHCt514khMl2dUHbttAyR7w+rv/2dKIayG2EIYDAwqWat5Ms4VUcxMce/naP1a3ZaFFJh2DXxOeAAGww==",
+      "path": "devexpress.win.verticalgrid/21.1.3",
+      "hashPath": "devexpress.win.verticalgrid.21.1.3.nupkg.sha512"
     },
-    "DevExpress.WindowsDesktop.Win.DataAccess.UI/20.2.7-ctp": {
+    "DevExpress.Xpo/21.1.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MWCMClMsXMk3GupXquLekPsRCfgICiDyy9FHpzprfA4z4rafG6pTwKryDwsLACQb58Vo8jYz8kQ+f3/x83Jyuw==",
-      "path": "devexpress.windowsdesktop.win.dataaccess.ui/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.dataaccess.ui.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Diagram/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-u/ciOPcVaLSm/349SZyzHWEMKzWJPf/008y7fPPnS5pWXN3lGZcGkDReN8ZM0NgLtB68lS2ADKphQPl923T8xg==",
-      "path": "devexpress.windowsdesktop.win.diagram/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.diagram.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Editors/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-OGOp2ahSXU9sfd1B7izfpX/GDmf9V96DODFot1iGb7gw9TIWiNPqCfKFdZFhAp9+7Ld+fTg565itUkn63VQ0Rg==",
-      "path": "devexpress.windowsdesktop.win.editors/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.editors.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Gauges/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Luvh2T70Q3/VZ7NbbC2MGo58mLr8bNzTONebiRzGwmzAgx09/Iqae8cMOfKTrFGoLcCPp9LA9PCE46Xn+KskMA==",
-      "path": "devexpress.windowsdesktop.win.gauges/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.gauges.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Grid/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-rsnKxGih0J4nrrSW5jyLTSZwhWn0vYqeJCVyxVk4satSvZAeU7SJgiKOpDTrFLdK1rnvBPYg8QfaD4kUEApX4w==",
-      "path": "devexpress.windowsdesktop.win.grid/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.grid.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Layout/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-qApiQGIFULq7KDdmWDZrGkOdvFsfPWFomaIghL1uwF2gtRYYowRouzpu9/xulbPcotlYZ6QozFIEgXn5mzyakQ==",
-      "path": "devexpress.windowsdesktop.win.layout/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.layout.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Map/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-JtfD5BodaVLGUnmAmGTZM5Qb4dT0hM0kgMXNOpo/BbZJIT5UJy2dmhmfAvyGKsKWUegLsHgOvpwUmND8kyK89Q==",
-      "path": "devexpress.windowsdesktop.win.map/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.map.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.NavBar/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-sljyRqar4qCthTCqt87W0mUoYhklRcNS1ig0uo63YdBj+M9AyqyqHus/BEhcr0itaVJtQ+vTHEb4HOJddVhu7g==",
-      "path": "devexpress.windowsdesktop.win.navbar/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.navbar.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.PivotGrid/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fMyvXVz0GD3rjaS97c13Ov5w3CJf+mGXYc9IMx2FObDF67D0E0T6bo9tJ/vTCU95iuer++hT4GXcqWIHWaNsFQ==",
-      "path": "devexpress.windowsdesktop.win.pivotgrid/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.pivotgrid.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Printing/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-YjORz4+SApgRoq1oKjMtg+z/ly42qDQaNnSWm6ZNkmbdIo/ToXcGwN+McsKdo4+P1E3c2+g2dAFiNptQ/+jsvQ==",
-      "path": "devexpress.windowsdesktop.win.printing/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.printing.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Reporting/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-oA+sRoJz0ZB/EP072qCOUTSJNdxrUlzguydXfObuXC6COjUdRyXSn6pENfNZmylvdT89hA9fygwxO1IbbVwvXQ==",
-      "path": "devexpress.windowsdesktop.win.reporting/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.reporting.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.RichEdit/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fVEKb1JQPTjYTlV09ySHhJXP3wEhQf6+YBAVViesgvAuY0Gg8EkSfViHY1dkVjWO5MZo7+1hbSYjrTGcb7Qj3g==",
-      "path": "devexpress.windowsdesktop.win.richedit/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.richedit.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Scheduler/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-MyRMxAg0j3tMuiOZdQUpm6l+zViRvCc5x1H/NAtgZdAfE/zmXwELwydDmfk1VdCc7AejIpzvR2wcVIpHrpXMnA==",
-      "path": "devexpress.windowsdesktop.win.scheduler/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.scheduler.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Spreadsheet/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-I2dJLYPi+7dtWTc7b2ilrsAgS922lVQgffKYVOGlAPc+8XCSRCrIEeOjhAym/tbYZquV7mNP1OncP2/bfw76DQ==",
-      "path": "devexpress.windowsdesktop.win.spreadsheet/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.spreadsheet.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.TreeList/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Ys/NY81vdeh36ZDUZ8d6RC54oH8b1O6yzbgAkXmJtXVrMGz0XAMT6IJPEt8y5LTvlhtvgK5QbVsWo3AJkFePzA==",
-      "path": "devexpress.windowsdesktop.win.treelist/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.treelist.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.TreeMap/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-OiccL7iJntb53y50z+L96p8v8gGdyBujNGeylAkbgMcuuXUcl0VknaNISQUymc5IevpyuI+5SnO7yRaH1ZirTQ==",
-      "path": "devexpress.windowsdesktop.win.treemap/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.treemap.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Utils/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-838djS3uotfDfq5cbt9J3icn3V+7zmS5Y9hjhyWRLNt9HpC8iTtsHuMgc+/ZwFfJEMLXp9iCh9JkbLi4kjbLBA==",
-      "path": "devexpress.windowsdesktop.win.utils/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.utils.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.Utils.UI/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-R/F7KluwgA+utLj9V3f84LiejptBiOCZ6vVbGVFXcJSGlyJfueEbQU4E93P3amaW9WgQI6Odn7KQ+Sp4c4Lc2Q==",
-      "path": "devexpress.windowsdesktop.win.utils.ui/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.utils.ui.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Win.VerticalGrid/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ancRvX9raJh4FuBE3cjzZbsI6cKc0e6ynAr1lYbzFdSVvKvO/3oTvHxgJZho8QnnOSb7ZQuIYg7NBxTUX1hIZw==",
-      "path": "devexpress.windowsdesktop.win.verticalgrid/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.win.verticalgrid.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-G0mpHUtXisxBBtDvv2eiRmJqCQ/Wb6EMTRs5n1dpoTIxAwEgKfCMNREER+iblreA2+SJRlDbZ+hiiwTpudkenw==",
-      "path": "devexpress.windowsdesktop.xaf/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.AuditTrail/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-UQ6E8t1Tsoa4ud0HW87XyC5/ej+1Zbu8c9/w3VSWCQwHSxszlnGErOEgt79qHzksTrX5jvqvsai+VOFZdgSXyQ==",
-      "path": "devexpress.windowsdesktop.xaf.audittrail/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.audittrail.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Chart/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Ngz2QZnF/d29b5GUUAmL3bHC0pEOgCQq8njZk2IHEZaN+78tQtA6sgFRRqF7JkTMg0fSOArC3Y668K0b3gJaYg==",
-      "path": "devexpress.windowsdesktop.xaf.chart/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.chart.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Chart.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-zsDGuw4qnIpwz/oxM46C+CZr6PJhJtfgaSMO8BuYJBxfYRRzMsApzNWHk2o348BT08ytjbdRkQCRJ9ev8zuKeA==",
-      "path": "devexpress.windowsdesktop.xaf.chart.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.chart.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.CloneObject/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-8If6CgXstjPJF9sWpeikWxW44ZciveYINoBZLG9JDoVrbvNST/tccj6POm/BfdZ2sMUFOqWtU5TJ+FwXSufaKQ==",
-      "path": "devexpress.windowsdesktop.xaf.cloneobject/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.cloneobject.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.ConditionalAppearance/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Z06yAv43LHXL/zyVyQEbN5qfyGj3gcHEiOLk6OWomp96bGZ9CIXGBPfjZBxuk8miXmSZc/B+9nl10czYTDbHng==",
-      "path": "devexpress.windowsdesktop.xaf.conditionalappearance/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.conditionalappearance.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Dashboards/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-pWNdulSYWTx6lSU/IdJ5BK/xpKjqQ8Qn+zF+v/s4qJIMb3QElgQyfmeTDX4/MJa1hmlem+1j0ltl8rz9dVnPkw==",
-      "path": "devexpress.windowsdesktop.xaf.dashboards/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.dashboards.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Dashboards.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-wJATNxVUf3AcH+N3hiVII1JR89/fT1MG9jIHXVrLN7eQ/LttvRmAdRvO3Zkt1e2USOoZYZ09lp6UGdQCMX2EXQ==",
-      "path": "devexpress.windowsdesktop.xaf.dashboards.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.dashboards.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.EasyTest/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-j58raR4ozUZXVZgxnJen5mWcd8nyfcWk08a68bmSsHh6wIeNg6LTZ+8rF3FjE8Dpv6fYmwvxN0vVlZ7QVY/ZHQ==",
-      "path": "devexpress.windowsdesktop.xaf.easytest/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.easytest.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.EasyTest.WinAdapter/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-eD0eOSA2yU3PIp4MyfV9A1ursDYvZdfmW42wBPo1rV7qdRwH5xG3Gym3qhcOXT1vv7d5+oRK0tdUSahYQ/Yp0w==",
-      "path": "devexpress.windowsdesktop.xaf.easytest.winadapter/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.easytest.winadapter.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.ExpressApp/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-0qjcSxrxqKpiv0SVU7y3EQRQucKsVOPKsm5rjz1N3bZYRxw/all91Z1YaWw+DJdy245AYwXcTm4eX7oVWEp+3w==",
-      "path": "devexpress.windowsdesktop.xaf.expressapp/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.expressapp.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.ExpressApp.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Te2h9070McyxkrZKd9Qbr3UxfxSFrmu15USRW6CJWNyIfLEa/jasS5utipq9u4as6UuhqXpc57JRzOBlyQhPzg==",
-      "path": "devexpress.windowsdesktop.xaf.expressapp.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.expressapp.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.FileAttachment.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-hmlp3KcUFdxqLub8Nd87AenmJ4CXo9NXuWIgXfGgEgnn7kvgoKuu5HZhdKlMqRO0rbCRyA57TU/l/ZQ1AeY8Wg==",
-      "path": "devexpress.windowsdesktop.xaf.fileattachment.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.fileattachment.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Kpi/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/Uu7EQdTDVspuOZjGnASgkSqdgo/N/+d6iupRRHXjH148PTRfn63mzVAqhKrdMpdpq6X2Ur9BdFbC65K2lxwkg==",
-      "path": "devexpress.windowsdesktop.xaf.kpi/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.kpi.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Notifications/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-TpdQD+ZOuKURMcBCNIpHme1wj2BrcMhM08CgSjoy/0s/b7ab9kh9xPONlMd61oxJexRAwgdHfi3e2LFMe9rmjA==",
-      "path": "devexpress.windowsdesktop.xaf.notifications/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.notifications.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Notifications.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-iOZYgWrnT3Fgb4xhngGqVDd7eZ8IgQHs/6jqSRftSXI/r2YJQhMAawCnSpkxK0YaF1o36q0x1Z/iL8ql6EG3qA==",
-      "path": "devexpress.windowsdesktop.xaf.notifications.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.notifications.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Objects/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-YLd0WEnRkqhlOfndVyYcoB5uqNdeEGdAAJWj+PdplVJyuCxIhBmN46/VUMIwRSeabGHYVsJWKA6bwrv01xQ/Og==",
-      "path": "devexpress.windowsdesktop.xaf.objects/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.objects.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Office/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-tChC2Kd+Okc/g33hbNV7q/vf6GHMJ9rq+V5hIx4hXr6J8TlnylgLQk4qTjGDi3DBj7CyE/7qU9lC0Sq6FnmjMA==",
-      "path": "devexpress.windowsdesktop.xaf.office/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.office.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Office.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ZCk8kkHrgfTdmLO4Hkz0O7rGftbZ7q1m9DbrJwHZjYt+HH8v9Yxh+m8AECAOZYbIr/OcIlNHz8R3DC0w7m4UFw==",
-      "path": "devexpress.windowsdesktop.xaf.office.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.office.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Persistent.Base/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-KF/UHgkALGN16WCPk9UtkIj7X85h1iCkZl4vo7Yit8QAavJULe85gCoPQIN+cQ/NAbVlCRvEhNrTG2WKJQUNDQ==",
-      "path": "devexpress.windowsdesktop.xaf.persistent.base/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.persistent.base.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Persistent.BaseImpl/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-QaPWUdmMy4mFvaotTISDSZ6ZM5pG/w6j3lOSGQ9SqJ/lEOYjUvJ93ojxilKVntG1j1OZwnQEgCnBo+O7DmTnxg==",
-      "path": "devexpress.windowsdesktop.xaf.persistent.baseimpl/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.persistent.baseimpl.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.PivotChart/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-wqR3TYCyrOvN0XbneigEaVjSRWMB9f8kLdb8dK4cwF0Z1qciypaa6J11vaNAb9krDDir/TXVEK1spMyTs/kgAA==",
-      "path": "devexpress.windowsdesktop.xaf.pivotchart/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.pivotchart.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.PivotChart.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3w8hbqqG0qtAMs1RK8jMMDjdHEKrgYFqsC2Tj9GBxLM9dp8QfJmYXFjU4uGB4FG//bKtEJiO0RMQIuYt/PhT8g==",
-      "path": "devexpress.windowsdesktop.xaf.pivotchart.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.pivotchart.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.PivotGrid/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-haJQLPendCe20lmZF1IuOPjPBBaT+ptO1iBX5KasEeTJGzHdxPquagXtUT5W2DP9W4V1gYsIHGqlEtb25dII+A==",
-      "path": "devexpress.windowsdesktop.xaf.pivotgrid/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.pivotgrid.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.PivotGrid.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7sunrnQdFxJfcTX1R63j6fuOdrnLTs/s5LlqCGOycmx95L+8lpHsd/xGz9rZ0OSAPXos9N3LNOouFGc164tbNQ==",
-      "path": "devexpress.windowsdesktop.xaf.pivotgrid.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.pivotgrid.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.ReportsV2/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Cj3SaNvj5unLDdniteJo+yJl14MEYsdPQqvCm8zJbRhjySIdPfX433YSb3ZzEH3ouktjhA6OKx4D0Pxxk6ptRg==",
-      "path": "devexpress.windowsdesktop.xaf.reportsv2/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.reportsv2.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.ReportsV2.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-USQFhw2nDy05RqixA9xBI4Hy9JXc3xZkPT/cMzvsBCrdtEFwQMpMF3kkqUpwk9fA0kH8NlIeQ3qk+o4YVb46/A==",
-      "path": "devexpress.windowsdesktop.xaf.reportsv2.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.reportsv2.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Scheduler.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-olDY7vkiLDcKvev+wZSHyb0FhLhwU6BAUh+CiDkyoEC6R6Ofb5Q3S+qGTdnmsOEJQsw+50EuMCuDtoVirWaSBQ==",
-      "path": "devexpress.windowsdesktop.xaf.scheduler.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.scheduler.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.ScriptRecorder/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-iOxoR8rkpoVUO3AWEO4Q4SgJ4Wdgme/hHg8kX/Pb91CTZZa8ZQTq8ELuJ6Ion2wEmvY0oJ7J86g9CwvxaQfOlg==",
-      "path": "devexpress.windowsdesktop.xaf.scriptrecorder/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.scriptrecorder.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.ScriptRecorder.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3aX/dq4h0MM2Zz8SEQ9npa7q3lhNhn4/ev3FtF+Aw4TM3GznVE6EDf/+Odz7k10s3Yr10/AQHzJJpx8zfLJjLw==",
-      "path": "devexpress.windowsdesktop.xaf.scriptrecorder.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.scriptrecorder.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Security/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-8sbxIqaz6CJfAInOReVfFkvuaLnCuzcx/+CxPPrRepoQTHCqBMfwnxOdQYcEcZ7XpWp5ejoN3/mGuF3YsNQgJQ==",
-      "path": "devexpress.windowsdesktop.xaf.security/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.security.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Security.Xpo/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-0wcqwTjjwO813ow98Mxu9fsYunEShIhq8+YNvrGRIQO0hIgUU3nsaMAmrZC5B84/zWgNVKPaq/8zOa3OVUxfVA==",
-      "path": "devexpress.windowsdesktop.xaf.security.xpo/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.security.xpo.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.StateMachine/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Niu4ehU5HrpXhHQyrWtqVaUbI0wI4KfQzTEsKpXlwzAFdPTlnM6/rYzsrPWXQB3PIUM5N4xHouaMacgHmJUj4w==",
-      "path": "devexpress.windowsdesktop.xaf.statemachine/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.statemachine.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.TreeListEditors/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-VGhDDxBjz7UxAAJooSt12//9ABPlxm8T54BKqJShmiKvGiUOJpTL/1l/7YGMS6fqMpwtW1/kR3/3D9RfAgAhYw==",
-      "path": "devexpress.windowsdesktop.xaf.treelisteditors/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.treelisteditors.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.TreeListEditors.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-8LZNQ+wltW0T8CDeeEnVWRAW3b82b3iSc0tetKCIByisLEwyC8CsBwy35hiYCMGda87xW6zSi+KjrZadTbz0gg==",
-      "path": "devexpress.windowsdesktop.xaf.treelisteditors.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.treelisteditors.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Validation/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-a5QzJqxZ7YRkD7Mt/E+JPz7pz3x8G8sDwcaj/yDVqEyDtZsuC0XrO1yJYlHcys90ot6+OFPlKN5jjbl0ZoNamw==",
-      "path": "devexpress.windowsdesktop.xaf.validation/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.validation.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Validation.Win/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7s98ct70H9GQnW938NK6kqjhSCYa9517J84OI+MLFRq1FwCpioFa2wBW3B/SokVJBeVapTxkFW/L02L8tAWhdQ==",
-      "path": "devexpress.windowsdesktop.xaf.validation.win/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.validation.win.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.ViewVariantsModule/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-KqpcvxLdPG4ZlBr4mmct5Sj50qpNCk8BMKhqYQZelWXhrcLr/ikkpKH9tNp7MQEijmmHGIi+AcYPgCsjb8LGVA==",
-      "path": "devexpress.windowsdesktop.xaf.viewvariantsmodule/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.viewvariantsmodule.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.XAF.Xpo/20.2.7-ctp": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-oP0sLaZBQBHUIAdA53ojCsCytpTQGH++4QKnZgAecJg0pSnC9/jP6Rr3zocACvWwfW//0jIUrnfGOtujsG0goA==",
-      "path": "devexpress.windowsdesktop.xaf.xpo/20.2.7-ctp",
-      "hashPath": "devexpress.windowsdesktop.xaf.xpo.20.2.7-ctp.nupkg.sha512"
-    },
-    "DevExpress.WindowsDesktop.Xpo/20.2.7": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-uEPGKxilxKKDKIWzB7A4oigKx+2vdgSFcdQkbTJx1cpDpXq/VQx+lH8iLAUMCMggoOy2zP1SQxzGgFzsyg3nLg==",
-      "path": "devexpress.windowsdesktop.xpo/20.2.7",
-      "hashPath": "devexpress.windowsdesktop.xpo.20.2.7.nupkg.sha512"
+      "sha512": "sha512-Nz/i08WMqLskR8HLbKykx3vcL+3cbInb1RGebKS5W5/YbXfquxO1KBi72iW3e70p4dqiqyCeAO1f7Gpjwh3d8Q==",
+      "path": "devexpress.xpo/21.1.3",
+      "hashPath": "devexpress.xpo.21.1.3.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/5.0.0": {
       "type": "package",
@@ -3478,34 +1610,6 @@
       "path": "microsoft.codeanalysis.csharp/3.9.0",
       "hashPath": "microsoft.codeanalysis.csharp.3.9.0.nupkg.sha512"
     },
-    "Microsoft.Extensions.Configuration/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-LN322qEKHjuVEhhXueTUe7RNePooZmS8aGid5aK2woX3NPjSnONFyKUc6+JknOS6ce6h2tCLfKPTBXE3mN/6Ag==",
-      "path": "microsoft.extensions.configuration/5.0.0",
-      "hashPath": "microsoft.extensions.configuration.5.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Configuration.Abstractions/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ETjSBHMp3OAZ4HxGQYpwyGsD8Sw5FegQXphi0rpoGMT74S4+I2mm7XJEswwn59XAaKOzC15oDSOWEE8SzDCd6Q==",
-      "path": "microsoft.extensions.configuration.abstractions/5.0.0",
-      "hashPath": "microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Configuration.FileExtensions/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-rRdspYKA18ViPOISwAihhCMbusHsARCOtDMwa23f+BGEdIjpKPlhs3LLjmKlxfhpGXBjIsS0JpXcChjRUN+PAw==",
-      "path": "microsoft.extensions.configuration.fileextensions/5.0.0",
-      "hashPath": "microsoft.extensions.configuration.fileextensions.5.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Configuration.Json/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Pak8ymSUfdzPfBTLHxeOwcR32YDbuVfhnH2hkfOLnJNQd19ItlBdpMjIDY9C5O/nS2Sn9bzDMai0ZrvF7KyY/Q==",
-      "path": "microsoft.extensions.configuration.json/5.0.0",
-      "hashPath": "microsoft.extensions.configuration.json.5.0.0.nupkg.sha512"
-    },
     "Microsoft.Extensions.DependencyInjection/5.0.1": {
       "type": "package",
       "serviceable": true,
@@ -3526,41 +1630,6 @@
       "sha512": "sha512-/UlDKULIVkLQYn1BaHcy/rc91ApDxJb7T75HcCbGdqwvxhnRQRKM2di1E70iCPMF9zsr6f4EgQTotBGxFIfXmw==",
       "path": "microsoft.extensions.dependencymodel/3.1.6",
       "hashPath": "microsoft.extensions.dependencymodel.3.1.6.nupkg.sha512"
-    },
-    "Microsoft.Extensions.FileProviders.Abstractions/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-iuZIiZ3mteEb+nsUqpGXKx2cGF+cv6gWPd5jqQI4hzqdiJ6I94ddLjKhQOuRW1lueHwocIw30xbSHGhQj0zjdQ==",
-      "path": "microsoft.extensions.fileproviders.abstractions/5.0.0",
-      "hashPath": "microsoft.extensions.fileproviders.abstractions.5.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.FileProviders.Physical/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1rkd8UO2qf21biwO7X0hL9uHP7vtfmdv/NLvKgCRHkdz1XnW8zVQJXyEYiN68WYpExgtVWn55QF0qBzgfh1mGg==",
-      "path": "microsoft.extensions.fileproviders.physical/5.0.0",
-      "hashPath": "microsoft.extensions.fileproviders.physical.5.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.FileSystemGlobbing/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ArliS8lGk8sWRtrWpqI8yUVYJpRruPjCDT+EIjrgkA/AAPRctlAkRISVZ334chAKktTLzD1+PK8F5IZpGedSqA==",
-      "path": "microsoft.extensions.filesystemglobbing/5.0.0",
-      "hashPath": "microsoft.extensions.filesystemglobbing.5.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Options/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-CBvR92TCJ5uBIdd9/HzDSrxYak+0W/3+yxrNg8Qm6Bmrkh5L+nu6m3WeazQehcZ5q1/6dDA7J5YdQjim0165zg==",
-      "path": "microsoft.extensions.options/5.0.0",
-      "hashPath": "microsoft.extensions.options.5.0.0.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Primitives/5.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-5WPSmL4YeP7eW+Vc8XZ4DwjYWBAiSwDV9Hm63JJWcz1Ie3Xjv4KuJXzgCstj48LkLfVCYa7mLcx7y+q6yqVvtw==",
-      "path": "microsoft.extensions.primitives/5.0.1",
-      "hashPath": "microsoft.extensions.primitives.5.0.1.nupkg.sha512"
     },
     "Microsoft.NETCore.Platforms/5.0.2": {
       "type": "package",
@@ -3597,103 +1666,12 @@
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
     },
-    "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7VSGO0URRKoMEAq0Sc9cRz8mb6zbyx/BZDEWhgPdzzpmFhkam3fJ1DAGWFXBI4nGlma+uPKpfuMQP5LXRnOH5g==",
-      "path": "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-0oAaTAm6e2oVH+/Zttt0cuhGaePQYKII1dY8iaqP7CvOpVKgLybKRFvQjXR2LtxXOXTVPNv14j0ot8uV+HrUmw==",
-      "path": "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-G24ibsCNi5Kbz0oXWynBoRgtGvsw5ZSVEWjv13/KiCAM8C6wz9zzcCniMeQFIkJ2tasjo2kXlvlBZhplL51kGg==",
-      "path": "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-9kyFSIdN3T0qjDQ2R0HRXYIhS3l5psBzQi6qqhdLz+SzFyEy4sVxNOke+yyYv8Cu8rPER12c3RDjLT8wF3WBYQ==",
       "path": "runtime.native.system.data.sqlclient.sni/4.7.0",
       "hashPath": "runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512"
-    },
-    "runtime.native.System.Security.Cryptography.Apple/4.3.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-UPrVPlqPRSVZaB4ADmbsQ77KXn9ORiWXyA1RP2W2+byCh3bhgT1bQz0jbeOoog9/2oTQ5wWZSDSMeb74MjezcA==",
-      "path": "runtime.native.system.security.cryptography.apple/4.3.1",
-      "hashPath": "runtime.native.system.security.cryptography.apple.4.3.1.nupkg.sha512"
-    },
-    "runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-QR1OwtwehHxSeQvZKXe+iSd+d3XZNkEcuWMFYa2i0aG1l+lR739HPicKMlTbJst3spmeekDVBUS7SeS26s4U/g==",
-      "path": "runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-I+GNKGg2xCHueRd1m9PzeEW7WLbNNLznmTuEi8/vZX71HudUbx1UTwlGkiwMri7JLl8hGaIAWnA/GONhu+LOyQ==",
-      "path": "runtime.opensuse.13.2-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.opensuse.13.2-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1Z3TAq1ytS1IBRtPXJvEUZdVsfWfeNEhBkbiOCGEl9wwAfsjP2lz3ZFDx5tq8p60/EqbS0HItG5piHuB71RjoA==",
-      "path": "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.opensuse.42.1-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple/4.3.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-t15yGf5r6vMV1rB5O6TgfXKChtCaN3niwFw44M2ImX3eZ8yzueplqMqXPCbWzoBDHJVz9fE+9LFUGCsUmS2Jgg==",
-      "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.apple/4.3.1",
-      "hashPath": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.apple.4.3.1.nupkg.sha512"
-    },
-    "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-6mU/cVmmHtQiDXhnzUImxIcDL48GbTk+TsptXyJA+MIOG9LRjPoAQC/qBFB7X+UNyK86bmvGwC8t+M66wsYC8w==",
-      "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-vjwG0GGcTW/PPg6KVud8F9GLWYuAV1rrw1BKAqY0oh4jcUqg15oYF1+qkGR2x2ZHM4DQnWKQ7cJgYbfncz/lYg==",
-      "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7KMFpTkHC/zoExs+PwP8jDCWcrK9H6L7soowT80CUx3e+nxP/AFnq0AQAW5W76z2WYbLAYCRyPfwYFG6zkvQRw==",
-      "path": "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-xrlmRCnKZJLHxyyLIqkZjNXqgxnKdZxfItrPkjI+6pkRo5lHX8YvSZlWrSI5AVwLMi4HbNWP7064hcAWeZKp5w==",
-      "path": "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
-    },
-    "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-leXiwfiIkW7Gmn7cgnNcdtNAU70SjmKW3jxGj1iKHOvdn0zRWsgv/l2OJUO5zdGdiv2VRFnAsxxhDgMzofPdWg==",
-      "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
-      "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
     },
     "runtime.win-arm64.runtime.native.System.Data.SqlClient.sni/4.4.0": {
       "type": "package",
@@ -3737,13 +1715,6 @@
       "path": "system.collections/4.3.0",
       "hashPath": "system.collections.4.3.0.nupkg.sha512"
     },
-    "System.Collections.Concurrent/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ztl69Xp0Y/UXCL+3v3tEU+lIy+bvjKNUmopn1wep/a291pVPK7dxBd6T7WnlQqRog+d1a/hSsgRsmFnIBKTPLQ==",
-      "path": "system.collections.concurrent/4.3.0",
-      "hashPath": "system.collections.concurrent.4.3.0.nupkg.sha512"
-    },
     "System.Collections.Immutable/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -3772,26 +1743,12 @@
       "path": "system.data.common/4.3.0",
       "hashPath": "system.data.common.4.3.0.nupkg.sha512"
     },
-    "System.Data.OleDb/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-DHCZucsidgFtUr1w5OggQNjb7M6N722QpNbkG6TV+3hCvPSLXdrm1NjJqVZB5/OW067gzuZVj9W147hrkTF/Ig==",
-      "path": "system.data.oledb/5.0.0",
-      "hashPath": "system.data.oledb.5.0.0.nupkg.sha512"
-    },
     "System.Data.SqlClient/4.8.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-80vGtW6uLB4AkyrdVuKTXYUyuXDPAsSKbTVfvjndZaRAYxzFzWhJbvUfeAKrN+128ycWZjLIAl61dFUwWHOOTw==",
       "path": "system.data.sqlclient/4.8.2",
       "hashPath": "system.data.sqlclient.4.8.2.nupkg.sha512"
-    },
-    "System.Diagnostics.Debug/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-ZUhUOdqmaG5Jk3Xdb8xi5kIyQYAA4PnTNlHx1mu9ZY3qv4ELIdKbnL/akbGaKi2RnNUWaZsAs31rvzFdewTj2g==",
-      "path": "system.diagnostics.debug/4.3.0",
-      "hashPath": "system.diagnostics.debug.4.3.0.nupkg.sha512"
     },
     "System.Diagnostics.DiagnosticSource/5.0.1": {
       "type": "package",
@@ -3807,19 +1764,12 @@
       "path": "system.diagnostics.eventlog/5.0.1",
       "hashPath": "system.diagnostics.eventlog.5.0.1.nupkg.sha512"
     },
-    "System.Diagnostics.PerformanceCounter/5.0.1": {
+    "System.Diagnostics.PerformanceCounter/4.5.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-omeUtUiY6Mqhfspdujqh0JJ2fLyb+kz+hhAxqgaUUpxlvHFtXVw7i/JjbA426hiZstzUL0GuXFGjTjmcx0ts/w==",
-      "path": "system.diagnostics.performancecounter/5.0.1",
-      "hashPath": "system.diagnostics.performancecounter.5.0.1.nupkg.sha512"
-    },
-    "System.Diagnostics.Tracing/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-rswfv0f/Cqkh78rA5S8eN8Neocz234+emGCtTF3lxPY96F+mmmUen6tbn0glN6PMvlKQb9bPAY5e9u7fgPTkKw==",
-      "path": "system.diagnostics.tracing/4.3.0",
-      "hashPath": "system.diagnostics.tracing.4.3.0.nupkg.sha512"
+      "sha512": "sha512-JUO5/moXgchWZBMBElgmPebZPKCgwW8kY3dFwVJavaNR2ftcc/YjXXGjOaCjly2KBXT7Ld5l/GTkMVzNv41yZA==",
+      "path": "system.diagnostics.performancecounter/4.5.0",
+      "hashPath": "system.diagnostics.performancecounter.4.5.0.nupkg.sha512"
     },
     "System.Drawing.Common/5.0.2": {
       "type": "package",
@@ -3848,13 +1798,6 @@
       "sha512": "sha512-3qjaHvxQPDpSOYICjUoTsmoq5u6QJAFRUITgeT/4gqkF1bajbSmb1kwSxEA8AHlofqgcKJcM8udgieRNhaJ5Cg==",
       "path": "system.io/4.3.0",
       "hashPath": "system.io.4.3.0.nupkg.sha512"
-    },
-    "System.Linq/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-5DbqIUpsDp0dFftytzuMmc0oeMdQwjcP/EWxsksIz/w1TcFRkZ3yKKz0PqiYFMmEwPSWw+qNVqD7PJ889JzHbw==",
-      "path": "system.linq/4.3.0",
-      "hashPath": "system.linq.4.3.0.nupkg.sha512"
     },
     "System.Memory/4.5.4": {
       "type": "package",
@@ -3961,26 +1904,12 @@
       "path": "system.runtime.extensions/4.3.1",
       "hashPath": "system.runtime.extensions.4.3.1.nupkg.sha512"
     },
-    "System.Runtime.Handles/4.3.0": {
+    "System.Runtime.Loader/4.3.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OKiSUN7DmTWeYb3l51A7EYaeNMnvxwE249YtZz7yooT4gOZhmTjIn48KgSsw2k2lYdLgTKNJw/ZIfSElwDRVgg==",
-      "path": "system.runtime.handles/4.3.0",
-      "hashPath": "system.runtime.handles.4.3.0.nupkg.sha512"
-    },
-    "System.Runtime.InteropServices/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-uv1ynXqiMK8mp1GM3jDqPCFN66eJ5w5XNomaK2XD+TuCroNTLFGeZ+WCmBMcBDyTFKou3P6cR6J/QsaqDp7fGQ==",
-      "path": "system.runtime.interopservices/4.3.0",
-      "hashPath": "system.runtime.interopservices.4.3.0.nupkg.sha512"
-    },
-    "System.Runtime.Numerics/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-yMH+MfdzHjy17l2KESnPiF2dwq7T+xLnSJar7slyimAkUh/gTrS9/UQOtv7xarskJ2/XDSNvfLGOBQPjL7PaHQ==",
-      "path": "system.runtime.numerics/4.3.0",
-      "hashPath": "system.runtime.numerics.4.3.0.nupkg.sha512"
+      "sha512": "sha512-DHMaRn8D8YCK2GG2pw+UzNxn/OHVfaWx7OTLBD/hPegHZZgcZh3H6seWegrC4BYwsfuGrywIuT+MQs+rPqRLTQ==",
+      "path": "system.runtime.loader/4.3.0",
+      "hashPath": "system.runtime.loader.4.3.0.nupkg.sha512"
     },
     "System.Security.AccessControl/5.0.0": {
       "type": "package",
@@ -3989,13 +1918,6 @@
       "path": "system.security.accesscontrol/5.0.0",
       "hashPath": "system.security.accesscontrol.5.0.0.nupkg.sha512"
     },
-    "System.Security.Cryptography.Algorithms/4.3.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-DVUblnRfnarrI5olEC2B/OCsJQd0anjVaObQMndHSc43efbc88/RMOlDyg/EyY0ix5ecyZMXS8zMksb5ukebZA==",
-      "path": "system.security.cryptography.algorithms/4.3.1",
-      "hashPath": "system.security.cryptography.algorithms.4.3.1.nupkg.sha512"
-    },
     "System.Security.Cryptography.Cng/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -4003,26 +1925,12 @@
       "path": "system.security.cryptography.cng/5.0.0",
       "hashPath": "system.security.cryptography.cng.5.0.0.nupkg.sha512"
     },
-    "System.Security.Cryptography.Encoding/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1DEWjZZly9ae9C79vFwqaO5kaOlI5q+3/55ohmq/7dpDyDfc8lYe7YVxJUZ5MF/NtbkRjwFRo14yM4OEo9EmDw==",
-      "path": "system.security.cryptography.encoding/4.3.0",
-      "hashPath": "system.security.cryptography.encoding.4.3.0.nupkg.sha512"
-    },
     "System.Security.Cryptography.Pkcs/5.0.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-9ualfJXOMrjW/E4z73cGHVcAvFMCCnMZQE+8xME9eX70bTZ0UAJCstG0khsMvL8B+9c9qw+ktowt1fN0BffMnQ==",
       "path": "system.security.cryptography.pkcs/5.0.1",
       "hashPath": "system.security.cryptography.pkcs.5.0.1.nupkg.sha512"
-    },
-    "System.Security.Cryptography.Primitives/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-7bDIyVFNL/xKeFHjhobUAQqSpJq9YTOpbEs6mR233Et01STBMXNAc/V+BM6dwYGc95gVh/Zf+iVXWzj3mE8DWg==",
-      "path": "system.security.cryptography.primitives/4.3.0",
-      "hashPath": "system.security.cryptography.primitives.4.3.0.nupkg.sha512"
     },
     "System.Security.Cryptography.ProtectedData/5.0.0": {
       "type": "package",
@@ -4079,13 +1987,6 @@
       "sha512": "sha512-vCBnopz067lS+7Tn+dvpWPH9Yn5CYvSMd5StRzqa7cFDX4O7jkChRSoFWeMaNNqJCwQjafphaQn9IViwqufHZQ==",
       "path": "system.servicemodel.security/4.8.1",
       "hashPath": "system.servicemodel.security.4.8.1.nupkg.sha512"
-    },
-    "System.ServiceProcess.ServiceController/5.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-p2yX167GW1pr2DCR6cW+cBKrvhli4thckXk108faFaTPHnoudb0AYPcIPq3nmrwn7IQj9FEmjpyJlXzcOmIjjw==",
-      "path": "system.serviceprocess.servicecontroller/5.0.0",
-      "hashPath": "system.serviceprocess.servicecontroller.5.0.0.nupkg.sha512"
     },
     "System.Text.Encoding/4.3.0": {
       "type": "package",

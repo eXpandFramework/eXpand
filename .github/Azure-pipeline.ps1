@@ -65,6 +65,7 @@ if ($artifactstagingdirectory){
 }
 
 Write-HostFormatted "Restore DX Sources" -Section
+$env:DxFeed=$DXApiFeed
 $DXVersion=Get-DevExpressVersion (Get-DevExpressVersion)
 Set-Location $WorkingDirectory
 Move-PaketSource 0 "C:\Program Files (x86)\DevExpress $DXVersion\Components\System\Components\Packages"
