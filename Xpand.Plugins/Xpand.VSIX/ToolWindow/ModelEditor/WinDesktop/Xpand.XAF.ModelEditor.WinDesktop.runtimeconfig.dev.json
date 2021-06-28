@@ -3,7 +3,8 @@
     "additionalProbingPaths": [
       "C:\\Users\\Tolis\\.dotnet\\store\\|arch|\\|tfm|",
       "C:\\Users\\Tolis\\.nuget\\packages",
-      "C:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages"
+      "b:\\Program Files (x86)\\DevExpress 21.1\\Components\\Offline Packages",
+      "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
     ]
   }
 }
