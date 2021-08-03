@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraRichEdit;
-using Xpand.Persistent.Base.General.Win;
+using Xpand.ExpressApp.Win.Services;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     public partial class RichEditContainerRibbon : RichEditContainerBase {

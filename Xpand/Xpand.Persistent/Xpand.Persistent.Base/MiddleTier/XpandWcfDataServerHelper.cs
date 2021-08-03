@@ -5,6 +5,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Security.ClientServer.Wcf;
+using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
@@ -13,7 +14,7 @@ using Xpand.Persistent.Base.Security;
 namespace Xpand.Persistent.Base.MiddleTier {
     public static class XpandWcfDataServerHelper {
         public static void AddKnownTypes(){
-            var modulePath = AppDomain.CurrentDomain.SetupInformation.ApplicationName.Replace(".vshost.exe", ".exe");
+            var modulePath = AppDomain.CurrentDomain.ApplicationName().Replace(".vshost.exe", ".exe");
             AddKnownTypes(modulePath);
         }
 

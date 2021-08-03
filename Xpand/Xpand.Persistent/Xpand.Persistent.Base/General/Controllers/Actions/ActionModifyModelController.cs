@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Design;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
@@ -21,7 +20,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         IModelModifyModelNodePaths ModelNodePaths { get; }
     }
 
-    public class ModelActiosNodesUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
+    public class ModelActionNodesUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
         public const string LockViewModel = "Lock View Model";
         public override void UpdateNode(ModelNode node){
             var modelAction = ((IModelActions) node)[ActionModifyModelController.ModifyModelActionName];
@@ -63,7 +62,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         string ModelNodePath { get; set; }
 
         [DefaultValue("(AsObjectView Is Not Null)")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, XpandModuleBase.UITypeEditor)]
         [CriteriaOptions("EvaluatorTypeInfo")]
         string Criteria { get; set; }
     }
@@ -120,8 +119,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions {
         }
 
         private void SingleChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e){
-            var modelBaseChoiceActionItem = e.SelectedChoiceActionItem.Model as IModelChoiceActionItemModifyModel;
-            if (modelBaseChoiceActionItem != null){
+            if (e.SelectedChoiceActionItem.Model is IModelChoiceActionItemModifyModel modelBaseChoiceActionItem){
                 var modelNodePaths = modelBaseChoiceActionItem.ModelNodePaths;
                 var modelNodeAttributes = modelNodePaths.SelectMany(path => path.Attributes);
                 if (modelNodeAttributes.Any()) {

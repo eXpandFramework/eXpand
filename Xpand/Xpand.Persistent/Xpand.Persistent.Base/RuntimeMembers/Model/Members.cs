@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Drawing.Design;
 using System.Globalization;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -48,7 +46,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
 
         [ModelBrowsable(typeof(NotVisibileCalculator))]
         [Required(typeof(NotRequiredCalculator))]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ExpressionModelEditorControl, DevExpress.ExpressApp.Win"+ XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ExpressionModelEditorControl, DevExpress.ExpressApp.Win"+ XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix + XafAssemblyInfo.AssemblyNamePostfix, XpandModuleBase.UITypeEditor)]
         new string Expression { get; set; }
         
         [DefaultValue(false)]
@@ -69,7 +67,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
         public static IMemberInfo Get_MemberInfo(IModelMemberNonPersistent modelRuntimeMember) {
             return GetMemberInfo(modelRuntimeMember,
                 (persistent, info) => info.CreateCustomMember(persistent.Name, persistent.Type, true),
-                persistent => true);
+                _ => true);
         }
     }
 
@@ -103,8 +101,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
                 var xpClassInfo = FindXPClassInfo(modelMemberEx);
                 var xpandCustomMemberInfo = xpClassInfo.FindMember(modelMemberEx.Name) as XpandCustomMemberInfo;
                 if (xpandCustomMemberInfo == null) {
-                    if (!modelMemberEx.CreatedAtDesignTime.HasValue)
-                        modelMemberEx.CreatedAtDesignTime = CreatedAtDesignTime(modelMemberEx);
+                    modelMemberEx.CreatedAtDesignTime ??= CreatedAtDesignTime(modelMemberEx);
                     createXpandCustomMemberInfo(modelMemberEx, xpClassInfo);
                     xpClassInfo.FindMember(modelMemberEx.Name).AddAttribute(new ModelMemberExMemberInfoAttribute());
                     var typesInfo = ((BaseInfo)modelMemberEx.ModelClass.TypeInfo).Store;
@@ -134,7 +131,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
             }
         }
 
-        static readonly LightDictionary<IModelApplication,LightDictionary<TModelMember,bool>> MemberTags=new LightDictionary<IModelApplication, LightDictionary<TModelMember, bool>>();
+        static readonly LightDictionary<IModelApplication,LightDictionary<TModelMember,bool>> MemberTags=new();
         protected static bool ValidState(TModelMember modelMemberEx, XPCustomMemberInfo memberInfo,Func<TModelMember,bool> validState) {
             if (CheckTag(modelMemberEx)) return false;
             if (memberInfo == null && !String.IsNullOrEmpty(modelMemberEx.Name)){

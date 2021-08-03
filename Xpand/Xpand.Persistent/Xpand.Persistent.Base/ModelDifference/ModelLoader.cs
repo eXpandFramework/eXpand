@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Web.Configuration;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Utils.CodeGeneration;
 using DevExpress.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Fasterflect;
+using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.Persistent.Base.ModelDifference {
     internal class ModelBuilder {
 
-        readonly string _assembliesPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        readonly string _assembliesPath = AppDomain.CurrentDomain.ApplicationPath();
         XafApplication _application;
         ITypesInfo _typesInfo;
         string _moduleName;
@@ -42,7 +41,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
         }
 
         public static ModelBuilder Create() {
-            return new ModelBuilder();
+            return new();
         }
 
         string GetConfigPath() {
@@ -54,13 +53,13 @@ namespace Xpand.Persistent.Base.ModelDifference {
         }
 
         private string[] GetModulesFromConfig(XafApplication application) {
-            Configuration config;
+            Configuration config = null;
             if (application is IWinApplication) {
-                config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + _moduleName);
+                config = ConfigurationManager.OpenExeConfiguration(AppDomain.CurrentDomain.ApplicationPath() + _moduleName);
             } else {
-                var mapping = new WebConfigurationFileMap();
-                mapping.VirtualDirectories.Add("/Dummy", new VirtualDirectoryMapping(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, true));
-                config = WebConfigurationManager.OpenMappedWebConfiguration(mapping, "/Dummy");
+                // var mapping = new WebConfigurationFileMap();
+                // mapping.VirtualDirectories.Add("/Dummy", new VirtualDirectoryMapping(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, true));
+                // config = WebConfigurationManager.OpenMappedWebConfiguration(mapping, "/Dummy");
             }
 
             return config.AppSettings.Settings["Modules"]?.Value.Split(';');
@@ -203,10 +202,10 @@ namespace Xpand.Persistent.Base.ModelDifference {
                     .FromModule(_moduleName)
                     .WithApplication(_xafApplication)
                     .Build(rebuild);
-            } catch (CompilerErrorException e) {
+            } catch (Exception e) {
                 Tracing.Tracer.LogSeparator("CompilerErrorException");
                 Tracing.Tracer.LogError(e);
-                Tracing.Tracer.LogValue("Source Code", e.SourceCode);
+                // Tracing.Tracer.LogValue("Source Code", e.SourceCode);
                 throw;
             }
             return modelApplicationBase;

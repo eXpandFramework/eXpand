@@ -4,6 +4,7 @@ using System.Drawing;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Persistent.Base;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.Persistent.Base.AdditionalViewControls {
@@ -22,7 +23,7 @@ namespace Xpand.Persistent.Base.AdditionalViewControls {
         [Category("Appearance")]
         int? FontSize { get; set; }
 
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ImageGalleryModelEditorControl, DevExpress.ExpressApp.Win"+AssemblyInfo.VSuffix, typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.ImageGalleryModelEditorControl, DevExpress.ExpressApp.Win"+AssemblyInfo.VSuffix, XpandModuleBase.UITypeEditor)]
         [Category("Appearance")]
         string ImageName { get; set; }
     }

@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 newObjectViewController.NewObjectAction.Executing += NewObjectActionOnExecuting;
             });
 
-            Frame.GetController<PermissionsController>(controller => controller.CollectDescendantPermissionTypes +=OnCollectDescendantPermissionTypes);
+            // Frame.GetController<PermissionsController>(controller => controller.CollectDescendantPermissionTypes +=OnCollectDescendantPermissionTypes);
         }
 
         private void NewObjectActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 newObjectViewController.NewObjectAction.Executing -= NewObjectActionOnExecuting;
             });
 
-            Frame.GetController<PermissionsController>(controller => controller.CollectDescendantPermissionTypes -= OnCollectDescendantPermissionTypes);
+            // Frame.GetController<PermissionsController>(controller => controller.CollectDescendantPermissionTypes -= OnCollectDescendantPermissionTypes);
         }
 
         void OnCollectDescendantPermissionTypes(object sender, CollectTypesEventArgs collectTypesEventArgs) {

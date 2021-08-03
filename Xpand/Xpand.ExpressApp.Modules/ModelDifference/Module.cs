@@ -43,25 +43,25 @@ namespace Xpand.ExpressApp.ModelDifference {
         [DefaultValue("Autocreated at {0} For {1}")]
         string UserModelDifferenceObjectSubjectTemplate { get; set; }
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, "System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         [CriteriaOptions("MDOTypeInfo")]
         [Description("The MDO object that fits in this crierion it will be updated with the model.xafml contents on each application restart")]
         string ModelToUpdateFromFileCriteria { get; set; }
         [Browsable(false)]
         ITypeInfo  MDOTypeInfo { get; }
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, "System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         [CriteriaOptions("MDOTypeInfo")]
         [Description("The MDO object that fits in this criterion it will be updated with the Model.Desktop.xafml contents on each application restart")]
         [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         string ModelToUpdateFromDesktopFileCriteria { get; set; }
         [Category(ModelDifferenceModule.ModelDifferenceCategory)]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, "System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         [CriteriaOptions("MDOTypeInfo")]
         [Description("The MDO object that fits in this criterion it will be updated with the Model.Tablet.xafml contents on each application restart")]
         [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]
         string ModelToUpdateFromTabletFileCriteria { get; set; }
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, "System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         [CriteriaOptions("MDOTypeInfo")]
         [Description("The MDO object that fits in this criterion it will be updated with the Model.Mobile.xafml contents on each application restart")]
         [ModelBrowsable(typeof(WebOnlyVisibilityCalculator))]

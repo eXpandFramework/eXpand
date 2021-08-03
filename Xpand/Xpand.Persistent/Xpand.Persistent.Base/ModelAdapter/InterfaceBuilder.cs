@@ -1,29 +1,15 @@
 ﻿using System;
-using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Web.UI.WebControls;
-using DevExpress.ExpressApp;
-using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Utils.CodeGeneration;
-using DevExpress.Persistent.Base;
-using DevExpress.Utils;
-using DevExpress.Utils.Controls;
-using DevExpress.Utils.Serializing;
-using DevExpress.Web;
-using DevExpress.Xpo;
 using Xpand.Utils.Helpers;
 using Fasterflect;
-using Xpand.Extensions.FileExtensions;
 using Xpand.Extensions.ReflectionExtensions;
 using Xpand.Persistent.Base.General;
 using Platform = Xpand.Extensions.XAF.XafApplicationExtensions.Platform;
@@ -51,15 +37,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
     public class InterfaceBuilder{
         readonly ModelInterfaceExtenders _extenders;
-        private const string NamePrefix = "IModel";
         readonly List<Type> _usingTypes;
-        readonly ReferencesCollector _referencesCollector;
-        readonly List<StringBuilder> _builders;
-        Dictionary<Type, string> _createdInterfaces;
-        string _assemblyName;
-        static bool _loadFromPath;
-        static bool _fileExistInPath;
-        static readonly Dictionary<string, Assembly> Assemblies = new();
 
         public InterfaceBuilder(ModelInterfaceExtenders extenders)
             : this(){
@@ -68,8 +46,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         InterfaceBuilder(){
             _usingTypes = new List<Type>();
-            _builders = new List<StringBuilder>();
-            _referencesCollector = new ReferencesCollector();
+            
         }
 
         static bool? _runtimeMode;
@@ -93,10 +70,6 @@ namespace Xpand.Persistent.Base.ModelAdapter{
         public static bool ExternalModelEditor => Process.GetCurrentProcess().ProcessName.IndexOf(".ExpressApp.ModelEditor", StringComparison.Ordinal) >
                                                   -1;
 
-        public static bool LoadFromPath{
-            get => RuntimeMode && _fileExistInPath || _loadFromPath;
-            set => _loadFromPath = value;
-        }
 
         public static bool SkipAssemblyCleanup {
             get => _skipAssemblyCleanup;
@@ -113,35 +86,6 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             }
         }
 
-        public Assembly Build(IEnumerable<InterfaceBuilderData> builderData, string assemblyFilePath){
-            var isAttached = Debugger.IsAttached;
-
-            if (!SkipAssemblyCleanup && ((isAttached || ExternalModelEditor) && File.Exists(assemblyFilePath)) &&
-                (!VersionMatch(assemblyFilePath) || IsDevMachine)){
-                if (!new FileInfo(assemblyFilePath).IsFileLocked())
-                    File.Delete(assemblyFilePath);
-            }
-            _fileExistInPath = File.Exists(assemblyFilePath);
-            if (LoadFromPath && _fileExistInPath && VersionMatch(assemblyFilePath)){
-                return Assembly.LoadFile(assemblyFilePath);
-            }
-            _assemblyName = Path.GetFileNameWithoutExtension(assemblyFilePath) + "";
-            if (!RuntimeMode && Assemblies.ContainsKey(_assemblyName + "")){
-                return Assemblies[_assemblyName];
-            }
-
-            TraceBuildReason(assemblyFilePath);
-
-            _createdInterfaces = new Dictionary<Type, string>();
-            var source = string.Join(Environment.NewLine, GetAssemblyVersionCode(), GetCode(builderData));
-            _usingTypes.Add(typeof(XafApplication));
-            _referencesCollector.Add(_usingTypes);
-            string[] references = _referencesCollector.References.ToArray();
-
-            var compileAssemblyFromSource = CompileAssemblyFromSource(source, references, false, assemblyFilePath);
-            Assemblies.Add(_assemblyName + "", compileAssemblyFromSource);
-            return compileAssemblyFromSource;
-        }
 
         public static bool IsDevMachine {
             get {
@@ -156,109 +100,11 @@ namespace Xpand.Persistent.Base.ModelAdapter{
 
         public static bool IsDBUpdater => Process.GetCurrentProcess().ProcessName.StartsWith("DBUpdater"+AssemblyInfo.VSuffix);
 
-        private void TraceBuildReason(string assemblyFilePath){
-            var tracing = Tracing.Tracer;
-            tracing.LogVerboseSubSeparator("InterfacerBuilder:" + assemblyFilePath);
-            tracing.LogVerboseValue("FileExistsInPath", _fileExistInPath);
-            tracing.LogVerboseValue("LoadFromPath", LoadFromPath);
-            tracing.LogVerboseValue("RuntimeMode", LoadFromPath);
-            if (LoadFromPath && _fileExistInPath)
-                tracing.LogValue("VersionMatch", VersionMatch(assemblyFilePath));
-        }
 
-        bool VersionMatch(string assemblyFilePath){
-            return FileVersionInfo.GetVersionInfo(assemblyFilePath).FileVersion ==
-                   GetType().Assembly.GetName().Version.ToString();
-        }
 
-        private Assembly CompileAssemblyFromSource(String source, String[] references, Boolean isDebug,
-            String assemblyFile){
-            if (!String.IsNullOrEmpty(assemblyFile)){
-                var directoryName = Path.GetDirectoryName(assemblyFile) + "";
-                if (!Directory.Exists(directoryName)){
-                    Directory.CreateDirectory(directoryName);
-                }
-            }
-            CompilerParameters compilerParameters = GetCompilerParameters(references, isDebug, assemblyFile);
-            CodeDomProvider codeProvider = CodeDomProvider.CreateProvider("CSharp");
-            CompilerResults compilerResults = codeProvider.CompileAssemblyFromSource(compilerParameters, source);
-            if (compilerResults.Errors.Count > 0){
-                RaiseCompilerException(source, compilerResults, assemblyFile);
-            }
-            return compilerResults.CompiledAssembly;
-        }
 
-        private void RaiseCompilerException(String source, CompilerResults compilerResults, string assemblyFile){
-            throw new CompilerErrorException(compilerResults, source,
-                "Assembly=" + assemblyFile + Environment.NewLine + compilerResults.AggregateErrors());
-        }
 
-        private CompilerParameters GetCompilerParameters(String[] references, Boolean isDebug,
-            String assemblyFile){
-            var compilerParameters = new CompilerParameters();
-            compilerParameters.ReferencedAssemblies.AddRange(references);
-            if (String.IsNullOrEmpty(assemblyFile)){
-                compilerParameters.GenerateInMemory = !isDebug;
-            }
-            else{
-                compilerParameters.OutputAssembly = RuntimeMode ? assemblyFile : null;
-            }
-            if (isDebug){
-                compilerParameters.TempFiles = new TempFileCollection(Environment.GetEnvironmentVariable("TEMP"), true);
-                compilerParameters.IncludeDebugInformation = true;
-            }
-            return compilerParameters;
-        }
 
-        string GetAssemblyVersionCode(){
-            var assemblyVersion = ReflectionHelper.GetAssemblyVersion(GetType().Assembly);
-            return string.Format(@"[assembly: {1}(""{0}"")]", assemblyVersion,
-                TypeToString(typeof(AssemblyVersionAttribute)));
-        }
-
-        string GetCode(IEnumerable<InterfaceBuilderData> builderData){
-            foreach (var data in builderData){
-                _usingTypes.AddRange(data.ReferenceTypes);
-                CreateInterface(data.ComponentType, data.Act, data.BaseInterface, data.IsAbstract,
-                    data.RootBaseInterface);
-            }
-            string usings = _referencesCollector.Usings.Aggregate<string, string>(null,
-                (current, @using) => current + ("using " + @using + ";" + Environment.NewLine));
-            return usings + Environment.NewLine +
-                   string.Join(Environment.NewLine, _builders.Select(builder => builder.ToString()).ToArray());
-        }
-
-        void CreateInterface(Type type, Func<DynamicModelPropertyInfo, bool> act, Type baseInterface, bool isAbstract,
-            Type rootBaseInterface, string namePrefix = null){
-            var stringBuilder = new StringBuilder();
-            var interfaceName = GetInterfaceName(_assemblyName, type, namePrefix);
-            var classDeceleration = ClassDeclaration(type, baseInterface, isAbstract, rootBaseInterface, namePrefix);
-            stringBuilder.AppendLine(classDeceleration);
-            var generatedInfos = new HashSet<string>();
-            foreach (var propertyInfo in GetPropertyInfos(type, act)){
-                if (!generatedInfos.Contains(propertyInfo.Name)){
-                    var propertyCode = GetPropertyCode(propertyInfo, act, baseInterface);
-                    stringBuilder.AppendLine(propertyCode);
-                    generatedInfos.Add(propertyInfo.Name);
-                }
-            }
-            stringBuilder.AppendLine("}");
-
-            _createdInterfaces.Add(type, interfaceName);
-            _builders.Add(stringBuilder);
-        }
-
-        string ClassDeclaration(Type type, Type baseInterface, bool isAbstract, Type rootBaseInterface,
-            string namePrefix){
-            var classDeceleration = string.Join(Environment.NewLine, AttributeLocator(type), ModelAbstract(isAbstract),
-                ClassDeclarationCore(type, baseInterface, rootBaseInterface, namePrefix));
-            return classDeceleration;
-        }
-
-        string AttributeLocator(Type type){
-            var classNameAttribute = new ClassNameAttribute(type.FullName);
-            return $@"[{TypeToString(classNameAttribute.GetType())}(""{type.FullName}"")]";
-        }
 
         [AttributeUsage(AttributeTargets.Interface)]
         public class ClassNameAttribute : Attribute{
@@ -269,183 +115,6 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             public string TypeName { get; }
         }
 
-        string ModelAbstract(bool isAbstract){
-            return isAbstract ? $"[{TypeToString(typeof(ModelAbstractClassAttribute))}()]" : null;
-        }
-
-        string ClassDeclarationCore(Type type, Type baseInterface, Type rootBaseInterface, string namePrefix){
-            var interfaceName = GetInterfaceName(_assemblyName, type, namePrefix);
-            var args = GetBaseInterface(baseInterface, rootBaseInterface, namePrefix == null);
-            return $"public interface {interfaceName}:{args}{{";
-        }
-
-        string GetBaseInterface(Type baseInterface, Type rootBaseInterface, bool isRoot){
-            return isRoot && rootBaseInterface != null ? TypeToString(rootBaseInterface) : TypeToString(baseInterface);
-        }
-
-        IEnumerable<DynamicModelPropertyInfo> GetPropertyInfos(Type type, Func<DynamicModelPropertyInfo, bool> act){
-            var propertyInfos = type.GetValidProperties().Select(DynamicModelPropertyInfo);
-            return act != null ? propertyInfos.Where(act) : propertyInfos;
-        }
-
-        DynamicModelPropertyInfo DynamicModelPropertyInfo(PropertyInfo info){
-            return new(info.Name, info.PropertyType, info.DeclaringType, info.CanRead,
-                info.CanWrite, info);
-        }
-
-        string GetInterfaceName(string assemblyName, Type type, string namePrefix = null){
-            var interfaceName = string.Format("{0}" + assemblyName + "{1}", namePrefix ?? NamePrefix, type.Name);
-            return interfaceName;
-        }
-
-        string GetPropertyCode(DynamicModelPropertyInfo property, Func<DynamicModelPropertyInfo, bool> filter,
-            Type baseInterface){
-            var setMethod = GetSetMethod(property);
-
-            string interfaceName = null;
-            if (setMethod == null){
-                var reflectedType = property.ReflectedType;
-                interfaceName = GetInterfaceName(_assemblyName, reflectedType);
-                if (!_createdInterfaces.ContainsKey(property.PropertyType))
-                    CreateInterface(property.PropertyType, filter, baseInterface, false, null, interfaceName);
-            }
-
-            var propertyCode =
-                $"    {GetPropertyTypeCode(property, interfaceName)} {property.Name} {{ get; {setMethod} }}";
-            return GetAttributesCode(property) + propertyCode;
-        }
-
-
-        string GetPropertyTypeCode(DynamicModelPropertyInfo property, string prefix = null){
-            if (property.GetCustomAttributes(typeof(NullValueAttribute), false).Any()){
-                return TypeToString(property.PropertyType);
-            }
-            if (!property.PropertyType.BehaveLikeValueType()){
-                if (_createdInterfaces.ContainsKey(property.PropertyType))
-                    return _createdInterfaces[property.PropertyType];
-                return GetInterfaceName(_assemblyName, property.PropertyType, prefix);
-            }
-            Type propertyType = property.PropertyType;
-            if (propertyType != typeof(string) && !propertyType.IsStruct())
-                propertyType = typeof(Nullable<>).MakeNullAble(property.PropertyType);
-            return TypeToString(propertyType);
-        }
-
-        object GetSetMethod(DynamicModelPropertyInfo property){
-            return property.PropertyType.BehaveLikeValueType() ? "set;" : null;
-        }
-
-        string GetAttributesCode(DynamicModelPropertyInfo property){
-            var attributes = property.GetCustomAttributes(false).OfType<Attribute>().ToList();
-            var codeList = attributes.Select(GetAttributeCode)
-                    .Where(attributeCode => !string.IsNullOrEmpty(attributeCode));
-            return codeList.Aggregate<string, string>(null,
-                (current, attributeCode) => current + $"   [{attributeCode}]{Environment.NewLine}");
-        }
-
-        string GetAttributeCode(object attribute){
-            if (attribute == null){
-                return string.Empty;
-            }
-            if (attribute.GetType() == typeof(CategoryAttribute)){
-                string arg = ((CategoryAttribute) attribute).Category;
-                return string.Format(@"{1}(""{0}"")", arg, TypeToString(attribute.GetType()));
-            }
-            if (attribute is RequiredAttribute){
-                return $@"{TypeToString(attribute.GetType())}()";
-            }
-
-            if (attribute is EditorAttribute editorAttribute){
-                string arg1 = (editorAttribute).EditorTypeName;
-                string arg2 = (editorAttribute).EditorBaseTypeName;
-                return string.Format(@"{2}(""{0}"", ""{1}"")", arg1, arg2, TypeToString(attribute.GetType()));
-            }
-
-            if (attribute is RefreshPropertiesAttribute refreshPropertiesAttribute){
-                string arg = TypeToString(refreshPropertiesAttribute.RefreshProperties.GetType()) + "." +
-                             refreshPropertiesAttribute.RefreshProperties.ToString();
-                return string.Format(@"{1}({0})", arg, TypeToString(attribute.GetType()));
-            }
-
-            if (attribute is TypeConverterAttribute typeConverterAttribute){
-                if (!(typeConverterAttribute).ConverterTypeName.Contains(".Design.") &&
-                    !(typeConverterAttribute).ConverterTypeName.EndsWith(".Design")){
-                    var type = Type.GetType((typeConverterAttribute).ConverterTypeName);
-                    if (type != null && type.IsPublic && !(type.FullName+"").Contains(".Design."))
-                        return string.Format("{1}(typeof({0}))", TypeToString(type), TypeToString(attribute.GetType()));
-                }
-                return null;
-            }
-            Type attributeType = attribute.GetType();
-            if (attributeType == typeof(DXDescriptionAttribute)){
-                string description = ((DXDescriptionAttribute) attribute).Description.Replace(@"""", @"""""");
-                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            }
-            if (typeof(DescriptionAttribute).IsAssignableFrom(attributeType)){
-                string description = ((DescriptionAttribute) attribute).Description.Replace(@"""", @"""""");
-                return string.Format(@"{1}(@""{0}"")", description, TypeToString(typeof(DescriptionAttribute)));
-            }
-            if (attributeType == typeof(DefaultValueAttribute)){
-                string value = GetStringValue(((DefaultValueAttribute) attribute).Value);
-                return $@"System.ComponentModel.DefaultValue({value})";
-            }
-            if (attributeType == typeof(ModelValueCalculatorWrapperAttribute)){
-                var modelValueCalculatorAttribute = ((ModelValueCalculatorWrapperAttribute) attribute);
-                if (modelValueCalculatorAttribute.CalculatorType != null){
-                    return
-                        $@"{TypeToString(typeof(ModelValueCalculatorAttribute))}(typeof({TypeToString(
-                            modelValueCalculatorAttribute.CalculatorType)}))";
-                }
-                var linkValue = GetStringValue(modelValueCalculatorAttribute.LinkValue);
-                return $@"{TypeToString(typeof(ModelValueCalculatorAttribute))}({linkValue})";
-            }
-            if (attributeType == typeof(ModelReadOnlyAttribute)){
-                var readOnlyCalculatorType = ((ModelReadOnlyAttribute) attribute).ReadOnlyCalculatorType;
-                return
-                    $@"{TypeToString(typeof(ModelReadOnlyAttribute))}(typeof({TypeToString(readOnlyCalculatorType)}))";
-            }
-            if (attributeType == typeof(ReadOnlyAttribute)){
-                string value = GetStringValue(((ReadOnlyAttribute) attribute).IsReadOnly);
-                return string.Format(@"{1}({0})", value, TypeToString(attribute.GetType()));
-            }
-            return string.Empty;
-        }
-
-        string GetStringValue(object value){
-            return GetStringValue(value?.GetType(), value);
-        }
-
-        string GetStringValue(Type type, object value){
-            if (type == null || value == null){
-                return "null";
-            }
-            Type nullableType = Nullable.GetUnderlyingType(type);
-            if (nullableType != null){
-                type = nullableType;
-            }
-            if (type == typeof(string)){
-                return $@"@""{((string) value).Replace("\"", "\"\"")}""";
-            }
-            if (type == typeof(Boolean)){
-                return (bool) value ? "true" : "false";
-            }
-            if (type.IsEnum){
-                if (value is int i){
-                    value = Enum.ToObject(type, i);
-                }
-                return $"{TypeToString(type)}.{value}";
-            }
-            if (type.IsClass){
-                return $"typeof({TypeToString(value.GetType())})";
-            }
-            if (type == typeof(char)){
-                var args = Convert.ToString(value);
-                if (args == "\0")
-                    return @"""""";
-                throw new NotImplementedException();
-            }
-            return string.Format(CultureInfo.InvariantCulture.NumberFormat, "({0})({1})", TypeToString(type), value);
-        }
 
         string TypeToString(Type type){
             return HelperTypeGenerator.TypeToString(type, _usingTypes, true);
@@ -488,26 +157,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             ExtendInterface(typeof(TTargetInterface), typeof(TComponent), assembly);
         }
 
-        public string GeneratedEmptyInterfacesCode(IEnumerable<ITypeInfo> typeInfos, Type baseType,
-            Func<ITypeInfo, Type, string, string> func = null){
-            return
-                typeInfos.Aggregate<ITypeInfo, string>(null,
-                    (current, typeInfo) =>
-                        current + (GenerateInterfaceCode(typeInfo, baseType, func) + Environment.NewLine))
-                    .TrimEnd(Environment.NewLine.ToCharArray());
-        }
 
-        string GenerateInterfaceCode(ITypeInfo typeInfo, Type baseType,
-            Func<ITypeInfo, Type, string, string> func){
-            var interfaceBuilder = new InterfaceBuilder();
-            var classDeclaration = interfaceBuilder.ClassDeclarationCore(typeInfo.Type, baseType, null, null);
-            string code = null;
-            if (func != null)
-                code = func.Invoke(typeInfo, baseType, GetInterfaceName(null, typeInfo.Type));
-
-            var interfaceCode = code + Environment.NewLine + classDeclaration + Environment.NewLine + "}";
-            return interfaceCode;
-        }
 
         public string GeneratedDisplayNameCode(string arg3){
             var interfaceBuilder = new InterfaceBuilder();
@@ -551,31 +201,11 @@ namespace Xpand.Persistent.Base.ModelAdapter{
             return attributes.SelectMany(type => info.GetCustomAttributes(type, false)).Any();
         }
 
-        public static bool DXFilter(this DynamicModelPropertyInfo info, Type[] attributes = null){
-            return info.DXFilter(info.DeclaringType, attributes);
-        }
 
-        public static readonly IList<Type> BaseTypes = new List<Type>{
-            typeof(BaseOptions),
-            typeof(FormatInfo),
-            typeof(AppearanceObject),
-            typeof(TextOptions),
-            typeof(BaseAppearanceCollection),
-            typeof(PropertiesBase),
-            typeof(WebControl)
-        };
 
         public static readonly HashSet<string> ExcludedReservedNames = new() {"IsReadOnly"};
 
-        public static bool DXFilter(this DynamicModelPropertyInfo info, Type componentBaseType, Type[] attributes = null){
-            return DXFilter(info, BaseTypes, componentBaseType, attributes);
-        }
 
-        public static bool DXFilter(this DynamicModelPropertyInfo info, IList<Type> baseTypes, Type componentBaseType,
-            Type[] attributes = null) {
-            attributes ??= new[] {typeof(XtraSerializableProperty)};
-            return Filter(info, componentBaseType, BaseTypes.Union(baseTypes).ToArray(), attributes);
-        }
 
         public static bool Filter(this DynamicModelPropertyInfo info, Type componentBaseType,
             Type[] filteredPropertyBaseTypes, Type[] attributes){

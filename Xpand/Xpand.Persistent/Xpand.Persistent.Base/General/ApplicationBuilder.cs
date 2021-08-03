@@ -9,6 +9,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
+using Xpand.Extensions.AppDomainExtensions;
 
 namespace Xpand.Persistent.Base.General {
     public class XafApplicationFactory {
@@ -34,7 +35,7 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public class ApplicationBuilder {
-        string _assemblyPath = AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        string _assemblyPath = AppDomain.CurrentDomain.ApplicationPath();
         Func<string, ITypesInfo> _buildTypesInfoSystem = BuildTypesInfoSystem(true);
         string _moduleName;
         bool _withOutObjectSpaceProvider;
@@ -43,7 +44,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static ApplicationBuilder Create() {
-            return new ApplicationBuilder();
+            return new();
         }
 
         static Func<string, ITypesInfo> BuildTypesInfoSystem(bool tryToUseCurrentTypesInfo) {

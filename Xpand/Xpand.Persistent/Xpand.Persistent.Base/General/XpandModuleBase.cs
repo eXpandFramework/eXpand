@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -43,11 +44,8 @@ using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.Mono.Cecil;
 using Xpand.Extensions.ReflectionExtensions;
 using Xpand.Extensions.XAF.AppDomainExtensions;
-using Xpand.Persistent.Base.General.Web;
-using Xpand.Persistent.Base.General.Web.SyntaxHighlight;
 using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
-using Xpand.Utils.Helpers;
 using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttribute;
 using TypeInfo = DevExpress.ExpressApp.DC.TypeInfo;
 
@@ -72,16 +70,16 @@ namespace Xpand.Persistent.Base.General {
         private static string _xpandPathInRegistry;
         private static string _dxPathInRegistry;
         public static string ManifestModuleName;
-        static readonly object LockObject = new object();
+        static readonly object LockObject = new();
         public static object Control;
         static Assembly _baseImplAssembly;
         static string _connectionString;
-        private static readonly object SyncRoot = new object();
+        private static readonly object SyncRoot = new();
         protected Type DefaultXafAppType = typeof(XafApplication);
         static string _assemblyString;
         private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
-        private static readonly HashSet<Type> DisabledControllerTypes = new HashSet<Type>();
-        private static readonly object DisabledControllerTypesLock = new object();
+        private static readonly HashSet<Type> DisabledControllerTypes = new();
+        private static readonly object DisabledControllerTypesLock = new();
         private ModuleType _moduleType;
         private List<KeyValuePair<string, ModelDifferenceStore>> _extraDiffStores;
         private bool _loggedOn;
@@ -125,6 +123,7 @@ namespace Xpand.Persistent.Base.General {
             AdditionalExportedTypes.Add(typeof(MessageBoxTextMessage));
         }
 
+        [SuppressMessage("ReSharper", "NonAtomicCompoundOperator")]
         public static MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object> CallMonitor {
             get {
                 if (_callMonitor == null) {
@@ -188,45 +187,14 @@ namespace Xpand.Persistent.Base.General {
                     typeof (CustomAttributesController), typeof (NotifyMembersController),
                     typeof (XpandModelMemberInfoController), typeof (XpandLinkToListViewController),
                     typeof(ModifyObjectSpaceController),typeof (ActionItemsFromModelController),typeof(ActionModelChoiceItemController),
-                    typeof(ModelViewSavingController), typeof(NavigationContainerController), typeof(ModelController),
+                    typeof(ModelViewSavingController), typeof(ModelController),
                     typeof(NavigationItemsController),typeof(FilteredMasterObjectViewController)
                 });
             }
 
-            if (ModuleType == ModuleType.Win)
-                declaredControllerTypes = GetDeclaredWinControllerTypesCore(declaredControllerTypes);
-            if (ModuleType == ModuleType.Web)
-                declaredControllerTypes = GetDeclaredWebControllerTypesCore(declaredControllerTypes);
-
             return declaredControllerTypes;
         }
 
-        protected virtual IEnumerable<Type> GetDeclaredWinControllerTypesCore(IEnumerable<Type> declaredControllerTypes) {
-            if (!Executed("GetDeclaredWinControllerTypes", ModuleType.Win))
-                declaredControllerTypes = declaredControllerTypes.Union(new[] {
-                    typeof(NavigationContainerWinController)
-                });
-            return declaredControllerTypes;
-        }
-
-        protected virtual IEnumerable<Type> GetDeclaredWebControllerTypesCore(IEnumerable<Type> declaredControllerTypes) {
-            if (!Executed("GetDeclaredWebControllerTypes", ModuleType.Web))
-                declaredControllerTypes = declaredControllerTypes.Union(new[] {
-                    typeof(NavigationContainerWebController), 
-                    typeof(ActionsClientScriptController),
-                    typeof(ActionsClientConfirmationController),
-                    typeof(SyntaxHighlightController)
-                });
-
-            if (!Executed("DashboardUser", ModuleType.Web)) {
-                declaredControllerTypes = declaredControllerTypes.Concat(new[] {
-                    typeof(WebDashboardRefreshController)
-                });
-            }
-
-            return declaredControllerTypes;
-        }
-        
         internal void OnInitSeqGenerator(CancelEventArgs e) {
             CancelEventHandler handler = InitSeqGenerator;
             handler?.Invoke(this, e);
@@ -323,7 +291,7 @@ namespace Xpand.Persistent.Base.General {
                 extenders.Add<IModelApplication, IModelApplicationReadonlyParameters>();
                 extenders.Add<IModelApplication, IModelApplicationViews>();
 //                extenders.Add<IModelApplication, IModelApplicationModelAdapterContexts>();
-                extenders.Add<IModelOptions, IModelOptionsNavigationContainer>();
+                
             }
 
             if (ModuleType == ModuleType.Web)
@@ -350,13 +318,13 @@ namespace Xpand.Persistent.Base.General {
             base.AddGeneratorUpdaters(updaters);
             OnCustomAddGeneratorUpdaters(new GeneratorUpdaterEventArgs(updaters));
             if (!Executed<IModifyModelActionUser>("ModifyModelActionUpdater")) {
-                updaters.Add(new ModelActiosNodesUpdater());
+                updaters.Add(new ModelActionNodesUpdater());
                 updaters.Add(new ModifyModelActionChoiceItemsUpdater());
             }
             if (Executed("AddGeneratorUpdaters"))
                 return;
             updaters.Add(new CommonModelUpdater());
-            updaters.Add(new ToggleNavigationActionUpdater());
+            
             updaters.Add(new XpandNavigationItemNodeUpdater());
         }
 
@@ -387,7 +355,7 @@ namespace Xpand.Persistent.Base.General {
                 _assemblyString =
                     $"{(!String.IsNullOrEmpty(baseImplAssemblyName) ? baseImplAssemblyName : "Xpand.Persistent.BaseImpl")}, Version={XpandAssemblyInfo.FileVersion}, Culture=neutral, PublicKeyToken={XpandAssemblyInfo.Token}";
             }
-            string baseImplName = ConfigurationManager.AppSettings["Baseimpl"];
+            string baseImplName = ConfigurationManager.AppSettings["BaseImpl"];
             if (!String.IsNullOrEmpty(baseImplName)) {
                 _assemblyString = baseImplName;
             }
@@ -502,7 +470,7 @@ namespace Xpand.Persistent.Base.General {
                 }
                 if (Application.Security != null) {
                     UserType = Application.Security.UserType;
-                    if (UserType != null && UserType.IsInterface)
+                    if (UserType is {IsInterface: true})
                         UserType = XpoTypeInfoSource.GetGeneratedEntityType(UserType);
                 }
             }
@@ -640,7 +608,7 @@ namespace Xpand.Persistent.Base.General {
             application.SettingUp += ApplicationOnSettingUp;
             application.CreateCustomCollectionSource += ApplicationOnCreateCustomCollectionSource;
             if (RuntimeMode) {
-                application.LoggedOn += (sender, args) => {
+                application.LoggedOn += (_, _) => {
                     RuntimeMemberBuilder.CreateRuntimeMembers(application.Model);
                     _loggedOn = true;
                 };
@@ -678,7 +646,7 @@ namespace Xpand.Persistent.Base.General {
             models = models.Concat(Directory.GetFiles(BinDirectory, "model.user*.xafml", SearchOption.TopDirectoryOnly))
                     .Where(s => !s.ToLowerInvariant().EndsWith("model.user.xafml"));
             if (Application.GetPlatform()==Platform.Web) {
-                models = models.Concat(Directory.GetFiles(AppDomain.CurrentDomain.SetupInformation.ApplicationBase,
+                models = models.Concat(Directory.GetFiles(AppDomain.CurrentDomain.ApplicationPath(),
                         "model.user*.xafml", SearchOption.TopDirectoryOnly));
             }
             foreach (var path in models) {
@@ -690,7 +658,7 @@ namespace Xpand.Persistent.Base.General {
 
         }
 
-        public static string BinDirectory => ApplicationHelper.Instance.Application.GetPlatform()==Platform.Web ? AppDomain.CurrentDomain.SetupInformation.PrivateBinPath : AppDomain.CurrentDomain.SetupInformation.ApplicationBase;
+        public static string BinDirectory => AppDomain.CurrentDomain.ApplicationPath();
 
         public static bool ObjectSpaceCreated { get; internal set; }
         [Browsable(false)]
@@ -698,6 +666,9 @@ namespace Xpand.Persistent.Base.General {
         public static Type SequenceObjectType { get; set; }
 
         public static bool IsEasyTesting { get; set; }
+
+        public const string UITypeEditor =
+            "System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a";
 
         void CheckApplicationTypes() {
             if (RuntimeMode&& !(Application is ITestXafApplication)) {

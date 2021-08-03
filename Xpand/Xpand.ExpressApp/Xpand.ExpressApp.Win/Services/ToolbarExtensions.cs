@@ -6,8 +6,9 @@ using DevExpress.ExpressApp.Win.Templates;
 using DevExpress.ExpressApp.Win.Templates.ActionContainers;
 using DevExpress.XtraBars;
 using DevExpress.XtraBars.Ribbon;
+using Xpand.Persistent.Base.General;
 
-namespace Xpand.Persistent.Base.General.Win{
+namespace Xpand.ExpressApp.Win.Services{
     public static class ToolbarExtensions{
         public static void Execute(this Control control, Action<BarManager> action){
             var form = control.FindForm();

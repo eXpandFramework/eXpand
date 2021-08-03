@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing.Design;
 using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
@@ -13,7 +12,7 @@ namespace Xpand.Persistent.Base.General.Model{
     public interface IModelClassDefaultCriteria : IModelClass{
         [Required]
         [Category(AttributeCategoryNameProvider.Xpand)]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, XpandModuleBase.UITypeEditor)]
         [CriteriaOptions("TypeInfo")]
         string DefaultCriteria { get; set; }
 
@@ -34,9 +33,8 @@ namespace Xpand.Persistent.Base.General.Model{
                    GetDefaultMember(typeInfo, null);
         }
 
-        private static IMemberInfo GetDefaultMember(ITypeInfo typeInfo, Func<IMemberInfo, bool> condition){
-            if (condition == null)
-                condition = info => true;
+        private static IMemberInfo GetDefaultMember(ITypeInfo typeInfo, Func<IMemberInfo, bool> condition) {
+            condition ??= _ => true;
             return typeInfo.OwnMembers.FirstOrDefault(condition) ?? typeInfo.Members.FirstOrDefault(condition);
         }
     }

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Security;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
-using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
 using Xpand.Utils.Helpers;
 using Fasterflect;
+using Xpand.Extensions.AppDomainExtensions;
 
 namespace Xpand.Persistent.Base.General {
     [SecuritySafeCritical]
@@ -52,7 +53,8 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private static ILayoutManager CreateWebLayoutManager(bool isLayoutSimple, bool delayedViewItemsInitialization, ITypeInfo typeInfo) {
-            return (ILayoutManager) typeInfo.Type.CreateInstance(isLayoutSimple,delayedViewItemsInitialization, WebApplicationStyleManager.IsNewStyle);
+            var isNewStyle = AppDomain.CurrentDomain.GetAssemblyType("DevExpress.ExpressApp.Web.WebApplicationStyleManager").GetProperty("IsNewStyle",BindingFlags.Static|BindingFlags.Public)?.GetValue(null);
+            return (ILayoutManager) typeInfo.Type.CreateInstance(isLayoutSimple,delayedViewItemsInitialization, isNewStyle);
         }
         public static void UpdateLayoutManager(this CompositeView compositeView) {
             if (!(compositeView.LayoutManager is ILayoutManager)) {

@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Forms;
+using System.Reactive.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Win;
 using Fasterflect;
+using Xpand.Extensions.Reactive.Transform;
+using Xpand.XAF.Modules.Reactive.Extensions;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
@@ -31,20 +32,36 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             handler?.Invoke(this, e);
         }
 
-        readonly Dictionary<IModelListView, MasterDetailMode> _masterDetailModes = new Dictionary<IModelListView, MasterDetailMode>();
+        readonly Dictionary<IModelListView, MasterDetailMode> _masterDetailModes = new();
 
         protected override void OnDeactivated() {
             base.OnDeactivated();
-            if (Frame is WinWindow)
-                ((Form)Frame.Template).Shown -= Template_Shown;
+            
             ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance -= LayoutManagerOnCustomizeAppearance;
         }
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (Frame is WinWindow)
-                ((Form)Frame.Template).Shown+=Template_Shown;
+            if (Application.GetPlatform() == Platform.Win) {
+                Frame.Template.WhenEvent("Shown")
+                    .Do(_ => {
+                        foreach (var item in View.GetItems<DashboardViewItem>().Where(item => item.Frame!=null)){
+                            bool focused = false;
+                            item.Frame.GetController<FocusDefaultDetailViewItemController>(controller => {
+                                var defaultItem = controller.GetFieldValue("defaultItem");
+                                if (defaultItem != null) {
+                                    controller.CallMethod("FocusDefaultItemControl");
+                                    focused = true;
+                                }
+                            });
+                            if (focused)
+                                break;
 
+                        }
+
+                    })
+                    .Subscribe(this);
+            }
             ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance += LayoutManagerOnCustomizeAppearance;
             foreach (var item in View.GetItems<DashboardViewItem>()) {
                 var modelDashboardViewItem = (item.GetModel(View));
@@ -84,22 +101,6 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
             }
         }
 
-        private void Template_Shown(object sender, EventArgs e){
-            foreach (var item in View.GetItems<DashboardViewItem>().Where(item => item.Frame!=null)){
-                bool focused = false;
-                item.Frame.GetController<FocusDefaultDetailViewItemController>(controller => {
-                    var defaultItem = controller.GetFieldValue("defaultItem");
-                    if (defaultItem != null) {
-                        controller.CallMethod("FocusDefaultItemControl");
-                        focused = true;
-                    }
-                });
-                if (focused)
-                    break;
-
-            }
-        }
-
         void ResetMasterDetailModes() {
             foreach (var masterDetailMode in _masterDetailModes) {
                 masterDetailMode.Key.MasterDetailMode = masterDetailMode.Value;
@@ -128,8 +129,8 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
 
         void NotifyControllers(ListView listView) {
             if (View != null) {
-                IEnumerable<IDataSourceSelectionChanged> selectionChangeds = View.Items.OfType<DashboardViewItem>().SelectMany(Controllers);
-                foreach (var selectionChanged in selectionChangeds) {
+                IEnumerable<IDataSourceSelectionChanged> selectionChanges = View.Items.OfType<DashboardViewItem>().SelectMany(Controllers);
+                foreach (var selectionChanged in selectionChanges) {
                     selectionChanged.SelectedObjects = listView.SelectedObjects;
                 }
             }
@@ -171,10 +172,10 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
         CriteriaOperator CriteriaSelectionOperator(ListView listView, IModelColumn filteredColumn) {
             var keyName = filteredColumn.ModelMember.MemberInfo.MemberTypeInfo.KeyMember.Name;
             return listView.Editor is ISelectionCriteria selectionCriteria ? CriteriaOperator.Parse(filteredColumn.PropertyName + "." + (selectionCriteria).SelectionCriteria.ToString())
-                       : new InOperator(filteredColumn.PropertyName + "." + keyName, Getkeys(listView));
+                       : new InOperator(filteredColumn.PropertyName + "." + keyName, GetKeys(listView));
         }
 
-        public IEnumerable Getkeys(ListView listView) {
+        public IEnumerable GetKeys(ListView listView) {
             return listView.SelectedObjects.OfType<object>().Select(o => ObjectSpace.GetKeyValue(o));
         }
         #region Implementation of IModelExtender

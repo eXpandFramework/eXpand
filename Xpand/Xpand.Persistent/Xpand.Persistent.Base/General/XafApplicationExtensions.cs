@@ -8,14 +8,13 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Reflection;
 using System.Threading.Tasks;
-using System.Web;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Core;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
-using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
@@ -23,6 +22,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
+using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.ProcessExtensions;
 using Xpand.Extensions.StreamExtensions;
 using Xpand.Persistent.Base.General.Model;
@@ -31,18 +31,6 @@ using DeviceCategory = Xpand.Persistent.Base.ModelDifference.DeviceCategory;
 using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
 
 namespace Xpand.Persistent.Base.General {
-    public static class WebXafApplicationExtensions{
-
-        public static IXpoDataStoreProvider CachedInstance(this IXpoDataStoreProvider dataStoreProvider) {
-            if (dataStoreProvider.ConnectionString == InMemoryDataStoreProvider.ConnectionString)
-                dataStoreProvider=new MemoryDataStoreProvider();
-            string key = dataStoreProvider.GetType().Name;
-            if (HttpContext.Current.Application[key] != null)
-                return (IXpoDataStoreProvider)HttpContext.Current.Application[key];
-            HttpContext.Current.Application[key] = dataStoreProvider;
-            return dataStoreProvider;
-        }
-    }
 
     public enum Platform{
         Agnostic,Win, Web,Mobile,
@@ -52,7 +40,7 @@ namespace Xpand.Persistent.Base.General {
         static  XafApplicationExtensions() {
             DisableObjectSpaceProviderCreation = true;
         }
-        private static readonly object Locker=new object();
+        private static readonly object Locker=new();
         
 
         public static void ShowView(this XafApplication application, View view) {
@@ -118,10 +106,14 @@ namespace Xpand.Persistent.Base.General {
 		    exception.ToString().SendMail($"{ApplicationHelper.Instance?.Application?.Title} Exception - {exception.GetType().FullName}");
 		}
 
-        public static DeviceCategory GetDeviceCategory(this XafApplication application){
-            return application.GetPlatform() == Platform.Win
-                ? DeviceCategory.All: (DeviceCategory) Enum.Parse(typeof(DeviceCategory),
-                    DeviceDetector.Instance.GetDeviceCategory().ToString());
+        public static DeviceCategory GetDeviceCategory(this XafApplication application) {
+            if (application.GetPlatform() == Platform.Win)
+                return DeviceCategory.All;
+            else {
+                var assemblyType = AppDomain.CurrentDomain.GetAssemblyType("DevExpress.ExpressApp.Web.DeviceDetector");
+                
+                return (DeviceCategory) Enum.Parse(typeof(DeviceCategory),$"{assemblyType.GetProperty("Instance",BindingFlags.Static|BindingFlags.Public)?.GetValue(null).CallMethod("GetDeviceCategory")}");
+            }
         }
 
         public static ListView CreateListView<T>(this XafApplication application, IObjectSpace objectSpace,bool isRoot=true){
@@ -180,9 +172,10 @@ namespace Xpand.Persistent.Base.General {
 
         public static string GetStorageFolder(this XafApplication app,string folderName){
             var fileLocation = GetFileLocation(FileLocation.ApplicationFolder,folderName);
+            
             switch (fileLocation){
                 case FileLocation.CurrentUserApplicationDataFolder:
-                    return System.Windows.Forms.Application.UserAppDataPath;
+                    return (string) AppDomain.CurrentDomain.GetAssemblyType("System.Windows.Forms.Application").GetProperty("UserAppDataPath",BindingFlags.Public|BindingFlags.Static).GetValue(null);
                 default:
                     return PathHelper.GetApplicationFolder();
             }            
@@ -198,13 +191,13 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static void SetEasyTestParameter(this XafApplication app, string parameter){
-            var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");
+            var paramFile = Path.Combine(AppDomain.CurrentDomain.ApplicationPath() + "", "easytestparameters");
             File.AppendAllLines(paramFile,new[] {parameter});
         }
 
         public static bool GetEasyTestParameter(this XafApplication app,string parameter){
             if (app!=null){
-                var paramFile = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "", "easytestparameters");
+                var paramFile = Path.Combine(AppDomain.CurrentDomain.ApplicationPath() + "", "easytestparameters");
                 return File.Exists(paramFile) && File.ReadAllLines(paramFile).Any(s => s == parameter);
             }
             return false;

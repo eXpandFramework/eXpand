@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
         [ModelBrowsable(typeof(AlwaysVisibleCalculator))]
         new Type Type { get; set; }
         [CriteriaOptions("ModelClass.TypeInfo")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win"+AssemblyInfo.VSuffix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win"+AssemblyInfo.VSuffix, "System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
         [Category(XpandSchedulerModule.XpandScheduler)]
         string ReminderCriteria { get; set; }
     }

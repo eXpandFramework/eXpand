@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>9.0.30729</ProductVersion>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -15,12 +15,6 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.configuration" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml" />
     <Reference Include="Xpand.Utils">
       <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
     </Reference>
@@ -31,8 +25,6 @@
   <ItemGroup>
     <Compile Update="General\Controllers\DisableDialogController.cs" />
     <Compile Update="General\Controllers\NavigationItemsController.cs" />
-    <Compile Update="General\Web\NavigationContainerWebController.cs" />
-    <Compile Update="General\Web\ActionsClientScriptController.cs" />
     <Compile Update="General\Controllers\EasyTestController.cs" />
     <Compile Update="General\Controllers\Actions\ActionItemsFromModelController.cs" />
     <Compile Update="General\Controllers\Actions\ActionModelChoiceItemController.cs" />
@@ -40,12 +32,10 @@
     <Compile Update="General\Controllers\Actions\ResetViewModelController.cs" />
     <Compile Update="General\Controllers\CustomAttributesController.cs" />
     <Compile Update="General\Controllers\ModelViewSavingController.cs" />
-    <Compile Update="General\Controllers\NavigationController.cs" />
     <Compile Update="General\Controllers\CreateExpandAbleMembersViewController.cs" />
     <Compile Update="General\Controllers\UpdateTypeConverterController.cs" />
     <Compile Update="General\XpandModuleBase.cs" />
     <Compile Update="MiddleTier\XpandServerApplication.cs" />
-    <Compile Update="ModelAdapter\PropertyEditorControlAdapterController.cs" />
     <Compile Update="General\Controllers\XpandLinkToListViewController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -87,6 +77,11 @@
     <EmbeddedResource Include="Resources\netstandard.dll">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="General\ValueConverters\" />
+    <Folder Include="General\Web\" />
+    <Folder Include="General\Win\" />
   </ItemGroup>
   <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

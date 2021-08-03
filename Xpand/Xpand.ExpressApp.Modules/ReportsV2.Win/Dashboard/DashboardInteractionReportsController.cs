@@ -12,7 +12,7 @@ namespace Xpand.ExpressApp.ReportsV2.Win.Dashboard {
             var objectTypeInfo = Application.TypesInfo.FindTypeInfo(((IReportDataV2) dashboardReportViewItem.ReportData).DataType);
             var reportDataTypeMember = GetReportDataTypeMember(((IModelDashboardViewItemEx)dashboardReportViewItem.Model),objectTypeInfo);
             var report = dashboardReportViewItem.Report;
-            var criteria = new InOperator(reportDataTypeMember, interactionController.Getkeys(listViewFilteringArgs.DataSourceListView));
+            var criteria = new InOperator(reportDataTypeMember, interactionController.GetKeys(listViewFilteringArgs.DataSourceListView));
             report.FilterString = new LocalizedCriteriaWrapper(objectTypeInfo.Type, criteria).CriteriaOperator.ToString();
             report.CreateDocument(false);
 

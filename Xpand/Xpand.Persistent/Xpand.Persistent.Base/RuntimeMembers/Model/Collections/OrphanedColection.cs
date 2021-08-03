@@ -3,6 +3,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Xpo;
 
 namespace Xpand.Persistent.Base.RuntimeMembers.Model.Collections {
@@ -12,7 +13,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model.Collections {
     public interface IModelMemberOrphanedColection :  IModelMemberColection {
         [Category(ModelMemberExDomainLogic.AttributesCategory)]
         [CriteriaOptions("CollectionType.TypeInfo")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, XpandModuleBase.UITypeEditor)]
         string Criteria { get; set; }
     }
     [DomainLogic(typeof(IModelMemberOrphanedColection))]

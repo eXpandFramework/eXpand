@@ -1,9 +1,10 @@
-source C:\Program Files (x86)\DevExpress 21.1\Components\System\Components\Packages
+source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
+source C:\Work\Reactive.XAF\bin\nupkg\
 storage: none
 copy_local:true
-framework:net461,netstandard2.0
+framework:net461,netstandard2.0,net5.0,net5.0-windows,netstandard2.0,netstandard2.1
 
 nuget AForge 2.2.5
 nuget AForge.Imaging 2.2.5
@@ -13,11 +14,11 @@ nuget AppDomainToolkit 1.0.4.3
 nuget AutoMapper 3.3.1
 nuget CommandLineParser 1.9.71
 nuget Common.Logging 3.4.1
-nuget DevExpress.ExpressApp.Win.All == 21.1.4 netstandard2.0
-nuget DevExpress.ExpressApp.Web.All == 21.1.4 netstandard2.0
-nuget DevExpress.ExpressApp.Core.All  == 21.1.4 netstandard2.0
-nuget DevExpress.ExpressApp.Security.Xpo == 21.1.4 netstandard2.0
-nuget DevExpress.Document.Processor 21.1.4 netstandard2.0
+nuget DevExpress.ExpressApp.Win.All == 21.1.4 
+nuget DevExpress.ExpressApp.Web.All == 21.1.4 
+nuget DevExpress.ExpressApp.Core.All  == 21.1.4 
+nuget DevExpress.ExpressApp.Security.Xpo == 21.1.4 
+nuget DevExpress.Document.Processor 21.1.4 
 nuget DocumentFormat.OpenXml 2.11.3
 nuget DotNetZip 1.14.0
 nuget Enums.NET 
@@ -56,11 +57,12 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 4.2.1
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.211.3.0
-nuget Xpand.XAF.Web.All 4.211.3.0
+nuget Xpand.XAF.Win.All 4.211.3.1
+nuget Xpand.XAF.Web.All 4.211.3.1
 nuget System.Memory == 4.5.4
 nuget System.Collections.Immutable == 5.0.0
 nuget System.ServiceModel.NetTcp == 4.8.1
 nuget System.ServiceModel.Security == 4.8.1
 nuget System.ServiceModel.Http == 4.8.1
 nuget System.ServiceModel.Duplex == 4.8.1
+

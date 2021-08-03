@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Design;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -36,8 +35,7 @@ namespace Xpand.ExpressApp.SystemModule {
     [DomainLogic(typeof(IModelNodeAttributeValueItem))]
     public class ModelNodeAttributeValueItemDomainLogic {
         public ITypeInfo Get_TypeInfo(IModelNodeAttributeValueItem item) {
-            var modelPropertyEditor = (item.Parent.Parent as IModelPropertyEditor);
-            if (modelPropertyEditor != null) return modelPropertyEditor.ModelMember.ModelClass.TypeInfo;
+            if (item.Parent.Parent is IModelPropertyEditor modelPropertyEditor) return modelPropertyEditor.ModelMember.ModelClass.TypeInfo;
             var modelListView = item.Parent.Parent as IModelListView;
             return modelListView?.ModelClass.TypeInfo;
         }
@@ -56,7 +54,7 @@ namespace Xpand.ExpressApp.SystemModule {
         [Browsable(false)]
         CurrentAttributeValue CurrentAttributeValue { get; set; }
         [CriteriaOptions("TypeInfo")]
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, XpandModuleBase.UITypeEditor)]
         string Criteria { get; set; }
         [Browsable(false)]
         ITypeInfo TypeInfo { get; }
@@ -95,8 +93,7 @@ namespace Xpand.ExpressApp.SystemModule {
 
 
         private void ApplicationOnViewCreating(object sender, ViewCreatingEventArgs e){
-            var detailView = Application.Model.Views[e.ViewID] as IModelDetailView;
-            if (detailView != null){
+            if (Application.Model.Views[e.ViewID] is IModelDetailView detailView){
                 var modelNodeAttributeValueItems = detailView.Items.OfType<IModelNodeAttributeValue>().SelectMany(item => item.AttributeValueItems);
                 _models = modelNodeAttributeValueItems.Where(item => ValidByCriteria(item.Criteria,((DetailViewCreatingEventArgs) e).Obj)).ToArray();
                 foreach (var item in _models) {

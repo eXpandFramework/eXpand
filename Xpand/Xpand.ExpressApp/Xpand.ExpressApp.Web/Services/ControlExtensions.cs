@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
+using DevExpress.ExpressApp.Xpo;
 
-namespace Xpand.Persistent.Base.General.Web {
+namespace Xpand.ExpressApp.Web.Extensions {
+
     public static class ControlExtensions {
         public static IEnumerable<Control> FindNestedControls(this Control container,Type controlType){
             foreach (Control control in container.Controls) {

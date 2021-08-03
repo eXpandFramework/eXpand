@@ -29,7 +29,7 @@ namespace Xpand.ExpressApp.SystemModule{
     }
 
     public interface IModelPurgingRule:IModelNode{
-        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, typeof(UITypeEditor))]
+        [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win" + XafAssemblyInfo.VersionSuffix + XafAssemblyInfo.AssemblyNamePostfix, XpandModuleBase.UITypeEditor)]
         [CriteriaOptions("TypeInfo")]
         [DefaultValue(EvaluateCSharpOperator.OperatorName+"('new Regex(\".*\").IsMatch(Environment.MachineName)')")]
         string Criteria{ get; set; }

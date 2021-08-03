@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Configuration;
-using System.Web;
 using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Metadata;
+using Fasterflect;
+using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Xpo.DB;
 
 namespace Xpand.Persistent.Base.General {
@@ -16,8 +17,7 @@ namespace Xpand.Persistent.Base.General {
 
         public DataStoreProvider(IDataStore dataStore) {
             _proxy = new DataStoreProxy(dataStore);
-            var connectionProviderSql = dataStore as ConnectionProviderSql;
-            if (connectionProviderSql!=null)
+            if (dataStore is ConnectionProviderSql connectionProviderSql)
                 _connectionString = connectionProviderSql.ConnectionString;
         }
 
@@ -27,14 +27,15 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public string ConnectionString {
-            get { return _connectionString; }
-            set { _connectionString = value; }
+            get => _connectionString;
+            set => _connectionString = value;
         }
 
         public IDataStore CreateWorkingStore(out IDisposable[] disposableObjects) {
             disposableObjects = null;
             if ((ConfigurationManager.AppSettings["DataCache"] + "").Contains("Client")) {
-                var cacheNode = HttpContext.Current.Application["DataStore"] as DataCacheNode;
+                
+                var cacheNode = AppDomain.CurrentDomain.Web().AppDomain.GetPropertyValue("Application").GetIndexer("DataStore") as DataCacheNode;
                 if (cacheNode == null) {
                     var cacheRoot = new DataCacheRoot(Proxy.DataStore);
                     cacheNode = new DataCacheNode(cacheRoot);
@@ -51,6 +52,6 @@ namespace Xpand.Persistent.Base.General {
 
         public XPDictionary XPDictionary => null;
 
-        public virtual DataStoreProxy Proxy => _proxy ??(_proxy =new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.None)));
+        public virtual DataStoreProxy Proxy => _proxy ??= new DataStoreProxy(XpoDefault.GetConnectionProvider(_connectionString, AutoCreateOption.None));
     }
 }

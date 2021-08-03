@@ -35,7 +35,7 @@ namespace Xpand.VSIX.ToolWindow.ModelEditor {
         }
 
         private IObservable<string> MePath(ProjectItemWrapper projectItemWrapper) {
-            if (projectItemWrapper.TargetFramework != null && (projectItemWrapper.TargetFramework.StartsWith("netcore") ||
+            if (projectItemWrapper.TargetFramework != null && (projectItemWrapper.TargetFramework.StartsWith("netcore")||projectItemWrapper.TargetFramework.StartsWith("net5") ||
                                                                projectItemWrapper.TargetFramework == "netstandard2.1")) {
                 var assembly = projectItemWrapper.GetType().Assembly;
                 var ns = $"{typeof(ModelEditorRunner).Namespace}.WinDesktop.";

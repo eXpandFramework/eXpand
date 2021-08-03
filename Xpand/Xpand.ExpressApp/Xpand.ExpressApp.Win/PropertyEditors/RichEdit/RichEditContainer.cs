@@ -3,7 +3,7 @@ using System.Linq;
 using AutoMapper;
 using DevExpress.XtraBars;
 using DevExpress.XtraRichEdit;
-using Xpand.Persistent.Base.General.Win;
+using Xpand.ExpressApp.Win.Services;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     public partial class RichEditContainer : RichEditContainerBase {

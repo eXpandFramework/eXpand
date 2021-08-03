@@ -5,11 +5,11 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.DC.Xpo;
 using DevExpress.ExpressApp.Security;
-using DevExpress.ExpressApp.Security.ClientServer;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Xpand.Extensions.TypeExtensions;
 
 namespace Xpand.Persistent.Base.General {
     public class DynamicSecuritySystemObjects {
@@ -25,8 +25,7 @@ namespace Xpand.Persistent.Base.General {
 
         public List<XPMemberInfo> BuildRole(Type otherPartMember, string association, string propertyName, string otherPartPropertyName, bool visibleInDetailView = true) {
             var xpCustomMemberInfos = new List<XPMemberInfo>();
-            var securityComplex = _application.Security as IRoleTypeProvider;
-            if (securityComplex != null) {
+            if (_application.Security is IRoleTypeProvider securityComplex) {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
                 var typeToCreateOn = securityComplex.RoleType.IsInterface ? XpandModuleBase.RoleType : typeInfo.Type;
                 if (IsValidType(typeToCreateOn)) {
@@ -49,7 +48,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         private bool IsValidDataLayer(){
-            if (_application.ObjectSpaceProviders.OfType<DataServerObjectSpaceProvider>().Any())
+            if (_application.ObjectSpaceProviders.Any(provider => provider.GetType().InheritsFrom("DevExpress.ExpressApp.Security.ClientServer.DataServerObjectSpaceProvider")))
                 return true;
             var isValidDataLayer =_application.ObjectSpaceProviders.OfType<XPObjectSpaceProvider>()
                     .Any(provider => !(provider.DataLayer is ThreadSafeDataLayer));
@@ -82,7 +81,7 @@ namespace Xpand.Persistent.Base.General {
 
         private static string GetUserAssociation(string association, Type userType){
             return typeof(IPermissionPolicyUser).IsAssignableFrom(userType)
-                ? userType.FullName.Replace(".", "_") + association
+                ? userType.FullName?.Replace(".", "_") + association
                 : association;
         }
 

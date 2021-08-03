@@ -133,7 +133,7 @@ namespace Xpand.ExpressApp.Email.Model {
 
     public interface IModelEmailReceipient : IModelNode {
         [Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win"+AssemblyInfo.VSuffix
-            , typeof(UITypeEditor)), CriteriaOptions("EmailReceipient.TypeInfo")]
+            , "System.Drawing.Design.UITypeEditor, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"), CriteriaOptions("EmailReceipient.TypeInfo")]
         string Criteria { get; set; }
         [Required, DataSourceProperty("EmailMembers")]
         IModelMember EmailMember { get; set; }
