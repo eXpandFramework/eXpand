@@ -14,16 +14,18 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency id="AutoMapper" version="3.3.1" />
-      <dependency id="eXpandLib" version="21.1.401.0" />
-      <dependency id="eXpandSystem" version="21.1.401.0" />
-      <dependency id="Xpand.XAF.Modules.GridListEditor" version="4.211.3" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.211.3" />
+      <dependency id="AutoMapper" version="10.1.1" />
+      <dependency id="eXpandLib" version="21.1.500.0" />
+      <dependency id="eXpandSystem" version="21.1.500.0" />
+      <dependency id="Xpand.XAF.Modules.GridListEditor" version="4.211.5.6" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.211.5.6" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Win.dll" target="lib\net461\Xpand.ExpressApp.Win.dll" />
-    <file src="Xpand.ExpressApp.Win.pdb" target="lib\net461\Xpand.ExpressApp.Win.pdb" />
+    <file src=".\net461\Xpand.ExpressApp.Win.dll" target="lib\net461\Xpand.ExpressApp.Win.dll" />
+    <file src=".\net461\Xpand.ExpressApp.Win.pdb" target="lib\net461\Xpand.ExpressApp.Win.pdb" />
+    <file src=".\net5.0-windows7.0\Xpand.ExpressApp.Win.dll" target="lib\net5.0\Xpand.ExpressApp.Win.dll" />
+    <file src=".\net5.0-windows7.0\Xpand.ExpressApp.Win.pdb" target="lib\net5.0\Xpand.ExpressApp.Win.pdb" />
     <file src="..\Support\build\CopySymbols.targets" target="build\eXpandSystemWin.targets">
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">

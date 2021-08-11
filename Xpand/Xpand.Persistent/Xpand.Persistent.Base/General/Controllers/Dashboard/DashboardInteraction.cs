@@ -10,8 +10,8 @@ using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using Fasterflect;
+using Xpand.Extensions.Reactive.Conditional;
 using Xpand.Extensions.Reactive.Transform;
-using Xpand.XAF.Modules.Reactive.Extensions;
 using ListView = DevExpress.ExpressApp.ListView;
 
 namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
@@ -60,7 +60,8 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
                         }
 
                     })
-                    .Subscribe(this);
+                    .TakeUntilDisposed(this)
+                    .Subscribe();
             }
             ((ISupportAppearanceCustomization)View.LayoutManager).CustomizeAppearance += LayoutManagerOnCustomizeAppearance;
             foreach (var item in View.GetItems<DashboardViewItem>()) {

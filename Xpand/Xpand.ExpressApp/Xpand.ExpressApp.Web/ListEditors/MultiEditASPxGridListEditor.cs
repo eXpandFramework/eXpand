@@ -14,6 +14,7 @@ using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Utils;
 using DevExpress.Web;
 using DevExpress.Xpo;
+using Xpand.ExpressApp.Web.Services;
 using CallbackEventArgs = DevExpress.Web.CallbackEventArgs;
 
 namespace Xpand.ExpressApp.Web.ListEditors{

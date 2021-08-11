@@ -23,16 +23,16 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference. To debug in VS ena
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="21.1.401.0" />
-      <dependency id="eXpandSecurity" version="21.1.401.0" />
-      <dependency id="eXpandViewVariants" version="21.1.401.0" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.211.3" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.211.3" />
+      <dependency id="eXpandLib" version="21.1.500.0" />
+      <dependency id="eXpandSecurity" version="21.1.500.0" />
+      <dependency id="eXpandViewVariants" version="21.1.500.0" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.211.5.6" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.211.5.6" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.ModelDifference.dll" target="lib\net461\Xpand.ExpressApp.ModelDifference.dll" />
-    <file src="Xpand.ExpressApp.ModelDifference.pdb" target="lib\net461\Xpand.ExpressApp.ModelDifference.pdb" />
+    <file src="Xpand.ExpressApp.ModelDifference.dll" target="lib\netstandard2.0\Xpand.ExpressApp.ModelDifference.dll" />
+    <file src="Xpand.ExpressApp.ModelDifference.pdb" target="lib\netstandard2.0\Xpand.ExpressApp.ModelDifference.pdb" />
     <file src="..\Support\build\CopySymbols.targets" target="build\eXpandModelDifference.targets">
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">

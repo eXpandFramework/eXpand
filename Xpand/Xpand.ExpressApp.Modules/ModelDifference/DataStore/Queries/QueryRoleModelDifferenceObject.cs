@@ -3,7 +3,7 @@ using System.Linq;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
-using DevExpress.Persistent.Base.Security;
+using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.Persistent.Base.ModelDifference;
@@ -14,7 +14,7 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
             : base(session) {
         }
         public override IQueryable<RoleModelDifferenceObject> GetActiveModelDifferences(string applicationName, string name, DeviceCategory deviceCategory=DeviceCategory.All) {
-            var userWithRoles = SecuritySystem.CurrentUser as IUserWithRoles;
+            var userWithRoles = SecuritySystem.CurrentUser as IPermissionPolicyUser;
             var collection = GetRoles(userWithRoles);
             if (collection != null) {
                 var roleType = ((IRoleTypeProvider)SecuritySystem.Instance).RoleType;
@@ -26,14 +26,13 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.Queries {
             return base.GetActiveModelDifferences(applicationName, name,deviceCategory).OfType<RoleModelDifferenceObject>().AsQueryable();
         }
 
-        IEnumerable<object> GetRoles(IUserWithRoles userWithRoles) {
+        IEnumerable<object> GetRoles(IPermissionPolicyUser userWithRoles) {
             IEnumerable<object> roles = null;
             if (userWithRoles != null) {
                 roles = userWithRoles.Roles.OfType<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
             }
             if (roles == null) {
-                var securityUserWithRoles = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
-                if (securityUserWithRoles != null) {
+                if (SecuritySystem.CurrentUser is ISecurityUserWithRoles securityUserWithRoles) {
                     roles =securityUserWithRoles.Roles.OfType<XPBaseObject>().Select(role => role.ClassInfo.KeyProperty.GetValue(role));
                 }
             }

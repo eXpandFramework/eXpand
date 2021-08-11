@@ -1,6 +1,6 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "20.2.401.3",
+    [string]$version = "20.2.500.1",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )
@@ -49,7 +49,7 @@ $nuspecs = Get-ChildItem "$PSScriptRoot\..\Nuspec" -Exclude "ALL_*" -recurse | F
     }
 }
 
-# $nuspecs|Where-Object{$_.FileInfo.baseName -eq "System.Win"} | ForEach-Object {   
+# $nuspecs| ForEach-Object {   
 $nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {   
     $name = ($_.FileInfo.BaseName)
     Write-Output "--------------------Updating $name-----------------------" 
@@ -73,9 +73,9 @@ $nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {
     }
     $project | ForEach-Object {
         Push-Location $_.DirectoryName
-        [xml]$csproj = Get-Content $_.FullName
+        $csproj = Get-XmlContent $_.FullName
         
-        $xpandMoleReference = $csproj.project.ItemGroup.Reference | Where-Object { $_.include -like "Xpand.ExpressApp*" }
+        $xpandMoleReference = $csproj.Project.ItemGroup.Reference | Where-Object { $_.include -like "Xpand.ExpressApp*" }
         if ($name -ne "lib") {
             $libRefs = $csproj.project.ItemGroup.Reference | Where-Object { $_.include -like "Xpand.*" -and $_ -notin $xpandMoleReference } | Select-Object -First 1
             $assemblyPath = Get-Item (Resolve-Path $libRefs.hintpath)
@@ -83,9 +83,14 @@ $nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {
             Add-NuspecDependency eXpandLib $version $nuspec
         }
         $xpandMoleReference | ForEach-Object {
-            $assemblyPath = Get-Item (Resolve-Path $_.hintpath)
+            $hintPath=$_.hintpath
+            $multiTarget=$hintPath -match "TargetFramework"
+            if($multiTarget ){
+                $hintPath=$hintPath.Replace('$(TargetFramework)','net461')
+            }
+            $assemblyPath = Get-Item (Resolve-Path $hintPath)
             $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($assemblyPath.FullName).FileVersion
-            $id = ($nuspecs | Where-Object { $_.Content.package.files.file | Where-Object { $_.src -eq $assemblyPath.Name } }).Content.package.metaData.id
+            $id = ($nuspecs | Where-Object { $_.Content.package.files.file | Where-Object { $_.src -match $assemblyPath.Name } }).Content.package.metaData.id
             Add-NuspecDependency $id $version $nuspec
         }
         

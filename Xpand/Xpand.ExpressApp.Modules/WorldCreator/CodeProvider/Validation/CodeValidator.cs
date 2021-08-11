@@ -40,7 +40,9 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
             if (validatorResult.Valid){
                 var assemblyPath = Path.Combine(_compiler.AssemblyPath,
                 assemblyName + CodeProvider.Compiler.XpandExtension);
+#if !NETSTANDARD2_0
                 validatorResult = _assemblyValidator.Validate(assemblyPath);
+#endif
             }
             return validatorResult;
         }

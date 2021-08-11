@@ -5,7 +5,6 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base;
-using Xpand.Persistent.Base.General.ValueConverters;
 using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects {

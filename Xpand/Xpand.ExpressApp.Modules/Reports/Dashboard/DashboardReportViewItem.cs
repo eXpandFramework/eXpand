@@ -8,7 +8,7 @@ using DevExpress.XtraPrinting.Control;
 using DevExpress.XtraPrinting.Preview;
 using DevExpress.XtraReports.UI;
 using Xpand.Persistent.Base.General.Controllers.Dashboard;
-using Xpand.Persistent.Base.General.Win;
+
 
 namespace Xpand.ExpressApp.Reports.Dashboard {
     public interface IModelDashboardReportViewItem : IModelDashboardReportViewItemBase {
@@ -46,7 +46,7 @@ namespace Xpand.ExpressApp.Reports.Dashboard {
                 control.Parent.ParentChanged += OnControlParentChanged;
             }
             else{
-                control.Execute(InitializePrintController);
+                // control.Execute(InitializePrintController);
             }
         }
 

@@ -5,7 +5,6 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.Security.Core;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
@@ -24,7 +23,7 @@ namespace Xpand.ExpressApp.Logic {
             handler?.Invoke(this, e);
         }
 
-        readonly HashSet<IModelLogicWrapper> _modelLogics = new HashSet<IModelLogicWrapper>();
+        readonly HashSet<IModelLogicWrapper> _modelLogics = new();
         private Type[] _generatedTypes;
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
@@ -41,12 +40,8 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         IEnumerable<IContextLogicRule> GetPermissions() {
-            object user = SecuritySystem.CurrentUser as IUser;
-            if (user != null) {
-                return ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<IContextLogicRule>();
-            }
-            user = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
-            return user != null ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<IContextLogicRule>()
+            return SecuritySystem.CurrentUser is ISecurityUserWithRoles
+                ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<IContextLogicRule>()
                 : Enumerable.Empty<IContextLogicRule>();
         }
 
@@ -167,13 +162,13 @@ namespace Xpand.ExpressApp.Logic {
         public void Attach(ModuleBase moduleBase) {
             _module = moduleBase;
             if (moduleBase.Application != null) {
-                moduleBase.Application.LoggedOn += (o, eventArgs) => CollectRules((XafApplication)o);
+                moduleBase.Application.LoggedOn += (o, _) => CollectRules((XafApplication)o);
                 moduleBase.Application.SetupComplete += ApplicationOnSetupComplete;
             }
         }
     }
 
     public class CollectModelLogicsArgs : EventArgs {
-        public List<IModelLogicWrapper> ModelLogics { get; } = new List<IModelLogicWrapper>();
+        public List<IModelLogicWrapper> ModelLogics { get; } = new();
     }
 }

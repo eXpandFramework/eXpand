@@ -8,6 +8,7 @@ using DevExpress.Persistent.Base;
 using Fasterflect;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Model;
+using Xpand.ExpressApp.Web.Services;
 
 namespace Xpand.ExpressApp.Web {
     public sealed class XpandHttpRequestManager : DefaultHttpRequestManager, IHttpRequestManager {

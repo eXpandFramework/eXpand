@@ -3,7 +3,7 @@ $rootLocation = "$PSScriptRoot\..\..\"
 Write-Host "Update Projects"
 Set-Location $rootLocation
 
-Update-HintPath $rootLocation "$rootLocation\Xpand.Dll\" @("Xpand.*","DevExpress.*") @("*.DXCore.*","Xpand.XAF*","Xpand.VersionConverter*")
+# Update-HintPath $rootLocation "$rootLocation\Xpand.Dll\" @("Xpand.*","DevExpress.*") @("*.DXCore.*","Xpand.XAF*","Xpand.VersionConverter*")
 Get-ChildItem "$rootLocation\Xpand" *.csproj -Recurse | ForEach-Object {
     $fileName = $_.FullName
     [xml]$projXml = Get-Content $fileName

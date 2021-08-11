@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -13,16 +13,16 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Configuration" />
+    <!-- <Reference Include="System.Configuration" /> -->
     <Reference Include="Xpand.Persistent.Base">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Persistent.Base.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.Utils">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Utils.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Xpo">
-      <HintPath>..\..\..\Xpand.dll\Xpand.Xpo.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
@@ -33,10 +33,6 @@
     <Compile Update="Controllers\MyDetailsController.cs" />
     <Compile Update="Controllers\ShowNavigationItemController.cs" />
     <Compile Update="Controllers\MyDetailsPermissionController.cs" />
-    <Compile Update="Controllers\DefaultRolePermissionsController.cs" />
-    <Compile Update="Controllers\DefaultRolePermissionsController.Designer.cs">
-      <DependentUpon>DefaultRolePermissionsController.cs</DependentUpon>
-    </Compile>
     <Compile Update="Controllers\RememberMeController.cs" />
     <Compile Update="Module.cs" />
     <Compile Update="XpandSecurityModuleBase.cs" />

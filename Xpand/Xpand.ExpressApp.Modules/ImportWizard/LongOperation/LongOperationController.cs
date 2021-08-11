@@ -237,7 +237,9 @@ namespace Xpand.ExpressApp.ImportWizard.LongOperation {
                     //
                     // Thanks, Dan.
                     //
+#pragma warning disable SYSLIB0006 // Type or member is obsolete
                     worker.Abort();
+#pragma warning restore SYSLIB0006 // Type or member is obsolete
 
                     SetStatus(LongOperationStatus.Terminated);
                     RaiseCompleted(LongOperationResult.Terminated);
@@ -342,7 +344,9 @@ namespace Xpand.ExpressApp.ImportWizard.LongOperation {
             }
             if(cancellingWorker != null) {
                 try {
+#pragma warning disable SYSLIB0006 // Type or member is obsolete
                     cancellingWorker.Abort();
+#pragma warning restore SYSLIB0006 // Type or member is obsolete
                 }
                 catch { }
                 cancellingWorker = null;

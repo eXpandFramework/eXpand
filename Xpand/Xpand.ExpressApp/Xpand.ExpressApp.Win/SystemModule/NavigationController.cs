@@ -1,49 +1,14 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
-using DevExpress.ExpressApp.Model;
-using DevExpress.ExpressApp.Model.Core;
-using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.XtraBars.Docking;
-using Xpand.Persistent.Base.General.Model;
-using Xpand.Persistent.Base.General.Web;
+using Xpand.Persistent.Base.General.Controllers;
 
-namespace Xpand.Persistent.Base.General.Controllers {
-    public interface IModelOptionsNavigationContainer{
-        [Category(AttributeCategoryNameProvider.XpandNavigation)]
-        [Description("Overrides NavigationAlwaysVisibleOnStartup")]
-        bool? HideNavigationOnStartup { get; set; }
-        [Category(AttributeCategoryNameProvider.XpandNavigation)]
-        [DefaultValue(true)]
-        bool NavigationAlwaysVisibleOnStartup { get; set; }
-    }
+namespace Xpand.ExpressApp.Win.SystemModule {
 
-    public class NavigationContainerController:WindowController,IModelExtender {
-        public const string ToggleNavigationId = "ToggleNavigation";
 
-        public NavigationContainerController() {
-            ToggleNavigation = new SimpleAction(this, ToggleNavigationId, "Hidden");
-            TargetWindowType=WindowType.Main;
-        }
-
-        public SimpleAction ToggleNavigation{ get; }
-
-        public void ExtendModelInterfaces(ModelInterfaceExtenders extenders){
-            extenders.Add<IModelOptions,IModelOptionsNavigationContainer>();
-        }
-    }
-
-    public class ToggleNavigationActionUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
-        public override void UpdateNode(ModelNode node){
-            var modelAction = node.Application.ActionDesign.Actions[NavigationContainerController.ToggleNavigationId] as IModelActionClientScript;
-            if (modelAction != null) {
-                modelAction.ClientScript = "OnClick('LPcell','separatorImage',true);";
-            }
-        }
-    }
 
     public class NavigationContainerWinController : NavigationContainerController {
 

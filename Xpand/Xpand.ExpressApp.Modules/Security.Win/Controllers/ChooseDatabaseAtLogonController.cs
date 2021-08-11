@@ -6,6 +6,7 @@ using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Security.Controllers;
+using Xpand.Extensions.AppDomainExtensions;
 
 namespace Xpand.ExpressApp.Security.Win.Controllers {
     public class ChooseDatabaseAtLogonController: WindowController {
@@ -33,7 +34,7 @@ namespace Xpand.ExpressApp.Security.Win.Controllers {
             var xafApplication = ((XafApplication) sender);
             xafApplication.LoggedOff-=ApplicationOnLoggedOff;
             var info = new ProcessStartInfo();
-            var exeName = Path.Combine(AppDomain.CurrentDomain.SetupInformation.ApplicationBase, AppDomain.CurrentDomain.SetupInformation.ApplicationName);
+            var exeName = Path.Combine(AppDomain.CurrentDomain.ApplicationPath(), AppDomain.CurrentDomain.ApplicationName());
             info.Arguments = "/C ping 127.0.0.1 -n 2 && \"" + exeName + "\"";
             info.WindowStyle = ProcessWindowStyle.Hidden;
             info.CreateNoWindow = true;

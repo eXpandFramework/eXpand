@@ -11,7 +11,7 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using Xpand.ExpressApp.PivotChart.Core;
 using Xpand.ExpressApp.PivotChart.Web.Options;
-using Xpand.Persistent.Base.General.ValueConverters;
+
 using AnalysisPropertyEditorNodeUpdater = Xpand.ExpressApp.PivotChart.Web.Core.AnalysisPropertyEditorNodeUpdater;
 using TypesInfo = Xpand.ExpressApp.PivotChart.Core.TypesInfo;
 
@@ -32,8 +32,8 @@ namespace Xpand.ExpressApp.PivotChart.Web {
 
         protected override IMemberInfo OnCreateMember(ITypeInfo typeInfo, string name, Type propertyType) {
             IMemberInfo memberInfo = base.OnCreateMember(typeInfo, name, propertyType);
-            if (propertyType == typeof(Unit))
-                memberInfo.AddAttribute(new ValueConverterAttribute(typeof(UnitValueConverter)));
+            // if (propertyType == typeof(Unit))
+                // memberInfo.AddAttribute(new ValueConverterAttribute(typeof(UnitValueConverter)));
             return memberInfo;
         }
 

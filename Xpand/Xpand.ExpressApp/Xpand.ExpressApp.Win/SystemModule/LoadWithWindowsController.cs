@@ -31,14 +31,14 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void WriteRegistry() {
             try{
-                RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
-                if (key != null) {
-                    if (((IModelOptionsLoadWithWindowsOptions)Application.Model.Options).LoadWithWindows) {
-                        key.SetValue(Application.Title, "\"" + System.Windows.Forms.Application.ExecutablePath + "\"");
-                    } else if (key.GetValue(Application.Title) != null) {
-                        key.DeleteValue(Application.Title);
-                    }
-                }
+                // RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true);
+                // if (key != null) {
+                //     if (((IModelOptionsLoadWithWindowsOptions)Application.Model.Options).LoadWithWindows) {
+                //         key.SetValue(Application.Title, "\"" + System.Windows.Forms.Application.ExecutablePath + "\"");
+                //     } else if (key.GetValue(Application.Title) != null) {
+                //         key.DeleteValue(Application.Title);
+                //     }
+                // }
             }
             catch (Exception e){
                 Tracing.Tracer.LogError(e);

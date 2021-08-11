@@ -8,7 +8,7 @@ using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.Model;
 using Xpand.Persistent.Base.Security;
 
-namespace Xpand.ExpressApp.Web {
+namespace Xpand.ExpressApp.Web.Services {
 
     public static class Extensions {
         public static IModelMemberViewItem Model(this GridViewDataColumn column,IModelListView modelListView){
@@ -27,27 +27,23 @@ namespace Xpand.ExpressApp.Web {
         public static bool SupportsUserActivation(this WebApplication application) {
             if (application.Model == null)
                 return false;
-            var modelOptionsRegistration = application.Model.Options as IModelOptionsRegistration;
-            return modelOptionsRegistration != null && modelOptionsRegistration.Registration.Enabled &&
+            return application.Model.Options is IModelOptionsRegistration modelOptionsRegistration && modelOptionsRegistration.Registration.Enabled &&
                    ((IModelRegistrationActivation)modelOptionsRegistration.Registration).ActivationIdMember != null;
         }
         public static bool SupportsQueryStringParameter(this WebApplication application) {
             if (application.Model == null)
                 return false;
-            var modelOptionsQueryStringParameter = application.Model.Options as IModelOptionsQueryStringParameter;
-            return modelOptionsQueryStringParameter != null && modelOptionsQueryStringParameter.QueryStringParameters.Any();
+            return application.Model.Options is IModelOptionsQueryStringParameter modelOptionsQueryStringParameter && modelOptionsQueryStringParameter.QueryStringParameters.Any();
         }
 
         public static bool SupportsFriendlyUrl(this WebApplication application) {
             if (application.Model == null)
                 return false;
-            var modelOptionsFriendlyUrl = application.Model.Options as IModelOptionsFriendlyUrl;
-            return modelOptionsFriendlyUrl != null && modelOptionsFriendlyUrl.EnableFriendlyUrl;
+            return application.Model.Options is IModelOptionsFriendlyUrl {EnableFriendlyUrl: true};
         }
 
         public static TCType FindControlByType<TCType>(this Control parent) where TCType : Control {
-            var result = parent as TCType;
-            if (result != null) return result;
+            if (parent is TCType result) return result;
             return parent.Controls.Cast<Control>().Select(FindControlByType<TCType>).FirstOrDefault(c => c != null);
         }
 

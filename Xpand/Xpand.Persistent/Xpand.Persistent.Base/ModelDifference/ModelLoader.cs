@@ -12,6 +12,7 @@ using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Fasterflect;
 using Xpand.Extensions.AppDomainExtensions;
+using Xpand.Extensions.XAF.ApplicationModulesManagerExtensions;
 using Xpand.Persistent.Base.ModelAdapter;
 
 namespace Xpand.Persistent.Base.ModelDifference {
@@ -62,7 +63,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
                 // config = WebConfigurationManager.OpenMappedWebConfiguration(mapping, "/Dummy");
             }
 
-            return config.AppSettings.Settings["Modules"]?.Value.Split(';');
+            return config?.AppSettings.Settings["Modules"]?.Value.Split(';');
         }
 
 
@@ -75,10 +76,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
             }
 
             applicationModulesManager.TypesInfo.AssignAsInstance();
-            var modelApplication = ModelApplicationHelper.CreateModel(applicationModulesManager.TypesInfo,
-            applicationModulesManager.DomainComponents, applicationModulesManager.Modules,
-            applicationModulesManager.ControllersManager, application.ResourcesExportedToModel,
-            GetAspects(configFileName), modelAssemblyFile, null);
+            var modelApplication = applicationModulesManager.CreateModel(GetAspects(configFileName));
             var modelApplicationBase = modelApplication.CreatorInstance.CreateModelApplication();
             modelApplicationBase.Id = "After Setup";
             ModelApplicationHelper.AddLayer(modelApplication, modelApplicationBase);
@@ -184,7 +182,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
                     .FromModule(_moduleName)
                     .Build(tryToUseCurrentTypesInfo);
                 _xafApplication = ApplicationBuilder.Create().
-                    UsingTypesInfo(s => _typesInfo).
+                    UsingTypesInfo(_ => _typesInfo).
                     FromModule(_moduleName).
                     Build();
 

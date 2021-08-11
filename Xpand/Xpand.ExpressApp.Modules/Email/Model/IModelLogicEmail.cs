@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing.Design;
 using System.Linq;
 using System.Net.Mail;
 using DevExpress.ExpressApp.DC;
@@ -11,6 +10,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.Email.BusinessObjects;
 using Xpand.Persistent.Base.Email;
+using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic.Model;
 using Xpand.Persistent.Base.Logic.NodeGenerators;
 
@@ -162,7 +162,7 @@ namespace Xpand.ExpressApp.Email.Model {
     public interface IModelEmailTemplate : IModelNode {
         [CriteriaOptions("EmailTemplate.TypeInfo"),
          Editor("DevExpress.ExpressApp.Win.Core.ModelEditor.CriteriaModelEditorControl, DevExpress.ExpressApp.Win"+AssemblyInfo.VSuffix
-             , typeof (UITypeEditor))]
+             , XpandModuleBase.UITypeEditor)]
         string Criteria { get; set; }
         [DataSourceProperty("EmailTemplates"), Required]
         IModelClass EmailTemplate { get; set; }

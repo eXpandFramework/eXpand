@@ -52,8 +52,8 @@ namespace Xpand.ExpressApp.Security {
                 if (Application.Security != null && typeof(IPermissionPolicyUser).IsAssignableFrom(Application.Security.UserType))
                     AddToAdditionalExportedTypes(BaseImplNameSpace);
                 Application.SetupComplete += ApplicationOnSetupComplete;
-                Application.LogonFailed += (o, eventArgs) => {
-                    if (SecuritySystem.LogonParameters is IXpandLogonParameters logonParameters && logonParameters.RememberMe) {
+                Application.LogonFailed += (_, _) => {
+                    if (SecuritySystem.LogonParameters is IXpandLogonParameters {RememberMe: true} logonParameters) {
                         logonParameters.RememberMe = false;
                         ObjectSerializer.WriteObjectPropertyValues(null, logonParameters.Storage, logonParameters);
                     }
@@ -72,7 +72,6 @@ namespace Xpand.ExpressApp.Security {
                 typeof(MyDetailsController),
                 typeof(MyDetailsPermissionController),
                 typeof(FilterCustomPermissionsController),
-                typeof(DefaultRolePermissionsController),
                 typeof(RememberMeController),
                 typeof(CreatableItemController),
                 typeof(FilterByColumnController),

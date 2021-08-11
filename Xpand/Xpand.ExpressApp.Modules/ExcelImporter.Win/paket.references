@@ -1,6 +1,5 @@
 System.IO.Compression
 ExcelDataReader.DataSet
-WindowsBase
 DevExpress.ExpressApp.FileAttachment.Win
 DevExpress.ExpressApp.Notifications.Win
 DevExpress.ExpressApp.Validation.Win

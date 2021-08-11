@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using DevExpress.Xpo;
-using Xpand.ExpressApp.PivotChart.PivotedProperty;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.PersistentMetaData;
 using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
@@ -34,10 +34,11 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentAttributeInfos 
         }
 
         public override AttributeInfoAttribute Create() {
-            return
-                new AttributeInfoAttribute(
-                    typeof (PivotedPropertyAttribute).GetConstructor(new[] {typeof (string), typeof (string),typeof(string)}),
-                    CollectionName, Criteria,AssociatedMemberName);
+            throw new NotImplementedException();
+            // return
+            //     new AttributeInfoAttribute(
+            //         typeof (PivotedPropertyAttribute).GetConstructor(new[] {typeof (string), typeof (string),typeof(string)}),
+            //         CollectionName, Criteria,AssociatedMemberName);
         }
     }
 }

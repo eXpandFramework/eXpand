@@ -6,6 +6,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Web.Services;
 
 namespace Xpand.ExpressApp.Web.FriendlyUrl {
     class FriendlyUrlHelper {

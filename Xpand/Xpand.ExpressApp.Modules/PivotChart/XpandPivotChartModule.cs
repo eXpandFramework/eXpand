@@ -7,7 +7,7 @@ using DevExpress.ExpressApp.PivotChart;
 using DevExpress.Persistent.Base;
 using DevExpress.Utils;
 using Xpand.ExpressApp.PivotChart.AnalysisControlVisibility;
-using Xpand.ExpressApp.PivotChart.Security;
+using Xpand.ExpressApp.PivotChart.Security.Improved;
 using Xpand.ExpressApp.Validation;
 using Xpand.Persistent.Base.General;
 

@@ -665,7 +665,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Debugger.Interop">
-          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop\lib\net11\Microsoft.VisualStudio.Debugger.Interop.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop\lib\net45\Microsoft.VisualStudio.Debugger.Interop.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -676,7 +676,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Debugger.Interop.10.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.10.0\lib\net20\Microsoft.VisualStudio.Debugger.Interop.10.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.10.0\lib\net45\Microsoft.VisualStudio.Debugger.Interop.10.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -687,7 +687,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Debugger.Interop.11.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.11.0\lib\net20\Microsoft.VisualStudio.Debugger.Interop.11.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.11.0\lib\net45\Microsoft.VisualStudio.Debugger.Interop.11.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -698,7 +698,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Debugger.Interop.12.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.12.0\lib\net20\Microsoft.VisualStudio.Debugger.Interop.12.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.12.0\lib\net45\Microsoft.VisualStudio.Debugger.Interop.12.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -709,7 +709,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Debugger.Interop.14.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.14.0\lib\net20\Microsoft.VisualStudio.Debugger.Interop.14.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.14.0\lib\net45\Microsoft.VisualStudio.Debugger.Interop.14.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -720,7 +720,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Debugger.Interop.15.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.15.0\lib\net20\Microsoft.VisualStudio.Debugger.Interop.15.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.Interop.15.0\lib\net45\Microsoft.VisualStudio.Debugger.Interop.15.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -731,7 +731,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Debugger.InteropA">
-          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.InteropA\lib\net10\Microsoft.VisualStudio.Debugger.InteropA.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Debugger.InteropA\lib\net45\Microsoft.VisualStudio.Debugger.InteropA.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -742,7 +742,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.Designer.Interfaces">
-          <HintPath>..\packages\Microsoft.VisualStudio.Designer.Interfaces\lib\net11\Microsoft.VisualStudio.Designer.Interfaces.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.Designer.Interfaces\lib\net45\Microsoft.VisualStudio.Designer.Interfaces.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -1252,7 +1252,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.7.2'">
       <ItemGroup>
         <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0">
-          <HintPath>..\packages\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0\lib\net40\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll</HintPath>
+          <HintPath>..\packages\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0\lib\net45\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

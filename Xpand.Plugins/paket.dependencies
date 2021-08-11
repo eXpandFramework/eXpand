@@ -1,18 +1,17 @@
 storage: packages
 framework: auto-detect
-source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
+source C:\Program Files (x86)\DevExpress 21.1\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
-source f:\devexpress\packages
 
 
-nuget DevExpress.ExpressApp.Xpo == 21.1.4
-nuget DevExpress.ExpressApp.Win == 21.1.4
+nuget DevExpress.ExpressApp.Xpo == 21.1.5
+nuget DevExpress.ExpressApp.Win == 21.1.5
 nuget Fasterflect.Xpand
 nuget Fody 4.2.1
 nuget Microsoft.CSharp 4.7.0
 nuget Microsoft.VisualStudio.SDK 15.9.3
-nuget Microsoft.VisualStudio.SDK.EmbedInteropTypes 15.0.27
+nuget Microsoft.VisualStudio.SDK.EmbedInteropTypes 15.0.34
 nuget Microsoft.VSSDK.BuildTools 15.9.3032
 nuget Microsoft.VisualStudio.Shell.15.0 == 15.9.28307
 
@@ -46,6 +45,7 @@ nuget Microsoft.VisualStudio.Package.LanguageService.15.0 15.9.28307
 nuget Microsoft.VisualStudio.SDK.Analyzers 15.8.36
 nuget Microsoft.VisualStudio.Shell.Design 15.9.28307
 nuget Microsoft.VisualStudio.Shell.Embeddable 15.9.28307
+nuget Microsoft.VisualStudio.Shell.Embeddable 15.9.28307
 nuget Microsoft.VisualStudio.Shell.Framework 15.9.28307
 nuget Microsoft.VisualStudio.Text.Data 15.8.525
 nuget Microsoft.VisualStudio.Text.Logic 15.8.525
@@ -58,4 +58,3 @@ nuget Microsoft.VisualStudio.Threading.Analyzers 15.8.209
 nuget Microsoft.VisualStudio.Utilities 15.9.28307
 nuget Microsoft.VisualStudio.Workspace 15.0.485
 nuget Microsoft.VisualStudio.Workspace.VSIntegration 15.0.485
-

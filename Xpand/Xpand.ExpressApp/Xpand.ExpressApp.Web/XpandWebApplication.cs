@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Web;
 using DevExpress.ExpressApp.Web.SystemModule.CallbackHandlers;
 using DevExpress.Persistent.Base;
+using Xpand.ExpressApp.Web.Services;
 using Xpand.Persistent.Base.General;
 
 

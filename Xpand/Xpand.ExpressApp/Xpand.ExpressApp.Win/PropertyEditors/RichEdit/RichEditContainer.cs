@@ -7,7 +7,7 @@ using Xpand.ExpressApp.Win.Services;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
     public partial class RichEditContainer : RichEditContainerBase {
-        private readonly List<string> _mergedBarNames = new List<string>();
+        private readonly List<string> _mergedBarNames = new();
 
         public RichEditContainer() {
             InitializeComponent();
@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         private void CreateBarsCore(BarManager parentBarManager) {
             if (ToolBarsAreHidden)
                 return;
-            var bars = barManager1.Bars.Cast<Bar>().OrderBy(bar => bar.DockRow).ThenBy(bar => bar.DockCol);
+            var bars = barManager1.Bars.OrderBy(bar => bar.DockRow).ThenBy(bar => bar.DockCol).ToArray();
             foreach (var editorBar in bars) {
                 var parentBar = parentBarManager.Bars[editorBar.BarName];
                 if (parentBar == null) {
@@ -65,15 +65,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
             }
         }
 
-        private Bar CopyBar(Bar bar, BarManager barManager) {
-            Bar res = new Bar(barManager);
-            var barMappingExpression = Mapper.CreateMap<Bar, Bar>();
-            barMappingExpression.IgnoreAllPropertiesWithAnInaccessibleSetter();
-            Mapper.Map(bar, res);
-            var barOptionsMappingExpression = Mapper.CreateMap<BarOptions, BarOptions>();
-            barOptionsMappingExpression.IgnoreAllPropertiesWithAnInaccessibleSetter();
-            Mapper.Map(bar.OptionsBar, res.OptionsBar);
-            return res;
+        private Bar CopyBar(Bar source, BarManager barManager) {
+            
+            
+            var result = new MapperConfiguration(cfg => cfg.CreateMap<Bar, Bar>()).CreateMapper()
+                .Map(source,new Bar(barManager));
+            new MapperConfiguration(cfg => cfg.CreateMap<BarOptions, BarOptions>()).CreateMapper()
+                .Map(source.OptionsBar,result.OptionsBar);
+            return result;
         }
 
         public override RichEditControl RichEditControl => richEditControl1;

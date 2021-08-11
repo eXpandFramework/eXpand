@@ -1,8 +1,21 @@
 using System;
+using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Model.Core;
+using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.ExpressApp.Web;
 using Xpand.Persistent.Base.General.Controllers;
+using Xpand.Persistent.Base.General.Web;
 
-namespace Xpand.Persistent.Base.General.Web{
+namespace Xpand.ExpressApp.Web.SystemModule{
+    public class ToggleNavigationActionUpdater : ModelNodesGeneratorUpdater<ModelActionsNodesGenerator> {
+        public override void UpdateNode(ModelNode node){
+            var modelAction = node.Application.ActionDesign.Actions[NavigationContainerController.ToggleNavigationId] as IModelActionClientScript;
+            if (modelAction != null) {
+                modelAction.ClientScript = "OnClick('LPcell','separatorImage',true);";
+            }
+        }
+    }
+
     public class NavigationContainerWebController : NavigationContainerController {
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();

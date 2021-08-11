@@ -6,7 +6,6 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.Xpo;
-using DevExpress.Persistent.Base.Security;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
 using Xpand.ExpressApp.ModelDifference.DataStore.Queries;
@@ -16,7 +15,7 @@ using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
-using ModelCombinePermission = Xpand.ExpressApp.ModelDifference.Security.ModelCombinePermission;
+
 
 namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
     public class XpoUserModelDictionaryDifferenceStore : XpoDictionaryDifferenceStore {
@@ -68,7 +67,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         public override void SaveDifference(ModelApplicationBase model) {
-            if (SecuritySystem.Instance != null && SecuritySystem.Instance.UserType==null)
+            if (SecuritySystem.Instance is {UserType: null})
                 base.SaveDifference(model);
             else if ( SecuritySystem.CurrentUser != null)
                 base.SaveDifference(model);
@@ -94,7 +93,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         bool IsGranted() {
             if (((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
                 return SecuritySystem.IsGranted(new ModelCombinePermissionRequest(ApplicationModelCombineModifier.Allow));
-            return SecuritySystemExtensions.IsGranted(new ModelCombinePermission(ApplicationModelCombineModifier.Allow), false);
+            return true;
         }
 
         private ModelDifferenceObject GetDifferenceFromPermission(XPObjectSpace space) {
@@ -102,12 +101,7 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         private IEnumerable<string> GetNames() {
-            object user = SecuritySystem.CurrentUser as IUser;
-            if (user != null) {
-                return ((IUser)SecuritySystem.CurrentUser).Permissions.OfType<ModelCombinePermission>().Select(permission => permission.Difference);
-            }
-            user = SecuritySystem.CurrentUser as ISecurityUserWithRoles;
-            if (user != null) {
+            if (SecuritySystem.CurrentUser is ISecurityUserWithRoles) {
                 return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombineOperationPermission>().Select(permission => permission.Difference);
             }
             throw new NotImplementedException(SecuritySystem.CurrentUser.GetType().FullName);

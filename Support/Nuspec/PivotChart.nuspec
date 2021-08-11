@@ -14,18 +14,18 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.1.401.0" />
-      <dependency id="eXpandLogic" version="21.1.401.0" />
-      <dependency id="eXpandModelArtifactState" version="21.1.401.0" />
-      <dependency id="eXpandSecurity" version="21.1.401.0" />
-      <dependency id="eXpandValidation" version="21.1.401.0" />
+      <dependency id="eXpandLib" version="21.1.500.0" />
+      <dependency id="eXpandLogic" version="21.1.500.0" />
+      <dependency id="eXpandModelArtifactState" version="21.1.500.0" />
+      <dependency id="eXpandSecurity" version="21.1.500.0" />
+      <dependency id="eXpandValidation" version="21.1.500.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.211.3" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.211.5.6" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.PivotChart.dll" target="lib\net461\Xpand.ExpressApp.PivotChart.dll" />
-    <file src="Xpand.ExpressApp.PivotChart.pdb" target="lib\net461\Xpand.ExpressApp.PivotChart.pdb" />
+    <file src="Xpand.ExpressApp.PivotChart.dll" target="lib\netstandard2.0\Xpand.ExpressApp.PivotChart.dll" />
+    <file src="Xpand.ExpressApp.PivotChart.pdb" target="lib\netstandard2.0\Xpand.ExpressApp.PivotChart.pdb" />
     <file src="..\Support\build\CopySymbols.targets" target="build\eXpandPivotChart.targets">
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">

@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.Win {
             if (SecuritySystem.Instance is IRequestSecurity) {
                 SecuritySystem.Demand(new ModelOperationPermissionRequest());
             } else {
-                SecuritySystem.Demand(new EditModelPermission(ModelAccessModifier.Allow));
+                // SecuritySystem.Demand(new EditModelPermission(ModelAccessModifier.Allow));
             }
             EditModelCore();
         }

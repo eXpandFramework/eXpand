@@ -5,6 +5,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Web.Editors.ASPx;
 using DevExpress.Web;
 using Xpand.ExpressApp.SystemModule;
+using Xpand.ExpressApp.Web.Services;
 
 namespace Xpand.ExpressApp.Web.SystemModule {
     public class WebToolTipsController : ToolTipsController {

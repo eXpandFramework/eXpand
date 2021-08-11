@@ -2,8 +2,6 @@ PropertyChanged.Fody
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.Persistent.BaseImpl
 DevExpress.ExpressApp.Validation
-DevExpress.ExpressApp.Web
-DevExpress.ExpressApp.Win
 DevExpress.ExpressApp.Security.Xpo
 Xpand.Extensions.Mono.Cecil
 Xpand.Extensions.XAF
