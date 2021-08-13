@@ -1,6 +1,6 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "20.2.500.1",
+    [string]$version = "21.1.500.3",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )

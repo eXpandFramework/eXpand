@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -39,9 +38,7 @@ using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
-using Mono.Cecil;
 using Xpand.Extensions.AppDomainExtensions;
-using Xpand.Extensions.Mono.Cecil;
 using Xpand.Extensions.ReflectionExtensions;
 using Xpand.Extensions.XAF.AppDomainExtensions;
 using Xpand.Persistent.Base.Security;
@@ -88,16 +85,7 @@ namespace Xpand.Persistent.Base.General {
         public event EventHandler<ApplicationModulesManagerSetupArgs> ApplicationModulesManagerSetup;
 
         static XpandModuleBase(){
-            try {
-                AppDomain.CurrentDomain.AddModelReference("netstandard");
-                AdditionalTypesTypesInfo=new TypesInfo();
-                if (Process.GetCurrentProcess().ProcessName!="devenv") {
-                    LoadAssemblyRegularTypes();
-                }
-            }
-            catch (TypeLoadException e) {
-                throw new Exception("Possible fix as per issue #753",e);
-            }
+            AdditionalTypesTypesInfo=new TypesInfo();
         }
 
         protected virtual void OnApplicationModulesManagerSetup(ApplicationModulesManagerSetupArgs e) {
@@ -558,31 +546,31 @@ namespace Xpand.Persistent.Base.General {
             
         }
 
-        class AssemblyResolver:DefaultAssemblyResolver {
-            public override AssemblyDefinition Resolve(AssemblyNameReference name) {
-                AssemblyDefinition assemblyDefinition;
-                try {
-                    assemblyDefinition = base.Resolve(name);
-                }
-                catch (Exception) {
-                    return AssemblyDefinition.ReadAssembly(@$"{AppDomain.CurrentDomain.ApplicationPath()}\{name.Name}.dll",new ReaderParameters(){AssemblyResolver = this});
-                }
-
-                return assemblyDefinition;
-            }
-        }
-        private static void LoadAssemblyRegularTypes(){
-            var assembly = typeof(XpandModuleBase).Assembly;
-            using var assemblyDefinition = AssemblyDefinition.ReadAssembly(assembly.Location,new ReaderParameters(ReadingMode.Immediate){AssemblyResolver = new AssemblyResolver()});
-            var dxAssembly = AssemblyDefinition.ReadAssembly(typeof(ModuleBase).Assembly.Location);
-                
-            var typeDefinition =
-                dxAssembly.MainModule.Types.First(definition => definition.FullName == typeof(Controller).FullName);
-            var typeDefinitions = assemblyDefinition.MainModule.Types.Where(definition => !definition.IsSubclassOf(typeDefinition));
-            foreach (var definition in typeDefinitions){
-                XafTypesInfo.Instance.FindTypeInfo(assembly.GetType(definition.FullName));
-            }
-        }
+        // class AssemblyResolver:DefaultAssemblyResolver {
+        //     public override AssemblyDefinition Resolve(AssemblyNameReference name) {
+        //         AssemblyDefinition assemblyDefinition;
+        //         try {
+        //             assemblyDefinition = base.Resolve(name);
+        //         }
+        //         catch (Exception) {
+        //             return AssemblyDefinition.ReadAssembly(@$"{AppDomain.CurrentDomain.ApplicationPath()}\{name.Name}.dll",new ReaderParameters(){AssemblyResolver = this});
+        //         }
+        //
+        //         return assemblyDefinition;
+        //     }
+        // }
+        // private static void LoadAssemblyRegularTypes(){
+        //     var assembly = typeof(XpandModuleBase).Assembly;
+        //     using var assemblyDefinition = AssemblyDefinition.ReadAssembly(assembly.Location,new ReaderParameters(ReadingMode.Immediate){AssemblyResolver = new AssemblyResolver()});
+        //     var dxAssembly = AssemblyDefinition.ReadAssembly(typeof(ModuleBase).Assembly.Location);
+        //         
+        //     var typeDefinition =
+        //         dxAssembly.MainModule.Types.First(definition => definition.FullName == typeof(Controller).FullName);
+        //     var typeDefinitions = assemblyDefinition.MainModule.Types.Where(definition => !definition.IsSubclassOf(typeDefinition));
+        //     foreach (var definition in typeDefinitions){
+        //         XafTypesInfo.Instance.FindTypeInfo(assembly.GetType(definition.FullName));
+        //     }
+        // }
 
         public override void Setup(XafApplication application) {
             lock (XafTypesInfo.Instance) {

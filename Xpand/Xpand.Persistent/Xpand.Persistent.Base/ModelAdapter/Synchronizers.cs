@@ -211,7 +211,7 @@ namespace Xpand.Persistent.Base.ModelAdapter {
             var size = GetNodeValue("Size", "Size");
             var fontStyle = GetFontStyle();
             var unit = GetNodeValue("Unit", "Unit");
-            return new Font(name.ToString(), (float)size, fontStyle, (GraphicsUnit)unit);
+            return new Font(name.ToString(), (float)size, fontStyle, (System.Drawing.GraphicsUnit)unit);
         }
 
         private FontStyle GetFontStyle() {

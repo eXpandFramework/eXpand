@@ -2,6 +2,7 @@ using System.Drawing;
 using System.Web.UI.WebControls;
 using DevExpress.Web;
 using Xpand.Persistent.Base.AdditionalViewControls;
+using FontStyle = Xpand.Persistent.Base.AdditionalViewControls.FontStyle;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Web.Controls {
     public class HintPanelBase : ASPxPanel, ISupportAppeareance {

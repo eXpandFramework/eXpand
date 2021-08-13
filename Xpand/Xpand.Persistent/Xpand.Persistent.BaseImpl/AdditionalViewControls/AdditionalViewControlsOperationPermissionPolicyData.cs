@@ -5,6 +5,7 @@ using DevExpress.Xpo;
 using Xpand.Extensions.XAF.Xpo.ValueConverters;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using Xpand.Persistent.BaseImpl.Security.PermissionPolicyData;
+using FontStyle = Xpand.Persistent.Base.AdditionalViewControls.FontStyle;
 
 namespace Xpand.Persistent.BaseImpl.AdditionalViewControls {
     [System.ComponentModel.DisplayName("AdditionalViewControls")]

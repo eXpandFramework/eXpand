@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Security.Improved {
         public Position Position { get; set; }
         public Color? BackColor { get; set; }
         public Color? ForeColor { get; set; }
-        public FontStyle? FontStyle { get; set; }
+        public Persistent.Base.AdditionalViewControls.FontStyle? FontStyle { get; set; }
         public int? Height { get; set; }
         public int? FontSize { get; set; }
         public string ImageName { get; set; }

@@ -8,6 +8,30 @@ using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
 
 namespace Xpand.Persistent.Base.AdditionalViewControls {
+    [Flags]
+    public enum FontStyle {
+        /// <summary>
+        /// Normal text.
+        /// </summary>
+        Regular = 0,
+        /// <summary>
+        /// Bold text.
+        /// </summary>
+        Bold = 1,
+        /// <summary>
+        /// Italic text.
+        /// </summary>
+        Italic = 2,
+        /// <summary>
+        /// Underlined text.
+        /// </summary>
+        Underline = 4,
+        /// <summary>
+        /// Text with a line through the middle.
+        /// </summary>
+        Strikeout = 8,
+    }
+
     public interface ISupportAppeareance {
         [Category("Appearance")]
         Color? BackColor { get; set; }

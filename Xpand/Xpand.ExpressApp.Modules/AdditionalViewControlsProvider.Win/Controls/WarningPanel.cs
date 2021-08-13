@@ -5,6 +5,7 @@ using Xpand.ExpressApp.AdditionalViewControlsProvider.Editors;
 using System;
 using DevExpress.ExpressApp.Utils;
 using Xpand.Persistent.Base.AdditionalViewControls;
+using FontStyle = Xpand.Persistent.Base.AdditionalViewControls.FontStyle;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public sealed class WarningPanel : NotePanel8_1, ISupportLayoutManager, ISupportAppeareance, IAdditionalViewControl {
@@ -38,10 +39,10 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
         }
 
         FontStyle? ISupportAppeareance.FontStyle {
-            get { return Font.Style; }
+            get { return (FontStyle?) Font.Style; }
             set {
                 if (value.HasValue)
-                    Font = new Font(Font, value.Value);
+                    Font = new Font(Font, (System.Drawing.FontStyle)value.Value);
             }
         }
 
