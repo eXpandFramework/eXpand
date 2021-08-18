@@ -101,8 +101,9 @@ Task Installer{
 }
 
 Task CompileModules{
-    dotnet tool restore
     Set-Location $root
+    Get-Content .\paket.dependencies
+    dotnet tool restore
     Invoke-PaketRestore -Install -Strict
     InvokeScript -maxRetries 3 {
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"

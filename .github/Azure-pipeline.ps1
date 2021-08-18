@@ -33,6 +33,9 @@ Pop-Location
 
 Set-location $WorkingDirectory
 Write-HostFormatted "ProjectConverter" -Section
+if (!(Test-Path $WorkingDirectory\paket.lock)){
+   Invoke-PaketInstall -Strict  
+}
 [version]$pversion=$version
 $pversion=Get-DevExpressVersion $version -Build
 Start-XpandProjectConverter -version $pversion -SkipInstall

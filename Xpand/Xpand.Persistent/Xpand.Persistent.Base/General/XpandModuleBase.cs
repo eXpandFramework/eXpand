@@ -40,7 +40,6 @@ using Xpand.Utils.GeneralDataStructures;
 using Fasterflect;
 using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.ReflectionExtensions;
-using Xpand.Extensions.XAF.AppDomainExtensions;
 using Xpand.Persistent.Base.Security;
 using Xpand.Persistent.Base.Xpo;
 using PropertyEditorAttribute = DevExpress.ExpressApp.Editors.PropertyEditorAttribute;
@@ -65,7 +64,7 @@ namespace Xpand.Persistent.Base.General {
     [ToolboxItem(false)]
     public class XpandModuleBase : ModuleBase, IModelNodeUpdater<IModelMemberEx>, IModelXmlConverter, IXpandModuleBase {
         private static string _xpandPathInRegistry;
-        private static string _dxPathInRegistry;
+        
         public static string ManifestModuleName;
         static readonly object LockObject = new();
         public static object Control;
@@ -375,19 +374,7 @@ namespace Xpand.Persistent.Base.General {
             }
         }
 
-        public static string DXPathInRegistry {
-            get {
-                if (_dxPathInRegistry == null) {
-                    _dxPathInRegistry = "";
-                    var softwareNode = Registry.LocalMachine.OpenSubKey(@"Software\Wow6432Node") ??
-                                       Registry.LocalMachine.OpenSubKey("Software");
-                    var xpandNode = softwareNode?.OpenSubKey(@"DevExpress\Components\v" + AssemblyInfo.VersionShort);
-                    if (xpandNode != null)
-                        _dxPathInRegistry = xpandNode.GetValue("RootDirectory") + "";
-                }
-                return _dxPathInRegistry;
-            }
-        }
+        public static string DXPathInRegistry => null;
 
         public static Assembly XpandAssemblyResolve(object sender, ResolveEventArgs args) {
             if (!string.IsNullOrEmpty(XpandPathInRegistry)) {
@@ -398,19 +385,9 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
 
-        public static Assembly DXAssemblyResolve(object sender, ResolveEventArgs args) {
-            if (!string.IsNullOrEmpty(DXPathInRegistry)) {
-                var path = Path.Combine(DXPathInRegistry, @"bin\framework\" + args.Name + ".dll");
-                if (File.Exists(path))
-                    return Assembly.LoadFile(path);
-            }
-            return null;
-        }
-
         public static Type GetDxBaseImplType(string typeName){
             try {
                 if (InterfaceBuilder.RuntimeMode) {
-                    AppDomain.CurrentDomain.AssemblyResolve += DXAssemblyResolve;
                     Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
                     XafTypesInfo.Instance.LoadTypes(assembly);
                     var info = XafTypesInfo.Instance.FindTypeInfo(typeName);
@@ -423,9 +400,7 @@ namespace Xpand.Persistent.Base.General {
                 throw new FileNotFoundException(
                     "Please make sure DevExpress.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
             }
-            finally {
-                AppDomain.CurrentDomain.AssemblyResolve -= DXAssemblyResolve;
-            }
+
             return null;
         }
         

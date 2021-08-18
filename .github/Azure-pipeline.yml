@@ -27,7 +27,7 @@ steps:
     pwsh: true
     targetType: inline
     script: |
-      $VerbosePreference="Continue"
+      # $VerbosePreference="Continue"
       $ErrorView="NormalView"
       $ErrorActionPreference = "Stop"
       & $(System.DefaultWorkingDirectory)\.github\Azure-Pipeline.ps1 $(Build.Repository.Name) $(DXApiFeed) $(NuGetApiKey) $(build.artifactstagingdirectory) 
