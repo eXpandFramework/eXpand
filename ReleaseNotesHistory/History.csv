@@ -1,4 +1,5 @@
 "Release","Issues","Labels","Message","Sha"
+"21.1.501.0","880","❤ Backer, Priority, Reactive.XAF","Remove access To HKLM","2ca3f939d164735629cf4a4b4ec425257cb01513"
 "20.2.503.0","825","? Backer, Priority, VSIX","VSIX: open to control Color Theme",
 "20.2.403.0","825","? Backer, Priority, VSIX","VSIX: Change ToolWindow defaultLookAndFeel",
 "20.2.403.0","792","must-have, Priority, Standalone_XAF_Modules, XpandModelEditor","VSIX XpandModelEditor support Blazor application project models",
