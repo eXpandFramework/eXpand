@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void GridViewOnPopupMenuShowing(object sender, PopupMenuShowingEventArgs e){
-            if (e.MenuType != GridMenuType.Summary) return;
+            if (e.MenuType != GridMenuType.Summary||View ==null) return;
             var ruleCollector = new RuleCollector(View.Model);
             foreach (var modelGridViewRule in ruleCollector.GetCustomSummeryCalculateRules(e.HitInfo.Column.PropertyName())) {
                 var footerMenu = ((GridViewFooterMenu) e.Menu);
