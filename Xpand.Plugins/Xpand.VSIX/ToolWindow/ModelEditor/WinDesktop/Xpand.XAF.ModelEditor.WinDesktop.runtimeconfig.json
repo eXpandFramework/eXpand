@@ -1,9 +1,15 @@
 {
   "runtimeOptions": {
     "tfm": "net5.0",
-    "framework": {
-      "name": "Microsoft.WindowsDesktop.App",
-      "version": "5.0.0"
-    }
+    "frameworks": [
+      {
+        "name": "Microsoft.WindowsDesktop.App",
+        "version": "5.0.0"
+      },
+      {
+        "name": "Microsoft.AspNetCore.App",
+        "version": "5.0.0"
+      }
+    ]
   }
 }

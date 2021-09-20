@@ -1,10 +1,9 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "21.1.500.3",
+    [string]$version = "21.1.501.2",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )
-
 
 Write-HostFormatted "Create Nuget for $version"
 $ErrorActionPreference = "Stop"
@@ -34,11 +33,36 @@ function AddAllDependency($file, $nuspecpaths) {
         $metadata.dependencies.RemoveAll()
     }
     $metadata.version = $version
-    $nuspecpaths | ForEach-Object {
+    $net461Nuspecs=@($nuspecpaths|where-Object{
+        $p=Get-XmlContent $_.FullName
+        $p.package.files.file.target -match "net461"
+    })
+    $netStandardNuspecs=@($nuspecpaths|where-Object{
+        $p=Get-XmlContent $_.FullName
+        $p.package.files.file.target -match "netstandard"
+    })
+    $netStandardNuspecs=@($nuspecpaths|where-Object{
+        $p=Get-XmlContent $_.FullName
+        $p.package.files.file.target -match "netstandard"
+    })
+    $net5Nuspecs=@($nuspecpaths|where-Object{
+        $p=Get-XmlContent $_.FullName
+        $p.package.files.file.target -match "net5"
+    })
+    ($netStandardNuspecs) | ForEach-Object {
         [xml]$package = Get-Content $_.Fullname
-        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath
+        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "netstandard2.0"  
+    }
+    ($net461Nuspecs+$netStandardNuspecs) | ForEach-Object {
+        [xml]$package = Get-Content $_.Fullname
+        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net461"  
+    }
+    ($net5Nuspecs+$netStandardNuspecs) | ForEach-Object {
+        [xml]$package = Get-Content $_.Fullname
+        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net5.0"  
     }
     $nuspecpath.Save($file)
+    Format-Xml -path $file
 }
 
 Set-Location $root

@@ -14,17 +14,17 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Email</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.1.501.0" />
-      <dependency id="eXpandLogic" version="21.1.501.0" />
-      <dependency id="eXpandSecurity" version="21.1.501.0" />
-      <dependency id="eXpandValidation" version="21.1.501.0" />
+      <dependency id="eXpandLib" version="21.1.501.2" />
+      <dependency id="eXpandLogic" version="21.1.501.2" />
+      <dependency id="eXpandSecurity" version="21.1.501.2" />
+      <dependency id="eXpandValidation" version="21.1.501.2" />
       <dependency id="RazorEngine" version="3.10" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.211.6" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.211.6.9" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.ExpressApp.Email.dll" target="lib\netstandard2.0\Xpand.ExpressApp.Email.dll" />
-    <file src="Xpand.ExpressApp.Email.pdb" target="lib\netstandard2.0\Xpand.ExpressApp.Email.pdb" />
+    <file src="Xpand.ExpressApp.Email.dll" target="lib\net461\Xpand.ExpressApp.Email.dll" />
+    <file src="Xpand.ExpressApp.Email.pdb" target="lib\net461\Xpand.ExpressApp.Email.pdb" />
     <file src="..\Support\build\CopySymbols.targets" target="build\eXpandEmail.targets">
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">

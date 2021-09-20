@@ -16,11 +16,11 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="21.1.501.0" />
-      <dependency id="eXpandSystemWin" version="21.1.501.0" />
-      <dependency id="eXpandWorldCreator" version="21.1.501.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.211.6" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.211.6" />
+      <dependency id="eXpandLib" version="21.1.501.2" />
+      <dependency id="eXpandSystemWin" version="21.1.501.2" />
+      <dependency id="eXpandWorldCreator" version="21.1.501.2" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.211.6.9" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.211.6.9" />
     </dependencies>
   </metadata>
   <files>
