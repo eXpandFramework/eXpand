@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.1.501.2" />
-      <dependency id="eXpandSystemWin" version="21.1.501.2" />
+      <dependency id="eXpandLib" version="21.1.501.3" />
+      <dependency id="eXpandSystemWin" version="21.1.501.3" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>

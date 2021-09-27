@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.1.501.2" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.211.6.9" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.211.6.9" />
+      <dependency id="eXpandLib" version="21.1.501.3" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.211.7" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.211.7" />
     </dependencies>
   </metadata>
   <files>
