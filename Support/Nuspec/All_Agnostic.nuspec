@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandAgnostic</id>
-    <version>21.1.502.0</version>
+    <version>21.1.600.0</version>
     <title>DevExpress eXpandFramework All Platform Agnostic Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,89 +15,89 @@
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="eXpandAdditionalViewControlsProvider" version="21.1.502.0" />
-        <dependency id="eXpandAuditTrail" version="21.1.502.0" />
-        <dependency id="eXpandDashboard" version="21.1.502.0" />
-        <dependency id="eXpandExcelImporter" version="21.1.502.0" />
-        <dependency id="eXpandFileAttachment" version="21.1.502.0" />
-        <dependency id="eXpandIO" version="21.1.502.0" />
-        <dependency id="eXpandLib" version="21.1.502.0" />
-        <dependency id="eXpandLogic" version="21.1.502.0" />
-        <dependency id="eXpandMapView" version="21.1.502.0" />
-        <dependency id="eXpandMasterDetail" version="21.1.502.0" />
-        <dependency id="eXpandModelArtifactState" version="21.1.502.0" />
-        <dependency id="eXpandModelDifference" version="21.1.502.0" />
-        <dependency id="eXpandNCarousel" version="21.1.502.0" />
-        <dependency id="eXpandPivotChart" version="21.1.502.0" />
-        <dependency id="eXpandReports" version="21.1.502.0" />
-        <dependency id="eXpandScheduler" version="21.1.502.0" />
-        <dependency id="eXpandSecurity" version="21.1.502.0" />
-        <dependency id="eXpandStateMachine" version="21.1.502.0" />
-        <dependency id="eXpandSystem" version="21.1.502.0" />
-        <dependency id="eXpandTreelistView" version="21.1.502.0" />
-        <dependency id="eXpandValidation" version="21.1.502.0" />
-        <dependency id="eXpandViewVariants" version="21.1.502.0" />
-        <dependency id="eXpandWorkFlow" version="21.1.502.0" />
-        <dependency id="eXpandWorldCreatorDbMapper" version="21.1.502.0" />
-        <dependency id="eXpandWorldCreator" version="21.1.502.0" />
+        <dependency id="eXpandAdditionalViewControlsProvider" version="21.1.600.0" />
+        <dependency id="eXpandAuditTrail" version="21.1.600.0" />
+        <dependency id="eXpandDashboard" version="21.1.600.0" />
+        <dependency id="eXpandExcelImporter" version="21.1.600.0" />
+        <dependency id="eXpandFileAttachment" version="21.1.600.0" />
+        <dependency id="eXpandIO" version="21.1.600.0" />
+        <dependency id="eXpandLib" version="21.1.600.0" />
+        <dependency id="eXpandLogic" version="21.1.600.0" />
+        <dependency id="eXpandMapView" version="21.1.600.0" />
+        <dependency id="eXpandMasterDetail" version="21.1.600.0" />
+        <dependency id="eXpandModelArtifactState" version="21.1.600.0" />
+        <dependency id="eXpandModelDifference" version="21.1.600.0" />
+        <dependency id="eXpandNCarousel" version="21.1.600.0" />
+        <dependency id="eXpandPivotChart" version="21.1.600.0" />
+        <dependency id="eXpandReports" version="21.1.600.0" />
+        <dependency id="eXpandScheduler" version="21.1.600.0" />
+        <dependency id="eXpandSecurity" version="21.1.600.0" />
+        <dependency id="eXpandStateMachine" version="21.1.600.0" />
+        <dependency id="eXpandSystem" version="21.1.600.0" />
+        <dependency id="eXpandTreelistView" version="21.1.600.0" />
+        <dependency id="eXpandValidation" version="21.1.600.0" />
+        <dependency id="eXpandViewVariants" version="21.1.600.0" />
+        <dependency id="eXpandWorkFlow" version="21.1.600.0" />
+        <dependency id="eXpandWorldCreatorDbMapper" version="21.1.600.0" />
+        <dependency id="eXpandWorldCreator" version="21.1.600.0" />
       </group>
       <group targetFramework="net461">
-        <dependency id="eXpandEasyTest" version="21.1.502.0" />
-        <dependency id="eXpandEmail" version="21.1.502.0" />
-        <dependency id="eXpandImportWizard" version="21.1.502.0" />
-        <dependency id="eXpandAdditionalViewControlsProvider" version="21.1.502.0" />
-        <dependency id="eXpandAuditTrail" version="21.1.502.0" />
-        <dependency id="eXpandDashboard" version="21.1.502.0" />
-        <dependency id="eXpandExcelImporter" version="21.1.502.0" />
-        <dependency id="eXpandFileAttachment" version="21.1.502.0" />
-        <dependency id="eXpandIO" version="21.1.502.0" />
-        <dependency id="eXpandLib" version="21.1.502.0" />
-        <dependency id="eXpandLogic" version="21.1.502.0" />
-        <dependency id="eXpandMapView" version="21.1.502.0" />
-        <dependency id="eXpandMasterDetail" version="21.1.502.0" />
-        <dependency id="eXpandModelArtifactState" version="21.1.502.0" />
-        <dependency id="eXpandModelDifference" version="21.1.502.0" />
-        <dependency id="eXpandNCarousel" version="21.1.502.0" />
-        <dependency id="eXpandPivotChart" version="21.1.502.0" />
-        <dependency id="eXpandReports" version="21.1.502.0" />
-        <dependency id="eXpandScheduler" version="21.1.502.0" />
-        <dependency id="eXpandSecurity" version="21.1.502.0" />
-        <dependency id="eXpandStateMachine" version="21.1.502.0" />
-        <dependency id="eXpandSystem" version="21.1.502.0" />
-        <dependency id="eXpandTreelistView" version="21.1.502.0" />
-        <dependency id="eXpandValidation" version="21.1.502.0" />
-        <dependency id="eXpandViewVariants" version="21.1.502.0" />
-        <dependency id="eXpandWorkFlow" version="21.1.502.0" />
-        <dependency id="eXpandWorldCreatorDbMapper" version="21.1.502.0" />
-        <dependency id="eXpandWorldCreator" version="21.1.502.0" />
+        <dependency id="eXpandEasyTest" version="21.1.600.0" />
+        <dependency id="eXpandEmail" version="21.1.600.0" />
+        <dependency id="eXpandImportWizard" version="21.1.600.0" />
+        <dependency id="eXpandAdditionalViewControlsProvider" version="21.1.600.0" />
+        <dependency id="eXpandAuditTrail" version="21.1.600.0" />
+        <dependency id="eXpandDashboard" version="21.1.600.0" />
+        <dependency id="eXpandExcelImporter" version="21.1.600.0" />
+        <dependency id="eXpandFileAttachment" version="21.1.600.0" />
+        <dependency id="eXpandIO" version="21.1.600.0" />
+        <dependency id="eXpandLib" version="21.1.600.0" />
+        <dependency id="eXpandLogic" version="21.1.600.0" />
+        <dependency id="eXpandMapView" version="21.1.600.0" />
+        <dependency id="eXpandMasterDetail" version="21.1.600.0" />
+        <dependency id="eXpandModelArtifactState" version="21.1.600.0" />
+        <dependency id="eXpandModelDifference" version="21.1.600.0" />
+        <dependency id="eXpandNCarousel" version="21.1.600.0" />
+        <dependency id="eXpandPivotChart" version="21.1.600.0" />
+        <dependency id="eXpandReports" version="21.1.600.0" />
+        <dependency id="eXpandScheduler" version="21.1.600.0" />
+        <dependency id="eXpandSecurity" version="21.1.600.0" />
+        <dependency id="eXpandStateMachine" version="21.1.600.0" />
+        <dependency id="eXpandSystem" version="21.1.600.0" />
+        <dependency id="eXpandTreelistView" version="21.1.600.0" />
+        <dependency id="eXpandValidation" version="21.1.600.0" />
+        <dependency id="eXpandViewVariants" version="21.1.600.0" />
+        <dependency id="eXpandWorkFlow" version="21.1.600.0" />
+        <dependency id="eXpandWorldCreatorDbMapper" version="21.1.600.0" />
+        <dependency id="eXpandWorldCreator" version="21.1.600.0" />
       </group>
       <group targetFramework="net5.0">
-        <dependency id="eXpandImportWizard" version="21.1.502.0" />
-        <dependency id="eXpandAdditionalViewControlsProvider" version="21.1.502.0" />
-        <dependency id="eXpandAuditTrail" version="21.1.502.0" />
-        <dependency id="eXpandDashboard" version="21.1.502.0" />
-        <dependency id="eXpandExcelImporter" version="21.1.502.0" />
-        <dependency id="eXpandFileAttachment" version="21.1.502.0" />
-        <dependency id="eXpandIO" version="21.1.502.0" />
-        <dependency id="eXpandLib" version="21.1.502.0" />
-        <dependency id="eXpandLogic" version="21.1.502.0" />
-        <dependency id="eXpandMapView" version="21.1.502.0" />
-        <dependency id="eXpandMasterDetail" version="21.1.502.0" />
-        <dependency id="eXpandModelArtifactState" version="21.1.502.0" />
-        <dependency id="eXpandModelDifference" version="21.1.502.0" />
-        <dependency id="eXpandNCarousel" version="21.1.502.0" />
-        <dependency id="eXpandPivotChart" version="21.1.502.0" />
-        <dependency id="eXpandReports" version="21.1.502.0" />
-        <dependency id="eXpandScheduler" version="21.1.502.0" />
-        <dependency id="eXpandSecurity" version="21.1.502.0" />
-        <dependency id="eXpandStateMachine" version="21.1.502.0" />
-        <dependency id="eXpandSystem" version="21.1.502.0" />
-        <dependency id="eXpandTreelistView" version="21.1.502.0" />
-        <dependency id="eXpandValidation" version="21.1.502.0" />
-        <dependency id="eXpandViewVariants" version="21.1.502.0" />
-        <dependency id="eXpandWorkFlow" version="21.1.502.0" />
-        <dependency id="eXpandWorldCreatorDbMapper" version="21.1.502.0" />
-        <dependency id="eXpandWorldCreator" version="21.1.502.0" />
+        <dependency id="eXpandImportWizard" version="21.1.600.0" />
+        <dependency id="eXpandAdditionalViewControlsProvider" version="21.1.600.0" />
+        <dependency id="eXpandAuditTrail" version="21.1.600.0" />
+        <dependency id="eXpandDashboard" version="21.1.600.0" />
+        <dependency id="eXpandExcelImporter" version="21.1.600.0" />
+        <dependency id="eXpandFileAttachment" version="21.1.600.0" />
+        <dependency id="eXpandIO" version="21.1.600.0" />
+        <dependency id="eXpandLib" version="21.1.600.0" />
+        <dependency id="eXpandLogic" version="21.1.600.0" />
+        <dependency id="eXpandMapView" version="21.1.600.0" />
+        <dependency id="eXpandMasterDetail" version="21.1.600.0" />
+        <dependency id="eXpandModelArtifactState" version="21.1.600.0" />
+        <dependency id="eXpandModelDifference" version="21.1.600.0" />
+        <dependency id="eXpandNCarousel" version="21.1.600.0" />
+        <dependency id="eXpandPivotChart" version="21.1.600.0" />
+        <dependency id="eXpandReports" version="21.1.600.0" />
+        <dependency id="eXpandScheduler" version="21.1.600.0" />
+        <dependency id="eXpandSecurity" version="21.1.600.0" />
+        <dependency id="eXpandStateMachine" version="21.1.600.0" />
+        <dependency id="eXpandSystem" version="21.1.600.0" />
+        <dependency id="eXpandTreelistView" version="21.1.600.0" />
+        <dependency id="eXpandValidation" version="21.1.600.0" />
+        <dependency id="eXpandViewVariants" version="21.1.600.0" />
+        <dependency id="eXpandWorkFlow" version="21.1.600.0" />
+        <dependency id="eXpandWorldCreatorDbMapper" version="21.1.600.0" />
+        <dependency id="eXpandWorldCreator" version="21.1.600.0" />
       </group>
     </dependencies>
   </metadata>
