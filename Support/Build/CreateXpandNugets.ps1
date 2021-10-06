@@ -25,6 +25,39 @@ if (!$projects) {
 $nuget = "$(Get-NugetPath)"
 $nuspecpathsPath = "$PSScriptRoot\..\Nuspec"
 
+# $nPath="$nuspecpathsPath\lib.nuspec"
+# [xml]$n=Get-XmlContent $nPath
+# $deps=$n.package.metadata.dependencies.dependency
+# $n.package.metadata.dependencies.RemoveAll()
+# $deps|ForEach-Object{
+#     Add-NuspecDependency $_.Id $_.Version $n "netstandard2.0"
+# }
+# $n|Save-Xml $nPath  
+# $projects|ForEach-Object{
+#     $name=$_.BaseName.Replace("Xpand.ExpressApp.","").Replace("Xpand.","")
+#     if ($_.BaseName -eq "Xpand.ExpressApp"){
+#         $name="System"
+#     }
+#     elseif ($_.BaseName -eq "Xpand.ExpressApp.Win"){
+#         $name="SystemWin"
+#     }
+#     elseif ($_.BaseName -eq "Xpand.ExpressApp.Web"){
+#         $name="SystemWeb"
+#     }
+#     $p=Get-XmlContent $_.FullName
+#     Get-ProjectTargetFramework $p -FullName|ForEach-Object{
+#         $nPath="$nuspecpathsPath\$name.nuspec"
+#         [xml]$n=Get-XmlContent $nPath
+#         $deps=$n.package.metadata.dependencies.dependency
+#         $n.package.metadata.dependencies.RemoveAll()
+#         $target=$_
+#         $deps|ForEach-Object{
+#             Add-NuspecDependency $_.Id $_.Version $n $target
+#         }
+#         $n|Save-Xml $nPath  
+#     }
+# }
+# $n=Get-XmlContent "$nuspecpathsPath\lib.nuspec"
 
 function AddAllDependency($file, $nuspecpaths) {
     [xml]$nuspecpath = Get-Content $file
