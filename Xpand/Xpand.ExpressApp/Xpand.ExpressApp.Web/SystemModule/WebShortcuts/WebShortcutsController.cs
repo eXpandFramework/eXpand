@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Web.Templates;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using System.Text;
+using Xpand.Extensions.TypeExtensions;
 
 namespace Xpand.ExpressApp.Web.SystemModule.WebShortcuts {
     public interface IModelOptionsWebShortcut {

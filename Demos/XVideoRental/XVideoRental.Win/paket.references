@@ -8,5 +8,5 @@ DevExpress.ExpressApp.TreeListEditors
 DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.ViewVariantsModule
 DevExpress.ExpressApp.Security.Xpo
-DevExpress.Persistent.BaseImpl
+DevExpress.Persistent.BaseImpl.Xpo
 System.ValueTuple

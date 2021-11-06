@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
 using Fasterflect;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Persistent.Base.General.Controllers;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
 using Xpand.Utils.Helpers;

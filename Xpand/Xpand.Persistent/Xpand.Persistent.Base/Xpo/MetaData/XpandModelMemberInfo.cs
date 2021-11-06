@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
+using Xpand.Extensions.XAF.ModelExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
@@ -196,7 +197,7 @@ namespace Xpand.Persistent.Base.Xpo.MetaData{
         }
 
         public void ApplyModel(object theObject,IModelNode modelNode){
-            var value = modelNode.GetValue(_modelNodePath);
+            var value = ModelNodeExtensions.GetValue(modelNode, _modelNodePath);
             var typeInfo = value as ITypeInfo;
             if (typeInfo!=null)
                 value = typeInfo.Type;

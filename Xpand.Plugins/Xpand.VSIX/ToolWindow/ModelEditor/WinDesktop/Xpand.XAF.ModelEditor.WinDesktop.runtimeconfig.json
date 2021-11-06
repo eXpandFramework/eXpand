@@ -1,15 +1,22 @@
 {
   "runtimeOptions": {
     "tfm": "net5.0",
-    "frameworks": [
+    "includedFrameworks": [
+      {
+        "name": "Microsoft.NETCore.App",
+        "version": "5.0.11"
+      },
       {
         "name": "Microsoft.WindowsDesktop.App",
-        "version": "5.0.0"
+        "version": "5.0.11"
       },
       {
         "name": "Microsoft.AspNetCore.App",
-        "version": "5.0.0"
+        "version": "5.0.11"
       }
-    ]
+    ],
+    "configProperties": {
+      "System.Reflection.Metadata.MetadataUpdater.IsSupported": false
+    }
   }
 }

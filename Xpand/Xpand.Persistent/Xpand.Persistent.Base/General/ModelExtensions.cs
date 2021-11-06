@@ -17,6 +17,8 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.Utils.Linq;
 using Fasterflect;
+using Xpand.Extensions.TypeExtensions;
+using Xpand.Extensions.XAF.ModelExtensions;
 using Xpand.Persistent.Base.Security;
 using Xpand.Utils.Helpers;
 
@@ -144,20 +146,10 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static object GetValue(this IModelNode modelNode, string propertyName){
-            var modelValueInfo = GetModelValueInfo(modelNode, propertyName);
+            var modelValueInfo = modelNode.GetModelValueInfo( propertyName);
             return GetValue(modelValueInfo.Item2, propertyName.Split('.').Last(), modelValueInfo.Item1.PropertyType);
         }
 
-        public static Tuple<ModelValueInfo,IModelNode> GetModelValueInfo(this IModelNode modelNode, string propertyName) {
-            if (propertyName.Contains(".")){
-                var split = propertyName.Split('.');
-                var strings = string.Join(".", split.Skip(1));
-                var node = ((IModelNode) modelNode.GetValue(split.First()));
-                return node.GetModelValueInfo(strings);
-            }
-            var modelValueInfo = ((ModelNode) modelNode).GetValueInfo(propertyName);
-            return new Tuple<ModelValueInfo, IModelNode>(modelValueInfo, modelNode);
-        }
 
         public static object GetValue(this IModelNode modelNode,string propertyName,Type propertyType) {
             return modelNode.CallMethod(new[]{propertyType}, "GetValue", propertyName);
@@ -167,15 +159,6 @@ namespace Xpand.Persistent.Base.General {
             modelNode.SetValue(propertyName, null,value);
         }
 
-        public static void SetValue(this IModelNode modelNode,string propertyName,Type propertyType,object value){
-            if (propertyType==null){
-                var modelValueInfo = modelNode.GetModelValueInfo(propertyName).Item1;
-                var changedValue = modelValueInfo.ChangedValue(value, modelValueInfo.PropertyType);
-                modelNode.CallMethod(new[] { modelValueInfo.PropertyType }, "SetValue", propertyName, changedValue);
-            }
-            else
-                modelNode.CallMethod(new[] { propertyType }, "SetValue", propertyName, value);
-        }
 
         public static object ChangedValue(this ModelValueInfo modelValueInfo,object value, Type destinationType){
             var typeConverter = modelValueInfo.TypeConverter;

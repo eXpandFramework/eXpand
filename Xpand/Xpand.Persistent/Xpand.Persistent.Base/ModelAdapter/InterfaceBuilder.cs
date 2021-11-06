@@ -11,6 +11,7 @@ using DevExpress.ExpressApp.Model.Core;
 using Xpand.Utils.Helpers;
 using Fasterflect;
 using Xpand.Extensions.ReflectionExtensions;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Persistent.Base.General;
 using Platform = Xpand.Extensions.XAF.XafApplicationExtensions.Platform;
 

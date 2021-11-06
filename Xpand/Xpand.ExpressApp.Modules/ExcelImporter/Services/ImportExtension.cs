@@ -17,6 +17,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Xpo.Metadata.Helpers;
 using ExcelDataReader;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Utils.Helpers;
 using Xpand.Utils.Linq;

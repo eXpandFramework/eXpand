@@ -16,7 +16,7 @@ namespace Xpand.ExpressApp.WorldCreator.System {
         private static readonly object Locker = new object();
 
         public WorldCreatorApplication(IObjectSpaceProvider objectSpaceProvider, IEnumerable<ModuleBase> moduleList) {
-            objectSpaceProviders.Add(objectSpaceProvider);
+            this.AddObjectSpaceProvider(objectSpaceProvider);
             var moduleBases = moduleList.Select(m => m.GetType().CreateInstance()).Cast<ModuleBase>().OrderBy(m => m.Name).Distinct().ToArray();
             foreach (var moduleBase in moduleBases) {
                 if (Modules.FindModule(moduleBase.GetType()) == null)

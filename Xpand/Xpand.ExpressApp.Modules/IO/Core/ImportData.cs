@@ -17,6 +17,7 @@ using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
 using Xpand.Xpo.MetaData;
 using Fasterflect;
+using Xpand.Extensions.TypeExtensions;
 
 namespace Xpand.ExpressApp.IO.Core {
     public class InitDataImporter {

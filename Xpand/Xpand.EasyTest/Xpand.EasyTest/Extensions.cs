@@ -16,6 +16,7 @@ using Xpand.EasyTest.Commands;
 using Xpand.EasyTest.Commands.InputSimulator;
 using Xpand.EasyTest.Commands.Window;
 using Xpand.EasyTest.Win32;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Utils.Helpers;
 
 namespace Xpand.EasyTest {

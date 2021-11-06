@@ -1,7 +1,7 @@
-
+Xpand.Extensions
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.Security.Xpo
-DevExpress.Persistent.BaseImpl
+DevExpress.Persistent.BaseImpl.Xpo
 Xpand.XAF.Modules.ModelViewInheritance
 Xpand.Extensions.Mono.Cecil

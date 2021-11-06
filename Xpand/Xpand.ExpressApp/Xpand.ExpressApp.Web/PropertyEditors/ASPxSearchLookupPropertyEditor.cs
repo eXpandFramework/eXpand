@@ -21,6 +21,7 @@ using DevExpress.ExpressApp.Web.TestScripts;
 using DevExpress.ExpressApp.Web.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Web;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Utils.Helpers;
 using CallbackEventArgs = DevExpress.ExpressApp.Web.Editors.ASPx.CallbackEventArgs;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;

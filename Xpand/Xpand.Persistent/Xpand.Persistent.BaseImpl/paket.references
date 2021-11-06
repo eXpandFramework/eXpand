@@ -1,7 +1,7 @@
 PropertyChanged.Fody
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.Security.Xpo
-DevExpress.Persistent.BaseImpl
+DevExpress.Persistent.BaseImpl.Xpo
 Xpand.Extensions.XAF
 Xpand.Extensions.XAF.Xpo
 Xpand.XAF.Modules.Reactive

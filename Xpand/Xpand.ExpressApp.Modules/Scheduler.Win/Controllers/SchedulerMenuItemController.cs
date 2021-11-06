@@ -13,6 +13,7 @@ using DevExpress.XtraScheduler.Native;
 using DevExpress.XtraScheduler.UI;
 using Fasterflect;
 using Xpand.ExpressApp.Scheduler.Model;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Utils.Helpers;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
 

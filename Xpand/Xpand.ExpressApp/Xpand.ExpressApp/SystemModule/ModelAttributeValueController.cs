@@ -9,8 +9,9 @@ using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using Fasterflect;
+using Xpand.Extensions.TypeExtensions;
+using Xpand.Extensions.XAF.ModelExtensions;
 using Xpand.Persistent.Base.General;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.ExpressApp.SystemModule {
     public interface IModelPropertyEditorAttributeValue : IModelNodeAttributeValue {
@@ -86,7 +87,7 @@ namespace Xpand.ExpressApp.SystemModule {
             if (_models != null)
                 foreach (var model in _models) {
                     var propertyType = ((ModelNode)model).Parent.Parent.NodeInfo.GetValueInfo(model.Attribute).PropertyType;
-                    model.GetParent<IModelPropertyEditor>().CallMethod(new[] { propertyType }, "SetValue", model.Attribute, model.CurrentAttributeValue.CurrentValue);
+                    ModelNodeExtensions.GetParent<IModelPropertyEditor>(model).CallMethod(new[] { propertyType }, "SetValue", model.Attribute, model.CurrentAttributeValue.CurrentValue);
                     model.CurrentAttributeValue = null;
                 }
         }
@@ -98,7 +99,7 @@ namespace Xpand.ExpressApp.SystemModule {
                 _models = modelNodeAttributeValueItems.Where(item => ValidByCriteria(item.Criteria,((DetailViewCreatingEventArgs) e).Obj)).ToArray();
                 foreach (var item in _models) {
                     var modelNode = ((ModelNode)item);
-                    var modelPropertyEditor = modelNode.GetParent<IModelPropertyEditor>();
+                    var modelPropertyEditor = ModelNodeExtensions.GetParent<IModelPropertyEditor>(modelNode);
                     var propertyType = ((ModelNode)modelPropertyEditor).NodeInfo.GetValueInfo(item.Attribute).PropertyType;
                     item.CurrentAttributeValue = new CurrentAttributeValue(modelNode.Parent.Parent.GetValue(item.Attribute));
                     modelPropertyEditor.SetValue(item.Attribute, propertyType, item.Value.Change(propertyType));

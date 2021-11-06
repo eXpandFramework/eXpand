@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Persistent.Base.Logic;
 using Xpand.Utils.Helpers;
 

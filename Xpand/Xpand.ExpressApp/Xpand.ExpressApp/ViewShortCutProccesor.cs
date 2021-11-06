@@ -18,6 +18,7 @@ using Xpand.Persistent.Base.General.Model;
 using Xpand.Utils.Linq;
 using Xpand.Utils.Helpers;
 using Fasterflect;
+using Xpand.Extensions.TypeExtensions;
 
 
 namespace Xpand.ExpressApp {

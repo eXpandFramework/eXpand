@@ -8,6 +8,6 @@ DevExpress.ExpressApp.ScriptRecorder.Win
 DevExpress.ExpressApp.TreeListEditors.Win
 DevExpress.ExpressApp.ViewVariantsModule
 DevExpress.ExpressApp.Security.Xpo
-DevExpress.Persistent.BaseImpl
+DevExpress.Persistent.BaseImpl.Xpo
 DevExpress.Win.Reporting
 Xpand.XAF.Modules.CloneModelView

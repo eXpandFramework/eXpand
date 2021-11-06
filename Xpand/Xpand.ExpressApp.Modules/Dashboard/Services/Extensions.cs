@@ -14,6 +14,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using Xpand.ExpressApp.Dashboard.BusinessObjects;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Utils.Helpers;

@@ -1,6 +1,6 @@
 PropertyChanged.Fody
 DevExpress.ExpressApp.ConditionalAppearance
-DevExpress.Persistent.BaseImpl
+DevExpress.Persistent.BaseImpl.Xpo
 DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.Security.Xpo
 Xpand.Extensions.Mono.Cecil

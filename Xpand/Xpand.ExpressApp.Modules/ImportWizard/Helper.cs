@@ -11,6 +11,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.ImportWizard.Properties;
 using Fasterflect;
+using Xpand.Extensions.TypeExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Xpo;

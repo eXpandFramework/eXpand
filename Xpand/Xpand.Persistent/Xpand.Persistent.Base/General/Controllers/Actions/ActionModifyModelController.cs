@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Model.NodeGenerators;
 using DevExpress.Persistent.Base;
+using Xpand.Extensions.XAF.ModelExtensions;
 
 namespace Xpand.Persistent.Base.General.Controllers.Actions {
     public interface IModifyModelActionUser {

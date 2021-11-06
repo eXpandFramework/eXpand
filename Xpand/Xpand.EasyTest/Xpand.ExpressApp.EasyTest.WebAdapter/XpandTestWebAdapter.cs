@@ -149,5 +149,6 @@ namespace Xpand.ExpressApp.EasyTest.WebAdapter{
         public IntPtr BrowserWindowHandle => _easyTestWebBrowser.BrowserWindowHandle;
 
         public IntPtr DialogWindowHandle => _easyTestWebBrowser.DialogWindowHandle;
+        public IEasyTestAlert Alert { get; set; }
     }
 }
