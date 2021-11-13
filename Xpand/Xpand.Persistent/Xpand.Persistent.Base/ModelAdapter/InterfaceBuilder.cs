@@ -59,7 +59,7 @@ namespace Xpand.Persistent.Base.ModelAdapter{
                     var devProcesses = new[]{".ExpressApp.ModelEditor", "devenv","Xpand.XAF.ModelEditor"};
                     var processName = Process.GetCurrentProcess().ProcessName;
                     var isInProcess = devProcesses.Any(s => processName.IndexOf(s, StringComparison.Ordinal) > -1);
-                    _runtimeMode = !isInProcess && LicenseManager.UsageMode != LicenseUsageMode.Designtime;
+                    _runtimeMode = !isInProcess && LicenseManager.UsageMode != LicenseUsageMode.Designtime&&!DesignerOnlyCalculator.IsRunFromDesigner;
                 }
                 return _runtimeMode.Value;
             }
