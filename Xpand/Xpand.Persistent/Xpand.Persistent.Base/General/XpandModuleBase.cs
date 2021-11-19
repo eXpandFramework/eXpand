@@ -388,7 +388,7 @@ namespace Xpand.Persistent.Base.General {
         public static Type GetDxBaseImplType(string typeName){
             try {
                 if (InterfaceBuilder.RuntimeMode) {
-                    Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl" + XafAssemblyInfo.VersionSuffix);
+                    Assembly assembly = Assembly.Load("DevExpress.Persistent.BaseImpl.Xpo" + XafAssemblyInfo.VersionSuffix);
                     XafTypesInfo.Instance.LoadTypes(assembly);
                     var info = XafTypesInfo.Instance.FindTypeInfo(typeName);
                     if (info == null)
