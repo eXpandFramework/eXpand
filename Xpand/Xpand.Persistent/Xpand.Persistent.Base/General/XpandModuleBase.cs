@@ -71,7 +71,7 @@ namespace Xpand.Persistent.Base.General {
         static Assembly _baseImplAssembly;
         static string _connectionString;
         private static readonly object SyncRoot = new();
-        protected Type DefaultXafAppType = typeof(XafApplication);
+        protected readonly Type DefaultXafAppType = typeof(XafApplication);
         static string _assemblyString;
         private static volatile IValueManager<MultiValueDictionary<KeyValuePair<string, ApplicationModulesManager>, object>> _callMonitor;
         private static readonly HashSet<Type> DisabledControllerTypes = new();
@@ -398,7 +398,7 @@ namespace Xpand.Persistent.Base.General {
             }
             catch (FileNotFoundException) {
                 throw new FileNotFoundException(
-                    "Please make sure DevExpress.Persistent.BaseImpl is referenced from your application project and has its Copy Local==true");
+                    "Please make sure DevExpress.Persistent.BaseImpl.Xpo is referenced from your application project and has its Copy Local==true");
             }
 
             return null;
