@@ -4,3 +4,5 @@ DevExpress.ExpressApp.Objects
 DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.Web
 DevExpress.Document.Processor
+DevExpress.ExpressApp.CodeAnalysis
+

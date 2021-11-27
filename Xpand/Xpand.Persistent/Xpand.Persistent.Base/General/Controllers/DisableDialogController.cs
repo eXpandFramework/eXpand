@@ -2,6 +2,7 @@
 using DevExpress.ExpressApp;
 
 namespace Xpand.Persistent.Base.General.Controllers{
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0004:Implement XAF Controller constructors correctly", Justification = "<Pending>")]
     public class DisableDialogController : Controller {
         private readonly Type[] _types;
 
