@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.2.302.0" />
-      <dependency id="eXpandPivotChart" version="21.2.302.0" />
+      <dependency id="eXpandLib" version="21.2.302.1" />
+      <dependency id="eXpandPivotChart" version="21.2.302.1" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>

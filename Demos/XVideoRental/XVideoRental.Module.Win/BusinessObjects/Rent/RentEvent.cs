@@ -84,7 +84,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             get { return Id; }
         }
         [Size(250)]
-        [NonPersistent]
+        [NonPersistent][System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public virtual string Subject {
             get { return appointmentImpl.Subject; }
             set {
@@ -93,7 +93,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             }
         }
         [Size(SizeAttribute.Unlimited), ObjectValidatorIgnoreIssue(typeof(ObjectValidatorLargeNonDelayedMember))]
-        [NonPersistent]
+        [NonPersistent][System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public virtual string Description {
             get { return appointmentImpl.Description; }
             set {
@@ -102,7 +102,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             }
         }
         [Indexed]
-        [NonPersistent]
+        [NonPersistent][System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public virtual DateTime StartOn {
             get { return appointmentImpl.StartOn; }
             set {
@@ -111,7 +111,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             }
         }
         [Indexed]
-        [NonPersistent]
+        [NonPersistent][System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public virtual DateTime EndOn {
             get { return appointmentImpl.EndOn; }
             set {
@@ -133,7 +133,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
                 OnChanged("Location");
             }
         }
-        [NonPersistent]
+        [NonPersistent][System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public virtual int Label {
             get { return appointmentImpl.Label; }
             set {
@@ -141,7 +141,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
                 OnChanged("Label");
             }
         }
-        [NonPersistent]
+        [NonPersistent][System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public virtual int Status {
             get { return appointmentImpl.Status; }
             set {

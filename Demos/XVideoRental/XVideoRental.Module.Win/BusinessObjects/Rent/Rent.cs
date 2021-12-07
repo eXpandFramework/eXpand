@@ -55,6 +55,7 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             Days = 1;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public override string Subject {
             get {
                 return Item?.Movie.MovieTitle;
@@ -62,28 +63,29 @@ namespace XVideoRental.Module.Win.BusinessObjects.Rent {
             set { }
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public override int Status {
             get { return (int)ActiveType; }
             set { }
         }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public override string Description {
             get {
                 return _item?.Movie.Plot;
             }
             set { }
         }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public override DateTime StartOn {
             get { return RentedOn; }
             set { }
         }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public override DateTime EndOn {
             get { return ExpectedOn; }
             set { }
         }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0002:XPO business class properties should not be overriden", Justification = "<Pending>")]
         public override int Label {
             get { return (int)_item.Movie.Rating; }
             set { }

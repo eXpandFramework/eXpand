@@ -1,7 +1,6 @@
-source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
+source C:\Program Files (x86)\DevExpress 21.2\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
-source C:\Work\Reactive.XAF\bin\nupkg\
 storage: none
 copy_local:true
 framework:net461,netstandard2.0,net5.0,net5.0-windows,netstandard2.0,netstandard2.1
@@ -57,8 +56,8 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 4.2.1
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.212.1.4
-nuget Xpand.XAF.Web.All 4.212.1.4
+nuget Xpand.XAF.Win.All 4.212.2.0
+nuget Xpand.XAF.Web.All 4.212.2.0
 nuget System.Memory == 4.5.4
 nuget System.Collections.Immutable == 5.0.0
 nuget System.ServiceModel.NetTcp == 4.8.1
@@ -68,5 +67,3 @@ nuget System.ServiceModel.Duplex == 4.8.1
 nuget Microsoft.Bcl.AsyncInterfaces == 5.0.0
 nuget System.Text.Json == 5.0.0
 nuget System.Text.Encodings.Web == 5.0.0
-
-

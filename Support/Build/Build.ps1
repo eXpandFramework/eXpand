@@ -187,7 +187,9 @@ function BuildProjects($projects,$buildName ){
             dotnet restore "$_" --source ($packageSources -join ";")
             $compileArgs=$msbuildArgs
             $compileArgs+="/bl:$root\Xpand.dll\helper.binlog"
-            dotnet msbuild "$_" @compileArgs
+            Invoke-Script -Maximum 2 {
+                dotnet msbuild "$_" @compileArgs
+            }
             # $o=& dotnet build "$_"  --output $root\Xpand.dll --configuration Release --source ($packageSources -join ";") /WarnAserror
         }
         else {
