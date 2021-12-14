@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.PivotGrid.Win.NetIncome {
     public interface IModelPivotGauge : IModelNode {
         bool Enabled { get; set; }
         [RuleRequiredField(DefaultContexts.Save, TargetCriteria = "Enabled=true")]
-        PivotListEditorControlType ControlType { get; set; }
+        PivotListEditorControlType? ControlType { get; set; }
         InsertType InsertType { get; set; }
         [DataSourceProperty("GaugeProviderTypes")]
         [TypeConverter(typeof(StringToTypeConverterBase))]

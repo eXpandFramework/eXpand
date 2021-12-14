@@ -207,7 +207,6 @@ namespace Xpand.Persistent.Base.General {
             yield return app.CreateController<ActionValidationController>();
             yield return app.CreateController<PersistenceValidationController>();
             yield return app.CreateController<ResultsHighlightController>();
-            yield return app.CreateController<RuleSetInitializationController>();
         }
 
         public static IEnumerable<Controller> CreateAppearanceControllers(this XafApplication app){
