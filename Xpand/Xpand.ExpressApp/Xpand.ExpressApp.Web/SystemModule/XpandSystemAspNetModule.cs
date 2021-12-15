@@ -22,7 +22,6 @@ using Xpand.ExpressApp.Web.SystemModule.WebShortcuts;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.TreeNode;
-using Xpand.XAF.Modules.LookupCascade;
 using Xpand.XAF.Modules.ModelMapper;
 using Xpand.XAF.Modules.ModelMapper.Configuration;
 using Xpand.XAF.Modules.ModelMapper.Services;
@@ -64,7 +63,6 @@ namespace Xpand.ExpressApp.Web.SystemModule {
             RequiredModuleTypes.Add(typeof(DevExpress.ExpressApp.Web.SystemModule.SystemAspNetModule));
             RequiredModuleTypes.Add(typeof(CloneObjectModule));
             RequiredModuleTypes.Add(typeof(ModelMapperModule));
-            RequiredModuleTypes.Add(typeof(LookupCascadeModule));
         }
 
         protected override IEnumerable<Type> GetDeclaredExportedTypes(){
