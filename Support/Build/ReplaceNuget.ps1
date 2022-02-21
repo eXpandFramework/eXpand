@@ -1,10 +1,12 @@
 using namespace system.text.RegularExpressions
 param(
-    $ProjectPath = "C:\Work\eXpandFramework\expand\Xpand\Xpand.Persistent\Xpand.Persistent.Base\Xpand.Persistent.Base.csproj",
-    $TargetPath = "C:\Work\eXpandFramework\expand\Xpand.dll\Xpand.Persistent.Base.dll",
+    $ProjectPath = "C:\Work\expand\Xpand\Xpand.ExpressApp.Modules\WizardUI.Win\Xpand.ExpressApp.WizardUI.Win.csproj",
+    $TargetPath = "C:\Work\expand\Xpand.DLL\net461\Xpand.ExpressApp.WizardUI.Win.dll",
     $SkipNugetReplace
 )
-
+if (!($TargetPath)){
+    return
+}
  
 
 $ErrorActionPreference = "Stop"

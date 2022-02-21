@@ -57,6 +57,7 @@ nuget System.Drawing.Common 5.0.2
 nuget System.IO.Compression 4.3.0
 nuget System.Management 5.0.0
 nuget System.Reactive 5.0.0
+nuget System.Reflection.TypeExtensions 4.7.0
 nuget system.interactive 5.0.0
 nuget System.Resources.Extensions 5.0.0
 nuget System.Runtime.CompilerServices.Unsafe 5.0.0
@@ -68,8 +69,8 @@ nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 4.2.1
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.212.7.0
-nuget Xpand.XAF.Web.All 4.212.7.0
+nuget Xpand.XAF.Win.All 4.212.7.5
+nuget Xpand.XAF.Web.All 4.212.7.5
 nuget System.Memory = 4.5.4
 nuget System.Collections.Immutable = 5.0.0
 nuget System.ServiceModel.NetTcp = 4.8.1
