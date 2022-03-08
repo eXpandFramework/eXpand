@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -20,12 +21,10 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 		}
 #else
         [Persistent]
-        int size;
+        int _size;
         string _fileName = "";
 
-        public int Size {
-            get { return size; }
-        }
+        public int Size => _size;
 #endif
 
         public StrongKeyFile(Session session)
@@ -60,28 +59,31 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         [Size(260)]
         public string FileName {
-            get { return _fileName; }
-            set { SetPropertyValue("FileName", ref _fileName, value); }
+            get => _fileName;
+            set => SetPropertyValue("FileName", ref _fileName, value);
         }
 
-        [Persistent, Delayed,
-         ValueConverter(typeof(CompressionConverter)),
+        
+        [Persistent, ValueConverter(typeof(CompressionConverter)),
          MemberDesignTimeVisibility(false)]
         [Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
+        [Delayed(true)]
+        [SuppressMessage("Design", "XAF0011:Implement a delayed property correctly.")]
         public byte[] Content {
-            get { return GetDelayedPropertyValue<byte[]>("Content"); }
+            get => GetDelayedPropertyValue<byte[]>();
             set {
-                int oldSize = size;
-                size = value != null ? value.Length : 0;
-                SetDelayedPropertyValue("Content", value);
-                OnChanged("Size", oldSize, size);
+                int oldSize = _size;
+                _size = value?.Length ?? 0;
+                if (SetDelayedPropertyValue("Content", value)) {
+                    OnChanged("Size", oldSize, _size);    
+                }
             }
         }
+        
         #region IEmptyCheckable Members
         [NonPersistent, MemberDesignTimeVisibility(false)]
-        public bool IsEmpty {
-            get { return string.IsNullOrEmpty(FileName); }
-        }
+        public bool IsEmpty => string.IsNullOrEmpty(FileName);
+
         #endregion
     }
 }

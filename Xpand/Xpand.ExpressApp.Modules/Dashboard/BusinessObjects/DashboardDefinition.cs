@@ -93,7 +93,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
         }
 
         [Size(SizeAttribute.Unlimited)]
-        [Delayed]
+        [Delayed(true)]
         [VisibleInDetailView(false)]
         [EditorAlias(EditorAliases.DashboardXMLEditor)]
         public string Xml{
@@ -137,7 +137,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
                     xmlDocument.LoadXml(_targetObjectTypes);
                     if (xmlDocument.DocumentElement != null)
                         foreach (XmlNode xmlNode in xmlDocument.DocumentElement.ChildNodes)
-                            DashboardTypes.Add(Types.First(type => xmlNode.Attributes != null && type.Type == XafTypesInfo.Instance.FindTypeInfo(xmlNode.Attributes["Type"].Value).Type));
+                            DashboardTypes.Add(Types.First(type => xmlNode.Attributes != null && type.Type == XafTypesInfo.Instance.FindTypeInfo(xmlNode.Attributes["Type"]!.Value).Type));
                 }
             } finally {
                 SubscribeToListEvents();

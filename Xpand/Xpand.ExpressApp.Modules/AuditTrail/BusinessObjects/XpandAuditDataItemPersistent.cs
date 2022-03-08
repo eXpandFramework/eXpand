@@ -64,7 +64,7 @@ namespace Xpand.ExpressApp.AuditTrail.BusinessObjects {
         }
 
         [Size(SizeAttribute.Unlimited)]
-        [Delayed]
+        [Delayed(true)]
         [MemberDesignTimeVisibility(true)]
         public string Description {
             get => GetDelayedPropertyValue<string>();
@@ -92,14 +92,14 @@ namespace Xpand.ExpressApp.AuditTrail.BusinessObjects {
             set => SetPropertyValue("NewObject", ref _newObject, value);
         }
 
-        [Delayed]
+        [Delayed(true)]
         [Size(SizeAttribute.Unlimited)]
         public string OldValue {
             get => GetDelayedPropertyValue<string>();
             set => SetDelayedPropertyValue("OldValue", value);
         }
 
-        [Delayed]
+        [Delayed(true)]
         [Size(SizeAttribute.Unlimited)]
         public string NewValue {
             get => GetDelayedPropertyValue<string>();
