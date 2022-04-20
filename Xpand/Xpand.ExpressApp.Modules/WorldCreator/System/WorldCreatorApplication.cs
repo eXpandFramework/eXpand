@@ -13,7 +13,7 @@ using Xpand.Persistent.Base.Security;
 
 namespace Xpand.ExpressApp.WorldCreator.System {
     public class WorldCreatorApplication : XafApplication, ITestXafApplication {
-        private static readonly object Locker = new object();
+        private static readonly object Locker = new();
 
         public WorldCreatorApplication(IObjectSpaceProvider objectSpaceProvider, IEnumerable<ModuleBase> moduleList) {
             this.AddObjectSpaceProvider(objectSpaceProvider);
@@ -22,8 +22,16 @@ namespace Xpand.ExpressApp.WorldCreator.System {
                 if (Modules.FindModule(moduleBase.GetType()) == null)
                     Modules.Add(moduleBase);
             }
+            ObjectSpaceCreated+=Application_ObjectSpaceCreated;
         }
 
+        private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e) {
+            if (e.ObjectSpace is CompositeObjectSpace compositeObjectSpace) {
+                if (!(compositeObjectSpace.Owner is CompositeObjectSpace)) {
+                    compositeObjectSpace.PopulateAdditionalObjectSpaces((XafApplication)sender);
+                }
+            }
+        }
         protected override void OnDatabaseVersionMismatch(DatabaseVersionMismatchEventArgs e){
             e.Updater.Update();
             e.Handled = true;
@@ -41,7 +49,7 @@ namespace Xpand.ExpressApp.WorldCreator.System {
                     }
                     catch (CompatibilityException e) {
                         if (e.Message.Contains("FK_TemplateInfo_ObjectType")) {
-                            var message = "Please use " + typeof(WorldCreatorTypeInfoSource).Name + "." +
+                            var message = "Please use " + nameof(WorldCreatorTypeInfoSource) + "." +
                                           nameof(WorldCreatorTypeInfoSource.UseDefaultObjectTypePersistance) +
                                           " before " + application.GetType().Name;
                             throw new CompatibilityException(new CompatibilityError(message, e));

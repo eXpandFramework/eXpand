@@ -14,14 +14,14 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="21.2.601.0" />
-      <dependency id="eXpandLib" version="21.2.601.0" />
-      <dependency id="eXpandSecurity" version="21.2.601.0" />
-      <dependency id="eXpandSecurityWeb" version="21.2.601.0" />
-      <dependency id="eXpandSystem" version="21.2.601.0" />
-      <dependency id="eXpandSystemWeb" version="21.2.601.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.212.8" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="4.212.8" />
+      <dependency id="eXpandDashboard" version="21.2.700.0" />
+      <dependency id="eXpandLib" version="21.2.700.0" />
+      <dependency id="eXpandSecurity" version="21.2.700.0" />
+      <dependency id="eXpandSecurityWeb" version="21.2.700.0" />
+      <dependency id="eXpandSystem" version="21.2.700.0" />
+      <dependency id="eXpandSystemWeb" version="21.2.700.0" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.212.9" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="4.212.9" />
     </dependencies>
   </metadata>
   <files>

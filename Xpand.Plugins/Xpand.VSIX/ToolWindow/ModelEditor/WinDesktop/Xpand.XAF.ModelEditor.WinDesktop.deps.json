@@ -9,855 +9,858 @@
     ".NETCoreApp,Version=v5.0/win-x86": {
       "Xpand.XAF.ModelEditor.WinDesktop/1.0.0": {
         "dependencies": {
-          "DevExpress.ExpressApp": "21.2.6",
-          "DevExpress.ExpressApp.Win": "21.2.6",
-          "DevExpress.ExpressApp.Xpo": "21.2.6",
-          "DevExpress.Persistent.Base": "21.2.6",
-          "DevExpress.Persistent.BaseImpl.Xpo": "21.2.6",
+          "DevExpress.ExpressApp": "21.2.7",
+          "DevExpress.ExpressApp.Win": "21.2.7",
+          "DevExpress.ExpressApp.Xpo": "21.2.7",
+          "DevExpress.Persistent.Base": "21.2.7",
+          "DevExpress.Persistent.BaseImpl.Xpo": "21.2.7",
           "Microsoft.Extensions.DependencyModel": "3.1.6",
-          "runtimepack.Microsoft.NETCore.App.Runtime.win-x86": "5.0.14",
-          "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x86": "5.0.14",
-          "runtimepack.Microsoft.AspNetCore.App.Runtime.win-x86": "5.0.14"
+          "runtimepack.Microsoft.NETCore.App.Runtime.win-x86": "5.0.16",
+          "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x86": "5.0.16",
+          "runtimepack.Microsoft.AspNetCore.App.Runtime.win-x86": "5.0.16"
         },
         "runtime": {
           "Xpand.XAF.ModelEditor.WinDesktop.dll": {}
         }
       },
-      "runtimepack.Microsoft.NETCore.App.Runtime.win-x86/5.0.14": {
+      "runtimepack.Microsoft.NETCore.App.Runtime.win-x86/5.0.16": {
         "runtime": {
           "Microsoft.CSharp.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "Microsoft.VisualBasic.Core.dll": {
             "assemblyVersion": "10.0.6.0",
-            "fileVersion": "11.0.1422.5710"
+            "fileVersion": "11.0.1622.16705"
           },
           "Microsoft.Win32.Primitives.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "Microsoft.Win32.Registry.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.AppContext.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Buffers.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Collections.Concurrent.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Collections.Immutable.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Collections.NonGeneric.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Collections.Specialized.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Collections.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ComponentModel.Annotations.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ComponentModel.DataAnnotations.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ComponentModel.EventBasedAsync.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ComponentModel.Primitives.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ComponentModel.TypeConverter.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ComponentModel.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Configuration.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Console.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Core.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Data.Common.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Data.DataSetExtensions.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Data.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.Contracts.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.Debug.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.DiagnosticSource.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.FileVersionInfo.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.Process.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.StackTrace.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.TextWriterTraceListener.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.Tools.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.TraceSource.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Diagnostics.Tracing.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Drawing.Primitives.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Dynamic.Runtime.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Formats.Asn1.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Globalization.Calendars.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Globalization.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Globalization.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.Compression.Brotli.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.Compression.FileSystem.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.Compression.ZipFile.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.Compression.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.FileSystem.AccessControl.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.FileSystem.DriveInfo.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.FileSystem.Primitives.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.FileSystem.Watcher.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.FileSystem.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.IsolatedStorage.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.MemoryMappedFiles.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.Pipes.AccessControl.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.Pipes.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.UnmanagedMemoryStream.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.IO.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Linq.Expressions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Linq.Parallel.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Linq.Queryable.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Linq.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Memory.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.Http.Json.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.Http.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.HttpListener.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.Mail.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.NameResolution.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.NetworkInformation.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.Ping.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.Primitives.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.Requests.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.Security.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.ServicePoint.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.Sockets.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.WebClient.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.WebHeaderCollection.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.WebProxy.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.WebSockets.Client.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.WebSockets.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Net.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Numerics.Vectors.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Numerics.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ObjectModel.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Private.DataContractSerialization.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Private.Uri.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Private.Xml.Linq.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Private.Xml.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.DispatchProxy.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.Emit.ILGeneration.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.Emit.Lightweight.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.Emit.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.Metadata.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.Primitives.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.TypeExtensions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Reflection.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Resources.Reader.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Resources.ResourceManager.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Resources.Writer.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.CompilerServices.Unsafe.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.CompilerServices.VisualC.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Handles.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.InteropServices.RuntimeInformation.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.InteropServices.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Intrinsics.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Loader.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Numerics.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Serialization.Formatters.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Serialization.Json.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Serialization.Primitives.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Serialization.Xml.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.Serialization.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Runtime.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.AccessControl.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Claims.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Cryptography.Algorithms.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Cryptography.Cng.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Cryptography.Csp.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Cryptography.Encoding.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Cryptography.OpenSsl.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Cryptography.Primitives.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Cryptography.X509Certificates.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Principal.Windows.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.Principal.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.SecureString.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Security.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ServiceModel.Web.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ServiceProcess.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Text.Encoding.CodePages.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Text.Encoding.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Text.Encoding.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Text.Encodings.Web.dll": {
             "assemblyVersion": "5.0.0.1",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Text.Json.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Text.RegularExpressions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.Channels.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.Overlapped.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.Tasks.Dataflow.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.Tasks.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.Tasks.Parallel.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.Tasks.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.Thread.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.ThreadPool.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.Timer.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Threading.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Transactions.Local.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Transactions.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.ValueTuple.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Web.HttpUtility.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Web.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Windows.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.Linq.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.ReaderWriter.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.Serialization.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.XDocument.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.XPath.XDocument.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.XPath.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.XmlDocument.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.XmlSerializer.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Xml.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "mscorlib.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "netstandard.dll": {
             "assemblyVersion": "2.1.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "System.Private.CoreLib.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           }
         },
         "native": {
           "API-MS-Win-core-xstate-l2-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "Microsoft.DiaSymReader.Native.x86.dll": {
             "fileVersion": "14.12.25830.2"
           },
           "api-ms-win-core-console-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-console-l1-2-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-datetime-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-debug-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-errorhandling-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
+          },
+          "api-ms-win-core-fibers-l1-1-0.dll": {
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-file-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-file-l1-2-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-file-l2-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-handle-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-heap-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-interlocked-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-libraryloader-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-localization-l1-2-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-memory-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-namedpipe-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-processenvironment-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-processthreads-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-processthreads-l1-1-1.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-profile-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-rtlsupport-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-string-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-synch-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-synch-l1-2-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-sysinfo-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-timezone-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-core-util-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-conio-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-convert-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-environment-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-filesystem-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-heap-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-locale-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-math-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-multibyte-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-private-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-process-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-runtime-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-stdio-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-string-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-time-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "api-ms-win-crt-utility-l1-1-0.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "clrcompression.dll": {
             "fileVersion": "42.42.42.42424"
           },
           "clretwrc.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "clrjit.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "coreclr.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "createdump.exe": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "dbgshim.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "hostfxr.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "hostpolicy.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "mscordaccore.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
-          "mscordaccore_x86_x86_5.0.1422.5710.dll": {
-            "fileVersion": "5.0.1422.5710"
+          "mscordaccore_x86_x86_5.0.1622.16705.dll": {
+            "fileVersion": "5.0.1622.16705"
           },
           "mscordbi.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "mscorrc.dll": {
-            "fileVersion": "5.0.1422.5710"
+            "fileVersion": "5.0.1622.16705"
           },
           "ucrtbase.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           }
         }
       },
-      "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x86/5.0.14": {
+      "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x86/5.0.16": {
         "runtime": {
           "Accessibility.dll": {
             "assemblyVersion": "4.0.0.0",
-            "fileVersion": "5.0.1422.6104"
+            "fileVersion": "5.0.1622.16805"
           },
           "DirectWriteForwarder.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "Microsoft.VisualBasic.Forms.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6104"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.16805"
           },
           "Microsoft.VisualBasic.dll": {
             "assemblyVersion": "10.1.0.0",
-            "fileVersion": "5.0.1422.6104"
+            "fileVersion": "5.0.1622.16805"
           },
           "Microsoft.Win32.Registry.AccessControl.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -868,64 +871,64 @@
             "fileVersion": "5.0.20.51904"
           },
           "PresentationCore.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework-SystemCore.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework-SystemData.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework-SystemDrawing.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework-SystemXml.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework-SystemXmlLinq.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework.Aero.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework.Aero2.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework.AeroLite.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework.Classic.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework.Luna.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework.Royale.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationFramework.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationUI.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "ReachFramework.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "System.CodeDom.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -936,8 +939,8 @@
             "fileVersion": "5.0.20.51904"
           },
           "System.Design.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6104"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.16805"
           },
           "System.Diagnostics.EventLog.Messages.dll": {
             "assemblyVersion": "5.0.0.1",
@@ -960,20 +963,20 @@
             "fileVersion": "5.0.1221.52207"
           },
           "System.Drawing.Design.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6104"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.16805"
           },
           "System.Drawing.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6104"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.16805"
           },
           "System.IO.Packaging.dll": {
             "assemblyVersion": "5.0.0.0",
             "fileVersion": "5.0.20.51904"
           },
           "System.Printing.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "System.Resources.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -1000,393 +1003,393 @@
             "fileVersion": "5.0.20.51904"
           },
           "System.Windows.Controls.Ribbon.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "System.Windows.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
             "fileVersion": "5.0.20.51904"
           },
           "System.Windows.Forms.Design.Editors.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6104"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.16805"
           },
           "System.Windows.Forms.Design.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6104"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.16805"
           },
           "System.Windows.Forms.Primitives.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6104"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.16805"
           },
           "System.Windows.Forms.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6104"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.16805"
           },
           "System.Windows.Input.Manipulations.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "System.Windows.Presentation.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "System.Xaml.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "UIAutomationClient.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "UIAutomationClientSideProviders.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "UIAutomationProvider.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "UIAutomationTypes.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "WindowsBase.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           },
           "WindowsFormsIntegration.dll": {
-            "assemblyVersion": "5.0.14.0",
-            "fileVersion": "5.0.1422.6108"
+            "assemblyVersion": "5.0.16.0",
+            "fileVersion": "5.0.1622.17101"
           }
         },
         "native": {
           "D3DCompiler_47_cor3.dll": {
-            "fileVersion": "10.0.19041.685"
+            "fileVersion": "10.0.22000.194"
           },
           "PenImc_cor3.dll": {
-            "fileVersion": "5.0.1422.6108"
+            "fileVersion": "5.0.1622.17101"
           },
           "PresentationNative_cor3.dll": {
-            "fileVersion": "5.0.1221.61406"
+            "fileVersion": "5.0.1222.10306"
           },
           "vcruntime140_cor3.dll": {
-            "fileVersion": "14.29.30130.2"
+            "fileVersion": "14.29.30139.0"
           },
           "wpfgfx_cor3.dll": {
-            "fileVersion": "5.0.1422.6108"
+            "fileVersion": "5.0.1622.17101"
           }
         }
       },
-      "runtimepack.Microsoft.AspNetCore.App.Runtime.win-x86/5.0.14": {
+      "runtimepack.Microsoft.AspNetCore.App.Runtime.win-x86/5.0.16": {
         "runtime": {
           "Microsoft.AspNetCore.Antiforgery.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Authentication.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Authentication.Cookies.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Authentication.Core.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Authentication.OAuth.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Authentication.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Authorization.Policy.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Authorization.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Components.Authorization.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Components.Forms.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Components.Server.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Components.Web.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Components.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Connections.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.CookiePolicy.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Cors.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Cryptography.Internal.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Cryptography.KeyDerivation.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.DataProtection.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.DataProtection.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.DataProtection.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Diagnostics.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Diagnostics.HealthChecks.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Diagnostics.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.HostFiltering.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Hosting.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Hosting.Server.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Hosting.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Html.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Http.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Http.Connections.Common.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Http.Connections.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Http.Extensions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Http.Features.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Http.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.HttpOverrides.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.HttpsPolicy.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Identity.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Localization.Routing.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Localization.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Metadata.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.ApiExplorer.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.Core.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.Cors.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.DataAnnotations.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.Formatters.Json.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.Formatters.Xml.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.Localization.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.Razor.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.RazorPages.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.TagHelpers.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.ViewFeatures.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Mvc.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Razor.Runtime.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Razor.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.ResponseCaching.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.ResponseCaching.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.ResponseCompression.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Rewrite.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Routing.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Routing.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Server.HttpSys.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Server.IIS.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Server.IISIntegration.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Server.Kestrel.Core.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Server.Kestrel.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.Session.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.SignalR.Common.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.SignalR.Core.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.SignalR.Protocols.Json.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.SignalR.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.StaticFiles.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.WebSockets.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.WebUtilities.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.AspNetCore.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.Caching.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -1426,7 +1429,7 @@
           },
           "Microsoft.Extensions.Configuration.KeyPerFile.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.Configuration.UserSecrets.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -1450,11 +1453,11 @@
           },
           "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.Diagnostics.HealthChecks.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.FileProviders.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -1466,7 +1469,7 @@
           },
           "Microsoft.Extensions.FileProviders.Embedded.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.FileProviders.Physical.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -1490,19 +1493,19 @@
           },
           "Microsoft.Extensions.Identity.Core.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.Identity.Stores.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.Localization.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.Localization.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.Logging.Abstractions.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -1538,7 +1541,7 @@
           },
           "Microsoft.Extensions.ObjectPool.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Extensions.Options.ConfigurationExtensions.dll": {
             "assemblyVersion": "5.0.0.0",
@@ -1558,69 +1561,69 @@
           },
           "Microsoft.Extensions.WebEncoders.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.JSInterop.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "Microsoft.Net.Http.Headers.dll": {
             "assemblyVersion": "5.0.0.0",
-            "fileVersion": "5.0.1422.6324"
+            "fileVersion": "5.0.1622.16706"
           },
           "System.IO.Pipelines.dll": {
             "assemblyVersion": "5.0.0.1",
-            "fileVersion": "5.0.120.57516"
+            "fileVersion": "5.0.1522.11506"
           }
         },
         "native": {
           "aspnetcorev2_inprocess.dll": {
-            "fileVersion": "15.0.22014.14"
+            "fileVersion": "15.0.22076.16"
           }
         }
       },
-      "DevExpress.Charts/21.2.6": {
+      "DevExpress.Charts/21.2.7": {
         "dependencies": {
-          "DevExpress.Charts.Core": "21.2.6",
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.DataVisualization.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
+          "DevExpress.Charts.Core": "21.2.7",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.DataVisualization.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.XtraCharts.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Charts.Core/21.2.6": {
+      "DevExpress.Charts.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
+          "DevExpress.Data": "21.2.7",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Charts.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.CodeParser/21.2.6": {
+      "DevExpress.CodeParser/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
+          "DevExpress.Data": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.CodeDom": "4.4.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.CodeParser.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Data/21.2.6": {
+      "DevExpress.Data/21.2.7": {
         "dependencies": {
           "Microsoft.Win32.Registry": "4.5.0",
           "NETStandard.Library": "2.0.3",
@@ -1634,30 +1637,30 @@
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Data.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Data.Desktop/21.2.6": {
+      "DevExpress.Data.Desktop/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6"
+          "DevExpress.Data": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.Data.Desktop.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.DataAccess/21.2.6": {
+      "DevExpress.DataAccess/21.2.7": {
         "dependencies": {
-          "DevExpress.CodeParser": "21.2.6",
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Office.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.RichEdit.Core": "21.2.6",
-          "DevExpress.Xpo": "21.2.6",
+          "DevExpress.CodeParser": "21.2.7",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Office.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.RichEdit.Core": "21.2.7",
+          "DevExpress.Xpo": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Configuration.ConfigurationManager": "4.5.0",
           "System.Data.SqlClient": "4.6.0",
@@ -1666,68 +1669,68 @@
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.DataAccess.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.DataAccess.UI/21.2.6": {
+      "DevExpress.DataAccess.UI/21.2.7": {
         "dependencies": {
-          "DevExpress.CodeParser": "21.2.6",
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.DataAccess": "21.2.6",
-          "DevExpress.Diagram.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.RichEdit.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Utils.UI": "21.2.6",
-          "DevExpress.Win.Diagram": "21.2.6",
-          "DevExpress.Win.Grid": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.Printing": "21.2.6",
-          "DevExpress.Win.RichEdit": "21.2.6",
-          "DevExpress.Win.TreeList": "21.2.6",
-          "DevExpress.Xpo": "21.2.6",
+          "DevExpress.CodeParser": "21.2.7",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.DataAccess": "21.2.7",
+          "DevExpress.Diagram.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.RichEdit.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Utils.UI": "21.2.7",
+          "DevExpress.Win.Diagram": "21.2.7",
+          "DevExpress.Win.Grid": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.Printing": "21.2.7",
+          "DevExpress.Win.RichEdit": "21.2.7",
+          "DevExpress.Win.TreeList": "21.2.7",
+          "DevExpress.Xpo": "21.2.7",
           "System.Data.SqlClient": "4.6.0"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.DataAccess.v21.2.UI.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.DataVisualization.Core/21.2.6": {
+      "DevExpress.DataVisualization.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
+          "DevExpress.Data": "21.2.7",
           "NETStandard.Library": "2.0.3"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.DataVisualization.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Diagram.Core/21.2.6": {
+      "DevExpress.Diagram.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.Diagram.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.ExpressApp/21.2.6": {
+      "DevExpress.ExpressApp/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Images": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Images": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
           "Microsoft.CodeAnalysis.CSharp": "2.8.0",
           "Microsoft.Win32.Registry": "4.5.0",
           "NETStandard.Library": "2.0.3",
@@ -1742,114 +1745,114 @@
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.ExpressApp.Objects/21.2.6": {
+      "DevExpress.ExpressApp.Objects/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.ExpressApp": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.ExpressApp": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Objects.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.ExpressApp.Win/21.2.6": {
+      "DevExpress.ExpressApp.Win/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.DataAccess.UI": "21.2.6",
-          "DevExpress.ExpressApp": "21.2.6",
-          "DevExpress.Office.Core": "21.2.6",
-          "DevExpress.Persistent.Base": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.RichEdit.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win": "21.2.6",
-          "DevExpress.Win.BonusSkins": "21.2.6",
-          "DevExpress.Win.Grid": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.Printing": "21.2.6",
-          "DevExpress.Win.RichEdit": "21.2.6",
-          "DevExpress.Win.TreeList": "21.2.6",
-          "DevExpress.Win.VerticalGrid": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.DataAccess.UI": "21.2.7",
+          "DevExpress.ExpressApp": "21.2.7",
+          "DevExpress.Office.Core": "21.2.7",
+          "DevExpress.Persistent.Base": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.RichEdit.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win": "21.2.7",
+          "DevExpress.Win.BonusSkins": "21.2.7",
+          "DevExpress.Win.Grid": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.Printing": "21.2.7",
+          "DevExpress.Win.RichEdit": "21.2.7",
+          "DevExpress.Win.TreeList": "21.2.7",
+          "DevExpress.Win.VerticalGrid": "21.2.7"
         },
         "runtime": {
           "lib/net5.0-windows/DevExpress.ExpressApp.Win.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.ExpressApp.Xpo/21.2.6": {
+      "DevExpress.ExpressApp.Xpo/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.ExpressApp": "21.2.6",
-          "DevExpress.Xpo": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.ExpressApp": "21.2.7",
+          "DevExpress.Xpo": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0",
           "System.Security.Permissions": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.ExpressApp.Xpo.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Gauges.Core/21.2.6": {
+      "DevExpress.Gauges.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.XtraGauges.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Images/21.2.6": {
+      "DevExpress.Images/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
+          "DevExpress.Data": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Images.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Office.Core/21.2.6": {
+      "DevExpress.Office.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Pdf.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Pdf.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0",
           "System.Security.Cryptography.Xml": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Office.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Pdf.Core/21.2.6": {
+      "DevExpress.Pdf.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
+          "DevExpress.Data": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0",
           "System.Reflection.Emit": "4.3.0",
@@ -1857,65 +1860,65 @@
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Pdf.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Pdf.Drawing/21.2.6": {
+      "DevExpress.Pdf.Drawing/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Pdf.Core": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Pdf.Core": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Pdf.v21.2.Drawing.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Persistent.Base/21.2.6": {
+      "DevExpress.Persistent.Base/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.DataAccess": "21.2.6",
-          "DevExpress.ExpressApp": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.DataAccess": "21.2.7",
+          "DevExpress.ExpressApp": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Persistent.Base.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Persistent.BaseImpl.Xpo/21.2.6": {
+      "DevExpress.Persistent.BaseImpl.Xpo/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.ExpressApp": "21.2.6",
-          "DevExpress.ExpressApp.Objects": "21.2.6",
-          "DevExpress.ExpressApp.Xpo": "21.2.6",
-          "DevExpress.Persistent.Base": "21.2.6",
-          "DevExpress.Reporting.Core": "21.2.6",
-          "DevExpress.Scheduler.Core": "21.2.6",
-          "DevExpress.Xpo": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.ExpressApp": "21.2.7",
+          "DevExpress.ExpressApp.Objects": "21.2.7",
+          "DevExpress.ExpressApp.Xpo": "21.2.7",
+          "DevExpress.Persistent.Base": "21.2.7",
+          "DevExpress.Reporting.Core": "21.2.7",
+          "DevExpress.Scheduler.Core": "21.2.7",
+          "DevExpress.Xpo": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Persistent.BaseImpl.Xpo.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.PivotGrid.Core/21.2.6": {
+      "DevExpress.PivotGrid.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0",
           "System.Reflection.Emit": "4.3.0",
@@ -1923,16 +1926,16 @@
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.PivotGrid.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Printing.Core/21.2.6": {
+      "DevExpress.Printing.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Pdf.Core": "21.2.6",
-          "DevExpress.Pdf.Drawing": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Pdf.Core": "21.2.7",
+          "DevExpress.Pdf.Drawing": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.ComponentModel.Annotations": "4.4.0",
           "System.Drawing.Common": "4.5.0",
@@ -1942,28 +1945,28 @@
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Printing.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Reporting.Core/21.2.6": {
+      "DevExpress.Reporting.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Charts": "21.2.6",
-          "DevExpress.Charts.Core": "21.2.6",
-          "DevExpress.CodeParser": "21.2.6",
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.DataAccess": "21.2.6",
-          "DevExpress.Gauges.Core": "21.2.6",
-          "DevExpress.Office.Core": "21.2.6",
-          "DevExpress.Pdf.Core": "21.2.6",
-          "DevExpress.Pdf.Drawing": "21.2.6",
-          "DevExpress.PivotGrid.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.RichEdit.Core": "21.2.6",
-          "DevExpress.RichEdit.Export": "21.2.6",
-          "DevExpress.Sparkline.Core": "21.2.6",
-          "DevExpress.Xpo": "21.2.6",
+          "DevExpress.Charts": "21.2.7",
+          "DevExpress.Charts.Core": "21.2.7",
+          "DevExpress.CodeParser": "21.2.7",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.DataAccess": "21.2.7",
+          "DevExpress.Gauges.Core": "21.2.7",
+          "DevExpress.Office.Core": "21.2.7",
+          "DevExpress.Pdf.Core": "21.2.7",
+          "DevExpress.Pdf.Drawing": "21.2.7",
+          "DevExpress.PivotGrid.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.RichEdit.Core": "21.2.7",
+          "DevExpress.RichEdit.Export": "21.2.7",
+          "DevExpress.Sparkline.Core": "21.2.7",
+          "DevExpress.Xpo": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.CodeDom": "4.4.0",
           "System.Collections.Immutable": "1.5.0",
@@ -1975,283 +1978,283 @@
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.XtraReports.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.RichEdit.Core/21.2.6": {
+      "DevExpress.RichEdit.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Office.Core": "21.2.6",
-          "DevExpress.Pdf.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Office.Core": "21.2.7",
+          "DevExpress.Pdf.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.RichEdit.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.RichEdit.Export/21.2.6": {
+      "DevExpress.RichEdit.Export/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Office.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.RichEdit.Core": "21.2.6",
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Office.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.RichEdit.Core": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.RichEdit.v21.2.Export.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Scheduler.Core/21.2.6": {
+      "DevExpress.Scheduler.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
+          "DevExpress.Data": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.XtraScheduler.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Sparkline.Core/21.2.6": {
+      "DevExpress.Sparkline.Core/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
+          "DevExpress.Data": "21.2.7",
           "NETStandard.Library": "2.0.3",
           "System.Drawing.Common": "4.5.0"
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Sparkline.v21.2.Core.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Utils/21.2.6": {
+      "DevExpress.Utils/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.Utils.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Utils.UI/21.2.6": {
+      "DevExpress.Utils.UI/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.DataAccess": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.Printing": "21.2.6",
-          "DevExpress.Win.RichEdit": "21.2.6",
-          "DevExpress.Win.TreeList": "21.2.6",
-          "DevExpress.Win.VerticalGrid": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.DataAccess": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.Printing": "21.2.7",
+          "DevExpress.Win.RichEdit": "21.2.7",
+          "DevExpress.Win.TreeList": "21.2.7",
+          "DevExpress.Win.VerticalGrid": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.Utils.v21.2.UI.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win/21.2.6": {
+      "DevExpress.Win/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.RichEdit.Export": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Grid": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.PivotGrid": "21.2.6",
-          "DevExpress.Win.Printing": "21.2.6",
-          "DevExpress.Win.TreeList": "21.2.6",
-          "DevExpress.Win.VerticalGrid": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.RichEdit.Export": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Grid": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.PivotGrid": "21.2.7",
+          "DevExpress.Win.Printing": "21.2.7",
+          "DevExpress.Win.TreeList": "21.2.7",
+          "DevExpress.Win.VerticalGrid": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraNavBar.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           },
           "lib/netcoreapp3.0/DevExpress.XtraWizard.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.BonusSkins/21.2.6": {
+      "DevExpress.Win.BonusSkins/21.2.7": {
         "dependencies": {
-          "DevExpress.Utils": "21.2.6"
+          "DevExpress.Utils": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.BonusSkins.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.Diagram/21.2.6": {
+      "DevExpress.Win.Diagram/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Diagram.Core": "21.2.6",
-          "DevExpress.Office.Core": "21.2.6",
-          "DevExpress.Pdf.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.Printing": "21.2.6",
-          "DevExpress.Win.VerticalGrid": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Diagram.Core": "21.2.7",
+          "DevExpress.Office.Core": "21.2.7",
+          "DevExpress.Pdf.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.Printing": "21.2.7",
+          "DevExpress.Win.VerticalGrid": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraDiagram.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.Grid/21.2.6": {
+      "DevExpress.Win.Grid/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.Printing": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.Printing": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraGrid.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.Navigation/21.2.6": {
+      "DevExpress.Win.Navigation/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.Sparkline.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.Sparkline.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraBars.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           },
           "lib/netcoreapp3.0/DevExpress.XtraEditors.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           },
           "lib/netcoreapp3.0/DevExpress.XtraLayout.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.PivotGrid/21.2.6": {
+      "DevExpress.Win.PivotGrid/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.PivotGrid.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.PivotGrid.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraPivotGrid.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.Printing/21.2.6": {
+      "DevExpress.Win.Printing/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.RichEdit.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.TreeList": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.RichEdit.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.TreeList": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraPrinting.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.RichEdit/21.2.6": {
+      "DevExpress.Win.RichEdit/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Images": "21.2.6",
-          "DevExpress.Office.Core": "21.2.6",
-          "DevExpress.Pdf.Core": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.RichEdit.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Grid": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.Printing": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Images": "21.2.7",
+          "DevExpress.Office.Core": "21.2.7",
+          "DevExpress.Pdf.Core": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.RichEdit.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Grid": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.Printing": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraRichEdit.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.TreeList/21.2.6": {
+      "DevExpress.Win.TreeList/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraTreeList.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Win.VerticalGrid/21.2.6": {
+      "DevExpress.Win.VerticalGrid/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
-          "DevExpress.Data.Desktop": "21.2.6",
-          "DevExpress.Printing.Core": "21.2.6",
-          "DevExpress.Utils": "21.2.6",
-          "DevExpress.Win.Navigation": "21.2.6",
-          "DevExpress.Win.Printing": "21.2.6"
+          "DevExpress.Data": "21.2.7",
+          "DevExpress.Data.Desktop": "21.2.7",
+          "DevExpress.Printing.Core": "21.2.7",
+          "DevExpress.Utils": "21.2.7",
+          "DevExpress.Win.Navigation": "21.2.7",
+          "DevExpress.Win.Printing": "21.2.7"
         },
         "runtime": {
           "lib/netcoreapp3.0/DevExpress.XtraVerticalGrid.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
-      "DevExpress.Xpo/21.2.6": {
+      "DevExpress.Xpo/21.2.7": {
         "dependencies": {
-          "DevExpress.Data": "21.2.6",
+          "DevExpress.Data": "21.2.7",
           "Microsoft.Extensions.DependencyInjection": "2.0.0",
           "Microsoft.Win32.Registry": "4.5.0",
           "NETStandard.Library": "2.0.3",
@@ -2265,8 +2268,8 @@
         },
         "runtime": {
           "lib/netstandard2.0/DevExpress.Xpo.v21.2.dll": {
-            "assemblyVersion": "21.2.6.0",
-            "fileVersion": "21.2.6.0"
+            "assemblyVersion": "21.2.7.0",
+            "fileVersion": "21.2.7.0"
           }
         }
       },
@@ -3277,300 +3280,300 @@
       "serviceable": false,
       "sha512": ""
     },
-    "runtimepack.Microsoft.NETCore.App.Runtime.win-x86/5.0.14": {
+    "runtimepack.Microsoft.NETCore.App.Runtime.win-x86/5.0.16": {
       "type": "runtimepack",
       "serviceable": false,
       "sha512": ""
     },
-    "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x86/5.0.14": {
+    "runtimepack.Microsoft.WindowsDesktop.App.Runtime.win-x86/5.0.16": {
       "type": "runtimepack",
       "serviceable": false,
       "sha512": ""
     },
-    "runtimepack.Microsoft.AspNetCore.App.Runtime.win-x86/5.0.14": {
+    "runtimepack.Microsoft.AspNetCore.App.Runtime.win-x86/5.0.16": {
       "type": "runtimepack",
       "serviceable": false,
       "sha512": ""
     },
-    "DevExpress.Charts/21.2.6": {
+    "DevExpress.Charts/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-k1cswPn6ofcECciK48bQ2NbxztilSuuGHC6PBsG/cjGEk2IelI8/hJdWAyABwosPpcE2Nd3wfvCt+8as81byHw==",
-      "path": "devexpress.charts/21.2.6",
-      "hashPath": "devexpress.charts.21.2.6.nupkg.sha512"
+      "sha512": "sha512-YDVx6B1i2/Ebkd3QrEESHy8GBiooztLbZvFT6oKtUFL8seBfBYGhdp90rmJ+fw2WKrTUUR4pPaKM8sNB/awO/g==",
+      "path": "devexpress.charts/21.2.7",
+      "hashPath": "devexpress.charts.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Charts.Core/21.2.6": {
+    "DevExpress.Charts.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-iRwOVpQ7FHg3/qP+e2Y609nf5G5loztQg6AQ36O+tOUs5P9Gzoi1EY1Kp1UfKa4F/P41OyuByC9pWG0giw8SPg==",
-      "path": "devexpress.charts.core/21.2.6",
-      "hashPath": "devexpress.charts.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-9QmcLn6XzgWNN2lQKUqERwsI25VLHup+1qlaPFIDLDjnzZzC5EXXCylnwKBOAt+A9tzDWI8b55wt9bM/1DqC7w==",
+      "path": "devexpress.charts.core/21.2.7",
+      "hashPath": "devexpress.charts.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.CodeParser/21.2.6": {
+    "DevExpress.CodeParser/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-obk+egL+Z5t6CIIP7jn5zkNoIdq70Uhj68l/z6HNWRsOcaAHOWn3umSRmiTRejFNZmL4zWF/VD6oPrXphmDZoQ==",
-      "path": "devexpress.codeparser/21.2.6",
-      "hashPath": "devexpress.codeparser.21.2.6.nupkg.sha512"
+      "sha512": "sha512-dspai46zfGBjShC4RXhDY18y49xPy2cBf8sqpFSeTEp9+Ww1OrIvz+Z4J7QUqRh+N9ZnJOXWqdiXah4un7Kv9Q==",
+      "path": "devexpress.codeparser/21.2.7",
+      "hashPath": "devexpress.codeparser.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Data/21.2.6": {
+    "DevExpress.Data/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zcNeyJCEkQIG/WybZNjoFO+T9wilDvEqvJza58Os9wKiK1NcX5eCih9AsIndKka326wa+yFiS+w1zsHlGkAOqQ==",
-      "path": "devexpress.data/21.2.6",
-      "hashPath": "devexpress.data.21.2.6.nupkg.sha512"
+      "sha512": "sha512-nfLd5qIrMbWWLk8zR9qtGkFq8YGupryUrErRwPNsMKZ5jKUncTNIXs3opypTqjpdDNVY600+7yJX+T5JE84WGQ==",
+      "path": "devexpress.data/21.2.7",
+      "hashPath": "devexpress.data.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Data.Desktop/21.2.6": {
+    "DevExpress.Data.Desktop/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-36/YDUmwXkXkfse1Uy/ULbiqnXguojjFW1mI0FpV01Hbro42MbW/ZEVjmjpz7NdrP9UA7sLl7X38UTMMAXz9Ug==",
-      "path": "devexpress.data.desktop/21.2.6",
-      "hashPath": "devexpress.data.desktop.21.2.6.nupkg.sha512"
+      "sha512": "sha512-pxkN6vsF8NyFALD0bgRlx15ZQfo0/Oa7XyJw/Ao8wPqELKbhCdGu1btPIQU7ezOSQaZj6A/UHl9sI2WDdP/DYA==",
+      "path": "devexpress.data.desktop/21.2.7",
+      "hashPath": "devexpress.data.desktop.21.2.7.nupkg.sha512"
     },
-    "DevExpress.DataAccess/21.2.6": {
+    "DevExpress.DataAccess/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lSacgIkeoHuim8go6MHZgVlN0WveNJiMamnOVloSbUScTMaUGf9OjetyjvjAXDBgTje5C6AIDwLtiNAHd6hfsg==",
-      "path": "devexpress.dataaccess/21.2.6",
-      "hashPath": "devexpress.dataaccess.21.2.6.nupkg.sha512"
+      "sha512": "sha512-KxLD6UqMz1Ez1wF3t6I/H4NZb0CD9yLn+mRrm+3eSyuYyQ3lxGaGz8XCKCe1nuJQ1fVVVbk66tFk0T1zz3xB1w==",
+      "path": "devexpress.dataaccess/21.2.7",
+      "hashPath": "devexpress.dataaccess.21.2.7.nupkg.sha512"
     },
-    "DevExpress.DataAccess.UI/21.2.6": {
+    "DevExpress.DataAccess.UI/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hdOkIVRz0OueRUWHL2/MkMMdoD3fpJ54tNnpUgu8peD7ss+H1vYFTOMHWVrocKOiY9N/FkVX0FvNu6xNhZHsSg==",
-      "path": "devexpress.dataaccess.ui/21.2.6",
-      "hashPath": "devexpress.dataaccess.ui.21.2.6.nupkg.sha512"
+      "sha512": "sha512-l+VSGPQ8UcqaiTH5paFXv3R7QD4RcQg3Z4JRvbFCNBxrPoebWInfQwL9m8didhbiFoFPCVF2T0QJYCxid0dDaw==",
+      "path": "devexpress.dataaccess.ui/21.2.7",
+      "hashPath": "devexpress.dataaccess.ui.21.2.7.nupkg.sha512"
     },
-    "DevExpress.DataVisualization.Core/21.2.6": {
+    "DevExpress.DataVisualization.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wzsLzi7tvrmucjrKrDC6nWEqLRotsV1H82FB0prueX8v6lhkHlXYUad50NN8DtO5tTaA/FrBMLfa0bUKchFVtg==",
-      "path": "devexpress.datavisualization.core/21.2.6",
-      "hashPath": "devexpress.datavisualization.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-cD39Nue5z97zny5rNdnk2ATLx2xbULHD6lSGCEPE5HpW8Ohn05mAaPVOgLLJjdliZ7vdMLiQs5WeEGZB8v+Eow==",
+      "path": "devexpress.datavisualization.core/21.2.7",
+      "hashPath": "devexpress.datavisualization.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Diagram.Core/21.2.6": {
+    "DevExpress.Diagram.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ujUVTL640seSVPmDhqf3xYtyYnp/AGtBYEQhoWHzAfDRMcfqpUVxKoD9Fe9NtBOSA926U6m43IpflzLTDRC6WA==",
-      "path": "devexpress.diagram.core/21.2.6",
-      "hashPath": "devexpress.diagram.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-CEaqM39d0VnZoWhf0lUKhkRi0VSAK7gsqc4EY9TYaZh5cAlEFGtM9Zn8VsS3Jo4JT4/2lDhO6a5vnPKmiUXevw==",
+      "path": "devexpress.diagram.core/21.2.7",
+      "hashPath": "devexpress.diagram.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.ExpressApp/21.2.6": {
+    "DevExpress.ExpressApp/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+BKFl/ywU+uXQTdeqBJ+vJG/cG0kDr30jpqXce30rDSMlNhfGHs9SIvuOleolD0oPqN4Y8Kql18moQgvSxSH3w==",
-      "path": "devexpress.expressapp/21.2.6",
-      "hashPath": "devexpress.expressapp.21.2.6.nupkg.sha512"
+      "sha512": "sha512-vhJUv7txGbTnEX/3lzzOloNQnqNCCVBVoGrGHadKy4ZFCwq1CQ5NYPKpMDGtnexEeO99O5HWBWAgE8CzlEr44w==",
+      "path": "devexpress.expressapp/21.2.7",
+      "hashPath": "devexpress.expressapp.21.2.7.nupkg.sha512"
     },
-    "DevExpress.ExpressApp.Objects/21.2.6": {
+    "DevExpress.ExpressApp.Objects/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-iDkM/3/GL6WNlG/Mj+VGaSQK35+NTiWQLwMBXunBOczXyVjSwA9dNp/6VOZeCvj9vEL1lJ6HVI8x+BQl1fl8ag==",
-      "path": "devexpress.expressapp.objects/21.2.6",
-      "hashPath": "devexpress.expressapp.objects.21.2.6.nupkg.sha512"
+      "sha512": "sha512-DcEB4jfro5ga3qJJLUuHh2MkhTX83zd0hzikSGd52q8QzaYdD8Z7vXpp4pFifK4dwIdMzy7q94fQZE/Ayk0JMw==",
+      "path": "devexpress.expressapp.objects/21.2.7",
+      "hashPath": "devexpress.expressapp.objects.21.2.7.nupkg.sha512"
     },
-    "DevExpress.ExpressApp.Win/21.2.6": {
+    "DevExpress.ExpressApp.Win/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-92WFNP6WnOvgrulvQix/tO1js/RXCPXVEAEmQ0bkcu+WBBt7y0hDeeGUxL9tfYov3ycYrfgrlCr6RIypfuW4xw==",
-      "path": "devexpress.expressapp.win/21.2.6",
-      "hashPath": "devexpress.expressapp.win.21.2.6.nupkg.sha512"
+      "sha512": "sha512-6pIZ/M2QyNEgBOBe+CuzePnC+KYpcBnPgzqgh+i2dnBFa1audzkmAXL36kNUUVBl6HPwzhPeAowTXbQFSLvoWg==",
+      "path": "devexpress.expressapp.win/21.2.7",
+      "hashPath": "devexpress.expressapp.win.21.2.7.nupkg.sha512"
     },
-    "DevExpress.ExpressApp.Xpo/21.2.6": {
+    "DevExpress.ExpressApp.Xpo/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bo+mpaj6G2EBy8NH5Ly3xDBT5cBAjaaeRpvwcDDjuCgBFaDj1fAKnkUBlB0iIVIOoRojhPR5ULAPtyTQZ6hE6A==",
-      "path": "devexpress.expressapp.xpo/21.2.6",
-      "hashPath": "devexpress.expressapp.xpo.21.2.6.nupkg.sha512"
+      "sha512": "sha512-b810WXfjwaDti4Ra3Xzc0fAQw2Sq1NnCPziXrneQ/7Axf0w7BndFaBGCWfFvJF3WNGvGR/cgRNAgitHv3YGkIA==",
+      "path": "devexpress.expressapp.xpo/21.2.7",
+      "hashPath": "devexpress.expressapp.xpo.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Gauges.Core/21.2.6": {
+    "DevExpress.Gauges.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+a8QpAgWfJViNithbFefGaUOvvVv5UfHksYdLzt1WCm9srVhruPgPE7gm8jBVsxvoNjP2YwocDa8n/TDOSjmgQ==",
-      "path": "devexpress.gauges.core/21.2.6",
-      "hashPath": "devexpress.gauges.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-KkaSxN/pcz4d6WRtNuN11yquBgSCcAXISDrdLea1L4Z253TVmguh44uSWVW6Sa9JyasdT2p/IZjq+5trQfuG6A==",
+      "path": "devexpress.gauges.core/21.2.7",
+      "hashPath": "devexpress.gauges.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Images/21.2.6": {
+    "DevExpress.Images/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-L1POlCTnWohBXyDkTf+TwZW/pvAXZm/W9DSGR+wXuiLPWPHPclsx+fGs5+KOjnCuzTf6I1VNv2PY3qKgYsLQGg==",
-      "path": "devexpress.images/21.2.6",
-      "hashPath": "devexpress.images.21.2.6.nupkg.sha512"
+      "sha512": "sha512-qNd43gZ2nEELPukRhBKuo8wBhao1FQIMzyLhjSFpCFM3geKBFgffJVdzDddrAsWwPMO5+5f0/rqO4V1+gy7L/A==",
+      "path": "devexpress.images/21.2.7",
+      "hashPath": "devexpress.images.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Office.Core/21.2.6": {
+    "DevExpress.Office.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-FI+qQzCxxrBS8ow0fpfEYs8WwnstPr8fpr1Qgo7uZCk6je+MN1h1kR0LDA7vAUBx0ZDkUi9/xCwfLnnIzSc1cw==",
-      "path": "devexpress.office.core/21.2.6",
-      "hashPath": "devexpress.office.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-zhdWcNraDSOUaz6NfkodXEAI7WcyiGV7NcHL+N7ZSWWkSowF5lsp3lGWcR7EBznjDCGksoLNRnyqrp5/ahUCCA==",
+      "path": "devexpress.office.core/21.2.7",
+      "hashPath": "devexpress.office.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Pdf.Core/21.2.6": {
+    "DevExpress.Pdf.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-vqm8c5CqwjshDmDkm1TBMw1RcQaCNXJBppsLt+pSma0kdQILPg65dHj4h2gpWlnLAcC5SizD7e3Kn20MwSoJ6w==",
-      "path": "devexpress.pdf.core/21.2.6",
-      "hashPath": "devexpress.pdf.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-NasIHHtfPbwIPXqEee9pTl9aNNwh6zRH7okm5PYUS68xZZeB8MQhOi5/2U9n4h8uw9xhHeaoaNaMzqn9WmGo3Q==",
+      "path": "devexpress.pdf.core/21.2.7",
+      "hashPath": "devexpress.pdf.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Pdf.Drawing/21.2.6": {
+    "DevExpress.Pdf.Drawing/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-pO/uuAENbgZypgNjsF/6ia8Gext9IG/IANzZnqR8QoMgjyS6yo1W3L/hKX+WxAHgi6NJOf+1wQj9lKitQMWhJw==",
-      "path": "devexpress.pdf.drawing/21.2.6",
-      "hashPath": "devexpress.pdf.drawing.21.2.6.nupkg.sha512"
+      "sha512": "sha512-s1x/sKRuUSXb8f7HmgKBeUsVRi1SdP3+DUaKGbnfI3qAEXdyS7Z7J3OyoXMqqU/J2ghM8rzvDNoTLYWMuXhyng==",
+      "path": "devexpress.pdf.drawing/21.2.7",
+      "hashPath": "devexpress.pdf.drawing.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Persistent.Base/21.2.6": {
+    "DevExpress.Persistent.Base/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-93Q7zQivKvYCuyhwqD/b854Pg8hrocFikcfOo+qSEKdedvNRRQGZouv+W3n+noovorpyi9tlOQ53oHV85j3HQg==",
-      "path": "devexpress.persistent.base/21.2.6",
-      "hashPath": "devexpress.persistent.base.21.2.6.nupkg.sha512"
+      "sha512": "sha512-K+mVobl6UBwHWwic3+vYuj8xWUz3ScoxHsY2bx/NAlBywFgFn1DSaP/gvmylP2C/h6FIoVSRcb7L4ag36H9pkw==",
+      "path": "devexpress.persistent.base/21.2.7",
+      "hashPath": "devexpress.persistent.base.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Persistent.BaseImpl.Xpo/21.2.6": {
+    "DevExpress.Persistent.BaseImpl.Xpo/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-F1z2MyJbVyLW3SVd2RJmyvgJZ1CVbEGrFehZahuuJur7aIn7N074C83ZhupxPSHSqvYVZlwUg685x1Y0cbepCw==",
-      "path": "devexpress.persistent.baseimpl.xpo/21.2.6",
-      "hashPath": "devexpress.persistent.baseimpl.xpo.21.2.6.nupkg.sha512"
+      "sha512": "sha512-syvs/cRBKt1bm8y/Lt6fTR2lr5bbkvlly/WsEb4ak36exliL6RmtlzTb7eDqPxIaijxcY5B/Ekya3TfVNBxW1Q==",
+      "path": "devexpress.persistent.baseimpl.xpo/21.2.7",
+      "hashPath": "devexpress.persistent.baseimpl.xpo.21.2.7.nupkg.sha512"
     },
-    "DevExpress.PivotGrid.Core/21.2.6": {
+    "DevExpress.PivotGrid.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-l1wxlI4xfiLcrDv8FemMuYMozkWzfiw8fHh4W/XvhfFqmbJs7IDd1/Vi5vHZXGnH/IPhPZ3Xk0A9/Z8MZlRTIg==",
-      "path": "devexpress.pivotgrid.core/21.2.6",
-      "hashPath": "devexpress.pivotgrid.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-BTPQ6ST2nLDMnvhtqyrJrOfllzWRuHYtCxa/NoeRX9uNDLPrNm/dccQWH4nc0cAaFYfpiFBJyHpSrzWDkM4iUw==",
+      "path": "devexpress.pivotgrid.core/21.2.7",
+      "hashPath": "devexpress.pivotgrid.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Printing.Core/21.2.6": {
+    "DevExpress.Printing.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OOCKZw3AQKEmSjUG9jBVQGNqGwXIzMy36RA9vF3/KDJKaGJrolUcFNpMRiVmJJUU3tnTWX12YiiDp5AEcJHbng==",
-      "path": "devexpress.printing.core/21.2.6",
-      "hashPath": "devexpress.printing.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-BXXL5EY+eB/lxPSl0RZJ6zpwawur/sc/1U1ekffdeefC4hnpxKgCSes2557nVj/Jqd0dnxD1rNRclpWJv1158g==",
+      "path": "devexpress.printing.core/21.2.7",
+      "hashPath": "devexpress.printing.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Reporting.Core/21.2.6": {
+    "DevExpress.Reporting.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-2Ejw0Il9ggTaEIwNsSrqE5A9zSJDK/ffd9TUMSDC58Bzhtnh7ePoc8aqRHifXQGgDdTGZahKfsWmDwJWNLKb0A==",
-      "path": "devexpress.reporting.core/21.2.6",
-      "hashPath": "devexpress.reporting.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-TwHl4NW6pF0bdPKvzfDo9yZ8kvfMo1evZ3l9tEvXiMXBMwyBt8TuxJyfRKWgEswSysUmG1EtnZFiqpW96yJ0UA==",
+      "path": "devexpress.reporting.core/21.2.7",
+      "hashPath": "devexpress.reporting.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.RichEdit.Core/21.2.6": {
+    "DevExpress.RichEdit.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ddG8G8H+caCfGb0HRu1U3nMPdhcueV58fWmoQFhUQ37zykHiJLOOFvAossuZWiYXvP7Bn7Zo6hlDoYdi+JWi1g==",
-      "path": "devexpress.richedit.core/21.2.6",
-      "hashPath": "devexpress.richedit.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-RE/VaV8OukBkg2Z5HJLo5d7T4V9M7VES2rSkEPU1pML0zUzXpn0haq4sJv7+hzEkJBdQzaa7XfufXj6Z3P9uQA==",
+      "path": "devexpress.richedit.core/21.2.7",
+      "hashPath": "devexpress.richedit.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.RichEdit.Export/21.2.6": {
+    "DevExpress.RichEdit.Export/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bsGZ7SjSiWfqoFzszuCaLrXUd9TM9CFSzWoUSYU7D4y/ecfVdqrOFRgMHcEkh3/LPBAsKrvwuAnysBTId7dSXg==",
-      "path": "devexpress.richedit.export/21.2.6",
-      "hashPath": "devexpress.richedit.export.21.2.6.nupkg.sha512"
+      "sha512": "sha512-AteZ2/rgeS8vbzOKarMsys+TPx0rNXBSV669gYFtir36v/ENvCx/F7yftwasqDBxHwI5jcqkEuxwvV/0xtJtDw==",
+      "path": "devexpress.richedit.export/21.2.7",
+      "hashPath": "devexpress.richedit.export.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Scheduler.Core/21.2.6": {
+    "DevExpress.Scheduler.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-KAaB1njvCt7Pq6N2pfYCIu5CKz2boR5r+cClT7pRLjfnG6QWKnBku0wUT/VnnNKHeaDLHCiZVtjvhWk4Of1++g==",
-      "path": "devexpress.scheduler.core/21.2.6",
-      "hashPath": "devexpress.scheduler.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-wgLeb1W4/L5WEXv39PO068j7RqBpD7mEmWpubG+ig4iy62WYe7hqNPpkiYXPhE7t20pZWD5TBeZhPBwG5lJzRw==",
+      "path": "devexpress.scheduler.core/21.2.7",
+      "hashPath": "devexpress.scheduler.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Sparkline.Core/21.2.6": {
+    "DevExpress.Sparkline.Core/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bCDie6tP8OFklVQuzvvvxGc0glaeZc1S58qzeZlRLF2QZ8Z9zXKpOSO/N/jDQU9JndSPsoezgya+CqOiw3xujg==",
-      "path": "devexpress.sparkline.core/21.2.6",
-      "hashPath": "devexpress.sparkline.core.21.2.6.nupkg.sha512"
+      "sha512": "sha512-R0HYWElGBfGNVq1TQZe3whoxQt2jOaykdv12w+SW90JeyHel0bPv6prMl2VrKunoNyx8DqZRPTS0cFgtDHVbuQ==",
+      "path": "devexpress.sparkline.core/21.2.7",
+      "hashPath": "devexpress.sparkline.core.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Utils/21.2.6": {
+    "DevExpress.Utils/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rzRKeDaQIVYKd3RwT0DLNCM47lM/6QeaGe8b5OnSkQgPJaQ7MCxEJVfjqUtz+RdqR1iT35Xxx+sJOWcxGO63lQ==",
-      "path": "devexpress.utils/21.2.6",
-      "hashPath": "devexpress.utils.21.2.6.nupkg.sha512"
+      "sha512": "sha512-H4wiG8tBfPMQZv+YExqsoDt9ki+57VIObvk27srJmgyQGEsTze6bx2nyJIoIN+hYvwffPHiXn0YAZ4GAdu4PcQ==",
+      "path": "devexpress.utils/21.2.7",
+      "hashPath": "devexpress.utils.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Utils.UI/21.2.6": {
+    "DevExpress.Utils.UI/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-JsEKxJxBtrbn3xRJRa8cPdVwtaNPyfd7ZnrUHqd7KMxO+sEe/bAJAxOR7yLMlKMuAleUg0LJyLv4yu7qtmUHZw==",
-      "path": "devexpress.utils.ui/21.2.6",
-      "hashPath": "devexpress.utils.ui.21.2.6.nupkg.sha512"
+      "sha512": "sha512-N4xrK+tnFMGFcZHVOnlg9vAJaI7yYiQShd+W55QaxP+99RFRlXA/Y2rSqkjQtvNsOtBH8a8RDZf4cxolh3Jf3w==",
+      "path": "devexpress.utils.ui/21.2.7",
+      "hashPath": "devexpress.utils.ui.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win/21.2.6": {
+    "DevExpress.Win/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Dr3aVqLmP2Hsue0BxZG+PK3/NPy1BmRS2diIEin/wIKj72Vd8NhSzQBf2PxpPY2Rg06mIdLHxXtXVDQ1PdiK9Q==",
-      "path": "devexpress.win/21.2.6",
-      "hashPath": "devexpress.win.21.2.6.nupkg.sha512"
+      "sha512": "sha512-o2YibUpAdq1AMaSXra1OOUHnHYc3IhSyCo/G56Xq3h5uhrdPWUCCIlC8JGVQPsODtuy3xJ5QdKc7vxjx90gagw==",
+      "path": "devexpress.win/21.2.7",
+      "hashPath": "devexpress.win.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.BonusSkins/21.2.6": {
+    "DevExpress.Win.BonusSkins/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Ryhpa+ai1W+DqdZI/QCdg1SzNpdjsLY8UE8OnDrAKnIVH2tE6TfdH1U1IF2uIn/Uuu3pcj1U/CscKIxvf2cX9Q==",
-      "path": "devexpress.win.bonusskins/21.2.6",
-      "hashPath": "devexpress.win.bonusskins.21.2.6.nupkg.sha512"
+      "sha512": "sha512-KVCrBTTifQYaRjV7AfkzpoTecXoy2LkBOmVlYzWQ2W26F8nWECZXMnf7YqurVlbhY8E5dTDy/6CdUSnIH659/g==",
+      "path": "devexpress.win.bonusskins/21.2.7",
+      "hashPath": "devexpress.win.bonusskins.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.Diagram/21.2.6": {
+    "DevExpress.Win.Diagram/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-u82xmwYFx+B/DApGOXLVLqvrtSwbVfxxhhrle6m/5mheYAXuhmsLEWGN0tZSHUXTYRKbylc3P7iZM7LDfGy9NA==",
-      "path": "devexpress.win.diagram/21.2.6",
-      "hashPath": "devexpress.win.diagram.21.2.6.nupkg.sha512"
+      "sha512": "sha512-2a4ErT1deJYCTi8baWy4AzsaQcb3JZzamur3nhFmOwpryKpEareYSsmsFZGwmQjQ2kNyXMkYcN/NUx+o5sx4Dg==",
+      "path": "devexpress.win.diagram/21.2.7",
+      "hashPath": "devexpress.win.diagram.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.Grid/21.2.6": {
+    "DevExpress.Win.Grid/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-edXmrXixhQoc+FKyM9aQwO0qJJjaTHJ0Aurjp39mLyJOFI00ZrMD2uG3epnm3lhrXtSgzYYbYHq/XaRlKMauYQ==",
-      "path": "devexpress.win.grid/21.2.6",
-      "hashPath": "devexpress.win.grid.21.2.6.nupkg.sha512"
+      "sha512": "sha512-/sylwHtkxFjiScNHwOxIUY+bhlIHjQVaoYrthuuzeO9QfU9oOdDAQIpIasWlklSP1koxFEmuBhLJjv50arAWiA==",
+      "path": "devexpress.win.grid/21.2.7",
+      "hashPath": "devexpress.win.grid.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.Navigation/21.2.6": {
+    "DevExpress.Win.Navigation/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-q5w6tKdYaa42XXyxlY7Fz68fOUnBrE7xACtoyf97BAm6L5wUgbfi9DjSB+URf9t8MWt7YT8hbsLwGt+xprtuZQ==",
-      "path": "devexpress.win.navigation/21.2.6",
-      "hashPath": "devexpress.win.navigation.21.2.6.nupkg.sha512"
+      "sha512": "sha512-lcE6gvT+SyZlqQRr7hbY5pfEY0czN3SqHCpgzdZEbdV9iSL/Z8Cosjg/09+8z3lBjXtEpuVP/o4Lq9B/O6+t1w==",
+      "path": "devexpress.win.navigation/21.2.7",
+      "hashPath": "devexpress.win.navigation.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.PivotGrid/21.2.6": {
+    "DevExpress.Win.PivotGrid/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-S0HF2gr7hyYGgdgtqjD5HZEvE3KtVTd3SONZAB7i0Zx6cZYGJMnCV7sJ9xP+SU3IXTWQW28JZj6ajtxWKF+gbw==",
-      "path": "devexpress.win.pivotgrid/21.2.6",
-      "hashPath": "devexpress.win.pivotgrid.21.2.6.nupkg.sha512"
+      "sha512": "sha512-SQhs37c5cirlaOJmsLwJLqGqqBlzFASLRWuWYscMGg419amb9bonbVCz6zYLnwLEd/2SRq8YMyLQAeSstpcGcA==",
+      "path": "devexpress.win.pivotgrid/21.2.7",
+      "hashPath": "devexpress.win.pivotgrid.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.Printing/21.2.6": {
+    "DevExpress.Win.Printing/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NtRK0DhCkbljgoLcqaK5YTPADjvPb3MjjhuXY+LYEMYQZXUjYT338Cp/p129WzzRGSHYeBOZ5Oge50ztjD5dmA==",
-      "path": "devexpress.win.printing/21.2.6",
-      "hashPath": "devexpress.win.printing.21.2.6.nupkg.sha512"
+      "sha512": "sha512-rOOmrmJj9OlG6I+si5ZYFn+3hPtG3pPdo1FKa67bJYsEARYxeFno5nWNtQpTf95OGYHJpdu0mGYijZXPmuyY2w==",
+      "path": "devexpress.win.printing/21.2.7",
+      "hashPath": "devexpress.win.printing.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.RichEdit/21.2.6": {
+    "DevExpress.Win.RichEdit/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-593JUdE41Ut13gEU61pGeeiLeheR3jas38vgCpm9jwPDWR/HToCjVEII+eDs7O7oZC12EqsxN7M1YfvX6JZ8tw==",
-      "path": "devexpress.win.richedit/21.2.6",
-      "hashPath": "devexpress.win.richedit.21.2.6.nupkg.sha512"
+      "sha512": "sha512-o/uftQMA+E3QyeP7ATWQ3YsL8+0HPRPCpDroBwfqaJ8O5CBjBANe/tQ/Y9o4y4CHfia0MCHRNeWChXausmOvmQ==",
+      "path": "devexpress.win.richedit/21.2.7",
+      "hashPath": "devexpress.win.richedit.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.TreeList/21.2.6": {
+    "DevExpress.Win.TreeList/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-cjHNB7u0rguDYSG/GWlS0SouTJgSpfl7VlYuH+Xgv64FBcc1dwiHxHtoeB0DerK4T+5Z64PDtOMd3y/sp5qf1g==",
-      "path": "devexpress.win.treelist/21.2.6",
-      "hashPath": "devexpress.win.treelist.21.2.6.nupkg.sha512"
+      "sha512": "sha512-ntwVgSHUiqMn+Jcamp5tsYN9OLL55Kp09miQ9ezb81wvYTkxuzhtKaY18BTlT2J+6F8UVZJE2TXBpr9h/4lvwA==",
+      "path": "devexpress.win.treelist/21.2.7",
+      "hashPath": "devexpress.win.treelist.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Win.VerticalGrid/21.2.6": {
+    "DevExpress.Win.VerticalGrid/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MTgOdS5LvhQL9PGg1s12qRXdCfPsZF3VnZ0MJqxs2k9Rqn2D1fpsK2b9UqWHRf7aP6ohaH7QsbFgAxVltZEqvA==",
-      "path": "devexpress.win.verticalgrid/21.2.6",
-      "hashPath": "devexpress.win.verticalgrid.21.2.6.nupkg.sha512"
+      "sha512": "sha512-va9cp/Zp23zS9IzRj9bJNPWFA3Wg8vM37wNvHsHcyQTfkaNwPORWJFV44ZZv5LrHTrzAXk2BSGXY5yeYu6sGvA==",
+      "path": "devexpress.win.verticalgrid/21.2.7",
+      "hashPath": "devexpress.win.verticalgrid.21.2.7.nupkg.sha512"
     },
-    "DevExpress.Xpo/21.2.6": {
+    "DevExpress.Xpo/21.2.7": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gSSeV0NlYpBOkosUFdNrCyP57qnZn1YdR9WWzXh7joAhUJLQzobHZt6qXSo0mWQWtRFW2Y6XtYtTWImXea8cwQ==",
-      "path": "devexpress.xpo/21.2.6",
-      "hashPath": "devexpress.xpo.21.2.6.nupkg.sha512"
+      "sha512": "sha512-ckgtU6g9kcNS3EiPqyT8AYSb/bbEda0tytjF8+guJU67Ctl1/i16RrdA3+cnPP0H5h4I8B8O2l0f4dzmlKHvZg==",
+      "path": "devexpress.xpo/21.2.7",
+      "hashPath": "devexpress.xpo.21.2.7.nupkg.sha512"
     },
     "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
       "type": "package",

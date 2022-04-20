@@ -16,12 +16,12 @@ nuget AppDomainToolkit 1.0.4.3
 nuget AutoMapper 10.1.1
 nuget CommandLineParser 1.9.71
 nuget Common.Logging 3.4.1
-nuget DevExpress.ExpressApp.Win.All = 21.2.6 
-nuget DevExpress.ExpressApp.Web.All = 21.2.6 
-nuget DevExpress.ExpressApp.Core.All  = 21.2.6
-nuget DevExpress.ExpressApp.Security.Xpo = 21.2.6
-nuget DevExpress.Document.Processor = 21.2.6 
-nuget DevExpress.ExpressApp.CodeAnalysis = 21.2.6
+nuget DevExpress.ExpressApp.Win.All = 21.2.7 
+nuget DevExpress.ExpressApp.Web.All = 21.2.7 
+nuget DevExpress.ExpressApp.Core.All  = 21.2.7
+nuget DevExpress.ExpressApp.Security.Xpo = 21.2.7
+nuget DevExpress.Document.Processor = 21.2.7 
+nuget DevExpress.ExpressApp.CodeAnalysis = 21.2.7
 nuget DocumentFormat.OpenXml 2.11.3
 nuget DotNetZip 1.15.0
 nuget Enums.NET 4.0.0
@@ -67,10 +67,11 @@ nuget System.Threading.Tasks.Extensions 4.5.4
 nuget System.ValueTuple 4.5.0
 nuget System.Xml.XDocument 4.3.0
 nuget Topshelf 4.2.1
+nuget Microsoft.AspNetCore.WebUtilities 2.2.0
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.212.8.4
-nuget Xpand.XAF.Web.All 4.212.8.4
+nuget Xpand.XAF.Win.All 4.212.9.0
+nuget Xpand.XAF.Web.All 4.212.9.0
 nuget System.Memory = 4.5.4
 nuget System.Collections.Immutable = 5.0.0
 nuget System.ServiceModel.NetTcp = 4.8.1

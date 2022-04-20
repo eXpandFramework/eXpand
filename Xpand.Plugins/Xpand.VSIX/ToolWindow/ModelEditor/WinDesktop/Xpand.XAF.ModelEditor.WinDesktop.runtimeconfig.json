@@ -4,15 +4,15 @@
     "includedFrameworks": [
       {
         "name": "Microsoft.NETCore.App",
-        "version": "5.0.14"
+        "version": "5.0.16"
       },
       {
         "name": "Microsoft.WindowsDesktop.App",
-        "version": "5.0.14"
+        "version": "5.0.16"
       },
       {
         "name": "Microsoft.AspNetCore.App",
-        "version": "5.0.14"
+        "version": "5.0.16"
       }
     ],
     "configProperties": {
