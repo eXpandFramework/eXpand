@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#HtmlPropertyEditor</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.2.700.0" />
-      <dependency id="eXpandLogic" version="21.2.700.0" />
+      <dependency id="eXpandLib" version="21.2.701.0" />
+      <dependency id="eXpandLogic" version="21.2.701.0" />
       <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.212.9" />
       <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.212.9" />
     </dependencies>

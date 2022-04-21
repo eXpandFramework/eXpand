@@ -15,9 +15,9 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6" />
-      <dependency id="eXpandLib" version="21.2.700.0" />
-      <dependency id="eXpandSystem" version="21.2.700.0" />
-      <dependency id="eXpandValidation" version="21.2.700.0" />
+      <dependency id="eXpandLib" version="21.2.701.0" />
+      <dependency id="eXpandSystem" version="21.2.701.0" />
+      <dependency id="eXpandValidation" version="21.2.701.0" />
       <dependency id="SharpZipLib" version="1.3" />
       <dependency id="System.IO.Compression" version="4.3" />
       <dependency id="Xpand.Extensions.XAF.Xpo" version="4.212.9" />
