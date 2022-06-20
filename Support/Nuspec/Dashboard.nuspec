@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.2.800.0" />
+      <dependency id="eXpandLib" version="21.2.801.0" />
       <dependency id="Xpand.Extensions" version="4.212.10" />
       <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.212.10" />
       <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.212.10" />
