@@ -13,7 +13,7 @@ using DevExpress.Utils;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Fasterflect;
-using JetBrains.Annotations;
+
 using Mono.Cecil;
 using Xpand.ExpressApp.Validation;
 using Xpand.ExpressApp.WorldCreator.BusinessObjects.Validation;
@@ -33,9 +33,9 @@ using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 namespace Xpand.ExpressApp.WorldCreator{
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
-    [UsedImplicitly]
+    
     public sealed class WorldCreatorModule : XpandModuleBase, IAdditionalModuleProvider{
-        [PublicAPI]
+        
         public event EventHandler<CustomWorldCreatorApplicationArgs> CustomWorldCreatorApplication;
         public const string BaseImplNameSpace = "Xpand.Persistent.BaseImpl.PersistentMetaData";
 

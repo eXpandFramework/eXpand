@@ -22,7 +22,7 @@
       <dependency id="eXpandValidationWeb" version="21.2.800.0" />
       <dependency id="System.IO.Compression" version="4.3" />
       <dependency id="System.Reactive" version="5.0" />
-      <dependency id="Xpand.Extensions.XAF" version="4.212.9.7" />
+      <dependency id="Xpand.Extensions.XAF" version="4.212.9.8" />
     </dependencies>
   </metadata>
   <files>

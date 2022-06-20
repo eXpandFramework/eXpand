@@ -11,7 +11,7 @@ using System.Threading;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Persistent.Base;
-using JetBrains.Annotations;
+
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
 using Xpand.ExpressApp.ExcelImporter.Win.BusinessObjects;
@@ -151,7 +151,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
         }
 
         private static bool Execute(this XafApplication application, (Guid excelImportOid, FileDropWatcher watcher) tuple,
-            ExcelImport excelImport, [InstantHandle] Action<IObjectSpace> action, string message) {
+            ExcelImport excelImport,  Action<IObjectSpace> action, string message) {
             try {
                 using var failedResultsObjectSpace = application.CreateObjectSpace();
                 action(failedResultsObjectSpace);

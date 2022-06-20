@@ -16,7 +16,7 @@
     <dependencies>
       <dependency id="eXpandLib" version="21.2.800.0" />
       <dependency id="eXpandTreelistView" version="21.2.800.0" />
-      <dependency id="Xpand.Extensions.XAF" version="4.212.9.7" />
+      <dependency id="Xpand.Extensions.XAF" version="4.212.9.8" />
     </dependencies>
   </metadata>
   <files>

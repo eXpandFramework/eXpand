@@ -20,8 +20,8 @@
       <dependency id="eXpandSystemWin" version="21.2.800.0" />
       <dependency id="eXpandValidationWin" version="21.2.800.0" />
       <dependency id="System.IO.Compression" version="4.3" />
-      <dependency id="Xpand.Extensions" version="4.212.9.7" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.212.9.7" />
+      <dependency id="Xpand.Extensions" version="4.212.9.8" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.212.9.8" />
     </dependencies>
   </metadata>
   <files>

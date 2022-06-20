@@ -10,7 +10,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.ExpressApp.Web;
 using DevExpress.Utils;
-using JetBrains.Annotations;
+
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Web.FriendlyUrl;
 using Xpand.ExpressApp.Web.ListEditors.EditableTabEnabledListEditor;
@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
         IModelWebApplicationStyleManager WebApplicationStyleManager{ get; }
     }
 
-    [PublicAPI]
+    
     public interface IModelWebApplicationStyleManager:IModelNode{
         [DefaultValue(true)]
         bool EnableUpperCase{ get; set; }
@@ -51,7 +51,7 @@ namespace Xpand.ExpressApp.Web.SystemModule {
     [EditorBrowsable(EditorBrowsableState.Always)]
     [ToolboxBitmap(typeof(WebApplication), "Resources.Toolbox_Module_System_Web.ico")]
     public sealed class XpandSystemAspNetModule : XpandModuleBase {
-        [PublicAPI]
+        
         public const string XpandWeb = "eXpand.Web";
         
         public static string ASPxGridViewMapName = "GridViewOptions";

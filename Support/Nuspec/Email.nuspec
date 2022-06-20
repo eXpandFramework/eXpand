@@ -19,7 +19,7 @@
       <dependency id="eXpandSecurity" version="21.2.800.0" />
       <dependency id="eXpandValidation" version="21.2.800.0" />
       <dependency id="RazorEngine" version="3.10" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.212.9.7" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.212.9.8" />
     </dependencies>
   </metadata>
   <files>

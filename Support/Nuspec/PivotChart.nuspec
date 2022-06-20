@@ -20,7 +20,7 @@
       <dependency id="eXpandSecurity" version="21.2.800.0" />
       <dependency id="eXpandValidation" version="21.2.800.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.212.9.7" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.212.9.8" />
     </dependencies>
   </metadata>
   <files>
