@@ -17,7 +17,7 @@
       <dependency id="eXpandLib" version="21.2.800.0" />
       <dependency id="eXpandSecurity" version="21.2.800.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="4.212.9.8" />
+      <dependency id="Xpand.Extensions" version="4.212.10" />
     </dependencies>
   </metadata>
   <files>

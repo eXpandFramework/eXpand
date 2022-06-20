@@ -15,8 +15,8 @@
     <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
     <dependencies>
       <dependency id="eXpandLib" version="21.2.800.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.212.9.8" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.212.10" />
     </dependencies>
   </metadata>
   <files>

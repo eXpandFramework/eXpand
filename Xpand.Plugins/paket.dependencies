@@ -1,6 +1,6 @@
 storage: packages
 framework: auto-detect
-source C:\Program Files (x86)\DevExpress 21.2\Components\System\Components\Packages
+source C:\Program Files (x86)\DevExpress 22.1\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 

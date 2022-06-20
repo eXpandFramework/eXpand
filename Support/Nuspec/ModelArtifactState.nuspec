@@ -18,7 +18,7 @@
       <dependency id="eXpandLogic" version="21.2.800.0" />
       <dependency id="eXpandSecurity" version="21.2.800.0" />
       <dependency id="eXpandValidation" version="21.2.800.0" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.212.9.8" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.212.10" />
     </dependencies>
   </metadata>
   <files>

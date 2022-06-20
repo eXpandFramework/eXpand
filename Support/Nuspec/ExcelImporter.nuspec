@@ -20,15 +20,15 @@
       <dependency id="eXpandValidation" version="21.2.800.0" />
       <dependency id="SharpZipLib" version="1.3" />
       <dependency id="System.IO.Compression" version="4.3" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.AutoCommit" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.MasterDetail" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="4.212.9.8" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.AutoCommit" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.MasterDetail" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.SuppressConfirmation" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="4.212.10" />
     </dependencies>
   </metadata>
   <files>

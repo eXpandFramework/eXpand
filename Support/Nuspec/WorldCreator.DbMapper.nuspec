@@ -16,8 +16,8 @@
     <dependencies>
       <dependency id="eXpandLib" version="21.2.800.0" />
       <dependency id="eXpandWorldCreator" version="21.2.800.0" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.212.9.8" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.212.9.8" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.212.10" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.212.10" />
     </dependencies>
   </metadata>
   <files>

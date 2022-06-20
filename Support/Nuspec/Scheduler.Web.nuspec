@@ -17,7 +17,7 @@
       <dependency id="eXpandDashboard" version="21.2.800.0" />
       <dependency id="eXpandLib" version="21.2.800.0" />
       <dependency id="eXpandScheduler" version="21.2.800.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.212.9.8" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.212.10" />
     </dependencies>
   </metadata>
   <files>
