@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
@@ -18,7 +19,7 @@ namespace Xpand.Persistent.Base.General {
             var moduleName = Path.GetFileName(fullPath);
             var directoryName = Path.GetDirectoryName(fullPath);
             var xafApplication = ApplicationBuilder.Create()
-                .UsingTypesInfo(s => XafTypesInfo.Instance)
+                .UsingTypesInfo(_ => XafTypesInfo.Instance)
                 .FromModule(moduleName)
                 .FromAssembliesPath(directoryName)
                 .WithOutObjectSpaceProvider()
@@ -100,6 +101,7 @@ namespace Xpand.Persistent.Base.General {
                 : base(new ConnectionStringDataStoreProvider(GetConnectionString(xafApplication))) {
             }
 
+            [SuppressMessage("Design", "XAF0013:Avoid reading the XafApplication.ConnectionString property")]
             static string GetConnectionString(XafApplication xafApplication) {
                 if (!string.IsNullOrEmpty(xafApplication.ConnectionString))
                     return xafApplication.ConnectionString;

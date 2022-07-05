@@ -25,7 +25,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
                 cancelEventArgs.Cancel = true;
                 var action = ((ParametrizedAction)sender);
                 var searchValue = action.Value;
-                var objectSpace = Application.CreateObjectSpace();
+                var objectSpace = Application.CreateObjectSpace(modelListView.ModelClass.TypeInfo.Type);
                 var collectionSource = Application.CreateCollectionSource(objectSpace, modelListView.ModelClass.TypeInfo.Type, modelListView.Id);
                 var listView = Application.CreateListView(modelListView, collectionSource, true);
                 Frame.SetView(listView);

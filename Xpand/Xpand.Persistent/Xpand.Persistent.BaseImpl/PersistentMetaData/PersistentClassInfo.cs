@@ -122,7 +122,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 //        [RuleFromIPropertyValueValidator()]
         public XPCollection<PersistentMemberInfo> OwnMembers => GetCollection<PersistentMemberInfo>();
 
-        [Association("PersistentClassInfos-Interfaces"),Aggregated]
+        [Association("PersistentClassInfos-Interfaces")]
         public XPCollection<InterfaceInfo> Interfaces => GetCollection<InterfaceInfo>();
 
         [Association("PersistentAssemblyInfo-PersistentClassInfos")]

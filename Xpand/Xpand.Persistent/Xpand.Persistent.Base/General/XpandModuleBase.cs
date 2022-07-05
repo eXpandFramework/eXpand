@@ -797,6 +797,7 @@ namespace Xpand.Persistent.Base.General {
     }
 
     public static class ModuleBaseExtensions {
+        [SuppressMessage("Design", "XAF0013:Avoid reading the XafApplication.ConnectionString property")]
         public static string GetConnectionString(this ModuleBase moduleBase) {
             if (moduleBase.Application.ObjectSpaceProviders.Count == 0) {
                 return moduleBase.Application.ConnectionString;
@@ -837,6 +838,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
 
+        [SuppressMessage("Design", "XAF0013:Avoid reading the XafApplication.ConnectionString property")]
         void ConnectionStringActions(object sender, ObjectSpaceCreatedEventArgs e) {
             XpandModuleBase.ObjectSpaceCreated = true;
             var xafApplication = ((XafApplication)sender);

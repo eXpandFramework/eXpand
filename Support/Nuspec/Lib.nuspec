@@ -16,14 +16,15 @@
     <dependencies>
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="Newtonsoft.Json" version="13.0.1" />
-      <dependency id="System.Configuration.ConfigurationManager" version="5.0" />
-      <dependency id="System.Drawing.Common" version="5.0.2" />
-      <dependency id="System.Management" version="5.0" />
-      <dependency id="Xpand.Extensions" version="4.212.10" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.212.10" />
-      <dependency id="Xpand.Extensions.XAF" version="4.212.10" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.212.10" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.212.10" />
+      <dependency id="System.ComponentModel.Annotations" version="5.0" />
+      <dependency id="System.Configuration.ConfigurationManager" version="6.0" />
+      <dependency id="System.Drawing.Common" version="6.0" />
+      <dependency id="System.Management" version="6.0" />
+      <dependency id="Xpand.Extensions" version="4.212.10.1" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.212.10.1" />
+      <dependency id="Xpand.Extensions.XAF" version="4.212.10.1" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.212.10.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.212.10.1" />
     </dependencies>
   </metadata>
   <files>

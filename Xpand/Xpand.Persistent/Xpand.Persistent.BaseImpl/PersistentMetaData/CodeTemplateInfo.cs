@@ -23,7 +23,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
 
         [VisibleInListView(false)]
         [RuleRequiredField(null, DefaultContexts.Save)]
-        [Aggregated]
+        // [Aggregated]
         [Association("TemplateInfo-CodeTemplateInfos")]
         public TemplateInfo TemplateInfo {
             get { return _templateInfo; }

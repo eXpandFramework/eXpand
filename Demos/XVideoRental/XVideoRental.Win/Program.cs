@@ -24,7 +24,7 @@ namespace XVideoRental.Win {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
+            // EditModelPermission.AlwaysGranted = System.Diagnostics.Debugger.IsAttached;
             var winApplication = new XVideoRentalWindowsFormsApplication();
 
 #if EASYTEST

@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
             ImportAction.Executing+=ImportActionOnExecuting;
         }
 
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0012:Avoid calling the XafApplication.CreateObjectSpace() method without Type parameter", Justification = "<Pending>")]
         private void ExcelMappingActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
             if ((string) e.SelectedChoiceActionItem.Data == "Reset") {
                 ObjectSpace.Delete(ExcelImport.ExcelColumnMaps);

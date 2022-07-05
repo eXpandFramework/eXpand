@@ -28,6 +28,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             TargetWindowType = WindowType.Main;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0012:Avoid calling the XafApplication.CreateObjectSpace() method without Type parameter", Justification = "<Pending>")]
         protected override void OnActivated() {
             base.OnActivated();
             _objectSpace = Application.CreateObjectSpace();
@@ -64,6 +65,7 @@ namespace Xpand.ExpressApp.Scheduler.Reminders {
             ((XafApplication)sender).ViewShown -= ApplicationOnViewShown;
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0012:Avoid calling the XafApplication.CreateObjectSpace() method without Type parameter", Justification = "<Pending>")]
         private void CreateAppoitments() {
             if (Application != null){
                 var reminderInfos = Application.TypesInfo.PersistentTypes.Select(ReminderMembers).Where(info => info != null);

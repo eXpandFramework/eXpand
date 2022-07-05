@@ -5,4 +5,4 @@ DevExpress.ExpressApp.Validation
 Xpand.XAF.Modules.CloneModelView
 Xpand.XAF.Modules.ModelViewInheritance
 DevExpress.ExpressApp.CodeAnalysis
-
+System.ComponentModel.Annotations

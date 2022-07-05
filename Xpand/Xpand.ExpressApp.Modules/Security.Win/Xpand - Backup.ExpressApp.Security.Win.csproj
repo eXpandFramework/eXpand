@@ -15,6 +15,11 @@
     <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
   </PropertyGroup>
   <ItemGroup>
+    <!-- <Reference Include="System.Windows.Forms" /> -->
+    <Reference Include="Xpand.ExpressApp.Security">
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Security.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="Xpand.Persistent.Base">
       <HintPath>..\..\..\Xpand.DLL\Xpand.Persistent.Base.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -23,32 +28,15 @@
       <HintPath>..\..\..\Xpand.DLL\Xpand.Utils.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Xpand.Xpo">
-      <HintPath>..\..\..\Xpand.DLL\Xpand.Xpo.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Controllers\ImportWizViewControllerBase.cs" />
-    <Compile Update="ImportWizardModule.cs" />
-    <Compile Update="LongOperation\LongOperationController.cs" />
-    <Compile Update="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
+    <Compile Update="Controllers\ChooseDatabaseAtLogonController.cs" />
+    <Compile Update="XpandSecurityWinModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Images\Import.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Controllers\ListView\ViewController.cs" />
-    <Compile Remove="Controllers\ListView\ViewController.Designer.cs" />
   </ItemGroup>
   <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

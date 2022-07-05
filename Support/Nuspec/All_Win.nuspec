@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWin</id>
-    <version>21.2.801.0</version>
+    <version>22.1.300.0</version>
     <title>DevExpress eXpandFramework All Win Platform Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,43 +15,41 @@
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
       <group targetFramework="net461">
-        <dependency id="eXpandAdditionalViewControlsProviderWin" version="21.2.801.0" />
-        <dependency id="eXpandChartWin" version="21.2.801.0" />
-        <dependency id="eXpandEasyTestWin" version="21.2.801.0" />
-        <dependency id="eXpandExcelImporter.Win" version="21.2.801.0" />
-        <dependency id="eXpandImportWizardWin2" version="21.2.801.0" />
-        <dependency id="eXpandIOWin" version="21.2.801.0" />
-        <dependency id="eXpandMasterDetailWin" version="21.2.801.0" />
-        <dependency id="eXpandModelDifferenceWin" version="21.2.801.0" />
-        <dependency id="eXpandPivotChartWin" version="21.2.801.0" />
-        <dependency id="eXpandPivotGridWin" version="21.2.801.0" />
-        <dependency id="eXpandReportsV2Win" version="21.2.801.0" />
-        <dependency id="eXpandSchedulerWin" version="21.2.801.0" />
-        <dependency id="eXpandSecurityWin" version="21.2.801.0" />
-        <dependency id="eXpandSystemWin" version="21.2.801.0" />
-        <dependency id="eXpandTreelistViewWin" version="21.2.801.0" />
-        <dependency id="eXpandValidationWin" version="21.2.801.0" />
-        <dependency id="eXpandWizardWin" version="21.2.801.0" />
-        <dependency id="eXpandWorldCreatorWin" version="21.2.801.0" />
-        <dependency id="eXpandXtraDashboardWin" version="21.2.801.0" />
+        <dependency id="eXpandAdditionalViewControlsProviderWin" version="22.1.300.0" />
+        <dependency id="eXpandChartWin" version="22.1.300.0" />
+        <dependency id="eXpandExcelImporter.Win" version="22.1.300.0" />
+        <dependency id="eXpandImportWizardWin2" version="22.1.300.0" />
+        <dependency id="eXpandIOWin" version="22.1.300.0" />
+        <dependency id="eXpandModelDifferenceWin" version="22.1.300.0" />
+        <dependency id="eXpandPivotChartWin" version="22.1.300.0" />
+        <dependency id="eXpandPivotGridWin" version="22.1.300.0" />
+        <dependency id="eXpandReportsV2Win" version="22.1.300.0" />
+        <dependency id="eXpandSchedulerWin" version="22.1.300.0" />
+        <dependency id="eXpandSecurityWin" version="22.1.300.0" />
+        <dependency id="eXpandSystemWin" version="22.1.300.0" />
+        <dependency id="eXpandTreelistViewWin" version="22.1.300.0" />
+        <dependency id="eXpandValidationWin" version="22.1.300.0" />
+        <dependency id="eXpandWizardWin" version="22.1.300.0" />
+        <dependency id="eXpandWorldCreatorWin" version="22.1.300.0" />
+        <dependency id="eXpandXtraDashboardWin" version="22.1.300.0" />
       </group>
-      <group targetFramework="net5.0">
-        <dependency id="eXpandAdditionalViewControlsProviderWin" version="21.2.801.0" />
-        <dependency id="eXpandChartWin" version="21.2.801.0" />
-        <dependency id="eXpandExcelImporter.Win" version="21.2.801.0" />
-        <dependency id="eXpandImportWizardWin2" version="21.2.801.0" />
-        <dependency id="eXpandIOWin" version="21.2.801.0" />
-        <dependency id="eXpandMasterDetailWin" version="21.2.801.0" />
-        <dependency id="eXpandModelDifferenceWin" version="21.2.801.0" />
-        <dependency id="eXpandPivotChartWin" version="21.2.801.0" />
-        <dependency id="eXpandPivotGridWin" version="21.2.801.0" />
-        <dependency id="eXpandSecurityWin" version="21.2.801.0" />
-        <dependency id="eXpandSystemWin" version="21.2.801.0" />
-        <dependency id="eXpandTreelistViewWin" version="21.2.801.0" />
-        <dependency id="eXpandValidationWin" version="21.2.801.0" />
-        <dependency id="eXpandWizardWin" version="21.2.801.0" />
-        <dependency id="eXpandWorldCreatorWin" version="21.2.801.0" />
-        <dependency id="eXpandXtraDashboardWin" version="21.2.801.0" />
+      <group targetFramework="net6.0">
+        <dependency id="eXpandAdditionalViewControlsProviderWin" version="22.1.300.0" />
+        <dependency id="eXpandChartWin" version="22.1.300.0" />
+        <dependency id="eXpandExcelImporter.Win" version="22.1.300.0" />
+        <dependency id="eXpandImportWizardWin2" version="22.1.300.0" />
+        <dependency id="eXpandIOWin" version="22.1.300.0" />
+        <dependency id="eXpandMasterDetailWin" version="22.1.300.0" />
+        <dependency id="eXpandModelDifferenceWin" version="22.1.300.0" />
+        <dependency id="eXpandPivotChartWin" version="22.1.300.0" />
+        <dependency id="eXpandPivotGridWin" version="22.1.300.0" />
+        <dependency id="eXpandSecurityWin" version="22.1.300.0" />
+        <dependency id="eXpandSystemWin" version="22.1.300.0" />
+        <dependency id="eXpandTreelistViewWin" version="22.1.300.0" />
+        <dependency id="eXpandValidationWin" version="22.1.300.0" />
+        <dependency id="eXpandWizardWin" version="22.1.300.0" />
+        <dependency id="eXpandWorldCreatorWin" version="22.1.300.0" />
+        <dependency id="eXpandXtraDashboardWin" version="22.1.300.0" />
       </group>
     </dependencies>
   </metadata>

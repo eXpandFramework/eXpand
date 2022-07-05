@@ -89,7 +89,7 @@ namespace XVideoRental.Module.Win.DatabaseUpdate {
         }
 
         void SetPermissions(IPermissionPolicyRole employersRole) {
-            employersRole.SetTypePermission<ReportData>(SecurityOperations.ReadOnlyAccess, SecurityPermissionState.Allow);
+            // employersRole.SetTypePermission<ReportData>(SecurityOperations.ReadOnlyAccess, SecurityPermissionState.Allow);
             ((ISecurityRole) employersRole).CreatePermissionBehaviour(PermissionBehavior.ReadOnlyAccess, (role, info) =>
                 ((IPermissionPolicyRole) role).SetTypePermission(info.Type, SecurityOperations.ReadOnlyAccess, SecurityPermissionState.Allow));
         }

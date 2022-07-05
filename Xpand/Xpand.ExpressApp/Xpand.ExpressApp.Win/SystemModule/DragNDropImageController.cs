@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -137,13 +138,11 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 					Match match = Regex.Match(data.ToString(), "<img.+?src=[\"'](.+?)[\"'].*?>", RegexOptions.IgnoreCase);
 					if (match.Success){
 						var uri = new Uri(match.Groups[1].Value);
-						using (WebClient client = new WebClient()) {
-							using (var memoryStream = new MemoryStream(client.DownloadData(uri))) {
-								_draggedImage = Image.FromStream(memoryStream);
-								e.Effect = DragDropEffects.Copy;
-							}
-						}
-					}
+                        using var client = new HttpClient();
+                        using var memoryStream = new MemoryStream(client.GetByteArrayAsync(uri).Result);
+                        _draggedImage = Image.FromStream(memoryStream);
+                        e.Effect = DragDropEffects.Copy;
+                    }
 				}
 				catch (Exception){
 					_draggedImage = null;

@@ -16,11 +16,12 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="21.2.801.0" />
-      <dependency id="eXpandValidation" version="21.2.801.0" />
-      <dependency id="Xpand.Extensions" version="4.212.10" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.212.10" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.212.10" />
+      <dependency id="eXpandLib" version="22.1.300.0" />
+      <dependency id="eXpandValidation" version="22.1.300.0" />
+      <dependency id="System.ComponentModel.Annotations" version="5.0" />
+      <dependency id="Xpand.Extensions" version="4.212.10.1" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.212.10.1" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.212.10.1" />
     </dependencies>
   </metadata>
   <files>

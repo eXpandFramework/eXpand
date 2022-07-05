@@ -2,4 +2,4 @@ System.ValueTuple
 DevExpress.ExpressApp
 System.Collections.Immutable
 DevExpress.ExpressApp.CodeAnalysis
-
+System.Reflection.DispatchProxy

@@ -14,17 +14,17 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#validation</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.2.801.0" />
-      <dependency id="eXpandSystemWin" version="21.2.801.0" />
-      <dependency id="eXpandValidation" version="21.2.801.0" />
+      <dependency id="eXpandLib" version="22.1.300.0" />
+      <dependency id="eXpandSystemWin" version="22.1.300.0" />
+      <dependency id="eXpandValidation" version="22.1.300.0" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
   <files>
     <file src=".\net461\Xpand.ExpressApp.Validation.Win.dll" target="lib\net461\Xpand.ExpressApp.Validation.Win.dll" />
     <file src=".\net461\Xpand.ExpressApp.Validation.Win.pdb" target="lib\net461\Xpand.ExpressApp.Validation.Win.pdb" />
-    <file src=".\net5.0-windows7.0\Xpand.ExpressApp.Validation.Win.dll" target="lib\net5.0\Xpand.ExpressApp.Validation.Win.dll" />
-    <file src=".\net5.0-windows7.0\Xpand.ExpressApp.Validation.Win.pdb" target="lib\net5.0\Xpand.ExpressApp.Validation.Win.pdb" />
+    <file src=".\net6.0-windows7.0\Xpand.ExpressApp.Validation.Win.dll" target="lib\net6.0\Xpand.ExpressApp.Validation.Win.dll" />
+    <file src=".\net6.0-windows7.0\Xpand.ExpressApp.Validation.Win.pdb" target="lib\net6.0\Xpand.ExpressApp.Validation.Win.pdb" />
     <file src="..\Support\build\CopySymbols.targets" target="build\eXpandValidationWin.targets">
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">

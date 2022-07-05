@@ -5,4 +5,4 @@ Xpand.XAF.Modules.ModelViewInheritance
 Xpand.XAF.Modules.Reactive
 Xpand.Extensions
 DevExpress.ExpressApp.CodeAnalysis
-
+System.ComponentModel.Annotations

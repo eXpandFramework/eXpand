@@ -2,3 +2,4 @@ DevExpress.Xpo
 Newtonsoft.Json
 Fasterflect.Xpand
 Xpand.Extensions
+System.Configuration.ConfigurationManager

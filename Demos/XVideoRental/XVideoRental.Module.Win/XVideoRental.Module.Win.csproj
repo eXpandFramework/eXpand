@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>latest</LangVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <LangVersion>latest</LangVersion>
@@ -14,20 +14,18 @@
     <OutputPath>bin\Debug\</OutputPath>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <LangVersion>latest</LangVersion>
+    <NoWarn>1701;1702;CA1416</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.configuration">
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="System.Windows.Forms">
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Xpand.ExpressApp">
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Chart.Win">
-      <HintPath>..\..\..\Xpand.DLL\net461\Xpand.ExpressApp.Chart.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\net6.0-windows7.0\Xpand.ExpressApp.Chart.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Dashboard">
@@ -39,11 +37,11 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.MasterDetail.Win">
-      <HintPath>..\..\..\Xpand.DLL\net461\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\net6.0-windows7.0\Xpand.ExpressApp.MasterDetail.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.PivotGrid.Win">
-      <HintPath>..\..\..\Xpand.DLL\net461\Xpand.ExpressApp.PivotGrid.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\net6.0-windows7.0\Xpand.ExpressApp.PivotGrid.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.ReportsV2.Win">
@@ -59,15 +57,15 @@
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Security.Win">
-      <HintPath>..\..\..\Xpand.DLL\net461\Xpand.ExpressApp.Security.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\net6.0-windows7.0\Xpand.ExpressApp.Security.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Win">
-      <HintPath>..\..\..\Xpand.DLL\net461\Xpand.ExpressApp.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\net6.0-windows7.0\Xpand.ExpressApp.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.XtraDashboard.Win">
-      <HintPath>..\..\..\Xpand.DLL\net461\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\net6.0-windows7.0\Xpand.ExpressApp.XtraDashboard.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">

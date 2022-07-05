@@ -146,7 +146,7 @@ namespace Xpand.ExpressApp.ImportWizard.LongOperation {
             }
             catch(ThreadAbortException) {
                 AppendHistoryLine("worker_DoWork", "ThreadAbortException");
-                Thread.ResetAbort();
+                // Thread.ResetAbort();
             }
             catch(Exception ex) {
                 if(Status == LongOperationStatus.InProgress) {

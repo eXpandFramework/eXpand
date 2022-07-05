@@ -13,7 +13,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
 
-        [Aggregated]
+        // [Aggregated]
         [Association("CodeTemplateInfo-PersistentTemplatedTypeInfos")]
         public CodeTemplateInfo CodeTemplateInfo {
             get { return _codeTemplateInfo; }

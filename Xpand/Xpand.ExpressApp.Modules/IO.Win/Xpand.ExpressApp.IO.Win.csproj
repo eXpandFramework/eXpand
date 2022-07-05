@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <TargetFrameworks>net461;net5.0-windows7.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0-windows7.0</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <LangVersion>latest</LangVersion>

@@ -78,9 +78,9 @@ function AddAllDependency($file, $nuspecpaths) {
         $p=Get-XmlContent $_.FullName
         $p.package.files.file.target -match "netstandard"
     })
-    $net5Nuspecs=@($nuspecpaths|where-Object{
+    $net6Nuspecs=@($nuspecpaths|where-Object{
         $p=Get-XmlContent $_.FullName
-        $p.package.files.file.target -match "net5"
+        $p.package.files.file.target -match "net6"
     })
     ($netStandardNuspecs) | ForEach-Object {
         [xml]$package = Get-Content $_.Fullname
@@ -90,9 +90,9 @@ function AddAllDependency($file, $nuspecpaths) {
         [xml]$package = Get-Content $_.Fullname
         Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net461"  
     }
-    ($net5Nuspecs+$netStandardNuspecs) | ForEach-Object {
+    ($net6Nuspecs+$netStandardNuspecs) | ForEach-Object {
         [xml]$package = Get-Content $_.Fullname
-        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net5.0"  
+        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net6.0"  
     }
     $nuspecpath.Save($file)
     Format-Xml -path $file
@@ -231,9 +231,9 @@ $modules
 Write-HostFormatted "packing nuspecs"
 Get-ChildItem "$root\build\Nuget" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 
-Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -RetryOnError 3 -VariablesToImport @("modules","Nuget","version","root") -Script {    
-# $nuspecs = Get-ChildItem "$root\Support\Nuspec" *.nuspec
-# $nuspecs | foreach {    
+# Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -RetryOnError 3 -VariablesToImport @("modules","Nuget","version","root") -Script {    
+$nuspecs = Get-ChildItem "$root\Support\Nuspec" *.nuspec
+$nuspecs | foreach {    
     if (!$Version) {
         throw
     }

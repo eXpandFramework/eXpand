@@ -11,4 +11,4 @@ Xpand.XAF.Modules.ViewItemValue
 Xpand.XAF.Modules.SequenceGenerator
 Xpand.Extensions
 DevExpress.ExpressApp.CodeAnalysis
-
+System.ComponentModel.Annotations

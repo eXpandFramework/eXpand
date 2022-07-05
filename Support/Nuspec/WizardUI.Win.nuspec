@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#wizard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.2.801.0" />
+      <dependency id="eXpandLib" version="22.1.300.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
@@ -22,8 +22,8 @@
   <files>
     <file src=".\net461\Xpand.ExpressApp.WizardUI.Win.dll" target="lib\net461\Xpand.ExpressApp.WizardUI.Win.dll" />
     <file src=".\net461\Xpand.ExpressApp.WizardUI.Win.pdb" target="lib\net461\Xpand.ExpressApp.WizardUI.Win.pdb" />
-    <file src=".\net5.0-windows7.0\Xpand.ExpressApp.WizardUI.Win.dll" target="lib\net5.0\Xpand.ExpressApp.WizardUI.Win.dll" />
-    <file src=".\net5.0-windows7.0\Xpand.ExpressApp.WizardUI.Win.pdb" target="lib\net5.0\Xpand.ExpressApp.WizardUI.Win.pdb" />
+    <file src=".\net6.0-windows7.0\Xpand.ExpressApp.WizardUI.Win.dll" target="lib\net6.0\Xpand.ExpressApp.WizardUI.Win.dll" />
+    <file src=".\net6.0-windows7.0\Xpand.ExpressApp.WizardUI.Win.pdb" target="lib\net6.0\Xpand.ExpressApp.WizardUI.Win.pdb" />
     <file src="..\Support\build\CopySymbols.targets" target="build\eXpandWizardWin.targets">
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">

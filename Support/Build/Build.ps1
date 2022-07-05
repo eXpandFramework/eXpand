@@ -128,20 +128,20 @@ Task CompileModules{
         # BuildProjects $vsAddons "VSIX"
         Pop-Location
         
-        Write-HostFormatted "Compiling Agnostic EasyTest projects..." -Section
-        $agnosticEasytest=(($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 
-        "agnosticEasytest=$agnosticEasytest"
-        BuildProjects $agnosticEasytest "EasyTest"
+        # Write-HostFormatted "Compiling Agnostic EasyTest projects..." -Section
+        # $agnosticEasytest=(($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 
+        # "agnosticEasytest=$agnosticEasytest"
+        # BuildProjects $agnosticEasytest "EasyTest"
         
-        Write-HostFormatted "Compiling Win EasyTest projects..." -Section
-        $winEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Win")}) 
-        "winEasyTest=$winEasyTest"
-        BuildProjects $winEasyTest "EasyTest"
+        # Write-HostFormatted "Compiling Win EasyTest projects..." -Section
+        # $winEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Win")}) 
+        # "winEasyTest=$winEasyTest"
+        # BuildProjects $winEasyTest "EasyTest"
         
-        Write-HostFormatted "Compiling Web EasyTest projects..." -Section
-        $webEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Web")}) 
-        "webEasyTest=$webEasyTest"
-        BuildProjects $webEasyTest "EasyTest"
+        # Write-HostFormatted "Compiling Web EasyTest projects..." -Section
+        # $webEasyTest=(($group.EasyTestProjects|GetProjects)|Where-Object{"$_".Contains("Web")}) 
+        # "webEasyTest=$webEasyTest"
+        # BuildProjects $webEasyTest "EasyTest"
     }
 }
 

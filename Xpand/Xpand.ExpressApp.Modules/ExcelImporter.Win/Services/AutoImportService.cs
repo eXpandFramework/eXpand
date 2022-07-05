@@ -79,7 +79,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
         }
 
         private static void AddDroppedFiles((ExcelImport excelImport, FileDropped fileDropped) tuple,XafApplication application) {
-            using var objectSpace = application.CreateObjectSpace();
+            using var objectSpace = application.CreateObjectSpace(typeof(DroppedFile));
             var excelImport =objectSpace.GetObject( tuple.excelImport);
             var droppedFile = excelImport.ObjectSpace.CreateObject<DroppedFile>();
             droppedFile.FileName = Path.GetFileName(tuple.fileDropped.FullPath);
@@ -89,7 +89,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
         }
 
         private static void Import(this XafApplication application,FileDropped dropped, (Guid excelImportOid, FileDropWatcher watcher) tuple) {
-            using var objectSpace = application.CreateObjectSpace();
+            using var objectSpace = application.CreateObjectSpace(typeof(ExcelImport));
             var excelImport = objectSpace.GetObjectByKey<ExcelImport>(tuple.excelImportOid);
             var creationTime = new FileInfo(dropped.FullPath).CreationTime;
             var skipAutoImportReason = SkipAutoImportReason(excelImport, creationTime, dropped);
@@ -146,10 +146,11 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
         }
 
         private static ExcelImport[] WhereCanAutoImport(this ExcelImport excelImport,XafApplication application) {
-            using var objectSpace = application.CreateObjectSpace();
+            using var objectSpace = application.CreateObjectSpace(typeof(ExcelImport));
             return objectSpace.GetObjectsQuery<ExcelImport>().Where(_ => _.Oid == excelImport.Oid).WhereCanAutoImport();
         }
 
+        [SuppressMessage("Design", "XAF0012:Avoid calling the XafApplication.CreateObjectSpace() method without Type parameter", Justification = "<Pending>")]
         private static bool Execute(this XafApplication application, (Guid excelImportOid, FileDropWatcher watcher) tuple,
             ExcelImport excelImport,  Action<IObjectSpace> action, string message) {
             try {

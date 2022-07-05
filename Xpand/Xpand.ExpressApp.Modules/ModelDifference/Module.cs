@@ -174,7 +174,7 @@ namespace Xpand.ExpressApp.ModelDifference {
                 if ((serverApplication is IModelDifferenceServerModels serverModels)) {
                     serverApplication.SetupComplete += (sender, args) => {
                         serverApplication.TypesInfo.RegisterEntity(typeof(XPObjectType));
-                        using (var objectSpace = application.CreateObjectSpace()){
+                        using (var objectSpace = application.CreateObjectSpace(typeof(ModelDifferenceObject))){
                             var modelDifferenceObjects = objectSpace.GetObjectsQuery<ModelDifferenceObject>();
                             foreach (var modelDifferenceObject in serverModels.Where(modelDifferenceObjects)){
                                 modelDifferenceObject.GetModel((ModelApplicationBase)application.Model);

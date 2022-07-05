@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Editors;
@@ -54,30 +55,30 @@ namespace Xpand.ExpressApp.PropertyEditors {
         Func<PropertyEditor, object> _findControl;
 
         sealed class MyParameter : ParameterBase {
-            private object currentValue;
+            private object _currentValue;
 
             public MyParameter(string name, Type valueType, object value = null)
                 : base(name, valueType) {
                 Visible = false;
-                currentValue = value;
+                _currentValue = value;
             }
             protected override void SetCurrentValue(object value) {
-                currentValue = value;
+                _currentValue = value;
             }
-            protected override object GetCurrentValue() { return currentValue; }
-            public override bool IsReadOnly {
-                get { return false; }
-            }
+            protected override object GetCurrentValue() { return _currentValue; }
+            public override bool IsReadOnly => false;
+
             public object CurrentValue {
-                get { return currentValue; }
+                get => _currentValue;
                 set {
-                    currentValue = value;
-                    if ((currentValue is DateTime) && ((DateTime)currentValue == DateTime.MinValue)) {
-                        currentValue = null;
+                    _currentValue = value;
+                    if ((_currentValue is DateTime time) && (time == DateTime.MinValue)) {
+                        _currentValue = null;
                     }
                 }
             }
         }
+        [SuppressMessage("Design", "XAF0012:Avoid calling the XafApplication.CreateObjectSpace() method without Type parameter")]
         void UpdateEditor(ISupportControl supportControl) {
             if (supportControl == null)
                 return;
@@ -105,11 +106,7 @@ namespace Xpand.ExpressApp.PropertyEditors {
             }
         }
 
-        ViewEditMode GetViewEditMode() {
-            if (_propertyEditor.View is DetailView)
-                return ((DetailView)_propertyEditor.View).ViewEditMode;
-            throw new NotImplementedException();
-        }
+        ViewEditMode GetViewEditMode() => _propertyEditor.View is DetailView view ? view.ViewEditMode : throw new NotImplementedException();
 
         Type GetMemberType() {
             string propertyName = _propertyEditor.MemberInfo.FindAttribute<PropertyEditorProperty>().PropertyName;

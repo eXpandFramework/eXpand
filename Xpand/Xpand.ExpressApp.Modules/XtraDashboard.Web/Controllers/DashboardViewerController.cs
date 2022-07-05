@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers{
 
         private void OnCustomShowNavigationItem(object sender, CustomShowNavigationItemEventArgs e){
             if (e.ActionArguments.SelectedChoiceActionItem.Data is ViewShortcut viewShortcut&&viewShortcut.ViewId==DashboardDefinition.DashboardViewerDetailView){
-                var objectSpace = Application.CreateObjectSpace();
+                var objectSpace = Application.CreateObjectSpace(typeof(DashboardDefinition));
                 var definition = objectSpace.GetObjectByKey<DashboardDefinition>(Guid.Parse(e.ActionArguments.SelectedChoiceActionItem.Id));
                 var dashboard = definition.GetDashboard(Application, RuleMode.DesignTime,modeParametersEdited: () => EditDashboard(definition,e.ActionArguments.Action));
                 if (dashboard!=null)
@@ -35,7 +35,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers{
 
         private void EditDashboard(DashboardDefinition dashboardDefinition, ActionBase actionBase){
             var modelView = (IModelDetailView) Application.Model.Views[DashboardDefinition.DashboardViewerDetailView];
-            var objectSpace = Application.CreateObjectSpace();
+            var objectSpace = Application.CreateObjectSpace(modelView.ModelClass.TypeInfo.Type);
 
             var detailView = Application.CreateDetailView(objectSpace, modelView, true, objectSpace.GetObject(dashboardDefinition));
             Application.ShowViewStrategy.ShowView(new ShowViewParameters(detailView),new ShowViewSource(Frame,actionBase ) );

@@ -105,6 +105,7 @@ namespace Xpand.ExpressApp.Workflow{
         public event EventHandler<ExceptionEventArgs> OnCustomHandleException;
         public event EventHandler<WorkflowServerEventArgs> WorkflowServerRequested;
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "XAF0013:Avoid reading the XafApplication.ConnectionString property", Justification = "<Pending>")]
         public void Start<TModuleProvider>(XafApplication application) where  TModuleProvider:ModuleBase{
                 Start<TModuleProvider>(application.ConnectionString, application.ApplicationName);
         }

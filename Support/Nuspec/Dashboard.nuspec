@@ -14,18 +14,18 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="21.2.801.0" />
-      <dependency id="Xpand.Extensions" version="4.212.10" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.212.10" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.212.10" />
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="4.212.10" />
+      <dependency id="eXpandLib" version="22.1.300.0" />
+      <dependency id="Xpand.Extensions" version="4.212.10.1" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.212.10.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.212.10.1" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="4.212.10.1" />
     </dependencies>
   </metadata>
   <files>
     <file src="Xpand.ExpressApp.Dashboard.dll" target="lib\net461\Xpand.ExpressApp.Dashboard.dll" />
     <file src="Xpand.ExpressApp.Dashboard.pdb" target="lib\net461\Xpand.ExpressApp.Dashboard.pdb" />
-    <file src="Xpand.ExpressApp.Dashboard.dll" target="lib\net5.0\Xpand.ExpressApp.Dashboard.dll" />
-    <file src="Xpand.ExpressApp.Dashboard.pdb" target="lib\net5.0\Xpand.ExpressApp.Dashboard.pdb" />
+    <file src="Xpand.ExpressApp.Dashboard.dll" target="lib\net6.0\Xpand.ExpressApp.Dashboard.dll" />
+    <file src="Xpand.ExpressApp.Dashboard.pdb" target="lib\net6.0\Xpand.ExpressApp.Dashboard.pdb" />
     <file src="..\Support\build\CopySymbols.targets" target="build\eXpandDashboard.targets">
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">

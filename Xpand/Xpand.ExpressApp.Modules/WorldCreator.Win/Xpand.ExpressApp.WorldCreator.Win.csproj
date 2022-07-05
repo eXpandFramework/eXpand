@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;net5.0-windows7.0</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0-windows7.0</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>

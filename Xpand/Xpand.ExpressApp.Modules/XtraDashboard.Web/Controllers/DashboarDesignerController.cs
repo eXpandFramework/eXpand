@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers {
 
         private void EditDashboard(){
             var modelView = (IModelDetailView) Application.Model.Views[DashboardDefinition.DashboardDesignerDetailView];
-            var objectSpace = Application.CreateObjectSpace();
+            var objectSpace = Application.CreateObjectSpace(modelView.ModelClass.TypeInfo.Type);
             var definition = (IDashboardDefinition) objectSpace.GetObject(View.CurrentObject);
             var detailView = Application.CreateDetailView(objectSpace, modelView, true, definition);
             
