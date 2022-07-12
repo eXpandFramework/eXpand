@@ -25,7 +25,7 @@ namespace Xpand.Persistent.Base.General {
 
         public List<XPMemberInfo> BuildRole(Type otherPartMember, string association, string propertyName, string otherPartPropertyName, bool visibleInDetailView = true) {
             var xpCustomMemberInfos = new List<XPMemberInfo>();
-            if (_application.Security is IRoleTypeProvider securityComplex) {
+            if (_application.Security is IRoleTypeProvider { RoleType:{ } } securityComplex) {
                 var typeInfo = XafTypesInfo.Instance.FindTypeInfo(XpandModuleBase.RoleType);
                 var typeToCreateOn = securityComplex.RoleType.IsInterface ? XpandModuleBase.RoleType : typeInfo.Type;
                 if (IsValidType(typeToCreateOn)) {

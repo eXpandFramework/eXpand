@@ -426,7 +426,7 @@ namespace Xpand.Persistent.Base.General {
 
         void AssignSecurityEntities() {
             if (Application != null) {
-                if (Application.Security is IRoleTypeProvider roleTypeProvider) {
+                if (Application.Security is IRoleTypeProvider { RoleType:{ } } roleTypeProvider) {
                     RoleType =XafTypesInfo.Instance.PersistentTypes.First(info => info.Type == roleTypeProvider.RoleType).Type;
                     if (RoleType.IsInterface)
                         RoleType = XpoTypeInfoSource.GetGeneratedEntityType(RoleType);
