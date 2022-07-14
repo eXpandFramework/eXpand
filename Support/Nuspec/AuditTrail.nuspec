@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AuditTrail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.301.0" />
-      <dependency id="eXpandLogic" version="22.1.301.0" />
-      <dependency id="eXpandSecurity" version="22.1.301.0" />
+      <dependency id="eXpandLib" version="22.1.302.0" />
+      <dependency id="eXpandLogic" version="22.1.302.0" />
+      <dependency id="eXpandSecurity" version="22.1.302.0" />
       <dependency id="System.ComponentModel.Annotations" version="5.0" />
       <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.221.1" />
       <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.221.1" />

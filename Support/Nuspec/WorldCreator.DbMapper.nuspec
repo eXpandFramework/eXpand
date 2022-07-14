@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#DBMapper</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.301.0" />
-      <dependency id="eXpandWorldCreator" version="22.1.301.0" />
+      <dependency id="eXpandLib" version="22.1.302.0" />
+      <dependency id="eXpandWorldCreator" version="22.1.302.0" />
       <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.221.1" />
       <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.221.1" />
     </dependencies>
