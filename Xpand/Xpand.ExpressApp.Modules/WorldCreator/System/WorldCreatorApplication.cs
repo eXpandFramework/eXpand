@@ -16,15 +16,15 @@ namespace Xpand.ExpressApp.WorldCreator.System {
         private static readonly object Locker = new();
 
         public WorldCreatorApplication(IObjectSpaceProvider objectSpaceProvider, IEnumerable<ModuleBase> moduleList) {
-            this.AddObjectSpaceProvider(objectSpaceProvider);
+            ((IList<IObjectSpaceProvider>)GetOrCreateObjectSpaceProviderContainer().GetFieldValue("_objectSpaceProviders")).Add(objectSpaceProvider);
             var moduleBases = moduleList.Select(m => m.GetType().CreateInstance()).Cast<ModuleBase>().OrderBy(m => m.Name).Distinct().ToArray();
             foreach (var moduleBase in moduleBases) {
                 if (Modules.FindModule(moduleBase.GetType()) == null)
                     Modules.Add(moduleBase);
             }
-            ObjectSpaceCreated+=Application_ObjectSpaceCreated;
+            ObjectSpaceCreated += Application_ObjectSpaceCreated;
         }
-
+        
         private void Application_ObjectSpaceCreated(object sender, ObjectSpaceCreatedEventArgs e) {
             if (e.ObjectSpace is CompositeObjectSpace compositeObjectSpace) {
                 if (!(compositeObjectSpace.Owner is CompositeObjectSpace)) {

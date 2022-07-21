@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.ExpressApp;
@@ -62,9 +63,10 @@ namespace Xpand.ExpressApp.WorldCreator{
             AddDynamicModulesObjectSpaceProviders();
         }
 
-        private void AddDynamicModulesObjectSpaceProviders(){
+        private void AddDynamicModulesObjectSpaceProviders() {
             var providerBuilder = new DatastoreObjectSpaceProviderBuilder(DynamicModules);
-            providerBuilder.CreateProviders().Each(provider => Application.AddObjectSpaceProvider(provider));
+            providerBuilder.CreateProviders().Each(provider => ((IList<IObjectSpaceProvider>)Application.GetFieldValue("_objectSpaceProviderContainer")
+                .GetFieldValue("_objectSpaceProviders")).Add(provider));
         }
 
         void AddPersistentModules(ApplicationModulesManager applicationModulesManager){

@@ -12,7 +12,7 @@ using Xpand.Persistent.Base.ModelAdapter;
 namespace Xpand.ExpressApp.WorldCreator.System{
     public class WorldCreatorObjectSpaceProvider : XPObjectSpaceProvider{
         private const string WorldCreatorConnectionString = "WorldCreatorConnectionString";
-        private readonly AssemblyRevisionUpdater _assemblyRevisionUpdater=new AssemblyRevisionUpdater();
+        private readonly AssemblyRevisionUpdater _assemblyRevisionUpdater=new();
 
         public WorldCreatorObjectSpaceProvider(bool threadSafe, IXpoDataStoreProvider xpoDataStoreProvider,ITypesInfo typesInfo)
             : base(GetConnectionStringDataStoreProvider(xpoDataStoreProvider), typesInfo, WorldCreatorTypeInfoSource.Instance,threadSafe){
@@ -55,16 +55,17 @@ namespace Xpand.ExpressApp.WorldCreator.System{
             return new ConnectionStringDataStoreProvider(connectionStringSettings.ConnectionString);
         }
 
-        public static WorldCreatorObjectSpaceProvider Create(XafApplication application,bool threadSafe){
+        public static WorldCreatorObjectSpaceProvider Create(XafApplication application, bool threadSafe) {
             var worldCreatorObjectSpaceProvider = application.ObjectSpaceProviders.OfType<WorldCreatorObjectSpaceProvider>().SingleOrDefault();
-            if (worldCreatorObjectSpaceProvider != null){
-                worldCreatorObjectSpaceProvider.threadSafe=threadSafe;
+            if (worldCreatorObjectSpaceProvider != null) {
+                worldCreatorObjectSpaceProvider.threadSafe = threadSafe;
                 return worldCreatorObjectSpaceProvider;
             }
-            ((IList<IObjectSpaceProvider>)application.GetFieldValue("objectSpaceProviders")).Add(new WorldCreatorObjectSpaceProvider());
-            return Create(application,threadSafe);
-        }
 
+            ((IList<IObjectSpaceProvider>)application.GetFieldValue("_objectSpaceProviderContainer")
+                .GetFieldValue("_objectSpaceProviders")).Add(new WorldCreatorObjectSpaceProvider());
+            return Create(application, threadSafe);
+        }
         
     }
 }
