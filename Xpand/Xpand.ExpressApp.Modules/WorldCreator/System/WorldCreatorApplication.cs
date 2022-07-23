@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Layout;
 using DevExpress.ExpressApp.Updating;
 using Fasterflect;
+using Xpand.Extensions.XAF.XafApplicationExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.Security;
@@ -16,7 +17,7 @@ namespace Xpand.ExpressApp.WorldCreator.System {
         private static readonly object Locker = new();
 
         public WorldCreatorApplication(IObjectSpaceProvider objectSpaceProvider, IEnumerable<ModuleBase> moduleList) {
-            ((IList<IObjectSpaceProvider>)GetOrCreateObjectSpaceProviderContainer().GetFieldValue("_objectSpaceProviders")).Add(objectSpaceProvider);
+            this.ObjectSpaceProviders().Add(objectSpaceProvider);
             var moduleBases = moduleList.Select(m => m.GetType().CreateInstance()).Cast<ModuleBase>().OrderBy(m => m.Name).Distinct().ToArray();
             foreach (var moduleBase in moduleBases) {
                 if (Modules.FindModule(moduleBase.GetType()) == null)

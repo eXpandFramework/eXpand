@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using DevExpress.ExpressApp;
@@ -11,6 +10,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
 using Xpand.Extensions.AppDomainExtensions;
+using Xpand.Extensions.XAF.XafApplicationExtensions;
 
 namespace Xpand.Persistent.Base.General {
     public class XafApplicationFactory {
@@ -85,7 +85,7 @@ namespace Xpand.Persistent.Base.General {
                 SecuritySystem.SetInstance(securityInstance);
                 SetConnectionString(xafApplication);
                 if (!_withOutObjectSpaceProvider) {
-                    var objectSpaceProviders = ((IList<IObjectSpaceProvider>) xafApplication.GetFieldValue("objectSpaceProviders"));
+                    var objectSpaceProviders = xafApplication.ObjectSpaceProviders();
                     objectSpaceProviders.Add(new MyClass(xafApplication));
                 }
                 info.AssignAsInstance();

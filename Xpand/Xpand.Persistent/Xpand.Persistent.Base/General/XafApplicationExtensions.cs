@@ -109,21 +109,13 @@ namespace Xpand.Persistent.Base.General {
         public static DeviceCategory GetDeviceCategory(this XafApplication application) {
             if (application.GetPlatform() == Platform.Win)
                 return DeviceCategory.All;
-            else {
-                var assemblyType = AppDomain.CurrentDomain.GetAssemblyType("DevExpress.ExpressApp.Web.DeviceDetector");
-                
-                return (DeviceCategory) Enum.Parse(typeof(DeviceCategory),$"{assemblyType.GetProperty("Instance",BindingFlags.Static|BindingFlags.Public)?.GetValue(null).CallMethod("GetDeviceCategory")}");
-            }
+            var assemblyType = AppDomain.CurrentDomain.GetAssemblyType("DevExpress.ExpressApp.Web.DeviceDetector");
+            return (DeviceCategory) Enum.Parse(typeof(DeviceCategory),$"{assemblyType.GetProperty("Instance",BindingFlags.Static|BindingFlags.Public)?.GetValue(null).CallMethod("GetDeviceCategory")}");
         }
 
         public static ListView CreateListView<T>(this XafApplication application, IObjectSpace objectSpace,bool isRoot=true){
             var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
             return application.CreateListView(objectSpace, objectType, isRoot);
-        }
-
-        public static void AddObjectSpaceProvider(this XafApplication application, IObjectSpaceProvider objectSpaceProvider){
-            var objectSpaceProviders = ((List<IObjectSpaceProvider>)application.GetFieldValue("objectSpaceProviders"));
-            objectSpaceProviders.Add(objectSpaceProvider);
         }
 
         public static IObjectSpace CreateObjectSpace<T>(this XafApplication application){
@@ -175,7 +167,7 @@ namespace Xpand.Persistent.Base.General {
             
             switch (fileLocation){
                 case FileLocation.CurrentUserApplicationDataFolder:
-                    return (string) AppDomain.CurrentDomain.GetAssemblyType("System.Windows.Forms.Application").GetProperty("UserAppDataPath",BindingFlags.Public|BindingFlags.Static).GetValue(null);
+                    return (string) AppDomain.CurrentDomain.GetAssemblyType("System.Windows.Forms.Application").GetProperty("UserAppDataPath",BindingFlags.Public|BindingFlags.Static)?.GetValue(null);
                 default:
                     return PathHelper.GetApplicationFolder();
             }            
@@ -291,7 +283,7 @@ namespace Xpand.Persistent.Base.General {
         static bool VersionMissMatch(XafApplication xafApplication) {
             var assemblyVersion = ReflectionHelper.GetAssemblyVersion(typeof(XafApplicationExtensions).Assembly);
             var xpandModule = xafApplication.Modules.First(@base => @base is XpandModuleBase);
-            return xpandModule != null && xpandModule.Version != assemblyVersion;
+            return xpandModule.Version != assemblyVersion;
         }
 
         private static void DropSqlServerDatabase(string connectionString) {
