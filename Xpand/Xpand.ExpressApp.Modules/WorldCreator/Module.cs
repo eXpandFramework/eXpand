@@ -23,6 +23,7 @@ using Xpand.ExpressApp.WorldCreator.CodeProvider.Validation;
 using Xpand.ExpressApp.WorldCreator.Services;
 using Xpand.ExpressApp.WorldCreator.System;
 using Xpand.ExpressApp.WorldCreator.System.NodeUpdaters;
+using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.Mono.Cecil;
 using Xpand.Extensions.TypeExtensions;
 using Xpand.Persistent.Base.General;
@@ -44,6 +45,7 @@ namespace Xpand.ExpressApp.WorldCreator{
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
             RequiredModuleTypes.Add(typeof(ConditionalAppearanceModule));
             RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
+            WorldCreatorTypeInfoSource.Instance.ForceRegisterEntity(AppDomain.CurrentDomain.GetAssemblyType("Xpand.Persistent.BaseImpl.PersistentMetaData.PersistentClassesModuleInfo"));
         }
 
         private readonly object _locker = new();
