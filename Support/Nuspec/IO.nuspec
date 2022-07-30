@@ -15,12 +15,12 @@
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
       <dependency id="DotNetZip" version="1.16" />
-      <dependency id="eXpandLib" version="22.1.303.0" />
-      <dependency id="eXpandModelArtifactState" version="22.1.303.0" />
+      <dependency id="eXpandLib" version="22.1.400.0" />
+      <dependency id="eXpandModelArtifactState" version="22.1.400.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.Security.Permissions" version="6.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="4.221.2" />
+      <dependency id="Xpand.Extensions" version="4.221.2.2" />
     </dependencies>
   </metadata>
   <files>

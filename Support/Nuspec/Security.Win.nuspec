@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.303.0" />
-      <dependency id="eXpandSecurity" version="22.1.303.0" />
+      <dependency id="eXpandLib" version="22.1.400.0" />
+      <dependency id="eXpandSecurity" version="22.1.400.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="4.221.2" />
+      <dependency id="Xpand.Extensions" version="4.221.2.2" />
     </dependencies>
   </metadata>
   <files>
