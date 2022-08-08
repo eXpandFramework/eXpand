@@ -14,9 +14,9 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <description>DevExpress eXpandFramework System Module (Web). To debug in VS enable Source Server support under Tools/Options/Debugging.</description>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.401.0" />
-      <dependency id="eXpandSystem" version="22.1.401.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.221.3" />
+      <dependency id="eXpandLib" version="22.1.401.1" />
+      <dependency id="eXpandSystem" version="22.1.401.1" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.221.4.2" />
     </dependencies>
   </metadata>
   <files>
