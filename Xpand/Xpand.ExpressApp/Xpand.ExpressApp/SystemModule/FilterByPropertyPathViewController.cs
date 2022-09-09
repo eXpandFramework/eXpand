@@ -16,6 +16,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Filtering;
+using Xpand.Extensions.XAF.ActionExtensions;
 using Xpand.Persistent.Base.Xpo;
 using Xpand.Xpo;
 using Xpand.Xpo.Parser;
@@ -235,7 +236,7 @@ namespace Xpand.ExpressApp.SystemModule {
             e.ShowViewParameters.CreatedView = listView;
             e.ShowViewParameters.Context = TemplateContext.PopupWindow;
             e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-            var dialogController = new DialogController();
+            var dialogController = e.Application().CreateController<DialogController>();
             dialogController.AcceptAction.Execute += (sender1, e1) => AcceptFilter(filtersByCollectionWrapper);
             dialogController.Accepting += DialogControllerOnAccepting;
             e.ShowViewParameters.Controllers.Add(dialogController);

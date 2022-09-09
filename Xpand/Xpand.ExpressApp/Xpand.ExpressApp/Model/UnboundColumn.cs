@@ -13,6 +13,7 @@ using DevExpress.Persistent.Validation;
 using DevExpress.Utils;
 using DevExpress.Xpo;
 using Fasterflect;
+using Xpand.Extensions.XAF.ActionExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.General.Model.Options;
@@ -143,14 +144,16 @@ namespace Xpand.ExpressApp.Model {
             _unboundColumnAction.Active["UnboundColumnController"] = false;
         }
 
-        void UnboundColumnActionOnExecute(object sender, SimpleActionExecuteEventArgs simpleActionExecuteEventArgs) {
-            var showViewParameters = simpleActionExecuteEventArgs.ShowViewParameters;
+        void UnboundColumnActionOnExecute(object sender, SimpleActionExecuteEventArgs e) {
+            var showViewParameters = e.ShowViewParameters;
             var objectSpace = Application.CreateObjectSpace(typeof(UnboundColumnParameter));
             var detailView = Application.CreateDetailView(objectSpace, new UnboundColumnParameter());
             detailView.ViewEditMode=ViewEditMode.Edit;
             showViewParameters.CreatedView=detailView;
             showViewParameters.TargetWindow=TargetWindow.NewModalWindow;
-            var dialogController = new DialogController{SaveOnAccept = true};
+            
+            var dialogController = e.Application().CreateController<DialogController>();
+            dialogController.SaveOnAccept = true;
             dialogController.AcceptAction.Execute+=AcceptActionOnExecute;
             showViewParameters.Controllers.Add(dialogController);
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Model;
@@ -33,6 +34,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Web.Controllers{
             }
         }
 
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         private void EditDashboard(DashboardDefinition dashboardDefinition, ActionBase actionBase){
             var modelView = (IModelDetailView) Application.Model.Views[DashboardDefinition.DashboardViewerDetailView];
             var objectSpace = Application.CreateObjectSpace(modelView.ModelClass.TypeInfo.Type);

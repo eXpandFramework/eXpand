@@ -170,7 +170,9 @@ task CompileDemos {
         $projects= ($group.DemoWinSolutions|GetProjects)
         
         Write-HostFormatted "Compiling win demos..." -Section
-        BuildProjects $projects "Demos"
+        Invoke-Script {
+            BuildProjects $projects "Demos"
+        } -Maximum 3
         
         $projects= ($group.DemoWebSolutions|GetProjects)
         

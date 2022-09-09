@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Persistent.Base;
@@ -11,6 +12,7 @@ using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [DefaultListViewOptions(true,NewItemRowPosition.Top)]
+    [SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     public class ExcelColumnMapMemberTypeValue:XpandBaseCustomObject {
         public ExcelColumnMapMemberTypeValue(Session session) : base(session) {
         }

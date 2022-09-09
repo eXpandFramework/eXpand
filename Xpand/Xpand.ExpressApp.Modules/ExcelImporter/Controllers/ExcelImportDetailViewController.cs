@@ -15,6 +15,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using Xpand.ExpressApp.ExcelImporter.BusinessObjects;
 using Xpand.ExpressApp.ExcelImporter.Services;
+using Xpand.Extensions.XAF.ActionExtensions;
 using Xpand.Persistent.Base.Validation;
 using Xpand.XAF.Modules.ProgressBarViewItem;
 using Xpand.XAF.Modules.Reactive.Services;
@@ -54,7 +55,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                 
 
 
-                var dialogController = new DialogController();
+                var dialogController = e.Application().CreateController<DialogController>();
                 parameters.Controllers.Add(dialogController);
                 parameters.CreatedView=Application.CreateDashboardView(Application.CreateObjectSpace(), "ExcelColumnMapMasterDetail", true);
                 parameters.TargetWindow=TargetWindow.NewModalWindow;

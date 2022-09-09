@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.ExpressApp;
@@ -249,6 +250,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
         /// </summary>
         /// <param name="sender">Wizard Control</param>
         /// <param name="e">Cancel EventArgs</param>
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         private void WizardControl_FinishClick(object sender, CancelEventArgs e) {
             if (!Validate(_wizardForm.WizardControl.SelectedPage as XafWizardPage)) {
                 e.Cancel = true;

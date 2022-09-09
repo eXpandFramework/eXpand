@@ -8,6 +8,7 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using Xpand.ExpressApp.ModelDifference.Core;
 using Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects;
+using Xpand.Extensions.XAF.ActionExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.ModelDifference;
@@ -26,7 +27,7 @@ namespace Xpand.ExpressApp.ModelDifference.Controllers {
             CheckIfMixingApplications(modelDifferenceObjects);
             e.ShowViewParameters.CreatedView = Application.CreateListView(Application.CreateObjectSpace(typeof(ModelDifferenceObject)), typeof(ModelDifferenceObject), true);
             e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-            var dialogController = new DialogController();
+            var dialogController = e.Application().CreateController<DialogController>();
             e.ShowViewParameters.Controllers.Add(dialogController);
             dialogController.AcceptAction.Execute += AcceptActionOnExecute;
         }

@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
-    
+    [SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     public class DroppedFile:XpandBaseCustomObject {
         public DroppedFile(Session session) : base(session){
         }

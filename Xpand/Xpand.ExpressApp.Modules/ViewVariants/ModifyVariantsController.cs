@@ -139,20 +139,20 @@ namespace Xpand.ExpressApp.ViewVariants {
             UpdateActionState();
         }
 
-        void ShowViewVariantView(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs,Action<DialogController> dialogControllerAction,Action<DetailView> detailViewAction) {
+        void ShowViewVariantView(SingleChoiceActionExecuteEventArgs e,Action<DialogController> dialogControllerAction,Action<DetailView> detailViewAction) {
             var objectSpace = Application.CreateObjectSpace(typeof (ViewVariant));
             DetailView detailView = Application.CreateDetailView(objectSpace, objectSpace.CreateObject<ViewVariant>());
             detailView.ViewEditMode = ViewEditMode.Edit;
-            singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = detailView;
-            singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+            e.ShowViewParameters.CreatedView = detailView;
+            e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
             detailViewAction.Invoke(detailView);
-            var dialogController = new DialogController();
+            var dialogController = e.Action.Application.CreateController<DialogController>();
             dialogController.Accepting += (o, args) => {
                 var controller = ((DialogController) o);
                 Validator.RuleSet.Validate(controller.Frame.View.ObjectSpace,controller.Frame.View.CurrentObject,ContextIdentifier.Save);
                 dialogControllerAction.Invoke(controller);
             };
-            singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
+            e.ShowViewParameters.Controllers.Add(dialogController);
         }
 
         private void ModifyViewVariantCore(Frame frame) {

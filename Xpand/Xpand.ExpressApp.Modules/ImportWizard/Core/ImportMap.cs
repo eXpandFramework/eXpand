@@ -4,7 +4,6 @@ using DevExpress.Xpo;
 namespace Xpand.ExpressApp.ImportWizard.Core {
     [Persistent]
     public class ImportMap : XPObject {
-        [NonPersistent]
         public string Columns {
             get {
                 const string delimeter = ";";

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -6,6 +7,7 @@ using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
+    [SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     public class PersistentApplication : XpandBaseCustomObject {
         string _name;
         string _executableName;

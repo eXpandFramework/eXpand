@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -19,7 +20,7 @@ using Xpand.Xpo.Converters;
 using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
-    
+    [SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     [DefaultClassOptions]
     [DefaultProperty(nameof(Name))]
     public class ExcelImport : XpandBaseCustomObject {

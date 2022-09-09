@@ -1,8 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.WorldCreator.DBMapper.BusinessObjects{
-    [NonPersistent]
+    [NonPersistent][SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     public class DBObject : XpandBaseCustomObject{
         private string _name;
 

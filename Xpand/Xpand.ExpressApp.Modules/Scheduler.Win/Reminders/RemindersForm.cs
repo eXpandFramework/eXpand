@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.Data.Filtering;
 using DevExpress.ExpressApp;
 using DevExpress.XtraScheduler;
@@ -12,6 +13,7 @@ namespace Xpand.ExpressApp.Scheduler.Win.Reminders {
             _xafApplication = xafApplication;
         }
 
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         protected override void OpenSelectedItem() {
             var selectedReminders = GetSelectedReminders();
             if (selectedReminders.Count <= 0) return;

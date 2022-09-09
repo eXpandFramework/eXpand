@@ -124,7 +124,6 @@ namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
             OnChanged("XmlContent");
         }
         [VisibleInListView(false)]
-        [NonPersistent]
         public ModelApplicationBase Model => _currentModel;
 
         public int CombineOrder {

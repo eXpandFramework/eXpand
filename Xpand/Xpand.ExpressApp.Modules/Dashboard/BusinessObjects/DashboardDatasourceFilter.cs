@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
@@ -14,6 +15,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects{
     }
     [NonPersistent]
     [DomainComponent]
+    [SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     public class DashboardDatasourceFilter:XpandBaseCustomObject{
         public DashboardDatasourceFilter(Session session) : base(session){
         }

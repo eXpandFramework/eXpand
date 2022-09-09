@@ -6,6 +6,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.SystemModule;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
+using Xpand.Extensions.XAF.ActionExtensions;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Xpo.MetaData;
 using Xpand.Xpo;
@@ -62,7 +63,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Actions{
                     showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, modelDetailView, true,
                         changeViewModel);
                     showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-                    var dialogController = new DialogController();
+                    var dialogController = e.Application().CreateController<DialogController>();
                     var callingFrame = Frame;
                     dialogController.Accepting += (o, args) =>{
                         var modelMemberInfoController =dialogController.Frame.GetController<XpandModelMemberInfoController>();

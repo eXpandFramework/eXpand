@@ -1,9 +1,11 @@
-﻿using DevExpress.Persistent.Validation;
+﻿using System.Diagnostics.CodeAnalysis;
+using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
 using Xpand.Persistent.Base;
 
 namespace Xpand.ExpressApp.ModelDifference.DataStore.BaseObjects {
     [RuleCombinationOfPropertiesIsUnique("AspectObject_Name_MDO",DefaultContexts.Save,"Name,ModelDifferenceObject" )]
+    [SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     public class AspectObject:XpandBaseCustomObject {
         private const string XmlDefaultValue = @"<?xml version=""1.0"" ?><Application />";
         public AspectObject(Session session) : base(session) {

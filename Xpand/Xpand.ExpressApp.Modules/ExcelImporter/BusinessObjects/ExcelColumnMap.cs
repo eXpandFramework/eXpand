@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Linq;
 using DevExpress.ExpressApp.ConditionalAppearance;
@@ -20,7 +21,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
     [Appearance("keyMember", AppearanceItemType.ViewItem,nameof(KeyMemberExists) + "=False" , TargetItems = nameof(PropertyName), FontColor = "Red",FontStyle = FontStyle.Bold|FontStyle.Strikeout,Context = "ListView")]
     [XafDefaultProperty(nameof(DefaultProperty))]
     [CloneModelView(CloneViewType.ListView, nameof(ExcelColumnMap)+"_Configuration_ListView")]
-    [FriendlyKeyProperty(nameof(DefaultProperty))]
+    [FriendlyKeyProperty(nameof(DefaultProperty))][SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     public class ExcelColumnMap : XpandBaseCustomObject {
         public const string AbstractCriteria =nameof(IsAbstract) + "=True AND " + nameof(MemberTypeValues) + ".Count=0 AND " +
                                               "[" + nameof(ImportStrategy) +"] In ('" + nameof(PersistentTypesImportStrategy.UpdateOrCreate) + "','" +

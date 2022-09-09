@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
@@ -43,6 +44,7 @@ namespace Xpand.Persistent.Base.General {
         private static readonly object Locker=new();
         
 
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         public static void ShowView(this XafApplication application, View view) {
             application.ShowViewStrategy.ShowView(new ShowViewParameters(view),new ShowViewSource(application.MainWindow,null) );
         }

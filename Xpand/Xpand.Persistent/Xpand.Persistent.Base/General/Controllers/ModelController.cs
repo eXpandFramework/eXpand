@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.ExpressApp;
 
 namespace Xpand.Persistent.Base.General.Controllers{
@@ -12,6 +13,7 @@ namespace Xpand.Persistent.Base.General.Controllers{
             }
         }
 
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         public void SetView(){
             var showViewParameters = new ShowViewParameters();
             Application.ShowViewStrategy.ShowView(showViewParameters, new ShowViewSource(null, null));

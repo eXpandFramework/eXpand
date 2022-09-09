@@ -9,6 +9,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.PivotChart.Core;
+using Xpand.Extensions.XAF.ActionExtensions;
 
 namespace Xpand.ExpressApp.PivotChart {
     public abstract class PivotOptionsController : AnalysisViewControllerBase {
@@ -37,19 +38,19 @@ namespace Xpand.ExpressApp.PivotChart {
 
         protected abstract Dictionary<Type, Type> GetActionChoiceItems();
 
-        void PivotSettingsChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
+        void PivotSettingsChoiceActionOnExecute(object sender, SingleChoiceActionExecuteEventArgs e) {
             var objectSpace = ObjectSpaceInMemory.CreateNew();
-            var type = (Type)singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data;
+            var type = (Type)e.SelectedChoiceActionItem.Data;
             var persistentType = GetPersistentType(type);
             var pivotOption = objectSpace.CreateObject(persistentType);
             XPClassInfo classInfo = ((XPObjectSpace)ObjectSpace).Session.GetClassInfo(persistentType);
 
             Synchonize(pivotOption, type, classInfo);
-            var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
+            var showViewParameters = e.ShowViewParameters;
             showViewParameters.CreatedView = Application.CreateDetailView(objectSpace, pivotOption, true);
 
             showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-            var dialogController = new DialogController();
+            var dialogController = e.Application().CreateController<DialogController>();
             dialogController.AcceptAction.Execute += (o, args) => Synchonize(classInfo, type, args.CurrentObject);
             showViewParameters.Controllers.Add(dialogController);
             ((DetailView)showViewParameters.CreatedView).ViewEditMode = ViewEditMode.Edit;

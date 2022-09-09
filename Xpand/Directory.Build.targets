@@ -2,4 +2,7 @@
  <Target Name="EmitCustomMessage" AfterTargets="Build">
    <Exec Command="powershell.exe –NonInteractive –ExecutionPolicy Unrestricted –command &quot;&amp; { &amp;&apos;$(MSBuildThisFileDirectory)\..\Support\Build\ReplaceNuget.ps1&apos; &apos;$(ProjectPath)&apos; &apos;$(TargetPath)&apos; &apos;$(skipNugetReplace)&apos; } &quot; " LogStandardErrorAsError="True" ContinueOnError="False" />
  </Target>
+ <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>1701;1702;XAF0023;XAF0020</NoWarn>
+  </PropertyGroup>
 </Project>

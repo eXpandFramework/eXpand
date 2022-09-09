@@ -62,12 +62,12 @@ namespace Xpand.ExpressApp.IO.Controllers {
                 view = Application.CreateListView<ISerializationConfigurationGroup>(objectSpace);
             }
             showViewParameters.CreatedView = view;
-            AddDialogController(showViewParameters);
+            AddDialogController(showViewParameters,Application);
 
         }
 
-        void AddDialogController(ShowViewParameters showViewParameters) {
-            var dialogController = new DialogController();
+        void AddDialogController(ShowViewParameters showViewParameters, XafApplication xafApplication) {
+            var dialogController = xafApplication.CreateController<DialogController>();
             dialogController.AcceptAction.Model.SetValue("IsPostBackRequired", true);
             dialogController.CloseOnCurrentObjectProcessing = true;
             dialogController.AcceptAction.Executed+=AcceptActionOnExecuteCompleted;
@@ -127,13 +127,15 @@ namespace Xpand.ExpressApp.IO.Controllers {
             return isZipped ? "zip" : "xml";
         }
 
-        protected virtual void Import(SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
+        protected virtual void Import(SingleChoiceActionExecuteEventArgs e) {
             var objectSpace = Application.CreateObjectSpace<IFileChooser>();
             object o = objectSpace.Create<IFileChooser>();
             var detailView = Application.CreateDetailView(objectSpace, o);
             detailView.ViewEditMode=ViewEditMode.Edit;
-            singleChoiceActionExecuteEventArgs.ShowViewParameters.CreatedView = detailView;
-            var dialogController = new DialogController { SaveOnAccept = true };
+            e.ShowViewParameters.CreatedView = detailView;
+            
+            var dialogController = e.Action.Application.CreateController<DialogController>();
+            dialogController.SaveOnAccept = true;
             dialogController.AcceptAction.Execute += (sender1, args) => {
                 Stream stream = new MemoryStream();
                 try {
@@ -151,8 +153,8 @@ namespace Xpand.ExpressApp.IO.Controllers {
                     stream?.Dispose();    
                 }
             };
-            singleChoiceActionExecuteEventArgs.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
-            singleChoiceActionExecuteEventArgs.ShowViewParameters.Controllers.Add(dialogController);
+            e.ShowViewParameters.TargetWindow = TargetWindow.NewModalWindow;
+            e.ShowViewParameters.Controllers.Add(dialogController);
         }
 
         protected virtual Stream ExtractZip(ZipFile zipFile) {

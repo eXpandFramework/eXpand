@@ -5,8 +5,8 @@ source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
 
-nuget DevExpress.ExpressApp.Xpo == 22.1.4
-nuget DevExpress.ExpressApp.Win == 22.1.4
+nuget DevExpress.ExpressApp.Xpo == 22.1.5
+nuget DevExpress.ExpressApp.Win == 22.1.5
 nuget Fasterflect.Xpand
 nuget Fody 4.2.1
 nuget Microsoft.CSharp 4.7.0
@@ -44,7 +44,6 @@ nuget Microsoft.VisualStudio.LanguageServer.Protocol 15.9.3032
 nuget Microsoft.VisualStudio.Package.LanguageService.15.0 15.9.28307
 nuget Microsoft.VisualStudio.SDK.Analyzers 15.8.36
 nuget Microsoft.VisualStudio.Shell.Design 15.9.28307
-nuget Microsoft.VisualStudio.Shell.Embeddable 15.9.28307
 nuget Microsoft.VisualStudio.Shell.Embeddable 15.9.28307
 nuget Microsoft.VisualStudio.Shell.Framework 15.9.28307
 nuget Microsoft.VisualStudio.Text.Data 15.8.525

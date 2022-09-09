@@ -26,15 +26,15 @@ namespace Xpand.ExpressApp.WorldCreator.DBMapper.Controllers {
             
         }
 
-        void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs singleChoiceActionExecuteEventArgs) {
-            if ((string)singleChoiceActionExecuteEventArgs.SelectedChoiceActionItem.Data == "MapDB") {
+        void AssemblyToolsControllerOnToolExecuted(object sender, SingleChoiceActionExecuteEventArgs e) {
+            if ((string)e.SelectedChoiceActionItem.Data == "MapDB") {
                 var nestedObjectSpace = Application.CreateNestedObjectSpace(ObjectSpace);
-                var showViewParameters = singleChoiceActionExecuteEventArgs.ShowViewParameters;
+                var showViewParameters = e.ShowViewParameters;
                 showViewParameters.TargetWindow = TargetWindow.NewModalWindow;
                 var detailView = Application.CreateDetailView(nestedObjectSpace, nestedObjectSpace.CreateObject(typeof(DBLogonObject)));
                 detailView.ViewEditMode=ViewEditMode.Edit;
                 showViewParameters.CreatedView = detailView;
-                var dialogController = new DialogController{SaveOnAccept = false};
+                var dialogController = e.Action.Application.CreateController<DialogController>();
                 dialogController.AcceptAction. Execute+=OnExecute;
                 showViewParameters.Controllers.Add(dialogController);
                 var mapDBController = Application.CreateController<ChooseDBObjectsController>();

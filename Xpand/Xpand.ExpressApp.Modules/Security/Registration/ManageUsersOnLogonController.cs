@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.Editors;
@@ -124,6 +125,7 @@ namespace Xpand.ExpressApp.Security.Registration {
             ShowCallerView(actionBase,window,cancelEventArgs);
         }
 
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         private void ShowCallerView(ActionBase actionBase, Window window, CancelEventArgs cancelEventArgs){
             var dialogController = window.GetController<DialogController>();
             var actionDataHolder = window.GetController<ActionDataHolder>();

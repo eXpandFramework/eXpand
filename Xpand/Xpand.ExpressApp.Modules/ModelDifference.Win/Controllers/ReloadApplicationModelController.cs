@@ -1,10 +1,12 @@
-﻿using DevExpress.ExpressApp;
+﻿using System.Diagnostics.CodeAnalysis;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Win;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
     public class ReloadApplicationModelController : ModelDifference.Controllers.ReloadApplicationModelController {
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         protected override void ReplaceLayer(ModelApplicationBase model, ModelApplicationBase layer, bool isCurrentUserModel, ShowViewParameters showViewParameters){
             
             var showViewStrategyBase = (WinShowViewStrategyBase)Application.ShowViewStrategy;

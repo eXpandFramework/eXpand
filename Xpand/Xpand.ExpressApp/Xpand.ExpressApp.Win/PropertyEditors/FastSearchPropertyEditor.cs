@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using DevExpress.Accessibility;
 using DevExpress.ExpressApp;
@@ -86,6 +87,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             _helper.ObjectSpace.Reloaded += ObjectSpace_Reloaded;
         }
 
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         protected virtual void AddNewObject() {
             var svp = new ShowViewParameters();
             IObjectSpace newObjectViewObjectSpace = _helper.Application.CreateObjectSpace(_helper.LookupObjectTypeInfo.Type);
@@ -169,6 +171,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             InitializeDataSource();
         }
 
+        [SuppressMessage("Usage", "XAF0022:Avoid calling the ShowViewStrategyBase.ShowView() method")]
         protected virtual void OpenCurrentObject() {
             if (_lookup.EditValue==null)
                 return;

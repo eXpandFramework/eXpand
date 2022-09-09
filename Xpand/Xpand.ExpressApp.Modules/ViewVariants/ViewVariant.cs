@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.Editors;
@@ -14,6 +15,7 @@ namespace Xpand.ExpressApp.ViewVariants {
 
     [NonPersistent]
     [Appearance("Hide_Caption", AppearanceItemType.ViewItem, "ShowCaption=false", Visibility = ViewItemVisibility.Hide, TargetItems = "ViewCaption,VariantCaption,Criteria")]
+    [SuppressMessage("Design", "XAF0023:Do not implement IObjectSpaceLink in the XPO types")]
     public class ViewVariant : XpandBaseCustomObject, IViewVariant{
         private string _variantCaption;
         private bool _showCaption;
