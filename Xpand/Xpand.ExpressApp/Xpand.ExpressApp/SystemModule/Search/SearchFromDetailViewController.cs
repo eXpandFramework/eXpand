@@ -20,7 +20,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         public IEnumerable<IMemberInfo> SearchAbleMemberInfos => _searchAbleMemberInfos;
 
         public SearchFromDetailViewController() {
-            _searchAction = new SimpleAction(this, "Search", PredefinedCategory.Search);
+            _searchAction = new SimpleAction(this, "SearchFromDetailView", PredefinedCategory.Search);
             _searchAction.Execute += SimpleActionOnExecute;
             TargetViewType = ViewType.DetailView;
         }
@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
                 if (value is string)
                     value = "%" + value + "%";
                 groupOperator.Operands.Add(value is string
-                    ? (CriteriaOperator)new FunctionOperator(FunctionOperatorType.Contains, memberInfo.Name, value.ToString())
+                    ? new FunctionOperator(FunctionOperatorType.Contains, memberInfo.Name, value.ToString())
                     : new BinaryOperator(memberInfo.Name, value, BinaryOperatorType.Equal));
             }
             return groupOperator;
