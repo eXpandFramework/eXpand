@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Workflow</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.500.1" />
+      <dependency id="eXpandLib" version="22.1.501.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.221.5.2" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.221.6" />
     </dependencies>
   </metadata>
   <files>
