@@ -1,6 +1,7 @@
 "Release","Issues","Labels","Message","Sha"
-"22.1.303.0","940","WorldCreator","Replace objectSpaceProviders calls","92fa9d1eb752d44bca46e55f1cc0e926ae047df2"
-"22.1.303.0","940","WorldCreator","No match for field with name objectSpaceProviders 22.1 BC","3d680fa6929d91ade6008c121b194fce64faf0f5"
+"22.1.501.0","947","Modeldifference","Rename Search to SearchFromDetailView","911ecdb17271b0d7b39e979c5d748c43547ec6d1"
+"22.1.303.0","940","WorldCreator","Replace objectSpaceProviders calls",
+"22.1.303.0","940","WorldCreator","No match for field with name objectSpaceProviders 22.1 BC",
 "21.2.601.0","908","Modeldifference","Update RX packages",
 "21.1.501.0","880","❤ Backer, Priority, Reactive.XAF","Remove access To HKLM",
 "20.2.503.0","825","? Backer, Priority, VSIX","VSIX: open to control Color Theme",
