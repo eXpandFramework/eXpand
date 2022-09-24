@@ -21,8 +21,11 @@ namespace Xpand.ExpressApp.SystemModule.Actions {
             var modelActions = Application.Model.ActionDesign.Actions.OfType<IModelActionSingleChoiceActionItemType>().Where(type => type.ItemType.HasValue);
             var singleChoiceActions = SingleChoiceActions();
             foreach (var modelAction in modelActions) {
-                if (modelAction.ItemType != null)
-                    singleChoiceActions[modelAction.Id].ItemType = modelAction.ItemType.Value;
+                if (modelAction.ItemType != null) {
+                    if (singleChoiceActions.ContainsKey(modelAction.Id)) {
+                        singleChoiceActions[modelAction.Id].ItemType = modelAction.ItemType.Value;
+                    }
+                }
             }
         }
 

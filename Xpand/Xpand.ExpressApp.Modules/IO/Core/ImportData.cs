@@ -17,6 +17,7 @@ using Xpand.Utils.Helpers;
 using Xpand.Xpo.ConnectionProviders;
 using Xpand.Xpo.MetaData;
 using Fasterflect;
+using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.TypeExtensions;
 
 namespace Xpand.ExpressApp.IO.Core {
@@ -511,7 +512,9 @@ namespace Xpand.ExpressApp.IO.Core {
         static Type PropertyType(Type propertyType, DBColumnType dbColumnType) {
             var type = dbColumnType.GetType(propertyType);
             Guard.ArgumentNotNull(dbColumnType, dbColumnType.ToString());
-            return propertyType == type ? propertyType : type;
+            var propertyType1 = propertyType == type ? propertyType : type;
+            Guard.ArgumentNotNull(propertyType1, dbColumnType.ToString());
+            return propertyType1;
         }
         
         object Convert(object theObject, object theValue, Type conversionType) {
@@ -610,7 +613,19 @@ namespace Xpand.ExpressApp.IO.Core {
         }
 
         DBTable GetTable(InputObjectClassInfo classInfo) {
-            return _dbTables.SingleOrDefault(table => table.Name == classInfo.TableName);
+            var dbTable = _dbTables.SingleOrDefault(table => table.Name == classInfo.TableName);
+            dbTable.Columns.Where(column => column.ColumnType==DBColumnType.Unknown).ToList()
+                .ForEach(column => {
+                    if (column.DBTypeName.ToLower() == "bool") {
+                        column.ColumnType=DBColumnType.Boolean;
+                    }
+                    else {
+                        throw new NotImplementedException(column.DBTypeName);
+                    }
+                    
+                })
+                ;
+            return dbTable;
         }
     }
 

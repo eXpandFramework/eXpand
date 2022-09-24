@@ -8,6 +8,7 @@ using Fasterflect;
 using Microsoft.CSharp;
 
 namespace Xpand.Utils.Helpers{
+    [Obsolete("Not run in .netcore")]
     public class CSharpEvaluator{
         public static List<string> Usings = new List<string>{
             "System",

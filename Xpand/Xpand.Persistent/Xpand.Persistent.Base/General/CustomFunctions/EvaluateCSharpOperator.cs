@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using DevExpress.Data.Filtering;
-using Xpand.Utils.Helpers;
 
 namespace Xpand.Persistent.Base.General.CustomFunctions{
     public class EvaluateCSharpOperator:ICustomFunctionOperator{
@@ -16,10 +15,10 @@ namespace Xpand.Persistent.Base.General.CustomFunctions{
         }
 
         public object Evaluate(params object[] operands){
-            var csCode = string.Join("",operands);
-            var usings = string.Join(Environment.NewLine,Usings);
-            var eval = CSharpEvaluator.Eval(csCode, usings);
-            return eval;
+            // var csCode = string.Join("",operands);
+            // var usings = string.Join(Environment.NewLine,Usings);
+            // var eval = CSharpEvaluator.Eval(csCode, usings);
+            return null;
         }
 
         public string Name => OperatorName;
