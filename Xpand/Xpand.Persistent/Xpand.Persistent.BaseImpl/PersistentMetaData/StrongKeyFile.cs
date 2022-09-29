@@ -81,7 +81,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
         
         #region IEmptyCheckable Members
-        [NonPersistent, MemberDesignTimeVisibility(false)]
+        [ MemberDesignTimeVisibility(false)]
         public bool IsEmpty => string.IsNullOrEmpty(FileName);
 
         #endregion

@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#StateMachine</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.501.0" />
-      <dependency id="eXpandSecurity" version="22.1.501.0" />
+      <dependency id="eXpandLib" version="22.1.501.1" />
+      <dependency id="eXpandSecurity" version="22.1.501.1" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
