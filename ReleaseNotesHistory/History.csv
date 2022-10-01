@@ -1,5 +1,6 @@
 "Release","Issues","Labels","Message","Sha"
-"22.1.501.0","947","Modeldifference","Rename Search to SearchFromDetailView","911ecdb17271b0d7b39e979c5d748c43547ec6d1"
+"22.1.503.0","952","Reactive.XAF","Update RX packages","94b1d1075852000c068ab26350f2e4e3017eb86f"
+"22.1.501.0","947","Modeldifference","Rename Search to SearchFromDetailView",
 "22.1.303.0","940","WorldCreator","Replace objectSpaceProviders calls",
 "22.1.303.0","940","WorldCreator","No match for field with name objectSpaceProviders 22.1 BC",
 "21.2.601.0","908","Modeldifference","Update RX packages",
