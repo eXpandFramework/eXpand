@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#FileAttachment</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.503.0" />
+      <dependency id="eXpandLib" version="22.1.504.0" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
