@@ -14,12 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Email</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.504.0" />
-      <dependency id="eXpandLogic" version="22.1.504.0" />
-      <dependency id="eXpandSecurity" version="22.1.504.0" />
-      <dependency id="eXpandValidation" version="22.1.504.0" />
+      <dependency id="eXpandLib" version="22.1.601.0" />
+      <dependency id="eXpandLogic" version="22.1.601.0" />
+      <dependency id="eXpandSecurity" version="22.1.601.0" />
+      <dependency id="eXpandValidation" version="22.1.601.0" />
       <dependency id="RazorEngine" version="3.10" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.221.9" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.221.10" />
     </dependencies>
   </metadata>
   <files>

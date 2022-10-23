@@ -1,4 +1,4 @@
-source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
+source C:\Program Files (x86)\DevExpress 22.1\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 storage: none
@@ -72,8 +72,8 @@ nuget Topshelf 4.2.1
 nuget Microsoft.AspNetCore.WebUtilities 2.2.0
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.221.9.1
-nuget Xpand.XAF.Web.All 4.221.9.1
+nuget Xpand.XAF.Win.All 4.221.10.0
+nuget Xpand.XAF.Web.All 4.221.10.0
 nuget System.Memory = 4.5.4
 nuget System.Collections.Immutable = 6.0.0
 nuget System.ServiceModel.NetTcp = 4.9
@@ -84,5 +84,3 @@ nuget Microsoft.Bcl.AsyncInterfaces = 6.0.0
 nuget System.Text.Json = 6.0.6
 nuget System.Text.Encodings.Web = 6.0.0
 nuget Microsoft.IdentityModel.Protocols.OpenIdConnect 6.15.0
-
-
