@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo;
@@ -12,7 +13,7 @@ namespace Xpand.ExpressApp.Dashboard.BusinessObjects {
     }
 
     [DefaultProperty("Caption")]
-    [NonPersistent]
+    [DomainComponent]
     public class TypeWrapper :  ITypeWrapper {
         public TypeWrapper( Type type){
             Type = type;

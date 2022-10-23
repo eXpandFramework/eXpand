@@ -1,12 +1,12 @@
 storage: packages
 framework: auto-detect
-source C:\Program Files (x86)\DevExpress 22.1\Components\System\Components\Packages
+source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
 
-nuget DevExpress.ExpressApp.Xpo == 22.1.5
-nuget DevExpress.ExpressApp.Win == 22.1.5
+nuget DevExpress.ExpressApp.Xpo == 22.1.6
+nuget DevExpress.ExpressApp.Win == 22.1.6
 nuget Fasterflect.Xpand
 nuget Fody 4.2.1
 nuget Microsoft.CSharp 4.7.0
@@ -57,3 +57,6 @@ nuget Microsoft.VisualStudio.Threading.Analyzers 15.8.209
 nuget Microsoft.VisualStudio.Utilities 15.9.28307
 nuget Microsoft.VisualStudio.Workspace 15.0.485
 nuget Microsoft.VisualStudio.Workspace.VSIntegration 15.0.485
+
+
+
