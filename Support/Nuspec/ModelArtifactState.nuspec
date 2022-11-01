@@ -14,12 +14,12 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#modelartifact</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.601.0" />
-      <dependency id="eXpandLogic" version="22.1.601.0" />
-      <dependency id="eXpandSecurity" version="22.1.601.0" />
-      <dependency id="eXpandValidation" version="22.1.601.0" />
+      <dependency id="eXpandLib" version="22.1.601.1" />
+      <dependency id="eXpandLogic" version="22.1.601.1" />
+      <dependency id="eXpandSecurity" version="22.1.601.1" />
+      <dependency id="eXpandValidation" version="22.1.601.1" />
       <dependency id="System.ComponentModel.Annotations" version="5.0" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.221.10" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.221.10.1" />
     </dependencies>
   </metadata>
   <files>

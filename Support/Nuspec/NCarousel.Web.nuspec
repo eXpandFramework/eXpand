@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#NCarousel</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="22.1.601.0" />
+      <dependency id="eXpandLib" version="22.1.601.1" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>
