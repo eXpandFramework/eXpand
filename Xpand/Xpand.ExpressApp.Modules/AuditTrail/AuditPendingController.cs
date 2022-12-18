@@ -99,7 +99,7 @@ namespace Xpand.ExpressApp.AuditTrail {
             if (_auditPending){
                 var objectSpace = ((IObjectSpace) sender);
                 if (!objectSpace.IsNewObject(View.CurrentObject)) {
-                    AuditTrailService.Instance.SaveAuditData(objectSpace.Session());
+                    AuditTrailService.GetService(Site).SaveAuditData(objectSpace.Session());
                     objectSpace.RollbackSilent();
                     const string template =
                         "Your changeds are audited and pending for approval. You will be notified by email if approved or not. The object is reset to its origial state";

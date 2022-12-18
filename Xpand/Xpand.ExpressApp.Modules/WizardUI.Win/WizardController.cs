@@ -206,7 +206,7 @@ namespace Xpand.ExpressApp.WizardUI.Win {
 
             var modifiedObjects = ModifiedObjects(page);
             foreach (var obj in modifiedObjects) {
-                IList<IRule> rules = Validator.RuleSet.GetRules(obj, ContextIdentifier.Save);
+                IList<IRule> rules = Validator.GetService(Site).GetRules(obj, ContextIdentifier.Save);
                 foreach (IRule rule in rules) {
                     bool ruleInUse = rule.UsedProperties.Any(property => usedProperties.Contains(property) || !string.IsNullOrEmpty(usedProperties.FirstOrDefault(p => p.EndsWith(
                                                                              $".{property}"))));

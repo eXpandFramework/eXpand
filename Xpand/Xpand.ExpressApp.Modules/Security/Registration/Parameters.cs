@@ -94,7 +94,9 @@ namespace Xpand.ExpressApp.Security.Registration {
                 throw new UserFriendlyException("Cannot find registered users by the provided email address!");
             User = user;
             var randomBytes = new byte[6];
+#pragma warning disable SYSLIB0023
             new RNGCryptoServiceProvider().GetBytes(randomBytes);
+#pragma warning restore SYSLIB0023
             Password = Convert.ToBase64String(randomBytes);
 
             user.SetPassword(Password);

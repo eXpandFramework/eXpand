@@ -160,7 +160,7 @@ namespace Xpand.ExpressApp.Model {
 
         void AcceptActionOnExecute(object sender, SimpleActionExecuteEventArgs e) {
             var view = ((SimpleAction) sender).Controller.Frame.View;
-            Validator.RuleSet.Validate(view.ObjectSpace, e.CurrentObject, ContextIdentifier.Save);
+            Validator.GetService(Site).Validate(view.ObjectSpace, e.CurrentObject, ContextIdentifier.Save);
             if (Application.GetPlatform()==Platform.Web)
                 View.ControlsCreated+= (_, _) =>  AddColumn(e);
             else{

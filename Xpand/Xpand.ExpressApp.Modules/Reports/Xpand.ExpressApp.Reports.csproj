@@ -2,7 +2,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
     <SignAssembly>true</SignAssembly>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <LangVersion>latest</LangVersion>
@@ -13,9 +14,8 @@
     <DebugType>pdbonly</DebugType>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="Xpand.ExpressApp.Dashboard">
-      <HintPath>..\..\..\Xpand.DLL\net461\Xpand.ExpressApp.Dashboard.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\\Xpand.ExpressApp.Dashboard.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">

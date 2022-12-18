@@ -118,8 +118,8 @@ Task CompileModules{
         
         Write-HostFormatted "Compiling helper projects..." -Section
         $helperProjects=($group.HelperProjects|GetProjects)
-        Write-HostFormatted "helperProjects=$helperProjects" -ForegroundColor Magenta
-        BuildProjects $helperProjects "Helper"
+        # Write-HostFormatted "helperProjects=$helperProjects" -ForegroundColor Magenta
+        # BuildProjects $helperProjects "Helper"
         $vsAddons=($group.VSAddons|GetProjects)
         Write-HostFormatted "vsAddons=$vsAddons" -ForegroundColor Magenta
         Push-Location "$root\Xpand.Plugins"

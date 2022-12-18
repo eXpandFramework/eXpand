@@ -38,7 +38,7 @@ namespace Xpand.ExpressApp.SystemModule {
             foreach (var o in e.Objects) {
                 var count = ((XPObjectSpace)ObjectSpace).Session.CollectReferencingObjects(o).Count;
                 if (count > 0){
-                    var result = Validator.RuleSet.NewRuleSetValidationMessageResult(ObjectSpace, "Cannot be deleted " + count + " references found",DefaultContexts.Delete, View.CurrentObject, View.ObjectTypeInfo.Type);
+                    var result = Validator.GetService(Site).NewRuleSetValidationMessageResult(ObjectSpace, "Cannot be deleted " + count + " references found",DefaultContexts.Delete, View.CurrentObject, View.ObjectTypeInfo.Type);
                     throw new ValidationException(result);
                 }
             }

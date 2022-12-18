@@ -30,7 +30,7 @@ namespace Xpand.Persistent.Base.Validation {
             return ruleSet.NewRuleSetValidationMessageResult(objectSpace, messageTemplate, ContextIdentifier.Save,objectTarget, objectTarget.GetType());
         }
 
-        public static RuleSetValidationResult NewRuleSetValidationMessageResult(this RuleSet ruleSet,
+        public static RuleSetValidationResult NewRuleSetValidationMessageResult(this IRuleSet ruleSet,
             IObjectSpace objectSpace, string messageTemplate, ContextIdentifier contextIdentifier, object objectTarget,
             Type targeObjecttType, List<string> usedProperties = null,
             ValidationResultType resultType = ValidationResultType.Error){
@@ -40,12 +40,15 @@ namespace Xpand.Persistent.Base.Validation {
             rule.Properties.ResultType = resultType;
             rule.Properties.SkipNullOrEmptyValues = false;
             rule.Properties.CustomMessageTemplate = messageTemplate;
+#pragma warning disable CS0618 // Type or member is obsolete
             Validator.RuleSet.RegisteredRules.Add(rule);
+
             RuleSetValidationResult validationResult;
             using (objectSpace.CreateParseCriteriaScope()) {
                 validationResult = Validator.RuleSet.ValidateTarget(objectSpace, objectTarget, contextIdentifier);
             }
             Validator.RuleSet.RegisteredRules.Remove(rule);
+#pragma warning restore CS0618 // Type or member is obsolete
             return validationResult;
         }
     }

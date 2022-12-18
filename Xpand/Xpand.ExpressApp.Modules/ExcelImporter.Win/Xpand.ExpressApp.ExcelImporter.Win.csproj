@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
-    <TargetFrameworks>net461;net6.0-windows7.0</TargetFrameworks>
+    <TargetFramework>net6.0-windows7.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>latest</LangVersion>
     <SignAssembly>true</SignAssembly>
@@ -11,7 +11,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <LangVersion>latest</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <DebugType>pdbonly</DebugType>
     <CopyLocalLockFileAssemblies>True</CopyLocalLockFileAssemblies>
   </PropertyGroup>
@@ -32,11 +32,11 @@
       <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.ExcelImporter.dll</HintPath>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Validation.Win">
-      <HintPath>..\..\..\Xpand.DLL\$(TargetFramework)\Xpand.ExpressApp.Validation.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Validation.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.ExpressApp.Win">
-      <HintPath>..\..\..\Xpand.DLL\$(TargetFramework)\Xpand.ExpressApp.Win.dll</HintPath>
+      <HintPath>..\..\..\Xpand.DLL\Xpand.ExpressApp.Win.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
     <Reference Include="Xpand.Persistent.Base">

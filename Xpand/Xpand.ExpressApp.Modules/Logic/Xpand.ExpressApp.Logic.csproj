@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
     <LangVersion>latest</LangVersion>

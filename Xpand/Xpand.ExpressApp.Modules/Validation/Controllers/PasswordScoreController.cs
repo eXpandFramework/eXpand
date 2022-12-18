@@ -32,7 +32,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
 
         void OnContextValidating(object sender, ContextValidatingEventArgs contextValidatingEventArgs) {
             if (contextValidatingEventArgs.Context==ContextIdentifier.Save.ToString()) {
-                Validator.RuleSet.ValidationCompleted += RuleSetOnValidationCompleted;
+                Validator.GetService(Site).ValidationCompleted += RuleSetOnValidationCompleted;
             }
         }
 
@@ -42,7 +42,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         }
 
         void RuleSetOnValidationCompleted(object sender, ValidationCompletedEventArgs args) {
-            Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
+            Validator.GetService(Site).ValidationCompleted -= RuleSetOnValidationCompleted;
             var ruleSetValidationResult = new RuleSetValidationResult();
             var validationException = args.Exception;
             if (validationException != null)
@@ -52,7 +52,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
                 var passwordScore = PasswordAdvisor.CheckStrength(password +"");
                 if (passwordScore<modelMemberPasswordScore.PasswordScore) {
                     var messageTemplate = String.Format(CaptionHelper.GetLocalizedText(XpandValidationModule.XpandValidation, "PasswordScoreFailed"), modelMemberPasswordScore.Name, passwordScore, modelMemberPasswordScore.PasswordScore);
-                    var validationResult = Validator.RuleSet.NewRuleSetValidationMessageResult(ObjectSpace, messageTemplate, ContextIdentifier.Save,View.CurrentObject,View.ObjectTypeInfo.Type);
+                    var validationResult = Validator.GetService(Site).NewRuleSetValidationMessageResult(ObjectSpace, messageTemplate, ContextIdentifier.Save,View.CurrentObject,View.ObjectTypeInfo.Type);
                     ruleSetValidationResult.AddResult(validationResult.Results.First());
                     args.Handled = true;
                 }

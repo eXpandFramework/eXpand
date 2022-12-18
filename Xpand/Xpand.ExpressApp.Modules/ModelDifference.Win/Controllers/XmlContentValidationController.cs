@@ -47,7 +47,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
                     if (View != null && _propertyEditor.ControlValue!=_propertyEditor.MemberInfo.GetValue(View.CurrentObject)){
                         _propertyEditor.MemberInfo.SetValue(View.CurrentObject, _propertyEditor.ControlValue);
                         _propertyEditor.MemberInfo.SetValue(View.CurrentObject, _propertyEditor.ControlValue);
-                        Validator.RuleSet.Validate(ObjectSpace, View.CurrentObject, XmlContentCodeRule.MDOXmlContentContext);
+                        Validator.GetService(Site).Validate(ObjectSpace, View.CurrentObject, XmlContentCodeRule.MDOXmlContentContext);
                         MergeWithModel();
                     }
                 }

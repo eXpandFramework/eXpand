@@ -18,7 +18,6 @@ using Xpand.ExpressApp.Chart.Win;
 using Xpand.ExpressApp.MasterDetail.Win;
 using Xpand.ExpressApp.PivotGrid.Win;
 using Xpand.ExpressApp.ReportsV2.Win;
-using Xpand.ExpressApp.Scheduler.Win;
 using Xpand.ExpressApp.Security.Win;
 using Xpand.ExpressApp.SystemModule;
 using Xpand.ExpressApp.Win.SystemModule;
@@ -47,7 +46,7 @@ namespace XVideoRental.Module.Win {
             RequiredModuleTypes.Add(typeof(XpandPivotGridWinModule));
             RequiredModuleTypes.Add(typeof(XpandChartWinModule));
             RequiredModuleTypes.Add(typeof(MasterDetailWindowsModule));
-            RequiredModuleTypes.Add(typeof(XpandSchedulerWindowsFormsModule));
+
             RequiredModuleTypes.Add(typeof(XpandSecurityWinModule));
             RequiredModuleTypes.Add(typeof(ReportsV2WinModule));
             RequiredModuleTypes.Add(typeof(DashboardWindowsFormsModule));

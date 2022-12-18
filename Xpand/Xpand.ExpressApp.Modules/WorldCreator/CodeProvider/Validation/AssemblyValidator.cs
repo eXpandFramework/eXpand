@@ -11,17 +11,7 @@ namespace Xpand.ExpressApp.WorldCreator.CodeProvider.Validation{
     [Serializable]
     public class AssemblyValidator: IAssemblyValidator {
         public ValidatorResult Validate(string assemblyPath){
-#if !NETSTANDARD2_0
-            var setupInfo = new AppDomainSetup{ApplicationName = "WCValidationDomain"};
-            var setupInformation = AppDomain.CurrentDomain.SetupInformation;
-            setupInfo.PrivateBinPath = setupInformation.PrivateBinPath;
-            setupInfo.ApplicationBase = setupInformation.ApplicationBase;
-            using (var context = AppDomainContext.Create(setupInfo)){
-                return RemoteFunc.Invoke(context.Domain,assemblyPath, ValidateCore);
-            }
-            #else
             return new ValidatorResult();
-#endif
         }
 
         private ValidatorResult ValidateCore(string assemblyPath){

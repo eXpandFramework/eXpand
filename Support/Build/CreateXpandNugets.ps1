@@ -1,6 +1,6 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "21.1.501.2",
+    [string]$version = "22.2.300.1",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )
@@ -66,10 +66,7 @@ function AddAllDependency($file, $nuspecpaths) {
         $metadata.dependencies.RemoveAll()
     }
     $metadata.version = $version
-    $net461Nuspecs=@($nuspecpaths|where-Object{
-        $p=Get-XmlContent $_.FullName
-        $p.package.files.file.target -match "net461"
-    })
+    
     $netStandardNuspecs=@($nuspecpaths|where-Object{
         $p=Get-XmlContent $_.FullName
         $p.package.files.file.target -match "netstandard"
@@ -86,10 +83,7 @@ function AddAllDependency($file, $nuspecpaths) {
         [xml]$package = Get-Content $_.Fullname
         Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "netstandard2.0"  
     }
-    ($net461Nuspecs+$netStandardNuspecs) | ForEach-Object {
-        [xml]$package = Get-Content $_.Fullname
-        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net461"  
-    }
+    
     ($net6Nuspecs+$netStandardNuspecs) | ForEach-Object {
         [xml]$package = Get-Content $_.Fullname
         Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net6.0"  
@@ -142,9 +136,7 @@ $nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {
         $xpandMoleReference | ForEach-Object {
             $hintPath=$_.hintpath
             $multiTarget=$hintPath -match "TargetFramework"
-            if($multiTarget ){
-                $hintPath=$hintPath.Replace('$(TargetFramework)','net461')
-            }
+            
             $assemblyPath = Get-Item (Resolve-Path $hintPath)
             $version = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($assemblyPath.FullName).FileVersion
             $id = ($nuspecs | Where-Object { $_.Content.package.files.file | Where-Object { $_.src -match $assemblyPath.Name } }).Content.package.metaData.id
@@ -201,7 +193,7 @@ $libNuspec.Save($libNuspecPath)
 $nuspecpathFile = "$nuspecpathsPath\All_Agnostic.nuspec"
 AddAllDependency $nuspecpathFile (Get-ChildItem "$nuspecpathsPath" -Exclude "*Win*", "*Web*", "*All*")
 
-"Win", "Web" | ForEach-Object {
+"Win"| ForEach-Object {
     $nuspecpaths = (Get-ChildItem "$nuspecpathsPath" "*$_*" | Where-Object { $_.BaseName -notmatch "All" })
     $nuspecpathFile = "$nuspecpathsPath\All_$_.nuspec"
     AddAllDependency $nuspecpathFile $nuspecpaths
@@ -228,12 +220,12 @@ else {
 
 $modules 
 
-Write-HostFormatted "packing nuspecs"
+Write-HostFormatted "packing nuspecs" -Section
 Get-ChildItem "$root\build\Nuget" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 
-# Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -RetryOnError 3 -VariablesToImport @("modules","Nuget","version","root") -Script {    
-$nuspecs = Get-ChildItem "$root\Support\Nuspec" *.nuspec
-$nuspecs | foreach {    
+Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -RetryOnError 3 -VariablesToImport @("modules","Nuget","version","root") -Script {    
+# $nuspecs = Get-ChildItem "$root\Support\Nuspec" *.nuspec
+# $nuspecs | foreach {    
     if (!$Version) {
         throw
     }

@@ -22,7 +22,7 @@ namespace Xpand.ExpressApp.AuditTrail {
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandAuditTrailModule :XpandModuleBase,ISecurityModuleUser {
         public XpandAuditTrailModule() {
-            AuditTrailService.Instance.CustomCreateObjectAuditProcessorsFactory += OnCustomCreateObjectAuditProcessorsFactory;
+            
             RequiredModuleTypes.Add(typeof (AuditTrailModule));
             LogicInstallerManager.RegisterInstaller(new AuditTrailLogicInstaller(this));
             RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
@@ -41,8 +41,10 @@ namespace Xpand.ExpressApp.AuditTrail {
         }
 
         private void ApplicationOnSetupComplete(object sender, EventArgs eventArgs){
-            AuditTrailService.Instance.SaveAuditTrailData += OnSaveAuditTrailData;
-            AuditTrailService.Instance.AuditDataStore = new XpandAuditDataStore();
+            var auditTrailService = AuditTrailService.GetService(Site);
+            auditTrailService.CustomCreateObjectAuditProcessorsFactory += OnCustomCreateObjectAuditProcessorsFactory;
+            auditTrailService.SaveAuditTrailData += OnSaveAuditTrailData;
+            auditTrailService.AuditDataStore = new XpandAuditDataStore();
             
             var auditTrailModule = Application.FindModule<AuditTrailModule>();
             auditTrailModule.AuditDataItemPersistentType = typeof(XpandAuditDataItemPersistent);
@@ -59,9 +61,10 @@ namespace Xpand.ExpressApp.AuditTrail {
         }
 
         protected override void Dispose(bool disposing) {
-            if (AuditTrailService.Instance != null) {
-                AuditTrailService.Instance.SaveAuditTrailData -= OnSaveAuditTrailData;
-                AuditTrailService.Instance.CustomCreateObjectAuditProcessorsFactory -= OnCustomCreateObjectAuditProcessorsFactory;
+            var auditTrailService = AuditTrailService.GetService(Site);
+            if (auditTrailService != null) {
+                auditTrailService.SaveAuditTrailData -= OnSaveAuditTrailData;
+                auditTrailService.CustomCreateObjectAuditProcessorsFactory -= OnCustomCreateObjectAuditProcessorsFactory;
             }
             RuntimeMemberBuilder.CustomCreateMember -= RuntimeMemberBuilderOnCustomCreateMember;
             base.Dispose(disposing);

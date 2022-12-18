@@ -20,7 +20,7 @@ namespace Xpand.Xpo.Converters {
             var stream = new MemoryStream();
             try {
                 var binaryFormatter = new BinaryFormatter { AssemblyFormat = FormatterAssemblyStyle.Full };
-                binaryFormatter.Serialize(stream, value);
+                // binaryFormatter.Serialize(stream, value);
                 result = Convert.ToBase64String(stream.ToArray());
             } finally {
                 stream.Close();
@@ -38,7 +38,7 @@ namespace Xpand.Xpo.Converters {
                     byte[] base64String = Convert.FromBase64String((string)value);
                     stream = new MemoryStream(base64String) { Position = 0 };
                     var binaryFormatter = new BinaryFormatter { AssemblyFormat = FormatterAssemblyStyle.Full };
-                    result = binaryFormatter.Deserialize(stream);
+                    // result = binaryFormatter.Deserialize(stream);
                 }
                 catch (Exception) {
                     // ignored

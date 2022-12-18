@@ -5,5 +5,5 @@ DevExpress.ExpressApp.Security.Xpo
 DevExpress.Persistent.BaseImpl.Xpo
 Xpand.XAF.Modules.ModelViewInheritance
 Xpand.Extensions.Mono.Cecil
-DevExpress.ExpressApp.CodeAnalysis
+
 System.ComponentModel.Annotations

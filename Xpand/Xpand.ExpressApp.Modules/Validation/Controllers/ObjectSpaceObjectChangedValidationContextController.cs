@@ -27,7 +27,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         }
 
         protected void ValidateControlValueChangedContext(object currentObject) {
-            Validator.RuleSet.ValidateTarget(ObjectSpace, currentObject, ObjectSpaceObjectChanged);
+            Validator.GetService(Site).ValidateTarget(ObjectSpace, currentObject, ObjectSpaceObjectChanged);
         }
 
     }

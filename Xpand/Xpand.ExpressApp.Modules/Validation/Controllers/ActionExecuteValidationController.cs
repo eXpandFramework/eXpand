@@ -34,7 +34,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         protected override void OnDeactivated() {
             base.OnDeactivated();
             if (Enabled){
-                if (Validator.RuleSet != null) Validator.RuleSet.ValidationCompleted -= RuleSetOnValidationCompleted;
+                if (Validator.GetService(Site) != null) Validator.GetService(Site).ValidationCompleted -= RuleSetOnValidationCompleted;
                 foreach (var actionBase in _actionBases){
                     actionBase.Executing-=ActionBaseOnExecuting;
                 }
@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
         protected override void OnActivated() {
             base.OnActivated();
             if (Enabled){
-                Validator.RuleSet.ValidationCompleted+=RuleSetOnValidationCompleted;
+                Validator.GetService(Site).ValidationCompleted+=RuleSetOnValidationCompleted;
                 _actionBases = Frame.Actions().Where(@base => !new[] { "Save", "Delete","Validate" }.Contains(@base.Id)).ToArray();
                 foreach (var actionBase in _actionBases){
                     actionBase.Executing+=ActionBaseOnExecuting;
@@ -69,7 +69,7 @@ namespace Xpand.ExpressApp.Validation.Controllers {
                 var contextValidatingEventArgs = new ContextValidatingEventArgs(context, new ArrayList(selectedObjects));
                 OnContextValidating(contextValidatingEventArgs);
                 if (View.ObjectTypeInfo.IsPersistent && CanAccessDeletedObjects(context)&&!_otherValidationContextFailed)
-                    Validator.RuleSet.ValidateAll(ObjectSpace, contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
+                    Validator.GetService(Site).ValidateAll(ObjectSpace, contextValidatingEventArgs.TargetObjects, context, CustomizeDeleteValidationException);
             }
             _otherValidationContextFailed = false;
         }

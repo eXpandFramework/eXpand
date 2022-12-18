@@ -258,8 +258,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
                 : excelColumnMap.ExcelColumnName;
         }
 
-        public static void Map(this ExcelImport excelImport) {
-            Validator.RuleSet.Validate(((IObjectSpaceLink) excelImport).ObjectSpace, excelImport,ExcelImport.MappingContext);
+        public static void Map(this ExcelImport excelImport, ISite site) {
+            Validator.GetService(site).Validate(((IObjectSpaceLink) excelImport).ObjectSpace, excelImport,ExcelImport.MappingContext);
             using (var memoryStream = new MemoryStream(excelImport.File.Content)){
                 using (var excelDataReader = ExcelReaderFactory.CreateReader(memoryStream)) {
                     foreach (var dataColumn in excelDataReader.Columns(excelImport)) {
@@ -397,8 +397,8 @@ namespace Xpand.ExpressApp.ExcelImporter.Services{
             }
         }
 
-        public static void ValidateForImport(this ExcelImport excelImport) {
-            var ruleSet = Validator.RuleSet;
+        public static void ValidateForImport(this ExcelImport excelImport, ISite site) {
+            var ruleSet = Validator.GetService(site);
             var objects = new[] {excelImport}.Cast<object>().Concat(excelImport.ExcelColumnMaps)
                 .Concat(excelImport.ExcelColumnMaps.SelectMany(map => map.MemberTypeValues)).ToArray();
 

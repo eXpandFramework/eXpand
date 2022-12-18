@@ -141,9 +141,6 @@ namespace Xpand.Utils.Threading{
         ///     Checks if cancelled.
         /// </summary>
         private static void CheckIfCancelled(CancellationToken cancellationToken) {
-            if (cancellationToken == null)
-                throw new ArgumentNullException(nameof(cancellationToken));
-
             cancellationToken.ThrowIfCancellationRequested();
         }
 

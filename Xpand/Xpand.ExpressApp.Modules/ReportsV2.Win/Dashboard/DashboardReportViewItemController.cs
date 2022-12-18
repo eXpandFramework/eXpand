@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.ReportsV2.Win.Dashboard {
 
             if (reportData == null)
                 throw new NullReferenceException($"Report {dashboardReportViewItem.Model.ReportName} not found");
-            var report = ReportDataProvider.ReportsStorage.LoadReport(reportData);
+            var report = ReportDataProvider.GetReportStorage(Site).LoadReport(reportData);
             reportsModuleV2.ReportsDataSourceHelper.SetupBeforePrint(report, null, CriteriaOperator.Parse(report.FilterString), true, new SortProperty[0], true);
             dashboardReportViewItem.Report = report;
             dashboardReportViewItem.ReportData = reportData;

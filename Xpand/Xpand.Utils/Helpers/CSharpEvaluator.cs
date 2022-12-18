@@ -93,7 +93,7 @@ namespace Xpand.Utils.Helpers{
                 $"Cannot compile the generated code. Please inspect the generated code via this exception's SourceCode property. The following errors occurred: \r\n{errors}") {
             _state.SourceCode = source;
             _state.CompilerResults = compilerResults;
-            SerializeObjectState += (exception, eventArgs) => eventArgs.AddSerializedState(_state);
+            // SerializeObjectState += (exception, eventArgs) => eventArgs.AddSerializedState(_state);
         }
         public CompilerResults CompilerResults => _state.CompilerResults;
         public String SourceCode => _state.SourceCode;

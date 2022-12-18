@@ -48,8 +48,9 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
             Frame.GetController<LogicRuleViewController>(
                 controller => controller.LogicRuleExecutor.Execute<IAuditTrailRule>(ExecutionContext.None, View,
                     handledEventArgs));
+            
             if (handledEventArgs.Handled)
-                AuditTrailService.Instance.BeginSessionAudit(ObjectSpace.Session(), AuditTrailStrategy.OnObjectLoaded);
+                AuditTrailService.GetService(Site).BeginSessionAudit(ObjectSpace.Session(), AuditTrailStrategy.OnObjectLoaded);
         }
 
         private void ObjectSpaceOnCommitted(object sender, EventArgs eventArgs){
@@ -60,11 +61,11 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
             var editModelAction =Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).FirstOrDefault(@base => @base.Id == "EditModel");
             if (editModelAction != null){
                 editModelAction.Executing += (sender, args) =>{
-                    AuditTrailService.Instance.SaveAuditTrailData += InstanceOnSaveAuditTrailData;
+                    AuditTrailService.GetService(Site).SaveAuditTrailData += InstanceOnSaveAuditTrailData;
                     _editingModel = true;
                 };
                 editModelAction.ExecuteCompleted += (sender, args) =>{
-                    AuditTrailService.Instance.SaveAuditTrailData -= InstanceOnSaveAuditTrailData;
+                    AuditTrailService.GetService(Site).SaveAuditTrailData -= InstanceOnSaveAuditTrailData;
                     _editingModel = false;
                 };
                 _auditSystemChanges = ((IModelApplicationAudiTrail) Application.Model).AudiTrail.AuditSystemChanges;
@@ -95,7 +96,7 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
         }
 
         void ApplyCustomization(IAuditTrailRule auditTrailRule) {
-            var auditTrailService = AuditTrailService.Instance;
+            var auditTrailService = AuditTrailService.GetService(Site);
             if (auditTrailRule.AuditingMode.HasValue) {
                 auditTrailService.ObjectAuditingMode = (DevExpress.Persistent.AuditTrail.ObjectAuditingMode) auditTrailRule.AuditingMode.Value;
             }

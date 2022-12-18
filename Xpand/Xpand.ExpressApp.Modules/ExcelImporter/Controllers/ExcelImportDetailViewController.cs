@@ -67,7 +67,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
 
         private void AcceptActionOnExecuted(object sender, ActionBaseEventArgs e) {
             ((IObjectSpaceLink) ExcelImport).ObjectSpace.ReloadObject(ExcelImport);
-            ExcelImport.ValidateForImport();
+            ExcelImport.ValidateForImport(Site);
         }
 
         protected virtual void ShowMapConfigView(ShowViewParameters parameters) {
@@ -77,18 +77,18 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
         private void Map() {
             ValidateFile();
             var excelImport = ExcelImport;
-            excelImport.Map();   
+            excelImport.Map(Site);   
         }
 
         private void ImportActionOnExecuting(object sender, CancelEventArgs cancelEventArgs){
             ValidateFile();
-            ExcelImport.ValidateForImport();
+            ExcelImport.ValidateForImport(Site);
         }
 
         public ExcelImport ExcelImport => ((ExcelImport) View.CurrentObject);
         protected virtual void ValidateFile(){
             if (ExcelImport.File.Content == null){
-                var result = Validator.RuleSet.NewRuleSetValidationMessageResult(ObjectSpace, "Invalid file", "Save",
+                var result = Validator.GetService(Site).NewRuleSetValidationMessageResult(ObjectSpace, "Invalid file", "Save",
                     View.CurrentObject, View.ObjectTypeInfo.Type, new List<string>{nameof(ExcelImport.File)});
                 throw new ValidationException("", result);
             }
@@ -112,7 +112,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers{
                     .SelectMany(Synchronize)
                     .Do(i => {
                         if (!string.IsNullOrWhiteSpace(excelImport.ValidationContexts)) {
-                            Validator.RuleSet.ValidateAll(importObjectSpace, importObjectSpace.ModifiedObjects,excelImport.ValidationContexts);
+                            Validator.GetService(Site).ValidateAll(importObjectSpace, importObjectSpace.ModifiedObjects,excelImport.ValidationContexts);
                         }
                     }).DefaultIfEmpty();
                 return (importObjectSpace,failedResultsObjectSpace);

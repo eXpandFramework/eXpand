@@ -149,7 +149,7 @@ namespace Xpand.ExpressApp.ViewVariants {
             var dialogController = e.Action.Application.CreateController<DialogController>();
             dialogController.Accepting += (o, args) => {
                 var controller = ((DialogController) o);
-                Validator.RuleSet.Validate(controller.Frame.View.ObjectSpace,controller.Frame.View.CurrentObject,ContextIdentifier.Save);
+                Validator.GetService(Site).Validate(controller.Frame.View.ObjectSpace,controller.Frame.View.CurrentObject,ContextIdentifier.Save);
                 dialogControllerAction.Invoke(controller);
             };
             e.ShowViewParameters.Controllers.Add(dialogController);

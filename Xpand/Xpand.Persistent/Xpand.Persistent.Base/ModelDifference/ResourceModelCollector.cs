@@ -12,7 +12,7 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.Persistent.Base.ModelDifference {
     public class ResourceModelCollector {
         private const int MaxExpectedEncodingStringLengthInBytes = 512;
-        private static readonly Encoding[] _expectedEncodings = { Encoding.UTF8, Encoding.ASCII, Encoding.Unicode, Encoding.UTF7, Encoding.UTF32, Encoding.BigEndianUnicode };
+        private static readonly Encoding[] _expectedEncodings = { Encoding.UTF8, Encoding.ASCII, Encoding.Unicode, Encoding.UTF32, Encoding.BigEndianUnicode };
         private static readonly Encoding _defaultEncoding = Encoding.UTF8;
         public Dictionary<string, ResourceInfo> Collect(IEnumerable<Assembly> assemblies, string prefix){
             var assemblyResourcesNames = assemblies.SelectMany(assembly => assembly.GetManifestResourceNames().Where(s => s.EndsWith(".xafml")), (assembly1, s) => new { assembly1, s });

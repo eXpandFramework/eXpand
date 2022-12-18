@@ -119,7 +119,7 @@ namespace Xpand.ExpressApp.Security.Registration {
             var window = ((DialogController) actionBase.Controller).Window;
 
             var currentObject = window.View.CurrentObject;
-            Validator.RuleSet.Validate(window.View.ObjectSpace, currentObject, ContextIdentifier.Save);
+            Validator.GetService(Site).Validate(window.View.ObjectSpace, currentObject, ContextIdentifier.Save);
 
             AcceptParameters(View.CurrentObject as ILogonParameters);
             ShowCallerView(actionBase,window,cancelEventArgs);

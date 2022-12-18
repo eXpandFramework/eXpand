@@ -57,7 +57,7 @@ namespace Xpand.ExpressApp.Security.Controllers {
 
         private void ApplicationOnLoggingOn(object sender, LogonEventArgs logonEventArgs) {
             if (logonEventArgs.LogonParameters is IDBServerParameter parameter) {
-                Validator.RuleSet.Validate(ObjectSpace, logonEventArgs.LogonParameters, DBServer);
+                Validator.GetService(Site).Validate(ObjectSpace, logonEventArgs.LogonParameters, DBServer);
                 var connectionString = GetConnectionStringSettings().First(settings
                     => GetDbServerName(settings) == parameter.DBServer).ConnectionString;
                 Application.ConnectionString = connectionString;

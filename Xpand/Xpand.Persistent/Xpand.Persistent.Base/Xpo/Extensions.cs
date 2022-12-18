@@ -41,7 +41,9 @@ namespace Xpand.Persistent.Base.Xpo {
         public static void ValidateAndCommitChanges(this Session session) {
             var unitOfWork = ((UnitOfWork)session);
             var objectSpace = new XPObjectSpace(XafTypesInfo.Instance, XpoTypesInfoHelper.GetXpoTypeInfoSource(), () => unitOfWork);
+#pragma warning disable CS0618
             var result = Validator.RuleSet.ValidateAllTargets(objectSpace, session.GetObjectsToSave(), ContextIdentifier.Save);
+#pragma warning restore CS0618
             if (result.ValidationOutcome == ValidationOutcome.Error)
                 throw new Exception(result.GetFormattedErrorMessage());
             unitOfWork.CommitChanges();

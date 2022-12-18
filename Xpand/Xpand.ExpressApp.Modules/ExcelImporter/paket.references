@@ -5,7 +5,6 @@ DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.Notifications
 DevExpress.ExpressApp.Validation
 DevExpress.ExpressApp.Xpo
-DevExpress.Web
 Xpand.XAF.Modules.Reactive.Logger
 Xpand.XAF.Modules.AutoCommit
 Xpand.XAF.Modules.CloneModelView
@@ -15,5 +14,5 @@ Xpand.XAF.Modules.ProgressBarViewItem
 Xpand.XAF.Modules.SuppressConfirmation
 Xpand.XAF.Modules.ViewEditMode
 Xpand.Extensions.XAF.Xpo
-DevExpress.ExpressApp.CodeAnalysis
+
 
