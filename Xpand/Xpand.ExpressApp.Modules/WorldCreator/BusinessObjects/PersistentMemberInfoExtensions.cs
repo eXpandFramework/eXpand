@@ -18,7 +18,7 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
 
 
             var operands = new BinaryOperator(persistentClassInfo.GetPropertyName(x => x.Name), referenceTypeFullName.Substring(referenceTypeFullName.IndexOf(".", StringComparison.Ordinal) + 1));
-            return session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, XafTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>(), new GroupOperator(binaryOperator, operands)) as IPersistentClassInfo;
+            return session.FindObject(PersistentCriteriaEvaluationBehavior.InTransaction, XafTypesInfo.Instance.FindBusinessObjectType<IPersistentClassInfo>(), new GroupOperator(binaryOperator, operands)) as IPersistentClassInfo;
         }
 
         public static IPersistentCollectionMemberInfo GetAssociatedReference(this IPersistentAssociatedMemberInfo persistentMemberInfo, string elementTypeFullName){

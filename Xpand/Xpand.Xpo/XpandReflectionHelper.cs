@@ -118,7 +118,7 @@ namespace Xpand.Xpo {
         }
 
 
-        public static object GetXpMemberInfoValue(string propertyName, XPBaseObject o) {
+        public static object GetXPMemberInfoValue(string propertyName, XPBaseObject o) {
             if (propertyName.IndexOf(".", StringComparison.Ordinal) > -1) {
                 XPMemberInfo info = o.ClassInfo.GetMember(propertyName.Split(".".ToCharArray())[0]);
                 object value = info.GetValue(o);
@@ -126,7 +126,7 @@ namespace Xpand.Xpo {
                     o = value as XPBaseObject;
                     return o == null
                                ? null
-                               : GetXpMemberInfoValue(propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1), o);
+                               : GetXPMemberInfoValue(propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1), o);
                 }
                 return
                     value != null
@@ -167,14 +167,14 @@ namespace Xpand.Xpo {
             SetXpMemberProperty(propertyName, value, dbObject, false);
         }
 
-        public static XPMemberInfo GetXpMemberInfo(XPClassInfo xpClassInfo, string propertyName, bool throwIfMissing) {
+        public static XPMemberInfo GetXPMemberInfo(XPClassInfo xpClassInfo, string propertyName, bool throwIfMissing) {
             if (propertyName.IndexOf(".", StringComparison.Ordinal) > -1) {
                 XPMemberInfo info = xpClassInfo.FindMember(propertyName.Split(".".ToCharArray())[0]);
                 if (info != null) {
                     XPClassInfo type = info.ReferenceType;
                     if (info.IsAssociation && info.IsCollection && info.CollectionElementType != null)
                         type = info.CollectionElementType;
-                    return GetXpMemberInfo(type, propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1), throwIfMissing);
+                    return GetXPMemberInfo(type, propertyName.Substring(propertyName.IndexOf(".", StringComparison.Ordinal) + 1), throwIfMissing);
                 }
                 return null;
             }
@@ -185,19 +185,19 @@ namespace Xpand.Xpo {
         }
 
 
-        public static XPMemberInfo GetXpMemberInfo(Session session, Type type, string propertyName, bool throwIfMissing) {
+        public static XPMemberInfo GetXPMemberInfo(Session session, Type type, string propertyName, bool throwIfMissing) {
             XPClassInfo xpClassInfo = session.GetClassInfo(type);
-            return GetXpMemberInfo(xpClassInfo, propertyName, throwIfMissing);
+            return GetXPMemberInfo(xpClassInfo, propertyName, throwIfMissing);
 
         }
-        public static XPMemberInfo GetXpMemberInfo(XPClassInfo xpClassInfo, string propertyName) {
-            return GetXpMemberInfo(xpClassInfo, propertyName, false);
+        public static XPMemberInfo GetXPMemberInfo(XPClassInfo xpClassInfo, string propertyName) {
+            return GetXPMemberInfo(xpClassInfo, propertyName, false);
         }
-        public static XPMemberInfo GetXpMemberInfo(Session session, Type type, string propertyName) {
-            return GetXpMemberInfo(session, type, propertyName, false);
+        public static XPMemberInfo GetXPMemberInfo(Session session, Type type, string propertyName) {
+            return GetXPMemberInfo(session, type, propertyName, false);
         }
 
-        public static XPMemberInfo[] GetXpMemberInfos(XPClassInfo classInfo) {
+        public static XPMemberInfo[] GetXPMemberInfos(XPClassInfo classInfo) {
             PropertyInfo[] propertyInfos = classInfo.ClassType.GetProperties();
             var memberInfos = new XPMemberInfo[propertyInfos.Length];
             int i = 0;

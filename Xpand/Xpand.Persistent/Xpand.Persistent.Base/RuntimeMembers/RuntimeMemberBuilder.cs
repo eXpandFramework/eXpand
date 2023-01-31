@@ -10,6 +10,7 @@ using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.RuntimeMembers.Model;
 using Xpand.Persistent.Base.RuntimeMembers.Model.Collections;
 using Xpand.Persistent.Base.Xpo;
@@ -99,8 +100,8 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
                         XafTypesInfo.Instance.RefreshInfo(classType);
                         AddAttributes(modelMemberEx, customMemberInfo);
                     }
-                    var xpandCustomMemberInfo = customMemberInfo as XpandCustomMemberInfo;
-                    if (xpandCustomMemberInfo != null) {
+
+                    if (customMemberInfo is XpandCustomMemberInfo xpandCustomMemberInfo) {
                         CreateColumn(modelMemberEx as IModelMemberPersistent, objectSpace, xpandCustomMemberInfo);
                         CreateForeignKey(modelMemberEx as IModelMemberOneToManyCollection, objectSpace, xpandCustomMemberInfo);
                         UpdateMember(modelMemberEx, customMemberInfo);
@@ -150,8 +151,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         }
 
         static void UpdateMember(IModelMemberEx modelMemberEx, XPMemberInfo xpMemberInfo) {
-            var modelRuntimeCalculatedMember = modelMemberEx as IModelMemberCalculated;
-            if (modelRuntimeCalculatedMember != null) {
+            if (modelMemberEx is IModelMemberCalculated modelRuntimeCalculatedMember) {
                 ((XpandCalcMemberInfo)xpMemberInfo).SetAliasExpression(modelRuntimeCalculatedMember.AliasExpression);
             }
         }
@@ -164,24 +164,22 @@ namespace Xpand.Persistent.Base.RuntimeMembers {
         }
 
         static XpandCustomMemberInfo CreateMemberInfo(IModelMemberEx modelMemberEx, XPClassInfo xpClassInfo) {
-            var calculatedMember = modelMemberEx as IModelMemberCalculated;
-            if (calculatedMember != null)
+            if (modelMemberEx is IModelMemberCalculated calculatedMember)
                 return xpClassInfo.CreateCalculabeMember(calculatedMember.Name, calculatedMember.Type, calculatedMember.AliasExpression);
-            var modelMemberOrphanedColection = modelMemberEx as IModelMemberOrphanedColection;
-            if (modelMemberOrphanedColection != null) {
+            if (modelMemberEx is IModelMemberOrphanedColection modelMemberOrphanedColection) {
                 return xpClassInfo.CreateCollection(modelMemberOrphanedColection.Name, modelMemberOrphanedColection.CollectionType.TypeInfo.Type,
                                                     modelMemberOrphanedColection.Criteria);
             }
-            var modelMemberOneToManyCollection = modelMemberEx as IModelMemberOneToManyCollection;
-            if (modelMemberOneToManyCollection!=null) {
+
+            if (modelMemberEx is IModelMemberOneToManyCollection modelMemberOneToManyCollection) {
                 var elementType = modelMemberOneToManyCollection.CollectionType.TypeInfo.Type;
                 var associationAttribute = new AssociationAttribute(modelMemberOneToManyCollection.AssociationName, elementType);
                 var xpandCollectionMemberInfo = xpClassInfo.CreateCollection(modelMemberOneToManyCollection.Name, elementType, null, associationAttribute);
                 modelMemberOneToManyCollection.AssociatedMember.ModelClass.TypeInfo.FindMember(modelMemberOneToManyCollection.AssociatedMember.Name).AddAttribute(associationAttribute);
                 return xpandCollectionMemberInfo;
             }
-            var modelMemberModelMember = modelMemberEx as IModelMemberModelMember;
-            if (modelMemberModelMember != null){
+
+            if (modelMemberEx is IModelMemberModelMember modelMemberModelMember){
                 var memberInfo = ModelMemberModelMemberDomainLogic.Get_MemberInfo(modelMemberModelMember);
                 return (XpandCustomMemberInfo) xpClassInfo.FindMember(memberInfo.Name);
             }   

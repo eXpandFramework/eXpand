@@ -13,7 +13,7 @@ namespace Xpand.ExpressApp.WorldCreator.Controllers{
             base.OnViewControlsCreated();
             if (ObjectSpace.IsNewObject(View.CurrentObject))
                 ((IPersistentTemplatedTypeInfo) View.CurrentObject).Init(
-                    XafTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>());
+                    XafTypesInfo.Instance.FindBusinessObjectType<ICodeTemplate>());
         }
     }
 }

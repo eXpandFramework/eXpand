@@ -43,7 +43,7 @@ namespace Xpand.ExpressApp.WorldCreator.System {
         }
 
         public static void Init(this IPersistentTemplatedTypeInfo persistentTemplatedTypeInfo, Type codeTemplateType) {
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<ICodeTemplateInfo>();
+            var objectType = XafTypesInfo.Instance.FindBusinessObjectType<ICodeTemplateInfo>();
             persistentTemplatedTypeInfo.CodeTemplateInfo = (ICodeTemplateInfo) Activator.CreateInstance(objectType,persistentTemplatedTypeInfo.Session);
             if (persistentTemplatedTypeInfo is IPersistentMemberInfo templatedTypeInfo) {
                 var persistentMemberInfo = templatedTypeInfo;

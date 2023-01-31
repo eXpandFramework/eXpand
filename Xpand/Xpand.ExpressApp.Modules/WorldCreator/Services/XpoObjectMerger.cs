@@ -6,6 +6,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.Helpers;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.PersistentMetaData;
 
@@ -47,7 +48,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
 
         private string GetTableName(XPClassInfo mergedXPClassInfo) {
             string tableName = mergedXPClassInfo.TableName;
-            while (mergedXPClassInfo.BaseClass != null && mergedXPClassInfo.BaseClass.IsPersistent) {
+            while (mergedXPClassInfo.BaseClass is { IsPersistent: true }) {
                 mergedXPClassInfo = mergedXPClassInfo.BaseClass;
                 tableName = mergedXPClassInfo.TableName;
             }
@@ -56,7 +57,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
 
         public static void MergeTypes(WorldCreatorModule worldCreatorModule){
             var objectSpaceProviders = worldCreatorModule.Application.ObjectSpaceProviders;
-            worldCreatorModule.Application.LoggedOn+= (sender, args) =>{
+            worldCreatorModule.Application.LoggedOn+= (_, _) =>{
                 var creatorObjectSpaceProvider =objectSpaceProviders.OfType<WorldCreatorObjectSpaceProvider>().First();
                 var xpoObjectMerger = new XpoObjectMerger();
                 xpoObjectMerger.MergeTypes(creatorObjectSpaceProvider, type => {

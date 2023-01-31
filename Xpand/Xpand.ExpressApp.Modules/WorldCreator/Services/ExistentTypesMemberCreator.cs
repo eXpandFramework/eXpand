@@ -6,6 +6,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.WorldCreator.System;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.PersistentMetaData;
@@ -15,7 +16,7 @@ using Xpand.Xpo;
 
 namespace Xpand.ExpressApp.WorldCreator.Services {
     public class ExistentTypesMemberCreator {
-        private static XPCustomMemberInfo[] _members = new XPCustomMemberInfo[0];
+        private static XPCustomMemberInfo[] _members = Array.Empty<XPCustomMemberInfo>();
 
         static XPCustomMemberInfo[] CreateMembers(IObjectSpace objectSpace) {
             var members = CreateCollectionMembers(objectSpace)
@@ -38,7 +39,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
         }
 
         static IEnumerable<XPCustomMemberInfo> CreateCollectionMembers(IObjectSpace objectSpace) {
-            IEnumerable<IExtendedMemberInfo> xpCollection = GetMembers(objectSpace, XafTypesInfo.Instance.FindBussinessObjectType<IExtendedCollectionMemberInfo>());
+            IEnumerable<IExtendedMemberInfo> xpCollection = GetMembers(objectSpace, XafTypesInfo.Instance.FindBusinessObjectType<IExtendedCollectionMemberInfo>());
             var collection = xpCollection.Cast<IExtendedCollectionMemberInfo>();
             foreach (var info in collection) {
                 XPCustomMemberInfo member = GetXPCustomMemberInfo(info);
@@ -52,17 +53,17 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
         static XPCustomMemberInfo GetXPCustomMemberInfo(IExtendedCollectionMemberInfo info) {
             if (info.Owner != null) {
                 var classInfo = info.Owner.GetITypeInfo().QueryXPClassInfo();
-                if (!(info is IExtendedOrphanedCollection)) {
+                if (!(info is IExtendedOrphanedCollection collection)) {
                     return classInfo.CreateMember(info.Name, typeof(XPCollection), true);
                 }
-                var extendedOrphanedCollection = ((IExtendedOrphanedCollection)info);
-                return classInfo.CreateCollection(info.Name, ReflectionHelper.FindType(extendedOrphanedCollection.ElementTypeFullName), extendedOrphanedCollection.Criteria);
+                var extendedOrphanedCollection = collection;
+                return classInfo.CreateCollection(collection.Name, ReflectionHelper.FindType(extendedOrphanedCollection.ElementTypeFullName), extendedOrphanedCollection.Criteria);
             }
             return null;
         }
 
         static IEnumerable<XPCustomMemberInfo> CreateReferenceMembers(IObjectSpace objectSpace) {
-            var xpCollection = GetMembers(objectSpace, XafTypesInfo.Instance.FindBussinessObjectType<IExtendedReferenceMemberInfo>());
+            var xpCollection = GetMembers(objectSpace, XafTypesInfo.Instance.FindBusinessObjectType<IExtendedReferenceMemberInfo>());
             foreach (var info in xpCollection.Cast<IExtendedReferenceMemberInfo>()) {
                 var referenceType = info.ReferenceType;
                 var member = GetMember(info, referenceType);
@@ -74,7 +75,7 @@ namespace Xpand.ExpressApp.WorldCreator.Services {
         }
 
         static IEnumerable<XPCustomMemberInfo> CreateCoreMembers(IObjectSpace objectSpace) {
-            var memberInfos = GetMembers(objectSpace, XafTypesInfo.Instance.FindBussinessObjectType<IExtendedCoreTypeMemberInfo>());
+            var memberInfos = GetMembers(objectSpace, XafTypesInfo.Instance.FindBusinessObjectType<IExtendedCoreTypeMemberInfo>());
             foreach (var info in memberInfos.Cast<IExtendedCoreTypeMemberInfo>()) {
                 var referenceType = Type.GetType("System." + info.DataType, true);
                 var member = GetMember(info, referenceType);

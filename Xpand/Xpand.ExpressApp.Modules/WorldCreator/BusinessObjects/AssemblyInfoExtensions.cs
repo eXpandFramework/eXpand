@@ -37,7 +37,7 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
         }
 
         public static IPersistentClassInfo CreateClass(this IPersistentAssemblyInfo assemblyInfo, string className){
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<IPersistentClassInfo>();
+            var objectType = XafTypesInfo.Instance.FindBusinessObjectType<IPersistentClassInfo>();
             var behavior = PersistentCriteriaEvaluationBehavior.InTransaction;
             var persistentClassInfo =(IPersistentClassInfo)assemblyInfo.Session.FindObject(behavior, objectType,
                         CriteriaOperator.Parse(nameof(IPersistentClassInfo.Name) +"=?", className)) ??

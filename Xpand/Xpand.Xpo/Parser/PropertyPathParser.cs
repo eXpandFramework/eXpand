@@ -19,7 +19,7 @@ namespace Xpand.Xpo.Parser {
             foreach (string split in propertyPath.Split('.')) {
                 path += split;
                 criteria += split;
-                XPMemberInfo memberInfo = XpandReflectionHelper.GetXpMemberInfo(_xpClassInfo, path);
+                XPMemberInfo memberInfo = XpandReflectionHelper.GetXPMemberInfo(_xpClassInfo, path);
                 if (memberInfo.IsCollection) {
                     criteria = criteria.TrimEnd('.');
                     criteria += "[";

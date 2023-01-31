@@ -10,6 +10,7 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.Extensions.TypeExtensions;
+using Xpand.Extensions.XAF.Xpo;
 
 namespace Xpand.Persistent.Base.General {
     public class DynamicSecuritySystemObjects {

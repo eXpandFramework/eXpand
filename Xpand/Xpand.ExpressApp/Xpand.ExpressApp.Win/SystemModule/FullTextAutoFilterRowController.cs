@@ -21,7 +21,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             var gridView = ((ColumnView) sender);
             var activeFilterCriteria = gridView.ActiveFilterCriteria;
             if (!ReferenceEquals(activeFilterCriteria,null)){
-                var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXpmemberInfo()).ToArray();
+                var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXPMemberInfo()).ToArray();
                 if (memberInfos.Any()){
                     var filterCriteria = FullTextOperatorProcessor.Process(activeFilterCriteria, memberInfos.ToList());
                     gridView.ActiveFilterCriteria = filterCriteria as CriteriaOperator;

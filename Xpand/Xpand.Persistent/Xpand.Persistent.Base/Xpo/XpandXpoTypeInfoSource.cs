@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo.Metadata;
-using Xpand.Persistent.Base.General;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Xpo.MetaData;
 using TypeInfo = DevExpress.ExpressApp.DC.TypeInfo;
 
@@ -85,15 +85,9 @@ namespace Xpand.Persistent.Base.Xpo {
 
         public override bool CanWrite { get; }
 
-        public override PropertyAttributes Attributes
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public override PropertyAttributes Attributes => throw new NotImplementedException();
 
-        public override Type ReflectedType
-        {
-            get { throw new NotImplementedException(); }
-        }
+        public override Type ReflectedType => throw new NotImplementedException();
 
         public override string ToString() {
             return _xpandCustomMemberInfo.ToString();

@@ -24,7 +24,7 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
         }
 
         static ITemplateInfo Create(ICodeTemplateInfo codeTemplateInfo) {
-            var type = XafTypesInfo.Instance.FindBussinessObjectType<ITemplateInfo>();
+            var type = XafTypesInfo.Instance.FindBusinessObjectType<ITemplateInfo>();
             return (ITemplateInfo)type.CreateInstance(codeTemplateInfo.Session);
         }
 
@@ -39,7 +39,7 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
         }
 
         public static void CreateDefaultTemplate(this ICodeTemplateInfo codeTemplateInfo,TemplateType templateType,  CodeDomProvider codeDomProvider) {
-            var codeTemplateType = XafTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>();
+            var codeTemplateType = XafTypesInfo.Instance.FindBusinessObjectType<ICodeTemplate>();
             var session = codeTemplateInfo.Session;
             var defaultTemplate = FindDefaultTemplate(templateType, session, codeTemplateType, codeDomProvider);
             if (defaultTemplate == null) {

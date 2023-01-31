@@ -16,9 +16,9 @@ namespace Xpand.ExpressApp.WorldCreator.System.NodeUpdaters {
         private readonly Type _extendedCoreTypeMemberType;
 
         public ShowOwnerForExtendedMembersUpdater() {
-            _extendedReferenceType = XafTypesInfo.Instance.FindBussinessObjectType<IExtendedReferenceMemberInfo>();
-            _extendedCollectionMemberType = XafTypesInfo.Instance.FindBussinessObjectType<IExtendedCollectionMemberInfo>();
-            _extendedCoreTypeMemberType = XafTypesInfo.Instance.FindBussinessObjectType<IExtendedCoreTypeMemberInfo>();
+            _extendedReferenceType = XafTypesInfo.Instance.FindBusinessObjectType<IExtendedReferenceMemberInfo>();
+            _extendedCollectionMemberType = XafTypesInfo.Instance.FindBusinessObjectType<IExtendedCollectionMemberInfo>();
+            _extendedCoreTypeMemberType = XafTypesInfo.Instance.FindBusinessObjectType<IExtendedCoreTypeMemberInfo>();
         }
 
         public override void UpdateNode(ModelNode node) {

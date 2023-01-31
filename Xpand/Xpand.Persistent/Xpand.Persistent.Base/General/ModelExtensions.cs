@@ -19,6 +19,7 @@ using Xpand.Utils.Linq;
 using Fasterflect;
 using Xpand.Extensions.TypeExtensions;
 using Xpand.Extensions.XAF.ModelExtensions;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.Security;
 using Xpand.Utils.Helpers;
 
@@ -78,8 +79,8 @@ namespace Xpand.Persistent.Base.General {
             return null;
         }
 
-        public static IEnumerable<IModelChoiceActionItem> ActionChoiceItems(this IModelNode modelnode, Frame frame) {
-            return modelnode.Application.ActionDesign.Actions.Where(action => action.ChoiceActionItems != null && action.ChoiceActionItems.Any()).SelectMany(action => action.ChoiceActionItems);
+        public static IEnumerable<IModelChoiceActionItem> ActionChoiceItems(this IModelNode modelNode, Frame frame) {
+            return modelNode.Application.ActionDesign.Actions.Where(action => action.ChoiceActionItems != null && action.ChoiceActionItems.Any()).SelectMany(action => action.ChoiceActionItems);
         }
 
         public static ActionBase ToAction(this IModelAction modelAction) {
@@ -108,7 +109,7 @@ namespace Xpand.Persistent.Base.General {
             return modelClass.TypeInfo.QueryXPClassInfo();
         }
 
-        public static XPMemberInfo GetXpmemberInfo(this IModelMember modelMember){
+        public static XPMemberInfo GetXPMemberInfo(this IModelMember modelMember){
             return ((XpoTypeInfoSource) ((TypeInfo) modelMember.ModelClass.TypeInfo).Source).XPDictionary.GetClassInfo(
                     modelMember.ModelClass.TypeInfo.Type).FindMember(modelMember.Name);
         }

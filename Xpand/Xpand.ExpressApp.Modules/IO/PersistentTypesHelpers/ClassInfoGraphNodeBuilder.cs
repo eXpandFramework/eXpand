@@ -70,7 +70,7 @@ namespace Xpand.ExpressApp.IO.PersistentTypesHelpers {
         }
 
         void Generate(IObjectSpace objectSpace, Type typeToSerialize) {
-            var bussinessObjectType = objectSpace.TypesInfo.FindBussinessObjectType<ISerializationConfiguration>();
+            var bussinessObjectType = objectSpace.TypesInfo.FindBusinessObjectType<ISerializationConfiguration>();
             var configuration = (ISerializationConfiguration)objectSpace.FindObject(bussinessObjectType, 
                 CriteriaOperator.Parse(
                     $"{nameof(ISerializationConfiguration.SerializationConfigurationGroup)}=? AND {nameof(ISerializationConfiguration.TypeToSerialize)}=?",

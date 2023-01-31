@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.DC;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
 using Xpand.ExpressApp.Attributes;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp.SystemModule {
@@ -64,8 +65,7 @@ namespace Xpand.ExpressApp.SystemModule {
                     associationAttribute.Name,
                     providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.ClassType.Name + "s", false);
             } else {
-                xpCustomMemberInfo = typesInfo.CreateMember(
-                    typeToCreateOn,
+                xpCustomMemberInfo = TypesInfoExtensions.CreateMember(typesInfo, typeToCreateOn,
                     memberInfo.Owner.ClassType,
                     associationAttribute.Name,
                     providedAssociationAttribute.ProvidedPropertyName ?? memberInfo.Owner.ClassType.Name, false);

@@ -7,6 +7,7 @@ using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Model;
 using DevExpress.Xpo;
 using DevExpress.Xpo.Metadata;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model;
 using Xpand.Persistent.Base.Xpo;
@@ -63,7 +64,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
                     dictionary.Add(tableName,new List<XPMemberInfo>());
                 var memberInfos = dictionary[tableName];
                 if (memberInfos.All(info => info.Name != fullTextMember.Name))
-                    memberInfos.Add(fullTextMember.GetXpmemberInfo());
+                    memberInfos.Add(fullTextMember.GetXPMemberInfo());
             }
             return dictionary;
         }
@@ -78,7 +79,7 @@ namespace Xpand.ExpressApp.SystemModule.Search {
         private bool _applying;
         private void CollectionSourceOnCriteriaApplying(object sender, EventArgs eventArgs){
             if (!_applying) {
-                var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXpmemberInfo()).ToArray();
+                var memberInfos = View.Model.GetFullTextMembers().Select(member => member.GetXPMemberInfo()).ToArray();
                 if (memberInfos.Any()){
                     var collectionSourceBase = View.CollectionSource;
                     collectionSourceBase.BeginUpdateCriteria();

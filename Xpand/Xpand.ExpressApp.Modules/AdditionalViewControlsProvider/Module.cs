@@ -7,6 +7,7 @@ using DevExpress.Utils;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Logic;
 using Xpand.ExpressApp.AdditionalViewControlsProvider.Model;
 using Xpand.ExpressApp.Logic;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Security;
 using Xpand.XAF.Modules.ModelViewInheritance;

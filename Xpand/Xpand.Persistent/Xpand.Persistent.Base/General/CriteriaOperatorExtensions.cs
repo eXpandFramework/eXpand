@@ -3,6 +3,7 @@ using DevExpress.Data.Filtering;
 using DevExpress.Data.Filtering.Helpers;
 using DevExpress.ExpressApp.Filtering;
 using DevExpress.ExpressApp.Xpo;
+using Xpand.Extensions.XAF.Xpo;
 
 namespace Xpand.Persistent.Base.General {
     public static class CriteriaOperatorExtensions {

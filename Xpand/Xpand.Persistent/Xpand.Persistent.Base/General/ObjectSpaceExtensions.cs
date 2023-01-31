@@ -167,7 +167,7 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static IEnumerable<TClassType> QueryObjects<TClassType>(this IObjectSpace objectSpace, Expression<Func<TClassType, bool>> expression,PersistentCriteriaEvaluationBehavior behavior=PersistentCriteriaEvaluationBehavior.InTransaction){
-            var objectType = objectSpace.TypesInfo.FindBussinessObjectType<TClassType>();
+            var objectType = objectSpace.TypesInfo.FindBusinessObjectType<TClassType>();
             var criteriaOperator = objectSpace.GetCriteriaOperator(expression);
             return objectSpace.GetObjects(objectType,criteriaOperator,behavior==PersistentCriteriaEvaluationBehavior.InTransaction).Cast<TClassType>();
         }
@@ -218,25 +218,25 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static T QueryObject<T>(this IObjectSpace objectSpace, Expression<Func<T, bool>> expression,bool intransaction=true){
-            var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
+            var objectType = objectSpace.TypesInfo.FindBusinessObjectType<T>();
             return objectSpace.QueryObject(expression, objectType, intransaction);
         }
 
         public static T Create<T>(this Session session){
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
+            var objectType = XafTypesInfo.Instance.FindBusinessObjectType<T>();
             return (T) objectType.CreateInstance(session);
         }
 
         public static T Create<T>(this IObjectSpace objectSpace){
             return typeof(T).IsInterface
-                ? (T) objectSpace.CreateObject(objectSpace.TypesInfo.FindBussinessObjectType<T>())
+                ? (T) objectSpace.CreateObject(objectSpace.TypesInfo.FindBusinessObjectType<T>())
                 : objectSpace.CreateObject<T>();
         }
 
         public static CriteriaOperator GetCriteriaOperator<T>(this Session session,
             Expression<Func<T, bool>> expression){
             if (expression != null) {
-                var objectType = XafTypesInfo.Instance.FindBussinessObjectType<T>();
+                var objectType = XafTypesInfo.Instance.FindBusinessObjectType<T>();
                 if (typeof(T).IsInterface) {
                     var tranform = ExpressionConverter.Tranform(expression, objectType);
                     var genericType = typeof(XPQuery<>).MakeGenericType(objectType);

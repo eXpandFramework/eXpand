@@ -6,7 +6,7 @@ using Xpand.Persistent.Base.PersistentMetaData;
 namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
     public static class PersistentTemplatedTypeInfoExtensions {
         public static void SetDefaultTemplate(this IPersistentTemplatedTypeInfo persistentMemberInfo, TemplateType templateType) {
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<ICodeTemplateInfo>();
+            var objectType = XafTypesInfo.Instance.FindBusinessObjectType<ICodeTemplateInfo>();
             persistentMemberInfo.CodeTemplateInfo = (ICodeTemplateInfo)objectType.CreateInstance(persistentMemberInfo.Session);
             persistentMemberInfo.CodeTemplateInfo.CreateDefaultTemplate(templateType, GetProvider(persistentMemberInfo));
             persistentMemberInfo.CodeTemplateInfo.CloneProperties();

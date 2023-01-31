@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using DevExpress.Xpo.Metadata;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.General;
 
 namespace Xpand.ExpressApp {

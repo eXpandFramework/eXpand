@@ -36,7 +36,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            var bussinessObjectType = XafTypesInfo.Instance.FindBussinessObjectType(typeof(ISerializationConfigurationGroup));
+            var bussinessObjectType = XafTypesInfo.Instance.FindBusinessObjectType(typeof(ISerializationConfigurationGroup));
             _ioAction.Active["Security"] =DataManipulationRight.CanRead(bussinessObjectType, null, null, null, ObjectSpace);
         }
 
@@ -180,7 +180,7 @@ namespace Xpand.ExpressApp.IO.Controllers {
         }
 
         private IObjectSpace CreateObjectSpace(ITypeInfo typeInfo){
-            var typeInfoType = typeInfo?.Type??XafTypesInfo.Instance.FindBussinessObjectType<IIOError>();
+            var typeInfoType = typeInfo?.Type??XafTypesInfo.Instance.FindBusinessObjectType<IIOError>();
             return Application.ObjectSpaceProviders.First(
                     provider => provider.EntityStore.RegisteredEntities.Contains(typeInfoType)).CreateObjectSpace();
         }

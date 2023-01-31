@@ -116,12 +116,12 @@ namespace Xpand.Persistent.Base.General {
         }
 
         public static ListView CreateListView<T>(this XafApplication application, IObjectSpace objectSpace,bool isRoot=true){
-            var objectType = objectSpace.TypesInfo.FindBussinessObjectType<T>();
+            var objectType = objectSpace.TypesInfo.FindBusinessObjectType<T>();
             return application.CreateListView(objectSpace, objectType, isRoot);
         }
 
         public static IObjectSpace CreateObjectSpace<T>(this XafApplication application){
-            return application.CreateObjectSpace(application.TypesInfo.FindBussinessObjectType<T>());
+            return application.CreateObjectSpace(application.TypesInfo.FindBusinessObjectType<T>());
         }
 
         public static Platform GetPlatform(this XafApplication application){

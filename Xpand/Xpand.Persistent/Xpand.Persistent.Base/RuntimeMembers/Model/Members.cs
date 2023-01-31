@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Model.Core;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.Xpo.Metadata;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.Model.RequiredCalculators;
 using Xpand.Persistent.Base.General.Model.VisibilityCalculators;
@@ -74,7 +75,7 @@ namespace Xpand.Persistent.Base.RuntimeMembers.Model {
     public class XpandStringToTypeConverterExtended : StringToTypeConverterExtended {
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) {
             if (value != null) {
-                ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(Type.GetType(value.ToString()));
+                ITypeInfo typeInfo = XafTypesInfo.Instance.FindTypeInfo(Type.GetType(value.ToString()!));
                 return typeInfo != null ? typeInfo.Type : base.ConvertFrom(context,culture, value);
             }
             return null;

@@ -276,7 +276,7 @@ namespace Xpand.ExpressApp.SystemModule {
         public Type BinaryOperatorLastMemberClassType {
             get {
                 if (binaryOperatorLastMemberClassType == null) {
-                    var xpMemberInfo = XpandReflectionHelper.GetXpMemberInfo(classInfo, PropertyPath);
+                    var xpMemberInfo = XpandReflectionHelper.GetXPMemberInfo(classInfo, PropertyPath);
                     if (xpMemberInfo != null)
                         return binaryOperatorLastMemberClassType = xpMemberInfo.IsCollection ? xpMemberInfo.CollectionElementType.ClassType : xpMemberInfo.ReferenceType.ClassType;
                 }

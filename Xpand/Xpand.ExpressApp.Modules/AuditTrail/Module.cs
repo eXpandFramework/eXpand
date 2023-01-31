@@ -11,6 +11,7 @@ using Xpand.ExpressApp.AuditTrail.BusinessObjects;
 using Xpand.ExpressApp.AuditTrail.Model;
 using Xpand.ExpressApp.AuditTrail.Model.Member;
 using Xpand.ExpressApp.Logic;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.RuntimeMembers;
 using Xpand.Persistent.Base.Security;

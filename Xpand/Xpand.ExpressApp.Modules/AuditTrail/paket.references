@@ -1,6 +1,7 @@
 DevExpress.ExpressApp.AuditTrail.Xpo
 DevExpress.ExpressApp.ConditionalAppearance
 DevExpress.ExpressApp.Security.Xpo
+Xpand.Extensions.XAF.Xpo
 Xpand.XAF.Modules.CloneModelView
 Xpand.XAF.Modules.ModelViewInheritance
 

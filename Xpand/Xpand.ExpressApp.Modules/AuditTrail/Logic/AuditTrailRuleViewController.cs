@@ -9,6 +9,7 @@ using Xpand.ExpressApp.AuditTrail.Model;
 using Xpand.ExpressApp.Logic;
 using System.Linq;
 using DevExpress.ExpressApp.DC;
+using Xpand.Extensions.XAF.Xpo;
 using Xpand.Persistent.Base.AuditTrail;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.Logic;
@@ -60,11 +61,11 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
         private void AuditSystemChanges(){
             var editModelAction =Frame.Controllers.Cast<Controller>().SelectMany(controller => controller.Actions).FirstOrDefault(@base => @base.Id == "EditModel");
             if (editModelAction != null){
-                editModelAction.Executing += (sender, args) =>{
+                editModelAction.Executing += (_, _) =>{
                     AuditTrailService.GetService(Site).SaveAuditTrailData += InstanceOnSaveAuditTrailData;
                     _editingModel = true;
                 };
-                editModelAction.ExecuteCompleted += (sender, args) =>{
+                editModelAction.ExecuteCompleted += (_, _) =>{
                     AuditTrailService.GetService(Site).SaveAuditTrailData -= InstanceOnSaveAuditTrailData;
                     _editingModel = false;
                 };
@@ -147,7 +148,7 @@ namespace Xpand.ExpressApp.AuditTrail.Logic {
 
         void AddMember(XPMemberInfo memberInfo, List<XPMemberInfo> result) {
             var memberClassInfo = XafTypesInfo.CastTypeToTypeInfo(memberInfo.MemberType).QueryXPClassInfo();
-            if (memberClassInfo != null && !memberClassInfo.IsPersistent) {
+            if (memberClassInfo is { IsPersistent: false }) {
                 return;
             }
             result.Add(memberInfo);

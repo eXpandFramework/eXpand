@@ -14,12 +14,12 @@ using Xpand.Persistent.Base.PersistentMetaData.PersistentAttributeInfos;
 namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
     public static class PersistentClassInfoExtensions {
         public static IPersistentReferenceMemberInfo CreateReferenceMember(this IPersistentClassInfo classInfo,
-            string name, string referenceTypeFullName,bool assocation=false){
+            string name, string referenceTypeFullName,bool association=false){
             var referenceMember = classInfo.CreateMember<IPersistentReferenceMemberInfo>(name);
             referenceMember.SetReferenceTypeFullName(referenceTypeFullName);
-            referenceMember.Init(XafTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>());
+            referenceMember.Init(XafTypesInfo.Instance.FindBusinessObjectType<ICodeTemplate>());
             referenceMember.CodeTemplateInfo.CloneProperties();
-            if (assocation){
+            if (association){
                 var associationName = referenceMember.ReferenceClassInfo.Name+"-"+classInfo.Name;
                 referenceMember.ReferenceClassInfo.CreateCollection(classInfo).CreateAssociation(associationName);
                 referenceMember.CreateAssociation(associationName);
@@ -27,8 +27,8 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
             return referenceMember;
         }
 
-        public static IPersistentReferenceMemberInfo CreateReferenceMember(this IPersistentClassInfo classInfo, string name, Type referenceType, bool assocation=false){
-            return classInfo.CreateReferenceMember(name, referenceType.FullName,assocation);
+        public static IPersistentReferenceMemberInfo CreateReferenceMember(this IPersistentClassInfo classInfo, string name, Type referenceType, bool association=false){
+            return classInfo.CreateReferenceMember(name, referenceType.FullName,association);
         }
 
         public static IPersistentReferenceMemberInfo CreateReferenceMember(this IPersistentClassInfo classInfo, IPersistentClassInfo referenceClassInfo, bool association=false){
@@ -41,8 +41,8 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
         }
 
         private static T CreateMember<T>(this IPersistentClassInfo classInfo, string name) where T : IPersistentMemberInfo{
-            var memberInfo = (T) Activator.CreateInstance(XafTypesInfo.Instance.FindBussinessObjectType<T>(), classInfo.Session);
-            memberInfo.Name = name;
+            var memberInfo = (T) Activator.CreateInstance(XafTypesInfo.Instance.FindBusinessObjectType<T>(), classInfo.Session);
+            memberInfo!.Name = name;
             classInfo.OwnMembers.Add(memberInfo);
             memberInfo.SetDefaultTemplate(TemplateType.XPReadWritePropertyMember);
             return memberInfo;
@@ -56,12 +56,12 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
 
         public static IPersistentCollectionMemberInfo CreateCollection(this IPersistentClassInfo classInfo,string name,
             IPersistentClassInfo persistentClassInfo,bool association=true){
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType(typeof(IPersistentCollectionMemberInfo));
+            var objectType = XafTypesInfo.Instance.FindBusinessObjectType(typeof(IPersistentCollectionMemberInfo));
             var collectionMemberInfo = (IPersistentCollectionMemberInfo)Activator.CreateInstance(objectType, classInfo.Session);
-            collectionMemberInfo.Owner = classInfo;
+            collectionMemberInfo!.Owner = classInfo;
             collectionMemberInfo.Name = name;
             collectionMemberInfo.SetCollectionTypeFullName(persistentClassInfo.PersistentAssemblyInfo.Name + "." + persistentClassInfo.Name);
-            collectionMemberInfo.Init(XafTypesInfo.Instance.FindBussinessObjectType<ICodeTemplate>());
+            collectionMemberInfo.Init(XafTypesInfo.Instance.FindBusinessObjectType<ICodeTemplate>());
             collectionMemberInfo.CodeTemplateInfo.CloneProperties();
             classInfo.OwnMembers.Add(collectionMemberInfo);
             if (association)
@@ -71,9 +71,9 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
         }
 
         public static IPersistentAssociationAttribute CreateAssociation(this IPersistentAssociatedMemberInfo associatedMemberInfo,string associationName,  Type elementType=null){
-            var objectType = XafTypesInfo.Instance.FindBussinessObjectType<IPersistentAssociationAttribute>();
+            var objectType = XafTypesInfo.Instance.FindBusinessObjectType<IPersistentAssociationAttribute>();
             var associationAttribute =(IPersistentAssociationAttribute)Activator.CreateInstance(objectType,associatedMemberInfo.Session);
-            associationAttribute.Owner = associatedMemberInfo;
+            associationAttribute!.Owner = associatedMemberInfo;
             if (elementType != null) associationAttribute.ElementTypeFullName = elementType.FullName;
             associationAttribute.AssociationName = associationName;
             return associationAttribute;
@@ -106,8 +106,7 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
                 persistentMemberInfo.CodeTemplateInfo.TemplateInfo.TemplateCode.Replace("$INTERFACENAME$", interfaceInfo.Name);
 
             persistentMemberInfo.Name = propertyInfo.Name;
-            var info = persistentMemberInfo as IPersistentCoreTypeMemberInfo;
-            if (info != null)
+            if (persistentMemberInfo is IPersistentCoreTypeMemberInfo info)
                 info.DataType =
                     (DBColumnType)Enum.Parse(typeof(DBColumnType), propertyInfo.PropertyType.Name);
             else {
@@ -119,10 +118,10 @@ namespace Xpand.ExpressApp.WorldCreator.BusinessObjects {
 
         static Type GetMemberInfoType(Type propertyType) {
             if (typeof(IXPSimpleObject).IsAssignableFrom(propertyType))
-                return XafTypesInfo.Instance.FindBussinessObjectType<IPersistentReferenceMemberInfo>();
-            var i = ((int)Enum.Parse(typeof(DBColumnType), propertyType.Name));
+                return XafTypesInfo.Instance.FindBusinessObjectType<IPersistentReferenceMemberInfo>();
+            var i = ((int)Enum.Parse(typeof(DBColumnType), propertyType!.Name));
             if (i > -1)
-                return XafTypesInfo.Instance.FindBussinessObjectType<IPersistentCoreTypeMemberInfo>();
+                return XafTypesInfo.Instance.FindBusinessObjectType<IPersistentCoreTypeMemberInfo>();
             throw new NotImplementedException(propertyType.ToString());
         }
     }
