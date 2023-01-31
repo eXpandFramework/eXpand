@@ -42,13 +42,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
         void GridView_MouseDown(object sender, MouseEventArgs e) {
             var gv = (GridView)sender;
             GridHitInfo hi = gv.CalcHitInfo(new Point(e.X, e.Y));
-            if (hi.InRowCell) {
-                var repositoryItemHyperLinkEdit = hi.Column.ColumnEdit as RepositoryItemHyperLinkEdit;
-                if (repositoryItemHyperLinkEdit != null) {
-                    var editor = (HyperLinkEdit)repositoryItemHyperLinkEdit.CreateEditor();
-                    editor.ShowBrowser(
-                        HyperLinkPropertyEditor.GetResolvedUrl(gv.GetRowCellValue(hi.RowHandle, hi.Column)));
-                }
+            if (hi.InRowCell && hi.Column.ColumnEdit is RepositoryItemHyperLinkEdit repositoryItemHyperLinkEdit) {
+                var editor = (HyperLinkEdit)repositoryItemHyperLinkEdit.CreateEditor();
+                editor.ShowBrowser(HyperLinkPropertyEditor.GetResolvedUrl(gv.GetRowCellValue(hi.RowHandle, hi.Column)));
             }
         }
     }
@@ -70,13 +66,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             return new RepositoryItemHyperLinkEdit();
         }
 
-        protected override object CreateControlCore() {
-            _hyperlinkEdit = new HyperLinkEdit();
-            _hyperlinkEdit.MaskBox.Mask.MaskType=MaskType.RegEx;
-            var maskProperties = _hyperlinkEdit.MaskBox.Mask;
-            maskProperties.EditMask = UrlEmailMask;
-            return _hyperlinkEdit;
-        }
+        protected override object CreateControlCore() => _hyperlinkEdit = new HyperLinkEdit();
 
         protected override void SetupRepositoryItem(RepositoryItem item) {
             base.SetupRepositoryItem(item);
