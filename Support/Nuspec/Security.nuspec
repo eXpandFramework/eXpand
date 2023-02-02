@@ -16,9 +16,9 @@
     <dependencies>
       <dependency id="eXpandLib" version="22.2.400.0" />
       <dependency id="System.ComponentModel.Annotations" version="5.0" />
-      <dependency id="Xpand.Extensions" version="4.222.1.5" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.222.1.5" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.222.1.5" />
+      <dependency id="Xpand.Extensions" version="4.222.1.8" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.222.1.8" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.222.1.8" />
     </dependencies>
   </metadata>
   <files>

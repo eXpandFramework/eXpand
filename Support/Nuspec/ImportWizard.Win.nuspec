@@ -18,7 +18,7 @@
       <dependency id="eXpandImportWizard" version="22.2.400.0" />
       <dependency id="eXpandLib" version="22.2.400.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="4.222.1.5" />
+      <dependency id="Xpand.Extensions" version="4.222.1.8" />
     </dependencies>
   </metadata>
   <files>
