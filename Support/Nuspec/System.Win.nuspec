@@ -15,11 +15,11 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
       <dependency id="AutoMapper" version="10.1.1" />
-      <dependency id="eXpandLib" version="22.2.401.0" />
-      <dependency id="eXpandSystem" version="22.2.401.0" />
+      <dependency id="eXpandLib" version="22.2.402.0" />
+      <dependency id="eXpandSystem" version="22.2.402.0" />
       <dependency id="System.Diagnostics.FileVersionInfo" version="4.3" />
-      <dependency id="Xpand.XAF.Modules.GridListEditor" version="4.222.2" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.222.2" />
+      <dependency id="Xpand.XAF.Modules.GridListEditor" version="4.222.3" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.222.3" />
     </dependencies>
   </metadata>
   <files>
