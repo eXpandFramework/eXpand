@@ -16,11 +16,11 @@ nuget AppDomainToolkit 1.0.4.3
 nuget AutoMapper 10.1.1
 nuget CommandLineParser 1.9.71
 nuget Common.Logging 3.4.1
-nuget DevExpress.ExpressApp.Win.All = 22.2.4 
-nuget DevExpress.ExpressApp.Web.All = 22.2.4 
-nuget DevExpress.ExpressApp.Core.All  = 22.2.4
-nuget DevExpress.ExpressApp.Security.Xpo = 22.2.4
-nuget DevExpress.Document.Processor = 22.2.4 
+nuget DevExpress.ExpressApp.Win.All = 22.2.5 
+nuget DevExpress.ExpressApp.Web.All = 22.2.5 
+nuget DevExpress.ExpressApp.Core.All  = 22.2.5
+nuget DevExpress.ExpressApp.Security.Xpo = 22.2.5
+nuget DevExpress.Document.Processor = 22.2.5 
 nuget System.Diagnostics.FileVersionInfo 4.3.0
 nuget System.IO.FileSystem 4.3.0
 nuget System.IO.FileSystem.Primitives 4.3.0
@@ -74,8 +74,8 @@ nuget Topshelf 4.2.1
 nuget Microsoft.AspNetCore.WebUtilities 2.2.0
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.222.5.0
-nuget Xpand.XAF.Web.All 4.222.5.0
+nuget Xpand.XAF.Win.All 4.222.5.2
+nuget Xpand.XAF.Web.All 4.222.5.2
 nuget System.Memory = 4.5.5
 nuget System.Collections.Immutable = 6.0.0
 nuget System.ServiceModel.NetTcp  4.10.0
@@ -83,6 +83,5 @@ nuget System.ServiceModel.Security  4.10.0
 nuget System.ServiceModel.Http  4.10.0
 nuget System.ServiceModel.Duplex  4.10.0
 nuget Microsoft.Bcl.AsyncInterfaces == 6.0.0
-nuget System.Text.Json = 7.0.2
 nuget System.Text.Encodings.Web = 7.0.0
 nuget Microsoft.IdentityModel.Protocols.OpenIdConnect 6.15.0
