@@ -1,0 +1,29 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Layer_1" transform="translate(1.99999893188477, 2.04669940872192)" style="enable-background:new 0 0 32 32">
+    <g transform="matrix(0.933333694934845, 0, 0, 0.933333694934845, 0, 0)">
+      <g id="Dashboard">
+        <path d="M26.3, 5.1L16.4, 15L26.3, 24.9C28.6, 22.3 30, 18.8 30, 15C30, 11.2 28.6, 7.8 26.3, 5.1z" fill="#1177D7" class="Blue" />
+      </g>
+    </g>
+  </g>
+  <g id="Layer_1" transform="translate(1.99999988079071, 2.04669989509583)" style="enable-background:new 0 0 32 32">
+    <g transform="matrix(0.933333694934845, 0, 0, 0.933333694934845, 0, 0)">
+      <g id="Dashboard">
+        <path d="M14, 16L14, 15L14, 14.6L24.9, 3.7C22.2, 1.4 18.8, 0 15, 0C6.7, 0 0, 6.7 0, 15C0, 22.9 6.2, 29.4 14, 29.9L14, 16z" fill="#D11C1C" class="Red" />
+      </g>
+    </g>
+  </g>
+  <g id="Layer_1" transform="translate(1.99999946594238, 2.04669847412109)" style="enable-background:new 0 0 32 32">
+    <g transform="matrix(0.933333694934845, 0, 0, 0.933333694934845, 0, 0)">
+      <g id="Dashboard">
+        <path d="M16, 29.9C19.4, 29.7 22.5, 28.3 24.9, 26.2L16, 17.4L16, 29.9z" fill="#FFB115" class="Yellow" />
+      </g>
+    </g>
+  </g>
+  <g id="Layer_1" transform="translate(0, 0)" style="enable-background:new 0 0 16 16">
+    <g id="Arrow1Left">
+      <polygon points="16,6 16,10 8,10 8,16 0,8 8,0 8,6  " fill="#039C23" class="Green" />
+    </g>
+  </g>
+</svg>

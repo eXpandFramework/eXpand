@@ -51,6 +51,14 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Remove="Images\Dashboard.svg" />
+    <EmbeddedResource Include="Images\Dashboard.svg" />
+    <None Remove="Images\DashboardDesigner.svg" />
+    <EmbeddedResource Include="Images\DashboardDesigner.svg" />
+    <None Remove="Images\DashboardExport.svg" />
+    <EmbeddedResource Include="Images\DashboardExport.svg" />
+    <None Remove="Images\DashboardImport.svg" />
+    <EmbeddedResource Include="Images\DashboardImport.svg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DatabaseUpdate\ReadMe.txt" />

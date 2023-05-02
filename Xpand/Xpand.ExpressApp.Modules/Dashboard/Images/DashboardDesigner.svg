@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='UTF-8'?>
+<svg viewBox="-2.875 -2 32 32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="Layer_1" transform="translate(-1.75000095367432, 0)" style="enable-background:new 0 0 32 32">
+    <g transform="matrix(0.875000715255737, 0, 0, 0.875000715255737, 0, 0)">
+      <g id="DashboardDesigner">
+        <path d="M14, 0L14, 10L24, 10C24, 4.5 19.5, 0 14, 0z" fill="#039C23" class="Green" />
+      </g>
+    </g>
+  </g>
+  <g id="Layer_1" transform="translate(-1.75, -1.19209289550781E-07)" style="enable-background:new 0 0 32 32">
+    <g transform="matrix(0.875000715255737, 0, 0, 0.875000715255737, 0, 0)">
+      <g id="DashboardDesigner">
+        <path d="M12, 22C12.4, 22 12.8, 22 13.3, 21.9L22, 13.2C22, 12.8 22, 12.4 22, 12L12, 12L12, 2C6.5, 2 2, 6.5 2, 12C2, 17.5 6.5, 22 12, 22z" fill="#1177D7" class="Blue" />
+      </g>
+    </g>
+  </g>
+  <g id="Layer_1" transform="translate(-1.74999976158142, 0)" style="enable-background:new 0 0 32 32">
+    <g transform="matrix(0.875000715255737, 0, 0, 0.875000715255737, 0, 0)">
+      <g id="DashboardDesigner">
+        <path d="M6, 32L32, 32L32, 6L6, 32zM26, 26L20.5, 26L26, 20.5L26, 26z" fill="#FFB115" class="Yellow" />
+      </g>
+    </g>
+  </g>
+</svg>
