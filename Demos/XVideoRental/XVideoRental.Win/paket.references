@@ -10,3 +10,4 @@ DevExpress.ExpressApp.ViewVariantsModule
 DevExpress.ExpressApp.Security.Xpo
 DevExpress.Persistent.BaseImpl.Xpo
 System.ValueTuple
+System.Threading.Tasks.Dataflow

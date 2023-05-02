@@ -2,3 +2,4 @@ DevExpress.Xpo
 Fasterflect.Xpand
 Xpand.Extensions
 System.Configuration.ConfigurationManager
+System.Threading.Tasks.Dataflow

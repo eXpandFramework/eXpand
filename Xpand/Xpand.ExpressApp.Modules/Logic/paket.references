@@ -8,3 +8,4 @@ Xpand.Extensions.XAF.Xpo
 Xpand.Extensions
 
 System.ComponentModel.Annotations
+System.Threading.Tasks.Dataflow

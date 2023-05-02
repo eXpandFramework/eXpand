@@ -6,3 +6,4 @@ Xpand.XAF.Modules.CloneModelView
 Xpand.XAF.Modules.ModelViewInheritance
 
 System.ComponentModel.Annotations
+System.Threading.Tasks.Dataflow

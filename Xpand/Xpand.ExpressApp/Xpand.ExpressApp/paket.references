@@ -12,3 +12,4 @@ Xpand.XAF.Modules.SequenceGenerator
 Xpand.Extensions
 
 System.ComponentModel.Annotations
+System.Threading.Tasks.Dataflow

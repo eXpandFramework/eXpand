@@ -8,3 +8,4 @@ Xpand.XAF.Modules.ModelViewInheritance
 Xpand.Extensions.Mono.Cecil
 
 System.ComponentModel.Annotations
+System.Threading.Tasks.Dataflow

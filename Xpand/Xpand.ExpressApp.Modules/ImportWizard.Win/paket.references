@@ -4,3 +4,4 @@ DevExpress.ExpressApp.Xpo
 System.ValueTuple
 Xpand.Extensions
 
+System.Threading.Tasks.Dataflow

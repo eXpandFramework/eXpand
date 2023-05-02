@@ -6,3 +6,4 @@ Xpand.XAF.Modules.Reactive
 Xpand.Extensions
 
 System.ComponentModel.Annotations
+System.Threading.Tasks.Dataflow

@@ -8,3 +8,4 @@ Xpand.Extensions.XAF.Xpo
 System.Security.Permissions
 
 
+System.Threading.Tasks.Dataflow

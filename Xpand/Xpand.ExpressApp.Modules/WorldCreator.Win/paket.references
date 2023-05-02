@@ -3,3 +3,4 @@ Xpand.XAF.Modules.ModelMapper
 Xpand.XAF.Modules.Reactive.Logger
 
 
+System.Threading.Tasks.Dataflow

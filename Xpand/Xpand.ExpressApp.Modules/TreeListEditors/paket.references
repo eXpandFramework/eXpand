@@ -1,5 +1,6 @@
 DevExpress.Persistent.Base
 System.ValueTuple
 Fasterflect.Xpand
+System.Threading.Tasks.Dataflow
 
 

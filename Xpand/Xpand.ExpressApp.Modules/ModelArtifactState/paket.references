@@ -2,3 +2,4 @@ DevExpress.ExpressApp.Security.Xpo
 Xpand.XAF.Modules.ModelViewInheritance
 
 System.ComponentModel.Annotations
+System.Threading.Tasks.Dataflow
