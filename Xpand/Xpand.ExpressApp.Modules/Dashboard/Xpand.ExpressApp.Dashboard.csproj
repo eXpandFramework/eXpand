@@ -56,6 +56,12 @@
     <EmbeddedResource Include="Images\DashboardDesigner.svg" />
     <None Remove="Images\DashboardExport.svg" />
     <None Remove="Images\DashboardImport.svg" />
+    <None Remove="Images\BO_DashboardDefinition.svg" />
+    <EmbeddedResource Include="Images\BO_DashboardDefinition.svg" />
+    <None Remove="Images\BO_DashboardDefinition_Export.svg" />
+    <EmbeddedResource Include="Images\BO_DashboardDefinition_Export.svg" />
+    <None Remove="Images\BO_DashboardDefinition_Import.svg" />
+    <EmbeddedResource Include="Images\BO_DashboardDefinition_Import.svg" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DatabaseUpdate\ReadMe.txt" />
