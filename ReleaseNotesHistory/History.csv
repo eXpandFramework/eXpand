@@ -1,5 +1,6 @@
 "Release","Issues","Labels","Message","Sha"
-"22.2.601.0","993","XtraDashboard","Replace images","afde15f63e58be5598226b9ae8def692a20dd35d"
+"22.2.602.0","993","XtraDashboard","Dashboard images are not embedded","d5a2cbacc59471a804b6f9a81e6f87683b114700"
+"22.2.601.0","993","XtraDashboard","Replace images",
 "22.2.601.0","993","XtraDashboard","Replace images",
 "22.1.503.0","952","Reactive.XAF","Update RX packages",
 "22.1.501.0","947","Modeldifference","Rename Search to SearchFromDetailView",
