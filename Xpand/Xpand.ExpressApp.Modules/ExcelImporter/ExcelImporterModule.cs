@@ -40,7 +40,7 @@ namespace Xpand.ExpressApp.ExcelImporter {
             RequiredModuleTypes.Add(typeof(ValidationModule));
             RequiredModuleTypes.Add(typeof(XpandSystemModule));
             RequiredModuleTypes.Add(typeof(XpandValidationModule));
-            RequiredModuleTypes.Add(typeof(MasterDetailModule));
+            RequiredModuleTypes.Add(typeof(ReactiveMasterDetailModule));
             RequiredModuleTypes.Add(typeof(AutoCommitModule));
             RequiredModuleTypes.Add(typeof(ViewEditModeModule));
             RequiredModuleTypes.Add(typeof(SuppressConfirmationModule));

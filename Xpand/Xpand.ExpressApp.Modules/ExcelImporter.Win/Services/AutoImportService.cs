@@ -71,7 +71,7 @@ namespace Xpand.ExpressApp.ExcelImporter.Win.Services {
                             .Select(_ => Observable.Start(() => application.Import(_.fileDropped, (_.excelImport.Oid,_.watcher))))
                             .Merge(importConcurrencyLimit).ToUnit()
                             .Merge(DroppedSubject.Do(_ => AddDroppedFiles(_,application)).ToUnit())
-                            .Catch<Unit,Exception>(_ => Unit.Default.ReturnObservable().ObserveOn(SynchronizationContext.Current).SelectMany(_ => Observable.Empty<Unit>()))
+                            .Catch<Unit,Exception>(_ => Unit.Default.Observe().ObserveOn(SynchronizationContext.Current!).SelectMany(_ => Observable.Empty<Unit>()))
                             .Merge(pollExisting)
                             .Merge(changeWatchersMonitoring);
                     })

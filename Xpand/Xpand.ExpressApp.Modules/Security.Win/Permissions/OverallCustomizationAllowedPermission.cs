@@ -62,8 +62,8 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
             var xafApplication = ((XafApplication)sender);
             if (((XafApplication) sender).Security.IsRemoteClient())
                 return;
-            var modelWinLayoutManagerOptions = ((IModelWinLayoutManagerOptions)xafApplication.Model.Options.LayoutManagerOptions);
-            modelWinLayoutManagerOptions.CustomizationEnabled = SecuritySystem.IsGranted(new OverallCustomizationAllowedPermissionRequest());
+            // var modelWinLayoutManagerOptions = ((IModelWinLayoutManagerOptions)xafApplication.Model.Options.LayoutManagerOptions);
+            // modelWinLayoutManagerOptions.CustomizationEnabled = SecuritySystem.IsGranted(new OverallCustomizationAllowedPermissionRequest());
         }
     }
 }

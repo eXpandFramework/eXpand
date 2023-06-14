@@ -23,13 +23,13 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="22.2.602.0" />
-      <dependency id="eXpandModelDifference" version="22.2.602.0" />
-      <dependency id="eXpandSecurity" version="22.2.602.0" />
-      <dependency id="eXpandSecurityWin" version="22.2.602.0" />
-      <dependency id="eXpandSystemWin" version="22.2.602.0" />
+      <dependency id="eXpandLib" version="23.1.300.0" />
+      <dependency id="eXpandModelDifference" version="23.1.300.0" />
+      <dependency id="eXpandSecurity" version="23.1.300.0" />
+      <dependency id="eXpandSecurityWin" version="23.1.300.0" />
+      <dependency id="eXpandSystemWin" version="23.1.300.0" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.222.12" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.222.13.2" />
     </dependencies>
   </metadata>
   <files>

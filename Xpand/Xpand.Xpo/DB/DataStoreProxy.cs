@@ -9,7 +9,7 @@ namespace Xpand.Xpo.DB {
     public class DataStoreProxy : IDataStoreProxy {
         private BaseDataLayer _dataLayerCore;
         private readonly IDataStore _dataStoreCore;
-        protected readonly List<ISchemaUpdater> SchemaUpdaters = new List<ISchemaUpdater> { new SchemaColumnSizeUpdater() };
+        protected readonly List<ISchemaUpdater> SchemaUpdaters = new() { new SchemaColumnSizeUpdater() };
         protected DataStoreProxy() {
         }
         #region IDataStore Members
@@ -42,7 +42,7 @@ namespace Xpand.Xpo.DB {
             return args.SelectedData ?? _dataStoreCore.SelectData(args.SelectStatements);
         }
 
-        public void RegisterSchenameUpdater(ISchemaUpdater schemaUpdater) {
+        public void RegisterSchemaUpdater(ISchemaUpdater schemaUpdater) {
             SchemaUpdaters.Add(schemaUpdater);
         }
 
@@ -75,18 +75,22 @@ namespace Xpand.Xpo.DB {
             }
         }
 
+        public event ConnectionOpeningEventHandler ConnectionOpening;
+        public event ConnectionOpenedEventHandler ConnectionOpened;
+
         public IDbCommand CreateCommand() {
             return ((ISqlDataStore)_dataStoreCore).CreateCommand();
         }
 
         object ICommandChannel.Do(string command, object args) {
-            if (_dataLayerCore == null)
-                _dataLayerCore = new SimpleDataLayer(_dataStoreCore);
+            _dataLayerCore ??= new SimpleDataLayer(_dataStoreCore);
             return ((ICommandChannel)_dataLayerCore).Do(command, args);
         }
 
-        public virtual void Init(){
-            throw new NotImplementedException();
-        }
+        public virtual void Init() => throw new NotImplementedException();
+
+        protected virtual void OnConnectionOpened(ConnectionOpenedEventArgs e) => ConnectionOpened?.Invoke(this, e);
+
+        protected virtual void OnConnectionOpening(ConnectionOpeningEventArgs e) => ConnectionOpening?.Invoke(this, e);
     }
 }
