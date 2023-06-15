@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="23.1.300.0" />
-      <dependency id="eXpandLib" version="23.1.300.0" />
-      <dependency id="eXpandSecurity" version="23.1.300.0" />
-      <dependency id="eXpandSecurityWin" version="23.1.300.0" />
-      <dependency id="eXpandSystemWin" version="23.1.300.0" />
+      <dependency id="eXpandDashboard" version="23.1.301.0" />
+      <dependency id="eXpandLib" version="23.1.301.0" />
+      <dependency id="eXpandSecurity" version="23.1.301.0" />
+      <dependency id="eXpandSecurityWin" version="23.1.301.0" />
+      <dependency id="eXpandSystemWin" version="23.1.301.0" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.222.13.2" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.231" />
     </dependencies>
   </metadata>
   <files>
