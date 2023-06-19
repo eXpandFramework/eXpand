@@ -1,5 +1,6 @@
 "Release","Issues","Labels","Message","Sha"
-"22.2.602.0","993","XtraDashboard","Dashboard images are not embedded","d5a2cbacc59471a804b6f9a81e6f87683b114700"
+"23.1.302.0","1003","JobScheduler, Reactive.XAF","Update rx packages","9ad542a35f1c495d308e30c11395662ef785929e"
+"22.2.602.0","993","XtraDashboard","Dashboard images are not embedded",
 "22.2.601.0","993","XtraDashboard","Replace images",
 "22.2.601.0","993","XtraDashboard","Replace images",
 "22.1.503.0","952","Reactive.XAF","Update RX packages",
