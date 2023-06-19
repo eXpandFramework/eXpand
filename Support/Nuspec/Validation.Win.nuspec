@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#validation</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="23.1.301.0" />
-      <dependency id="eXpandSystemWin" version="23.1.301.0" />
-      <dependency id="eXpandValidation" version="23.1.301.0" />
+      <dependency id="eXpandLib" version="23.1.302.0" />
+      <dependency id="eXpandSystemWin" version="23.1.302.0" />
+      <dependency id="eXpandValidation" version="23.1.302.0" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
