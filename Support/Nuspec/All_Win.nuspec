@@ -24,6 +24,7 @@
         <dependency id="eXpandModelDifferenceWin" version="23.1.302.0" />
         <dependency id="eXpandPivotChartWin" version="23.1.302.0" />
         <dependency id="eXpandPivotGridWin" version="23.1.302.0" />
+        <dependency id="eXpandReportsV2Win" version="23.1.302.0" />
         <dependency id="eXpandSecurityWin" version="23.1.302.0" />
         <dependency id="eXpandSystemWin" version="23.1.302.0" />
         <dependency id="eXpandTreelistViewWin" version="23.1.302.0" />

@@ -21,6 +21,8 @@
     </dependencies>
   </metadata>
   <files>
+    <file src="Xpand.ExpressApp.ReportsV2.Win.dll" target="lib\net6.0\Xpand.ExpressApp.ReportsV2.Win.dll" />
+    <file src="Xpand.ExpressApp.ReportsV2.Win.pdb" target="lib\net6.0\Xpand.ExpressApp.ReportsV2.Win.pdb" />
     <file src="..\Support\build\CopySymbols.targets" target="build\eXpandReportsV2Win.targets">
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
