@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandAgnostic</id>
-    <version>23.1.302.0</version>
+    <version>23.1.400.0</version>
     <title>DevExpress eXpandFramework All Platform Agnostic Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,49 +15,49 @@
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
       <group targetFramework="netstandard2.0">
-        <dependency id="eXpandAdditionalViewControlsProvider" version="23.1.302.0" />
-        <dependency id="eXpandAuditTrail" version="23.1.302.0" />
-        <dependency id="eXpandExcelImporter" version="23.1.302.0" />
-        <dependency id="eXpandFileAttachment" version="23.1.302.0" />
-        <dependency id="eXpandIO" version="23.1.302.0" />
-        <dependency id="eXpandLogic" version="23.1.302.0" />
-        <dependency id="eXpandMasterDetail" version="23.1.302.0" />
-        <dependency id="eXpandModelArtifactState" version="23.1.302.0" />
-        <dependency id="eXpandModelDifference" version="23.1.302.0" />
-        <dependency id="eXpandPivotChart" version="23.1.302.0" />
-        <dependency id="eXpandReports" version="23.1.302.0" />
-        <dependency id="eXpandSecurity" version="23.1.302.0" />
-        <dependency id="eXpandStateMachine" version="23.1.302.0" />
-        <dependency id="eXpandSystem" version="23.1.302.0" />
-        <dependency id="eXpandTreelistView" version="23.1.302.0" />
-        <dependency id="eXpandValidation" version="23.1.302.0" />
-        <dependency id="eXpandViewVariants" version="23.1.302.0" />
-        <dependency id="eXpandWorldCreatorDbMapper" version="23.1.302.0" />
-        <dependency id="eXpandWorldCreator" version="23.1.302.0" />
+        <dependency id="eXpandAdditionalViewControlsProvider" version="23.1.400.0" />
+        <dependency id="eXpandAuditTrail" version="23.1.400.0" />
+        <dependency id="eXpandExcelImporter" version="23.1.400.0" />
+        <dependency id="eXpandFileAttachment" version="23.1.400.0" />
+        <dependency id="eXpandIO" version="23.1.400.0" />
+        <dependency id="eXpandLogic" version="23.1.400.0" />
+        <dependency id="eXpandMasterDetail" version="23.1.400.0" />
+        <dependency id="eXpandModelArtifactState" version="23.1.400.0" />
+        <dependency id="eXpandModelDifference" version="23.1.400.0" />
+        <dependency id="eXpandPivotChart" version="23.1.400.0" />
+        <dependency id="eXpandReports" version="23.1.400.0" />
+        <dependency id="eXpandSecurity" version="23.1.400.0" />
+        <dependency id="eXpandStateMachine" version="23.1.400.0" />
+        <dependency id="eXpandSystem" version="23.1.400.0" />
+        <dependency id="eXpandTreelistView" version="23.1.400.0" />
+        <dependency id="eXpandValidation" version="23.1.400.0" />
+        <dependency id="eXpandViewVariants" version="23.1.400.0" />
+        <dependency id="eXpandWorldCreatorDbMapper" version="23.1.400.0" />
+        <dependency id="eXpandWorldCreator" version="23.1.400.0" />
       </group>
       <group targetFramework="net6.0">
-        <dependency id="eXpandDashboard" version="23.1.302.0" />
-        <dependency id="eXpandImportWizard" version="23.1.302.0" />
-        <dependency id="eXpandLib" version="23.1.302.0" />
-        <dependency id="eXpandAdditionalViewControlsProvider" version="23.1.302.0" />
-        <dependency id="eXpandAuditTrail" version="23.1.302.0" />
-        <dependency id="eXpandExcelImporter" version="23.1.302.0" />
-        <dependency id="eXpandFileAttachment" version="23.1.302.0" />
-        <dependency id="eXpandIO" version="23.1.302.0" />
-        <dependency id="eXpandLogic" version="23.1.302.0" />
-        <dependency id="eXpandMasterDetail" version="23.1.302.0" />
-        <dependency id="eXpandModelArtifactState" version="23.1.302.0" />
-        <dependency id="eXpandModelDifference" version="23.1.302.0" />
-        <dependency id="eXpandPivotChart" version="23.1.302.0" />
-        <dependency id="eXpandReports" version="23.1.302.0" />
-        <dependency id="eXpandSecurity" version="23.1.302.0" />
-        <dependency id="eXpandStateMachine" version="23.1.302.0" />
-        <dependency id="eXpandSystem" version="23.1.302.0" />
-        <dependency id="eXpandTreelistView" version="23.1.302.0" />
-        <dependency id="eXpandValidation" version="23.1.302.0" />
-        <dependency id="eXpandViewVariants" version="23.1.302.0" />
-        <dependency id="eXpandWorldCreatorDbMapper" version="23.1.302.0" />
-        <dependency id="eXpandWorldCreator" version="23.1.302.0" />
+        <dependency id="eXpandDashboard" version="23.1.400.0" />
+        <dependency id="eXpandImportWizard" version="23.1.400.0" />
+        <dependency id="eXpandLib" version="23.1.400.0" />
+        <dependency id="eXpandAdditionalViewControlsProvider" version="23.1.400.0" />
+        <dependency id="eXpandAuditTrail" version="23.1.400.0" />
+        <dependency id="eXpandExcelImporter" version="23.1.400.0" />
+        <dependency id="eXpandFileAttachment" version="23.1.400.0" />
+        <dependency id="eXpandIO" version="23.1.400.0" />
+        <dependency id="eXpandLogic" version="23.1.400.0" />
+        <dependency id="eXpandMasterDetail" version="23.1.400.0" />
+        <dependency id="eXpandModelArtifactState" version="23.1.400.0" />
+        <dependency id="eXpandModelDifference" version="23.1.400.0" />
+        <dependency id="eXpandPivotChart" version="23.1.400.0" />
+        <dependency id="eXpandReports" version="23.1.400.0" />
+        <dependency id="eXpandSecurity" version="23.1.400.0" />
+        <dependency id="eXpandStateMachine" version="23.1.400.0" />
+        <dependency id="eXpandSystem" version="23.1.400.0" />
+        <dependency id="eXpandTreelistView" version="23.1.400.0" />
+        <dependency id="eXpandValidation" version="23.1.400.0" />
+        <dependency id="eXpandViewVariants" version="23.1.400.0" />
+        <dependency id="eXpandWorldCreatorDbMapper" version="23.1.400.0" />
+        <dependency id="eXpandWorldCreator" version="23.1.400.0" />
       </group>
     </dependencies>
   </metadata>
