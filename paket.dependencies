@@ -74,8 +74,8 @@ nuget Topshelf 4.2.1
 nuget Microsoft.AspNetCore.WebUtilities 2.2.0
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
-nuget Xpand.XAF.Win.All 4.231.2.3
-nuget Xpand.XAF.Web.All 4.231.2.3
+nuget Xpand.XAF.Win.All 4.231.3.0
+nuget Xpand.XAF.Web.All 4.231.3.0
 nuget System.Threading.Tasks.Dataflow == 7.0.0
 nuget System.Memory = 4.5.5
 nuget System.Collections.Immutable = 6.0.0
