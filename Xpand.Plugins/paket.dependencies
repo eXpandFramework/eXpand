@@ -5,8 +5,8 @@ source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 
 
-nuget DevExpress.ExpressApp.Xpo == 23.1.4
-nuget DevExpress.ExpressApp.Win == 23.1.4
+nuget DevExpress.ExpressApp.Xpo == 23.1.5
+nuget DevExpress.ExpressApp.Win == 23.1.5
 nuget Fasterflect.Xpand
 nuget Fody 4.2.1
 nuget Microsoft.CSharp 4.7.0
