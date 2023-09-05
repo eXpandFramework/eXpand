@@ -21,11 +21,11 @@
       <dependency id="System.Drawing.Common" version="6.0" />
       <dependency id="System.Management" version="6.0" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.Extensions" version="4.231.3.1" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.231.3.1" />
-      <dependency id="Xpand.Extensions.XAF" version="4.231.3.1" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.231.3.1" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.231.3.1" />
+      <dependency id="Xpand.Extensions" version="4.231.4" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.231.4" />
+      <dependency id="Xpand.Extensions.XAF" version="4.231.4" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.231.4" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.231.4" />
     </dependencies>
   </metadata>
   <files>
