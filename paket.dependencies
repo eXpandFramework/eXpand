@@ -16,11 +16,11 @@ nuget AppDomainToolkit 1.0.4.3
 nuget AutoMapper 10.1.1
 nuget CommandLineParser 1.9.71
 nuget Common.Logging 3.4.1
-nuget DevExpress.ExpressApp.Win.All = 23.1.5 
-nuget DevExpress.ExpressApp.Web.All = 23.1.5 
-nuget DevExpress.ExpressApp.Core.All  = 23.1.5
-nuget DevExpress.ExpressApp.Security.Xpo = 23.1.5
-nuget DevExpress.Document.Processor = 23.1.5 
+nuget DevExpress.ExpressApp.Win.All = 23.1.6 
+nuget DevExpress.ExpressApp.Web.All = 23.1.6 
+nuget DevExpress.ExpressApp.Core.All  = 23.1.6
+nuget DevExpress.ExpressApp.Security.Xpo = 23.1.6
+nuget DevExpress.Document.Processor = 23.1.6 
 nuget System.Diagnostics.FileVersionInfo 4.3.0
 nuget System.IO.FileSystem 4.3.0
 nuget System.IO.FileSystem.Primitives 4.3.0
