@@ -161,7 +161,8 @@ namespace Xpand.Persistent.Base.ModelDifference {
             _instance = instance;
         }
 
-        public ModelApplicationBase ReCreate() {
+        public ModelApplicationBase ReCreate(XafApplication xafApplication) {
+            _xafApplication=xafApplication;
             return GetMasterModelCore(true);
         }
 
@@ -173,7 +174,8 @@ namespace Xpand.Persistent.Base.ModelDifference {
             return modelApplicationBase;
         }
 
-        public ModelApplicationBase GetMasterModel(bool tryToUseCurrentTypesInfo,Action<ITypesInfo> action=null) {
+        public ModelApplicationBase GetMasterModel(XafApplication application,bool tryToUseCurrentTypesInfo,Action<ITypesInfo> action=null) {
+            
             if (!File.Exists(_moduleName))
                 throw new UserFriendlyException(_moduleName+" not found in path");
             ModelApplicationBase masterModel=null;
@@ -184,7 +186,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
                 _xafApplication = ApplicationBuilder.Create().
                     UsingTypesInfo(_ => _typesInfo).
                     FromModule(_moduleName).
-                    Build();
+                    Build(application.Modules);
 
                 masterModel = GetMasterModel(_xafApplication, action);
             }, TimeSpan.FromTicks(1), 2);
@@ -209,14 +211,5 @@ namespace Xpand.Persistent.Base.ModelDifference {
             return modelApplicationBase;
         }
 
-        public ModelApplicationBase GetLayer(Type modelApplicationFromStreamStoreBaseType, bool tryToUseCurrentTypesInfo, Action<ITypesInfo> action ) {
-            var masterModel = GetMasterModel(tryToUseCurrentTypesInfo,action);
-            var layer = masterModel.CreatorInstance.CreateModelApplication();
-
-            masterModel.AddLayerBeforeLast(layer);
-            var storeBase = (ModelApplicationFromStreamStoreBase)modelApplicationFromStreamStoreBaseType.CreateInstance();
-            storeBase.Load(layer);
-            return layer;
-        }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.DC;
+using DevExpress.ExpressApp.MiddleTier;
 using DevExpress.ExpressApp.Utils;
 using DevExpress.ExpressApp.Xpo;
 using DevExpress.Persistent.Base;
@@ -13,27 +15,6 @@ using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.XAF.XafApplicationExtensions;
 
 namespace Xpand.Persistent.Base.General {
-    public class XafApplicationFactory {
-        public static XafApplication GetApplication(string modulePath, string connectionString) {
-            var fullPath = Path.GetFullPath(modulePath);
-            var moduleName = Path.GetFileName(fullPath);
-            var directoryName = Path.GetDirectoryName(fullPath);
-            var xafApplication = ApplicationBuilder.Create()
-                .UsingTypesInfo(_ => XafTypesInfo.Instance)
-                .FromModule(moduleName)
-                .FromAssembliesPath(directoryName)
-                .WithOutObjectSpaceProvider()
-                .Build();
-            xafApplication.ConnectionString = connectionString;
-            xafApplication.SetFieldValue("connectionString", connectionString);
-            xafApplication.Setup();
-            if (!string.IsNullOrEmpty(connectionString)) {
-                xafApplication.CheckCompatibility();
-            }
-            return xafApplication;
-        }
-
-    }
 
     public class ApplicationBuilder {
         string _assemblyPath = AppDomain.CurrentDomain.ApplicationPath();
@@ -68,7 +49,7 @@ namespace Xpand.Persistent.Base.General {
             return this;
         }
 
-        public XafApplication Build() {
+        public XafApplication Build(ModuleList moduleList) {
             try {
                 var typesInfo = _buildTypesInfoSystem.Invoke(_moduleName);
                 ReflectionHelper.AddResolvePath(_assemblyPath);
@@ -82,6 +63,12 @@ namespace Xpand.Persistent.Base.General {
                 var application = ApplicationHelper.Instance.Application;
                 typesInfo.AssignAsInstance();
                 var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance());
+                foreach (var m in moduleList) {
+                    if (xafApplication.FindModule(m.GetType()) == null) {
+                        xafApplication.Modules.Add(m);
+                    }    
+                }
+                
                 SecuritySystem.SetInstance(securityInstance);
                 SetConnectionString(xafApplication);
                 if (!_withOutObjectSpaceProvider) {

@@ -51,7 +51,7 @@ nuget Microsoft.Extensions.DependencyInjection.Abstractions == 6.0.0
 nuget Microsoft.Extensions.DependencyInjection == 6.0.0
 nuget Microsoft.Extensions.Hosting.Abstractions == 6.0.0
 nuget Microsoft.Extensions.Options == 6.0.0
-nuget System.Security.Cryptography.Xml == 6.0.0
+nuget System.Security.Cryptography.Xml == 6.0.1
 nuget System.ComponentModel.Annotations == 5.0.0
 nuget System.Data.OleDb == 6.0.0
 nuget System.Security.Permissions = 6.0.0

@@ -30,7 +30,7 @@ namespace Xpand.Persistent.Base.MiddleTier {
                 .FromModule(modulePath)
                 .FromAssembliesPath(Path.GetDirectoryName(modulePath))
                 .WithOutObjectSpaceProvider()
-                .Build();
+                .Build(new ModuleList());
 
             modelLoader.GetMasterModel(xafApplication);
             AddKnownTypesForAll(typesInfo);

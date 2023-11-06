@@ -245,13 +245,13 @@ namespace Xpand.Persistent.Base.General {
             return (Controller) application.CallMethod(new[]{type}, "CreateController");
         }
 
-        public static T FindModule<T>(this XafApplication xafApplication,bool exactMatch=true) where T : ModuleBase{
-            var moduleType = typeof(T);
+        public static T FindModule<T>(this XafApplication xafApplication,bool exactMatch=true) where T : ModuleBase => (T)xafApplication.FindModule(  typeof(T),exactMatch);
+
+        public static ModuleBase FindModule(this XafApplication xafApplication,  Type moduleType,bool exactMatch=true) {
             if (moduleType.IsInterface || moduleType.IsAbstract)
                 exactMatch = false;
-            return !exactMatch
-                ? (T) xafApplication.Modules.FirstOrDefault(@base => @base is T)
-                : (T) xafApplication.Modules.FindModule(moduleType);
+            return !exactMatch ? xafApplication.Modules.FirstOrDefault(@base => @base.GetType()==moduleType)
+                : xafApplication.Modules.FindModule(moduleType);
         }
 
         public static void SetClientSideSecurity(this XafApplication xafApplication) {

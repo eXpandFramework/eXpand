@@ -33,6 +33,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
         private bool _xmlContentChanged;
         private static readonly LightDictionary<ModelApplicationBase, ITypesInfo> ModelApplicationBases;
         private static readonly ITypesInfo TypeInfo;
+        private XafApplication _application;
 
         static ModelEditorPropertyEditor(){
             TypeInfo = XafTypesInfo.Instance;
@@ -81,7 +82,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
 
         private ModelApplicationBase GetMasterModelCore(bool recreate){
             InterfaceBuilder.SkipAssemblyCleanup = true;
-            var masterModel = !recreate ? _modelLoader.GetMasterModel(false) : _modelLoader.ReCreate();
+            var masterModel = !recreate ? _modelLoader.GetMasterModel(_application,false) : _modelLoader.ReCreate(_application);
             InterfaceBuilder.SkipAssemblyCleanup = false;
             return masterModel;
         }
@@ -198,6 +199,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.PropertyEditors{
 
         public void Setup(IObjectSpace objectSpace, XafApplication application){
             _objectSpace = objectSpace;
+            _application = application;
         }
 
         private void CreateModelEditorController(){
