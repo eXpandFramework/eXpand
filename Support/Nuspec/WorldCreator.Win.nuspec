@@ -20,8 +20,8 @@ http://apobekiaris.blogspot.com/search/label/WorldCreator</description>
       <dependency id="eXpandSystemWin" version="23.1.601.2" />
       <dependency id="eXpandWorldCreator" version="23.1.601.2" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.231.6.7" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.231.6.7" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.231.6.8" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.231.6.8" />
     </dependencies>
   </metadata>
   <files>

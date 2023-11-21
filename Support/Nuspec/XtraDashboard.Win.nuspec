@@ -20,7 +20,7 @@
       <dependency id="eXpandSecurityWin" version="23.1.601.2" />
       <dependency id="eXpandSystemWin" version="23.1.601.2" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.231.6.7" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.231.6.8" />
     </dependencies>
   </metadata>
   <files>

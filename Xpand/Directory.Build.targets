@@ -4,5 +4,6 @@
  </Target>
  <PropertyGroup >
     <NoWarn>1701;1702;XAF0023;XAF0020;XAF0027;XAF0025;CA1416</NoWarn>
+    <NuGetAudit>disable</NuGetAudit>
   </PropertyGroup>
 </Project>

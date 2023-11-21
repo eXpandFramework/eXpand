@@ -20,7 +20,7 @@
       <dependency id="System.Collections.Immutable" version="6.0" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="4.231.6.7" />
+      <dependency id="Xpand.Extensions" version="4.231.6.8" />
     </dependencies>
   </metadata>
   <files>
