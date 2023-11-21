@@ -153,7 +153,7 @@ namespace Xpand.ExpressApp.WorldCreator{
                 var type =
                     reportsModule.GetType().Assembly
                         .GetType("DevExpress.ExpressApp.ReportsV2.ApplicationReportObjectSpaceProvider");
-                type.GetProperties().First(info => info.Name == "ContextApplication").SetValue(null, Application, null);
+                type!.GetProperties().First(info => info.Name == "ContextApplication").SetValue(null, Application, null);
             }
         }
 

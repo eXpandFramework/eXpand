@@ -11,6 +11,7 @@ using Xpand.Extensions.XAF.XafApplicationExtensions;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Persistent.Base.Security;
+using Xpand.XAF.Modules.Reactive.Services;
 
 namespace Xpand.ExpressApp.WorldCreator.System {
     public class WorldCreatorApplication : XafApplication, ITestXafApplication {
@@ -44,6 +45,12 @@ namespace Xpand.ExpressApp.WorldCreator.System {
                     return;
                 var objectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(application, false);
                 using (var worldCreatorApplication = func(objectSpaceProvider, application.Modules)) {
+                    worldCreatorApplication.ServiceProvider = application.ServiceProvider;
+                    if (!worldCreatorApplication.ObjectSpaceProviders.Any()) {
+                        worldCreatorApplication.SetFieldValue("_objectSpaceProvider",application.GetFieldValue("_objectSpaceProvider"));
+                        // ((IList<IObjectSpaceProvider>)application.GetFieldValue("_objectSpaceProviderContainer")
+                            // .GetFieldValue("_objectSpaceProviders")).Add(objectSpaceProvider);
+                    }
                     worldCreatorApplication.ApplicationName = application.ApplicationName;
                     try {
                         worldCreatorApplication.CheckCompatibility();

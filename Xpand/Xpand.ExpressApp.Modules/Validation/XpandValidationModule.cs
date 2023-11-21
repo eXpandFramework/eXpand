@@ -1,9 +1,9 @@
 using System.ComponentModel;
 using DevExpress.ExpressApp;
+using DevExpress.ExpressApp.DC;
 using DevExpress.ExpressApp.Validation;
 using DevExpress.Utils;
 using Xpand.Persistent.Base.General;
-using Xpand.Persistent.Base.Validation;
 using Xpand.Persistent.Base.Validation.AtLeast1PropertyIsRequired;
 using Xpand.Persistent.Base.Validation.FromIPropertyValueValidator;
 
@@ -25,5 +25,10 @@ namespace Xpand.ExpressApp.Validation {
             ValidationRulesRegistrator.RegisterRule(moduleManager, typeof(RuleFromIPropertyValueValidator),
                                      typeof(IRuleFromIPropertyValueValidatorProperties));
         }
+
+        public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
+            base.CustomizeTypesInfo(typesInfo);
+        }
     }
+
 }

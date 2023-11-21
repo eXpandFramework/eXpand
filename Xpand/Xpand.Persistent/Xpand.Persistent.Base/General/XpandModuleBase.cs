@@ -135,8 +135,7 @@ namespace Xpand.Persistent.Base.General {
         public static void DisableControllers(params Type[] types) {
             lock (DisabledControllerTypesLock) {
                 foreach (Type type in types) {
-                    if (!DisabledControllerTypes.Contains(type))
-                        DisabledControllerTypes.Add(type);
+                    DisabledControllerTypes.Add(type);
                 }
             }
         }
@@ -427,8 +426,8 @@ namespace Xpand.Persistent.Base.General {
         void AssignSecurityEntities() {
             if (Application != null) {
                 if (Application.Security is IRoleTypeProvider { RoleType:{ } } roleTypeProvider) {
-                    RoleType =XafTypesInfo.Instance.PersistentTypes.First(info => info.Type == roleTypeProvider.RoleType).Type;
-                    if (RoleType.IsInterface)
+                    RoleType =XafTypesInfo.Instance.PersistentTypes.FirstOrDefault(info => info.Type == roleTypeProvider.RoleType)?.Type;
+                    if (RoleType?.IsInterface??false)
                         RoleType = XpoTypeInfoSource.GetGeneratedEntityType(RoleType);
                 }
                 if (Application.Security != null) {
