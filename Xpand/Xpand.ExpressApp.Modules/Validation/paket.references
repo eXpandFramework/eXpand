@@ -3,3 +3,5 @@ System.ValueTuple
 System.Threading.Tasks.Dataflow
 
 
+
+System.Text.Json

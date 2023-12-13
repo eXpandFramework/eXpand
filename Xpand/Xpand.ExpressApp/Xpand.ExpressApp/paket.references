@@ -13,3 +13,4 @@ Xpand.Extensions
 
 System.ComponentModel.Annotations
 System.Threading.Tasks.Dataflow
+System.Text.Json

@@ -1,3 +1,4 @@
 System.ValueTuple
 DevExpress.ExpressApp.Win
 System.Threading.Tasks.Dataflow
+System.Text.Json

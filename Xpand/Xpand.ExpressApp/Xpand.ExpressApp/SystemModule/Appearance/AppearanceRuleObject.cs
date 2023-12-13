@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using DevExpress.Drawing;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.ConditionalAppearance;
 using DevExpress.ExpressApp.DC;
@@ -21,7 +22,7 @@ namespace Xpand.ExpressApp.SystemModule.Appearance{
         private string _criteria;
         private bool? _enabled;
         private Color? _fontColor;
-        private FontStyle? _fontStyle;
+        private DXFontStyle? _fontStyle;
         private string _method;
         private String _name;
         private int _priority;
@@ -104,8 +105,8 @@ namespace Xpand.ExpressApp.SystemModule.Appearance{
             set { SetPropertyValue("FontColor", ref _fontColor, value); }
         }
 
-        public FontStyle? FontStyle{
-            get { return _fontStyle; }
+        public DXFontStyle? FontStyle{
+            get => _fontStyle;
             set { SetPropertyValue("FontStyle", ref _fontStyle, value); }
         }
 

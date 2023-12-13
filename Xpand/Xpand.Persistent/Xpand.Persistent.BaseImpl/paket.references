@@ -7,3 +7,4 @@ Xpand.Extensions.XAF.Xpo
 Xpand.XAF.Modules.Reactive
 System.ComponentModel.Annotations
 System.Threading.Tasks.Dataflow
+System.Text.Json

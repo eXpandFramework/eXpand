@@ -4,3 +4,4 @@ Xpand.XAF.Modules.Reactive.Logger
 
 
 System.Threading.Tasks.Dataflow
+System.Text.Json

@@ -7,3 +7,4 @@ Xpand.XAF.Modules.ModelViewInheritance
 
 System.ComponentModel.Annotations
 System.Threading.Tasks.Dataflow
+System.Text.Json

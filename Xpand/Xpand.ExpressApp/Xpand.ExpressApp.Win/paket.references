@@ -6,3 +6,4 @@ Xpand.XAF.Modules.ModelMapper
 
 System.Diagnostics.FileVersionInfo
 System.Threading.Tasks.Dataflow
+System.Text.Json

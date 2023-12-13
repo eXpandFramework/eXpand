@@ -17,3 +17,4 @@ Xpand.Extensions.XAF.Xpo
 
 
 System.Threading.Tasks.Dataflow
+System.Text.Json

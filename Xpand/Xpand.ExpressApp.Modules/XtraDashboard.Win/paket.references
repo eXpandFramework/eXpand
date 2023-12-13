@@ -5,3 +5,4 @@ Xpand.XAF.Modules.ModelMapper
 
 
 System.Threading.Tasks.Dataflow
+System.Text.Json

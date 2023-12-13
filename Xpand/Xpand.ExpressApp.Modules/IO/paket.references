@@ -9,3 +9,4 @@ System.Security.Permissions
 
 
 System.Threading.Tasks.Dataflow
+System.Text.Json

@@ -14,12 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="23.1.601.3" />
-      <dependency id="eXpandSystemWin" version="23.1.601.3" />
-      <dependency id="eXpandTreelistView" version="23.1.601.3" />
+      <dependency id="eXpandLib" version="23.2.300.0" />
+      <dependency id="eXpandSystemWin" version="23.2.300.0" />
+      <dependency id="eXpandTreelistView" version="23.2.300.0" />
+      <dependency id="System.Text.Json" version="7.0.2" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.231.6.9" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.231.6.9" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.232.0" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.232.0" />
     </dependencies>
   </metadata>
   <files>

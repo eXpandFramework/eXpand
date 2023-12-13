@@ -3,3 +3,4 @@ DevExpress.ExpressApp.Validation.Win
 
 
 System.Threading.Tasks.Dataflow
+System.Text.Json

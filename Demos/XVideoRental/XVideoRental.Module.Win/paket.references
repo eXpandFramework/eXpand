@@ -12,3 +12,4 @@ DevExpress.Persistent.BaseImpl.Xpo
 DevExpress.Win.Reporting
 Xpand.XAF.Modules.CloneModelView
 System.Threading.Tasks.Dataflow
+System.Text.Json

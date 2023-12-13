@@ -3,3 +3,4 @@ DevExpress.ExpressApp.ReportsV2.Win
 
 
 System.Threading.Tasks.Dataflow
+System.Text.Json
