@@ -14,13 +14,13 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Security</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="23.2.301.0" />
+      <dependency id="eXpandLib" version="23.2.301.1" />
       <dependency id="System.ComponentModel.Annotations" version="5.0" />
       <dependency id="System.Text.Json" version="7.0.2" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.Extensions" version="4.232.1" />
-      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.232.1" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.232.1" />
+      <dependency id="Xpand.Extensions" version="4.232.2" />
+      <dependency id="Xpand.XAF.Modules.ModelViewInheritance" version="4.232.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.232.2" />
     </dependencies>
   </metadata>
   <files>
