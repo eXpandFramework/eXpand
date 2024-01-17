@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#masterdetail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="23.2.301.1" />
-      <dependency id="eXpandLogic" version="23.2.301.1" />
-      <dependency id="eXpandSecurity" version="23.2.301.1" />
+      <dependency id="eXpandLib" version="23.2.302.0" />
+      <dependency id="eXpandLogic" version="23.2.302.0" />
+      <dependency id="eXpandSecurity" version="23.2.302.0" />
       <dependency id="System.ComponentModel.Annotations" version="5.0" />
       <dependency id="System.Text.Json" version="7.0.2" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
