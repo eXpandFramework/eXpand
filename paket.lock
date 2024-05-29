@@ -1511,7 +1511,7 @@ NUGET
       Xpand.XAF.Modules.ViewWizard (>= 4.232.5) - restriction: || (== net6.0) (== net6.0-windows7.0) (== net8.0) (== net8.0-windows10.0.17763.0) (&& (== netstandard2.0) (>= net6.0))
       Xpand.XAF.Modules.Windows (>= 4.232.5) - restriction: || (&& (== net6.0) (>= net6.0-windows7.0)) (== net6.0-windows7.0) (&& (== net8.0) (>= net6.0-windows7.0)) (&& (== net8.0-windows10.0.17763.0) (>= net6.0-windows7.0)) (&& (== netstandard2.0) (>= net6.0-windows7.0))
     YamlDotNet (11.2.1) - restriction: || (== net6.0) (== net6.0-windows7.0) (== net8.0) (== net8.0-windows10.0.17763.0) (&& (== netstandard2.0) (>= net6.0))
-  remote: https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
+  remote: C:\Program Files (x86)\DevExpress 23.2\Components\System\Components\Packages
     DevExpress.AspNetCore.Common (23.2.6) - restriction: || (== net6.0) (== net6.0-windows7.0) (== net8.0) (== net8.0-windows10.0.17763.0) (&& (== netstandard2.0) (>= net6.0))
       DevExpress.AspNetCore.Core (23.2.6) - restriction: || (== net6.0) (== net6.0-windows7.0) (== net8.0) (== net8.0-windows10.0.17763.0) (&& (== netstandard2.0) (>= net6.0))
       DevExpress.Data (23.2.6) - restriction: || (== net6.0) (== net6.0-windows7.0) (== net8.0) (== net8.0-windows10.0.17763.0) (&& (== netstandard2.0) (>= net6.0))

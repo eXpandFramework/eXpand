@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="23.2.600.0" />
+      <dependency id="eXpandLib" version="23.2.603.0" />
       <dependency id="System.Text.Json" version="7.0.2" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.232.4" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.232.4" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.232.5" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.232.5" />
     </dependencies>
   </metadata>
   <files>

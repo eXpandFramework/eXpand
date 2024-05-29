@@ -1,4 +1,4 @@
-source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
+source C:\Program Files (x86)\DevExpress 23.2\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 storage: none
@@ -88,5 +88,3 @@ nuget Microsoft.Bcl.AsyncInterfaces == 6.0.0
 nuget System.Text.Encodings.Web = 7.0.0
 nuget Microsoft.IdentityModel.Protocols.OpenIdConnect 6.15.0
 nuget System.Security.Cryptography.ProtectedData 8.0.0
-
-

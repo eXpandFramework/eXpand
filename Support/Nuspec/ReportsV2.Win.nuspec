@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandReportsV2Win</id>
@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Reports</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="23.2.602.0" />
-      <dependency id="eXpandReports" version="23.2.602.0" />
+      <dependency id="eXpandLib" version="23.2.603.0" />
+      <dependency id="eXpandReports" version="23.2.603.0" />
       <dependency id="System.Text.Json" version="7.0.2" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
       <dependency id="System.ValueTuple" version="4.5" />
@@ -28,5 +28,5 @@
     </file>
     <file src="..\Support\build\CopySymbols.ps1" target="build\CopySymbols.ps1">
     </file>
-  </files>
+    </files>
 </package>
