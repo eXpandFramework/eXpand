@@ -15,13 +15,13 @@
     <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
     <dependencies>
       <dependency id="DocumentFormat.OpenXml" version="2.11.3" />
-      <dependency id="eXpandLib" version="24.1.501.0" />
+      <dependency id="eXpandLib" version="24.1.600.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.Collections.Immutable" version="6.0" />
       <dependency id="System.Text.Json" version="8.0.4" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="4.241.3" />
+      <dependency id="Xpand.Extensions" version="4.241.3.7" />
     </dependencies>
   </metadata>
   <files>
