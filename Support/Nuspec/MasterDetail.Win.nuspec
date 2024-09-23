@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#masterdetail</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="24.1.600.0" />
-      <dependency id="eXpandLogic" version="24.1.600.0" />
-      <dependency id="eXpandMasterDetail" version="24.1.600.0" />
-      <dependency id="eXpandSystemWin" version="24.1.600.0" />
+      <dependency id="eXpandLib" version="24.1.601.0" />
+      <dependency id="eXpandLogic" version="24.1.601.0" />
+      <dependency id="eXpandMasterDetail" version="24.1.601.0" />
+      <dependency id="eXpandSystemWin" version="24.1.601.0" />
       <dependency id="System.Text.Json" version="8.0.4" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
       <dependency id="System.ValueTuple" version="4.5" />
