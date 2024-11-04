@@ -15,12 +15,12 @@
     <projectUrl>http://www.expandframework.com/#ImportWizard</projectUrl>
     <dependencies>
       <dependency id="DocumentFormat.OpenXml" version="2.11.3" />
-      <dependency id="eXpandImportWizard" version="24.1.601.0" />
-      <dependency id="eXpandLib" version="24.1.601.0" />
-      <dependency id="System.Text.Json" version="8.0.4" />
+      <dependency id="eXpandImportWizard" version="24.1.700.0" />
+      <dependency id="eXpandLib" version="24.1.700.0" />
+      <dependency id="System.Text.Json" version="8.0.5" />
       <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="4.241.5" />
+      <dependency id="Xpand.Extensions" version="4.241.6.3" />
     </dependencies>
   </metadata>
   <files>

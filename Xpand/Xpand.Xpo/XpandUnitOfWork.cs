@@ -9,19 +9,18 @@ namespace Xpand.Xpo {
         }
 
         public XpandUnitOfWork(XPDictionary dictionary)
-            : base(dictionary) {
-            TrackPropertiesModifications = true;
-        }
+            : base(dictionary)
+            => TrackPropertiesModifications = true;
 
         public XpandUnitOfWork(IDataLayer layer, params IDisposable[] disposeOnDisconnect)
-            : base(layer, disposeOnDisconnect){
-            TrackPropertiesModifications = true;
-        }
+            : base(layer, disposeOnDisconnect)
+            => TrackPropertiesModifications = true;
+
+        public XpandUnitOfWork(IServiceProvider serviceProvider) : base(serviceProvider) => TrackPropertiesModifications = true;
 
         public XpandUnitOfWork(IObjectLayer layer, params IDisposable[] disposeOnDisconnect)
-            : base(layer, disposeOnDisconnect) {
-            TrackPropertiesModifications = true;
-        }
+            : base(layer, disposeOnDisconnect)
+            => TrackPropertiesModifications = true;
 
         protected override MemberInfoCollection GetPropertiesListForUpdateInsert(object theObject, bool isUpdate,
             bool addDelayedReference){
