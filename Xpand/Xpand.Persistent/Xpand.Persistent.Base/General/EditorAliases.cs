@@ -9,7 +9,7 @@ namespace Xpand.Persistent.Base.General {
         public const string TokenList = "TokenList";
         public const string DashboardXMLEditor = "DashboardXMLEditor";
         public const string XpandTreeListEditor = "XpandTreeListEditor";
-        public const string HyperLinkPropertyEditor = "HyperLinkPropertyEditor";
+        
         public const string CriteriaPropertyEditorEx = "CriteriaPropertyEditorEx";
         [Obsolete("Remove this alias to default to Xpand.ExpressApp.Win.PropertyEditors.EnumPropertyEditor instead",true)]
         public const string FilterableEnumPropertyEditor = "FilterableEnumPropertyEditor";

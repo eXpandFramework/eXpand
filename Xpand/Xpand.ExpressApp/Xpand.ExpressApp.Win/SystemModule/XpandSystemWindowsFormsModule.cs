@@ -53,17 +53,15 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             extenders.Add<IModelMemberViewItem, IModelMemberViewItemDuration>();
         }
 
-        protected override IEnumerable<Type> GetDeclaredExportedTypes() {
-            return new List<Type>();
-        }
+        protected override IEnumerable<Type> GetDeclaredExportedTypes() => new List<Type>();
 
         public override void Setup(XafApplication application) {
             base.Setup(application);
             application.SetupComplete+=ApplicationOnSetupComplete;
-            ModelBindingService.ControlBind.Where(_ => _.ObjectView is ListView listView&&listView.Editor is LayoutViewListEditor&&_.Model.Parent is IModelListView)
-                .Select(_ => {
-                    var layoutView = ((LayoutViewListEditor) ((ListView) _.ObjectView).Editor).XafLayoutView;
-                    var modelLayoutViewDesign =((IModelLayoutViewDesign) _.ObjectView.Model.GetNode(LayoutViewMapName)).DesignLayoutView.LayoutStore;
+            ModelBindingService.ControlBind.Where(parameter => parameter.ObjectView is ListView { Editor: LayoutViewListEditor } && parameter.Model.Parent is IModelListView)
+                .Select(parameter => {
+                    var layoutView = ((LayoutViewListEditor) ((ListView) parameter.ObjectView).Editor).XafLayoutView;
+                    var modelLayoutViewDesign =((IModelLayoutViewDesign) parameter.ObjectView.Model.GetNode(LayoutViewMapName)).DesignLayoutView.LayoutStore;
                     var buffer = Encoding.UTF32.GetBytes(modelLayoutViewDesign);
                     using (var memoryStream = new MemoryStream(buffer)){
                         layoutView.RestoreLayoutFromStream(memoryStream);
@@ -88,7 +86,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             moduleManager.Extend(PredefinedMap.BandedGridColumn,configuration => configuration.MapName=BandedGridColumnMapName);
             moduleManager.Extend(PredefinedMap.GridView,configuration => configuration.MapName=GridViewMapName);
             moduleManager.ExtendMap(PredefinedMap.GridView)
-                .Subscribe(_ => _.extenders.Add(_.targetInterface,typeof(IModelOptionsGridViewRules)));
+                .Subscribe(t => t.extenders.Add(t.targetInterface,typeof(IModelOptionsGridViewRules)));
             moduleManager.Extend(PredefinedMap.GridColumn,configuration => configuration.MapName=GridColumnMapName);
             
             moduleManager.Extend(PredefinedMap.XafLayoutControl);
@@ -96,7 +94,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             moduleManager.Extend(PredefinedMap.LayoutView,configuration => configuration.MapName=LayoutViewMapName);
             moduleManager.Extend(PredefinedMap.LayoutViewColumn,configuration => configuration.MapName=LayoutViewColumnMapName);
             moduleManager.ExtendMap(PredefinedMap.LayoutView)
-                .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelLayoutViewDesign)));
+                .Subscribe(t => t.extenders.Add(t.targetInterface, typeof(IModelLayoutViewDesign)));
             
             var repositoryItems = EnumsNET.Enums.GetValues<PredefinedMap>().Where(map => map.IsRepositoryItem()).ToArray();
             moduleManager.Extend(repositoryItems);
@@ -104,7 +102,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             moduleManager.Extend(PredefinedMap.RichEditControl);
 
             moduleManager.ExtendMap(PredefinedMap.RichEditControl)
-                .Subscribe(_ => _.extenders.Add(_.targetInterface, typeof(IModelRichEditEx)));
+                .Subscribe(t => t.extenders.Add(t.targetInterface, typeof(IModelRichEditEx)));
         }
         
         private void ApplicationOnSetupComplete(object sender, EventArgs e) {
@@ -112,7 +110,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         protected override IEnumerable<Type> GetDeclaredControllerTypes(){
-            Type[] controllerTypes = {
+            Type[] controllerTypes = [
                 typeof(SerializeModelViewController),
                 typeof(EnumRepositoryItemGridListEditorController),
                 typeof(PopupWindowStateController),
@@ -160,11 +158,10 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(WindowHintController),
                 typeof(GridViewImageTextToolTipController),
                 typeof(WinToolTipsController),
-                typeof(HyperLinkGridListViewController),
                 typeof(RichEditToolbarController),
                 typeof(LayoutViewColumnChooserController),
-                typeof(RememberGridSelectionController),
-            };
+                typeof(RememberGridSelectionController)
+            ];
             return FilterDisabledControllers(GetDeclaredControllerTypesCore(controllerTypes));
         }
         

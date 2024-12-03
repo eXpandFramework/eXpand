@@ -4,15 +4,10 @@ using DevExpress.Persistent.Base;
 using DevExpress.Xpo;
 using Xpand.Extensions.XAF.Attributes;
 using Xpand.Persistent.Base.Security;
-using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.ExpressApp.Security.Core{
     [System.ComponentModel.DisplayName("User")]
-    public class XpandUser : SecuritySystemUser,ISecurityRelated {
-        public XpandUser(Session session)
-            : base(session) {
-        }
-
+    public class XpandUser(Session session) : SecuritySystemUser(session), ISecurityRelated {
         private string _email;
         private string _activation;
 
@@ -23,7 +18,7 @@ namespace Xpand.ExpressApp.Security.Core{
         }
 
         [ModelDefault("IsEmail","True")]
-        [EditorAlias(EditorAliases.HyperLinkPropertyEditor)]
+        [EditorAlias("HyperLinkPropertyEditor")]
         public string Email {
             get => _email;
             set => SetPropertyValue("Email", ref _email, value);

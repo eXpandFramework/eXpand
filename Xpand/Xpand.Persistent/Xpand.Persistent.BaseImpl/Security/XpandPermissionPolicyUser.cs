@@ -5,19 +5,16 @@ using DevExpress.Persistent.BaseImpl.PermissionPolicy;
 using DevExpress.Xpo;
 using Xpand.Extensions.XAF.Attributes;
 using Xpand.Persistent.Base.Security;
-using EditorAliases = Xpand.Persistent.Base.General.EditorAliases;
 
 namespace Xpand.Persistent.BaseImpl.Security{
     [ImageName("BO_User"), DefaultProperty("UserName")]
     [System.ComponentModel.DisplayName("User")]
     [MapInheritance(MapInheritanceType.ParentTable)]
-    public class XpandPermissionPolicyUser : PermissionPolicyUser, ISecurityPermisssionPolicyRelated{
+    public class XpandPermissionPolicyUser(Session session)
+        : PermissionPolicyUser(session), ISecurityPermisssionPolicyRelated {
         private string _activation;
 
         private string _email;
-
-        public XpandPermissionPolicyUser(Session session) : base(session){
-        }
 
         [InvisibleInAllViews]
         public string Activation{
@@ -26,7 +23,7 @@ namespace Xpand.Persistent.BaseImpl.Security{
         }
 
         [ModelDefault("IsEmail", "True")]
-        [EditorAlias(EditorAliases.HyperLinkPropertyEditor)]
+        [EditorAlias("HyperLinkPropertyEditor")]
         public string Email{
             get => _email;
             set => SetPropertyValue("Email", ref _email, value);

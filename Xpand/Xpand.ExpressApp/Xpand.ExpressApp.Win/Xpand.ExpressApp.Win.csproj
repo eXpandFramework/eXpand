@@ -56,7 +56,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Update="PropertyEditors\ProcessDataLockingInfoController.cs" />
-    <Compile Update="PropertyEditors\HyperLinkPropertyEditor.cs" />
     <Compile Update="PropertyEditors\RichEdit\RichEditContainerBase.cs" />
     <Compile Update="PropertyEditors\RichEdit\RichEditContainerRibbon.cs" />
     <Compile Update="PropertyEditors\RichEdit\RichEditContainerRibbon.Designer.cs">
