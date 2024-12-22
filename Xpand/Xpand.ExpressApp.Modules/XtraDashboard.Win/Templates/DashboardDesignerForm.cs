@@ -51,6 +51,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         public IDashboardDefinition Template => _template;
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IObjectSpace ObjectSpace { get; set; }
 
         void _EditHistory_Changed(object sender, EventArgs e) {

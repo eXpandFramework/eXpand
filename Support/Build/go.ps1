@@ -7,7 +7,7 @@ param(
     [string[]]$taskList = @("Release"),
     [string]$nugetApiKey = $null,
     [string]$Repository = "eXpand",
-    [string]$XpandPwshVersion = "1.221.0.20",
+    [string]$XpandPwshVersion = "1.221.0.22",
     [bool]$ResolveNugetDependecies
 )
 

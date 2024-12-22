@@ -205,6 +205,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
                 base.MakeRowVisibleCore(rowHandle, invalidate);
             }
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         protected internal Boolean SkipMakeRowVisible {
             get { return _skipMakeRowVisible; }
             set { _skipMakeRowVisible = value; }
@@ -231,6 +232,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
                 return (FocusedColumn == GetVisibleColumn(VisibleColumns.Count - 1));
             }
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ErrorMessages ErrorMessages {
             get { return _errorMessages; }
             set { _errorMessages = value; }

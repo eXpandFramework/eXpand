@@ -6,3 +6,8 @@ DevExpress.ExpressApp.TreeListEditors.Win
 
 System.Threading.Tasks.Dataflow
 System.Text.Json
+Microsoft.Extensions.DependencyInjection.Abstractions
+Microsoft.CodeAnalysis
+Microsoft.Extensions.Configuration.Abstractions
+System.ServiceModel.Http
+System.ServiceModel.NetTcp

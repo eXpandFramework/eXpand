@@ -31,18 +31,18 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         }
 
         [Association("ExcelImport-ExcelImportKeyMaps")]
-        public XPCollection<ExcelImportKeyMap> KeyMaps => GetCollection<ExcelImportKeyMap>(nameof(KeyMaps));
+        public XPCollection<ExcelImportKeyMap> KeyMaps => GetCollection<ExcelImportKeyMap>();
 
         [Association("ExcelImport-DroppedFiles")]
         [Aggregated]
         [InvisibleInAllViews]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
-        public XPCollection<DroppedFile> DroppedFiles => GetCollection<DroppedFile>(nameof(DroppedFiles)); 
+        public XPCollection<DroppedFile> DroppedFiles => GetCollection<DroppedFile>(); 
 
         [Association("ExcelImport-AutoImportedFiles")]
         [InvisibleInAllViews][Aggregated]
         [CollectionOperationSet(AllowAdd = false, AllowRemove = true)]
-        public XPCollection<AutoImportedFile> AutoImportedFiles => GetCollection<AutoImportedFile>(nameof(AutoImportedFiles));
+        public XPCollection<AutoImportedFile> AutoImportedFiles => GetCollection<AutoImportedFile>();
         ImportStrategy _importStrategy;
 
         [ToolTip("Controls how main objects are created")]
@@ -116,7 +116,7 @@ namespace Xpand.ExpressApp.ExcelImporter.BusinessObjects{
         private List<string> _sheetNames;
 
         [Browsable(false)]
-        [ValueConverter(typeof(SerializableObjectConverter))]
+        // [ValueConverter(typeof(SerializableObjectConverter))]
         [Size(SizeAttribute.Unlimited)]
         [Persistent]
         public List<string> SheetNames{

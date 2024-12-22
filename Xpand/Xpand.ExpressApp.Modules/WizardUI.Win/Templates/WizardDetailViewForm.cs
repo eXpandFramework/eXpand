@@ -7,6 +7,7 @@
 
 using System;
 using System.Drawing;
+using System.ComponentModel;
 
 namespace Xpand.ExpressApp.WizardUI.Win.Templates {
     using DevExpress.ExpressApp.Model;
@@ -28,6 +29,15 @@ namespace Xpand.ExpressApp.WizardUI.Win.Templates {
             WizardControl.Image=Image.FromStream(GetType().Assembly.GetManifestResourceStream("Xpand.ExpressApp.WizardUI.Win.Resources.wizard-image.png") ?? throw new InvalidOperationException());
             showRecordAfterCompletion.Text = CaptionHelper.GetLocalizedText("Texts", "WizardShowRecordAfterFinish");
         }
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// Gets the WizardControl
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 
         #endregion
 

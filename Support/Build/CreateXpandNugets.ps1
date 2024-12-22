@@ -1,6 +1,6 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "22.2.300.1",
+    [string]$version = "24.2.300.0",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )
@@ -77,7 +77,7 @@ function AddAllDependency($file, $nuspecpaths) {
     })
     $net6Nuspecs=@($nuspecpaths|where-Object{
         $p=Get-XmlContent $_.FullName
-        $p.package.files.file.target -match "net6"
+        $p.package.files.file.target -match "net9"
     })
     ($netStandardNuspecs) | ForEach-Object {
         [xml]$package = Get-Content $_.Fullname
@@ -223,9 +223,9 @@ $modules
 Write-HostFormatted "packing nuspecs" -Section
 Get-ChildItem "$root\build\Nuget" -ErrorAction SilentlyContinue | Remove-Item -Force -Recurse
 
-Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -RetryOnError 3 -VariablesToImport @("modules","Nuget","version","root") -Script {    
-# $nuspecs = Get-ChildItem "$root\Support\Nuspec" *.nuspec
-# $nuspecs | foreach {    
+# Get-ChildItem "$root\Support\Nuspec" *.nuspec | Invoke-Parallel -RetryOnError 3 -VariablesToImport @("modules","Nuget","version","root") -Script {    
+$nuspecs = Get-ChildItem "$root\Support\Nuspec" *.nuspec
+$nuspecs | foreach {    
     if (!$Version) {
         throw
     }

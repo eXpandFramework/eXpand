@@ -4,7 +4,7 @@
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <OutputPath>..\..\..\Xpand.DLL\</OutputPath>
-    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <TargetFramework>net9.0-windows7.0</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>latest</LangVersion>
     <DebugSymbols>true</DebugSymbols>

@@ -26,7 +26,7 @@ namespace Xpand.Persistent.Base {
             Guard.ArgumentNotNullOrEmpty(fileName, "fileName");
             FileName = fileName;
             var bytes = new byte[stream.Length];
-            stream.Read(bytes, 0, bytes.Length);
+            stream.ReadExactly(bytes);
             Content = bytes;
         }
         public void SaveToStream(Stream stream) {

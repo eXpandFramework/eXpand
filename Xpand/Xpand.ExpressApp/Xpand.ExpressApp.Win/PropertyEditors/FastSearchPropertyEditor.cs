@@ -326,6 +326,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             get { return "LookUpEditEx"; }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override object EditValue {
             get { return base.EditValue; }
             set {

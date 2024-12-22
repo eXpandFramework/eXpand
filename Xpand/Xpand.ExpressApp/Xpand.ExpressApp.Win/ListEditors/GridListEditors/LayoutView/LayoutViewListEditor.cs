@@ -72,14 +72,18 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
             ((IMasterDetailColumnView)this).MasterFrame = xafGridView.MasterFrame;
             base.Assign(v, copyEvents);
         }
+        
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         #region Implementation of IMasterDetailColumnView
         public Window Window { get; set; }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Frame MasterFrame { get; set; }
 
         int IMasterDetailColumnView.GetRelationIndex(int sourceRowHandle, string levelName){
             throw new NotImplementedException();
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CanFilterGroupSummaryColumns { get; set; }
         #endregion
         public XpandXafLayoutView(LayoutViewListEditor layoutViewListEditor)
@@ -91,6 +95,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         protected override BaseView CreateInstance() {
             return new XpandXafLayoutView(GridControl);
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool OverrideViewDesignMode { get; set; }
     }
 

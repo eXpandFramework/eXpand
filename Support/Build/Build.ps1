@@ -77,7 +77,7 @@ Task PackNuget{
 
 Task VSIX{
     InvokeScript{
-        & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version ($packageSources -join ";") $Release
+        # & "$PSScriptRoot\buildVSIX.ps1" "$root" $msbuild $version ($packageSources -join ";") $Release
     }  
 }
 
@@ -116,17 +116,17 @@ Task CompileModules{
             throw
         }
         
-        Write-HostFormatted "Compiling helper projects..." -Section
-        $helperProjects=($group.HelperProjects|GetProjects)
-        # Write-HostFormatted "helperProjects=$helperProjects" -ForegroundColor Magenta
-        # BuildProjects $helperProjects "Helper"
-        $vsAddons=($group.VSAddons|GetProjects)
-        Write-HostFormatted "vsAddons=$vsAddons" -ForegroundColor Magenta
-        Push-Location "$root\Xpand.Plugins"
-        Get-Content ".\paket.dependencies" -Raw
-        Invoke-PaketRestore -Install -Strict
-        # BuildProjects $vsAddons "VSIX"
-        Pop-Location
+        # Write-HostFormatted "Compiling helper projects..." -Section
+        # $helperProjects=($group.HelperProjects|GetProjects)
+        # # Write-HostFormatted "helperProjects=$helperProjects" -ForegroundColor Magenta
+        # # BuildProjects $helperProjects "Helper"
+        # $vsAddons=($group.VSAddons|GetProjects)
+        # Write-HostFormatted "vsAddons=$vsAddons" -ForegroundColor Magenta
+        # Push-Location "$root\Xpand.Plugins"
+        # Get-Content ".\paket.dependencies" -Raw
+        # Invoke-PaketRestore -Install -Strict
+        # # BuildProjects $vsAddons "VSIX"
+        # Pop-Location
         
         # Write-HostFormatted "Compiling Agnostic EasyTest projects..." -Section
         # $agnosticEasytest=(($group.EasyTestProjects|GetProjects)|Where-Object{!("$_".Contains("Win"))  -and !("$_".Contains("Web"))}) 

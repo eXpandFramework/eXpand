@@ -6,12 +6,14 @@ using DevExpress.ExpressApp.SystemModule;
 using DevExpress.ExpressApp.Templates;
 using DevExpress.Utils.Frames;
 using Xpand.Persistent.Base.General;
+using System.ComponentModel;
 
 namespace Xpand.ExpressApp.Win.SystemModule{
     public class WindowHintController : WindowController{
         private NotePanelEx _warningHintPanel;
 
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public NotePanelEx BottomHintPanel{ get; private set; }
 
         protected override void OnActivated(){
@@ -19,9 +21,9 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             Active[""] = false;
             Window.TemplateViewChanged += Window_TemplateViewChanged;
             Frame.GetController<ModificationsController>(controller => {
-                controller.Activated += (sender, e) => {
-                    var view = ((ModificationsController) sender).View;
-                    view.CurrentObjectChanged += (sender1, e1) => HidePanels();
+                controller.Activated += (sender, _) => {
+                    var view = ((ModificationsController) sender)?.View;
+                    view!.CurrentObjectChanged += (_, _) => HidePanels();
                 };
             });
         }
@@ -52,30 +54,24 @@ namespace Xpand.ExpressApp.Win.SystemModule{
             DoHintPanelReady(_warningHintPanel, WarningHintPanelReady);
         }
 
-        private NotePanelEx GetHintPanel(DockStyle dockStyle){
-            return new NotePanelEx {
-                Size = new Size(200, 200),
-                BackColor = Color.LightGoldenrodYellow,
-                Dock = dockStyle,
-                MaxRows = 25,
-                TabIndex = 0,
-                TabStop = false,
-                MinimumSize = new Size(350, 33),
-                Visible = false,
-                ArrowImage = null
-            };
-        }
+        private NotePanelEx GetHintPanel(DockStyle dockStyle) => new() {
+            Size = new Size(200, 200),
+            BackColor = Color.LightGoldenrodYellow,
+            Dock = dockStyle,
+            MaxRows = 25,
+            TabIndex = 0,
+            TabStop = false,
+            MinimumSize = new Size(350, 33),
+            Visible = false,
+            ArrowImage = null
+        };
 
         private void DoHintPanelReady(NotePanelEx hintPanel, EventHandler<HintPanelReadyEventArgs> eventHandler){
             eventHandler?.Invoke(this, new HintPanelReadyEventArgs(hintPanel));
         }
     }
 
-    public class HintPanelReadyEventArgs : EventArgs{
-        public HintPanelReadyEventArgs(NotePanelEx hintPanel){
-            HintPanel = hintPanel;
-        }
-
-        public NotePanelEx HintPanel{ get; }
+    public class HintPanelReadyEventArgs(NotePanelEx hintPanel) : EventArgs {
+        public NotePanelEx HintPanel{ get; } = hintPanel;
     }
 }

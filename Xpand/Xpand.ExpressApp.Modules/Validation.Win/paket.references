@@ -1,6 +1,10 @@
 System.ValueTuple
 DevExpress.ExpressApp.Validation.Win
-
+Microsoft.Extensions.DependencyInjection.Abstractions
 
 System.Threading.Tasks.Dataflow
 System.Text.Json
+Microsoft.CodeAnalysis
+Microsoft.Extensions.Configuration.Abstractions
+System.ServiceModel.Http
+System.ServiceModel.NetTcp

@@ -27,6 +27,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win {
             RequiredModuleTypes.Add(typeof(ExpressApp.Security.Win.XpandSecurityWinModule));
             RequiredModuleTypes.Add(typeof(ModelMapperModule));
         }
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public static ModelApplicationCreator ApplicationCreator { get; set; }
 
         public override void Setup(ApplicationModulesManager moduleManager) {

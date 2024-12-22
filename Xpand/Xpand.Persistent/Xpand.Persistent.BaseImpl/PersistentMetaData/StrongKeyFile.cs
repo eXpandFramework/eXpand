@@ -11,7 +11,7 @@ using Xpand.Persistent.Base;
 namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
     [Persistent]
     [DefaultProperty("FileName")]
-    public class StrongKeyFile : XpandBaseCustomObject, IFileData, IEmptyCheckable {
+    public class StrongKeyFile(Session session) : XpandBaseCustomObject(session), IFileData, IEmptyCheckable {
 #if MediumTrust
 		private int size;
 		private string fileName = "";
@@ -27,16 +27,12 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         public int Size => _size;
 #endif
 
-        public StrongKeyFile(Session session)
-            : base(session) {
-        }
-
         public void LoadFromStream(string fileName, Stream stream) {
             Guard.ArgumentNotNull(stream, "stream");
             Guard.ArgumentNotNullOrEmpty(fileName, "fileName");
             FileName = fileName;
             var bytes = new byte[stream.Length];
-            stream.Read(bytes, 0, bytes.Length);
+            stream.ReadExactly(bytes);
             Content = bytes;
         }
 
@@ -53,9 +49,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             FileName = String.Empty;
         }
 
-        public override string ToString() {
-            return FileName;
-        }
+        public override string ToString() => FileName;
 
         [Size(260)]
         public string FileName {

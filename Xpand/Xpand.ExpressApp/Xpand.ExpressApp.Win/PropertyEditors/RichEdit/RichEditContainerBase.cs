@@ -26,11 +26,13 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit{
         public XafApplication Application => _application;
 
         [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ControlText {
             get { return RichEditControl.Text; }
             set { RichEditControl.Text = value; }
         }
         [Bindable(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string RtfText {
             get { return RichEditControl.RtfText; }
             set { RichEditControl.RtfText = value; }

@@ -36,8 +36,8 @@ $packageFolder ="$XpandFolder\Build\_Package\$DXVersion\"
 New-Item -ItemType Directory $packageFolder -Force
 
 
-Copy-Item "$XpandFolder\Xpand.DLL\Plugins\Xpand.VSIX.vsix" "$packageFolder\Xpand.VSIX-$DXVersion.vsix"
-Copy-Item "$XpandFolder\Xpand.DLL\Plugins\Xpand.VSIX.vsix" "$installerfolder\Xpand.VSIX-$DXVersion.vsix"
+# Copy-Item "$XpandFolder\Xpand.DLL\Plugins\Xpand.VSIX.vsix" "$packageFolder\Xpand.VSIX-$DXVersion.vsix"
+# Copy-Item "$XpandFolder\Xpand.DLL\Plugins\Xpand.VSIX.vsix" "$installerfolder\Xpand.VSIX-$DXVersion.vsix"
 
 
 

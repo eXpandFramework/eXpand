@@ -6,6 +6,7 @@ using System;
 using DevExpress.ExpressApp.Utils;
 using Xpand.Persistent.Base.AdditionalViewControls;
 using FontStyle = Xpand.Persistent.Base.AdditionalViewControls.FontStyle;
+using System.ComponentModel;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public sealed class WarningPanel : NotePanel8_1, ISupportLayoutManager, ISupportAppeareance, IAdditionalViewControl {
@@ -20,6 +21,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
             ArrowImage = null;
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object LayoutItem { get; set; }
 
         Color? ISupportAppeareance.BackColor {
@@ -76,6 +78,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IAdditionalViewControlsRule Rule { get; set; }
     }
 }

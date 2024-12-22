@@ -57,14 +57,12 @@ namespace Xpand.ExpressApp.Win.SystemModule.ToolTip {
 
         protected virtual DevExpress.XtraGrid.Views.Grid.GridView GridView {
             get {
-                if (View != null) {
-                    var gridListEditor = View.Editor as WinColumnsListEditor;
-                    if (gridListEditor != null) return gridListEditor.GridView();
-                }
+                if (View is { Editor: WinColumnsListEditor gridListEditor }) return gridListEditor.GridView();
                 return null;
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public GridHitInfo HotTrackInfo {
             get { return _hotTrackInfo; }
             set {

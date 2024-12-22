@@ -7,6 +7,7 @@ using DevExpress.ExpressApp.Model;
 using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.Utils.Controls;
 using Xpand.ExpressApp.PropertyEditors;
+using System.ComponentModel;
 
 namespace Xpand.ExpressApp.Win.PropertyEditors {
     [PropertyEditor(typeof(object), false)]
@@ -56,6 +57,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             #endregion
             private Control control;
             private IXtraResizableControl xtraResizableControl;
+            [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
             public Control Control {
                 get {
                     return control;

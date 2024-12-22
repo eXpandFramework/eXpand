@@ -7,12 +7,20 @@
 
 using DevExpress.ExpressApp;
 using DevExpress.XtraWizard;
+using System.ComponentModel;
 
 namespace Xpand.ExpressApp.WizardUI.Win{
     /// <summary>
     /// Extends the default WizardPage class
     /// </summary>
     public class XafWizardPage : WizardPage{
+        #region Members
+        #endregion
+        
+        /// <summary>
+        /// Gets or sets the DetailView
+        /// </summary>
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         #region Members
         #endregion
         #region Properties

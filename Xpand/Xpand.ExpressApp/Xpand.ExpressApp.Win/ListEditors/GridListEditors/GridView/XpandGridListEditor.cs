@@ -26,6 +26,7 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.Model;
 using Xpand.Persistent.Base.General.Model.Options;
 using ListView = DevExpress.ExpressApp.ListView;
+using System.ComponentModel;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
 	[ListEditor(typeof(object), false)]
@@ -182,8 +183,10 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView {
     }
 
     public class XpandBandedGridView:XafBandedGridView,IMasterDetailColumnView{
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Window Window { get; set; }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Frame MasterFrame { get; set; }
 
         public override void Assign(BaseView baseView, bool copyEvents) {

@@ -17,26 +17,26 @@
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="Mono.Cecil" version="0.11.5" />
       <dependency id="System.ComponentModel.Annotations" version="5.0" />
-      <dependency id="System.Configuration.ConfigurationManager" version="8.0" />
-      <dependency id="System.Drawing.Common" version="8.0" />
-      <dependency id="System.Management" version="6.0" />
-      <dependency id="System.Text.Json" version="8.0.5" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="7.0" />
-      <dependency id="Xpand.Extensions" version="4.241.7.5" />
-      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.241.7.5" />
-      <dependency id="Xpand.Extensions.XAF" version="4.241.7.5" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.241.7.5" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.241.7.5" />
+      <dependency id="System.Configuration.ConfigurationManager" version="9.0" />
+      <dependency id="System.Drawing.Common" version="9.0" />
+      <dependency id="System.Management" version="9.0" />
+      <dependency id="System.Text.Json" version="9.0" />
+      <dependency id="System.Threading.Tasks.Dataflow" version="9.0" />
+      <dependency id="Xpand.Extensions" version="4.242.3.1" />
+      <dependency id="Xpand.Extensions.Mono.Cecil" version="4.242.3.1" />
+      <dependency id="Xpand.Extensions.XAF" version="4.242.3.1" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.242.3.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.242.3.1" />
     </dependencies>
   </metadata>
   <files>
-    <file src="Xpand.xpo.dll" target="lib\net6.0\Xpand.xpo.dll" />
-    <file src="Xpand.Utils.dll" target="lib\net6.0\Xpand.Utils.dll" />
-    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net6.0\Xpand.Persistent.BaseImpl.dll" />
-    <file src="Xpand.Persistent.Base.dll" target="lib\net6.0\Xpand.Persistent.Base.dll" />
-    <file src="Xpand.xpo.pdb" target="lib\net6.0\Xpand.xpo.pdb" />
-    <file src="Xpand.Utils.pdb" target="lib\net6.0\Xpand.Utils.pdb" />
-    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net6.0\Xpand.Persistent.BaseImpl.pdb" />
-    <file src="Xpand.Persistent.Base.pdb" target="lib\net6.0\Xpand.Persistent.Base.pdb" />
+    <file src="Xpand.xpo.dll" target="lib\net9.0\Xpand.xpo.dll" />
+    <file src="Xpand.Utils.dll" target="lib\net9.0\Xpand.Utils.dll" />
+    <file src="Xpand.Persistent.BaseImpl.dll" target="lib\net9.0\Xpand.Persistent.BaseImpl.dll" />
+    <file src="Xpand.Persistent.Base.dll" target="lib\net9.0\Xpand.Persistent.Base.dll" />
+    <file src="Xpand.xpo.pdb" target="lib\net9.0\Xpand.xpo.pdb" />
+    <file src="Xpand.Utils.pdb" target="lib\net9.0\Xpand.Utils.pdb" />
+    <file src="Xpand.Persistent.BaseImpl.pdb" target="lib\net9.0\Xpand.Persistent.BaseImpl.pdb" />
+    <file src="Xpand.Persistent.Base.pdb" target="lib\net9.0\Xpand.Persistent.Base.pdb" />
     </files>
 </package>

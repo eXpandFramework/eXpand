@@ -4,7 +4,7 @@ param(
    $NuGetApiKey,
    $artifactstagingdirectory
 )
-dotnet tool restore
+
 $WorkingDirectory="$PSScriptRoot\.."
 if ($repository -like "*/eXpand.lab"){
    "Finding Version.."
@@ -23,12 +23,25 @@ else{
 }
 $version
 & "$WorkingDirectory\support\build\go.ps1" -installmodules 
+Invoke-Script {
+    
+   Set-Location $WorkingDirectory
+   try {
+       dotnet nuget add source "https://api.nuget.org/v3/index.json" --name "nuget.org"
+       dotnet nuget add source "$DXApiFeed" --name "DX"
+   }
+   catch { }
+   $LASTEXITCODE=0
+   dotnet nuget list source
+   Write-HostFormatted "Installing paket" -Section
+   dotnet tool restore
+}
 Set-VsoVariable build.updatebuildnumber $version
 Set-Location $WorkingDirectory
 Move-PaketSource 0 $DXApiFeed
-Push-Location $WorkingDirectory\Xpand.Plugins
-Move-PaketSource 0 $DXApiFeed
-Pop-Location
+# Push-Location $WorkingDirectory\Xpand.Plugins
+# Move-PaketSource 0 $DXApiFeed
+# Pop-Location
 
 
 Set-location $WorkingDirectory
@@ -72,8 +85,8 @@ $env:DxFeed=$DXApiFeed
 $DXVersion=Get-DevExpressVersion (Get-DevExpressVersion)
 Set-Location $WorkingDirectory
 Move-PaketSource 0 "C:\Program Files (x86)\DevExpress $DXVersion\Components\System\Components\Packages"
-Push-Location $WorkingDirectory\Xpand.Plugins
-Move-PaketSource 0 "C:\Program Files (x86)\DevExpress $DXVersion\Components\System\Components\Packages"
-Pop-Location
+# Push-Location $WorkingDirectory\Xpand.Plugins
+# Move-PaketSource 0 "C:\Program Files (x86)\DevExpress $DXVersion\Components\System\Components\Packages"
+# Pop-Location
 Write-HostFormatted "Exit"
 exit 

@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using DevExpress.Utils.Frames;
 using Xpand.Persistent.Base;
 using Xpand.Persistent.Base.AdditionalViewControls;
+using System.ComponentModel;
 
 namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
     public class ApplicationCaption : ApplicationCaption8_1, IAdditionalViewControl {
@@ -26,6 +27,7 @@ namespace Xpand.ExpressApp.AdditionalViewControlsProvider.Win.Controls {
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IAdditionalViewControlsRule Rule { get; set; }
     }
 }

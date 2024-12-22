@@ -12,8 +12,9 @@ using Xpand.Persistent.Base.General;
 namespace Xpand.Persistent.Base.ModelDifference {
     public class ResourceModelCollector {
         private const int MaxExpectedEncodingStringLengthInBytes = 512;
-        private static readonly Encoding[] _expectedEncodings = { Encoding.UTF8, Encoding.ASCII, Encoding.Unicode, Encoding.UTF32, Encoding.BigEndianUnicode };
-        private static readonly Encoding _defaultEncoding = Encoding.UTF8;
+        private static readonly Encoding[] ExpectedEncodings = [Encoding.UTF8, Encoding.ASCII, Encoding.Unicode, Encoding.UTF32, Encoding.BigEndianUnicode
+        ];
+        private static readonly Encoding DefaultEncoding = Encoding.UTF8;
         public Dictionary<string, ResourceInfo> Collect(IEnumerable<Assembly> assemblies, string prefix){
             var assemblyResourcesNames = assemblies.SelectMany(assembly => assembly.GetManifestResourceNames().Where(s => s.EndsWith(".xafml")), (assembly1, s) => new { assembly1, s });
             if (!string.IsNullOrEmpty(prefix))
@@ -59,7 +60,7 @@ namespace Xpand.Persistent.Base.ModelDifference {
             string readToEnd;
             using (Stream manifestResourceStream = assembly1.GetManifestResourceStream(resourceName)) {
                 if (manifestResourceStream == null) throw new NullReferenceException(resourceName);
-                Encoding encoding = GetStreamEncoding(manifestResourceStream) ?? _defaultEncoding;
+                Encoding encoding = GetStreamEncoding(manifestResourceStream) ?? DefaultEncoding;
                 using (var streamReader = new StreamReader(manifestResourceStream, encoding)) {
                     readToEnd = streamReader.ReadToEnd();
                 }
@@ -93,12 +94,12 @@ namespace Xpand.Persistent.Base.ModelDifference {
             long position = stream.Position;
             try {
                 stream.Position = 0;
-                stream.Read(bytes, 0, bytes.Length);
+                stream.ReadExactly(bytes);
             }
             finally {
                 stream.Position = position;
             }
-            foreach (Encoding encoding in _expectedEncodings) {
+            foreach (Encoding encoding in ExpectedEncodings) {
                 string content = encoding.GetString(bytes);
                 Encoding result = GetEncodingFromHeader(content);
                 if (result == null) continue;
