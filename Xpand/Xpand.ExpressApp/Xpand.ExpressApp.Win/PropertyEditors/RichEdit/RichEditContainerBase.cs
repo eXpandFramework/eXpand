@@ -48,5 +48,14 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit{
         public virtual void HideToolBars(){
             _toolBarsAreHidden = true;
         }
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent(){
+            SuspendLayout();
+            ResumeLayout(false);
+        }
     }
 }
