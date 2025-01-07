@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWin</id>
-    <version>24.2.301.0</version>
+    <version>24.2.301.1</version>
     <title>DevExpress eXpandFramework All Win Platform Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
