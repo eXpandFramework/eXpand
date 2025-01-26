@@ -67,26 +67,11 @@ function AddAllDependency($file, $nuspecpaths) {
     }
     $metadata.version = $version
     
-    $netStandardNuspecs=@($nuspecpaths|where-Object{
-        $p=Get-XmlContent $_.FullName
-        $p.package.files.file.target -match "netstandard"
-    })
-    $netStandardNuspecs=@($nuspecpaths|where-Object{
-        $p=Get-XmlContent $_.FullName
-        $p.package.files.file.target -match "netstandard"
-    })
-    $net6Nuspecs=@($nuspecpaths|where-Object{
-        $p=Get-XmlContent $_.FullName
-        $p.package.files.file.target -match "net9"
-    })
-    ($netStandardNuspecs) | ForEach-Object {
-        [xml]$package = Get-Content $_.Fullname
-        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "netstandard2.0"  
-    }
     
-    ($net6Nuspecs+$netStandardNuspecs) | ForEach-Object {
+    
+    ($nuspecpaths) | ForEach-Object {
         [xml]$package = Get-Content $_.Fullname
-        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net6.0"  
+        Add-NuspecDependency $package.package.metaData.Id $Version $nuspecpath "net9.0"  
     }
     $nuspecpath.Save($file)
     Format-Xml -path $file
