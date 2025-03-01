@@ -1,7 +1,7 @@
 "Release","Issues","Labels","Message","Sha"
-"23.2.301.0","1030","Reactive.XAF, SequenceGenerator","Update XAF-RX packages","ba699de1f80d6c56695274b807d427cac31a60b1"
-"23.2.301.0","1029","Reactive.XAF, SequenceGenerator","Update XAF-RX packages","d1f7992bf23411d4937ffbae2abce59dba2ea834"
-"23.2.301.0","1018","Modeldifference","ModelDifference: Cannot open detailview when DI","fa62b4baf32067b8c70473634f2c551fdab27146"
+"23.2.301.0","1030","Reactive.XAF, SequenceGenerator","Update XAF-RX packages",
+"23.2.301.0","1029","Reactive.XAF, SequenceGenerator","Update XAF-RX packages",
+"23.2.301.0","1018","Modeldifference","ModelDifference: Cannot open detailview when DI",
 "23.1.303.0","1006","Reactive.XAF, ReportsV2","eXpandReportsV2Win dll is missing in nuget package",
 "23.1.302.0","1003","JobScheduler, Reactive.XAF","Update rx packages",
 "22.2.602.0","993","XtraDashboard","Dashboard images are not embedded",
