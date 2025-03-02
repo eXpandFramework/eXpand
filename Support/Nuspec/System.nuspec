@@ -14,20 +14,20 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="24.2.501.0" />
+      <dependency id="eXpandLib" version="24.2.501.1" />
       <dependency id="System.ComponentModel.Annotations" version="5.0" />
       <dependency id="System.Text.Json" version="9.0" />
       <dependency id="System.Threading.Tasks.Dataflow" version="9.0" />
-      <dependency id="Xpand.Extensions" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.PositionInListView" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.RefreshView" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.SequenceGenerator" version="4.242.6" />
-      <dependency id="Xpand.XAF.Modules.ViewItemValue" version="4.242.6" />
+      <dependency id="Xpand.Extensions" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.CloneMemberValue" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.PositionInListView" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.ProgressBarViewItem" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.RefreshView" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.SequenceGenerator" version="4.242.6.1" />
+      <dependency id="Xpand.XAF.Modules.ViewItemValue" version="4.242.6.1" />
     </dependencies>
   </metadata>
   <files>
