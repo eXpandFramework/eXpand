@@ -14,16 +14,16 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#logic</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="24.2.501.1" />
-      <dependency id="eXpandSecurity" version="24.2.501.1" />
+      <dependency id="eXpandLib" version="24.2.600.0" />
+      <dependency id="eXpandSecurity" version="24.2.600.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.ComponentModel.Annotations" version="5.0" />
       <dependency id="System.Text.Json" version="9.0" />
       <dependency id="System.Threading.Tasks.Dataflow" version="9.0" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions" version="4.242.6.1" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.242.6.1" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.242.6.1" />
+      <dependency id="Xpand.Extensions" version="4.242.6.2" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.242.6.2" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.242.6.2" />
     </dependencies>
   </metadata>
   <files>
