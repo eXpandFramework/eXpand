@@ -1,4 +1,5 @@
 "Release","Issues","Labels","Message","Sha"
+"24.2.601.0","1088","Reactive.XAF","update RX packages","6281cdb4f301ea397c4b84258c1fd99746078fb7"
 "23.2.301.0","1030","Reactive.XAF, SequenceGenerator","Update XAF-RX packages",
 "23.2.301.0","1029","Reactive.XAF, SequenceGenerator","Update XAF-RX packages",
 "23.2.301.0","1018","Modeldifference","ModelDifference: Cannot open detailview when DI",
