@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#viewvariants</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="24.2.601.0" />
+      <dependency id="eXpandLib" version="24.2.700.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.Text.Json" version="9.0" />
       <dependency id="System.Threading.Tasks.Dataflow" version="9.0" />

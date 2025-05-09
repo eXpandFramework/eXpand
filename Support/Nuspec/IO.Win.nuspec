@@ -15,9 +15,9 @@
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
       <dependency id="DotNetZip" version="1.16" />
-      <dependency id="eXpandIO" version="24.2.601.0" />
-      <dependency id="eXpandLib" version="24.2.601.0" />
-      <dependency id="eXpandTreelistViewWin" version="24.2.601.0" />
+      <dependency id="eXpandIO" version="24.2.700.0" />
+      <dependency id="eXpandLib" version="24.2.700.0" />
+      <dependency id="eXpandTreelistViewWin" version="24.2.700.0" />
       <dependency id="Microsoft.CodeAnalysis" version="4.12" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0" />
       <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="9.0" />
