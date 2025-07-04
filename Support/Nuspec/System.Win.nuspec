@@ -15,13 +15,13 @@
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
       <dependency id="AutoMapper" version="13.0.1" />
-      <dependency id="eXpandLib" version="24.2.801.0" />
-      <dependency id="eXpandSystem" version="24.2.801.0" />
+      <dependency id="eXpandLib" version="25.1.300.0" />
+      <dependency id="eXpandSystem" version="25.1.300.0" />
       <dependency id="System.Diagnostics.FileVersionInfo" version="4.3" />
-      <dependency id="System.Text.Json" version="9.0" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="9.0" />
-      <dependency id="Xpand.XAF.Modules.GridListEditor" version="4.242.9" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.242.9" />
+      <dependency id="System.Text.Json" version="9.0.6" />
+      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.6" />
+      <dependency id="Xpand.XAF.Modules.GridListEditor" version="4.251.3" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.251.3" />
     </dependencies>
   </metadata>
   <files>

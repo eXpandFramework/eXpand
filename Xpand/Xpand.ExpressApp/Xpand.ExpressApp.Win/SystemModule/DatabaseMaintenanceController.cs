@@ -25,6 +25,7 @@ using Xpand.Persistent.Base.General.CustomFunctions;
 using Xpand.Persistent.Base.ModelAdapter;
 using Xpand.Utils.Helpers;
 using Timer = System.Timers.Timer;
+#pragma warning disable CS0618 // Type or member is obsolete
 
 namespace Xpand.ExpressApp.Win.SystemModule {
 

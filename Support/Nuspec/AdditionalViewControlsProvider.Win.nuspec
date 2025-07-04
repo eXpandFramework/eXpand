@@ -14,17 +14,17 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandAdditionalViewControlsProvider" version="24.2.801.0" />
-      <dependency id="eXpandLib" version="24.2.801.0" />
-      <dependency id="eXpandLogic" version="24.2.801.0" />
-      <dependency id="eXpandSecurity" version="24.2.801.0" />
+      <dependency id="eXpandAdditionalViewControlsProvider" version="25.1.300.0" />
+      <dependency id="eXpandLib" version="25.1.300.0" />
+      <dependency id="eXpandLogic" version="25.1.300.0" />
+      <dependency id="eXpandSecurity" version="25.1.300.0" />
       <dependency id="Microsoft.CodeAnalysis" version="4.12" />
-      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0" />
-      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="9.0" />
-      <dependency id="System.ServiceModel.Http" version="8.1" />
-      <dependency id="System.ServiceModel.NetTcp" version="8.1" />
-      <dependency id="System.Text.Json" version="9.0" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="9.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0.6" />
+      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="9.0.6" />
+      <dependency id="System.ServiceModel.Http" version="8.1.2" />
+      <dependency id="System.ServiceModel.NetTcp" version="8.1.2" />
+      <dependency id="System.Text.Json" version="9.0.6" />
+      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.6" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>

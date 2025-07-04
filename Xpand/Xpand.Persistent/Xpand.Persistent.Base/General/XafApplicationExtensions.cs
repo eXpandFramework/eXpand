@@ -30,6 +30,7 @@ using Xpand.Persistent.Base.General.Model;
 using Xpand.Xpo.DB;
 using DeviceCategory = Xpand.Persistent.Base.ModelDifference.DeviceCategory;
 using FileLocation = Xpand.Persistent.Base.ModelAdapter.FileLocation;
+#pragma warning disable CS0618 // Type or member is obsolete
 
 namespace Xpand.Persistent.Base.General {
 

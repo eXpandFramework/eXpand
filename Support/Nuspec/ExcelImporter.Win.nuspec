@@ -15,15 +15,15 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency id="ExcelDataReader.DataSet" version="3.6" />
-      <dependency id="eXpandExcelImporter" version="24.2.801.0" />
-      <dependency id="eXpandLib" version="24.2.801.0" />
-      <dependency id="eXpandSystemWin" version="24.2.801.0" />
-      <dependency id="eXpandValidationWin" version="24.2.801.0" />
+      <dependency id="eXpandExcelImporter" version="25.1.300.0" />
+      <dependency id="eXpandLib" version="25.1.300.0" />
+      <dependency id="eXpandSystemWin" version="25.1.300.0" />
+      <dependency id="eXpandValidationWin" version="25.1.300.0" />
       <dependency id="System.IO.Compression" version="4.3" />
-      <dependency id="System.Text.Json" version="9.0" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="9.0" />
-      <dependency id="Xpand.Extensions" version="4.242.9" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.242.9" />
+      <dependency id="System.Text.Json" version="9.0.6" />
+      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.6" />
+      <dependency id="Xpand.Extensions" version="4.251.3" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.251.3" />
     </dependencies>
   </metadata>
   <files>

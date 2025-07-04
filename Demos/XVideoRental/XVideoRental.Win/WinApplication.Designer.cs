@@ -2,6 +2,7 @@
 
 using DevExpress.Persistent.BaseImpl;
 using XVideoRental.Module.Win;
+#pragma warning disable CS0618 // Type or member is obsolete
 
 
 namespace XVideoRental.Win {
@@ -31,7 +32,7 @@ namespace XVideoRental.Win {
         private void InitializeComponent() {
             this.module1 = new DevExpress.ExpressApp.SystemModule.SystemModule();
             this.module2 = new DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
+            this.sqlConnection1 = new Microsoft.Data.SqlClient.SqlConnection();
             this.securityModule1 = new DevExpress.ExpressApp.Security.SecurityModule();
             this.securityStrategyComplex1 = new DevExpress.ExpressApp.Security.SecurityStrategyComplex();
             this.authenticationStandard1 = new DevExpress.ExpressApp.Security.AuthenticationStandard();
@@ -119,7 +120,9 @@ namespace XVideoRental.Win {
         private DevExpress.ExpressApp.SystemModule.SystemModule module1;
         private DevExpress.ExpressApp.Win.SystemModule.SystemWindowsFormsModule module2;
         private XVideoRentalWindowsFormsModule module4;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
+
+        private Microsoft.Data.SqlClient.SqlConnection sqlConnection1;
+
         private DevExpress.ExpressApp.Security.SecurityModule securityModule1;
         private DevExpress.ExpressApp.Security.SecurityStrategyComplex securityStrategyComplex1;
         private DevExpress.ExpressApp.Security.AuthenticationStandard authenticationStandard1;

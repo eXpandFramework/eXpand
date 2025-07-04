@@ -161,7 +161,7 @@ namespace Xpand.ExpressApp.Win.PropertyEditors {
             return Enum.ToObject(GetUnderlyingType(), 0);
         }
 
-        public void Setup(IObjectSpace objectSpace, XafApplication application) {
+        void IComplexViewItem.Setup(IObjectSpace objectSpace, XafApplication application) {
             _objectSpace = objectSpace;
             _objectSpace.Committed+=ObjectSpaceOnCommitted;
         }

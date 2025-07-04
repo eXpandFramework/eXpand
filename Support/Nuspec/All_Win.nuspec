@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>eXpandWin</id>
-    <version>24.2.801.0</version>
+    <version>25.1.300.0</version>
     <title>DevExpress eXpandFramework All Win Platform Modules</title>
     <authors>eXpandFramework</authors>
     <owners>eXpandFramework</owners>
@@ -15,22 +15,22 @@
     <projectUrl>http://www.expandframework.com/</projectUrl>
     <dependencies>
       <group targetFramework="net9.0">
-        <dependency id="eXpandAdditionalViewControlsProviderWin" version="24.2.801.0" />
-        <dependency id="eXpandChartWin" version="24.2.801.0" />
-        <dependency id="eXpandExcelImporter.Win" version="24.2.801.0" />
-        <dependency id="eXpandIOWin" version="24.2.801.0" />
-        <dependency id="eXpandMasterDetailWin" version="24.2.801.0" />
-        <dependency id="eXpandModelDifferenceWin" version="24.2.801.0" />
-        <dependency id="eXpandPivotChartWin" version="24.2.801.0" />
-        <dependency id="eXpandPivotGridWin" version="24.2.801.0" />
-        <dependency id="eXpandReportsV2Win" version="24.2.801.0" />
-        <dependency id="eXpandSecurityWin" version="24.2.801.0" />
-        <dependency id="eXpandSystemWin" version="24.2.801.0" />
-        <dependency id="eXpandTreelistViewWin" version="24.2.801.0" />
-        <dependency id="eXpandValidationWin" version="24.2.801.0" />
-        <dependency id="eXpandWizardWin" version="24.2.801.0" />
-        <dependency id="eXpandWorldCreatorWin" version="24.2.801.0" />
-        <dependency id="eXpandXtraDashboardWin" version="24.2.801.0" />
+        <dependency id="eXpandAdditionalViewControlsProviderWin" version="25.1.300.0" />
+        <dependency id="eXpandChartWin" version="25.1.300.0" />
+        <dependency id="eXpandExcelImporter.Win" version="25.1.300.0" />
+        <dependency id="eXpandIOWin" version="25.1.300.0" />
+        <dependency id="eXpandMasterDetailWin" version="25.1.300.0" />
+        <dependency id="eXpandModelDifferenceWin" version="25.1.300.0" />
+        <dependency id="eXpandPivotChartWin" version="25.1.300.0" />
+        <dependency id="eXpandPivotGridWin" version="25.1.300.0" />
+        <dependency id="eXpandReportsV2Win" version="25.1.300.0" />
+        <dependency id="eXpandSecurityWin" version="25.1.300.0" />
+        <dependency id="eXpandSystemWin" version="25.1.300.0" />
+        <dependency id="eXpandTreelistViewWin" version="25.1.300.0" />
+        <dependency id="eXpandValidationWin" version="25.1.300.0" />
+        <dependency id="eXpandWizardWin" version="25.1.300.0" />
+        <dependency id="eXpandWorldCreatorWin" version="25.1.300.0" />
+        <dependency id="eXpandXtraDashboardWin" version="25.1.300.0" />
       </group>
     </dependencies>
   </metadata>

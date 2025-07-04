@@ -14,15 +14,15 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="24.2.801.0" />
-      <dependency id="eXpandLogic" version="24.2.801.0" />
-      <dependency id="eXpandModelArtifactState" version="24.2.801.0" />
-      <dependency id="eXpandSecurity" version="24.2.801.0" />
-      <dependency id="eXpandValidation" version="24.2.801.0" />
-      <dependency id="System.Text.Json" version="9.0" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="9.0" />
+      <dependency id="eXpandLib" version="25.1.300.0" />
+      <dependency id="eXpandLogic" version="25.1.300.0" />
+      <dependency id="eXpandModelArtifactState" version="25.1.300.0" />
+      <dependency id="eXpandSecurity" version="25.1.300.0" />
+      <dependency id="eXpandValidation" version="25.1.300.0" />
+      <dependency id="System.Text.Json" version="9.0.6" />
+      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.6" />
       <dependency id="System.ValueTuple" version="4.5" />
-      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.242.9" />
+      <dependency id="Xpand.Extensions.XAF.Xpo" version="4.251.3" />
     </dependencies>
   </metadata>
   <files>
