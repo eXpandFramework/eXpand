@@ -1526,7 +1526,7 @@ NUGET
       Xpand.XAF.Modules.ViewItemValue (>= 4.251.4) - restriction: || (&& (== net6.0) (>= net9.0)) (&& (== net6.0) (>= net9.0-windows7.0)) (&& (== net6.0-windows7.0) (>= net9.0)) (&& (== net6.0-windows7.0) (>= net9.0-windows7.0)) (== net9.0) (== net9.0-windows7.0) (&& (== netstandard2.0) (>= net9.0)) (&& (== netstandard2.0) (>= net9.0-windows7.0))
       Xpand.XAF.Modules.ViewWizard (>= 4.251.4) - restriction: || (&& (== net6.0) (>= net9.0)) (&& (== net6.0) (>= net9.0-windows7.0)) (&& (== net6.0-windows7.0) (>= net9.0)) (&& (== net6.0-windows7.0) (>= net9.0-windows7.0)) (== net9.0) (== net9.0-windows7.0) (&& (== netstandard2.0) (>= net9.0)) (&& (== netstandard2.0) (>= net9.0-windows7.0))
     YamlDotNet (11.2.1) - restriction: || (&& (== net6.0) (>= net9.0)) (&& (== net6.0-windows7.0) (>= net9.0)) (== net9.0) (&& (== net9.0-windows7.0) (>= net9.0)) (&& (== netstandard2.0) (>= net9.0))
-  remote: C:\Program Files (x86)\DevExpress 25.1\Components\System\Components\Packages
+  remote: https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
     DevExpress.AspNetCore.Common (25.1.3) - restriction: || (&& (== net6.0) (>= net8.0)) (&& (== net6.0-windows7.0) (>= net8.0)) (== net9.0) (== net9.0-windows7.0) (&& (== netstandard2.0) (>= net8.0))
       DevExpress.AspNetCore.Core (25.1.3) - restriction: || (&& (== net6.0) (>= net8.0)) (&& (== net6.0-windows7.0) (>= net8.0)) (== net9.0) (== net9.0-windows7.0) (&& (== netstandard2.0) (>= net8.0))
       DevExpress.Data (25.1.3) - restriction: || (&& (== net6.0) (>= net8.0)) (&& (== net6.0-windows7.0) (>= net8.0)) (== net9.0) (== net9.0-windows7.0) (&& (== netstandard2.0) (>= net8.0))
