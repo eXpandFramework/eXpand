@@ -5,4 +5,5 @@ Fasterflect.Xpand
 
 
 System.Threading.Tasks.Dataflow
+Microsoft.Extensions.Options
 System.Text.Json

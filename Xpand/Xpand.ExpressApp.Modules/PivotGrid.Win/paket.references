@@ -4,6 +4,6 @@ DevExpress.Win.Gauges
 Xpand.XAF.Modules.ModelMapper
 Xpand.XAF.Modules.Reactive.Logger
 
-
+Microsoft.Extensions.Options
 System.Threading.Tasks.Dataflow
 System.Text.Json

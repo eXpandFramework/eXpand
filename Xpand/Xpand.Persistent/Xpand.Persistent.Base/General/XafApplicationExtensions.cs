@@ -23,6 +23,7 @@ using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Exceptions;
 using DevExpress.Xpo.DB.Helpers;
 using Fasterflect;
+using Microsoft.Data.SqlClient;
 using Xpand.Extensions.AppDomainExtensions;
 using Xpand.Extensions.ProcessExtensions;
 using Xpand.Extensions.StreamExtensions;

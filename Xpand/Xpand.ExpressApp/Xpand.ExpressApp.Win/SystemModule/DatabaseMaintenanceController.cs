@@ -20,6 +20,7 @@ using DevExpress.Xpo;
 using DevExpress.Xpo.DB;
 using DevExpress.Xpo.DB.Helpers;
 using DevExpress.Xpo.Helpers;
+using Microsoft.Data.SqlClient;
 using Xpand.Persistent.Base.General;
 using Xpand.Persistent.Base.General.CustomFunctions;
 using Xpand.Persistent.Base.ModelAdapter;

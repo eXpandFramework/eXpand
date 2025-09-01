@@ -11,3 +11,4 @@ Microsoft.CodeAnalysis
 Microsoft.Extensions.Configuration.Abstractions
 System.ServiceModel.Http
 System.ServiceModel.NetTcp
+Microsoft.Extensions.Options

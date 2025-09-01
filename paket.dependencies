@@ -1,4 +1,4 @@
-source https://nuget.devexpress.com/88luCgoeuPFTrDrTDcc6zKg22U2cVcTm3vdKCv88I7PHF9St6i/api
+source C:\Program Files (x86)\DevExpress 25.1\Components\System\Components\Packages
 source https://api.nuget.org/v3/index.json
 source https://xpandnugetserver.azurewebsites.net/nuget
 storage: none
@@ -6,7 +6,7 @@ strategy: min
 lowest_matching: true
 copy_local:true
 specific_version : false
-framework:netstandard2.0,net6.0,net6.0-windows,net9.0,net9.0-windows
+framework:net9.0,net9.0-windows
 
 nuget Xpand.XAF.Modules.GridListEditor 4.251.4.1
 nuget Xpand.XAF.Modules.Office.DocumentStyleManager 4.251.4.1
@@ -120,59 +120,56 @@ nuget Microsoft.AspNet.Razor 3.3.0
 nuget Microsoft.CSharp 4.7.0
 nuget Microsoft.NETCore.Platforms 7.0.4
 nuget Microsoft.Win32.Registry 5.0.0
-nuget System.Text.Encoding.CodePages 9.0.6
+nuget System.Text.Encoding.CodePages 9.0.8
 nuget Mono.Cecil 0.11.5
-nuget System.Text.Json 9.0.6
+nuget System.Text.Json 9.0.8
 nuget PropertyChanged.Fody 2.6.1 copy_local: false
 nuget RazorEngine 3.10.0
 nuget SharpZipLib 1.4.2
 nuget System.Buffers 4.6.0
-nuget System.CodeDom 9.0.6
+nuget System.CodeDom 9.0.8
 nuget Microsoft.Data.SqlClient 5.2.2
-nuget System.Configuration.ConfigurationManager 9.0.6
-nuget Microsoft.Extensions.DependencyInjection.Abstractions == 9.0.6
-nuget Microsoft.Extensions.DependencyInjection 9.0.6
-nuget Microsoft.Extensions.Hosting.Abstractions 9.0.6
-nuget Microsoft.Extensions.Options 9.0.6
-nuget System.Security.Cryptography.Xml  9.0.6
+nuget System.Configuration.ConfigurationManager 9.0.8
+nuget Microsoft.Extensions.DependencyInjection.Abstractions == 9.0.8
+nuget Microsoft.Extensions.DependencyInjection 9.0.8
+nuget Microsoft.Extensions.Hosting.Abstractions 9.0.8
+nuget Microsoft.Extensions.Options 9.0.8
+nuget System.Security.Cryptography.Xml  9.0.8
 nuget System.ComponentModel.Annotations == 5.0.0
-nuget System.Data.OleDb 9.0.6
-nuget System.Security.Permissions  9.0.6
+nuget System.Data.OleDb 9.0.8
+nuget System.Security.Permissions  9.0.8
 nuget System.Reflection.Emit 4.7.0
-nuget System.Drawing.Common 9.0.6
+nuget System.Drawing.Common 9.0.8
 nuget System.IO.Compression 4.3.0
-nuget System.Management 9.0.6
+nuget System.Management 9.0.8
 nuget System.Reactive 6.0.1
 nuget System.Reflection.TypeExtensions 4.7.0
 nuget system.interactive 6.0.1
 nuget System.Reflection.DispatchProxy 4.8.0
-nuget System.Resources.Extensions 9.0.6
+nuget System.Resources.Extensions 9.0.8
 nuget System.Runtime.CompilerServices.Unsafe 6.1.0
 nuget System.Reflection.Emit.Lightweight == 4.7.0
 nuget System.Runtime 4.3.1
 nuget System.Threading.Tasks.Extensions 4.6.0
 nuget System.ValueTuple 4.5.0
 nuget System.Xml.XDocument 4.3.0
-nuget Microsoft.AspNetCore.WebUtilities 9.0.6
+nuget Microsoft.AspNetCore.WebUtilities 9.0.8
 nuget Unofficial.Microsoft.mshtml 7.0.3300
 nuget WindowsBase 4.6.1055.0
 nuget Xpand.XAF.Win.All 4.251.4.1
 nuget Xpand.XAF.Web.All 4.251.4.1
-nuget System.Threading.Tasks.Dataflow 9.0.6
+nuget System.Threading.Tasks.Dataflow 9.0.8
 nuget System.Memory  4.6.0
-nuget System.Collections.Immutable  9.0.6
+nuget System.Collections.Immutable  9.0.8
 nuget System.ServiceModel.NetTcp  8.1.2
 nuget System.ServiceModel.Security  6.0.0
 nuget System.ServiceModel.Http  8.1.2
 nuget System.ServiceModel.Duplex  6.0.0
-nuget Microsoft.Bcl.AsyncInterfaces 9.0.6
-nuget System.Text.Encodings.Web 9.0.6
+nuget Microsoft.Bcl.AsyncInterfaces 9.0.8
+nuget System.Text.Encodings.Web 9.0.8
 nuget Microsoft.Identity.Client 4.73.1
 nuget Microsoft.IdentityModel.Protocols.OpenIdConnect 8.14.0
-nuget Microsoft.IdentityModel.Abstractions 8.12.1
-nuget System.Security.Cryptography.ProtectedData 9.0.6
-nuget Microsoft.Extensions.Configuration.Abstractions 9.0.6
-nuget Microsoft.Extensions.Configuration 9.0.6
-nuget System.Data.SqlClient 4.9.0
-
-
+nuget Microsoft.IdentityModel.Abstractions 8.14.0
+nuget System.Security.Cryptography.ProtectedData 9.0.8
+nuget Microsoft.Extensions.Configuration.Abstractions 9.0.8
+nuget Microsoft.Extensions.Configuration 9.0.8

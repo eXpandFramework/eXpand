@@ -14,13 +14,14 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#PivotGrid</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="25.1.301.0" />
-      <dependency id="eXpandLib" version="25.1.301.0" />
-      <dependency id="eXpandSystemWin" version="25.1.301.0" />
-      <dependency id="System.Text.Json" version="9.0.6" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.6" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.251.4" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.251.4" />
+      <dependency id="eXpandDashboard" version="25.1.400.0" />
+      <dependency id="eXpandLib" version="25.1.400.0" />
+      <dependency id="eXpandSystemWin" version="25.1.400.0" />
+      <dependency id="Microsoft.Extensions.Options" version="9.0.8" />
+      <dependency id="System.Text.Json" version="9.0.8" />
+      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.8" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.251.4.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.251.4.1" />
     </dependencies>
   </metadata>
   <files>

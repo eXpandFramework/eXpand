@@ -7,4 +7,4 @@ System.ServiceModel.Http
 System.ServiceModel.NetTcp
 System.Threading.Tasks.Dataflow
 System.Text.Json
-
+Microsoft.Extensions.Options

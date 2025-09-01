@@ -14,16 +14,17 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#pivotchart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="25.1.301.0" />
-      <dependency id="eXpandPivotChart" version="25.1.301.0" />
+      <dependency id="eXpandLib" version="25.1.400.0" />
+      <dependency id="eXpandPivotChart" version="25.1.400.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="Microsoft.CodeAnalysis" version="4.12" />
-      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0.6" />
-      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="9.0.6" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0.8" />
+      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="9.0.8" />
+      <dependency id="Microsoft.Extensions.Options" version="9.0.8" />
       <dependency id="System.ServiceModel.Http" version="8.1.2" />
       <dependency id="System.ServiceModel.NetTcp" version="8.1.2" />
-      <dependency id="System.Text.Json" version="9.0.6" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.6" />
+      <dependency id="System.Text.Json" version="9.0.8" />
+      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.8" />
       <dependency id="System.ValueTuple" version="4.5" />
     </dependencies>
   </metadata>

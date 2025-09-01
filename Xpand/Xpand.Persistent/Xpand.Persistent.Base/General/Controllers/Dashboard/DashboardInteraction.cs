@@ -43,7 +43,7 @@ namespace Xpand.Persistent.Base.General.Controllers.Dashboard {
         protected override void OnActivated() {
             base.OnActivated();
             if (Application.GetPlatform() == Platform.Win) {
-                Frame.Template.WhenEvent("Shown")
+                Frame.Template.ProcessEvent("Shown")
                     .Do(_ => {
                         foreach (var item in View.GetItems<DashboardViewItem>().Where(item => item.Frame!=null)){
                             bool focused = false;
