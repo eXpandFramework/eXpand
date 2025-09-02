@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#wizard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="25.1.400.0" />
+      <dependency id="eXpandLib" version="25.1.401.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="Microsoft.Extensions.Options" version="9.0.8" />
       <dependency id="System.Text.Json" version="9.0.8" />
