@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="25.1.401.0" />
+      <dependency id="eXpandLib" version="25.1.500.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="System.Text.Json" version="9.0.8" />
       <dependency id="System.Threading.Tasks.Dataflow" version="9.0.8" />
-      <dependency id="System.ValueTuple" version="4.5" />
+      <dependency id="System.ValueTuple" version="4.6.1" />
     </dependencies>
   </metadata>
   <files>

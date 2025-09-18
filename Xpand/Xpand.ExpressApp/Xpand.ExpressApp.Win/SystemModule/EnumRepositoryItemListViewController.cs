@@ -44,7 +44,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         GridColumn FindColumnByModel(GridListEditor gridListEditor, IModelColumn columnModel){
-            var columnWrapper = gridListEditor.FindColumn(columnModel.Id) as XafGridColumnWrapper;
+            var columnWrapper = gridListEditor.FindColumn(columnModel.Id) as WinGridColumnWrapper;
             return columnWrapper?.Column;
         }
 
