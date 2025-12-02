@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Chart</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="25.1.700.0" />
+      <dependency id="eXpandLib" version="25.1.701.0" />
       <dependency id="Microsoft.CodeAnalysis" version="4.12" />
       <dependency id="Microsoft.Extensions.Configuration" version="9.0.8" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0.8" />
@@ -23,8 +23,8 @@
       <dependency id="System.ServiceModel.NetTcp" version="8.1.2" />
       <dependency id="System.Text.Json" version="9.0.8" />
       <dependency id="System.Threading.Tasks.Dataflow" version="9.0.8" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.251.7.7" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.251.7.7" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.251.8" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.251.8" />
     </dependencies>
   </metadata>
   <files>
