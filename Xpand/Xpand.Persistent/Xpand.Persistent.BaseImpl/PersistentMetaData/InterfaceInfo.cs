@@ -48,7 +48,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         IList<IPersistentClassInfo> IInterfaceInfo.PersistentClassInfos {
-            get { return new ListConverter<IPersistentClassInfo, PersistentClassInfo>(PersistentClassInfos); }
+            get { return new List<IPersistentClassInfo>(PersistentClassInfos); }
         }
         #endregion
     }

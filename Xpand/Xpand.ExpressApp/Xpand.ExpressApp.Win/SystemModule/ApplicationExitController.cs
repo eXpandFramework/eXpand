@@ -21,9 +21,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         private bool _isEditingModel;
         private bool _isTrayExit;
 
-        public ApplicationExitController(){
-            TargetWindowType=WindowType.Main;
-        }
+        public ApplicationExitController() => TargetWindowType=WindowType.Main;
 
         protected override void OnActivated(){
             base.OnActivated();
@@ -54,7 +52,7 @@ namespace Xpand.ExpressApp.Win.SystemModule{
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
             if (Frame.Context == TemplateContext.ApplicationWindowContextName){
-                Frame.TemplateChanged += (sender, args) => ((Form) Frame.Template).Closing += OnClosing;
+                Frame.TemplateChanged += (_, _) => ((Form) Frame.Template).FormClosing += OnClosing;
             }
         }
 

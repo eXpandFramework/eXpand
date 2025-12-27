@@ -62,7 +62,7 @@ namespace Xpand.Persistent.Base.General {
                 var info = XafTypesInfo.Instance;
                 var application = ApplicationHelper.Instance.Application;
                 typesInfo.AssignAsInstance();
-                var xafApplication = ((XafApplication)Enumerator.GetFirst(findTypeDescendants).CreateInstance());
+                var xafApplication = ((XafApplication)findTypeDescendants.First().CreateInstance());
                 foreach (var m in moduleList) {
                     if (xafApplication.FindModule(m.GetType()) == null) {
                         xafApplication.Modules.Add(m);

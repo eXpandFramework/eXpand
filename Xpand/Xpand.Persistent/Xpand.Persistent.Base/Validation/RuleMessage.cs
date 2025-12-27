@@ -40,15 +40,13 @@ namespace Xpand.Persistent.Base.Validation {
             rule.Properties.ResultType = resultType;
             rule.Properties.SkipNullOrEmptyValues = false;
             rule.Properties.CustomMessageTemplate = messageTemplate;
-#pragma warning disable CS0618 // Type or member is obsolete
-            Validator.RuleSet.RegisteredRules.Add(rule);
+            ruleSet.RegisteredRules.Add(rule);
 
             RuleSetValidationResult validationResult;
             using (objectSpace.CreateParseCriteriaScope()) {
-                validationResult = Validator.RuleSet.ValidateTarget(objectSpace, objectTarget, contextIdentifier);
+                validationResult = ruleSet.ValidateTarget(objectSpace, objectTarget, contextIdentifier);
             }
-            Validator.RuleSet.RegisteredRules.Remove(rule);
-#pragma warning restore CS0618 // Type or member is obsolete
+            ruleSet.RegisteredRules.Remove(rule);
             return validationResult;
         }
     }

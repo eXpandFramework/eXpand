@@ -4,7 +4,7 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{A0FDC007-7CE4-4A9E-9BD4-3233777FCF86}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\paket.dependencies = ..\..\paket.dependencies
+		..\..\Directory.Packages.props = ..\..\Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xpand.ExpressApp", "Xpand.ExpressApp\Xpand.ExpressApp.csproj", "{A85F685A-F56F-4C9A-A5A3-C2444DB4FB78}"

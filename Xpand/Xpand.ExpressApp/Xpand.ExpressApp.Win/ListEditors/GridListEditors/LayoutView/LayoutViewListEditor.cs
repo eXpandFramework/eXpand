@@ -4,6 +4,7 @@ using System.ComponentModel;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
 using DevExpress.ExpressApp.Model;
+using DevExpress.ExpressApp.Win.Editors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
@@ -13,30 +14,16 @@ using Xpand.ExpressApp.Win.ListEditors.GridListEditors.GridView.MasterDetail;
 
 namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
     [ListEditor(typeof(object), false)]
-    public class LayoutViewListEditor : LayoutViewListEditorBase, IColumnViewEditor {
-        public LayoutViewListEditor(IModelListView model)
-            : base(model) {
-        }
-//        public new IModelListViewOptionsLayoutView Model => (IModelListViewOptionsLayoutView)base.Model;
-
+    public class LayoutViewListEditor(IModelListView model) : LayoutViewListEditorBase(model), IColumnViewEditor {
         protected virtual void OnCustomGridViewCreate(CustomGridViewCreateEventArgs e) {
             EventHandler<CustomGridViewCreateEventArgs> handler = CustomGridViewCreate;
             handler?.Invoke(this, e);
         }
 
         public event EventHandler<CustomGridViewCreateEventArgs> CustomGridViewCreate;
-        protected override List<IModelSynchronizable> CreateModelSynchronizers() {
-            List<IModelSynchronizable> result = base.CreateModelSynchronizers();
-            
-            result.Add(new FilterModelSynchronizer(this, Model));
-            result.Add(new LayoutViewListEditorSynchronizer(this));
-//            result.Add(new LayoutViewOptionsSynchronizer(this));
-//            result.Add(new LayoutColumnOptionsSynchroniser(this));
-//            result.Add(new RepositoryItemColumnViewSynchronizer(ColumnView, Model));
-//	        result.Add(new LayoutViewLayoutStoreSynchronizer(this));
-			return result;
-        }
-
+        protected override GridColumnModelSynchronizer CreateGridColumnModelSynchronizer(GridColumnModelSynchronizerParameters parameters) 
+            => new CustomGridColumnModelSynchronizer(parameters, this);
+        
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         bool IColumnViewEditor.OverrideViewDesignMode { get; set; }
@@ -55,7 +42,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         }
 
         bool ISupportFooter.IsFooterVisible {
-            get { return false; }
+            get => false;
             set { }
         }
 
@@ -79,9 +66,7 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Frame MasterFrame { get; set; }
 
-        int IMasterDetailColumnView.GetRelationIndex(int sourceRowHandle, string levelName){
-            throw new NotImplementedException();
-        }
+        int IMasterDetailColumnView.GetRelationIndex(int sourceRowHandle, string levelName) => throw new NotImplementedException();
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool CanFilterGroupSummaryColumns { get; set; }
@@ -92,11 +77,80 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.LayoutView {
 
         protected override bool IsDesignMode => OverrideViewDesignMode || base.IsDesignMode;
 
-        protected override BaseView CreateInstance() {
-            return new XpandXafLayoutView(GridControl);
-        }
+        protected override BaseView CreateInstance() => new XpandXafLayoutView(GridControl);
+
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool OverrideViewDesignMode { get; set; }
     }
 
+    public class CustomGridColumnModelSynchronizer(
+        GridColumnModelSynchronizerParameters parameters,
+        LayoutViewListEditorBase editor)
+        : GridColumnModelSynchronizer(parameters) {
+        protected override ModelSynchronizer CreateModelSynchronizer(GridColumn column) {
+            ModelSynchronizer baseSynchronizer = base.CreateModelSynchronizer(column);
+
+            var result = new CompositeModelSynchronizer(editor, Model);
+            result.Add(baseSynchronizer);
+
+            var customSynchronizables = new List<IModelSynchronizable> {
+                new FilterModelSynchronizer(editor, (IModelListView)Model.ParentView),
+                new LayoutViewListEditorSynchronizer(editor)
+            };
+
+            if (customSynchronizables.Count > 0) {
+                result.Add(new SimpleModelSynchronizer(editor, Model, customSynchronizables));
+            }
+
+            return result;
+        }
+        
+        public class SimpleModelSynchronizer(
+            object control,
+            IModelNode model,
+            IEnumerable<IModelSynchronizable> synchronization)
+            : ModelSynchronizer(control, model) {
+            protected override void ApplyModelCore() {
+                foreach (var item in synchronization) {
+                    item.ApplyModel();
+                }
+            }
+
+
+            public override void SynchronizeModel() {
+                foreach (var item in synchronization) {
+                    item.SynchronizeModel();
+                }
+            }
+        }
+        public class CompositeModelSynchronizer(object control, IModelNode model) : ModelSynchronizer(control, model) {
+            private readonly List<ModelSynchronizer> _synchronizes = new();
+
+            public void Add(ModelSynchronizer synchronizer) {
+                if (synchronizer != null) {
+                    _synchronizes.Add(synchronizer);
+                }
+            }
+
+            protected override void ApplyModelCore() {
+                foreach (var synchronizer in _synchronizes) {
+                    synchronizer.ApplyModel();
+                }
+            }
+
+            public override void SynchronizeModel() {
+                foreach (var synchronizer in _synchronizes) {
+                    synchronizer.SynchronizeModel();
+                }
+            }
+
+            public override void Dispose() {
+                base.Dispose();
+                foreach (var synchronizer in _synchronizes) {
+                    synchronizer.Dispose();
+                }
+                _synchronizes.Clear();
+            }
+        }
+    }
 }

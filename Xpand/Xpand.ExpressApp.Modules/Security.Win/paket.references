@@ -1,9 +1,0 @@
-System.ValueTuple
-DevExpress.ExpressApp.Validation.Win
-DevExpress.ExpressApp.Security.Xpo
-Xpand.Extensions
-
-
-System.Threading.Tasks.Dataflow
-System.Text.Json
-Microsoft.Extensions.Options

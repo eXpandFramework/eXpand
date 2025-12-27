@@ -30,7 +30,7 @@ namespace Xpand.ExpressApp.Logic {
             _module.Application.SetupComplete -= ApplicationOnSetupComplete;
             var typesInfo = ((XafApplication) sender).TypesInfo;
             var xpoTypeInfoSource = XpoTypesInfoHelper.GetXpoTypeInfoSource();
-            _generatedTypes = typesInfo.PersistentTypes.Where(info => info.IsInterface).Select(info => xpoTypeInfoSource.GetGeneratedEntityType(info.Type)).Where(type => type!=null).ToArray();
+            _generatedTypes = typesInfo.PersistentTypes.Where(info => info.IsInterface).Select(info => xpoTypeInfoSource.GetOriginalType(info.Type)).Where(type => type!=null).ToArray();
             CollectRules((XafApplication)sender);
         }
 
@@ -40,9 +40,7 @@ namespace Xpand.ExpressApp.Logic {
         }
 
         IEnumerable<IContextLogicRule> GetPermissions() {
-            return SecuritySystem.CurrentUser is ISecurityUserWithRoles
-                ? ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<IContextLogicRule>()
-                : Enumerable.Empty<IContextLogicRule>();
+            return Enumerable.Empty<IContextLogicRule>();
         }
 
         void ReloadPermissions() {

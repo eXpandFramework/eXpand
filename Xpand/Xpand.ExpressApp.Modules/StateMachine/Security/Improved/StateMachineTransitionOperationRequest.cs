@@ -6,7 +6,8 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
     [Serializable]
     public class StateMachineTransitionOperationRequest : OperationPermissionRequestBase, IStateMachineTransitionPermission {
         public StateMachineTransitionOperationRequest(IStateMachineTransitionPermission permission)
-            : base(StateMachineTransitionPermission.OperationName) {
+            // : base(StateMachineTransitionPermission.OperationName) {
+            : base("25.2 BC") {
             StateCaption = permission.StateCaption;
             StateMachineName = permission.StateMachineName;
             Hide = permission.Hide;

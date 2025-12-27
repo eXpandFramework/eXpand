@@ -25,9 +25,9 @@ namespace Xpand.ExpressApp.AuditTrail.Model.Member {
         public static IModelClass Get_CollectionType(IModelMemberAuditTrail auditTrail) {
             XafApplication application = ApplicationHelper.Instance.Application;
             if (application != null) {
-                var auditTrailModule = application.Modules.FindModule<AuditTrailModule>();
-                Type collectionType = auditTrailModule.AuditDataItemPersistentType;
-                return auditTrail.Application.BOModel.GetClass(collectionType);
+                // var auditTrailModule = application.Modules.FindModule<DevExpress.ExpressApp.AuditTrail.>();
+                // Type collectionType = auditTrailModule.AuditDataItemPersistentType;
+                // return auditTrail.Application.BOModel.GetClass(collectionType);
             }
             return auditTrail.CollectionTypes.Count == 1 ? auditTrail.CollectionTypes.FirstOrDefault() : null;
         }

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <LangVersion>latest</LangVersion>
     <SignAssembly>true</SignAssembly>
@@ -42,6 +42,32 @@
     <EmbeddedResource Include="Model.DesignedDiffs.xafml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <PackageReference Include="System.ValueTuple" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" />
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
+    <PackageReference Include="System.CodeDom" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.CodeAnalysis" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+    <PackageReference Include="Microsoft.Extensions.Options" />
+    <PackageReference Include="Microsoft.Extensions.Primitives" />
+    <PackageReference Include="DevExpress.ExpressApp" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" />
+    <PackageReference Include="DevExpress.Persistent.Base" />
+    <PackageReference Include="Xpand.Extensions.XAF" />
+    <PackageReference Include="Xpand.Extensions.XAF.Xpo" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" />
+    <PackageReference Include="SharpZipLib" />
+    <PackageReference Include="DevExpress.ExpressApp.Notifications" />
+    <PackageReference Include="Xpand.XAF.Modules.AutoCommit" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" />
+    <PackageReference Include="Xpand.XAF.Modules.MasterDetail" />
+    <PackageReference Include="Xpand.XAF.Modules.SuppressConfirmation" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewEditMode" />
+    <PackageReference Include="ExcelDataReader" />
+    <PackageReference Include="ExcelDataReader.DataSet" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" />
   </ItemGroup>
-  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

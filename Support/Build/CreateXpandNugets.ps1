@@ -1,6 +1,6 @@
 Param (
     [string]$root = (Get-Item "$PSScriptRoot\..\..").FullName,
-    [string]$version = "24.2.300.0",
+    [string]$version = "25.2.300.0",
     [bool]$ResolveNugetDependecies,
     [bool]$Release 
 )
@@ -128,8 +128,8 @@ $nuspecs| Invoke-Parallel  -VariablesToImport "nuspecs","projects" -Script {
             Add-NuspecDependency $id $version $nuspec
         }
         
-        Get-PackageReference $_.FullName | Where-Object { $_.id -notlike "DevExpress*" } | ForEach-Object {
-            Add-NuspecDependency $_.id $_.version $nuspec
+        Get-PackageReference $_.FullName | Where-Object { $_.include -notlike "DevExpress*" } | ForEach-Object {
+            Add-NuspecDependency $_.include $_.version $nuspec
         }
         Pop-Location
     }

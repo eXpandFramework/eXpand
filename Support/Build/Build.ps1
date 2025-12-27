@@ -90,7 +90,7 @@ Task Version{
 Task IndexSources -precondition {$repository}{
     $sha=Get-GitLastSha "https://github.com/eXpandFramework/$repository" $branch
     Get-ChildItem $root\Xpand.dll Xpand*.pdb|
-    Update-XSymbols -TargetRoot "https://raw.githubusercontent.com/eXpandFramework/$repository/$sha" -sourcesRoot $root
+    Update-Symbols -TargetRoot "https://raw.githubusercontent.com/eXpandFramework/$repository/$sha" -sourcesRoot $root
 }
 
 
@@ -102,9 +102,8 @@ Task Installer{
 
 Task CompileModules{
     Set-Location $root
-    Get-Content .\paket.dependencies
-    dotnet tool restore
-    Invoke-PaketRestore -Install -Strict
+    
+    
     InvokeScript -maxRetries 3 {
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         $group=$xml.Project.ItemGroup

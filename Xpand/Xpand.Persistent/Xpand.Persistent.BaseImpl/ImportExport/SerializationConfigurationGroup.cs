@@ -44,6 +44,6 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
         }
 
         IList<ISerializationConfiguration> ISerializationConfigurationGroup.Configurations =>
-            new ListConverter<ISerializationConfiguration, SerializationConfiguration>(SerializationConfigurations);
+            new List<ISerializationConfiguration>(SerializationConfigurations);
     }
 }

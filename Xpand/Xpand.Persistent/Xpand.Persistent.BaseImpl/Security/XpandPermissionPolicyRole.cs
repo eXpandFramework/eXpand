@@ -33,7 +33,7 @@ namespace Xpand.Persistent.BaseImpl.Security{
         }
 
         IList<IOperationPermissionProvider> IXpandRoleCustomPermissions.Permissions
-            => new ListConverter<IOperationPermissionProvider, PermissionPolicyData.PermissionPolicyData>(Permissions);
+            => new List<IOperationPermissionProvider>(Permissions);
 
         public override string ToString(){
             return Name;

@@ -154,7 +154,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             }
         }
 
-        IList<IInterfaceInfo> IPersistentClassInfo.Interfaces => new ListConverter<IInterfaceInfo, InterfaceInfo>(Interfaces);
+        IList<IInterfaceInfo> IPersistentClassInfo.Interfaces => new List<IInterfaceInfo>(Interfaces);
 
 
         IPersistentAssemblyInfo IPersistentClassInfo.PersistentAssemblyInfo {
@@ -162,7 +162,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             set => PersistentAssemblyInfo = value as PersistentAssemblyInfo;
         }
 
-        IList<IPersistentMemberInfo> IPersistentClassInfo.OwnMembers => new ListConverter<IPersistentMemberInfo, PersistentMemberInfo>(OwnMembers);
+        IList<IPersistentMemberInfo> IPersistentClassInfo.OwnMembers => new List<IPersistentMemberInfo>(OwnMembers);
 
         #endregion
 

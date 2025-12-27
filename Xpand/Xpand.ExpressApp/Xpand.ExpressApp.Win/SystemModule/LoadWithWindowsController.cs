@@ -26,7 +26,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
 
         private void FrameOnTemplateChanged(object sender, EventArgs args) {
             if (Frame.Context == TemplateContext.ApplicationWindow)
-                ((XtraForm)Frame.Template).Closing += (o, eventArgs) => WriteRegistry();
+                ((XtraForm)Frame.Template).FormClosing += (o, eventArgs) => WriteRegistry();
         }
 
         private void WriteRegistry() {

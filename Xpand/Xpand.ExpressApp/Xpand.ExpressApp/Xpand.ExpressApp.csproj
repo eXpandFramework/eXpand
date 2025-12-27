@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -73,6 +73,20 @@
     <Compile Remove="SystemModule\OptionsController.cs" />
     <Compile Remove="SystemModule\ShowNavigationItemController.cs" />
     <Compile Remove="SystemModule\ValidateRulesWindowController.cs" />
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" />
+    <!-- Xpand Modules -->
+    <PackageReference Include="Xpand.Extensions" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneMemberValue" />
+    <PackageReference Include="Xpand.XAF.Modules.CloneModelView" />
+    <PackageReference Include="Xpand.XAF.Modules.HideToolBar" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" />
+    <PackageReference Include="Xpand.XAF.Modules.RefreshView" />
+    <PackageReference Include="Xpand.XAF.Modules.PositionInListView" />
+    <PackageReference Include="Xpand.XAF.Modules.ViewItemValue" />
+    <PackageReference Include="Xpand.XAF.Modules.SequenceGenerator" />
+    <!-- System -->
+    <PackageReference Include="System.ComponentModel.Annotations" />
+    <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
-  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
 </Project>

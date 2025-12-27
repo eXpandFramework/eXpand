@@ -19,8 +19,8 @@ namespace Xpand.ExpressApp.Win.ListEditors.GridListEditors.ColumnView.Design {
 
         protected abstract BaseDesigner GetActiveDesigner();
         protected override string RegistryStorePath { get { return "Software\\" + _title + "\\Designer\\" + GetType().Name + "\\"; } }
-        protected override Type ResolveType(string type) {
-            return typeof(ColumnViewDesignerForm).Assembly.GetType(type) ?? base.ResolveType(type);
-        }
+
+        protected override Type ResolveXtraFrameType(string type) => typeof(ColumnViewDesignerForm).Assembly.GetType(type) ?? base.ResolveXtraFrameType(type);
+        
     }
 }

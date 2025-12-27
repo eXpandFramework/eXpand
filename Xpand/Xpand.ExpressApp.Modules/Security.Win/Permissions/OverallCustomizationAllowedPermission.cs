@@ -54,14 +54,16 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
         }
 
         static void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
-            var requestProcessor = new OverallCustomizationAllowedPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions.WithCustomPermissions());
-            customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(OverallCustomizationAllowedPermissionRequest), requestProcessor));
+            throw new NotImplementedException("25.2 BC");
+            // var requestProcessor = new OverallCustomizationAllowedPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions.WithCustomPermissions());
+            // customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(OverallCustomizationAllowedPermissionRequest), requestProcessor));
         }
 
         static void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
-            var xafApplication = ((XafApplication)sender);
-            if (((XafApplication) sender).Security.IsRemoteClient())
-                return;
+            throw new NotImplementedException("25.2 BC");
+            // var xafApplication = ((XafApplication)sender);
+            // if (((XafApplication) sender).Security.IsRemoteClient())
+            //     return;
             // var modelWinLayoutManagerOptions = ((IModelWinLayoutManagerOptions)xafApplication.Model.Options.LayoutManagerOptions);
             // modelWinLayoutManagerOptions.CustomizationEnabled = SecuritySystem.IsGranted(new OverallCustomizationAllowedPermissionRequest());
         }

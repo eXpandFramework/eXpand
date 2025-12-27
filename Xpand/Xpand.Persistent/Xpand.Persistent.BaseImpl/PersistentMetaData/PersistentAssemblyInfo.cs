@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using DevExpress.ExpressApp.Model;
+using DevExpress.Office.Utils;
 using DevExpress.Persistent.Base;
 using DevExpress.Persistent.Validation;
 using DevExpress.Xpo;
@@ -104,7 +105,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             GetCollection<PersistentAssemblyAttributeInfo>("Attributes");
 
         IList<IPersistentAssemblyAttributeInfo> IPersistentAssemblyInfo.Attributes =>
-            new ListConverter<IPersistentAssemblyAttributeInfo, PersistentAssemblyAttributeInfo>(Attributes);
+            new List<IPersistentAssemblyAttributeInfo>();
 
         [Index(2)]
         [AllowEdit(true, AllowEditEnum.NewObject)]
@@ -134,7 +135,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         }
 
         IList<IPersistentClassInfo> IPersistentAssemblyInfo.PersistentClassInfos =>
-            new ListConverter<IPersistentClassInfo, PersistentClassInfo>(PersistentClassInfos);
+            new List<IPersistentClassInfo>();
 
         #endregion
     }

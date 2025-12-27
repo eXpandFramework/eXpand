@@ -17,8 +17,8 @@ namespace Xpand.ExpressApp.Security.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (Application.Security.IsRemoteClient())
-                return ;
+            // if (Application.Security.IsRemoteClient())
+                // return ;
             if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())) {
                 var isGranted = !SecuritySystem.IsGranted(new MyDetailsOperationRequest(new MyDetailsPermission(Modifier.Deny)));
                 _myDetailsController = Frame.GetController<MyDetailsController>();

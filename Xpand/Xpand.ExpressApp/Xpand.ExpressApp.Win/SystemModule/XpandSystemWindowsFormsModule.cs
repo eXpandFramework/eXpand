@@ -71,12 +71,12 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 .Subscribe();
         }
 
-        public static string AdvBandedGridViewMapName = "OptionsAdvBandedView";
-        public static string BandedGridColumnMapName = "OptionsColumnAdvBandedView";
-        public static string GridViewMapName = "GridViewOptions";
-        public static string GridColumnMapName = "OptionsColumnGridView";
-        public static string LayoutViewMapName = "OptionsLayoutView";
-        public static string LayoutViewColumnMapName = "OptionsColumnLayoutView";
+        public static readonly string AdvBandedGridViewMapName = "OptionsAdvBandedView";
+        public static readonly string BandedGridColumnMapName = "OptionsColumnAdvBandedView";
+        public static readonly string GridViewMapName = "GridViewOptions";
+        public static readonly string GridColumnMapName = "OptionsColumnGridView";
+        public static readonly string LayoutViewMapName = "OptionsLayoutView";
+        public static readonly string LayoutViewColumnMapName = "OptionsColumnLayoutView";
         
         public override void Setup(ApplicationModulesManager moduleManager) {
             base.Setup(moduleManager);
@@ -152,7 +152,6 @@ namespace Xpand.ExpressApp.Win.SystemModule {
                 typeof(CloseFormController),
                 typeof(NotifyIconController),
                 typeof(ReadOnlyTabStopController),
-                typeof(RemoveNavigationItemsController),
                 typeof(SearchFromDetailViewController),
                 typeof(ViewEditValueChangedFiringModeController),
                 typeof(WindowHintController),

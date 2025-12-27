@@ -34,7 +34,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
         [Aggregated]
         public XPCollection<PersistentAttributeInfo> TypeAttributes => GetCollection<PersistentAttributeInfo>("TypeAttributes");
 
-        IList<ITemplateInfo> IPersistentTypeInfo.TemplateInfos => new ListConverter<ITemplateInfo, TemplateInfo>(TemplateInfos);
+        IList<ITemplateInfo> IPersistentTypeInfo.TemplateInfos => new List<ITemplateInfo>(TemplateInfos);
 
         [Association("PersistentTypeInfo-TemplateInfos")]
         public XPCollection<TemplateInfo> TemplateInfos => GetCollection<TemplateInfo>("TemplateInfos");
@@ -47,7 +47,7 @@ namespace Xpand.Persistent.BaseImpl.PersistentMetaData {
             set { SetPropertyValue("Name", ref _name, value); }
         }
         
-        IList<IPersistentAttributeInfo> IPersistentTypeInfo.TypeAttributes => new ListConverter<IPersistentAttributeInfo, PersistentAttributeInfo>(TypeAttributes);
+        IList<IPersistentAttributeInfo> IPersistentTypeInfo.TypeAttributes => new List<IPersistentAttributeInfo>(TypeAttributes);
 
         #endregion
     }

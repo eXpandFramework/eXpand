@@ -126,7 +126,7 @@ namespace Xpand.ExpressApp.Logic {
 
         protected virtual bool IsValidDCTypeInfo(ViewInfo viewInfo, ILogicRuleObject rule) {
             if (viewInfo.ObjectTypeInfo.IsDomainComponent) {
-                var entityType = XpoTypesInfoHelper.GetXpoTypeInfoSource().GetGeneratedEntityType(viewInfo.ObjectTypeInfo.Type);
+                var entityType = XpoTypesInfoHelper.GetXpoTypeInfoSource().GetOriginalType(viewInfo.ObjectTypeInfo.Type);
                 var types = new List<Type> { entityType };
                 while (entityType != null && entityType != typeof(object)) {
                     entityType = entityType.BaseType;

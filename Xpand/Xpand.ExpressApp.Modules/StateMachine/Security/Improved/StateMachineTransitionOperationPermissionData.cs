@@ -40,7 +40,8 @@ namespace Xpand.ExpressApp.StateMachine.Security.Improved {
         }
 
         public override IList<IOperationPermission> GetPermissions() {
-            return new IOperationPermission[]{new StateMachineTransitionPermission(this)};
+            return new IOperationPermission[]{};
+            // return new IOperationPermission[]{new StateMachineTransitionPermission(this)};
         }
     }
 }

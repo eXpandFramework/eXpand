@@ -7,7 +7,7 @@ param(
     [string[]]$taskList = @("Release"),
     [string]$nugetApiKey = $null,
     [string]$Repository = "eXpand",
-    [string]$XpandPwshVersion = "1.221.0.22",
+    [string]$XpandPwshVersion = "1.252.0.6",
     [bool]$ResolveNugetDependecies
 )
 
@@ -39,7 +39,7 @@ if (!$msbuild) {
 }
 
 $clean = $($taskList -in "Release", "lab")
-Invoke-Xpsake  "$PSScriptRoot\Build.ps1" -properties @{
+Invoke-psake  "$PSScriptRoot\Build.ps1" -properties @{
     "version"                 = $version;
     "msbuild"                 = $msbuild;
     "clean"                   = $clean;

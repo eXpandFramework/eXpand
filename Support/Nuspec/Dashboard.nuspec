@@ -14,13 +14,18 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="25.1.701.0" />
-      <dependency id="System.Text.Json" version="9.0.8" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.8" />
-      <dependency id="Xpand.Extensions" version="4.251.8" />
-      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.251.8" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.251.8" />
-      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="4.251.8" />
+      <dependency id="eXpandLib" version="25.2.300.0" />
+      <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
+      <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.Options" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.Primitives" version="10.0.1" />
+      <dependency id="System.ValueTuple" version="4.6.1" />
+      <dependency id="Xpand.Extensions.XAF" version="4.252.0" />
+      <dependency id="Xpand.XAF.Modules.CloneModelView" version="4.252.0" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.252.0" />
+      <dependency id="Xpand.XAF.Modules.ViewEditMode" version="4.252.0" />
     </dependencies>
   </metadata>
   <files>

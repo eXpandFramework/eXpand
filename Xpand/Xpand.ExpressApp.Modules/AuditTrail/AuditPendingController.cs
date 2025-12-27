@@ -36,7 +36,8 @@ namespace Xpand.ExpressApp.AuditTrail {
     [DomainLogic(typeof(IModelAuditPending))]
     public class ModelClassPendingMemberDomainLogic{
         public static IEnumerable<IModelMember> Get_CreatorMembers(IModelAuditPending classPendingMember) {
-            return ((IModelClass) classPendingMember.Parent).AllMembers.Where(member => typeof(SecuritySystemUserBase).IsAssignableFrom(member.Type));
+            return ArraySegment<IModelMember>.Empty;
+            // return ((IModelClass) classPendingMember.Parent).AllMembers.Where(member => typeof(SecuritySystemUserBase).IsAssignableFrom(member.Type));
         }
 
         public static IModelMember Get_CreatorMember(IModelAuditPending classPendingMember) {

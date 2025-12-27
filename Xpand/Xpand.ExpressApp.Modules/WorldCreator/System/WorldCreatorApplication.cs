@@ -41,8 +41,8 @@ namespace Xpand.ExpressApp.WorldCreator.System {
 
         internal static void CheckCompatibility(XafApplication application,Func<IObjectSpaceProvider, ModuleList, WorldCreatorApplication> func) {
             lock (Locker) {
-                if (application.Security.IsRemoteClient())
-                    return;
+                // if (application.Security.IsRemoteClient())
+                    // return;
                 var objectSpaceProvider = WorldCreatorObjectSpaceProvider.Create(application, false);
                 using (var worldCreatorApplication = func(objectSpaceProvider, application.Modules)) {
                     worldCreatorApplication.ServiceProvider = application.ServiceProvider;

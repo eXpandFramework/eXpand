@@ -1,9 +1,0 @@
-DevExpress.ExpressApp.ConditionalAppearance
-DevExpress.ExpressApp.Validation
-DevExpress.ExpressApp.ViewVariantsModule
-System.ValueTuple
-Fasterflect.Xpand
-
-
-System.Threading.Tasks.Dataflow
-System.Text.Json

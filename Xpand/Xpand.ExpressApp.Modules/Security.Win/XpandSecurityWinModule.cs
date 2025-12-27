@@ -98,13 +98,13 @@ namespace Xpand.ExpressApp.Security.Win {
         public override void CustomizeTypesInfo(ITypesInfo typesInfo) {
             base.CustomizeTypesInfo(typesInfo);
             AddToAdditionalExportedTypes(XpandSecurityModule.BaseImplNameSpace);
-            var policyRoleTypes=AdditionalExportedTypes.Where(type => typeof(IPermissionPolicyRole).IsAssignableFrom(type));
-            Type[] types = Application == null ? policyRoleTypes.Concat(new[] {typeof(XpandRole)}).ToArray() : new[] { RoleType };
-            foreach (var type in types){
-                var typeInfo = typesInfo.FindTypeInfo(type);
-                if (typeInfo?.FindAttribute<OverallCustomizationAllowedAttribute>() != null && typeInfo.FindMember("ModifyLayout") == null)
-                    typeInfo.CreateMember("ModifyLayout", typeof(bool));
-            }
+            // var policyRoleTypes=AdditionalExportedTypes.Where(type => typeof(IPermissionPolicyRole).IsAssignableFrom(type));
+            // Type[] types = Application == null ? policyRoleTypes.Concat(new[] {typeof(XpandRole)}).ToArray() : new[] { RoleType };
+            // foreach (var type in types){
+            //     var typeInfo = typesInfo.FindTypeInfo(type);
+            //     if (typeInfo?.FindAttribute<OverallCustomizationAllowedAttribute>() != null && typeInfo.FindMember("ModifyLayout") == null)
+            //         typeInfo.CreateMember("ModifyLayout", typeof(bool));
+            // }
         }
     }
 }

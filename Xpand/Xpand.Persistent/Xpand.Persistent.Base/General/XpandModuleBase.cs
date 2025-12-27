@@ -427,13 +427,9 @@ namespace Xpand.Persistent.Base.General {
             if (Application != null) {
                 if (Application.Security is IRoleTypeProvider { RoleType:{ } } roleTypeProvider) {
                     RoleType =XafTypesInfo.Instance.PersistentTypes.FirstOrDefault(info => info.Type == roleTypeProvider.RoleType)?.Type;
-                    if (RoleType?.IsInterface??false)
-                        RoleType = XpoTypeInfoSource.GetGeneratedEntityType(RoleType);
                 }
                 if (Application.Security != null) {
                     UserType = Application.Security.UserType;
-                    if (UserType is {IsInterface: true})
-                        UserType = XpoTypeInfoSource.GetGeneratedEntityType(UserType);
                 }
             }
         }

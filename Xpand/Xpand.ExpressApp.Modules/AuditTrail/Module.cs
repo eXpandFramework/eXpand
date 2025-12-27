@@ -18,13 +18,13 @@ using Xpand.Persistent.Base.Security;
 using Xpand.XAF.Modules.ModelViewInheritance;
 
 namespace Xpand.ExpressApp.AuditTrail {
-    [ToolboxBitmap(typeof(AuditTrailModule))]
+    // [ToolboxBitmap(typeof(AuditTrailModule))]
     [ToolboxItem(true)]
     [ToolboxTabName(XpandAssemblyInfo.TabWinWebModules)]
     public sealed class XpandAuditTrailModule :XpandModuleBase,ISecurityModuleUser {
         public XpandAuditTrailModule() {
             
-            RequiredModuleTypes.Add(typeof (AuditTrailModule));
+            // RequiredModuleTypes.Add(typeof (AuditTrailModule));
             LogicInstallerManager.RegisterInstaller(new AuditTrailLogicInstaller(this));
             RequiredModuleTypes.Add(typeof(ModelViewInheritanceModule));
             RequiredModuleTypes.Add(typeof(XAF.Modules.CloneModelView.CloneModelViewModule));
@@ -47,8 +47,8 @@ namespace Xpand.ExpressApp.AuditTrail {
             auditTrailService.SaveAuditTrailData += OnSaveAuditTrailData;
             auditTrailService.AuditDataStore = new XpandAuditDataStore();
             
-            var auditTrailModule = Application.FindModule<AuditTrailModule>();
-            auditTrailModule.AuditDataItemPersistentType = typeof(XpandAuditDataItemPersistent);
+            // var auditTrailModule = Application.FindModule<AuditTrailModule>();
+            // auditTrailModule.AuditDataItemPersistentType = typeof(XpandAuditDataItemPersistent);
         }
 
         private void OnCustomCreateObjectAuditProcessorsFactory(object sender, CustomCreateObjectAuditProcessorsFactoryEventArgs e){

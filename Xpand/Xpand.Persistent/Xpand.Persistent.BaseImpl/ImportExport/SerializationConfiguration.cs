@@ -46,6 +46,6 @@ namespace Xpand.Persistent.BaseImpl.ImportExport {
             set => SerializationConfigurationGroup = value as SerializationConfigurationGroup;
         }
 
-        IList<IClassInfoGraphNode> ISerializationConfiguration.SerializationGraph => new ListConverter<IClassInfoGraphNode, ClassInfoGraphNode>(SerializationGraph);
+        IList<IClassInfoGraphNode> ISerializationConfiguration.SerializationGraph => new List<IClassInfoGraphNode>(SerializationGraph);
     }
 }

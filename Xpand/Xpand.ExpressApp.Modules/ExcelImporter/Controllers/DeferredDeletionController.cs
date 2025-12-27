@@ -23,25 +23,25 @@ namespace Xpand.ExpressApp.ExcelImporter.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            var excelImportDetailViewController = Frame.GetController<ExcelImportDetailViewController>();
-            excelImportDetailViewController.BeginImport
-                .TakeUntil(_terminator)
-                .SelectMany(_ => _.progress.OfType<RequestImportTargetObject>().Where(_.excelImport))
-                .Select(_ => {
-                    if (_.Args.objectType.GetITypeInfo().FindAttributes<DeferredDeletionAttribute>().Any()) {
-                        var session = _.ObjectSpace.Session();
-                        _.TargetObject = session.FindObject(_.Args.objectType, _.Args.criteria,true);
-                        if (_.TargetObject != null) {
-                            var memberInfo = session.GetClassInfo(_.TargetObject).FindMember(GCRecordField.StaticName);
-                            memberInfo.SetValue(_.TargetObject,null);
-                        }
-                    }
-                    
-                    return _;
+            // var excelImportDetailViewController = Frame.GetController<ExcelImportDetailViewController>();
+            // excelImportDetailViewController.BeginImport
+            //     .TakeUntil(_terminator)
+            //     .SelectMany(_ => _.progress.OfType<RequestImportTargetObject>().Where(_.excelImport))
+            //     .Select(_ => {
+            //         if (_.Args.objectType.GetITypeInfo().FindAttributes<DeferredDeletionAttribute>().Any()) {
+            //             var session = _.ObjectSpace.Session();
+            //             _.TargetObject = session.FindObject(_.Args.objectType, _.Args.criteria,true);
+            //             if (_.TargetObject != null) {
+            //                 var memberInfo = session.GetClassInfo(_.TargetObject).FindMember(GCRecordField.StaticName);
+            //                 memberInfo.SetValue(_.TargetObject,null);
+            //             }
+            //         }
+            //         
+            //         return _;
+            //
+            //     })
 
-                })
-
-                .Subscribe();
+                // .Subscribe();
         }
     }
 }

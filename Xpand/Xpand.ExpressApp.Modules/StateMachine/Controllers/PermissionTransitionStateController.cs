@@ -1,4 +1,5 @@
-﻿using DevExpress.ExpressApp;
+﻿using System;
+using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Security;
 using DevExpress.ExpressApp.StateMachine;
 using Xpand.ExpressApp.Security.Permissions;
@@ -11,8 +12,8 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
 
         protected override void OnActivated() {
             base.OnActivated();
-            if (Application.Security.IsRemoteClient())
-                return ;
+            // if (Application.Security.IsRemoteClient())
+                // return ;
             if (!SecuritySystem.IsGranted(new IsAdministratorPermissionRequest())){
                 Frame.GetController<StateMachineController>(controller => controller.TransitionExecuting += OnTransitionExecuting);
                 Frame.GetController<ChangeStateActionController>(controller => controller.RequestActiveState += RequestActiveState);
@@ -32,12 +33,13 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         protected virtual bool IsGranted(ITransition iTransition, bool hide) {
-            var permission = new StateMachineTransitionPermission {
-                StateCaption = iTransition.TargetState.Caption,
-                StateMachineName = iTransition.TargetState.StateMachine.Name,
-                Hide = hide,
-            };
-            return SecuritySystem.IsGranted(new NoCacheablePermissionRequest(new StateMachineTransitionOperationRequest(permission)));
+            throw new NotImplementedException("25.2 BC");
+            // var permission = new StateMachineTransitionPermission {
+            //     StateCaption = iTransition.TargetState.Caption,
+            //     StateMachineName = iTransition.TargetState.StateMachine.Name,
+            //     Hide = hide,
+            // };
+            // return SecuritySystem.IsGranted(new NoCacheablePermissionRequest(new StateMachineTransitionOperationRequest(permission)));
         }
 
         void RequestActiveState(object sender, ChoiceActionItemArgs choiceActionItemArgs) {

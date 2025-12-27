@@ -58,15 +58,16 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             UpdateActionState();
         }
 
-        protected override void OnClosed(EventArgs e) {
+        protected override void OnFormClosed(FormClosedEventArgs e) {
             _editHistory.Changed -= _EditHistory_Changed;
             _editHistory = null;
             _template = null;
             ObjectSpace = null;
             _dashboardDesigner.Dashboard.Dispose();
             _dashboardDesigner = null;
-            base.OnClosed(e);
+            base.OnFormClosed(e);
         }
+
 
         public void Save() {
             UpdateTemplateXml();
@@ -80,12 +81,8 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
 
         void UpdateActionState() {
             HideButtons();
-            if (_barButtonItemSave != null) {
-                _barButtonItemSave.Enabled = _editHistory.IsModified;
-            }
-            if (_barButtonItemSaveAndClose != null) {
-                _barButtonItemSaveAndClose.Enabled = _editHistory.IsModified;
-            }
+            _barButtonItemSave?.Enabled = _editHistory.IsModified;
+            _barButtonItemSaveAndClose?.Enabled = _editHistory.IsModified;
         }
 
         void SaveAndClose(object sender, ItemClickEventArgs e) {
@@ -105,8 +102,9 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
             _editHistory.Changed += _EditHistory_Changed;
         }
 
-        protected override void OnClosing(CancelEventArgs e) {
-            base.OnClosing(e);
+
+        protected override void OnFormClosing(FormClosingEventArgs e) {
+            base.OnFormClosing(e);
             if (_dashboardDesigner.IsDashboardModified) {
                 DialogResult result = XtraMessageBox.Show(LookAndFeel, this, "Do you want to save changes ?", "Dashboard Designer",
                     MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
@@ -115,6 +113,7 @@ namespace Xpand.ExpressApp.XtraDashboard.Win.Templates {
                 else
                     _saveDashboard = result == DialogResult.Yes;
             }
+
         }
 
         private TDashboardBarButtonItem GetBarItem<TDashboardBarButtonItem>() where TDashboardBarButtonItem : DashboardCommandBarButtonItem {

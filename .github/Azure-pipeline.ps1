@@ -29,29 +29,26 @@ Invoke-Script {
    try {
        dotnet nuget add source "https://api.nuget.org/v3/index.json" --name "nuget.org"
        dotnet nuget add source "$DXApiFeed" --name "DX"
+       dotnet nuget add source "https://xpandnugetserver.azurewebsites.net/nuget" --name "Xpand"
    }
    catch { }
    $LASTEXITCODE=0
    dotnet nuget list source
-   Write-HostFormatted "Installing paket" -Section
-   dotnet tool restore
+   
 }
 Set-VsoVariable build.updatebuildnumber $version
 Set-Location $WorkingDirectory
-Move-PaketSource 0 $DXApiFeed
+
 # Push-Location $WorkingDirectory\Xpand.Plugins
 # Move-PaketSource 0 $DXApiFeed
 # Pop-Location
 
 
 Set-location $WorkingDirectory
-Write-HostFormatted "ProjectConverter" -Section
-if (!(Test-Path $WorkingDirectory\paket.lock)){
-   Invoke-PaketInstall -Strict  
-}
+
 [version]$pversion=$version
 $pversion=Get-DevExpressVersion $version -Build
-Start-XpandProjectConverter -version $pversion -SkipInstall
+
 "Start build.."
 $buildArgs=@{
    packageSources=@("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","$DXApiFeed")

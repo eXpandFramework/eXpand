@@ -13,12 +13,6 @@ namespace Xpand.Persistent.Base.Xpo {
     public class XpandXpoTypeInfoSource : DevExpress.ExpressApp.DC.Xpo.XpoTypeInfoSource, ITypeInfoSource {
         void ITypeInfoSource.EnumMembers(TypeInfo info, EnumMembersHandler handler) {
             EnumMembers(info, handler);
-            Type type = info.Type;
-            if (TypeIsKnown(type)) {
-                if (type.IsInterface) {
-                    EnumDCInterfaceMembers(info, handler);
-                }
-            }
         }
 
         public XpandXpoTypeInfoSource(TypesInfo typesInfo)
@@ -40,13 +34,6 @@ namespace Xpand.Persistent.Base.Xpo {
             InitMemberInfo(member, memberInfo);
         }
 
-        private void EnumDCInterfaceMembers(TypeInfo info, EnumMembersHandler handler) {
-            var generatedEntityInfo = info.FindDCXPClassInfo();
-            var dcPropertyInfos = DCPropertyInfos(generatedEntityInfo);
-            foreach (DCPropertyInfo dcPropertyInfo in dcPropertyInfos) {
-                handler(dcPropertyInfo, dcPropertyInfo.Name);
-            }
-        }
 
         IEnumerable<DCPropertyInfo> DCPropertyInfos(XPClassInfo classInfo) {
             if (classInfo != null) {

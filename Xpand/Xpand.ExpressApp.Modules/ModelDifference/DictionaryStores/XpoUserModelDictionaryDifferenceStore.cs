@@ -91,8 +91,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         bool IsGranted() {
-            if (((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
-                return SecuritySystem.IsGranted(new ModelCombinePermissionRequest(ApplicationModelCombineModifier.Allow));
+            // if (((IRoleTypeProvider)SecuritySystem.Instance).IsNewSecuritySystem())
+                // return SecuritySystem.IsGranted(new ModelCombinePermissionRequest(ApplicationModelCombineModifier.Allow));
             return true;
         }
 
@@ -101,9 +101,9 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
         }
 
         private IEnumerable<string> GetNames() {
-            if (SecuritySystem.CurrentUser is ISecurityUserWithRoles) {
-                return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombineOperationPermission>().Select(permission => permission.Difference);
-            }
+            // if (SecuritySystem.CurrentUser is ISecurityUserWithRoles) {
+                // return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombineOperationPermission>().Select(permission => permission.Difference);
+            // }
             throw new NotImplementedException(SecuritySystem.CurrentUser.GetType().FullName);
         }
 

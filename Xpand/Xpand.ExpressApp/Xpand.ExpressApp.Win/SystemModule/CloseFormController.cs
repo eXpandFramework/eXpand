@@ -49,7 +49,7 @@ namespace Xpand.ExpressApp.Win.SystemModule {
             if (_form != null) {
                 Frame.TemplateChanged -= FrameOnTemplateChanged;
                 Frame.Disposing -= FrameOnDisposing;
-                _form.Closing -= OnClosing;
+                _form.FormClosing -= OnClosing;
                 _form.FormClosing -= FormOnFormClosing;
                 if (Frame.Context == TemplateContext.ApplicationWindow) {
                     _editModelController.EditModelAction.Executing -= EditModelActionOnExecuting;
@@ -65,10 +65,9 @@ namespace Xpand.ExpressApp.Win.SystemModule {
         }
 
         private void FrameOnTemplateChanged(object sender, EventArgs eventArgs) {
-            var form = Frame.Template as Form;
-            if (form != null) {
+            if (Frame.Template is Form form) {
                 _form = form;
-                _form.Closing += OnClosing;
+                _form.FormClosing += OnClosing;
                 _form.FormClosing += FormOnFormClosing;
             }
         }

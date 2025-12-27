@@ -14,18 +14,19 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
-      <dependency id="DotNetZip" version="1.16" />
-      <dependency id="eXpandIO" version="25.1.701.0" />
-      <dependency id="eXpandLib" version="25.1.701.0" />
-      <dependency id="eXpandTreelistViewWin" version="25.1.701.0" />
-      <dependency id="Microsoft.CodeAnalysis" version="4.12" />
-      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0.8" />
-      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="9.0.8" />
-      <dependency id="Microsoft.Extensions.Options" version="9.0.8" />
-      <dependency id="System.ServiceModel.Http" version="8.1.2" />
-      <dependency id="System.ServiceModel.NetTcp" version="8.1.2" />
-      <dependency id="System.Text.Json" version="9.0.8" />
-      <dependency id="System.Threading.Tasks.Dataflow" version="9.0.8" />
+      <dependency id="DotNetZip" version="1.16.0" />
+      <dependency id="eXpandIO" version="25.2.300.0" />
+      <dependency id="eXpandLib" version="25.2.300.0" />
+      <dependency id="eXpandTreelistViewWin" version="25.2.300.0" />
+      <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
+      <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />
+      <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.Diagnostics.Abstractions" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.FileProviders.Abstractions" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.Logging.Abstractions" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.Options" version="10.0.1" />
+      <dependency id="Microsoft.Extensions.Primitives" version="10.0.1" />
       <dependency id="System.ValueTuple" version="4.6.1" />
     </dependencies>
   </metadata>

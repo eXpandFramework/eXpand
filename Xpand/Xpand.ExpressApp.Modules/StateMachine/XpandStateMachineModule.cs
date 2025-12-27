@@ -73,14 +73,14 @@ namespace Xpand.ExpressApp.StateMachine {
         }
 
         void ApplicationOnSetupComplete(object sender, EventArgs eventArgs) {
-            var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
-            if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
+            // var securityStrategy = ((XafApplication)sender).Security as SecurityStrategy;
+            // if (securityStrategy != null) (securityStrategy).CustomizeRequestProcessors += OnCustomizeRequestProcessors;
         }
 
-        void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e){
-            var keyValuePair = new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionOperationRequest), e.Permissions.WithCustomPermissions().GetProcessor<StateMachineTransitionRequestProcessor>());
-            e.Processors.Add(keyValuePair);
-        }
+        // void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs e){
+        //     var keyValuePair = new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(StateMachineTransitionOperationRequest), e.Permissions.WithCustomPermissions().GetProcessor<StateMachineTransitionRequestProcessor>());
+        //     e.Processors.Add(keyValuePair);
+        // }
 
     }
 }

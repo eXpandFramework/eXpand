@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <AssemblyOriginatorKeyFile>..\..\Xpand.key\xpand.snk</AssemblyOriginatorKeyFile>
     <SignAssembly>true</SignAssembly>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -43,9 +42,6 @@
     <EmbeddedResource Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FodyWeavers.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <EmbeddedResource Include="Resources\BurntToast.psm1" />
     <EmbeddedResource Include="Resources\config.json" />
   </ItemGroup>
@@ -54,9 +50,6 @@
     <EmbeddedResource Include="Images\eXpand-Sign.png" />
     <EmbeddedResource Include="Images\eXpand-Logo.png" />
     <EmbeddedResource Include="Resources\Microsoft.Toolkit.Uwp.Notifications.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="ImportExport\IMemberCategory.cs" />
@@ -84,5 +77,21 @@
     <Folder Include="General\Web\" />
     <Folder Include="General\Win\" />
   </ItemGroup>
-  <Import Project="..\..\..\.paket\Paket.Restore.targets" />
+  <ItemGroup>
+    <!-- Tooling -->
+    <PackageReference Include="Mono.Cecil" />
+    <!-- DevExpress -->
+    <PackageReference Include="DevExpress.ExpressApp.ConditionalAppearance" />
+    <PackageReference Include="DevExpress.Persistent.BaseImpl.Xpo" />
+    <PackageReference Include="DevExpress.ExpressApp.Validation" />
+    <PackageReference Include="DevExpress.ExpressApp.Security.Xpo" />
+    <!-- Xpand -->
+    <PackageReference Include="Xpand.Extensions.Mono.Cecil" />
+    <PackageReference Include="Xpand.Extensions.XAF" />
+    <PackageReference Include="Xpand.Extensions.XAF.Xpo" />
+    <PackageReference Include="Xpand.XAF.Modules.Reactive" />
+    <PackageReference Include="System.Drawing.Common" />
+    <!-- System -->
+    <PackageReference Include="System.ComponentModel.Annotations" />
+  </ItemGroup>
 </Project>
