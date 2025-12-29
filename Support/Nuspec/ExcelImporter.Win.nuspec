@@ -15,10 +15,10 @@
     <projectUrl>http://www.expandframework.com/#ExcelImporter</projectUrl>
     <dependencies>
       <dependency id="ExcelDataReader" version="3.6.0" />
-      <dependency id="eXpandExcelImporter" version="25.2.300.0" />
-      <dependency id="eXpandLib" version="25.2.300.0" />
-      <dependency id="eXpandSystemWin" version="25.2.300.0" />
-      <dependency id="eXpandValidationWin" version="25.2.300.0" />
+      <dependency id="eXpandExcelImporter" version="25.2.302.0" />
+      <dependency id="eXpandLib" version="25.2.302.0" />
+      <dependency id="eXpandSystemWin" version="25.2.302.0" />
+      <dependency id="eXpandValidationWin" version="25.2.302.0" />
       <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
       <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="10.0.1" />

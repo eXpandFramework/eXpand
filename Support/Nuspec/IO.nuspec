@@ -15,8 +15,8 @@
     <projectUrl>http://www.expandframework.com/#IO</projectUrl>
     <dependencies>
       <dependency id="DotNetZip" version="1.16.0" />
-      <dependency id="eXpandLib" version="25.2.300.0" />
-      <dependency id="eXpandModelArtifactState" version="25.2.300.0" />
+      <dependency id="eXpandLib" version="25.2.302.0" />
+      <dependency id="eXpandModelArtifactState" version="25.2.302.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
       <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />

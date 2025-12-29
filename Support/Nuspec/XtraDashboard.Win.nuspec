@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="25.2.300.0" />
-      <dependency id="eXpandLib" version="25.2.300.0" />
-      <dependency id="eXpandSecurity" version="25.2.300.0" />
-      <dependency id="eXpandSecurityWin" version="25.2.300.0" />
-      <dependency id="eXpandSystemWin" version="25.2.300.0" />
+      <dependency id="eXpandDashboard" version="25.2.302.0" />
+      <dependency id="eXpandLib" version="25.2.302.0" />
+      <dependency id="eXpandSecurity" version="25.2.302.0" />
+      <dependency id="eXpandSecurityWin" version="25.2.302.0" />
+      <dependency id="eXpandSystemWin" version="25.2.302.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
       <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />

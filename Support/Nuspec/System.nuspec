@@ -14,7 +14,7 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#core</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="25.2.300.0" />
+      <dependency id="eXpandLib" version="25.2.302.0" />
       <dependency id="System.ComponentModel.Annotations" version="5.0.0" />
       <dependency id="System.Drawing.Common" version="10.0.1" />
       <dependency id="Xpand.Extensions" version="4.252.1" />

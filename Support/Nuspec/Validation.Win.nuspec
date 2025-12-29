@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#validation</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="25.2.300.0" />
-      <dependency id="eXpandSystemWin" version="25.2.300.0" />
-      <dependency id="eXpandValidation" version="25.2.300.0" />
+      <dependency id="eXpandLib" version="25.2.302.0" />
+      <dependency id="eXpandSystemWin" version="25.2.302.0" />
+      <dependency id="eXpandValidation" version="25.2.302.0" />
       <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
       <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="10.0.1" />
