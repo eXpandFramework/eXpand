@@ -3,7 +3,9 @@
    <Exec Command="powershell.exe –NonInteractive –ExecutionPolicy Unrestricted –command &quot;&amp; { &amp;&apos;$(MSBuildThisFileDirectory)\..\Support\Build\ReplaceNuget.ps1&apos; &apos;$(ProjectPath)&apos; &apos;$(TargetPath)&apos; &apos;$(skipNugetReplace)&apos; } &quot; " LogStandardErrorAsError="True" ContinueOnError="False" />
  </Target>
  <PropertyGroup >
-    <NoWarn>1701;1702;XAF0023;XAF0020;XAF0027;XAF0025;CA1416;NU1507</NoWarn>
+    <RestoreIgnoreFailedSources>true</RestoreIgnoreFailedSources>
+      <NoWarn>NU1701;CS8002;CA1416;NU1903;NU1902;NU1507;NU1801;NU1301</NoWarn>
     <NuGetAudit>disable</NuGetAudit>
+    
   </PropertyGroup>
 </Project>

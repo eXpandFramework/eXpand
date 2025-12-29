@@ -27,8 +27,8 @@
       <dependency id="System.Drawing.Common" version="10.0.1" />
       <dependency id="System.Security.Cryptography.ProtectedData" version="10.0.1" />
       <dependency id="System.ValueTuple" version="4.6.1" />
-      <dependency id="Xpand.Extensions" version="4.252.0" />
-      <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.252.0" />
+      <dependency id="Xpand.Extensions" version="4.252.1" />
+      <dependency id="Xpand.XAF.Modules.HideToolBar" version="4.252.1" />
     </dependencies>
   </metadata>
   <files>

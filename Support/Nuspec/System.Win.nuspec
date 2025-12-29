@@ -17,8 +17,8 @@
       <dependency id="AutoMapper" version="13.0.1" />
       <dependency id="eXpandLib" version="25.2.300.0" />
       <dependency id="eXpandSystem" version="25.2.300.0" />
-      <dependency id="Xpand.XAF.Modules.GridListEditor" version="4.252.0" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.252.0" />
+      <dependency id="Xpand.XAF.Modules.GridListEditor" version="4.252.1" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.252.1" />
     </dependencies>
   </metadata>
   <files>
