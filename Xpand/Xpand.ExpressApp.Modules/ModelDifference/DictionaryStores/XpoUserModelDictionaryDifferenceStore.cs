@@ -104,7 +104,8 @@ namespace Xpand.ExpressApp.ModelDifference.DictionaryStores {
             // if (SecuritySystem.CurrentUser is ISecurityUserWithRoles) {
                 // return ((ISecurityUserWithRoles)SecuritySystem.CurrentUser).GetPermissions().OfType<ModelCombineOperationPermission>().Select(permission => permission.Difference);
             // }
-            throw new NotImplementedException(SecuritySystem.CurrentUser.GetType().FullName);
+            // throw new NotImplementedException(SecuritySystem.CurrentUser.GetType().FullName);
+            return ArraySegment<string>.Empty;
         }
 
         public void Load() {
