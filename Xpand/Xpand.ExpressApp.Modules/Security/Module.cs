@@ -103,7 +103,7 @@ namespace Xpand.ExpressApp.Security {
         }
 
         public static void CustomizeRequestProcessors(CustomizeRequestProcessorsEventArgs e){
-            throw new NotImplementedException("25.2 BC");
+            // throw new NotImplementedException("25.2 BC");
             // var customPermissions = e.Permissions.WithCustomPermissions();
             // var fieldName = "permissionsGroupedByRole";
             // var requestProcessors = e.Processors.Select(pair => pair.Value)

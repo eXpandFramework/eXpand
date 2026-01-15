@@ -54,13 +54,13 @@ namespace Xpand.ExpressApp.Security.Win.Permissions {
         }
 
         static void OnCustomizeRequestProcessors(object sender, CustomizeRequestProcessorsEventArgs customizeRequestProcessorsEventArgs) {
-            throw new NotImplementedException("25.2 BC");
+            // throw new NotImplementedException("25.2 BC");
             // var requestProcessor = new OverallCustomizationAllowedPermissionRequestProcessor(customizeRequestProcessorsEventArgs.Permissions.WithCustomPermissions());
             // customizeRequestProcessorsEventArgs.Processors.Add(new KeyValuePair<Type, IPermissionRequestProcessor>(typeof(OverallCustomizationAllowedPermissionRequest), requestProcessor));
         }
 
         static void ApplicationOnLoggedOn(object sender, LogonEventArgs logonEventArgs) {
-            throw new NotImplementedException("25.2 BC");
+            // throw new NotImplementedException("25.2 BC");
             // var xafApplication = ((XafApplication)sender);
             // if (((XafApplication) sender).Security.IsRemoteClient())
             //     return;

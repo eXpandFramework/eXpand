@@ -33,7 +33,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
         }
 
         protected virtual bool IsGranted(ITransition iTransition, bool hide) {
-            throw new NotImplementedException("25.2 BC");
+            // throw new NotImplementedException("25.2 BC");
             // var permission = new StateMachineTransitionPermission {
             //     StateCaption = iTransition.TargetState.Caption,
             //     StateMachineName = iTransition.TargetState.StateMachine.Name,

@@ -62,7 +62,6 @@ namespace Xpand.Persistent.Base.General {
             var entityStores = new List<IEntityStore>((IEntityStore[]) XafTypesInfo.Instance.GetFieldValue("entityStores"));
             entityStores.RemoveAll(store => store is XpoTypeInfoSource);
             XafTypesInfo.Instance.SetFieldValue("entityStores", entityStores.ToArray());
-            XafTypesInfo.Instance.SetFieldValue("dcEntityStore", null);
             XafTypesInfo.Instance.GetFieldValue("entityTypesCache").CallMethod("Clear");
             ((TypesInfo) XafTypesInfo.Instance).AddEntityStore(xpoTypeInfoSource);
             XpoTypeInfoSourceSetter(null, xpoTypeInfoSource);

@@ -58,7 +58,8 @@ namespace Xpand.ExpressApp.Security.Core {
         static IEnumerable<IOperationPermission> ObjectOperationPermissions(this ISecurityRole securityRole, XPMemberInfo member) {
             var collection = ((XPBaseCollection)member.GetValue(securityRole)).OfType<object>().ToArray();
             var securityOperation = GetSecurityOperation(securityRole, member);
-            throw new NotImplementedException("25.2 BC");
+            return Enumerable.Empty<IOperationPermission>();
+            // throw new NotImplementedException("25.2 BC");
             // if (!string.IsNullOrEmpty(securityOperation)) {
             //     
             //     // foreach (var operation in securityOperation.Split(ServerPermissionRequestProcessor.Delimiters, StringSplitOptions.RemoveEmptyEntries)) {
