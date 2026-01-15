@@ -40,6 +40,7 @@ namespace Xpand.ExpressApp.StateMachine.Controllers {
             //     Hide = hide,
             // };
             // return SecuritySystem.IsGranted(new NoCacheablePermissionRequest(new StateMachineTransitionOperationRequest(permission)));
+            return false;
         }
 
         void RequestActiveState(object sender, ChoiceActionItemArgs choiceActionItemArgs) {
