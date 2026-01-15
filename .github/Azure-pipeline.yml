@@ -13,7 +13,7 @@ trigger:
     include:
       - master
 pool:
-  vmImage: windows-2022
+  name: Self
 steps:
 - checkout: self
   clean: true
