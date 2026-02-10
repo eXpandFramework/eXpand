@@ -14,10 +14,10 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#AVC</projectUrl>
     <dependencies>
-      <dependency id="eXpandAdditionalViewControlsProvider" version="25.2.302.0" />
-      <dependency id="eXpandLib" version="25.2.302.0" />
-      <dependency id="eXpandLogic" version="25.2.302.0" />
-      <dependency id="eXpandSecurity" version="25.2.302.0" />
+      <dependency id="eXpandAdditionalViewControlsProvider" version="25.2.400.0" />
+      <dependency id="eXpandLib" version="25.2.400.0" />
+      <dependency id="eXpandLogic" version="25.2.400.0" />
+      <dependency id="eXpandSecurity" version="25.2.400.0" />
       <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
       <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="10.0.1" />

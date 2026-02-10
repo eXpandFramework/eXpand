@@ -14,8 +14,8 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#StateMachine</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="25.2.302.0" />
-      <dependency id="eXpandSecurity" version="25.2.302.0" />
+      <dependency id="eXpandLib" version="25.2.400.0" />
+      <dependency id="eXpandSecurity" version="25.2.400.0" />
     </dependencies>
   </metadata>
   <files>

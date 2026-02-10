@@ -14,11 +14,11 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#Dashboard</projectUrl>
     <dependencies>
-      <dependency id="eXpandDashboard" version="25.2.302.0" />
-      <dependency id="eXpandLib" version="25.2.302.0" />
-      <dependency id="eXpandSecurity" version="25.2.302.0" />
-      <dependency id="eXpandSecurityWin" version="25.2.302.0" />
-      <dependency id="eXpandSystemWin" version="25.2.302.0" />
+      <dependency id="eXpandDashboard" version="25.2.400.0" />
+      <dependency id="eXpandLib" version="25.2.400.0" />
+      <dependency id="eXpandSecurity" version="25.2.400.0" />
+      <dependency id="eXpandSecurityWin" version="25.2.400.0" />
+      <dependency id="eXpandSystemWin" version="25.2.400.0" />
       <dependency id="Fasterflect.Xpand" version="2.0.7" />
       <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
       <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />
@@ -30,7 +30,7 @@
       <dependency id="Microsoft.Extensions.Options" version="10.0.1" />
       <dependency id="Microsoft.Extensions.Primitives" version="10.0.1" />
       <dependency id="System.ValueTuple" version="4.6.1" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.252.1" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.252.1.1" />
     </dependencies>
   </metadata>
   <files>
