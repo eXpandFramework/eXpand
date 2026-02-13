@@ -107,7 +107,9 @@ Task CompileModules{
     InvokeScript -maxRetries 3 {
         [xml]$xml = get-content "$PSScriptRoot\Xpand.projects"
         $group=$xml.Project.ItemGroup
-        
+        if (!(Test-Path "$root\build\nuget")){
+            New-Item -Path "$root\build\nuget" -ItemType Directory -Name "nuget"
+        }
         Invoke-Script -Maximum 3 -Script{
             Start-Build -Path "$root\Xpand\Xpand.ExpressApp.Modules\AllModules.sln" -WarnAsError -Configuration $configuration -BinaryLogPath "$root\Xpand.dll\CompileModules.binlog"
         }

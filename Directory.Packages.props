@@ -152,29 +152,29 @@
     <PackageVersion Include="Telegram.Bot" Version="22.7.6" />
     <PackageVersion Include="TextCopy" Version="6.2.1" />
     <PackageVersion Include="Xpand.Collections" Version="1.0.4" />
-    <PackageVersion Include="Xpand.Extensions" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.Extensions.Reactive" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.Extensions.Mono.Cecil" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.Extensions.XAF" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.Extensions.XAF.Xpo" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.AutoCommit" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.CloneModelView" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.ViewEditMode" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.CloneMemberValue" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.HideToolBar" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.MasterDetail" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.SuppressConfirmation" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.Reactive" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.Reactive.Logger" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.RefreshView" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.PositionInListView" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.ViewItemValue" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.SequenceGenerator" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.ModelMapper" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.ModelViewInheritance" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.GridListEditor" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.Windows" Version="4.252.1.1" />
-    <PackageVersion Include="Xpand.XAF.Modules.OneView" Version="4.252.1.1" />
+    <PackageVersion Include="Xpand.Extensions" Version="4.252.2" />
+    <PackageVersion Include="Xpand.Extensions.Reactive" Version="4.252.2" />
+    <PackageVersion Include="Xpand.Extensions.Mono.Cecil" Version="4.252.2" />
+    <PackageVersion Include="Xpand.Extensions.XAF" Version="4.252.2" />
+    <PackageVersion Include="Xpand.Extensions.XAF.Xpo" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.AutoCommit" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.CloneModelView" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.ViewEditMode" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.CloneMemberValue" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.HideToolBar" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.MasterDetail" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.SuppressConfirmation" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.Reactive" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.Reactive.Logger" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.RefreshView" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.PositionInListView" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.ViewItemValue" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.SequenceGenerator" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.ModelMapper" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.ModelViewInheritance" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.GridListEditor" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.Windows" Version="4.252.2" />
+    <PackageVersion Include="Xpand.XAF.Modules.OneView" Version="4.252.2" />
     <PackageVersion Include="YamlDotNet" Version="16.3.0" />
 
   </ItemGroup>
