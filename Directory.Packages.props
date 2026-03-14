@@ -8,7 +8,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="akarnokd.reactive_extensions" Version="0.0.27-alpha" />
-    <PackageVersion Include="AutoMapper" Version="13.0.1" />
+    <PackageVersion Include="AutoMapper" Version="16.1.1" />
     <PackageVersion Include="DevExpress.DataAccess" Version="25.2.5" />
     <PackageVersion Include="DevExpress.DataAccess.UI" Version="25.2.5" />
     <PackageVersion Include="DevExpress.Diagram.Core" Version="25.2.5" />
