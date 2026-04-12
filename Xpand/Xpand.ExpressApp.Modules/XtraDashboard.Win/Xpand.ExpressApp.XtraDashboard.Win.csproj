@@ -116,5 +116,6 @@
     <PackageReference Include="Fasterflect.Xpand" />
     <PackageReference Include="DevExpress.ExpressApp.Dashboards" />
     <PackageReference Include="DevExpress.ExpressApp.Dashboards.Win" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
   </ItemGroup>
 </Project>

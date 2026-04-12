@@ -1,7 +1,7 @@
 using System;
 using System.IO;
+
 using System.Windows.Forms;
-using Ionic.Zip;
 using Xpand.ExpressApp.IO.Controllers;
 
 namespace Xpand.ExpressApp.IO.Win.Controllers {
@@ -26,9 +26,9 @@ namespace Xpand.ExpressApp.IO.Win.Controllers {
             Save(stream => stream.Write(buffer, 0, buffer.Length),false);
         }
 
-        protected override void Save(ZipFile zipFile) {
-            Save(zipFile.Save, true);
-        }
+        // protected override void Save(ZipFile zipFile) {
+        //     Save(zipFile.Save, true);
+        // }
 
         private void Save(Action<Stream> write, bool isZipped){
             var filePath = GetFilePath(isZipped);

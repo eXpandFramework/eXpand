@@ -79,5 +79,6 @@
     <PackageReference Include="DevExpress.Win" />
     <PackageReference Include="DevExpress.Win.Gauges" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
   </ItemGroup>
 </Project>

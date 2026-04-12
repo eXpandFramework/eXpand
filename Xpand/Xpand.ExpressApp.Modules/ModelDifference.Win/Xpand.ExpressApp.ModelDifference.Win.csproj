@@ -85,5 +85,6 @@
     <PackageReference Include="Xpand.Extensions.Reactive" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive" />
     <PackageReference Include="Xpand.XAF.Modules.ModelMapper" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
   </ItemGroup>
 </Project>

@@ -59,7 +59,6 @@
     <PackageReference Include="Fasterflect.Xpand" />
     <PackageReference Include="Xpand.Extensions" />
     <PackageReference Include="Xpand.Extensions.XAF.Xpo" />
-    <PackageReference Include="DotNetZip" />
     <PackageReference Include="DevExpress.ExpressApp.TreeListEditors" />
   </ItemGroup>
 </Project>

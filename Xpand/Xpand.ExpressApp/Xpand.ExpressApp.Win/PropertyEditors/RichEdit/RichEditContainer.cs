@@ -68,9 +68,9 @@ namespace Xpand.ExpressApp.Win.PropertyEditors.RichEdit {
         private Bar CopyBar(Bar source, BarManager barManager) {
             
             
-            var result = new MapperConfiguration(cfg => cfg.CreateMap<Bar, Bar>()).CreateMapper()
+            var result = new MapperConfiguration(cfg => cfg.CreateMap<Bar, Bar>(),null).CreateMapper()
                 .Map(source,new Bar(barManager));
-            new MapperConfiguration(cfg => cfg.CreateMap<BarOptions, BarOptions>()).CreateMapper()
+            new MapperConfiguration(cfg => cfg.CreateMap<BarOptions, BarOptions>(),null).CreateMapper()
                 .Map(source.OptionsBar,result.OptionsBar);
             return result;
         }

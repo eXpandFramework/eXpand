@@ -85,5 +85,6 @@
     <PackageReference Include="DevExpress.ExpressApp.Notifications.Win" />
     <PackageReference Include="Xpand.Extensions.Reactive" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
   </ItemGroup>
 </Project>

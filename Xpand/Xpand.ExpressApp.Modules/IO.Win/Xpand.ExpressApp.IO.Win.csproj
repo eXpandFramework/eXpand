@@ -55,7 +55,6 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
     <PackageReference Include="Microsoft.Extensions.Options" />
     <PackageReference Include="Microsoft.Extensions.Primitives" />
-    <PackageReference Include="DotNetZip" />
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" />
     <PackageReference Include="DevExpress.ExpressApp.TreeListEditors.Win" />
   </ItemGroup>

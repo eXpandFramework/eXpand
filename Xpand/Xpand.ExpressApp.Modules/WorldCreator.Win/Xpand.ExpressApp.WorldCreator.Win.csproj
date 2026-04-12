@@ -58,5 +58,6 @@
     <PackageReference Include="DevExpress.ExpressApp.FileAttachment.Win" />
     <PackageReference Include="Xpand.XAF.Modules.Reactive.Logger" />
     <PackageReference Include="Xpand.XAF.Modules.ModelMapper" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" />
   </ItemGroup>
 </Project>
