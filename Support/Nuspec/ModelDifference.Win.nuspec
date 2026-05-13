@@ -23,11 +23,11 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
     <copyright>eXpandFramework.com</copyright>
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <dependencies>
-      <dependency id="eXpandLib" version="25.2.700.0" />
-      <dependency id="eXpandModelDifference" version="25.2.700.0" />
-      <dependency id="eXpandSecurity" version="25.2.700.0" />
-      <dependency id="eXpandSecurityWin" version="25.2.700.0" />
-      <dependency id="eXpandSystemWin" version="25.2.700.0" />
+      <dependency id="eXpandLib" version="25.2.701.0" />
+      <dependency id="eXpandModelDifference" version="25.2.701.0" />
+      <dependency id="eXpandSecurity" version="25.2.701.0" />
+      <dependency id="eXpandSecurityWin" version="25.2.701.0" />
+      <dependency id="eXpandSystemWin" version="25.2.701.0" />
       <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
       <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="10.0.1" />
@@ -40,9 +40,9 @@ http://apobekiaris.blogspot.com/search/label/ModelDifference.. To debug in VS en
       <dependency id="Microsoft.IdentityModel.JsonWebTokens" version="8.14.0" />
       <dependency id="System.Reactive" version="6.0.1" />
       <dependency id="System.ValueTuple" version="4.6.1" />
-      <dependency id="Xpand.Extensions.Reactive" version="4.252.4.1" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.252.4.1" />
-      <dependency id="Xpand.XAF.Modules.Reactive" version="4.252.4.1" />
+      <dependency id="Xpand.Extensions.Reactive" version="4.252.5" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.252.5" />
+      <dependency id="Xpand.XAF.Modules.Reactive" version="4.252.5" />
     </dependencies>
   </metadata>
   <files>
