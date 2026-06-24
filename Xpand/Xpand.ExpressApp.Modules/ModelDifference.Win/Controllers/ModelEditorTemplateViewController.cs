@@ -5,10 +5,8 @@ using System.Reactive.Linq;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Actions;
 using DevExpress.ExpressApp.SystemModule;
-using DevExpress.ExpressApp.Templates;
 using DevExpress.ExpressApp.Templates.ActionControls;
 using DevExpress.ExpressApp.Templates.ActionControls.Binding;
-using DevExpress.ExpressApp.Win;
 using DevExpress.ExpressApp.Win.Controls;
 using DevExpress.ExpressApp.Win.SystemModule;
 using DevExpress.ExpressApp.Win.Templates;
@@ -24,15 +22,12 @@ using Xpand.XAF.Modules.Reactive.Services;
 
 namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
     public class ModelEditorTemplateViewController : ViewController<ObjectView> {
-        public ModelEditorTemplateViewController() {
-            TargetObjectType = typeof(ModelDifferenceObject);
-        }
+        public ModelEditorTemplateViewController() => TargetObjectType = typeof(ModelDifferenceObject);
 
-        bool UseOldTemplates => ((WinApplication) Application).UseOldTemplates;
 
         protected override void OnActivated(){
             base.OnActivated();
-            if (!UseOldTemplates&& ((IModelOptionsWin) Application.Model.Options).FormStyle==RibbonFormStyle.Ribbon)
+            if (((IModelOptionsWin) Application.Model.Options).FormStyle==RibbonFormStyle.Ribbon)
                 Frame.GetController<ListViewProcessCurrentObjectController>(controller => controller.ProcessCurrentObjectAction.Execute += ProcessCurrentObjectActionOnExecute);
         }
 
@@ -49,7 +44,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
                 var mainBarActions = (Dictionary<ActionBase, string>) controller.GetFieldValue("mainBarActions");
                 var actionBases = mainBarActions.Select(pair => pair.Key).ToArray().Where(@base => !new [] {"Open","Save","Language"}.Contains(@base.Id)).ToArray();
                 foreach (var actionBase in actionBases){
-                    actionBase.Category = PredefinedCategory.View.ToString();
+                    actionBase.Category = nameof(PredefinedCategory.View);
                 }
                 e.ShowViewParameters.Controllers.Add(new ModelEditorActionsController(actionBases));
             }
@@ -106,7 +101,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
             private IActionControlContainer GetTargetActionContainer(IActionControlsSite site) {
                 if (site == null) return null;
                 foreach (IActionControlContainer container in site.ActionContainers) {
-                    if (container.ActionCategory == PredefinedCategory.View.ToString()) {
+                    if (container.ActionCategory == nameof(PredefinedCategory.View)) {
                         return container;
                     }
                 }
@@ -115,15 +110,15 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         }
         protected override void OnFrameAssigned(){
             base.OnFrameAssigned();
-            if (!UseOldTemplates && ((IModelOptionsWin)Application.Model.Options).FormStyle == RibbonFormStyle.Ribbon) {
+            if (((IModelOptionsWin)Application.Model.Options).FormStyle == RibbonFormStyle.Ribbon) {
                 Frame.GetController<ActionControlsSiteController>(controller => controller.CustomBindActionControlToAction += OnCustomBindActionControlToAction);
             }
 
             if (Frame.Context == TemplateContext.ApplicationWindow) {
                 Application.WhenDetailViewCreating()
-                    .SelectMany(_ => Application.Model.Views[_.e.ViewID].AsObjectView.MemberViewItems(typeof(ModelEditorPropertyEditor))
+                    .SelectMany(t => Application.Model.Views[t.e.ViewID].AsObjectView.MemberViewItems(typeof(ModelEditorPropertyEditor))
                         .VisibleMemberViewItems().Take(1).ToObservable()
-                        .Do(item => _.e.EnableDelayedObjectLoading = false))
+                        .Do(_ => t.e.EnableDelayedObjectLoading = false))
                     .TakeUntil(Frame.WhenDisposingFrame())
                     .Subscribe();
             }
@@ -139,7 +134,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         IEnumerable<ActionBase> ModelEditorActions{
             get{
                 var controller = Frame.GetController<ModelEditorActionsController>();
-                return controller != null ? controller.Actions.AsEnumerable() : Enumerable.Empty<ActionBase>();
+                return (controller?.Actions)!.AsEnumerable() ?? Enumerable.Empty<ActionBase>();
             }
         }
 
@@ -169,7 +164,8 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
                 modelEditorControl.PopupContainer.Register(action);
             }
             modelEditorControl.PopupContainer.EndUpdate();
-            modelEditorControl.PopupMenu.CreateActionItems(barManagerHolder, modelEditorControl, new IActionContainer[] { modelEditorControl.PopupContainer });
+            modelEditorControl.PopupMenu.CreateActionItems(barManagerHolder, modelEditorControl, [modelEditorControl.PopupContainer
+            ]);
         }
 
         private void SetTemplate(ModelEditorPropertyEditor modelEditorPropertyEditor) {

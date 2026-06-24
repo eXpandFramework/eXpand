@@ -19,7 +19,7 @@ namespace Xpand.ExpressApp.TreeListEditors {
                 var modelListViews = modelViews.OfType<IModelListView>().Where(view => helper.TreelistEditorType().Any(type1 
                     => type1.IsAssignableFrom(view.EditorType)));
                 foreach (var modelListView in modelListViews) {
-                    modelListView.UseServerMode = false;
+                    // modelListView.DataAccessMode=CollectionSourceDataAccessMode.;
                 }
             }
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Drawing.Design;
 using DevExpress.ExpressApp;
 using DevExpress.ExpressApp.Editors;
@@ -9,10 +8,7 @@ using DevExpress.ExpressApp.TreeListEditors.Win;
 namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
     [ModelAbstractClass]
     public interface IModelListViewTreeUseServerMode : IModelListView{
-        [ModelValueCalculator("Application.Options", "UseServerMode")]
-        [Category("Behavior")]
-        [ModelBrowsable(typeof (TreeUseServerModeVisibilityCalculator))]
-        new bool UseServerMode { get; set; }
+        
 
         [Category("Data")]
         [CriteriaOptions("ModelClass.TypeInfo")]
@@ -31,9 +27,7 @@ namespace Xpand.ExpressApp.TreeListEditors.Win.Model {
     }
 
     public class TreeUseServerModeVisibilityCalculator:IModelIsVisible{
-        public bool IsVisible(IModelNode node, string propertyName){
-            return !typeof (TreeListEditor).IsAssignableFrom(((IModelListView) node).EditorType);
-        }
+        public bool IsVisible(IModelNode node, string propertyName) => !typeof (TreeListEditor).IsAssignableFrom(((IModelListView) node).EditorType);
     }
 
 }

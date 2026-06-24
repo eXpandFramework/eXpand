@@ -25,14 +25,7 @@ namespace Xpand.ExpressApp.ModelDifference.Win.Controllers {
         }
 
         private static IFrameTemplate GetModelEditorDetailViewForm(XafApplication xafApplication){
-            if (((WinApplication)xafApplication).UseOldTemplates || ((IModelOptionsWin)xafApplication.Model.Options).FormStyle != RibbonFormStyle.Ribbon) {
-                var template = new ModelEditorDetailViewForm();
-                var supportClassicToRibbonTransform = (ISupportClassicToRibbonTransform)template;
-                if (xafApplication.Model?.Options is IModelOptionsWin optionsWin) {
-                    supportClassicToRibbonTransform.FormStyle = optionsWin.FormStyle;
-                }
-                return template;
-            }
+            
             return new ModelEditorDetailRibbonFormV2();
         }
     }

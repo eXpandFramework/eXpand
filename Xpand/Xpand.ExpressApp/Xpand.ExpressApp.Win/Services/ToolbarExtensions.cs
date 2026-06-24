@@ -25,16 +25,8 @@ namespace Xpand.ExpressApp.Win.Services{
         }
 
         public static void Execute(this Control control,Action<RibbonControl> action){
-            if (((WinApplication)ApplicationHelper.Instance.Application).UseOldTemplates) {
-                var xtraFormTemplateBase = (XtraFormTemplateBase)control.FindForm();
-                if (xtraFormTemplateBase != null)
-                    xtraFormTemplateBase.RibbonTransformer.Transformed += (o, args) =>
-                        action(((ClassicToRibbonTransformer)o).Ribbon);
-            }
-            else {
-                var ribbonForm = (RibbonForm)control.FindForm();
-                if (ribbonForm != null) action(ribbonForm.Ribbon);
-            }
+            var ribbonForm = (RibbonForm)control.FindForm();
+            if (ribbonForm != null) action(ribbonForm.Ribbon);
         }
     }
 }
