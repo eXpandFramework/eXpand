@@ -14,9 +14,9 @@
     <tags>DevExpress, eXpand, XAF, eXpressApp</tags>
     <projectUrl>http://www.expandframework.com/#treelist</projectUrl>
     <dependencies>
-      <dependency id="eXpandLib" version="26.1.300.0" />
-      <dependency id="eXpandSystemWin" version="26.1.300.0" />
-      <dependency id="eXpandTreelistView" version="26.1.300.0" />
+      <dependency id="eXpandLib" version="26.1.301.0" />
+      <dependency id="eXpandSystemWin" version="26.1.301.0" />
+      <dependency id="eXpandTreelistView" version="26.1.301.0" />
       <dependency id="Microsoft.CodeAnalysis" version="5.0.0" />
       <dependency id="Microsoft.CodeAnalysis.CSharp" version="5.0.0" />
       <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="10.0.1" />
@@ -28,8 +28,8 @@
       <dependency id="Microsoft.Extensions.Primitives" version="10.0.1" />
       <dependency id="Microsoft.IdentityModel.JsonWebTokens" version="8.14.0" />
       <dependency id="System.ValueTuple" version="4.6.1" />
-      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.261.0" />
-      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.261.0" />
+      <dependency id="Xpand.XAF.Modules.ModelMapper" version="4.261.1" />
+      <dependency id="Xpand.XAF.Modules.Reactive.Logger" version="4.261.1" />
     </dependencies>
   </metadata>
   <files>
