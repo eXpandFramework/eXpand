@@ -208,6 +208,10 @@ The commit log is dominated by two patterns:
 
 Feature work happens in **Reactive.XAF**; **eXpandFramework** pulls it in and provides the 30+ end-user modules. 6,694 commits, dating back to DevExpress 14.2.
 
+### Shared Issue Tracker
+
+Both eXpandFramework and Reactive.XAF share a single GitHub issues repository: https://github.com/eXpandFramework/eXpand/issues. Reactive.XAF does not have its own issue tracker — all issues, whether they originate in Reactive.XAF or eXpandFramework, are tracked there.
+
 ## Tools
 
 - **`Xpand.VersionConverter`** — modifies DevExpress references to match target project's DevExpress version
