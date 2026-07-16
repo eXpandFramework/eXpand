@@ -7,8 +7,6 @@ description: Reference for the eXpandFramework (eXpand) project — the original
 
 The original open-source (~15-year-old) **DevExpress XAF** extension library. It is the parent/container project of the eXpandFramework organization, alongside **Reactive.XAF** (standalone low-dependency modules) and **XpandPwsh** (PowerShell build tools). All classic controller-based modules here are being gradually replaced by standalone Reactive.XAF modules.
 
-**Build rule:** All compilations use `-WarnAsError` — any warning fails the build. Keep code warning-clean.
-
 **Default working directory:** `C:\Work\expand\` — project root.
 
 > **⚠️ -WarnAsError is baked into ALL compilations.** Builds fail on any warning. Code must stay warning-clean at all times.
