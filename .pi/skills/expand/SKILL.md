@@ -7,16 +7,35 @@ description: Reference for the eXpandFramework (eXpand) project — the original
 
 The original open-source (~15-year-old) **DevExpress XAF** extension library. It is the parent/container project of the eXpandFramework organization, alongside **Reactive.XAF** (standalone low-dependency modules) and **XpandPwsh** (PowerShell build tools). All classic controller-based modules here are being gradually replaced by standalone Reactive.XAF modules.
 
+**Build rule:** All compilations use `-WarnAsError` — any warning fails the build. Keep code warning-clean.
+
 **Default working directory:** `C:\Work\expand\` — project root.
 
+> **⚠️ -WarnAsError is baked into ALL compilations.** Builds fail on any warning. Code must stay warning-clean at all times.
+
 ## Quick Start
+
+### Build (`bx`)
+
+```powershell
+bx Release        # Release build (nuget.org)
+bx lab            # Lab build (lab feed)
+bx CompileModules # Fast compile-only: restore, version, build AllModules.sln
+```
+
+### Publish (`px`)
+
+```powershell
+px             # Publish to Lab pipeline
+px -Release    # Publish to Release pipeline
+px -SkipStage  # Skip git stage step
+```
+
+### Raw Build Commands
 
 ```powershell
 # Full build (Release)
 .\build.ps1
-
-# Lab build (compile only, no packaging)
-& .\Support\Build\go.ps1 -taskList @("Lab") -packageSources @("https://api.nuget.org/v3/index.json","https://xpandnugetserver.azurewebsites.net/nuget","C:\Program Files\DevExpress 26.1\Components\System\Components\packages") -version "26.1.301.0"
 
 # Build just the primary solution
 dotnet build Xpand\Xpand.ExpressApp.Modules\AllModules.sln
