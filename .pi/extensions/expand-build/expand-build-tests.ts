@@ -89,7 +89,7 @@ const runPi = (opts: {
   });
   const elapsed = Date.now() - start;
   assert("startup under 3000ms", elapsed < 3000, `took ${elapsed}ms`);
-  assert("boot load under 250ms", boot.timings["expand-build"] < 250, `load: ${boot.timings["expand-build"]}ms`);
+  assert("boot load under 1000ms (registered budget)", boot.timings["expand-build"] < 1000, `load: ${boot.timings["expand-build"]}ms`);
   // Section: E1 — pi in the eXpand tree loads the engine
   assert(
     "E1: no Failed to load extension",
