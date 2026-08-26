@@ -1,17 +1,8 @@
 # https://aka.ms/yaml
 variables:
   - group: Keys
-trigger: 
-  paths:
-    exclude:
-      - ReleaseNotesHistory/History.csv
-      - ReleaseNotesHistory/ReadMe.md
-      - Readme.md
-      - .github/Azure-pipeline.yml
-      - .github/FUNDING.yml
-  branches:   
-    include:
-      - master
+trigger: none
+pr: none
 pool:
   name: Self
 steps:
