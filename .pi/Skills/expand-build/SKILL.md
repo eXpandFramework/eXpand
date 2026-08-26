@@ -25,7 +25,9 @@ to `lab` or `eXpand` → `px` / `px -Release` → watch 32/39 → 38 → 37.
 - Lab GitHub `eXpand.lab`: assert published (do not PATCH).
 - Release GitHub `eXpand`: publish the draft.
 - Version file is written by the local `bx` build. We never edit
-  `XpandAssemblyInfo.cs`. `build.ps1` is the version we bump.
+  `XpandAssemblyInfo.cs`. `build.ps1` is the version we bump — the Release
+  flow bumps it to the next version after the last published on the feeds
+  (Xpand server + nuget.org), the Lab flow to the DX base.
 
 See `reactive-xaf-build/profile.md` for the profile fields.
 
