@@ -9,9 +9,12 @@ Project-local extension at `D:/expand/.pi/extensions/expand-build/`.
 Pi auto-discovers `cwd/.pi/extensions`, so this only loads in the eXpand
 tree. Skill lives at `D:/expand/.pi/Skills/expand-build/SKILL.md`.
 
-`activate` loads the Reactive.XAF engine with jiti (the `.ts` sources)
-and registers `/devexpress` with `{ profile: expandProfile }`. The
-engine, pane, watcher, and azdo scripts stay in Reactive.XAF.
+`activate` registers `/devexpress` only. The first command jiti-loads
+`C:/Work/Reactive.XAF/.pi/extensions/reactive-xaf-build/build.js`
+(sources are `.ts`) and attaches `{ profile: expandProfile }`.
+`expandProfile.detect(cwd)` matches `Directory.Packages.props` +
+`Xpand/Xpand.ExpressApp.Modules`. The engine, pane, watcher, and azdo
+scripts stay in Reactive.XAF.
 
 ## Expand flow (via the shared engine)
 
@@ -25,3 +28,11 @@ to `lab` or `eXpand` → `px` / `px -Release` → watch 32/39 → 38 → 37.
   `XpandAssemblyInfo.cs`. `build.ps1` is the version we bump.
 
 See `reactive-xaf-build/profile.md` for the profile fields.
+
+## Tests (`expand-build-tests.ts`)
+
+Run: `npx tsx C:/Work/expand/.pi/extensions/expand-build/expand-build-tests.ts`
+
+- startup speed — nochat spawn with `cwd: C:/Work/expand`, `agentDir: C:/Work/expand/.pi`, `exts: ["expand-build/index.ts"]`.
+- E1 — spawn does not print Failed to load extension.
+- E2 — activate registers `/devexpress`.
